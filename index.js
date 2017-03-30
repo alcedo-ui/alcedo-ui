@@ -1,7 +1,7 @@
 'use strict';
 
-var Button = require('./lib/Button');
-exports.Button = Button.default;
+var RaisedButton = require('./lib/RaisedButton');
+exports.RaisedButton = RaisedButton.default;
 
 var CircularLoading = require('./lib/CircularLoading');
 exports.CircularLoading = CircularLoading.default;

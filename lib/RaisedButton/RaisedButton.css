@@ -1,4 +1,4 @@
-.button {
+.raised-button {
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
   width: 300px;
   height: 40px;
@@ -15,26 +15,26 @@
   user-select: none;
   background: #758697;
   color: rgba(255, 255, 255, 0.9); }
-  .button[disabled] {
+  .raised-button[disabled] {
     cursor: not-allowed;
     box-shadow: none !important;
     background: #afb9c3; }
-  .button:hover {
+  .raised-button:hover {
     background: #8493a2;
     color: #FFF; }
-  .button:active {
+  .raised-button:active {
     background: #68798a;
     color: #FFF; }
-  .button i {
+  .raised-button i {
     width: 16px;
     line-height: 40px;
     text-align: center;
     font-size: inherit;
     color: #FFF;
     margin-right: 10px; }
-  .button .circular-loading {
+  .raised-button .circular-loading {
     margin-right: 10px; }
-    .button .circular-loading .spinner {
+    .raised-button .circular-loading .spinner {
       border-color: #FFF; }
-  .button .touch-ripple {
+  .raised-button .touch-ripple {
     border-radius: 4px; }

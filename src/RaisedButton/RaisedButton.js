@@ -3,9 +3,9 @@ import React, {Component, PropTypes} from 'react';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
 
-import './Button.css';
+import './RaisedButton.css';
 
-export default class Button extends Component {
+export default class RaisedButton extends Component {
 
     constructor(props) {
 
@@ -24,7 +24,7 @@ export default class Button extends Component {
         const {children, className, style, iconCls, type, value, disabled, isLoading} = this.props;
 
         return (
-            <button className={`button ${className}`}
+            <button className={`raised-button ${className}`}
                     style={style}
                     type={type}
                     disabled={disabled || isLoading}
@@ -53,7 +53,7 @@ export default class Button extends Component {
     }
 };
 
-Button.propTypes = {
+RaisedButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -68,7 +68,7 @@ Button.propTypes = {
 
 };
 
-Button.defaultProps = {
+RaisedButton.defaultProps = {
 
     className: '',
     style: null,
