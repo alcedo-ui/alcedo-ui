@@ -1,0 +1,13 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Idea project files
+.idea
+
+# windows thumbnail cache
+Thumbs.db
+
+# Dependency directories
+/node_modules
