@@ -1,10 +1,10 @@
 'use strict';
 
-var RaisedButton = require('./lib/RaisedButton');
+var RaisedButton = require('./RaisedButton');
 exports.RaisedButton = RaisedButton.default;
 
-var CircularLoading = require('./lib/CircularLoading');
+var CircularLoading = require('./CircularLoading');
 exports.CircularLoading = CircularLoading.default;
 
-var TouchRipple = require('./lib/TouchRipple');
+var TouchRipple = require('./TouchRipple');
 exports.TouchRipple = TouchRipple.default;
