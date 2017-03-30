@@ -1,10 +1,10 @@
 'use strict';
 
-import _Button from './lib/Button/Button';
+import _Button from './dist/Button/Button';
 export {_Button as Button};
 
-import _CircularLoading from './lib/CircularLoading/CircularLoading';
+import _CircularLoading from './dist/CircularLoading/CircularLoading';
 export {_CircularLoading as CircularLoading};
 
-import _TouchRipple from './lib/TouchRipple/TouchRipple';
+import _TouchRipple from './dist/TouchRipple/TouchRipple';
 export {_TouchRipple as TouchRipple};

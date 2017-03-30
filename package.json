@@ -1,6 +1,6 @@
 {
   "name": "alcedo-ui",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A reactjs components library.",
   "main": "index.js",
   "scripts": {},
