@@ -5,22 +5,22 @@ var gulp = require('gulp'),
     gulpSequence = require('gulp-sequence');
 
 gulp.task('clean', function () {
-    return gulp.src('./dist/**', {read: false})
+    return gulp.src('./lib/**', {read: false})
         .pipe(clean());
 });
 
 gulp.task('sass', function () {
-    return gulp.src('./lib/**/*.scss')
+    return gulp.src('./src/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./lib'));
 });
 
 gulp.task('es6', function () {
-    return gulp.src('./lib/**/*.js')
+    return gulp.src('./src/**/*.js')
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./lib'));
 });
 
 gulp.task('default', gulpSequence('clean', 'sass', 'es6'));
