@@ -1,0 +1,51 @@
+@import '../common';
+
+.root {
+    min-width: $minWidth;
+    overflow-x: hidden;
+    transition: none;
+
+    .root-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: $root-loading-z-index;
+
+        i {
+            width: 48px;
+            height: 48px;
+            text-align: center;
+            line-height: 48px;
+            font-size: 48px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -24px 0 0 -24px;
+        }
+    }
+
+    &.theme-light {
+        color: $text-light;
+        background: $bg-light;
+
+        .root-loading {
+            background: $title-bg-light;
+
+            i {
+                color: $menu-light;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .root {
+
+        &.theme-light {
+            color: $text-light;
+            background: $menu-light;
+        }
+    }
+}

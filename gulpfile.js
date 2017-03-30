@@ -1,11 +1,12 @@
 var gulp = require('gulp'),
+    browserify = require('browserify'),
     sass = require('gulp-sass'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence');
 
 gulp.task('sass', function () {
     return gulp.src('./src/**/*.scss')
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass())
         .pipe(gulp.dest('./dist'));
 });
 
@@ -22,4 +23,8 @@ gulp.task('npm', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default', gulpSequence('sass', 'es6', 'npm'));
+gulp.task('build', gulpSequence('sass', 'es6', 'npm'));
+
+gulp.task('watch', function () {
+    gulp.watch('./src/**', ['sass', 'es6']);
+});

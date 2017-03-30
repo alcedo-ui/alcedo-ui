@@ -4,7 +4,9 @@
   "description": "A reactjs components library.",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && gulp"
+    "example": "node server/dev-server.js",
+    "watch": "gulp watch",
+    "build": "rimraf dist && gulp build"
   },
   "repository": {
     "type": "git",
@@ -15,7 +17,7 @@
     "react-component",
     "ui"
   ],
-  "author": "alcedo",
+  "author": "alcedo-ui",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/alcedo-ui/alcedo-ui/issues"
@@ -23,22 +25,45 @@
   "homepage": "https://github.com/alcedo-ui/alcedo-ui#readme",
   "dependencies": {
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "react-addons-transition-group": "^15.4.2",
+    "react-dnd": "^2.2.4",
+    "react-dnd-html5-backend": "^2.2.4",
+    "react-router": "^3.0.2"
   },
-  "module": "./index.es.js",
   "devDependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-core": "^6.24.0",
-    "babel-eslint": "^7.2.1",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.22.0",
+    "babel-runtime": "^6.23.0",
+    "connect-history-api-fallback": "^1.3.0",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.15.2",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-sass": "^3.1.0",
     "gulp-sequence": "^0.4.6",
-    "rimraf": "^2.6.1"
+    "html-webpack-plugin": "^2.28.0",
+    "opn": "^4.0.2",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.2",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.17.1",
+    "webpack-merge": "^4.1.0",
+    "postcss-loader": "^1.3.3",
+    "react-hot-loader": "^1.3.1",
+    "file-loader": "^0.10.1",
+    "css-loader": "^0.26.4"
   }
 }
