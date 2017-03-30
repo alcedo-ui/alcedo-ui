@@ -3,13 +3,24 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
+
+var _index = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/redbox-react/lib/index.js');
+
+var _index2 = _interopRequireDefault(_index);
+
+var _index3 = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/react-transform-catch-errors/lib/index.js');
+
+var _index4 = _interopRequireDefault(_index3);
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index5 = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/react-transform-hmr/lib/index.js');
+
+var _index6 = _interopRequireDefault(_index5);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
@@ -23,7 +34,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Ripple = function (_Component) {
+var _components = {
+	Ripple: {
+		displayName: 'Ripple'
+	}
+};
+
+var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
+	filename: '/Users/liangxiaojun/Projects/Derby/alcedo-ui/lib/TouchRipple/Ripple.js',
+	components: _components,
+	locals: [module],
+	imports: [_react3.default]
+});
+
+var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
+	filename: '/Users/liangxiaojun/Projects/Derby/alcedo-ui/lib/TouchRipple/Ripple.js',
+	components: _components,
+	locals: [],
+	imports: [_react3.default, _index2.default]
+});
+
+function _wrapComponent(id) {
+	return function (Component) {
+		return _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformHmrLibIndexJs2(_UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
+	};
+}
+
+var Ripple = _wrapComponent('Ripple')(function (_Component) {
 	_inherits(Ripple, _Component);
 
 	function Ripple(props) {
@@ -101,20 +138,20 @@ var Ripple = function (_Component) {
 			    style = _props.style;
 
 
-			return _react2.default.createElement('div', { className: 'ripple ' + className,
+			return _react3.default.createElement('div', { className: 'ripple ' + className,
 				style: style });
 		}
 	}]);
 
 	return Ripple;
-}(_react.Component);
+}(_react2.Component));
 
 exports.default = Ripple;
 ;
 
 Ripple.propTypes = {
-	className: _react.PropTypes.string,
-	style: _react.PropTypes.object
+	className: _react2.PropTypes.string,
+	style: _react2.PropTypes.object
 };
 
 Ripple.defaultProps = {
