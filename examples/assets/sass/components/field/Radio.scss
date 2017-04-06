@@ -6,7 +6,7 @@
 
     width: 200px;
     height: 50px;
-    color: lighten($text-light, 15%);
+    color: lighten($theme-text, 15%);
 
     .radio-icon {
         float: left;
@@ -27,14 +27,14 @@
     }
 
     &.active {
-        color: lighten($brand-light, 15%);
+        color: lighten($theme-brand, 15%);
     }
 
     &[disabled] {
-        color: lighten($text-light, 30%);
+        color: lighten($theme-text, 30%);
 
         &.active {
-            color: lighten($brand-light, 30%);
+            color: lighten($theme-brand, 30%);
         }
     }
 

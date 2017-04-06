@@ -81,26 +81,26 @@
 }
 
 .theme-light .text-field {
-    background: $field-light;
+    background: $theme-field;
     border-color: #dfdfdf;
 
     i {
-        color: lighten($text-light, 20%);
+        color: lighten($theme-text, 20%);
     }
 
     input {
-        color: $text-light;
+        color: $theme-text;
     }
 
     &.disabled {
-        background: $bg-light;
+        background: $theme-bg;
 
         i {
-            color: lighten($text-light, 40%);
+            color: lighten($theme-text, 40%);
         }
 
         input {
-            color: lighten($text-light, 20%);
+            color: lighten($theme-text, 20%);
         }
     }
 }

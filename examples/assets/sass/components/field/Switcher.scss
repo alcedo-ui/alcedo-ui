@@ -70,23 +70,23 @@
 }
 
 .theme-light .switcher {
-	border: 1px solid darken($bg-light, 2%);
-	background: $bg-light;
+	border: 1px solid darken($theme-bg, 2%);
+	background: $theme-bg;
 
 	.slider {
 		i {
-			color: lighten($text-light, 20%);
+			color: lighten($theme-text, 20%);
 		}
 	}
 
 	&.active {
-		background: $title-light;
-		border: 1px solid $title-light;
+		background: $theme-title;
+		border: 1px solid $theme-title;
 	}
 
 	&[disabled] {
-		background: grayscale($bg-light);
-		border: 1px solid grayscale(darken($bg-light, 2%));
+		background: grayscale($theme-bg);
+		border: 1px solid grayscale(darken($theme-bg, 2%));
 
 		.slider {
 			box-shadow: none;
@@ -94,7 +94,7 @@
 	}
 
 	&[disabled].active {
-		background: grayscale($bg-light);
+		background: grayscale($theme-bg);
 	}
 }
 

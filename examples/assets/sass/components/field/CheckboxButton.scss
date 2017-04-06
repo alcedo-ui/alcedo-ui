@@ -13,20 +13,20 @@
 }
 
 .theme-light .checkbox-button {
-	color: $light-text-light;
-	background: $field-light;
+	color: $theme-light-text;
+	background: $theme-field;
 
 	&:hover {
-		color: $text-light;
-		background: $field-light;
+		color: $theme-text;
+		background: $theme-field;
 	}
 
 	&.activated {
 		color: #FFF;
-		background: $title-light;
+		background: $theme-title;
 
 		&:hover {
-			background: lighten($title-light, 5%);
+			background: lighten($theme-title, 5%);
 		}
 	}
 }

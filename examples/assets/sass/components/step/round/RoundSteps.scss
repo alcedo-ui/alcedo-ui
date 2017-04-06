@@ -140,52 +140,52 @@
 }
 
 .theme-light .RoundSteps {
-    background: $bg-light;
+    background: $theme-bg;
 
     .step {
 
         .bgBar {
-            background: $title-bg-light;
+            background: $theme-title-bg;
         }
 
         .bgRound {
-            background: $title-bg-light;
+            background: $theme-title-bg;
         }
 
         .leftBar {
-            background: $title-light;
+            background: $theme-title;
         }
 
         .rightBar {
-            background: $title-light;
+            background: $theme-title;
         }
 
         .round {
-            background: $bg-light;
-            color: $title-bg-light;
+            background: $theme-bg;
+            color: $theme-title-bg;
         }
 
         .title {
-            color: $text-light;
+            color: $theme-text;
         }
 
         &.activated {
             .round {
-                background: $title-light;
+                background: $theme-title;
                 color: #fff;
             }
         }
 
         &.current {
             .round {
-                background: $title-light;
+                background: $theme-title;
                 color: #fff;
             }
         }
 
         &.success {
             .round {
-                background: $title-light;
+                background: $theme-title;
                 color: #fff;
             }
         }
@@ -194,8 +194,8 @@
 
     .stepBack {
         .round {
-            background: $title-bg-light;
-            color: $bg-light;
+            background: $theme-title-bg;
+            color: $theme-bg;
         }
     }
 

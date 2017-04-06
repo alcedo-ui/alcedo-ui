@@ -3,7 +3,7 @@
 .nav-menu {
     position: fixed;
     left: 0;
-    background: $menu-light;
+    background: $theme-menu;
     top: 60px;
     width: 250px;
     height: 100vh;
@@ -27,9 +27,9 @@
                 height: 50px;
                 box-sizing: border-box;
                 padding: 0 15px;
-                color: $nav-light;
+                color: $theme-nav;
                 text-decoration: none;
-                background: $menu-light;
+                background: $theme-menu;
                 cursor: pointer;
                 text-decoration: none;
                 overflow: hidden;
@@ -43,18 +43,18 @@
                 }
 
                 &:hover {
-                    background: lighten($menu-light, 2%);
+                    background: lighten($theme-menu, 2%);
                 }
 
                 &:focus {
-                    background: darken($menu-light, 2%);
+                    background: darken($theme-menu, 2%);
                 }
 
                 &.router-link-active {
                     padding: 0 15px 0 12px;
-                    border-left: 3px solid $highlight-light;
+                    border-left: 3px solid $theme-highlight;
                     color: #FFF;
-                    background: darken($menu-light, 4%);
+                    background: darken($theme-menu, 4%);
                 }
 
                 .nav-menu-item-icon {

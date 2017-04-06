@@ -19,10 +19,10 @@
 }
 
 .theme-light .link-anchor {
-	color: $title-light;
+	color: $theme-title;
 
 	&[disabled] {
-		color: lighten($title-light, 20%);
+		color: lighten($theme-title, 20%);
 	}
 }
 

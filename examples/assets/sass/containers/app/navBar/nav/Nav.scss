@@ -13,7 +13,7 @@
         @include shadow(1);
 
         width: calc(100% - 250px);
-        background: $nav-light;
+        background: $theme-nav;
         position: absolute;
         right: 0;
         margin-left: 250px;
@@ -28,7 +28,7 @@
                 float: left;
                 width: 30px;
                 height: 30px;
-                color: darken($light-text-light, 10%);
+                color: darken($theme-light-text, 10%);
                 margin: 15px;
                 margin-right: 0;
                 text-align: center;
@@ -38,7 +38,7 @@
                 transition: color $transition-duration ease-in-out;
 
                 &:hover {
-                    color: $light-text-light;
+                    color: $theme-light-text;
                 }
             }
 

@@ -109,35 +109,35 @@
     .dropdown-select-inner {
 
         .dropdown-select-trigger {
-            color: $text-light;
-            background: $field-light;
+            color: $theme-text;
+            background: $theme-field;
 
             &:hover {
-                color: $text-light;
-                background: darken($field-light, 2%);
+                color: $theme-text;
+                background: darken($theme-field, 2%);
             }
 
             &.activated {
-                color: $highlight-light;
+                color: $theme-highlight;
             }
         }
 
         .dropdown-select-options {
 
             .dropdown-select-separate {
-                border-top: 1px solid $bg-light;
+                border-top: 1px solid $theme-bg;
             }
 
             .dropdown-select-option {
-                color: $text-light;
-                background: $field-light;
+                color: $theme-text;
+                background: $theme-field;
 
                 &:hover {
-                    background: darken($field-light, 4%);
+                    background: darken($theme-field, 4%);
                 }
 
                 &.activated {
-                    color: $highlight-light;
+                    color: $theme-highlight;
                 }
             }
         }

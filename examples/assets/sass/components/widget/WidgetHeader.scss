@@ -55,10 +55,10 @@
 }
 
 .theme-light .widget-header {
-	background: $title-bg-light;
-	border-bottom: 1px solid darken($title-bg-light, 4%);
+	background: $theme-title-bg;
+	border-bottom: 1px solid darken($theme-title-bg, 4%);
 
 	.title {
-		color: $title-light;
+		color: $theme-title;
 	}
 }

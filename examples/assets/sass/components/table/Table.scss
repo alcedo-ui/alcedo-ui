@@ -216,38 +216,38 @@
 .theme-light .table-wrapper {
     thead {
         tr {
-            border-bottom: 1px solid transparentize($title-bg-light, .6);
+            border-bottom: 1px solid transparentize($theme-title-bg, .6);
 
             th {
-                color: $title-light;
+                color: $theme-title;
 
                 &.sortable {
 
                     i {
-                        color: lighten($title-light, 36%);
+                        color: lighten($theme-title, 36%);
                     }
 
                     &:hover {
-                        color: $text-light;
+                        color: $theme-text;
 
                         i {
-                            color: lighten($menu-light, 36%);
+                            color: lighten($theme-menu, 36%);
                         }
                     }
 
                     &.asc {
-                        color: $text-light;
+                        color: $theme-text;
 
                         i.asc-icon {
-                            color: $text-light;
+                            color: $theme-text;
                         }
                     }
 
                     &.desc {
-                        color: $text-light;
+                        color: $theme-text;
 
                         i.desc-icon {
-                            color: $text-light;
+                            color: $theme-text;
                         }
                     }
                 }
@@ -257,7 +257,7 @@
 
     tbody {
         tr {
-            border-top: 1px solid $bg-light;
+            border-top: 1px solid $theme-bg;
 
             &:first-child {
                 border-top: none;
@@ -265,7 +265,7 @@
 
             &:hover {
                 td {
-                    background: transparentize($title-bg-light, .8);
+                    background: transparentize($theme-title-bg, .8);
                 }
             }
 
@@ -281,7 +281,7 @@
 .theme-dark .table-wrapper {
     thead {
         tr {
-            border-bottom: 1px solid transparentize($title-bg-light, .6);
+            border-bottom: 1px solid transparentize($theme-title-bg, .6);
 
             th {
                 color: $title-dark;

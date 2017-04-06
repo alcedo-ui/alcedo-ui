@@ -4,8 +4,8 @@
     min-width: $minWidth;
     overflow-x: hidden;
     transition: none;
-    color: $text-light;
-    background: $bg-light;
+    color: $theme-text;
+    background: $theme-bg;
 
     .root-loading {
         position: fixed;
@@ -14,7 +14,7 @@
         right: 0;
         bottom: 0;
         z-index: $root-loading-z-index;
-        background: $title-bg-light;
+        background: $theme-title-bg;
 
         i {
             width: 48px;
@@ -25,7 +25,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            color: $menu-light;
+            color: $theme-menu;
             margin: -24px 0 0 -24px;
         }
     }
@@ -33,7 +33,7 @@
 
 @media (max-width: 767px) {
     .root {
-        color: $text-light;
-        background: $menu-light;
+        color: $theme-text;
+        background: $theme-menu;
     }
 }

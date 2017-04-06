@@ -17,22 +17,22 @@
     padding: 0 12px;
     font-size: 12px;
     user-select: none;
-    background: $title-light;
+    background: $theme-title;
     color: transparentize(#FFF, .1);
 
     &[disabled] {
         cursor: not-allowed;
         box-shadow: none !important;
-        background: lighten($title-light, 20%);
+        background: lighten($theme-title, 20%);
     }
 
     &:hover {
-        background: lighten($title-light, 5%);
+        background: lighten($theme-title, 5%);
         color: #FFF;
     }
 
     &:active {
-        background: darken($title-light, 5%);
+        background: darken($theme-title, 5%);
         color: #FFF;
     }
 

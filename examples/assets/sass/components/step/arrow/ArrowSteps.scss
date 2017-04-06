@@ -112,24 +112,24 @@
 .theme-light .ArrowSteps {
 
     .step {
-        background: $title-bg-light;
+        background: $theme-title-bg;
 
         .number {
             background: transparentize(#fff, .05);
-            color: $text-light;
+            color: $theme-text;
         }
 
         .title {
-            color: $text-light;
+            color: $theme-text;
         }
 
         .triangle {
 
             .left {
-                border-left-color: $title-bg-light;
+                border-left-color: $theme-title-bg;
 
                 &.active {
-                    border-left-color: $title-light;
+                    border-left-color: $theme-title;
                 }
 
                 &.success {
@@ -138,12 +138,12 @@
             }
 
             .rightTop {
-                border-top-color: $title-bg-light;
-                border-right-color: $title-bg-light;
+                border-top-color: $theme-title-bg;
+                border-right-color: $theme-title-bg;
 
                 &.active {
-                    border-top-color: $title-light;
-                    border-right-color: $title-light;
+                    border-top-color: $theme-title;
+                    border-right-color: $theme-title;
                 }
 
                 &.success {
@@ -153,12 +153,12 @@
             }
 
             .rightBottom {
-                border-right-color: $title-bg-light;
-                border-bottom-color: $title-bg-light;
+                border-right-color: $theme-title-bg;
+                border-bottom-color: $theme-title-bg;
 
                 &.active {
-                    border-right-color: $title-light;
-                    border-bottom-color: $title-light;
+                    border-right-color: $theme-title;
+                    border-bottom-color: $theme-title;
                 }
 
                 &.success {
@@ -168,16 +168,16 @@
             }
 
             &.right {
-                background: $bg-light;
+                background: $theme-bg;
             }
 
         }
 
         &.active {
-            background: $title-light;
+            background: $theme-title;
 
             .number {
-                color: $title-light;
+                color: $theme-title;
             }
 
             .title {
@@ -185,22 +185,22 @@
             }
 
             &:hover {
-                background: lighten($title-light, 6%);
+                background: lighten($theme-title, 6%);
 
                 .triangle.left {
                     .rightTop {
-                        border-top-color: lighten($title-light, 6%);
-                        border-right-color: lighten($title-light, 6%);
+                        border-top-color: lighten($theme-title, 6%);
+                        border-right-color: lighten($theme-title, 6%);
                     }
                     .rightBottom {
-                        border-right-color: lighten($title-light, 6%);
-                        border-bottom-color: lighten($title-light, 6%);
+                        border-right-color: lighten($theme-title, 6%);
+                        border-bottom-color: lighten($theme-title, 6%);
                     }
                 }
 
                 .triangle.right {
                     .left {
-                        border-left-color: lighten($title-light, 6%);
+                        border-left-color: lighten($theme-title, 6%);
                     }
                 }
             }

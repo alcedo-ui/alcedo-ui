@@ -30,14 +30,14 @@
 }
 
 .theme-light .module-header {
-	color: $title-light;
+	color: $theme-title;
 
 	.module-header-inner {
-		border-bottom: 2px solid $title-bg-light;
+		border-bottom: 2px solid $theme-title-bg;
 
 		.router-link-active {
-			color: $highlight-light;
-			border-bottom: 2px solid $highlight-light;
+			color: $theme-highlight;
+			border-bottom: 2px solid $theme-highlight;
 		}
 	}
 }

@@ -69,25 +69,25 @@
 
 .theme-light .pagging {
     .button {
-        background: $title-light;
+        background: $theme-title;
         color: transparentize(#FFF, .1);
 
         &:hover {
-            background: lighten($title-light, 4%);
+            background: lighten($theme-title, 4%);
             color: #FFF;
         }
 
         &:active {
-            background: darken($title-light, 4%);
+            background: darken($theme-title, 4%);
             color: #FFF;
         }
 
         &[disabled] {
-            background: lighten($title-light, 20%);
+            background: lighten($theme-title, 20%);
 
             &.page {
-                color: $text-light;
-                background: $field-light;
+                color: $theme-text;
+                background: $theme-field;
             }
         }
     }

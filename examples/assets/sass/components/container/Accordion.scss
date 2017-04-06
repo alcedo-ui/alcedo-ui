@@ -33,10 +33,10 @@
 }
 
 .theme-light .accordion {
-	color: $title-light;
-	background: $field-light;
+	color: $theme-title;
+	background: $theme-field;
 
 	&:hover {
-		color: $text-light;
+		color: $theme-text;
 	}
 }

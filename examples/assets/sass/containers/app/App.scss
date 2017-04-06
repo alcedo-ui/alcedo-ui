@@ -5,7 +5,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: $menu-light;
+    background: $theme-menu;
 
     & > .content-wrap {
         position: absolute;
@@ -24,7 +24,7 @@
             @include shadow(1);
 
             position: relative;
-            background: $bg-light;
+            background: $theme-bg;
             box-sizing: border-box;
             padding: 60px 0 0;
             min-height: 100%;
@@ -51,7 +51,7 @@
                 padding: 20px 0;
                 user-select: none;
                 box-sizing: border-box;
-                color: lighten($text-light, 50%);
+                color: lighten($theme-text, 50%);
                 //border-top: 1px solid transparent;
                 z-index: $copyright-z-index;
             }

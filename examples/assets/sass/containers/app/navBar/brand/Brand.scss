@@ -12,8 +12,8 @@
     cursor: default;
     transition: all $transition-duration ease-in-out;
     overflow: visible;
-    background: $menu-light;
-    color: $light-text-light;
+    background: $theme-menu;
+    color: $theme-light-text;
 
     .menu-toggle-button {
         position: absolute;
@@ -28,7 +28,7 @@
         cursor: pointer;
         display: none;
         z-index: 1;
-        background: $menu-light;
+        background: $theme-menu;
     }
 
     .brand-name {
@@ -39,7 +39,7 @@
         line-height: 60px;
 
         i {
-            color: $highlight-light;
+            color: $theme-highlight;
         }
     }
 
@@ -61,12 +61,12 @@
 
 @media (max-width: 767px) {
     .brand {
-        background: $brand-light !important;
+        background: $theme-brand !important;
         width: 100% !important;
 
         .menu-toggle-button {
             display: block;
-            background: $brand-light;
+            background: $theme-brand;
         }
 
         .brand-name {

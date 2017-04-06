@@ -101,11 +101,11 @@
 	&.info {
 
 		.triangle {
-			border-top-color: transparentize($brand-light, .1);
+			border-top-color: transparentize($theme-brand, .1);
 		}
 
 		.msg-wrap {
-			background: transparentize($brand-light, .1);
+			background: transparentize($theme-brand, .1);
 			color: #FFF;
 		}
 	}

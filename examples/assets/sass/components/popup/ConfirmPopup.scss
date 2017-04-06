@@ -47,16 +47,16 @@
 .theme-light .popup {
 
 	.triangle {
-		border-bottom: 6px solid $popup-light;
+		border-bottom: 6px solid $theme-popup;
 	}
 
 	.content {
-		background: $popup-light;
+		background: $theme-popup;
 	}
 
 	&[disabled] {
 		.triangle {
-			border-bottom: 6px solid lighten($popup-light, 40%);
+			border-bottom: 6px solid lighten($theme-popup, 40%);
 		}
 	}
 
