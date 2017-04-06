@@ -5,6 +5,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background: $menu-light;
 
     & > .content-wrap {
         position: absolute;
@@ -23,6 +24,7 @@
             @include shadow(1);
 
             position: relative;
+            background: $bg-light;
             box-sizing: border-box;
             padding: 60px 0 0;
             min-height: 100%;
@@ -49,6 +51,7 @@
                 padding: 20px 0;
                 user-select: none;
                 box-sizing: border-box;
+                color: lighten($text-light, 50%);
                 //border-top: 1px solid transparent;
                 z-index: $copyright-z-index;
             }
@@ -88,38 +91,6 @@
                 width: 100%;
                 margin: 0;
                 overflow: auto;
-            }
-        }
-    }
-}
-
-.theme-light .app {
-    background: $menu-light;
-
-    & > .content-wrap {
-
-        & > .content {
-            background: $bg-light;
-
-            .copyright {
-                color: lighten($text-light, 50%);
-                //border-color: $title-bg-light;
-            }
-        }
-    }
-}
-
-.theme-dark .app {
-    background: $menu-dark;
-
-    & > .content-wrap {
-
-        & > .content {
-            background: $bg-dark;
-
-            .copyright {
-                color: lighten($text-dark, 10%);
-                //border-color: transparentize(#000, .95);
             }
         }
     }

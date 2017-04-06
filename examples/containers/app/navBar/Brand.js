@@ -4,11 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
-import ThemeMenu from './ThemeMenu';
-
 import 'sass/containers/app/navBar/brand/Brand.scss';
-import 'sass/containers/app/navBar/brand/BrandLight.scss';
-import 'sass/containers/app/navBar/brand/BrandDark.scss';
 
 class Brand extends Component {
 
@@ -43,10 +39,6 @@ class Brand extends Component {
                             :
                             'Alcedo UI Examples'
                     }
-                </div>
-
-                <div className="right">
-                    <ThemeMenu/>
                 </div>
 
             </div>

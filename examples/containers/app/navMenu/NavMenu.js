@@ -7,8 +7,6 @@ import * as actions from 'reduxes/actions';
 import NavMenuList from './NavMenuList';
 
 import 'sass/containers/app/navMenu/NavMenu.scss';
-import 'sass/containers/app/navMenu/NavMenuLight.scss';
-import 'sass/containers/app/navMenu/NavMenuDark.scss';
 
 class NavMenu extends Component {
 

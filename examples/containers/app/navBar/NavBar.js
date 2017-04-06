@@ -6,11 +6,8 @@ import * as actions from 'reduxes/actions';
 
 import Brand from './Brand';
 import NavMenuToggleButton from './NavMenuToggleButton';
-import ThemeMenu from './ThemeMenu';
 
 import 'sass/containers/app/navBar/nav/Nav.scss';
-import 'sass/containers/app/navBar/nav/NavLight.scss';
-import 'sass/containers/app/navBar/nav/NavDark.scss';
 
 class NavBar extends Component {
 
@@ -26,15 +23,9 @@ class NavBar extends Component {
                 <Brand/>
 
                 <div className="nav-collapse floatfix">
-
                     <div className="left">
                         <NavMenuToggleButton/>
                     </div>
-
-                    <div className="right">
-                        <ThemeMenu/>
-                    </div>
-
                 </div>
 
             </div>
