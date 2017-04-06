@@ -37,10 +37,10 @@ class Root extends Component {
 
     render() {
 
-        const {children, $themeName} = this.props;
+        const {children} = this.props;
 
         return (
-            <div className={`root theme-${$themeName}`}>
+            <div className="root">
                 {children}
             </div>
         );
@@ -50,20 +50,12 @@ class Root extends Component {
 }
 
 Root.propTypes = {
-
-    $isDesktop: PropTypes.bool,
-
-    $themeName: PropTypes.string
-
+    $isDesktop: PropTypes.bool
 };
 
 function mapStateToProps(state, ownProps) {
     return {
-
-        $isDesktop: state.device.isDesktop,
-
-        $themeName: state.theme.themeName
-
+        $isDesktop: state.device.isDesktop
     };
 }
 

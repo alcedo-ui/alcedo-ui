@@ -4,7 +4,6 @@ import {routerReducer as routing} from 'react-router-redux';
 import router from './RouterReducer';
 import device from './app/DeviceReducer';
 import navMenu from './app/NavMenuReducer';
-import theme from './app/ThemeReducer';
 
 const rootReducer = combineReducers({
 
@@ -12,8 +11,7 @@ const rootReducer = combineReducers({
     router,
 
     device,
-    navMenu,
-    theme
+    navMenu
 
 });
 
