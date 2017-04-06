@@ -1,0 +1,27 @@
+{
+  "name": "alcedo-ui",
+  "version": "1.0.6",
+  "description": "A reactjs components library.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alcedo-ui/alcedo-ui.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "ui"
+  ],
+  "author": "alcedo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alcedo-ui/alcedo-ui/issues"
+  },
+  "homepage": "https://github.com/alcedo-ui/alcedo-ui#readme",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "module": "./index.es.js"
+}
