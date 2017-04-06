@@ -1,0 +1,35 @@
+@import '../../../../common.scss';
+
+.theme-menu {
+
+	.toggle-button {
+		height: 100%;
+		line-height: 60px;
+		padding: 0 20px;
+		cursor: pointer;
+
+		.dropdown-icon {
+			margin-left: 8px;
+		}
+	}
+
+	.theme-dropdown-menu {
+		.theme-thumbnail-wrapper {
+
+			@include float-fix;
+
+			width: 300px;
+			margin: auto;
+
+			& > * {
+				float: left;
+				margin-left: 60px;
+			}
+			& > *:first-child {
+				margin-left: 0;
+			}
+
+		}
+	}
+
+}

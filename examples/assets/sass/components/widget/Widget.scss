@@ -1,0 +1,15 @@
+@import '../../common.scss';
+
+.widget {
+
+	border-radius: $border-radius;
+	background: #FFF;
+	margin: 20px 40px;
+
+	@for $i from 0 through 7 {
+		&.depth-#{$i} {
+			@include shadow($i);
+		}
+	}
+
+}

@@ -1,0 +1,70 @@
+@import '../../../../common.scss';
+
+.nav {
+	height: 60px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	user-select: none;
+	z-index: $nav-bar-z-index;
+
+	.nav-collapse {
+
+		@include shadow(1);
+
+		width: calc(100% - 250px);
+		position: absolute;
+		right: 0;
+		margin-left: 250px;
+		height: 60px;
+		overflow: visible;
+		box-sizing: border-box;
+		transition: all $transition-duration ease-in-out;
+
+		.left {
+
+			& > * {
+				float: left;
+				width: 30px;
+				height: 30px;
+				margin: 15px;
+				margin-right: 0;
+				text-align: center;
+				line-height: 30px;
+				cursor: pointer;
+				font-size: 18px;
+				transition: color $transition-duration ease-in-out;
+			}
+
+		}
+
+		.right {
+			float: right;
+
+			& > * {
+				float: left;
+			}
+		}
+	}
+
+}
+
+.app.collapsed {
+	.nav {
+		.nav-collapse {
+			width: calc(100% - 60px);
+			margin-left: 60px;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.nav {
+		.nav-collapse {
+			width: 0 !important;
+			margin-left: 0 !important;
+			box-shadow: none;
+			overflow: hidden;
+		}
+	}
+}

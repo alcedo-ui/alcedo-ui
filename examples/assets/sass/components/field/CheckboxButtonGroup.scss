@@ -1,0 +1,31 @@
+@import '../../common';
+
+.checkbox-button-group {
+
+	@include float-fix;
+
+	user-select: none;
+
+	& > * {
+		float: left;
+		line-height: 40px;
+		margin-left: 10px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+
+}
+
+.theme-light .checkbox-button-group {
+	label {
+		color: $title-light;
+	}
+}
+
+.theme-dark .checkbox-button-group {
+	label {
+		color: $title-dark;
+	}
+}

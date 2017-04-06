@@ -1,0 +1,223 @@
+@import '../../../../common.scss';
+
+.feed-template {
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+
+    .feed-template-list-wrapper {
+
+        @include shadow(2);
+
+        float: left;
+        width: 240px;
+        height: 100%;
+
+        .create-feed-template-button {
+            width: 200px;
+            margin: 20px;
+        }
+
+        .create-feed-template-filter {
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+        }
+
+        .feed-template-list {
+            height: calc(100% - 120px);
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow: none;
+
+            .feed-template-list-item {
+                position: relative;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+                height: 60px;
+                padding: 20px;
+                line-height: 20px;
+                box-sizing: border-box;
+                border-bottom: 1px solid transparent;
+                cursor: pointer;
+                overflow: hidden;
+
+                .feed-template-list-item-count {
+                    margin-left: 10px;
+                    opacity: .5;
+                }
+
+                .feed-template-list-item-delete-button {
+                    position: absolute;
+                    height: 20px;
+                    line-height: 20px;
+                    top: 20px;
+                    right: 20px;
+                    display: none;
+                    color: $red;
+                }
+
+                &:hover {
+                    .feed-template-list-item-delete-button {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .feed-template-editor {
+        height: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+        z-index: -1;
+
+        .feed-template-col-list-wrapper {
+
+            @include shadow(2);
+
+            float: left;
+            width: 240px;
+            height: 100%;
+
+            .create-feed-template-col-button {
+                width: 200px;
+                margin: 20px;
+            }
+
+            .create-feed-template-col-filter {
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+                border-top: 1px solid transparent;
+                border-bottom: 1px solid transparent;
+            }
+
+            .feed-template-col-list {
+                height: calc(100% - 120px);
+                overflow-x: hidden;
+                overflow-y: auto;
+                box-shadow: none;
+                padding: 20px 0 0 20px;
+                box-sizing: border-box;
+
+                .draggable-feed-template-col {
+                    width: 200px;
+                    margin: 20px 0;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: left;
+                    background: #F2F2F2;
+                    color: $text-light;
+                    cursor: move;
+                    padding-left: 2px;
+                    border-radius: 2px;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+
+                    .draggable-icon {
+                        float: left;
+                        margin-right: 6px;
+
+                        i {
+                            color: #E2E2E2;
+                            display: block;
+                            height: 6px;
+                            line-height: 6px;
+                            margin: 0;
+                            transform: scaleY(.5);
+                        }
+                    }
+
+                    &:hover {
+                        background: #F2F2F2;
+                    }
+
+                    &:active {
+                        background: #F2F2F2;
+                    }
+                }
+            }
+        }
+
+        .feed-template-editor-table-wrapper {
+
+            height: 100%;
+            box-sizing: border-box;
+            padding: 20px 40px 40px;
+            overflow: hidden;
+
+            .feed-template-editor-header {
+
+                @include float-fix;
+
+                .feed-template-name {
+                    float: left;
+                    line-height: 40px;
+                    font-size: 14px;
+                }
+            }
+
+            .feed-template-editor-table-drop-target {
+                position: relative;
+                height: 100%;
+
+                .drop-area-inner {
+                    width: 240px;
+                    height: 160px;
+                    text-align: center;
+                    font-size: 20px;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+
+                    i {
+                        font-size: 60px;
+                        display: block;
+                        margin-bottom: 10px;
+                    }
+
+                    .title {
+                        font-size: 34px;
+                    }
+                }
+
+                .feed-template-editor-table-drop-area {
+                    height: calc(100% - 40px);
+                    border: 3px dashed transparent;
+                    box-sizing: border-box;
+                }
+
+                .feed-template-editor-table {
+                    margin: 20px 0 0;
+                    height: calc(100% - 60px);
+                }
+
+                .feed-template-editor-table-drop-zone {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: calc(100% - 60px);
+                    border: 3px dashed transparent;
+                    box-sizing: border-box;
+                    opacity: .5;
+
+                    &.activated {
+                        opacity: 1;
+                    }
+                }
+            }
+
+        }
+    }
+}

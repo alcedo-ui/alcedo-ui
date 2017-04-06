@@ -1,0 +1,66 @@
+@import '../../../../common.scss';
+
+.theme-light .feed-template {
+
+    .feed-template-list-wrapper {
+        background: #fff;
+
+        .create-feed-template-filter {
+            border-color: $title-bg-light;
+        }
+
+        .feed-template-list {
+
+            .feed-template-list-item {
+                border-color: transparentize($title-bg-light, .6);
+
+                &:hover {
+                    background: transparentize($title-bg-light, .8);
+                }
+
+                &.activated {
+                    .feed-template-list-item-name {
+                        color: $highlight-light;
+                    }
+                }
+            }
+        }
+    }
+
+    .feed-template-editor {
+
+        .feed-template-col-list-wrapper {
+            background: #fff;
+
+            .create-feed-template-col-filter {
+                border-color: $title-bg-light;
+            }
+
+            .feed-template-col-list {
+
+            }
+        }
+
+        .feed-template-editor-table-wrapper {
+            .feed-template-editor-table-drop-target {
+
+                .drop-area-inner {
+                    color: lighten($text-light, 40%);
+                }
+
+                .feed-template-editor-table-drop-area {
+                    border-color: $title-bg-light;
+                }
+
+                .feed-template-editor-table-drop-zone {
+                    border-color: $highlight-light;
+                    color: $highlight-light;
+
+                    .drop-area-inner {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

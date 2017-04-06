@@ -1,0 +1,340 @@
+@import '../../common.scss';
+
+.table-wrapper {
+
+    .widget {
+        margin: 0;
+        height: 100%;
+        position: relative;
+
+        .table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+
+            thead {
+                tr {
+                    th {
+                        position: relative;
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: left;
+                        padding: 15px 15px 14px;
+                        font-weight: normal;
+                        user-select: none;
+                        cursor: default;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+
+                        &.table-checkbox {
+                            width: 1px;
+                            padding-left: 15px !important;
+
+                            .checkbox {
+                                width: 30px;
+                                height: 30px;
+
+                                .checkbox-icon {
+                                    width: 30px;
+                                    height: 30px;
+                                    line-height: 30px;
+                                }
+
+                                .checkbox-label {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &:first-child {
+                            padding-left: 30px;
+                        }
+
+                        &:last-child {
+                            padding-right: 30px;
+                        }
+
+                        &.sortable {
+                            cursor: pointer;
+                            padding-right: 30px;
+
+                            .sort-icon {
+                                position: absolute;
+                                right: 15px;
+                                top: 20px;
+
+                                i {
+                                    display: block;
+                                    height: 10px;
+                                    line-height: 10px;
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        height: 30px;
+                        line-height: 30px;
+                        text-align: left;
+                        padding: 15px;
+                        transition: none;
+                        user-select: none;
+                        cursor: default;
+
+                        &:first-child {
+                            padding-left: 30px;
+                        }
+
+                        &:last-child {
+                            padding-right: 30px;
+                        }
+
+                        &.table-line-number {
+                            width: 1px;
+                            padding-left: 15px;
+                        }
+
+                        &.table-checkbox {
+                            width: 1px;
+                            padding-left: 15px;
+
+                            .checkbox {
+                                width: 30px;
+                                height: 30px;
+
+                                .checkbox-icon {
+                                    width: 30px;
+                                    height: 30px;
+                                    line-height: 30px;
+                                }
+
+                                .checkbox-label {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        &.actions {
+                            i {
+                                width: 12px;
+                                margin-left: 24px;
+
+                                &:first-child {
+                                    margin-left: 0;
+                                }
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        td {
+                            &:first-child {
+                                border-bottom-left-radius: $border-radius;
+                            }
+
+                            &:last-child {
+                                border-bottom-right-radius: $border-radius;
+                            }
+                        }
+
+                    }
+
+                    &:hover {
+                        td {
+
+                            &.actions {
+
+                                .delete-icon {
+                                    color: $red !important;
+                                }
+                            }
+
+                            a {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+
+            tfoot {
+
+            }
+
+        }
+
+        .head-table {
+            width: 100%;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .body-table {
+            height: calc(100% - 60px);
+            overflow: auto;
+
+            .body-table-scroller {
+
+                .table {
+                    height: 100%;
+
+                    thead {
+                        tr {
+                            border-bottom: none;
+
+                            th {
+                                height: 0;
+                                line-height: 0px;
+                                padding-top: 0;
+                                padding-bottom: 0;
+                                overflow: hidden;
+
+                                .sort-icon {
+                                    display: none;
+                                }
+
+                                & > * {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.theme-light .table-wrapper {
+    thead {
+        tr {
+            border-bottom: 1px solid transparentize($title-bg-light, .6);
+
+            th {
+                color: $title-light;
+
+                &.sortable {
+
+                    i {
+                        color: lighten($title-light, 36%);
+                    }
+
+                    &:hover {
+                        color: $text-light;
+
+                        i {
+                            color: lighten($menu-light, 36%);
+                        }
+                    }
+
+                    &.asc {
+                        color: $text-light;
+
+                        i.asc-icon {
+                            color: $text-light;
+                        }
+                    }
+
+                    &.desc {
+                        color: $text-light;
+
+                        i.desc-icon {
+                            color: $text-light;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            border-top: 1px solid $bg-light;
+
+            &:first-child {
+                border-top: none;
+            }
+
+            &:hover {
+                td {
+                    background: transparentize($title-bg-light, .8);
+                }
+            }
+
+            td {
+                &.table-line-number {
+                    background: #fbfbfb;
+                }
+            }
+        }
+    }
+}
+
+.theme-dark .table-wrapper {
+    thead {
+        tr {
+            border-bottom: 1px solid transparentize($title-bg-light, .6);
+
+            th {
+                color: $title-dark;
+
+                &.sortable {
+
+                    i {
+                        color: lighten($title-dark, 36%);
+                    }
+                    i:hover {
+                        color: $text-dark;
+                    }
+                    &:hover {
+                        color: $text-dark;
+
+                        i {
+                            color: lighten($title-dark, 36%);
+                        }
+                    }
+
+                    &.asc {
+                        color: $text-dark;
+
+                        i.asc-icon {
+                            color: $text-dark;
+                        }
+                    }
+
+                    &.desc {
+                        color: $text-dark;
+
+                        i.desc-icon {
+                            color: $text-dark;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            border-top: 1px solid #E7EBF1;
+
+            &:first-child {
+                border-top: none;
+            }
+
+            &:hover {
+                td {
+                    background: $bg-dark;
+                }
+            }
+        }
+    }
+}

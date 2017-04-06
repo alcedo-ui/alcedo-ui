@@ -1,0 +1,41 @@
+@import '../../common';
+
+.radio {
+
+    @include float-fix;
+
+    width: 200px;
+    height: 50px;
+    color: lighten($text-light, 15%);
+
+    .radio-icon {
+        float: left;
+        width: 30px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .radio-label {
+        float: left;
+        height: 50px;
+        line-height: 50px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &.active {
+        color: lighten($brand-light, 15%);
+    }
+
+    &[disabled] {
+        color: lighten($text-light, 30%);
+
+        &.active {
+            color: lighten($brand-light, 30%);
+        }
+    }
+
+}

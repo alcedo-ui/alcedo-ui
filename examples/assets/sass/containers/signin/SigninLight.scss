@@ -1,0 +1,51 @@
+@import '../../common.scss';
+
+.theme-light .signin {
+	background: $title-bg-light;
+
+	h1 {
+		color: $menu-light;
+	}
+
+	.sign-in-button {
+		background: $menu-light;
+
+		&:hover {
+			background: lighten($menu-light, 5%);
+		}
+
+		&:active {
+			background: darken($menu-light, 5%);
+		}
+
+		&[disabled] {
+			background: lighten($menu-light, 20%);
+		}
+	}
+
+	.signin-theme {
+
+		.signin-theme-button {
+			color: lighten($text-light, 20%);
+
+			.signin-theme-collapse-button {
+				color: $highlight-light;
+			}
+		}
+
+		.signin-theme-popup {
+
+			.triangle {
+				border-bottom-color: #FFF;
+			}
+
+			.content {
+				background: #FFF;
+			}
+		}
+	}
+
+	.copyright {
+		color: lighten($text-light, 40%);
+	}
+}

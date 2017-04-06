@@ -1,0 +1,99 @@
+@import '../../common.scss';
+
+.button {
+
+    @include shadow(3);
+
+    width: 300px;
+    height: 40px;
+    position: relative;
+    line-height: 40px;
+    border: none;
+    border-radius: $border-radius;
+    transition: all $transition-duration ease-in-out;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    padding: 0 12px;
+    font-size: 12px;
+    user-select: none;
+
+    &[disabled] {
+        cursor: not-allowed;
+        box-shadow: none !important;
+    }
+
+    .button-icon {
+        width: 16px;
+        line-height: 40px;
+        text-align: center;
+        font-size: inherit;
+        margin-right: 10px;
+    }
+
+    .circular-loading {
+        margin-right: 10px;
+    }
+
+    .touch-ripple {
+        border-radius: $border-radius;
+    }
+}
+
+.theme-light .button {
+    background: $title-light;
+    color: transparentize(#FFF, .1);
+
+    &:hover {
+        background: lighten($title-light, 5%);
+        color: #FFF;
+    }
+
+    &:active {
+        background: darken($title-light, 5%);
+        color: #FFF;
+    }
+
+    &[disabled] {
+        background: lighten($title-light, 20%);
+    }
+
+    .button-icon {
+        color: #FFF;
+    }
+
+    .circular-loading {
+        .spinner {
+            border-color: #FFF;
+        }
+    }
+}
+
+.theme-dark .button {
+    background: $nav-dark;
+    color: transparentize(#FFF, .1);
+
+    &:hover {
+        background: lighten($nav-dark, 5%);
+        color: #FFF;
+    }
+
+    &:active {
+        background: darken($nav-dark, 5%);
+        color: #FFF;
+    }
+
+    &[disabled] {
+        background: lighten($nav-dark, 20%);
+    }
+
+    .button-icon {
+        color: #FFF;
+    }
+
+    .circular-loading {
+        .spinner {
+            border-color: #FFF;
+        }
+    }
+}

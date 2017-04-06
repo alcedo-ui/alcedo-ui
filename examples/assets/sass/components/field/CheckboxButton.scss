@@ -1,0 +1,51 @@
+@import '../../common';
+
+.checkbox-button {
+
+	@include shadow(1);
+
+	width: 100px;
+	border-radius: 20px;
+
+	.touch-ripple {
+		border-radius: 20px;
+	}
+}
+
+.theme-light .checkbox-button {
+	color: $light-text-light;
+	background: $field-light;
+
+	&:hover {
+		color: $text-light;
+		background: $field-light;
+	}
+
+	&.activated {
+		color: #FFF;
+		background: $title-light;
+
+		&:hover {
+			background: lighten($title-light, 5%);
+		}
+	}
+}
+
+.theme-dark .checkbox-button {
+	color: $light-text-dark;
+	background: $field-dark;
+
+	&:hover {
+		color: $text-dark;
+		background: $field-dark;
+	}
+
+	&.activated {
+		color: #FFF;
+		background: $text-dark;
+
+		&:hover {
+			background: lighten($nav-dark, 5%);
+		}
+	}
+}

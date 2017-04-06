@@ -1,0 +1,35 @@
+@import '../../common';
+
+.link-anchor {
+	text-decoration: none;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&[disabled] {
+		text-decoration: none;
+		cursor: default;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.theme-light .link-anchor {
+	color: $title-light;
+
+	&[disabled] {
+		color: lighten($title-light, 20%);
+	}
+}
+
+.theme-dark .link-anchor {
+	color: $text-dark;
+
+	&[disabled] {
+		color: lighten($text-dark, 20%);
+	}
+}

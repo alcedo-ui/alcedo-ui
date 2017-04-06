@@ -1,0 +1,21 @@
+@import '../../../../common.scss';
+
+.theme-light .theme-menu {
+
+	.toggle-button {
+		color: $text-light;
+
+		.dropdown-icon {
+			color: $highlight-light;
+		}
+
+		&:hover {
+			color: lighten($text-light, 10%);
+
+			.dropdown-icon {
+				color: lighten($highlight-light, 10%);
+			}
+		}
+	}
+
+}

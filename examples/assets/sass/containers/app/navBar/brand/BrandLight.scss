@@ -1,0 +1,32 @@
+@import '../../../../common.scss';
+
+.theme-light .brand {
+	background: $menu-light;
+	color: $light-text-light;
+
+	.brand-name {
+		i {
+			color: $highlight-light;
+		}
+	}
+
+	.brand-collapse {
+		.brand-collapse-inner {
+			.menu-toggle-button {
+				background: $menu-light;
+			}
+		}
+	}
+
+	.right {
+		i {
+			color: $light-text-light;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.theme-light .brand {
+		background: $brand-light !important;
+	}
+}

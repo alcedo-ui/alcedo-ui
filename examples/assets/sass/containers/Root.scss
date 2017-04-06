@@ -1,51 +1,69 @@
 @import '../common';
 
 .root {
-    min-width: $minWidth;
-    overflow-x: hidden;
-    transition: none;
+	min-width: $minWidth;
+	overflow-x: hidden;
+	transition: none;
 
-    .root-loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: $root-loading-z-index;
+	.root-loading {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: $root-loading-z-index;
 
-        i {
-            width: 48px;
-            height: 48px;
-            text-align: center;
-            line-height: 48px;
-            font-size: 48px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: -24px 0 0 -24px;
-        }
-    }
+		i {
+			width: 48px;
+			height: 48px;
+			text-align: center;
+			line-height: 48px;
+			font-size: 48px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -24px 0 0 -24px;
+		}
+	}
 
-    &.theme-light {
-        color: $text-light;
-        background: $bg-light;
+	&.theme-dark {
+		color: $text-dark;
+		background: $bg-dark;
 
-        .root-loading {
-            background: $title-bg-light;
+		.root-loading {
+			background: $title-bg-dark;
 
-            i {
-                color: $menu-light;
-            }
-        }
-    }
+			i {
+				color: $brand-dark;
+			}
+		}
+	}
+
+	&.theme-light {
+		color: $text-light;
+		background: $bg-light;
+
+		.root-loading {
+			background: $title-bg-light;
+
+			i {
+				color: $menu-light;
+			}
+		}
+	}
 }
 
 @media (max-width: 767px) {
-    .root {
+	.root {
 
-        &.theme-light {
-            color: $text-light;
-            background: $menu-light;
-        }
-    }
+		&.theme-dark {
+			color: $text-dark;
+			background: $menu-dark;
+		}
+
+		&.theme-light {
+			color: $text-light;
+			background: $menu-light;
+		}
+	}
 }

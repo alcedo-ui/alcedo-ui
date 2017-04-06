@@ -1,0 +1,243 @@
+@import '../../../common.scss';
+
+.ArrowSteps {
+    width: 100%;
+    height: 60px;
+
+    .step {
+        float: left;
+        width: 50%;
+        height: 60px;
+        position: relative;
+
+        .number {
+            float: left;
+            width: 40px;
+            height: 40px;
+            margin: 10px 15px 10px 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+
+            i {
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                line-height: 40px;
+            }
+        }
+
+        .title {
+            line-height: 60px;
+        }
+
+        .triangle {
+            position: absolute;
+            top: 0;
+            width: 32px;
+            height: 60px;
+            z-index: 1;
+
+            .left {
+                width: 0;
+                height: 0;
+                border: 30px solid transparent;
+                border-right: none;
+            }
+
+            .rightTop {
+                position: relative;
+                width: 0;
+                height: 0;
+                border: 15px solid transparent;
+            }
+
+            .rightBottom {
+                position: relative;
+                width: 0;
+                height: 0;
+                border: 15px solid transparent;
+            }
+
+            &.left {
+                left: -15px;
+
+                .rightTop {
+                    top: 0px;
+                    left: 0px;
+
+                }
+                .rightBottom {
+                    top: 0px;
+                    left: 0px;
+                }
+            }
+
+            &.right {
+                right: -15px;
+
+                .rightTop {
+                    top: -60px;
+                    left: 2px;
+                }
+                .rightBottom {
+                    top: -60px;
+                    left: 2px;
+                }
+            }
+
+        }
+
+        &:first-child {
+            .number {
+                margin: 10px 15px;
+            }
+        }
+
+        &.success {
+            cursor: pointer;
+        }
+    }
+
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+}
+
+.theme-light .ArrowSteps {
+
+    .step {
+        background: $title-bg-light;
+
+        .number {
+            background: transparentize(#fff, .05);
+            color: $text-light;
+        }
+
+        .title {
+            color: $text-light;
+        }
+
+        .triangle {
+
+            .left {
+                border-left-color: $title-bg-light;
+
+                &.active {
+                    border-left-color: $title-light;
+                }
+
+                &.success {
+                    border-left-color: $success;
+                }
+            }
+
+            .rightTop {
+                border-top-color: $title-bg-light;
+                border-right-color: $title-bg-light;
+
+                &.active {
+                    border-top-color: $title-light;
+                    border-right-color: $title-light;
+                }
+
+                &.success {
+                    border-top-color: $success;
+                    border-right-color: $success;
+                }
+            }
+
+            .rightBottom {
+                border-right-color: $title-bg-light;
+                border-bottom-color: $title-bg-light;
+
+                &.active {
+                    border-right-color: $title-light;
+                    border-bottom-color: $title-light;
+                }
+
+                &.success {
+                    border-right-color: $success;
+                    border-bottom-color: $success;
+                }
+            }
+
+            &.right {
+                background: $bg-light;
+            }
+
+        }
+
+        &.active {
+            background: $title-light;
+
+            .number {
+                color: $title-light;
+            }
+
+            .title {
+                color: #fff;
+            }
+
+            &:hover {
+                background: lighten($title-light, 6%);
+
+                .triangle.left {
+                    .rightTop {
+                        border-top-color: lighten($title-light, 6%);
+                        border-right-color: lighten($title-light, 6%);
+                    }
+                    .rightBottom {
+                        border-right-color: lighten($title-light, 6%);
+                        border-bottom-color: lighten($title-light, 6%);
+                    }
+                }
+
+                .triangle.right {
+                    .left {
+                        border-left-color: lighten($title-light, 6%);
+                    }
+                }
+            }
+        }
+
+        &.success {
+            background: $success;
+
+            .number {
+                color: $success;
+            }
+
+            .title {
+                color: #fff;
+            }
+
+            &:hover {
+                background: lighten($success, 6%);
+
+                .triangle.left {
+                    .rightTop {
+                        border-top-color: lighten($success, 6%);
+                        border-right-color: lighten($success, 6%);
+                    }
+                    .rightBottom {
+                        border-right-color: lighten($success, 6%);
+                        border-bottom-color: lighten($success, 6%);
+                    }
+                }
+
+                .triangle.right {
+                    .left {
+                        border-left-color: lighten($success, 6%);
+                    }
+                }
+            }
+        }
+    }
+
+}

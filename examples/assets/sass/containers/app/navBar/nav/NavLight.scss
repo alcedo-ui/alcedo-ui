@@ -1,0 +1,27 @@
+@import '../../../../common.scss';
+
+.theme-light .nav {
+
+	.nav-collapse {
+		background: $nav-light;
+
+		.left {
+			& > * {
+				color: darken($light-text-light, 10%);
+
+				&:hover {
+					color: $light-text-light;
+				}
+			}
+
+			.user-menu-button {
+				color: $text-light;
+
+				&:hover {
+					color: lighten($text-light, 10%);
+				}
+			}
+		}
+	}
+
+}

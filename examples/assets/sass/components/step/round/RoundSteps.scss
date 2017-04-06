@@ -1,0 +1,202 @@
+@import '../../../common.scss';
+
+.RoundSteps {
+    width: 100%;
+    height: 90px;
+    position: relative;
+
+    .step {
+        float: left;
+        width: 50%;
+        height: 90px;
+        position: relative;
+
+        .bgBar {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+        }
+
+        .bgRound {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            margin-left: -20px;
+        }
+
+        .leftBar {
+            position: absolute;
+            top: 24px;
+            left: 0;
+            width: 50%;
+            height: 12px;
+        }
+
+        .rightBar {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            width: 50%;
+            height: 12px;
+        }
+
+        .round {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 14px;
+            margin-left: -16px;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+
+            i {
+                text-align: center;
+                line-height: 32px;
+            }
+        }
+
+        .title {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            position: absolute;
+            top: 55px;
+            left: 0;
+        }
+
+        &.first {
+
+            .bgBar {
+                width: 50%;
+                left: 50%;
+            }
+
+        }
+
+        &.last {
+
+            .bgBar {
+                width: 50%;
+            }
+
+        }
+
+        &.activated {
+            .round {
+                cursor: pointer;
+            }
+        }
+
+        &.current {
+            .round {
+
+                @include shadow(3);
+
+                width: 46px;
+                height: 46px;
+                top: 7px;
+                margin-left: -23px;
+                line-height: 46px;
+            }
+        }
+
+        &.success {
+            .round {
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .stepBack {
+        @extend .step;
+        position: absolute;
+
+        .bgBar {
+            left: 50%;
+            width: 50%;
+        }
+
+        .round {
+            z-index: 1;
+        }
+    }
+
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+}
+
+.theme-light .RoundSteps {
+    background: $bg-light;
+
+    .step {
+
+        .bgBar {
+            background: $title-bg-light;
+        }
+
+        .bgRound {
+            background: $title-bg-light;
+        }
+
+        .leftBar {
+            background: $title-light;
+        }
+
+        .rightBar {
+            background: $title-light;
+        }
+
+        .round {
+            background: $bg-light;
+            color: $title-bg-light;
+        }
+
+        .title {
+            color: $text-light;
+        }
+
+        &.activated {
+            .round {
+                background: $title-light;
+                color: #fff;
+            }
+        }
+
+        &.current {
+            .round {
+                background: $title-light;
+                color: #fff;
+            }
+        }
+
+        &.success {
+            .round {
+                background: $title-light;
+                color: #fff;
+            }
+        }
+
+    }
+
+    .stepBack {
+        .round {
+            background: $title-bg-light;
+            color: $bg-light;
+        }
+    }
+
+}

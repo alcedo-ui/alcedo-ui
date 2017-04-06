@@ -1,0 +1,126 @@
+@import '../../common.scss';
+
+.app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    & > .content-wrap {
+        position: absolute;
+        width: calc(100% - 250px);
+        height: 100%;
+        overflow: auto;
+        box-sizing: border-box;
+        margin-left: 250px;
+        overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch;
+        z-index: $content-wrap-z-index;
+        transition: all $transition-duration ease-in-out;
+
+        & > .content {
+
+            @include shadow(1);
+
+            position: relative;
+            box-sizing: border-box;
+            padding: 60px 0 0;
+            min-height: 100%;
+            //height: 100%;
+            transition: all $transition-duration ease-in-out;
+            overflow: auto;
+
+            .content-router-view {
+
+                @include float-fix;
+
+                min-height: 100%;
+
+            }
+
+            .copyright {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 60px;
+                line-height: 20px;
+                text-align: center;
+                font-size: 12px;
+                padding: 20px 0;
+                user-select: none;
+                box-sizing: border-box;
+                //border-top: 1px solid transparent;
+                z-index: $copyright-z-index;
+            }
+
+            .module-loading {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin: -24px;
+            }
+        }
+    }
+
+    &.collapsed {
+        & > .content-wrap {
+            width: calc(100% - 60px);
+            margin-left: 60px;
+        }
+    }
+
+}
+
+@media (max-width: 767px) {
+    .app {
+
+        & > .content-wrap {
+            transform: translate3d(calc(300px - 5%), 0, 0) scale(.9);
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            z-index: $content-wrap-mobile-z-index;
+        }
+
+        &.collapsed {
+            & > .content-wrap {
+                transform: none;
+                width: 100%;
+                margin: 0;
+                overflow: auto;
+            }
+        }
+    }
+}
+
+.theme-light .app {
+    background: $menu-light;
+
+    & > .content-wrap {
+
+        & > .content {
+            background: $bg-light;
+
+            .copyright {
+                color: lighten($text-light, 50%);
+                //border-color: $title-bg-light;
+            }
+        }
+    }
+}
+
+.theme-dark .app {
+    background: $menu-dark;
+
+    & > .content-wrap {
+
+        & > .content {
+            background: $bg-dark;
+
+            .copyright {
+                color: lighten($text-dark, 10%);
+                //border-color: transparentize(#000, .95);
+            }
+        }
+    }
+}

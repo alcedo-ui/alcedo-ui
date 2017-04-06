@@ -1,0 +1,136 @@
+@import '../../common.scss';
+
+.signin {
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+
+    & > * {
+        width: 500px;
+        text-align: center;
+        margin: 20px auto;
+        user-select: none;
+    }
+
+    h1 {
+        line-height: 30px;
+        margin: 10% auto 2%;
+    }
+
+    h2 {
+        font-size: 16px;
+        line-height: 20px;
+        margin: 0 auto 2%;
+        opacity: .8;
+    }
+
+    .signin-form {
+        box-sizing: border-box;
+        background: transparent;
+        padding: 10px 60px;
+
+        & > *, .text-field {
+            width: 100%;
+        }
+
+        .error-msg {
+            min-height: 16px;
+            line-height: 16px;
+            color: $error;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .sign-in-button {
+            margin-top: 10px;
+        }
+
+    }
+
+    .signin-theme {
+        position: relative;
+
+        .signin-theme-button {
+            width: 120px;
+            margin: 0 auto;
+            cursor: pointer;
+
+            .signin-theme-collapse-button {
+                margin-left: 10px;
+            }
+        }
+
+        .signin-theme-popup {
+            width: 300px;
+            top: 20px;
+            left: 100px;
+
+            .triangle {
+                left: calc(50% - 6px);
+            }
+
+            .content {
+
+                @include float-fix;
+
+                height: 154px;
+                padding: 20px;
+                box-sizing: border-box;
+
+                & > * {
+                    float: left;
+                    margin-left: 20px;
+                }
+
+                & > *:first-child {
+                    margin-left: 0;
+                }
+
+            }
+        }
+    }
+
+    .copyright {
+        box-sizing: border-box;
+        font-size: 12px;
+        line-height: 20px;
+        padding: 0 60px;
+        margin-top: 130px;
+        transition: all $transition-duration ease-in-out;
+    }
+}
+
+@media (max-width: 767px) {
+    .signin {
+        min-width: $minWidth;
+
+        h1 {
+            width: 100%;
+            margin: 12% auto 4%;
+        }
+
+        h2 {
+            width: 100%;
+            margin: 0 auto 4%;
+        }
+
+        .signin-form {
+            width: 100%;
+            padding: 10px 5%;
+        }
+
+        .signin-theme {
+            width: 100%;
+
+            .signin-theme-popup {
+                left: calc(50% - 150px);
+            }
+        }
+
+        .copyright {
+            font-size: 12px;
+            width: 100%;
+            padding: 0 5%;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+@import '../../../../../common';
+
+.mapping-label {
+    .label-title {
+        float: left;
+        width: 30%;
+        min-width: 150px;
+        text-align: right;
+        font-size: 14px;
+        font-weight: bold;
+        padding-right: 2em;
+        line-height: 60px;
+        box-sizing: border-box;
+    }
+    .label-content {
+        float: left;
+        width: 70%;
+        min-width: 350px;
+        margin-top: 14px;
+        position: relative;
+        .group {
+            width: 80%;
+        }
+        .add {
+            position: absolute;
+            left:81%;
+            top:0;
+            width: 42px;
+            height: 42px;
+            background: #fafafa;
+            padding: 0;
+            border: 1px solid #dfdfdf;
+            box-shadow: none;
+            i {
+                font-size: 24px;
+                height: 42px;
+                width: 42px;
+                color: $grey;
+            }
+            &:hover {
+                @include shadow(3);
+                i {
+                    color: $light-blue;
+                    border-radius: $border-radius;
+                }
+            }
+        }
+        &::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+    }
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+}

@@ -1,0 +1,117 @@
+@import '../../../../../common';
+
+.mapping-content{
+    background: #fff;
+    border-radius: $border-radius;
+    height: auto;
+    padding:20px 40px 40px 40px;
+    .page-title{
+        height: 60px;
+        line-height: 60px;
+        color:$nav-dark;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .mapping-content-container {
+        .mapping-content-select-item {
+            margin-top: 20px;
+            .mapping-content-select-item-title {
+                float: left;
+                width: 30%;
+                min-width: 150px;
+                text-align: right;
+                font-size: 14px;
+                font-weight: bold;
+                padding-right: 2em;
+                line-height: 40px;
+                box-sizing: border-box;
+            }
+            .mapping-content-select-item-items {
+                float: left;
+                width: 70%;
+                min-width: 400px;
+                .radio {
+                    height: 50px;
+                    line-height: 50px;
+                    font-size: 14px;
+                    overflow: hidden;
+                }
+                .mapping-table {
+                    overflow: hidden;
+                    .feed-list-table {
+                        float: left;
+                        width: auto;
+                        border: 1px solid #dfdfdf;
+                        .widget {
+                            margin: 0;
+                            td {
+                                .text-field {
+                                    height: 30px;
+                                    width: 100px;
+                                    padding: 0 0 0 12px;
+                                    input {
+                                        height: 30px;
+                                        padding: 0;
+                                    }
+                                    i {
+                                        width: 30px;
+                                        height: 30px;
+                                        line-height: 30px;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                    .add-col {
+                        float: left;
+                        height: 100%;
+                        width: 80px;
+                        background: #fff;
+                        padding: 0;
+                        border: 1px solid #dfdfdf;
+                        border-left: none;
+                        box-shadow: none;
+                        border-radius: 0;
+                        transition: none;
+                        i {
+                            font-size: 30px;
+                            height: auto;
+                            width: 80px;
+                            color: $grey;
+                        }
+                        &:hover {
+                            //@include shadow(3);
+                            background: #fafafa;
+                            i {
+                                color: $light-blue;
+                            }
+                        }
+                    }
+                }
+
+            }
+            &::after {
+                content: '';
+                display: table;
+                clear: both;
+            }
+
+        }
+    }
+     .mapping-content-foot{
+        margin-top: 80px;
+        overflow: hidden;
+        text-align: center;
+        padding-left: 30%;
+        .button {
+            width: 100px;
+            margin-right: 50px;
+            float: left;
+        }
+
+    }
+
+}
+
+

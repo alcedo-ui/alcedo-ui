@@ -1,0 +1,76 @@
+@import '../../common.scss';
+
+.text-field-group {
+
+	.text-field {
+		border-radius: 0;
+
+		input {
+			border-radius: 0;
+		}
+
+		&:first-child {
+			border-top: none;
+			border-top-left-radius: $border-radius;
+			border-top-right-radius: $border-radius;
+
+			input {
+				border-top-left-radius: $border-radius;
+				border-top-right-radius: $border-radius;
+			}
+		}
+
+		&:last-child {
+			border-bottom-left-radius: $border-radius;
+			border-bottom-right-radius: $border-radius;
+
+			input {
+				border-bottom-left-radius: $border-radius;
+				border-bottom-right-radius: $border-radius;
+			}
+		}
+	}
+
+}
+
+.theme-light .text-field-group {
+
+	.text-field {
+		border-top: 1px solid $bg-light;
+
+		&:first-child {
+			border-top: none;
+		}
+	}
+
+	&.disabled {
+		.text-field {
+			border-top: 1px solid #FFF;
+
+			&:first-child {
+				border-top: none;
+			}
+		}
+	}
+}
+
+.theme-dark .text-field-group {
+
+	.text-field {
+		border-top: 1px solid transparentize($bg-dark, .8);
+
+		&:first-child {
+			border-top: none;
+		}
+	}
+
+	&.disabled {
+		.text-field {
+			border-top: 1px solid #FFF;
+
+			&:first-child {
+				border-top: none;
+			}
+		}
+	}
+}

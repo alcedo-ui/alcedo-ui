@@ -1,0 +1,18 @@
+@import '../../../../common.scss';
+
+.theme-light .feed-list {
+
+	.feed-list-table {
+
+		.widget {
+
+			.actions {
+				i {
+					color: $title-light;
+				}
+			}
+		}
+
+	}
+
+}

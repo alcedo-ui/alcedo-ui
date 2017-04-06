@@ -1,0 +1,92 @@
+@import '../../../../common.scss';
+
+.brand {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 250px;
+	height: 60px;
+	font-size: 14px;
+	line-height: 60px;
+	text-align: left;
+	cursor: default;
+	transition: all $transition-duration ease-in-out;
+	overflow: visible;
+
+	.menu-toggle-button {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: block;
+		width: 60px;
+		height: 60px;
+		text-align: center;
+		line-height: 60px;
+		float: left;
+		cursor: pointer;
+		display: none;
+		z-index: 1;
+	}
+
+	.brand-name {
+		padding: 0 18px;
+		box-sizing: border-box;
+		overflow: hidden;
+		height: 60px;
+		line-height: 60px;
+	}
+
+	.right {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		display: none;
+		padding-right: 5px;
+
+		& > * {
+			float: right;
+		}
+
+		.toggle-button {
+			width: 40px;
+			text-align: center;
+			padding: 0 !important;
+		}
+	}
+
+}
+
+.app.collapsed {
+	.nav {
+		.brand {
+			width: 60px;
+
+			.brand-name {
+				padding: 0;
+				text-align: center;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.brand {
+		//@include shadow;
+
+		width: 100% !important;
+
+		.menu-toggle-button {
+			display: block;
+		}
+
+		.brand-name {
+			text-align: center;
+		}
+
+		.right {
+			display: block;
+		}
+	}
+}

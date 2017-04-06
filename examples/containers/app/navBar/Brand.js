@@ -1,0 +1,78 @@
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import * as actions from 'reduxes/actions';
+
+import ThemeMenu from './ThemeMenu';
+
+import 'sass/containers/app/navBar/brand/Brand.scss';
+import 'sass/containers/app/navBar/brand/BrandLight.scss';
+import 'sass/containers/app/navBar/brand/BrandDark.scss';
+
+class Brand extends Component {
+
+    constructor(props) {
+
+        super(props);
+
+        this.menuToggleButtonMousedownHandle = this::this.menuToggleButtonMousedownHandle;
+
+    }
+
+    menuToggleButtonMousedownHandle(e) {
+        e.stopPropagation();
+        this.props.toggleNavMenu();
+    }
+
+    render() {
+
+        const {$isDesktop, $navMenuCollapsed} = this.props;
+
+        return (
+            <div className="brand">
+
+                <i className="fa fa-bars menu-toggle-button"
+                   aria-hidden="true"
+                   onMouseDown={this.menuToggleButtonMousedownHandle}></i>
+
+                <div className="brand-name">
+                    {
+                        $isDesktop && $navMenuCollapsed ?
+                            'Alcedo'
+                            :
+                            'Alcedo UI Examples'
+                    }
+                </div>
+
+                <div className="right">
+                    <ThemeMenu/>
+                </div>
+
+            </div>
+        );
+
+    }
+}
+
+Brand.propTypes = {
+
+    $isDesktop: PropTypes.bool,
+    $navMenuCollapsed: PropTypes.bool,
+
+    toggleNavMenu: PropTypes.func
+
+};
+
+function mapStateToProps(state, ownProps) {
+    return {
+        $isDesktop: state.device.isDesktop,
+        $navMenuCollapsed: state.navMenu.navMenuCollapsed
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Brand);

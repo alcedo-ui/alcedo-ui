@@ -1,0 +1,56 @@
+@import '../../common.scss';
+
+.module-header {
+	width: 100%;
+	height: 70px;
+	box-sizing: border-box;
+	padding: 0 40px;
+
+	.module-header-inner {
+
+		@include float-fix;
+		box-sizing: border-box;
+		height: 70px;
+
+		& > a {
+			display: block;
+			width: 100px;
+			height: 70px;
+			float: left;
+			box-sizing: border-box;
+			line-height: 100px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 14px;
+			color: inherit;
+			user-select: none;
+		}
+	}
+
+}
+
+.theme-light .module-header {
+	color: $title-light;
+
+	.module-header-inner {
+		border-bottom: 2px solid $title-bg-light;
+
+		.router-link-active {
+			color: $highlight-light;
+			border-bottom: 2px solid $highlight-light;
+		}
+	}
+}
+
+.theme-dark .module-header {
+	color: $title-dark;
+
+	.module-header-inner {
+		border-bottom: 2px solid transparentize(#000,.95);
+
+		.router-link-active {
+			color: $highlight-dark;
+			border-bottom: 2px solid $highlight-dark;
+		}
+	}
+}

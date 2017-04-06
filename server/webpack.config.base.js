@@ -23,9 +23,11 @@ module.exports = {
             'src': resolve('examples'),
             'assets': resolve('examples/assets'),
             'sass': resolve('examples/assets/sass'),
+            'stylesheets': resolve('examples/assets/stylesheets'),
             'containers': resolve('examples/containers'),
-            'components': resolve('dist'),
-            'vendors': resolve('src/vendors')
+            'components': resolve('examples/components'),
+            'vendors': resolve('examples/vendors'),
+            'reduxes': resolve('examples/reduxes')
         }
     },
     module: {
