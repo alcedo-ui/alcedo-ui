@@ -10,6 +10,7 @@ export default class NavMenuItem extends Component {
         super(props);
 
         this.menuHeight = 50;
+        this.subMenuIndent = 20;
 
         this.state = {
             collapsed: true
@@ -27,9 +28,9 @@ export default class NavMenuItem extends Component {
 
     render() {
 
-        const {options} = this.props;
+        const {options, depth} = this.props;
         const {collapsed} = this.state;
-        const {menuHeight} = this;
+        const {menuHeight, subMenuIndent} = this;
 
         const hasChildren = options.children && options.children.length > 0;
 
@@ -62,7 +63,8 @@ export default class NavMenuItem extends Component {
                               disabled={options.disabled}
                               activeClassName="router-link-active">
 
-                            <div className="nav-menu-item-name">
+                            <div className="nav-menu-item-name"
+                                 style={{marginLeft: depth * subMenuIndent}}>
                                 {options.text}
                             </div>
 
@@ -82,7 +84,8 @@ export default class NavMenuItem extends Component {
                                 options.children.map((item, index) => {
                                     return (
                                         <NavMenuItem key={index}
-                                                     options={item}/>
+                                                     options={item}
+                                                     depth={depth + 1}/>
                                     );
                                 })
                             }
@@ -98,9 +101,11 @@ export default class NavMenuItem extends Component {
 };
 
 NavMenuItem.propTypes = {
-    options: PropTypes.object
+    options: PropTypes.object,
+    depth: PropTypes.number
 };
 
 NavMenuItem.defaultProps = {
-    options: null
+    options: null,
+    depth: 0
 };

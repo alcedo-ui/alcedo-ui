@@ -14,7 +14,21 @@ export default (
             <Route path="RaisedButton"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/buttons/RaisedButton').default);
+                           cb(null, require('./containers/app/modules/buttons/RaisedButtonExamples').default);
+                       });
+                   }}/>
+
+            <Route path="FlatButton"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/buttons/FlatButtonExamples').default);
+                       });
+                   }}/>
+
+            <Route path="IconButton"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/buttons/IconButtonExamples').default);
                        });
                    }}/>
 

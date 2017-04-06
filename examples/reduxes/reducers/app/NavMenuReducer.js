@@ -9,6 +9,12 @@ const DEFAULT_MENU = [{
     children: [{
         text: 'Raised Button',
         route: '/components/RaisedButton'
+    }, {
+        text: 'Flat Button',
+        route: '/components/FlatButton'
+    }, {
+        text: 'Icon Button',
+        route: '/components/IconButton'
     }]
 }];
 
