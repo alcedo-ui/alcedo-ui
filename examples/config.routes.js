@@ -9,14 +9,14 @@ export default (
 
         <IndexRoute component={App}/>
 
-        <Route path="app" component={App}>
+        <Route path="components" component={App}>
 
-            {/*<Route path="changePassword"*/}
-            {/*getComponent={(nextState, cb) => {*/}
-            {/*require.ensure([], (require) => {*/}
-            {/*cb(null, require('./containers/app/modules/changePassword/ChangePassword').default);*/}
-            {/*});*/}
-            {/*}}/>*/}
+            <Route path="RaisedButton"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/buttons/RaisedButton').default);
+                       });
+                   }}/>
 
         </Route>
 

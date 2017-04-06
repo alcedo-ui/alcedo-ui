@@ -22,9 +22,6 @@ class Brand extends Component {
     }
 
     render() {
-
-        const {$isDesktop, $navMenuCollapsed} = this.props;
-
         return (
             <div className="brand">
 
@@ -33,34 +30,20 @@ class Brand extends Component {
                    onMouseDown={this.menuToggleButtonMousedownHandle}></i>
 
                 <div className="brand-name">
-                    {
-                        $isDesktop && $navMenuCollapsed ?
-                            'Alcedo'
-                            :
-                            'Alcedo UI Examples'
-                    }
+                    Alcedo UI Examples
                 </div>
 
             </div>
         );
-
     }
 }
 
 Brand.propTypes = {
-
-    $isDesktop: PropTypes.bool,
-    $navMenuCollapsed: PropTypes.bool,
-
     toggleNavMenu: PropTypes.func
-
 };
 
 function mapStateToProps(state, ownProps) {
-    return {
-        $isDesktop: state.device.isDesktop,
-        $navMenuCollapsed: state.navMenu.navMenuCollapsed
-    };
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {

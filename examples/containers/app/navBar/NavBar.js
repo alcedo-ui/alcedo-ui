@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import * as actions from 'reduxes/actions';
 
 import Brand from './Brand';
-import NavMenuToggleButton from './NavMenuToggleButton';
 
 import 'sass/containers/app/navBar/nav/Nav.scss';
 
@@ -22,11 +21,7 @@ class NavBar extends Component {
 
                 <Brand/>
 
-                <div className="nav-collapse floatfix">
-                    <div className="left">
-                        <NavMenuToggleButton/>
-                    </div>
-                </div>
+                <div className="nav-collapse floatfix"></div>
 
             </div>
         );

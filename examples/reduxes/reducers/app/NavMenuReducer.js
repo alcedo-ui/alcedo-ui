@@ -4,10 +4,13 @@ import * as types from 'reduxes/actionTypes';
 
 const userMenuCollapsed = localStorage.getItem('userMenuCollapsed');
 
-const DEFAULT_MENU = [/*{
- text: 'button',
- route: '/app/button'
- }*/];
+const DEFAULT_MENU = [{
+    text: 'buttons',
+    children: [{
+        text: 'buttons',
+        route: '/components/RaisedButton'
+    }]
+}];
 
 const initialState = {
     navMenuCollapsed: true,

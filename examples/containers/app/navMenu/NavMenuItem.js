@@ -31,9 +31,6 @@ export default class NavMenuItem extends Component {
                       disabled={options.disabled}
                       activeClassName="router-link-active">
 
-                    {/*<i className={`nav-menu-item-icon ${options.iconCls}`}*/}
-                       {/*aria-hidden="true"></i>*/}
-
                     <div className="nav-menu-item-name">
                         {options.text}
                     </div>

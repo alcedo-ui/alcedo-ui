@@ -21,39 +21,8 @@
         overflow: visible;
         box-sizing: border-box;
         transition: all $transition-duration ease-in-out;
-
-        .left {
-
-            & > * {
-                float: left;
-                width: 30px;
-                height: 30px;
-                color: darken($theme-light-text, 10%);
-                margin: 15px;
-                margin-right: 0;
-                text-align: center;
-                line-height: 30px;
-                cursor: pointer;
-                font-size: 18px;
-                transition: color $transition-duration ease-in-out;
-
-                &:hover {
-                    color: $theme-light-text;
-                }
-            }
-
-        }
     }
 
-}
-
-.app.collapsed {
-    .nav {
-        .nav-collapse {
-            width: calc(100% - 60px);
-            margin-left: 60px;
-        }
-    }
 }
 
 @media (max-width: 767px) {

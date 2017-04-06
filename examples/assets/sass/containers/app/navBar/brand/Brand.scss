@@ -45,20 +45,6 @@
 
 }
 
-.app.collapsed {
-    .nav {
-        .brand {
-            width: 60px;
-
-            .brand-name {
-                padding: 0;
-                text-align: center;
-                font-weight: bold;
-            }
-        }
-    }
-}
-
 @media (max-width: 767px) {
     .brand {
         background: $theme-brand !important;
