@@ -65,13 +65,6 @@
         }
     }
 
-    &.collapsed {
-        & > .content-wrap {
-            width: calc(100% - 60px);
-            margin-left: 60px;
-        }
-    }
-
 }
 
 @media (max-width: 767px) {

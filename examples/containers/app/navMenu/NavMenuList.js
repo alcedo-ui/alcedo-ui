@@ -9,27 +9,12 @@ import NavMenuItem from './NavMenuItem';
 class NavMenuList extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.state = {
-            activeIndex: null
-        };
-
-        this.toggleMenu = this::this.toggleMenu;
-
-    }
-
-    toggleMenu(index) {
-        this.setState({
-            activeIndex: this.state.activeIndex === index ? null : index
-        });
     }
 
     render() {
 
         const {$navMenu} = this.props;
-        const {activeIndex} = this.state;
 
         return (
             <div className="nav-menu-list">
@@ -37,9 +22,7 @@ class NavMenuList extends Component {
                     $navMenu.map((menu, index) => {
                         return (
                             <NavMenuItem key={index}
-                                         options={menu}
-                                         activeIndex={activeIndex}
-                                         onTrigger={this.toggleMenu}/>
+                                         options={menu}/>
                         );
                     })
                 }

@@ -7,7 +7,7 @@ const userMenuCollapsed = localStorage.getItem('userMenuCollapsed');
 const DEFAULT_MENU = [{
     text: 'buttons',
     children: [{
-        text: 'buttons',
+        text: 'Raised Button',
         route: '/components/RaisedButton'
     }]
 }];
