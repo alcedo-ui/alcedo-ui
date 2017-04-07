@@ -13,4 +13,4 @@ Thumbs.db
 /node_modules
 
 # Distribution
-#/dist
+/dist
