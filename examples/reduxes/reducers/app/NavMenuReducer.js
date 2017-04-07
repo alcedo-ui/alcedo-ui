@@ -15,6 +15,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Icon Button',
         route: '/components/IconButton'
+    }, {
+        text: 'Dialog Button',
+        route: '/components/Dialog'
     }]
 }];
 
