@@ -3,24 +3,31 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = undefined;
 
-var _index = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/redbox-react/lib/index.js');
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
-var _index2 = _interopRequireDefault(_index);
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _index3 = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/react-transform-catch-errors/lib/index.js');
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
-var _index4 = _interopRequireDefault(_index3);
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _react2 = require('react');
+var _createClass2 = require('babel-runtime/helpers/createClass');
 
-var _react3 = _interopRequireDefault(_react2);
+var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _index5 = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/react-transform-hmr/lib/index.js');
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
-var _index6 = _interopRequireDefault(_index5);
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
@@ -38,45 +45,13 @@ require('./TouchRipple.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _components = {
-    TouchRipple: {
-        displayName: 'TouchRipple'
-    }
-};
-
-var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
-    filename: '/Users/liangxiaojun/Projects/Derby/alcedo-ui/src/TouchRipple/TouchRipple.js',
-    components: _components,
-    locals: [module],
-    imports: [_react3.default]
-});
-
-var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
-    filename: '/Users/liangxiaojun/Projects/Derby/alcedo-ui/src/TouchRipple/TouchRipple.js',
-    components: _components,
-    locals: [],
-    imports: [_react3.default, _index2.default]
-});
-
-function _wrapComponent(id) {
-    return function (Component) {
-        return _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformHmrLibIndexJs2(_UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
-    };
-}
-
-var TouchRipple = _wrapComponent('TouchRipple')(function (_Component) {
-    _inherits(TouchRipple, _Component);
+var TouchRipple = function (_Component) {
+    (0, _inherits3.default)(TouchRipple, _Component);
 
     function TouchRipple(props) {
-        _classCallCheck(this, TouchRipple);
+        (0, _classCallCheck3.default)(this, TouchRipple);
 
-        var _this = _possibleConstructorReturn(this, (TouchRipple.__proto__ || Object.getPrototypeOf(TouchRipple)).call(this, props));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (TouchRipple.__proto__ || (0, _getPrototypeOf2.default)(TouchRipple)).call(this, props));
 
         _this.ignoreNextMouseDown = false;
         _this.nextKey = 0;
@@ -93,7 +68,7 @@ var TouchRipple = _wrapComponent('TouchRipple')(function (_Component) {
         return _this;
     }
 
-    _createClass(TouchRipple, [{
+    (0, _createClass3.default)(TouchRipple, [{
         key: 'getDiag',
         value: function getDiag(a, b) {
             return Math.sqrt(a * a + b * b);
@@ -156,7 +131,7 @@ var TouchRipple = _wrapComponent('TouchRipple')(function (_Component) {
             var ripples = this.state.ripples;
 
 
-            ripples.push(_react3.default.createElement(_Ripple2.default, { key: this.nextKey++,
+            ripples.push(_react2.default.createElement(_Ripple2.default, { key: this.nextKey++,
                 style: this.getRippleStyle(e) }));
 
             this.setState({
@@ -216,7 +191,7 @@ var TouchRipple = _wrapComponent('TouchRipple')(function (_Component) {
             var ripples = this.state.ripples;
 
 
-            return _react3.default.createElement(
+            return _react2.default.createElement(
                 _reactAddonsTransitionGroup2.default,
                 { component: 'div',
                     className: 'touch-ripple ' + className,
@@ -227,16 +202,15 @@ var TouchRipple = _wrapComponent('TouchRipple')(function (_Component) {
             );
         }
     }]);
-
     return TouchRipple;
-}(_react2.Component));
+}(_react.Component);
 
 exports.default = TouchRipple;
 ;
 
 TouchRipple.propTypes = {
-    className: _react2.PropTypes.string,
-    style: _react2.PropTypes.object
+    className: _react.PropTypes.string,
+    style: _react.PropTypes.object
 };
 
 TouchRipple.defaultProps = {

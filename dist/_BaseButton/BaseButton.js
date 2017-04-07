@@ -37,24 +37,24 @@ var _TouchRipple = require('../TouchRipple/TouchRipple');
 
 var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
 
-require('./RaisedButton.css');
+require('./BaseButton.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var RaisedButton = function (_Component) {
-    (0, _inherits3.default)(RaisedButton, _Component);
+var BaseButton = function (_Component) {
+    (0, _inherits3.default)(BaseButton, _Component);
 
-    function RaisedButton(props) {
-        (0, _classCallCheck3.default)(this, RaisedButton);
+    function BaseButton(props) {
+        (0, _classCallCheck3.default)(this, BaseButton);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (RaisedButton.__proto__ || (0, _getPrototypeOf2.default)(RaisedButton)).call(this, props));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (BaseButton.__proto__ || (0, _getPrototypeOf2.default)(BaseButton)).call(this, props));
 
         _this.clickHandle = _this.clickHandle.bind(_this);
 
         return _this;
     }
 
-    (0, _createClass3.default)(RaisedButton, [{
+    (0, _createClass3.default)(BaseButton, [{
         key: 'clickHandle',
         value: function clickHandle(e) {
             !this.props.disabled && !this.props.isLoading && this.props.onClick && this.props.onClick(e);
@@ -75,7 +75,7 @@ var RaisedButton = function (_Component) {
 
             return _react2.default.createElement(
                 'button',
-                { className: 'raised-button ' + className,
+                { className: 'base-button ' + className,
                     style: style,
                     type: type,
                     disabled: disabled || isLoading,
@@ -88,13 +88,13 @@ var RaisedButton = function (_Component) {
             );
         }
     }]);
-    return RaisedButton;
+    return BaseButton;
 }(_react.Component);
 
-exports.default = RaisedButton;
+exports.default = BaseButton;
 ;
 
-RaisedButton.propTypes = {
+BaseButton.propTypes = {
 
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
@@ -109,7 +109,7 @@ RaisedButton.propTypes = {
 
 };
 
-RaisedButton.defaultProps = {
+BaseButton.defaultProps = {
 
     className: '',
     style: null,
