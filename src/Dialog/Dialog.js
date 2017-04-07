@@ -31,8 +31,8 @@ export default class Dialog extends Component{
                     <h3>{this.props.title}</h3>
                     <p>{this.props.desc}</p>
                     <div className="dialog-button-group">
-                        <button className="button" onClick={this.props.onHide}>cancel</button>
-                        <button className="button" onClick={this.props.onSure}>commit</button>
+                        <button className={"button "+(this.props.buttonBool[0]?"":"disappear")} onClick={this.props.onHide}>cancel</button>
+                        <button className={"button "+(this.props.buttonBool[1]?"":"disappear")} onClick={this.props.onSure}>commit</button>
                     </div>
                 </div>
             </div>
