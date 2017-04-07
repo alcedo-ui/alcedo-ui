@@ -32,6 +32,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Dialog"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/buttons/DialogExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
