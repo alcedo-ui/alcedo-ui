@@ -35,7 +35,7 @@ export default (
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/buttons/DialogExamples').default);
+                           cb(null, require('./containers/app/modules/popup/DialogExamples').default);
                        });
                    }}/>
 
