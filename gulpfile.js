@@ -1,3 +1,5 @@
+process.env.NODE_ENV = '"release"';
+
 var gulp = require('gulp'),
     browserify = require('browserify'),
     sass = require('gulp-sass'),
@@ -13,7 +15,7 @@ gulp.task('sass', function () {
 gulp.task('es6', function () {
     return gulp.src('./src/**/*.js')
         .pipe(babel({
-            presets: ['es2015']
+            plugins: ['transform-runtime']
         }))
         .pipe(gulp.dest('./dist'));
 });
