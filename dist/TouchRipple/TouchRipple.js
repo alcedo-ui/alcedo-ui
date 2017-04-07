@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _index = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/redbox-react/lib/index.js');
+var _index = require('E:\\git\\alcedo-ui\\node_modules\\babel-preset-react-hmre\\node_modules\\redbox-react\\lib\\index.js');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/react-transform-catch-errors/lib/index.js');
+var _index3 = require('E:\\git\\alcedo-ui\\node_modules\\babel-preset-react-hmre\\node_modules\\react-transform-catch-errors\\lib\\index.js');
 
 var _index4 = _interopRequireDefault(_index3);
 
@@ -16,7 +16,7 @@ var _react2 = require('react');
 
 var _react3 = _interopRequireDefault(_react2);
 
-var _index5 = require('/Users/liangxiaojun/Projects/Derby/alcedo-ui/node_modules/react-transform-hmr/lib/index.js');
+var _index5 = require('E:\\git\\alcedo-ui\\node_modules\\babel-preset-react-hmre\\node_modules\\react-transform-hmr\\lib\\index.js');
 
 var _index6 = _interopRequireDefault(_index5);
 
@@ -50,15 +50,15 @@ var _components = {
     }
 };
 
-var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
-    filename: '/Users/liangxiaojun/Projects/Derby/alcedo-ui/src/TouchRipple/TouchRipple.js',
+var _EGitAlcedoUiNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
+    filename: 'E:/git/alcedo-ui/src/TouchRipple/TouchRipple.js',
     components: _components,
     locals: [module],
     imports: [_react3.default]
 });
 
-var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
-    filename: '/Users/liangxiaojun/Projects/Derby/alcedo-ui/src/TouchRipple/TouchRipple.js',
+var _EGitAlcedoUiNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
+    filename: 'E:/git/alcedo-ui/src/TouchRipple/TouchRipple.js',
     components: _components,
     locals: [],
     imports: [_react3.default, _index2.default]
@@ -66,7 +66,7 @@ var _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrors
 
 function _wrapComponent(id) {
     return function (Component) {
-        return _UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformHmrLibIndexJs2(_UsersLiangxiaojunProjectsDerbyAlcedoUiNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
+        return _EGitAlcedoUiNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2(_EGitAlcedoUiNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
     };
 }
 
