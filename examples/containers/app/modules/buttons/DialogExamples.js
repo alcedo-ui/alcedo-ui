@@ -31,7 +31,7 @@ export default class DialogExamples extends Component{
         return (
             <div className="test-dialog">
                 <button onClick={this.clickHandle}>showDialog</button>
-                <Dialog className={this.state.hide} onHide={this.hideHandle} onSure={this.hideHandle} buttonBool={[false,true]}/>
+                <Dialog className={this.state.hide} onHide={this.hideHandle} onSure={this.hideHandle}/>
             </div>
         );
     }
