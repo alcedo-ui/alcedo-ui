@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import IconButton from 'dist/IconButton';
 
-import 'sass/containers/app/modules/buttons/IconButtonExamples';
+import 'sass/containers/app/modules/buttons/IconButtonExamples.scss';
 
 export default class IconButtonExamples extends Component {
 

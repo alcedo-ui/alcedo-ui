@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import FlatButton from 'dist/FlatButton';
 
-import 'sass/containers/app/modules/buttons/FlatButtonExamples';
+import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
 export default class FlatButtonExamples extends Component {
 
