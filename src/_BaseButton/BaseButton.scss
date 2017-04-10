@@ -50,6 +50,15 @@
         }
     }
 
+    &.button-circular {
+        width: 40px;
+        border-radius: 20px;
+
+        .touch-ripple {
+            border-radius: 20px;
+        }
+    }
+
     &[disabled] {
         cursor: not-allowed;
     }

@@ -12,11 +12,12 @@ export default class IconButton extends Component {
 
     render() {
 
-        const {children, className, onTouchTap} = this.props;
+        const {children, className, isCircular, onTouchTap} = this.props;
 
         return (
             <BaseButton {...this.props}
                         className={`icon-button ${className}`}
+                        isCircular={isCircular}
                         onTouchTap={onTouchTap}>
                 {children}
             </BaseButton>
@@ -30,7 +31,8 @@ IconButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     buttonStyle: PropTypes.string,
-    rounded: PropTypes.bool,
+    isRounded: PropTypes.bool,
+    isCircular: PropTypes.bool,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     type: PropTypes.string,
@@ -50,7 +52,8 @@ IconButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
-    rounded: false,
+    isRounded: false,
+    isCircular: true,
 
     value: '',
     disabled: false,

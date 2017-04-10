@@ -30,7 +30,8 @@ RaisedButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     buttonStyle: PropTypes.string,
-    rounded: PropTypes.bool,
+    isRounded: PropTypes.bool,
+    isCircular: PropTypes.bool,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     type: PropTypes.string,
@@ -50,7 +51,8 @@ RaisedButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
-    rounded: false,
+    isRounded: false,
+    isCircular: false,
 
     value: '',
     disabled: false,

@@ -22,7 +22,10 @@ export default class BaseButton extends Component {
 
     render() {
 
-        const {children, className, style, buttonStyle, rounded, iconCls, iconPosition, type, value, disabled, isLoading} = this.props;
+        const {
+            children, className, style, buttonStyle, isRounded, isCircular,
+            iconCls, iconPosition, type, value, disabled, isLoading
+        } = this.props;
 
         const iconEl = iconCls ?
             (isLoading ?
@@ -34,7 +37,8 @@ export default class BaseButton extends Component {
             null;
 
         return (
-            <button className={`base-button theme-${buttonStyle} ${rounded ? 'button-rounded' : ''} ${className}`}
+            <button className={`base-button theme-${buttonStyle}
+                        ${isCircular ? 'button-circular' : (isRounded ? 'button-rounded' : '')} ${className}`}
                     style={style}
                     type={type}
                     disabled={disabled || isLoading}
@@ -69,7 +73,8 @@ BaseButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     buttonStyle: PropTypes.string,
-    rounded: PropTypes.bool,
+    isRounded: PropTypes.bool,
+    isCircular: PropTypes.bool,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     type: PropTypes.string,
@@ -89,7 +94,8 @@ BaseButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
-    rounded: false,
+    isRounded: false,
+    isCircular: false,
 
     value: '',
     disabled: false,

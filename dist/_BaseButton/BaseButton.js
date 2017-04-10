@@ -72,7 +72,8 @@ var BaseButton = function (_Component) {
                 className = _props2.className,
                 style = _props2.style,
                 buttonStyle = _props2.buttonStyle,
-                rounded = _props2.rounded,
+                isRounded = _props2.isRounded,
+                isCircular = _props2.isCircular,
                 iconCls = _props2.iconCls,
                 iconPosition = _props2.iconPosition,
                 type = _props2.type,
@@ -86,7 +87,7 @@ var BaseButton = function (_Component) {
 
             return _react2.default.createElement(
                 'button',
-                { className: 'base-button theme-' + buttonStyle + ' ' + (rounded ? 'button-rounded' : '') + ' ' + className,
+                { className: 'base-button theme-' + buttonStyle + '\n                        ' + (isCircular ? 'button-circular' : isRounded ? 'button-rounded' : '') + ' ' + className,
                     style: style,
                     type: type,
                     disabled: disabled || isLoading,
@@ -110,7 +111,8 @@ BaseButton.propTypes = {
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
     buttonStyle: _react.PropTypes.string,
-    rounded: _react.PropTypes.bool,
+    isRounded: _react.PropTypes.bool,
+    isCircular: _react.PropTypes.bool,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
     type: _react.PropTypes.string,
@@ -130,7 +132,8 @@ BaseButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
-    rounded: false,
+    isRounded: false,
+    isCircular: false,
 
     value: '',
     disabled: false,

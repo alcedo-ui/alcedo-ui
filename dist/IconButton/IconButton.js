@@ -37,48 +37,51 @@ var _BaseButton = require('../_BaseButton');
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-require('./FlatButton.css');
+require('./IconButton.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FlatButton = function (_Component) {
-    (0, _inherits3.default)(FlatButton, _Component);
+var IconButton = function (_Component) {
+    (0, _inherits3.default)(IconButton, _Component);
 
-    function FlatButton(props) {
-        (0, _classCallCheck3.default)(this, FlatButton);
-        return (0, _possibleConstructorReturn3.default)(this, (FlatButton.__proto__ || (0, _getPrototypeOf2.default)(FlatButton)).call(this, props));
+    function IconButton(props) {
+        (0, _classCallCheck3.default)(this, IconButton);
+        return (0, _possibleConstructorReturn3.default)(this, (IconButton.__proto__ || (0, _getPrototypeOf2.default)(IconButton)).call(this, props));
     }
 
-    (0, _createClass3.default)(FlatButton, [{
+    (0, _createClass3.default)(IconButton, [{
         key: 'render',
         value: function render() {
             var _props = this.props,
                 children = _props.children,
                 className = _props.className,
+                isCircular = _props.isCircular,
                 onTouchTap = _props.onTouchTap;
 
 
             return _react2.default.createElement(
                 _BaseButton2.default,
                 (0, _extends3.default)({}, this.props, {
-                    className: 'flat-button ' + className,
+                    className: 'icon-button ' + className,
+                    isCircular: isCircular,
                     onTouchTap: onTouchTap }),
                 children
             );
         }
     }]);
-    return FlatButton;
+    return IconButton;
 }(_react.Component);
 
-exports.default = FlatButton;
+exports.default = IconButton;
 ;
 
-FlatButton.propTypes = {
+IconButton.propTypes = {
 
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
     buttonStyle: _react.PropTypes.string,
-    rounded: _react.PropTypes.bool,
+    isRounded: _react.PropTypes.bool,
+    isCircular: _react.PropTypes.bool,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
     type: _react.PropTypes.string,
@@ -93,12 +96,13 @@ FlatButton.propTypes = {
 
 };
 
-FlatButton.defaultProps = {
+IconButton.defaultProps = {
 
     className: '',
     style: null,
     buttonStyle: '',
-    rounded: false,
+    isRounded: false,
+    isCircular: true,
 
     value: '',
     disabled: false,

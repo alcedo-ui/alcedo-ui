@@ -78,7 +78,8 @@ RaisedButton.propTypes = {
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
     buttonStyle: _react.PropTypes.string,
-    rounded: _react.PropTypes.bool,
+    isRounded: _react.PropTypes.bool,
+    isCircular: _react.PropTypes.bool,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
     type: _react.PropTypes.string,
@@ -98,7 +99,8 @@ RaisedButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
-    rounded: false,
+    isRounded: false,
+    isCircular: false,
 
     value: '',
     disabled: false,

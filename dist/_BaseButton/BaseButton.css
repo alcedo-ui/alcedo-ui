@@ -31,5 +31,10 @@
     border-radius: 20px; }
     .base-button.button-rounded .touch-ripple {
       border-radius: 20px; }
+  .base-button.button-circular {
+    width: 40px;
+    border-radius: 20px; }
+    .base-button.button-circular .touch-ripple {
+      border-radius: 20px; }
   .base-button[disabled] {
     cursor: not-allowed; }
