@@ -138,9 +138,10 @@ export default class TextField extends Component {
         const invalidMsg = this.props.invalidMsg || this.state.invalidMsg;
 
         return (
-            <div
-                className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''} ${className}`}
-                style={style}>
+            <div className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''}
+                    ${iconCls ? 'has-icon' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''}
+                    ${className}`}
+                 style={style}>
 
                 {
                     iconCls ?
@@ -151,6 +152,7 @@ export default class TextField extends Component {
                 }
 
                 <input ref="input"
+                       className="text-field-input"
                        type={inputType}
                        name={name}
                        placeholder={placeholder}

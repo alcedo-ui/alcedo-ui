@@ -34,13 +34,13 @@
         }
     }
 
-    input {
+    .text-field-input {
         width: 100%;
         height: 100%;
         line-height: 20px;
         border: none;
         box-sizing: border-box;
-        padding: 15px 40px 15px 50px;
+        padding: 15px 40px 15px 15px;
         border-radius: $border-radius;
         font-size: 12px;
         background: transparent;
@@ -49,10 +49,16 @@
         text-overflow: ellipsis;
     }
 
+    &.has-icon {
+        .text-field-input {
+            padding-left: 50px;
+        }
+    }
+
     &.empty {
 
-        input {
-            padding: 15px 20px 15px 50px;
+        .text-field-input {
+            padding: 15px 20px 15px 10px;
         }
 
         .password-visible-icon {
@@ -61,14 +67,14 @@
     }
 
     &.password {
-        input {
-            padding: 15px 80px 15px 50px;
+        .text-field-input {
+            padding: 15px 80px 15px 10px;
         }
     }
 
     &.empty.password {
-        input {
-            padding: 15px 40px 15px 50px;
+        .text-field-input {
+            padding: 15px 40px 15px 10px;
         }
     }
 
@@ -83,7 +89,7 @@
             color: lighten($theme-text, 40%);
         }
 
-        input {
+        .text-field-input {
             cursor: not-allowed;
             color: lighten($theme-text, 20%);
         }
