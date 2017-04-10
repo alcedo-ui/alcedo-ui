@@ -33,8 +33,8 @@
       border-radius: 20px; }
   .base-button.button-circular {
     width: 40px;
-    border-radius: 20px; }
+    border-radius: 50%; }
     .base-button.button-circular .touch-ripple {
-      border-radius: 20px; }
+      border-radius: 50%; }
   .base-button[disabled] {
     cursor: not-allowed; }

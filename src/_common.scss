@@ -90,11 +90,11 @@ $transition-duration: 250ms;
     color: $color;
 
     .button-icon {
-        color: $color;
+        color: inherit;
     }
 
     .circular-loading .spinner {
-        border-color: $color;
+        border-color: inherit;
     }
 
     &:hover {

@@ -2,9 +2,9 @@
   background: transparent;
   color: #4c637b; }
   .flat-button .button-icon {
-    color: #4c637b; }
+    color: inherit; }
   .flat-button .circular-loading .spinner {
-    border-color: #4c637b; }
+    border-color: inherit; }
   .flat-button:hover {
     background: transparent; }
   .flat-button:active {
@@ -16,9 +16,9 @@
     background: transparent;
     color: #4c637b; }
     .flat-button.theme-primary .button-icon {
-      color: #4c637b; }
+      color: inherit; }
     .flat-button.theme-primary .circular-loading .spinner {
-      border-color: #4c637b; }
+      border-color: inherit; }
     .flat-button.theme-primary:hover {
       background: transparent; }
     .flat-button.theme-primary:active {
@@ -30,9 +30,9 @@
     background: transparent;
     color: #67ba31; }
     .flat-button.theme-success .button-icon {
-      color: #67ba31; }
+      color: inherit; }
     .flat-button.theme-success .circular-loading .spinner {
-      border-color: #67ba31; }
+      border-color: inherit; }
     .flat-button.theme-success:hover {
       background: transparent; }
     .flat-button.theme-success:active {
@@ -44,9 +44,9 @@
     background: transparent;
     color: #f1ad09; }
     .flat-button.theme-warning .button-icon {
-      color: #f1ad09; }
+      color: inherit; }
     .flat-button.theme-warning .circular-loading .spinner {
-      border-color: #f1ad09; }
+      border-color: inherit; }
     .flat-button.theme-warning:hover {
       background: transparent; }
     .flat-button.theme-warning:active {
@@ -58,9 +58,9 @@
     background: transparent;
     color: #d8534e; }
     .flat-button.theme-error .button-icon {
-      color: #d8534e; }
+      color: inherit; }
     .flat-button.theme-error .circular-loading .spinner {
-      border-color: #d8534e; }
+      border-color: inherit; }
     .flat-button.theme-error:hover {
       background: transparent; }
     .flat-button.theme-error:active {

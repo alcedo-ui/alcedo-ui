@@ -52,10 +52,10 @@
 
     &.button-circular {
         width: 40px;
-        border-radius: 20px;
+        border-radius: 50%;
 
         .touch-ripple {
-            border-radius: 20px;
+            border-radius: 50%;
         }
     }
 
