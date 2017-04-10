@@ -29,5 +29,7 @@
       display: none; }
   .base-button.button-rounded {
     border-radius: 20px; }
+    .base-button.button-rounded .touch-ripple {
+      border-radius: 20px; }
   .base-button[disabled] {
     cursor: not-allowed; }

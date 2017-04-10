@@ -77,7 +77,7 @@ FlatButton.propTypes = {
 
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
-    buttonStyle: _react.PropTypes.stirng,
+    buttonStyle: _react.PropTypes.string,
     rounded: _react.PropTypes.bool,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),

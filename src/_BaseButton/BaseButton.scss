@@ -44,6 +44,10 @@
 
     &.button-rounded {
         border-radius: 20px;
+
+        .touch-ripple {
+            border-radius: 20px;
+        }
     }
 
     &[disabled] {

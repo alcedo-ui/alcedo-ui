@@ -2,16 +2,6 @@
 
 .flat-button {
 
-    //@include shadow(2);
-    //
-    //&:hover {
-    //    @include shadow(4);
-    //}
-    //
-    //&:active {
-    //    @include shadow(3);
-    //}
-
     // default theme
     @include button-theme($theme-text, transparent);
 
@@ -27,6 +17,14 @@
     }
     &.theme-error {
         @include button-theme($error, transparent);
+    }
+
+    &:hover {
+        background: transparentize(#fff, .3) !important;
+
+        &[disabled] {
+            background: transparentize(#eee, .3) !important;
+        }
     }
 
 }

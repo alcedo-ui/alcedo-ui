@@ -68,3 +68,7 @@
     .flat-button.theme-error[disabled] {
       color: rgba(216, 83, 78, 0.5);
       background: transparent; }
+  .flat-button:hover {
+    background: rgba(255, 255, 255, 0.7) !important; }
+    .flat-button:hover[disabled] {
+      background: rgba(238, 238, 238, 0.7) !important; }
