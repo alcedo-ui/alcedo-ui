@@ -16,15 +16,16 @@ export default class BaseButton extends Component {
     }
 
     clickHandle(e) {
-        !this.props.disabled && !this.props.isLoading && this.props.onClick && this.props.onClick(e);
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
     }
 
     render() {
 
-        const {children, className, style, iconCls, type, value, disabled, isLoading} = this.props;
+        const {children, className, style, buttonStyle, iconCls, type, value, disabled, isLoading} = this.props;
 
         return (
-            <button className={`base-button ${className}`}
+            <button className={`base-button theme-${buttonStyle} ${className}`}
                     style={style}
                     type={type}
                     disabled={disabled || isLoading}
@@ -35,7 +36,7 @@ export default class BaseButton extends Component {
                         (isLoading ?
                             <CircularLoading size="small"/>
                             :
-                            <i className={iconCls}
+                            <i className={`button-icon ${iconCls}`}
                                aria-hidden="true"></i>)
                         :
                         null
@@ -57,6 +58,7 @@ BaseButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+    buttonStyle: PropTypes.stirng,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     iconCls: PropTypes.string,
@@ -72,6 +74,7 @@ BaseButton.defaultProps = {
 
     className: '',
     style: null,
+    buttonStyle: '',
 
     value: '',
     iconCls: '',

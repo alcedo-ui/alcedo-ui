@@ -1,6 +1,7 @@
 .base-button {
-  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-  width: 300px;
+  box-shadow: rgba(0, 0, 0, 0.037647) 0px 1px 1px, rgba(0, 0, 0, 0.077647) 0px 1px 1px;
+  display: inline-block;
+  width: 100px;
   height: 40px;
   position: relative;
   line-height: 40px;
@@ -9,32 +10,64 @@
   transition: all 250ms ease-in-out;
   cursor: pointer;
   box-sizing: border-box;
-  display: block;
   padding: 0 12px;
   font-size: 12px;
   user-select: none;
-  background: #758697;
-  color: rgba(255, 255, 255, 0.9); }
-  .base-button[disabled] {
-    cursor: not-allowed;
-    box-shadow: none !important;
-    background: #afb9c3; }
-  .base-button:hover {
-    background: #8493a2;
-    color: #FFF; }
-  .base-button:active {
-    background: #68798a;
-    color: #FFF; }
-  .base-button i {
+  background: #fff;
+  color: #4C637B; }
+  .base-button .button-icon {
     width: 16px;
     line-height: 40px;
     text-align: center;
     font-size: inherit;
-    color: #FFF;
+    color: #fff;
     margin-right: 10px; }
   .base-button .circular-loading {
     margin-right: 10px; }
     .base-button .circular-loading .spinner {
-      border-color: #FFF; }
+      border-color: #fff; }
   .base-button .touch-ripple {
     border-radius: 4px; }
+    .base-button .touch-ripple.hidden {
+      display: none; }
+  .base-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    background: #fafafa; }
+  .base-button:active {
+    box-shadow: rgba(0, 0, 0, 0.077647) 0px 1px 3px, rgba(0, 0, 0, 0.117647) 0px 1px 2px;
+    background: #f2f2f2; }
+  .base-button[disabled] {
+    cursor: not-allowed;
+    box-shadow: none !important;
+    color: rgba(76, 99, 123, 0.5);
+    background: #e6e6e6; }
+  .base-button.theme-success {
+    background: #67BA31;
+    color: #fff; }
+    .base-button.theme-success:hover {
+      background: #63b22f; }
+    .base-button.theme-success:active {
+      background: #5ca62c; }
+    .base-button.theme-success[disabled] {
+      color: rgba(255, 255, 255, 0.5);
+      background: #519226; }
+  .base-button.theme-warning {
+    background: #F1AD09;
+    color: #fff; }
+    .base-button.theme-warning:hover {
+      background: #e7a609; }
+    .base-button.theme-warning:active {
+      background: #d89b08; }
+    .base-button.theme-warning[disabled] {
+      color: rgba(255, 255, 255, 0.5);
+      background: #c08a07; }
+  .base-button.theme-error {
+    background: #D8534E;
+    color: #fff; }
+    .base-button.theme-error:hover {
+      background: #d64b46; }
+    .base-button.theme-error:active {
+      background: #d33f39; }
+    .base-button.theme-error[disabled] {
+      color: rgba(255, 255, 255, 0.5);
+      background: #c7322c; }

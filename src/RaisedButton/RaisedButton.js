@@ -1,53 +1,25 @@
 import React, {Component, PropTypes} from 'react';
 
-import CircularLoading from '../CircularLoading/CircularLoading';
-import TouchRipple from '../TouchRipple/TouchRipple';
+import BaseButton from '../_BaseButton';
 
 import './RaisedButton.css';
 
 export default class RaisedButton extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.clickHandle = this::this.clickHandle;
-
-    }
-
-    clickHandle(e) {
-        !this.props.disabled && !this.props.isLoading && this.props.onClick && this.props.onClick(e);
     }
 
     render() {
 
-        const {children, className, style, iconCls, type, value, disabled, isLoading} = this.props;
+        const {children, className, onClick} = this.props;
 
         return (
-            <button className={`raised-button ${className}`}
-                    style={style}
-                    type={type}
-                    disabled={disabled || isLoading}
-                    onMouseDown={this.clickHandle}>
-
-                {
-                    iconCls ?
-                        (isLoading ?
-                            <CircularLoading size="small"/>
-                            :
-                            <i className={iconCls}
-                               aria-hidden="true"></i>)
-                        :
-                        null
-                }
-
-                {value}
-
+            <BaseButton {...this.props}
+                        className={`raised-button ${className}`}
+                        onClick={onClick}>
                 {children}
-
-                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}/>
-
-            </button>
+            </BaseButton>
         );
 
     }
@@ -57,6 +29,7 @@ RaisedButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+    buttonStyle: PropTypes.stirng,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     iconCls: PropTypes.string,
@@ -72,6 +45,7 @@ RaisedButton.defaultProps = {
 
     className: '',
     style: null,
+    buttonStyle: '',
 
     value: '',
     iconCls: '',

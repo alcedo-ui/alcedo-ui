@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _BaseButton = require('./_BaseButton');
+var _BaseButton = require('./BaseButton');
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 

@@ -57,30 +57,36 @@ var BaseButton = function (_Component) {
     (0, _createClass3.default)(BaseButton, [{
         key: 'clickHandle',
         value: function clickHandle(e) {
-            !this.props.disabled && !this.props.isLoading && this.props.onClick && this.props.onClick(e);
+            var _props = this.props,
+                disabled = _props.disabled,
+                isLoading = _props.isLoading,
+                onClick = _props.onClick;
+
+            !disabled && !isLoading && onClick && onClick(e);
         }
     }, {
         key: 'render',
         value: function render() {
-            var _props = this.props,
-                children = _props.children,
-                className = _props.className,
-                style = _props.style,
-                iconCls = _props.iconCls,
-                type = _props.type,
-                value = _props.value,
-                disabled = _props.disabled,
-                isLoading = _props.isLoading;
+            var _props2 = this.props,
+                children = _props2.children,
+                className = _props2.className,
+                style = _props2.style,
+                buttonStyle = _props2.buttonStyle,
+                iconCls = _props2.iconCls,
+                type = _props2.type,
+                value = _props2.value,
+                disabled = _props2.disabled,
+                isLoading = _props2.isLoading;
 
 
             return _react2.default.createElement(
                 'button',
-                { className: 'base-button ' + className,
+                { className: 'base-button theme-' + buttonStyle + ' ' + className,
                     style: style,
                     type: type,
                     disabled: disabled || isLoading,
                     onMouseDown: this.clickHandle },
-                iconCls ? isLoading ? _react2.default.createElement(_CircularLoading2.default, { size: 'small' }) : _react2.default.createElement('i', { className: iconCls,
+                iconCls ? isLoading ? _react2.default.createElement(_CircularLoading2.default, { size: 'small' }) : _react2.default.createElement('i', { className: 'button-icon ' + iconCls,
                     'aria-hidden': 'true' }) : null,
                 value,
                 children,
@@ -98,6 +104,7 @@ BaseButton.propTypes = {
 
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
+    buttonStyle: _react.PropTypes.stirng,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
     iconCls: _react.PropTypes.string,
@@ -113,6 +120,7 @@ BaseButton.defaultProps = {
 
     className: '',
     style: null,
+    buttonStyle: '',
 
     value: '',
     iconCls: '',

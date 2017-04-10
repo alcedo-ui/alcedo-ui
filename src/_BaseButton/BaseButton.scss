@@ -1,10 +1,29 @@
 @import '../_common.scss';
 
+@mixin button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    &:hover {
+        background: darken($bg-color, 4%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+}
+
 .base-button {
 
-    @include shadow(3);
+    @include shadow(1);
 
-    width: 300px;
+    display: inline-block;
+    width: 100px;
     height: 40px;
     position: relative;
     line-height: 40px;
@@ -13,35 +32,19 @@
     transition: all $transition-duration ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
-    display: block;
+    //display: block;
     padding: 0 12px;
     font-size: 12px;
     user-select: none;
-    background: $theme-title;
-    color: transparentize(#FFF, .1);
+    background: #fff;
+    color: $theme-text;
 
-    &[disabled] {
-        cursor: not-allowed;
-        box-shadow: none !important;
-        background: lighten($theme-title, 20%);
-    }
-
-    &:hover {
-        background: lighten($theme-title, 5%);
-        color: #FFF;
-    }
-
-    &:active {
-        background: darken($theme-title, 5%);
-        color: #FFF;
-    }
-
-    i {
+    .button-icon {
         width: 16px;
         line-height: 40px;
         text-align: center;
         font-size: inherit;
-        color: #FFF;
+        color: #fff;
         margin-right: 10px;
     }
 
@@ -49,11 +52,48 @@
         margin-right: 10px;
 
         .spinner {
-            border-color: #FFF;
+            border-color: #fff;
         }
     }
 
     .touch-ripple {
         border-radius: $border-radius;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    &:hover {
+
+        @include shadow(3);
+
+        background: darken(#fff, 2%);
+    }
+
+    &:active {
+
+        @include shadow(2);
+
+        background: darken(#fff, 5%);
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        box-shadow: none !important;
+        color: transparentize($theme-text, .5);
+        background: darken(#fff, 10%);
+    }
+
+    &.theme-success {
+        @include button-theme(#fff, $success);
+    }
+
+    &.theme-warning {
+        @include button-theme(#fff, $warning);
+    }
+
+    &.theme-error {
+        @include button-theme(#fff, $error);
     }
 }

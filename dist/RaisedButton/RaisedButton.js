@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -29,13 +33,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _CircularLoading = require('../CircularLoading/CircularLoading');
+var _BaseButton = require('../_BaseButton');
 
-var _CircularLoading2 = _interopRequireDefault(_CircularLoading);
-
-var _TouchRipple = require('../TouchRipple/TouchRipple');
-
-var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
+var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
 require('./RaisedButton.css');
 
@@ -46,45 +46,24 @@ var RaisedButton = function (_Component) {
 
     function RaisedButton(props) {
         (0, _classCallCheck3.default)(this, RaisedButton);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (RaisedButton.__proto__ || (0, _getPrototypeOf2.default)(RaisedButton)).call(this, props));
-
-        _this.clickHandle = _this.clickHandle.bind(_this);
-
-        return _this;
+        return (0, _possibleConstructorReturn3.default)(this, (RaisedButton.__proto__ || (0, _getPrototypeOf2.default)(RaisedButton)).call(this, props));
     }
 
     (0, _createClass3.default)(RaisedButton, [{
-        key: 'clickHandle',
-        value: function clickHandle(e) {
-            !this.props.disabled && !this.props.isLoading && this.props.onClick && this.props.onClick(e);
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _props = this.props,
                 children = _props.children,
                 className = _props.className,
-                style = _props.style,
-                iconCls = _props.iconCls,
-                type = _props.type,
-                value = _props.value,
-                disabled = _props.disabled,
-                isLoading = _props.isLoading;
+                onClick = _props.onClick;
 
 
             return _react2.default.createElement(
-                'button',
-                { className: 'raised-button ' + className,
-                    style: style,
-                    type: type,
-                    disabled: disabled || isLoading,
-                    onMouseDown: this.clickHandle },
-                iconCls ? isLoading ? _react2.default.createElement(_CircularLoading2.default, { size: 'small' }) : _react2.default.createElement('i', { className: iconCls,
-                    'aria-hidden': 'true' }) : null,
-                value,
-                children,
-                _react2.default.createElement(_TouchRipple2.default, { className: disabled || isLoading ? 'hidden' : '' })
+                _BaseButton2.default,
+                (0, _extends3.default)({}, this.props, {
+                    className: 'raised-button ' + className,
+                    onClick: onClick }),
+                children
             );
         }
     }]);
@@ -98,6 +77,7 @@ RaisedButton.propTypes = {
 
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
+    buttonStyle: _react.PropTypes.stirng,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
     iconCls: _react.PropTypes.string,
@@ -113,6 +93,7 @@ RaisedButton.defaultProps = {
 
     className: '',
     style: null,
+    buttonStyle: '',
 
     value: '',
     iconCls: '',

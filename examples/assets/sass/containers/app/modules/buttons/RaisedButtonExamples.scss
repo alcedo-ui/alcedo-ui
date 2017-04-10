@@ -1,0 +1,28 @@
+@import '../../../../common.scss';
+
+.raised-button-examples {
+    padding: 40px;
+
+    .button-group-wrapper {
+        width: 100%;
+
+        .button-group-title {
+            font-size: 16px;
+            line-height: 30px;
+        }
+
+        .button-group {
+
+            @include float-fix;
+
+            & > .raised-button {
+                float: left;
+                margin-left: 10px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
