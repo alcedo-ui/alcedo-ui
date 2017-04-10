@@ -34,6 +34,12 @@ const DEFAULT_MENU = [{
         text: 'Date Time Picker',
         route: '/components/DateTimePicker'
     }]
+}, {
+    text: 'fields',
+    children: [{
+        text: 'Text Field',
+        route: '/components/TextField'
+    }]
 }];
 
 const initialState = {

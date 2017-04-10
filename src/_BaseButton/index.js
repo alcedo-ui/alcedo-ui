@@ -1,1 +1,1 @@
-export default from './_BaseButton';
+export default from './BaseButton';

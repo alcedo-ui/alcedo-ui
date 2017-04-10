@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
-import FieldMsg from '../FieldMsg/FieldMsg';
+import FieldMsg from '../FieldMsg';
 
 import './TextField.css';
 
@@ -138,9 +138,16 @@ export default class TextField extends Component {
         const invalidMsg = this.props.invalidMsg || this.state.invalidMsg;
 
         return (
+<<<<<<< HEAD
             <div
                 className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''} ${className}`}
                 style={style}>
+=======
+            <div className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''}
+                    ${iconCls ? 'has-icon' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''}
+                    ${className}`}
+                 style={style}>
+>>>>>>> dev
 
                 {
                     iconCls ?
@@ -151,6 +158,10 @@ export default class TextField extends Component {
                 }
 
                 <input ref="input"
+<<<<<<< HEAD
+=======
+                       className="text-field-input"
+>>>>>>> dev
                        type={inputType}
                        name={name}
                        placeholder={placeholder}

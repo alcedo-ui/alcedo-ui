@@ -1,42 +1,42 @@
 @import './theme/theme-dark';
 @import './theme/theme-light';
 // theme
-$theme-brand: #344C67;
-$theme-nav: #FFF; // #E3EAF3
-$theme-menu: #4C637B;
-$theme-bg: #F3F6FA; // #FFF
-$theme-title-bg: #E3EAF3;
-$theme-content-bg: #F2F6FA;
-$theme-field: #FFF; // #F2F6FA
+$theme-brand: #344c67;
+$theme-nav: #fff; // #E3EAF3
+$theme-menu: #4c637b;
+$theme-bg: #f3f6fa; // #FFF
+$theme-title-bg: #e3eaf3;
+$theme-content-bg: #f2f6fa;
+$theme-field: #fff; // #F2F6FA
 $theme-title: #758697;
-$theme-text: #4C637B;
-$theme-light-text: #B8C6D6;
-$theme-highlight: #38B1EB;
-$theme-popup: #4C637B;
+$theme-text: #4c637b;
+$theme-light-text: #b8c6d6;
+$theme-highlight: #38b1eb;
+$theme-popup: #4c637b;
 
 // color
-$success: #67BA31;
-$warning: #F1AD09;
-$error: #D8534E;
-$red: #F44336;
-$pink: #E91E63;
-$purple: #9C27B0;
-$deep-purple: #673AB7;
-$indigo: #3F51B5;
-$blue: #2196F3;
-$light-blue: #03A9F4;
-$cyan: #00BCD4;
+$success: #67ba31;
+$warning: #f1ad09;
+$error: #d8534e;
+$red: #f44336;
+$pink: #e91e63;
+$purple: #9c27b0;
+$deep-purple: #673ab7;
+$indigo: #3f51b5;
+$blue: #2196f3;
+$light-blue: #03a9f4;
+$cyan: #00bcd4;
 $teal: #009688;
-$green: #4CAF50;
-$light-green: #8BC34A;
-$lime: #CDDC39;
-$yellow: #FFEB3B;
-$amber: #FFC107;
-$orange: #FF9800;
-$deep-orange: #FF5722;
+$green: #4caf50;
+$light-green: #8bc34a;
+$lime: #cddc39;
+$yellow: #ffeb3b;
+$amber: #ffc107;
+$orange: #ff9800;
+$deep-orange: #ff5722;
 $brown: #795548;
-$grey: #9E9E9E;
-$blue-grey: #607D8B;
+$grey: #9e9e9e;
+$blue-grey: #607d8b;
 
 // z-index
 $root-loading-z-index: 99;
@@ -84,5 +84,31 @@ $transition-duration: 250ms;
         box-shadow: rgba(0, 0, 0, 0.298039) 0px 19px 60px, rgba(0, 0, 0, 0.219608) 0px 15px 20px;
     } @else {
         box-shadow: none;
+    }
+}
+
+@mixin button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:hover {
+        background: darken($bg-color, 4%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
     }
 }

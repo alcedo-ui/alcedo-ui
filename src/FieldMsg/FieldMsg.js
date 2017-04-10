@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import CharSize from '../vendors/CharSize';
+import CharSize from '../_vendors/CharSize';
 
 import './FieldMsg.css';
 

@@ -1,11 +1,12 @@
-@import '../_common';
+@import '../_common.scss';
 
 .text-field {
     width: 300px;
     height: 50px;
     border-radius: $border-radius;
     position: relative;
-    border: 1px solid transparent;
+    background: $theme-field;
+    border: 1px solid #dfdfdf;
 
     i {
         width: 40px;
@@ -16,6 +17,7 @@
         position: absolute;
         cursor: pointer;
         top: 0;
+        color: lighten($theme-text, 20%);
 
         &.text-field-icon {
             width: 50px;
@@ -32,24 +34,25 @@
         }
     }
 
-    input {
+    .text-field-input {
         width: 100%;
         height: 100%;
         line-height: 20px;
         border: none;
         box-sizing: border-box;
-        padding: 15px 40px 15px 50px;
+        padding: 15px 40px 15px 15px;
         border-radius: $border-radius;
         font-size: 12px;
         background: transparent;
         white-space: nowrap;
+        color: $theme-text;
         text-overflow: ellipsis;
     }
 
     &.empty {
 
-        input {
-            padding: 15px 20px 15px 50px;
+        .text-field-input {
+            padding: 15px 20px 15px 15px;
         }
 
         .password-visible-icon {
@@ -58,14 +61,14 @@
     }
 
     &.password {
-        input {
-            padding: 15px 80px 15px 50px;
+        .text-field-input {
+            padding: 15px 80px 15px 15px;
         }
     }
 
     &.empty.password {
-        input {
-            padding: 15px 40px 15px 50px;
+        .text-field-input {
+            padding: 15px 40px 15px 15px;
         }
     }
 
@@ -73,58 +76,22 @@
         outline: 1px solid transparentize($error, .3);
     }
 
+    &.has-icon {
+        .text-field-input {
+            padding-left: 50px;
+        }
+    }
+
     &.disabled {
-        input {
+        background: $theme-bg;
+
+        i {
+            color: lighten($theme-text, 40%);
+        }
+
+        .text-field-input {
             cursor: not-allowed;
-        }
-    }
-}
-
-.theme-light .text-field {
-    background: $field-light;
-    border-color: #dfdfdf;
-
-    i {
-        color: lighten($text-light, 20%);
-    }
-
-    input {
-        color: $text-light;
-    }
-
-    &.disabled {
-        background: $bg-light;
-
-        i {
-            color: lighten($text-light, 40%);
-        }
-
-        input {
-            color: lighten($text-light, 20%);
-        }
-    }
-}
-
-.theme-dark .text-field {
-    background: $field-dark;
-
-    i {
-        color: $text-dark;
-    }
-
-    input {
-        color: $text-dark;
-    }
-
-    &.disabled {
-        background: $bg-dark;
-
-        i {
-            color: lighten($text-dark, 40%);
-        }
-
-        input {
-            color: lighten($text-dark, 20%);
+            color: lighten($theme-text, 20%);
         }
     }
 }

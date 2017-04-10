@@ -63,6 +63,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="TextField"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/TextFieldExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
