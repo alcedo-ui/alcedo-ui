@@ -12,12 +12,12 @@ export default class RaisedButton extends Component {
 
     render() {
 
-        const {children, className, onClick} = this.props;
+        const {children, className, onTouchTap} = this.props;
 
         return (
             <BaseButton {...this.props}
                         className={`raised-button ${className}`}
-                        onClick={onClick}>
+                        onClick={onTouchTap}>
                 {children}
             </BaseButton>
         );
@@ -37,7 +37,7 @@ RaisedButton.propTypes = {
     type: PropTypes.string,
     isLoading: PropTypes.bool,
 
-    onClick: PropTypes.func
+    onTouchTap: PropTypes.func
 
 };
 

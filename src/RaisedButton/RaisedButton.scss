@@ -2,4 +2,14 @@
 
 .raised-button {
 
+    @include shadow(2);
+
+    &:hover {
+        @include shadow(4);
+    }
+
+    &:active {
+        @include shadow(3);
+    }
+
 }

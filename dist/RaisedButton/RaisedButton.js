@@ -55,14 +55,14 @@ var RaisedButton = function (_Component) {
             var _props = this.props,
                 children = _props.children,
                 className = _props.className,
-                onClick = _props.onClick;
+                onTouchTap = _props.onTouchTap;
 
 
             return _react2.default.createElement(
                 _BaseButton2.default,
                 (0, _extends3.default)({}, this.props, {
                     className: 'raised-button ' + className,
-                    onClick: onClick }),
+                    onClick: onTouchTap }),
                 children
             );
         }
@@ -85,7 +85,7 @@ RaisedButton.propTypes = {
     type: _react.PropTypes.string,
     isLoading: _react.PropTypes.bool,
 
-    onClick: _react.PropTypes.func
+    onTouchTap: _react.PropTypes.func
 
 };
 

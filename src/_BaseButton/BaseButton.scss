@@ -4,6 +4,14 @@
     background: $bg-color;
     color: $color;
 
+    .button-icon {
+        color: $color;
+    }
+
+    .circular-loading .spinner {
+        border-color: $color;
+    }
+
     &:hover {
         background: darken($bg-color, 4%);
     }
@@ -19,9 +27,6 @@
 }
 
 .base-button {
-
-    @include shadow(1);
-
     display: inline-block;
     width: 100px;
     height: 40px;
@@ -32,28 +37,27 @@
     transition: all $transition-duration ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
-    //display: block;
     padding: 0 12px;
     font-size: 12px;
     user-select: none;
-    background: #fff;
-    color: $theme-text;
 
     .button-icon {
         width: 16px;
         line-height: 40px;
         text-align: center;
         font-size: inherit;
-        color: #fff;
-        margin-right: 10px;
+
+        &.button-icon-left {
+            margin-right: 10px;
+        }
+
+        &.button-icon-right {
+            margin-left: 10px;
+        }
     }
 
     .circular-loading {
         margin-right: 10px;
-
-        .spinner {
-            border-color: #fff;
-        }
     }
 
     .touch-ripple {
@@ -64,35 +68,28 @@
         }
     }
 
-    &:hover {
-
-        @include shadow(3);
-
-        background: darken(#fff, 2%);
-    }
-
-    &:active {
-
-        @include shadow(2);
-
-        background: darken(#fff, 5%);
+    &.button-rounded {
+        border-radius: 20px;
     }
 
     &[disabled] {
         cursor: not-allowed;
         box-shadow: none !important;
-        color: transparentize($theme-text, .5);
-        background: darken(#fff, 10%);
     }
 
+    // default theme
+    @include button-theme($theme-text, #fff);
+
+    // other themes
+    &.theme-primary {
+        @include button-theme(#fff, $theme-menu);
+    }
     &.theme-success {
         @include button-theme(#fff, $success);
     }
-
     &.theme-warning {
         @include button-theme(#fff, $warning);
     }
-
     &.theme-error {
         @include button-theme(#fff, $error);
     }

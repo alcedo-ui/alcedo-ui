@@ -60,9 +60,9 @@ var BaseButton = function (_Component) {
             var _props = this.props,
                 disabled = _props.disabled,
                 isLoading = _props.isLoading,
-                onClick = _props.onClick;
+                onTouchTap = _props.onTouchTap;
 
-            !disabled && !isLoading && onClick && onClick(e);
+            !disabled && !isLoading && onTouchTap && onTouchTap(e);
         }
     }, {
         key: 'render',
@@ -72,23 +72,28 @@ var BaseButton = function (_Component) {
                 className = _props2.className,
                 style = _props2.style,
                 buttonStyle = _props2.buttonStyle,
+                rounded = _props2.rounded,
                 iconCls = _props2.iconCls,
+                iconPosition = _props2.iconPosition,
                 type = _props2.type,
                 value = _props2.value,
                 disabled = _props2.disabled,
                 isLoading = _props2.isLoading;
 
 
+            var iconEl = iconCls ? isLoading ? _react2.default.createElement(_CircularLoading2.default, { size: 'small' }) : _react2.default.createElement('i', { className: 'button-icon button-icon-' + iconPosition + ' ' + iconCls,
+                'aria-hidden': 'true' }) : null;
+
             return _react2.default.createElement(
                 'button',
-                { className: 'base-button theme-' + buttonStyle + ' ' + className,
+                { className: 'base-button theme-' + buttonStyle + ' ' + (rounded ? 'button-rounded' : '') + ' ' + className,
                     style: style,
                     type: type,
                     disabled: disabled || isLoading,
                     onMouseDown: this.clickHandle },
-                iconCls ? isLoading ? _react2.default.createElement(_CircularLoading2.default, { size: 'small' }) : _react2.default.createElement('i', { className: 'button-icon ' + iconCls,
-                    'aria-hidden': 'true' }) : null,
+                iconPosition === 'left' ? iconEl : null,
                 value,
+                iconPosition === 'right' ? iconEl : null,
                 children,
                 _react2.default.createElement(_TouchRipple2.default, { className: disabled || isLoading ? 'hidden' : '' })
             );
@@ -105,14 +110,17 @@ BaseButton.propTypes = {
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
     buttonStyle: _react.PropTypes.stirng,
+    rounded: _react.PropTypes.bool,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
-    iconCls: _react.PropTypes.string,
-    disabled: _react.PropTypes.bool,
     type: _react.PropTypes.string,
+    disabled: _react.PropTypes.bool,
     isLoading: _react.PropTypes.bool,
 
-    onClick: _react.PropTypes.func
+    iconCls: _react.PropTypes.string,
+    iconPosition: _react.PropTypes.string,
+
+    onTouchTap: _react.PropTypes.func
 
 };
 
@@ -121,11 +129,14 @@ BaseButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
+    rounded: false,
 
     value: '',
-    iconCls: '',
     disabled: false,
     type: 'button',
-    isLoading: false
+    isLoading: false,
+
+    iconCls: '',
+    iconPosition: 'left'
 
 };
