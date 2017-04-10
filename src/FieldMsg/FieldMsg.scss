@@ -60,8 +60,13 @@
             top: 30px;
             border-left: 6px solid transparent;
             border-right: 6px solid transparent;
-            border-top: 6px solid transparent;
+            border-top: 6px solid transparentize($theme-brand, .1);
             border-bottom: none;
+        }
+
+        .msg-wrap {
+            background: transparentize($theme-brand, .1);
+            color: #fff;
         }
     }
 
@@ -91,36 +96,6 @@
         .msg-wrap {
             top: 6px;
             background: transparentize($error, .1);
-            color: #fff;
-        }
-    }
-}
-
-.theme-light .field-msg {
-
-    &.info {
-
-        .triangle {
-            border-top-color: transparentize($brand-light, .1);
-        }
-
-        .msg-wrap {
-            background: transparentize($brand-light, .1);
-            color: #fff;
-        }
-    }
-}
-
-.theme-dark .field-msg {
-
-    &.info {
-
-        .triangle {
-            border-top-color: transparentize($brand-dark, .1);
-        }
-
-        .msg-wrap {
-            background: transparentize($brand-dark, .1);
             color: #fff;
         }
     }

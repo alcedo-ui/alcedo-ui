@@ -5,7 +5,8 @@
     height: 50px;
     border-radius: $border-radius;
     position: relative;
-    border: 1px solid transparent;
+    background: $theme-field;
+    border: 1px solid #dfdfdf;
 
     i {
         width: 40px;
@@ -16,6 +17,7 @@
         position: absolute;
         cursor: pointer;
         top: 0;
+        color: lighten($theme-text, 20%);
 
         &.text-field-icon {
             width: 50px;
@@ -43,6 +45,7 @@
         font-size: 12px;
         background: transparent;
         white-space: nowrap;
+        color: $theme-text;
         text-overflow: ellipsis;
     }
 
@@ -74,57 +77,15 @@
     }
 
     &.disabled {
+        background: $theme-bg;
+
+        i {
+            color: lighten($theme-text, 40%);
+        }
+
         input {
             cursor: not-allowed;
-        }
-    }
-}
-
-.theme-light .text-field {
-    background: $field-light;
-    border-color: #dfdfdf;
-
-    i {
-        color: lighten($text-light, 20%);
-    }
-
-    input {
-        color: $text-light;
-    }
-
-    &.disabled {
-        background: $bg-light;
-
-        i {
-            color: lighten($text-light, 40%);
-        }
-
-        input {
-            color: lighten($text-light, 20%);
-        }
-    }
-}
-
-.theme-dark .text-field {
-    background: $field-dark;
-
-    i {
-        color: $text-dark;
-    }
-
-    input {
-        color: $text-dark;
-    }
-
-    &.disabled {
-        background: $bg-dark;
-
-        i {
-            color: lighten($text-dark, 40%);
-        }
-
-        input {
-            color: lighten($text-dark, 20%);
+            color: lighten($theme-text, 20%);
         }
     }
 }
