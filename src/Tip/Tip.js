@@ -7,7 +7,7 @@ import React, {Component, PropTypes} from 'react';
 
 import './tip.css';
 
-export default class Tip extends React.Component{
+export default class Tip extends Component{
     constructor(props){
         super(props);
         // this.state = {
@@ -17,11 +17,9 @@ export default class Tip extends React.Component{
     }
 
     render(){
-        const {text}=this.props;
-
         return (
-            <div className="tip-msg">
-               <p>{this.props.text}</p>
+            <div className="tip-container">
+               {this.props.text}
             </div>
         )
     }
