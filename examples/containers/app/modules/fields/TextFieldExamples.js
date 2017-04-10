@@ -12,10 +12,42 @@ export default class TextFieldExamples extends Component {
 
     render() {
         return (
-            <div className="text-field-examples">
+            <div className="example text-field-examples">
 
-                <TextField/>
+                <div className="examples">
+                    <div className="examples-title">TextField</div>
+                    <div className="examples-wrapper">
 
+                        <div className="field-group">
+                            <label className="text-field-label">Default</label>
+                            <TextField/>
+                        </div>
+
+                        <div className="field-group">
+                            <label className="text-field-label">Password</label>
+                            <TextField type="password"/>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="examples">
+                    <div className="examples-title">TextField with Icon</div>
+                    <div className="examples-wrapper">
+
+                        <div className="field-group">
+                            <label className="text-field-label">Username</label>
+                            <TextField iconCls="fa fa-user"/>
+                        </div>
+
+                        <div className="field-group">
+                            <label className="text-field-label">Password</label>
+                            <TextField iconCls="fa fa-lock"
+                                       type="password"/>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         );
     }

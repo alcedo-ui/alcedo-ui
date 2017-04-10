@@ -9,6 +9,7 @@ import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 
 import 'sass/containers/app/App.scss';
+import 'sass/containers/app/example.scss';
 
 class App extends Component {
 
