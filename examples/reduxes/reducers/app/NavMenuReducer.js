@@ -19,6 +19,15 @@ const DEFAULT_MENU = [{
         text: 'Dialog Button',
         route: '/components/Dialog'
     }]
+},{
+    text: 'tips',
+    children: [{
+        text: 'Tip',
+        route: '/components/Tip'
+    }, {
+        text: 'Toast',
+        route: '/components/Toast'
+    }]
 }];
 
 const initialState = {

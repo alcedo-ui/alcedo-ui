@@ -39,6 +39,13 @@ export default (
                        });
                    }}/>
 
+            {/*<Route path="Tip"*/}
+                   {/*getComponent={(nextState, cb) => {*/}
+                       {/*require.ensure([], (require) => {*/}
+                           {/*cb(null, require('./containers/app/modules/tips/Tip').default);*/}
+                       {/*});*/}
+                   {/*}}/>*/}
+
         </Route>
 
     </Route>
