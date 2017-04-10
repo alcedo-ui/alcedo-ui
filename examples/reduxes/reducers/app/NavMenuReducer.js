@@ -19,6 +19,12 @@ const DEFAULT_MENU = [{
         text: 'Dialog Button',
         route: '/components/Dialog'
     }]
+}, {
+    text: 'fields',
+    children: [{
+        text: 'Text Field',
+        route: '/components/TextField'
+    }]
 }];
 
 const initialState = {

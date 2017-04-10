@@ -1,0 +1,21 @@
+.test-dialog{
+  >h3{
+    margin-left: 20px
+  }
+  >p{
+    margin-left: 20px
+  }
+  >button{
+    margin-left: 20px;
+    background: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    height: 30px;
+    width: 70px;
+    border: 1px solid #d1d1d1;
+    font-weight: 500;
+    &:hover{
+      background: rgba(0,0,0,0.07);
+    }
+  }
+}
