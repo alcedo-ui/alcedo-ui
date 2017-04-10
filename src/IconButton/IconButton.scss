@@ -1,0 +1,22 @@
+@import '../_common.scss';
+
+.icon-button {
+
+    // default theme
+    @include button-theme($theme-text, transparent);
+
+    // themes
+    &.theme-primary {
+        @include button-theme($theme-menu, transparent);
+    }
+    &.theme-success {
+        @include button-theme($success, transparent);
+    }
+    &.theme-warning {
+        @include button-theme($warning, transparent);
+    }
+    &.theme-error {
+        @include button-theme($error, transparent);
+    }
+
+}
