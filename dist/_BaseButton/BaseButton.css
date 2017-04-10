@@ -11,9 +11,7 @@
   box-sizing: border-box;
   padding: 0 12px;
   font-size: 12px;
-  user-select: none;
-  background: #fff;
-  color: #4C637B; }
+  user-select: none; }
   .base-button .button-icon {
     width: 16px;
     line-height: 40px;
@@ -32,72 +30,4 @@
   .base-button.button-rounded {
     border-radius: 20px; }
   .base-button[disabled] {
-    cursor: not-allowed;
-    box-shadow: none !important; }
-  .base-button .button-icon {
-    color: #4C637B; }
-  .base-button .circular-loading .spinner {
-    border-color: #4C637B; }
-  .base-button:hover {
-    background: whitesmoke; }
-  .base-button:active {
-    background: #ebebeb; }
-  .base-button[disabled] {
-    color: rgba(76, 99, 123, 0.5);
-    background: #ebebeb; }
-  .base-button.theme-primary {
-    background: #4C637B;
-    color: #fff; }
-    .base-button.theme-primary .button-icon {
-      color: #fff; }
-    .base-button.theme-primary .circular-loading .spinner {
-      border-color: #fff; }
-    .base-button.theme-primary:hover {
-      background: #44596e; }
-    .base-button.theme-primary:active {
-      background: #3c4f62; }
-    .base-button.theme-primary[disabled] {
-      color: rgba(255, 255, 255, 0.5);
-      background: #3c4f62; }
-  .base-button.theme-success {
-    background: #67BA31;
-    color: #fff; }
-    .base-button.theme-success .button-icon {
-      color: #fff; }
-    .base-button.theme-success .circular-loading .spinner {
-      border-color: #fff; }
-    .base-button.theme-success:hover {
-      background: #5eaa2d; }
-    .base-button.theme-success:active {
-      background: #559a28; }
-    .base-button.theme-success[disabled] {
-      color: rgba(255, 255, 255, 0.5);
-      background: #559a28; }
-  .base-button.theme-warning {
-    background: #F1AD09;
-    color: #fff; }
-    .base-button.theme-warning .button-icon {
-      color: #fff; }
-    .base-button.theme-warning .circular-loading .spinner {
-      border-color: #fff; }
-    .base-button.theme-warning:hover {
-      background: #dd9f08; }
-    .base-button.theme-warning:active {
-      background: #ca9108; }
-    .base-button.theme-warning[disabled] {
-      color: rgba(255, 255, 255, 0.5);
-      background: #ca9108; }
-  .base-button.theme-error {
-    background: #D8534E;
-    color: #fff; }
-    .base-button.theme-error .button-icon {
-      color: #fff; }
-    .base-button.theme-error .circular-loading .spinner {
-      border-color: #fff; }
-    .base-button.theme-error:hover {
-      background: #d4433d; }
-    .base-button.theme-error:active {
-      background: #cf342e; }
-    .base-button.theme-error[disabled] {
-      color: rgba(255, 255, 255, 0.5);
-      background: #cf342e; }
+    cursor: not-allowed; }

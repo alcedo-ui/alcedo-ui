@@ -1,0 +1,32 @@
+@import '../_common.scss';
+
+.flat-button {
+
+    //@include shadow(2);
+    //
+    //&:hover {
+    //    @include shadow(4);
+    //}
+    //
+    //&:active {
+    //    @include shadow(3);
+    //}
+
+    // default theme
+    @include button-theme($theme-text, transparent);
+
+    // themes
+    &.theme-primary {
+        @include button-theme($theme-menu, transparent);
+    }
+    &.theme-success {
+        @include button-theme($success, transparent);
+    }
+    &.theme-warning {
+        @include button-theme($warning, transparent);
+    }
+    &.theme-error {
+        @include button-theme($error, transparent);
+    }
+
+}

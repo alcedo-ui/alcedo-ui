@@ -37,19 +37,19 @@ var _BaseButton = require('../_BaseButton');
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-require('./RaisedButton.css');
+require('./FlatButton.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var RaisedButton = function (_Component) {
-    (0, _inherits3.default)(RaisedButton, _Component);
+var FlatButton = function (_Component) {
+    (0, _inherits3.default)(FlatButton, _Component);
 
-    function RaisedButton(props) {
-        (0, _classCallCheck3.default)(this, RaisedButton);
-        return (0, _possibleConstructorReturn3.default)(this, (RaisedButton.__proto__ || (0, _getPrototypeOf2.default)(RaisedButton)).call(this, props));
+    function FlatButton(props) {
+        (0, _classCallCheck3.default)(this, FlatButton);
+        return (0, _possibleConstructorReturn3.default)(this, (FlatButton.__proto__ || (0, _getPrototypeOf2.default)(FlatButton)).call(this, props));
     }
 
-    (0, _createClass3.default)(RaisedButton, [{
+    (0, _createClass3.default)(FlatButton, [{
         key: 'render',
         value: function render() {
             var _props = this.props,
@@ -61,23 +61,23 @@ var RaisedButton = function (_Component) {
             return _react2.default.createElement(
                 _BaseButton2.default,
                 (0, _extends3.default)({}, this.props, {
-                    className: 'raised-button ' + className,
+                    className: 'flat-button ' + className,
                     onTouchTap: onTouchTap }),
                 children
             );
         }
     }]);
-    return RaisedButton;
+    return FlatButton;
 }(_react.Component);
 
-exports.default = RaisedButton;
+exports.default = FlatButton;
 ;
 
-RaisedButton.propTypes = {
+FlatButton.propTypes = {
 
     className: _react.PropTypes.string,
     style: _react.PropTypes.object,
-    buttonStyle: _react.PropTypes.string,
+    buttonStyle: _react.PropTypes.stirng,
     rounded: _react.PropTypes.bool,
 
     value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
@@ -93,7 +93,7 @@ RaisedButton.propTypes = {
 
 };
 
-RaisedButton.defaultProps = {
+FlatButton.defaultProps = {
 
     className: '',
     style: null,

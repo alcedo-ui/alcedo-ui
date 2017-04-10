@@ -68,7 +68,7 @@ BaseButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-    buttonStyle: PropTypes.stirng,
+    buttonStyle: PropTypes.string,
     rounded: PropTypes.bool,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

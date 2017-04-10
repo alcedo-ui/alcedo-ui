@@ -12,4 +12,25 @@
         @include shadow(3);
     }
 
+    &[disabled] {
+        box-shadow: none !important;
+    }
+
+    // default theme
+    @include button-theme($theme-text, #fff);
+
+    // other themes
+    &.theme-primary {
+        @include button-theme(#fff, $theme-menu);
+    }
+    &.theme-success {
+        @include button-theme(#fff, $success);
+    }
+    &.theme-warning {
+        @include button-theme(#fff, $warning);
+    }
+    &.theme-error {
+        @include button-theme(#fff, $error);
+    }
+
 }

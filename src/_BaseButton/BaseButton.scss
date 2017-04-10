@@ -1,31 +1,5 @@
 @import '../_common.scss';
 
-@mixin button-theme($color, $bg-color) {
-    background: $bg-color;
-    color: $color;
-
-    .button-icon {
-        color: $color;
-    }
-
-    .circular-loading .spinner {
-        border-color: $color;
-    }
-
-    &:hover {
-        background: darken($bg-color, 4%);
-    }
-
-    &:active {
-        background: darken($bg-color, 8%);
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
-    }
-}
-
 .base-button {
     display: inline-block;
     width: 100px;
@@ -74,23 +48,5 @@
 
     &[disabled] {
         cursor: not-allowed;
-        box-shadow: none !important;
-    }
-
-    // default theme
-    @include button-theme($theme-text, #fff);
-
-    // other themes
-    &.theme-primary {
-        @include button-theme(#fff, $theme-menu);
-    }
-    &.theme-success {
-        @include button-theme(#fff, $success);
-    }
-    &.theme-warning {
-        @include button-theme(#fff, $warning);
-    }
-    &.theme-error {
-        @include button-theme(#fff, $error);
     }
 }
