@@ -30,12 +30,16 @@ RaisedButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     buttonStyle: PropTypes.stirng,
+    rounded: PropTypes.bool,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    iconCls: PropTypes.string,
-    disabled: PropTypes.bool,
     type: PropTypes.string,
+    disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
+    disableTouchRipple: PropTypes.bool,
+
+    iconCls: PropTypes.string,
+    iconPosition: PropTypes.string,
 
     onTouchTap: PropTypes.func
 
@@ -46,11 +50,15 @@ RaisedButton.defaultProps = {
     className: '',
     style: null,
     buttonStyle: '',
+    rounded: false,
 
     value: '',
-    iconCls: '',
     disabled: false,
     type: 'button',
-    isLoading: false
+    isLoading: false,
+    disableTouchRipple: false,
+
+    iconCls: '',
+    iconPosition: 'left'
 
 };

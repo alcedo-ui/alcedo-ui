@@ -75,6 +75,7 @@ BaseButton.propTypes = {
     type: PropTypes.string,
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
+    disableTouchRipple: PropTypes.bool,
 
     iconCls: PropTypes.string,
     iconPosition: PropTypes.string,
@@ -94,6 +95,7 @@ BaseButton.defaultProps = {
     disabled: false,
     type: 'button',
     isLoading: false,
+    disableTouchRipple: false,
 
     iconCls: '',
     iconPosition: 'left'

@@ -116,6 +116,7 @@ BaseButton.propTypes = {
     type: _react.PropTypes.string,
     disabled: _react.PropTypes.bool,
     isLoading: _react.PropTypes.bool,
+    disableTouchRipple: _react.PropTypes.bool,
 
     iconCls: _react.PropTypes.string,
     iconPosition: _react.PropTypes.string,
@@ -135,6 +136,7 @@ BaseButton.defaultProps = {
     disabled: false,
     type: 'button',
     isLoading: false,
+    disableTouchRipple: false,
 
     iconCls: '',
     iconPosition: 'left'
