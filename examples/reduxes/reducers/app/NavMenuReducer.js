@@ -19,8 +19,11 @@ const DEFAULT_MENU = [{
         text: 'Dialog Button',
         route: '/components/Dialog'
     }, {
-        text: 'Progress Button',
+        text: 'CircleProgress',
         route: '/components/CircularProgress'
+    }, {
+        text: 'LinearProgress',
+        route: '/components/linearProgress'
     }]
 }];
 

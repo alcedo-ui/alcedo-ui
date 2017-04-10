@@ -1,0 +1,9 @@
+.linear-progress{
+  .linear-progress-background{
+    height: 100%;
+    .linear-progress-highlight{
+      height: 100%;
+      transition: width 0.3s linear 0ms;
+    }
+  }
+}
