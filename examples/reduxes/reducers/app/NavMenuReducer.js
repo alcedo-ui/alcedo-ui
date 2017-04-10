@@ -19,6 +19,21 @@ const DEFAULT_MENU = [{
         text: 'Dialog Button',
         route: '/components/Dialog'
     }]
+    },{
+    text: 'date',
+    children: [{
+        text: 'Date Picker',
+        route: '/components/DatePicker'
+    }, {
+        text: 'Date Range Picker',
+        route: '/components/DateRangePicker'
+    }, {
+        text: 'Time Picker',
+        route: '/components/TimePicker'
+    }, {
+        text: 'Date Time Picker',
+        route: '/components/DateTimePicker'
+    }]
 }];
 
 const initialState = {

@@ -38,6 +38,30 @@ export default (
                            cb(null, require('./containers/app/modules/buttons/DialogExamples').default);
                        });
                    }}/>
+            <Route path="DatePicker"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/date/DatePickerExamples').default);
+                       });
+                   }}/>
+            <Route path="DateRangePicker"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/date/DateRangePickerExamples').default);
+                       });
+                   }}/>
+            <Route path="TimePicker"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/date/TimePickerExamples').default);
+                       });
+                   }}/>
+            <Route path="DateTimePicker"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/date/DateTimePickerExamples').default);
+                       });
+                   }}/>
 
         </Route>
 

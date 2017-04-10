@@ -1,0 +1,130 @@
+@import '../_common';
+
+.text-field {
+    width: 300px;
+    height: 50px;
+    border-radius: $border-radius;
+    position: relative;
+    border: 1px solid transparent;
+
+    i {
+        width: 40px;
+        height: 50px;
+        line-height: 50px;
+        box-sizing: border-box;
+        text-align: center;
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+
+        &.text-field-icon {
+            width: 50px;
+            left: 0;
+            cursor: default;
+        }
+
+        &.clear-icon {
+            right: 0;
+        }
+
+        &.password-visible-icon {
+            right: 40px;
+        }
+    }
+
+    input {
+        width: 100%;
+        height: 100%;
+        line-height: 20px;
+        border: none;
+        box-sizing: border-box;
+        padding: 15px 40px 15px 50px;
+        border-radius: $border-radius;
+        font-size: 12px;
+        background: transparent;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &.empty {
+
+        input {
+            padding: 15px 20px 15px 50px;
+        }
+
+        .password-visible-icon {
+            right: 0;
+        }
+    }
+
+    &.password {
+        input {
+            padding: 15px 80px 15px 50px;
+        }
+    }
+
+    &.empty.password {
+        input {
+            padding: 15px 40px 15px 50px;
+        }
+    }
+
+    &.error {
+        outline: 1px solid transparentize($error, .3);
+    }
+
+    &.disabled {
+        input {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.theme-light .text-field {
+    background: $field-light;
+    border-color: #dfdfdf;
+
+    i {
+        color: lighten($text-light, 20%);
+    }
+
+    input {
+        color: $text-light;
+    }
+
+    &.disabled {
+        background: $bg-light;
+
+        i {
+            color: lighten($text-light, 40%);
+        }
+
+        input {
+            color: lighten($text-light, 20%);
+        }
+    }
+}
+
+.theme-dark .text-field {
+    background: $field-dark;
+
+    i {
+        color: $text-dark;
+    }
+
+    input {
+        color: $text-dark;
+    }
+
+    &.disabled {
+        background: $bg-dark;
+
+        i {
+            color: lighten($text-dark, 40%);
+        }
+
+        input {
+            color: lighten($text-dark, 20%);
+        }
+    }
+}
