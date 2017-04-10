@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
 
-import 'sass/containers/app/modules/buttons/RaisedButtonExamples';
+import 'sass/containers/app/modules/buttons/RaisedButtonExamples.scss';
 
 export default class RaisedButtonExamples extends Component {
 
