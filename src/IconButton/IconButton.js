@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 
 import BaseButton from '../_BaseButton';
 
-import './RaisedButton.css';
+import './IconButton.css';
 
-export default class RaisedButton extends Component {
+export default class IconButton extends Component {
 
     constructor(props) {
         super(props);
@@ -12,11 +12,12 @@ export default class RaisedButton extends Component {
 
     render() {
 
-        const {children, className, onTouchTap} = this.props;
+        const {children, className, isCircular, onTouchTap} = this.props;
 
         return (
             <BaseButton {...this.props}
-                        className={`raised-button ${className}`}
+                        className={`icon-button ${className}`}
+                        isCircular={isCircular}
                         onTouchTap={onTouchTap}>
                 {children}
             </BaseButton>
@@ -25,7 +26,7 @@ export default class RaisedButton extends Component {
     }
 };
 
-RaisedButton.propTypes = {
+IconButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -46,13 +47,13 @@ RaisedButton.propTypes = {
 
 };
 
-RaisedButton.defaultProps = {
+IconButton.defaultProps = {
 
     className: '',
     style: null,
     buttonStyle: '',
     isRounded: false,
-    isCircular: false,
+    isCircular: true,
 
     value: '',
     disabled: false,

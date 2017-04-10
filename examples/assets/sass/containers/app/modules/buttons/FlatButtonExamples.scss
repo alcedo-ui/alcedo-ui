@@ -1,0 +1,26 @@
+@import '../../../../common.scss';
+
+.flat-button-examples {
+    padding: 40px;
+
+    .button-group-wrapper {
+        width: 100%;
+        margin-top: 30px;
+
+        .button-group-title {
+            font-size: 16px;
+            line-height: 30px;
+        }
+
+        .button-group {
+
+            & > .flat-button {
+                margin: 0 10px 10px 0;
+            }
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}

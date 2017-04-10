@@ -1,10 +1,8 @@
 @import '../_common.scss';
 
 .base-button {
-
-    @include shadow(3);
-
-    width: 300px;
+    display: inline-block;
+    width: 100px;
     height: 40px;
     position: relative;
     line-height: 40px;
@@ -13,47 +11,55 @@
     transition: all $transition-duration ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
-    display: block;
     padding: 0 12px;
     font-size: 12px;
     user-select: none;
-    background: $theme-title;
-    color: transparentize(#FFF, .1);
 
-    &[disabled] {
-        cursor: not-allowed;
-        box-shadow: none !important;
-        background: lighten($theme-title, 20%);
-    }
-
-    &:hover {
-        background: lighten($theme-title, 5%);
-        color: #FFF;
-    }
-
-    &:active {
-        background: darken($theme-title, 5%);
-        color: #FFF;
-    }
-
-    i {
+    .button-icon {
         width: 16px;
         line-height: 40px;
         text-align: center;
         font-size: inherit;
-        color: #FFF;
-        margin-right: 10px;
+
+        &.button-icon-left {
+            margin-right: 10px;
+        }
+
+        &.button-icon-right {
+            margin-left: 10px;
+        }
     }
 
     .circular-loading {
         margin-right: 10px;
-
-        .spinner {
-            border-color: #FFF;
-        }
     }
 
     .touch-ripple {
         border-radius: $border-radius;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    &.button-rounded {
+        border-radius: 20px;
+
+        .touch-ripple {
+            border-radius: 20px;
+        }
+    }
+
+    &.button-circular {
+        width: 40px;
+        border-radius: 50%;
+
+        .touch-ripple {
+            border-radius: 50%;
+        }
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
     }
 }

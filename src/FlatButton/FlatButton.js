@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 
 import BaseButton from '../_BaseButton';
 
-import './RaisedButton.css';
+import './FlatButton.css';
 
-export default class RaisedButton extends Component {
+export default class FlatButton extends Component {
 
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ export default class RaisedButton extends Component {
 
         return (
             <BaseButton {...this.props}
-                        className={`raised-button ${className}`}
+                        className={`flat-button ${className}`}
                         onTouchTap={onTouchTap}>
                 {children}
             </BaseButton>
@@ -25,7 +25,7 @@ export default class RaisedButton extends Component {
     }
 };
 
-RaisedButton.propTypes = {
+FlatButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -46,7 +46,7 @@ RaisedButton.propTypes = {
 
 };
 
-RaisedButton.defaultProps = {
+FlatButton.defaultProps = {
 
     className: '',
     style: null,
