@@ -1,0 +1,26 @@
+@import '../../../../common.scss';
+
+.dropdown-select-examples {
+
+    .examples-wrapper {
+
+        .field-group {
+
+            @include float-fix;
+
+            float: none;
+
+            .dropdown-select-label,
+            .dropdown-select {
+                float: left;
+            }
+
+            .dropdown-select-label {
+                font-size: 14px;
+                line-height: 50px;
+                margin-right: 20px;
+                width: 60px;
+            }
+        }
+    }
+}

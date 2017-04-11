@@ -15,11 +15,14 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Icon Button',
         route: '/components/IconButton'
-    }, {
-        text: 'Dialog Button',
+    }]
+},{
+    text: 'popup',
+    children: [{
+        text: 'Dialog',
         route: '/components/Dialog'
     }]
-    },{
+},{
     text: 'date',
     children: [{
         text: 'Date Picker',
@@ -34,11 +37,29 @@ const DEFAULT_MENU = [{
         text: 'Date Time Picker',
         route: '/components/DateTimePicker'
     }]
-}, {
+},{
     text: 'fields',
     children: [{
         text: 'Text Field',
         route: '/components/TextField'
+    }, {
+        text: 'Dropdown Select',
+        route: '/components/DropdownSelect'
+    }, {
+        text: 'Checkbox',
+        route: '/components/Checkbox'
+    }, {
+        text: 'Radio',
+        route: '/components/Radio'
+    }]
+},{
+    text: 'progress',
+    children: [{
+        text: 'CircleProgress',
+        route: '/components/CircularProgress'
+    }, {
+        text: 'LinearProgress',
+        route: '/components/linearProgress'
     }]
 }];
 

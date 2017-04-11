@@ -1,12 +1,12 @@
 /**
- * Created by DT314 on 2017/4/7.
+ * Created by DT314 on 2017/4/10.
  */
 import React, {Component, PropTypes} from 'react'
 
-import CircularProgress from '../../../../../dist/CircularProgress'
+import LinearProgress from '../../../../../dist/LinearProgress'
 
-export default class Test extends Component{
-    constructor(props){
+export default class LinearProgressExample extends Component{
+    constructor(props) {
         super();
         this.state = {
             percent: 0
@@ -50,16 +50,18 @@ export default class Test extends Component{
         },pStyle = {
             marginLeft: '20px',
             fontSize: '14px'
-        },cStyle = {
-            marginLeft: '20px',
-            marginTop: '10px',
+        },style = {
+            width: '300px',
+            height: '4px',
+            margin: '30px 0 0 20px'
         };
         return (
             <div style={boxStyle}>
                 <h3 style={hStyle}>Circular Progress</h3>
                 <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
-                <CircularProgress r={50} width={10} rgba="green" percent={this.state.percent} word={true} style={cStyle}/>
+                <LinearProgress highlightWidth={this.state.percent+'%'} style={style}/>
             </div>
         )
     }
+
 }

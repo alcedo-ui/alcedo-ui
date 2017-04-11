@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
+import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
 
 import './TextField.css';
@@ -173,18 +174,18 @@ export default class TextField extends Component {
 
                 {
                     value && value.length > 0 ?
-                        <i className="fa fa-times-circle clear-icon"
-                           aria-hidden="true"
-                           onMouseDown={this.clearValue}></i>
+                        <IconButton className="clear-icon"
+                                    iconCls="fa fa-times-circle"
+                                    onTouchTap={this.clearValue}/>
                         :
                         null
                 }
 
                 {
                     isPassword ?
-                        <i className={`${passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'} password-visible-icon`}
-                           aria-hidden="true"
-                           onMouseDown={this.togglePasswordVisible}></i>
+                        <IconButton className="password-visible-icon"
+                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                                    onTouchTap={this.togglePasswordVisible}/>
                         :
                         null
                 }

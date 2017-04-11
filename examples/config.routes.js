@@ -32,10 +32,10 @@ export default (
                        });
                    }}/>
 
-            <Route path="Dialog"
+            <Route path="TextField"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/popup/DialogExamples').default);
+                           cb(null, require('./containers/app/modules/fields/TextFieldExamples').default);
                        });
                    }}/>
             <Route path="DatePicker"
@@ -63,13 +63,45 @@ export default (
                        });
                    }}/>
 
-            <Route path="TextField"
+            <Route path="DropdownSelect"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/TextFieldExamples').default);
+                           cb(null, require('./containers/app/modules/fields/DropdownSelectExamples').default);
                        });
                    }}/>
 
+            <Route path="Checkbox"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/CheckboxExamples').default);
+                       });
+                   }}/>
+
+            <Route path="Radio"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/RadioExamples').default);
+                       });
+                   }}/>
+
+            <Route path="Dialog"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/popup/DialogExamples').default);
+                       });
+                   }}/>
+            <Route path="CircularProgress"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/progress/CircularProgressExample').default);
+                       });
+                   }}/>
+            <Route path="LinearProgress"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/progress/LinearProgressExample').default);
+                       });
+                   }}/>
         </Route>
 
     </Route>

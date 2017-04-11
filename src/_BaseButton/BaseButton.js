@@ -12,6 +12,8 @@ export default class BaseButton extends Component {
         super(props);
 
         this.clickHandle = this::this.clickHandle;
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
 
     }
 
@@ -20,11 +22,19 @@ export default class BaseButton extends Component {
         !disabled && !isLoading && onTouchTap && onTouchTap(e);
     }
 
+    startRipple(e) {
+        this.refs.touchRipple.addRipple(e);
+    }
+
+    endRipple() {
+        this.refs.touchRipple.removeRipple();
+    }
+
     render() {
 
         const {
             children, className, style, buttonStyle, isRounded, isCircular,
-            iconCls, iconPosition, type, value, disabled, isLoading
+            iconCls, iconPosition, type, value, disabled, isLoading, rippleDisplayCenter
         } = this.props;
 
         const iconEl = iconCls ?
@@ -60,7 +70,9 @@ export default class BaseButton extends Component {
 
                 {children}
 
-                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}/>
+                <TouchRipple ref="touchRipple"
+                             className={disabled || isLoading ? 'hidden' : ''}
+                             displayCenter={rippleDisplayCenter}/>
 
             </button>
         );
@@ -85,6 +97,8 @@ BaseButton.propTypes = {
     iconCls: PropTypes.string,
     iconPosition: PropTypes.string,
 
+    rippleDisplayCenter: PropTypes.bool,
+
     onTouchTap: PropTypes.func
 
 };
@@ -102,6 +116,8 @@ BaseButton.defaultProps = {
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
+
+    rippleDisplayCenter: false,
 
     iconCls: '',
     iconPosition: 'left'
