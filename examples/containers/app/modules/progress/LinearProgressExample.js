@@ -45,11 +45,15 @@ export default class LinearProgressExample extends Component{
             overflow: 'hidden',
             background: 'white'
         },hStyle = {
-            marginLeft: '20px',
-            fontSize: '16px'
+            fontSize: '16px',
+            color: '#758697',
+            backgroundColor: '#E3EAF3',
+            margin: '0',
+            padding: '15px 20px'
         },pStyle = {
             marginLeft: '20px',
-            fontSize: '14px'
+            fontSize: '14px',
+            color: '#4C637B'
         },style = {
             width: '300px',
             height: '4px',
@@ -59,7 +63,7 @@ export default class LinearProgressExample extends Component{
             <div style={boxStyle}>
                 <h3 style={hStyle}>Circular Progress</h3>
                 <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
-                <LinearProgress highlightWidth={this.state.percent+'%'} style={style}/>
+                <LinearProgress highlightWidth={this.state.percent+'%'} style={style} background="#f3f6fa" highlight="#38b1eb"/>
             </div>
         )
     }
