@@ -1,0 +1,41 @@
+@import '../_common.scss';
+
+.radio {
+
+    @include float-fix;
+
+    width: 200px;
+    height: 50px;
+    color: lighten($theme-text, 15%);
+
+    .radio-icon {
+        float: left;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .radio-label {
+        float: left;
+        height: 50px;
+        line-height: 50px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &.active {
+        color: lighten($theme-brand, 15%);
+    }
+
+    &[disabled] {
+        color: lighten($theme-text, 30%);
+
+        &.active {
+            color: lighten($theme-brand, 30%);
+        }
+    }
+
+}
