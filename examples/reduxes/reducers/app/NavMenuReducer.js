@@ -24,6 +24,9 @@ const DEFAULT_MENU = [{
     children: [{
         text: 'Text Field',
         route: '/components/TextField'
+    }, {
+        text: 'Dropdown Select',
+        route: '/components/DropdownSelect'
     }]
 }];
 
