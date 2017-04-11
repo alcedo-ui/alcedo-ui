@@ -30,19 +30,20 @@
                 height: 50px;
                 box-sizing: border-box;
                 padding: 0 15px;
-                color: $theme-nav;
+                color: transparentize($theme-nav, .3);
                 text-decoration: none;
-                //background: $theme-menu;
                 cursor: pointer;
                 text-decoration: none;
                 overflow: hidden;
 
                 &:hover {
-                    background: darken($theme-menu, 2%);
+                    color: $theme-nav;
+                    background: transparentize(#000, .95);
                 }
 
                 &:focus {
-                    background: darken($theme-menu, 4%);
+                    color: $theme-nav;
+                    background: transparentize(#000, .92);
                 }
 
                 .nav-menu-item-name {
