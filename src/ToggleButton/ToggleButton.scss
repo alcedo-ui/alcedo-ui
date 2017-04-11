@@ -1,0 +1,25 @@
+@import '../_common.scss';
+
+.toggle-button {
+
+    @include shadow(1);
+
+    width: 100px;
+    border-radius: 20px;
+    color: $theme-light-text;
+    background: $theme-field;
+
+    &:hover {
+        color: $theme-text;
+        background: $theme-field;
+    }
+
+    &.activated {
+        color: #fff;
+        background: $theme-title;
+
+        &:hover {
+            background: lighten($theme-title, 5%);
+        }
+    }
+}
