@@ -15,6 +15,8 @@ export default class Checkbox extends Component {
         };
 
         this.clickHandle = this::this.clickHandle;
+        this.mouseDownHandle = this::this.mouseDownHandle;
+        this.mouseUpHandle = this::this.mouseUpHandle;
 
     }
 
@@ -25,6 +27,14 @@ export default class Checkbox extends Component {
         }, () => {
             !this.props.disabled && this.props.onChange && this.props.onChange(value);
         });
+    }
+
+    mouseDownHandle(e) {
+        this.refs.checkboxIcon.startRipple(e);
+    }
+
+    mouseUpHandle() {
+        this.refs.checkboxIcon.endRipple();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -43,23 +53,21 @@ export default class Checkbox extends Component {
         return (
             <div className={`checkbox ${value ? 'activated' : ''} ${className}`}
                  style={style}
-                 disabled={disabled}>
+                 disabled={disabled}
+                 onMouseDown={this.mouseDownHandle}
+                 onMouseUp={this.mouseUpHandle}>
 
                 <input type="hidden"
                        name={name}
                        value={value}/>
 
-                {/*<i className={`fa ${value ? 'fa-check-square' : 'fa-square-o'} checkbox-icon`}*/}
-                   {/*aria-hidden="true"*/}
-                   {/*onClick={this.clickHandle}>*/}
-                {/*</i>*/}
-
-                <IconButton className="checkbox-icon"
+                <IconButton ref="checkboxIcon"
+                            className="checkbox-icon"
                             iconCls={`fa ${value ? 'fa-check-square' : 'fa-square-o'}`}
                             onTouchTap={this.clickHandle}/>
 
                 <div className="checkbox-label"
-                     onClick={this.clickHandle}>
+                     onMouseDown={this.clickHandle}>
                     {label}
                 </div>
 

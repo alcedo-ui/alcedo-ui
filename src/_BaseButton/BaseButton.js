@@ -12,12 +12,22 @@ export default class BaseButton extends Component {
         super(props);
 
         this.clickHandle = this::this.clickHandle;
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
 
     }
 
     clickHandle(e) {
         const {disabled, isLoading, onTouchTap} = this.props;
         !disabled && !isLoading && onTouchTap && onTouchTap(e);
+    }
+
+    startRipple(e) {
+        this.refs.touchRipple.addRipple(e);
+    }
+
+    endRipple() {
+        this.refs.touchRipple.removeRipple();
     }
 
     render() {
@@ -60,7 +70,8 @@ export default class BaseButton extends Component {
 
                 {children}
 
-                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
+                <TouchRipple ref="touchRipple"
+                             className={disabled || isLoading ? 'hidden' : ''}
                              displayCenter={rippleDisplayCenter}/>
 
             </button>

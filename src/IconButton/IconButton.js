@@ -7,7 +7,20 @@ import './IconButton.css';
 export default class IconButton extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
+
+    }
+
+    startRipple(e) {
+        this.refs.baseButton.startRipple(e);
+    }
+
+    endRipple() {
+        this.refs.baseButton.endRipple();
     }
 
     render() {
@@ -16,6 +29,7 @@ export default class IconButton extends Component {
 
         return (
             <BaseButton {...this.props}
+                        ref="baseButton"
                         className={`icon-button ${className}`}
                         isCircular={isCircular}
                         onTouchTap={onTouchTap}
