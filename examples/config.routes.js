@@ -32,10 +32,10 @@ export default (
                        });
                    }}/>
 
-            <Route path="Dialog"
+            <Route path="TextField"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/popup/DialogExamples').default);
+                           cb(null, require('./containers/app/modules/fields/TextFieldExamples').default);
                        });
                    }}/>
             <Route path="DatePicker"
@@ -63,10 +63,17 @@ export default (
                        });
                    }}/>
 
-            <Route path="TextField"
+            <Route path="DropdownSelect"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/TextFieldExamples').default);
+                           cb(null, require('./containers/app/modules/fields/DropdownSelectExamples').default);
+                       });
+                   }}/>
+
+            <Route path="Dialog"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/popup/DialogExamples').default);
                        });
                    }}/>
 
