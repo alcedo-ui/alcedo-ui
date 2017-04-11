@@ -9,7 +9,7 @@ export default class Test extends Component{
     constructor(props){
         super();
         this.state = {
-            percent: 5
+            percent: 0
         }
     }
 
@@ -38,7 +38,13 @@ export default class Test extends Component{
     }
 
     render() {
-        const hStyle = {
+        const boxStyle = {
+            boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
+            margin: '50px',
+            padding: '0px 0 20px',
+            overflow: 'hidden',
+            background: 'white'
+        },hStyle = {
             marginLeft: '20px',
             fontSize: '16px'
         },pStyle = {
@@ -49,7 +55,7 @@ export default class Test extends Component{
             marginTop: '10px',
         };
         return (
-            <div>
+            <div style={boxStyle}>
                 <h3 style={hStyle}>Circular Progress</h3>
                 <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
                 <CircularProgress r={50} width={10} rgba="green" percent={this.state.percent} word={true} style={cStyle}/>

@@ -38,13 +38,29 @@ export default class LinearProgressExample extends Component{
     }
 
     render() {
-        const style = {
+        const boxStyle = {
+            boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
+            margin: '50px',
+            padding: '0px 0 20px',
+            overflow: 'hidden',
+            background: 'white'
+        },hStyle = {
+            marginLeft: '20px',
+            fontSize: '16px'
+        },pStyle = {
+            marginLeft: '20px',
+            fontSize: '14px'
+        },style = {
             width: '300px',
             height: '4px',
-            margin: '10px'
+            margin: '30px 0 0 20px'
         };
         return (
-            <LinearProgress highlightWidth={this.state.percent+'%'} style={style}/>
+            <div style={boxStyle}>
+                <h3 style={hStyle}>Circular Progress</h3>
+                <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
+                <LinearProgress highlightWidth={this.state.percent+'%'} style={style}/>
+            </div>
         )
     }
 

@@ -15,10 +15,16 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Icon Button',
         route: '/components/IconButton'
-    }, {
-        text: 'Dialog Button',
+    }]
+},{
+    text: 'popup',
+    children: [{
+        text: 'Dialog',
         route: '/components/Dialog'
-    }, {
+    }]
+},{
+    text: 'progress',
+    children: [{
         text: 'CircleProgress',
         route: '/components/CircularProgress'
     }, {
