@@ -1,11 +1,1 @@
-export const COLLAPSE_NAV_MENU = 'COLLAPSE_NAV_MENU';
-
-export const EXPAND_NAV_MENU = 'EXPAND_NAV_MENU';
-
-export const TOGGLE_NAV_MENU = 'TOGGLE_NAV_MENU';
-
-export const COLLAPSE_USER_MENU = 'COLLAPSE_USER_MENU';
-
-export const EXPAND_USER_MENU = 'EXPAND_USER_MENU';
-
-export const TOGGLE_USER_MENU = 'TOGGLE_USER_MENU';
+export const EXPAND_MENU = 'EXPAND_MENU';

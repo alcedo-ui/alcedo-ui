@@ -16,13 +16,13 @@ const DEFAULT_MENU = [{
         text: 'Icon Button',
         route: '/components/IconButton'
     }]
-},{
+}, {
     text: 'popup',
     children: [{
         text: 'Dialog',
         route: '/components/Dialog'
     }]
-},{
+}, {
     text: 'date',
     children: [{
         text: 'Date Picker',
@@ -37,7 +37,7 @@ const DEFAULT_MENU = [{
         text: 'Date Time Picker',
         route: '/components/DateTimePicker'
     }]
-},{
+}, {
     text: 'fields',
     children: [{
         text: 'Text Field',
@@ -54,8 +54,11 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Radio',
         route: '/components/Radio'
+    }, {
+        text: 'ToggleButton',
+        route: '/components/ToggleButton'
     }]
-},{
+}, {
     text: 'progress',
     children: [{
         text: 'CircleProgress',
@@ -67,80 +70,18 @@ const DEFAULT_MENU = [{
 }];
 
 const initialState = {
-    navMenuCollapsed: true,
-    userMenuCollapsed: userMenuCollapsed !== null ? (userMenuCollapsed === '1' ? true : false) : true,
-    menu: _.cloneDeep(DEFAULT_MENU)
+    menu: _.cloneDeep(DEFAULT_MENU),
+    expandMenuName: ''
 };
 
 function navMenu(state = initialState, action) {
     switch (action.type) {
 
-        case types.COLLAPSE_NAV_MENU: {
-
-            localStorage.setItem('navMenuCollapsed', '1');
-
+        case types.EXPAND_MENU: {
             return {
                 ...state,
-                navMenuCollapsed: true
+                expandMenuName: action.menuName
             };
-
-        }
-
-        case types.EXPAND_NAV_MENU: {
-
-            localStorage.setItem('navMenuCollapsed', '0');
-
-            return {
-                ...state,
-                navMenuCollapsed: false
-            };
-
-        }
-
-        case types.TOGGLE_NAV_MENU: {
-
-            const navMenuCollapsed = !state.navMenuCollapsed;
-            localStorage.setItem('navMenuCollapsed', navMenuCollapsed ? '1' : '0');
-
-            return {
-                ...state,
-                navMenuCollapsed
-            };
-
-        }
-
-        case types.EXPAND_USER_MENU: {
-
-            localStorage.setItem('userMenuCollapsed', '0');
-
-            return {
-                ...state,
-                userMenuCollapsed: false
-            };
-
-        }
-
-        case types.COLLAPSE_USER_MENU: {
-
-            localStorage.setItem('userMenuCollapsed', '1');
-
-            return {
-                ...state,
-                userMenuCollapsed: true
-            };
-
-        }
-
-        case types.TOGGLE_USER_MENU: {
-
-            const userMenuCollapsed = !state.userMenuCollapsed;
-            localStorage.setItem('userMenuCollapsed', userMenuCollapsed ? '1' : '0');
-
-            return {
-                ...state,
-                userMenuCollapsed
-            };
-
         }
 
         default:
