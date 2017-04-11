@@ -21,15 +21,18 @@
 
         .nav-menu-item {
             position: relative;
+            box-sizing: border-box;
+            background: darken($theme-menu, 4%);
 
             .nav-menu-item-title {
+                position: relative;
                 display: block;
                 height: 50px;
                 box-sizing: border-box;
                 padding: 0 15px;
                 color: $theme-nav;
                 text-decoration: none;
-                background: $theme-menu;
+                //background: $theme-menu;
                 cursor: pointer;
                 text-decoration: none;
                 overflow: hidden;
@@ -71,7 +74,7 @@
                 &.router-link-active {
                     padding: 0 15px 0 12px;
                     border-left: 3px solid $theme-highlight;
-                    color: #FFF;
+                    color: #fff;
                     background: darken($theme-menu, 6%);
                 }
 
@@ -80,8 +83,17 @@
             .nav-menu-children {
                 overflow: hidden;
                 transition: all $transition-duration ease-in-out;
+            }
 
-                &.collapsed {
+            &.hasChildren {
+                @include shadow-inset(1);
+            }
+
+            &.collapsed {
+                background: transparent;
+                box-shadow: none;
+
+                .nav-menu-children {
                     height: 0 !important;
                 }
             }
