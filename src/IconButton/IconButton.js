@@ -18,7 +18,8 @@ export default class IconButton extends Component {
             <BaseButton {...this.props}
                         className={`icon-button ${className}`}
                         isCircular={isCircular}
-                        onTouchTap={onTouchTap}>
+                        onTouchTap={onTouchTap}
+                        rippleDisplayCenter={true}>
                 {children}
             </BaseButton>
         );

@@ -24,7 +24,7 @@ export default class BaseButton extends Component {
 
         const {
             children, className, style, buttonStyle, isRounded, isCircular,
-            iconCls, iconPosition, type, value, disabled, isLoading
+            iconCls, iconPosition, type, value, disabled, isLoading, rippleDisplayCenter
         } = this.props;
 
         const iconEl = iconCls ?
@@ -60,7 +60,8 @@ export default class BaseButton extends Component {
 
                 {children}
 
-                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}/>
+                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
+                             displayCenter={rippleDisplayCenter}/>
 
             </button>
         );
@@ -85,6 +86,8 @@ BaseButton.propTypes = {
     iconCls: PropTypes.string,
     iconPosition: PropTypes.string,
 
+    rippleDisplayCenter: PropTypes.bool,
+
     onTouchTap: PropTypes.func
 
 };
@@ -102,6 +105,8 @@ BaseButton.defaultProps = {
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
+
+    rippleDisplayCenter: false,
 
     iconCls: '',
     iconPosition: 'left'

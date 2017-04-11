@@ -2,6 +2,10 @@
 
 .icon-button {
 
+    .button-icon {
+        margin: 0 !important;
+    }
+
     // default theme
     @include button-theme($theme-text, transparent);
 
