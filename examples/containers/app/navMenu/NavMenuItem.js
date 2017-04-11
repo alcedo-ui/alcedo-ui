@@ -35,7 +35,7 @@ export default class NavMenuItem extends Component {
         const hasChildren = options.children && options.children.length > 0;
 
         return (
-            <div className="nav-menu-item">
+            <div className={`nav-menu-item ${collapsed ? 'collapsed' : ''} ${hasChildren ? 'hasChildren' : ''}`}>
 
                 {/* title or link */}
                 {
@@ -78,7 +78,7 @@ export default class NavMenuItem extends Component {
                 {
                     hasChildren
                         ? (
-                        <div className={`nav-menu-children ${collapsed ? 'collapsed' : ''}`}
+                        <div className="nav-menu-children"
                              style={{height: options.children.length * menuHeight}}>
                             {
                                 options.children.map((item, index) => {

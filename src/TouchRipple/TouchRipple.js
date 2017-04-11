@@ -19,6 +19,7 @@ export default class TouchRipple extends Component {
             ripples: []
         };
 
+        this.getRippleStyle = this::this.getRippleStyle;
         this.clearRippleTimeout = this::this.clearRippleTimeout;
         this.mouseDownHandle = this::this.mouseDownHandle;
         this.mouseUpHandle = this::this.mouseUpHandle;
@@ -39,17 +40,26 @@ export default class TouchRipple extends Component {
 
     getRippleStyle(e) {
 
+        const {displayCenter} = this.props;
+
         // 获取div
         const el = ReactDOM.findDOMNode(this);
 
         // 获取div 宽度、高度 和 偏移
-        const elHeight = el.offsetHeight;
         const elWidth = el.offsetWidth;
-        const {offsetTop, offsetLeft} = this.getOffset(el);
+        const elHeight = el.offsetHeight;
+
 
         // 获取相对于div的点击位置偏移
-        const pointerX = e.pageX - offsetLeft;
-        const pointerY = e.pageY - offsetTop;
+        let pointerX, pointerY;
+        if (displayCenter) {
+            pointerX = elWidth / 2;
+            pointerY = elHeight / 2;
+        } else {
+            const {offsetTop, offsetLeft} = this.getOffset(el);
+            pointerX = e.pageX - offsetLeft;
+            pointerY = e.pageY - offsetTop;
+        }
 
         // 涟漪半径为4个距离的最大值
         const rippleRadius = Math.max(
@@ -155,11 +165,19 @@ export default class TouchRipple extends Component {
 };
 
 TouchRipple.propTypes = {
+
     className: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    displayCenter: PropTypes.bool
+
 };
 
 TouchRipple.defaultProps = {
+
     className: '',
-    style: null
+    style: null,
+
+    displayCenter: false
+
 };

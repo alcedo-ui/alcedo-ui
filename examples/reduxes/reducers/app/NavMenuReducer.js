@@ -45,6 +45,12 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'
+    }, {
+        text: 'Checkbox',
+        route: '/components/Checkbox'
+    }, {
+        text: 'Radio',
+        route: '/components/Radio'
     }]
 },{
     text: 'progress',
