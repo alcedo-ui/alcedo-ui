@@ -1,0 +1,213 @@
+@import '../_common';
+
+.MultipleSelect {
+    position: relative;
+    .dropdown-select-inner {
+        width: 100%;
+        overflow: hidden;
+        transition: all $transition-duration ease-in-out;
+        border-radius: $border-radius;
+        border: 1px solid #dfdfdf;
+        position: absolute;
+        top:0;
+        left:0;
+        &.hidden{
+            box-shadow: none;
+            z-index: 0;
+        }
+        &.open{
+            @include shadow(3);
+            z-index: $popup-z-index;
+        }
+        &:hover{
+            @include shadow(3);
+        }
+        .trigger {
+            box-sizing: border-box;
+            padding: 0 9px 0 0;
+            &::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .selected-container {
+                overflow: hidden;
+                position: relative;
+                padding-right: 36px;
+                .selected {
+                    float: left;
+                    margin: 4px 0 4px 9px;
+                    background: #fff;
+                    height: 30px;
+                    font-size: 12px;
+                    line-height: 30px;
+                    padding: 1px 6px;
+                    color: $text-light;
+                    cursor: pointer;
+                    user-select: none;
+                    border-radius: $border-radius;
+
+                    .deselectButton {
+                        width: 30px;
+                        height: 30px;
+                        text-align: center;
+                        line-height: 30px;
+                        margin-left: 6px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 14px;
+                        color: lighten($text-light, 30%);
+                        border-radius: $border-radius;
+
+                        &:hover {
+                            color: $text-light;
+                        }
+                    }
+
+                    &:hover {
+                        background: #F0F0F0;
+                    }
+                }
+                .more-selected {
+                    line-height: 38px;
+                    margin-left: 8px;
+                    font-weight: 600;
+                    float: left;
+                }
+                .dropdown-select-trigger-right-icon {
+                    position: absolute;
+                    top: 12px;
+                    right: 5px;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 16px;
+                    text-align: center;
+                    line-height: 20px;
+                    cursor: pointer;
+                    border-radius: $border-radius;
+                    //&:hover {
+                    //	background:$blue-grey;
+                    //	color: #fff;
+                    //}
+                    &.disabled {
+                        background: #F8F8F8;
+                        color: lighten($text-light, 30%);
+                        &:hover {
+                            background: #F8F8F8;
+                        }
+                    }
+                }
+            }
+            .filter {
+                display: block;
+                border: none;
+                border-top: 1px solid #dfdfdf;
+                padding-left: 9px;
+                height: 37px;
+                line-height: 37px;
+                clear: both;
+            }
+
+            &[disabled] {
+                background: #F8F8F8;
+                .selected-container {
+                    .selected {
+                        background: darken(#F8F8F8, 5%);
+                        cursor: default;
+
+                        .deselectButton {
+                            cursor: default;
+
+                            &:hover {
+                                color: lighten($text-light, 30%);
+                            }
+                        }
+                    }
+                }
+                .filter {
+                    background: #F8F8F8;
+                    color: lighten($text-light, 30%);
+                }
+            }
+        }
+
+        .options {
+            position: absolute;
+            overflow: auto;
+            border-top: 1px solid #dfdfdf;
+            z-index:1;
+            border-bottom-left-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+            transition: all $transition-duration ease-in-out;
+            .option {
+                box-sizing: border-box;
+                width: 100%;
+                background: #FFF;
+                color: $text-light;
+                padding: 0 9px;
+                border-top: none;
+                cursor: pointer;
+                user-select: none;
+
+                &.disabled {
+                    font-size: 12px;
+                    background: #F8F8F8;
+                    color: lighten($text-light, 30%);
+
+                    &:hover {
+                        background: #F8F8F8;
+                    }
+                }
+                &:hover {
+                    background: #F0F2F5;
+                }
+            }
+        }
+
+        &.error {
+            .trigger {
+                border: 1px solid $error !important;
+            }
+        }
+
+        &.above {
+            .options {
+                border-top: none;
+
+                .option {
+                    border: 1px solid #dfdfdf;
+                    border-bottom: none;
+                }
+            }
+        }
+
+        &.below {
+            .options {
+                border-top: none;
+            }
+        }
+
+        &.empty {
+            .filter {
+                border-top: none !important;
+                margin-top: 0 !important;
+            }
+        }
+
+        &.open.below {
+            .FieldMsg.error {
+                right: -4px;
+
+                .triangle {
+                    left: -3px;
+                    top: 2px;
+                    border-bottom-width: 8px;
+                    border-left-width: 4px;
+                    border-right-width: 4px;
+                    transform: rotate(-45deg);
+                }
+
+            }
+        }
+    }
+}

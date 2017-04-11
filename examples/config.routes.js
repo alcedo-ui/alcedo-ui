@@ -69,6 +69,12 @@ export default (
                            cb(null, require('./containers/app/modules/fields/DropdownSelectExamples').default);
                        });
                    }}/>
+            <Route path="MultipleSelect"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/MultipleSelectExamples').default);
+                       });
+                   }}/>
 
             <Route path="Checkbox"
                    getComponent={(nextState, cb) => {

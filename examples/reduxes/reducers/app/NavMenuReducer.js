@@ -46,6 +46,9 @@ const DEFAULT_MENU = [{
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'
     }, {
+        text: 'Multiple Select',
+        route: '/components/MultipleSelect'
+    }, {
         text: 'Checkbox',
         route: '/components/Checkbox'
     }, {

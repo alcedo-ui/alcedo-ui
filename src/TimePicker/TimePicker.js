@@ -5,7 +5,7 @@ import Event from '../vendors/Event';
 
 
 import TextField from '../TextField/TextField';
-import TimeItems from '../TimeItems/TimeItems';
+import TimeItems from '../_TimeItems/_TimeItems';
 
 import './TimePicker.css';
 
