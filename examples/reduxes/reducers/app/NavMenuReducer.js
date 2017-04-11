@@ -54,6 +54,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'ToggleButton',
         route: '/components/ToggleButton'
+    }, {
+        text: 'Switcher',
+        route: '/components/Switcher'
     }]
 }, {
     text: 'progress',
