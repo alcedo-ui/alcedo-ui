@@ -74,7 +74,7 @@ export default class Radio extends Component {
                             onTouchTap={this.clickHandle}/>
 
                 <div className="radio-label"
-                     onClick={this.clickHandle}>
+                     onMouseDown={this.clickHandle}>
                     {label}
                 </div>
 
