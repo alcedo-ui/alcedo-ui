@@ -24,10 +24,12 @@
 			height: 40px;
 			text-align: center;
 			line-height: 40px;
-
+			margin: 0;
 			&.text-field-icon {
 				margin-left: 3px;
 			}
+		}
+		button{
 			&.clear-icon{
 				display: none;
 			}

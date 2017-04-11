@@ -24,7 +24,7 @@
 			height: 40px;
 			text-align: center;
 			line-height: 40px;
-
+			margin: 0;
 			&.text-field-icon {
 				margin-left: 3px;
 			}
@@ -86,6 +86,11 @@
 						height: 40px;
 						text-align: center;
 						line-height: 40px;
+					}
+					button{
+						&.clear-icon{
+							margin: 0;
+						}
 					}
 				}
 			}
