@@ -133,10 +133,8 @@ export default class DropdownSelect extends Component {
                     <RaisedButton ref="trigger"
                                   className={`dropdown-select-trigger ${value ? '' : 'empty'}`}
                                   style={triggerStyle}
-                                  value={(typeof value === 'object' ? value.text : value) || placeholder}>
-                        <i className={`fa fa-angle-${above ? 'down' : 'up'} dropdown-select-trigger-right-icon`}
-                           aria-hidden="true"></i>
-                    </RaisedButton>
+                                  value={(typeof value === 'object' ? value.text : value) || placeholder}
+                                  iconCls={`fa fa-angle-${above ? 'down' : 'up'} dropdown-select-trigger-right-icon`}/>
 
                     <div ref="options"
                          className="dropdown-select-options"
