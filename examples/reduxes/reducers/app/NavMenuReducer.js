@@ -51,6 +51,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Radio',
         route: '/components/Radio'
+    }, {
+        text: 'ToggleButton',
+        route: '/components/ToggleButton'
     }]
 },{
     text: 'progress',

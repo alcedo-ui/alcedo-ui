@@ -84,6 +84,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="ToggleButton"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/ToggleButtonExamples').default);
+                       });
+                   }}/>
+
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
