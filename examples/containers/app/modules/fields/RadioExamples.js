@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import Checkbox from 'dist/Checkbox';
-import CheckboxGroup from 'dist/CheckboxGroup';
+import Radio from 'dist/Radio';
+import RadioGroup from 'dist/RadioGroup';
 
-import 'sass/containers/app/modules/fields/CheckboxExamples.scss';
+import 'sass/containers/app/modules/fields/RadioExamples.scss';
 
 export default class CheckboxExamples extends Component {
 
@@ -13,22 +13,22 @@ export default class CheckboxExamples extends Component {
 
     render() {
         return (
-            <div className="example checkbox-examples">
+            <div className="example radio-examples">
 
                 <div className="examples">
-                    <div className="examples-title">Checkbox</div>
+                    <div className="examples-title">Radio</div>
                     <div className="examples-wrapper">
 
-                        <Checkbox label="Licence"/>
+                        <Radio label="Licence"/>
 
                     </div>
                 </div>
 
                 <div className="examples">
-                    <div className="examples-title">Checkbox Group</div>
+                    <div className="examples-title">Radio Group</div>
                     <div className="examples-wrapper">
 
-                        <CheckboxGroup data={[{
+                        <RadioGroup data={[{
                             label: 1,
                             value: 1
                         }, {

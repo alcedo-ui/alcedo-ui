@@ -45,6 +45,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Checkbox',
         route: '/components/Checkbox'
+    }, {
+        text: 'Radio',
+        route: '/components/Radio'
     }]
 }];
 

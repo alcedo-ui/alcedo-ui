@@ -2,9 +2,9 @@ import React, {Component, PropTypes} from 'react';
 
 import IconButton from '../IconButton';
 
-import './Checkbox.css';
+import './Radio.css';
 
-export default class Checkbox extends Component {
+export default class Radio extends Component {
 
     constructor(props) {
 
@@ -21,21 +21,28 @@ export default class Checkbox extends Component {
     }
 
     clickHandle() {
-        const value = !this.state.value;
+
+        let {value} = this.state;
+
+        if (value) {
+            return;
+        }
+
         this.setState({
-            value
+            value: true
         }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(value);
+            !this.props.disabled && this.props.onChange && this.props.onChange(true);
         });
+
     }
 
     mouseDownHandle(e) {
-        this.refs.checkboxIcon.startRipple(e);
+        this.refs.radioIcon.startRipple(e);
         this.clickHandle();
     }
 
     mouseUpHandle() {
-        this.refs.checkboxIcon.endRipple();
+        this.refs.radioIcon.endRipple();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -52,7 +59,7 @@ export default class Checkbox extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`checkbox ${value ? 'activated' : ''} ${className}`}
+            <div className={`radio ${value ? 'activated' : ''} ${className}`}
                  style={style}
                  disabled={disabled}>
 
@@ -60,12 +67,12 @@ export default class Checkbox extends Component {
                        name={name}
                        value={value}/>
 
-                <IconButton ref="checkboxIcon"
-                            className="checkbox-icon"
-                            iconCls={`fa ${value ? 'fa-check-square' : 'fa-square-o'}`}
+                <IconButton ref="radioIcon"
+                            className="radio-icon"
+                            iconCls={`fa ${value ? 'fa-dot-circle-o' : 'fa-circle-o'}`}
                             onTouchTap={this.clickHandle}/>
 
-                <div className="checkbox-label"
+                <div className="radio-label"
                      onMouseDown={this.mouseDownHandle}
                      onMouseUp={this.mouseUpHandle}>
                     {label}
@@ -77,7 +84,7 @@ export default class Checkbox extends Component {
     }
 };
 
-Checkbox.propTypes = {
+Radio.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -91,7 +98,7 @@ Checkbox.propTypes = {
 
 };
 
-Checkbox.defaultProps = {
+Radio.defaultProps = {
 
     className: '',
     style: null,
