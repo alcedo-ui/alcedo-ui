@@ -22,6 +22,9 @@ export default class _DayPicker extends Component {
             select_year : this.props.year,
             select_month :this.props.month,
             select_day:this.props.day,
+            hour:this.props.hour,
+            minute:this.props.minute,
+            second:this.props.second,
             current_year : this.props.year,
             current_month :this.props.month,
             current_day:this.props.day,
@@ -85,13 +88,11 @@ export default class _DayPicker extends Component {
         this.props.hoverHandle && this.props.hoverHandle({time:timer,year:select_year,month:select_month,day:s_day})
     }
 
-
-
     selectDate(s_day) {
-        let { select_year, select_month} = this.state;
+        let { select_year, select_month,hour,minute,second} = this.state;
         s_day = s_day.toString();
         const selected_month = Number(select_month)-1;
-        let timer = moment([select_year,selected_month,s_day]).format(this.props.dateFormat);
+        let timer = moment([select_year,selected_month,s_day,hour,minute,second]).format(this.props.dateFormat);
         this.setState({
             history_year: select_year,
             history_month: select_month,
@@ -101,6 +102,7 @@ export default class _DayPicker extends Component {
             this.props.onChange && this.props.onChange({time:timer,year:select_year,month:select_month,day:s_day})
         });
     }
+
     previousYear(){
         let { current_year, current_month, current_day,select_year, select_month, select_day, date_num_array, first_day} = this.state;
         select_year = +select_year - 1;
@@ -219,9 +221,9 @@ export default class _DayPicker extends Component {
     todayHandle(){
         const {value,dateFormat}=this.props;
         const initValue = Util.value2Moment(value,dateFormat);
-        const select_year = initValue.format('YYYY-MM-DD').split('-')[0],
-                select_month=initValue.format('YYYY-MM-DD').split('-')[1],
-                select_day=initValue.format('YYYY-MM-DD').split('-')[2]
+        const select_year = initValue.format('YYYY'),
+                select_month=initValue.format('MM'),
+                select_day=initValue.format('DD')
         const date_num_array = this.MonthDays(select_year);
         let first_day = this.weekday(select_year,select_month);
         const selected_month = Number(select_month)-1;
@@ -238,11 +240,15 @@ export default class _DayPicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.maxValue!== this.props.maxValue || nextProps.minValue!== this.props.minValue || nextProps.year !== this.props.year || nextProps.month !== this.props.month || nextProps.day !== this.props.day) {
+        if (nextProps.maxValue!== this.props.maxValue || nextProps.minValue!== this.props.minValue || nextProps.year !== this.props.year || nextProps.month !== this.props.month ||
+            nextProps.day !== this.props.day || nextProps.hour !== this.props.hour || nextProps.minute !== this.props.minute || nextProps.second !== this.props.second) {
             this.setState({
                 select_year : nextProps.year,
                 select_month :nextProps.month,
                 select_day : nextProps.day,
+                hour:nextProps.hour,
+                minute:nextProps.minute,
+                second:nextProps.second,
                 date_num_array: this.MonthDays(nextProps.year),
                 first_day:this.weekday(nextProps.year,nextProps.month),
                 maxValue:nextProps.maxValue,
@@ -252,12 +258,15 @@ export default class _DayPicker extends Component {
     }
 
     componentDidMount() {
-        const {year,month,day,maxValue,minValue} = this.props;
+        const {year,month,day,hour,minute,second,maxValue,minValue} = this.props;
         if((year && year != '') && (month && month !='') && (day && day != '')){
             this.setState({
                 select_year : year,
                 select_month :month,
                 select_day : day,
+                hour:hour,
+                minute:minute,
+                second:second,
                 date_num_array: this.MonthDays(year),
                 first_day:this.weekday(year,month),
                 maxValue:maxValue,
@@ -457,25 +466,25 @@ export default class _DayPicker extends Component {
                         }
                     </div>
                 </div>
-                {
-                    isFooter ?
-                    <div className="calendar-footer">
-                        {
-                            (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value))?
-                                <a href="javascript:;">
-                                    <span className="item-gray">Today</span>
-                                </a>
-                                :
-                                <a href="javascript:;" onClick={this.todayHandle}>
-                                    Today
-                                    <TouchRipple/>
-                                </a>
-                        }
-
-                    </div>
-                        :
-                        null
-                }
+                {/*{*/}
+                    {/*isFooter ?*/}
+                    {/*<div className="calendar-footer">*/}
+                        {/*{*/}
+                            {/*(minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value))?*/}
+                                {/*<a href="javascript:;">*/}
+                                    {/*<span className="item-gray">Today</span>*/}
+                                {/*</a>*/}
+                                {/*:*/}
+                                {/*<a href="javascript:;" onClick={this.todayHandle}>*/}
+                                    {/*Today*/}
+                                    {/*<TouchRipple/>*/}
+                                {/*</a>*/}
+                        {/*}*/}
+                    {/**/}
+                    {/*</div>*/}
+                        {/*:*/}
+                        {/*null*/}
+                {/*}*/}
 
             </div>
         );

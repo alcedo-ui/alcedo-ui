@@ -48,7 +48,7 @@
 		top: 0;
 		left: 0;
 		width: 300px;
-		height: 350px;
+		height: 344px;
 		overflow: hidden;
 		background: #FFF;
 		border-radius: $border-radius;
@@ -223,10 +223,57 @@
 					}
 				}
 			}
-			.calendar-footer{
-				height: 40px;
-				line-height:40px;
-				text-align: center;
+			.timeItems{
+				width: 100px;
+				height: 260px;
+				margin: 0;
+				padding: 0 0 230px 0;
+				float: left;
+				overflow: hidden;
+				box-sizing: border-box;
+				transition: all $transition-duration ease-in-out;
+				border-left: 1px solid #dfdfdf;
+				user-select: none;
+				&:first-child{
+					border:none;
+				}
+				li{
+					list-style-type: none;
+					height: 30px;
+					width: 100%;
+					line-height:30px;
+					padding-left:36px;
+					cursor: pointer;
+					&:hover{
+						background: $content-bg-light;
+					}
+					&.active{
+						background: $content-bg-light;
+						color: $blue-grey;
+						font-weight: 600;
+					}
+				}
+				&.disabled{
+					color: $grey;
+					cursor:not-allowed;
+				}
+			}
+			&.time-picker-body{
+				overflow: hidden;
+				border-bottom: 1px solid #dfdfdf;
+				border-top:1px solid #dfdfdf;
+			}
+		}
+		.calendar-footer{
+			height: 40px;
+			line-height:40px;
+			overflow: hidden;
+			box-sizing: border-box;
+			padding: 0 16px;
+			.action{
+				width: 220px;
+				float: left;
+				overflow:hidden;
 				a{
 					text-decoration: none;
 					color:#108ee9;
@@ -236,8 +283,30 @@
 						color:$grey;
 						cursor: not-allowed;
 					}
+					&.fl{
+						float: left;
+					}
+					&.fr{
+						float: right;
+					}
 				}
 			}
+			.select-button{
+				float: left;
+				margin-left: 20px;
+				.raised-button{
+					padding: 0;
+					width: 26px;
+					height: 26px;
+					line-height: 20px;
+					text-align: center;
+					background:#38B1EB;
+					&.active{
+						background:#38B1EB;
+					}
+				}
+			}
+
 		}
 
 	}
