@@ -70,6 +70,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Checkbox"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/CheckboxExamples').default);
+                       });
+                   }}/>
+
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
