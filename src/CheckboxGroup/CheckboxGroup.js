@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
 
@@ -17,17 +18,29 @@ export default class CheckboxGroup extends Component {
     }
 
     changeHandle(item) {
+
+        let {value} = this.state,
+            index = value.findIndex(v => v.value === item.value);
+
+        if (index > -1) {
+            value.splice(index, 1);
+        } else {
+            value.push(item);
+        }
+
+        const newValue = _.cloneDeep(value);
+
         this.setState({
-            value: item.value
+            value: newValue
         }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(item.value);
+            !this.props.disabled && this.props.onChange && this.props.onChange(newValue);
         });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: !!nextProps.value
+                value: nextProps.value
             });
         }
     }
@@ -45,7 +58,7 @@ export default class CheckboxGroup extends Component {
                 {
                     data.map((item, index) => {
 
-                        const isChecked = item.value === value;
+                        const isChecked = value && value.findIndex(v => v.value === item.value) > -1;
 
                         return (
                             <Checkbox key={index}
