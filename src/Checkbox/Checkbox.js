@@ -31,6 +31,7 @@ export default class Checkbox extends Component {
 
     mouseDownHandle(e) {
         this.refs.checkboxIcon.startRipple(e);
+        this.clickHandle();
     }
 
     mouseUpHandle() {
@@ -53,9 +54,7 @@ export default class Checkbox extends Component {
         return (
             <div className={`checkbox ${value ? 'activated' : ''} ${className}`}
                  style={style}
-                 disabled={disabled}
-                 onMouseDown={this.mouseDownHandle}
-                 onMouseUp={this.mouseUpHandle}>
+                 disabled={disabled}>
 
                 <input type="hidden"
                        name={name}
@@ -67,7 +66,8 @@ export default class Checkbox extends Component {
                             onTouchTap={this.clickHandle}/>
 
                 <div className="checkbox-label"
-                     onMouseDown={this.clickHandle}>
+                     onMouseDown={this.mouseDownHandle}
+                     onMouseUp={this.mouseUpHandle}>
                     {label}
                 </div>
 
@@ -83,7 +83,7 @@ Checkbox.propTypes = {
     style: PropTypes.object,
 
     name: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.any,
     value: PropTypes.bool,
     disabled: PropTypes.bool,
 

@@ -38,6 +38,7 @@ export default class Radio extends Component {
 
     mouseDownHandle(e) {
         this.refs.radioIcon.startRipple(e);
+        this.clickHandle();
     }
 
     mouseUpHandle() {
@@ -60,9 +61,7 @@ export default class Radio extends Component {
         return (
             <div className={`radio ${value ? 'activated' : ''} ${className}`}
                  style={style}
-                 disabled={disabled}
-                 onMouseDown={this.mouseDownHandle}
-                 onMouseUp={this.mouseUpHandle}>
+                 disabled={disabled}>
 
                 <input type="hidden"
                        name={name}
@@ -74,7 +73,8 @@ export default class Radio extends Component {
                             onTouchTap={this.clickHandle}/>
 
                 <div className="radio-label"
-                     onMouseDown={this.clickHandle}>
+                     onMouseDown={this.mouseDownHandle}
+                     onMouseUp={this.mouseUpHandle}>
                     {label}
                 </div>
 
@@ -90,7 +90,7 @@ Radio.propTypes = {
     style: PropTypes.object,
 
     name: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.any,
     value: PropTypes.bool,
     disabled: PropTypes.bool,
 

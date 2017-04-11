@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
-import Radio from '../Radio';
+import Checkbox from '../Checkbox';
 
-export default class RadioGroup extends Component {
+export default class CheckboxGroup extends Component {
 
     constructor(props) {
 
@@ -38,7 +38,7 @@ export default class RadioGroup extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`radio-group ${className}`}
+            <div className={`checkbox-group ${className}`}
                  style={style}
                  disabled={disabled}>
 
@@ -48,15 +48,15 @@ export default class RadioGroup extends Component {
                         const isChecked = item.value === value;
 
                         return (
-                            <Radio key={index}
-                                   className={item.className ? item.className : ''}
-                                   style={item.style}
-                                   name={name}
-                                   label={item.label}
-                                   value={isChecked}
-                                   onChange={() => {
-                                       this.changeHandle(item);
-                                   }}/>
+                            <Checkbox key={index}
+                                      className={item.className ? item.className : ''}
+                                      style={item.style}
+                                      name={name}
+                                      label={item.label}
+                                      value={isChecked}
+                                      onChange={() => {
+                                          this.changeHandle(item);
+                                      }}/>
                         );
 
                     })
@@ -68,7 +68,7 @@ export default class RadioGroup extends Component {
     }
 };
 
-RadioGroup.propTypes = {
+CheckboxGroup.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -83,21 +83,21 @@ RadioGroup.propTypes = {
         value: PropTypes.any
 
     })).isRequired,
-    value: PropTypes.any,
+    value: PropTypes.array,
     disabled: PropTypes.bool,
 
     onChange: PropTypes.func
 
 };
 
-RadioGroup.defaultProps = {
+CheckboxGroup.defaultProps = {
 
     className: '',
     style: null,
 
     name: '',
     data: [],
-    value: '',
+    value: [],
     disabled: false
 
 };
