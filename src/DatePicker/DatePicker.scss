@@ -48,7 +48,7 @@
 		top: 0;
 		left: 0;
 		width: 300px;
-		height: 350px;
+		height: 342px;
 		overflow: hidden;
 		background: #FFF;
 		border-radius: $border-radius;
@@ -223,19 +223,19 @@
 					}
 				}
 			}
-			.calendar-footer{
-				height: 40px;
-				line-height:40px;
-				text-align: center;
-				a{
-					text-decoration: none;
-					color:#108ee9;
-					position: relative;
-					overflow: hidden;
-					.item-gray{
-						color:$grey;
-						cursor: not-allowed;
-					}
+		}
+		.calendar-footer{
+			height: 40px;
+			line-height:40px;
+			text-align: center;
+			a{
+				text-decoration: none;
+				color:#108ee9;
+				position: relative;
+				overflow: hidden;
+				.item-gray{
+					color:$grey;
+					cursor: not-allowed;
 				}
 			}
 		}

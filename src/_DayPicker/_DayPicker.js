@@ -40,7 +40,6 @@ export default class _DayPicker extends Component {
         this.nextMonth = this::this.nextMonth;
         this.previousYear = this::this.previousYear;
         this.nextYear = this::this.nextYear;
-        this.todayHandle = this::this.todayHandle;
         this.hoverDateHandle = this::this.hoverDateHandle;
     }
     MonthDays(year){
@@ -80,6 +79,7 @@ export default class _DayPicker extends Component {
     previousLevel(){
         this.props.previousClick && this.props.previousClick(0)
     }
+
     hoverDateHandle(s_day) {
         let { select_year, select_month} = this.state;
         s_day = s_day.toString();
@@ -92,7 +92,12 @@ export default class _DayPicker extends Component {
         let { select_year, select_month,hour,minute,second} = this.state;
         s_day = s_day.toString();
         const selected_month = Number(select_month)-1;
-        let timer = moment([select_year,selected_month,s_day,hour,minute,second]).format(this.props.dateFormat);
+        let timer;
+        if(hour && minute && second){
+            timer = moment([select_year,selected_month,s_day,hour,minute,second]).format(this.props.dateFormat);
+        }else{
+            timer = moment([select_year,selected_month,s_day]).format(this.props.dateFormat);
+        }
         this.setState({
             history_year: select_year,
             history_month: select_month,
@@ -216,27 +221,6 @@ export default class _DayPicker extends Component {
             num= 7
         }
         return num
-    }
-
-    todayHandle(){
-        const {value,dateFormat}=this.props;
-        const initValue = Util.value2Moment(value,dateFormat);
-        const select_year = initValue.format('YYYY'),
-                select_month=initValue.format('MM'),
-                select_day=initValue.format('DD')
-        const date_num_array = this.MonthDays(select_year);
-        let first_day = this.weekday(select_year,select_month);
-        const selected_month = Number(select_month)-1;
-        let timer = moment([select_year,selected_month,select_day]).format(this.props.dateFormat);
-        this.setState({
-            select_year: select_year,
-            select_month: select_month,
-            select_day: select_day,
-            date_num_array: date_num_array,
-            first_day: first_day
-        },()=>{
-            this.props.onChange && this.props.onChange({time:timer,year:select_year,month:select_month,day:select_day})
-        })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -466,26 +450,6 @@ export default class _DayPicker extends Component {
                         }
                     </div>
                 </div>
-                {/*{*/}
-                    {/*isFooter ?*/}
-                    {/*<div className="calendar-footer">*/}
-                        {/*{*/}
-                            {/*(minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value))?*/}
-                                {/*<a href="javascript:;">*/}
-                                    {/*<span className="item-gray">Today</span>*/}
-                                {/*</a>*/}
-                                {/*:*/}
-                                {/*<a href="javascript:;" onClick={this.todayHandle}>*/}
-                                    {/*Today*/}
-                                    {/*<TouchRipple/>*/}
-                                {/*</a>*/}
-                        {/*}*/}
-                    {/**/}
-                    {/*</div>*/}
-                        {/*:*/}
-                        {/*null*/}
-                {/*}*/}
-
             </div>
         );
     }

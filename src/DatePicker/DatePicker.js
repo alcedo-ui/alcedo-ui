@@ -28,7 +28,8 @@ export default class DatePicker extends Component {
             month:initValue.format('MM'),
             day:initValue.format('DD'),
             datePickerLevel:0,
-            marginLeft:0
+            marginLeft:0,
+            isFooter:true
         };
 
         this.textFieldChangeHandle = this::this.textFieldChangeHandle;
@@ -38,6 +39,7 @@ export default class DatePicker extends Component {
         this.yearPickerChangeHandle = this::this.yearPickerChangeHandle;
         this.monthPickerChangeHandle = this::this.monthPickerChangeHandle;
         this.dayPickerChangeHandle = this::this.dayPickerChangeHandle;
+        this.todayHandle = this::this.todayHandle;
     }
 
     datePickerChangeHandle(select){
@@ -89,6 +91,19 @@ export default class DatePicker extends Component {
         this.setState({
             datePickerLevel:1,
             year:year
+        })
+    }
+
+    todayHandle(){
+        const year = moment().format('YYYY'),
+            month=moment().format('MM'),
+            day=moment().format('DD');
+        let timer = moment().format(this.props.dateFormat);
+        this.setState({
+            textFieldValue:timer,
+            year: year,
+            month: month,
+            day: day
         })
     }
 
@@ -170,7 +185,7 @@ export default class DatePicker extends Component {
 
     render() {
         const {className, style, name, placeholder , dateFormat,maxValue,minValue} = this.props;
-        const {textFieldValue, popupVisible ,datePickerLevel,year,month,day,marginLeft} = this.state;
+        const {textFieldValue, popupVisible ,datePickerLevel,year,month,day,marginLeft,isFooter} = this.state;
         const popStyle={
             left:'-'+marginLeft+'px'
         }
@@ -209,7 +224,7 @@ export default class DatePicker extends Component {
                                 day={day}
                                 maxValue={maxValue}
                                 minValue={minValue}
-                                isFooter={true}
+                                isFooter={isFooter}
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}
                             />
@@ -234,7 +249,24 @@ export default class DatePicker extends Component {
                                     onChange={this.yearPickerChangeHandle}
                                 />
                         )
+                    }
+                    {
+                        isFooter ?
+                            <div className="calendar-footer">
+                                {
+                                    (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value))?
+                                        <a href="javascript:;">
+                                            <span className="item-gray">Today</span>
+                                        </a>
+                                        :
+                                        <a href="javascript:;" onClick={this.todayHandle}>
+                                            Today
+                                        </a>
+                                }
 
+                            </div>
+                            :
+                            null
                     }
                 </div>
 
