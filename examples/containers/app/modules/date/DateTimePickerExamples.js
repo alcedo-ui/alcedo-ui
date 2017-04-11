@@ -3,7 +3,7 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import DatePicker from '../../../../../dist/DatePicker'
+import DateTimePicker from '../../../../../dist/DateTimePicker'
 
 export default class DateTimePickerExamples extends Component {
 
@@ -13,8 +13,13 @@ export default class DateTimePickerExamples extends Component {
 
     render() {
         return (
-            <div className="time-picker-example">
-                <DatePicker/>
+            <div className="example time-picker-example">
+                <div className="examples">
+                    <div className="examples-title">Date Time Picker</div>
+                    <div className="examples-wrapper">
+                        <DateTimePicker/>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -13,8 +13,13 @@ export default class TimePickerExamples extends Component {
 
     render() {
         return (
-            <div className="time-picker-example">
-                <TimePicker/>
+            <div className="example time-picker-example">
+                <div className="examples">
+                    <div className="examples-title">Time Picker</div>
+                    <div className="examples-wrapper">
+                        <TimePicker/>
+                    </div>
+                </div>
             </div>
         );
     }

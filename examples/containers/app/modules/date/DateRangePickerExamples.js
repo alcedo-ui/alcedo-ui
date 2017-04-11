@@ -13,8 +13,14 @@ export default class DateRangePickerExamples extends Component {
 
     render() {
         return (
-            <div className="time-picker-example">
-                <DateRangePicker/>
+            <div className="example time-picker-example">
+                <div className="examples">
+                    <div className="examples-title">Date Range Picker</div>
+                    <div className="examples-wrapper">
+                        <DateRangePicker/>
+                    </div>
+                </div>
+
             </div>
         );
     }
