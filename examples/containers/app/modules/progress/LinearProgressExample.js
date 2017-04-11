@@ -32,7 +32,7 @@ export default class LinearProgressExample extends Component{
             this.setState({
                 percent: percent + add
             });
-            setTimeout( () => this.progress(percent + add), 1000);
+            this.timer = setTimeout( () => this.progress(percent + add), 1000);
         }
 
     }
@@ -40,7 +40,7 @@ export default class LinearProgressExample extends Component{
     render() {
         const style = {
             width: '300px',
-            height: '3px',
+            height: '4px',
             margin: '10px'
         };
         return (

@@ -15,6 +15,10 @@ export default class Percent extends Component{
         this.timer = setTimeout( () => this.numberChange(), 30);
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.timer);
+    }
+
     numberChange() {
         if (this.state.percent < 100) {
             if (this.state.percent < this.props.endNum) {

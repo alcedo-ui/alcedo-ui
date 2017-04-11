@@ -20,11 +20,12 @@ export default class CircularProgress extends Component{
             strokeDasharray: this.props.percent / 100 * l + ',' + l
         },svgStyle = {
             width: (this.props.r + this.props.width) * 2,
-            height: (this.props.r + this.props.width) * 2
+            height: (this.props.r + this.props.width) * 2,
+            ...this.props.style
         };
         return (
             <div className="circular-progress" style={svgStyle}>
-                <svg className="circular-progress-svg"  style={svgStyle}>
+                <svg className="circular-progress-svg">
                     <circle className="circular-progress-circle" cx={this.props.r + this.props.width} cy={this.props.r + this.props.width} r={this.props.r} strokeWidth={this.props.width} stroke={this.props.rgba} fill="none" style={circleStyle}>
                     </circle>
                 </svg>
@@ -42,7 +43,8 @@ CircularProgress.propTypes = {
     width: PropTypes.number,
     rgba: PropTypes.string,
     percent: PropTypes.number,
-    word: PropTypes.bool
+    word: PropTypes.bool,
+    style: PropTypes.object
 };
 
 CircularProgress.defaultProps = {
@@ -50,6 +52,7 @@ CircularProgress.defaultProps = {
     width: 2,
     rgba: 'rgb(0, 188, 212)',
     percent: 0,
-    word: true
+    word: true,
+    style: {}
 };
 

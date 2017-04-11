@@ -9,7 +9,7 @@ export default class Test extends Component{
     constructor(props){
         super();
         this.state = {
-            percent: 0
+            percent: 5
         }
     }
 
@@ -32,12 +32,28 @@ export default class Test extends Component{
             this.setState({
                 percent: percent + add
             });
-            setTimeout( () => this.progress(percent + add), 1000);
+            this.timer = setTimeout( () => this.progress(percent + add), 1000);
         }
 
     }
 
     render() {
-        return <CircularProgress r={50} width={10} rgba="green" percent={this.state.percent} word={true}/>
+        const hStyle = {
+            marginLeft: '20px',
+            fontSize: '16px'
+        },pStyle = {
+            marginLeft: '20px',
+            fontSize: '14px'
+        },cStyle = {
+            marginLeft: '20px',
+            marginTop: '10px',
+        };
+        return (
+            <div>
+                <h3 style={hStyle}>Circular Progress</h3>
+                <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
+                <CircularProgress r={50} width={10} rgba="green" percent={this.state.percent} word={true} style={cStyle}/>
+            </div>
+        )
     }
 }

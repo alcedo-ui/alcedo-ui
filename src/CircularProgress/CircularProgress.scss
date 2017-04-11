@@ -1,6 +1,8 @@
 .circular-progress{
   position: relative;
   .circular-progress-svg{
+    width: 100%;
+    height: 100%;
     >circle{
       transition: all 0.3s linear 0ms;
     }
