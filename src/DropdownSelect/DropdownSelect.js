@@ -96,16 +96,6 @@ export default class DropdownSelect extends Component {
 
         let above = this.isAbove(optionsHeight),
             wrapperStyle = {
-                // top: above && optionsVisible ? -optionsHeight : 0,
-                // height: optionsVisible ?
-                // 	(
-                // 		data && dataLen > 0 ?
-                // 			optionsHeight + triggerHeight
-                // 			:
-                // 			triggerHeight
-                // 	)
-                // 	:
-                // 	triggerHeight
                 top: above && optionsVisible ? -optionsHeight : 0,
                 height: optionsVisible ? triggerHeight + optionsHeight : triggerHeight
             },
@@ -152,25 +142,26 @@ export default class DropdownSelect extends Component {
                          className="dropdown-select-options"
                          style={optionsStyle}>
 
-                            {
-                                data.map((item, index) => {
+                        {
+                            data.map((item, index) => {
 
-                                    const isObject = typeof item === 'object',
-                                        text = isObject ? item.text : item;
+                                const isObject = typeof item === 'object',
+                                    text = isObject ? item.text : item,
+                                    isActivated = JSON.stringify(item) == JSON.stringify(value);
 
-                                    return (
-                                        <RaisedButton key={index}
-                                                      className={`dropdown-select-option ${JSON.stringify(item) == JSON.stringify(value) ? 'activated' : ''}`}
-                                                      iconCls={isObject ? item.iconCls : ''}
-                                                      value={textFormat && typeof textFormat === 'function' ?
-                                                          textFormat(text) : text}
-                                                      disabled={isObject ? item.disabled : false}
-                                                      onClick={() => {
-                                                          this.select(item);
-                                                      }}/>
-                                    );
-                                })
-                            }
+                                return (
+                                    <RaisedButton key={index}
+                                                  className={`dropdown-select-option ${isActivated ? 'activated' : ''}`}
+                                                  iconCls={isObject ? item.iconCls : ''}
+                                                  value={textFormat && typeof textFormat === 'function'
+                                                      ? textFormat(text) : text}
+                                                  disabled={isObject ? item.disabled : false}
+                                                  onTouchTap={() => {
+                                                      this.select(item);
+                                                  }}/>
+                                );
+                            })
+                        }
 
                     </div>
 
