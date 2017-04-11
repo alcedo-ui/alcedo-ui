@@ -76,7 +76,18 @@ export default (
                            cb(null, require('./containers/app/modules/popup/DialogExamples').default);
                        });
                    }}/>
-
+            <Route path="CircularProgress"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/progress/CircularProgressExample').default);
+                       });
+                   }}/>
+            <Route path="LinearProgress"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/progress/LinearProgressExample').default);
+                       });
+                   }}/>
         </Route>
 
     </Route>

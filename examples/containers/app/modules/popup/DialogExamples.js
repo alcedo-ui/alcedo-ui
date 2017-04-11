@@ -28,7 +28,13 @@ export default class DialogExamples extends Component{
     }
 
     render() {
-        const hStyle = {
+        const boxStyle = {
+            boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
+            margin: '50px',
+            padding: '0px 0 20px',
+            overflow: 'hidden',
+            background: 'white'
+        },hStyle = {
             marginLeft: '20px'
         },pStyle = {
             marginLeft: '20px'
@@ -44,7 +50,7 @@ export default class DialogExamples extends Component{
             fontWeight: '500'
         };
         return (
-            <div className="test-dialog">
+            <div className="test-dialog" style={boxStyle}>
                 <h3 style={hStyle}>Dialog Examples</h3>
                 <p style={pStyle}>Please click this button to show Dialog.</p>
                 <button onClick={this.clickHandle} style={bStyle}>Dialog</button>
