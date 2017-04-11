@@ -75,7 +75,7 @@
                     padding: 0 15px 0 12px;
                     border-left: 3px solid $theme-highlight;
                     color: #fff;
-                    background: darken($theme-menu, 6%);
+                    background: transparentize(#000, .92);
                 }
 
             }
