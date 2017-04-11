@@ -21,7 +21,7 @@ function removeEvent(el, type, cb) {
 function triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
 
 	let flag = true;
-
+	// debugger
 	while (el) {
 		if (el == popupEl) {
 			return currentVisible;

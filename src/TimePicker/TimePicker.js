@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 import Util from '../vendors/Util';
 import Event from '../vendors/Event';
+import moment from 'moment';
 
 
 import TextField from '../TextField/TextField';
@@ -51,14 +52,27 @@ export default class TimePicker extends Component {
 		}
 	}
 
-	textFieldChangeHandle(textFieldValue) {
-		const initValue = Util.value2Moment(this.props.value, this.props.dateFormat);
-		this.setState({
-			textFieldValue:textFieldValue,
-			hour:initValue.format('HH'),
-			minute:initValue.format('mm'),
-			second:initValue.format('ss')
-		});
+	textFieldChangeHandle(text) {
+		if(text && text.length) {
+			let validDate = '1970-01-01 '+text;
+			let validFormat = 'YYYY-MM-DD '+this.props.dateFormat;
+			const flag = moment(validDate,validFormat, true).isValid();
+			if (flag) {
+				const hour = moment(validDate).format('HH'),
+					   minute = moment(validDate).format('mm'),
+					   second = moment(validDate).format('ss')
+				this.setState({
+					textFieldValue: text,
+					hour:hour,
+					minute:minute,
+					second:second
+				})
+			}
+		}else{
+			this.setState({
+				textFieldValue: text
+			})
+		}
 	}
 
 
