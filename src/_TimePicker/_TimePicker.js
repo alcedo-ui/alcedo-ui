@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import TimeItems from '../TimeItems/TimeItems';
+import TimeItems from '../_TimeItems/_TimeItems';
 
 export default class _TimePicker extends Component {
 

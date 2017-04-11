@@ -5,7 +5,7 @@ import RadioGroup from 'dist/RadioGroup';
 
 import 'sass/containers/app/modules/fields/RadioExamples.scss';
 
-export default class CheckboxExamples extends Component {
+export default class RadioExamples extends Component {
 
     constructor(props) {
         super(props);

@@ -1,0 +1,29 @@
+@import '../../../../common.scss';
+
+.multiple-select-examples {
+
+    .examples-wrapper {
+
+        .field-group {
+
+            @include float-fix;
+
+            float: none;
+
+            .multiple-select-label,
+            .multiple-select {
+                float: left;
+            }
+
+            .multiple-select-label {
+                font-size: 14px;
+                line-height: 50px;
+                margin-right: 20px;
+                width: 60px;
+            }
+            .multiple-select{
+                width: 300px;
+            }
+        }
+    }
+}

@@ -1,0 +1,99 @@
+@import '../_common.scss';
+
+.switcher {
+    box-sizing: border-box;
+    width: 54px;
+    height: 30px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid darken($theme-bg, 2%);
+    background: $theme-bg;
+
+    .slider-wrapper {
+        width: 50px;
+        height: 50px;
+        padding: 12px;
+        position: absolute;
+        top: -11px;
+        left: -11px;
+
+        .slider {
+
+            @include shadow(2);
+
+            width: 26px;
+            height: 26px;
+            border-radius: 13px;
+            background: #fff;
+            line-height: 26px;
+            transition: all 200ms ease-in-out;
+
+            .switcher-loading {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 14px;
+                cursor: default;
+                margin: 0;
+                color: lighten($theme-text, 20%);
+            }
+        }
+    }
+
+    &.active {
+        background: $theme-title;
+        border: 1px solid $theme-title;
+
+        .slider-wrapper {
+            left: 13px;
+        }
+    }
+
+    &[disabled] {
+        background: grayscale($theme-bg);
+        border: 1px solid grayscale(darken($theme-bg, 2%));
+        cursor: not-allowed;
+
+        .slider {
+            box-shadow: none;
+        }
+    }
+
+    &[disabled].active {
+        background: grayscale($theme-bg);
+    }
+
+    &.small {
+        width: 40px;
+        height: 24px;
+        border-radius: 12px;
+
+        .slider-wrapper {
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+            top: -9px;
+            left: -9px;
+
+            .slider {
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;
+
+                .switcher-loading {
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                }
+            }
+        }
+
+        &.active {
+            .slider-wrapper {
+                left: 7px;
+            }
+        }
+    }
+
+}

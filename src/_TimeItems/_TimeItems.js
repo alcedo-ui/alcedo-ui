@@ -4,7 +4,7 @@
 import React, {Component, PropTypes} from 'react';
 import Event from 'vendors/Event';
 
-export default class TimeItems extends Component {
+export default class _TimeItems extends Component {
     constructor(props) {
 
         super(props);
@@ -84,6 +84,6 @@ export default class TimeItems extends Component {
 
     }
 }
-TimeItems.PropTypes={
+_TimeItems.PropTypes={
 
 }
