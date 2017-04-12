@@ -1,0 +1,16 @@
+@import '../../../../common.scss';
+
+.paper-examples {
+
+    .examples-wrapper {
+
+        @include float-fix;
+
+        .paper {
+            width: 80px;
+            height: 80px;
+            float: left;
+            margin: 0 20px 20px 0;
+        }
+    }
+}

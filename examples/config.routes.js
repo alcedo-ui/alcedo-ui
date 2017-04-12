@@ -1,5 +1,5 @@
 import React from 'react';
-import {IndexRoute, Route} from 'react-router';
+import {IndexRoute, Route, Redirect} from 'react-router';
 
 import Root from 'containers/Root';
 import App from 'containers/app/App';
@@ -8,6 +8,8 @@ export default (
     <Route path="/" component={Root}>
 
         <IndexRoute component={App}/>
+
+        <Redirect from="components" to="/components/RaisedButton"/>
 
         <Route path="components" component={App}>
 
@@ -110,18 +112,42 @@ export default (
                            cb(null, require('./containers/app/modules/popup/DialogExamples').default);
                        });
                    }}/>
+
+            <Route path="Popup"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/popup/PopupExamples').default);
+                       });
+                   }}/>
+
             <Route path="CircularProgress"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
                            cb(null, require('./containers/app/modules/progress/CircularProgressExample').default);
                        });
                    }}/>
+
             <Route path="LinearProgress"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
                            cb(null, require('./containers/app/modules/progress/LinearProgressExample').default);
                        });
                    }}/>
+
+            <Route path="Paper"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/PaperExamples').default);
+                       });
+                   }}/>
+
+            <Route path="List"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/ListExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
