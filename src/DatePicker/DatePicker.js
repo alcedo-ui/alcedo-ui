@@ -3,8 +3,8 @@
  */
 import React, {Component, PropTypes} from 'react';
 import moment from 'moment';
-import Util from '../vendors/Util';
-import Event from '../vendors/Event';
+import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 import _ from 'lodash';
 
 import TextField from '../TextField';
@@ -24,12 +24,12 @@ export default class DatePicker extends Component {
             value: initValue, // Moment object
             textFieldValue: initValue.format(props.dateFormat),
             popupVisible: false,
-            year:initValue.format('YYYY'),
-            month:initValue.format('MM'),
-            day:initValue.format('DD'),
-            datePickerLevel:0,
-            marginLeft:0,
-            isFooter:true
+            year: initValue.format('YYYY'),
+            month: initValue.format('MM'),
+            day: initValue.format('DD'),
+            datePickerLevel: 0,
+            marginLeft: 0,
+            isFooter: true
         };
 
         this.textFieldChangeHandle = this::this.textFieldChangeHandle;
@@ -42,15 +42,16 @@ export default class DatePicker extends Component {
         this.todayHandle = this::this.todayHandle;
     }
 
-    datePickerChangeHandle(select){
+    datePickerChangeHandle(select) {
         let {datePickerLevel}=this.state;
-        datePickerLevel = datePickerLevel+1;
+        datePickerLevel = datePickerLevel + 1;
         this.setState({
-            datePickerLevel:datePickerLevel
+            datePickerLevel: datePickerLevel
         })
     }
-    textFieldChangeHandle(text){
-        if(text && text.length) {
+
+    textFieldChangeHandle(text) {
+        if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 const select_year = moment(text).format('YYYY'),
@@ -63,44 +64,45 @@ export default class DatePicker extends Component {
                     day: select_day
                 })
             }
-        }else{
+        } else {
             this.setState({
                 textFieldValue: text
             })
         }
     }
 
-    dayPickerChangeHandle(date){
+    dayPickerChangeHandle(date) {
         this.setState({
-            textFieldValue:date.time,
-            year:date.year,
-            month:date.month,
-            day:date.day,
-            popupVisible:false
+            textFieldValue: date.time,
+            year: date.year,
+            month: date.month,
+            day: date.day,
+            popupVisible: false
         })
     }
 
-    monthPickerChangeHandle(date){
+    monthPickerChangeHandle(date) {
         this.setState({
-            datePickerLevel:0,
-            year:date.year,
-            month:date.month
-        })
-    }
-    yearPickerChangeHandle(year){
-        this.setState({
-            datePickerLevel:1,
-            year:year
+            datePickerLevel: 0,
+            year: date.year,
+            month: date.month
         })
     }
 
-    todayHandle(){
+    yearPickerChangeHandle(year) {
+        this.setState({
+            datePickerLevel: 1,
+            year: year
+        })
+    }
+
+    todayHandle() {
         const year = moment().format('YYYY'),
-            month=moment().format('MM'),
-            day=moment().format('DD');
+            month = moment().format('MM'),
+            day = moment().format('DD');
         let timer = moment().format(this.props.dateFormat);
         this.setState({
-            textFieldValue:timer,
+            textFieldValue: timer,
             year: year,
             month: month,
             day: day
@@ -108,30 +110,31 @@ export default class DatePicker extends Component {
     }
 
     mousedownHandle(e) {
-        const flag =  Event.triggerPopupEventHandle(e.target,require('react-dom').findDOMNode(this.refs.trigger),this.refs.popup,this.state.popupVisible);
-        if(flag){
+        const flag = Event.triggerPopupEventHandle(e.target, require('react-dom').findDOMNode(this.refs.trigger), this.refs.popup, this.state.popupVisible);
+        if (flag) {
             !this.props.disabled && this.setState({
-                popupVisible:flag
+                popupVisible: flag
             });
-        }else{
+        } else {
             !this.props.disabled && this.setState({
-                popupVisible:flag,
-                datePickerLevel:0
+                popupVisible: flag,
+                datePickerLevel: 0
             });
         }
     }
-    resizeHandle(){
+
+    resizeHandle() {
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
-        if((left+width)>=windowWidth){
-            marginLeft = (left+width)-windowWidth;
-        }else{
-            marginLeft=0
+        if ((left + width) >= windowWidth) {
+            marginLeft = (left + width) - windowWidth;
+        } else {
+            marginLeft = 0
         }
         this.setState({
-            marginLeft:marginLeft
+            marginLeft: marginLeft
         });
     }
 
@@ -147,29 +150,29 @@ export default class DatePicker extends Component {
 
     componentDidMount() {
         // debugger
-        const {value,dateFormat}=this.props;
+        const {value, dateFormat}=this.props;
         let state = _.cloneDeep(this.state);
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
-        if((left+width)>=windowWidth){
-            marginLeft = (left+width)-windowWidth;
-        }else{
-            marginLeft=0
+        if ((left + width) >= windowWidth) {
+            marginLeft = (left + width) - windowWidth;
+        } else {
+            marginLeft = 0
         }
-        if(value){
+        if (value) {
             const select_year = moment(value).format('YYYY'),
-                select_month=moment(value).format('MM'),
-                select_day=moment(value).format('DD');
+                select_month = moment(value).format('MM'),
+                select_day = moment(value).format('DD');
 
-            state.value=value;
-            state.textFieldValue=moment(value).format(dateFormat);
-            state.year=select_year;
-            state.month=select_month;
-            state.day=select_day;
-            if(marginLeft){
-                state.marginLeft=marginLeft;
+            state.value = value;
+            state.textFieldValue = moment(value).format(dateFormat);
+            state.year = select_year;
+            state.month = select_month;
+            state.day = select_day;
+            if (marginLeft) {
+                state.marginLeft = marginLeft;
             }
             this.setState(state)
         }
@@ -184,10 +187,10 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder , dateFormat,maxValue,minValue} = this.props;
-        const {textFieldValue, popupVisible ,datePickerLevel,year,month,day,marginLeft,isFooter} = this.state;
-        const popStyle={
-            left:'-'+marginLeft+'px'
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
+        const {textFieldValue, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state;
+        const popStyle = {
+            left: '-' + marginLeft + 'px'
         }
 
         return (
@@ -203,15 +206,15 @@ export default class DatePicker extends Component {
                            iconCls="fa fa-calendar"
                            readOnly={true}
                            isClearIcon={false}
-                    />
+                />
 
                 <div ref="popup"
                      className={`date-picker-popup ${popupVisible ? '' : 'hidden'}`}
-                      style={popStyle}>
+                     style={popStyle}>
                     <div className="calendar-date-input-wrap">
-                        <TextField  className='calendar-input'
-                                    placeholder={'Select Date'}
-                                    isClearIcon={true}
+                        <TextField className='calendar-input'
+                                   placeholder={'Select Date'}
+                                   isClearIcon={true}
                                    value={textFieldValue}
                                    onChange={this.textFieldChangeHandle}/>
                     </div>
@@ -228,7 +231,7 @@ export default class DatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}
                             />
-                            :(
+                            : (
                             datePickerLevel == 1 ?
                                 <MonthPicker
                                     year={year}
@@ -254,7 +257,7 @@ export default class DatePicker extends Component {
                         isFooter ?
                             <div className="calendar-footer">
                                 {
-                                    (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value))?
+                                    (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
                                         <a href="javascript:;">
                                             <span className="item-gray">Today</span>
                                         </a>

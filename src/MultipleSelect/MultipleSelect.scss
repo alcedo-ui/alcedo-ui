@@ -9,17 +9,17 @@
         border-radius: $border-radius;
         border: 1px solid #dfdfdf;
         position: absolute;
-        top:0;
-        left:0;
-        &.hidden{
+        top: 0;
+        left: 0;
+        &.hidden {
             box-shadow: none;
             z-index: 0;
         }
-        &.open{
+        &.open {
             @include shadow(3);
             z-index: $popup-z-index;
         }
-        &:hover{
+        &:hover {
             @include shadow(3);
         }
         .trigger {
@@ -42,7 +42,7 @@
                     font-size: 12px;
                     line-height: 30px;
                     padding: 1px 6px;
-                    color: $text-light;
+                    color: $theme-text;
                     cursor: pointer;
                     user-select: none;
                     border-radius: $border-radius;
@@ -56,11 +56,11 @@
                         cursor: pointer;
                         font-weight: bold;
                         font-size: 14px;
-                        color: lighten($text-light, 30%);
+                        color: lighten($theme-text, 30%);
                         border-radius: $border-radius;
 
                         &:hover {
-                            color: $text-light;
+                            color: $theme-text;
                         }
                     }
 
@@ -91,7 +91,7 @@
                     //}
                     &.disabled {
                         background: #F8F8F8;
-                        color: lighten($text-light, 30%);
+                        color: lighten($theme-text, 30%);
                         &:hover {
                             background: #F8F8F8;
                         }
@@ -119,14 +119,14 @@
                             cursor: default;
 
                             &:hover {
-                                color: lighten($text-light, 30%);
+                                color: lighten($theme-text, 30%);
                             }
                         }
                     }
                 }
                 .filter {
                     background: #F8F8F8;
-                    color: lighten($text-light, 30%);
+                    color: lighten($theme-text, 30%);
                 }
             }
         }
@@ -135,7 +135,7 @@
             position: absolute;
             overflow: auto;
             border-top: 1px solid #dfdfdf;
-            z-index:1;
+            z-index: 1;
             border-bottom-left-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
             transition: all $transition-duration ease-in-out;
@@ -143,7 +143,7 @@
                 box-sizing: border-box;
                 width: 100%;
                 background: #FFF;
-                color: $text-light;
+                color: $theme-text;
                 padding: 0 9px;
                 border-top: none;
                 cursor: pointer;
@@ -152,7 +152,7 @@
                 &.disabled {
                     font-size: 12px;
                     background: #F8F8F8;
-                    color: lighten($text-light, 30%);
+                    color: lighten($theme-text, 30%);
 
                     &:hover {
                         background: #F8F8F8;

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import Util from '../vendors/Util';
+import Util from '../_vendors/Util';
 
 import FieldMsg from '../FieldMsg';
 
@@ -92,10 +92,10 @@ export default class MultipleSelect extends Component {
             }
         }
 
-        if(this.refs.options){
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight +'px'
-        }else{
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight+'px'
+        if (this.refs.options) {
+            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight + 'px'
+        } else {
+            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + 'px'
         }
     }
 
@@ -194,7 +194,7 @@ export default class MultipleSelect extends Component {
         // debugger
         for (let dataItem of data) {
 
-            if(value && value.length){
+            if (value && value.length) {
                 let flag = false;
                 for (let valueItem of value) {
                     if (typeof dataItem == 'object' && dataItem.key === valueItem.key) {
@@ -209,7 +209,7 @@ export default class MultipleSelect extends Component {
                 if (!flag) {
                     list.push(dataItem);
                 }
-            }else{
+            } else {
                 list.push(dataItem);
             }
         }
@@ -252,7 +252,7 @@ export default class MultipleSelect extends Component {
         });
     }
 
-    wrapperHeight(){
+    wrapperHeight() {
         if (this.refs.trigger) {
             return this.refs.trigger.offsetHeight
         }
@@ -313,9 +313,9 @@ export default class MultipleSelect extends Component {
             height: optionHeight,
             lineHeight: optionHeight + 'px'
         };
-        const wrapperHeight = optionsStyle.height > maxOptionsHeight ? maxOptionsHeight :optionsStyle.height;
-        const wrapperStyle ={
-            height: wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height +(this.wrapperHeight()) : wrapperHeight  +(this.wrapperHeight())
+        const wrapperHeight = optionsStyle.height > maxOptionsHeight ? maxOptionsHeight : optionsStyle.height;
+        const wrapperStyle = {
+            height: wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + (this.wrapperHeight()) : wrapperHeight + (this.wrapperHeight())
         }
 
         return (

@@ -3,8 +3,8 @@
  */
 import React, {Component, PropTypes} from 'react';
 import moment from 'moment';
-import Util from '../vendors/Util';
-import Event from '../vendors/Event';
+import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 import _ from 'lodash';
 
 import TextField from '../TextField';
@@ -26,15 +26,15 @@ export default class DateTimePicker extends Component {
             value: initValue, // Moment object
             textFieldValue: initValue.format(props.dateFormat),
             popupVisible: false,
-            year:initValue.format('YYYY'),
-            month:initValue.format('MM'),
-            day:initValue.format('DD'),
-            hour:initValue.format('HH'),
-            minute:initValue.format('mm'),
-            second:initValue.format('ss'),
-            datePickerLevel:0,
-            marginLeft:0,
-            isFooter:true
+            year: initValue.format('YYYY'),
+            month: initValue.format('MM'),
+            day: initValue.format('DD'),
+            hour: initValue.format('HH'),
+            minute: initValue.format('mm'),
+            second: initValue.format('ss'),
+            datePickerLevel: 0,
+            marginLeft: 0,
+            isFooter: true
         };
 
         this.textFieldChangeHandle = this::this.textFieldChangeHandle;
@@ -50,15 +50,16 @@ export default class DateTimePicker extends Component {
         this.selectDateTimeHandle = this::this.selectDateTimeHandle;
     }
 
-    datePickerChangeHandle(select){
+    datePickerChangeHandle(select) {
         let {datePickerLevel}=this.state;
-        datePickerLevel = datePickerLevel+1;
+        datePickerLevel = datePickerLevel + 1;
         this.setState({
-            datePickerLevel:datePickerLevel
+            datePickerLevel: datePickerLevel
         })
     }
-    textFieldChangeHandle(text){
-        if(text && text.length) {
+
+    textFieldChangeHandle(text) {
+        if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 const select_year = moment(text).format('YYYY'),
@@ -72,78 +73,79 @@ export default class DateTimePicker extends Component {
                     year: select_year,
                     month: select_month,
                     day: select_day,
-                    hour:hour,
-                    minute:minute,
-                    second:second
+                    hour: hour,
+                    minute: minute,
+                    second: second
                 })
             }
-        }else{
+        } else {
             this.setState({
                 textFieldValue: text
             })
         }
     }
 
-    dayPickerChangeHandle(date){
+    dayPickerChangeHandle(date) {
         this.setState({
-            textFieldValue:date.time,
-            year:date.year,
-            month:date.month,
-            day:date.day,
+            textFieldValue: date.time,
+            year: date.year,
+            month: date.month,
+            day: date.day,
         })
     }
 
-    monthPickerChangeHandle(date){
+    monthPickerChangeHandle(date) {
         this.setState({
-            datePickerLevel:0,
-            year:date.year,
-            month:date.month
-        })
-    }
-    yearPickerChangeHandle(year){
-        this.setState({
-            datePickerLevel:1,
-            year:year
+            datePickerLevel: 0,
+            year: date.year,
+            month: date.month
         })
     }
 
-    timePickerChangeHandle(obj){
+    yearPickerChangeHandle(year) {
+        this.setState({
+            datePickerLevel: 1,
+            year: year
+        })
+    }
+
+    timePickerChangeHandle(obj) {
         let state = _.cloneDeep(this.state);
-        state.hour=obj.hour;
-        state.minute=obj.minute;
-        state.second=obj.second;
-        let timer = moment([state.year,+state.month-1,state.day,state.hour,state.minute,state.second]).format(this.props.dateFormat);
+        state.hour = obj.hour;
+        state.minute = obj.minute;
+        state.second = obj.second;
+        let timer = moment([state.year, +state.month - 1, state.day, state.hour, state.minute, state.second]).format(this.props.dateFormat);
         this.setState({
-            hour:obj.hour,
-            minute:obj.minute,
-            second:obj.second,
-            textFieldValue:timer
+            hour: obj.hour,
+            minute: obj.minute,
+            second: obj.second,
+            textFieldValue: timer
         })
     }
 
-    chooseDateAndTimeHandle(value){
+    chooseDateAndTimeHandle(value) {
         this.setState({
-            datePickerLevel:value
+            datePickerLevel: value
         })
     }
 
-    selectDateTimeHandle(){
-        let state=_.cloneDeep(this.state);
-        state.popupVisible=false;
+    selectDateTimeHandle() {
+        let state = _.cloneDeep(this.state);
+        state.popupVisible = false;
         this.setState(state);
     }
 
-    nowHandle(){
+    nowHandle() {
         const year = moment().format('YYYY'),
-            month=moment().format('MM'),
-            day=moment().format('DD'),
-            hour=moment().format('HH'),
-            minute=moment().format('mm'),
-            second=moment().format('ss');
+            month = moment().format('MM'),
+            day = moment().format('DD'),
+            hour = moment().format('HH'),
+            minute = moment().format('mm'),
+            second = moment().format('ss');
 
         let timer = moment().format(this.props.dateFormat);
         this.setState({
-            textFieldValue:timer,
+            textFieldValue: timer,
             year: year,
             month: month,
             day: day,
@@ -154,30 +156,31 @@ export default class DateTimePicker extends Component {
     }
 
     mousedownHandle(e) {
-        const flag =  Event.triggerPopupEventHandle(e.target,require('react-dom').findDOMNode(this.refs.trigger),this.refs.popup,this.state.popupVisible);
-        if(flag){
+        const flag = Event.triggerPopupEventHandle(e.target, require('react-dom').findDOMNode(this.refs.trigger), this.refs.popup, this.state.popupVisible);
+        if (flag) {
             !this.props.disabled && this.setState({
-                popupVisible:flag
+                popupVisible: flag
             });
-        }else{
+        } else {
             !this.props.disabled && this.setState({
-                popupVisible:flag,
-                datePickerLevel:0
+                popupVisible: flag,
+                datePickerLevel: 0
             });
         }
     }
-    resizeHandle(){
+
+    resizeHandle() {
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
-        if((left+width)>=windowWidth){
-            marginLeft = (left+width)-windowWidth;
-        }else{
-            marginLeft=0
+        if ((left + width) >= windowWidth) {
+            marginLeft = (left + width) - windowWidth;
+        } else {
+            marginLeft = 0
         }
         this.setState({
-            marginLeft:marginLeft
+            marginLeft: marginLeft
         });
     }
 
@@ -193,29 +196,29 @@ export default class DateTimePicker extends Component {
 
     componentDidMount() {
         // debugger
-        const {value,dateFormat}=this.props;
+        const {value, dateFormat}=this.props;
         let state = _.cloneDeep(this.state);
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
-        if((left+width)>=windowWidth){
-            marginLeft = (left+width)-windowWidth;
-        }else{
-            marginLeft=0
+        if ((left + width) >= windowWidth) {
+            marginLeft = (left + width) - windowWidth;
+        } else {
+            marginLeft = 0
         }
-        if(value){
+        if (value) {
             const select_year = moment(value).format('YYYY'),
-                select_month=moment(value).format('MM'),
-                select_day=moment(value).format('DD');
+                select_month = moment(value).format('MM'),
+                select_day = moment(value).format('DD');
 
-            state.value=value;
-            state.textFieldValue=moment(value).format(dateFormat);
-            state.year=select_year;
-            state.month=select_month;
-            state.day=select_day;
-            if(marginLeft){
-                state.marginLeft=marginLeft;
+            state.value = value;
+            state.textFieldValue = moment(value).format(dateFormat);
+            state.year = select_year;
+            state.month = select_month;
+            state.day = select_day;
+            if (marginLeft) {
+                state.marginLeft = marginLeft;
             }
             this.setState(state)
         }
@@ -230,10 +233,10 @@ export default class DateTimePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder , dateFormat,maxValue,minValue} = this.props;
-        const {textFieldValue, popupVisible ,datePickerLevel,year,month,day,hour,minute,second,marginLeft,isFooter} = this.state;
-        const popStyle={
-            left:'-'+marginLeft+'px'
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
+        const {textFieldValue, popupVisible, datePickerLevel, year, month, day, hour, minute, second, marginLeft, isFooter} = this.state;
+        const popStyle = {
+            left: '-' + marginLeft + 'px'
         }
 
         return (
@@ -249,15 +252,15 @@ export default class DateTimePicker extends Component {
                            iconCls="fa fa-calendar"
                            readOnly={true}
                            isClearIcon={false}
-                    />
+                />
 
                 <div ref="popup"
                      className={`date-picker-popup ${popupVisible ? '' : 'hidden'}`}
-                      style={popStyle}>
+                     style={popStyle}>
                     <div className="calendar-date-input-wrap">
-                        <TextField  className='calendar-input'
-                                    placeholder={'Select Date'}
-                                    isClearIcon={true}
+                        <TextField className='calendar-input'
+                                   placeholder={'Select Date'}
+                                   isClearIcon={true}
                                    value={textFieldValue}
                                    onChange={this.textFieldChangeHandle}/>
                     </div>
@@ -277,7 +280,7 @@ export default class DateTimePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}
                             />
-                            :(
+                            : (
                             datePickerLevel == 1 ?
                                 <MonthPicker
                                     year={year}
@@ -288,7 +291,7 @@ export default class DateTimePicker extends Component {
                                     onChange={this.monthPickerChangeHandle}
                                     previousClick={this.datePickerChangeHandle}
                                 />
-                                :(
+                                : (
                                 datePickerLevel == 2 ?
                                     <YearPicker
                                         year={year}
@@ -316,7 +319,7 @@ export default class DateTimePicker extends Component {
                             <div className="calendar-footer">
                                 <div className="action fl">
                                     {
-                                        (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value))?
+                                        (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
                                             <a href="javascript:;" className="fl">
                                                 <span className="item-gray">Now</span>
                                             </a>
@@ -329,13 +332,13 @@ export default class DateTimePicker extends Component {
                                     }
                                     {
                                         datePickerLevel == 3 ?
-                                            <a href="javascript:;" className="fr" onClick={()=>{
+                                            <a href="javascript:;" className="fr" onClick={()=> {
                                                 this.chooseDateAndTimeHandle(0)
                                             }}>
                                                 Select date
                                             </a>
                                             :
-                                            <a href="javascript:;" className="fr" onClick={()=>{
+                                            <a href="javascript:;" className="fr" onClick={()=> {
                                                 this.chooseDateAndTimeHandle(3)
                                             }}>
                                                 Select time
@@ -343,10 +346,11 @@ export default class DateTimePicker extends Component {
                                     }
                                 </div>
                                 <div className="select-button fr" onClick={this.selectDateTimeHandle}>
-                                    <RaisedButton  className={year && month && day && hour && minute && second ? 'active': ''}
-                                                   value="Ok"
-                                                   buttonStyle="primary"
-                                                   />
+                                    <RaisedButton
+                                        className={year && month && day && hour && minute && second ? 'active' : ''}
+                                        value="Ok"
+                                        buttonStyle="primary"
+                                    />
                                 </div>
                             </div>
                             :
