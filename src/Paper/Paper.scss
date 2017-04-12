@@ -1,9 +1,9 @@
 @import '../_common.scss';
 
 .paper {
-
     border-radius: $border-radius;
     background: #fff;
+    overflow: hidden;
 
     @for $i from 0 through 7 {
         &.depth-#{$i} {

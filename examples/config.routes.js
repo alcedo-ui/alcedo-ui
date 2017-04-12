@@ -135,6 +135,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="List"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/ListExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
