@@ -7,9 +7,10 @@
     transform: rotate(0deg);
     transition: right 0s, height $transition-duration ease-in-out, opacity $transition-duration ease-in-out;
     z-index: $popup-z-index;
-    margin-top: 10px;
+    margin-top: 4px;
 
     .triangle {
+        display: none;
         width: 0;
         height: 0;
         position: absolute;
@@ -32,6 +33,14 @@
         transition: all $transition-duration ease-in-out;
         color: $theme-text;
         background: #fff;
+    }
+
+    &.hasTriangle {
+        margin-top: 10px;
+
+        .triangle {
+            display: block;
+        }
     }
 
     &.hidden {

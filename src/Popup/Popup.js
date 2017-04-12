@@ -71,11 +71,11 @@ export default class Popup extends Component {
 
     render() {
 
-        const {children, className, style, disabled} = this.props;
+        const {children, className, style, disabled, hasTriangle} = this.props;
         const {visible} = this.state;
 
         return (
-            <div className={`popup ${visible ? '' : 'hidden'} ${className}`}
+            <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'hasTriangle' : ''} ${className}`}
                  style={style}
                  disabled={disabled}>
 
@@ -99,6 +99,7 @@ Popup.propTypes = {
     triggerEl: PropTypes.object,
     disabled: PropTypes.bool,
     visible: PropTypes.bool,
+    hasTriangle: PropTypes.bool,
 
     onRequestClose: PropTypes.func
 
@@ -111,6 +112,7 @@ Popup.defaultProps = {
 
     triggerEl: null,
     disabled: false,
-    visible: false
+    visible: false,
+    hasTriangle: true
 
 };
