@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
 import Popup from 'dist/Popup';
+import List from 'dist/List';
 
 import 'sass/containers/app/modules/popup/PopupExamples.scss';
 
@@ -57,7 +58,16 @@ export default class PopupExamples extends Component {
                             <Popup visible={popupVisible}
                                    triggerEl={triggerEl}
                                    onRequestClose={this.closePopup}>
-                                123
+                                <List items={[{
+                                    iconCls: 'fa fa-facebook',
+                                    value: 'Facebook'
+                                }, {
+                                    iconCls: 'fa fa-twitter',
+                                    value: 'Twitter'
+                                }, {
+                                    iconCls: 'fa fa-google-plus',
+                                    value: 'Google+'
+                                }]}/>
                             </Popup>
 
                         </div>
