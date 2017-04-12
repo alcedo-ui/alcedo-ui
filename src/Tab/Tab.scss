@@ -1,12 +1,20 @@
 @import '../_common.scss';
 
 .tab {
-    height: 40px;
-    line-height: 40px;
-    color: $theme-text;
-    background: $theme-field;
 
-    &:hover {
-        background: darken($theme-field, 4%);
+    .tabs {
+        position: relative;
+
+        .tab-button {
+
+        }
+
+        .ink-bar {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            background: $theme-highlight;
+            transition: all $transition-duration ease-in-out;
+        }
     }
 }

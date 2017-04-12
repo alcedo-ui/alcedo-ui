@@ -84,6 +84,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'List',
         route: '/components/List'
+    }, {
+        text: 'Tab',
+        route: '/components/Tab'
     }]
 }];
 

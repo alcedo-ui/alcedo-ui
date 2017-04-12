@@ -155,6 +155,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Tab"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/TabExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
