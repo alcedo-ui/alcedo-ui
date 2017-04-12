@@ -1,0 +1,12 @@
+@import '../_common.scss';
+
+.tab {
+    height: 40px;
+    line-height: 40px;
+    color: $theme-text;
+    background: $theme-field;
+
+    &:hover {
+        background: darken($theme-field, 4%);
+    }
+}

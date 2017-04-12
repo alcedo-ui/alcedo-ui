@@ -43,7 +43,7 @@
     }
 
     // default theme
-    @include button-theme($theme-text, #fff);
+    @include button-theme($theme-text, $theme-field);
 
     // other themes
     &.theme-primary {
