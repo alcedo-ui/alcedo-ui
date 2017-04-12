@@ -1,5 +1,35 @@
 @import '../_common.scss';
 
+@mixin button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+
+    &:hover {
+        background: transparentize(#fff, .3);
+
+        &[disabled] {
+            background: transparentize(#eee, .3);
+        }
+    }
+}
+
 .flat-button {
 
     // default theme
@@ -17,14 +47,6 @@
     }
     &.theme-error {
         @include button-theme($error, transparent);
-    }
-
-    &:hover {
-        background: transparentize(#fff, .3) !important;
-
-        &[disabled] {
-            background: transparentize(#eee, .3) !important;
-        }
     }
 
 }

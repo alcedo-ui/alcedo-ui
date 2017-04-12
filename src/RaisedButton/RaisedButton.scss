@@ -1,5 +1,31 @@
 @import '../_common.scss';
 
+@mixin button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:hover {
+        background: darken($bg-color, 4%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+}
+
 .raised-button {
 
     @include shadow(1);

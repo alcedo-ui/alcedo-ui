@@ -4,6 +4,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
 import RaisedButton from '../RaisedButton';
+import FlatButton from '../FlatButton';
 
 import './DropdownSelect.css';
 
@@ -148,15 +149,15 @@ export default class DropdownSelect extends Component {
                                     isActivated = JSON.stringify(item) == JSON.stringify(value);
 
                                 return (
-                                    <RaisedButton key={index}
-                                                  className={`dropdown-select-option ${isActivated ? 'activated' : ''}`}
-                                                  iconCls={isObject ? item.iconCls : ''}
-                                                  value={textFormat && typeof textFormat === 'function'
-                                                      ? textFormat(text) : text}
-                                                  disabled={isObject ? item.disabled : false}
-                                                  onTouchTap={() => {
-                                                      this.select(item);
-                                                  }}/>
+                                    <FlatButton key={index}
+                                                className={`dropdown-select-option ${isActivated ? 'activated' : ''}`}
+                                                iconCls={isObject ? item.iconCls : ''}
+                                                value={textFormat && typeof textFormat === 'function'
+                                                    ? textFormat(text) : text}
+                                                disabled={isObject ? item.disabled : false}
+                                                onTouchTap={() => {
+                                                    this.select(item);
+                                                }}/>
                                 );
                             })
                         }
