@@ -21,6 +21,9 @@ const DEFAULT_MENU = [{
     children: [{
         text: 'Dialog',
         route: '/components/Dialog'
+    }, {
+        text: 'Popup',
+        route: '/components/Popup'
     }]
 }, {
     text: 'date',
@@ -71,7 +74,7 @@ const DEFAULT_MENU = [{
 
 const initialState = {
     menu: _.cloneDeep(DEFAULT_MENU),
-    expandMenuName: ''
+    expandMenuName: 'buttons'
 };
 
 function navMenu(state = initialState, action) {
