@@ -35,9 +35,13 @@ export default class DialogExamples extends Component{
             overflow: 'hidden',
             background: 'white'
         },hStyle = {
-            marginLeft: '20px'
+            color: '#758697',
+            backgroundColor: '#E3EAF3',
+            margin: '0',
+            padding: '15px 20px'
         },pStyle = {
-            marginLeft: '20px'
+            marginLeft: '20px',
+            color: '#4C637B'
         },bStyle = {
             marginLeft: '20px',
             marginTop: '10px',

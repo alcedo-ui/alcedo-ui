@@ -45,20 +45,27 @@ export default class Test extends Component{
             overflow: 'hidden',
             background: 'white'
         },hStyle = {
-            marginLeft: '20px',
-            fontSize: '16px'
+            fontSize: '16px',
+            color: '#758697',
+            backgroundColor: '#E3EAF3',
+            margin: '0',
+            padding: '15px 20px'
         },pStyle = {
             marginLeft: '20px',
-            fontSize: '14px'
+            fontSize: '14px',
+            color: '#4C637B'
         },cStyle = {
             marginLeft: '20px',
             marginTop: '10px',
+            float: 'left'
         };
         return (
             <div style={boxStyle}>
                 <h3 style={hStyle}>Circular Progress</h3>
                 <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
-                <CircularProgress r={50} width={10} rgba="green" percent={this.state.percent} word={true} style={cStyle}/>
+                <CircularProgress r={50} width={10} rgba="#38b1eb" percent={this.state.percent} word={true} style={cStyle}/>
+                <CircularProgress r={20} width={3} rgba="#38b1eb" percent={this.state.percent} word={true} style={cStyle}/>
+                <CircularProgress r={100} width={15} rgba="#38b1eb" percent={this.state.percent} word={true} style={cStyle}/>
             </div>
         )
     }

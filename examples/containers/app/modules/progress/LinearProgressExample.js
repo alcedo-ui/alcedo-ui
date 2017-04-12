@@ -45,21 +45,42 @@ export default class LinearProgressExample extends Component{
             overflow: 'hidden',
             background: 'white'
         },hStyle = {
-            marginLeft: '20px',
-            fontSize: '16px'
+            fontSize: '16px',
+            color: '#758697',
+            backgroundColor: '#E3EAF3',
+            margin: '0',
+            padding: '15px 20px'
         },pStyle = {
             marginLeft: '20px',
-            fontSize: '14px'
-        },style = {
+            fontSize: '14px',
+            color: '#4C637B'
+        },style1 = {
             width: '300px',
-            height: '4px',
+            height: '30px',
+            lineHeight: '30px',
             margin: '30px 0 0 20px'
+        },style2 = {
+            width: '600px',
+            height: '30px',
+            lineHeight: '30px',
+            margin: '30px 0 0 20px'
+        },style3 = {
+            width: 'calc(100% - 40px)',
+            height: '30px',
+            lineHeight: '30px',
+            margin: '30px 0 0 20px'
+        },progressGroup = {
+            marginBottom: '20px'
         };
         return (
             <div style={boxStyle}>
                 <h3 style={hStyle}>Circular Progress</h3>
                 <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
-                <LinearProgress highlightWidth={this.state.percent+'%'} style={style}/>
+                <div style={progressGroup}>
+                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style1} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={1}/>
+                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style2} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={2}/>
+                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style3} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={3}/>
+                </div>
             </div>
         )
     }

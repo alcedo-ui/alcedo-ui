@@ -97,6 +97,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Switcher"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/SwitcherExamples').default);
+                       });
+                   }}/>
+
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
