@@ -172,15 +172,9 @@ export default class TextField extends Component {
                        onFocus={this.focusHandle}
                        onBlur={this.blurHandle}/>
 
-                {
-                    value && value.length > 0 ?
-                        <IconButton className="clear-icon"
+                        <IconButton className={`clear-icon ${value && value.length > 0 ? '' : 'hidden'}`}
                                     iconCls="fa fa-times-circle"
                                     onTouchTap={this.clearValue}/>
-                        :
-                        null
-                }
-
                 {
                     isPassword ?
                         <IconButton className="password-visible-icon"
