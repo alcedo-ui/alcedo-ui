@@ -70,6 +70,12 @@ const DEFAULT_MENU = [{
         text: 'LinearProgress',
         route: '/components/linearProgress'
     }]
+}, {
+    text: 'layout',
+    children: [{
+        text: 'Paper',
+        route: '/components/Paper'
+    }]
 }];
 
 const initialState = {

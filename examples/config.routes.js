@@ -128,6 +128,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Paper"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/PaperExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
