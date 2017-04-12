@@ -141,6 +141,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Widget"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/WidgetExamples').default);
+                       });
+                   }}/>
+
             <Route path="List"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {

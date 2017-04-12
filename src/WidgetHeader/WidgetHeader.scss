@@ -1,0 +1,12 @@
+@import '../_common.scss';
+
+.widget-header {
+    height: 40px;
+    line-height: 40px;
+    padding: 5px 10px 5px 20px;
+    border-bottom: 1px solid $theme-bg;
+
+    .right {
+        float: right;
+    }
+}

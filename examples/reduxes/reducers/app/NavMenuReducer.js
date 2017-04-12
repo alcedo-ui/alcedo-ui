@@ -79,6 +79,9 @@ const DEFAULT_MENU = [{
         text: 'Paper',
         route: '/components/Paper'
     }, {
+        text: 'Widget',
+        route: '/components/Widget'
+    }, {
         text: 'List',
         route: '/components/List'
     }]
