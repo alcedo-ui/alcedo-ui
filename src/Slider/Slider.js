@@ -50,12 +50,12 @@ export default class Slider extends Component{
             let oEvent = ev || event;
             if( sonElement.getAttribute('class').indexOf('left') > -1 ){
                 this.setState({
-                    width: this.state.right - this.state.left,
-                    left: (this.state.right > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.state.right
+                    width: Math.abs(this.state.right - this.state.left),
+                    left: (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.props.width
                 });
             } else {
                 this.setState({
-                    width: this.state.right - this.state.left,
+                    width: Math.abs(this.state.right - this.state.left),
                     right: (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft): this.props.width
                 });
             }
@@ -70,7 +70,7 @@ export default class Slider extends Component{
     render() {
         const highStyle = {
             width: this.state.width,
-            left: this.state.left
+            left: Math.min(this.state.left,this.state.right)
         },leftStyle = {
             left: this.state.left
         },rightStyle = {
