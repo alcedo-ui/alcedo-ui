@@ -3,7 +3,9 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import TimePicker from '../../../../../dist/TimePicker'
+import TimePicker from 'dist/TimePicker';
+import 'sass/containers/app/modules/date/TimePickerExamples.scss';
+
 
 export default class TimePickerExamples extends Component {
 

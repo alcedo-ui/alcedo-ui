@@ -3,7 +3,8 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import DatePicker from '../../../../../dist/DatePicker'
+import DatePicker from 'dist/DatePicker';
+import 'sass/containers/app/modules/date/DatePickerExamples.scss';
 
 export default class DatePickerExamples extends Component {
 

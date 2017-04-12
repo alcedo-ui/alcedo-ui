@@ -3,7 +3,9 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import DateTimePicker from '../../../../../dist/DateTimePicker'
+import DateTimePicker from 'dist/DateTimePicker';
+import 'sass/containers/app/modules/date/DateTimePickerExamples.scss';
+
 
 export default class DateTimePickerExamples extends Component {
 
