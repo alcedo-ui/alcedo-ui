@@ -30,6 +30,54 @@ export default class CheckboxExamples extends Component {
                     </div>
                 </div>
 
+                <div className="examples">
+                    <div className="examples-title">Non-Rounded Paper</div>
+                    <div className="examples-wrapper">
+
+                        <Paper depth={0}
+                               nonRounded={true}/>
+                        <Paper depth={1}
+                               nonRounded={true}/>
+                        <Paper depth={2}
+                               nonRounded={true}/>
+                        <Paper depth={3}
+                               nonRounded={true}/>
+                        <Paper depth={4}
+                               nonRounded={true}/>
+                        <Paper depth={5}
+                               nonRounded={true}/>
+                        <Paper depth={6}
+                               nonRounded={true}/>
+                        <Paper depth={7}
+                               nonRounded={true}/>
+
+                    </div>
+                </div>
+
+                <div className="examples">
+                    <div className="examples-title">Circular Paper</div>
+                    <div className="examples-wrapper">
+
+                        <Paper depth={0}
+                               isCircular={true}/>
+                        <Paper depth={1}
+                               isCircular={true}/>
+                        <Paper depth={2}
+                               isCircular={true}/>
+                        <Paper depth={3}
+                               isCircular={true}/>
+                        <Paper depth={4}
+                               isCircular={true}/>
+                        <Paper depth={5}
+                               isCircular={true}/>
+                        <Paper depth={6}
+                               isCircular={true}/>
+                        <Paper depth={7}
+                               isCircular={true}/>
+
+                    </div>
+                </div>
+
             </div>
         );
     }
