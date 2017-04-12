@@ -26,16 +26,14 @@
 				font-size: 16px;
 				text-align: center;
 				line-height: 40px;
-				margin: 0;
+
 				&.text-field-icon {
-					margin-left: 3px;
+					margin:0 0 0 3px;
 				}
 
 			}
-			button{
-				&.clear-icon{
-					display: none;
-				}
+			.clear-icon{
+				display: none;
 			}
 
 			&.empty {
@@ -78,10 +76,8 @@
 					height: 40px;
 					line-height:40px;
 				}
-				button{
-					&.clear-icon{
-						margin: 0;
-					}
+				.clear-icon{
+					margin: 0;
 				}
 			}
 			.timeItems{

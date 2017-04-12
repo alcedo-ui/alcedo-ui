@@ -28,11 +28,11 @@
 			&.text-field-icon {
 				margin-left: 3px;
 			}
-			&.clear-icon{
-				display: none;
-			}
-		}
 
+		}
+		.clear-icon{
+			display: none;
+		}
 		&.empty {
 			input {
 				padding: 10px 20px 10px 43px !important;
