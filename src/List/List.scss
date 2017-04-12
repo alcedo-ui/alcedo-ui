@@ -13,5 +13,9 @@
         .button-icon {
             float: left;
         }
+
+        &:hover {
+            background: darken($theme-field, 4%);
+        }
     }
 }
