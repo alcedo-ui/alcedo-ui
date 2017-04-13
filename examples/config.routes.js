@@ -169,6 +169,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Table"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/TableExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>

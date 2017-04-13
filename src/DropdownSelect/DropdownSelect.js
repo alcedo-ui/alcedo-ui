@@ -72,7 +72,7 @@ export default class DropdownSelect extends Component {
     }
 
     componentDidMount() {
-        this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
+        this.triggerHeight = require('react-dom').findDOMNode(this).offsetHeight;
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
     }
 
@@ -100,7 +100,9 @@ export default class DropdownSelect extends Component {
                 top: above && optionsVisible ? -optionsHeight : 0,
                 height: optionsVisible ? triggerHeight + optionsHeight : triggerHeight
             },
-            triggerStyle = {},
+            triggerStyle = {
+                height: triggerHeight
+            },
             optionsStyle = {
                 top: above ? 0 : triggerHeight,
                 height: optionsHeight,

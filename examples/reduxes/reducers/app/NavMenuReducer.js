@@ -90,6 +90,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Accordion',
         route: '/components/Accordion'
+    }, {
+        text: 'Table',
+        route: '/components/Table'
     }]
 }];
 
