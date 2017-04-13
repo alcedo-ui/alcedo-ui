@@ -45,6 +45,35 @@ export default class TabExamples extends Component {
                         }, {
                             value: 'Disabled',
                             disabled: true
+                        }]}
+                             isTabFullWidth={false}/>
+
+                    </div>
+                </div>
+
+                <div className="examples">
+                    <div className="examples-title">Full Width Tabs</div>
+                    <div className="examples-wrapper">
+
+                        <Tab tabs={[{
+                            value: 'Tab 1',
+                            renderer: <div>
+                                <h1>Tab 1</h1>
+                            </div>
+                        }, {
+                            value: 'Tab 2',
+                            renderer: <div>
+                                <h1>Tab 2</h1>
+                            </div>
+                        }, {
+                            value: 'onActive',
+                            renderer: <div>
+                                <h1>onActive</h1>
+                            </div>,
+                            onActive: this.activeHandle
+                        }, {
+                            value: 'Disabled',
+                            disabled: true
                         }]}/>
 
                     </div>
