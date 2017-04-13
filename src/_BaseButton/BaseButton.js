@@ -34,17 +34,8 @@ export default class BaseButton extends Component {
 
         const {
             children, className, style, buttonStyle, isRounded, isCircular,
-            iconCls, iconPosition, type, value, disabled, isLoading, rippleDisplayCenter
+            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter
         } = this.props;
-
-        const iconEl = iconCls ?
-            (isLoading ?
-                <CircularLoading size="small"/>
-                :
-                <i className={`button-icon button-icon-${iconPosition} ${iconCls}`}
-                   aria-hidden="true"></i>)
-            :
-            null;
 
         return (
             <button className={`base-button theme-${buttonStyle}
@@ -55,16 +46,23 @@ export default class BaseButton extends Component {
                     onMouseDown={this.clickHandle}>
 
                 {
-                    iconPosition === 'left'
-                        ? iconEl
-                        : null
+                    iconCls ?
+                        (
+                            isLoading
+                                ? <CircularLoading size="small"/>
+                                : <i className={`button-icon button-icon-left ${iconCls}`}
+                                     aria-hidden="true"></i>
+                        )
+                        :
+                        null
                 }
 
                 {value}
 
                 {
-                    iconPosition === 'right'
-                        ? iconEl
+                    rightIconCls
+                        ? <i className={`button-icon button-icon-right ${rightIconCls}`}
+                             aria-hidden="true"></i>
                         : null
                 }
 
@@ -84,6 +82,7 @@ BaseButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
     buttonStyle: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
@@ -95,7 +94,7 @@ BaseButton.propTypes = {
     disableTouchRipple: PropTypes.bool,
 
     iconCls: PropTypes.string,
-    iconPosition: PropTypes.string,
+    rightIconCls: PropTypes.string,
 
     rippleDisplayCenter: PropTypes.bool,
 
@@ -107,6 +106,7 @@ BaseButton.defaultProps = {
 
     className: '',
     style: null,
+
     buttonStyle: '',
     isRounded: false,
     isCircular: false,
@@ -120,6 +120,6 @@ BaseButton.defaultProps = {
     rippleDisplayCenter: false,
 
     iconCls: '',
-    iconPosition: 'left'
+    rightIconCls: ''
 
 };

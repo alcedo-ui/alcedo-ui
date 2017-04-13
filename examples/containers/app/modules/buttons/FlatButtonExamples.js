@@ -85,8 +85,7 @@ export default class FlatButtonExamples extends Component {
 
                         <FlatButton value="Next"
                                     buttonStyle="primary"
-                                    iconCls="fa fa-chevron-right"
-                                    iconPosition="right"/>
+                                    rightIconCls="fa fa-chevron-right"/>
 
                     </div>
                 </div>
