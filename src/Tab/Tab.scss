@@ -39,7 +39,20 @@
         }
 
         &.full-width {
-            border-radius: 0;
+
+            .tab-button {
+                border-radius: 0;
+                margin: 0;
+
+                &.activated {
+                    color: $theme-text;
+                    background: $theme-field;
+
+                    &:hover {
+                        background: darken($theme-field, 4%);
+                    }
+                }
+            }
         }
     }
 

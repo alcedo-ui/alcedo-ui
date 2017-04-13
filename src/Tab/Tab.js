@@ -135,7 +135,7 @@ Tab.defaultProps = {
     className: '',
     style: null,
 
-    isTabFullWidth: false,
+    isTabFullWidth: true,
 
     tabs: []
 
