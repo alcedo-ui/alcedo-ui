@@ -60,8 +60,8 @@ export default class ArrowStepExamples extends Component {
                                           iconCls="fa fa-angle-left"
                                           disabled={step <= 0}
                                           onTouchTap={this.prev}/>
-                            <RaisedButton value="Next"
-                                          rightIconCls="fa fa-angle-right"
+                            <RaisedButton value={step < steps.length - 1 ? 'Next' : 'Finish'}
+                                          rightIconCls={step < steps.length - 1 ? 'fa fa-angle-right' : ''}
                                           disabled={step >= steps.length}
                                           onTouchTap={this.next}/>
                         </div>

@@ -13,6 +13,8 @@
         height: 60px;
         position: relative;
         background: $theme-title-bg;
+        user-select: none;
+        cursor: not-allowed;
 
         .number {
             float: left;
@@ -138,6 +140,7 @@
 
         &.activated {
             background: $theme-highlight;
+            cursor: default;
 
             .number {
                 color: $theme-highlight;
