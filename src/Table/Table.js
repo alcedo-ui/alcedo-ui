@@ -5,7 +5,7 @@ import Paper from '../Paper';
 import Checkbox from '../Checkbox';
 import Thead from './head/Thead';
 import Tbody from './body/Tbody';
-import Tfoot from './foot/Tfoot';
+// import Tfoot from './foot/Tfoot';
 import Pagging from '../Pagging';
 
 import Event from '../_vendors/Event';
@@ -254,7 +254,7 @@ export default class Table extends Component {
                                     : null
                             }
 
-                            <Tfoot/>
+                            {/*<Tfoot/>*/}
 
                         </table>
                     </div>
@@ -278,7 +278,7 @@ export default class Table extends Component {
                                         : null
                                 }
 
-                                <Tfoot/>
+                                {/*<Tfoot/>*/}
 
                             </table>
                         </div>
