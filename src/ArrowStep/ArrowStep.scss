@@ -16,14 +16,13 @@
 
         .number {
             float: left;
-            width: 40px;
-            height: 40px;
-            margin: 10px 15px 10px 30px;
+            width: 30px;
+            height: 30px;
+            margin: 15px 15px 15px 25px;
             border-radius: 50%;
             text-align: center;
-            line-height: 40px;
+            line-height: 30px;
             font-size: 20px;
-            font-weight: bold;
             background: transparentize(#fff, .05);
             color: $theme-text;
 
@@ -54,12 +53,12 @@
                 border-left-color: $theme-title-bg;
                 border-right: none;
 
-                &.active {
-                    border-left-color: $theme-title;
+                &.success {
+                    border-left-color: $theme-menu;
                 }
 
-                &.success {
-                    border-left-color: $success;
+                &.activated {
+                    border-left-color: $theme-highlight;
                 }
             }
 
@@ -71,14 +70,14 @@
                 border-top-color: $theme-title-bg;
                 border-right-color: $theme-title-bg;
 
-                &.active {
-                    border-top-color: $theme-title;
-                    border-right-color: $theme-title;
+                &.success {
+                    border-top-color: $theme-menu;
+                    border-right-color: $theme-menu;
                 }
 
-                &.success {
-                    border-top-color: $success;
-                    border-right-color: $success;
+                &.activated {
+                    border-top-color: $theme-highlight;
+                    border-right-color: $theme-highlight;
                 }
             }
 
@@ -90,14 +89,14 @@
                 border-right-color: $theme-title-bg;
                 border-bottom-color: $theme-title-bg;
 
-                &.active {
-                    border-right-color: $theme-title;
-                    border-bottom-color: $theme-title;
+                &.success {
+                    border-right-color: $theme-menu;
+                    border-bottom-color: $theme-menu;
                 }
 
-                &.success {
-                    border-right-color: $success;
-                    border-bottom-color: $success;
+                &.activated {
+                    border-right-color: $theme-highlight;
+                    border-bottom-color: $theme-highlight;
                 }
             }
 
@@ -133,15 +132,15 @@
 
         &:first-child {
             .number {
-                margin: 10px 15px;
+                margin-left: 15px;
             }
         }
 
-        &.active {
-            background: $theme-title;
+        &.activated {
+            background: $theme-highlight;
 
             .number {
-                color: $theme-title;
+                color: $theme-highlight;
             }
 
             .title {
@@ -149,22 +148,22 @@
             }
 
             &:hover {
-                background: lighten($theme-title, 6%);
+                background: lighten($theme-highlight, 6%);
 
                 .triangle.left {
                     .right-top {
-                        border-top-color: lighten($theme-title, 6%);
-                        border-right-color: lighten($theme-title, 6%);
+                        border-top-color: lighten($theme-highlight, 6%);
+                        border-right-color: lighten($theme-highlight, 6%);
                     }
                     .right-bottom {
-                        border-right-color: lighten($theme-title, 6%);
-                        border-bottom-color: lighten($theme-title, 6%);
+                        border-right-color: lighten($theme-highlight, 6%);
+                        border-bottom-color: lighten($theme-highlight, 6%);
                     }
                 }
 
                 .triangle.right {
                     .left {
-                        border-left-color: lighten($theme-title, 6%);
+                        border-left-color: lighten($theme-highlight, 6%);
                     }
                 }
             }
@@ -172,10 +171,10 @@
 
         &.success {
             cursor: pointer;
-            background: $success;
+            background: $theme-menu;
 
             .number {
-                color: $success;
+                color: $theme-menu;
             }
 
             .title {
@@ -183,22 +182,22 @@
             }
 
             &:hover {
-                background: lighten($success, 6%);
+                background: lighten($theme-menu, 6%);
 
                 .triangle.left {
                     .right-top {
-                        border-top-color: lighten($success, 6%);
-                        border-right-color: lighten($success, 6%);
+                        border-top-color: lighten($theme-menu, 6%);
+                        border-right-color: lighten($theme-menu, 6%);
                     }
                     .right-bottom {
-                        border-right-color: lighten($success, 6%);
-                        border-bottom-color: lighten($success, 6%);
+                        border-right-color: lighten($theme-menu, 6%);
+                        border-bottom-color: lighten($theme-menu, 6%);
                     }
                 }
 
                 .triangle.right {
                     .left {
-                        border-left-color: lighten($success, 6%);
+                        border-left-color: lighten($theme-menu, 6%);
                     }
                 }
             }

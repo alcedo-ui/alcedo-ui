@@ -94,6 +94,15 @@ const DEFAULT_MENU = [{
         text: 'Table',
         route: '/components/Table'
     }]
+}, {
+    text: 'stepper',
+    children: [{
+        text: 'ArrowStep',
+        route: '/components/ArrowStep'
+    }, {
+        text: 'RoundStep',
+        route: '/components/RoundStep'
+    }]
 }];
 
 const initialState = {

@@ -176,6 +176,20 @@ export default (
                        });
                    }}/>
 
+            <Route path="ArrowStep"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/stepper/ArrowStepExamples').default);
+                       });
+                   }}/>
+
+            <Route path="RoundStep"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/stepper/RoundStepExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>

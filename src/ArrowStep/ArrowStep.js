@@ -7,27 +7,32 @@ import './ArrowStep.css';
 export default class ArrowStep extends Component {
 
     constructor(props) {
+
         super(props);
+
+
     }
 
     render() {
 
-        const {className, style, data, step} = this.props;
+        const {className, style, steps, activatedStep, finishedStep} = this.props;
 
         return (
             <div className={`arrow-step ${className}`}
                  style={style}>
 
                 {
-                    data.map((value, index) => {
+                    steps.map((item, index) => {
                         return (
                             <ArrowStepItem key={index}
-                                           step={step}
                                            index={index}
-                                           value={value}
-                                           style={{width: 100 / data.length + '%'}}
+                                           className={item.className}
+                                           style={{...item.style, width: `${100 / steps.length}%`}}
+                                           activatedStep={activatedStep}
+                                           finishedStep={finishedStep}
+                                           value={item}
                                            isFirst={index === 0}
-                                           isLast={index === data.length - 1}/>
+                                           isLast={index === steps.length - 1}/>
                         );
                     })
                 }
@@ -43,8 +48,19 @@ ArrowStep.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    data: PropTypes.array,
-    step: PropTypes.number
+    steps: PropTypes.arrayOf(PropTypes.shape({
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        title: PropTypes.string
+
+    })).isRequired,
+
+    activatedStep: PropTypes.number,
+    finishedStep: PropTypes.number,
+
+    onChange: PropTypes.func
 
 };
 
@@ -53,7 +69,9 @@ ArrowStep.defaultProps = {
     className: '',
     style: null,
 
-    data: [],
-    step: 0
+    steps: [],
+
+    activatedStep: 0,
+    finishedStep: 0
 
 };

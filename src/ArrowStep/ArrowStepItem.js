@@ -8,10 +8,12 @@ export default class ArrowStepItem extends Component {
 
     render() {
 
-        const {step, index, value, style, isFirst, isLast} = this.props;
+        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props;
 
         return (
-            <div className={'arrow-step-item' + (step == index ? ' active' : (step > index ? ' success' : ''))}
+            <div className={`arrow-step-item
+                ${activatedStep == index ? ' activated' : (activatedStep > index ? ' success' : '')}
+                ${className ? className : ''}`}
                  style={style}>
 
                 <div className="number">
@@ -23,25 +25,27 @@ export default class ArrowStepItem extends Component {
                 </div>
 
                 {
-                    isFirst ?
-                        null
-                        :
+                    isFirst
+                        ? null
+                        : (
                         <div className="triangle left">
-                            <div
-                                className={'right-top' + (step == index ? ' active' : '') + (step > index ? ' success' : '')}></div>
-                            <div
-                                className={'right-bottom' + (step == index ? ' active' : '') + (step > index ? ' success' : '')}></div>
+                            <div className={`right-top ${activatedStep == index ? ' activated' : ''}
+                                    ${activatedStep > index ? ' success' : ''}`}></div>
+                            <div className={`right-bottom ${activatedStep == index ? ' activated' : ''}
+                                    ${activatedStep > index ? ' success' : ''}`}></div>
                         </div>
+                    )
                 }
 
                 {
-                    isLast ?
-                        null
-                        :
+                    isLast
+                        ? null
+                        : (
                         <div className="triangle right">
-                            <div
-                                className={'left' + (step == index ? ' active' : '') + (step > index ? ' success' : '')}></div>
+                            <div className={`left ${activatedStep == index ? ' activated' : ''}
+                                    ${activatedStep > index ? ' success' : ''}`}></div>
                         </div>
+                    )
                 }
 
             </div>
@@ -51,10 +55,31 @@ export default class ArrowStepItem extends Component {
 };
 
 ArrowStepItem.propTypes = {
-    step: PropTypes.number,
-    index: PropTypes.number,
-    value: PropTypes.object,
+
+    className: PropTypes.string,
     style: PropTypes.object,
+
+    index: PropTypes.number,
+    activatedStep: PropTypes.number,
+    finishedStep: PropTypes.number,
+    value: PropTypes.object,
+
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool
+
+};
+
+ArrowStepItem.defaultProps = {
+
+    className: '',
+    style: null,
+
+    index: 0,
+    activatedStep: 0,
+    finishedStep: 0,
+    value: null,
+
+    isFirst: true,
+    isLast: true
+
 };
