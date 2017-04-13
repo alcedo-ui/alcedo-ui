@@ -162,6 +162,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Accordion"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/layout/AccordionExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>

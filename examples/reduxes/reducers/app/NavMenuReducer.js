@@ -87,6 +87,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Tab',
         route: '/components/Tab'
+    }, {
+        text: 'Accordion',
+        route: '/components/Accordion'
     }]
 }];
 
