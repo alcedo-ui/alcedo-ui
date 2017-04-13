@@ -10,39 +10,98 @@ export default class Tab extends Component {
 
         super(props);
 
+        this.state = {
+            activatedIndex: 0
+        };
+
+        this.tabClickHandle = this::this.tabClickHandle;
+
+    }
+
+    tabClickHandle(item, activatedIndex) {
+        this.setState({
+            activatedIndex
+        }, () => {
+            item.onActive && item.onActive(item, activatedIndex);
+        });
     }
 
     render() {
 
-        const {className, style, tabs} = this.props;
+        const {className, style, isTabFullWidth, tabs} = this.props,
+            {activatedIndex} = this.state;
 
-        return (
-            <div className={`tab ${className}`}
-                 style={style}>
+        const tabWidthPerCent = 100 / tabs.length,
+            tabButtonStyle = {
+                width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
+            },
+            inkBarStyle = {
+                width: `${tabWidthPerCent}%`,
+                transform: `translate(${activatedIndex * 100}%, 0)`
+            },
+            tabContentScrollerStyle = {
+                width: `${tabs.length * 100}%`,
+                transform: `translate(${-activatedIndex * tabWidthPerCent}%, 0)`
+            },
+            tabContentStyle = {
+                width: `${tabWidthPerCent}%`
+            };
 
-                <div className="tabs">
-                    {
-                        tabs.length > 0
-                            ? (
+        return tabs.length > 0
+            ? (
+                <div className={`tab ${className}`}
+                     style={style}>
+
+                    <div className={`tabs ${isTabFullWidth ? 'full-width' : ''}`}>
+
+                        {
                             tabs.map((item, index) => {
                                 return (
                                     <FlatButton {...item}
                                                 key={index}
-                                                className="tab-button"
-                                                style={{width: `${100 / tabs.length}%`}}
+                                                className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
+                                                style={tabButtonStyle}
                                                 onTouchTap={() => {
-                                                    item.onActive && item.onActive(item, index);
+                                                    this.tabClickHandle(item, index);
                                                 }}/>
                                 );
                             })
+                        }
 
-                        )
-                            : null
-                    }
+                        {
+                            isTabFullWidth
+                                ? <div className="ink-bar"
+                                       style={inkBarStyle}></div>
+                                : null
+                        }
+
+                    </div>
+
+                    <div className="tab-content-wrapper">
+                        <div className="tab-content-scroller"
+                             style={tabContentScrollerStyle}>
+                            {
+                                tabs.map((item, index) => {
+                                    return (
+                                        <div key={index}
+                                             className="tab-content"
+                                             style={tabContentStyle}>
+                                            {item.renderer}
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    </div>
+
                 </div>
+            )
+            : (
+                <div className="tab-empty">
+                    No Tab.
+                </div>
+            );
 
-            </div>
-        );
     }
 };
 
@@ -50,6 +109,8 @@ Tab.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
+    isTabFullWidth: PropTypes.bool,
 
     tabs: PropTypes.arrayOf(PropTypes.shape({
 
@@ -63,7 +124,7 @@ Tab.propTypes = {
 
         renderer: PropTypes.any,
 
-        onTouchTap: PropTypes.func
+        onActive: PropTypes.func
 
     })).isRequired
 
@@ -73,6 +134,8 @@ Tab.defaultProps = {
 
     className: '',
     style: null,
+
+    isTabFullWidth: false,
 
     tabs: []
 

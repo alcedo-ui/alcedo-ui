@@ -4,9 +4,30 @@
 
     .tabs {
         position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid $theme-bg;
+        box-sizing: border-box;
 
         .tab-button {
+            background: $theme-field;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            vertical-align: bottom;
+            margin-left: 6px;
+            padding: 0 20px;
 
+            &:hover {
+                background: darken($theme-field, 4%);
+            }
+
+            &.activated {
+                color: #fff;
+                background: $theme-menu;
+
+                &:hover {
+                    background: darken($theme-menu, 4%);
+                }
+            }
         }
 
         .ink-bar {
@@ -16,5 +37,35 @@
             background: $theme-highlight;
             transition: all $transition-duration ease-in-out;
         }
+
+        &.full-width {
+            border-radius: 0;
+        }
     }
+
+    .tab-content-wrapper {
+        width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        overflow: hidden;
+        background: #fff;
+
+        .tab-content-scroller {
+
+            @include float-fix;
+
+            transition: all $transition-duration ease-in-out;
+
+            .tab-content {
+                float: left;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+        }
+    }
+}
+
+.tab-empty {
+    line-height: 100px;
+    text-align: center;
 }

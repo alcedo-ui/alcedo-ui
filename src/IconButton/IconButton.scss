@@ -1,22 +1,5 @@
 @import '../_common.scss';
 
-@mixin button-theme($color) {
-    background: transparent;
-    color: $color;
-
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-    }
-}
-
 .icon-button {
 
     .button-icon {
@@ -24,20 +7,20 @@
     }
 
     // default theme
-    @include button-theme($theme-text);
+    @include icon-button-theme($theme-text);
 
     // themes
     &.theme-primary {
-        @include button-theme($theme-menu);
+        @include icon-button-theme($theme-menu);
     }
     &.theme-success {
-        @include button-theme($success);
+        @include icon-button-theme($success);
     }
     &.theme-warning {
-        @include button-theme($warning);
+        @include icon-button-theme($warning);
     }
     &.theme-error {
-        @include button-theme($error);
+        @include icon-button-theme($error);
     }
 
 }
