@@ -13,6 +13,9 @@ export default class SliderExamples extends Component{
         return (
             <div>
                 <Slider />
+                <Slider leftPoint={true}/>
+                <Slider leftPoint={true} scale={[0,50,80,100]}/>
+                <Slider leftPoint={false} scale={[0,50,80,100]} ruler={5}/>
             </div>
         )
     }
