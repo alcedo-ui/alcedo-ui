@@ -108,6 +108,22 @@ function navMenu(state = initialState, action) {
             };
         }
 
+        case types.EXPAND_ACTIVATED_MENU: {
+
+            let expandMenuName;
+            for (let i = 0, len = state.menu.length; i < len; i++) {
+                if (state.menu[i].children.findIndex(item => item.route === action.route) > -1) {
+                    expandMenuName = state.menu[i].text;
+                }
+            }
+
+            return {
+                ...state,
+                expandMenuName
+            };
+
+        }
+
         default:
             return state;
 

@@ -33,6 +33,8 @@ class App extends Component {
 
         window.SCROLL_EL = this.refs.contentWrap;
 
+        this.props.expandActivatedMenu(this.context.router.location.pathname);
+
     }
 
     componentWillUnmount() {
@@ -71,9 +73,17 @@ class App extends Component {
     }
 }
 
+App.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
+
 App.propTypes = {
+
     $isDesktop: PropTypes.bool,
-    $navMenuCollapsed: PropTypes.bool
+    $navMenuCollapsed: PropTypes.bool,
+
+    expandActivatedMenu: PropTypes.func
+
 };
 
 function mapStateToProps(state, ownProps) {
