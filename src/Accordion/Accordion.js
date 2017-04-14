@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
 import FlatButton from '../FlatButton';
-import TouchRipple from '../TouchRipple';
 
 import './Accordion.css';
 
@@ -65,22 +64,6 @@ export default class Accordion extends Component {
         return (
             <div className={`accordion ${className}`}
                  style={style}>
-
-                {/*<div className="accordion-title"*/}
-                     {/*onMouseDown={this.titleMouseDownHandle}>*/}
-
-                    {/*{title}*/}
-
-                    {/*{*/}
-                        {/*collapsed ?*/}
-                            {/*<i className={`${expandIcon}`}></i>*/}
-                            {/*:*/}
-                            {/*<i className={`${collapseIcon}`}></i>*/}
-                    {/*}*/}
-
-                    {/*<TouchRipple/>*/}
-
-                {/*</div>*/}
 
                 <FlatButton className="accordion-title"
                             value={title}

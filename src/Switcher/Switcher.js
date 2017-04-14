@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
 import IconButton from '../IconButton';
-import RaisedButton from '../RaisedButton';
 
 import './Switcher.css';
 
@@ -51,6 +50,7 @@ export default class Switcher extends Component {
                  style={style}
                  onMouseDown={this.toggle}
                  disabled={disabled || isLoading}>
+
                 <IconButton className="slider-wrapper">
                     <div className="slider">
                         {
@@ -60,6 +60,7 @@ export default class Switcher extends Component {
                         }
                     </div>
                 </IconButton>
+
             </div>
         );
 

@@ -56,9 +56,13 @@ export default class Checkbox extends Component {
                  style={style}
                  disabled={disabled}>
 
-                <input type="hidden"
-                       name={name}
-                       value={value}/>
+                {
+                    name
+                        ? <input type="hidden"
+                                 name={name}
+                                 value={value}/>
+                        : null
+                }
 
                 <div className="checkbox-icon-wrapper">
                     <IconButton ref="checkboxIcon"
