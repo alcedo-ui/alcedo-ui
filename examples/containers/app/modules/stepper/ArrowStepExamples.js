@@ -16,9 +16,16 @@ export default class ArrowStepExamples extends Component {
             finishedStep: 0
         };
 
+        this.updateStep = this::this.updateStep;
         this.prev = this::this.prev;
         this.next = this::this.next;
 
+    }
+
+    updateStep(step) {
+        this.setState({
+            ...step
+        });
     }
 
     prev() {
@@ -61,7 +68,8 @@ export default class ArrowStepExamples extends Component {
 
                         <ArrowStep steps={steps}
                                    activatedStep={activatedStep}
-                                   finishedStep={finishedStep}/>
+                                   finishedStep={finishedStep}
+                                   onChange={this.updateStep}/>
 
                         <div className="step-ctrls">
                             <RaisedButton value="Prev"
