@@ -63,6 +63,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Switcher',
         route: '/components/Switcher'
+    }, {
+        text: 'Slider',
+        route: '/components/Slider'
     }]
 }, {
     text: 'progress',

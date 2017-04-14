@@ -106,6 +106,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Slider"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/SliderExamples').default);
+                       });
+                   }}/>
+
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
