@@ -18,14 +18,16 @@ class NavMenuList extends Component {
 
         return (
             <div className="nav-menu-list">
-                {
-                    $navMenu.map((menu, index) => {
-                        return (
-                            <NavMenuItem key={index}
-                                         options={menu}/>
-                        );
-                    })
-                }
+                <div className="nav-menu-scroller">
+                    {
+                        $navMenu.map((menu, index) => {
+                            return (
+                                <NavMenuItem key={index}
+                                             options={menu}/>
+                            );
+                        })
+                    }
+                </div>
             </div>
         );
 
