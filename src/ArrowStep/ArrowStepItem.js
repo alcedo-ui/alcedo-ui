@@ -3,7 +3,19 @@ import React, {Component, PropTypes} from 'react';
 export default class ArrowStepItem extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.mouseDownHandle = this::this.mouseDownHandle;
+
+    }
+
+    mouseDownHandle() {
+
+        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
+
+        activatedStep !== index && finishedStep >= index && onTouchTap(index);
+
     }
 
     render() {
@@ -14,7 +26,8 @@ export default class ArrowStepItem extends Component {
             <div className={`arrow-step-item ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}
                 ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}
                 ${className ? className : ''}`}
-                 style={style}>
+                 style={style}
+                 onMouseDown={this.mouseDownHandle}>
 
                 <div className="number">
                     {index + 1}
@@ -68,7 +81,9 @@ ArrowStepItem.propTypes = {
     value: PropTypes.object,
 
     isFirst: PropTypes.bool,
-    isLast: PropTypes.bool
+    isLast: PropTypes.bool,
+
+    onTouchTap: PropTypes.func
 
 };
 
