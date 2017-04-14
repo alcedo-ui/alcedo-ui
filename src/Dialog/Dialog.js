@@ -10,16 +10,6 @@ import './dialog.css'
 export default class Dialog extends Component{
     constructor(props){
         super();
-        this.state = {
-            hide: 'show'
-        };
-        this.shadowClickHandle = this::this.shadowClickHandle;
-    }
-
-    shadowClickHandle() {
-        this.setState({
-            hide: 'hide'
-        });
     }
 
     render() {
@@ -52,7 +42,7 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
     title: "Dialog",
-    desc: "here is a desc",
+    desc: "here is the dialog description.",
     buttonBool: [true,true],
     className: "hide"
 };
