@@ -28,11 +28,11 @@ export default class ArrowStepItem extends Component {
                     isFirst
                         ? null
                         : (
-                        <div className="triangle left">
-                            <div className={`right-top
+                        <div className="triangle-wrapper triangle-wrapper-left">
+                            <div className={`triangle-top
                                     ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
                             </div>
-                            <div className={`right-bottom
+                            <div className={`triangle-bottom
                                     ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
                             </div>
                         </div>
@@ -43,8 +43,8 @@ export default class ArrowStepItem extends Component {
                     isLast
                         ? null
                         : (
-                        <div className="triangle right">
-                            <div className={`left
+                        <div className="triangle-wrapper triangle-wrapper-right">
+                            <div className={`triangle-middle
                                     ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
                             </div>
                         </div>

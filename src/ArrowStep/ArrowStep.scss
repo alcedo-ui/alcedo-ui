@@ -41,14 +41,14 @@
             color: $theme-text;
         }
 
-        .triangle {
+        .triangle-wrapper {
             position: absolute;
             top: 0;
             width: 32px;
             height: 60px;
             z-index: 1;
 
-            .left {
+            .triangle-middle {
                 width: 0;
                 height: 0;
                 border: 30px solid transparent;
@@ -64,7 +64,7 @@
                 }
             }
 
-            .right-top {
+            .triangle-top {
                 position: relative;
                 width: 0;
                 height: 0;
@@ -83,7 +83,7 @@
                 }
             }
 
-            .right-bottom {
+            .triangle-bottom {
                 position: relative;
                 width: 0;
                 height: 0;
@@ -102,32 +102,23 @@
                 }
             }
 
-            &.left {
+            &.triangle-wrapper-left {
                 left: -15px;
 
-                .right-top {
+                .triangle-top {
                     top: 0px;
                     left: 0px;
 
                 }
-                .right-bottom {
+                .triangle-bottom {
                     top: 0px;
                     left: 0px;
                 }
             }
 
-            &.right {
+            &.triangle-wrapper-right {
                 right: -15px;
                 background: $theme-bg;
-
-                .right-top {
-                    top: -60px;
-                    left: 2px;
-                }
-                .right-bottom {
-                    top: -60px;
-                    left: 2px;
-                }
             }
 
         }
@@ -153,19 +144,19 @@
             &:hover {
                 background: lighten($theme-highlight, 6%);
 
-                .triangle.left {
-                    .right-top {
+                .triangle-wrapper.triangle-wrapper-left {
+                    .triangle-top {
                         border-top-color: lighten($theme-highlight, 6%);
                         border-right-color: lighten($theme-highlight, 6%);
                     }
-                    .right-bottom {
+                    .triangle-bottom {
                         border-right-color: lighten($theme-highlight, 6%);
                         border-bottom-color: lighten($theme-highlight, 6%);
                     }
                 }
 
-                .triangle.right {
-                    .left {
+                .triangle-wrapper.triangle-wrapper-right {
+                    .triangle-middle {
                         border-left-color: lighten($theme-highlight, 6%);
                     }
                 }
@@ -187,19 +178,19 @@
             &:hover {
                 background: lighten($theme-menu, 6%);
 
-                .triangle.left {
-                    .right-top {
+                .triangle-wrapper.triangle-wrapper-left {
+                    .triangle-top {
                         border-top-color: lighten($theme-menu, 6%);
                         border-right-color: lighten($theme-menu, 6%);
                     }
-                    .right-bottom {
+                    .triangle-bottom {
                         border-right-color: lighten($theme-menu, 6%);
                         border-bottom-color: lighten($theme-menu, 6%);
                     }
                 }
 
-                .triangle.right {
-                    .left {
+                .triangle-wrapper.triangle-wrapper-right {
+                    .triangle-middle {
                         border-left-color: lighten($theme-menu, 6%);
                     }
                 }
