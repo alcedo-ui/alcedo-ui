@@ -10,12 +10,28 @@ export default class ArrowStep extends Component {
 
         super(props);
 
+        // this.state = {
+        //     activatedStep: props.activatedStep,
+        //     finishedStep: props.finishedStep
+        // };
+
 
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.activatedStep !== this.state.activatedStep
+    //         || nextProps.finishedStep !== this.state.finishedStep) {
+    //         this.setState({
+    //             activatedStep: nextProps.activatedStep,
+    //             finishedStep: nextProps.finishedStep
+    //         });
+    //     }
+    // }
 
     render() {
 
         const {className, style, steps, activatedStep, finishedStep} = this.props;
+        // const {activatedStep, finishedStep} = this.state;
 
         return (
             <div className={`arrow-step ${className}`}

@@ -12,7 +12,8 @@ export default class ArrowStepExamples extends Component {
         super(props);
 
         this.state = {
-            step: 0
+            activatedStep: 0,
+            finishedStep: 0
         };
 
         this.prev = this::this.prev;
@@ -22,19 +23,25 @@ export default class ArrowStepExamples extends Component {
 
     prev() {
         this.setState({
-            step: this.state.step - 1
+            activatedStep: this.state.activatedStep - 1
         });
     }
 
     next() {
+
+        const activatedStep = this.state.activatedStep + 1,
+            finishedStep = this.state.finishedStep > activatedStep ? this.state.finishedStep : activatedStep;
+
         this.setState({
-            step: this.state.step + 1
+            activatedStep,
+            finishedStep
         });
+
     }
 
     render() {
 
-        const {step} = this.state,
+        const {activatedStep, finishedStep} = this.state,
             steps = [{
                 title: 'Step 1'
             }, {
@@ -53,16 +60,17 @@ export default class ArrowStepExamples extends Component {
                     <div className="examples-wrapper">
 
                         <ArrowStep steps={steps}
-                                   activatedStep={step}/>
+                                   activatedStep={activatedStep}
+                                   finishedStep={finishedStep}/>
 
                         <div className="step-ctrls">
                             <RaisedButton value="Prev"
                                           iconCls="fa fa-angle-left"
-                                          disabled={step <= 0}
+                                          disabled={activatedStep <= 0}
                                           onTouchTap={this.prev}/>
-                            <RaisedButton value={step < steps.length - 1 ? 'Next' : 'Finish'}
-                                          rightIconCls={step < steps.length - 1 ? 'fa fa-angle-right' : ''}
-                                          disabled={step >= steps.length}
+                            <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
+                                          rightIconCls={activatedStep < steps.length - 1 ? 'fa fa-angle-right' : ''}
+                                          disabled={activatedStep >= steps.length}
                                           onTouchTap={this.next}/>
                         </div>
 

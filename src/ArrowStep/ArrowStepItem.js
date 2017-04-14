@@ -12,7 +12,7 @@ export default class ArrowStepItem extends Component {
 
         return (
             <div className={`arrow-step-item
-                ${activatedStep == index ? ' activated' : (activatedStep > index ? ' success' : '')}
+                ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}
                 ${className ? className : ''}`}
                  style={style}>
 
@@ -29,10 +29,12 @@ export default class ArrowStepItem extends Component {
                         ? null
                         : (
                         <div className="triangle left">
-                            <div className={`right-top ${activatedStep == index ? ' activated' : ''}
-                                    ${activatedStep > index ? ' success' : ''}`}></div>
-                            <div className={`right-bottom ${activatedStep == index ? ' activated' : ''}
-                                    ${activatedStep > index ? ' success' : ''}`}></div>
+                            <div className={`right-top
+                                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
+                            </div>
+                            <div className={`right-bottom
+                                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
+                            </div>
                         </div>
                     )
                 }
@@ -42,8 +44,9 @@ export default class ArrowStepItem extends Component {
                         ? null
                         : (
                         <div className="triangle right">
-                            <div className={`left ${activatedStep == index ? ' activated' : ''}
-                                    ${activatedStep > index ? ' success' : ''}`}></div>
+                            <div className={`left
+                                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
+                            </div>
                         </div>
                     )
                 }

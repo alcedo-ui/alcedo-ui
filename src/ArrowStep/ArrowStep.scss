@@ -55,7 +55,7 @@
                 border-left-color: $theme-title-bg;
                 border-right: none;
 
-                &.success {
+                &.finished {
                     border-left-color: $theme-menu;
                 }
 
@@ -72,7 +72,7 @@
                 border-top-color: $theme-title-bg;
                 border-right-color: $theme-title-bg;
 
-                &.success {
+                &.finished {
                     border-top-color: $theme-menu;
                     border-right-color: $theme-menu;
                 }
@@ -91,7 +91,7 @@
                 border-right-color: $theme-title-bg;
                 border-bottom-color: $theme-title-bg;
 
-                &.success {
+                &.finished {
                     border-right-color: $theme-menu;
                     border-bottom-color: $theme-menu;
                 }
@@ -172,7 +172,7 @@
             }
         }
 
-        &.success {
+        &.finished {
             cursor: pointer;
             background: $theme-menu;
 
