@@ -67,10 +67,16 @@ export default class Radio extends Component {
                        name={name}
                        value={value}/>
 
-                <IconButton ref="radioIcon"
-                            className="radio-icon"
-                            iconCls={`fa ${value ? 'fa-dot-circle-o' : 'fa-circle-o'}`}
-                            onTouchTap={this.clickHandle}/>
+                <div className="radio-icon-wrapper">
+                    <IconButton ref="radioIcon"
+                                className="radio-bg-icon"
+                                iconCls="fa fa-circle-o"
+                                onTouchTap={this.clickHandle}/>
+
+                    <IconButton className="radio-icon"
+                                iconCls="fa fa-dot-circle-o"
+                                onTouchTap={this.clickHandle}/>
+                </div>
 
                 <div className="radio-label"
                      onMouseDown={this.mouseDownHandle}

@@ -27,12 +27,18 @@
             cursor: pointer;
         }
 
+        .checkbox-bg-icon {
+            .button-icon {
+                transition: all $transition-duration ease-in-out;
+            }
+        }
+
         .checkbox-icon {
             color: $theme-highlight;
 
             .button-icon {
                 transform: scale(0);
-                transition: transform $transition-duration ease-in-out;
+                transition: all $transition-duration ease-in-out;
             }
         }
     }
@@ -46,6 +52,13 @@
     }
 
     &.activated {
+
+        .checkbox-bg-icon {
+            .button-icon {
+                opacity: 0;
+            }
+        }
+
         .checkbox-icon {
             .button-icon {
                 transform: scale(1);
