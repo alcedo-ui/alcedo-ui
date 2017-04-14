@@ -9,8 +9,13 @@ export default class TreeSelectExamples extends Component {
     constructor(props) {
         super(props);
         this.state={
-            data: [{key: 1, text: 'one'}, {key: 2, text: 'two'}, {key: 3,text: 'three'}, {key: 4, text: 'four'}, {key: 5, text: 'five'}, {key: 6, text: 'six'}],
-            value:[]
+            data: [{key: 1, text: 'one',children:[{key: 1-1, text: 'one-1'}]},
+                    {key: 2, text: 'two'},
+                    {key: 3,text: 'three'},
+                    {key: 4, text: 'four',children:[{key: 4-1, text: 'four-1',children:[{key: 4-1-1, text: 'four-1-1'}]}]},
+                    {key: 5, text: 'five'},
+                    {key: 6, text: 'six',children:[{key: 6-1, text: 'six-1'}]}],
+            value:{key: 2, text: 'two'}
         }
         this.onChangeHandle=this::this.onChangeHandle;
     }
@@ -30,12 +35,13 @@ export default class TreeSelectExamples extends Component {
 
                         <div className="field-group">
                             <label className="tree-select-label">Tree</label>
-                            <TreeSelect className="tree-select"
-                                            data={data}
-                                            value={value}
-                                            onChange={(value)=> {
-                                                this.onChangeHandle(value)
-                                            }}/>
+                            <TreeSelect className="tree-select-example"
+                                        data={data}
+                                        value={value}
+                                        placeholder={'please select a node'}
+                                        onChange={(value)=> {
+                                            this.onChangeHandle(value)
+                                        }}/>
                         </div>
 
                     </div>

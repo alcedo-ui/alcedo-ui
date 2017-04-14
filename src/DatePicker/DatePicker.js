@@ -51,18 +51,23 @@ export default class DatePicker extends Component {
     }
 
     textFieldChangeHandle(text) {
+        const {minValue,maxValue}=this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
-                const select_year = moment(text).format('YYYY'),
-                    select_month = moment(text).format('MM'),
-                    select_day = moment(text).format('DD')
-                this.setState({
-                    textFieldValue: text,
-                    year: select_year,
-                    month: select_month,
-                    day: select_day
-                })
+                if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
+
+                } else {
+                    const select_year = moment(text).format('YYYY'),
+                        select_month = moment(text).format('MM'),
+                        select_day = moment(text).format('DD')
+                    this.setState({
+                        textFieldValue: text,
+                        year: select_year,
+                        month: select_month,
+                        day: select_day
+                    })
+                }
             }
         } else {
             this.setState({
