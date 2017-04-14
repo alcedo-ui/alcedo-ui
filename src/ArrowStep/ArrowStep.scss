@@ -9,12 +9,12 @@
 
     .arrow-step-item {
         float: left;
-        width: 50%;
         height: 60px;
         position: relative;
-        background: $theme-title-bg;
         user-select: none;
         cursor: not-allowed;
+        box-sizing: border-box;
+        padding: 0 16px;
 
         .number {
             float: left;
@@ -39,6 +39,7 @@
         .title {
             line-height: 60px;
             color: $theme-text;
+            background: $theme-title-bg;
         }
 
         .triangle-wrapper {
@@ -103,7 +104,7 @@
             }
 
             &.triangle-wrapper-left {
-                left: -15px;
+                left: -14px;
 
                 .triangle-top {
                     top: 0px;
@@ -117,20 +118,25 @@
             }
 
             &.triangle-wrapper-right {
-                right: -15px;
-                background: $theme-bg;
+                right: -16px;
+                //background: $theme-bg;
             }
 
         }
 
-        &:first-child {
+        &.first {
+            padding-left: 0;
+
             .number {
                 margin-left: 15px;
             }
         }
 
+        &.last {
+            padding-right: 0;
+        }
+
         &.activated {
-            background: $theme-highlight;
             cursor: default;
 
             .number {
@@ -139,25 +145,29 @@
 
             .title {
                 color: #fff;
+                background: $theme-highlight;
             }
 
             &:hover {
-                background: lighten($theme-highlight, 6%);
+
+                .title {
+                    background: darken($theme-highlight, 4%);
+                }
 
                 .triangle-wrapper.triangle-wrapper-left {
                     .triangle-top {
-                        border-top-color: lighten($theme-highlight, 6%);
-                        border-right-color: lighten($theme-highlight, 6%);
+                        border-top-color: darken($theme-highlight, 4%);
+                        border-right-color: darken($theme-highlight, 4%);
                     }
                     .triangle-bottom {
-                        border-right-color: lighten($theme-highlight, 6%);
-                        border-bottom-color: lighten($theme-highlight, 6%);
+                        border-right-color: darken($theme-highlight, 4%);
+                        border-bottom-color: darken($theme-highlight, 4%);
                     }
                 }
 
                 .triangle-wrapper.triangle-wrapper-right {
                     .triangle-middle {
-                        border-left-color: lighten($theme-highlight, 6%);
+                        border-left-color: darken($theme-highlight, 4%);
                     }
                 }
             }
@@ -165,7 +175,6 @@
 
         &.finished {
             cursor: pointer;
-            background: $theme-menu;
 
             .number {
                 color: $theme-menu;
@@ -173,25 +182,29 @@
 
             .title {
                 color: #fff;
+                background: $theme-menu;
             }
 
             &:hover {
-                background: lighten($theme-menu, 6%);
+
+                .title {
+                    background: darken($theme-menu, 4%);
+                }
 
                 .triangle-wrapper.triangle-wrapper-left {
                     .triangle-top {
-                        border-top-color: lighten($theme-menu, 6%);
-                        border-right-color: lighten($theme-menu, 6%);
+                        border-top-color: darken($theme-menu, 4%);
+                        border-right-color: darken($theme-menu, 4%);
                     }
                     .triangle-bottom {
-                        border-right-color: lighten($theme-menu, 6%);
-                        border-bottom-color: lighten($theme-menu, 6%);
+                        border-right-color: darken($theme-menu, 4%);
+                        border-bottom-color: darken($theme-menu, 4%);
                     }
                 }
 
                 .triangle-wrapper.triangle-wrapper-right {
                     .triangle-middle {
-                        border-left-color: lighten($theme-menu, 6%);
+                        border-left-color: darken($theme-menu, 4%);
                     }
                 }
             }

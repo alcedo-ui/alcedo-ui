@@ -43,7 +43,11 @@ export default class ArrowStep extends Component {
                             <ArrowStepItem key={index}
                                            index={index}
                                            className={item.className}
-                                           style={{...item.style, width: `${100 / steps.length}%`}}
+                                           style={{
+                                               ...item.style,
+                                               width: `${100 / steps.length}%`,
+                                               zIndex: steps.length - index
+                                           }}
                                            activatedStep={activatedStep}
                                            finishedStep={finishedStep}
                                            value={item}

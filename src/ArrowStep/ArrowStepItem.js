@@ -11,7 +11,7 @@ export default class ArrowStepItem extends Component {
         const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props;
 
         return (
-            <div className={`arrow-step-item
+            <div className={`arrow-step-item ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}
                 ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}
                 ${className ? className : ''}`}
                  style={style}>
