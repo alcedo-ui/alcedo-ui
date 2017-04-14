@@ -6,7 +6,7 @@
 
     width: 200px;
     height: 50px;
-    color: lighten($theme-text, 15%);
+    color: $theme-text;
 
     .radio-icon {
         float: left;
@@ -14,7 +14,7 @@
         height: 50px;
         text-align: center;
         line-height: 50px;
-        font-size: 14px;
+        font-size: 16px;
         cursor: pointer;
     }
 
@@ -26,15 +26,17 @@
         user-select: none;
     }
 
-    &.active {
-        color: lighten($theme-brand, 15%);
+    &.activated {
+        .radio-icon {
+            color: $theme-highlight;
+        }
     }
 
     &[disabled] {
         color: lighten($theme-text, 30%);
 
         &.active {
-            color: lighten($theme-brand, 30%);
+            color: lighten($theme-highlight, 30%);
         }
     }
 

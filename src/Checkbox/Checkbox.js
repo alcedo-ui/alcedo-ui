@@ -60,10 +60,16 @@ export default class Checkbox extends Component {
                        name={name}
                        value={value}/>
 
-                <IconButton ref="checkboxIcon"
-                            className="checkbox-icon"
-                            iconCls={`fa ${value ? 'fa-check-square' : 'fa-square-o'}`}
-                            onTouchTap={this.clickHandle}/>
+                <div className="checkbox-icon-wrapper">
+                    <IconButton ref="checkboxIcon"
+                                className="checkbox-bg-icon"
+                                iconCls="fa fa-square-o"
+                                onTouchTap={this.clickHandle}/>
+
+                    <IconButton className="checkbox-icon"
+                                iconCls="fa fa-check-square"
+                                onTouchTap={this.clickHandle}/>
+                </div>
 
                 <div className="checkbox-label"
                      onMouseDown={this.mouseDownHandle}
