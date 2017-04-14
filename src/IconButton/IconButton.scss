@@ -7,20 +7,20 @@
     }
 
     // default theme
-    @include button-theme($theme-text, transparent);
+    @include icon-button-theme($theme-text);
 
     // themes
     &.theme-primary {
-        @include button-theme($theme-menu, transparent);
+        @include icon-button-theme($theme-menu);
     }
     &.theme-success {
-        @include button-theme($success, transparent);
+        @include icon-button-theme($success);
     }
     &.theme-warning {
-        @include button-theme($warning, transparent);
+        @include icon-button-theme($warning);
     }
     &.theme-error {
-        @include button-theme($error, transparent);
+        @include icon-button-theme($error);
     }
 
 }

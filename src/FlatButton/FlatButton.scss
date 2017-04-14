@@ -3,28 +3,20 @@
 .flat-button {
 
     // default theme
-    @include button-theme($theme-text, transparent);
+    @include flat-button-theme($theme-text, transparent);
 
     // themes
     &.theme-primary {
-        @include button-theme($theme-menu, transparent);
+        @include flat-button-theme($theme-menu, transparent);
     }
     &.theme-success {
-        @include button-theme($success, transparent);
+        @include flat-button-theme($success, transparent);
     }
     &.theme-warning {
-        @include button-theme($warning, transparent);
+        @include flat-button-theme($warning, transparent);
     }
     &.theme-error {
-        @include button-theme($error, transparent);
-    }
-
-    &:hover {
-        background: transparentize(#fff, .3) !important;
-
-        &[disabled] {
-            background: transparentize(#eee, .3) !important;
-        }
+        @include flat-button-theme($error, transparent);
     }
 
 }

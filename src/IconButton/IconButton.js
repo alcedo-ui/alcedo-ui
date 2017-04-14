@@ -45,6 +45,7 @@ IconButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
     buttonStyle: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
@@ -56,7 +57,9 @@ IconButton.propTypes = {
     disableTouchRipple: PropTypes.bool,
 
     iconCls: PropTypes.string,
-    iconPosition: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    rippleDisplayCenter: PropTypes.bool,
 
     onTouchTap: PropTypes.func
 
@@ -66,6 +69,7 @@ IconButton.defaultProps = {
 
     className: '',
     style: null,
+
     buttonStyle: '',
     isRounded: false,
     isCircular: true,
@@ -76,7 +80,9 @@ IconButton.defaultProps = {
     isLoading: false,
     disableTouchRipple: false,
 
+    rippleDisplayCenter: false,
+
     iconCls: '',
-    iconPosition: 'left'
+    rightIconCls: ''
 
 };

@@ -1,247 +1,247 @@
 @import '../_common.scss';
 
 .date-picker {
-	position: relative;
-	width: 240px;
-	height: 40px;
+    position: relative;
+    width: 240px;
+    height: 40px;
 
-	.date-picker-field {
+    .date-picker-field {
 
-		@include shadow(1);
+        @include shadow(1);
 
-		width: 100%;
-		height: 100%;
-		border-radius:$border-radius !important;
+        width: 100%;
+        height: 100%;
+        border-radius: $border-radius !important;
 
-		input {
-			line-height: 20px;
-			padding: 10px 40px !important;
-			cursor: pointer;
-		}
+        input {
+            line-height: 20px;
+            padding: 10px 40px !important;
+            cursor: pointer;
+        }
 
-		i {
-			width: 40px !important;
-			height: 40px;
-			text-align: center;
-			line-height: 40px;
-			margin: 0;
-			&.text-field-icon {
-				margin-left: 3px;
-			}
-		}
-		button{
-			&.clear-icon{
-				display: none;
-			}
-		}
+        i {
+            width: 40px !important;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 0;
+            &.text-field-icon {
+                margin-left: 3px;
+            }
+        }
+        button {
+            &.clear-icon {
+                display: none;
+            }
+        }
 
-		&.empty {
-			input {
-				padding: 10px 20px 10px 43px !important;
-			}
-		}
-	}
+        &.empty {
+            input {
+                padding: 10px 20px 10px 43px !important;
+            }
+        }
+    }
 
-	.date-picker-popup {
+    .date-picker-popup {
 
-		@include shadow(3);
+        @include shadow(3);
 
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 300px;
-		height: 342px;
-		overflow: hidden;
-		background: #FFF;
-		border-radius: $border-radius;
-		z-index: $popup-z-index;
-		transition: all $transition-duration ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 342px;
+        overflow: hidden;
+        background: #FFF;
+        border-radius: $border-radius;
+        z-index: $popup-z-index;
+        transition: all $transition-duration ease-in-out;
 
-		&.hidden {
-			width: 100%;
-			height: 100%;
-			opacity: 0;
-			z-index: -1;
-			visibility: hidden;
-		}
-		.calendar-date-input-wrap{
-			height: 40px;
-			.calendar-input{
-				height: 40px;
-				width: 95%;
-				border: none;
-				outline: none;
-				margin-left:5%;
-				input{
-					padding-left: 10px;
-					font-size: 12px;
-				}
-				.clear-icon{
-					top:-5px;
-				}
-			}
-		}
-		.calendar{
-			user-select:none;
-			.calendar-header{
-				width: 100%;
-				height: 40px;
-				line-height: 40px;
-				text-align: center;
-				font-size: 14px;
-				border-top:1px solid #dfdfdf;
-				border-bottom:1px solid #dfdfdf;
-				span{
-					margin: 0 20px;
-					cursor: pointer;
-				}
-				i{
-					cursor: pointer;
-					width: 16px;
-					height: 16px;
-					font-size: 16px;
-					position: relative;
-					overflow: hidden;
-				}
-				span:hover,i:hover{
-					background:#ecf6fd;
-					border-radius: 4px;
-				}
-			}
-			.calendar-body{
-				border-bottom: 1px solid #dfdfdf;
-				padding-bottom: 5px;
-				ul{
-					list-style-type: none;
-					margin: 0;
-					padding:10px;
-				}
-				.c-body-head{
-					overflow: hidden;
-					li{
-						width: 14%;
-						height: 14px;
-						float: left;
-						text-align: center;
-					}
-				}
-				.c-body-content{
-					width: 100%;
-					.content-row{
-						width: 100%;
-						height: 30px;
-						overflow: hidden;
-						padding:0 10px;
-						box-sizing: border-box;
-						li{
-							height: 30px;
-							width:14%;
-							float: left;
-							text-align: center;
-							overflow: hidden;
-							a{
-								display:inline-block;
-								width:30px;
-								height:30px;
-								line-height:30px;
-								text-decoration: none;
-								text-align: center;
-								position: relative;
-							}
-						}
-						li.current-days{
-							a{
-								color:#4C637B;
-								border-radius: 50%;
-								overflow: hidden;
-							}
-							cursor: pointer;
-						}
-						li.current-days:hover{
-							a{
-								background:#ecf6fd;
-							}
-						}
-						li.active{
-							a{
-								border-radius: 50%;
-								background: $highlight-light;
-								color: #fff;
-							}
+        &.hidden {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: -1;
+            visibility: hidden;
+        }
+        .calendar-date-input-wrap {
+            height: 40px;
+            .calendar-input {
+                height: 40px;
+                width: 95%;
+                border: none;
+                outline: none;
+                margin-left: 5%;
+                input {
+                    padding-left: 10px;
+                    font-size: 12px;
+                }
+                .clear-icon {
+                    top: -5px;
+                }
+            }
+        }
+        .calendar {
+            user-select: none;
+            .calendar-header {
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                font-size: 14px;
+                border-top: 1px solid #dfdfdf;
+                border-bottom: 1px solid #dfdfdf;
+                span {
+                    margin: 0 20px;
+                    cursor: pointer;
+                }
+                i {
+                    cursor: pointer;
+                    width: 16px;
+                    height: 16px;
+                    font-size: 16px;
+                    position: relative;
+                    overflow: hidden;
+                }
+                span:hover, i:hover {
+                    background: #ecf6fd;
+                    border-radius: 4px;
+                }
+            }
+            .calendar-body {
+                border-bottom: 1px solid #dfdfdf;
+                padding-bottom: 5px;
+                ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 10px;
+                }
+                .c-body-head {
+                    overflow: hidden;
+                    li {
+                        width: 14%;
+                        height: 14px;
+                        float: left;
+                        text-align: center;
+                    }
+                }
+                .c-body-content {
+                    width: 100%;
+                    .content-row {
+                        width: 100%;
+                        height: 30px;
+                        overflow: hidden;
+                        padding: 0 10px;
+                        box-sizing: border-box;
+                        li {
+                            height: 30px;
+                            width: 14%;
+                            float: left;
+                            text-align: center;
+                            overflow: hidden;
+                            a {
+                                display: inline-block;
+                                width: 30px;
+                                height: 30px;
+                                line-height: 30px;
+                                text-decoration: none;
+                                text-align: center;
+                                position: relative;
+                            }
+                        }
+                        li.current-days {
+                            a {
+                                color: #4C637B;
+                                border-radius: 50%;
+                                overflow: hidden;
+                            }
+                            cursor: pointer;
+                        }
+                        li.current-days:hover {
+                            a {
+                                background: #ecf6fd;
+                            }
+                        }
+                        li.active {
+                            a {
+                                border-radius: 50%;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
 
-						}
-						li.active:hover{
-							a{
-								background: $highlight-light;
-							}
+                        }
+                        li.active:hover {
+                            a {
+                                background: $theme-highlight;
+                            }
 
-						}
-						li.item-gray{
-							a{
-								color:$grey;
-								cursor: not-allowed;
-							}
-						}
-					}
+                        }
+                        li.item-gray {
+                            a {
+                                color: $grey;
+                                cursor: not-allowed;
+                            }
+                        }
+                    }
 
-				}
-			}
-			.calendar-month-body,.calendar-year-body{
-				border: none;
-				.c-body-content {
-					width: 100%;
-					padding-top: 14px;
-					.month, .year {
-						height: 60px;
-						li {
-							height: 60px;
-							width: 33.2%;
-							text-align: center;
-							a {
-								display: inline-block;
-								width: 40px;
-								height: 40px;
-								color: #4C637B;
-								line-height: 40px;
-								margin-top: 5px;
-								border-radius: 50%;
-								overflow: hidden;
-							}
+                }
+            }
+            .calendar-month-body, .calendar-year-body {
+                border: none;
+                .c-body-content {
+                    width: 100%;
+                    padding-top: 14px;
+                    .month, .year {
+                        height: 60px;
+                        li {
+                            height: 60px;
+                            width: 33.2%;
+                            text-align: center;
+                            a {
+                                display: inline-block;
+                                width: 40px;
+                                height: 40px;
+                                color: #4C637B;
+                                line-height: 40px;
+                                margin-top: 5px;
+                                border-radius: 50%;
+                                overflow: hidden;
+                            }
 
-						}
-						li.current-months:hover, li.current-years:hover {
-							a {
-								background: #ecf6fd;
-							}
+                        }
+                        li.current-months:hover, li.current-years:hover {
+                            a {
+                                background: #ecf6fd;
+                            }
 
-						}
-						li.active {
-							a {
-								background: #108ee9;
-								color: #fff;
-							}
+                        }
+                        li.active {
+                            a {
+                                background: #108ee9;
+                                color: #fff;
+                            }
 
-						}
-					}
-				}
-			}
-		}
-		.calendar-footer{
-			height: 40px;
-			line-height:40px;
-			text-align: center;
-			a{
-				text-decoration: none;
-				color:#108ee9;
-				position: relative;
-				overflow: hidden;
-				.item-gray{
-					color:$grey;
-					cursor: not-allowed;
-				}
-			}
-		}
+                        }
+                    }
+                }
+            }
+        }
+        .calendar-footer {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            a {
+                text-decoration: none;
+                color: #108ee9;
+                position: relative;
+                overflow: hidden;
+                .item-gray {
+                    color: $grey;
+                    cursor: not-allowed;
+                }
+            }
+        }
 
-	}
+    }
 
 }

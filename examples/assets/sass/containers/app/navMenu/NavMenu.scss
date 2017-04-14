@@ -18,87 +18,93 @@
         font-size: 12px;
         user-select: none;
         margin-top: 15px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
 
-        .nav-menu-item {
-            position: relative;
-            box-sizing: border-box;
-            background: darken($theme-menu, 4%);
+        .nav-menu-scroller {
 
-            .nav-menu-item-title {
+            .nav-menu-item {
                 position: relative;
-                display: block;
-                height: 50px;
                 box-sizing: border-box;
-                padding: 0 15px;
-                color: transparentize($theme-nav, .3);
-                text-decoration: none;
-                cursor: pointer;
-                text-decoration: none;
-                overflow: hidden;
+                background: darken($theme-menu, 4%);
 
-                &:hover {
-                    color: $theme-nav;
-                    background: transparentize(#000, .95);
-                }
-
-                &:focus {
-                    color: $theme-nav;
-                    background: transparentize(#000, .92);
-                }
-
-                .nav-menu-item-name {
-                    opacity: 1;
+                .nav-menu-item-title {
+                    position: relative;
                     display: block;
                     height: 50px;
-                    line-height: 50px;
-                    float: left;
-                    transition: opacity 50ms ease-in-out 150ms;
-                }
+                    box-sizing: border-box;
+                    padding: 0 15px;
+                    color: transparentize($theme-nav, .3);
+                    text-decoration: none;
+                    cursor: pointer;
+                    text-decoration: none;
+                    overflow: hidden;
 
-                .nav-menu-item-collapse-button {
-                    float: right;
-                    height: 50px;
-                    line-height: 50px;
-                    text-align: center;
-                    transition: all $transition-duration ease-in-out;
+                    &:hover {
+                        color: $theme-nav;
+                        background: transparentize(#000, .95);
+                    }
 
-                    &.collapsed {
-                        transform: rotate(-90deg);
+                    &:focus {
+                        color: $theme-nav;
+                        background: transparentize(#000, .92);
+                    }
+
+                    .nav-menu-item-name {
+                        opacity: 1;
+                        display: block;
+                        height: 50px;
+                        line-height: 50px;
+                        float: left;
+                        transition: opacity 50ms ease-in-out 150ms;
+                    }
+
+                    .nav-menu-item-collapse-button {
+                        float: right;
+                        height: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                        transition: all $transition-duration ease-in-out;
+
+                        &.collapsed {
+                            transform: rotate(-90deg);
+                        }
                     }
                 }
-            }
 
-            .nav-menu-item-link {
+                .nav-menu-item-link {
 
-                @extend .nav-menu-item-title;
+                    @extend .nav-menu-item-title;
 
-                &.router-link-active {
-                    padding: 0 15px 0 12px;
-                    border-left: 3px solid $theme-highlight;
-                    color: #fff;
-                    background: transparentize(#000, .92);
+                    &.router-link-active {
+                        padding: 0 15px 0 12px;
+                        border-left: 3px solid $theme-highlight;
+                        color: #fff;
+                        background: transparentize(#000, .92);
+                    }
+
                 }
-
-            }
-
-            .nav-menu-children {
-                overflow: hidden;
-                transition: all $transition-duration ease-in-out;
-            }
-
-            &.hasChildren {
-                @include shadow-inset(1);
-            }
-
-            &.collapsed {
-                background: transparent;
-                box-shadow: none;
 
                 .nav-menu-children {
-                    height: 0 !important;
+                    overflow: hidden;
+                    transition: all $transition-duration ease-in-out;
                 }
-            }
 
+                &.hasChildren {
+                    @include shadow-inset(1);
+                }
+
+                &.collapsed {
+                    background: transparent;
+                    box-shadow: none;
+
+                    .nav-menu-children {
+                        height: 0 !important;
+                    }
+                }
+
+            }
         }
     }
 }

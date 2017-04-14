@@ -4,6 +4,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
 import RaisedButton from '../RaisedButton';
+import FlatButton from '../FlatButton';
 
 import './DropdownSelect.css';
 
@@ -71,7 +72,7 @@ export default class DropdownSelect extends Component {
     }
 
     componentDidMount() {
-        this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
+        this.triggerHeight = require('react-dom').findDOMNode(this).offsetHeight;
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
     }
 
@@ -99,7 +100,9 @@ export default class DropdownSelect extends Component {
                 top: above && optionsVisible ? -optionsHeight : 0,
                 height: optionsVisible ? triggerHeight + optionsHeight : triggerHeight
             },
-            triggerStyle = {},
+            triggerStyle = {
+                height: triggerHeight
+            },
             optionsStyle = {
                 top: above ? 0 : triggerHeight,
                 height: optionsHeight,
@@ -148,15 +151,15 @@ export default class DropdownSelect extends Component {
                                     isActivated = JSON.stringify(item) == JSON.stringify(value);
 
                                 return (
-                                    <RaisedButton key={index}
-                                                  className={`dropdown-select-option ${isActivated ? 'activated' : ''}`}
-                                                  iconCls={isObject ? item.iconCls : ''}
-                                                  value={textFormat && typeof textFormat === 'function'
-                                                      ? textFormat(text) : text}
-                                                  disabled={isObject ? item.disabled : false}
-                                                  onTouchTap={() => {
-                                                      this.select(item);
-                                                  }}/>
+                                    <FlatButton key={index}
+                                                className={`dropdown-select-option ${isActivated ? 'activated' : ''}`}
+                                                iconCls={isObject ? item.iconCls : ''}
+                                                value={textFormat && typeof textFormat === 'function'
+                                                    ? textFormat(text) : text}
+                                                disabled={isObject ? item.disabled : false}
+                                                onTouchTap={() => {
+                                                    this.select(item);
+                                                }}/>
                                 );
                             })
                         }

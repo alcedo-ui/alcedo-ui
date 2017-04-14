@@ -16,10 +16,10 @@
 
     &.activated {
         color: #fff;
-        background: $theme-title;
+        background: $theme-menu;
 
         &:hover {
-            background: lighten($theme-title, 5%);
+            background: darken($theme-menu, 4%);
         }
     }
 }

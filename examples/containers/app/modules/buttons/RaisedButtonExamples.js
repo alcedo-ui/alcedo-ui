@@ -43,27 +43,27 @@ export default class RaisedButtonExamples extends Component {
                     <div className="examples-wrapper">
 
                         <RaisedButton value="Default"
-                                      rounded={true}/>
+                                      isRounded={true}/>
 
                         <RaisedButton value="Primary"
                                       buttonStyle="primary"
-                                      rounded={true}/>
+                                      isRounded={true}/>
 
                         <RaisedButton value="Success"
                                       buttonStyle="success"
-                                      rounded={true}/>
+                                      isRounded={true}/>
 
                         <RaisedButton value="Warning"
                                       buttonStyle="warning"
-                                      rounded={true}/>
+                                      isRounded={true}/>
 
                         <RaisedButton value="Error"
                                       buttonStyle="error"
-                                      rounded={true}/>
+                                      isRounded={true}/>
 
                         <RaisedButton value="Disabled"
                                       disabled={true}
-                                      rounded={true}/>
+                                      isRounded={true}/>
 
                     </div>
                 </div>
@@ -85,8 +85,7 @@ export default class RaisedButtonExamples extends Component {
 
                         <RaisedButton value="Next"
                                       buttonStyle="primary"
-                                      iconCls="fa fa-chevron-right"
-                                      iconPosition="right"/>
+                                      rightIconCls="fa fa-chevron-right"/>
 
                     </div>
                 </div>
