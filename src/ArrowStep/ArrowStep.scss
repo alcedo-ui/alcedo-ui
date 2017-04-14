@@ -45,7 +45,7 @@
         .triangle-wrapper {
             position: absolute;
             top: 0;
-            width: 32px;
+            width: 0;
             height: 60px;
             z-index: 1;
 
@@ -118,7 +118,7 @@
             }
 
             &.triangle-wrapper-right {
-                right: -16px;
+                right: 16px;
                 //background: $theme-bg;
             }
 
