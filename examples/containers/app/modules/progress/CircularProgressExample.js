@@ -5,6 +5,8 @@ import React, {Component, PropTypes} from 'react'
 
 import CircularProgress from '../../../../../dist/CircularProgress'
 
+import 'sass/containers/app/modules/progress/CircularProgressExample.scss';
+
 export default class Test extends Component{
     constructor(props){
         super();
@@ -38,34 +40,13 @@ export default class Test extends Component{
     }
 
     render() {
-        const boxStyle = {
-            boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
-            margin: '50px',
-            padding: '0px 0 20px',
-            overflow: 'hidden',
-            background: 'white'
-        },hStyle = {
-            fontSize: '16px',
-            color: '#758697',
-            backgroundColor: '#E3EAF3',
-            margin: '0',
-            padding: '15px 20px'
-        },pStyle = {
-            marginLeft: '20px',
-            fontSize: '14px',
-            color: '#4C637B'
-        },cStyle = {
-            marginLeft: '20px',
-            marginTop: '10px',
-            float: 'left'
-        };
         return (
-            <div style={boxStyle}>
-                <h3 style={hStyle}>Circular Progress</h3>
-                <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
-                <CircularProgress r={50} width={10} rgba="#38b1eb" percent={this.state.percent} word={true} style={cStyle}/>
-                <CircularProgress r={20} width={3} rgba="#38b1eb" percent={this.state.percent} word={true} style={cStyle}/>
-                <CircularProgress r={100} width={15} rgba="#38b1eb" percent={this.state.percent} word={true} style={cStyle}/>
+            <div className="example-box">
+                <h3>Circular Progress</h3>
+                <p>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
+                <CircularProgress r={50} width={10} rgba="#38b1eb" percent={this.state.percent} word={true}/>
+                <CircularProgress r={20} width={3} rgba="#38b1eb" percent={this.state.percent} word={true}/>
+                <CircularProgress r={100} width={15} rgba="#38b1eb" percent={this.state.percent} word={true}/>
             </div>
         )
     }

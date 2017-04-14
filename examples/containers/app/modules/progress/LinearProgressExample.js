@@ -5,6 +5,8 @@ import React, {Component, PropTypes} from 'react'
 
 import LinearProgress from '../../../../../dist/LinearProgress'
 
+import 'sass/containers/app/modules/progress/LinearProgressExample.scss';
+
 export default class LinearProgressExample extends Component{
     constructor(props) {
         super();
@@ -38,23 +40,7 @@ export default class LinearProgressExample extends Component{
     }
 
     render() {
-        const boxStyle = {
-            boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
-            margin: '50px',
-            padding: '0px 0 20px',
-            overflow: 'hidden',
-            background: 'white'
-        },hStyle = {
-            fontSize: '16px',
-            color: '#758697',
-            backgroundColor: '#E3EAF3',
-            margin: '0',
-            padding: '15px 20px'
-        },pStyle = {
-            marginLeft: '20px',
-            fontSize: '14px',
-            color: '#4C637B'
-        },style1 = {
+        const style1 = {
             width: '300px',
             height: '30px',
             lineHeight: '30px',
@@ -73,9 +59,9 @@ export default class LinearProgressExample extends Component{
             marginBottom: '20px'
         };
         return (
-            <div style={boxStyle}>
-                <h3 style={hStyle}>Circular Progress</h3>
-                <p style={pStyle}>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
+            <div className="example-box">
+                <h3>Circular Progress</h3>
+                <p>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
                 <div style={progressGroup}>
                     <LinearProgress highlightWidth={this.state.percent+'%'} style={style1} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={1}/>
                     <LinearProgress highlightWidth={this.state.percent+'%'} style={style2} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={2}/>
