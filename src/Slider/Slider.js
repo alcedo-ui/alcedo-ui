@@ -12,6 +12,7 @@ export default class Slider extends Component{
         this.downHandle = this :: this.downHandle;
         this.getElementLeft = this :: this.getElementLeft;
         this.clickHandle = this :: this.clickHandle;
+        this.getNearest = this :: this.getNearest;
         this.state = {
             highWidth: 0,
             left: 0,
@@ -48,24 +49,30 @@ export default class Slider extends Component{
         let offsetLeft = this.getElementLeft(highElement);
         let tipElement = sonElement.childNodes[0];
         tipElement.style.display = "block";
+        sonElement.style.boxShadow = "0 0 5px 1px rgba(56, 177, 235, 0.7)";
         document.onmousemove = (ev) => {
             let oEvent = ev || event;
             let leftPosition = (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.props.width;
+            leftPosition = (leftPosition > 0) ? leftPosition : 0;
+            if (this.props.ruler) {
+                leftPosition = this.getNearest(leftPosition)
+            }
             if (sonElement.getAttribute('class').indexOf('left') > -1) {
                 this.setState({
-                    highWidth: Math.abs(this.state.right - this.state.left),
-                    left: (leftPosition > 0) ? leftPosition : 0
+                    highWidth: Math.abs(this.state.right - leftPosition),
+                    left: leftPosition
                 });
             } else {
                 this.setState({
-                    highWidth: Math.abs(this.state.right - this.state.left),
-                    right: (leftPosition > 0) ? leftPosition : 0
+                    highWidth: Math.abs(leftPosition - this.state.left),
+                    right: leftPosition
                 });
             }
         };
         document.onmouseup = () => {
             document.onmousemove = null;
             tipElement.style.display = "none";
+            sonElement.style.boxShadow = "";
         };
         return false;
     }
@@ -79,15 +86,7 @@ export default class Slider extends Component{
         let offsetLeft = this.getElementLeft(element);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
         if(this.props.ruler) {
-            let test = this.props.width,j=0;
-            for(let i=0;i<this.props.ruler;i++) {
-                let long = Math.abs(clickLeft - i * this.props.width/(this.props.ruler - 1));
-                if(long < test) {
-                    test = long;
-                    j=i;
-                }
-            }
-            clickLeft = j * this.props.width/(this.props.ruler - 1);
+            clickLeft = this.getNearest(clickLeft);
             this.setState({
                 right: clickLeft,
                 highWidth: Math.abs(clickLeft - this.state.left)
@@ -107,9 +106,23 @@ export default class Slider extends Component{
         }
     }
 
+    getNearest(clickLeft) {
+        const {width, ruler} = this.props;
+        let nearest = width;
+        let j=0;
+        for(let i=0;i<ruler;i++) {
+            let long = Math.abs(clickLeft - i * width/(ruler - 1));
+            if(long < nearest) {
+                nearest = long;
+                j=i;
+            }
+        }
+        return j * width/(ruler - 1);
+    }
+
     render() {
         const { highWidth, left, right } = this.state;
-        const { leftPoint, scale, width, showScale} = this.props;
+        const { leftPoint, scale, width, showScale, decimalPlaces} = this.props;
         const grayStyle = {
             width: width
         }, highStyle = {
@@ -122,16 +135,16 @@ export default class Slider extends Component{
         };
         return (
             <div className="slider" style={grayStyle}>
-                <div className="slider-box" onClick={this.clickHandle}>
+                <div className="slider-box" onMouseDown={this.clickHandle}>
                     {
                         leftPoint ?
                             (<div className="slider-circle slider-circle-left" onMouseDown={this.downHandle} style={leftStyle}>
-                                <div className="slider-tip">{parseInt((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0])}</div>
+                                <div className="slider-tip">{parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}</div>
                             </div>) :
                             ''
                     }
                     <div className="slider-circle slider-circle-right" onMouseDown={this.downHandle} style={rightStyle}>
-                        <div className="slider-tip">{parseInt((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0])}</div>
+                        <div className="slider-tip">{parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}</div>
                     </div>
                     <div className="slider-highlight" style={highStyle}>
                     </div>
@@ -162,7 +175,8 @@ Slider.propTypes = {
     scale: PropTypes.array,
     showScale: PropTypes.bool,
     tip: PropTypes.bool,
-    ruler: PropTypes.number
+    ruler: PropTypes.number,
+    decimalPlaces: PropTypes.number
 };
 
 Slider.defaultProps = {
@@ -171,6 +185,7 @@ Slider.defaultProps = {
     width: 300,
     scale: [0, 100],
     showScale: false,
-    tip: false
+    tip: false,
+    decimalPlaces: 0
 };
 
