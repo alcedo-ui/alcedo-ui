@@ -38,7 +38,8 @@ export default class BaseButton extends Component {
         } = this.props;
 
         return (
-            <button className={`base-button theme-${buttonStyle}
+            <button {...this.props}
+                    className={`base-button theme-${buttonStyle}
                         ${isCircular ? 'button-circular' : (isRounded ? 'button-rounded' : '')} ${className}`}
                     style={style}
                     type={type}

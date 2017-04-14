@@ -144,6 +144,7 @@ export default class TextField extends Component {
                     ${iconCls ? 'has-icon' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''}
                     ${className}`}
                  style={style}>
+
                 {
                     iconCls ?
                         <i className={'text-field-icon ' + iconCls}
