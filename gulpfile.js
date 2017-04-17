@@ -27,10 +27,16 @@ gulp.task('es', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('copyFiles', function () {
+gulp.task('copyAssets', function () {
+    return gulp.src('./assets/**')
+        .pipe(gulp.dest('./dist/assets'));
+});
+
+gulp.task('copyNpmFiles', function () {
     return gulp.src(['./package.json', 'README.md', './LICENSE'])
         .pipe(gulp.dest('./dist'));
 });
+gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles'));
 
 gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
 

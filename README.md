@@ -1,6 +1,6 @@
 # Alcedo-UI
 
-<img src="./examples/assets/images/alcedo-logo.png" width = "100" height = "100" alt="Alcedo-UI logo"/>
+<img src="./assets/alcedo-logo.png" width = "100" height = "100" alt="Alcedo-UI logo"/>
 
 Alcedo-UI is a set of React components.
 
