@@ -11,6 +11,8 @@ export default class Toaster extends Component {
 
         super(props);
 
+        this.nextKey = 0;
+
         this.state = {
             toasts: []
         };
@@ -21,19 +23,27 @@ export default class Toaster extends Component {
     }
 
     addToast(toast) {
+
         let toasts = this.state.toasts;
-        toasts.unshift(toast);
+
+        toasts.unshift({...toast, toastsId: this.nextKey++});
+
         this.setState({
             toasts
         });
+
     }
 
-    removeToast(index) {
+    removeToast(toastsId) {
+
         let toasts = this.state.toasts;
-        toasts.splice(index, 1);
+
+        toasts.splice(toasts.findIndex(item => item.toastsId === toastsId), 1);
+
         this.setState({
             toasts
         });
+
     }
 
     render() {
@@ -48,13 +58,11 @@ export default class Toaster extends Component {
                 {
                     toasts && toasts.length > 0
                         ? (
-                        toasts.map((options, index) => {
+                        toasts.map(options => {
                             return (
                                 <Toast {...options}
-                                       key={index}
-                                       onRequestClose={() => {
-                                           this.removeToast(index);
-                                       }}/>
+                                       key={options.toastsId}
+                                       onRequestClose={this.removeToast}/>
                             );
                         })
                     )

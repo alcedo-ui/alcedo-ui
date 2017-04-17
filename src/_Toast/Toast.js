@@ -36,8 +36,8 @@ export default class Toast extends Component {
     }
 
     mouseDownHandle() {
-        const {onRequestClose} = this.props;
-        onRequestClose && onRequestClose();
+        const {onRequestClose, toastsId} = this.props;
+        onRequestClose && onRequestClose(toastsId);
     }
 
     initializeAnimation(callback) {
@@ -54,9 +54,14 @@ export default class Toast extends Component {
 
     componentDidMount() {
 
-        this.hasMounted = true;
+        const {onRequestClose, toastsId} = this.props;
 
+        this.hasMounted = true;
         this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
+
+        setTimeout(() => {
+            onRequestClose && onRequestClose(toastsId);
+        }, 2000);
 
     }
 
@@ -122,6 +127,7 @@ Toast.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    toastsId: PropTypes.number,
     type: PropTypes.any,
     title: PropTypes.any,
     message: PropTypes.any,
@@ -135,6 +141,7 @@ Toast.defaultProps = {
     className: '',
     style: null,
 
+    toastsId: 0,
     type: '',
     title: '',
     message: ''
