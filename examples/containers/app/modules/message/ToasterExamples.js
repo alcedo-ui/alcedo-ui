@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import RadioGroup from 'dist/RadioGroup';
 import TextField from 'dist/TextField';
 import RaisedButton from 'dist/RaisedButton';
 import Toaster from 'dist/Toaster';
@@ -13,6 +14,7 @@ export default class ToasterExamples extends Component {
         super(props);
 
         this.state = {
+            type: '',
             title: 'Title',
             message: 'Message'
         };
@@ -30,9 +32,10 @@ export default class ToasterExamples extends Component {
 
     addToast() {
 
-        const {title, message} = this.state;
+        const {type, title, message} = this.state;
 
         this.refs.toaster.addToast({
+            type,
             title,
             message
         });
@@ -41,7 +44,7 @@ export default class ToasterExamples extends Component {
 
     render() {
 
-        const {title, message} = this.state;
+        const {type, title, message} = this.state;
 
         return (
             <div className="example toaster-examples">
@@ -49,6 +52,27 @@ export default class ToasterExamples extends Component {
                 <div className="examples">
                     <div className="examples-title">Toaster</div>
                     <div className="examples-wrapper">
+
+                        <div className="field-group">
+                            <label className="text-field-label">Type</label>
+                            <RadioGroup data={[{
+                                label: 'Default',
+                                value: ''
+                            }, {
+                                label: 'Success',
+                                value: 'success'
+                            }, {
+                                label: 'Warning',
+                                value: 'warning'
+                            }, {
+                                label: 'Error',
+                                value: 'error'
+                            }]}
+                                        value={type}
+                                        onChange={(value) => {
+                                            this.updateField('type', value);
+                                        }}/>
+                        </div>
 
                         <div className="field-group">
                             <label className="text-field-label">Title</label>
@@ -66,7 +90,8 @@ export default class ToasterExamples extends Component {
                                        }}/>
                         </div>
 
-                        <RaisedButton value="Show Toaster"
+                        <RaisedButton className="show-toast-button"
+                                      value="Show Toaster"
                                       buttonStyle={RaisedButton.buttonStyle.PRIMARY}
                                       onTouchTap={this.addToast}/>
 

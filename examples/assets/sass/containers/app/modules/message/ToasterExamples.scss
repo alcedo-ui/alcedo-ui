@@ -10,6 +10,11 @@
 
             float: none;
 
+            .radio {
+                width: 100px;
+                display: inline-block;
+            }
+
             .text-field-label,
             .text-field {
                 float: left;
@@ -21,6 +26,10 @@
                 margin-right: 20px;
                 width: 60px;
             }
+        }
+
+        .show-toast-button {
+            margin-top: 20px;
         }
     }
 }
