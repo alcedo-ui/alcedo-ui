@@ -6,9 +6,14 @@ var gulp = require('gulp'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence');
 
+function printError(e) {
+    console.error(e.toString());
+}
+
 gulp.task('sass', function () {
     return gulp.src('./src/**/*.scss')
         .pipe(sass())
+        .on('error', printError)
         .pipe(gulp.dest('./dist'));
 });
 
@@ -17,6 +22,7 @@ gulp.task('es6', function () {
         .pipe(babel({
             plugins: ['transform-runtime']
         }))
+        .on('error', printError)
         .pipe(gulp.dest('./dist'));
 });
 

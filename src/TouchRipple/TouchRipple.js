@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
-import Ripple from './Ripple';
+
+import Ripple from '../_Ripple';
 
 import './TouchRipple.css';
 

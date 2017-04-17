@@ -43,27 +43,27 @@ export default class FlatButtonExamples extends Component {
                     <div className="examples-wrapper">
 
                         <FlatButton value="Default"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Primary"
                                     buttonStyle="primary"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Success"
                                     buttonStyle="success"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Warning"
                                     buttonStyle="warning"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Error"
                                     buttonStyle="error"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Disabled"
                                     disabled={true}
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                     </div>
                 </div>
@@ -85,8 +85,7 @@ export default class FlatButtonExamples extends Component {
 
                         <FlatButton value="Next"
                                     buttonStyle="primary"
-                                    iconCls="fa fa-chevron-right"
-                                    iconPosition="right"/>
+                                    rightIconCls="fa fa-chevron-right"/>
 
                     </div>
                 </div>

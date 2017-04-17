@@ -6,16 +6,41 @@
 
     width: 200px;
     height: 50px;
-    color: lighten($theme-text, 15%);
+    color: $theme-text;
 
-    .radio-icon {
+    .radio-icon-wrapper {
         float: left;
         width: 50px;
         height: 50px;
-        text-align: center;
-        line-height: 50px;
-        font-size: 14px;
-        cursor: pointer;
+        position: relative;
+
+        .radio-bg-icon,
+        .radio-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .radio-bg-icon {
+            .button-icon {
+                transition: all $transition-duration ease-in-out;
+            }
+        }
+
+        .radio-icon {
+            color: $theme-highlight;
+
+            .button-icon {
+                transform: scale(0);
+                transition: all $transition-duration ease-in-out;
+            }
+        }
     }
 
     .radio-label {
@@ -26,15 +51,26 @@
         user-select: none;
     }
 
-    &.active {
-        color: lighten($theme-brand, 15%);
+    &.activated {
+
+        .radio-bg-icon {
+            .button-icon {
+                opacity: 0;
+            }
+        }
+
+        .radio-icon {
+            .button-icon {
+                transform: scale(1);
+            }
+        }
     }
 
     &[disabled] {
         color: lighten($theme-text, 30%);
 
         &.active {
-            color: lighten($theme-brand, 30%);
+            color: lighten($theme-highlight, 30%);
         }
     }
 

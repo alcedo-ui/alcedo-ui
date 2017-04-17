@@ -21,6 +21,9 @@ const DEFAULT_MENU = [{
     children: [{
         text: 'Dialog',
         route: '/components/Dialog'
+    }, {
+        text: 'Popup',
+        route: '/components/Popup'
     }]
 }, {
     text: 'date',
@@ -63,6 +66,9 @@ const DEFAULT_MENU = [{
     }, {
         text: 'Switcher',
         route: '/components/Switcher'
+    }, {
+        text: 'Slider',
+        route: '/components/Slider'
     }]
 }, {
     text: 'progress',
@@ -73,11 +79,41 @@ const DEFAULT_MENU = [{
         text: 'LinearProgress',
         route: '/components/linearProgress'
     }]
+}, {
+    text: 'layout',
+    children: [{
+        text: 'Paper',
+        route: '/components/Paper'
+    }, {
+        text: 'Widget',
+        route: '/components/Widget'
+    }, {
+        text: 'List',
+        route: '/components/List'
+    }, {
+        text: 'Tab',
+        route: '/components/Tab'
+    }, {
+        text: 'Accordion',
+        route: '/components/Accordion'
+    }, {
+        text: 'Table',
+        route: '/components/Table'
+    }]
+}, {
+    text: 'stepper',
+    children: [{
+        text: 'ArrowStep',
+        route: '/components/ArrowStep'
+    }, {
+        text: 'RoundStep',
+        route: '/components/RoundStep'
+    }]
 }];
 
 const initialState = {
     menu: _.cloneDeep(DEFAULT_MENU),
-    expandMenuName: ''
+    expandMenuName: 'buttons'
 };
 
 function navMenu(state = initialState, action) {
@@ -88,6 +124,22 @@ function navMenu(state = initialState, action) {
                 ...state,
                 expandMenuName: action.menuName
             };
+        }
+
+        case types.EXPAND_ACTIVATED_MENU: {
+
+            let expandMenuName;
+            for (let i = 0, len = state.menu.length; i < len; i++) {
+                if (state.menu[i].children.findIndex(item => item.route === action.route) > -1) {
+                    expandMenuName = state.menu[i].text;
+                }
+            }
+
+            return {
+                ...state,
+                expandMenuName
+            };
+
         }
 
         default:
