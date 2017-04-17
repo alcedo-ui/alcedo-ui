@@ -1,4 +1,4 @@
-import Config from 'src/config';
+import Config from 'examples/config';
 import * as types from 'reduxes/actionTypes';
 
 const initialState = {

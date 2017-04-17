@@ -20,7 +20,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
-            'src': resolve('examples'),
+            'examples': resolve('examples'),
             'assets': resolve('examples/assets'),
             'sass': resolve('examples/assets/sass'),
             'stylesheets': resolve('examples/assets/stylesheets'),
