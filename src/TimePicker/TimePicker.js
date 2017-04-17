@@ -6,7 +6,8 @@ import moment from 'moment';
 
 
 import TextField from '../TextField/TextField';
-import TimeItems from '../_TimeItems/_TimeItems';
+import TimeList from '../_TimeList/_TimeList';
+
 
 import './TimePicker.css';
 
@@ -29,9 +30,7 @@ export default class TimePicker extends Component {
         this.textFieldChangeHandle = this::this.textFieldChangeHandle;
         this.mousedownHandle = this::this.mousedownHandle;
         this.wrapperHeight = this::this.wrapperHeight;
-        this.hourChangeHandle = this::this.hourChangeHandle;
-        this.minuteChangeHandle = this::this.minuteChangeHandle;
-        this.secondChangeHandle = this::this.secondChangeHandle;
+        this.timePickerChangeHandle = this::this.timePickerChangeHandle;
 
     }
 
@@ -76,32 +75,13 @@ export default class TimePicker extends Component {
         }
     }
 
-
-    hourChangeHandle(value) {
-        let {minute, second}=this.state;
-        let TextField = value + ':' + minute + ':' + second;
+    timePickerChangeHandle(obj){
+        let timer = obj.hour + ':'+obj.minute+':'+obj.second
         this.setState({
-            hour: value,
-            textFieldValue: TextField
-        })
-    }
-
-    minuteChangeHandle(value) {
-        let {hour, second}=this.state;
-        let TextField = hour + ':' + value + ':' + second;
-        this.setState({
-            minute: value,
-            textFieldValue: TextField
-        })
-
-    }
-
-    secondChangeHandle(value) {
-        let {hour, minute}=this.state;
-        let TextField = hour + ':' + minute + ':' + value;
-        this.setState({
-            second: value,
-            textFieldValue: TextField
+            hour: obj.hour,
+            minute: obj.minute,
+            second: obj.second,
+            textFieldValue: timer
         })
     }
 
@@ -135,12 +115,8 @@ export default class TimePicker extends Component {
     }
 
     render() {
-
-        const {className, style, name, placeholder, dateFormat} = this.props;
-        const {value, popupVisible, textFieldValue, hour, minute, second} = this.state;
-        const hoursData = this.rangeData(24),
-            minutesData = this.rangeData(60),
-            secondsData = this.rangeData(60);
+        const {className, style, name, placeholder,maxValue,minValue} = this.props;
+        const {popupVisible, textFieldValue, hour, minute, second} = this.state;
         const wrapperHeight = this.wrapperHeight();
         const wrapperStyle = {
             height: wrapperHeight + 'px'
@@ -165,24 +141,13 @@ export default class TimePicker extends Component {
                                    placeholder={placeholder}
                                    value={textFieldValue ? popupTextField : textFieldValue}
                                    onChange={this.textFieldChangeHandle}/>
-                        <TimeItems className="hours"
-                                   data={hoursData}
-                                   value={hour}
-                                   popupVisible={popupVisible}
-                                   onChange={this.hourChangeHandle}
-                        />
-                        <TimeItems className="minutes"
-                                   data={minutesData}
-                                   value={minute}
-                                   popupVisible={popupVisible}
-                                   onChange={this.minuteChangeHandle}
-                        />
-                        <TimeItems className="seconds"
-                                   data={secondsData}
-                                   value={second}
-                                   popupVisible={popupVisible}
-                                   onChange={this.secondChangeHandle}
-                        />
+                        <TimeList hour={hour}
+                                  minute={minute}
+                                  second={second}
+                                  maxValue={maxValue}
+                                  minValue={minValue}
+                                  popupVisible={popupVisible}
+                                  onChange={this.timePickerChangeHandle}/>
                     </div>
                 </div>
             </div>
@@ -191,17 +156,12 @@ export default class TimePicker extends Component {
 };
 
 TimePicker.propTypes = {
-
     className: PropTypes.string,
     style: PropTypes.object,
-
     name: PropTypes.string,
-
-    // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+    value:PropTypes.string,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.string
-
 };
 
 TimePicker.defaultProps = {
