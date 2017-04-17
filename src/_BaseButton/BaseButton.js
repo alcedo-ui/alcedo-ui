@@ -123,3 +123,11 @@ BaseButton.defaultProps = {
     rightIconCls: ''
 
 };
+
+BaseButton.buttonStyle = {
+    PRIMARY: 'primary',
+    HIGHLIGHT: 'highlight',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error'
+};

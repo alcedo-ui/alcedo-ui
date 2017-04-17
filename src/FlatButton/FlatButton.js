@@ -84,3 +84,5 @@ FlatButton.defaultProps = {
     rightIconCls: ''
 
 };
+
+FlatButton.buttonStyle = BaseButton.buttonStyle;

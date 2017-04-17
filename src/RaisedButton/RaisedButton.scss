@@ -23,6 +23,9 @@
     &.theme-primary {
         @include raised-button-theme(#fff, $theme-menu);
     }
+    &.theme-highlight {
+        @include raised-button-theme(#fff, $theme-highlight);
+    }
     &.theme-success {
         @include raised-button-theme(#fff, $success);
     }

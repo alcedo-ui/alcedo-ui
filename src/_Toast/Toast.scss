@@ -1,0 +1,64 @@
+@import '../_common.scss';
+
+.toast {
+
+    @include shadow(3);
+
+    position: relative;
+    width: 200px;
+    min-height: 40px;
+    border-radius: $border-radius;
+    padding: 15px 15px 15px 50px;
+    background: $theme-menu;
+    color: #fff;
+    margin-top: 10px;
+    cursor: pointer;
+    user-select: none;
+    opacity: .8;
+    transition: all $transition-duration ease-in-out;
+
+    .toast-icon {
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 20px;
+        transform: translate(0, -50%);
+    }
+
+    .toast-title {
+        line-height: 20px;
+        opacity: .6;
+    }
+
+    .toast-message {
+        font-size: 14px;
+        line-height: 20px;
+        word-wrap: break-word;
+    }
+
+    //&:hover {
+    //    opacity: 1 !important;
+    //}
+
+    &.toast-success {
+        background: $success;
+    }
+
+    &.toast-warning {
+        background: $warning;
+    }
+
+    &.toast-error {
+        background: $error;
+    }
+
+    &.hidden {
+        opacity: 0;
+        transition: all 1s ease-in-out;
+    }
+
+}

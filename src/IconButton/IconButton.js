@@ -86,3 +86,5 @@ IconButton.defaultProps = {
     rightIconCls: ''
 
 };
+
+IconButton.buttonStyle = BaseButton.buttonStyle;

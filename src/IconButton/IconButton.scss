@@ -13,6 +13,9 @@
     &.theme-primary {
         @include icon-button-theme($theme-menu);
     }
+    &.theme-highlight {
+        @include icon-button-theme($theme-highlight);
+    }
     &.theme-success {
         @include icon-button-theme($success);
     }

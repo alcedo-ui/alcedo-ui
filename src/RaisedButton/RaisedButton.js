@@ -84,3 +84,5 @@ RaisedButton.defaultProps = {
     rightIconCls: ''
 
 };
+
+RaisedButton.buttonStyle = BaseButton.buttonStyle;

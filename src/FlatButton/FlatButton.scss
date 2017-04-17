@@ -9,6 +9,9 @@
     &.theme-primary {
         @include flat-button-theme($theme-menu, transparent);
     }
+    &.theme-highlight {
+        @include flat-button-theme($theme-highlight, transparent);
+    }
     &.theme-success {
         @include flat-button-theme($success, transparent);
     }

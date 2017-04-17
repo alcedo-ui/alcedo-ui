@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
-import Toaste from '../_Toaste';
+import Toast from '../_Toast';
 
 import './Toaster.css';
 
@@ -12,94 +11,54 @@ export default class Toaster extends Component {
 
         super(props);
 
-        this.nextKey = 0;
-        this.timeoutIds = [];
-
         this.state = {
-            toastes: []
+            toasts: []
         };
 
-        this.clearRippleTimeout = this::this.clearRippleTimeout;
-        this.mouseDownHandle = this::this.mouseDownHandle;
-        this.mouseUpHandle = this::this.mouseUpHandle;
+        this.addToast = this::this.addToast;
+        this.removeToast = this::this.removeToast;
 
     }
 
-    getOffset(el) {
-        let rect = el.getBoundingClientRect();
-        return {
-            offsetTop: rect.top + document.body.scrollTop,
-            offsetLeft: rect.left + document.body.scrollLeft
-        };
-    }
-
-    addRipple(e) {
-
-        let {ripples} = this.state;
-
-        ripples.push(
-            <Ripple key={this.nextKey++}
-                    style={{}}/>
-        );
-
+    addToast(toast) {
+        let toasts = this.state.toasts;
+        toasts.unshift(toast);
         this.setState({
-            ripples: ripples
-        });
-
-    }
-
-    removeRipple() {
-        this.clearRippleTimeout();
-        this.setState({
-            ripples: []
+            toasts
         });
     }
 
-    clearRippleTimeout() {
-
-        if (!this.timeoutIds || this.timeoutIds.length < 1) {
-            return;
-        }
-
-        this.timeoutIds.forEach(item => clearTimeout(item));
-        this.timeoutIds = [];
-
-    }
-
-    mouseDownHandle(e) {
-
-        this.timeoutIds[this.nextKey] = setTimeout(() => {
-            this.removeRipple();
-        }, 1000 / 60);
-
-        this.addRipple(e);
-
-    }
-
-    mouseUpHandle() {
-        this.removeRipple();
-    }
-
-    componentWillUnmount() {
-        this.clearRippleTimeout();
+    removeToast(index) {
+        let toasts = this.state.toasts;
+        toasts.splice(index, 1);
+        this.setState({
+            toasts
+        });
     }
 
     render() {
 
         const {className, style} = this.props;
-        const {toastes} = this.state;
+        const {toasts} = this.state;
 
         return (
             <ReactCSSTransitionGroup component="div"
                                      className={`toaster ${className}`}
-                                     style={style}
-                                     onMouseDown={this.mouseDownHandle}
-                                     onMouseUp={this.mouseUpHandle}>
+                                     style={style}>
                 {
-                    toastes && toastes.length > 0 ?
-                        toastes
-                        :
-                        null
+                    toasts && toasts.length > 0
+                        ? (
+                        toasts.map((options, index) => {
+                            return (
+                                <Toast {...options}
+                                       key={index}
+                                       onRequestClose={() => {
+                                           this.removeToast(index);
+                                       }}/>
+                            );
+                        })
+                    )
+                        : null
                 }
             </ReactCSSTransitionGroup>
         );
@@ -108,15 +67,11 @@ export default class Toaster extends Component {
 };
 
 Toaster.propTypes = {
-
     className: PropTypes.string,
     style: PropTypes.object
-
 };
 
 Toaster.defaultProps = {
-
     className: '',
     style: null
-
 };
