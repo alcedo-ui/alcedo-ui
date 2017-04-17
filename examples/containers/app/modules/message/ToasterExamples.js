@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import TextField from 'dist/TextField';
 import RaisedButton from 'dist/RaisedButton';
 import Toaster from 'dist/Toaster';
 
@@ -19,7 +20,7 @@ export default class ToasterExamples extends Component {
                     <div className="examples-title">Accordion</div>
                     <div className="examples-wrapper">
 
-
+                        <TextField/>
 
                     </div>
                 </div>
