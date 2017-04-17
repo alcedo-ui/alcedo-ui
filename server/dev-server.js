@@ -27,7 +27,6 @@ var config = require('./config'),
         }
     });
 
-// html 模板改变时刷新页面
 compiler.plugin('compilation', function (compilation) {
     compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
         hotMiddleware.publish({action: 'reload'});
@@ -35,13 +34,11 @@ compiler.plugin('compilation', function (compilation) {
     });
 });
 
-// browserHistory 前端路由重定向
 app.use(history());
 
 app.use(devMiddleware);
 app.use(hotMiddleware);
 
-// 托管静态文件
 app.use(config.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(function () {
