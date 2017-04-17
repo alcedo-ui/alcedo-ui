@@ -15,21 +15,19 @@ export default class _DayPicker extends Component {
             row_number: 6,
             col_number: 7
         }
+        const value = this.props.value;
         this.state = {
-            timer: this.props.defaultValue,
-            select_year: this.props.year,
-            select_month: this.props.month,
-            select_day: this.props.day,
+            selectYear: this.props.year,
+            selectMonth: this.props.month,
+            selectDay: this.props.day,
             hour: this.props.hour,
             minute: this.props.minute,
             second: this.props.second,
-            current_year: this.props.year,
-            current_month: this.props.month,
-            current_day: this.props.day,
+            currentYear:moment(value).format('YYYY'),
+            currentMonth: moment(value).format('MM'),
+            currentDay: moment(value).format('DD'),
             date_num_array: this.MonthDays(this.props.year),
-            first_day: this.weekday(this.props.year, this.props.month),
-            maxValue: this.props.maxValue,
-            minValue: this.props.minValue
+            first_day: this.weekday(this.props.year, this.props.month)
         }
 
         this.previousLevel = this::this.previousLevel;
@@ -80,143 +78,143 @@ export default class _DayPicker extends Component {
     }
 
     hoverDateHandle(s_day) {
-        let {select_year, select_month} = this.state;
+        let {selectYear, selectMonth} = this.state;
         s_day = s_day.toString();
-        const selected_month = Number(select_month) - 1;
-        let timer = moment([select_year, selected_month, s_day]).format(this.props.dateFormat);
+        const selected_month = Number(selectMonth) - 1;
+        let timer = moment([selectYear, selected_month, s_day]).format(this.props.dateFormat);
         this.props.hoverHandle && this.props.hoverHandle({
             time: timer,
-            year: select_year,
-            month: select_month,
+            year: selectYear,
+            month: selectMonth,
             day: s_day
         })
     }
 
     selectDate(s_day) {
-        let {select_year, select_month, hour, minute, second} = this.state;
+        let {selectYear, selectMonth, hour, minute, second} = this.state;
         s_day = s_day.toString();
-        const selected_month = Number(select_month) - 1;
+        const selected_month = Number(selectMonth) - 1;
         let timer;
         if (hour && minute && second) {
-            timer = moment([select_year, selected_month, s_day, hour, minute, second]).format(this.props.dateFormat);
+            timer = moment([selectYear, selected_month, s_day, hour, minute, second]).format(this.props.dateFormat);
         } else {
-            timer = moment([select_year, selected_month, s_day]).format(this.props.dateFormat);
+            timer = moment([selectYear, selected_month, s_day]).format(this.props.dateFormat);
         }
         this.setState({
-            history_year: select_year,
-            history_month: select_month,
-            history_day: s_day,
-            select_day: s_day
+            currentYear: selectYear,
+            currentMonth: selectMonth,
+            currentDay: s_day,
+            selectDay: s_day
         }, ()=> {
             this.props.onChange && this.props.onChange({
                 time: timer,
-                year: select_year,
-                month: select_month,
+                year: selectYear,
+                month: selectMonth,
                 day: s_day
             })
         });
     }
 
     previousYear() {
-        let {current_year, current_month, current_day, select_year, select_month, select_day, date_num_array, first_day} = this.state;
-        select_year = +select_year - 1;
-        date_num_array = this.MonthDays(select_year);
-        first_day = this.weekday(select_year, select_month);
-        if (Number(current_year) === Number(select_year) &&
-            Number(current_month) === Number(select_month)) {
-            select_day = current_day;
+        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
+        selectYear = +selectYear - 1;
+        date_num_array = this.MonthDays(selectYear);
+        first_day = this.weekday(selectYear, selectMonth);
+        if (Number(currentYear) === Number(selectYear) &&
+            Number(currentMonth) === Number(selectMonth)) {
+            selectDay = currentDay;
         } else {
-            select_day = undefined;
+            selectDay = undefined;
         }
         this.setState({
-            select_year: select_year,
-            select_month: select_month,
-            select_day: select_day,
+            selectYear: selectYear,
+            selectMonth: selectMonth,
+            selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
         }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: select_year, month: select_month})
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
         })
     }
 
     previousMonth() {
         // debugger
-        let {current_year, current_month, current_day, select_year, select_month, select_day, date_num_array, first_day} = this.state;
+        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
 
-        if (select_month == 1) {
-            select_year = +select_year - 1;
-            select_month = 12;
-            date_num_array = this.MonthDays(select_year);
+        if (selectMonth == 1) {
+            selectYear = +selectYear - 1;
+            selectMonth = 12;
+            date_num_array = this.MonthDays(selectYear);
         } else {
-            select_month = +select_month - 1;
+            selectMonth = +selectMonth - 1;
         }
 
-        first_day = this.weekday(select_year, select_month);
-        if (Number(current_year) === Number(select_year) &&
-            Number(current_month) === Number(select_month)) {
-            select_day = current_day;
+        first_day = this.weekday(selectYear, selectMonth);
+        if (Number(currentYear) === Number(selectYear) &&
+            Number(currentMonth) === Number(selectMonth)) {
+            selectDay = currentDay;
         } else {
-            select_day = undefined;
+            selectDay = undefined;
         }
         this.setState({
-            select_year: select_year,
-            select_month: select_month,
-            select_day: select_day,
+            selectYear: selectYear,
+            selectMonth: selectMonth,
+            selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
         }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: select_year, month: select_month})
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
         })
     }
 
     nextMonth() {
         // debugger
-        let {current_year, current_month, current_day, select_year, select_month, select_day, date_num_array, first_day}=this.state;
-        if (select_month == 12) {
-            select_year = +select_year + 1;
-            select_month = 1;
-            date_num_array = this.MonthDays(select_year);
+        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day}=this.state;
+        if (selectMonth == 12) {
+            selectYear = +selectYear + 1;
+            selectMonth = 1;
+            date_num_array = this.MonthDays(selectYear);
         } else {
-            select_month = +select_month + 1;
+            selectMonth = +selectMonth + 1;
         }
 
-        first_day = this.weekday(select_year, select_month);
-        if (Number(current_year) == Number(select_year) &&
-            Number(current_month) === Number(select_month)) {
-            select_day = current_day;
+        first_day = this.weekday(selectYear, selectMonth);
+        if (Number(currentYear) == Number(selectYear) &&
+            Number(currentMonth) === Number(selectMonth)) {
+            selectDay = currentDay;
         } else {
-            select_day = undefined;
+            selectDay = undefined;
         }
         this.setState({
-            select_year: select_year,
-            select_month: select_month,
-            select_day: select_day,
+            selectYear: selectYear,
+            selectMonth: selectMonth,
+            selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
         }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: select_year, month: select_month})
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
         })
     }
 
     nextYear() {
-        let {current_year, current_month, current_day, select_year, select_month, select_day, date_num_array, first_day}=this.state;
-        select_year = +select_year + 1;
-        date_num_array = this.MonthDays(select_year);
-        first_day = this.weekday(select_year, select_month);
-        if (Number(current_year) == Number(select_year) &&
-            Number(current_month) === Number(select_month)) {
-            select_day = current_day;
+        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day}=this.state;
+        selectYear = +selectYear + 1;
+        date_num_array = this.MonthDays(selectYear);
+        first_day = this.weekday(selectYear, selectMonth);
+        if (Number(currentYear) == Number(selectYear) &&
+            Number(currentMonth) === Number(selectMonth)) {
+            selectDay = currentDay;
         } else {
-            select_day = undefined;
+            selectDay = undefined;
         }
         this.setState({
-            select_year: select_year,
-            select_month: select_month,
-            select_day: select_day,
+            selectYear: selectYear,
+            selectMonth: selectMonth,
+            selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
         }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: select_year, month: select_month})
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
         })
     }
 
@@ -226,8 +224,8 @@ export default class _DayPicker extends Component {
         return MonthEn[num]
     }
 
-    weekday(select_year, select_month) {
-        let num = new Date(select_year + '/' + select_month + '/01').getDay();
+    weekday(selectYear, selectMonth) {
+        let num = new Date(selectYear + '/' + selectMonth + '/01').getDay();
         if (num == 0) {
             num = 7
         }
@@ -235,37 +233,40 @@ export default class _DayPicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.maxValue !== this.props.maxValue || nextProps.minValue !== this.props.minValue || nextProps.year !== this.props.year || nextProps.month !== this.props.month ||
-            nextProps.day !== this.props.day || nextProps.hour !== this.props.hour || nextProps.minute !== this.props.minute || nextProps.second !== this.props.second) {
+        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month ||nextProps.day !== this.props.day ||
+            nextProps.hour !== this.props.hour || nextProps.minute !== this.props.minute || nextProps.second !== this.props.second) {
+            const value = nextProps.value;
             this.setState({
-                select_year: nextProps.year,
-                select_month: nextProps.month,
-                select_day: nextProps.day,
+                selectYear: nextProps.year,
+                selectMonth: nextProps.month,
+                selectDay: nextProps.day,
                 hour: nextProps.hour,
                 minute: nextProps.minute,
                 second: nextProps.second,
+                currentYear:moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM'),
+                currentDay: moment(value).format('DD'),
                 date_num_array: this.MonthDays(nextProps.year),
-                first_day: this.weekday(nextProps.year, nextProps.month),
-                maxValue: nextProps.maxValue,
-                minValue: nextProps.minValue
+                first_day: this.weekday(nextProps.year, nextProps.month)
             });
         }
     }
 
     componentDidMount() {
-        const {year, month, day, hour, minute, second, maxValue, minValue} = this.props;
-        if ((year && year != '') && (month && month != '') && (day && day != '')) {
+        const {value,year, month, day, hour, minute, second} = this.props;
+        if (year && month && day && value) {
             this.setState({
-                select_year: year,
-                select_month: month,
-                select_day: day,
+                selectYear: year,
+                selectMonth: month,
+                selectDay: day,
                 hour: hour,
                 minute: minute,
                 second: second,
+                currentYear:moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM'),
+                currentDay: moment(value).format('DD'),
                 date_num_array: this.MonthDays(year),
-                first_day: this.weekday(year, month),
-                maxValue: maxValue,
-                minValue: minValue
+                first_day: this.weekday(year, month)
             })
 
         }
@@ -273,12 +274,12 @@ export default class _DayPicker extends Component {
 
     render() {
 
-        const {className, isFooter, isRange, startTime, endTime, hoverTime} = this.props;
+        const {className, isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue} = this.props;
 
-        const {date_num_array, select_year, select_month, first_day, select_day, maxValue, minValue} = this.state;
+        const {date_num_array, selectYear, selectMonth, selectDay, first_day,currentYear,currentMonth} = this.state;
 
         const {previousMonth, previousYear, nextYear, nextMonth, selectDate, previousLevel}=this;
-        let month = Number(select_month);
+        let month = Number(selectMonth);
         let MonthEn = this.MonthEn(month);
         month = month - 1;
         let month_days = date_num_array[month];
@@ -318,7 +319,7 @@ export default class _DayPicker extends Component {
             }
 
             for (let i = 0; i < Number(month_days); i++) {
-                let item = moment([Number(select_year), (Number(select_month) - 1), (i + 1)]).format('YYYY-MM-DD');
+                let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
                 let current_link = (
                     <li className={`current-days ${start == item ? 'start' : ''} ${item == end || item == hover ? 'end' : ''} ${ moment(start).isBefore(item) && moment(item).isBefore(end)
                     || moment(start).isBefore(item) && moment(item).isBefore(hover) ? 'hover' : ''} ${i == 0 ? 'first-day' : ''} ${ i == (+month_days - 1) ? 'last-day' : ''}`}
@@ -339,8 +340,8 @@ export default class _DayPicker extends Component {
             }
         } else {
             for (let i = 0; i < Number(month_days); i++) {
-                let item = moment([Number(select_year), (Number(select_month) - 1), (i + 1)]).format('YYYY-MM-DD');
-                let current_link = (<li className={`${i + 1 == select_day ? 'active' : ''}
+                let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
+                let current_link = (<li className={`${(selectYear==currentYear) && (selectMonth==currentMonth) && (i + 1 == selectDay) ? 'active' : ''}
                                                      ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`}
                                         key={'current' + i}
                                         onClick={()=> {
@@ -382,7 +383,7 @@ export default class _DayPicker extends Component {
                     {
                         minValue ?
                             (
-                                (moment(minValue).format('YYYY') < +select_year - 1) || (moment(minValue).format('YYYY') == +select_year - 1 && moment(minValue).format('MM') <= select_month) ?
+                                (moment(minValue).format('YYYY') < +selectYear - 1) || (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
                                     <i className="fa fa-angle-double-left" onClick={previousYear}>
                                         <TouchRipple/>
                                     </i>
@@ -396,7 +397,7 @@ export default class _DayPicker extends Component {
                     }
                     {
                         minValue ?
-                            ((moment(minValue).format('YYYY') == select_year && moment(minValue).format('MM') < select_month) || moment(minValue).format('YYYY') < select_year ?
+                            ((moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) || moment(minValue).format('YYYY') < selectYear ?
                                     <i className="fa fa-angle-left" onClick={previousMonth}>
                                         <TouchRipple/>
                                     </i>
@@ -411,11 +412,11 @@ export default class _DayPicker extends Component {
                     }
 
                     <span onClick={previousLevel}>
-                        {MonthEn} {select_year}
+                        {MonthEn} {selectYear}
                     </span>
                     {
                         maxValue ?
-                            ((moment(maxValue).format('YYYY') == select_year && select_month < moment(maxValue).format('MM')) || maxValue && select_year < moment(maxValue).format('YYYY') ?
+                            ((moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) || maxValue && selectYear < moment(maxValue).format('YYYY') ?
                                     <i className="fa fa-angle-right" onClick={nextMonth}>
                                         <TouchRipple/>
                                     </i>
@@ -430,7 +431,7 @@ export default class _DayPicker extends Component {
                     }
                     {
                         maxValue ?
-                            ((select_year < +moment(maxValue).format('YYYY') - 1) || (select_year == moment(maxValue).format('YYYY') - 1 && select_month <= moment(maxValue).format('MM')) ?
+                            ((selectYear < +moment(maxValue).format('YYYY') - 1) || (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
                                     <i className="fa fa-angle-double-right" onClick={nextYear}>
                                         <TouchRipple/>
                                     </i>
@@ -470,24 +471,18 @@ export default class _DayPicker extends Component {
 _DayPicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    name: PropTypes.string,
-    // timestamp
     value:PropTypes.string,
+    year: PropTypes.string || PropTypes.number,
+    month: PropTypes.string || PropTypes.number,
+    day: PropTypes.string || PropTypes.number,
     maxValue:PropTypes.string,
     minValue:PropTypes.string,
-    placeholder: PropTypes.string,
     dateFormat: PropTypes.string,
-    isRange: PropTypes.bool
+    isRange: PropTypes.bool,
+    isFooter: PropTypes.bool,
+    onChange:PropTypes.func,
+    previousClick:PropTypes.func
 };
-
 _DayPicker.defaultProps = {
-    className: '',
-    style: null,
-    name: '',
-    value:moment().format('YYYY-MM-DD'),
-    maxValue:'',
-    minValue:'',
-    placeholder: 'Date',
-    dateFormat: 'YYYY-MM-DD',
-    isRange: false
+    isFooter:false
 };
