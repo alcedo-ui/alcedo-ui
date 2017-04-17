@@ -4,9 +4,9 @@
   "description": "A reactjs components library.",
   "main": "index.js",
   "scripts": {
-    "example": "node server/dev-server.js",
     "build": "rimraf dist && gulp build",
-    "watch": "npm run build && gulp watch"
+    "watch": "npm run build && gulp watch",
+    "example": "npm run build && node server/dev-server.js"
   },
   "repository": {
     "type": "git",
@@ -58,6 +58,7 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sequence": "^0.4.6",
     "html-webpack-plugin": "^2.28.0",

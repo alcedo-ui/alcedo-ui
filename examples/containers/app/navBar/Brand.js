@@ -30,7 +30,8 @@ class Brand extends Component {
                    onClick={this.menuToggleButtonMousedownHandle}></i>
 
                 <div className="brand-name">
-                    Alcedo UI Examples
+                    <div className="brand-logo"></div>
+                    Alcedo-UI Examples
                 </div>
 
             </div>
