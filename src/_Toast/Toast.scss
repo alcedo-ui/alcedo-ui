@@ -41,9 +41,9 @@
         word-wrap: break-word;
     }
 
-    //&:hover {
-    //    opacity: 1 !important;
-    //}
+    &:hover {
+        opacity: 1 !important;
+    }
 
     &.toast-success {
         background: $success;
@@ -58,7 +58,7 @@
     }
 
     &.hidden {
-        opacity: 0;
+        opacity: 0 !important;
     }
 
     &.leave {
