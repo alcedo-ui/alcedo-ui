@@ -5,8 +5,8 @@
     @include shadow(3);
 
     position: relative;
-    width: 200px;
-    min-height: 40px;
+    width: 240px;
+    min-height: 70px;
     border-radius: $border-radius;
     padding: 15px 15px 15px 50px;
     background: $theme-menu;
@@ -15,7 +15,8 @@
     cursor: pointer;
     user-select: none;
     opacity: .8;
-    transition: all $transition-duration ease-in-out;
+    box-sizing: border-box;
+    transition: opacity $transition-duration ease-in-out;
 
     .toast-icon {
         position: absolute;
@@ -58,7 +59,13 @@
 
     &.hidden {
         opacity: 0;
-        transition: all 1s ease-in-out;
+    }
+
+    &.leave {
+        min-height: 0 !important;
+        height: 0 !important;
+        transition: opacity 1s ease-in-out,
+        height $transition-duration ease-in-out 1s;
     }
 
 }

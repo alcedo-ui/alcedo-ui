@@ -13,7 +13,8 @@ export default class Toast extends Component {
         this.hasMounted = false;
 
         this.state = {
-            hidden: true
+            hidden: true,
+            leave: false
         };
 
         this.getIconCls = this::this.getIconCls;
@@ -52,7 +53,11 @@ export default class Toast extends Component {
     }
 
     componentDidMount() {
+
         this.hasMounted = true;
+
+        this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
+
     }
 
     componentWillAppear(callback) {
@@ -73,11 +78,12 @@ export default class Toast extends Component {
 
     componentWillLeave(callback) {
         this.setState({
-            hidden: true
+            hidden: true,
+            leave: true
         }, () => {
             this.timeout = setTimeout(() => {
                 this.hasMounted && callback();
-            }, 1000);
+            }, 1250);
         });
     }
 
@@ -88,10 +94,12 @@ export default class Toast extends Component {
     render() {
 
         const {className, style, type, title, message} = this.props;
-        const {hidden} = this.state;
+        const {hidden, leave} = this.state;
 
         return (
-            <div className={`toast toast-${type} ${hidden ? 'hidden' : ''} ${className}`}
+            <div ref="toast"
+                 className={`toast ${type ? `toast-${type}` : ''} ${hidden ? 'hidden' : ''}
+                    ${leave ? 'leave' : ''} ${className}`}
                  style={style}
                  onMouseDown={this.mouseDownHandle}>
 
