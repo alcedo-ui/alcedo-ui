@@ -106,6 +106,12 @@ const DEFAULT_MENU = [{
         text: 'RoundStep',
         route: '/components/RoundStep'
     }]
+}, {
+    text: 'message',
+    children: [{
+        text: 'Toaster',
+        route: '/components/Toaster'
+    }]
 }];
 
 const initialState = {

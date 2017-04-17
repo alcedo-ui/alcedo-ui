@@ -197,6 +197,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="Toaster"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/message/ToasterExamples').default);
+                       });
+                   }}/>
+
         </Route>
 
     </Route>
