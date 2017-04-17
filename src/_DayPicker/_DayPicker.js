@@ -468,32 +468,25 @@ export default class _DayPicker extends Component {
 };
 
 _DayPicker.propTypes = {
-    select_year: PropTypes.string || PropTypes.number,
-    select_month: PropTypes.string || PropTypes.number,
-    select_day: PropTypes.any,
-    current_year: PropTypes.string || PropTypes.number,
-    current_month: PropTypes.string || PropTypes.number,
-    current_day: PropTypes.any,
-    date_num_array: PropTypes.array,
-    first_day: PropTypes.string || PropTypes.number,
-    isRange: PropTypes.bool,
     className: PropTypes.string,
     style: PropTypes.object,
-
     name: PropTypes.string,
-
     // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+    value:PropTypes.string,
+    maxValue:PropTypes.string,
+    minValue:PropTypes.string,
     placeholder: PropTypes.string,
-    dateFormat: PropTypes.string
-
+    dateFormat: PropTypes.string,
+    isRange: PropTypes.bool
 };
 
 _DayPicker.defaultProps = {
     className: '',
     style: null,
     name: '',
-    value: new Date().getTime(),
+    value:moment().format('YYYY-MM-DD'),
+    maxValue:'',
+    minValue:'',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     isRange: false
