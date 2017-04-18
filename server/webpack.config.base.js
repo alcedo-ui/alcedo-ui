@@ -13,9 +13,7 @@ module.exports = {
     output: {
         path: config.assetsRoot,
         filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production'
-            ? config.assetsPublicPath
-            : config.assetsPublicPath
+        publicPath: config.assetsPublicPath
     },
     resolve: {
         extensions: ['.js', '.json'],
