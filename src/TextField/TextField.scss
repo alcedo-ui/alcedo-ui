@@ -6,7 +6,7 @@
     border-radius: $border-radius;
     position: relative;
     background: $theme-field;
-    border: 1px solid #dfdfdf;
+    border: 1px solid $theme-title-bg;
 
     .text-field-icon,
     .icon-button {
@@ -82,7 +82,7 @@
 
     &.has-icon {
         .text-field-input {
-            padding-left: 50px;
+            padding-left: 50px !important;
         }
     }
 
