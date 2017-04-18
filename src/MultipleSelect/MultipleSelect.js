@@ -137,6 +137,9 @@ export default class MultipleSelect extends Component {
     showAllToggle(e) {
         e.stopPropagation();
         const {showAll}=this.state;
+        if(showAll && this.refs.selectedContainer){
+            this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
+        }
         this.setState({showAll: !showAll})
     }
 
@@ -160,7 +163,10 @@ export default class MultipleSelect extends Component {
 
             this.setPosition(false);
             this.props.onChange && this.props.onChange(value);
-
+            const {showAll}=this.state;
+            if(showAll && this.refs.selectedContainer){
+                this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
+            }
         }
 
     }
@@ -176,8 +182,12 @@ export default class MultipleSelect extends Component {
         }, () => {
             this.setPosition(false);
             this.props.onChange && this.props.onChange(value);
-        });
 
+        });
+        const {showAll}=this.state;
+        if(showAll && this.refs.selectedContainer){
+            this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
+        }
     }
 
     filterChangeHandle(e) {
@@ -252,12 +262,6 @@ export default class MultipleSelect extends Component {
         });
     }
 
-    wrapperHeight() {
-        if (this.refs.trigger) {
-            return this.refs.trigger.offsetHeight
-        }
-    }
-
     componentDidMount() {
         if (window.addEventListener) {
             window.addEventListener('click', this.toggle);
@@ -265,6 +269,9 @@ export default class MultipleSelect extends Component {
         } else {
             window.attachEvent('click', this.toggle);
             window.attachEvent('resize', this.setPosition);
+        }
+        if(this.refs.selectedContainer){
+            this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
         }
     }
 
@@ -296,26 +303,45 @@ export default class MultipleSelect extends Component {
         const triggerStyle = {
             width: componentWidth
         };
-        const filterStyle = {
+
+        let filterStyle = {
             width: '100%'
         };
+
+        let selectedStyle ={};
+        if(value && value.length){
+            filterStyle.borderTop = '1px solid #dfdfdf';
+            selectedStyle.height = showAll ? 'auto': '40px';
+        }else{
+            filterStyle.borderTop = 'none';
+            selectedStyle.height = 0;
+        }
+
         const emptyOptionsStyle = {
             width: componentWidth,
             height: hidden ? 0 : optionHeight,
             maxHeight: maxOptionsHeight
         };
+
         const optionsStyle = {
             width: componentWidth,
             height: hidden ? 0 : this.filterList.length * optionHeight,
             maxHeight: maxOptionsHeight
         };
+
         const optionStyle = {
             height: optionHeight,
             lineHeight: optionHeight + 'px'
         };
+
         const wrapperHeight = optionsStyle.height > maxOptionsHeight ? maxOptionsHeight : optionsStyle.height;
-        const wrapperStyle = {
-            height: wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + (this.wrapperHeight()) : wrapperHeight + (this.wrapperHeight())
+        let wrapperStyle={};
+
+        console.log(this.selectedContainerHeight)
+        let triggerHeight = value && value.length ? (showAll ? this.selectedContainerHeight + 40 : 80) : 40;
+        console.log(triggerHeight)
+        if(this.refs.trigger){
+            wrapperStyle.height = wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + triggerHeight : wrapperHeight + triggerHeight
         }
 
         return (
@@ -346,44 +372,49 @@ export default class MultipleSelect extends Component {
                          disabled={disabled}
                          onMouseOver={showError}
                          onMouseOut={hideError}>
-                        {
-                            showAll ?
-                                <div className="selected-container">
-                                    {
+                            <div className="selected-container"
+                                 ref="selectedContainer"
+                                 style={selectedStyle}>
+                                {
+                                    showAll ?
+                                        null
+                                        :
+                                        (
+                                            value.length > 2 ?
+                                            <div className="more-selected">
+                                                {value.length} selected
+                                            </div>
+                                            :
+                                            null
+
+                                        )
+                                }
+
+                                {
+                                    showAll ?
                                         (value instanceof Array ? value : [] ).map((item, index) => {
                                             return (
                                                 <div key={index}
                                                      className="selected"
                                                      disabled={disabled}>
-                                                    <span className="text">
-                                                        {typeof item == 'object' ? item.text : item}
-                                                    </span>
+                                            <span className="text">
+                                                {typeof item == 'object' ? item.text : item}
+                                            </span>
                                                     <span className="deselectButton"
                                                           onClick={deselect.bind(this, item)}>×</span>
                                                 </div>
                                             )
                                         })
-                                    }
-                                    <i className={`fa fa-angle-double-${showAll ? 'up' : 'down'} dropdown-select-trigger-right-icon ${value.length > 3 ? '' : 'disabled'}`}
-                                       aria-hidden="true"
-                                       onClick={(e)=> {
-                                           if (value.length > 3) {
-                                               this.showAllToggle(e)
-                                           }
-                                       }}></i>
-                                </div>
-                                :
-                                <div className="selected-container">
-                                    {
+                                        :
                                         (value instanceof Array ? value : [] ).map((item, index) => {
-                                            if (index < 3) {
+                                            if (index < 2) {
                                                 return (
                                                     <div key={index}
                                                          className="selected"
                                                          disabled={disabled}>
-                                                <span className="text">
-                                                    {typeof item == 'object' ? item.text : item}
-                                                </span>
+                                        <span className="text">
+                                            {typeof item == 'object' ? item.text : item}
+                                        </span>
                                                         <span className="deselectButton"
                                                               onClick={deselect.bind(this, item)}>×</span>
                                                     </div>
@@ -391,34 +422,24 @@ export default class MultipleSelect extends Component {
                                             }
                                         })
                                     }
-                                    {
-                                        value.length > 3 ?
-                                            <div className="more-selected">
-                                                and {value.length - 3}more
-                                            </div>
-                                            :
-                                            null
-                                    }
-                                    <i className={`fa fa-angle-double-${showAll ? 'up' : 'down'} dropdown-select-trigger-right-icon ${value.length > 3 ? '' : 'disabled'}`}
-                                       aria-hidden="true"
-                                       onClick={(e)=> {
-                                           if (value.length > 3) {
-                                               this.showAllToggle(e)
-                                           }
-                                       }}></i>
-                                </div>
-                        }
-
-                        <input ref="filter"
-                               type="text"
-                               className="filter"
-                               style={filterStyle}
-                               value={filter}
-                               placeholder={placeholder}
-                               onChange={filterChangeHandle}
-                               disabled={disabled}
-                               onMouseOver={showInfo}
-                               onMouseOut={hideInfo}/>
+                                <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
+                                   aria-hidden="true"
+                                   onClick={(e)=> {
+                                       if (value.length > 2) {
+                                           this.showAllToggle(e)
+                                       }
+                                   }}></i>
+                            </div>
+                            <input ref="filter"
+                                   type="text"
+                                   className="filter"
+                                   style={filterStyle}
+                                   value={filter}
+                                   placeholder={placeholder}
+                                   onChange={filterChangeHandle}
+                                   disabled={disabled}
+                                   onMouseOver={showInfo}
+                                   onMouseOut={hideInfo}/>
 
                     </div>
 
@@ -494,12 +515,12 @@ MultipleSelect.propTypes = {
     className: PropTypes.string,
     name: PropTypes.string,
     style: PropTypes.object,
-    value: PropTypes.array,
     data: PropTypes.array,
-    onChange: PropTypes.func,
+    value: PropTypes.array,
     width: PropTypes.number,
     invalidMsg: PropTypes.string,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
-    infoMsg: PropTypes.string
+    infoMsg: PropTypes.string,
+    onChange: PropTypes.func
 };
