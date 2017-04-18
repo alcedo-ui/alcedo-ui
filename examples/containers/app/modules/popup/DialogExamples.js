@@ -3,8 +3,9 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import Dialog from '../../../../../dist/Dialog';
-import RaisedButton from 'dist/RaisedButton/RaisedButton';
+import Dialog from 'dist/Dialog';
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
 
 import 'sass/containers/app/modules/popup/DialogExamples.scss';
 
@@ -32,12 +33,73 @@ export default class DialogExamples extends Component{
 
     render() {
         return (
-            <div className="test-dialog">
-                <h3>Dialog Examples</h3>
-                <p>Please click this button to show Dialog.</p>
-                <RaisedButton onTouchTap={this.clickHandle}>Dialog</RaisedButton>
-                <Dialog className={this.state.hide} onHide={this.hideHandle} onSure={this.hideHandle}/>
+            <div className="example">
+                <h2 className="example-title">Dialog</h2>
+                <Widget>
+                    <WidgetHeader className="example-header" title="Dialog Simple Examples"/>
+                    <div className="widget-content">
+                        <div className="test-dialog">
+                            <p>Please click this button to show Dialog.</p>
+                            <button onClick={this.clickHandle}>Dialog</button>
+                            <Dialog className={this.state.hide}
+                                    onHide={this.hideHandle}
+                                    onSure={this.hideHandle}/>
+                        </div>
+                    </div>
+                </Widget>
+                <div className="example-properties">
+                    <h3>Properties</h3>
+                    <table className="example-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="properties-name">title</td>
+                                <td className="properties-type">PropTypes.string</td>
+                                <td>Dialog</td>
+                                <td>The title to display on the Dialog. Could be number, string, element or an array containing these types.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">desc</td>
+                                <td className="properties-type">PropTypes.string</td>
+                                <td>here is the dialog description.</td>
+                                <td>The description of the dialog box.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">buttonBool</td>
+                                <td className="properties-type">PropTypes.array</td>
+                                <td>[true,true]</td>
+                                <td>Whether the button is clickable.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">className</td>
+                                <td className="properties-type">PropTypes.string</td>
+                                <td>hide</td>
+                                <td>The css class name of the root element.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">onHide</td>
+                                <td className="properties-type">PropTypes.func</td>
+                                <td> </td>
+                                <td>Click the Cancel button will trigger this function.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">onSure</td>
+                                <td className="properties-type">PropTypes.func</td>
+                                <td> </td>
+                                <td>Click the Commit button will trigger this function.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         );
     }
 }
