@@ -39,8 +39,7 @@ export default class CircularProgress extends Component{
                             strokeWidth={width}
                             stroke={rgba}
                             fill="none"
-                            style={circleStyle}>
-                    </circle>
+                            style={circleStyle}></circle>
                 </svg>
                 {
                     word

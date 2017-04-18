@@ -81,6 +81,7 @@ export default class EditableField extends Component{
 
     render() {
         const { style } = this.props;
+
         return (
             <div className="nameInput"
                  title="Click to edit"
@@ -89,16 +90,12 @@ export default class EditableField extends Component{
 
                 {
                     this.state.hide==="hide"
-                        ?
-                        <span className="nameText"
-                              onClick={this.showInput}>
-                            {this.state.text}<i className="fa fa-pencil" aria-hidden="true"></i>
-                        </span>
-                        :
-                        <TextField ref="textField"
-                                   value={this.state.text}
-                                   className={'hideInput'}
-                                   onBlur={this.onBlur}/>
+                        ? <span className="nameText"
+                                onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil" aria-hidden="true"></i></span>
+                        : <TextField ref="textField"
+                                     value={this.state.text}
+                                     className={'hideInput'}
+                                     onBlur={this.onBlur}/>
                 }
 
             </div>

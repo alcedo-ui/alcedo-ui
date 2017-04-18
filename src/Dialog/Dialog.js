@@ -14,10 +14,11 @@ export default class Dialog extends Component{
 
     render() {
         const { className, title, desc, buttonBool, onHide, onSure } = this.props;
+
         return (
             <div className={"dialog-cover "+ className}>
-                <div className="dialog-shadow" onClick={onHide}>
-                </div>
+                <div className="dialog-shadow"
+                     onClick={onHide}></div>
                 <div className="dialog-box">
                     <h3>{title}</h3>
                     <p>{desc}</p>

@@ -10,6 +10,7 @@ export default class LinearProgress extends Component{
     constructor(props) {
         super();
     }
+
     render() {
         const { highlightWidth, background, highlight, style, word, wordStyle } = this.props;
 

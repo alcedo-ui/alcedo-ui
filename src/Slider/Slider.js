@@ -198,8 +198,7 @@ export default class Slider extends Component{
                             ? (<div className={"slider-circle slider-circle-left "+ leftShadow}
                                     onMouseDown={this.downHandle}
                                     style={leftStyle}
-                                    ref="circle">
-                            </div>)
+                                    ref="circle"></div>)
                             : null
                     }
                     <div className={"slider-circle slider-circle-right " + rightShadow}
