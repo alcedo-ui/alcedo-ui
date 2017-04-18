@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import TextField from 'dist/TextField';
+import TextFieldGroup from 'dist/TextFieldGroup';
 
 import 'sass/containers/app/modules/fields/TextFieldExamples.scss';
 
@@ -45,6 +46,19 @@ export default class TextFieldExamples extends Component {
                             <TextField iconCls="fa fa-lock"
                                        type="password"/>
                         </div>
+
+                    </div>
+                </div>
+
+                <div className="examples">
+                    <div className="examples-title">TextFieldGroup</div>
+                    <div className="examples-wrapper">
+
+                        <TextFieldGroup>
+                            <TextField iconCls="fa fa-user"/>
+                            <TextField iconCls="fa fa-lock"
+                                       type="password"/>
+                        </TextFieldGroup>
 
                     </div>
                 </div>
