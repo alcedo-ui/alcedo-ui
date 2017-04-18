@@ -19,7 +19,7 @@ export default class _YearPicker extends Component {
         this.state = {
             YearArr: this.getYearArr(this.props.year),
             selectYear: this.props.year,
-            currentYear:moment(value).format('YYYY'),
+            currentYear: moment(value).format('YYYY'),
             selectMonth: this.props.month,
             selectDay: this.props.day,
             maxValue: this.props.maxValue,
@@ -75,19 +75,19 @@ export default class _YearPicker extends Component {
             this.setState({
                 selectYear: nextProps.year,
                 YearArr: this.getYearArr(nextProps.year),
-                currentYear:moment(value).format('YYYY'),
+                currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
             });
         }
     }
 
     componentDidMount() {
-        const {value,year} = this.props;
+        const {value, year} = this.props;
         if (value && year) {
             this.setState({
                 YearArr: this.getYearArr(year),
                 selectYear: year,
-                currentYear:moment(value).format('YYYY'),
+                currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
             })
         }
@@ -95,7 +95,7 @@ export default class _YearPicker extends Component {
 
     render() {
 
-        const {className,maxValue,minValue} = this.props;
+        const {className, maxValue, minValue} = this.props;
 
         let {YearArr, selectYear} = this.state;
 
@@ -192,12 +192,12 @@ export default class _YearPicker extends Component {
 _YearPicker.propTypes = {
 
     className: PropTypes.string,
-    value:PropTypes.string,
+    value: PropTypes.string,
     year: PropTypes.string || PropTypes.number,
     month: PropTypes.string || PropTypes.number,
     day: PropTypes.string || PropTypes.number,
-    maxValue:PropTypes.string,
-    minValue:PropTypes.string,
-    onChange:PropTypes.func
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
+    onChange: PropTypes.func
 
 };

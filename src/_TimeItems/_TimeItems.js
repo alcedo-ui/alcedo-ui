@@ -71,7 +71,7 @@ export default class _TimeItems extends Component {
         const {value}=this.state;
         return (
             <div className={`timeItems ${className ? className : ''}`}
-                          ref="timeItems">
+                 ref="timeItems">
                 <ul className="timeList"
                     ref="timeList">
                     {
@@ -97,6 +97,6 @@ export default class _TimeItems extends Component {
 }
 _TimeItems.PropTypes = {
 
-    className:PropTypes.string,
-    data:PropTypes.array
+    className: PropTypes.string,
+    data: PropTypes.array
 }

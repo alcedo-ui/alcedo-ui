@@ -22,7 +22,7 @@ export default class DatePicker extends Component {
 
         const value = this.props.value
         this.state = {
-            value:value ,
+            value: value,
             popupVisible: false,
             year: moment(value).format('YYYY'),
             month: moment(value).format('MM'),
@@ -51,16 +51,16 @@ export default class DatePicker extends Component {
     }
 
     textFieldChangeHandle(text) {
-        const {minValue,maxValue}=this.props;
+        const {minValue, maxValue}=this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
 
                 } else {
-                    const  year = moment(text).format('YYYY'),
+                    const year = moment(text).format('YYYY'),
                         month = moment(text).format('MM'),
-                            day = moment(text).format('DD')
+                        day = moment(text).format('DD')
                     this.setState({
                         value: text,
                         year: year,
@@ -79,12 +79,12 @@ export default class DatePicker extends Component {
     dayPickerChangeHandle(date) {
         const {autoClose}=this.props;
         let state = _.cloneDeep(this.state);
-        state.value= date.time;
-        state.year= date.year;
-        state.month= date.month;
-        state.day= date.day;
+        state.value = date.time;
+        state.year = date.year;
+        state.month = date.month;
+        state.day = date.day;
 
-        if(autoClose){
+        if (autoClose) {
             state.popupVisible = false
         }
         this.setState(state)
@@ -151,7 +151,7 @@ export default class DatePicker extends Component {
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
             this.setState({
                 value: nextProps.value,
-                dateFormat:nextProps.dateFormat,
+                dateFormat: nextProps.dateFormat,
                 year: moment(nextProps.value).format('YYYY'),
                 month: moment(nextProps.value).format('MM'),
                 day: moment(nextProps.value).format('DD')
@@ -294,9 +294,9 @@ DatePicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    value:PropTypes.string,
-    maxValue:PropTypes.string,
-    minValue:PropTypes.string,
+    value: PropTypes.string,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.string,
     autoClose: PropTypes.bool,
@@ -307,9 +307,9 @@ DatePicker.defaultProps = {
     className: '',
     style: null,
     name: '',
-    value:moment().format('YYYY-MM-DD'),
-    maxValue:'',
-    minValue:'',
+    value: moment().format('YYYY-MM-DD'),
+    maxValue: '',
+    minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     autoClose: true

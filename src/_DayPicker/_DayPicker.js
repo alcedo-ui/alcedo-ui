@@ -23,7 +23,7 @@ export default class _DayPicker extends Component {
             hour: this.props.hour,
             minute: this.props.minute,
             second: this.props.second,
-            currentYear:moment(value).format('YYYY'),
+            currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM'),
             currentDay: moment(value).format('DD'),
             date_num_array: this.MonthDays(this.props.year),
@@ -233,7 +233,7 @@ export default class _DayPicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month ||nextProps.day !== this.props.day ||
+        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month || nextProps.day !== this.props.day ||
             nextProps.hour !== this.props.hour || nextProps.minute !== this.props.minute || nextProps.second !== this.props.second) {
             const value = nextProps.value;
             this.setState({
@@ -243,7 +243,7 @@ export default class _DayPicker extends Component {
                 hour: nextProps.hour,
                 minute: nextProps.minute,
                 second: nextProps.second,
-                currentYear:moment(value).format('YYYY'),
+                currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM'),
                 currentDay: moment(value).format('DD'),
                 date_num_array: this.MonthDays(nextProps.year),
@@ -253,7 +253,7 @@ export default class _DayPicker extends Component {
     }
 
     componentDidMount() {
-        const {value,year, month, day, hour, minute, second} = this.props;
+        const {value, year, month, day, hour, minute, second} = this.props;
         if (year && month && day && value) {
             this.setState({
                 selectYear: year,
@@ -262,7 +262,7 @@ export default class _DayPicker extends Component {
                 hour: hour,
                 minute: minute,
                 second: second,
-                currentYear:moment(value).format('YYYY'),
+                currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM'),
                 currentDay: moment(value).format('DD'),
                 date_num_array: this.MonthDays(year),
@@ -276,7 +276,7 @@ export default class _DayPicker extends Component {
 
         const {className, isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue} = this.props;
 
-        const {date_num_array, selectYear, selectMonth, selectDay, first_day,currentYear,currentMonth} = this.state;
+        const {date_num_array, selectYear, selectMonth, selectDay, first_day, currentYear, currentMonth} = this.state;
 
         const {previousMonth, previousYear, nextYear, nextMonth, selectDate, previousLevel}=this;
         let month = Number(selectMonth);
@@ -341,21 +341,22 @@ export default class _DayPicker extends Component {
         } else {
             for (let i = 0; i < Number(month_days); i++) {
                 let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
-                let current_link = (<li className={`${(selectYear==currentYear) && (selectMonth==currentMonth) && (i + 1 == selectDay) ? 'active' : ''}
+                let current_link = (
+                    <li className={`${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''}
                                                      ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`}
-                                        key={'current' + i}
-                                        onClick={()=> {
-                                            if ((minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))) {
-                                                return
-                                            } else {
-                                                selectDate(i + 1)
-                                            }
-                                        }}>
-                    <a href="javascript:;">
-                        {i + 1}
-                        <TouchRipple/>
-                    </a>
-                </li>);
+                        key={'current' + i}
+                        onClick={()=> {
+                            if ((minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))) {
+                                return
+                            } else {
+                                selectDate(i + 1)
+                            }
+                        }}>
+                        <a href="javascript:;">
+                            {i + 1}
+                            <TouchRipple/>
+                        </a>
+                    </li>);
                 current_days.push(current_link);
             }
         }
@@ -471,18 +472,18 @@ export default class _DayPicker extends Component {
 _DayPicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    value:PropTypes.string,
+    value: PropTypes.string,
     year: PropTypes.string || PropTypes.number,
     month: PropTypes.string || PropTypes.number,
     day: PropTypes.string || PropTypes.number,
-    maxValue:PropTypes.string,
-    minValue:PropTypes.string,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
     dateFormat: PropTypes.string,
     isRange: PropTypes.bool,
     isFooter: PropTypes.bool,
-    onChange:PropTypes.func,
-    previousClick:PropTypes.func
+    onChange: PropTypes.func,
+    previousClick: PropTypes.func
 };
 _DayPicker.defaultProps = {
-    isFooter:false
+    isFooter: false
 };

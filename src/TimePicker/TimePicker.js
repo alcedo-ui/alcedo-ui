@@ -16,15 +16,13 @@ export default class TimePicker extends Component {
     constructor(props) {
 
         super(props);
-
-        const initValue = Util.value2Moment(props.value, props.dateFormat);
+        const value = this.props.value;
         this.state = {
-            value: initValue, // Moment object
-            textFieldValue: initValue.format(props.dateFormat),
+            textFieldValue: value,
             popupVisible: false,
-            hour: initValue.format('HH'),
-            minute: initValue.format('mm'),
-            second: initValue.format('ss')
+            hour: moment().format('HH'),
+            minute: moment().format('mm'),
+            second: moment().format('ss')
         };
 
         this.textFieldChangeHandle = this::this.textFieldChangeHandle;
@@ -75,8 +73,8 @@ export default class TimePicker extends Component {
         }
     }
 
-    timePickerChangeHandle(obj){
-        let timer = obj.hour + ':'+obj.minute+':'+obj.second
+    timePickerChangeHandle(obj) {
+        let timer = obj.hour + ':' + obj.minute + ':' + obj.second
         this.setState({
             hour: obj.hour,
             minute: obj.minute,
@@ -115,7 +113,7 @@ export default class TimePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder,maxValue,minValue} = this.props;
+        const {className, style, name, placeholder, maxValue, minValue} = this.props;
         const {popupVisible, textFieldValue, hour, minute, second} = this.state;
         const wrapperHeight = this.wrapperHeight();
         const wrapperStyle = {
@@ -159,7 +157,7 @@ TimePicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
-    value:PropTypes.string,
+    value: PropTypes.string,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.string
 };
@@ -168,9 +166,8 @@ TimePicker.defaultProps = {
 
     className: '',
     style: null,
-
     name: '',
-    value: new Date().getTime(),
+    value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss'
 

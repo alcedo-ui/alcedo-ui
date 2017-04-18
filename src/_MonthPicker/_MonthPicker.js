@@ -19,7 +19,7 @@ export default class _MonthPicker extends Component {
         this.state = {
             selectYear: this.props.year,
             selectMonth: this.props.month,
-            currentYear:moment(value).format('YYYY'),
+            currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM'),
             selectDay: this.props.day
         }
@@ -81,19 +81,19 @@ export default class _MonthPicker extends Component {
             this.setState({
                 selectYear: nextProps.year,
                 selectMonth: nextProps.month,
-                currentYear:moment(value).format('YYYY'),
+                currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
             });
         }
     }
 
     componentDidMount() {
-        const {value,year, month} = this.props;
-        if (value && year && month ) {
+        const {value, year, month} = this.props;
+        if (value && year && month) {
             this.setState({
                 selectYear: year,
                 selectMonth: month,
-                currentYear:moment(value).format('YYYY'),
+                currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
             })
 
@@ -102,9 +102,9 @@ export default class _MonthPicker extends Component {
 
     render() {
 
-        const {className,maxValue,minValue} = this.props;
+        const {className, maxValue, minValue} = this.props;
 
-        let {selectYear, selectMonth,currentYear} = this.state;
+        let {selectYear, selectMonth, currentYear} = this.state;
 
         const {previousYear, nextYear, selectDate, previousLevel}=this;
         let current_months = [],
@@ -113,24 +113,25 @@ export default class _MonthPicker extends Component {
 
 
         for (let i = 0; i < MonthEn.length; i++) {
-            let Months = (<li className={`${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
+            let Months = (
+                <li className={`${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
                                 ${(maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-            (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}
+                (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}
                                 `}
-                              key={'current' + i}
-                              onClick={()=> {
-                                  if ((maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                                      (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1))) {
-                                      return
-                                  } else {
-                                      selectDate(i + 1)
-                                  }
-                              }}>
-                <a href="javascript:;">
-                    {MonthEn[i]}
-                    <TouchRipple/>
-                </a>
-            </li>);
+                    key={'current' + i}
+                    onClick={()=> {
+                        if ((maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                            (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1))) {
+                            return
+                        } else {
+                            selectDate(i + 1)
+                        }
+                    }}>
+                    <a href="javascript:;">
+                        {MonthEn[i]}
+                        <TouchRipple/>
+                    </a>
+                </li>);
             current_months.push(Months);
         }
         if (current_months.length > 0) {
@@ -187,12 +188,12 @@ export default class _MonthPicker extends Component {
 
 _MonthPicker.propTypes = {
     className: PropTypes.string,
-    value:PropTypes.string,
+    value: PropTypes.string,
     year: PropTypes.string || PropTypes.number,
     month: PropTypes.string || PropTypes.number,
     day: PropTypes.string || PropTypes.number,
-    maxValue:PropTypes.string,
-    minValue:PropTypes.string,
-    onChange:PropTypes.func,
-    previousClick:PropTypes.func
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
+    onChange: PropTypes.func,
+    previousClick: PropTypes.func
 };

@@ -105,8 +105,8 @@ _TimeList.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-    popupVisible:PropTypes.bool,
-    hour:PropTypes.string || PropTypes.number,
-    minute:PropTypes.string || PropTypes.number,
-    second:PropTypes.string || PropTypes.number
+    popupVisible: PropTypes.bool,
+    hour: PropTypes.string || PropTypes.number,
+    minute: PropTypes.string || PropTypes.number,
+    second: PropTypes.string || PropTypes.number
 };
