@@ -27,10 +27,11 @@ class Brand extends Component {
 
                 <i className="fa fa-bars menu-toggle-button"
                    aria-hidden="true"
-                   onMouseDown={this.menuToggleButtonMousedownHandle}></i>
+                   onClick={this.menuToggleButtonMousedownHandle}></i>
 
                 <div className="brand-name">
-                    Alcedo UI Examples
+                    <div className="brand-logo"></div>
+                    Alcedo-UI Examples
                 </div>
 
             </div>

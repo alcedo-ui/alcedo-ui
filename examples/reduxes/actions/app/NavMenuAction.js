@@ -1,5 +1,17 @@
 import * as types from 'reduxes/actionTypes';
 
+export const collapseNavMenu = () => ({
+    type: types.COLLAPSE_NAV_MENU
+});
+
+export const expandNavMenu = () => ({
+    type: types.EXPAND_NAV_MENU
+});
+
+export const toggleNavMenu = () => ({
+    type: types.TOGGLE_NAV_MENU
+});
+
 export const expandMenu = (menuName) => ({
     type: types.EXPAND_MENU,
     menuName

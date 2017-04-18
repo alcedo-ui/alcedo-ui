@@ -38,8 +38,7 @@ export default class BaseButton extends Component {
         } = this.props;
 
         return (
-            <button {...this.props}
-                    className={`base-button theme-${buttonStyle}
+            <button className={`base-button theme-${buttonStyle}
                         ${isCircular ? 'button-circular' : (isRounded ? 'button-rounded' : '')} ${className}`}
                     style={style}
                     type={type}
@@ -123,4 +122,12 @@ BaseButton.defaultProps = {
     iconCls: '',
     rightIconCls: ''
 
+};
+
+BaseButton.buttonStyle = {
+    PRIMARY: 'primary',
+    HIGHLIGHT: 'highlight',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error'
 };

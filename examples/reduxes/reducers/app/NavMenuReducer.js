@@ -109,15 +109,60 @@ const DEFAULT_MENU = [{
         text: 'RoundStep',
         route: '/components/RoundStep'
     }]
+}, {
+    text: 'message',
+    children: [{
+        text: 'Toaster',
+        route: '/components/Toaster'
+    }]
 }];
 
 const initialState = {
+
     menu: _.cloneDeep(DEFAULT_MENU),
+
+    navMenuCollapsed: true,
+
     expandMenuName: 'buttons'
+
 };
 
 function navMenu(state = initialState, action) {
     switch (action.type) {
+
+        case types.COLLAPSE_NAV_MENU: {
+
+            localStorage.setItem('navMenuCollapsed', '1');
+
+            return {
+                ...state,
+                navMenuCollapsed: true
+            };
+
+        }
+
+        case types.EXPAND_NAV_MENU: {
+
+            localStorage.setItem('navMenuCollapsed', '0');
+
+            return {
+                ...state,
+                navMenuCollapsed: false
+            };
+
+        }
+
+        case types.TOGGLE_NAV_MENU: {
+
+            const navMenuCollapsed = !state.navMenuCollapsed;
+            localStorage.setItem('navMenuCollapsed', navMenuCollapsed ? '1' : '0');
+
+            return {
+                ...state,
+                navMenuCollapsed
+            };
+
+        }
 
         case types.EXPAND_MENU: {
             return {
