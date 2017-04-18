@@ -67,25 +67,25 @@ $transition-duration: 250ms;
 
 @mixin shadow($depth) {
     @if $depth == 1 {
-        box-shadow: rgba(0, 0, 0, 0.037647) 0px 1px 1px, rgba(0, 0, 0, 0.077647) 0px 1px 1px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 1px, rgba(0, 0, 0, 0.10) 0px 1px 1px;
     } @else if $depth == 2 {
-        box-shadow: rgba(0, 0, 0, 0.077647) 0px 1px 3px, rgba(0, 0, 0, 0.117647) 0px 1px 2px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 3px, rgba(0, 0, 0, 0.12) 0px 1px 3px;
     } @else if $depth == 3 {
-        box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 6px, rgba(0, 0, 0, 0.12) 0px 2px 6px;
     } @else if $depth == 4 {
-        box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 7px 10px, rgba(0, 0, 0, 0.20) 0px 3px 9px;
     } @else if $depth == 5 {
-        box-shadow: rgba(0, 0, 0, 0.188235) 0px 10px 30px, rgba(0, 0, 0, 0.227451) 0px 6px 10px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 30px, rgba(0, 0, 0, 0.20) 0px 6px 12px;
     } @else if $depth == 6 {
-        box-shadow: rgba(0, 0, 0, 0.247059) 0px 14px 45px, rgba(0, 0, 0, 0.219608) 0px 10px 18px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 45px, rgba(0, 0, 0, 0.22) 0px 10px 15px;
     } @else if $depth == 7 {
-        box-shadow: rgba(0, 0, 0, 0.298039) 0px 19px 60px, rgba(0, 0, 0, 0.219608) 0px 15px 20px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 60px, rgba(0, 0, 0, 0.22) 0px 15px 20px;
     } @else {
         box-shadow: none;
     }
 }
 
-@mixin button-theme($color, $bg-color) {
+@mixin raised-button-theme($color, $bg-color) {
     background: $bg-color;
     color: $color;
 
@@ -108,5 +108,52 @@ $transition-duration: 250ms;
     &[disabled] {
         color: transparentize($color, .5);
         background: darken($bg-color, 8%);
+    }
+}
+
+@mixin flat-button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+
+    &:hover {
+        background: transparentize($theme-field, .3);
+
+        &[disabled] {
+            background: transparentize(#eee, .3);
+        }
+    }
+}
+
+@mixin icon-button-theme($color) {
+    background: transparent;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
     }
 }

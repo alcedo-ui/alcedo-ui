@@ -7,7 +7,20 @@ import './IconButton.css';
 export default class IconButton extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
+
+    }
+
+    startRipple(e) {
+        this.refs.baseButton.startRipple(e);
+    }
+
+    endRipple() {
+        this.refs.baseButton.endRipple();
     }
 
     render() {
@@ -16,9 +29,11 @@ export default class IconButton extends Component {
 
         return (
             <BaseButton {...this.props}
+                        ref="baseButton"
                         className={`icon-button ${className}`}
                         isCircular={isCircular}
-                        onTouchTap={onTouchTap}>
+                        onTouchTap={onTouchTap}
+                        rippleDisplayCenter={true}>
                 {children}
             </BaseButton>
         );
@@ -30,6 +45,7 @@ IconButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
     buttonStyle: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
@@ -41,7 +57,9 @@ IconButton.propTypes = {
     disableTouchRipple: PropTypes.bool,
 
     iconCls: PropTypes.string,
-    iconPosition: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    rippleDisplayCenter: PropTypes.bool,
 
     onTouchTap: PropTypes.func
 
@@ -51,6 +69,7 @@ IconButton.defaultProps = {
 
     className: '',
     style: null,
+
     buttonStyle: '',
     isRounded: false,
     isCircular: true,
@@ -61,7 +80,11 @@ IconButton.defaultProps = {
     isLoading: false,
     disableTouchRipple: false,
 
+    rippleDisplayCenter: false,
+
     iconCls: '',
-    iconPosition: 'left'
+    rightIconCls: ''
 
 };
+
+IconButton.buttonStyle = BaseButton.buttonStyle;

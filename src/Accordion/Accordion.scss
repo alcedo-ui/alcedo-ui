@@ -1,0 +1,37 @@
+@import '../_common.scss';
+
+.accordion {
+    color: $theme-title;
+    background: $theme-field;
+
+    .accordion-title {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 20px;
+        user-select: none;
+        text-align: left;
+        border-bottom: 1px solid $theme-bg;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        .button-icon {
+            float: right;
+        }
+    }
+
+    .accordion-content {
+        box-sizing: border-box;
+        padding: 0 20px;
+        overflow: auto;
+        transition: all $transition-duration ease-in-out;
+
+        &.collapsed {
+            height: 0 !important;
+        }
+    }
+
+    &:hover {
+        color: $theme-text;
+    }
+
+}

@@ -1,0 +1,26 @@
+@import '../../../../common.scss';
+
+.text-field-examples {
+
+    .examples-wrapper {
+
+        .field-group {
+
+            @include float-fix;
+
+            float: none;
+
+            .text-field-label,
+            .text-field {
+                float: left;
+            }
+
+            .text-field-label {
+                font-size: 14px;
+                line-height: 50px;
+                margin-right: 20px;
+                width: 60px;
+            }
+        }
+    }
+}

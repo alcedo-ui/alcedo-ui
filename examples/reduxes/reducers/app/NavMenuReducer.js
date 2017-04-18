@@ -1,39 +1,18 @@
 import _ from 'lodash';
 
 import * as types from 'reduxes/actionTypes';
+import DEFAULT_MENU from 'examples/config.menu';
 
 const userMenuCollapsed = localStorage.getItem('userMenuCollapsed');
 
-const DEFAULT_MENU = [{
-    text: 'buttons',
-    children: [{
-        text: 'Raised Button',
-        route: '/components/RaisedButton'
-    }, {
-        text: 'Flat Button',
-        route: '/components/FlatButton'
-    }, {
-        text: 'Icon Button',
-        route: '/components/IconButton'
-    }, {
-        text: 'Dialog Button',
-        route: '/components/Dialog'
-    }]
-},{
-    text: 'tips',
-    children: [{
-        text: 'Tip',
-        route: '/components/Tip'
-    }, {
-        text: 'Toast',
-        route: '/components/Toast'
-    }]
-}];
-
 const initialState = {
+
+    menu: _.cloneDeep(DEFAULT_MENU),
+
     navMenuCollapsed: true,
-    userMenuCollapsed: userMenuCollapsed !== null ? (userMenuCollapsed === '1' ? true : false) : true,
-    menu: _.cloneDeep(DEFAULT_MENU)
+
+    expandMenuName: 'buttons'
+
 };
 
 function navMenu(state = initialState, action) {
@@ -73,36 +52,25 @@ function navMenu(state = initialState, action) {
 
         }
 
-        case types.EXPAND_USER_MENU: {
-
-            localStorage.setItem('userMenuCollapsed', '0');
-
+        case types.EXPAND_MENU: {
             return {
                 ...state,
-                userMenuCollapsed: false
+                expandMenuName: action.menuName
             };
-
         }
 
-        case types.COLLAPSE_USER_MENU: {
+        case types.EXPAND_ACTIVATED_MENU: {
 
-            localStorage.setItem('userMenuCollapsed', '1');
-
-            return {
-                ...state,
-                userMenuCollapsed: true
-            };
-
-        }
-
-        case types.TOGGLE_USER_MENU: {
-
-            const userMenuCollapsed = !state.userMenuCollapsed;
-            localStorage.setItem('userMenuCollapsed', userMenuCollapsed ? '1' : '0');
+            let expandMenuName;
+            for (let i = 0, len = state.menu.length; i < len; i++) {
+                if (state.menu[i].children.findIndex(item => item.route === action.route) > -1) {
+                    expandMenuName = state.menu[i].text;
+                }
+            }
 
             return {
                 ...state,
-                userMenuCollapsed
+                expandMenuName
             };
 
         }

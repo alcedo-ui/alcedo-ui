@@ -7,7 +7,20 @@ import './RaisedButton.css';
 export default class RaisedButton extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
+
+    }
+
+    startRipple(e) {
+        this.refs.baseButton.startRipple(e);
+    }
+
+    endRipple() {
+        this.refs.baseButton.endRipple();
     }
 
     render() {
@@ -16,6 +29,7 @@ export default class RaisedButton extends Component {
 
         return (
             <BaseButton {...this.props}
+                        ref="baseButton"
                         className={`raised-button ${className}`}
                         onTouchTap={onTouchTap}>
                 {children}
@@ -29,6 +43,7 @@ RaisedButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
     buttonStyle: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
@@ -40,7 +55,9 @@ RaisedButton.propTypes = {
     disableTouchRipple: PropTypes.bool,
 
     iconCls: PropTypes.string,
-    iconPosition: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    rippleDisplayCenter: PropTypes.bool,
 
     onTouchTap: PropTypes.func
 
@@ -50,6 +67,7 @@ RaisedButton.defaultProps = {
 
     className: '',
     style: null,
+
     buttonStyle: '',
     isRounded: false,
     isCircular: false,
@@ -60,7 +78,11 @@ RaisedButton.defaultProps = {
     isLoading: false,
     disableTouchRipple: false,
 
+    rippleDisplayCenter: false,
+
     iconCls: '',
-    iconPosition: 'left'
+    rightIconCls: ''
 
 };
+
+RaisedButton.buttonStyle = BaseButton.buttonStyle;

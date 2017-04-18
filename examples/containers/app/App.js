@@ -9,6 +9,7 @@ import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 
 import 'sass/containers/app/App.scss';
+import 'sass/containers/app/example.scss';
 
 class App extends Component {
 
@@ -31,6 +32,8 @@ class App extends Component {
         Event.addEvent(this.refs.contentWrap, 'mousedown', this.contentMousedownHandle);
 
         window.SCROLL_EL = this.refs.contentWrap;
+
+        this.props.expandActivatedMenu(this.context.router.location.pathname);
 
     }
 
@@ -70,9 +73,17 @@ class App extends Component {
     }
 }
 
+App.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
+
 App.propTypes = {
+
     $isDesktop: PropTypes.bool,
-    $navMenuCollapsed: PropTypes.bool
+    $navMenuCollapsed: PropTypes.bool,
+
+    expandActivatedMenu: PropTypes.func
+
 };
 
 function mapStateToProps(state, ownProps) {

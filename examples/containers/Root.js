@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 import Event from 'vendors/Event';
-import Config from 'src/config';
+import Config from 'examples/config';
 
 import 'assets/font-awesome/css/font-awesome.min.css';
 import 'sass/global.scss';

@@ -12,11 +12,11 @@ export default class FlatButtonExamples extends Component {
 
     render() {
         return (
-            <div className="flat-button-examples">
+            <div className="example flat-button-examples">
 
-                <div className="button-group-wrapper">
-                    <div className="button-group-title">Button Style</div>
-                    <div className="button-group">
+                <div className="examples">
+                    <div className="examples-title">Button Style</div>
+                    <div className="examples-wrapper">
 
                         <FlatButton value="Default"/>
 
@@ -38,39 +38,39 @@ export default class FlatButtonExamples extends Component {
                     </div>
                 </div>
 
-                <div className="button-group-wrapper">
-                    <div className="button-group-title">Rounded Button</div>
-                    <div className="button-group">
+                <div className="examples">
+                    <div className="examples-title">Rounded Button</div>
+                    <div className="examples-wrapper">
 
                         <FlatButton value="Default"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Primary"
                                     buttonStyle="primary"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Success"
                                     buttonStyle="success"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Warning"
                                     buttonStyle="warning"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Error"
                                     buttonStyle="error"
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                         <FlatButton value="Disabled"
                                     disabled={true}
-                                    rounded={true}/>
+                                    isRounded={true}/>
 
                     </div>
                 </div>
 
-                <div className="button-group-wrapper">
-                    <div className="button-group-title">Button Icon</div>
-                    <div className="button-group">
+                <div className="examples">
+                    <div className="examples-title">Button with Icon</div>
+                    <div className="examples-wrapper">
 
                         <FlatButton value="Reset"
                                     iconCls="fa fa-undo"/>
@@ -85,8 +85,7 @@ export default class FlatButtonExamples extends Component {
 
                         <FlatButton value="Next"
                                     buttonStyle="primary"
-                                    iconCls="fa fa-chevron-right"
-                                    iconPosition="right"/>
+                                    rightIconCls="fa fa-chevron-right"/>
 
                     </div>
                 </div>

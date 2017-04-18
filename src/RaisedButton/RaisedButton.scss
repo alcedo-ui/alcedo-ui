@@ -2,14 +2,14 @@
 
 .raised-button {
 
-    @include shadow(2);
+    @include shadow(1);
 
     &:hover {
-        @include shadow(4);
+        @include shadow(3);
     }
 
     &:active {
-        @include shadow(3);
+        @include shadow(2);
     }
 
     &[disabled] {
@@ -17,20 +17,23 @@
     }
 
     // default theme
-    @include button-theme($theme-text, #fff);
+    @include raised-button-theme($theme-text, $theme-field);
 
     // other themes
     &.theme-primary {
-        @include button-theme(#fff, $theme-menu);
+        @include raised-button-theme(#fff, $theme-menu);
+    }
+    &.theme-highlight {
+        @include raised-button-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include button-theme(#fff, $success);
+        @include raised-button-theme(#fff, $success);
     }
     &.theme-warning {
-        @include button-theme(#fff, $warning);
+        @include raised-button-theme(#fff, $warning);
     }
     &.theme-error {
-        @include button-theme(#fff, $error);
+        @include raised-button-theme(#fff, $error);
     }
 
 }

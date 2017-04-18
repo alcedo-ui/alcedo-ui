@@ -1,0 +1,66 @@
+@import '../../common.scss';
+
+.example {
+    padding: 40px;
+
+    .example-header{
+        background: $theme-title;
+        color: #fff;
+    }
+
+    .example-title {
+        font-size: 18px;
+        user-select: none;
+        cursor: default;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        padding-bottom: 10px;
+    }
+
+    .example-properties{
+        width: 100%;
+
+        h3{
+            height: 40px;
+            line-height: 40px;
+            color: $theme-text;
+        }
+
+        .example-table{
+            width: 100%;
+            overflow: auto;
+            word-break: keep-all;
+            border-collapse: collapse;
+            border-spacing: 0;
+            box-sizing: border-box;
+            border-color: rgba(0,0,0,.06);
+            font-size: 14px;
+
+            thead tr th{
+                text-align: left;
+                border-top: 0 none;
+                display: table-cell;
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 2px solid rgba(0,0,0,.06);
+                border-top: 1px solid rgba(0,0,0,.09);
+                color: $theme-title;
+                padding-left: 15px;
+            }
+
+            tbody tr td{
+                display: table-cell;
+                border-bottom: 1px solid rgba(0,0,0,.06);
+                padding: 20px 30px 20px 15px;
+
+                &.properties-name{
+                    color: $cyan;
+                }
+
+                &.properties-type{
+                    color: $pink;
+                }
+            }
+        }
+    }
+
+}

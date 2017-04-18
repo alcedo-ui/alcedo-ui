@@ -1,9 +1,13 @@
 import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {Link} from 'react-router';
+
+import * as actions from 'reduxes/actions';
 
 import TouchRipple from 'dist/TouchRipple';
 
-export default class NavMenuItem extends Component {
+class NavMenuItem extends Component {
 
     constructor(props) {
 
@@ -12,30 +16,32 @@ export default class NavMenuItem extends Component {
         this.menuHeight = 50;
         this.subMenuIndent = 20;
 
-        this.state = {
-            collapsed: true
-        };
-
         this.menuMousedownHandle = this::this.menuMousedownHandle;
 
     }
 
     menuMousedownHandle() {
-        this.setState({
-            collapsed: !this.state.collapsed
-        });
+
+        const {$expandMenuName, options, expandMenu} = this.props;
+
+        if ($expandMenuName === options.text) {
+            expandMenu('');
+        } else {
+            expandMenu(options.text);
+        }
+
     }
 
     render() {
 
-        const {options, depth} = this.props;
-        const {collapsed} = this.state;
+        const {$expandMenuName, options, depth} = this.props;
         const {menuHeight, subMenuIndent} = this;
 
-        const hasChildren = options.children && options.children.length > 0;
+        const collapsed = $expandMenuName !== options.text,
+            hasChildren = options.children && options.children.length > 0;
 
         return (
-            <div className="nav-menu-item">
+            <div className={`nav-menu-item ${collapsed ? 'collapsed' : ''} ${hasChildren ? 'hasChildren' : ''}`}>
 
                 {/* title or link */}
                 {
@@ -78,7 +84,7 @@ export default class NavMenuItem extends Component {
                 {
                     hasChildren
                         ? (
-                        <div className={`nav-menu-children ${collapsed ? 'collapsed' : ''}`}
+                        <div className="nav-menu-children"
                              style={{height: options.children.length * menuHeight}}>
                             {
                                 options.children.map((item, index) => {
@@ -98,14 +104,37 @@ export default class NavMenuItem extends Component {
         );
 
     }
-};
+}
+;
 
 NavMenuItem.propTypes = {
+
+    $expandMenuName: PropTypes.string,
+
     options: PropTypes.object,
-    depth: PropTypes.number
+    depth: PropTypes.number,
+
+    expandMenu: PropTypes.func
+
 };
 
 NavMenuItem.defaultProps = {
+
+    $expandMenuName: '',
+
     options: null,
     depth: 0
+
 };
+
+function mapStateToProps(state, ownProps) {
+    return {
+        $expandMenuName: state.navMenu.expandMenuName
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavMenuItem);

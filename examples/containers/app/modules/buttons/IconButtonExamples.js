@@ -12,11 +12,11 @@ export default class IconButtonExamples extends Component {
 
     render() {
         return (
-            <div className="icon-button-examples">
+            <div className="example icon-button-examples">
 
-                <div className="button-group-wrapper">
-                    <div className="button-group-title">Button Style</div>
-                    <div className="button-group">
+                <div className="examples">
+                    <div className="examples-title">Button Style</div>
+                    <div className="examples-wrapper">
 
                         <IconButton iconCls="fa fa-plus"
                                     buttonStyle="success"/>
