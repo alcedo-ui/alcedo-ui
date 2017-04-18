@@ -5,24 +5,24 @@ import React, {Component, PropTypes} from 'react';
 
 import Percent from './Percent';
 
-import './CircularProgress.css'
+import './CircularProgress.css';
 
-export default class CircularProgress extends Component{
+export default class CircularProgress extends Component {
     constructor(props) {
         super();
 
         this.state = {
-            percent: [0,0]
-        }
+            percent: [0, 0]
+        };
     }
 
     render() {
-        const { r, width, rgba, word, percent, style, percentStyle} = this.props;
+        const {r, width, rgba, word, percent, style, percentStyle} = this.props;
 
         const l = 2 * this.props.r * Math.PI;
         const circleStyle = {
             strokeDasharray: this.props.percent / 100 * l + ',' + l
-        },svgStyle = {
+        }, svgStyle = {
             width: (r + width) * 2,
             height: (r + width) * 2,
             ...style
@@ -48,10 +48,10 @@ export default class CircularProgress extends Component{
                         : null
                 }
             </div>
-        )
+        );
     }
 
-}
+};
 
 CircularProgress.propTypes = {
     className: PropTypes.string,

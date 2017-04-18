@@ -1,15 +1,15 @@
 /**
  * Created by DT314 on 2017/4/18.
  */
-import React,{ Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import TextField from '../TextField/TextField';
 import Event from '../_vendors/Event';
 
 import './EditableField.css';
 
-export default class EditableField extends Component{
-    constructor (props){
+export default class EditableField extends Component {
+    constructor(props) {
         super();
 
         this.state = {
@@ -25,15 +25,15 @@ export default class EditableField extends Component{
     }
 
     getPosition(ev) {
-        let scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        let scrollLeft=document.documentElement.scrollLeft||document.body.scrollLeft;
-        return {x: ev.clientX+scrollLeft, y: ev.clientY+scrollTop};
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
     }
 
     getElementLeft(element, offset) {
         let offsetX = element[offset];
         let current = element.offsetParent;
-        while (current !== null){
+        while (current !== null) {
             offsetX += current[offset];
             current = current.offsetParent;
         }
@@ -80,7 +80,7 @@ export default class EditableField extends Component{
     }
 
     render() {
-        const { style } = this.props;
+        const {style} = this.props;
 
         return (
             <div className="nameInput"
@@ -89,9 +89,10 @@ export default class EditableField extends Component{
                  ref="editableField">
 
                 {
-                    this.state.hide==="hide"
+                    this.state.hide === 'hide'
                         ? <span className="nameText"
-                                onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil" aria-hidden="true"></i></span>
+                                onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
+                                                                             aria-hidden="true"></i></span>
                         : <TextField ref="textField"
                                      value={this.state.text}
                                      className={'hideInput'}
@@ -101,7 +102,7 @@ export default class EditableField extends Component{
             </div>
         );
     }
-}
+};
 
 EditableField.propTypes = {
     className: PropTypes.string,

@@ -2,17 +2,17 @@
  * Created by DT314 on 2017/4/10.
  */
 import React, {Component, PropTypes} from 'react';
-import Percent from '../CircularProgress/Percent'
+import Percent from '../CircularProgress/Percent';
 
 import './LinearProgress.css';
 
-export default class LinearProgress extends Component{
+export default class LinearProgress extends Component {
     constructor(props) {
         super();
     }
 
     render() {
-        const { highlightWidth, background, highlight, style, word, wordStyle } = this.props;
+        const {highlightWidth, background, highlight, style, word, wordStyle} = this.props;
 
         const backgroundStyle = {
             background: background
@@ -21,7 +21,7 @@ export default class LinearProgress extends Component{
             width: highlightWidth
         };
         let divClass;
-        switch (wordStyle){
+        switch (wordStyle) {
             case 'front':
                 divClass = 'linear-progress-one';
                 break;
@@ -34,12 +34,12 @@ export default class LinearProgress extends Component{
         }
 
         return (
-            <div className={"linear-progress " + divClass}
+            <div className={'linear-progress ' + divClass}
                  style={style}>
                 {
                     wordStyle === 'follow'
                         ? <Percent endNum={parseInt(highlightWidth)}
-                               move={true}/>
+                                   move={true}/>
                         : <Percent endNum={parseInt(highlightWidth)}/>
                 }
                 <div className="linear-progress-background"
@@ -49,9 +49,9 @@ export default class LinearProgress extends Component{
                     </div>
                 </div>
             </div>
-        )
+        );
     }
-}
+};
 
 LinearProgress.propTypes = {
     className: PropTypes.string,

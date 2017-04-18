@@ -1,13 +1,13 @@
 /**
  * Created by DT314 on 2017/4/12.
  */
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
 import Event from '../_vendors/Event';
 
-import './Slider.css'
+import './Slider.css';
 
-export default class Slider extends Component{
+export default class Slider extends Component {
     constructor(props) {
         super();
 
@@ -32,15 +32,15 @@ export default class Slider extends Component{
     }
 
     getPosition(ev) {
-        let scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        let scrollLeft=document.documentElement.scrollLeft||document.body.scrollLeft;
-        return {x: ev.clientX+scrollLeft, y: ev.clientY+scrollTop};
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
     }
 
     getElementLeft(element) {
         let offsetLeft = element.offsetLeft;
         let current = element.offsetParent;
-        while (current !== null){
+        while (current !== null) {
             offsetLeft += current.offsetLeft;
             current = current.offsetParent;
         }
@@ -62,7 +62,7 @@ export default class Slider extends Component{
     }
 
     moveHandle(ev) {
-        if(this.state.shadow) {
+        if (this.state.shadow) {
             let oEvent = ev || event;
             let offsetLeft = this.getElementLeft(this.refs.sliderBox);
             let leftPosition = (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.props.width;
@@ -87,8 +87,8 @@ export default class Slider extends Component{
     }
 
     changeHandle() {
-        const { scale, decimalPlaces, width } = this.props;
-        const { left, right } = this.state;
+        const {scale, decimalPlaces, width} = this.props;
+        const {left, right} = this.state;
 
         let leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
             rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
@@ -106,25 +106,25 @@ export default class Slider extends Component{
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
                 tip: 'left'
-            })
+            });
         } else {
             this.setState({
                 tip: 'right'
-            })
+            });
         }
     }
 
     outHandle() {
         this.setState({
             tip: ''
-        })
+        });
     }
 
     clickHandle(ev) {
         let oEvent = ev || event;
         let offsetLeft = this.getElementLeft(this.refs.sliderBox);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
-        if(this.props.ruler) {
+        if (this.props.ruler) {
             clickLeft = this.getNearest(clickLeft);
         }
         if (Math.abs(this.state.left - clickLeft) > Math.abs(this.state.right - clickLeft) || this.props.leftPoint === false) {
@@ -145,15 +145,15 @@ export default class Slider extends Component{
     getNearest(clickLeft) {
         const {width, ruler} = this.props;
         let nearest = width;
-        let j=0;
-        for(let i=0;i<ruler;i++) {
-            let long = Math.abs(clickLeft - i * width/(ruler - 1));
-            if(long < nearest) {
+        let j = 0;
+        for (let i = 0; i < ruler; i++) {
+            let long = Math.abs(clickLeft - i * width / (ruler - 1));
+            if (long < nearest) {
                 nearest = long;
-                j=i;
+                j = i;
             }
         }
-        return j * width/(ruler - 1);
+        return j * width / (ruler - 1);
     }
 
     componentDidMount() {
@@ -174,13 +174,13 @@ export default class Slider extends Component{
     }
 
     render() {
-        const { leftPoint, scale, width, showScale, decimalPlaces } = this.props;
-        const { left, right, shadow, tip } = this.state;
+        const {leftPoint, scale, width, showScale, decimalPlaces} = this.props;
+        const {left, right, shadow, tip} = this.state;
 
-        const grayStyle = { width: width },
-            highStyle = { width: Math.abs(left - right),  left: Math.min(left, right) },
-            leftStyle = { left: left },
-            rightStyle = { left: right };
+        const grayStyle = {width: width},
+            highStyle = {width: Math.abs(left - right), left: Math.min(left, right)},
+            leftStyle = {left: left},
+            rightStyle = {left: right};
         let display = (tip || shadow) ? '' : 'hide',
             leftShadow = shadow === 'left' ? 'slider-shadow' : '',
             rightShadow = shadow === 'right' ? 'slider-shadow' : '';
@@ -195,13 +195,13 @@ export default class Slider extends Component{
                      ref="sliderBox">
                     {
                         leftPoint
-                            ? (<div className={"slider-circle slider-circle-left "+ leftShadow}
+                            ? (<div className={'slider-circle slider-circle-left ' + leftShadow}
                                     onMouseDown={this.downHandle}
                                     style={leftStyle}
                                     ref="circle"></div>)
                             : null
                     }
-                    <div className={"slider-circle slider-circle-right " + rightShadow}
+                    <div className={'slider-circle slider-circle-right ' + rightShadow}
                          onMouseDown={this.downHandle}
                          style={rightStyle}
                          ref="circle"></div>
@@ -209,9 +209,9 @@ export default class Slider extends Component{
                          style={highStyle}></div>
                     {
                         shadow === 'left' || tip === 'left'
-                            ? <div className={"slider-tip " + display}
+                            ? <div className={'slider-tip ' + display}
                                    style={leftStyle}>{leftTip}</div>
-                            : <div className={"slider-tip " + display}
+                            : <div className={'slider-tip ' + display}
                                    style={rightStyle}>{rightTip}</div>
                     }
 
@@ -220,23 +220,23 @@ export default class Slider extends Component{
                     {
                         showScale
                             ? <ul>
-                                {
-                                    scale.map((number, index) => {
-                                        let left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100;
-                                        const style = {left: left + '%'};
-                                        return <li style={style}
-                                                   key={index}>{number}</li>
-                                    })
-                                }
-                            </ul>
+                            {
+                                scale.map((number, index) => {
+                                    let left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100;
+                                    const style = {left: left + '%'};
+                                    return <li style={style}
+                                               key={index}>{number}</li>;
+                                })
+                            }
+                        </ul>
                             : null
                     }
 
                 </div>
             </div>
-        )
+        );
     }
-}
+};
 
 Slider.propTypes = {
     className: PropTypes.string,

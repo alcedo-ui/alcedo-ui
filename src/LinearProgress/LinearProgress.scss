@@ -1,45 +1,48 @@
-.linear-progress{
-  position: relative;
-  .linear-progress-background{
-    border-radius: 2px;
-    height: 100%;
-    .linear-progress-highlight{
-      height: 100%;
-      transition: width 0.3s linear 0ms;
+.linear-progress {
+    position: relative;
+    .linear-progress-background {
+        border-radius: 2px;
+        height: 100%;
+        .linear-progress-highlight {
+            height: 100%;
+            transition: width 0.3s linear 0ms;
+        }
     }
-  }
 }
-.linear-progress-one{
-  overflow: hidden;
-  .circular-progress-percent{
-    width: 40px;
-    text-align: left;
-    float: left;
-  }
-  .linear-progress-background{
-    float: left;
-    width: calc(100% - 40px);
-  }
+
+.linear-progress-one {
+    overflow: hidden;
+    .circular-progress-percent {
+        width: 40px;
+        text-align: left;
+        float: left;
+    }
+    .linear-progress-background {
+        float: left;
+        width: calc(100% - 40px);
+    }
 }
-.linear-progress-two{
-  .circular-progress-percent{
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-  }
+
+.linear-progress-two {
+    .circular-progress-percent {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
-.linear-progress-three{
-  .circular-progress-percent{
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translate(-0,-50%);
-    transition: width 0.3s linear 0ms;
-    padding-right: 10px;
-    box-sizing: border-box;
-    min-width: 40px;
-  }
+
+.linear-progress-three {
+    .circular-progress-percent {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(-0, -50%);
+        transition: width 0.3s linear 0ms;
+        padding-right: 10px;
+        box-sizing: border-box;
+        min-width: 40px;
+    }
 }
