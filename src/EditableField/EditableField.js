@@ -17,7 +17,7 @@ export default class EditableField extends Component {
             text: props.value
         };
 
-        this.onBlur = this :: this.onBlur;
+        this.onChange = this :: this.onChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
         this.getPosition = this :: this.getPosition;
@@ -40,7 +40,7 @@ export default class EditableField extends Component {
         return offsetX;
     }
 
-    onBlur(text) {
+    onChange(text) {
         this.setState({
             text: text
         });
@@ -63,11 +63,9 @@ export default class EditableField extends Component {
             inputWidth = this.refs.editableField.offsetWidth,
             inputHeight = this.refs.editableField.offsetHeight;
         if (mouseX < inputX || mouseX > (inputX + inputWidth) || mouseY < inputY || mouseY > (inputY + inputHeight)) {
-            setTimeout(() => {
-                this.setState({
-                    hide: 'hide'
-                });
-            }, 0);
+            this.setState({
+                hide: 'hide'
+            });
         }
     }
 
@@ -96,7 +94,7 @@ export default class EditableField extends Component {
                         : <TextField ref="textField"
                                      value={this.state.text}
                                      className={'hideInput'}
-                                     onBlur={this.onBlur}/>
+                                     onChange={this.onChange}/>
                 }
 
             </div>
