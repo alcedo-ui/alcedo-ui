@@ -8,7 +8,7 @@
         "build": "rimraf dist && gulp build",
         "watch": "npm run build && gulp watch",
         "dev": "node server/dev-server.js",
-        "example": "npm run build && node server/dev-server.js"
+        "example": "npm run build && node run dev"
     },
     "repository": {
         "type": "git",
