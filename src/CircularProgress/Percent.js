@@ -6,17 +6,10 @@ import React, {Component, PropTypes} from 'react';
 export default class Percent extends Component{
     constructor(props) {
         super();
+
         this.state = {
             percent: 0
         }
-    }
-
-    componentDidMount() {
-        this.timer = setTimeout( () => this.numberChange(), 30);
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
     }
 
     numberChange() {
@@ -33,8 +26,18 @@ export default class Percent extends Component{
         }
     }
 
+    componentDidMount() {
+        this.timer = setTimeout( () => this.numberChange(), 30);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timer);
+    }
+
     render() {
         const { move, endNum, style } = this.props;
+        const { percent } = this.state;
+
         const widthStyle = move === true ? {
             width: endNum + '%',
             textAlign: 'right',
@@ -42,10 +45,11 @@ export default class Percent extends Component{
         } : {
             ...style
         };
-        const { percent } = this.state;
+
         return (
             <div>
-                <div className="circular-progress-percent" style={widthStyle}>
+                <div className="circular-progress-percent"
+                     style={widthStyle}>
                     {React.Children.map(this.props.children, function (child) {
                         return <span>{ child }</span>
                     })}
@@ -57,6 +61,7 @@ export default class Percent extends Component{
 }
 
 Percent.propTypes = {
+    className: PropTypes.string,
     style: PropTypes.object,
 
     endNum: PropTypes.number,
@@ -64,6 +69,7 @@ Percent.propTypes = {
 };
 
 Percent.defaultProps = {
+    className: '',
     style: {},
 
     endNum: 100,

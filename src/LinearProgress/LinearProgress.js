@@ -12,6 +12,7 @@ export default class LinearProgress extends Component{
     }
     render() {
         const { highlightWidth, background, highlight, style, word, wordStyle } = this.props;
+
         const backgroundStyle = {
             background: background
         }, highlightStyle = {
@@ -30,11 +31,20 @@ export default class LinearProgress extends Component{
                 divClass = 'linear-progress-three';
                 break;
         }
+
         return (
-            <div className={"linear-progress " + divClass} style={style}>
-                {wordStyle === 'follow' ? <Percent endNum={parseInt(highlightWidth)} move={true}/> : <Percent endNum={parseInt(highlightWidth)}/>}
-                <div className="linear-progress-background" style={backgroundStyle}>
-                    <div className="linear-progress-highlight" style={highlightStyle}>
+            <div className={"linear-progress " + divClass}
+                 style={style}>
+                {
+                    wordStyle === 'follow'
+                        ? <Percent endNum={parseInt(highlightWidth)}
+                               move={true}/>
+                        : <Percent endNum={parseInt(highlightWidth)}/>
+                }
+                <div className="linear-progress-background"
+                     style={backgroundStyle}>
+                    <div className="linear-progress-highlight"
+                         style={highlightStyle}>
                     </div>
                 </div>
             </div>
@@ -43,6 +53,7 @@ export default class LinearProgress extends Component{
 }
 
 LinearProgress.propTypes = {
+    className: PropTypes.string,
     style: PropTypes.object,
 
     highlightWidth: PropTypes.string,
@@ -53,6 +64,7 @@ LinearProgress.propTypes = {
 };
 
 LinearProgress.defaultProps = {
+    className: '',
     style: {
         width: '200px',
         height: '2px'
