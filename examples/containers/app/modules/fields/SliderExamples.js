@@ -18,7 +18,8 @@ export default class SliderExamples extends Component{
 
     render() {
         const style = {
-            margin: '20px'
+            margin: '20px',
+            userSelect: 'none'
         };
         return (
             <div style={style}>

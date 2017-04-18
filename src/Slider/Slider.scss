@@ -1,6 +1,7 @@
 .slider {
     margin: 20px 0;
     position: relative;
+    user-select: none;
     .slider-box {
         width: 100%;
         height: 6px;
