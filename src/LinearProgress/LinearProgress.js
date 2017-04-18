@@ -11,29 +11,28 @@ export default class LinearProgress extends Component{
         super();
     }
     render() {
+        const { highlightWidth, background, highlight, style, word, wordStyle } = this.props;
         const backgroundStyle = {
-            background: this.props.background
+            background: background
         }, highlightStyle = {
-            background: this.props.highlight,
-            width: this.props.highlightWidth
-        }, widthStyle = {
-            left: this.props.highlightWidth
+            background: highlight,
+            width: highlightWidth
         };
         let divClass;
-        switch (this.props.wordStyle){
-            case 1:
+        switch (wordStyle){
+            case 'front':
                 divClass = 'linear-progress-one';
                 break;
-            case 2:
+            case 'middle':
                 divClass = 'linear-progress-two';
                 break;
-            case 3:
+            case 'follow':
                 divClass = 'linear-progress-three';
                 break;
         }
         return (
-            <div className={"linear-progress " + divClass} style={this.props.style}>
-                {this.props.wordStyle === 3 ? <Percent endNum={parseInt(this.props.highlightWidth)} move={true}/> : <Percent endNum={parseInt(this.props.highlightWidth)}/>}
+            <div className={"linear-progress " + divClass} style={style}>
+                {wordStyle === 'follow' ? <Percent endNum={parseInt(highlightWidth)} move={true}/> : <Percent endNum={parseInt(highlightWidth)}/>}
                 <div className="linear-progress-background" style={backgroundStyle}>
                     <div className="linear-progress-highlight" style={highlightStyle}>
                     </div>
@@ -44,22 +43,24 @@ export default class LinearProgress extends Component{
 }
 
 LinearProgress.propTypes = {
+    style: PropTypes.object,
+
     highlightWidth: PropTypes.string,
     background: PropTypes.string,
     highlight: PropTypes.string,
-    style: PropTypes.object,
     word: PropTypes.bool,
-    wordStyle: PropTypes.number
+    wordStyle: PropTypes.string
 };
 
 LinearProgress.defaultProps = {
-    highlightWidth: '50%',
-    background: 'gray',
-    highlight: 'blue',
     style: {
         width: '200px',
         height: '2px'
     },
+
+    highlightWidth: '50%',
+    background: 'gray',
+    highlight: 'blue',
     word: false,
-    wordStyle: 1
+    wordStyle: 'front'
 };

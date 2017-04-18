@@ -34,35 +34,38 @@ export default class Percent extends Component{
     }
 
     render() {
-        const widthStyle = {
-            width: this.props.endNum + '%',
+        const { move, endNum, style } = this.props;
+        const widthStyle = move === true ? {
+            width: endNum + '%',
             textAlign: 'right',
-            ...this.props.style
+            ...style
+        } : {
+            ...style
         };
+        const { percent } = this.state;
         return (
             <div>
-                {
-                    this.props.move === true ? (
-                        <div className="circular-progress-percent" style={widthStyle}>
-                            <span className="circular-progress-word">{this.state.percent}%</span>
-                        </div>) : (
-                        <div className="circular-progress-percent" style={this.props.style}>
-                            <span className="circular-progress-word">{this.state.percent}%</span>
-                        </div>)
-                }
+                <div className="circular-progress-percent" style={widthStyle}>
+                    {React.Children.map(this.props.children, function (child) {
+                        return <span>{ child }</span>
+                    })}
+                    <span>{ percent }%</span>
+                </div>
             </div>
         )
     }
 }
 
 Percent.propTypes = {
-    endNum: PropTypes.number,
     style: PropTypes.object,
+
+    endNum: PropTypes.number,
     move: PropTypes.bool
 };
 
 Percent.defaultProps = {
-    endNum: 100,
     style: {},
+
+    endNum: 100,
     move: false
 };

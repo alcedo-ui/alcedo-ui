@@ -4,6 +4,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import Dialog from '../../../../../dist/Dialog';
+import RaisedButton from 'dist/RaisedButton/RaisedButton';
 
 import 'sass/containers/app/modules/popup/DialogExamples.scss';
 
@@ -34,7 +35,7 @@ export default class DialogExamples extends Component{
             <div className="test-dialog">
                 <h3>Dialog Examples</h3>
                 <p>Please click this button to show Dialog.</p>
-                <button onClick={this.clickHandle}>Dialog</button>
+                <RaisedButton onTouchTap={this.clickHandle}>Dialog</RaisedButton>
                 <Dialog className={this.state.hide} onHide={this.hideHandle} onSure={this.hideHandle}/>
             </div>
         );

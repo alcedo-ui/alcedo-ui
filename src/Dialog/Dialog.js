@@ -1,8 +1,8 @@
 /**
  * Created by DT314 on 2017/4/6.
  */
-import React, {Component, PropTypes} from 'react'
-
+import React, {Component, PropTypes} from 'react';
+import FlatButton from '../FlatButton/FlatButton';
 
 
 import './dialog.css'
@@ -13,16 +13,17 @@ export default class Dialog extends Component{
     }
 
     render() {
+        const { className, title, desc, buttonBool, onHide, onSure } = this.props;
         return (
-            <div className={"dialog-cover "+ this.props.className}>
-                <div className="dialog-shadow" onClick={this.props.onHide}>
+            <div className={"dialog-cover "+ className}>
+                <div className="dialog-shadow" onClick={onHide}>
                 </div>
                 <div className="dialog-box">
-                    <h3>{this.props.title}</h3>
-                    <p>{this.props.desc}</p>
+                    <h3>{title}</h3>
+                    <p>{desc}</p>
                     <div className="dialog-button-group">
-                        <button className={"button "+(this.props.buttonBool[0]?"":"disappear")} onClick={this.props.onHide}>cancel</button>
-                        <button className={"button "+(this.props.buttonBool[1]?"":"disappear")} onClick={this.props.onSure}>commit</button>
+                        <FlatButton className={"button "+(buttonBool[0]?"":"disappear")} onTouchTap={onHide}>cancel</FlatButton>
+                        <FlatButton className={"button "+(buttonBool[1]?"":"disappear")} onTouchTap={onSure}>commit</FlatButton>
                     </div>
                 </div>
             </div>
@@ -32,17 +33,19 @@ export default class Dialog extends Component{
 }
 
 Dialog.propTypes = {
+    className: PropTypes.string,
+
     title: PropTypes.string,
     desc: PropTypes.string,
     buttonBool: PropTypes.array,
-    className: PropTypes.string,
+
     onHide: PropTypes.func,
     onSure: PropTypes.func
 };
 
 Dialog.defaultProps = {
+    className: "hide",
     title: "Dialog",
     desc: "here is the dialog description.",
-    buttonBool: [true,true],
-    className: "hide"
+    buttonBool: [true,true]
 };

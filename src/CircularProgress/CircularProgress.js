@@ -15,22 +15,23 @@ export default class CircularProgress extends Component{
     }
 
     render() {
+        const { r, width, rgba, word, percent, style, percentStyle} = this.props;
         const l = 2 * this.props.r * Math.PI;
         const circleStyle = {
             strokeDasharray: this.props.percent / 100 * l + ',' + l
         },svgStyle = {
-            width: (this.props.r + this.props.width) * 2,
-            height: (this.props.r + this.props.width) * 2,
-            ...this.props.style
+            width: (r + width) * 2,
+            height: (r + width) * 2,
+            ...style
         };
         return (
             <div className="circular-progress" style={svgStyle}>
                 <svg className="circular-progress-svg">
-                    <circle className="circular-progress-circle" cx={this.props.r + this.props.width} cy={this.props.r + this.props.width} r={this.props.r} strokeWidth={this.props.width} stroke={this.props.rgba} fill="none" style={circleStyle}>
+                    <circle className="circular-progress-circle" cx={r + width} cy={r + width} r={r} strokeWidth={width} stroke={rgba} fill="none" style={circleStyle}>
                     </circle>
                 </svg>
                 {
-                    this.props.word ? <Percent endNum={this.props.percent}/> : ''
+                    word ? <Percent endNum={percent} style={percentStyle}>{this.props.children}</Percent> : ''
                 }
             </div>
         )
@@ -39,20 +40,26 @@ export default class CircularProgress extends Component{
 }
 
 CircularProgress.propTypes = {
+    style: PropTypes.object,
+    className: PropTypes.string,
+    percentStyle: PropTypes.object,
+
     r: PropTypes.number,
     width: PropTypes.number,
     rgba: PropTypes.string,
     percent: PropTypes.number,
-    word: PropTypes.bool,
-    style: PropTypes.object
+    word: PropTypes.bool
 };
 
 CircularProgress.defaultProps = {
+    style: {},
+    className: '',
+    percentStyle: {},
+
     r: 48,
     width: 2,
     rgba: 'rgb(0, 188, 212)',
     percent: 0,
-    word: true,
-    style: {}
+    word: true
 };
 

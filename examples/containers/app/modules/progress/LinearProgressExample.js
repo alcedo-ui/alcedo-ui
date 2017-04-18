@@ -63,9 +63,9 @@ export default class LinearProgressExample extends Component{
                 <h3>Circular Progress</h3>
                 <p>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
                 <div style={progressGroup}>
-                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style1} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={1}/>
-                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style2} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={2}/>
-                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style3} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle={3}/>
+                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style1} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle='front'/>
+                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style2} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle='middle'/>
+                    <LinearProgress highlightWidth={this.state.percent+'%'} style={style3} background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle='follow'/>
                 </div>
             </div>
         )
