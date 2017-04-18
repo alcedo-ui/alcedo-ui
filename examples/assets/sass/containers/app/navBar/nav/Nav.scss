@@ -13,7 +13,7 @@
         @include shadow(1);
 
         width: calc(100% - 250px);
-        background: $theme-nav;
+        background-color: $theme-nav;
         position: absolute;
         right: 0;
         margin-left: 250px;
@@ -21,6 +21,8 @@
         overflow: visible;
         box-sizing: border-box;
         transition: all $transition-duration ease-in-out;
+
+
     }
 
 }
