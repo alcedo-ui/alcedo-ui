@@ -52,8 +52,6 @@ module.exports = app.listen(port, function (err) {
         return;
     }
 
-    if (!!config.autoOpenBrowser) {
-        opn(uri);
-    }
+    opn(uri);
 
 });

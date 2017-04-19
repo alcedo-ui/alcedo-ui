@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     sass = require('gulp-sass'),
     babel = require('gulp-babel'),
-    gulpSequence = require('gulp-sequence');
+    gulpSequence = require('gulp-sequence'),
+    miniPackageJson = require('./scripts/miniPackageJson');
 
 function printError(e) {
     console.error(e.toString());
@@ -31,12 +32,16 @@ gulp.task('copyAssets', function () {
     return gulp.src('./assets/**')
         .pipe(gulp.dest('./dist/assets'));
 });
-
 gulp.task('copyNpmFiles', function () {
-    return gulp.src(['./package.json', 'README.md', './LICENSE'])
+    return gulp.src(['README.md', './LICENSE'])
         .pipe(gulp.dest('./dist'));
 });
-gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles'));
+gulp.task('copyPackageJson', function () {
+    return gulp.src('./package.json')
+        .pipe(miniPackageJson())
+        .pipe(gulp.dest('./dist'));
+});
+gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJson'));
 
 gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
 

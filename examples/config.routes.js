@@ -119,6 +119,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="EditableField"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/EditableFieldExamples').default);
+                       });
+                   }}/>
+
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {

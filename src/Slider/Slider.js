@@ -1,42 +1,46 @@
 /**
  * Created by DT314 on 2017/4/12.
  */
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
-import './Slider.css'
+import Event from '../_vendors/Event';
 
-export default class Slider extends Component{
+import './Slider.css';
+
+export default class Slider extends Component {
     constructor(props) {
         super();
+
+        this.state = {
+            left: 0,
+            right: 0,
+            shadow: '',
+            tip: ''
+        };
+
         this.getPosition = this :: this.getPosition;
         this.downHandle = this :: this.downHandle;
         this.getElementLeft = this :: this.getElementLeft;
         this.clickHandle = this :: this.clickHandle;
         this.getNearest = this :: this.getNearest;
-        this.state = {
-            highWidth: 0,
-            left: 0,
-            right: 0
-        };
-    }
+        this.overHandle = this :: this.overHandle;
+        this.outHandle = this :: this.outHandle;
+        this.moveHandle = this :: this.moveHandle;
+        this.upHandle = this :: this.upHandle;
+        this.changeHandle = this :: this.changeHandle;
 
-    componentDidMount() {
-        this.setState({
-            highWidth: this.props.width / 2,
-            right: this.props.width / 2
-        })
     }
 
     getPosition(ev) {
-        let scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-        let scrollLeft=document.documentElement.scrollLeft||document.body.scrollLeft;
-        return {x: ev.clientX+scrollLeft, y: ev.clientY+scrollTop};
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
     }
 
     getElementLeft(element) {
         let offsetLeft = element.offsetLeft;
         let current = element.offsetParent;
-        while (current !== null){
+        while (current !== null) {
             offsetLeft += current.offsetLeft;
             current = current.offsetParent;
         }
@@ -44,144 +48,216 @@ export default class Slider extends Component{
     }
 
     downHandle(ev) {
-        let sonElement = ev.srcElement ? ev.srcElement : ev.target;
-        let highElement = sonElement.parentNode;
-        let offsetLeft = this.getElementLeft(highElement);
-        let tipElement = sonElement.childNodes[0];
-        tipElement.style.display = "block";
-        sonElement.style.boxShadow = "0 0 5px 1px rgba(56, 177, 235, 0.7)";
-        document.onmousemove = (ev) => {
+        let element = ev.srcElement ? ev.srcElement : ev.target;
+        if (element.getAttribute('class').indexOf('left') > -1) {
+            this.setState({
+                shadow: 'left'
+            });
+        } else {
+            this.setState({
+                shadow: 'right'
+            });
+        }
+        return false;
+    }
+
+    moveHandle(ev) {
+        if (this.state.shadow) {
             let oEvent = ev || event;
+            let offsetLeft = this.getElementLeft(this.refs.sliderBox);
             let leftPosition = (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.props.width;
             leftPosition = (leftPosition > 0) ? leftPosition : 0;
             if (this.props.ruler) {
-                leftPosition = this.getNearest(leftPosition)
+                leftPosition = this.getNearest(leftPosition);
             }
-            if (sonElement.getAttribute('class').indexOf('left') > -1) {
+            if (this.state.shadow === 'left') {
                 this.setState({
-                    highWidth: Math.abs(this.state.right - leftPosition),
                     left: leftPosition
+                }, () => {
+                    this.changeHandle();
                 });
             } else {
                 this.setState({
-                    highWidth: Math.abs(leftPosition - this.state.left),
                     right: leftPosition
+                }, () => {
+                    this.changeHandle();
                 });
             }
-        };
-        document.onmouseup = () => {
-            document.onmousemove = null;
-            tipElement.style.display = "none";
-            sonElement.style.boxShadow = "";
-        };
-        return false;
+        }
+    }
+
+    changeHandle() {
+        const {scale, decimalPlaces, width} = this.props;
+        const {left, right} = this.state;
+
+        let leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
+            rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
+        this.props.onChange && this.props.onChange(leftTip, rightTip);
+    }
+
+    upHandle() {
+        this.setState({
+            shadow: ''
+        });
+    }
+
+    overHandle(ev) {
+        let element = ev.srcElement ? ev.srcElement : ev.target;
+        if (element.getAttribute('class').indexOf('left') > -1) {
+            this.setState({
+                tip: 'left'
+            });
+        } else {
+            this.setState({
+                tip: 'right'
+            });
+        }
+    }
+
+    outHandle() {
+        this.setState({
+            tip: ''
+        });
     }
 
     clickHandle(ev) {
         let oEvent = ev || event;
-        let element = oEvent.srcElement ? oEvent.srcElement : oEvent.target;
-        while (element.className.indexOf('slider-box') === -1) {
-            element = element.parentNode;
-        }
-        let offsetLeft = this.getElementLeft(element);
+        let offsetLeft = this.getElementLeft(this.refs.sliderBox);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
-        if(this.props.ruler) {
+        if (this.props.ruler) {
             clickLeft = this.getNearest(clickLeft);
+        }
+        if (Math.abs(this.state.left - clickLeft) > Math.abs(this.state.right - clickLeft) || this.props.leftPoint === false) {
             this.setState({
-                right: clickLeft,
-                highWidth: Math.abs(clickLeft - this.state.left)
+                right: clickLeft
+            }, () => {
+                this.changeHandle();
             });
         } else {
-            if (Math.abs(this.state.left - clickLeft) > Math.abs(this.state.right - clickLeft) || this.props.leftPoint === false) {
-                this.setState({
-                    right: clickLeft,
-                    highWidth: Math.abs(clickLeft - this.state.left)
-                });
-            } else {
-                this.setState({
-                    left: clickLeft,
-                    highWidth: Math.abs(this.state.right - clickLeft)
-                });
-            }
+            this.setState({
+                left: clickLeft
+            }, () => {
+                this.changeHandle();
+            });
         }
     }
 
     getNearest(clickLeft) {
         const {width, ruler} = this.props;
         let nearest = width;
-        let j=0;
-        for(let i=0;i<ruler;i++) {
-            let long = Math.abs(clickLeft - i * width/(ruler - 1));
-            if(long < nearest) {
+        let j = 0;
+        for (let i = 0; i < ruler; i++) {
+            let long = Math.abs(clickLeft - i * width / (ruler - 1));
+            if (long < nearest) {
                 nearest = long;
-                j=i;
+                j = i;
             }
         }
-        return j * width/(ruler - 1);
+        return j * width / (ruler - 1);
+    }
+
+    componentDidMount() {
+        this.setState({
+            right: this.props.width / 2
+        });
+        Event.addEvent(document, 'mousemove', this.moveHandle);
+        Event.addEvent(document, 'mouseup', this.upHandle);
+        Event.addEvent(this.refs.circle, 'mouseover', this.overHandle);
+        Event.addEvent(this.refs.circle, 'mouseout', this.outHandle);
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousemove', this.moveHandle);
+        Event.removeEvent(document, 'mouseup', this.upHandle);
+        Event.removeEvent(this.refs.circle, 'mouseover', this.overHandle);
+        Event.removeEvent(this.refs.circle, 'mouseout', this.outHandle);
     }
 
     render() {
-        const { highWidth, left, right } = this.state;
-        const { leftPoint, scale, width, showScale, decimalPlaces} = this.props;
-        const grayStyle = {
-            width: width
-        }, highStyle = {
-            width: highWidth,
-            left: Math.min(left,right)
-        },leftStyle = {
-            left: left
-        },rightStyle = {
-            left: right
-        };
+        const {leftPoint, scale, width, showScale, decimalPlaces} = this.props;
+        const {left, right, shadow, tip} = this.state;
+
+        const grayStyle = {width: width},
+            highStyle = {width: Math.abs(left - right), left: Math.min(left, right)},
+            leftStyle = {left: left},
+            rightStyle = {left: right};
+        let display = (tip || shadow) ? '' : 'hide',
+            leftShadow = shadow === 'left' ? 'slider-shadow' : '',
+            rightShadow = shadow === 'right' ? 'slider-shadow' : '';
+        let leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
+            rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
+
         return (
-            <div className="slider" style={grayStyle}>
-                <div className="slider-box" onMouseDown={this.clickHandle}>
+            <div className="slider"
+                 style={grayStyle}>
+                <div className="slider-box"
+                     onMouseDown={this.clickHandle}
+                     ref="sliderBox">
                     {
-                        leftPoint ?
-                            (<div className="slider-circle slider-circle-left" onMouseDown={this.downHandle} style={leftStyle}>
-                                <div className="slider-tip">{parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}</div>
-                            </div>) :
-                            ''
+                        leftPoint
+                            ? (<div className={'slider-circle slider-circle-left ' + leftShadow}
+                                    onMouseDown={this.downHandle}
+                                    style={leftStyle}
+                                    ref="circle"></div>)
+                            : null
                     }
-                    <div className="slider-circle slider-circle-right" onMouseDown={this.downHandle} style={rightStyle}>
-                        <div className="slider-tip">{parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}</div>
-                    </div>
-                    <div className="slider-highlight" style={highStyle}>
-                    </div>
+                    <div className={'slider-circle slider-circle-right ' + rightShadow}
+                         onMouseDown={this.downHandle}
+                         style={rightStyle}
+                         ref="circle"></div>
+                    <div className="slider-highlight"
+                         style={highStyle}></div>
+                    {
+                        shadow === 'left' || tip === 'left'
+                            ? <div className={'slider-tip ' + display}
+                                   style={leftStyle}>{leftTip}</div>
+                            : <div className={'slider-tip ' + display}
+                                   style={rightStyle}>{rightTip}</div>
+                    }
+
                 </div>
                 <div className="Slide-scale">
                     {
-                        showScale ? <ul>
+                        showScale
+                            ? <ul>
                             {
-                                scale.map((number) => {
+                                scale.map((number, index) => {
                                     let left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100;
                                     const style = {left: left + '%'};
-                                    return <li style={style}>{number}</li>
+                                    return <li style={style}
+                                               key={index}>{number}</li>;
                                 })
                             }
-                        </ul> : ''
+                        </ul>
+                            : null
                     }
 
                 </div>
             </div>
-        )
+        );
     }
-}
+};
 
 Slider.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+
     leftPoint: PropTypes.bool,
     width: PropTypes.number,
-    style: PropTypes.object,
     scale: PropTypes.array,
     showScale: PropTypes.bool,
     tip: PropTypes.bool,
     ruler: PropTypes.number,
-    decimalPlaces: PropTypes.number
+    decimalPlaces: PropTypes.number,
+
+    onChange: PropTypes.func
 };
 
 Slider.defaultProps = {
-    leftPoint: false,
+    className: '',
     style: {},
+
+    leftPoint: false,
     width: 300,
     scale: [0, 100],
     showScale: false,
