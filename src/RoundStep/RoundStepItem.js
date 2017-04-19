@@ -6,11 +6,11 @@ export default class RoundStepItem extends Component {
 
         super(props);
 
-        this.mouseDownHandle = this.mouseDownHandle.bind(this);
+        this.clickHandle = this.clickHandle.bind(this);
 
     }
 
-    mouseDownHandle() {
+    clickHandle() {
 
         const {activatedStep, finishedStep, index, onTouchTap} = this.props;
 
@@ -45,7 +45,7 @@ export default class RoundStepItem extends Component {
                 }
 
                 <div className="round"
-                     onMouseDown={this.mouseDownHandle}>
+                     onClick={this.clickHandle}>
                     {
                         finishedStep > index ?
                             <i className="fa fa-check"

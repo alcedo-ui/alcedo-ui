@@ -100,6 +100,7 @@ Popup.propTypes = {
     disabled: PropTypes.bool,
     visible: PropTypes.bool,
     hasTriangle: PropTypes.bool,
+    buttonStyle: PropTypes.string,
 
     onRequestClose: PropTypes.func
 

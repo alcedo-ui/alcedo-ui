@@ -9,7 +9,7 @@ export default class TableHeader extends Component {
         super(props);
 
         this.headerRenderer = this::this.headerRenderer;
-        this.mouseDownHandle = this::this.mouseDownHandle;
+        this.clickHandle = this::this.clickHandle;
 
     }
 
@@ -26,7 +26,7 @@ export default class TableHeader extends Component {
 
     }
 
-    mouseDownHandle() {
+    clickHandle() {
         const {sortable, onSort} = this.props;
         sortable && onSort && onSort();
     }
@@ -40,7 +40,7 @@ export default class TableHeader extends Component {
             <th className={className}
                 style={style}
                 title={typeof header === 'string' ? header : null}
-                onMouseDown={this.mouseDownHandle}>
+                onClick={this.clickHandle}>
 
                 {finalHeader}
 
