@@ -9,13 +9,16 @@
         height: 50px;
         border-radius: 0;
         text-align: left;
+        box-shadow: none;
+        padding: 0 20px;
 
         .button-icon {
             float: left;
+            margin-right: 15px;
         }
 
         &:hover {
-            background: darken($theme-field, 4%);
+            box-shadow: none;
         }
     }
 }

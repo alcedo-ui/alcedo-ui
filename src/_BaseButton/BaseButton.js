@@ -33,12 +33,12 @@ export default class BaseButton extends Component {
     render() {
 
         const {
-            children, className, style, buttonStyle, isRounded, isCircular,
+            children, className, style, theme, isRounded, isCircular,
             iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter
         } = this.props;
 
         return (
-            <button className={`base-button theme-${buttonStyle}
+            <button className={`base-button ${theme ? `theme-${theme}` : ''}
                         ${isCircular ? 'button-circular' : (isRounded ? 'button-rounded' : '')} ${className}`}
                     style={style}
                     type={type}
@@ -83,7 +83,7 @@ BaseButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    buttonStyle: PropTypes.string,
+    theme: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
@@ -107,7 +107,7 @@ BaseButton.defaultProps = {
     className: '',
     style: null,
 
-    buttonStyle: '',
+    theme: '',
     isRounded: false,
     isCircular: false,
 
@@ -122,12 +122,4 @@ BaseButton.defaultProps = {
     iconCls: '',
     rightIconCls: ''
 
-};
-
-BaseButton.ButtonStyle = {
-    PRIMARY: 'primary',
-    HIGHLIGHT: 'highlight',
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    ERROR: 'error'
 };
