@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as actions from 'reduxes/actions';
 
 import Brand from './Brand';
-import IconButton from 'dist/IconButton';
+import IconAnchor from 'dist/IconAnchor';
 
 import 'sass/containers/app/navBar/nav/Nav.scss';
 
@@ -16,26 +16,19 @@ class NavBar extends Component {
     }
 
     render() {
-
-        let style = {
-            right: '45px',
-            position: 'absolute',
-            fontSize: '30px',
-            top: '10px'
-        };
-
         return (
             <div className="nav">
 
                 <Brand/>
 
                 <div className="nav-collapse floatfix">
-                    <IconButton iconCls="fa fa-github" style={style}/>
+                    <IconAnchor className="github-icon"
+                                iconCls="fa fa-github"
+                                href="https://github.com/alcedo-ui/alcedo-ui"/>
                 </div>
 
             </div>
         );
-
     }
 }
 
