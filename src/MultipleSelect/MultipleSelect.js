@@ -15,8 +15,6 @@ export default class MultipleSelect extends Component {
         this.state = {
             hidden: true,
             filter: '',
-            infoMsgHidden: true,
-            errorMsgHidden: true,
             showAll: false
         };
 
@@ -28,10 +26,6 @@ export default class MultipleSelect extends Component {
         this.setPosition = this::this.setPosition;
         this.toggle = this::this.toggle;
         this.filterChangeHandle = this::this.filterChangeHandle;
-        this.showInfo = this::this.showInfo;
-        this.hideInfo = this::this.hideInfo;
-        this.showError = this::this.showError;
-        this.hideError = this::this.hideError;
         this.showAllToggle = this::this.showAllToggle;
 
     }
@@ -226,30 +220,6 @@ export default class MultipleSelect extends Component {
         });
     }
 
-    showInfo() {
-        this.setState({
-            infoMsgHidden: false
-        });
-    }
-
-    hideInfo() {
-        this.setState({
-            infoMsgHidden: true
-        });
-    }
-
-    showError() {
-        this.setState({
-            errorMsgHidden: false
-        });
-    }
-
-    hideError() {
-        this.setState({
-            errorMsgHidden: true
-        });
-    }
-
     componentDidMount() {
         if (window.addEventListener) {
             window.addEventListener('click', this.toggle);
@@ -273,12 +243,11 @@ export default class MultipleSelect extends Component {
 
     render() {
 
-        const {data, width, className, style, name, invalidMsg, value, placeholder, disabled, infoMsg} = this.props;
-        const {hidden, filter, infoMsgHidden, errorMsgHidden, showAll} = this.state;
+        const {data, width, className, style, name, invalidMsg, value, placeholder, disabled} = this.props;
+        const {hidden, filter, showAll} = this.state;
         const {
             optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
-            getRestList, getFilterList, showInfo, hideInfo, showError, hideError
-        } = this;
+            getRestList, getFilterList} = this;
 
         this.list = getRestList(data, value);
 
@@ -410,8 +379,7 @@ export default class MultipleSelect extends Component {
                     <div ref="trigger"
                          className="trigger"
                          style={triggerStyle}
-                         disabled={disabled}
-                         onMouseOut={hideError}>
+                         disabled={disabled}>
 
                         <input ref="filter"
                                type="text"
@@ -420,10 +388,8 @@ export default class MultipleSelect extends Component {
                                value={filter}
                                placeholder={placeholder}
                                onChange={filterChangeHandle}
-                               disabled={disabled}/>
-                        {/*onMouseOver={showInfo}*/}
-                        {/*onMouseOut={hideInfo}*/}
-
+                               disabled={disabled}
+                        />
                     </div>
 
                     {
@@ -471,22 +437,6 @@ export default class MultipleSelect extends Component {
                                     )
                             )
                     }
-
-                    {
-                        invalidMsg && !errorMsgHidden ?
-                            <FieldMsg type="error"
-                                      msg={invalidMsg}/>
-                            :
-                            null
-                    }
-
-                    {
-                        infoMsg && !errorMsgHidden ?
-                            <FieldMsg type="info"
-                                      msg={infoMsg}/>
-                            :
-                            null
-                    }
                 </div>
             </div>
         );
@@ -501,9 +451,7 @@ MultipleSelect.propTypes = {
     data: PropTypes.array,
     value: PropTypes.array,
     width: PropTypes.number,
-    invalidMsg: PropTypes.string,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
-    infoMsg: PropTypes.string,
     onChange: PropTypes.func
 };

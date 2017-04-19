@@ -42,6 +42,7 @@ export default class MultipleSelectExamples extends Component {
                                             data={data}
                                             value={value}
                                             placeholder={'select number'}
+                                            infoMsg="please select number"
                                             onChange={(value)=> {
                                                 this.onChangeHandle(value)
                                             }}/>
