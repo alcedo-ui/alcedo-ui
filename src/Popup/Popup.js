@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {unstable_renderSubtreeIntoContainer} from 'react-dom';
+import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -12,8 +12,8 @@ export default class Popup extends Component {
 
         super(props);
 
-        this.layer = null;
-        this.layerElement = null;
+        this.wrapper = null;
+        this.wrapperElement = null;
 
         this.state = {
             visible: !!props.visible
@@ -21,7 +21,7 @@ export default class Popup extends Component {
 
         this.getPopupStyle = this::this.getPopupStyle;
         this.mousedownHandle = this::this.mousedownHandle;
-        this.renderLayer = this::this.renderLayer;
+        this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
 
@@ -50,7 +50,7 @@ export default class Popup extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                this.layerElement,
+                this.wrapperElement,
                 this.state.visible
             );
 
@@ -67,13 +67,13 @@ export default class Popup extends Component {
         const {triggerEl, position} = this.props;
 
         let popupStyle = {};
-        if (triggerEl && this.layerElement) {
+        if (triggerEl && this.wrapperElement) {
 
             const offset = Util.getOffset(triggerEl);
 
             if (position === Popup.Position.RIGHT) {
                 popupStyle = {
-                    left: offset.left - (this.layerElement.clientWidth - triggerEl.clientWidth),
+                    left: offset.left - (this.wrapperElement.clientWidth - triggerEl.clientWidth),
                     top: offset.top + triggerEl.clientHeight
                 };
             } else { // default left
@@ -88,10 +88,10 @@ export default class Popup extends Component {
 
     }
 
-    renderLayer() {
-        this.layer = document.createElement('div');
-        this.layer.className = 'popup-layer';
-        document.body.appendChild(this.layer);
+    renderWrapper() {
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'popup-wrapper';
+        document.body.appendChild(this.wrapper);
     }
 
     renderer() {
@@ -117,14 +117,14 @@ export default class Popup extends Component {
     }
 
     renderElement() {
-        this.layerElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.layer);
+        this.wrapperElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
     }
 
     componentDidMount() {
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
 
-        this.renderLayer();
+        this.renderWrapper();
         this.renderElement();
 
     }
@@ -135,6 +135,7 @@ export default class Popup extends Component {
                 visible: !!nextProps.visible
             });
         }
+        this.renderElement();
     }
 
     componentDidUpdate() {
@@ -142,7 +143,13 @@ export default class Popup extends Component {
     }
 
     componentWillUnmount() {
+
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
+
+        unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.wrapper = null;
+
     }
 
     render() {

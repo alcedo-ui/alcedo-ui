@@ -72,7 +72,7 @@ export default class DropdownSelect extends Component {
     }
 
     componentDidMount() {
-        this.triggerHeight = require('react-dom').findDOMNode(this).offsetHeight;
+        this.triggerHeight = require('react-dom').findDOMNode(this).clientHeight;
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
     }
 
