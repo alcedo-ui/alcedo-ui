@@ -6,11 +6,11 @@ export default class ArrowStepItem extends Component {
 
         super(props);
 
-        this.mouseDownHandle = this::this.mouseDownHandle;
+        this.clickHandle = this::this.clickHandle;
 
     }
 
-    mouseDownHandle() {
+    clickHandle() {
 
         const {activatedStep, finishedStep, index, onTouchTap} = this.props;
 
@@ -27,7 +27,7 @@ export default class ArrowStepItem extends Component {
                 ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}
                 ${className ? className : ''}`}
                  style={style}
-                 onMouseDown={this.mouseDownHandle}>
+                 onClick={this.clickHandle}>
 
                 <div className="number">
                     {index + 1}

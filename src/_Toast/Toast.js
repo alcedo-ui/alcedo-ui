@@ -18,7 +18,7 @@ export default class Toast extends Component {
         };
 
         this.getIconCls = this::this.getIconCls;
-        this.mouseDownHandle = this::this.mouseDownHandle;
+        this.clickHandle = this::this.clickHandle;
 
     }
 
@@ -35,7 +35,7 @@ export default class Toast extends Component {
         }
     }
 
-    mouseDownHandle() {
+    clickHandle() {
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
     }
@@ -106,7 +106,7 @@ export default class Toast extends Component {
                  className={`toast ${type ? `toast-${type}` : ''} ${hidden ? 'hidden' : ''}
                     ${leave ? 'leave' : ''} ${className}`}
                  style={style}
-                 onMouseDown={this.mouseDownHandle}>
+                 onClick={this.clickHandle}>
 
                 <i className={`${this.getIconCls()} toast-icon`}
                    aria-hidden="true"></i>

@@ -43,7 +43,7 @@ export default class BaseButton extends Component {
                     style={style}
                     type={type}
                     disabled={disabled || isLoading}
-                    onMouseDown={this.clickHandle}>
+                    onClick={this.clickHandle}>
 
                 {
                     iconCls ?
@@ -124,7 +124,7 @@ BaseButton.defaultProps = {
 
 };
 
-BaseButton.buttonStyle = {
+BaseButton.ButtonStyle = {
     PRIMARY: 'primary',
     HIGHLIGHT: 'highlight',
     SUCCESS: 'success',

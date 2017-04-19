@@ -157,3 +157,21 @@ $transition-duration: 250ms;
         color: transparentize($color, .5);
     }
 }
+
+@mixin popup-theme($bg-color) {
+    background: $bg-color;
+
+    .triangle {
+        border-bottom-color: $bg-color;
+    }
+
+    .content {
+        background: $bg-color;
+    }
+
+    &[disabled] {
+        .triangle {
+            border-bottom-color: lighten(#fff, 8%);
+        }
+    }
+}
