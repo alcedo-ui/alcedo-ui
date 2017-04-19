@@ -8,19 +8,27 @@ export default class MultipleSelectExamples extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            data: [{key: 1, text: 'one'}, {key: 2, text: 'two'}, {key: 3,text: 'threethreethree'}, {key: 4, text: 'fourthreethree'}, {key: 5, text: 'five'}, {key: 6, text: 'six'}, {key: 7, text: 'seven'}, {key: 8, text: 'eight'}, {key: 9, text: 'nine'}],
-            value:[]
+        this.state = {
+            data: [{key: 1, text: 'one'}, {key: 2, text: 'two'}, {key: 3, text: 'threethreethree'}, {
+                key: 4,
+                text: 'fourthreethree'
+            }, {key: 5, text: 'five'}, {key: 6, text: 'six'}, {key: 7, text: 'seven'}, {key: 8, text: 'eight'}, {
+                key: 9,
+                text: 'nine'
+            }],
+            value: []
         }
-        this.onChangeHandle=this::this.onChangeHandle;
+        this.onChangeHandle = this::this.onChangeHandle;
     }
-    onChangeHandle(value){
+
+    onChangeHandle(value) {
         this.setState({
-            value:value
+            value: value
         })
     }
+
     render() {
-        const {data,value}=this.state;
+        const {data, value}=this.state;
         return (
             <div className="example multiple-select-examples">
 
@@ -33,6 +41,7 @@ export default class MultipleSelectExamples extends Component {
                             <MultipleSelect className="multiple-select"
                                             data={data}
                                             value={value}
+                                            placeholder={'select number'}
                                             onChange={(value)=> {
                                                 this.onChangeHandle(value)
                                             }}/>

@@ -175,7 +175,6 @@ export default class MultipleSelect extends Component {
         }, () => {
             this.setPosition(false);
             this.props.onChange && this.props.onChange(value);
-
         });
     }
 
@@ -295,11 +294,11 @@ export default class MultipleSelect extends Component {
             width: '100%'
         };
 
-        let selectedStyle ={};
-        if(value && value.length){
+        let selectedStyle = {};
+        if (value && value.length) {
             selectedStyle.borderTop = '1px solid #dfdfdf';
-            selectedStyle.height = showAll ? 'auto': '40px';
-        }else{
+            selectedStyle.height = showAll ? 'auto' : '40px';
+        } else {
             selectedStyle.borderTop = 'none';
             selectedStyle.height = 0;
         }
@@ -309,10 +308,9 @@ export default class MultipleSelect extends Component {
             height: hidden ? 0 : optionHeight,
             maxHeight: maxOptionsHeight
         };
-
         const optionsStyle = {
             width: componentWidth,
-            height: hidden ? 0 : this.filterList.length * optionHeight,
+            height: hidden ? 0 : 'auto',
             maxHeight: maxOptionsHeight
         };
 
@@ -321,13 +319,13 @@ export default class MultipleSelect extends Component {
             lineHeight: optionHeight + 'px'
         };
 
-        const wrapperHeight = optionsStyle.height > maxOptionsHeight ? maxOptionsHeight : optionsStyle.height;
-        let wrapperStyle={};
+        const optionsHeight = (this.filterList.length * optionHeight) > maxOptionsHeight ? maxOptionsHeight : this.filterList.length * optionHeight;
 
-        if(this.refs.trigger){
-            wrapperStyle.height = wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + 40 : wrapperHeight + 40
-        }
-
+        const wrapperStyle = {
+            width: componentWidth,
+            height: hidden ? 40 :(optionsHeight < emptyOptionsStyle.height ? (emptyOptionsStyle.height + 40) : (optionsHeight + 40))
+        };
+        // debugger
         return (
             <div ref="MultipleSelect"
                  className={'MultipleSelect'
@@ -408,22 +406,23 @@ export default class MultipleSelect extends Component {
                 <div className={`dropdown-select-inner ${hidden ? 'hidden' : 'open'}`}
                      ref="wrapper"
                      style={wrapperStyle}>
+
                     <div ref="trigger"
                          className="trigger"
                          style={triggerStyle}
                          disabled={disabled}
-                         onMouseOver={showError}
                          onMouseOut={hideError}>
-                            <input ref="filter"
-                                   type="text"
-                                   className="filter"
-                                   style={filterStyle}
-                                   value={filter}
-                                   placeholder={placeholder}
-                                   onChange={filterChangeHandle}
-                                   disabled={disabled}
-                                   onMouseOver={showInfo}
-                                   onMouseOut={hideInfo}/>
+
+                        <input ref="filter"
+                               type="text"
+                               className="filter"
+                               style={filterStyle}
+                               value={filter}
+                               placeholder={placeholder}
+                               onChange={filterChangeHandle}
+                               disabled={disabled}/>
+                               {/*onMouseOver={showInfo}*/}
+                               {/*onMouseOut={hideInfo}*/}
 
                     </div>
 
