@@ -46,5 +46,6 @@ gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJs
 gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
 
 gulp.task('watch', function () {
-    gulp.watch('./src/**', ['sass', 'es']);
+    gulp.watch(['./src/*.scss', './src/**/*.scss'], ['sass']);
+    gulp.watch(['./src/*.js', './src/**/*.js'], ['es']);
 });

@@ -63,7 +63,7 @@
         &.hidden {
             opacity: 0 !important;
             left: -99999px !important;
-            transform: translateY(-50%) scaleY(.01);
+            transform: translate(-50%, -50%) scale(.01, .01);
             transition: left 0s $transition-duration,
             opacity $transition-duration ease-in-out,
             transform $transition-duration ease-in-out;
