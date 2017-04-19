@@ -137,9 +137,6 @@ export default class MultipleSelect extends Component {
     showAllToggle(e) {
         e.stopPropagation();
         const {showAll}=this.state;
-        if(showAll && this.refs.selectedContainer){
-            this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
-        }
         this.setState({showAll: !showAll})
     }
 
@@ -163,10 +160,6 @@ export default class MultipleSelect extends Component {
 
             this.setPosition(false);
             this.props.onChange && this.props.onChange(value);
-            const {showAll}=this.state;
-            if(showAll && this.refs.selectedContainer){
-                this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
-            }
         }
 
     }
@@ -184,10 +177,6 @@ export default class MultipleSelect extends Component {
             this.props.onChange && this.props.onChange(value);
 
         });
-        const {showAll}=this.state;
-        if(showAll && this.refs.selectedContainer){
-            this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
-        }
     }
 
     filterChangeHandle(e) {
@@ -270,9 +259,7 @@ export default class MultipleSelect extends Component {
             window.attachEvent('click', this.toggle);
             window.attachEvent('resize', this.setPosition);
         }
-        if(this.refs.selectedContainer){
-            this.selectedContainerHeight = require('react-dom').findDOMNode(this.refs.selectedContainer).offsetHeight;
-        }
+
     }
 
     componentWillUnmount() {
@@ -310,10 +297,10 @@ export default class MultipleSelect extends Component {
 
         let selectedStyle ={};
         if(value && value.length){
-            filterStyle.borderTop = '1px solid #dfdfdf';
+            selectedStyle.borderTop = '1px solid #dfdfdf';
             selectedStyle.height = showAll ? 'auto': '40px';
         }else{
-            filterStyle.borderTop = 'none';
+            selectedStyle.borderTop = 'none';
             selectedStyle.height = 0;
         }
 
@@ -337,11 +324,8 @@ export default class MultipleSelect extends Component {
         const wrapperHeight = optionsStyle.height > maxOptionsHeight ? maxOptionsHeight : optionsStyle.height;
         let wrapperStyle={};
 
-        console.log(this.selectedContainerHeight)
-        let triggerHeight = value && value.length ? (showAll ? this.selectedContainerHeight + 40 : 80) : 40;
-        console.log(triggerHeight)
         if(this.refs.trigger){
-            wrapperStyle.height = wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + triggerHeight : wrapperHeight + triggerHeight
+            wrapperStyle.height = wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + 40 : wrapperHeight + 40
         }
 
         return (
@@ -363,6 +347,64 @@ export default class MultipleSelect extends Component {
                         );
                     })
                 }
+                <div className={`selected-container ${hidden ? 'hidden' : 'open'}`}
+                     ref="selectedContainer"
+                     style={selectedStyle}>
+                    {
+                        showAll ?
+                            null
+                            :
+                            (
+                                value.length > 2 ?
+                                    <div className="more-selected">
+                                        {value.length} selected
+                                    </div>
+                                    :
+                                    null
+
+                            )
+                    }
+
+                    {
+                        showAll ?
+                            (value instanceof Array ? value : [] ).map((item, index) => {
+                                return (
+                                    <div key={index}
+                                         className="selected"
+                                         disabled={disabled}>
+                                            <span className="text">
+                                                {typeof item == 'object' ? item.text : item}
+                                            </span>
+                                        <span className="deselectButton"
+                                              onClick={deselect.bind(this, item)}>×</span>
+                                    </div>
+                                )
+                            })
+                            :
+                            (value instanceof Array ? value : [] ).map((item, index) => {
+                                if (index < 2) {
+                                    return (
+                                        <div key={index}
+                                             className="selected"
+                                             disabled={disabled}>
+                                        <span className="text">
+                                            {typeof item == 'object' ? item.text : item}
+                                        </span>
+                                            <span className="deselectButton"
+                                                  onClick={deselect.bind(this, item)}>×</span>
+                                        </div>
+                                    )
+                                }
+                            })
+                    }
+                    <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
+                       aria-hidden="true"
+                       onClick={(e)=> {
+                           if (value.length > 2) {
+                               this.showAllToggle(e)
+                           }
+                       }}></i>
+                </div>
                 <div className={`dropdown-select-inner ${hidden ? 'hidden' : 'open'}`}
                      ref="wrapper"
                      style={wrapperStyle}>
@@ -372,64 +414,6 @@ export default class MultipleSelect extends Component {
                          disabled={disabled}
                          onMouseOver={showError}
                          onMouseOut={hideError}>
-                            <div className="selected-container"
-                                 ref="selectedContainer"
-                                 style={selectedStyle}>
-                                {
-                                    showAll ?
-                                        null
-                                        :
-                                        (
-                                            value.length > 2 ?
-                                            <div className="more-selected">
-                                                {value.length} selected
-                                            </div>
-                                            :
-                                            null
-
-                                        )
-                                }
-
-                                {
-                                    showAll ?
-                                        (value instanceof Array ? value : [] ).map((item, index) => {
-                                            return (
-                                                <div key={index}
-                                                     className="selected"
-                                                     disabled={disabled}>
-                                            <span className="text">
-                                                {typeof item == 'object' ? item.text : item}
-                                            </span>
-                                                    <span className="deselectButton"
-                                                          onClick={deselect.bind(this, item)}>×</span>
-                                                </div>
-                                            )
-                                        })
-                                        :
-                                        (value instanceof Array ? value : [] ).map((item, index) => {
-                                            if (index < 2) {
-                                                return (
-                                                    <div key={index}
-                                                         className="selected"
-                                                         disabled={disabled}>
-                                        <span className="text">
-                                            {typeof item == 'object' ? item.text : item}
-                                        </span>
-                                                        <span className="deselectButton"
-                                                              onClick={deselect.bind(this, item)}>×</span>
-                                                    </div>
-                                                )
-                                            }
-                                        })
-                                    }
-                                <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
-                                   aria-hidden="true"
-                                   onClick={(e)=> {
-                                       if (value.length > 2) {
-                                           this.showAllToggle(e)
-                                       }
-                                   }}></i>
-                            </div>
                             <input ref="filter"
                                    type="text"
                                    className="filter"
