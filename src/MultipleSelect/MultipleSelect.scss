@@ -74,7 +74,7 @@
                     font-weight: 600;
                     float: left;
                 }
-                .dropdown-select-trigger-right-icon {
+                .multiple-select-trigger-right-icon {
                     position: absolute;
                     top: 12px;
                     right: 5px;
@@ -85,10 +85,10 @@
                     line-height: 20px;
                     cursor: pointer;
                     border-radius: $border-radius;
-                    //&:hover {
-                    //	background:$blue-grey;
-                    //	color: #fff;
-                    //}
+                    transition: all $transition-duration ease-in-out;
+                    &.up{
+                        transform: rotate(180deg);
+                    }
                     &.disabled {
                         background: #F8F8F8;
                         color: lighten($theme-text, 30%);
@@ -101,11 +101,11 @@
             .filter {
                 display: block;
                 border: none;
-                border-top: 1px solid #dfdfdf;
                 padding-left: 9px;
                 height: 37px;
                 line-height: 37px;
                 clear: both;
+                transition: none;
             }
 
             &[disabled] {

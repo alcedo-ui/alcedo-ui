@@ -9,7 +9,7 @@ export default class MultipleSelectExamples extends Component {
     constructor(props) {
         super(props);
         this.state={
-            data: [{key: 1, text: 'one'}, {key: 2, text: 'two'}, {key: 3,text: 'three'}, {key: 4, text: 'four'}, {key: 5, text: 'five'}, {key: 6, text: 'six'}],
+            data: [{key: 1, text: 'one'}, {key: 2, text: 'two'}, {key: 3,text: 'threethreethree'}, {key: 4, text: 'fourthreethree'}, {key: 5, text: 'five'}, {key: 6, text: 'six'}, {key: 7, text: 'seven'}, {key: 8, text: 'eight'}, {key: 9, text: 'nine'}],
             value:[]
         }
         this.onChangeHandle=this::this.onChangeHandle;
