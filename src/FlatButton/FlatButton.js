@@ -85,4 +85,4 @@ FlatButton.defaultProps = {
 
 };
 
-FlatButton.buttonStyle = BaseButton.buttonStyle;
+FlatButton.ButtonStyle = BaseButton.ButtonStyle;
