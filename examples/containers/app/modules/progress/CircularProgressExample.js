@@ -9,8 +9,8 @@ import WidgetHeader from 'dist/WidgetHeader';
 
 import 'sass/containers/app/modules/progress/CircularProgressExample.scss';
 
-export default class Test extends Component{
-    constructor(props){
+export default class Test extends Component {
+    constructor(props) {
         super();
         this.state = {
             percent: 0
@@ -18,7 +18,7 @@ export default class Test extends Component{
     }
 
     componentDidMount() {
-        this.timer = setTimeout( () => this.progress(0), 1000)
+        this.timer = setTimeout(() => this.progress(0), 1000)
     }
 
     componentWillUnmount() {
@@ -26,17 +26,17 @@ export default class Test extends Component{
     }
 
     progress(percent) {
-        if(percent>=90){
+        if (percent >= 90) {
             this.setState({
                 percent: 100
             });
         }
-        else{
+        else {
             const add = parseInt((Math.random() * 10).toFixed(0));
             this.setState({
                 percent: percent + add
             });
-            this.timer = setTimeout( () => this.progress(percent + add), 1000);
+            this.timer = setTimeout(() => this.progress(percent + add), 1000);
         }
 
     }
@@ -53,7 +53,8 @@ export default class Test extends Component{
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Circular Progress will rotate to show the progress of a task or that there is a wait for a task to complete.</p>
+                            <p>Circular Progress will rotate to show the progress of a task or that there is a wait for
+                                a task to complete.</p>
 
                             <CircularProgress r={50} width={10} rgba="#38b1eb" percent={this.state.percent} word={true}>
                                 <span>百分比：</span>
@@ -61,7 +62,8 @@ export default class Test extends Component{
 
                             <CircularProgress r={20} width={3} rgba="#38b1eb" percent={this.state.percent} word={true}/>
 
-                            <CircularProgress r={100} width={15} rgba="#38b1eb" percent={this.state.percent} word={true} percentStyle={{color: 'white'}}>
+                            <CircularProgress r={100} width={15} rgba="#38b1eb" percent={this.state.percent} word={true}
+                                              percentStyle={{color: 'white'}}>
                                 <span>已完成：</span>
                             </CircularProgress>
 
@@ -83,21 +85,21 @@ export default class Test extends Component{
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="properties-name">style</td>
-                                <td className="properties-type">PropTypes.object</td>
-                                <td> </td>
-                                <td>The styles of the root element.</td>
-                            </tr>
-                            <tr>
                                 <td className="properties-name">className</td>
                                 <td className="properties-type">PropTypes.string</td>
-                                <td> </td>
+                                <td></td>
                                 <td>The css class name of the root element.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">style</td>
+                                <td className="properties-type">PropTypes.object</td>
+                                <td></td>
+                                <td>The styles of the root element.</td>
                             </tr>
                             <tr>
                                 <td className="properties-name">percentStyle</td>
                                 <td className="properties-type">PropTypes.object</td>
-                                <td> </td>
+                                <td></td>
                                 <td>The style of the text description.</td>
                             </tr>
                             <tr>
