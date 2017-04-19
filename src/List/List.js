@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import FlatButton from '../FlatButton';
+import RaisedButton from '../RaisedButton';
 
 import './List.css';
 
@@ -23,9 +24,9 @@ export default class List extends Component {
                         ? (
                         items.map((item, index) => {
                             return (
-                                <FlatButton {...item}
-                                            key={index}
-                                            className={`list-item ${item.className ? item.className : ''}`}/>
+                                <RaisedButton {...item}
+                                              key={index}
+                                              className={`list-item ${item.className ? item.className : ''}`}/>
                             );
                         })
                     )
@@ -50,6 +51,7 @@ List.propTypes = {
         className: PropTypes.string,
         style: PropTypes.object,
 
+        theme: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         disabled: PropTypes.bool,
         isLoading: PropTypes.bool,

@@ -5,6 +5,7 @@ import Popup from 'dist/Popup';
 import List from 'dist/List';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Theme from 'dist/Theme';
 
 import 'sass/containers/app/modules/popup/PopupExamples.scss';
 
@@ -57,21 +58,26 @@ export default class PopupExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <RaisedButton value="Toggle Popup"
+                            <RaisedButton className="trigger-button"
+                                          value="Toggle Popup"
                                           onTouchTap={this.togglePopup}/>
 
                             <Popup visible={popupVisible}
                                    triggerEl={triggerEl}
+                                   theme={Theme.PRIMARY}
                                    onRequestClose={this.closePopup}>
                                 <List items={[{
                                     iconCls: 'fa fa-facebook',
-                                    value: 'Facebook'
+                                    value: 'Facebook',
+                                    theme: Theme.PRIMARY
                                 }, {
                                     iconCls: 'fa fa-twitter',
-                                    value: 'Twitter'
+                                    value: 'Twitter',
+                                    theme: Theme.PRIMARY
                                 }, {
                                     iconCls: 'fa fa-google-plus',
-                                    value: 'Google+'
+                                    value: 'Google+',
+                                    theme: Theme.PRIMARY
                                 }]}/>
                             </Popup>
 
@@ -95,8 +101,8 @@ export default class PopupExamples extends Component {
                             <tr>
                                 <td className="properties-name">className</td>
                                 <td className="properties-type">PropTypes.string</td>
-                                <td> </td>
-                                <td> </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td className="properties-name">style</td>
@@ -131,7 +137,7 @@ export default class PopupExamples extends Component {
                             <tr>
                                 <td className="properties-name">onRequestClose</td>
                                 <td className="properties-type">PropTypes.func</td>
-                                <td> </td>
+                                <td></td>
                                 <td>Click the Commit button will trigger this function.</td>
                             </tr>
                         </tbody>
