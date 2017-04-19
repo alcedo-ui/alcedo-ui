@@ -1,75 +1,100 @@
 @import '../_common.scss';
 
-.popup {
+.popup-wrapper {
     position: absolute;
-    width: 200px;
-    border-radius: $border-radius;
-    transform: rotate(0deg);
-    transition: right 0s, height $transition-duration ease-in-out, opacity $transition-duration ease-in-out;
-    z-index: $popup-z-index;
-    margin-top: 4px;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
 
-    .triangle {
-        display: none;
-        width: 0;
-        height: 0;
+    .popup {
         position: absolute;
-        left: 6px;
-        top: -6px;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 6px solid transparent;
-        z-index: 1;
-    }
-
-    .content {
-
-        @include shadow(4);
-
-        width: 100%;
-        overflow: hidden;
+        width: 200px;
         border-radius: $border-radius;
         transform: rotate(0deg);
-        transition: all $transition-duration ease-in-out;
-    }
-
-    &.hasTriangle {
-        margin-top: 10px;
+        transition: left 0s, opacity $transition-duration ease-in-out,
+        transform $transition-duration ease-in-out;
+        z-index: $popup-z-index;
+        margin-top: 4px;
 
         .triangle {
-            display: block;
+            display: none;
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: -6px;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            z-index: 1;
         }
-    }
-
-    &.hidden {
-        opacity: 0 !important;
-        height: 0 !important;
-        right: -99999px !important;
-        transition: right 0s $transition-duration, height $transition-duration ease-in-out, opacity $transition-duration ease-in-out;
 
         .content {
-            height: 0 !important;
+
+            @include shadow(4);
+
+            width: 100%;
+            overflow: hidden;
+            border-radius: $border-radius;
+            transform: rotate(0deg);
         }
-    }
 
-    // default theme
-    @include popup-theme(#fff);
+        &.hidden {
+            opacity: 0 !important;
+            left: -99999px !important;
+            transition: left 0s $transition-duration,
+            opacity $transition-duration ease-in-out,
+            transform $transition-duration ease-in-out;
+        }
 
-    // other themes
-    &.theme-primary {
-        @include popup-theme($theme-menu);
-    }
-    &.theme-highlight {
-        @include popup-theme($theme-highlight);
-    }
-    &.theme-success {
-        @include popup-theme($success);
-    }
-    &.theme-warning {
-        @include popup-theme($warning);
-    }
-    &.theme-error {
-        @include popup-theme($error);
-    }
+        &.position-left {
+            .triangle {
+                left: 10px;
+            }
 
+            &.hidden {
+                transform: translate(-50%, -50%) scale(.01, .01);
+            }
+        }
+
+        &.position-right {
+            .triangle {
+                right: 10px;
+            }
+
+            &.hidden {
+                transform: translate(50%, -50%) scale(.01, .01);
+            }
+        }
+
+        &.hasTriangle {
+            margin-top: 10px;
+
+            .triangle {
+                display: block;
+            }
+        }
+
+        // default theme
+        @include popup-theme(#fff);
+
+        // other themes
+        &.theme-primary {
+            @include popup-theme($theme-menu);
+        }
+        &.theme-highlight {
+            @include popup-theme($theme-highlight);
+        }
+        &.theme-success {
+            @include popup-theme($success);
+        }
+        &.theme-warning {
+            @include popup-theme($warning);
+        }
+        &.theme-error {
+            @include popup-theme($error);
+        }
+
+    }
 }

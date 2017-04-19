@@ -64,7 +64,7 @@
             cursor: pointer;
             border-radius: $border-radius;
             transition: all $transition-duration ease-in-out;
-            &.up{
+            &.up {
                 transform: rotate(180deg);
             }
             &.disabled {

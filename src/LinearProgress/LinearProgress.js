@@ -37,10 +37,14 @@ export default class LinearProgress extends Component {
             <div className={'linear-progress ' + divClass}
                  style={style}>
                 {
-                    wordStyle === 'follow'
-                        ? <Percent endNum={parseInt(highlightWidth)}
-                                   move={true}/>
-                        : <Percent endNum={parseInt(highlightWidth)}/>
+                    word
+                        ? (
+                        wordStyle === 'follow'
+                            ? <Percent endNum={parseInt(highlightWidth)}
+                                       move={true}/>
+                            : <Percent endNum={parseInt(highlightWidth)}/>
+                    )
+                        : null
                 }
                 <div className="linear-progress-background"
                      style={backgroundStyle}>

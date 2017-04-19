@@ -58,28 +58,30 @@ export default class PopupExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <RaisedButton className="trigger-button"
-                                          value="Toggle Popup"
-                                          onTouchTap={this.togglePopup}/>
+                            <div className="popup-example-wrapper">
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Popup"
+                                              onTouchTap={this.togglePopup}/>
 
-                            <Popup visible={popupVisible}
-                                   triggerEl={triggerEl}
-                                   theme={Theme.PRIMARY}
-                                   onRequestClose={this.closePopup}>
-                                <List items={[{
-                                    iconCls: 'fa fa-facebook',
-                                    value: 'Facebook',
-                                    theme: Theme.PRIMARY
-                                }, {
-                                    iconCls: 'fa fa-twitter',
-                                    value: 'Twitter',
-                                    theme: Theme.PRIMARY
-                                }, {
-                                    iconCls: 'fa fa-google-plus',
-                                    value: 'Google+',
-                                    theme: Theme.PRIMARY
-                                }]}/>
-                            </Popup>
+                                <Popup visible={popupVisible}
+                                       triggerEl={triggerEl}
+                                       theme={Theme.PRIMARY}
+                                       onRequestClose={this.closePopup}>
+                                    <List items={[{
+                                        iconCls: 'fa fa-facebook',
+                                        value: 'Facebook',
+                                        theme: Theme.PRIMARY
+                                    }, {
+                                        iconCls: 'fa fa-twitter',
+                                        value: 'Twitter',
+                                        theme: Theme.PRIMARY
+                                    }, {
+                                        iconCls: 'fa fa-google-plus',
+                                        value: 'Google+',
+                                        theme: Theme.PRIMARY
+                                    }]}/>
+                                </Popup>
+                            </div>
 
                         </div>
                     </div>

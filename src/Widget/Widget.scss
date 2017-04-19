@@ -1,4 +1,13 @@
 @import '../_common.scss';
 
 .widget {
+
+    .widget-content {
+        border-radius: $border-radius;
+    }
+
+    .widget-header + .widget-content {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }
