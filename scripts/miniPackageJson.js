@@ -20,6 +20,13 @@ module.exports = function () {
 
             var data = JSON.parse(chunk.contents.toString());
 
+            let dependencies = data.dependencies;
+            delete dependencies['react-redux'];
+            delete dependencies['react-router'];
+            delete dependencies['react-router-redux'];
+            delete dependencies['redux'];
+            delete dependencies['redux-thunk'];
+
             var miniData = {
                 name: 'alcedo-ui',
                 author: data.author,
@@ -30,7 +37,7 @@ module.exports = function () {
                 repository: data.repository,
                 license: data.license,
                 homepage: data.homepage,
-                dependencies: data.dependencies
+                dependencies: dependencies
             };
 
             chunk.contents = new Buffer(JSON.stringify(miniData, null, 2));
