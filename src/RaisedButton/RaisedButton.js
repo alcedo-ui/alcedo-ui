@@ -85,4 +85,4 @@ RaisedButton.defaultProps = {
 
 };
 
-RaisedButton.buttonStyle = BaseButton.buttonStyle;
+RaisedButton.ButtonStyle = BaseButton.ButtonStyle;

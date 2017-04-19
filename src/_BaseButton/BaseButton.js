@@ -124,7 +124,7 @@ BaseButton.defaultProps = {
 
 };
 
-BaseButton.buttonStyle = {
+BaseButton.ButtonStyle = {
     PRIMARY: 'primary',
     HIGHLIGHT: 'highlight',
     SUCCESS: 'success',

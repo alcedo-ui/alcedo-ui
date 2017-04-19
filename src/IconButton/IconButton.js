@@ -87,4 +87,4 @@ IconButton.defaultProps = {
 
 };
 
-IconButton.buttonStyle = BaseButton.buttonStyle;
+IconButton.ButtonStyle = BaseButton.ButtonStyle;
