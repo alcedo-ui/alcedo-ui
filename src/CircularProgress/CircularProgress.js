@@ -31,7 +31,10 @@ export default class CircularProgress extends Component{
                     </circle>
                 </svg>
                 {
-                    word ? <Percent endNum={percent} style={percentStyle}>{this.props.children}</Percent> : ''
+                    word
+                        ?
+                        <Percent endNum={percent} style={percentStyle}>{this.props.children}</Percent>
+                        : ''
                 }
             </div>
         )
