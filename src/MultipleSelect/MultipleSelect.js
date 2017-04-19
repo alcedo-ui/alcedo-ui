@@ -323,7 +323,7 @@ export default class MultipleSelect extends Component {
 
         const wrapperStyle = {
             width: componentWidth,
-            height: hidden ? 40 :(optionsHeight < emptyOptionsStyle.height ? (emptyOptionsStyle.height + 40) : (optionsHeight + 40))
+            height: hidden ? 40 : (optionsHeight < emptyOptionsStyle.height ? (emptyOptionsStyle.height + 40) : (optionsHeight + 40))
         };
         // debugger
         return (
@@ -421,8 +421,8 @@ export default class MultipleSelect extends Component {
                                placeholder={placeholder}
                                onChange={filterChangeHandle}
                                disabled={disabled}/>
-                               {/*onMouseOver={showInfo}*/}
-                               {/*onMouseOut={hideInfo}*/}
+                        {/*onMouseOver={showInfo}*/}
+                        {/*onMouseOut={hideInfo}*/}
 
                     </div>
 
