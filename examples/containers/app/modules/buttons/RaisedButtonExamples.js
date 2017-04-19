@@ -21,16 +21,16 @@ export default class RaisedButtonExamples extends Component {
                         <RaisedButton value="Default"/>
 
                         <RaisedButton value="Primary"
-                                      buttonStyle="primary"/>
+                                      theme="primary"/>
 
                         <RaisedButton value="Success"
-                                      buttonStyle="success"/>
+                                      theme="success"/>
 
                         <RaisedButton value="Warning"
-                                      buttonStyle="warning"/>
+                                      theme="warning"/>
 
                         <RaisedButton value="Error"
-                                      buttonStyle="error"/>
+                                      theme="error"/>
 
                         <RaisedButton value="Disabled"
                                       disabled={true}/>
@@ -46,19 +46,19 @@ export default class RaisedButtonExamples extends Component {
                                       isRounded={true}/>
 
                         <RaisedButton value="Primary"
-                                      buttonStyle="primary"
+                                      theme="primary"
                                       isRounded={true}/>
 
                         <RaisedButton value="Success"
-                                      buttonStyle="success"
+                                      theme="success"
                                       isRounded={true}/>
 
                         <RaisedButton value="Warning"
-                                      buttonStyle="warning"
+                                      theme="warning"
                                       isRounded={true}/>
 
                         <RaisedButton value="Error"
-                                      buttonStyle="error"
+                                      theme="error"
                                       isRounded={true}/>
 
                         <RaisedButton value="Disabled"
@@ -76,15 +76,15 @@ export default class RaisedButtonExamples extends Component {
                                       iconCls="fa fa-undo"/>
 
                         <RaisedButton value="Add"
-                                      buttonStyle="success"
+                                      theme="success"
                                       iconCls="fa fa-plus"/>
 
                         <RaisedButton value="Delete"
-                                      buttonStyle="error"
+                                      theme="error"
                                       iconCls="fa fa-trash"/>
 
                         <RaisedButton value="Next"
-                                      buttonStyle="primary"
+                                      theme="primary"
                                       rightIconCls="fa fa-chevron-right"/>
 
                     </div>

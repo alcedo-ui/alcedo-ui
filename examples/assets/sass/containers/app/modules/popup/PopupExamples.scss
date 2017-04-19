@@ -1,5 +1,15 @@
 @import '../../../../common.scss';
 
-.example-content{
-    padding-bottom: 30px;
+.example-content {
+    overflow: visible !important;
+
+    .popup-example-wrapper {
+        position: relative;
+
+        .trigger-button {
+            width: 160px;
+            height: 50px;
+            margin: 0;
+        }
+    }
 }

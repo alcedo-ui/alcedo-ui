@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
+import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
+import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
 import './Popup.css';
@@ -10,11 +12,18 @@ export default class Popup extends Component {
 
         super(props);
 
+        this.wrapper = null;
+        this.wrapperElement = null;
+
         this.state = {
             visible: !!props.visible
         };
 
+        this.getPopupStyle = this::this.getPopupStyle;
         this.mousedownHandle = this::this.mousedownHandle;
+        this.renderWrapper = this::this.renderWrapper;
+        this.renderer = this::this.renderer;
+        this.renderElement = this::this.renderElement;
 
     }
 
@@ -41,7 +50,7 @@ export default class Popup extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                require('react-dom').findDOMNode(this),
+                this.wrapperElement,
                 this.state.visible
             );
 
@@ -53,31 +62,47 @@ export default class Popup extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: !!nextProps.visible
-            });
+    getPopupStyle() {
+
+        const {triggerEl, position} = this.props;
+
+        let popupStyle = {};
+        if (triggerEl && this.wrapperElement) {
+
+            const offset = Util.getOffset(triggerEl);
+
+            if (position === Popup.Position.RIGHT) {
+                popupStyle = {
+                    left: offset.left - (this.wrapperElement.clientWidth - triggerEl.clientWidth),
+                    top: offset.top + triggerEl.clientHeight
+                };
+            } else { // default left
+                popupStyle = {
+                    left: offset.left,
+                    top: offset.top + triggerEl.clientHeight
+                };
+            }
         }
+
+        return popupStyle;
+
     }
 
-    componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.mousedownHandle);
+    renderWrapper() {
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'popup-wrapper';
+        document.body.appendChild(this.wrapper);
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
-    }
+    renderer() {
 
-    render() {
-
-        const {children, className, style, disabled, hasTriangle, popupStyle} = this.props;
+        const {children, className, style, disabled, hasTriangle, theme, position} = this.props;
         const {visible} = this.state;
 
         return (
             <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'hasTriangle' : ''}
-                    ${popupStyle ? `theme-${popupStyle}` : ''} ${className}`}
-                 style={style}
+                    ${theme ? `theme-${theme}` : ''} ${position ? `position-${position}` : ''} ${className}`}
+                 style={{...this.getPopupStyle(), ...style}}
                  disabled={disabled}>
 
                 <div className="triangle"></div>
@@ -90,6 +115,51 @@ export default class Popup extends Component {
         );
 
     }
+
+    renderElement() {
+        this.wrapperElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+    }
+
+    componentDidMount() {
+
+        Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
+        this.renderWrapper();
+        this.renderElement();
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: !!nextProps.visible
+            });
+        }
+        this.renderElement();
+    }
+
+    componentDidUpdate() {
+        this.renderElement();
+    }
+
+    componentWillUnmount() {
+
+        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
+
+        unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.wrapper = null;
+
+    }
+
+    render() {
+        return null;
+    }
+};
+
+Popup.Position = {
+    LEFT: 'left',
+    RIGHT: 'right'
 };
 
 Popup.propTypes = {
@@ -101,7 +171,8 @@ Popup.propTypes = {
     disabled: PropTypes.bool,
     visible: PropTypes.bool,
     hasTriangle: PropTypes.bool,
-    popupStyle: PropTypes.string,
+    theme: PropTypes.string,
+    position: PropTypes.string,
 
     onRequestClose: PropTypes.func
 
@@ -116,14 +187,7 @@ Popup.defaultProps = {
     disabled: false,
     visible: false,
     hasTriangle: true,
-    popupStyle: ''
+    theme: '',
+    position: Popup.Position.LEFT
 
-};
-
-Popup.PopupStyle = {
-    PRIMARY: 'primary',
-    HIGHLIGHT: 'highlight',
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    ERROR: 'error'
 };

@@ -33,7 +33,7 @@ export default class DialogExamples extends Component{
 
     render() {
         return (
-            <div className="example dialog-examples">
+            <div className="example dialog-example">
 
                 <h2 className="example-title">Dialog</h2>
 
