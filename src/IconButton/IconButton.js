@@ -46,7 +46,7 @@ IconButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    buttonStyle: PropTypes.string,
+    theme: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
@@ -70,7 +70,7 @@ IconButton.defaultProps = {
     className: '',
     style: null,
 
-    buttonStyle: '',
+    theme: '',
     isRounded: false,
     isCircular: true,
 
@@ -86,5 +86,3 @@ IconButton.defaultProps = {
     rightIconCls: ''
 
 };
-
-IconButton.buttonStyle = BaseButton.buttonStyle;

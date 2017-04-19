@@ -95,16 +95,16 @@
                 }
                 i {
                     cursor: pointer;
-                    width: 16px;
-                    height: 16px;
-                    font-size: 16px;
+                    width: 20px;
+                    height: 18px;
+                    font-size: 22px;
                     position: relative;
                     overflow: hidden;
                 }
-                span:hover, i:hover {
-                    background: #ecf6fd;
-                    border-radius: 4px;
-                }
+                //span:hover, i:hover {
+                //    background: #ecf6fd;
+                //    border-radius: 4px;
+                //}
             }
             .calendar-body {
                 border-bottom: 1px solid #dfdfdf;
@@ -234,28 +234,36 @@
                 transition: all $transition-duration ease-in-out;
                 border-left: 1px solid #dfdfdf;
                 user-select: none;
+
                 &:first-child {
                     border: none;
                 }
-                li {
-                    list-style-type: none;
-                    height: 30px;
+                .timeList {
                     width: 100%;
-                    line-height: 30px;
-                    padding-left: 36px;
-                    cursor: pointer;
-                    &:hover {
-                        background: $theme-content-bg;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    transition: all $transition-duration ease-in-out;
+                    li {
+                        list-style-type: none;
+                        height: 30px;
+                        width: 100%;
+                        padding-left: 40px;
+                        line-height: 30px;
+                        cursor: pointer;
+                        &:hover {
+                            background: $theme-content-bg;
+                        }
+                        &.active {
+                            background: $theme-content-bg;
+                            color: $blue-grey;
+                            font-weight: 600;
+                        }
+                        &.disabled {
+                            color: $grey;
+                            cursor: not-allowed;
+                        }
                     }
-                    &.active {
-                        background: $theme-content-bg;
-                        color: $blue-grey;
-                        font-weight: 600;
-                    }
-                }
-                &.disabled {
-                    color: $grey;
-                    cursor: not-allowed;
                 }
             }
             &.time-picker-body {

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 import TimeItems from '../_TimeItems/_TimeItems';
 
-export default class _TimePicker extends Component {
+export default class _TimeList extends Component {
 
     constructor(props) {
 
@@ -101,16 +101,12 @@ export default class _TimePicker extends Component {
     }
 };
 
-_TimePicker.propTypes = {
+_TimeList.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-
-    name: PropTypes.string,
-
-    // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-    placeholder: PropTypes.string,
-    dateFormat: PropTypes.string
-
+    popupVisible: PropTypes.bool,
+    hour: PropTypes.string || PropTypes.number,
+    minute: PropTypes.string || PropTypes.number,
+    second: PropTypes.string || PropTypes.number
 };

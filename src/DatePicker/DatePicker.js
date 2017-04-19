@@ -19,14 +19,14 @@ export default class DatePicker extends Component {
     constructor(props) {
 
         super(props);
-        const initValue = Util.value2Moment(props.value, props.dateFormat);
+
+        const value = this.props.value
         this.state = {
-            value: initValue, // Moment object
-            textFieldValue: initValue.format(props.dateFormat),
+            value: value,
             popupVisible: false,
-            year: initValue.format('YYYY'),
-            month: initValue.format('MM'),
-            day: initValue.format('DD'),
+            year: moment(value).format('YYYY'),
+            month: moment(value).format('MM'),
+            day: moment(value).format('DD'),
             datePickerLevel: 0,
             marginLeft: 0,
             isFooter: true
@@ -51,34 +51,43 @@ export default class DatePicker extends Component {
     }
 
     textFieldChangeHandle(text) {
+        const {minValue, maxValue}=this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
-                const select_year = moment(text).format('YYYY'),
-                    select_month = moment(text).format('MM'),
-                    select_day = moment(text).format('DD')
-                this.setState({
-                    textFieldValue: text,
-                    year: select_year,
-                    month: select_month,
-                    day: select_day
-                })
+                if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
+
+                } else {
+                    const year = moment(text).format('YYYY'),
+                        month = moment(text).format('MM'),
+                        day = moment(text).format('DD')
+                    this.setState({
+                        value: text,
+                        year: year,
+                        month: month,
+                        day: day
+                    })
+                }
             }
         } else {
             this.setState({
-                textFieldValue: text
+                value: text
             })
         }
     }
 
     dayPickerChangeHandle(date) {
-        this.setState({
-            textFieldValue: date.time,
-            year: date.year,
-            month: date.month,
-            day: date.day,
-            popupVisible: false
-        })
+        const {autoClose}=this.props;
+        let state = _.cloneDeep(this.state);
+        state.value = date.time;
+        state.year = date.year;
+        state.month = date.month;
+        state.day = date.day;
+
+        if (autoClose) {
+            state.popupVisible = false
+        }
+        this.setState(state)
     }
 
     monthPickerChangeHandle(date) {
@@ -102,7 +111,7 @@ export default class DatePicker extends Component {
             day = moment().format('DD');
         let timer = moment().format(this.props.dateFormat);
         this.setState({
-            textFieldValue: timer,
+            value: timer,
             year: year,
             month: month,
             day: day
@@ -140,17 +149,19 @@ export default class DatePicker extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
             this.setState({
-                value,
-                textFieldValue: value.format(nextProps.dateFormat)
+                value: nextProps.value,
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM'),
+                day: moment(nextProps.value).format('DD')
             });
         }
     }
 
     componentDidMount() {
         // debugger
-        const {value, dateFormat}=this.props;
+        const {value}=this.props;
         let state = _.cloneDeep(this.state);
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
@@ -162,15 +173,13 @@ export default class DatePicker extends Component {
             marginLeft = 0
         }
         if (value) {
-            const select_year = moment(value).format('YYYY'),
-                select_month = moment(value).format('MM'),
-                select_day = moment(value).format('DD');
-
+            const year = moment(value).format('YYYY'),
+                month = moment(value).format('MM'),
+                day = moment(value).format('DD');
             state.value = value;
-            state.textFieldValue = moment(value).format(dateFormat);
-            state.year = select_year;
-            state.month = select_month;
-            state.day = select_day;
+            state.year = year;
+            state.month = month;
+            state.day = day;
             if (marginLeft) {
                 state.marginLeft = marginLeft;
             }
@@ -188,7 +197,7 @@ export default class DatePicker extends Component {
 
     render() {
         const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
-        const {textFieldValue, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state;
+        const {value, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state;
         const popStyle = {
             left: '-' + marginLeft + 'px'
         }
@@ -202,7 +211,7 @@ export default class DatePicker extends Component {
                            className="date-picker-field"
                            name={name}
                            placeholder={placeholder}
-                           value={textFieldValue}
+                           value={value}
                            iconCls="fa fa-calendar"
                            readOnly={true}
                            isClearIcon={false}
@@ -215,12 +224,13 @@ export default class DatePicker extends Component {
                         <TextField className='calendar-input'
                                    placeholder={'Select Date'}
                                    isClearIcon={true}
-                                   value={textFieldValue}
+                                   value={value}
                                    onChange={this.textFieldChangeHandle}/>
                     </div>
                     {
                         datePickerLevel == 0 ?
                             <DayPicker
+                                value={value}
                                 dateFormat={dateFormat}
                                 year={year}
                                 month={month}
@@ -234,6 +244,7 @@ export default class DatePicker extends Component {
                             : (
                             datePickerLevel == 1 ?
                                 <MonthPicker
+                                    value={value}
                                     year={year}
                                     month={month}
                                     day={day}
@@ -244,6 +255,7 @@ export default class DatePicker extends Component {
                                 />
                                 :
                                 <YearPicker
+                                    value={value}
                                     year={year}
                                     month={month}
                                     day={day}
@@ -279,28 +291,26 @@ export default class DatePicker extends Component {
 };
 
 DatePicker.propTypes = {
-
     className: PropTypes.string,
     style: PropTypes.object,
-
     name: PropTypes.string,
-
-    // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+    value: PropTypes.string,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.string,
-    popupVisible: PropTypes.bool
-
+    autoClose: PropTypes.bool,
+    onChange: PropTypes.func
 };
 
 DatePicker.defaultProps = {
-
     className: '',
     style: null,
-
     name: '',
-    value: new Date().getTime(),
+    value: moment().format('YYYY-MM-DD'),
+    maxValue: '',
+    minValue: '',
     placeholder: 'Date',
-    dateFormat: 'YYYY-MM-DD'
-
+    dateFormat: 'YYYY-MM-DD',
+    autoClose: true
 };

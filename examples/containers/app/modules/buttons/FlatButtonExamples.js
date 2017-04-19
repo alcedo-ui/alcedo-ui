@@ -21,16 +21,16 @@ export default class FlatButtonExamples extends Component {
                         <FlatButton value="Default"/>
 
                         <FlatButton value="Primary"
-                                    buttonStyle="primary"/>
+                                    theme="primary"/>
 
                         <FlatButton value="Success"
-                                    buttonStyle="success"/>
+                                    theme="success"/>
 
                         <FlatButton value="Warning"
-                                    buttonStyle="warning"/>
+                                    theme="warning"/>
 
                         <FlatButton value="Error"
-                                    buttonStyle="error"/>
+                                    theme="error"/>
 
                         <FlatButton value="Disabled"
                                     disabled={true}/>
@@ -46,19 +46,19 @@ export default class FlatButtonExamples extends Component {
                                     isRounded={true}/>
 
                         <FlatButton value="Primary"
-                                    buttonStyle="primary"
+                                    theme="primary"
                                     isRounded={true}/>
 
                         <FlatButton value="Success"
-                                    buttonStyle="success"
+                                    theme="success"
                                     isRounded={true}/>
 
                         <FlatButton value="Warning"
-                                    buttonStyle="warning"
+                                    theme="warning"
                                     isRounded={true}/>
 
                         <FlatButton value="Error"
-                                    buttonStyle="error"
+                                    theme="error"
                                     isRounded={true}/>
 
                         <FlatButton value="Disabled"
@@ -76,15 +76,15 @@ export default class FlatButtonExamples extends Component {
                                     iconCls="fa fa-undo"/>
 
                         <FlatButton value="Add"
-                                    buttonStyle="success"
+                                    theme="success"
                                     iconCls="fa fa-plus"/>
 
                         <FlatButton value="Delete"
-                                    buttonStyle="error"
+                                    theme="error"
                                     iconCls="fa fa-trash"/>
 
                         <FlatButton value="Next"
-                                    buttonStyle="primary"
+                                    theme="primary"
                                     rightIconCls="fa fa-chevron-right"/>
 
                     </div>

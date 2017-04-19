@@ -19,10 +19,10 @@ export default class IconButtonExamples extends Component {
                     <div className="examples-wrapper">
 
                         <IconButton iconCls="fa fa-plus"
-                                    buttonStyle="success"/>
+                                    theme="success"/>
 
                         <IconButton iconCls="fa fa-trash"
-                                    buttonStyle="error"/>
+                                    theme="error"/>
 
                         <IconButton iconCls="fa fa-wrench"
                                     disabled={true}/>

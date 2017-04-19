@@ -15,13 +15,13 @@ export default class _YearPicker extends Component {
             row_number: 4,
             col_number: 3
         }
+        const value = this.props.value;
         this.state = {
-            timer: this.props.defaultValue,
             YearArr: this.getYearArr(this.props.year),
-            select_year: this.props.year,
-            current_year: this.props.year,
-            select_month: this.props.month,
-            select_day: this.props.day,
+            selectYear: this.props.year,
+            currentYear: moment(value).format('YYYY'),
+            selectMonth: this.props.month,
+            selectDay: this.props.day,
             maxValue: this.props.maxValue,
             minValue: this.props.minValue
         }
@@ -34,28 +34,28 @@ export default class _YearPicker extends Component {
 
     selectDate(s_year) {
         this.setState({
-            history_year: s_year,
-            select_year: s_year
+            currentYear: s_year,
+            selectYear: s_year
         }, ()=> {
             this.props.onChange && this.props.onChange(s_year);
         });
     }
 
     previousYear() {
-        let {select_year} = this.state;
-        select_year = +select_year - 10;
+        let {selectYear} = this.state;
+        selectYear = +selectYear - 10;
         this.setState({
-            YearArr: this.getYearArr(select_year),
-            select_year: select_year
+            YearArr: this.getYearArr(selectYear),
+            selectYear: selectYear
         })
     }
 
     nextYear() {
-        let {select_year}=this.state;
-        select_year = +select_year + 10;
+        let {selectYear}=this.state;
+        selectYear = +selectYear + 10;
         this.setState({
-            YearArr: this.getYearArr(select_year),
-            select_year: select_year
+            YearArr: this.getYearArr(selectYear),
+            selectYear: selectYear
         })
     }
 
@@ -70,39 +70,40 @@ export default class _YearPicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.maxValue !== this.props.maxValue || nextProps.minValue !== this.props.minValue || nextProps.year !== this.props.year) {
+        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year) {
+            const value = nextProps.value;
             this.setState({
-                select_year: nextProps.year,
+                selectYear: nextProps.year,
                 YearArr: this.getYearArr(nextProps.year),
-                maxValue: nextProps.maxValue,
-                minValue: nextProps.minValue
+                currentYear: moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM')
             });
         }
     }
 
     componentDidMount() {
-        const {year, maxValue, minValue} = this.props;
-        if (year && year != '') {
+        const {value, year} = this.props;
+        if (value && year) {
             this.setState({
                 YearArr: this.getYearArr(year),
-                select_year: year,
-                maxValue: maxValue,
-                minValue: minValue
+                selectYear: year,
+                currentYear: moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM')
             })
         }
     }
 
     render() {
 
-        const {className} = this.props;
+        const {className, maxValue, minValue} = this.props;
 
-        let {YearArr, select_year, maxValue, minValue} = this.state;
+        let {YearArr, selectYear} = this.state;
 
         const {previousYear, nextYear, selectDate}=this;
         let previous_years = [],
             current_years = [],
             next_years = [],
-            total_days = [],
+            total_years = [],
             ul_list = [];
         previous_years.push(
             (<li className="item-gray" key={Number(YearArr[0]) - 1}>
@@ -110,7 +111,7 @@ export default class _YearPicker extends Component {
             </li>)
         )
         for (let i = 0; i < YearArr.length; i++) {
-            let Years = (<li className={`${Number(select_year) == Number(YearArr[(i)]) ? 'active' : ''}
+            let Years = (<li className={`${Number(selectYear) == Number(YearArr[(i)]) ? 'active' : ''}
                                            ${(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) || (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))) ? 'item-gray' : 'current-years'}`}
                              key={'current' + i}
                              onClick={()=> {
@@ -132,21 +133,21 @@ export default class _YearPicker extends Component {
                 <a href="javascript:;">{Number(YearArr[YearArr.length - 1]) + 1}</a>
             </li>)
         )
-        total_days = previous_years.concat(current_years, next_years);
-        if (total_days.length > 0) {
+        total_years = previous_years.concat(current_years, next_years);
+        if (total_years.length > 0) {
             for (let i = 0; i < this.defaultTable.row_number; i++) {
                 let li_list = [],
                     start_index = i * this.defaultTable.col_number,
                     end_index = (i + 1) * this.defaultTable.col_number;
                 for (let j = start_index; j < end_index; j++) {
-                    li_list.push(total_days[j]);
+                    li_list.push(total_years[j]);
                 }
                 ul_list.push(li_list);
             }
         }
-        select_year = select_year.toString();
-        let yearRangeEnd = select_year.substr(0, select_year.length - 1) + '9';
-        let yearRangeStart = select_year.substr(0, select_year.length - 1) + '1';
+        selectYear = selectYear.toString();
+        let yearRangeEnd = selectYear.substr(0, selectYear.length - 1) + '9';
+        let yearRangeStart = selectYear.substr(0, selectYear.length - 1) + '1';
 
         let leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +yearRangeEnd) ? true : false;
 
@@ -190,18 +191,13 @@ export default class _YearPicker extends Component {
 
 _YearPicker.propTypes = {
 
-    select_year: PropTypes.string || PropTypes.number,
-    current_year: PropTypes.string || PropTypes.number,
-    YearArr: PropTypes.array,
-
     className: PropTypes.string,
-    style: PropTypes.object,
-
-    name: PropTypes.string,
-
-    // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-    placeholder: PropTypes.string,
-    dateFormat: PropTypes.string
+    value: PropTypes.string,
+    year: PropTypes.string || PropTypes.number,
+    month: PropTypes.string || PropTypes.number,
+    day: PropTypes.string || PropTypes.number,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
+    onChange: PropTypes.func
 
 };

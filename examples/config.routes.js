@@ -77,6 +77,12 @@ export default (
                            cb(null, require('./containers/app/modules/fields/MultipleSelectExamples').default);
                        });
                    }}/>
+            <Route path="TreeSelect"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/TreeSelectExamples').default);
+                       });
+                   }}/>
 
             <Route path="Checkbox"
                    getComponent={(nextState, cb) => {
@@ -110,6 +116,13 @@ export default (
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {
                            cb(null, require('./containers/app/modules/fields/SliderExamples').default);
+                       });
+                   }}/>
+
+            <Route path="EditableField"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/fields/EditableFieldExamples').default);
                        });
                    }}/>
 

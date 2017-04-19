@@ -97,16 +97,16 @@
                 }
                 i {
                     cursor: pointer;
-                    width: 16px;
-                    height: 16px;
-                    font-size: 16px;
+                    width: 20px;
+                    height: 18px;
+                    font-size: 22px;
                     position: relative;
                     overflow: hidden;
                 }
-                span:hover, i:hover {
-                    background: #ecf6fd;
-                    border-radius: 4px;
-                }
+                //span:hover, i:hover {
+                //    background: #ecf6fd;
+                //    border-radius: 4px;
+                //}
             }
             .calendar-body {
                 border-bottom: 1px solid #dfdfdf;
@@ -220,7 +220,12 @@
                                 background: #108ee9;
                                 color: #fff;
                             }
-
+                            &:hover {
+                                a {
+                                    background: #108ee9;
+                                    color: #fff;
+                                }
+                            }
                         }
                     }
                 }

@@ -17,7 +17,7 @@ export default class DateRangePicker extends Component {
     constructor(props) {
 
         super(props);
-        const initValue = Util.value2Moment(props.value, props.dateFormat);
+        const initValue = moment();
         let startTime = '',
             endTime = ''
         this.state = {
@@ -546,15 +546,12 @@ DateRangePicker.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-
     name: PropTypes.string,
-
-    // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-    defaultValue: PropTypes.array,
+    value: PropTypes.array,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.string,
-    popupVisible: PropTypes.bool
+    popupVisible: PropTypes.bool,
+    onChange: PropTypes.func
 
 };
 
@@ -562,9 +559,7 @@ DateRangePicker.defaultProps = {
 
     className: '',
     style: null,
-
     name: '',
-    value: new Date().getTime(),
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD'
 

@@ -160,7 +160,6 @@ export default class MultipleSelect extends Component {
 
             this.setPosition(false);
             this.props.onChange && this.props.onChange(value);
-
         }
 
     }
@@ -176,8 +175,8 @@ export default class MultipleSelect extends Component {
         }, () => {
             this.setPosition(false);
             this.props.onChange && this.props.onChange(value);
-        });
 
+        });
     }
 
     filterChangeHandle(e) {
@@ -252,12 +251,6 @@ export default class MultipleSelect extends Component {
         });
     }
 
-    wrapperHeight() {
-        if (this.refs.trigger) {
-            return this.refs.trigger.offsetHeight
-        }
-    }
-
     componentDidMount() {
         if (window.addEventListener) {
             window.addEventListener('click', this.toggle);
@@ -266,6 +259,7 @@ export default class MultipleSelect extends Component {
             window.attachEvent('click', this.toggle);
             window.attachEvent('resize', this.setPosition);
         }
+
     }
 
     componentWillUnmount() {
@@ -296,26 +290,42 @@ export default class MultipleSelect extends Component {
         const triggerStyle = {
             width: componentWidth
         };
-        const filterStyle = {
+
+        let filterStyle = {
             width: '100%'
         };
+
+        let selectedStyle ={};
+        if(value && value.length){
+            selectedStyle.borderTop = '1px solid #dfdfdf';
+            selectedStyle.height = showAll ? 'auto': '40px';
+        }else{
+            selectedStyle.borderTop = 'none';
+            selectedStyle.height = 0;
+        }
+
         const emptyOptionsStyle = {
             width: componentWidth,
             height: hidden ? 0 : optionHeight,
             maxHeight: maxOptionsHeight
         };
+
         const optionsStyle = {
             width: componentWidth,
             height: hidden ? 0 : this.filterList.length * optionHeight,
             maxHeight: maxOptionsHeight
         };
+
         const optionStyle = {
             height: optionHeight,
             lineHeight: optionHeight + 'px'
         };
+
         const wrapperHeight = optionsStyle.height > maxOptionsHeight ? maxOptionsHeight : optionsStyle.height;
-        const wrapperStyle = {
-            height: wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + (this.wrapperHeight()) : wrapperHeight + (this.wrapperHeight())
+        let wrapperStyle={};
+
+        if(this.refs.trigger){
+            wrapperStyle.height = wrapperHeight < emptyOptionsStyle.height ? emptyOptionsStyle.height + 40 : wrapperHeight + 40
         }
 
         return (
@@ -337,6 +347,64 @@ export default class MultipleSelect extends Component {
                         );
                     })
                 }
+                <div className={`selected-container ${hidden ? 'hidden' : 'open'}`}
+                     ref="selectedContainer"
+                     style={selectedStyle}>
+                    {
+                        showAll ?
+                            null
+                            :
+                            (
+                                value.length > 2 ?
+                                    <div className="more-selected">
+                                        {value.length} selected
+                                    </div>
+                                    :
+                                    null
+
+                            )
+                    }
+
+                    {
+                        showAll ?
+                            (value instanceof Array ? value : [] ).map((item, index) => {
+                                return (
+                                    <div key={index}
+                                         className="selected"
+                                         disabled={disabled}>
+                                            <span className="text">
+                                                {typeof item == 'object' ? item.text : item}
+                                            </span>
+                                        <span className="deselectButton"
+                                              onClick={deselect.bind(this, item)}>×</span>
+                                    </div>
+                                )
+                            })
+                            :
+                            (value instanceof Array ? value : [] ).map((item, index) => {
+                                if (index < 2) {
+                                    return (
+                                        <div key={index}
+                                             className="selected"
+                                             disabled={disabled}>
+                                        <span className="text">
+                                            {typeof item == 'object' ? item.text : item}
+                                        </span>
+                                            <span className="deselectButton"
+                                                  onClick={deselect.bind(this, item)}>×</span>
+                                        </div>
+                                    )
+                                }
+                            })
+                    }
+                    <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
+                       aria-hidden="true"
+                       onClick={(e)=> {
+                           if (value.length > 2) {
+                               this.showAllToggle(e)
+                           }
+                       }}></i>
+                </div>
                 <div className={`dropdown-select-inner ${hidden ? 'hidden' : 'open'}`}
                      ref="wrapper"
                      style={wrapperStyle}>
@@ -346,79 +414,16 @@ export default class MultipleSelect extends Component {
                          disabled={disabled}
                          onMouseOver={showError}
                          onMouseOut={hideError}>
-                        {
-                            showAll ?
-                                <div className="selected-container">
-                                    {
-                                        (value instanceof Array ? value : [] ).map((item, index) => {
-                                            return (
-                                                <div key={index}
-                                                     className="selected"
-                                                     disabled={disabled}>
-                                                    <span className="text">
-                                                        {typeof item == 'object' ? item.text : item}
-                                                    </span>
-                                                    <span className="deselectButton"
-                                                          onClick={deselect.bind(this, item)}>×</span>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    <i className={`fa fa-angle-double-${showAll ? 'up' : 'down'} dropdown-select-trigger-right-icon ${value.length > 3 ? '' : 'disabled'}`}
-                                       aria-hidden="true"
-                                       onClick={(e)=> {
-                                           if (value.length > 3) {
-                                               this.showAllToggle(e)
-                                           }
-                                       }}></i>
-                                </div>
-                                :
-                                <div className="selected-container">
-                                    {
-                                        (value instanceof Array ? value : [] ).map((item, index) => {
-                                            if (index < 3) {
-                                                return (
-                                                    <div key={index}
-                                                         className="selected"
-                                                         disabled={disabled}>
-                                                <span className="text">
-                                                    {typeof item == 'object' ? item.text : item}
-                                                </span>
-                                                        <span className="deselectButton"
-                                                              onClick={deselect.bind(this, item)}>×</span>
-                                                    </div>
-                                                )
-                                            }
-                                        })
-                                    }
-                                    {
-                                        value.length > 3 ?
-                                            <div className="more-selected">
-                                                and {value.length - 3}more
-                                            </div>
-                                            :
-                                            null
-                                    }
-                                    <i className={`fa fa-angle-double-${showAll ? 'up' : 'down'} dropdown-select-trigger-right-icon ${value.length > 3 ? '' : 'disabled'}`}
-                                       aria-hidden="true"
-                                       onClick={(e)=> {
-                                           if (value.length > 3) {
-                                               this.showAllToggle(e)
-                                           }
-                                       }}></i>
-                                </div>
-                        }
-
-                        <input ref="filter"
-                               type="text"
-                               className="filter"
-                               style={filterStyle}
-                               value={filter}
-                               placeholder={placeholder}
-                               onChange={filterChangeHandle}
-                               disabled={disabled}
-                               onMouseOver={showInfo}
-                               onMouseOut={hideInfo}/>
+                            <input ref="filter"
+                                   type="text"
+                                   className="filter"
+                                   style={filterStyle}
+                                   value={filter}
+                                   placeholder={placeholder}
+                                   onChange={filterChangeHandle}
+                                   disabled={disabled}
+                                   onMouseOver={showInfo}
+                                   onMouseOut={hideInfo}/>
 
                     </div>
 
@@ -494,12 +499,12 @@ MultipleSelect.propTypes = {
     className: PropTypes.string,
     name: PropTypes.string,
     style: PropTypes.object,
-    value: PropTypes.array,
     data: PropTypes.array,
-    onChange: PropTypes.func,
+    value: PropTypes.array,
     width: PropTypes.number,
     invalidMsg: PropTypes.string,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
-    infoMsg: PropTypes.string
+    infoMsg: PropTypes.string,
+    onChange: PropTypes.func
 };

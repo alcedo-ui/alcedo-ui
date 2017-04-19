@@ -1,0 +1,188 @@
+@import '../_common';
+
+.tree-select {
+    position: relative;
+    .tree-select-inner {
+        width: 100%;
+        overflow: hidden;
+        transition: all $transition-duration ease-in-out;
+        border-radius: $border-radius;
+        border: 1px solid #dfdfdf;
+        position: absolute;
+        top: 0;
+        left: 0;
+        &.hidden {
+            box-shadow: none;
+            z-index: 0;
+            height: 50px;
+        }
+        &.open {
+            @include shadow(3);
+            z-index: $popup-z-index;
+            .tree-select-trigger{
+                .tree-select-trigger-right-icon{
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        &:hover {
+            @include shadow(3);
+        }
+        .tree-select-trigger {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            line-height: 20px;
+            padding: 10px 30px 10px 20px;
+            border-radius: 0;
+            text-align: left;
+            color: $theme-text;
+            background: $theme-field;
+
+            .tree-select-trigger-right-icon {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                width: 10px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                margin: 0;
+                color: inherit;
+                transition: all $transition-duration ease-in-out;
+            }
+
+            &:hover {
+                color: $theme-text;
+                background: darken($theme-field, 2%);
+            }
+
+            &.activated {
+                color: $theme-highlight;
+            }
+        }
+        .popup{
+            position: absolute;
+            top: 50px;
+            width: 100%;
+            border-top: 1px solid #dfdfdf;
+            z-index: 1;
+            border-bottom-left-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+            transition: all $transition-duration ease-in-out;
+            .filter{
+                height: 40px;
+                border:none;
+                outline: none;
+                width: 100%;
+                padding-left: 20px;
+                box-sizing: border-box;
+            }
+            .options {
+                position: absolute;
+                overflow: auto;
+                padding: 10px 30px 10px 20px;
+                box-sizing: border-box;
+                background: #FFF;
+                transition: all $transition-duration ease-in-out;
+                .option {
+                    box-sizing: border-box;
+                    width: 100%;
+                    color: $theme-text;
+                    padding: 0;
+                    margin: 8px 0;
+                    border-top: none;
+                    cursor: pointer;
+                    user-select: none;
+                    .parentNode{
+                        .tree-switcher{
+                            display: inline-block;
+                            height: 16px;
+                            width: 16px;
+                            i{
+                                transition: all $transition-duration ease-in-out;
+                            }
+                            &:hover {
+                                background: #F0F2F5;
+                            }
+                            &.down{
+                                i{
+                                    transform: rotate(90deg);
+                                }
+                            }
+                        }
+                    }
+                    .sub-options{
+                        padding: 0 0 0 16px;
+                    }
+                    .node-text{
+                        padding: 2px;
+                        border-radius: $border-radius;
+                        &:hover {
+                            background: #F0F2F5;
+                        }
+                        &.active {
+                            background: #F0F2F5;
+                        }
+                    }
+                    &.disabled {
+                        font-size: 12px;
+                        background: #F8F8F8;
+                        color: lighten($theme-text, 30%);
+
+                        &:hover {
+                            background: #F8F8F8;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        &.error {
+            .trigger {
+                border: 1px solid $error !important;
+            }
+        }
+
+        &.above {
+            .options {
+                border-top: none;
+
+                .option {
+                    border: 1px solid #dfdfdf;
+                    border-bottom: none;
+                }
+            }
+        }
+
+        &.below {
+            .options {
+                border-top: none;
+            }
+        }
+
+        &.empty {
+            .filter {
+                border-top: none !important;
+                margin-top: 0 !important;
+            }
+        }
+
+        &.open.below {
+            .FieldMsg.error {
+                right: -4px;
+
+                .triangle {
+                    left: -3px;
+                    top: 2px;
+                    border-bottom-width: 8px;
+                    border-left-width: 4px;
+                    border-right-width: 4px;
+                    transform: rotate(-45deg);
+                }
+
+            }
+        }
+    }
+}

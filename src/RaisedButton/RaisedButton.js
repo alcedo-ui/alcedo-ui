@@ -44,7 +44,7 @@ RaisedButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    buttonStyle: PropTypes.string,
+    theme: PropTypes.string,
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
@@ -68,7 +68,7 @@ RaisedButton.defaultProps = {
     className: '',
     style: null,
 
-    buttonStyle: '',
+    theme: '',
     isRounded: false,
     isCircular: false,
 
@@ -84,5 +84,3 @@ RaisedButton.defaultProps = {
     rightIconCls: ''
 
 };
-
-RaisedButton.buttonStyle = BaseButton.buttonStyle;

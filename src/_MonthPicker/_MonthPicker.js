@@ -15,16 +15,13 @@ export default class _MonthPicker extends Component {
             row_number: 4,
             col_number: 3
         }
+        const value = this.props.value;
         this.state = {
-            timer: this.props.defaultValue,
-            select_year: this.props.year,
-            select_month: this.props.month,
-            current_year: this.props.year,
-            current_month: this.props.month,
-            select_day: this.props.day,
-            maxValue: this.props.maxValue,
-            minValue: this.props.minValue
-
+            selectYear: this.props.year,
+            selectMonth: this.props.month,
+            currentYear: moment(value).format('YYYY'),
+            currentMonth: moment(value).format('MM'),
+            selectDay: this.props.day
         }
         this.previousLevel = this::this.previousLevel;
         this.selectDate = this::this.selectDate;
@@ -38,65 +35,66 @@ export default class _MonthPicker extends Component {
     }
 
     selectDate(s_month) {
-        let {select_year} = this.state;
+        let {selectYear} = this.state;
         this.setState({
-            history_year: select_year,
-            history_month: s_month,
-            select_month: s_month
+            currentYear: selectYear,
+            currentMonth: s_month,
+            selectMonth: s_month
         }, ()=> {
-            this.props.onChange && this.props.onChange({year: select_year, month: s_month})
+            this.props.onChange && this.props.onChange({year: selectYear, month: s_month})
         });
     }
 
     previousYear() {
-        let {current_year, current_month, select_year, select_month} = this.state;
-        select_year = +select_year - 1;
-        if (Number(current_year) === Number(select_year)) {
-            select_month = current_month;
+        let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
+        selectYear = +selectYear - 1;
+        if (Number(currentYear) === Number(selectYear)) {
+            selectMonth = currentMonth;
         } else {
-            select_month = undefined;
+            selectMonth = undefined;
         }
         this.setState({
-            select_year: select_year,
-            select_month: select_month
+            selectYear: selectYear,
+            selectMonth: selectMonth
         })
     }
 
     nextYear() {
-        let {current_year, current_month, select_year, select_month}=this.state;
-        select_year = +select_year + 1;
+        let {currentYear, currentMonth, selectYear, selectMonth}=this.state;
+        selectYear = +selectYear + 1;
 
-        if (Number(current_year) === Number(select_year)) {
-            select_month = current_month;
+        if (Number(currentYear) === Number(selectYear)) {
+            selectMonth = currentMonth;
         } else {
-            select_month = undefined;
+            selectMonth = undefined;
         }
         this.setState({
-            select_year: select_year,
-            select_month: select_month
+            selectYear: selectYear,
+            selectMonth: selectMonth
         })
     }
 
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.maxValue !== this.props.maxValue || nextProps.minValue !== this.props.minValue || nextProps.year !== this.props.year || nextProps.month !== this.props.month) {
+        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month) {
+            const value = nextProps.value;
             this.setState({
-                select_year: nextProps.year,
-                select_month: nextProps.month,
-                maxValue: nextProps.maxValue,
-                minValue: nextProps.minValue
+                selectYear: nextProps.year,
+                selectMonth: nextProps.month,
+                currentYear: moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM')
             });
         }
     }
 
     componentDidMount() {
-        const {year, month, maxValue, minValue} = this.props;
-        if ((year && year != '') && (month && month != '')) {
+        const {value, year, month} = this.props;
+        if (value && year && month) {
             this.setState({
-                select_year: year,
-                select_month: month,
-                maxValue: maxValue,
-                minValue: minValue
+                selectYear: year,
+                selectMonth: month,
+                currentYear: moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM')
             })
 
         }
@@ -104,9 +102,9 @@ export default class _MonthPicker extends Component {
 
     render() {
 
-        const {className} = this.props;
+        const {className, maxValue, minValue} = this.props;
 
-        let {select_year, select_month, maxValue, minValue} = this.state;
+        let {selectYear, selectMonth, currentYear} = this.state;
 
         const {previousYear, nextYear, selectDate, previousLevel}=this;
         let current_months = [],
@@ -115,24 +113,25 @@ export default class _MonthPicker extends Component {
 
 
         for (let i = 0; i < MonthEn.length; i++) {
-            let Months = (<li className={`${Number(select_month) == (i + 1) ? 'active' : ''}
-                                ${(maxValue && (moment(maxValue).format('YYYY') == select_year) && (+(moment(maxValue).format('MM'))) <= (i + 1)) ||
-            (minValue && (moment(minValue).format('YYYY') == select_year) && (+(moment(minValue).format('MM'))) >= (i + 1)) ? 'item-gray' : 'current-years'}
+            let Months = (
+                <li className={`${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
+                                ${(maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}
                                 `}
-                              key={'current' + i}
-                              onClick={()=> {
-                                  if ((maxValue && (moment(maxValue).format('YYYY') == select_year) && (+(moment(maxValue).format('MM'))) <= (i + 1)) ||
-                                      (minValue && (moment(minValue).format('YYYY') == select_year) && (+(moment(minValue).format('MM'))) >= (i + 1))) {
-                                      return
-                                  } else {
-                                      selectDate(i + 1)
-                                  }
-                              }}>
-                <a href="javascript:;">
-                    {MonthEn[i]}
-                    <TouchRipple/>
-                </a>
-            </li>);
+                    key={'current' + i}
+                    onClick={()=> {
+                        if ((maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                            (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1))) {
+                            return
+                        } else {
+                            selectDate(i + 1)
+                        }
+                    }}>
+                    <a href="javascript:;">
+                        {MonthEn[i]}
+                        <TouchRipple/>
+                    </a>
+                </li>);
             current_months.push(Months);
         }
         if (current_months.length > 0) {
@@ -146,10 +145,10 @@ export default class _MonthPicker extends Component {
                 ul_list.push(li_list);
             }
         }
-        select_year = select_year.toString();
-        let leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +select_year) ? true : false;
+        selectYear = selectYear.toString();
+        let leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +selectYear) ? true : false;
 
-        let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +select_year) ? true : false;
+        let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear) ? true : false;
 
         return (
             <div className={"calendar " + className}>
@@ -163,7 +162,7 @@ export default class _MonthPicker extends Component {
                             </i>
                     }
 
-                    <span onClick={previousLevel}>{select_year}</span>
+                    <span onClick={previousLevel}>{selectYear}</span>
                     {
                         leftNextYear ?
                             null :
@@ -188,21 +187,13 @@ export default class _MonthPicker extends Component {
 };
 
 _MonthPicker.propTypes = {
-
-    timer: PropTypes.object,
-    select_year: PropTypes.string || PropTypes.number,
-    select_month: PropTypes.string || PropTypes.number,
-    current_year: PropTypes.string || PropTypes.number,
-    current_month: PropTypes.string || PropTypes.number,
-
     className: PropTypes.string,
-    style: PropTypes.object,
-
-    name: PropTypes.string,
-
-    // timestamp
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-    placeholder: PropTypes.string,
-    dateFormat: PropTypes.string
-
+    value: PropTypes.string,
+    year: PropTypes.string || PropTypes.number,
+    month: PropTypes.string || PropTypes.number,
+    day: PropTypes.string || PropTypes.number,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
+    onChange: PropTypes.func,
+    previousClick: PropTypes.func
 };

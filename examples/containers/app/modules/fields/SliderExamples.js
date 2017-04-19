@@ -8,11 +8,18 @@ import Slider from 'dist/Slider';
 export default class SliderExamples extends Component{
     constructor(props) {
         super();
+
+        this.change = this :: this.change;
+    }
+
+    change(left, right) {
+        console.log(left +'   '+ right);
     }
 
     render() {
         const style = {
-            margin: '20px'
+            margin: '20px',
+            userSelect: 'none'
         };
         return (
             <div style={style}>
@@ -25,7 +32,7 @@ export default class SliderExamples extends Component{
                 <div className="examples-title">Example4</div>
                 <Slider leftPoint={false} scale={[0,5,8,10]} decimalPlaces={1}/>
                 <div className="examples-title">Example5</div>
-                <Slider leftPoint={true} scale={[0,5,8,10]} ruler={11} decimalPlaces={1} width={600}/>
+                <Slider leftPoint={true} scale={[0,5,8,10]} ruler={11} decimalPlaces={1} width={600} onChange={this.change}/>
             </div>
         )
     }

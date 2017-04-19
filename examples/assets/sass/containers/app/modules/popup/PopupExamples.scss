@@ -1,5 +1,10 @@
 @import '../../../../common.scss';
 
-.example-content{
-    padding-bottom: 30px;
+.example-content {
+
+    .trigger-button {
+        width: 160px;
+        height: 50px;
+        margin: 0;
+    }
 }

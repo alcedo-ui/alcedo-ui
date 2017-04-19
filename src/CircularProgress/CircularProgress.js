@@ -4,49 +4,60 @@
 import React, {Component, PropTypes} from 'react';
 
 import Percent from './Percent';
-import './CircularProgress.css'
 
-export default class CircularProgress extends Component{
+import './CircularProgress.css';
+
+export default class CircularProgress extends Component {
     constructor(props) {
         super();
+
         this.state = {
-            percent: [0,0]
-        }
+            percent: [0, 0]
+        };
     }
 
     render() {
-        const { r, width, rgba, word, percent, style, percentStyle} = this.props;
+        const {r, width, rgba, word, percent, style, percentStyle} = this.props;
+
         const l = 2 * this.props.r * Math.PI;
         const circleStyle = {
             strokeDasharray: this.props.percent / 100 * l + ',' + l
-        },svgStyle = {
+        }, svgStyle = {
             width: (r + width) * 2,
             height: (r + width) * 2,
             ...style
         };
+
         return (
-            <div className="circular-progress" style={svgStyle}>
+            <div className="circular-progress"
+                 style={svgStyle}>
                 <svg className="circular-progress-svg">
-                    <circle className="circular-progress-circle" cx={r + width} cy={r + width} r={r} strokeWidth={width} stroke={rgba} fill="none" style={circleStyle}>
-                    </circle>
+                    <circle className="circular-progress-circle"
+                            cx={r + width}
+                            cy={r + width}
+                            r={r}
+                            strokeWidth={width}
+                            stroke={rgba}
+                            fill="none"
+                            style={circleStyle}></circle>
                 </svg>
                 {
                     word
-                        ?
-                        <Percent endNum={percent} style={percentStyle}>{this.props.children}</Percent>
-                        : ''
+                        ? <Percent endNum={percent}
+                                   style={percentStyle}>{this.props.children}</Percent>
+                        : null
                 }
             </div>
-        )
+        );
     }
 
-}
+};
 
 CircularProgress.propTypes = {
-    style: PropTypes.object,
     className: PropTypes.string,
-    percentStyle: PropTypes.object,
+    style: PropTypes.object,
 
+    percentStyle: PropTypes.object,
     r: PropTypes.number,
     width: PropTypes.number,
     rgba: PropTypes.string,
@@ -55,10 +66,10 @@ CircularProgress.propTypes = {
 };
 
 CircularProgress.defaultProps = {
-    style: {},
     className: '',
-    percentStyle: {},
+    style: {},
 
+    percentStyle: {},
     r: 48,
     width: 2,
     rgba: 'rgb(0, 188, 212)',

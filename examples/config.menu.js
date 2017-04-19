@@ -60,6 +60,9 @@ export default [{
     }, {
         text: 'Slider',
         route: '/components/Slider'
+    }, {
+        text: 'EditableField',
+        route: '/components/EditableField'
     }]
 }, {
     text: 'progress',

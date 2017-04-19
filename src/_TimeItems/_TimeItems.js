@@ -21,6 +21,7 @@ export default class _TimeItems extends Component {
         if (this.refs.timeItems) {
             // debugger
             this.refs.timeItems.scrollTop = (+value) * 30
+            // this.refs.timeList.style.marginTop = '-'+value * 30+'px'
         }
         this.props.onChange && this.props.onChange(value);
     }
@@ -37,7 +38,8 @@ export default class _TimeItems extends Component {
         if (nextProps.value !== this.props.value || nextProps.popupVisible !== this.props.popupVisible) {
             if (nextProps.popupVisible) {
                 if (this.refs.timeItems) {
-                    this.refs.timeItems.scrollTop = (+(nextProps.value)) * 30
+                    // this.refs.timeItems.style.marginTop = '-'+(nextProps.value) * 30+'px'
+                    this.refs.timeItems.scrollTop = (nextProps.value) * 30
                 }
             }
             this.setState({
@@ -49,7 +51,8 @@ export default class _TimeItems extends Component {
     componentDidMount() {
         const {value}=this.props;
         if (this.refs.timeItems) {
-            this.refs.timeItems.scrollTop = (+value) * 30
+            // this.refs.timeList.style.marginTop = '-'+value * 30+'px'
+            this.refs.timeItems.scrollTop = (value) * 30
         }
         this.setState({
             value: value
@@ -67,26 +70,33 @@ export default class _TimeItems extends Component {
         const {className, data}=this.props;
         const {value}=this.state;
         return (
-            <ul className={`timeItems ${className ? className : ''}`}
-                ref="timeItems">
-                {
-                    data.map((item, key)=> {
-                        return (
-                            <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
-                                key={key}
-                                onClick={()=> {
-                                    if (item.value) {
-                                        this.clickHandle(item.text)
-                                    }
-                                }}>
-                                {item.text}
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            <div className={`timeItems ${className ? className : ''}`}
+                 ref="timeItems">
+                <ul className="timeList"
+                    ref="timeList">
+                    {
+                        data.map((item, key)=> {
+                            return (
+                                <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
+                                    key={key}
+                                    onClick={()=> {
+                                        if (item.value) {
+                                            this.clickHandle(item.text)
+                                        }
+                                    }}>
+                                    {item.text}
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
         )
 
     }
 }
-_TimeItems.PropTypes = {}
+_TimeItems.PropTypes = {
+
+    className: PropTypes.string,
+    data: PropTypes.array
+}

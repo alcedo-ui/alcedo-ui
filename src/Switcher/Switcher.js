@@ -48,7 +48,7 @@ export default class Switcher extends Component {
             <div className={`switcher ${value == true ? 'active' : 'inactive'}
                     ${size === 'small' ? 'small' : ''} ${className}`}
                  style={style}
-                 onMouseDown={this.toggle}
+                 onClick={this.toggle}
                  disabled={disabled || isLoading}>
 
                 <IconButton className="slider-wrapper">
