@@ -41,6 +41,14 @@
         }
     }
 
+    &.position-left {
+        left: 0;
+    }
+
+    &.position-right {
+        right: 0;
+    }
+
     &.hidden {
         opacity: 0 !important;
         height: 0 !important;

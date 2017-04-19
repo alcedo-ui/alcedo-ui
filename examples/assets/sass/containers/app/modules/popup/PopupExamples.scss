@@ -1,10 +1,15 @@
 @import '../../../../common.scss';
 
 .example-content {
+    overflow: visible !important;
 
-    .trigger-button {
-        width: 160px;
-        height: 50px;
-        margin: 0;
+    .popup-example-wrapper {
+        position: relative;
+
+        .trigger-button {
+            width: 160px;
+            height: 50px;
+            margin: 0;
+        }
     }
 }

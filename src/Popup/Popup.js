@@ -71,12 +71,12 @@ export default class Popup extends Component {
 
     render() {
 
-        const {children, className, style, disabled, hasTriangle, theme} = this.props;
+        const {children, className, style, disabled, hasTriangle, theme, position} = this.props;
         const {visible} = this.state;
 
         return (
             <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'hasTriangle' : ''}
-                    ${theme ? `theme-${theme}` : ''} ${className}`}
+                    ${theme ? `theme-${theme}` : ''} ${position ? `position-${position}` : ''} ${className}`}
                  style={style}
                  disabled={disabled}>
 
@@ -92,6 +92,11 @@ export default class Popup extends Component {
     }
 };
 
+Popup.Position = {
+    LEFT: 'left',
+    RIGHT: 'right'
+};
+
 Popup.propTypes = {
 
     className: PropTypes.string,
@@ -102,6 +107,7 @@ Popup.propTypes = {
     visible: PropTypes.bool,
     hasTriangle: PropTypes.bool,
     theme: PropTypes.string,
+    position: PropTypes.string,
 
     onRequestClose: PropTypes.func
 
@@ -116,6 +122,7 @@ Popup.defaultProps = {
     disabled: false,
     visible: false,
     hasTriangle: true,
-    theme: ''
+    theme: '',
+    position: Popup.Position.LEFT
 
 };
