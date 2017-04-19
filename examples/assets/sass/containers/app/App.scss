@@ -1,16 +1,11 @@
 @import '../../common.scss';
 
 .app {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
     background: $theme-menu;
 
     & > .content-wrap {
-        position: absolute;
         width: calc(100% - 250px);
-        height: 100%;
         overflow: auto;
         box-sizing: border-box;
         margin-left: 250px;
@@ -26,8 +21,8 @@
             position: relative;
             background: $theme-bg;
             box-sizing: border-box;
+            min-height: 100vh;
             padding: 60px 0 60px;
-            min-height: 100%;
             transition: all $transition-duration ease-in-out;
             overflow: auto;
 
@@ -67,19 +62,27 @@
 
 @media (max-width: 767px) {
     .app {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
 
         & > .content-wrap {
+            position: absolute;
             transform: translate3d(calc(300px - 5%), 0, 0) scale(.9);
             width: 100%;
+            height: 100%;
             margin: 0;
             overflow: hidden;
             z-index: $content-wrap-mobile-z-index;
         }
 
         &.collapsed {
+            position: static;
+
             & > .content-wrap {
                 transform: none;
                 width: 100%;
+                height: auto;
                 margin: 0;
                 overflow: auto;
             }

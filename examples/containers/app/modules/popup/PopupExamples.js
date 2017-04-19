@@ -66,7 +66,6 @@ export default class PopupExamples extends Component {
                                 <Popup visible={popupVisible}
                                        triggerEl={triggerEl}
                                        theme={Theme.PRIMARY}
-                                       position={Popup.Position.RIGHT}
                                        onRequestClose={this.closePopup}>
                                     <List items={[{
                                         iconCls: 'fa fa-facebook',

@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
+import {unstable_renderSubtreeIntoContainer} from 'react-dom';
 
+import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
 import './Popup.css';
@@ -10,11 +12,18 @@ export default class Popup extends Component {
 
         super(props);
 
+        this.layer = null;
+        this.layerElement = null;
+
         this.state = {
             visible: !!props.visible
         };
 
+        this.getPopupStyle = this::this.getPopupStyle;
         this.mousedownHandle = this::this.mousedownHandle;
+        this.renderLayer = this::this.renderLayer;
+        this.renderer = this::this.renderer;
+        this.renderElement = this::this.renderElement;
 
     }
 
@@ -41,7 +50,7 @@ export default class Popup extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                require('react-dom').findDOMNode(this),
+                this.layerElement,
                 this.state.visible
             );
 
@@ -53,23 +62,39 @@ export default class Popup extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: !!nextProps.visible
-            });
+    getPopupStyle() {
+
+        const {triggerEl, position} = this.props;
+
+        let popupStyle = {};
+        if (triggerEl && this.layerElement) {
+
+            const offset = Util.getOffset(triggerEl);
+
+            if (position === Popup.Position.RIGHT) {
+                popupStyle = {
+                    left: offset.left - (this.layerElement.clientWidth - triggerEl.clientWidth),
+                    top: offset.top + triggerEl.clientHeight
+                };
+            } else { // default left
+                popupStyle = {
+                    left: offset.left,
+                    top: offset.top + triggerEl.clientHeight
+                };
+            }
         }
+
+        return popupStyle;
+
     }
 
-    componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.mousedownHandle);
+    renderLayer() {
+        this.layer = document.createElement('div');
+        this.layer.className = 'popup-layer';
+        document.body.appendChild(this.layer);
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
-    }
-
-    render() {
+    renderer() {
 
         const {children, className, style, disabled, hasTriangle, theme, position} = this.props;
         const {visible} = this.state;
@@ -77,7 +102,7 @@ export default class Popup extends Component {
         return (
             <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'hasTriangle' : ''}
                     ${theme ? `theme-${theme}` : ''} ${position ? `position-${position}` : ''} ${className}`}
-                 style={style}
+                 style={{...this.getPopupStyle(), ...style}}
                  disabled={disabled}>
 
                 <div className="triangle"></div>
@@ -89,6 +114,39 @@ export default class Popup extends Component {
             </div>
         );
 
+    }
+
+    renderElement() {
+        this.layerElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.layer);
+    }
+
+    componentDidMount() {
+
+        Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
+        this.renderLayer();
+        this.renderElement();
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: !!nextProps.visible
+            });
+        }
+    }
+
+    componentDidUpdate() {
+        this.renderElement();
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
+    }
+
+    render() {
+        return null;
     }
 };
 

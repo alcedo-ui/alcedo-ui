@@ -1,5 +1,14 @@
 @import '../_common.scss';
 
+.popup-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+}
+
 .popup {
     position: absolute;
     width: 200px;
@@ -14,7 +23,6 @@
         width: 0;
         height: 0;
         position: absolute;
-        left: 6px;
         top: -6px;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
@@ -33,20 +41,24 @@
         transition: all $transition-duration ease-in-out;
     }
 
+    &.position-left {
+        .triangle {
+            left: 10px;
+        }
+    }
+
+    &.position-right {
+        .triangle {
+            right: 10px;
+        }
+    }
+
     &.hasTriangle {
         margin-top: 10px;
 
         .triangle {
             display: block;
         }
-    }
-
-    &.position-left {
-        left: 0;
-    }
-
-    &.position-right {
-        right: 0;
     }
 
     &.hidden {
