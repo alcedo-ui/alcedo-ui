@@ -1,15 +1,5 @@
 @import '../../../../common.scss';
 
-.popup-examples {
-
-    .examples-wrapper {
-
-        .field-group {
-
-            @include float-fix;
-
-            float: none;
-
-        }
-    }
+.example-content{
+    padding-bottom: 30px;
 }

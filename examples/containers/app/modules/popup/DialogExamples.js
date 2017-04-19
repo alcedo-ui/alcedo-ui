@@ -33,12 +33,16 @@ export default class DialogExamples extends Component{
 
     render() {
         return (
-            <div className="example">
+            <div className="example dialog-examples">
+
                 <h2 className="example-title">Dialog</h2>
+
                 <Widget>
-                    <WidgetHeader className="example-header" title="Dialog Simple Examples"/>
+
+                    <WidgetHeader className="example-header" title="Dialog Simple Example"/>
+
                     <div className="widget-content">
-                        <div className="test-dialog">
+                        <div className="example-content">
                             <p>Please click this button to show Dialog.</p>
                             <button onClick={this.clickHandle}>Dialog</button>
                             <Dialog className={this.state.hide}
@@ -46,7 +50,9 @@ export default class DialogExamples extends Component{
                                     onSure={this.hideHandle}/>
                         </div>
                     </div>
+
                 </Widget>
+
                 <div className="example-properties">
                     <h3>Properties</h3>
                     <table className="example-table">

@@ -16,12 +16,14 @@ class NavBar extends Component {
     }
 
     render() {
+
         let style = {
             right: '45px',
             position: 'absolute',
             fontSize: '30px',
             top: '10px'
         };
+
         return (
             <div className="nav">
 

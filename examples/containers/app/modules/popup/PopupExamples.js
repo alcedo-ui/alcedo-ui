@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import RaisedButton from 'dist/RaisedButton';
 import Popup from 'dist/Popup';
 import List from 'dist/List';
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
 
 import 'sass/containers/app/modules/popup/PopupExamples.scss';
 
@@ -46,11 +48,14 @@ export default class PopupExamples extends Component {
         return (
             <div className="example popup-examples">
 
-                <div className="examples">
-                    <div className="examples-title">Popup</div>
-                    <div className="examples-wrapper">
+                <h2 className="example-title">Popup</h2>
 
-                        <div>
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Popup Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
 
                             <RaisedButton value="Toggle Popup"
                                           onTouchTap={this.togglePopup}/>
@@ -71,8 +76,66 @@ export default class PopupExamples extends Component {
                             </Popup>
 
                         </div>
-
                     </div>
+                </Widget>
+
+                <div className="example-properties">
+
+                    <h3>Properties</h3>
+                    <table className="example-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="properties-name">className</td>
+                                <td className="properties-type">PropTypes.string</td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">style</td>
+                                <td className="properties-type">PropTypes.object</td>
+                                <td>null</td>
+                                <td>The description of the dialog box.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">triggerEl</td>
+                                <td className="properties-type">PropTypes.object</td>
+                                <td>null</td>
+                                <td>Whether the button is clickable.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">disabled</td>
+                                <td className="properties-type">PropTypes.bool</td>
+                                <td>false</td>
+                                <td>The css class name of the root element.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">visible</td>
+                                <td className="properties-type">PropTypes.bool</td>
+                                <td>false</td>
+                                <td>Click the Cancel button will trigger this function.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">hasTriangle</td>
+                                <td className="properties-type">PropTypes.bool</td>
+                                <td>true</td>
+                                <td>Click the Commit button will trigger this function.</td>
+                            </tr>
+                            <tr>
+                                <td className="properties-name">onRequestClose</td>
+                                <td className="properties-type">PropTypes.func</td>
+                                <td> </td>
+                                <td>Click the Commit button will trigger this function.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
