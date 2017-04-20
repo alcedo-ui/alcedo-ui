@@ -72,17 +72,35 @@ export default class TextField extends Component {
     }
 
     clearValue() {
-        !this.props.disabled && this.setState({
+
+        const {disabled, clearButtonVisible, onClear, onChange} = this.props;
+
+        !disabled && clearButtonVisible && this.setState({
             value: ''
         }, () => {
-            this.props.onChange && this.props.onChange('');
+
+            this.refs.input.focus();
+
+            onClear && onClear();
+            onChange && onChange('');
+
         });
+
     }
 
     togglePasswordVisible() {
-        !this.props.disabled && this.setState({
-            passwordVisible: !this.state.passwordVisible
+
+        const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
+        const passwordVisible = !this.state.passwordVisible;
+
+        !disabled && passwordButtonVisible && this.setState({
+            passwordVisible
+        }, () => {
+            passwordVisible
+                ? (onPasswordVisible && onPasswordVisible())
+                : (onPasswordInvisible && onPasswordInvisible());
         });
+
     }
 
     mouseoverHandle() {
@@ -246,7 +264,10 @@ TextField.propTypes = {
     onValid: PropTypes.func,
     onInvalid: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    onClear: PropTypes.func,
+    onPasswordVisible: PropTypes.func,
+    onPasswordInvisible: PropTypes.func
 
 };
 
