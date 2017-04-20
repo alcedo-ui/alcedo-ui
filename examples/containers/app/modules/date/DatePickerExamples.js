@@ -70,7 +70,7 @@ export default class DatePickerExamples extends Component {
         }];
 
         return (
-            <div className="example date-picker-example">
+            <div className="example time-picker-example">
 
                 <h2 className="example-title">Date Picker</h2>
 

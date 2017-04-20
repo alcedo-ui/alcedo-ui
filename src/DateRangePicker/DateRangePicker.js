@@ -390,7 +390,7 @@ export default class DateRangePicker extends Component {
         let minValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
         const popStyle = {
             left: '-' + marginLeft + 'px'
-        }
+        };
         return (
             <div className={`date-picker ${className}`}
                  ref="datePicker"
