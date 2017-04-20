@@ -48,6 +48,10 @@
                 top: 20px;
                 color: transparentize(#fff, .2);
                 font-size: 24px;
+
+                &:hover {
+                    color: #fff;
+                }
             }
         }
     }
