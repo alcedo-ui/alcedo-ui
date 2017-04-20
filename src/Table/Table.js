@@ -238,9 +238,33 @@ export default class Table extends Component {
             <div className={`table-wrapper ${className}`}
                  style={style}>
 
-                <Paper>
-                    <div className="head-table">
-                        <table className="table">
+                {/*<Paper>*/}
+                <div className="head-table">
+                    <table className="table">
+
+                        <Thead columns={finalColumns}
+                               sort={sort}
+                               onSort={this.sortHandle}/>
+
+                        {
+                            finalData && finalData.length > 0
+                                ? <Tbody columns={finalColumns}
+                                         data={finalData}
+                                         startIndex={startIndex}/>
+                                : null
+                        }
+
+                        {/*<Tfoot/>*/}
+
+                    </table>
+                </div>
+                <div ref="bodyTable"
+                     className="body-table"
+                     onScroll={this.tableScrollHandle}>
+                    <div className="body-table-scroller"
+                         style={isPagging ? null : scrollerStyle}>
+                        <table className="table"
+                               style={isPagging ? null : tableStyle}>
 
                             <Thead columns={finalColumns}
                                    sort={sort}
@@ -258,32 +282,8 @@ export default class Table extends Component {
 
                         </table>
                     </div>
-                    <div ref="bodyTable"
-                         className="body-table"
-                         onScroll={this.tableScrollHandle}>
-                        <div className="body-table-scroller"
-                             style={isPagging ? null : scrollerStyle}>
-                            <table className="table"
-                                   style={isPagging ? null : tableStyle}>
-
-                                <Thead columns={finalColumns}
-                                       sort={sort}
-                                       onSort={this.sortHandle}/>
-
-                                {
-                                    finalData && finalData.length > 0
-                                        ? <Tbody columns={finalColumns}
-                                                 data={finalData}
-                                                 startIndex={startIndex}/>
-                                        : null
-                                }
-
-                                {/*<Tfoot/>*/}
-
-                            </table>
-                        </div>
-                    </div>
-                </Paper>
+                </div>
+                {/*</Paper>*/}
 
                 {
                     isPagging
@@ -368,7 +368,7 @@ Table.defaultProps = {
 
     columns: [],
     data: [],
-    isPagging: true,
+    isPagging: false,
     rowHeight: 60,
     isAdaptiveHeight: false,
     hasLineNumber: false,

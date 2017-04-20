@@ -9,6 +9,13 @@ export default (
 
         <IndexRoute component={App}/>
 
+        <Route path="landing"
+               getComponent={(nextState, cb) => {
+                   require.ensure([], (require) => {
+                       cb(null, require('./containers/landing/Landing').default);
+                   });
+               }}/>
+
         <Redirect from="components" to="/components/RaisedButton"/>
 
         <Route path="components" component={App}>

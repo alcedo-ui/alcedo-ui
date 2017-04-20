@@ -84,17 +84,44 @@ export default class Accordion extends Component {
 
 Accordion.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The Accordion's title.
+     */
     title: PropTypes.string,
+
+    /**
+     * Collapse icon.
+     */
     collapseIcon: PropTypes.string,
+
+    /**
+     * Expand icon.
+     */
     expandIcon: PropTypes.string,
 
+    /**
+     * The function that trigger when collpase the accordion.
+     */
     onCollpase: PropTypes.func,
+
+    /**
+     * The function that trigger when expand the accordion.
+     */
     onExpand: PropTypes.func,
 
-    // 折叠发生变化时触发，参数为 collapsed
+    /**
+     * The function that trigger when change the status of accordion.
+     */
     onChange: PropTypes.func
 
 };

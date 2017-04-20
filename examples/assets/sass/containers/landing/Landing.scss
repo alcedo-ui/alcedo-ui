@@ -1,0 +1,17 @@
+@import '../../common.scss';
+
+.landing {
+
+    .landing-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background: $theme-menu;
+
+        .landing-nav-inner {
+            width: 1000px;
+        }
+    }
+}
