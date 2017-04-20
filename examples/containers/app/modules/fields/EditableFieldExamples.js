@@ -24,7 +24,7 @@ export default class EditableFieldExamples extends Component{
         return (
             <div style={{margin: '20px'}}>
                 <div>Example</div>
-                <EditableField value={this.state.value} style={{height: '30px', lineHeight: '30px'}} onChange={this.onChange}/>
+                <EditableField value={this.state.value} onChange={this.onChange}/>
             </div>
         );
     }
