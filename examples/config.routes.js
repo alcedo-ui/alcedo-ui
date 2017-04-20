@@ -34,6 +34,13 @@ export default (
                        });
                    }}/>
 
+            <Route path="IconAnchor"
+                   getComponent={(nextState, cb) => {
+                       require.ensure([], (require) => {
+                           cb(null, require('./containers/app/modules/buttons/IconAnchorExamples').default);
+                       });
+                   }}/>
+
             <Route path="TextField"
                    getComponent={(nextState, cb) => {
                        require.ensure([], (require) => {

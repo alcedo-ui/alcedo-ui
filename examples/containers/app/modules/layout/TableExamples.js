@@ -37,26 +37,22 @@ export default class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="examples-wrapper">
-
-                                <Table columns={[{
-                                    header: 'ID',
-                                    sortable: true,
-                                    sortProp: 'id',
-                                    renderer: 'id'
-                                }, {
-                                    header: 'Name',
-                                    renderer: '${firstName} - ${lastName}'
-                                }, {
-                                    header: 'Status',
-                                    renderer(rowDate) {
-                                        return <Switcher value={!rowDate.disabled}
-                                                         size="small"/>;
-                                    }
-                                }]}
-                                       data={data}/>
-
-                            </div>
+                            <Table columns={[{
+                                header: 'ID',
+                                sortable: true,
+                                sortProp: 'id',
+                                renderer: 'id'
+                            }, {
+                                header: 'Name',
+                                renderer: '${firstName} - ${lastName}'
+                            }, {
+                                header: 'Status',
+                                renderer(rowDate) {
+                                    return <Switcher value={!rowDate.disabled}
+                                                     size="small"/>;
+                                }
+                            }]}
+                                   data={data}/>
 
                         </div>
                     </div>

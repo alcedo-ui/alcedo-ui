@@ -133,7 +133,7 @@ $transition-duration: 250ms;
     }
 
     &:hover {
-        background: transparentize($theme-field, .3);
+        background: transparentize($theme-menu, .9);
 
         &[disabled] {
             background: transparentize(#eee, .3);
@@ -175,3 +175,4 @@ $transition-duration: 250ms;
         }
     }
 }
+

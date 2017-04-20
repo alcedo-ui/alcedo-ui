@@ -1,6 +1,6 @@
 import {LOCATION_CHANGE} from 'react-router-redux';
 
-const initialState = {}
+const initialState = {};
 
 function router(state = initialState, action) {
 	switch (action.type) {

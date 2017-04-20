@@ -21,7 +21,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ArrowStep Simple Example"/>
+                    <WidgetHeader className="example-header" title="List Simple Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
