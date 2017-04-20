@@ -28,7 +28,7 @@ export default class _TimeList extends Component {
                 i = '0' + i
             }
             let obj;
-            if(isRequired){
+            if(false){
                 (i > maxValue) || (i <minValue) ?
                     obj = {text: i, value: false}
                     :
@@ -127,9 +127,9 @@ _TimeList.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     popupVisible: PropTypes.bool,
-    hour: PropTypes.string || PropTypes.number,
-    minute: PropTypes.string || PropTypes.number,
-    second: PropTypes.string || PropTypes.number,
+    hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isRequired:PropTypes.bool,
     maxValue:PropTypes.string,//'11:20:39'
     minValue:PropTypes.string

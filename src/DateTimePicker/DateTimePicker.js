@@ -332,9 +332,6 @@ export default class DateTimePicker extends Component {
 
                     }
                     {
-                        console.log(minValue && moment(value).isBefore(minValue) || maxValue && moment(value).isAfter(maxValue))
-                    }
-                    {
                         isFooter ?
                             <div className="calendar-footer">
                                 <div className="action fl">
