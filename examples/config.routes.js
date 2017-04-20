@@ -7,11 +7,7 @@ import App from 'containers/app/App';
 export default (
     <Route path="/" component={Root}>
 
-        <IndexRoute getComponent={(nextState, cb) => {
-            require.ensure([], (require) => {
-                cb(null, require('./containers/landing/Landing').default);
-            });
-        }}/>
+        <IndexRoute component={App}/>
 
         <Route path="landing"
                getComponent={(nextState, cb) => {
