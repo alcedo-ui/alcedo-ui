@@ -20,20 +20,30 @@ export default class _TimeList extends Component {
 
     }
 
-    rangeData(range) {
+    rangeData(range,minValue,maxValue) {
+        const {isRequired}=this.props;
         let arr = [];
         for (let i = 0; i < range; i++) {
             if (i < 10) {
                 i = '0' + i
             }
-            arr.push({text: i, value: true})
+            let obj;
+            if(isRequired){
+                (i > maxValue) || (i <minValue) ?
+                    obj = {text: i, value: false}
+                    :
+                    obj = {text: i, value: true}
+            }else{
+                obj = {text: i, value: true}
+            }
+            arr.push(obj)
         }
         return arr;
     }
 
 
     hourChangeHandle(value) {
-        const {minute, second}=this.state
+        const {minute, second}=this.state;
         this.setState({
             hour: value
         }, ()=> {
@@ -71,11 +81,22 @@ export default class _TimeList extends Component {
     }
 
     render() {
-        const {className, popupVisible} = this.props;
+        const {className, popupVisible,minValue,maxValue} = this.props;
         const {hour, minute, second} = this.state;
-        const hoursData = this.rangeData(24),
-            minutesData = this.rangeData(60),
-            secondsData = this.rangeData(60);
+        let minHour,minMinute,minSecond,maxHour,maxMinute,maxSecond;
+        if(minValue){
+            minHour = minValue.split(':')[0];
+            minMinute = minValue.split(':')[1];
+            minSecond = minValue.split(':')[2];
+        }
+        if(maxValue){
+            maxHour = maxValue.split(':')[0];
+            maxMinute = maxValue.split(':')[1];
+            maxSecond = maxValue.split(':')[2];
+        }
+        const hoursData = this.rangeData(24,minHour,maxHour),
+            minutesData = this.rangeData(60,minMinute,maxMinute),
+            secondsData = this.rangeData(60,minSecond,maxSecond);
         return (
             <div className={`calendar ${className}`}>
                 <TimeItems className="hours"
@@ -108,5 +129,8 @@ _TimeList.propTypes = {
     popupVisible: PropTypes.bool,
     hour: PropTypes.string || PropTypes.number,
     minute: PropTypes.string || PropTypes.number,
-    second: PropTypes.string || PropTypes.number
+    second: PropTypes.string || PropTypes.number,
+    isRequired:PropTypes.bool,
+    maxValue:PropTypes.string,//'11:20:39'
+    minValue:PropTypes.string
 };
