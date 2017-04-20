@@ -45,19 +45,6 @@ export default class PopupExamples extends Component {
     render() {
 
         const {popupVisible, triggerEl} = this.state;
-        let items = [{
-            iconCls: 'fa fa-facebook',
-            value: 'Facebook',
-            theme: Theme.PRIMARY
-        }, {
-            iconCls: 'fa fa-twitter',
-            value: 'Twitter',
-            theme: Theme.PRIMARY
-        }, {
-            iconCls: 'fa fa-google-plus',
-            value: 'Google+',
-            theme: Theme.PRIMARY
-        }];
 
         let propertiesList = [{
             Name: 'className',

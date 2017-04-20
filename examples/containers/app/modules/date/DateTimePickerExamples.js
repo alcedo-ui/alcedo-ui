@@ -26,5 +26,3 @@ export default class DateTimePickerExamples extends Component {
         );
     }
 };
-
-DateTimePickerExamples.propTypes = {};

@@ -26,5 +26,3 @@ export default class TimePickerExamples extends Component {
         );
     }
 };
-
-TimePickerExamples.propTypes = {};

@@ -23,6 +23,7 @@ export default class CheckboxExamples extends Component {
                     <WidgetHeader className="example-header" title="Paper Simple Example"/>
 
                     <div className="widget-content">
+
                         <div className="example-content">
                             <div className="examples-wrapper">
 

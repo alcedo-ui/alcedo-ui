@@ -27,5 +27,3 @@ export default class DateRangePickerExamples extends Component {
         );
     }
 };
-
-DateRangePickerExamples.propTypes = {};

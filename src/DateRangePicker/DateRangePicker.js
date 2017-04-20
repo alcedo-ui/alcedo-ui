@@ -19,7 +19,7 @@ export default class DateRangePicker extends Component {
         super(props);
         const initValue = moment();
         let startTime = '',
-            endTime = ''
+            endTime = '';
         this.state = {
             value: initValue, // Moment object
             popupVisible: false,
@@ -543,7 +543,16 @@ export default class DateRangePicker extends Component {
 };
 
 DateRangePicker.propTypes = {
-
+    /**
+     * className:The css class name of the root element.
+     * style:The styles of the root element.
+     * name:Date picker input name.
+     * value:This is the initial date value of the component.
+     * placeholder:DatePicker textField element placeholder.
+     * dateFormat:Date format.
+     * popupVisible:Whether to display the date selection box.
+     * onChange:Callback function that is fired when the date value changes.
+     */
     className: PropTypes.string,
     style: PropTypes.object,
     name: PropTypes.string,
