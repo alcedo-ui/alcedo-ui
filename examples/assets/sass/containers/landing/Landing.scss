@@ -53,6 +53,26 @@
                     color: #fff;
                 }
             }
+
+            .menu {
+                width: 480px;
+                margin: 0 auto;
+
+                .menu-item {
+                    display: inline-block;
+                    width: 120px;
+                    line-height: 80px;
+                    text-align: center;
+                    font-size: 14px;
+                    text-decoration: none;
+                    color: transparentize(#fff, .5);
+                    font-weight: 300;
+
+                    &.activated {
+                        color: #fff;
+                    }
+                }
+            }
         }
     }
 
@@ -68,6 +88,7 @@
             padding: 140px 0;
             width: 1000px;
             margin: 0 auto;
+            height: 800px;
         }
 
         .landing-section-intro-bg {
@@ -75,6 +96,7 @@
             height: 800px;
             background-image: url("../../../images/intro-bg.jpg");
             background-size: auto 800px;
+            background-position: 50% 50%;
         }
 
         .landing-section-intro {
@@ -85,7 +107,6 @@
             background: transparentize($theme-menu, .3);
 
             .landing-section-inner {
-                height: 800px;
 
                 .logo-icon {
                     display: block;

@@ -16,11 +16,26 @@ class Landing extends Component {
 
         super(props);
 
+        this.menu = [{
+            name: 'Intro',
+            hash: '#intro'
+        }, {
+            name: 'Get Started',
+            hash: '#get-started'
+        }, {
+            name: 'Usage',
+            hash: '#usage'
+        }, {
+            name: 'Examples',
+            hash: '#examples'
+        }];
+
         this.state = {
             bodyScrollTop: 0
         };
 
         this.scrollHandle = this::this.scrollHandle;
+        this.goToDemo = this::this.goToDemo;
 
     }
 
@@ -28,6 +43,14 @@ class Landing extends Component {
         this.setState({
             bodyScrollTop: document.body.scrollTop
         });
+    }
+
+    getStarted() {
+        location = '#get-started';
+    }
+
+    goToDemo() {
+        this.context.router.push('/components');
     }
 
     componentDidMount() {
@@ -61,10 +84,25 @@ class Landing extends Component {
                                     iconCls="fa fa-github"
                                     href="https://github.com/alcedo-ui/alcedo-ui"/>
 
+                        <div className="menu">
+                            {
+                                this.menu.map((item, index) => {
+                                    return (
+                                        <a key={index}
+                                           className={`menu-item ${location.hash === item.hash ? 'activated' : ''}`}
+                                           href={item.hash}>
+                                            {item.name}
+                                        </a>
+                                    );
+                                })
+                            }
+                        </div>
+
                     </div>
                 </div>
 
-                <section className="landing-section">
+                <section id="intro"
+                         className="landing-section">
                     <div className="landing-section-intro-bg"></div>
                     <div className="landing-section-intro">
                         <div className="landing-section-inner">
@@ -73,12 +111,29 @@ class Landing extends Component {
                             <div className="slogen">A Set of React Components</div>
                             <div className="buttons">
                                 <FlatButton className="ghost-button"
-                                            value="Get Started"/>
+                                            value="Get Started"
+                                            onTouchTap={this.getStarted}/>
                                 <FlatButton className="ghost-button"
-                                            value="Go to Demo"/>
+                                            value="Go to Demo"
+                                            onTouchTap={this.goToDemo}/>
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <section id="get-started"
+                         className="landing-section">
+                    <div className="landing-section-inner"></div>
+                </section>
+
+                <section id="usage"
+                         className="landing-section">
+                    <div className="landing-section-inner"></div>
+                </section>
+
+                <section id="examples"
+                         className="landing-section">
+                    <div className="landing-section-inner"></div>
                 </section>
 
             </div>
