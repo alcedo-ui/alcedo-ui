@@ -543,23 +543,45 @@ export default class DateRangePicker extends Component {
 };
 
 DateRangePicker.propTypes = {
+
     /**
-     * className:The css class name of the root element.
-     * style:The styles of the root element.
-     * name:Date picker input name.
-     * value:This is the initial date value of the component.
-     * placeholder:DatePicker textField element placeholder.
-     * dateFormat:Date format.
-     * popupVisible:Whether to display the date selection box.
-     * onChange:Callback function that is fired when the date value changes.
+     * The css class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
+
+    /**
+     * Date picker input name.
+     */
     name: PropTypes.string,
+
+    /**
+     * This is the initial date value of the component.
+     */
     value: PropTypes.array,
+
+    /**
+     * TDatePicker textField element placeholder.
+     */
     placeholder: PropTypes.string,
+
+    /**
+     * Date format.
+     */
     dateFormat: PropTypes.string,
+
+    /**
+     * Whether to display the date selection box.
+     */
     popupVisible: PropTypes.bool,
+
+    /**
+     * Callback function that is fired when the date value changes.
+     */
     onChange: PropTypes.func
 
 };
