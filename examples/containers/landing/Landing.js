@@ -3,24 +3,50 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
+import Event from 'vendors/Event';
 
-import IconButton from 'dist/IconButton';
 import IconAnchor from 'dist/IconAnchor';
+import FlatButton from 'dist/FlatButton';
 
 import 'sass/containers/landing/Landing.scss';
 
 class Landing extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            bodyScrollTop: 0
+        };
+
+        this.scrollHandle = this::this.scrollHandle;
+
+    }
+
+    scrollHandle() {
+        this.setState({
+            bodyScrollTop: document.body.scrollTop
+        });
+    }
+
+    componentDidMount() {
+        Event.addEvent(document, 'scroll', this.scrollHandle);
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'scroll', this.scrollHandle);
     }
 
     render() {
 
-        const {} = this.props;
+        const {bodyScrollTop} = this.state;
 
         return (
             <div className="landing">
+
+                <div className="landing-bg"
+                     style={{opacity: bodyScrollTop / 200}}></div>
 
                 <div className="landing-nav">
                     <div className="landing-nav-inner">
@@ -38,11 +64,20 @@ class Landing extends Component {
                     </div>
                 </div>
 
-                <section className="landing-section intro">
-                    <div className="landing-section-inner">
-                        <i className="logo-icon"></i>
-                        <div className="logo-text">Alcedo-UI</div>
-                        <div className="slogen">A Set of React Components</div>
+                <section className="landing-section">
+                    <div className="landing-section-intro-bg"></div>
+                    <div className="landing-section-intro">
+                        <div className="landing-section-inner">
+                            <i className="logo-icon"></i>
+                            <div className="logo-text">Alcedo-UI</div>
+                            <div className="slogen">A Set of React Components</div>
+                            <div className="buttons">
+                                <FlatButton className="ghost-button"
+                                            value="Get Started"/>
+                                <FlatButton className="ghost-button"
+                                            value="Go to Demo"/>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
