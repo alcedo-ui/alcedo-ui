@@ -7,6 +7,13 @@ import EditableField from 'dist/EditableField/EditableField'
 export default class EditableFieldExamples extends Component{
     constructor(props) {
         super();
+
+        this.state = {
+            value: '123'
+        };
+
+        this.onChange = this :: this.onChange;
+
     }
 
     onChange(text) {
@@ -17,7 +24,7 @@ export default class EditableFieldExamples extends Component{
         return (
             <div style={{margin: '20px'}}>
                 <div>Example</div>
-                <EditableField value={'text1'} style={{height: '30px', lineHeight: '30px'}} onChange={this.onChange}/>
+                <EditableField value={this.state.value} style={{height: '30px', lineHeight: '30px'}} onChange={this.onChange}/>
             </div>
         );
     }
