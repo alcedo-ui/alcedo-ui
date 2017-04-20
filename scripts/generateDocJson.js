@@ -40,6 +40,13 @@ function formatDefaultProps(fieldDefaultProps) {
 
 }
 
+function splitField(fieldString) {
+    return {
+        key: _.trim(fieldString.slice(0, fieldString.indexOf(':'))),
+        value: _.trim(fieldString.slice(fieldString.indexOf(':') + 1))
+    };
+}
+
 /**
  * generate fieldName and comment into result
  * @param componentName
@@ -50,7 +57,7 @@ function generatePropTypes(componentName, fileString, result) {
 
     var propTypesFileString = fileString.slice(fileString.indexOf(componentName + '.propTypes')),
         propTypesFileArray = propTypesFileString.split('\n'),
-        braceCount = 0, commentStart, comment, fieldString, fieldArray, fieldName;
+        braceCount = 0, commentStart, comment, fieldString, fieldObj;
 
     for (var i = 0, len = propTypesFileArray.length; i < len; i++) {
 
@@ -61,13 +68,11 @@ function generatePropTypes(componentName, fileString, result) {
             if (propTypesFileArray[i + 1]) {
 
                 fieldString = propTypesFileArray[i + 1];
-                fieldArray = fieldString.split(':');
-
-                fieldName = _.trim(fieldArray[0]);
+                fieldObj = splitField(fieldString);
                 comment += _.trim(line.slice(0, line.indexOf('*/')));
 
-                result[fieldName] = {
-                    type: formatPropTypes(_.trim(fieldArray[1])),
+                result[fieldObj.key] = {
+                    type: formatPropTypes(fieldObj.value),
                     desc: comment
                 };
 
@@ -80,6 +85,15 @@ function generatePropTypes(componentName, fileString, result) {
         } else if (line.indexOf('/**') > -1) {
             commentStart = i;
             comment = _.trim(line.slice(line.indexOf('/**') + 3));
+        } else if (line.indexOf('PropTypes') > -1) {
+
+            fieldString = line;
+            fieldObj = splitField(fieldString);
+
+            result[fieldObj.key] = {
+                type: formatPropTypes(fieldObj.value)
+            };
+
         } else {
 
             braceCount += (line.split('{').length - 1);
@@ -105,17 +119,17 @@ function generateDefaultProps(componentName, fileString, result) {
 
     var defaultPropsFileString = fileString.slice(fileString.indexOf(componentName + '.defaultProps')),
         defaultPropsFileArray = defaultPropsFileString.split('\n'),
-        braceCount = 0, fieldArray, fieldName;
+        braceCount = 0, fieldObj, fieldName;
 
     for (var i = 0, len = defaultPropsFileArray.length; i < len; i++) {
 
         var line = defaultPropsFileArray[i];
 
-        fieldArray = line.split(':');
-        fieldName = _.trim(fieldArray[0]);
+        fieldObj = splitField(line);
+        fieldName = fieldObj.key;
 
         if (result[fieldName]) {
-            result[fieldName].default = formatDefaultProps(_.trim(fieldArray[1]));
+            result[fieldName].default = formatDefaultProps(fieldObj.value);
         }
 
         braceCount += (line.split('{').length - 1);
