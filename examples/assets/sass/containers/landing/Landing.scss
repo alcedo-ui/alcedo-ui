@@ -11,7 +11,51 @@
         background: $theme-menu;
 
         .landing-nav-inner {
+            position: relative;
             width: 1000px;
+            height: 60px;
+            margin: 0 auto;
+
+            .logo {
+                position: absolute;
+                left: 0;
+                top: 0;
+                text-decoration: none;
+
+                .logo-icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 15px 10px 15px 0;
+                    width: 30px;
+                    height: 30px;
+                    background-image: url("../../../../../assets/alcedo-logo.png");
+                    background-size: 30px 30px;
+
+                    .alcedo-ui-logo {
+                        display: block;
+                        width: 30px;
+                        height: 30px;
+                        margin: 5px !important;
+                        background-image: url("../../../../../assets/alcedo-logo.png");
+                        background-size: 30px 30px;
+                    }
+                }
+
+                .logo-text {
+                    vertical-align: middle;
+                    color: #fff;
+                    font-size: 20px;
+                    user-select: none;
+                }
+            }
+
+            .github-icon {
+                position: absolute;
+                right: 0;
+                top: 10px;
+                color: transparentize(#fff, .2);
+                font-size: 24px;
+            }
         }
     }
 }

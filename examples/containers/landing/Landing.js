@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
+import IconButton from 'dist/IconButton';
+import IconAnchor from 'dist/IconAnchor';
+
 import 'sass/containers/landing/Landing.scss';
 
 class Landing extends Component {
@@ -18,11 +21,23 @@ class Landing extends Component {
 
         return (
             <div className="landing">
+
                 <div className="landing-nav">
                     <div className="landing-nav-inner">
 
+                        <a className="logo"
+                           href="/">
+                            <i className="logo-icon"></i>
+                            <span className="logo-text">Alcedo-UI</span>
+                        </a>
+
+                        <IconAnchor className="github-icon"
+                                    iconCls="fa fa-github"
+                                    href="https://github.com/alcedo-ui/alcedo-ui"/>
+
                     </div>
                 </div>
+
             </div>
         );
 
