@@ -125,7 +125,7 @@ export default class TextField extends Component {
 
         const {
             className, style, type, name, placeholder, iconCls, disabled, infoMsg,
-            required, maxLength, max, min, step, readOnly
+            required, maxLength, max, min, step, readOnly, clearButtonVisible, passwordButtonVisible
         } = this.props;
         const {value, passwordVisible, infoVisible, errorVisible} = this.state;
 
@@ -173,17 +173,13 @@ export default class TextField extends Component {
                        onFocus={this.focusHandle}
                        onBlur={this.blurHandle}/>
 
-                <IconButton className={`clear-icon ${value && value.length > 0 ? '' : 'hidden'}`}
+                <IconButton className={`clear-icon ${!clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
                             iconCls="fa fa-times-circle"
                             onTouchTap={this.clearValue}/>
-                {
-                    isPassword ?
-                        <IconButton className="password-visible-icon"
-                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
-                        :
-                        null
-                }
+
+                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
+                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                            onTouchTap={this.togglePasswordVisible}/>
 
                 <ReactCSSTransitionGroup component="div"
                                          transitionName="fade"
@@ -232,6 +228,9 @@ TextField.propTypes = {
     autoFocus: PropTypes.bool,
     infoMsg: PropTypes.string,
 
+    clearButtonVisible: PropTypes.bool,
+    passwordButtonVisible: PropTypes.bool,
+
     // valid
     required: PropTypes.bool,
     maxLength: PropTypes.number,
@@ -264,8 +263,13 @@ TextField.defaultProps = {
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    invalidMsg: '',
+    infoMsg: '',
+
+    clearButtonVisible: true,
+    passwordButtonVisible: true,
+
+    // valid
     required: false,
-    infoMsg: ''
+    invalidMsg: ''
 
 };
