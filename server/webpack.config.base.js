@@ -25,7 +25,8 @@ module.exports = {
             'containers': resolve('examples/containers'),
             'dist': resolve('dist'),
             'vendors': resolve('examples/vendors'),
-            'reduxes': resolve('examples/reduxes')
+            'reduxes': resolve('examples/reduxes'),
+            'docs': resolve('docs')
         }
     },
     module: {
@@ -47,6 +48,9 @@ module.exports = {
                 limit: 1000,
                 name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
             }
+        }, {
+            test: /\.json$/,
+            loader: 'json-loader'
         }]
     }
 };

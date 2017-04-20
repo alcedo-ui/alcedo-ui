@@ -67,8 +67,8 @@ function generatePropTypes(componentName, fileString, result) {
                 comment += _.trim(line.slice(0, line.indexOf('*/')));
 
                 result[fieldName] = {
-                    propType: formatPropTypes(_.trim(fieldArray[1])),
-                    comment: comment
+                    type: formatPropTypes(_.trim(fieldArray[1])),
+                    desc: comment
                 };
 
             }
@@ -115,7 +115,7 @@ function generateDefaultProps(componentName, fileString, result) {
         fieldName = _.trim(fieldArray[0]);
 
         if (result[fieldName]) {
-            result[fieldName].defaultProps = formatDefaultProps(_.trim(fieldArray[1]));
+            result[fieldName].default = formatDefaultProps(_.trim(fieldArray[1]));
         }
 
         braceCount += (line.split('{').length - 1);
