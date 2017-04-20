@@ -12,7 +12,7 @@ module.exports = function () {
         }
 
         if (chunk.isStream()) {
-            cb(new gutil.PluginError('miniPackageJson', 'Streaming not supported'));
+            callback(new gutil.PluginError('gulp-mini-package-json', 'Streaming not supported'));
             return;
         }
 

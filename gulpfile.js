@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence'),
-    miniPackageJson = require('./scripts/miniPackageJson');
+    miniPackageJson = require('./scripts/gulp-mini-package-json'),
+    componentDoc = require('./scripts/gulp-component-doc');
 
 function printError(e) {
     console.error(e.toString());
@@ -46,6 +47,16 @@ gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJs
 gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
 
 gulp.task('watch', function () {
-    gulp.watch(['./src/*.scss', './src/**/*.scss'], ['sass']);
-    gulp.watch(['./src/*.js', './src/**/*.js'], ['es']);
+    gulp.watch('./src/**/*.scss', ['sass']);
+    gulp.watch('./src/**/*.js', ['es']);
+});
+
+gulp.task('doc', function () {
+    return gulp.src(['./src/**/*.js', '!./src/_*/*.js', '!./src/**/index.js'])
+        .pipe(componentDoc())
+        .pipe(rename(function (path) {
+            path.dirname = '';
+            path.extname = '.json';
+        }))
+        .pipe(gulp.dest('./docs'));
 });

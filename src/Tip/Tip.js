@@ -1,26 +1,17 @@
-/**
- * Created by Wendy on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
+import './Tip.css';
 
-
-import './tip.css';
-
-export default class Tip extends Component{
-    constructor(props){
+export default class Tip extends Component {
+    constructor(props) {
         super(props);
-        // this.state = {
-        //
-        // };
-        // this.shadowClickHandle = this::this.shadowClickHandle;
     }
 
-    render(){
+    render() {
         return (
             <div className="tip-container">
-               {this.props.text}
+                {this.props.text}
             </div>
-        )
+        );
     }
 }
