@@ -4,6 +4,9 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
+import IconButton from 'dist/IconButton';
+import IconAnchor from 'dist/IconAnchor';
+
 import 'sass/containers/app/navBar/brand/Brand.scss';
 
 class Brand extends Component {
@@ -25,14 +28,18 @@ class Brand extends Component {
         return (
             <div className="brand">
 
-                <i className="fa fa-bars menu-toggle-button"
-                   aria-hidden="true"
-                   onClick={this.menuToggleButtonMousedownHandle}></i>
+                <IconButton className="menu-toggle-button"
+                            iconCls="fa fa-bars"
+                            onTouchTap={this.menuToggleButtonMousedownHandle}/>
 
                 <div className="brand-name">
                     <div className="brand-logo"></div>
                     Alcedo-UI Examples
                 </div>
+
+                <IconAnchor className="github-icon"
+                            iconCls="fa fa-github"
+                            href="https://github.com/alcedo-ui/alcedo-ui"/>
 
             </div>
         );

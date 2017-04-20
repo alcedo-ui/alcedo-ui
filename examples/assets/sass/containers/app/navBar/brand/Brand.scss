@@ -17,18 +17,11 @@
 
     .menu-toggle-button {
         position: absolute;
-        left: 0;
-        top: 0;
-        display: block;
-        width: 60px;
-        height: 60px;
-        text-align: center;
-        line-height: 60px;
-        float: left;
-        cursor: pointer;
+        left: 10px;
+        top: 10px;
         display: none;
         z-index: 1;
-        background: $theme-menu;
+        color: $theme-light-text;
     }
 
     .brand-name {
@@ -49,6 +42,16 @@
         }
     }
 
+    .github-icon {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: none;
+        z-index: 1;
+        font-size: 20px;
+        color: $theme-light-text;
+    }
+
 }
 
 @media (max-width: 767px) {
@@ -58,11 +61,14 @@
 
         .menu-toggle-button {
             display: block;
-            background: $theme-brand;
         }
 
         .brand-name {
             text-align: center;
+        }
+
+        .github-icon {
+            display: block;
         }
     }
 }
