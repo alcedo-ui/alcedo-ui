@@ -72,17 +72,39 @@ export default class TextField extends Component {
     }
 
     clearValue() {
-        !this.props.disabled && this.setState({
+
+        const {disabled, clearButtonVisible, onClear, onChange} = this.props;
+
+        !disabled && clearButtonVisible && this.setState({
             value: ''
         }, () => {
-            this.props.onChange && this.props.onChange('');
+
+            this.refs.input.focus();
+
+            onClear && onClear();
+            onChange && onChange('');
+
         });
+
     }
 
     togglePasswordVisible() {
-        !this.props.disabled && this.setState({
-            passwordVisible: !this.state.passwordVisible
+
+        const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
+        const passwordVisible = !this.state.passwordVisible;
+
+        !disabled && passwordButtonVisible && this.setState({
+            passwordVisible
+        }, () => {
+
+            this.refs.input.focus();
+
+            passwordVisible
+                ? (onPasswordVisible && onPasswordVisible())
+                : (onPasswordInvisible && onPasswordInvisible());
+
         });
+
     }
 
     mouseoverHandle() {
@@ -125,7 +147,7 @@ export default class TextField extends Component {
 
         const {
             className, style, type, name, placeholder, iconCls, disabled, infoMsg,
-            required, maxLength, max, min, step, readOnly
+            required, maxLength, max, min, step, readOnly, clearButtonVisible, passwordButtonVisible
         } = this.props;
         const {value, passwordVisible, infoVisible, errorVisible} = this.state;
 
@@ -173,17 +195,13 @@ export default class TextField extends Component {
                        onFocus={this.focusHandle}
                        onBlur={this.blurHandle}/>
 
-                <IconButton className={`clear-icon ${value && value.length > 0 ? '' : 'hidden'}`}
+                <IconButton className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
                             iconCls="fa fa-times-circle"
                             onTouchTap={this.clearValue}/>
-                {
-                    isPassword ?
-                        <IconButton className="password-visible-icon"
-                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
-                        :
-                        null
-                }
+
+                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
+                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                            onTouchTap={this.togglePasswordVisible}/>
 
                 <ReactCSSTransitionGroup component="div"
                                          transitionName="fade"
@@ -232,6 +250,9 @@ TextField.propTypes = {
     autoFocus: PropTypes.bool,
     infoMsg: PropTypes.string,
 
+    clearButtonVisible: PropTypes.bool,
+    passwordButtonVisible: PropTypes.bool,
+
     // valid
     required: PropTypes.bool,
     maxLength: PropTypes.number,
@@ -247,7 +268,10 @@ TextField.propTypes = {
     onValid: PropTypes.func,
     onInvalid: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    onClear: PropTypes.func,
+    onPasswordVisible: PropTypes.func,
+    onPasswordInvisible: PropTypes.func
 
 };
 
@@ -264,8 +288,13 @@ TextField.defaultProps = {
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    invalidMsg: '',
+    infoMsg: '',
+
+    clearButtonVisible: true,
+    passwordButtonVisible: true,
+
+    // valid
     required: false,
-    infoMsg: ''
+    invalidMsg: ''
 
 };

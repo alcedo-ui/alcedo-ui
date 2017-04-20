@@ -43,6 +43,8 @@ export default class EditableField extends Component {
     onChange(text) {
         this.setState({
             text: text
+        }, () => {
+            this.props.onChange && this.props.onChange(this.state.text);
         });
     }
 
@@ -69,6 +71,14 @@ export default class EditableField extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.text) {
+            this.setState({
+                text: nextProps.value
+            });
+        }
+    }
+
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.downHandle);
     }
@@ -78,7 +88,7 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const {style} = this.props;
+        const { style, name } = this.props;
 
         return (
             <div className="nameInput"
@@ -97,6 +107,8 @@ export default class EditableField extends Component {
                                      onChange={this.onChange}/>
                 }
 
+                <input type="hidden" value={this.state.text} readOnly name={name}/>
+
             </div>
         );
     }
@@ -106,12 +118,16 @@ EditableField.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    value: PropTypes.string
+    value: PropTypes.string,
+    name: PropTypes.string,
+
+    onChange: PropTypes.func
 };
 
 EditableField.defaultProps = {
     className: '',
     style: {},
 
-    value: 'text'
+    value: 'text',
+    name: ''
 };

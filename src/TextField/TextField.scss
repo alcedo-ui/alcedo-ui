@@ -30,11 +30,13 @@
         &.clear-icon {
             right: 0;
         }
-        &.hidden {
-            display: none;
-        }
+
         &.password-visible-icon {
             right: 40px;
+        }
+
+        &.hidden {
+            display: none;
         }
     }
 

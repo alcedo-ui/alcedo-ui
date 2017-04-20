@@ -321,8 +321,9 @@ export default class DateTimePicker extends Component {
                                               hour={hour}
                                               minute={minute}
                                               second={second}
-                                              maxValue={maxValue}
-                                              minValue={minValue}
+                                              isRequired={minValue && moment(value).isBefore(minValue) || maxValue && moment(value).isAfter(maxValue) ? false : true}
+                                              maxValue={maxValue ? moment(maxValue).format('HH:mm:ss') : null}
+                                              minValue={minValue ? moment(minValue).format('HH:mm:ss') : null}
                                               onChange={this.timePickerChangeHandle}
                                     />
                             )
