@@ -38,6 +38,14 @@ class Landing extends Component {
                     </div>
                 </div>
 
+                <section className="landing-section intro">
+                    <div className="landing-section-inner">
+                        <i className="logo-icon"></i>
+                        <div className="logo-text">Alcedo-UI</div>
+                        <div className="slogen">A Set of React Components</div>
+                    </div>
+                </section>
+
             </div>
         );
 
