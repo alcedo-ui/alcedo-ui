@@ -4,6 +4,7 @@ import RadioGroup from 'dist/RadioGroup';
 import TextField from 'dist/TextField';
 import RaisedButton from 'dist/RaisedButton';
 import Toaster from 'dist/Toaster';
+import Theme from 'dist/Theme';
 
 import 'sass/containers/app/modules/message/ToasterExamples.scss';
 
@@ -92,7 +93,7 @@ export default class ToasterExamples extends Component {
 
                         <RaisedButton className="show-toast-button"
                                       value="Show Toaster"
-                                      buttonStyle={RaisedButton.buttonStyle.PRIMARY}
+                                      buttonStyle={Theme.PRIMARY}
                                       onTouchTap={this.addToast}/>
 
                         <Toaster ref="toaster"/>
