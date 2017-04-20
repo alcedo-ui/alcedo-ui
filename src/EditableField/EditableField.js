@@ -107,7 +107,7 @@ export default class EditableField extends Component {
                                      onChange={this.onChange}/>
                 }
 
-                <input type="text" value={this.state.text} readOnly hidden name={name}/>
+                <input type="hidden" value={this.state.text} readOnly name={name}/>
 
             </div>
         );
