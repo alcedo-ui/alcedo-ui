@@ -96,9 +96,13 @@ export default class TextField extends Component {
         !disabled && passwordButtonVisible && this.setState({
             passwordVisible
         }, () => {
+
+            this.refs.input.focus();
+
             passwordVisible
                 ? (onPasswordVisible && onPasswordVisible())
                 : (onPasswordInvisible && onPasswordInvisible());
+
         });
 
     }
