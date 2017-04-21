@@ -4,6 +4,8 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
+import Paper from 'dist/Paper';
+
 import 'sass/containers/landing/sections/LandingExamples.scss';
 
 class LandingExamples extends Component {
@@ -21,6 +23,15 @@ class LandingExamples extends Component {
 
                     <div className="landing-section-title">Examples</div>
 
+                    <Paper className="landing-examples-demo"
+                           depth={3}>
+                        <div className="window-header">
+                            <div className="window-header-dot"></div>
+                            <div className="window-header-dot"></div>
+                            <div className="window-header-dot"></div>
+                        </div>
+                        <div className="landing-examples-demo-image"></div>
+                    </Paper>
 
                 </div>
 

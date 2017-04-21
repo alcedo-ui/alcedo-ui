@@ -199,37 +199,7 @@ export default class RaisedButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={RaisedButtonDco}/>
-
-                {/*<div className="example-properties">*/}
-                    {/*<h3>Properties</h3>*/}
-                    {/*<table className="example-table">*/}
-                        {/*<thead>*/}
-                            {/*<tr>*/}
-                                {/*<th>Name</th>*/}
-                                {/*<th>Type</th>*/}
-                                {/*<th>Default</th>*/}
-                                {/*<th>Description</th>*/}
-                            {/*</tr>*/}
-                        {/*</thead>*/}
-                        {/*<tbody>*/}
-                            {/*{*/}
-                                {/*propertiesList && propertiesList.length > 0 ?*/}
-                                    {/*(*/}
-                                        {/*propertiesList.map(function (val) {*/}
-                                            {/*return <tr>*/}
-                                                {/*<td className="properties-name">{val.Name}</td>*/}
-                                                {/*<td className="properties-type">{val.Type}</td>*/}
-                                                {/*<td>{val.Default}</td>*/}
-                                                {/*<td>{val.Description}</td>*/}
-                                            {/*</tr>*/}
-                                        {/*})*/}
-                                    {/*)*/}
-                                    {/*: null*/}
-                            {/*}*/}
-                        {/*</tbody>*/}
-                    {/*</table>*/}
-                {/*</div>*/}
+                <PropTypeDescTable data={RaisedButtonDoc}/>
 
             </div>
         );
