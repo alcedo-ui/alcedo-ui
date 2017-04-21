@@ -6,10 +6,29 @@
 
         .landing-section-inner {
             box-sizing: border-box;
-            padding: 140px 0;
-            width: 1000px;
-            margin: 0 auto;
-            height: 800px;
+            padding: 160px 16%;
+            width: 100%;
+
+            .landing-section-title {
+                width: 100%;
+                text-align: center;
+                font-size: 50px;
+                font-weight: 300;
+                margin-bottom: 20px;
+            }
+
+            .landing-section-subtitle {
+                width: 100%;
+                text-align: center;
+                font-size: 24px;
+                font-weight: 300;
+            }
         }
+    }
+}
+
+@media (max-width: 767px) {
+    .root {
+        background: $theme-bg !important;
     }
 }

@@ -2,4 +2,17 @@
 
 #landing-get-started {
 
+    .landing-section-inner {
+
+        .landing-get-started-bash {
+            width: 600px;
+            margin: 80px auto 0;
+            padding: 30px;
+            border-radius: $border-radius;
+            font-size: 20px;
+            box-sizing: border-box;
+            background: #3c3f41;
+            color: $theme-highlight;
+        }
+    }
 }

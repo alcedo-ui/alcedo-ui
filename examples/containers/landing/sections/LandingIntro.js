@@ -30,12 +30,17 @@ class LandingIntro extends Component {
         return (
             <section id="landing-intro"
                      className="landing-section">
+
                 <div className="landing-section-intro-bg"></div>
+
                 <div className="landing-section-intro">
+
                     <div className="landing-section-inner">
+
                         <i className="logo-icon"></i>
                         <div className="logo-text">Alcedo-UI</div>
                         <div className="slogen">A Set of React Components</div>
+
                         <div className="buttons">
                             <FlatButton className="ghost-button"
                                         value="Get Started"
@@ -44,8 +49,11 @@ class LandingIntro extends Component {
                                         value="Go to Demo"
                                         onTouchTap={this.goToDemo}/>
                         </div>
+
                     </div>
+
                 </div>
+
             </section>
         );
     }
