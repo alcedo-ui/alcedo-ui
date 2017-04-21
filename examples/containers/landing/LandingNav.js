@@ -44,7 +44,7 @@ export default class LandingNav extends Component {
         let activatedMenu = this.menu[0];
         for (let i = 0, len = this.menu.length; i < len; i++) {
             const el = document.querySelector(this.menu[i].hash);
-            if (el && bodyScrollTop > el.offsetTop - 60) {
+            if (el && bodyScrollTop >= el.offsetTop - 60) {
                 activatedMenu = this.menu[i];
             }
         }
@@ -80,7 +80,7 @@ export default class LandingNav extends Component {
                     <div className="landing-nav-inner">
 
                         <a className="logo"
-                           href="/">
+                           href="#/">
                             <i className="logo-icon"></i>
                             <span className="logo-text">Alcedo-UI</span>
                         </a>
