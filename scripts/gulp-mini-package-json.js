@@ -20,18 +20,17 @@ module.exports = function () {
 
             var data = JSON.parse(chunk.contents.toString());
 
-            let dependencies = data.dependencies;
-            delete dependencies['react-redux'];
-            delete dependencies['react-router'];
-            delete dependencies['react-router-redux'];
-            delete dependencies['redux'];
-            delete dependencies['redux-thunk'];
-
             var miniData = {
                 name: 'alcedo-ui',
                 author: data.author,
                 version: data.version,
-                description: data.description,
+                description: {
+                    'lodash': data.dependencies['lodash'],
+                    'moment': data.dependencies['moment'],
+                    'react': data.dependencies['react'],
+                    'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
+                    'react-dom': data.dependencies['react-dom']
+                },
                 main: './index.js',
                 keywords: data.keywords,
                 repository: data.repository,
