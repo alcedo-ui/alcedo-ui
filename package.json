@@ -11,7 +11,8 @@
         "dev:example": "node build/dev/dev-server.js",
         "build:example": "node build/prod/prod.js",
         "build:demo": "npm run build:components && npm run build:example",
-        "demo": "npm run build:demo && node build/demo/demo-server.js"
+        "run:demo": "node build/demo/demo-server.js",
+        "demo": "npm run build:demo && npm run run:demo"
     },
     "repository": {
         "type": "git",
