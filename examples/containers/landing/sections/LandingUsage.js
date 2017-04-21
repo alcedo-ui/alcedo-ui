@@ -23,7 +23,7 @@ class LandingUsage extends Component {
 
                     <div className="landing-section-title">Usage</div>
 
-                    <Highlight className='jsx landing-get-started-bash'>
+                    <Highlight className='jsx landing-bash'>
                         {'import React, {Component} from \'react\';\n'
                         + 'import RaisedButton from \'alcedo-ui/RaisedButton\';\n'
                         + '\n'

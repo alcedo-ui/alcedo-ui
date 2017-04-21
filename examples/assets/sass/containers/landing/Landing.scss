@@ -24,6 +24,19 @@
                 font-weight: 300;
                 color: transparentize($theme-text, .4);
             }
+
+            .landing-bash {
+
+                @include shadow(3);
+
+                width: 700px;
+                margin: 60px auto 0;
+                padding: 30px 40px;
+                border-radius: $border-radius;
+                font-size: 18px;
+                box-sizing: border-box;
+                background: #3c3f41;
+            }
         }
     }
 }

@@ -16,7 +16,14 @@ class LandingExamples extends Component {
         return (
             <section id="landing-examples"
                      className="landing-section">
-                <div className="landing-section-inner"></div>
+
+                <div className="landing-section-inner">
+
+                    <div className="landing-section-title">Examples</div>
+
+
+                </div>
+
             </section>
         );
     }

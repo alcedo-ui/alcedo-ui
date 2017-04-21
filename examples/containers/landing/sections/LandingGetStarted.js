@@ -24,7 +24,7 @@ class LandingGetStarted extends Component {
                     <div className="landing-section-title">Get Started</div>
                     <div className="landing-section-subtitle">NPM</div>
 
-                    <Highlight className='bash landing-get-started-bash'>
+                    <Highlight className='bash landing-bash'>
                         {'# latest stable' + '\n' + '$ npm install alcedo-ui'}
                     </Highlight>
 
