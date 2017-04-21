@@ -5,8 +5,8 @@
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
-        "build:doc": "rimraf docs && gulp doc",
-        "build:components": "rimraf dist && gulp build && npm run build:doc",
+        "build:propType": "rimraf examples/assets/propTypes && gulp propType",
+        "build:components": "rimraf dist && gulp build && npm run build:propType",
         "watch:components": "npm run build:components && gulp watch",
         "dev:example": "node build/dev/dev-server.js",
         "build:example": "node build/prod/prod.js",
