@@ -1,5 +1,17 @@
 @import '../../../common.scss';
 
 #landing-usage {
-    background: #fff;
+
+    .landing-section-inner {
+
+        .landing-get-started-bash {
+            width: 700px;
+            margin: 80px auto 0;
+            padding: 30px 60px;
+            border-radius: $border-radius;
+            font-size: 20px;
+            box-sizing: border-box;
+            background: #3c3f41;
+        }
+    }
 }

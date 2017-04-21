@@ -5,7 +5,7 @@ import Highlight from 'react-highlight';
 
 import * as actions from 'reduxes/actions';
 
-import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/styles/androidstudio.css';
 import 'sass/containers/landing/sections/LandingGetStarted.scss';
 
 class LandingGetStarted extends Component {
