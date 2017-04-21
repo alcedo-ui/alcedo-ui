@@ -79,6 +79,7 @@ function generatePropTypes(componentName, fileString, result) {
             }
 
             commentStart = comment = undefined;
+            i++;
 
         } else if (commentStart) {
             comment += (comment === '' ? '' : ' ') + _.trim(line.slice(line.indexOf('*') + 1));
