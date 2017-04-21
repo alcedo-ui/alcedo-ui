@@ -1,15 +1,21 @@
-delete process.env['DEBUG_FD'];
+delete process.env["DEBUG_FD"];
 
-process.env.NODE_ENV = 'development';
+var config = require('../../config');
+if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV);
+}
 
-var config = require('./config'),
-    opn = require('opn'),
+var opn = require('opn'),
     path = require('path'),
     webpack = require('webpack'),
+    proxyMiddleware = require('http-proxy-middleware'),
     history = require('connect-history-api-fallback'),
 
-    port = process.env.PORT || config.port,
+    port = process.env.PORT || config.dev.port,
     uri = 'http://localhost:' + port,
+
+    // API 转发配置
+    proxyTable = config.dev.proxyTable,
 
     express = require('express'),
     app = express(),
@@ -27,6 +33,7 @@ var config = require('./config'),
         }
     });
 
+// html 模板改变时刷新页面
 compiler.plugin('compilation', function (compilation) {
     compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
         hotMiddleware.publish({action: 'reload'});
@@ -34,12 +41,23 @@ compiler.plugin('compilation', function (compilation) {
     });
 });
 
+// 转发 API 请求
+Object.keys(proxyTable).forEach(function (context) {
+    var options = proxyTable[context];
+    if (typeof options === 'string') {
+        options = {target: options};
+    }
+    app.use(proxyMiddleware(options.filter || context, options));
+});
+
+// browserHistory 前端路由重定向
 app.use(history());
 
 app.use(devMiddleware);
 app.use(hotMiddleware);
 
-app.use(config.assetsVirtualRoot, express.static('./static'));
+// 托管静态文件
+app.use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(function () {
     console.log('> Listening at ' + uri + '\n');
@@ -52,6 +70,8 @@ module.exports = app.listen(port, function (err) {
         return;
     }
 
-    opn(uri);
+    if (!!config.dev.autoOpenBrowser) {
+        opn(uri);
+    }
 
 });

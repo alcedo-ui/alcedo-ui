@@ -2,28 +2,24 @@ import React from 'react';
 import {IndexRoute, Route, Redirect} from 'react-router';
 
 import Root from 'containers/Root';
-import App from 'containers/app/App';
+import Landing from 'containers/landing/Landing';
 
 export default (
     <Route path="/" component={Root}>
 
-        {/*<IndexRoute component={App}/>*/}
-        <IndexRoute getComponent={(nextState, cb) => {
-            require.ensure([], (require) => {
-                cb(null, require('./containers/landing/Landing').default);
-            });
-        }}/>
+        <IndexRoute component={Landing}/>
 
         <Route path="landing"
-               getComponent={(nextState, cb) => {
-                   require.ensure([], (require) => {
-                       cb(null, require('./containers/landing/Landing').default);
-                   });
-               }}/>
+               component={Landing}/>
 
         <Redirect from="components" to="/components/RaisedButton"/>
 
-        <Route path="components" component={App}>
+        <Route path="components"
+               getComponent={(nextState, cb) => {
+                   require.ensure([], (require) => {
+                       cb(null, require('./containers/app/App').default);
+                   });
+               }}>
 
             <Route path="RaisedButton"
                    getComponent={(nextState, cb) => {
