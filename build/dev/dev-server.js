@@ -1,4 +1,4 @@
-delete process.env["DEBUG_FD"];
+delete process.env['DEBUG_FD'];
 
 var config = require('../../config');
 if (!process.env.NODE_ENV) {
@@ -8,13 +8,10 @@ if (!process.env.NODE_ENV) {
 var opn = require('opn'),
     path = require('path'),
     webpack = require('webpack'),
-    proxyMiddleware = require('http-proxy-middleware'),
     history = require('connect-history-api-fallback'),
 
     port = process.env.PORT || config.dev.port,
     uri = 'http://localhost:' + port,
-
-    proxyTable = config.dev.proxyTable,
 
     express = require('express'),
     app = express(),
@@ -39,15 +36,6 @@ compiler.plugin('compilation', function (compilation) {
     });
 });
 
-Object.keys(proxyTable).forEach(function (context) {
-    var options = proxyTable[context];
-    if (typeof options === 'string') {
-        options = {target: options};
-    }
-    app.use(proxyMiddleware(options.filter || context, options));
-});
-
-app.use(history());
 
 app.use(devMiddleware);
 app.use(hotMiddleware);
