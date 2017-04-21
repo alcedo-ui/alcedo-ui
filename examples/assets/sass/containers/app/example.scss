@@ -26,62 +26,76 @@
 
     .example-content {
 
-        background: rgba(232, 232, 232,.7);
+        background: rgba(232, 232, 232, .7);
         padding: 20px;
         box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
     }
 
-    .example-properties {
+    .prop-type-desc-table {
 
-        width: 100%;
+        tbody tr td:first-child {
 
-        h3 {
-            height: 40px;
-            line-height: 40px;
-            color: $theme-text;
+            color: #266d90;
+
         }
 
-        .example-table {
-
-            width: 100%;
-            font-size: 14px;
-            overflow: auto;
-            border-spacing: 0;
-            word-break: keep-all;
-            box-sizing: border-box;
-            border-collapse: collapse;
-            border-color: rgba(0, 0, 0, .06);
-
-            thead tr th {
-
-                height: 40px;
-                text-align: left;
-                line-height: 40px;
-                padding-left: 15px;
-                border-top: 0 none;
-                color: $theme-title;
-                display: table-cell;
-                border-top: 1px solid rgba(0, 0, 0, .09);
-                border-bottom: 2px solid rgba(0, 0, 0, .06);
-
-            }
-
-            tbody tr td {
-
-                display: table-cell;
-                padding: 20px 30px 20px 15px;
-                border-bottom: 1px solid rgba(0, 0, 0, .06);
-
-                &.properties-name {
-                    color: $cyan;
-                }
-
-                &.properties-type {
-                    color: $pink;
-                }
-            }
+        thead tr th {
+            color: #888;
         }
+
     }
+
+    //.example-properties {
+    //
+    //    width: 100%;
+    //
+    //    h3 {
+    //        height: 40px;
+    //        line-height: 40px;
+    //        color: $theme-text;
+    //    }
+    //
+    //    .example-table {
+    //
+    //        width: 100%;
+    //        font-size: 14px;
+    //        overflow: auto;
+    //        border-spacing: 0;
+    //        word-break: keep-all;
+    //        box-sizing: border-box;
+    //        border-collapse: collapse;
+    //        border-color: rgba(0, 0, 0, .06);
+    //
+    //        thead tr th {
+    //
+    //            height: 40px;
+    //            text-align: left;
+    //            line-height: 40px;
+    //            padding-left: 15px;
+    //            border-top: 0 none;
+    //            color: $theme-title;
+    //            display: table-cell;
+    //            border-top: 1px solid rgba(0, 0, 0, .09);
+    //            border-bottom: 2px solid rgba(0, 0, 0, .06);
+    //
+    //        }
+    //
+    //        tbody tr td {
+    //
+    //            display: table-cell;
+    //            padding: 20px 30px 20px 15px;
+    //            border-bottom: 1px solid rgba(0, 0, 0, .06);
+    //
+    //            &.properties-name {
+    //                color: $cyan;
+    //            }
+    //
+    //            &.properties-type {
+    //                color: $pink;
+    //            }
+    //        }
+    //    }
+    //}
 
 }
