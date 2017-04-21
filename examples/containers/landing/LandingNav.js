@@ -29,15 +29,40 @@ export default class LandingNav extends Component {
         };
 
         this.menuClickHandle = this::this.menuClickHandle;
+        this.updateActivatedMenu = this::this.updateActivatedMenu;
 
     }
 
     menuClickHandle(activatedMenu) {
+        document.body.scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
+    }
+
+    updateActivatedMenu(props = this.props) {
+
+        const {bodyScrollTop} = props;
+
+        let activatedMenu = this.menu[0];
+        for (let i = 0, len = this.menu.length; i < len; i++) {
+            const el = document.querySelector(this.menu[i].hash);
+            if (el && bodyScrollTop > el.offsetTop - 60) {
+                activatedMenu = this.menu[i];
+            }
+        }
+
         this.setState({
             activatedMenu
-        }, () => {
-            document.body.scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
         });
+
+    }
+
+    componentDidMount() {
+        this.updateActivatedMenu();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.bodyScrollTop !== this.props.bodyScrollTop) {
+            this.updateActivatedMenu(nextProps);
+        }
     }
 
     render() {

@@ -6,7 +6,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ArrowStepDoc from 'docs/ArrowStep.json';
+import ArrowStepDoc from 'assets/propTypes/ArrowStep.json';
 
 import 'sass/containers/app/modules/stepper/ArrowStepExamples.scss';
 

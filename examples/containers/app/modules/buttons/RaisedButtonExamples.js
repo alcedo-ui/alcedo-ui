@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import RaisedButtonDoc from 'docs/RaisedButton.json';
+import RaisedButtonDoc from 'assets/propTypes/RaisedButton.json';
 
 import 'sass/containers/app/modules/buttons/RaisedButtonExamples.scss';
 

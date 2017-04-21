@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import MultipleSelectDoc from 'docs/MultipleSelect.json';
+import MultipleSelectDoc from 'assets/propTypes/MultipleSelect.json';
 
 import 'sass/containers/app/modules/fields/MultipleSelectExamples.scss';
 

@@ -6,7 +6,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import CheckboxDoc from 'docs/Checkbox.json';
+import CheckboxDoc from 'assets/propTypes/Checkbox.json';
 
 import 'sass/containers/app/modules/fields/CheckboxExamples.scss';
 

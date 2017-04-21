@@ -8,7 +8,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import LinearProgressDoc from 'docs/LinearProgress.json';
+import LinearProgressDoc from 'assets/propTypes/LinearProgress.json';
 
 import 'sass/containers/app/modules/progress/LinearProgressExample.scss';
 

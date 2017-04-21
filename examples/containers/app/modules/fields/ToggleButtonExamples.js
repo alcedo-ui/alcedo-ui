@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ToggleButtonDoc from 'docs/ToggleButton.json';
+import ToggleButtonDoc from 'assets/propTypes/ToggleButton.json';
 
 import 'sass/containers/app/modules/fields/ToggleButtonExamples.scss';
 

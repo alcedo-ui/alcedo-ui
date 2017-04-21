@@ -10,7 +10,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ToasterDoc from 'docs/Toaster.json';
+import ToasterDoc from 'assets/propTypes/Toaster.json';
 
 import 'sass/containers/app/modules/message/ToasterExamples.scss';
 

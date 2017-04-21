@@ -1,6 +1,6 @@
 var path = require('path');
 var utils = require('./utils');
-var config = require('./config');
+var config = require('../config');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -11,9 +11,11 @@ module.exports = {
         app: './examples/index.js'
     },
     output: {
-        path: config.assetsRoot,
+        path: config.build.assetsRoot,
         filename: '[name].js',
-        publicPath: config.assetsPublicPath
+        publicPath: process.env.NODE_ENV === 'production'
+            ? config.build.assetsPublicPath
+            : config.dev.assetsPublicPath
     },
     resolve: {
         extensions: ['.js', '.json'],

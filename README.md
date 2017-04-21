@@ -7,7 +7,7 @@ Alcedo-UI is a set of React components.
 **NPM**
 
 ```bash
-npm install alcedo-ui
+npm install alcedo-ui --save
 ```
 
 ## Usage
@@ -33,15 +33,15 @@ export default class MyComponent extends Component {
 }
 ```
 
-## Examples
+## Demo
 
 Examples can be found in the 
 [examples folder](https://github.com/alcedo-ui/alcedo-ui/tree/master/examples).
 
-**Run Examples**
+**Run Demo**
 
 ```bash
-npm run example
+npm run demo
 ```
 
 ## License

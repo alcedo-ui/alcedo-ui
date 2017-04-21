@@ -8,7 +8,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import CircularProgressDoc from 'docs/CircularProgress.json';
+import CircularProgressDoc from 'assets/propTypes/CircularProgress.json';
 
 import 'sass/containers/app/modules/progress/CircularProgressExample.scss';
 

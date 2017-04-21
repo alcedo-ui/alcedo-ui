@@ -6,7 +6,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ListDoc from 'docs/List.json';
+import ListDoc from 'assets/propTypes/List.json';
 
 import 'sass/containers/app/modules/layout/ListExamples.scss';
 
