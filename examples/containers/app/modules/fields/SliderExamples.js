@@ -1,11 +1,18 @@
 /**
  * Created by DT314 on 2017/4/12.
  */
-import React,{Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Slider from 'dist/Slider';
 
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
 
-export default class SliderExamples extends Component{
+import PropTypeDescTable from '../PropTypeDescTable';
+import SliderDoc from 'docs/Slider.json';
+
+import 'sass/containers/app/modules/fields/SliderExamples.scss';
+
+export default class SliderExamples extends Component {
     constructor(props) {
         super();
 
@@ -13,26 +20,47 @@ export default class SliderExamples extends Component{
     }
 
     change(left, right) {
-        console.log(left +'   '+ right);
+        console.log(left + '   ' + right);
     }
 
     render() {
-        const style = {
-            margin: '20px',
-            userSelect: 'none'
-        };
+
         return (
-            <div style={style}>
-                <div className="examples-title">Example1</div>
-                <Slider />
-                <div className="examples-title">Example2</div>
-                <Slider leftPoint={true}/>
-                <div className="examples-title">Example3</div>
-                <Slider leftPoint={true} scale={[0,50,80,100]} showScale={true}/>
-                <div className="examples-title">Example4</div>
-                <Slider leftPoint={false} scale={[0,5,8,10]} decimalPlaces={1}/>
-                <div className="examples-title">Example5</div>
-                <Slider leftPoint={true} scale={[0,5,8,10]} ruler={11} decimalPlaces={1} width={600} onChange={this.change}/>
+            <div className="example slider-examples">
+
+                <h2 className="example-title">Slider</h2>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Slider Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Slider/>
+
+                                <Slider leftPoint={true}/>
+
+                                <Slider leftPoint={true} scale={[0, 50, 80, 100]} showScale={true}/>
+
+                                <Slider leftPoint={false} scale={[0, 5, 8, 10]} decimalPlaces={1}/>
+
+                                <Slider leftPoint={true} scale={[0, 5, 8, 10]} ruler={11} decimalPlaces={1} width={600}
+                                        onChange={this.change}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={SliderDoc}/>
+
             </div>
         )
     }

@@ -7,6 +7,9 @@ import LinearProgress from '../../../../../dist/LinearProgress'
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
+import PropTypeDescTable from '../PropTypeDescTable';
+import LinearProgressDoc from 'docs/LinearProgress.json';
+
 import 'sass/containers/app/modules/progress/LinearProgressExample.scss';
 
 export default class LinearProgressExample extends Component {
@@ -96,63 +99,67 @@ export default class LinearProgressExample extends Component {
 
                 </Widget>
 
-                <div className="example-properties">
-                    <h3>Properties</h3>
-                    <table className="example-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="properties-name">className</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td></td>
-                                <td>The css class name of the root element.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">style</td>
-                                <td className="properties-type">PropTypes.object</td>
-                                <td></td>
-                                <td>The styles of the root element.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">highlightWidth</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td>50%</td>
-                                <td>The value of progress.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">background</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td>gray</td>
-                                <td>The progress's background color.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">highlight</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td>blue</td>
-                                <td>Highlight color display.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">word</td>
-                                <td className="properties-type">PropTypes.bool</td>
-                                <td>false</td>
-                                <td>Whether there is a text description.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">wordStyle</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td>front</td>
-                                <td>Text location.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={LinearProgressDoc}/>
+
+                {/*<div className="example-properties">*/}
+                {/*<h3>Properties</h3>*/}
+                {/*<table className="example-table">*/}
+                {/*<thead>*/}
+                {/*<tr>*/}
+                {/*<th>Name</th>*/}
+                {/*<th>Type</th>*/}
+                {/*<th>Default</th>*/}
+                {/*<th>Description</th>*/}
+                {/*</tr>*/}
+                {/*</thead>*/}
+                {/*<tbody>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">className</td>*/}
+                {/*<td className="properties-type">PropTypes.string</td>*/}
+                {/*<td></td>*/}
+                {/*<td>The css class name of the root element.</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">style</td>*/}
+                {/*<td className="properties-type">PropTypes.object</td>*/}
+                {/*<td></td>*/}
+                {/*<td>The styles of the root element.</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">highlightWidth</td>*/}
+                {/*<td className="properties-type">PropTypes.string</td>*/}
+                {/*<td>50%</td>*/}
+                {/*<td>The value of progress.</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">background</td>*/}
+                {/*<td className="properties-type">PropTypes.string</td>*/}
+                {/*<td>gray</td>*/}
+                {/*<td>The progress's background color.</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">highlight</td>*/}
+                {/*<td className="properties-type">PropTypes.string</td>*/}
+                {/*<td>blue</td>*/}
+                {/*<td>Highlight color display.</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">word</td>*/}
+                {/*<td className="properties-type">PropTypes.bool</td>*/}
+                {/*<td>false</td>*/}
+                {/*<td>Whether there is a text description.</td>*/}
+                {/*</tr>*/}
+                {/*<tr>*/}
+                {/*<td className="properties-name">wordStyle</td>*/}
+                {/*<td className="properties-type">PropTypes.string</td>*/}
+                {/*<td>front</td>*/}
+                {/*<td>Text location.</td>*/}
+                {/*</tr>*/}
+                {/*</tbody>*/}
+                {/*</table>*/}
+                {/*</div>*/}
 
             </div>
         )

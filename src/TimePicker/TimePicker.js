@@ -118,7 +118,7 @@ export default class TimePicker extends Component {
         const wrapperHeight = this.wrapperHeight();
         const wrapperStyle = {
             height: wrapperHeight + 'px'
-        }
+        };
         const popupTextField = hour + ':' + minute + ':' + second;
         return (
             <div className={`time-picker ${className}`}
