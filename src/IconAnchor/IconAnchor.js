@@ -66,16 +66,49 @@ export default class IconAnchor extends Component {
 
 IconAnchor.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
+
+    /**
+     * The Icon Anchor theme.
+     */
     theme: PropTypes.string,
 
+    /**
+     * Icon anchor disabled.
+     */
     disabled: PropTypes.bool,
+
+    /**
+     *
+     */
     isLoading: PropTypes.bool,
+
+    /**
+     * Icon className.
+     */
     iconCls: PropTypes.string,
+
+    /**
+     * The icon anchor linked url.
+     */
     href: PropTypes.string,
+
+    /**
+     * Where to open the linked document.
+     */
     target: PropTypes.string,
 
+    /**
+     * The function that trigger when the button is clicked.
+     */
     onTouchTap: PropTypes.func
 
 };

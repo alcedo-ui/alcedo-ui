@@ -8,6 +8,9 @@ import FlatButton from 'dist/FlatButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
+import PropTypeDescTable from '../PropTypeDescTable';
+import DialogDoc from 'docs/Dialog.json';
+
 import 'sass/containers/app/modules/popup/DialogExamples.scss';
 
 export default class DialogExamples extends Component {
@@ -34,38 +37,6 @@ export default class DialogExamples extends Component {
 
     render() {
 
-        let propertiesList = [{
-            Name: 'className',
-            Type: 'PropTypes.string',
-            Default: 'hide',
-            Description: 'The css class name of the root element.'
-        }, {
-            Name: 'title',
-            Type: 'PropTypes.string',
-            Default: 'Dialog',
-            Description: 'The title to display on the Dialog. Could be number, string, element or an array containing these types.'
-        }, {
-            Name: 'desc',
-            Type: 'PropTypes.string',
-            Default: 'here is the dialog description.',
-            Description: 'The description of the dialog box.'
-        }, {
-            Name: 'buttonBool',
-            Type: 'PropTypes.array',
-            Default: '[true, true]',
-            Description: 'Whether the button is clickable.'
-        }, {
-            Name: 'onHide',
-            Type: 'PropTypes.func',
-            Default: 'false',
-            Description: 'The function that trigger when click cancel.'
-        }, {
-            Name: 'onSure',
-            Type: ' PropTypes.func',
-            Default: '',
-            Description: 'The function that trigger when click submit.'
-        }];
-
         return (
             <div className="example dialog-example">
 
@@ -91,37 +62,10 @@ export default class DialogExamples extends Component {
 
                 </Widget>
 
-                <div className="example-properties">
-                    <h3>Properties</h3>
-                    <table className="example-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <h2 className="example-title">Properties</h2>
 
-                            {
-                                propertiesList && propertiesList.length > 0 ?
-                                    (
-                                        propertiesList.map(function (val) {
-                                            return <tr>
-                                                <td className="properties-name">{val.Name}</td>
-                                                <td className="properties-type">{val.Type}</td>
-                                                <td>{val.Default}</td>
-                                                <td>{val.Description}</td>
-                                            </tr>
-                                        })
-                                    )
-                                    : null
-                            }
+                <PropTypeDescTable data={DialogDoc}/>
 
-                        </tbody>
-                    </table>
-                </div>
             </div>
 
         );

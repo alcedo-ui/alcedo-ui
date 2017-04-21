@@ -4,6 +4,10 @@
 
     .examples-wrapper {
 
+        label {
+            margin-right: 10px;
+        }
+
         .field-group {
 
             @include float-fix;

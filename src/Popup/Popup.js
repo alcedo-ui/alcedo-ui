@@ -164,16 +164,49 @@ Popup.Position = {
 
 Popup.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     *
+     */
     triggerEl: PropTypes.object,
+
+    /**
+     *
+     */
     disabled: PropTypes.bool,
+
+    /**
+     *
+     */
     visible: PropTypes.bool,
+
+    /**
+     *
+     */
     hasTriangle: PropTypes.bool,
+
+    /**
+     *
+     */
     theme: PropTypes.string,
+
+    /**
+     *
+     */
     position: PropTypes.string,
 
+    /**
+     * The function that trigger when click submit.
+     */
     onRequestClose: PropTypes.func
 
 };

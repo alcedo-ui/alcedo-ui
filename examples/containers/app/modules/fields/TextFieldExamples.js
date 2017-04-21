@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 
 import TextField from 'dist/TextField';
 import TextFieldGroup from 'dist/TextFieldGroup';
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import TextFieldDoc from 'docs/TextField.json';
 
 import 'sass/containers/app/modules/fields/TextFieldExamples.scss';
 
@@ -15,53 +20,87 @@ export default class TextFieldExamples extends Component {
         return (
             <div className="example text-field-examples">
 
-                <div className="examples">
-                    <div className="examples-title">TextField</div>
-                    <div className="examples-wrapper">
+                <h2 className="example-title">TextField</h2>
 
-                        <div className="field-group">
-                            <label className="text-field-label">Default</label>
-                            <TextField/>
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="TextField Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Default</label>
+                                    <TextField/>
+                                </div>
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Password</label>
+                                    <TextField type="password"/>
+                                </div>
+
+                            </div>
+
                         </div>
-
-                        <div className="field-group">
-                            <label className="text-field-label">Password</label>
-                            <TextField type="password"/>
-                        </div>
-
                     </div>
-                </div>
 
-                <div className="examples">
-                    <div className="examples-title">TextField with Icon</div>
-                    <div className="examples-wrapper">
+                </Widget>
 
-                        <div className="field-group">
-                            <label className="text-field-label">Username</label>
-                            <TextField iconCls="fa fa-user"/>
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="TextField with Icon Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Username</label>
+                                    <TextField iconCls="fa fa-user"/>
+                                </div>
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Password</label>
+                                    <TextField iconCls="fa fa-lock"
+                                               type="password"/>
+                                </div>
+
+                            </div>
+
                         </div>
+                    </div>
 
-                        <div className="field-group">
-                            <label className="text-field-label">Password</label>
-                            <TextField iconCls="fa fa-lock"
-                                       type="password"/>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="TextFieldGroup Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <TextFieldGroup>
+                                    <TextField iconCls="fa fa-user"/>
+                                    <TextField iconCls="fa fa-lock"
+                                               type="password"/>
+                                </TextFieldGroup>
+
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
 
-                <div className="examples">
-                    <div className="examples-title">TextFieldGroup</div>
-                    <div className="examples-wrapper">
+                </Widget>
 
-                        <TextFieldGroup>
-                            <TextField iconCls="fa fa-user"/>
-                            <TextField iconCls="fa fa-lock"
-                                       type="password"/>
-                        </TextFieldGroup>
+                <h2 className="example-title">Properties</h2>
 
-                    </div>
-                </div>
+                <PropTypeDescTable data={TextFieldDoc}/>
+
             </div>
         );
     }
