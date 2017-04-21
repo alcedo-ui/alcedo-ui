@@ -24,19 +24,19 @@ module.exports = function () {
                 name: 'alcedo-ui',
                 author: data.author,
                 version: data.version,
-                description: {
-                    'lodash': data.dependencies['lodash'],
-                    'moment': data.dependencies['moment'],
-                    'react': data.dependencies['react'],
-                    'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
-                    'react-dom': data.dependencies['react-dom']
-                },
+                description: data.description,
                 main: './index.js',
                 keywords: data.keywords,
                 repository: data.repository,
                 license: data.license,
                 homepage: data.homepage,
-                dependencies: dependencies
+                dependencies: {
+                    'lodash': data.dependencies['lodash'],
+                    'moment': data.dependencies['moment'],
+                    'react': data.dependencies['react'],
+                    'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
+                    'react-dom': data.dependencies['react-dom']
+                }
             };
 
             chunk.contents = new Buffer(JSON.stringify(miniData, null, 2));
