@@ -1,0 +1,17 @@
+@import '../../common.scss';
+
+.landing-foot {
+    background: darken($theme-menu, 20%);
+    padding: 100px 0;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+
+    .name {
+        color: $theme-highlight;
+    }
+
+    .licence {
+        color: lighten($theme-text, 20%);
+    }
+}
