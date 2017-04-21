@@ -77,7 +77,8 @@
                     cursor: pointer;
 
                     &.activated {
-                        color: #fff;
+                        color: transparentize(#fff, .2);
+                        font-weight: 400;
                     }
                 }
             }
