@@ -34,7 +34,7 @@ class Brand extends Component {
 
                 <div className="brand-name">
                     <IconAnchor className="brand-logo"
-                                href="/"
+                                href="#/"
                                 target="_self"/>
                     Alcedo-UI Examples
                 </div>
