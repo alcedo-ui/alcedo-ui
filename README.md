@@ -33,15 +33,15 @@ export default class MyComponent extends Component {
 }
 ```
 
-## Examples
+## Demo
 
 Examples can be found in the 
 [examples folder](https://github.com/alcedo-ui/alcedo-ui/tree/master/examples).
 
-**Run Examples**
+**Run Demo**
 
 ```bash
-npm run example
+npm run Demo
 ```
 
 ## License
