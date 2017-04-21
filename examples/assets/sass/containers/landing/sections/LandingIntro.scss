@@ -1,0 +1,74 @@
+@import '../../../common.scss';
+
+#landing-intro {
+
+    .landing-section-intro-bg {
+        width: 100%;
+        height: 800px;
+        background-image: url("../../../../images/intro-bg.jpg");
+        background-size: auto 800px;
+        background-position: 50% 50%;
+    }
+
+    .landing-section-intro {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: transparentize($theme-menu, .3);
+
+        .landing-section-inner {
+
+            .logo-icon {
+                display: block;
+                width: 200px;
+                height: 200px;
+                background-image: url("../../../../../../assets/alcedo-logo.png");
+                background-size: 200px 200px;
+                margin: 20px auto;
+            }
+
+            .logo-text {
+                width: 100%;
+                text-align: center;
+                color: #fff;
+                font-size: 70px;
+                user-select: none;
+                font-weight: 300;
+            }
+
+            .slogen {
+                width: 100%;
+                text-align: center;
+                color: transparentize(#fff, .5);
+                font-size: 24px;
+                user-select: none;
+                font-weight: 300;
+            }
+
+            .buttons {
+                width: 260px;
+                margin: 60px auto;
+
+                .ghost-button {
+                    border: 1px solid transparentize(#fff, .3);
+                    border-radius: 0;
+                    color: transparentize(#fff, .3);
+                    width: 120px;
+                    font-size: 14px;
+                    height: 50px;
+
+                    &:last-child {
+                        margin-left: 20px;
+                    }
+
+                    &:hover {
+                        border-color: #fff;
+                        background: #fff;
+                        color: $theme-menu;
+                    }
+                }
+            }
+        }
+    }
+}
