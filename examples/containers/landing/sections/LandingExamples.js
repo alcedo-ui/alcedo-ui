@@ -33,7 +33,7 @@ export default class LandingExamples extends Component {
                                 onTouchTap={this.goToDemo}/>
 
                     <Paper className="landing-examples-demo"
-                           depth={3}>
+                           depth={4}>
                         <div className="window-header">
                             <div className="window-header-dot"></div>
                             <div className="window-header-dot"></div>

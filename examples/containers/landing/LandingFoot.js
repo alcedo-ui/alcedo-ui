@@ -15,7 +15,9 @@ class LandingFoot extends Component {
     render() {
         return (
             <div className="landing-foot">
-                Alcedo-UI is freely distributable under the terms of the MIT license.
+                <span className="name">Alcedo-UI </span>
+                is freely distributable under the terms of the
+                <span className="licence"> MIT</span> license.
             </div>
         );
     }
