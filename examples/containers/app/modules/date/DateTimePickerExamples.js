@@ -19,7 +19,11 @@ export default class DateTimePickerExamples extends Component {
                 <div className="examples">
                     <div className="examples-title">Date Time Picker</div>
                     <div className="examples-wrapper">
-                        <DateTimePicker value='1940-02-23 12:23:10' maxValue="1941-02-12 00:00:00"/>
+                        <DateTimePicker
+                            value='2017-04-21 12:23:10'
+                            maxValue="2017-09-12 12:23:00"
+                            minValue='2017-01-01 12:55:55'
+                        />
                     </div>
                 </div>
             </div>

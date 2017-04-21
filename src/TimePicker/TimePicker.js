@@ -105,6 +105,14 @@ export default class TimePicker extends Component {
     }
 
     componentDidMount() {
+        const {value}=this.props;
+        let dateFormatValue ='2000-02-01 '+value
+        this.setState({
+            textFieldValue: value,
+            hour: moment(dateFormatValue).format('HH'),
+            minute: moment(dateFormatValue).format('mm'),
+            second: moment(dateFormatValue).format('ss')
+        })
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
     }
 
@@ -144,6 +152,7 @@ export default class TimePicker extends Component {
                                   second={second}
                                   maxValue={maxValue}
                                   minValue={minValue}
+                                  isRequired={true}
                                   popupVisible={popupVisible}
                                   onChange={this.timePickerChangeHandle}/>
                     </div>
@@ -158,12 +167,13 @@ TimePicker.propTypes = {
     style: PropTypes.object,
     name: PropTypes.string,
     value: PropTypes.string,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.string
 };
 
 TimePicker.defaultProps = {
-
     className: '',
     style: null,
     name: '',

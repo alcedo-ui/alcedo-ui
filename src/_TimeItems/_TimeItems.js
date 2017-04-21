@@ -19,9 +19,7 @@ export default class _TimeItems extends Component {
 
     clickHandle(value) {
         if (this.refs.timeItems) {
-            // debugger
-            this.refs.timeItems.scrollTop = (+value) * 30
-            // this.refs.timeList.style.marginTop = '-'+value * 30+'px'
+            this.refs.timeItems.scrollTop = (+value) * 30;
         }
         this.props.onChange && this.props.onChange(value);
     }
@@ -38,7 +36,6 @@ export default class _TimeItems extends Component {
         if (nextProps.value !== this.props.value || nextProps.popupVisible !== this.props.popupVisible) {
             if (nextProps.popupVisible) {
                 if (this.refs.timeItems) {
-                    // this.refs.timeItems.style.marginTop = '-'+(nextProps.value) * 30+'px'
                     this.refs.timeItems.scrollTop = (nextProps.value) * 30
                 }
             }
@@ -51,7 +48,6 @@ export default class _TimeItems extends Component {
     componentDidMount() {
         const {value}=this.props;
         if (this.refs.timeItems) {
-            // this.refs.timeList.style.marginTop = '-'+value * 30+'px'
             this.refs.timeItems.scrollTop = (value) * 30
         }
         this.setState({
@@ -68,6 +64,7 @@ export default class _TimeItems extends Component {
 
     render() {
         const {className, data}=this.props;
+
         const {value}=this.state;
         return (
             <div className={`timeItems ${className ? className : ''}`}
@@ -75,19 +72,22 @@ export default class _TimeItems extends Component {
                 <ul className="timeList"
                     ref="timeList">
                     {
-                        data.map((item, key)=> {
-                            return (
-                                <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
-                                    key={key}
-                                    onClick={()=> {
-                                        if (item.value) {
-                                            this.clickHandle(item.text)
-                                        }
-                                    }}>
-                                    {item.text}
-                                </li>
-                            )
-                        })
+                        data && data.length ?
+                            data.map((item, key)=> {
+                                return (
+                                    <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
+                                        key={key}
+                                        onClick={()=> {
+                                            if (item.value) {
+                                                this.clickHandle(item.text)
+                                            }
+                                        }}>
+                                        {item.text}
+                                    </li>
+                                )
+                            })
+                            :
+                            null
                     }
                 </ul>
             </div>

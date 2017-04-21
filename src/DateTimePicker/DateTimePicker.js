@@ -286,8 +286,8 @@ export default class DateTimePicker extends Component {
                                 hour={hour}
                                 minute={minute}
                                 second={second}
-                                maxValue={maxValue}
-                                minValue={minValue}
+                                maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                 isFooter={true}
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}
@@ -299,8 +299,8 @@ export default class DateTimePicker extends Component {
                                     year={year}
                                     month={month}
                                     day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
+                                    maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                    minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                     onChange={this.monthPickerChangeHandle}
                                     previousClick={this.datePickerChangeHandle}
                                 />
@@ -311,8 +311,8 @@ export default class DateTimePicker extends Component {
                                         year={year}
                                         month={month}
                                         day={day}
-                                        maxValue={maxValue}
-                                        minValue={minValue}
+                                        maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                        minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                         onChange={this.yearPickerChangeHandle}
                                     />
                                     :
@@ -321,9 +321,9 @@ export default class DateTimePicker extends Component {
                                               hour={hour}
                                               minute={minute}
                                               second={second}
-                                              isRequired={minValue && moment(value).isBefore(minValue) || maxValue && moment(value).isAfter(maxValue) ? false : true}
-                                              maxValue={maxValue ? moment(maxValue).format('HH:mm:ss') : null}
-                                              minValue={minValue ? moment(minValue).format('HH:mm:ss') : null}
+                                              isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true:false }
+                                              maxValue={maxValue && value.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
+                                              minValue={minValue && value.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
                                               onChange={this.timePickerChangeHandle}
                                     />
                             )
