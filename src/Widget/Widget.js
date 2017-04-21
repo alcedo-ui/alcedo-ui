@@ -27,9 +27,19 @@ export default class Widget extends Component {
 
 Widget.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * This number represents the zDepth of the root element shadow.
+     */
     depth: PropTypes.number
 
 };

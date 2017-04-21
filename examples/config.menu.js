@@ -9,6 +9,9 @@ export default [{
     }, {
         text: 'Icon Button',
         route: '/components/IconButton'
+    }, {
+        text: 'Icon Anchor',
+        route: '/components/IconAnchor'
     }]
 }, {
     text: 'popup',

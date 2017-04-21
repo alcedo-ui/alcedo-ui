@@ -1,63 +1,21 @@
+/**
+ * Created by Wendy on 2017/4/20.
+ */
 import React, {Component} from 'react';
 
-import RaisedButton from 'dist/RaisedButton';
-import Popup from 'dist/Popup';
-import List from 'dist/List';
+import IconAnchor from 'dist/IconAnchor';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
-import Theme from 'dist/Theme';
 
-import 'sass/containers/app/modules/popup/PopupExamples.scss';
+import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
-export default class PopupExamples extends Component {
+export default class FlatButtonExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.state = {
-            popupVisible: false,
-            triggerEl: null
-        };
-
-        this.togglePopup = this::this.togglePopup;
-        this.closePopup = this::this.closePopup;
-
-    }
-
-    togglePopup(e) {
-
-        // e.stopPropagation();
-
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.currentTarget
-        });
-
-    }
-
-    closePopup() {
-        this.setState({
-            popupVisible: false
-        });
     }
 
     render() {
-
-        const {popupVisible, triggerEl} = this.state;
-        let items = [{
-            iconCls: 'fa fa-facebook',
-            value: 'Facebook',
-            theme: Theme.PRIMARY
-        }, {
-            iconCls: 'fa fa-twitter',
-            value: 'Twitter',
-            theme: Theme.PRIMARY
-        }, {
-            iconCls: 'fa fa-google-plus',
-            value: 'Google+',
-            theme: Theme.PRIMARY
-        }];
 
         let propertiesList = [{
             Name: 'className',
@@ -68,75 +26,82 @@ export default class PopupExamples extends Component {
             Name: 'style',
             Type: 'PropTypes.object',
             Default: '',
-            Description: ''
-        }, {
-            Name: 'triggerEl',
-            Type: 'PropTypes.object',
-            Default: '',
-            Description: ''
-        }, {
-            Name: 'disabled',
-            Type: 'PropTypes.bool',
-            Default: 'false',
-            Description: ''
-        }, {
-            Name: 'visible',
-            Type: 'PropTypes.bool',
-            Default: 'false',
-            Description: ''
-        }, {
-            Name: 'hasTriangle',
-            Type: ' PropTypes.bool',
-            Default: 'true',
-            Description: ''
+            Description: 'The styles of the root element.'
         }, {
             Name: 'theme',
             Type: 'PropTypes.string',
             Default: '',
+            Description: 'The Icon Anchor theme.'
+        }, {
+            Name: 'disabled',
+            Type: 'PropTypes.bool',
+            Default: 'false',
+            Description: 'Icon anchor disabled.'
+        }, {
+            Name: 'isLoading',
+            Type: 'PropTypes.bool',
+            Default: 'false',
             Description: ''
         }, {
-            Name: 'position',
+            Name: 'iconCls',
             Type: ' PropTypes.string',
-            Default: 'Popup.Position.LEFT',
-            Description: ''
+            Default: '',
+            Description: 'Icon className.'
         }, {
-            Name: 'onRequestClose',
+            Name: 'href',
+            Type: ' PropTypes.string',
+            Default: '',
+            Description: 'The icon anchor linked url.'
+        }, {
+            Name: 'target',
+            Type: ' PropTypes.string',
+            Default: '_blank',
+            Description: 'Where to open the linked document.'
+        }, {
+            Name: 'onTouchTap',
             Type: ' PropTypes.func',
             Default: '',
-            Description: 'The function that trigger when click submit.'
+            Description: 'The function that trigger when the button is clicked.'
         }];
 
         return (
-            <div className="example popup-examples">
+            <div className="example flat-button-example">
 
-                <h2 className="example-title">Popup</h2>
+                <h2 className="example-title">Icon Anchor</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Popup Simple Example"/>
+                    <WidgetHeader className="example-header" title="Icon Anchor Simple Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
-                                <RaisedButton className="trigger-button"
-                                              value="Toggle Popup"
-                                              onTouchTap={this.togglePopup}/>
+                            <div className="examples-wrapper">
 
-                                <Popup visible={popupVisible}
-                                       triggerEl={triggerEl}
-                                       theme={Theme.PRIMARY}
-                                       onRequestClose={this.closePopup}>
-                                    <List items={items}/>
-                                </Popup>
+                                <IconAnchor iconCls="fa fa-github"
+                                            style={{fontSize:'14px'}}
+                                            className="github-icon"
+                                            disabled={true}/>
+
+                                <IconAnchor iconCls="fa fa-github"
+                                            style={{fontSize:'18px'}}
+                                            className="github-icon"
+                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+
+                                <IconAnchor iconCls="fa fa-github"
+                                            style={{fontSize:'24px'}}
+                                            className="github-icon"
+                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+
+
                             </div>
 
                         </div>
                     </div>
+
                 </Widget>
 
                 <div className="example-properties">
-
                     <h3>Properties</h3>
                     <table className="example-table">
                         <thead>
@@ -148,7 +113,6 @@ export default class PopupExamples extends Component {
                             </tr>
                         </thead>
                         <tbody>
-
                             {
                                 propertiesList && propertiesList.length > 0 ?
                                     (
@@ -163,7 +127,6 @@ export default class PopupExamples extends Component {
                                     )
                                     : null
                             }
-
                         </tbody>
                     </table>
                 </div>

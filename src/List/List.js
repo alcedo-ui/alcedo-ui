@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 
-import FlatButton from '../FlatButton';
 import RaisedButton from '../RaisedButton';
 
 import './List.css';
@@ -43,9 +42,19 @@ export default class List extends Component {
 
 List.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * Children passed into the ListItem.
+     */
     items: PropTypes.arrayOf(PropTypes.shape({
 
         className: PropTypes.string,

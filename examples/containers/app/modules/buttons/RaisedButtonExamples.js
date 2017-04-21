@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import RaisedButtonDoc from 'docs/RaisedButton.json';
 
 import 'sass/containers/app/modules/buttons/RaisedButtonExamples.scss';
 
@@ -11,84 +16,220 @@ export default class RaisedButtonExamples extends Component {
     }
 
     render() {
+
+        let propertiesList = [{
+            Name: 'className',
+            Type: 'PropTypes.string',
+            Default: '',
+            Description: 'The css class name of the root element.'
+        }, {
+            Name: 'style',
+            Type: 'PropTypes.object',
+            Default: '',
+            Description: 'The styles of the root element.'
+        }, {
+            Name: 'theme',
+            Type: 'PropTypes.string',
+            Default: '',
+            Description: 'The button theme.'
+        }, {
+            Name: 'isRounded',
+            Type: 'PropTypes.bool',
+            Default: 'false',
+            Description: 'Whether need rounded corners.'
+        }, {
+            Name: 'isCircular',
+            Type: 'PropTypes.bool',
+            Default: 'false',
+            Description: 'Round button.'
+        }, {
+            Name: 'value',
+            Type: 'PropTypes.string || PropTypes.number',
+            Default: '',
+            Description: 'The button text value.'
+        }, {
+            Name: 'type',
+            Type: 'PropTypes.string',
+            Default: 'button',
+            Description: ''
+        }, {
+            Name: 'disabled',
+            Type: 'PropTypes.bool',
+            Default: 'false',
+            Description: 'Button disabled.'
+        }, {
+            Name: 'isLoading',
+            Type: 'PropTypes.bool',
+            Default: 'false',
+            Description: ''
+        }, {
+            Name: 'disableTouchRipple',
+            Type: ' PropTypes.bool',
+            Default: 'false',
+            Description: ''
+        }, {
+            Name: 'iconCls',
+            Type: ' PropTypes.string',
+            Default: '',
+            Description: 'Button left icon className.'
+        }, {
+            Name: 'rightIconCls',
+            Type: ' PropTypes.string',
+            Default: '',
+            Description: 'Button right icon className.'
+        }, {
+            Name: 'rippleDisplayCenter',
+            Type: ' PropTypes.bool',
+            Default: 'false',
+            Description: 'Ripple effect is centered.'
+        }, {
+            Name: 'onTouchTap',
+            Type: ' PropTypes.func',
+            Default: '',
+            Description: 'The function that trigger when the button is clicked.'
+        }];
+
         return (
-            <div className="example raised-button-examples">
+            <div className="example raised-button-example">
 
-                <div className="examples">
-                    <div className="examples-title">Button Style</div>
-                    <div className="examples-wrapper">
+                <h2 className="example-title">Raised Button</h2>
 
-                        <RaisedButton value="Default"/>
+                <Widget>
 
-                        <RaisedButton value="Primary"
-                                      theme="primary"/>
+                    <WidgetHeader className="example-header" title="Raised Button Simple Example"/>
 
-                        <RaisedButton value="Success"
-                                      theme="success"/>
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                        <RaisedButton value="Warning"
-                                      theme="warning"/>
+                            <div className="examples-wrapper">
 
-                        <RaisedButton value="Error"
-                                      theme="error"/>
+                                <RaisedButton value="Default"/>
 
-                        <RaisedButton value="Disabled"
-                                      disabled={true}/>
+                                <RaisedButton value="Primary"
+                                              theme="primary"/>
 
+                                <RaisedButton value="Success"
+                                              theme="success"/>
+
+                                <RaisedButton value="Warning"
+                                              theme="warning"/>
+
+                                <RaisedButton value="Error"
+                                              theme="error"/>
+
+                                <RaisedButton value="Disabled"
+                                              disabled={true}/>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div className="examples">
-                    <div className="examples-title">Rounded Button</div>
-                    <div className="examples-wrapper">
+                </Widget>
 
-                        <RaisedButton value="Default"
-                                      isRounded={true}/>
+                <Widget>
 
-                        <RaisedButton value="Primary"
-                                      theme="primary"
-                                      isRounded={true}/>
+                    <WidgetHeader className="example-header" title="Raised Button Rounded Example"/>
 
-                        <RaisedButton value="Success"
-                                      theme="success"
-                                      isRounded={true}/>
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                        <RaisedButton value="Warning"
-                                      theme="warning"
-                                      isRounded={true}/>
+                            <div className="examples-wrapper">
 
-                        <RaisedButton value="Error"
-                                      theme="error"
-                                      isRounded={true}/>
+                                <RaisedButton value="Default"
+                                              isRounded={true}/>
 
-                        <RaisedButton value="Disabled"
-                                      disabled={true}
-                                      isRounded={true}/>
+                                <RaisedButton value="Primary"
+                                              theme="primary"
+                                              isRounded={true}/>
 
+                                <RaisedButton value="Success"
+                                              theme="success"
+                                              isRounded={true}/>
+
+                                <RaisedButton value="Warning"
+                                              theme="warning"
+                                              isRounded={true}/>
+
+                                <RaisedButton value="Error"
+                                              theme="error"
+                                              isRounded={true}/>
+
+                                <RaisedButton value="Disabled"
+                                              disabled={true}
+                                              isRounded={true}/>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div className="examples">
-                    <div className="examples-title">Button with Icon</div>
-                    <div className="examples-wrapper">
+                </Widget>
 
-                        <RaisedButton value="Reset"
-                                      iconCls="fa fa-undo"/>
+                <Widget>
 
-                        <RaisedButton value="Add"
-                                      theme="success"
-                                      iconCls="fa fa-plus"/>
+                    <WidgetHeader className="example-header" title="Raised Button with Icon Example"/>
 
-                        <RaisedButton value="Delete"
-                                      theme="error"
-                                      iconCls="fa fa-trash"/>
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                        <RaisedButton value="Next"
-                                      theme="primary"
-                                      rightIconCls="fa fa-chevron-right"/>
+                            <div className="examples-wrapper">
 
+                                <RaisedButton value="Reset"
+                                              iconCls="fa fa-undo"/>
+
+                                <RaisedButton value="Add"
+                                              theme="success"
+                                              iconCls="fa fa-plus"/>
+
+                                <RaisedButton value="Delete"
+                                              theme="error"
+                                              iconCls="fa fa-trash"/>
+
+                                <RaisedButton value="Next"
+                                              theme="primary"
+                                              rightIconCls="fa fa-chevron-right"/>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={RaisedButtonDco}/>
+
+                {/*<div className="example-properties">*/}
+                    {/*<h3>Properties</h3>*/}
+                    {/*<table className="example-table">*/}
+                        {/*<thead>*/}
+                            {/*<tr>*/}
+                                {/*<th>Name</th>*/}
+                                {/*<th>Type</th>*/}
+                                {/*<th>Default</th>*/}
+                                {/*<th>Description</th>*/}
+                            {/*</tr>*/}
+                        {/*</thead>*/}
+                        {/*<tbody>*/}
+                            {/*{*/}
+                                {/*propertiesList && propertiesList.length > 0 ?*/}
+                                    {/*(*/}
+                                        {/*propertiesList.map(function (val) {*/}
+                                            {/*return <tr>*/}
+                                                {/*<td className="properties-name">{val.Name}</td>*/}
+                                                {/*<td className="properties-type">{val.Type}</td>*/}
+                                                {/*<td>{val.Default}</td>*/}
+                                                {/*<td>{val.Description}</td>*/}
+                                            {/*</tr>*/}
+                                        {/*})*/}
+                                    {/*)*/}
+                                    {/*: null*/}
+                            {/*}*/}
+                        {/*</tbody>*/}
+                    {/*</table>*/}
+                {/*</div>*/}
 
             </div>
         );

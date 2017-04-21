@@ -1,11 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import _ from 'lodash';
 
-import Paper from '../Paper';
 import Checkbox from '../Checkbox';
 import Thead from './head/Thead';
 import Tbody from './body/Tbody';
-// import Tfoot from './foot/Tfoot';
 import Pagging from '../Pagging';
 
 import Event from '../_vendors/Event';
@@ -302,10 +300,20 @@ export default class Table extends Component {
 
 Table.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
 
     // 表格列渲染配置
+    /**
+     * The table columns.
+     */
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         // TableHeader （th） 的样式
@@ -336,27 +344,51 @@ Table.propTypes = {
     })).isRequired,
 
     // 表格数据
+    /**
+     *  The table list data.
+     */
     data: PropTypes.array.isRequired,
 
     // 是否分页，默认true
+    /**
+     *  Whether need paging.
+     */
     isPagging: PropTypes.bool,
 
     // 排序函数
+    /**
+     *  Sorting method.
+     */
     sortFunc: PropTypes.func,
 
     // 行高 默认60px
+    /**
+     *  The table row height.
+     */
     rowHeight: PropTypes.number,
 
     // 是否高度自适应
+    /**
+     *  The function that trigger when step changes.
+     */
     isAdaptiveHeight: PropTypes.bool,
 
     // 是否显示行号
+    /**
+     *  Whether need line number.
+     */
     hasLineNumber: PropTypes.bool,
 
     // 是否多选
+    /**
+     * Whether have multiple choose.
+     */
     isMultiSelect: PropTypes.bool,
 
     // 选择变更回调
+    /**
+     *  The function that trigger when show rows changes.
+     */
     onSelectChange: PropTypes.func
 
 };
