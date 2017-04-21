@@ -34,10 +34,6 @@ export default class Landing extends Component {
     }
 
     scrollHandle(e) {
-        // this.setState({
-        //     bodyScrollTop: document.body.scrollTop
-        // });
-        // e.persist();
         this.debounceScrollHandle(e);
     }
 
