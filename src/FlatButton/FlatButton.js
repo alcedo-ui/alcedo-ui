@@ -41,24 +41,74 @@ export default class FlatButton extends Component {
 
 FlatButton.propTypes = {
 
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The button theme.
+     */
     theme: PropTypes.string,
+
+    /**
+     * Whether need rounded corners.
+     */
     isRounded: PropTypes.bool,
+
+    /**
+     * Round button.
+     */
     isCircular: PropTypes.bool,
 
+    /**
+     * The button text value.
+     */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     *
+     */
     type: PropTypes.string,
+
+    /**
+     * Button disabled.
+     */
     disabled: PropTypes.bool,
+
+    /**
+     *
+     */
     isLoading: PropTypes.bool,
+
+    /**
+     *
+     */
     disableTouchRipple: PropTypes.bool,
 
+    /**
+     * Button left icon className.
+     */
     iconCls: PropTypes.string,
+
+    /**
+     * Button right icon className.
+     */
     rightIconCls: PropTypes.string,
 
+    /**
+     * Ripple effect is centered.
+     */
     rippleDisplayCenter: PropTypes.bool,
 
+    /**
+     * The function that trigger when the button is clicked.
+     */
     onTouchTap: PropTypes.func
 
 };

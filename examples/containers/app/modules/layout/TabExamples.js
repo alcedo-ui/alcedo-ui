@@ -4,6 +4,9 @@ import Tab from 'dist/Tab';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
+import PropTypeDescTable from '../PropTypeDescTable';
+import TabDoc from 'docs/Tab.json';
+
 import 'sass/containers/app/modules/layout/TabExamples.scss';
 
 export default class TabExamples extends Component {
@@ -101,46 +104,9 @@ export default class TabExamples extends Component {
 
                 </Widget>
 
-                <div className="example-properties">
-                    <h3>Properties</h3>
-                    <table className="example-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="properties-name">className</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td></td>
-                                <td>The css class name of the root element.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">style</td>
-                                <td className="properties-type">PropTypes.object</td>
-                                <td></td>
-                                <td>The styles of the root element.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">isTabFullWidth</td>
-                                <td className="properties-type">PropTypes.bool</td>
-                                <td>true</td>
-                                <td>Whether the tabs is FullWidth.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">tabs</td>
-                                <td className="properties-type">PropTypes.array</td>
-                                <td></td>
-                                <td>Children passed into the TabsItem.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h2 className="example-title">Properties</h2>
 
+                <PropTypeDescTable data={TabDoc}/>
 
             </div>
         );

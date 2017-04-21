@@ -4,6 +4,9 @@ import RaisedButton from 'dist/RaisedButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
+import PropTypeDescTable from '../PropTypeDescTable';
+import RaisedButtonDoc from 'docs/RaisedButton.json';
+
 import 'sass/containers/app/modules/buttons/RaisedButtonExamples.scss';
 
 export default class RaisedButtonExamples extends Component {
@@ -194,35 +197,39 @@ export default class RaisedButtonExamples extends Component {
 
                 </Widget>
 
-                <div className="example-properties">
-                    <h3>Properties</h3>
-                    <table className="example-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                propertiesList && propertiesList.length > 0 ?
-                                    (
-                                        propertiesList.map(function (val) {
-                                            return <tr>
-                                                <td className="properties-name">{val.Name}</td>
-                                                <td className="properties-type">{val.Type}</td>
-                                                <td>{val.Default}</td>
-                                                <td>{val.Description}</td>
-                                            </tr>
-                                        })
-                                    )
-                                    : null
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={RaisedButtonDco}/>
+
+                {/*<div className="example-properties">*/}
+                    {/*<h3>Properties</h3>*/}
+                    {/*<table className="example-table">*/}
+                        {/*<thead>*/}
+                            {/*<tr>*/}
+                                {/*<th>Name</th>*/}
+                                {/*<th>Type</th>*/}
+                                {/*<th>Default</th>*/}
+                                {/*<th>Description</th>*/}
+                            {/*</tr>*/}
+                        {/*</thead>*/}
+                        {/*<tbody>*/}
+                            {/*{*/}
+                                {/*propertiesList && propertiesList.length > 0 ?*/}
+                                    {/*(*/}
+                                        {/*propertiesList.map(function (val) {*/}
+                                            {/*return <tr>*/}
+                                                {/*<td className="properties-name">{val.Name}</td>*/}
+                                                {/*<td className="properties-type">{val.Type}</td>*/}
+                                                {/*<td>{val.Default}</td>*/}
+                                                {/*<td>{val.Description}</td>*/}
+                                            {/*</tr>*/}
+                                        {/*})*/}
+                                    {/*)*/}
+                                    {/*: null*/}
+                            {/*}*/}
+                        {/*</tbody>*/}
+                    {/*</table>*/}
+                {/*</div>*/}
 
             </div>
         );

@@ -41,13 +41,6 @@ export default class DateRangePickerExamples extends Component {
 
                 </Widget>
 
-                {/*<div className="examples">*/}
-                    {/*<div className="examples-title">Date Range Picker</div>*/}
-                    {/*<div className="examples-wrapper">*/}
-                        {/*<DateRangePicker/>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
-
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={DateRangePickerDoc}/>
