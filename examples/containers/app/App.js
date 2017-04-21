@@ -56,13 +56,7 @@ class App extends Component {
                     <NavBar/>
 
                     <div className="content">
-
                         {children}
-
-                        <div className="copyright">
-                            Copyright © 2002-2017 DerbySoft Inc. All rights reserved.
-                        </div>
-
                     </div>
 
                 </div>

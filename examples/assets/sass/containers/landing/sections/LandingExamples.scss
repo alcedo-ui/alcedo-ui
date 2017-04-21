@@ -6,6 +6,27 @@
     .landing-section-inner {
         padding-bottom: 0;
 
+        .ghost-button {
+            display: block;
+            border: 1px solid transparentize($theme-menu, .3);
+            border-radius: 25px;
+            color: transparentize($theme-menu, .3);
+            width: 140px;
+            font-size: 14px;
+            margin: 20px auto 0;
+            height: 50px;
+
+            &:last-child {
+                margin-left: 20px;
+            }
+
+            &:hover {
+                border-color: $theme-menu;
+                background: $theme-menu;
+                color: #fff;
+            }
+        }
+
         .landing-examples-demo {
             margin: 60px auto 0;
             width: 450px;

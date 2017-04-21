@@ -22,7 +22,7 @@
             background: $theme-bg;
             box-sizing: border-box;
             min-height: 100vh;
-            padding: 60px 0 60px;
+            padding: 60px 0 0;
             transition: all $transition-duration ease-in-out;
             overflow: auto;
 
@@ -34,20 +34,20 @@
 
             }
 
-            .copyright {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                height: 60px;
-                line-height: 20px;
-                text-align: center;
-                font-size: 12px;
-                padding: 20px 0;
-                user-select: none;
-                box-sizing: border-box;
-                color: lighten($theme-text, 50%);
-                z-index: $copyright-z-index;
-            }
+            //.copyright {
+            //    position: absolute;
+            //    bottom: 0;
+            //    width: 100%;
+            //    height: 60px;
+            //    line-height: 20px;
+            //    text-align: center;
+            //    font-size: 12px;
+            //    padding: 20px 0;
+            //    user-select: none;
+            //    box-sizing: border-box;
+            //    color: lighten($theme-text, 50%);
+            //    z-index: $copyright-z-index;
+            //}
 
             .module-loading {
                 position: absolute;

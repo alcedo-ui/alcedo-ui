@@ -10,6 +10,7 @@ import LandingIntro from './sections/LandingIntro';
 import LandingGetStarted from './sections/LandingGetStarted';
 import LandingUsage from './sections/LandingUsage';
 import LandingExamples from './sections/LandingExamples';
+import LandingFoot from './LandingFoot';
 
 import 'sass/containers/landing/Landing.scss';
 
@@ -57,6 +58,8 @@ class Landing extends Component {
                 <LandingUsage/>
 
                 <LandingExamples/>
+
+                <LandingFoot/>
 
             </div>
         );
