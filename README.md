@@ -41,7 +41,7 @@ Examples can be found in the
 **Run Demo**
 
 ```bash
-npm run Demo
+npm run demo
 ```
 
 ## License
