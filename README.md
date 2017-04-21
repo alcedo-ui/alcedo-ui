@@ -7,7 +7,7 @@ Alcedo-UI is a set of React components.
 **NPM**
 
 ```bash
-npm install alcedo-ui
+npm install alcedo-ui --save
 ```
 
 ## Usage

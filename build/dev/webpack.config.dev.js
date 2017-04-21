@@ -35,7 +35,7 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './examples/index.html',
-            // favicon: './examples/assets/images/favicon.ico',
+            favicon: './examples/assets/images/favicon.ico',
             inject: true
         }),
 
