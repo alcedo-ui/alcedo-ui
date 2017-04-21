@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from 'react';
+import _ from 'lodash';
+
 import Event from 'vendors/Event';
 
 import LandingNav from './LandingNav';
@@ -21,13 +23,22 @@ export default class Landing extends Component {
         };
 
         this.scrollHandle = this::this.scrollHandle;
+        this.debounceScrollHandle = _.debounce(this::this.debounceScrollHandle, 150);
 
     }
 
-    scrollHandle() {
+    debounceScrollHandle() {
         this.setState({
             bodyScrollTop: document.body.scrollTop
         });
+    }
+
+    scrollHandle(e) {
+        // this.setState({
+        //     bodyScrollTop: document.body.scrollTop
+        // });
+        // e.persist();
+        this.debounceScrollHandle(e);
     }
 
     componentDidMount() {

@@ -46,7 +46,7 @@ export default class LandingNav extends Component {
         const {activatedMenu} = this.state;
 
         return (
-            <div className="landing-nav-wrapper">
+            <div className={`landing-nav-wrapper ${bodyScrollTop > 0 ? 'fixed' : ''}`}>
 
                 <div className="landing-nav-bg"
                      style={{opacity: bodyScrollTop / 200}}></div>
