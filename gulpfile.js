@@ -51,12 +51,12 @@ gulp.task('watch', function () {
     gulp.watch('./src/**/*.js', ['es']);
 });
 
-gulp.task('doc', function () {
+gulp.task('propType', function () {
     return gulp.src(['./src/**/*.js', '!./src/_*/*.js', '!./src/**/index.js'])
         .pipe(componentDoc())
         .pipe(rename(function (path) {
             path.dirname = '';
             path.extname = '.json';
         }))
-        .pipe(gulp.dest('./docs'));
+        .pipe(gulp.dest('./examples/assets/propTypes'));
 });
