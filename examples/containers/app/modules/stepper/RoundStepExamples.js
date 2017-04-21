@@ -6,7 +6,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import RoundStepDoc from 'docs/RoundStep.json';
+import RoundStepDoc from 'assets/propTypes/RoundStep.json';
 
 import 'sass/containers/app/modules/stepper/RoundStepExamples.scss';
 

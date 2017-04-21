@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import IconButtonDoc from 'docs/IconButton.json';
+import IconButtonDoc from 'assets/propTypes/IconButton.json';
 
 import 'sass/containers/app/modules/buttons/IconButtonExamples.scss';
 

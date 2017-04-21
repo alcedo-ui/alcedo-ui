@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import PaperDoc from 'docs/Paper.json';
+import PaperDoc from 'assets/propTypes/Paper.json';
 
 import 'sass/containers/app/modules/layout/PaperExamples.scss';
 

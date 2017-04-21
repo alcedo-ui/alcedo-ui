@@ -6,7 +6,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import DropdownSelectDoc from 'docs/DropdownSelect.json';
+import DropdownSelectDoc from 'assets/propTypes/DropdownSelect.json';
 
 import 'sass/containers/app/modules/fields/RadioExamples.scss';
 

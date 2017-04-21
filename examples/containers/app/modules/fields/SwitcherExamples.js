@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import SwitcherDoc from 'docs/Switcher.json';
+import SwitcherDoc from 'assets/propTypes/Switcher.json';
 
 import 'sass/containers/app/modules/fields/SwitcherExamples.scss';
 

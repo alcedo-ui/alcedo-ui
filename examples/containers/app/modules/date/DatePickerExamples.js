@@ -8,7 +8,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import DatePickerDoc from 'docs/DatePicker.json';
+import DatePickerDoc from 'assets/propTypes/DatePicker.json';
 
 import 'sass/containers/app/modules/date/DatePickerExamples.scss';
 

@@ -5,7 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import FlatButtonDoc from 'docs/FlatButton.json';
+import FlatButtonDoc from 'assets/propTypes/FlatButton.json';
 
 import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 

@@ -5,8 +5,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import WidgetDoc from 'docs/Widget.json';
-
+import WidgetDoc from 'assets/propTypes/Widget.json';
 
 import 'sass/containers/app/modules/layout/WidgetExamples.scss';
 
