@@ -3,6 +3,46 @@ import {IndexRoute, Route, Redirect} from 'react-router';
 
 import Root from 'containers/Root';
 import Landing from 'containers/landing/Landing';
+import App from 'containers/app/App';
+
+import RaisedButtonExamples from 'containers/app/modules/buttons/RaisedButtonExamples';
+import FlatButtonExamples from 'containers/app/modules/buttons/FlatButtonExamples';
+import IconButtonExamples from 'containers/app/modules/buttons/IconButtonExamples';
+import IconAnchorExamples from 'containers/app/modules/buttons/IconAnchorExamples';
+
+import TextFieldExamples from 'containers/app/modules/fields/TextFieldExamples';
+import DropdownSelectExamples from 'containers/app/modules/fields/DropdownSelectExamples';
+import MultipleSelectExamples from 'containers/app/modules/fields/MultipleSelectExamples';
+import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples';
+import CheckboxExamples from 'containers/app/modules/fields/CheckboxExamples';
+import RadioExamples from 'containers/app/modules/fields/RadioExamples';
+import ToggleButtonExamples from 'containers/app/modules/fields/ToggleButtonExamples';
+import SwitcherExamples from 'containers/app/modules/fields/SwitcherExamples';
+import SliderExamples from 'containers/app/modules/fields/SliderExamples';
+import EditableFieldExamples from 'containers/app/modules/fields/EditableFieldExamples';
+
+import DatePickerExamples from 'containers/app/modules/date/DatePickerExamples';
+import DateRangePickerExamples from 'containers/app/modules/date/DateRangePickerExamples';
+import TimePickerExamples from 'containers/app/modules/date/TimePickerExamples';
+import DateTimePickerExamples from 'containers/app/modules/date/DateTimePickerExamples';
+
+import DialogExamples from 'containers/app/modules/popup/DialogExamples';
+import PopupExamples from 'containers/app/modules/popup/PopupExamples';
+
+import CircularProgressExample from 'containers/app/modules/progress/CircularProgressExample';
+import LinearProgressExample from 'containers/app/modules/progress/LinearProgressExample';
+
+import PaperExamples from 'containers/app/modules/layout/PaperExamples';
+import WidgetExamples from 'containers/app/modules/layout/WidgetExamples';
+import ListExamples from 'containers/app/modules/layout/ListExamples';
+import TabExamples from 'containers/app/modules/layout/TabExamples';
+import AccordionExamples from 'containers/app/modules/layout/AccordionExamples';
+import TableExamples from 'containers/app/modules/layout/TableExamples';
+
+import ArrowStepExamples from 'containers/app/modules/stepper/ArrowStepExamples';
+import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples';
+
+import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
 
 export default (
     <Route path="/" component={Root}>
@@ -15,222 +55,83 @@ export default (
         <Redirect from="components" to="/components/RaisedButton"/>
 
         <Route path="components"
-               getComponent={(nextState, cb) => {
-                   require.ensure([], (require) => {
-                       cb(null, require('./containers/app/App').default);
-                   });
-               }}>
+               component={App}>
 
+            {/* buttons */}
             <Route path="RaisedButton"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/buttons/RaisedButtonExamples').default);
-                       });
-                   }}/>
-
+                   component={RaisedButtonExamples}/>
             <Route path="FlatButton"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/buttons/FlatButtonExamples').default);
-                       });
-                   }}/>
-
+                   component={FlatButtonExamples}/>
             <Route path="IconButton"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/buttons/IconButtonExamples').default);
-                       });
-                   }}/>
-
+                   component={IconButtonExamples}/>
             <Route path="IconAnchor"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/buttons/IconAnchorExamples').default);
-                       });
-                   }}/>
+                   component={IconAnchorExamples}/>
 
+            {/* fields */}
             <Route path="TextField"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/TextFieldExamples').default);
-                       });
-                   }}/>
+                   component={TextFieldExamples}/>
             <Route path="DatePicker"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/date/DatePickerExamples').default);
-                       });
-                   }}/>
+                   component={DatePickerExamples}/>
             <Route path="DateRangePicker"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/date/DateRangePickerExamples').default);
-                       });
-                   }}/>
+                   component={DateRangePickerExamples}/>
             <Route path="TimePicker"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/date/TimePickerExamples').default);
-                       });
-                   }}/>
+                   component={TimePickerExamples}/>
             <Route path="DateTimePicker"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/date/DateTimePickerExamples').default);
-                       });
-                   }}/>
-
+                   component={DateTimePickerExamples}/>
             <Route path="DropdownSelect"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/DropdownSelectExamples').default);
-                       });
-                   }}/>
+                   component={DropdownSelectExamples}/>
             <Route path="MultipleSelect"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/MultipleSelectExamples').default);
-                       });
-                   }}/>
+                   component={MultipleSelectExamples}/>
             <Route path="TreeSelect"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/TreeSelectExamples').default);
-                       });
-                   }}/>
-
+                   component={TreeSelectExamples}/>
             <Route path="Checkbox"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/CheckboxExamples').default);
-                       });
-                   }}/>
-
+                   component={CheckboxExamples}/>
             <Route path="Radio"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/RadioExamples').default);
-                       });
-                   }}/>
-
+                   component={RadioExamples}/>
             <Route path="ToggleButton"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/ToggleButtonExamples').default);
-                       });
-                   }}/>
-
+                   component={ToggleButtonExamples}/>
             <Route path="Switcher"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/SwitcherExamples').default);
-                       });
-                   }}/>
-
+                   component={SwitcherExamples}/>
             <Route path="Slider"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/SliderExamples').default);
-                       });
-                   }}/>
-
+                   component={SliderExamples}/>
             <Route path="EditableField"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/fields/EditableFieldExamples').default);
-                       });
-                   }}/>
+                   component={EditableFieldExamples}/>
 
+            {/* popups */}
             <Route path="Dialog"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/popup/DialogExamples').default);
-                       });
-                   }}/>
-
+                   component={DialogExamples}/>
             <Route path="Popup"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/popup/PopupExamples').default);
-                       });
-                   }}/>
+                   component={PopupExamples}/>
 
+            {/* progresses */}
             <Route path="CircularProgress"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/progress/CircularProgressExample').default);
-                       });
-                   }}/>
-
+                   component={CircularProgressExample}/>
             <Route path="LinearProgress"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/progress/LinearProgressExample').default);
-                       });
-                   }}/>
+                   component={LinearProgressExample}/>
 
+            {/* layouts */}
             <Route path="Paper"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/layout/PaperExamples').default);
-                       });
-                   }}/>
-
+                   component={PaperExamples}/>
             <Route path="Widget"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/layout/WidgetExamples').default);
-                       });
-                   }}/>
-
+                   component={WidgetExamples}/>
             <Route path="List"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/layout/ListExamples').default);
-                       });
-                   }}/>
-
+                   component={ListExamples}/>
             <Route path="Tab"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/layout/TabExamples').default);
-                       });
-                   }}/>
-
+                   component={TabExamples}/>
             <Route path="Accordion"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/layout/AccordionExamples').default);
-                       });
-                   }}/>
-
+                   component={AccordionExamples}/>
             <Route path="Table"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/layout/TableExamples').default);
-                       });
-                   }}/>
+                   component={TableExamples}/>
 
+            {/* steppers */}
             <Route path="ArrowStep"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/stepper/ArrowStepExamples').default);
-                       });
-                   }}/>
-
+                   component={ArrowStepExamples}/>
             <Route path="RoundStep"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/stepper/RoundStepExamples').default);
-                       });
-                   }}/>
+                   component={RoundStepExamples}/>
 
+            {/* messages */}
             <Route path="Toaster"
-                   getComponent={(nextState, cb) => {
-                       require.ensure([], (require) => {
-                           cb(null, require('./containers/app/modules/message/ToasterExamples').default);
-                       });
-                   }}/>
+                   component={ToasterExamples}/>
 
         </Route>
 

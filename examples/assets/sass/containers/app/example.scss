@@ -26,6 +26,8 @@
 
     .example-content {
 
+        @include float-fix;
+
         //overflow: auto;
         background: white;
         padding: 20px;
