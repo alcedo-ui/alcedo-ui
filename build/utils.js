@@ -37,7 +37,7 @@ exports.cssLoaders = function (options) {
             return ExtractTextPlugin.extract({
                 use: loaders,
                 fallback: 'style-loader',
-                publicPath: '/'
+                publicPath: '"../../"'
             });
         } else {
             return ['style-loader'].concat(loaders);
