@@ -1,14 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import Highlight from 'react-highlight';
-
-import * as actions from 'reduxes/actions';
 
 import 'highlight.js/styles/androidstudio.css';
 import 'sass/containers/landing/sections/LandingGetStarted.scss';
 
-class LandingGetStarted extends Component {
+export default class LandingGetStarted extends Component {
 
     constructor(props) {
         super(props);
@@ -25,7 +21,7 @@ class LandingGetStarted extends Component {
                     <div className="landing-section-subtitle">NPM</div>
 
                     <Highlight className='bash landing-bash'>
-                        {'# latest stable' + '\n' + '$ npm install alcedo-ui'}
+                        {'# latest stable' + '\n' + '$ npm install alcedo-ui --save'}
                     </Highlight>
 
                 </div>
@@ -36,13 +32,3 @@ class LandingGetStarted extends Component {
 }
 
 LandingGetStarted.propTypes = {};
-
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingGetStarted);

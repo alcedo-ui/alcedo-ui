@@ -1,14 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actions from 'reduxes/actions';
 
 import IconAnchor from 'dist/IconAnchor';
 
 import 'sass/containers/landing/LandingNav.scss';
 
-class LandingNav extends Component {
+export default class LandingNav extends Component {
 
     constructor(props) {
 
@@ -28,11 +24,26 @@ class LandingNav extends Component {
             hash: '#landing-examples'
         }];
 
+        this.state = {
+            activatedMenu: this.menu[0]
+        };
+
+        this.menuClickHandle = this::this.menuClickHandle;
+
+    }
+
+    menuClickHandle(activatedMenu) {
+        this.setState({
+            activatedMenu
+        }, () => {
+            document.body.scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
+        });
     }
 
     render() {
 
         const {bodyScrollTop} = this.props;
+        const {activatedMenu} = this.state;
 
         return (
             <div className="landing-nav-wrapper">
@@ -53,19 +64,22 @@ class LandingNav extends Component {
                                     iconCls="fa fa-github"
                                     href="https://github.com/alcedo-ui/alcedo-ui"/>
 
-                        <div className="menu">
+                        <ul className="menu">
                             {
                                 this.menu.map((item, index) => {
                                     return (
-                                        <a key={index}
-                                           className={`menu-item ${location.hash === item.hash ? 'activated' : ''}`}
-                                           href={item.hash}>
+                                        <li key={index}
+                                            className={`menu-item
+                                                ${activatedMenu.hash === item.hash ? 'activated' : ''}`}
+                                            onClick={() => {
+                                                this.menuClickHandle(item);
+                                            }}>
                                             {item.name}
-                                        </a>
+                                        </li>
                                     );
                                 })
                             }
-                        </div>
+                        </ul>
 
                     </div>
                 </div>
@@ -79,13 +93,3 @@ class LandingNav extends Component {
 LandingNav.propTypes = {
     bodyScrollTop: PropTypes.number
 };
-
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingNav);

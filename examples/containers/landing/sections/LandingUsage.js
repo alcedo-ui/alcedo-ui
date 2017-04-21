@@ -1,14 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import Highlight from 'react-highlight';
-
-import * as actions from 'reduxes/actions';
 
 import 'highlight.js/styles/androidstudio.css';
 import 'sass/containers/landing/sections/LandingUsage.scss';
 
-class LandingUsage extends Component {
+export default class LandingUsage extends Component {
 
     constructor(props) {
         super(props);
@@ -52,13 +48,3 @@ class LandingUsage extends Component {
 }
 
 LandingUsage.propTypes = {};
-
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingUsage);

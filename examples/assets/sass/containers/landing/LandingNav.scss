@@ -58,6 +58,7 @@
             .menu {
                 width: 400px;
                 margin: 0 auto;
+                padding: 0;
 
                 .menu-item {
                     display: inline-block;
@@ -68,6 +69,7 @@
                     text-decoration: none;
                     color: transparentize(#fff, .5);
                     font-weight: 300;
+                    cursor: pointer;
 
                     &.activated {
                         color: #fff;

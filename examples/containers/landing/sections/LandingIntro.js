@@ -1,14 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actions from 'reduxes/actions';
 
 import FlatButton from 'dist/FlatButton';
 
 import 'sass/containers/landing/sections/LandingIntro.scss';
 
-class LandingIntro extends Component {
+export default class LandingIntro extends Component {
 
     constructor(props) {
 
@@ -64,13 +60,3 @@ LandingIntro.contextTypes = {
 };
 
 LandingIntro.propTypes = {};
-
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingIntro);
