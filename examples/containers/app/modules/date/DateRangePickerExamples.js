@@ -19,7 +19,10 @@ export default class DateRangePickerExamples extends Component {
                 <div className="examples">
                     <div className="examples-title">Date Range Picker</div>
                     <div className="examples-wrapper">
-                        <DateRangePicker/>
+                        <DateRangePicker value={['2015-07-01','2017-04-21']}
+                                         dateFormat={'YYYY-MM-DD'}
+                                         maxValue={'2017-12-21'}
+                                         minValue={'2014-02-01'}/>
                     </div>
                 </div>
 
