@@ -92,6 +92,10 @@
 
     &.fixed {
         position: fixed;
+
+        .landing-nav-bg {
+            opacity: 1;
+        }
     }
 
 }

@@ -37,14 +37,9 @@ export default class LandingIntro extends Component {
                         <div className="logo-text">Alcedo-UI</div>
                         <div className="slogen">A Set of React Components</div>
 
-                        <div className="buttons">
-                            <FlatButton className="ghost-button"
-                                        value="Get Started"
-                                        onTouchTap={this.getStarted}/>
-                            <FlatButton className="ghost-button"
-                                        value="Go to Demo"
-                                        onTouchTap={this.goToDemo}/>
-                        </div>
+                        <FlatButton className="ghost-button"
+                                    value="Demo"
+                                    onTouchTap={this.goToDemo}/>
 
                     </div>
 

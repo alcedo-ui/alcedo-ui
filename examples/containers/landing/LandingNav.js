@@ -44,7 +44,7 @@ export default class LandingNav extends Component {
         let activatedMenu = this.menu[0];
         for (let i = 0, len = this.menu.length; i < len; i++) {
             const el = document.querySelector(this.menu[i].hash);
-            if (el && bodyScrollTop >= el.offsetTop - 60) {
+            if (el && bodyScrollTop >= el.offsetTop - this.navHeight) {
                 activatedMenu = this.menu[i];
             }
         }
@@ -56,7 +56,11 @@ export default class LandingNav extends Component {
     }
 
     componentDidMount() {
+
         this.updateActivatedMenu();
+
+        this.navHeight = (this.refs.wrapper && this.refs.wrapper.clientHeight) || 80;
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -67,14 +71,16 @@ export default class LandingNav extends Component {
 
     render() {
 
-        const {bodyScrollTop} = this.props;
-        const {activatedMenu} = this.state;
+        const {bodyScrollTop} = this.props,
+            {activatedMenu} = this.state,
+            introEl = document.querySelector(this.menu[0].hash),
+            isFixed = introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
 
         return (
-            <div className={`landing-nav-wrapper ${bodyScrollTop > 0 ? 'fixed' : ''}`}>
+            <div ref="wrapper"
+                 className={`landing-nav-wrapper ${isFixed ? 'fixed' : ''}`}>
 
-                <div className="landing-nav-bg"
-                     style={{opacity: bodyScrollTop / 200}}></div>
+                <div className="landing-nav-bg"></div>
 
                 <div className="landing-nav">
                     <div className="landing-nav-inner">
