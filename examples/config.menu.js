@@ -7,6 +7,9 @@ export default [{
         text: 'Flat Button',
         route: '/components/FlatButton'
     }, {
+        text: 'Ghost Button',
+        route: '/components/GhostButton'
+    }, {
         text: 'Icon Button',
         route: '/components/IconButton'
     }, {

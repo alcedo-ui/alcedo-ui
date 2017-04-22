@@ -7,6 +7,7 @@ import App from 'containers/app/App';
 
 import RaisedButtonExamples from 'containers/app/modules/buttons/RaisedButtonExamples';
 import FlatButtonExamples from 'containers/app/modules/buttons/FlatButtonExamples';
+import GhostButtonExamples from 'containers/app/modules/buttons/GhostButtonExamples';
 import IconButtonExamples from 'containers/app/modules/buttons/IconButtonExamples';
 import IconAnchorExamples from 'containers/app/modules/buttons/IconAnchorExamples';
 
@@ -62,6 +63,8 @@ export default (
                    component={RaisedButtonExamples}/>
             <Route path="FlatButton"
                    component={FlatButtonExamples}/>
+            <Route path="GhostButton"
+                   component={GhostButtonExamples}/>
             <Route path="IconButton"
                    component={IconButtonExamples}/>
             <Route path="IconAnchor"
