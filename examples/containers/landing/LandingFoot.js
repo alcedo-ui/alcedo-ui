@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import IconAnchor from 'dist/IconAnchor';
 
@@ -31,9 +31,3 @@ export default class LandingFoot extends Component {
         );
     }
 }
-
-LandingFoot.contextTypes = {
-    router: React.PropTypes.object.isRequired
-};
-
-LandingFoot.propTypes = {};

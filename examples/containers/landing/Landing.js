@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import _ from 'lodash';
 
 import Event from 'vendors/Event';
@@ -69,9 +69,3 @@ export default class Landing extends Component {
 
     }
 }
-
-Landing.contextTypes = {
-    router: React.PropTypes.object.isRequired
-};
-
-Landing.propTypes = {};
