@@ -10,7 +10,7 @@
     border: 1px solid darken($theme-bg, 2%);
     background: $theme-bg;
 
-    .slider-wrapper {
+    .switcher-slider-wrapper {
         width: 50px;
         height: 50px;
         padding: 12px;
@@ -18,7 +18,7 @@
         top: -11px;
         left: -11px;
 
-        .slider {
+        .switcher-slider {
 
             @include shadow(2);
 
@@ -45,7 +45,7 @@
         background: $theme-title;
         border: 1px solid $theme-title;
 
-        .slider-wrapper {
+        .switcher-slider-wrapper {
             left: 13px;
         }
     }
@@ -55,7 +55,7 @@
         border: 1px solid grayscale(darken($theme-bg, 2%));
         cursor: not-allowed;
 
-        .slider {
+        .switcher-slider {
             box-shadow: none;
         }
     }
@@ -69,14 +69,14 @@
         height: 24px;
         border-radius: 12px;
 
-        .slider-wrapper {
+        .switcher-slider-wrapper {
             width: 40px;
             height: 40px;
             padding: 10px;
             top: -9px;
             left: -9px;
 
-            .slider {
+            .switcher-slider {
                 width: 20px;
                 height: 20px;
                 border-radius: 10px;
@@ -90,7 +90,7 @@
         }
 
         &.active {
-            .slider-wrapper {
+            .switcher-slider-wrapper {
                 left: 7px;
             }
         }
