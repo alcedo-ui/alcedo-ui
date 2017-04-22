@@ -19,7 +19,7 @@
 
         .landing-section-inner {
             height: 800px;
-            padding: 160px 16%;
+            padding: 160px 0;
 
             .logo-icon {
                 display: block;
@@ -49,20 +49,20 @@
             }
 
             .buttons {
-                width: 260px;
+                width: 290px;
                 margin: 60px auto;
 
                 .ghost-button {
                     border: 1px solid transparentize(#fff, .3);
                     border-radius: 25px;
                     color: transparentize(#fff, .3);
-                    width: 120px;
+                    width: 130px;
                     font-size: 14px;
                     height: 50px;
                     margin: 0;
 
                     &:last-child {
-                        margin-left: 20px;
+                        margin-left: 30px;
                     }
 
                     &:hover {
