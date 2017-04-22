@@ -15,6 +15,8 @@
                 font-size: 50px;
                 font-weight: 300;
                 margin-bottom: 20px;
+                user-select: none;
+                cursor: default;
             }
 
             .landing-section-subtitle {
@@ -22,6 +24,8 @@
                 text-align: center;
                 font-size: 24px;
                 font-weight: 300;
+                user-select: none;
+                cursor: default;
                 color: transparentize($theme-text, .4);
             }
 
@@ -29,9 +33,10 @@
 
                 @include shadow(3);
 
-                width: 700px;
+                width: 80%;
+                max-width: 700px;
                 margin: 60px auto 0;
-                padding: 30px 40px;
+                padding: 30px 8%;
                 border-radius: $border-radius;
                 font-size: 18px;
                 box-sizing: border-box;
