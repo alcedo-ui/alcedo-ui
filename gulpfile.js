@@ -7,7 +7,7 @@ var gulp = require('gulp'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence'),
     miniPackageJson = require('./scripts/gulp-mini-package-json'),
-    componentDoc = require('./scripts/gulp-component-doc');
+    componentPropTypeJson = require('./scripts/gulp-component-prop-type-json');
 
 function printError(e) {
     console.error(e.toString());
@@ -58,7 +58,7 @@ gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJs
  */
 gulp.task('propType', function () {
     return gulp.src(['./src/**/*.js', '!./src/_*/*.js', '!./src/**/index.js'])
-        .pipe(componentDoc())
+        .pipe(componentPropTypeJson())
         .pipe(rename(function (path) {
             path.dirname = '';
             path.extname = '.json';

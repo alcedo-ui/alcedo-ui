@@ -3,7 +3,7 @@
 var gutil = require('gulp-util'),
     through = require('through2'),
     path = require('path'),
-    generateDocJson = require('./generateDocJson');
+    generateComponentPropTypeJson = require('./generateComponentPropTypeJson');
 
 module.exports = function () {
     return through.obj(function (chunk, encoding, callback) {
@@ -23,7 +23,7 @@ module.exports = function () {
             var componentName = path.parse(chunk.path).name,
                 fileString = chunk.contents.toString();
 
-            chunk.contents = new Buffer(generateDocJson(componentName, fileString));
+            chunk.contents = new Buffer(generateComponentPropTypeJson(componentName, fileString));
 
             this.push(chunk);
 
