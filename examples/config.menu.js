@@ -69,6 +69,9 @@ export default [{
     }, {
         text: 'EditableField',
         route: '/components/EditableField'
+    }, {
+        text: 'FlashNumber',
+        route: '/components/FlashNumber'
     }]
 }, {
     text: 'progress',

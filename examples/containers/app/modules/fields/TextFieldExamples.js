@@ -24,7 +24,8 @@ export default class TextFieldExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="TextField Simple Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="TextField Simple Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -50,7 +51,8 @@ export default class TextFieldExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="TextField with Icon Simple Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="TextField with Icon Simple Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -77,7 +79,8 @@ export default class TextFieldExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="TextFieldGroup Simple Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="TextFieldGroup Simple Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

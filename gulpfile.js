@@ -13,6 +13,9 @@ function printError(e) {
     console.error(e.toString());
 }
 
+/**
+ * sass compile
+ */
 gulp.task('sass', function () {
     return gulp.src('./src/**/*.scss')
         .pipe(sass())
@@ -20,6 +23,9 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./dist'));
 });
 
+/**
+ * es compile
+ */
 gulp.task('es', function () {
     return gulp.src('./src/**/*.js')
         .pipe(babel({
@@ -29,6 +35,9 @@ gulp.task('es', function () {
         .pipe(gulp.dest('./dist'));
 });
 
+/**
+ * copy extra files to dist
+ */
 gulp.task('copyAssets', function () {
     return gulp.src('./assets/**')
         .pipe(gulp.dest('./dist/assets'));
@@ -44,13 +53,9 @@ gulp.task('copyPackageJson', function () {
 });
 gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJson'));
 
-gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
-
-gulp.task('watch', function () {
-    gulp.watch('./src/**/*.scss', ['sass']);
-    gulp.watch('./src/**/*.js', ['es']);
-});
-
+/**
+ * generate props type json include name, type, default and desc of components
+ */
 gulp.task('propType', function () {
     return gulp.src(['./src/**/*.js', '!./src/_*/*.js', '!./src/**/index.js'])
         .pipe(componentDoc())
@@ -59,4 +64,17 @@ gulp.task('propType', function () {
             path.extname = '.json';
         }))
         .pipe(gulp.dest('./examples/assets/propTypes'));
+});
+
+/**
+ * build components for npm publish
+ */
+gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
+
+/**
+ * watch components src files
+ */
+gulp.task('watch', function () {
+    gulp.watch('./src/**/*.scss', ['sass']);
+    gulp.watch('./src/**/*.js', ['es']);
 });

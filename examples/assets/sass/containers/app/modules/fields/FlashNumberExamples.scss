@@ -1,0 +1,11 @@
+@import '../../../../common.scss';
+
+.flash-number-examples {
+
+    .field-group {
+
+        & > * {
+            display: inline-block;
+        }
+    }
+}

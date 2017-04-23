@@ -243,7 +243,7 @@ TextField.propTypes = {
     type: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     iconCls: PropTypes.string,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
