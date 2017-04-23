@@ -50,7 +50,8 @@ export default class FlashNumberExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <div className="field-group">
-                                    <TextField value={value}
+                                    <TextField type="number"
+                                               value={value}
                                                onChange={this.changeHandle}/>
                                     <span>&nbsp;&nbsp;X 2 =&nbsp;</span>
                                     <FlashNumber initValue={0}
