@@ -36,12 +36,19 @@
 
         tbody tr td:first-child {
 
-            color: #266d90;
+            color: $cyan;
+
+        }
+
+        tbody tr td:nth-child(1) {
+
+            color: $error;
 
         }
 
         thead tr th {
-            color: #888;
+            color: $grey;
+            font-size: 15px;
         }
 
     }
