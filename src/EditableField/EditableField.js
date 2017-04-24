@@ -1,7 +1,8 @@
 /**
  * Created by DT314 on 2017/4/18.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '../TextField/TextField';
 import Event from '../_vendors/Event';
@@ -88,7 +89,7 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const { style, name } = this.props;
+        const {style, name} = this.props;
 
         return (
             <div className="nameInput"

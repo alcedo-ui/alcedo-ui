@@ -1,42 +1,43 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class SortIcon extends Component {
 
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	render() {
+    render() {
 
-		const {className, style} = this.props;
+        const {className, style} = this.props;
 
-		return (
-			<span className={`sort-icon ${className}`}
-			      style={style}>
+        return (
+            <span className={`sort-icon ${className}`}
+                  style={style}>
 				<i className="fa fa-angle-up asc-icon"
-				   aria-hidden="true"></i>
+                   aria-hidden="true"></i>
 				<i className="fa fa-angle-down desc-icon"
-				   aria-hidden="true"></i>
+                   aria-hidden="true"></i>
 			</span>
-		);
+        );
 
-	}
+    }
 };
 
 SortIcon.propTypes = {
 
-	className: PropTypes.string,
-	style: PropTypes.object,
+    className: PropTypes.string,
+    style: PropTypes.object,
 
-	sort: PropTypes.object
+    sort: PropTypes.object
 
 };
 
 SortIcon.defaultProps = {
 
-	className: '',
-	style: null,
+    className: '',
+    style: null,
 
-	sort: null
+    sort: null
 
 };
