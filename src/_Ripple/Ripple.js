@@ -1,83 +1,84 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 export default class Ripple extends Component {
 
-	constructor(props) {
+    constructor(props) {
 
-		super(props);
+        super(props);
 
-		this.hasMounted = false;
+        this.hasMounted = false;
 
-	}
+    }
 
-	initializeAnimation(callback) {
+    initializeAnimation(callback) {
 
-		ReactDOM.findDOMNode(this).style.transform = 'scale(0)';
+        ReactDOM.findDOMNode(this).style.transform = 'scale(0)';
 
-		setTimeout(() => {
-			this.hasMounted && callback();
-		}, 0);
+        setTimeout(() => {
+            this.hasMounted && callback();
+        }, 0);
 
-	}
+    }
 
-	animate() {
-		ReactDOM.findDOMNode(this).style.transform = 'scale(1)';
-	}
+    animate() {
+        ReactDOM.findDOMNode(this).style.transform = 'scale(1)';
+    }
 
-	componentDidMount() {
-		this.hasMounted = true;
-	}
+    componentDidMount() {
+        this.hasMounted = true;
+    }
 
-	componentWillAppear(callback) {
-		this.initializeAnimation(callback);
-	}
+    componentWillAppear(callback) {
+        this.initializeAnimation(callback);
+    }
 
-	componentWillEnter(callback) {
-		this.initializeAnimation(callback);
-	}
+    componentWillEnter(callback) {
+        this.initializeAnimation(callback);
+    }
 
-	componentDidAppear() {
-		this.animate();
-	}
+    componentDidAppear() {
+        this.animate();
+    }
 
-	componentDidEnter() {
-		this.animate();
-	}
+    componentDidEnter() {
+        this.animate();
+    }
 
-	componentWillLeave(callback) {
+    componentWillLeave(callback) {
 
-		ReactDOM.findDOMNode(this).style.opacity = 0;
+        ReactDOM.findDOMNode(this).style.opacity = 0;
 
-		this.timeout = setTimeout(() => {
-			this.hasMounted && callback();
-		}, 2000);
+        this.timeout = setTimeout(() => {
+            this.hasMounted && callback();
+        }, 2000);
 
-	}
+    }
 
-	componentWillUnmount() {
-		this.timeout && clearTimeout(this.timeout);
-	}
+    componentWillUnmount() {
+        this.timeout && clearTimeout(this.timeout);
+    }
 
-	render() {
+    render() {
 
-		const {className, style} = this.props;
+        const {className, style} = this.props;
 
-		return (
-			<div className={`ripple ${className}`}
-			     style={style}>
-			</div>
-		);
+        return (
+            <div className={`ripple ${className}`}
+                 style={style}>
+            </div>
+        );
 
-	}
+    }
 };
 
 Ripple.propTypes = {
-	className: PropTypes.string,
-	style: PropTypes.object
+    className: PropTypes.string,
+    style: PropTypes.object
 };
 
 Ripple.defaultProps = {
-	className: '',
-	style: null
+    className: '',
+    style: null
 };

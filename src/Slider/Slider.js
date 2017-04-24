@@ -1,7 +1,8 @@
 /**
  * Created by DT314 on 2017/4/12.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 

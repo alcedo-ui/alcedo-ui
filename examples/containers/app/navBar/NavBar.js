@@ -1,15 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actions from 'reduxes/actions';
+import React, {Component} from 'react';
 
 import Brand from './Brand';
 import IconAnchor from 'dist/IconAnchor';
 
 import 'sass/containers/app/navBar/nav/Nav.scss';
 
-class NavBar extends Component {
+export default class NavBar extends Component {
 
     constructor(props) {
         super(props);
@@ -31,15 +27,3 @@ class NavBar extends Component {
         );
     }
 }
-
-NavBar.propTypes = {};
-
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
