@@ -16,7 +16,6 @@ export default class IconButtonExamples extends Component {
     }
 
     render() {
-
         return (
             <div className="example icon-button-example">
 

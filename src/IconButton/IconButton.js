@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
+import Tip from '../Tip';
 
 import './IconButton.css';
 
@@ -26,7 +27,7 @@ export default class IconButton extends Component {
 
     render() {
 
-        const {children, className, isCircular} = this.props;
+        const {children, className, isCircular, tip} = this.props;
 
         return (
             <BaseButton {...this.props}
@@ -34,7 +35,11 @@ export default class IconButton extends Component {
                         className={`icon-button ${className}`}
                         isCircular={isCircular}
                         rippleDisplayCenter={true}>
+
                 {children}
+
+                <Tip text={tip}/>
+
             </BaseButton>
         );
 
@@ -109,6 +114,8 @@ IconButton.propTypes = {
      */
     rippleDisplayCenter: PropTypes.bool,
 
+    tip: PropTypes.string,
+
     /**
      * The function that trigger when the button is clicked.
      */
@@ -134,6 +141,8 @@ IconButton.defaultProps = {
     rippleDisplayCenter: false,
 
     iconCls: '',
-    rightIconCls: ''
+    rightIconCls: '',
+
+    tip: ''
 
 };

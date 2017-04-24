@@ -45,6 +45,7 @@ import ArrowStepExamples from 'containers/app/modules/stepper/ArrowStepExamples'
 import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples';
 
 import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
+import TipExamples from 'containers/app/modules/message/TipExamples';
 
 export default (
     <Route path="/" component={Root}>
@@ -138,6 +139,8 @@ export default (
             {/* messages */}
             <Route path="Toaster"
                    component={ToasterExamples}/>
+            <Route path="Tip"
+                   component={TipExamples}/>
 
         </Route>
 
