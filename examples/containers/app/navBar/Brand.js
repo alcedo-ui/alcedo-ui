@@ -33,7 +33,9 @@ class Brand extends Component {
                             onTouchTap={this.menuToggleButtonMousedownHandle}/>
 
                 <div className="brand-name">
-                    <div className="brand-logo"></div>
+                    <IconAnchor className="brand-logo"
+                                href="#/"
+                                target="_self"/>
                     Alcedo-UI Examples
                 </div>
 

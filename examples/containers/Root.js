@@ -28,7 +28,11 @@ class Root extends Component {
     }
 
     componentDidMount() {
+
         Event.addEvent(window, 'resize', this.resizeHandle);
+
+        document.getElementById('loading').style.display = 'none';
+
     }
 
     componentWillUnmount() {

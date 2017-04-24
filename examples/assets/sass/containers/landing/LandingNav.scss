@@ -1,0 +1,109 @@
+@import '../../common.scss';
+
+.landing-nav-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: $nav-bar-z-index;
+
+    .landing-nav,
+    .landing-nav-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+
+        .landing-nav-inner {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            box-sizing: border-box;
+
+            .logo {
+                position: absolute;
+                left: 0;
+                top: 0;
+                text-decoration: none;
+
+                .logo-icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 25px 10px 25px 25px;
+                    width: 30px;
+                    height: 30px;
+                    background-image: url("../../../../../assets/alcedo-logo.png");
+                    background-size: 30px 30px;
+                }
+
+                .logo-text {
+                    vertical-align: middle;
+                    color: #fff;
+                    font-size: 20px;
+                    user-select: none;
+                    font-weight: 300;
+                }
+            }
+
+            .github-icon {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                color: transparentize(#fff, .2);
+                font-size: 24px;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            .menu {
+                width: 400px;
+                margin: 0 auto;
+                padding: 0;
+
+                .menu-item {
+                    display: inline-block;
+                    width: 100px;
+                    line-height: 80px;
+                    text-align: center;
+                    font-size: 14px;
+                    text-decoration: none;
+                    color: transparentize(#fff, .5);
+                    font-weight: 300;
+                    cursor: pointer;
+
+                    &.activated {
+                        color: transparentize(#fff, .2);
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+
+    .landing-nav-bg {
+        background: $theme-menu;
+        opacity: 0;
+        transition: opacity $transition-duration ease-in-out;
+    }
+
+    &.fixed {
+        position: fixed;
+
+        .landing-nav-bg {
+            opacity: 1;
+        }
+    }
+
+}
+
+@media (max-width: 767px) {
+    .landing-nav-wrapper {
+        .menu {
+            display: none;
+        }
+    }
+}

@@ -97,16 +97,16 @@ $transition-duration: 250ms;
         border-color: inherit;
     }
 
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+
     &:hover {
         background: darken($bg-color, 4%);
     }
 
     &:active {
-        background: darken($bg-color, 8%);
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
         background: darken($bg-color, 8%);
     }
 }
@@ -123,21 +123,50 @@ $transition-duration: 250ms;
         border-color: inherit;
     }
 
-    &:active {
-        background: darken($bg-color, 8%);
-    }
-
     &[disabled] {
         color: transparentize($color, .5);
         background: darken($bg-color, 8%);
     }
 
     &:hover {
-        background: transparentize($theme-field, .3);
+        background: transparentize($theme-menu, .9);
 
         &[disabled] {
             background: transparentize(#eee, .3);
         }
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+}
+
+@mixin ghost-button-theme($color, $activated-color) {
+    background: transparent;
+    color: $color;
+    border: 1px solid $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        border-color: transparentize($color, .5);
+    }
+
+    &:hover {
+        color: $activated-color;
+        background: $color;
+    }
+
+    &:active {
+        background: $color;
+        color: $activated-color;
     }
 }
 
@@ -175,3 +204,4 @@ $transition-duration: 250ms;
         }
     }
 }
+

@@ -126,7 +126,7 @@ export default class TimePicker extends Component {
         const wrapperHeight = this.wrapperHeight();
         const wrapperStyle = {
             height: wrapperHeight + 'px'
-        }
+        };
         const popupTextField = hour + ':' + minute + ':' + second;
         return (
             <div className={`time-picker ${className}`}
@@ -163,13 +163,37 @@ export default class TimePicker extends Component {
 };
 
 TimePicker.propTypes = {
+
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
+
+    /**
+     * Time picker input name.
+     */
     name: PropTypes.string,
+
+    /**
+     * This is the initial date value of the component.
+     */
     value: PropTypes.string,
     maxValue: PropTypes.string,
     minValue: PropTypes.string,
+
+    /**
+     * TimePicker textField element placeholder.
+     */
     placeholder: PropTypes.string,
+
+    /**
+     * Time format.
+     */
     dateFormat: PropTypes.string
 };
 

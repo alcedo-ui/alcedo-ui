@@ -36,13 +36,35 @@ export default class Dialog extends Component {
 };
 
 Dialog.propTypes = {
+
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
 
+    /**
+     * The title to display on the Dialog. Could be number, string, element or an array containing these types.
+     */
     title: PropTypes.string,
+
+    /**
+     * The description of the dialog box.
+     */
     desc: PropTypes.string,
+
+    /**
+     * Whether the button is clickable.
+     */
     buttonBool: PropTypes.array,
 
+    /**
+     * The function that trigger when click cancel.
+     */
     onHide: PropTypes.func,
+
+    /**
+     * The function that trigger when click submit.
+     */
     onSure: PropTypes.func
 };
 

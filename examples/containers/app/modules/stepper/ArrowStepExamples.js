@@ -5,6 +5,9 @@ import RaisedButton from 'dist/RaisedButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
+import PropTypeDescTable from '../PropTypeDescTable';
+import ArrowStepDoc from 'assets/propTypes/ArrowStep.json';
+
 import 'sass/containers/app/modules/stepper/ArrowStepExamples.scss';
 
 export default class ArrowStepExamples extends Component {
@@ -94,57 +97,61 @@ export default class ArrowStepExamples extends Component {
 
                 </Widget>
 
-                <div className="example-properties">
-                    <h3>Properties</h3>
-                    <table className="example-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Default</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="properties-name">className</td>
-                                <td className="properties-type">PropTypes.string</td>
-                                <td></td>
-                                <td>The css class name of the root element.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">style</td>
-                                <td className="properties-type">PropTypes.object</td>
-                                <td></td>
-                                <td>The styles of the root element.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">steps</td>
-                                <td className="properties-type">PropTypes.array</td>
-                                <td></td>
-                                <td>The total steps.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">activatedStep</td>
-                                <td className="properties-type">PropTypes.number</td>
-                                <td>0</td>
-                                <td>Sets the step as active.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">finishedStep</td>
-                                <td className="properties-type">PropTypes.number</td>
-                                <td>0</td>
-                                <td>Sets the step as completed.</td>
-                            </tr>
-                            <tr>
-                                <td className="properties-name">onChange</td>
-                                <td className="properties-type">PropTypes.func</td>
-                                <td></td>
-                                <td>The function that trigger when step changes.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={ArrowStepDoc}/>
+
+                {/*<div className="example-properties">*/}
+                    {/*<h3>Properties</h3>*/}
+                    {/*<table className="example-table">*/}
+                        {/*<thead>*/}
+                            {/*<tr>*/}
+                                {/*<th>Name</th>*/}
+                                {/*<th>Type</th>*/}
+                                {/*<th>Default</th>*/}
+                                {/*<th>Description</th>*/}
+                            {/*</tr>*/}
+                        {/*</thead>*/}
+                        {/*<tbody>*/}
+                            {/*<tr>*/}
+                                {/*<td className="properties-name">className</td>*/}
+                                {/*<td className="properties-type">PropTypes.string</td>*/}
+                                {/*<td></td>*/}
+                                {/*<td>The css class name of the root element.</td>*/}
+                            {/*</tr>*/}
+                            {/*<tr>*/}
+                                {/*<td className="properties-name">style</td>*/}
+                                {/*<td className="properties-type">PropTypes.object</td>*/}
+                                {/*<td></td>*/}
+                                {/*<td>The styles of the root element.</td>*/}
+                            {/*</tr>*/}
+                            {/*<tr>*/}
+                                {/*<td className="properties-name">steps</td>*/}
+                                {/*<td className="properties-type">PropTypes.array</td>*/}
+                                {/*<td></td>*/}
+                                {/*<td>The total steps.</td>*/}
+                            {/*</tr>*/}
+                            {/*<tr>*/}
+                                {/*<td className="properties-name">activatedStep</td>*/}
+                                {/*<td className="properties-type">PropTypes.number</td>*/}
+                                {/*<td>0</td>*/}
+                                {/*<td>Sets the step as active.</td>*/}
+                            {/*</tr>*/}
+                            {/*<tr>*/}
+                                {/*<td className="properties-name">finishedStep</td>*/}
+                                {/*<td className="properties-type">PropTypes.number</td>*/}
+                                {/*<td>0</td>*/}
+                                {/*<td>Sets the step as completed.</td>*/}
+                            {/*</tr>*/}
+                            {/*<tr>*/}
+                                {/*<td className="properties-name">onChange</td>*/}
+                                {/*<td className="properties-type">PropTypes.func</td>*/}
+                                {/*<td></td>*/}
+                                {/*<td>The function that trigger when step changes.</td>*/}
+                            {/*</tr>*/}
+                        {/*</tbody>*/}
+                    {/*</table>*/}
+                {/*</div>*/}
 
             </div>
         );

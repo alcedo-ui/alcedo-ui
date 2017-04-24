@@ -3,13 +3,13 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-import {browserHistory, Router} from 'react-router';
+import {hashHistory, Router} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 import routes from './config.routes';
 import configureStore from 'reduxes/store/configureStore';
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 /**
  * IE polyfill
@@ -25,8 +25,6 @@ if (!(Object.setPrototypeOf || {}.__proto__)) {
         }
     };
 }
-
-document.getElementById('loading').style.display = 'none';
 
 render(
     <Provider store={store}>

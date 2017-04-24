@@ -2,34 +2,41 @@
 
 .toaster-examples {
 
-    .examples-wrapper {
+    .example-content {
 
-        .field-group {
+        padding-bottom: 50px;
 
-            @include float-fix;
+        .examples-wrapper {
 
-            float: none;
+            .field-group {
 
-            .radio {
-                width: 100px;
-                display: inline-block;
+                @include float-fix;
+
+                float: none;
+
+                .radio {
+                    width: 100px;
+                    display: inline-block;
+                }
+
+                .text-field-label,
+                .text-field {
+                    float: left;
+                }
+
+                .text-field-label {
+                    font-size: 14px;
+                    line-height: 50px;
+                    margin-right: 20px;
+                    width: 60px;
+                }
             }
 
-            .text-field-label,
-            .text-field {
-                float: left;
-            }
-
-            .text-field-label {
-                font-size: 14px;
-                line-height: 50px;
-                margin-right: 20px;
-                width: 60px;
+            .show-toast-button {
+                margin-top: 20px;
             }
         }
 
-        .show-toast-button {
-            margin-top: 20px;
-        }
     }
+
 }

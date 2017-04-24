@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 
 import Switcher from 'dist/Switcher';
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import SwitcherDoc from 'assets/propTypes/Switcher.json';
 
 import 'sass/containers/app/modules/fields/SwitcherExamples.scss';
 
@@ -14,23 +19,48 @@ export default class SwitcherExamples extends Component {
         return (
             <div className="example switcher-examples">
 
-                <div className="examples">
-                    <div className="examples-title">Switcher</div>
-                    <div className="examples-wrapper">
 
-                        <Switcher/>
+                <h2 className="example-title">Switcher</h2>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Switcher Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Switcher/>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
-                <div className="examples">
-                    <div className="examples-title">Small Size</div>
-                    <div className="examples-wrapper">
+                </Widget>
 
-                        <Switcher size="small"/>
+                <Widget>
 
+                    <WidgetHeader className="example-header" title="Small Size Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Switcher size="small"/>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={SwitcherDoc}/>
 
             </div>
         );

@@ -381,14 +381,50 @@ export default class DateTimePicker extends Component {
 };
 
 DateTimePicker.propTypes = {
+
+    /**
+     * The css class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
     style: PropTypes.object,
+
+    /**
+     * Date picker input name.
+     */
     name: PropTypes.string,
+
+    /**
+     * This is the initial date value of the component.
+     */
     value: PropTypes.string,
+
+    /**
+     * The ending of a range of valid dates. The range includes the endDate.
+     */
     maxValue: PropTypes.string,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
     minValue: PropTypes.string,
+
+    /**
+     * DatePicker textField element placeholder.
+     */
     placeholder: PropTypes.string,
+
+    /**
+     * Date format.
+     */
     dateFormat: PropTypes.string,
+
+    /**
+     * Callback function that is fired when the date value changes.
+     */
     onChange: PropTypes.func
 };
 

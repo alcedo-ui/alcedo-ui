@@ -6,6 +6,12 @@ import RaisedButton from 'dist/RaisedButton';
 import Toaster from 'dist/Toaster';
 import Theme from 'dist/Theme';
 
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import ToasterDoc from 'assets/propTypes/Toaster.json';
+
 import 'sass/containers/app/modules/message/ToasterExamples.scss';
 
 export default class ToasterExamples extends Component {
@@ -50,56 +56,71 @@ export default class ToasterExamples extends Component {
         return (
             <div className="example toaster-examples">
 
-                <div className="examples">
-                    <div className="examples-title">Toaster</div>
-                    <div className="examples-wrapper">
+                <h2 className="example-title">Toaster</h2>
 
-                        <div className="field-group">
-                            <label className="text-field-label">Type</label>
-                            <RadioGroup data={[{
-                                label: 'Default',
-                                value: ''
-                            }, {
-                                label: 'Success',
-                                value: 'success'
-                            }, {
-                                label: 'Warning',
-                                value: 'warning'
-                            }, {
-                                label: 'Error',
-                                value: 'error'
-                            }]}
-                                        value={type}
-                                        onChange={(value) => {
-                                            this.updateField('type', value);
-                                        }}/>
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="ArrowStep Simple Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Type</label>
+                                    <RadioGroup data={[{
+                                        label: 'Default',
+                                        value: ''
+                                    }, {
+                                        label: 'Success',
+                                        value: 'success'
+                                    }, {
+                                        label: 'Warning',
+                                        value: 'warning'
+                                    }, {
+                                        label: 'Error',
+                                        value: 'error'
+                                    }]}
+                                                value={type}
+                                                onChange={(value) => {
+                                                    this.updateField('type', value);
+                                                }}/>
+                                </div>
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Title</label>
+                                    <TextField value={title}
+                                               onChange={(value) => {
+                                                   this.updateField('title', value);
+                                               }}/>
+                                </div>
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Message</label>
+                                    <TextField value={message}
+                                               onChange={(value) => {
+                                                   this.updateField('message', value);
+                                               }}/>
+                                </div>
+
+                                <RaisedButton className="show-toast-button"
+                                              value="Show Toaster"
+                                              buttonStyle={Theme.PRIMARY}
+                                              onTouchTap={this.addToast}/>
+
+                                <Toaster ref="toaster"/>
+
+                            </div>
+
                         </div>
-
-                        <div className="field-group">
-                            <label className="text-field-label">Title</label>
-                            <TextField value={title}
-                                       onChange={(value) => {
-                                           this.updateField('title', value);
-                                       }}/>
-                        </div>
-
-                        <div className="field-group">
-                            <label className="text-field-label">Message</label>
-                            <TextField value={message}
-                                       onChange={(value) => {
-                                           this.updateField('message', value);
-                                       }}/>
-                        </div>
-
-                        <RaisedButton className="show-toast-button"
-                                      value="Show Toaster"
-                                      buttonStyle={Theme.PRIMARY}
-                                      onTouchTap={this.addToast}/>
-
-                        <Toaster ref="toaster"/>
-
                     </div>
-                </div>
+
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={ToasterDoc}/>
 
             </div>
         );

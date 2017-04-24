@@ -51,8 +51,8 @@ export default class Switcher extends Component {
                  onClick={this.toggle}
                  disabled={disabled || isLoading}>
 
-                <IconButton className="slider-wrapper">
-                    <div className="slider">
+                <IconButton className="switcher-slider-wrapper">
+                    <div className="switcher-slider">
                         {
                             isLoading
                                 ? <i className="fa fa-spinner fa-pulse fa-3x fa-fw switcher-loading"></i>

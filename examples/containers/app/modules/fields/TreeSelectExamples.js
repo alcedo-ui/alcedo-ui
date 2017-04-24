@@ -16,7 +16,7 @@ export default class TreeSelectExamples extends Component {
                     {key: 5, text: 'five'},
                     {key: 6, text: 'six',children:[{key: 6-1, text: 'six-1'}]}],
             value:{key: 2, text: 'two'}
-        }
+        };
         this.onChangeHandle=this::this.onChangeHandle;
     }
     onChangeHandle(value){
