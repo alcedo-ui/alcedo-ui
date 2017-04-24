@@ -62,11 +62,24 @@ export default class _TimeList extends Component {
             maxSecond = maxValue.split(':')[2];
         }
         state.hour = value ;
-        if(minHour == value || maxHour == value){
+
+        if(minHour == state.hour){
+            state.minutesData = this.rangeData(60,minMinute,60);
+        }else if(maxHour == state.hour){
+            state.minutesData = this.rangeData(60,0,maxMinute);
+        }else if(maxHour == minHour && minHour == state.hour){
             state.minutesData = this.rangeData(60,minMinute,maxMinute);
-            state.secondsData = this.rangeData(60,minSecond,maxSecond);
         }else{
             state.minutesData = this.rangeData(60);
+        }
+
+        if(minHour == state.hour && minMinute == state.minute){
+            state.secondsData = this.rangeData(60,minSecond,60);
+        }else if(maxHour == state.hour && maxMinute == state.minute){
+            state.secondsData = this.rangeData(60,0,maxSecond);
+        }else if(maxHour == minHour && minHour == state.hour && minMinute ==maxMinute && minMinute == state.minute){
+            state.secondsData = this.rangeData(60,minSecond,maxSecond);
+        }else{
             state.secondsData = this.rangeData(60);
         }
         this.setState(state, ()=> {
@@ -89,7 +102,11 @@ export default class _TimeList extends Component {
             maxSecond = maxValue.split(':')[2];
         }
         state.minute = value ;
-        if(minHour == state.hour && minMinute == value || maxHour == state.hour && maxMinute == value){
+        if(minHour == state.hour && minMinute == state.minute){
+            state.secondsData = this.rangeData(60,minSecond,60);
+        }else if(maxHour == state.hour && maxMinute == state.minute){
+            state.secondsData = this.rangeData(60,0,maxSecond);
+        }else if(maxHour == minHour && minHour == state.hour && minMinute ==maxMinute && minMinute == state.minute){
             state.secondsData = this.rangeData(60,minSecond,maxSecond);
         }else{
             state.secondsData = this.rangeData(60);
@@ -137,13 +154,21 @@ export default class _TimeList extends Component {
 
         state.hoursData = this.rangeData(24,minHour,maxHour);
 
-        if(minHour == state.hour || maxHour == state.hour){
+        if(minHour == state.hour){
+            state.minutesData = this.rangeData(60,minMinute,60);
+        }else if(maxHour == state.hour){
+            state.minutesData = this.rangeData(60,0,maxMinute);
+        }else if(maxHour == minHour && minHour == state.hour){
             state.minutesData = this.rangeData(60,minMinute,maxMinute);
         }else{
             state.minutesData = this.rangeData(60);
         }
 
-        if(minHour == state.hour && minMinute == state.minute || maxHour == state.hour && maxMinute == state.minute){
+        if(minHour == state.hour && minMinute == state.minute){
+            state.secondsData = this.rangeData(60,minSecond,60);
+        }else if(maxHour == state.hour && maxMinute == state.minute){
+            state.secondsData = this.rangeData(60,0,maxSecond);
+        }else if(maxHour == minHour && minHour == state.hour && minMinute ==maxMinute && minMinute == state.minute){
             state.secondsData = this.rangeData(60,minSecond,maxSecond);
         }else{
             state.secondsData = this.rangeData(60);
