@@ -34,7 +34,9 @@ export default class TimePickerExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-                                <TimePicker/>
+                                <TimePicker value="12:00:00"
+                                            maxValue="23:56:20"
+                                            minValue="01:20:20"/>
                             </div>
 
                         </div>

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import Highlight from 'react-highlight';
 
 import 'highlight.js/styles/androidstudio.css';
@@ -30,5 +30,3 @@ export default class LandingGetStarted extends Component {
         );
     }
 }
-
-LandingGetStarted.propTypes = {};

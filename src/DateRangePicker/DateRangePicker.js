@@ -300,8 +300,8 @@ export default class DateRangePicker extends Component {
     }
 
     componentDidMount() {
-        // debugger
-        const {defaultValue, dateFormat}=this.props;
+
+        const {value, dateFormat}=this.props;
         let state = _.cloneDeep(this.state);
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 600;
@@ -312,15 +312,15 @@ export default class DateRangePicker extends Component {
         } else {
             marginLeft = 0
         }
-        if (defaultValue && defaultValue.length) {
-            let leftValue = defaultValue[0].value,
-                rightValue = defaultValue[1].value,
-                leftYear = moment(defaultValue[0].value).format('YYYY'),
-                leftMonth = moment(defaultValue[0].value).format('MM'),
-                leftDay = moment(defaultValue[0].value).format('DD'),
-                rightYear = moment(defaultValue[1].value).format('YYYY'),
-                rightMonth = moment(defaultValue[1].value).format('MM'),
-                rightDay = moment(defaultValue[1].value).format('DD');
+        if (value && value.length) {
+            let leftValue = value[0],
+                rightValue = value[1],
+                leftYear = moment(value[0]).format('YYYY'),
+                leftMonth = moment(value[0]).format('MM'),
+                leftDay = moment(value[0]).format('DD'),
+                rightYear = moment(value[1]).format('YYYY'),
+                rightMonth = moment(value[1]).format('MM'),
+                rightDay = moment(value[1]).format('DD');
             state.left.text = leftValue;
             state.left.year = leftYear;
             state.left.month = leftMonth;
@@ -344,6 +344,7 @@ export default class DateRangePicker extends Component {
             state.historyStartTime = leftValue;
             state.historyEndTime = rightValue;
             state.marginLeft = marginLeft;
+
             this.setState(state)
         }
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
@@ -356,7 +357,7 @@ export default class DateRangePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, dateFormat} = this.props;
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
         const {popupVisible, left, right, startTime, endTime, hoverTime, marginLeft} = this.state;
         let textFieldValue;
         if (left.text && right.text) {
@@ -376,7 +377,7 @@ export default class DateRangePicker extends Component {
         }
         maxMonth = maxMonth - 1;
         let maxDay = this.MonthDays(maxYear)[maxMonth];
-        let maxValue = moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD');
+        let leftMaxValue = moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD');
         // debugger
         let minYear = left.year;
         let minMonth = left.month;
@@ -387,7 +388,7 @@ export default class DateRangePicker extends Component {
             minYear = minYear;
             minMonth = +minMonth + 1;
         }
-        let minValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
+        let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
         const popStyle = {
             left: '-' + marginLeft + 'px'
         };
@@ -432,13 +433,15 @@ export default class DateRangePicker extends Component {
                     {
                         left.datePickerLevel == 0 ?
                             <DayPicker
+                                value={left.text}
                                 dateFormat={dateFormat}
                                 year={left.year}
                                 month={left.month}
                                 day={left.day}
                                 isFooter={false}
                                 isRange={true}
-                                maxValue={maxValue}
+                                maxValue={leftMaxValue}
+                                minValue={minValue}
                                 startTime={startTime}
                                 endTime={endTime}
                                 hoverTime={hoverTime}
@@ -458,10 +461,12 @@ export default class DateRangePicker extends Component {
                             : (
                             left.datePickerLevel == 1 ?
                                 <MonthPicker
+                                    value={left.text}
                                     year={left.year}
                                     month={left.month}
                                     day={left.day}
-                                    maxValue={maxValue}
+                                    maxValue={leftMaxValue}
+                                    minValue={minValue}
                                     onChange={(obj)=> {
                                         this.monthPickerChangeHandle('left', obj)
                                     }}
@@ -471,10 +476,12 @@ export default class DateRangePicker extends Component {
                                 />
                                 :
                                 <YearPicker
+                                    value={left.text}
                                     year={left.year}
                                     month={left.month}
                                     day={left.day}
-                                    maxValue={maxValue}
+                                    maxValue={leftMaxValue}
+                                    minValue={minValue}
                                     onChange={(obj)=> {
                                         this.yearPickerChangeHandle('left', obj)
                                     }}
@@ -485,6 +492,7 @@ export default class DateRangePicker extends Component {
                     {
                         right.datePickerLevel == 0 ?
                             <DayPicker
+                                value={right.text}
                                 dateFormat={dateFormat}
                                 year={right.year}
                                 month={right.month}
@@ -494,7 +502,8 @@ export default class DateRangePicker extends Component {
                                 startTime={startTime}
                                 endTime={endTime}
                                 hoverTime={hoverTime}
-                                minValue={minValue}
+                                minValue={rightMinValue}
+                                maxValue={maxValue}
                                 monthAndYearChange={(obj)=> {
                                     this.monthAndYearChangeHandle('right', obj)
                                 }}
@@ -511,10 +520,12 @@ export default class DateRangePicker extends Component {
                             : (
                             right.datePickerLevel == 1 ?
                                 <MonthPicker
+                                    value={right.text}
                                     year={right.year}
                                     month={right.month}
                                     day={right.day}
-                                    minValue={minValue}
+                                    minValue={rightMinValue}
+                                    maxValue={maxValue}
                                     onChange={(obj)=> {
                                         this.monthPickerChangeHandle('right', obj)
                                     }}
@@ -524,10 +535,12 @@ export default class DateRangePicker extends Component {
                                 />
                                 :
                                 <YearPicker
+                                    value={right.text}
                                     year={right.year}
                                     month={right.month}
                                     day={right.day}
-                                    minValue={minValue}
+                                    minValue={rightMinValue}
+                                    maxValue={maxValue}
                                     onChange={(obj)=> {
                                         this.yearPickerChangeHandle('right', obj)
                                     }}
@@ -563,6 +576,8 @@ DateRangePicker.propTypes = {
      * This is the initial date value of the component.
      */
     value: PropTypes.array,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
 
     /**
      * TDatePicker textField element placeholder.

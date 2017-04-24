@@ -21,6 +21,7 @@ export default class DateRangePickerExamples extends Component {
 
     render() {
         return (
+
             <div className="example time-range-picker-example">
 
                 <h2 className="example-title">Date Range Picker</h2>
@@ -33,7 +34,10 @@ export default class DateRangePickerExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-                                <DateRangePicker/>
+                                <DateRangePicker  value={['2015-07-01','2017-04-21']}
+                                                  dateFormat={'YYYY-MM-DD'}
+                                                  maxValue={'2017-12-21'}
+                                                  minValue={'2014-02-01'}/>
                             </div>
 
                         </div>

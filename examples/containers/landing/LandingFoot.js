@@ -1,4 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+
+import IconAnchor from 'dist/IconAnchor';
 
 import 'sass/containers/landing/LandingFoot.scss';
 
@@ -11,16 +13,21 @@ export default class LandingFoot extends Component {
     render() {
         return (
             <div className="landing-foot">
-                <span className="name">Alcedo-UI </span>
-                is freely distributable under the terms of the
-                <span className="licence"> MIT</span> license.
+
+                <div>
+                    <span className="name">Alcedo-UI </span>
+                    is freely distributable under the terms of the
+                    <a className="licence"
+                       href="https://github.com/alcedo-ui/alcedo-ui/blob/dev/LICENSE">
+                        {' MIT license'}
+                    </a>.
+                </div>
+
+                <IconAnchor className="github-icon"
+                            iconCls="fa fa-github"
+                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+
             </div>
         );
     }
 }
-
-LandingFoot.contextTypes = {
-    router: React.PropTypes.object.isRequired
-};
-
-LandingFoot.propTypes = {};

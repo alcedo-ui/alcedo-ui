@@ -1,7 +1,7 @@
 /**
  * Created by Wendy on 2017/4/10.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 

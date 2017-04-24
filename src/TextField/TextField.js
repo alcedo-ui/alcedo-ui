@@ -1,5 +1,8 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
+
+import Event from '../_vendors/Event';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -29,6 +32,7 @@ export default class TextField extends Component {
         this.mouseoutHandle = this::this.mouseoutHandle;
         this.focusHandle = this::this.focusHandle;
         this.blurHandle = this::this.blurHandle;
+        this.inputKeydownHandle = this::this.inputKeydownHandle;
     }
 
     valid(value) {
@@ -129,6 +133,22 @@ export default class TextField extends Component {
         this.props.onBlur && this.props.onBlur(event.target.value);
     }
 
+    inputKeydownHandle(e) {
+        if (this.props.type === 'number' && isNaN(e.key)) {
+            e.preventDefault();
+        }
+    }
+
+    componentDidMount() {
+
+        if (this.props.autoFocus === true) {
+            this.refs.input.focus();
+        }
+
+        Event.addEvent(this.refs.input, 'keydown', this.inputKeydownHandle);
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -137,10 +157,8 @@ export default class TextField extends Component {
         }
     }
 
-    componentDidMount() {
-        if (this.props.autoFocus === true) {
-            this.refs.input.focus();
-        }
+    componentWillUnmount() {
+        Event.removeEvent(this.refs.input, 'keydown', this.inputKeydownHandle);
     }
 
     render() {
@@ -154,8 +172,10 @@ export default class TextField extends Component {
         const isPassword = type === 'password';
 
         let inputType = type;
-        if (type === 'password') {
+        if (inputType === 'password') {
             inputType = passwordVisible ? 'text' : 'password';
+        } else if (inputType === 'number') {
+            inputType = 'text';
         }
 
         const invalidMsg = this.props.invalidMsg || this.state.invalidMsg;
@@ -243,7 +263,7 @@ TextField.propTypes = {
     type: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     iconCls: PropTypes.string,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,

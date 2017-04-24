@@ -1,0 +1,25 @@
+@import '../_common.scss';
+
+.ghost-button {
+
+    // default theme
+    @include ghost-button-theme(#fff, $theme-text);
+
+    // themes
+    &.theme-primary {
+        @include ghost-button-theme($theme-menu, #fff);
+    }
+    &.theme-highlight {
+        @include ghost-button-theme($theme-highlight, #fff);
+    }
+    &.theme-success {
+        @include ghost-button-theme($success, #fff);
+    }
+    &.theme-warning {
+        @include ghost-button-theme($warning, #fff);
+    }
+    &.theme-error {
+        @include ghost-button-theme($error, #fff);
+    }
+
+}

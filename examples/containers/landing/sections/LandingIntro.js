@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import FlatButton from 'dist/FlatButton';
 
@@ -12,10 +12,6 @@ export default class LandingIntro extends Component {
 
         this.goToDemo = this::this.goToDemo;
 
-    }
-
-    getStarted() {
-        location = '#get-started';
     }
 
     goToDemo() {
@@ -37,14 +33,9 @@ export default class LandingIntro extends Component {
                         <div className="logo-text">Alcedo-UI</div>
                         <div className="slogen">A Set of React Components</div>
 
-                        <div className="buttons">
-                            <FlatButton className="ghost-button"
-                                        value="Get Started"
-                                        onTouchTap={this.getStarted}/>
-                            <FlatButton className="ghost-button"
-                                        value="Go to Demo"
-                                        onTouchTap={this.goToDemo}/>
-                        </div>
+                        <FlatButton className="ghost-button"
+                                    value="Demo"
+                                    onTouchTap={this.goToDemo}/>
 
                     </div>
 
@@ -58,5 +49,3 @@ export default class LandingIntro extends Component {
 LandingIntro.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
-
-LandingIntro.propTypes = {};

@@ -21,7 +21,6 @@ exports.cssLoaders = function (options) {
         }
     };
 
-    // generate loader string to be used with extract text plugin
     function generateLoaders(loader, loaderOptions) {
 
         var loaders = [cssLoader];
@@ -34,12 +33,11 @@ exports.cssLoaders = function (options) {
             });
         }
 
-        // Extract CSS when that option is specified
-        // (which is the case during production build)
         if (options.extract) {
             return ExtractTextPlugin.extract({
                 use: loaders,
-                fallback: 'style-loader'
+                fallback: 'style-loader',
+                publicPath: '"../../"'
             });
         } else {
             return ['style-loader'].concat(loaders);
@@ -47,7 +45,6 @@ exports.cssLoaders = function (options) {
 
     }
 
-    // http://vuejs.github.io/vue-loader/en/configurations/extract-css.html
     return {
         css: generateLoaders(),
         postcss: generateLoaders(),
@@ -60,7 +57,6 @@ exports.cssLoaders = function (options) {
 
 };
 
-// Generate loaders for standalone style files (outside of .js)
 exports.styleLoaders = function (options) {
 
     var output = [];

@@ -7,6 +7,7 @@ import App from 'containers/app/App';
 
 import RaisedButtonExamples from 'containers/app/modules/buttons/RaisedButtonExamples';
 import FlatButtonExamples from 'containers/app/modules/buttons/FlatButtonExamples';
+import GhostButtonExamples from 'containers/app/modules/buttons/GhostButtonExamples';
 import IconButtonExamples from 'containers/app/modules/buttons/IconButtonExamples';
 import IconAnchorExamples from 'containers/app/modules/buttons/IconAnchorExamples';
 
@@ -20,6 +21,7 @@ import ToggleButtonExamples from 'containers/app/modules/fields/ToggleButtonExam
 import SwitcherExamples from 'containers/app/modules/fields/SwitcherExamples';
 import SliderExamples from 'containers/app/modules/fields/SliderExamples';
 import EditableFieldExamples from 'containers/app/modules/fields/EditableFieldExamples';
+import FlashNumberExamples from 'containers/app/modules/fields/FlashNumberExamples';
 
 import DatePickerExamples from 'containers/app/modules/date/DatePickerExamples';
 import DateRangePickerExamples from 'containers/app/modules/date/DateRangePickerExamples';
@@ -62,6 +64,8 @@ export default (
                    component={RaisedButtonExamples}/>
             <Route path="FlatButton"
                    component={FlatButtonExamples}/>
+            <Route path="GhostButton"
+                   component={GhostButtonExamples}/>
             <Route path="IconButton"
                    component={IconButtonExamples}/>
             <Route path="IconAnchor"
@@ -96,6 +100,8 @@ export default (
                    component={SliderExamples}/>
             <Route path="EditableField"
                    component={EditableFieldExamples}/>
+            <Route path="FlashNumber"
+                   component={FlashNumberExamples}/>
 
             {/* popups */}
             <Route path="Dialog"

@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -105,6 +106,14 @@ export default class TimePicker extends Component {
     }
 
     componentDidMount() {
+        const {value}=this.props;
+        let dateFormatValue ='2000-02-01 '+value
+        this.setState({
+            textFieldValue: value,
+            hour: moment(dateFormatValue).format('HH'),
+            minute: moment(dateFormatValue).format('mm'),
+            second: moment(dateFormatValue).format('ss')
+        })
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
     }
 
@@ -144,6 +153,7 @@ export default class TimePicker extends Component {
                                   second={second}
                                   maxValue={maxValue}
                                   minValue={minValue}
+                                  isRequired={true}
                                   popupVisible={popupVisible}
                                   onChange={this.timePickerChangeHandle}/>
                     </div>
@@ -174,6 +184,8 @@ TimePicker.propTypes = {
      * This is the initial date value of the component.
      */
     value: PropTypes.string,
+    maxValue: PropTypes.string,
+    minValue: PropTypes.string,
 
     /**
      * TimePicker textField element placeholder.
@@ -187,7 +199,6 @@ TimePicker.propTypes = {
 };
 
 TimePicker.defaultProps = {
-
     className: '',
     style: null,
     name: '',

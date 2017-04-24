@@ -1,7 +1,9 @@
 /**
  * Created by DT314 on 2017/4/10.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import Percent from '../CircularProgress/Percent';
 
 import './LinearProgress.css';

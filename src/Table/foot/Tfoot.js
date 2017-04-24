@@ -1,16 +1,17 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class Tfoot extends Component {
 
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+    }
 
-	render() {
-		return (
-			<tfoot></tfoot>
-		);
-	}
+    render() {
+        return (
+            <tfoot></tfoot>
+        );
+    }
 };
 
 Tfoot.propTypes = {};

@@ -1,14 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
-import * as actions from 'reduxes/actions';
+import React, {Component} from 'react';
 
 import NavMenuList from './NavMenuList';
 
 import 'sass/containers/app/navMenu/NavMenu.scss';
 
-class NavMenu extends Component {
+export default class NavMenu extends Component {
 
     constructor(props) {
 
@@ -24,15 +20,3 @@ class NavMenu extends Component {
         );
     }
 }
-
-NavMenu.propTypes = {};
-
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);
