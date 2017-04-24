@@ -24,7 +24,7 @@ export default class ToggleButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ToggleButton Simple Example"/>
+                    <WidgetHeader className="example-header" title="ToggleButton Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

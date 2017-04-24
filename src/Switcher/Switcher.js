@@ -70,14 +70,39 @@ export default class Switcher extends Component {
 
 Switcher.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * If true,the switcher will be in active status.
+     */
     value: PropTypes.bool,
+
+    /**
+     * Disables the switcher if set to true.
+     */
     disabled: PropTypes.bool,
+
+    /**
+     * If true,the switcher will be have loading effect.
+     */
     isLoading: PropTypes.bool,
+
+    /**
+     * The size of switcher.The value can be small or default.
+     */
     size: PropTypes.string,
 
+    /**
+     * Callback function fired when the switcher is touch-tapped.
+     */
     onChange: PropTypes.func
 
 };

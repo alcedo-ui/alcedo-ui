@@ -116,12 +116,30 @@ export default class EditableField extends Component {
 };
 
 EditableField.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The value of the editableField.
+     */
     value: PropTypes.string,
+
+    /**
+     * The name of the editableField.
+     */
     name: PropTypes.string,
 
+    /**
+     * Callback function fired when the editableField change.
+     */
     onChange: PropTypes.func
 };
 

@@ -86,17 +86,17 @@ export default class Accordion extends Component {
 Accordion.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * The Accordion's title.
+     * The accordion's title.
      */
     title: PropTypes.string,
 
@@ -111,17 +111,17 @@ Accordion.propTypes = {
     expandIcon: PropTypes.string,
 
     /**
-     * The function that trigger when collpase the accordion.
+     * Callback function fired when collpase the accordion.
      */
     onCollpase: PropTypes.func,
 
     /**
-     * The function that trigger when expand the accordion.
+     * Callback function fired when expand the accordion.
      */
     onExpand: PropTypes.func,
 
     /**
-     * The function that trigger when change the status of accordion.
+     * Callback function fired when change the status of accordion.
      */
     onChange: PropTypes.func
 

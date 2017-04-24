@@ -17,7 +17,7 @@ export default class EditableFieldExamples extends Component {
         super();
 
         this.state = {
-            value: '123'
+            value: 'text'
         };
 
         this.onChange = this :: this.onChange;
@@ -30,13 +30,13 @@ export default class EditableFieldExamples extends Component {
 
     render() {
         return (
-            <div className="example dropdown-select-examples">
+            <div className="example editable-field-examples">
 
-                <h2 className="example-title">Dropdown Select</h2>
+                <h2 className="example-title">Editable Field</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Dropdown Select Simple Example"/>
+                    <WidgetHeader className="example-header" title="Editable Field Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

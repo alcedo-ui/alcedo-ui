@@ -23,7 +23,7 @@ export default class WidgetExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Widget Simple Example"/>
+                    <WidgetHeader className="example-header" title="Widget Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

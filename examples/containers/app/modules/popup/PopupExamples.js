@@ -69,7 +69,7 @@ export default class PopupExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Popup Simple Example"/>
+                    <WidgetHeader className="example-header" title="Popup Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

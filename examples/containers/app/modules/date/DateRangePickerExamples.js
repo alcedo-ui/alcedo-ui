@@ -22,13 +22,13 @@ export default class DateRangePickerExamples extends Component {
     render() {
         return (
 
-            <div className="example time-range-picker-example">
+            <div className="example time-range-picker-examples">
 
                 <h2 className="example-title">Date Range Picker</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Range Picker Simple Example"/>
+                    <WidgetHeader className="example-header" title="Date Range Picker Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

@@ -55,14 +55,39 @@ export default class ToggleButton extends Component {
 
 ToggleButton.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The name of the toggleButton.
+     */
     name: PropTypes.string,
+
+    /**
+     * The text of the button.
+     */
     text: PropTypes.string,
+
+    /**
+     * If true,the button will be in active status.
+     */
     value: PropTypes.bool,
+
+    /**
+     * Disables the button if set to true.
+     */
     disabled: PropTypes.bool,
 
+    /**
+     * Callback function fired when the button is touch-tapped.
+     */
     onChange: PropTypes.func
 
 };

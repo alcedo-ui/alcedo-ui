@@ -321,7 +321,7 @@ export default class DateTimePicker extends Component {
                                               hour={hour}
                                               minute={minute}
                                               second={second}
-                                              isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true:false }
+                                              isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true : false }
                                               maxValue={maxValue && value.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
                                               minValue={minValue && value.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
                                               onChange={this.timePickerChangeHandle}
@@ -383,12 +383,12 @@ export default class DateTimePicker extends Component {
 DateTimePicker.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
@@ -413,12 +413,12 @@ DateTimePicker.propTypes = {
     minValue: PropTypes.string,
 
     /**
-     * DatePicker textField element placeholder.
+     * DateTimePicker textField element placeholder.
      */
     placeholder: PropTypes.string,
 
     /**
-     * Date format.
+     * Date Time format.
      */
     dateFormat: PropTypes.string,
 

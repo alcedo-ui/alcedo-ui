@@ -42,7 +42,7 @@ export default class FlashNumberExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="FlashNumber Simple Example"/>
+                                  title="FlashNumber Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

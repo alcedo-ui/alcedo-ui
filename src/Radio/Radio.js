@@ -93,14 +93,39 @@ export default class Radio extends Component {
 
 Radio.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The name of the radio.
+     */
     name: PropTypes.string,
+
+    /**
+     * Label for radio.
+     */
     label: PropTypes.any,
+
+    /**
+     * If true,the radio will be checked.
+     */
     value: PropTypes.bool,
+
+    /**
+     * If true, the radio will be disabled.
+     */
     disabled: PropTypes.bool,
 
+    /**
+     * Callback function fired when the radio status change.
+     */
     onChange: PropTypes.func
 
 };

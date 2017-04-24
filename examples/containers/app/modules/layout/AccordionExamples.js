@@ -18,13 +18,13 @@ export default class AccordionExamples extends Component {
 
     render() {
         return (
-            <div className="example accordion-example">
+            <div className="example accordion-examples">
 
                 <h2 className="example-title">Accordion</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Accordion Simple Example"/>
+                    <WidgetHeader className="example-header" title="Accordion Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

@@ -177,35 +177,100 @@ export default class DropdownSelect extends Component {
 
 DropdownSelect.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The name of the dropDownSelect.
+     */
     name: PropTypes.string,
+
+    /**
+     * The value of the dropDownSelect.
+     */
     value: PropTypes.any,
+
+    /**
+     * The placeholder of the dropDownSelect.
+     */
     placeholder: PropTypes.string,
+
+    /**
+     * The options data.
+     */
     data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         // 图标 class
+        /**
+         * Use this property to display an icon of the options.
+         */
         iconCls: PropTypes.string,
 
         // 值
+        /**
+         * The dropDownSelect input value.Type can be string,number or bool.
+         */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
 
         // 显示文本
+        /**
+         * The options's text.Type can be string,number or bool.
+         */
         text: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
 
         // 是否禁止选择
+        /**
+         * Disables the option if set to true.
+         */
         disabled: PropTypes.bool
 
     }), PropTypes.string, PropTypes.number])).isRequired,
+
+    /**
+     * The invalid message of dropDownSelect.
+     */
     invalidMsg: PropTypes.string,
+
+    /**
+     * If true, the dropDownSelect will be disabled.
+     */
     disabled: PropTypes.bool,
+
+    /**
+     * The message of the dropDownSelect.
+     */
     infoMsg: PropTypes.string,
+
+    /**
+     * Use this function to format the options's text.
+     */
     textFormat: PropTypes.func,
+
+    /**
+     * If true,the drop-down box automatically closed after selection.
+     */
     autoClose: PropTypes.bool,
+
+    /**
+     * The height of the option.
+     */
     optionHeight: PropTypes.number,
+
+    /**
+     * The maxHeight of the drop-down box.
+     */
     optionsMaxHeight: PropTypes.number,
 
+    /**
+     * Callback function fired when a menu item is selected.
+     */
     onChange: PropTypes.func
 
 };

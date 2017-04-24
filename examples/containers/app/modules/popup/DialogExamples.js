@@ -38,13 +38,13 @@ export default class DialogExamples extends Component {
     render() {
 
         return (
-            <div className="example dialog-example">
+            <div className="example dialog-examples">
 
                 <h2 className="example-title">Dialog</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Dialog Simple Example"/>
+                    <WidgetHeader className="example-header" title="Dialog Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

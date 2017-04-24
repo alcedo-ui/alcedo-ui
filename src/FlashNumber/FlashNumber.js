@@ -120,11 +120,29 @@ export default class FlashNumber extends Component {
 
 FlashNumber.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * Initial result value.
+     */
     initValue: PropTypes.number,
+
+    /**
+     * Result value.
+     */
     value: PropTypes.number,
+
+    /**
+     * Animation execution time.
+     */
     flashTime: PropTypes.number
 
 };

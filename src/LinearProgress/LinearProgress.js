@@ -60,14 +60,42 @@ export default class LinearProgress extends Component {
 };
 
 LinearProgress.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The highlight width of linearProgress.
+     */
     highlightWidth: PropTypes.string,
+
+    /**
+     * The background color of linearProgress.
+     */
     background: PropTypes.string,
+
+    /**
+     * The highlight color of linearProgress.
+     */
     highlight: PropTypes.string,
+
+    /**
+     * If true,there will have a text description.
+     */
     word: PropTypes.bool,
+
+    /**
+     * The percent text location.
+     */
     wordStyle: PropTypes.string
+
 };
 
 LinearProgress.defaultProps = {

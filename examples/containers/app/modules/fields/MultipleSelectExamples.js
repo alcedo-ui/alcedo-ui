@@ -14,10 +14,31 @@ export default class MultipleSelectExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [{key: 1, text: 'one'}, {key: 2, text: 'two'}, {key: 3, text: 'threethreethree'}, {
+            data: [{
+                key: 1,
+                text: 'one'
+            }, {
+                key: 2,
+                text: 'two'
+            }, {
+                key: 3,
+                text: 'threethreethree'
+            }, {
                 key: 4,
                 text: 'fourthreethree'
-            }, {key: 5, text: 'five'}, {key: 6, text: 'six'}, {key: 7, text: 'seven'}, {key: 8, text: 'eight'}, {
+            }, {
+                key: 5,
+                text: 'five'
+            }, {
+                key: 6,
+                text: 'six'
+            }, {
+                key: 7,
+                text: 'seven'
+            }, {
+                key: 8,
+                text: 'eight'
+            }, {
                 key: 9,
                 text: 'nine'
             }],
@@ -41,7 +62,7 @@ export default class MultipleSelectExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Multiple Select Simple Example"/>
+                    <WidgetHeader className="example-header" title="Multiple Select Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -53,7 +74,6 @@ export default class MultipleSelectExamples extends Component {
                                     <MultipleSelect className="multiple-select"
                                                     data={data}
                                                     value={value}
-                                                    placeholder={'select number'}
                                                     infoMsg="please select number"
                                                     onChange={(value)=> {
                                                         this.onChangeHandle(value)

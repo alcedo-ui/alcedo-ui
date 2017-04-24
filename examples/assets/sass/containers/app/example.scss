@@ -27,7 +27,7 @@
     .example-content {
 
         @include float-fix;
-        padding: 20px;
+
         box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
     }
@@ -40,7 +40,7 @@
 
         }
 
-        tbody tr td:nth-child(1) {
+        tbody tr td:nth-child(2) {
 
             color: $error;
 

@@ -25,7 +25,7 @@ export default class CheckboxExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Checkbox Simple Example"/>
+                                  title="Checkbox Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -44,7 +44,7 @@ export default class CheckboxExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Checkbox Group Simple Example"/>
+                                  title="Checkbox Group Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

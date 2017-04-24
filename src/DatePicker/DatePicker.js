@@ -293,12 +293,12 @@ export default class DatePicker extends Component {
 DatePicker.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
@@ -333,7 +333,7 @@ DatePicker.propTypes = {
     dateFormat: PropTypes.string,
 
     /**
-     * Hide date display.
+     * If true,hide date display.
      */
     autoClose: PropTypes.bool,
 

@@ -558,17 +558,17 @@ export default class DateRangePicker extends Component {
 DateRangePicker.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * Date picker input name.
+     * DateRangePicker input name.
      */
     name: PropTypes.string,
 
@@ -576,11 +576,19 @@ DateRangePicker.propTypes = {
      * This is the initial date value of the component.
      */
     value: PropTypes.array,
+
+    /**
+     * The ending of a range of valid dates. The range includes the endDate.
+     */
     maxValue: PropTypes.string,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
     minValue: PropTypes.string,
 
     /**
-     * TDatePicker textField element placeholder.
+     * DateRangePicker textField element placeholder.
      */
     placeholder: PropTypes.string,
 
@@ -590,7 +598,7 @@ DateRangePicker.propTypes = {
     dateFormat: PropTypes.string,
 
     /**
-     * Whether to display the date selection box.
+     * If true,the date selection box will displayed.
      */
     popupVisible: PropTypes.bool,
 

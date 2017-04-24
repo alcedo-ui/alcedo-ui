@@ -44,73 +44,72 @@ export default class IconButton extends Component {
 IconButton.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * The button theme.
+     * The button theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.string,
 
     /**
-     * Whether need rounded corners.
+     * If true,the button will have rounded corners.
      */
     isRounded: PropTypes.bool,
 
     /**
-     * Round button.
+     * If true,the button will be round.
      */
     isCircular: PropTypes.bool,
 
     /**
-     * The button text value.
+     * The text of the button.Type can be string or number.
      */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
-     *
+     * The type of button.Can be reset,submit or button.
      */
     type: PropTypes.string,
 
     /**
-     * Button disabled.
+     * Disables the button if set to true.
      */
     disabled: PropTypes.bool,
 
     /**
-     *
+     * If true,the button will be have loading effect.
      */
     isLoading: PropTypes.bool,
 
     /**
-     *
+     * If true,the element's ripple effect will be disabled.
      */
     disableTouchRipple: PropTypes.bool,
 
     /**
-     * Button left icon className.
+     * Use this property to display an icon.It will display on the left.
      */
     iconCls: PropTypes.string,
 
-
     /**
-     * Button right icon className.
+     * Use this property to display an icon.It will display on the right.
      */
     rightIconCls: PropTypes.string,
 
     /**
-     * Ripple effect is centered.
+     * If true,the ripple effect will be display centered.
      */
     rippleDisplayCenter: PropTypes.bool,
 
     /**
-     * The function that trigger when the button is clicked.
+     * Callback function fired when the button is touch-tapped.
      */
     onTouchTap: PropTypes.func
 

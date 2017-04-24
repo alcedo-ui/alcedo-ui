@@ -25,13 +25,13 @@ export default class TabExamples extends Component {
 
     render() {
         return (
-            <div className="example tab-example">
+            <div className="example tab-examples">
 
                 <h2 className="example-title">Tabs</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Tabs Simple Example"/>
+                    <WidgetHeader className="example-header" title="Tabs Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -69,7 +69,7 @@ export default class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Full Width Tabs Simple Example"/>
+                    <WidgetHeader className="example-header" title="Full Width Tabs Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

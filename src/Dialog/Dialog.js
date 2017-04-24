@@ -39,7 +39,7 @@ export default class Dialog extends Component {
 Dialog.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
@@ -54,25 +54,27 @@ Dialog.propTypes = {
     desc: PropTypes.string,
 
     /**
-     * Whether the button is clickable.
+     * if [true, true],the cancel and commit buttons will be display.
      */
     buttonBool: PropTypes.array,
 
     /**
-     * The function that trigger when click cancel.
+     * Callback function fired when the Dialog is requested to be closed by a click outside the Dialog or on the buttons.
      */
     onHide: PropTypes.func,
 
     /**
-     * The function that trigger when click submit.
+     * Callback function fired when the click the commit button.
      */
     onSure: PropTypes.func
 };
 
 Dialog.defaultProps = {
+
     className: 'hide',
 
     title: 'Dialog',
-    desc: 'here is the dialog description.',
+    desc: 'Here is the dialog description.',
     buttonBool: [true, true]
+
 };

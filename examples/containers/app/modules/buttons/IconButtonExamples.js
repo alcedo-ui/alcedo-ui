@@ -18,13 +18,13 @@ export default class IconButtonExamples extends Component {
     render() {
 
         return (
-            <div className="example icon-button-example">
+            <div className="example icon-button-examples">
 
                 <h2 className="example-title">Icon Button</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Button Simple Example"/>
+                    <WidgetHeader className="example-header" title="Icon Button Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

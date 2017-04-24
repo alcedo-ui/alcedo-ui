@@ -50,58 +50,58 @@ export default class Tab extends Component {
 
         return tabs.length > 0
             ? (
-                <div className={`tab ${className}`}
-                     style={style}>
+            <div className={`tab ${className}`}
+                 style={style}>
 
-                    <div className={`tabs ${isTabFullWidth ? 'full-width' : ''}`}>
+                <div className={`tabs ${isTabFullWidth ? 'full-width' : ''}`}>
 
+                    {
+                        tabs.map((item, index) => {
+                            return (
+                                <FlatButton {...item}
+                                            key={index}
+                                            className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
+                                            style={tabButtonStyle}
+                                            onTouchTap={() => {
+                                                this.tabClickHandle(item, index);
+                                            }}/>
+                            );
+                        })
+                    }
+
+                    {
+                        isTabFullWidth
+                            ? <div className="ink-bar"
+                                   style={inkBarStyle}></div>
+                            : null
+                    }
+
+                </div>
+
+                <div className="tab-content-wrapper">
+                    <div className="tab-content-scroller"
+                         style={tabContentScrollerStyle}>
                         {
                             tabs.map((item, index) => {
                                 return (
-                                    <FlatButton {...item}
-                                                key={index}
-                                                className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
-                                                style={tabButtonStyle}
-                                                onTouchTap={() => {
-                                                    this.tabClickHandle(item, index);
-                                                }}/>
+                                    <div key={index}
+                                         className="tab-content"
+                                         style={tabContentStyle}>
+                                        {item.renderer}
+                                    </div>
                                 );
                             })
                         }
-
-                        {
-                            isTabFullWidth
-                                ? <div className="ink-bar"
-                                       style={inkBarStyle}></div>
-                                : null
-                        }
-
                     </div>
-
-                    <div className="tab-content-wrapper">
-                        <div className="tab-content-scroller"
-                             style={tabContentScrollerStyle}>
-                            {
-                                tabs.map((item, index) => {
-                                    return (
-                                        <div key={index}
-                                             className="tab-content"
-                                             style={tabContentStyle}>
-                                            {item.renderer}
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    </div>
-
                 </div>
-            )
+
+            </div>
+        )
             : (
-                <div className="tab-empty">
-                    No Tab.
-                </div>
-            );
+            <div className="tab-empty">
+                No Tab.
+            </div>
+        );
 
     }
 };
@@ -109,17 +109,17 @@ export default class Tab extends Component {
 Tab.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * Whether the tabs is FullWidth.
+     * If true,the tabs is FullWidth.
      */
     isTabFullWidth: PropTypes.bool,
 
@@ -128,16 +128,44 @@ Tab.propTypes = {
      */
     tabs: PropTypes.arrayOf(PropTypes.shape({
 
+        /**
+         * The text value of the tab.Type can be string or number.
+         */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * If true, the tab will be disabled.
+         */
         disabled: PropTypes.bool,
+
+        /**
+         * If true,the tab will be have loading effect.
+         */
         isLoading: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
         disableTouchRipple: PropTypes.bool,
 
+        /**
+         * Use this property to display an icon.It will display on the left.
+         */
         iconCls: PropTypes.string,
+
+        /**
+         * The position of the icon.
+         */
         iconPosition: PropTypes.string,
 
+        /**
+         * The render content in tab.
+         */
         renderer: PropTypes.any,
 
+        /**
+         * Callback function fired when click onActive tab.
+         */
         onActive: PropTypes.func
 
     })).isRequired

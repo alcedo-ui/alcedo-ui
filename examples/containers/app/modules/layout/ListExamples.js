@@ -18,13 +18,13 @@ export default class ListExamples extends Component {
 
     render() {
         return (
-            <div className="example list-example">
+            <div className="example list-examples">
 
                 <h2 className="example-title">List</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="List Simple Example"/>
+                    <WidgetHeader className="example-header" title="List Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

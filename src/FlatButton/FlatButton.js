@@ -53,7 +53,7 @@ FlatButton.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The button theme.Can be success,primary,error,default,warning,disabled.
+     * The button theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.string,
 

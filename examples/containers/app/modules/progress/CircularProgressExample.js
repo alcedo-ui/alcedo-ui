@@ -46,12 +46,12 @@ export default class Test extends Component {
 
     render() {
         return (
-            <div className="example circular-progress-example">
+            <div className="example circular-progress-examples">
 
                 <h2 className="example-title">Circular Progress</h2>
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Circular Progress Simple Example"/>
+                    <WidgetHeader className="example-header" title="Circular Progress Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -59,13 +59,25 @@ export default class Test extends Component {
                             <p>Circular Progress will rotate to show the progress of a task or that there is a wait for
                                 a task to complete.</p>
 
-                            <CircularProgress r={50} width={10} rgba="#38b1eb" percent={this.state.percent} word={true}>
+                            <CircularProgress r={50}
+                                              width={10}
+                                              rgba="#38b1eb"
+                                              percent={this.state.percent}
+                                              word={true}>
                                 <span>百分比：</span>
                             </CircularProgress>
 
-                            <CircularProgress r={20} width={3} rgba="#38b1eb" percent={this.state.percent} word={true}/>
+                            <CircularProgress r={20}
+                                              width={3}
+                                              rgba="#38b1eb"
+                                              percent={this.state.percent}
+                                              word={true}/>
 
-                            <CircularProgress r={100} width={15} rgba="#38b1eb" percent={this.state.percent} word={true}
+                            <CircularProgress r={100}
+                                              width={15}
+                                              rgba="#38b1eb"
+                                              percent={this.state.percent}
+                                              word={true}
                                               percentStyle={{color: 'white'}}>
                                 <span>已完成：</span>
                             </CircularProgress>
@@ -79,69 +91,6 @@ export default class Test extends Component {
 
                 <PropTypeDescTable data={CircularProgressDoc}/>
 
-                {/*<div className="example-properties">*/}
-                {/*<h3>Properties</h3>*/}
-                {/*<table className="example-table">*/}
-                {/*<thead>*/}
-                {/*<tr>*/}
-                {/*<th>Name</th>*/}
-                {/*<th>Type</th>*/}
-                {/*<th>Default</th>*/}
-                {/*<th>Description</th>*/}
-                {/*</tr>*/}
-                {/*</thead>*/}
-                {/*<tbody>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">className</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td></td>*/}
-                {/*<td>The css class name of the root element.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">style</td>*/}
-                {/*<td className="properties-type">PropTypes.object</td>*/}
-                {/*<td></td>*/}
-                {/*<td>The styles of the root element.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">percentStyle</td>*/}
-                {/*<td className="properties-type">PropTypes.object</td>*/}
-                {/*<td></td>*/}
-                {/*<td>The style of the text description.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">r</td>*/}
-                {/*<td className="properties-type">PropTypes.number</td>*/}
-                {/*<td>48</td>*/}
-                {/*<td>The radius of the progress in pixels.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">width</td>*/}
-                {/*<td className="properties-type">PropTypes.number</td>*/}
-                {/*<td>2</td>*/}
-                {/*<td>Stroke width in pixels.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">rgba</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td>rgb(0, 188, 212)</td>*/}
-                {/*<td>Override the progress's color.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">percent</td>*/}
-                {/*<td className="properties-type">PropTypes.number</td>*/}
-                {/*<td>0</td>*/}
-                {/*<td>The value of progress.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">word</td>*/}
-                {/*<td className="properties-type">PropTypes.bool</td>*/}
-                {/*<td>true</td>*/}
-                {/*<td>Whether there is a text description.</td>*/}
-                {/*</tr>*/}
-                {/*</tbody>*/}
-                {/*</table>*/}
-                {/*</div>*/}
             </div>
 
         )

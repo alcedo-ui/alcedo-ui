@@ -38,12 +38,12 @@ export default class Paper extends Component {
 Paper.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
@@ -53,12 +53,12 @@ Paper.propTypes = {
     depth: PropTypes.number,
 
     /**
-     * Whether the paper container will have a border radius.
+     * If true,the paper container will have a border radius.
      */
     nonRounded: PropTypes.bool,
 
     /**
-     * Whether the paper is circular.
+     * If true,the paper shape is circle.
      */
     isCircular: PropTypes.bool
 

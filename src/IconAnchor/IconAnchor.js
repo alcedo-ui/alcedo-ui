@@ -68,47 +68,47 @@ export default class IconAnchor extends Component {
 IconAnchor.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * The Icon Anchor theme.
+     * The button theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.string,
 
     /**
-     * Icon anchor disabled.
+     * Disables the button if set to true.
      */
     disabled: PropTypes.bool,
 
     /**
-     *
+     * If true,the button will be have loading effect.
      */
     isLoading: PropTypes.bool,
 
     /**
-     * Icon className.
+     * The icon within the IconAnchor is a Font Awesome component.This property is the classname of the icon.
      */
     iconCls: PropTypes.string,
 
     /**
-     * The icon anchor linked url.
+     * The URL to link to when the button is clicked.
      */
     href: PropTypes.string,
 
     /**
-     * Where to open the linked document.
+     * How to open the linked document.The value can be _blank,_self,_parent or _top.
      */
     target: PropTypes.string,
 
     /**
-     * The function that trigger when the button is clicked.
+     * Callback function fired when the button is touch-tapped.
      */
     onTouchTap: PropTypes.func
 
