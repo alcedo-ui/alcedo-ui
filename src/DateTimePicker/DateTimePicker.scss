@@ -270,6 +270,9 @@
                 overflow: hidden;
                 border-bottom: 1px solid #dfdfdf;
                 border-top: 1px solid #dfdfdf;
+                &.hidden{
+                    display: none;
+                }
             }
         }
         .calendar-footer {

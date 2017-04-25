@@ -8,9 +8,7 @@ export default class _TimeItems extends Component {
     constructor(props) {
 
         super(props);
-        this.state = {
-            value: this.props.value
-        }
+
         this.clickHandle = this::this.clickHandle;
         this.mousemoveHandle = this::this.mousemoveHandle;
         this.mouseoutHandle = this::this.mouseoutHandle;
@@ -39,9 +37,6 @@ export default class _TimeItems extends Component {
                     this.refs.timeItems.scrollTop = (nextProps.value) * 30
                 }
             }
-            this.setState({
-                value: nextProps.value
-            });
         }
     }
 
@@ -50,9 +45,6 @@ export default class _TimeItems extends Component {
         if (this.refs.timeItems) {
             this.refs.timeItems.scrollTop = (value) * 30
         }
-        this.setState({
-            value: value
-        });
         Event.addEvent(this.refs.timeItems, 'mousemove', this.mousemoveHandle);
         Event.addEvent(this.refs.timeItems, 'mouseout', this.mouseoutHandle);
     }
@@ -63,9 +55,8 @@ export default class _TimeItems extends Component {
     }
 
     render() {
-        const {className, data}=this.props;
+        const {className, data, value}=this.props;
 
-        const {value}=this.state;
         return (
             <div className={`timeItems ${className ? className : ''}`}
                  ref="timeItems">
