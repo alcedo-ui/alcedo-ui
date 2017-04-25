@@ -76,7 +76,15 @@ export default class Toaster extends Component {
 };
 
 Toaster.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object
 };
 

@@ -82,21 +82,51 @@ export default class ArrowStep extends Component {
 
 ArrowStep.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The render content of step.
+     */
     steps: PropTypes.arrayOf(PropTypes.shape({
 
+        /**
+         * The CSS class name of step element.
+         */
         className: PropTypes.string,
+
+        /**
+         * Override the styles of the step element.
+         */
         style: PropTypes.object,
 
+        /**
+         * The text value of step.
+         */
         title: PropTypes.string
 
     })).isRequired,
 
+    /**
+     * Sets the step as active.
+     */
     activatedStep: PropTypes.number,
+
+    /**
+     * The final step.
+     */
     finishedStep: PropTypes.number,
 
+    /**
+     * Callback function fired when step change.
+     */
     onChange: PropTypes.func
 
 };

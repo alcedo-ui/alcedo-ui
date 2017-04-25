@@ -367,12 +367,12 @@ Table.propTypes = {
 
         // TableHeader （th） 的样式
         /**
-         *
+         * The CSS class name of th.
          */
         headerClassName: PropTypes.string,
 
         /**
-         *
+         * Override the styles of th.
          */
         headerStyle: PropTypes.object,
 
@@ -381,18 +381,18 @@ Table.propTypes = {
         // (2) 回调函数，例如：function (colIndex) {return colIndex;}
 
         /**
-         *
+         * The render content in header.
          */
         header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // TableCell （td） 的样式
         /**
-         *
+         * The CSS class name of td.
          */
         cellClassName: PropTypes.string,
 
         /**
-         *
+         * Override the styles of td.
          */
         cellStyle: PropTypes.object,
 
@@ -401,19 +401,19 @@ Table.propTypes = {
         // (2) 数据key的模板，例如：'${id} - ${name}'
         // (3) 回调函数，例如：function (rowData, rowIndex, colIndex) {return rowData.id;}
         /**
-         *
+         * The render content in table.
          */
         renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // 是否排序
         /**
-         *
+         * If true,this column can be sorted.
          */
         sortable: PropTypes.bool,
 
         // 排序字段
         /**
-         *
+         * Sort field.
          */
         sortProp: PropTypes.string
 

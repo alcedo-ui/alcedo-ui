@@ -44,7 +44,9 @@ export default class TableExamples extends Component {
                                 header: 'ID',
                                 sortable: true,
                                 sortProp: 'id',
-                                renderer: 'id'
+                                renderer: 'id',
+                                headerClassName: 'test-header',
+                                cellClassName: 'test-cell'
                             }, {
                                 header: 'Name',
                                 renderer: '${firstName} - ${lastName}'
