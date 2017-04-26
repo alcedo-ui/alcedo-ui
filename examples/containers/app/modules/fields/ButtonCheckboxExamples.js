@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import ToggleButton from 'dist/ToggleButton';
+import ButtonCheckbox from 'dist/ButtonCheckbox';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
@@ -32,11 +32,11 @@ export default class ButtonCheckboxExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <label>Number</label>
-                                <ToggleButton text="1"/>
-                                <ToggleButton text="2"/>
-                                <ToggleButton text="3"/>
-                                <ToggleButton text="4"/>
-                                <ToggleButton text="5"/>
+                                <ButtonCheckbox text="1"/>
+                                <ButtonCheckbox text="2"/>
+                                <ButtonCheckbox text="3"/>
+                                <ButtonCheckbox text="4"/>
+                                <ButtonCheckbox text="5"/>
 
                             </div>
 

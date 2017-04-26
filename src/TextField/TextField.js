@@ -359,7 +359,6 @@ TextField.propTypes = {
      */
     invalidMsg: PropTypes.string,
 
-
     // callback
     /**
      * Callback function fired when the textField is changed.
@@ -422,12 +421,6 @@ TextField.defaultProps = {
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
-    maxLength: '',
-    max: '',
-    min: '',
-    step: '',
-    pattern: '',
-
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
