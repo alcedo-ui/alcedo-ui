@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import FlatButton from '../FlatButton';
 
@@ -108,17 +109,17 @@ export default class Tab extends Component {
 Tab.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * Whether the tabs is FullWidth.
+     * If true,the tabs is FullWidth.
      */
     isTabFullWidth: PropTypes.bool,
 
@@ -127,16 +128,44 @@ Tab.propTypes = {
      */
     tabs: PropTypes.arrayOf(PropTypes.shape({
 
+        /**
+         * The text value of the tab.Type can be string or number.
+         */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * If true, the tab will be disabled.
+         */
         disabled: PropTypes.bool,
+
+        /**
+         * If true,the tab will be have loading effect.
+         */
         isLoading: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
         disableTouchRipple: PropTypes.bool,
 
+        /**
+         * Use this property to display an icon.It will display on the left.
+         */
         iconCls: PropTypes.string,
+
+        /**
+         * The position of the icon.
+         */
         iconPosition: PropTypes.string,
 
+        /**
+         * The render content in tab.
+         */
         renderer: PropTypes.any,
 
+        /**
+         * Callback function fired when click onActive tab.
+         */
         onActive: PropTypes.func
 
     })).isRequired

@@ -1,17 +1,27 @@
 @import '../../../../common.scss';
 
-.example-content {
-    overflow: visible !important;
+.popup-examples {
 
-    .popup-example-wrapper {
-        position: relative;
+    .example-content {
 
-        .trigger-button {
+        overflow: visible !important;
 
-            @include shadow(2);
-            width: 160px;
-            height: 50px;
-            margin: 0;
+        .popup-example-wrapper {
+
+            position: relative;
+
+            .trigger-button {
+
+                @include shadow(2);
+
+                width: 160px;
+                height: 50px;
+                margin: 0;
+
+            }
+
         }
+
     }
+
 }

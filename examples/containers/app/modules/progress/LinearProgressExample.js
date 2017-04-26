@@ -65,13 +65,13 @@ export default class LinearProgressExample extends Component {
         };
         return (
 
-            <div className="example linear--progress-example">
+            <div className="example linear-progress-examples">
 
                 <h2 className="example-title">Linear Progress</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Linear Progress Simple Example"/>
+                    <WidgetHeader className="example-header" title="Linear Progress Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -81,15 +81,25 @@ export default class LinearProgressExample extends Component {
 
                             <div style={progressGroup}>
 
-                                <LinearProgress highlightWidth={this.state.percent + '%'} style={style1}
-                                                background="#f3f6fa" highlight="#38b1eb" word={true} wordStyle='front'/>
+                                <LinearProgress highlightWidth={this.state.percent + '%'}
+                                                style={style1}
+                                                background="#f3f6fa"
+                                                highlight="#38b1eb"
+                                                word={true}
+                                                wordStyle='front'/>
 
-                                <LinearProgress highlightWidth={this.state.percent + '%'} style={style2}
-                                                background="#f3f6fa" highlight="#38b1eb" word={true}
+                                <LinearProgress highlightWidth={this.state.percent + '%'}
+                                                style={style2}
+                                                background="#f3f6fa"
+                                                highlight="#38b1eb"
+                                                word={true}
                                                 wordStyle='middle'/>
 
-                                <LinearProgress highlightWidth={this.state.percent + '%'} style={style3}
-                                                background="#f3f6fa" highlight="#38b1eb" word={true}
+                                <LinearProgress highlightWidth={this.state.percent + '%'}
+                                                style={style3}
+                                                background="#f3f6fa"
+                                                highlight="#38b1eb"
+                                                word={true}
                                                 wordStyle='follow'/>
 
                             </div>
@@ -102,64 +112,6 @@ export default class LinearProgressExample extends Component {
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={LinearProgressDoc}/>
-
-                {/*<div className="example-properties">*/}
-                {/*<h3>Properties</h3>*/}
-                {/*<table className="example-table">*/}
-                {/*<thead>*/}
-                {/*<tr>*/}
-                {/*<th>Name</th>*/}
-                {/*<th>Type</th>*/}
-                {/*<th>Default</th>*/}
-                {/*<th>Description</th>*/}
-                {/*</tr>*/}
-                {/*</thead>*/}
-                {/*<tbody>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">className</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td></td>*/}
-                {/*<td>The css class name of the root element.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">style</td>*/}
-                {/*<td className="properties-type">PropTypes.object</td>*/}
-                {/*<td></td>*/}
-                {/*<td>The styles of the root element.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">highlightWidth</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td>50%</td>*/}
-                {/*<td>The value of progress.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">background</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td>gray</td>*/}
-                {/*<td>The progress's background color.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">highlight</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td>blue</td>*/}
-                {/*<td>Highlight color display.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">word</td>*/}
-                {/*<td className="properties-type">PropTypes.bool</td>*/}
-                {/*<td>false</td>*/}
-                {/*<td>Whether there is a text description.</td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*<td className="properties-name">wordStyle</td>*/}
-                {/*<td className="properties-type">PropTypes.string</td>*/}
-                {/*<td>front</td>*/}
-                {/*<td>Text location.</td>*/}
-                {/*</tr>*/}
-                {/*</tbody>*/}
-                {/*</table>*/}
-                {/*</div>*/}
 
             </div>
         )

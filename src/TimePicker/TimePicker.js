@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -106,7 +107,7 @@ export default class TimePicker extends Component {
 
     componentDidMount() {
         const {value}=this.props;
-        let dateFormatValue ='2000-02-01 '+value
+        let dateFormatValue = '2000-02-01 ' + value
         this.setState({
             textFieldValue: value,
             hour: moment(dateFormatValue).format('HH'),
@@ -165,12 +166,12 @@ export default class TimePicker extends Component {
 TimePicker.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
@@ -183,7 +184,15 @@ TimePicker.propTypes = {
      * This is the initial date value of the component.
      */
     value: PropTypes.string,
+
+    /**
+     * The ending of a range of valid dates. The range includes the endDate.
+     */
     maxValue: PropTypes.string,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
     minValue: PropTypes.string,
 
     /**

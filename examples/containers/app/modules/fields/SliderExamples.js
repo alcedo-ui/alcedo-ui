@@ -32,7 +32,7 @@ export default class SliderExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Slider Simple Example"/>
+                    <WidgetHeader className="example-header" title="Slider Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -41,13 +41,23 @@ export default class SliderExamples extends Component {
 
                                 <Slider/>
 
-                                <Slider leftPoint={true}/>
+                                <Slider leftPoint={true} ruler={10}/>
 
-                                <Slider leftPoint={true} scale={[0, 50, 80, 100]} showScale={true}/>
+                                <Slider leftPoint={true}
+                                        scale={[0, 50, 80, 100]}
+                                        showScale={true}/>
 
-                                <Slider leftPoint={false} scale={[0, 5, 8, 10]} decimalPlaces={1}/>
+                                <Slider leftPoint={false}
+                                        scale={[0, 5, 8, 10]}
+                                        showScale={true}
+                                        decimalPlaces={1}/>
 
-                                <Slider leftPoint={true} scale={[0, 5, 8, 10]} ruler={11} decimalPlaces={1} width={600}
+                                <Slider leftPoint={true}
+                                        scale={[0, 5, 8, 10]}
+                                        showScale={true}
+                                        decimalPlaces={1}
+                                        width={600}
+                                        tip="right"
                                         onChange={this.change}/>
 
                             </div>

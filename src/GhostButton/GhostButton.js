@@ -1,6 +1,8 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
+import Theme from '../Theme';
 
 import './GhostButton.css';
 
@@ -52,9 +54,9 @@ GhostButton.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The button theme.Can be success,primary,error,default,warning,disabled.
+     * The button theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * If true,the button will have rounded corners.
@@ -118,7 +120,7 @@ GhostButton.defaultProps = {
     className: '',
     style: null,
 
-    theme: '',
+    theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: false,
 

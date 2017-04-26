@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Paper from '../Paper';
 
@@ -28,12 +29,12 @@ export default class Widget extends Component {
 Widget.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 

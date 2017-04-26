@@ -23,7 +23,7 @@ export default class CheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Paper Simple Example"/>
+                    <WidgetHeader className="example-header" title="Paper Example"/>
 
                     <div className="widget-content">
 
@@ -47,7 +47,7 @@ export default class CheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Non-Rounded Paper Simple Example"/>
+                    <WidgetHeader className="example-header" title="Non-Rounded Paper Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -78,7 +78,7 @@ export default class CheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Circular Paper Simple Example"/>
+                    <WidgetHeader className="example-header" title="Circular Paper Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

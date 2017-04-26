@@ -1,7 +1,8 @@
 /**
  * Created by DT314 on 2017/4/18.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '../TextField/TextField';
 import Event from '../_vendors/Event';
@@ -88,7 +89,7 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const { style, name } = this.props;
+        const {style, name} = this.props;
 
         return (
             <div className="nameInput"
@@ -115,12 +116,30 @@ export default class EditableField extends Component {
 };
 
 EditableField.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The value of the editableField.
+     */
     value: PropTypes.string,
+
+    /**
+     * The name of the editableField.
+     */
     name: PropTypes.string,
 
+    /**
+     * Callback function fired when the editableField change.
+     */
     onChange: PropTypes.func
 };
 

@@ -22,13 +22,13 @@ export default class TimePickerExamples extends Component {
 
     render() {
         return (
-            <div className="example time-picker-example">
+            <div className="example time-picker-examples">
 
                 <h2 className="example-title">Time Picker</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Time Picker Simple Example"/>
+                    <WidgetHeader className="example-header" title="Time Picker Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

@@ -28,6 +28,7 @@ export default class LandingFoot extends Component {
                             href="https://github.com/alcedo-ui/alcedo-ui"/>
 
             </div>
+
         );
     }
 }

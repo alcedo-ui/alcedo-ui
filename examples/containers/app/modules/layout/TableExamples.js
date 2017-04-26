@@ -29,13 +29,13 @@ export default class TableExamples extends Component {
         }
 
         return (
-            <div className="example table-example">
+            <div className="example table-examples">
 
                 <h2 className="example-title">Table</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Table Simple Example"/>
+                    <WidgetHeader className="example-header" title="Table Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -44,7 +44,9 @@ export default class TableExamples extends Component {
                                 header: 'ID',
                                 sortable: true,
                                 sortProp: 'id',
-                                renderer: 'id'
+                                renderer: 'id',
+                                headerClassName: 'test-header',
+                                cellClassName: 'test-cell'
                             }, {
                                 header: 'Name',
                                 renderer: '${firstName} - ${lastName}'

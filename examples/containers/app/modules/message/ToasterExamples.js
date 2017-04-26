@@ -60,7 +60,7 @@ export default class ToasterExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ArrowStep Simple Example"/>
+                    <WidgetHeader className="example-header" title="Toaster Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

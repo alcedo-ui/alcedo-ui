@@ -1,7 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
+import Theme from '../Theme';
 
 import './BaseButton.css';
 
@@ -83,7 +85,7 @@ BaseButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
@@ -107,7 +109,7 @@ BaseButton.defaultProps = {
     className: '',
     style: null,
 
-    theme: '',
+    theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: false,
 

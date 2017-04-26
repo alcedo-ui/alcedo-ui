@@ -17,86 +17,14 @@ export default class RaisedButtonExamples extends Component {
 
     render() {
 
-        let propertiesList = [{
-            Name: 'className',
-            Type: 'PropTypes.string',
-            Default: '',
-            Description: 'The css class name of the root element.'
-        }, {
-            Name: 'style',
-            Type: 'PropTypes.object',
-            Default: '',
-            Description: 'The styles of the root element.'
-        }, {
-            Name: 'theme',
-            Type: 'PropTypes.string',
-            Default: '',
-            Description: 'The button theme.'
-        }, {
-            Name: 'isRounded',
-            Type: 'PropTypes.bool',
-            Default: 'false',
-            Description: 'Whether need rounded corners.'
-        }, {
-            Name: 'isCircular',
-            Type: 'PropTypes.bool',
-            Default: 'false',
-            Description: 'Round button.'
-        }, {
-            Name: 'value',
-            Type: 'PropTypes.string || PropTypes.number',
-            Default: '',
-            Description: 'The button text value.'
-        }, {
-            Name: 'type',
-            Type: 'PropTypes.string',
-            Default: 'button',
-            Description: ''
-        }, {
-            Name: 'disabled',
-            Type: 'PropTypes.bool',
-            Default: 'false',
-            Description: 'Button disabled.'
-        }, {
-            Name: 'isLoading',
-            Type: 'PropTypes.bool',
-            Default: 'false',
-            Description: ''
-        }, {
-            Name: 'disableTouchRipple',
-            Type: ' PropTypes.bool',
-            Default: 'false',
-            Description: ''
-        }, {
-            Name: 'iconCls',
-            Type: ' PropTypes.string',
-            Default: '',
-            Description: 'Button left icon className.'
-        }, {
-            Name: 'rightIconCls',
-            Type: ' PropTypes.string',
-            Default: '',
-            Description: 'Button right icon className.'
-        }, {
-            Name: 'rippleDisplayCenter',
-            Type: ' PropTypes.bool',
-            Default: 'false',
-            Description: 'Ripple effect is centered.'
-        }, {
-            Name: 'onTouchTap',
-            Type: ' PropTypes.func',
-            Default: '',
-            Description: 'The function that trigger when the button is clicked.'
-        }];
-
         return (
-            <div className="example raised-button-example">
+            <div className="example raised-button-examples">
 
                 <h2 className="example-title">Raised Button</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Raised Button Simple Example"/>
+                    <WidgetHeader className="example-header" title="Raised Button Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

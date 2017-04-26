@@ -17,7 +17,7 @@ import MultipleSelectExamples from 'containers/app/modules/fields/MultipleSelect
 import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples';
 import CheckboxExamples from 'containers/app/modules/fields/CheckboxExamples';
 import RadioExamples from 'containers/app/modules/fields/RadioExamples';
-import ToggleButtonExamples from 'containers/app/modules/fields/ToggleButtonExamples';
+import ButtonCheckboxExamples from 'containers/app/modules/fields/ButtonCheckboxExamples';
 import SwitcherExamples from 'containers/app/modules/fields/SwitcherExamples';
 import SliderExamples from 'containers/app/modules/fields/SliderExamples';
 import EditableFieldExamples from 'containers/app/modules/fields/EditableFieldExamples';
@@ -45,6 +45,7 @@ import ArrowStepExamples from 'containers/app/modules/stepper/ArrowStepExamples'
 import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples';
 
 import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
+import TipExamples from 'containers/app/modules/message/TipExamples';
 
 export default (
     <Route path="/" component={Root}>
@@ -92,8 +93,8 @@ export default (
                    component={CheckboxExamples}/>
             <Route path="Radio"
                    component={RadioExamples}/>
-            <Route path="ToggleButton"
-                   component={ToggleButtonExamples}/>
+            <Route path="ButtonCheckbox"
+                   component={ButtonCheckboxExamples}/>
             <Route path="Switcher"
                    component={SwitcherExamples}/>
             <Route path="Slider"
@@ -138,6 +139,8 @@ export default (
             {/* messages */}
             <Route path="Toaster"
                    component={ToasterExamples}/>
+            <Route path="Tip"
+                   component={TipExamples}/>
 
         </Route>
 

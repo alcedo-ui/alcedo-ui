@@ -21,13 +21,13 @@ export default class DateTimePickerExamples extends Component {
 
     render() {
         return (
-            <div className="example date-time-picker-example">
+            <div className="example date-time-picker-examples">
 
                 <h2 className="example-title">Date Time Picker</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Time Picker Simple Example"/>
+                    <WidgetHeader className="example-header" title="Date Time Picker Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

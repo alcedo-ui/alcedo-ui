@@ -24,14 +24,14 @@ export default class SwitcherExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Switcher Simple Example"/>
+                    <WidgetHeader className="example-header" title="Switcher Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <Switcher/>
+                                <Switcher value={true}/>
 
                             </div>
 

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Paper from 'dist/Paper';
 import FlatButton from 'dist/FlatButton';
@@ -51,5 +52,5 @@ export default class LandingExamples extends Component {
 }
 
 LandingExamples.contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
 };

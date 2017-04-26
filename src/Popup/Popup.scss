@@ -18,7 +18,7 @@
         z-index: $popup-z-index;
         margin-top: 4px;
 
-        .triangle {
+        .popup-triangle {
             display: none;
             width: 0;
             height: 0;
@@ -30,7 +30,7 @@
             z-index: 1;
         }
 
-        .content {
+        .popup-content {
 
             @include shadow(4);
 
@@ -48,8 +48,8 @@
             transform $transition-duration ease-in-out;
         }
 
-        &.position-left {
-            .triangle {
+        &.popup-position-left {
+            .popup-triangle {
                 left: 10px;
             }
 
@@ -58,8 +58,8 @@
             }
         }
 
-        &.position-right {
-            .triangle {
+        &.popup-position-right {
+            .popup-triangle {
                 right: 10px;
             }
 
@@ -68,10 +68,10 @@
             }
         }
 
-        &.hasTriangle {
+        &.popup-has-triangle {
             margin-top: 10px;
 
-            .triangle {
+            .popup-triangle {
                 display: block;
             }
         }

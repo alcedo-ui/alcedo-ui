@@ -1,7 +1,8 @@
 /**
  * Created by DT314 on 2017/4/12.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 
@@ -239,18 +240,57 @@ export default class Slider extends Component {
 };
 
 Slider.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * If true,the slider will have leftPoint.
+     */
     leftPoint: PropTypes.bool,
+
+    /**
+     * The width of the slider.
+     */
     width: PropTypes.number,
+
+    /**
+     * The scale ot slider.
+     */
     scale: PropTypes.array,
+
+    /**
+     * If true,the scale will have display.
+     */
     showScale: PropTypes.bool,
-    tip: PropTypes.bool,
+
+    /**
+     *
+     */
+    tip: PropTypes.string,
+
+    /**
+     * The granularity the slider can step through values.
+     */
     ruler: PropTypes.number,
+
+    /**
+     * Number of decimal places.
+     */
     decimalPlaces: PropTypes.number,
 
+    /**
+     * Callback function fired when the slider change.
+     */
     onChange: PropTypes.func
+
 };
 
 Slider.defaultProps = {
@@ -261,7 +301,7 @@ Slider.defaultProps = {
     width: 300,
     scale: [0, 100],
     showScale: false,
-    tip: false,
+    tip: 'left',
     decimalPlaces: 0
 };
 

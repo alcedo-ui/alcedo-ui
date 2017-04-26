@@ -1,8 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
-
-import FieldMsg from '../FieldMsg';
 
 import './MultipleSelect.css';
 
@@ -87,9 +86,9 @@ export default class MultipleSelect extends Component {
         }
 
         if (this.refs.options) {
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight + 'px'
+            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight + 'px';
         } else {
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + 'px'
+            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + 'px';
         }
     }
 
@@ -130,8 +129,8 @@ export default class MultipleSelect extends Component {
 
     showAllToggle(e) {
         e.stopPropagation();
-        const {showAll}=this.state;
-        this.setState({showAll: !showAll})
+        const {showAll} = this.state;
+        this.setState({showAll: !showAll});
     }
 
     deselect(item, e) {
@@ -247,7 +246,8 @@ export default class MultipleSelect extends Component {
         const {hidden, filter, showAll} = this.state;
         const {
             optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
-            getRestList, getFilterList} = this;
+            getRestList, getFilterList
+        } = this;
 
         this.list = getRestList(data, value);
 
@@ -345,7 +345,7 @@ export default class MultipleSelect extends Component {
                                         <span className="deselectButton"
                                               onClick={deselect.bind(this, item)}>×</span>
                                     </div>
-                                )
+                                );
                             })
                             :
                             (value instanceof Array ? value : [] ).map((item, index) => {
@@ -360,15 +360,15 @@ export default class MultipleSelect extends Component {
                                             <span className="deselectButton"
                                                   onClick={deselect.bind(this, item)}>×</span>
                                         </div>
-                                    )
+                                    );
                                 }
                             })
                     }
                     <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
                        aria-hidden="true"
-                       onClick={(e)=> {
+                       onClick={(e) => {
                            if (value.length > 2) {
-                               this.showAllToggle(e)
+                               this.showAllToggle(e);
                            }
                        }}></i>
                 </div>
@@ -445,13 +445,63 @@ export default class MultipleSelect extends Component {
 };
 
 MultipleSelect.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * The name of the multipleSelect field.
+     */
     name: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
+
+    /**
+     * The options data.
+     */
     data: PropTypes.array,
+
+    /**
+     * The multipleSelect input value.
+     */
     value: PropTypes.array,
+
+    /**
+     * The width of the multipleSelect drop-down box.
+     */
     width: PropTypes.number,
+
+    /**
+     * The placeholder of the multipleSelect.
+     */
     placeholder: PropTypes.string,
+
+    /**
+     * If true, the multipleSelect will be disabled.
+     */
     disabled: PropTypes.bool,
+
+    /**
+     * Callback function fired when a menu item is selected.
+     */
     onChange: PropTypes.func
+
+};
+
+MultipleSelect.defaultProps = {
+
+    className: '',
+    style: null,
+
+    name: '',
+    value: '',
+    width: 300,
+    placeholder: 'select number',
+    disabled: false
+
 };

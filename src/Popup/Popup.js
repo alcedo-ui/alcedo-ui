@@ -1,8 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import Theme from '../Theme';
 
 import './Popup.css';
 
@@ -96,18 +98,17 @@ export default class Popup extends Component {
 
     renderer() {
 
-        const {children, className, style, disabled, hasTriangle, theme, position} = this.props;
+        const {children, className, style, hasTriangle, theme, position} = this.props;
         const {visible} = this.state;
 
         return (
-            <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'hasTriangle' : ''}
-                    ${theme ? `theme-${theme}` : ''} ${position ? `position-${position}` : ''} ${className}`}
-                 style={{...this.getPopupStyle(), ...style}}
-                 disabled={disabled}>
+            <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'popup-has-triangle' : ''}
+                    ${theme ? `theme-${theme}` : ''} ${position ? `popup-position-${position}` : ''} ${className}`}
+                 style={{...this.getPopupStyle(), ...style}}>
 
-                <div className="triangle"></div>
+                <div className="popup-triangle"></div>
 
-                <div className="content">
+                <div className="popup-content">
                     {children}
                 </div>
 
@@ -165,47 +166,42 @@ Popup.Position = {
 Popup.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     *
+     * This is the DOM element that will be used to set the position of the popover.
      */
     triggerEl: PropTypes.object,
 
     /**
-     *
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     *
+     * If true,the popover is visible.
      */
     visible: PropTypes.bool,
 
     /**
-     *
+     * If true,the popover will have a triangle on the top of the DOM element.
      */
     hasTriangle: PropTypes.bool,
 
     /**
-     *
+     * The popover theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
-     *
+     * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
     position: PropTypes.string,
 
     /**
-     * The function that trigger when click submit.
+     * Callback function fired when the popover is requested to be closed.
      */
     onRequestClose: PropTypes.func
 
@@ -217,10 +213,9 @@ Popup.defaultProps = {
     style: null,
 
     triggerEl: null,
-    disabled: false,
     visible: false,
     hasTriangle: true,
-    theme: '',
+    theme: Theme.DEFAULT,
     position: Popup.Position.LEFT
 
 };

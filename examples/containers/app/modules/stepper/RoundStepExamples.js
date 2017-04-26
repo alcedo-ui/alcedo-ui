@@ -72,7 +72,7 @@ export default class RoundStepExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="RoundStep Simple Example"/>
+                                  title="RoundStep Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

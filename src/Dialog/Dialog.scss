@@ -1,76 +1,95 @@
 @import '../_common.scss';
 
-.dialog-cover {
-    position: fixed;
-    top: 0;
+.dialog-wrapper {
+    position: absolute;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    transition: left 0ms, opacity 0ms;
-    opacity: 1;
-    .dialog-shadow {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.54);
+    top: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+
+    .dialog-modal {
+        position: fixed;
+        left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
+        z-index: $dialog-modal-z-index;
+        background: transparentize(#000, .5);
+
+        &.hidden {
+            opacity: 0 !important;
+            left: -99999px !important;
+            transition: left 0s $transition-duration,
+            opacity $transition-duration ease-in-out;
+        }
     }
-    .dialog-box {
-        position: absolute;
+
+    .dialog {
+        position: fixed;
         left: 50%;
         top: 50%;
-        width: 60%;
-        max-width: 700px;
-        padding: 10px 10px;
+        width: 500px;
+        height: 300px;
+        border-radius: $border-radius;
         transform: translate(-50%, -50%);
-        transition: top 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        background: white;
-        border-radius: 4px;
-        box-shadow: rgba(0, 0, 0, 0.037647) 0 1px 1px, rgba(0, 0, 0, 0.077647) 0 1px 1px;
-        > h3 {
-            margin: 10px 20px;
-            font-size: 20px;
-            color: #758697;
-        }
-        > p {
-            margin: 15px 20px;
+        transition: left 0s, opacity $transition-duration ease-in-out,
+        transform $transition-duration ease-in-out;
+        z-index: $dialog-z-index;
+        padding: 20px;
+        box-sizing: border-box;
+        color: $theme-text;
+
+        .dialog-title {
+            padding: 0 10px 10px;
+            line-height: 29px;
             font-size: 16px;
-            color: #4C637B;
+            border-bottom: 1px solid $theme-bg;
         }
-        .dialog-button-group {
-            text-align: right;
-            .button {
-                display: inline-block;
-                box-shadow: none;
-                width: 80px;
-                height: 30px;
-                line-height: 22px;
-                background: white;
-                color: #03A9F4;
-                font-size: 14px;
-                margin-left: 5px;
-                border: none;
-                &:hover {
-                    background: rgba(153, 153, 153, 0.2);
-                }
+
+        .dialog-content {
+            width: 100%;
+            height: calc(100% - 80px);
+        }
+
+        .dialog-buttons {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+
+            & > .base-button {
+                float: right;
+                margin: 0 0 0 10px;
             }
         }
+
+        &.hidden {
+            opacity: 0 !important;
+            left: -99999px !important;
+            transform: translate(-50%, -70%);
+            transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
+            transform $transition-duration ease-in-out;
+        }
+
+        // default theme
+        @include dialog-theme(#fff);
+
+        // other themes
+        &.theme-primary {
+            @include dialog-theme($theme-menu);
+        }
+        &.theme-highlight {
+            @include dialog-theme($theme-highlight);
+        }
+        &.theme-success {
+            @include dialog-theme($success);
+        }
+        &.theme-warning {
+            @include dialog-theme($warning);
+        }
+        &.theme-error {
+            @include dialog-theme($error);
+        }
+
     }
-}
-
-.hide {
-    left: -1000%;
-    opacity: 0;
-    transition: left 0ms cubic-bezier(0.23, 1, 0.32, 1) 600ms, opacity 500ms;
-    > .dialog-box {
-        top: 45%;
-    }
-}
-
-.app > .content-wrap {
-    z-index: 81;
-}
-
-.disappear {
-    display: none !important;
 }

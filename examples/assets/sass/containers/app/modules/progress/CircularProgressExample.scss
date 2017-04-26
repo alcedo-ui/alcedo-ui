@@ -1,12 +1,20 @@
-.example-content{
-  overflow: hidden;
+@import '../../../../common.scss';
 
-  >div{
+.circular-progress-examples {
 
-    float: left;
-    margin-top: 10px;
-    margin-left: 50px;
+    .example-content {
+        overflow: hidden;
 
-  }
+        > div {
+
+            float: left;
+            margin-top: 10px;
+            margin-left: 50px;
+
+        }
+
+    }
 
 }
+
+

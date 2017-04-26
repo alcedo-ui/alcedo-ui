@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
@@ -301,75 +302,42 @@ export default class Table extends Component {
 Table.propTypes = {
 
     /**
-     * The css class name of the root element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The styles of the root element.
+     * Override the styles of the root element.
      */
     style: PropTypes.object,
 
-    // 表格列渲染配置
-    /**
-     * The table columns.
-     */
-    columns: PropTypes.arrayOf(PropTypes.shape({
-
-        // TableHeader （th） 的样式
-        headerClassName: PropTypes.string,
-        headerStyle: PropTypes.object,
-
-        // 表头显示
-        // (1) 字符串，例如： 'id'
-        // (2) 回调函数，例如：function (colIndex) {return colIndex;}
-        header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-        // TableCell （td） 的样式
-        cellClassName: PropTypes.string,
-        cellStyle: PropTypes.object,
-
-        // 表格列元素渲染
-        // (1) 数据的key，例如： 'id'
-        // (2) 数据key的模板，例如：'${id} - ${name}'
-        // (3) 回调函数，例如：function (rowData, rowIndex, colIndex) {return rowData.id;}
-        renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-        // 是否排序
-        sortable: PropTypes.bool,
-
-        // 排序字段
-        sortProp: PropTypes.string
-
-    })).isRequired,
-
     // 表格数据
     /**
-     *  The table list data.
+     * The table list data.
      */
     data: PropTypes.array.isRequired,
 
     // 是否分页，默认true
     /**
-     *  Whether need paging.
+     * If true,the paging will display.
      */
     isPagging: PropTypes.bool,
 
     // 排序函数
     /**
-     *  Sorting method.
+     * Sorting method.
      */
     sortFunc: PropTypes.func,
 
     // 行高 默认60px
     /**
-     *  The table row height.
+     * The table row height.
      */
     rowHeight: PropTypes.number,
 
     // 是否高度自适应
     /**
-     *  The function that trigger when step changes.
+     * The function that trigger when step changes.
      */
     isAdaptiveHeight: PropTypes.bool,
 
@@ -387,9 +355,69 @@ Table.propTypes = {
 
     // 选择变更回调
     /**
-     *  The function that trigger when show rows changes.
+     * The function that trigger when show rows changes.
      */
-    onSelectChange: PropTypes.func
+    onSelectChange: PropTypes.func,
+
+    // 表格列渲染配置
+    /**
+     * Children passed into the TableList.
+     */
+    columns: PropTypes.arrayOf(PropTypes.shape({
+
+        // TableHeader （th） 的样式
+        /**
+         * The CSS class name of th.
+         */
+        headerClassName: PropTypes.string,
+
+        /**
+         * Override the styles of th.
+         */
+        headerStyle: PropTypes.object,
+
+        // 表头显示
+        // (1) 字符串，例如： 'id'
+        // (2) 回调函数，例如：function (colIndex) {return colIndex;}
+
+        /**
+         * The render content in header.
+         */
+        header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        // TableCell （td） 的样式
+        /**
+         * The CSS class name of td.
+         */
+        cellClassName: PropTypes.string,
+
+        /**
+         * Override the styles of td.
+         */
+        cellStyle: PropTypes.object,
+
+        // 表格列元素渲染
+        // (1) 数据的key，例如： 'id'
+        // (2) 数据key的模板，例如：'${id} - ${name}'
+        // (3) 回调函数，例如：function (rowData, rowIndex, colIndex) {return rowData.id;}
+        /**
+         * The render content in table.
+         */
+        renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        // 是否排序
+        /**
+         * If true,this column can be sorted.
+         */
+        sortable: PropTypes.bool,
+
+        // 排序字段
+        /**
+         * Sort field.
+         */
+        sortProp: PropTypes.string
+
+    })).isRequired
 
 };
 

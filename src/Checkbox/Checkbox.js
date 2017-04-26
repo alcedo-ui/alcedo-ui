@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
@@ -89,14 +90,39 @@ export default class Checkbox extends Component {
 
 Checkbox.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The name of the checkbox.
+     */
     name: PropTypes.string,
+
+    /**
+     * Label for checkbox.
+     */
     label: PropTypes.any,
+
+    /**
+     * If true,the checkbox will be checked.
+     */
     value: PropTypes.bool,
+
+    /**
+     * If true, the checkbox will be disabled.
+     */
     disabled: PropTypes.bool,
 
+    /**
+     * Callback function fired when the checkbox status change.
+     */
     onChange: PropTypes.func
 
 };

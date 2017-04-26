@@ -27,7 +27,9 @@
     .example-content {
 
         @include float-fix;
-        padding: 20px;
+
+        padding: 30px;
+        background: lighten($grey,32%);
         box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
     }
@@ -36,12 +38,19 @@
 
         tbody tr td:first-child {
 
-            color: #266d90;
+            color: $cyan;
+
+        }
+
+        tbody tr td:nth-child(2) {
+
+            color: $error;
 
         }
 
         thead tr th {
-            color: #888;
+            color: $grey;
+            font-size: 15px;
         }
 
     }

@@ -16,6 +16,18 @@ export default class DropdownSelectExamples extends Component {
     }
 
     render() {
+
+        let data = [{
+            value: '1',
+            text: 'one',
+            iconCls: 'fa fa-circle',
+            disabled: true
+        }, {
+            value: '2',
+            text: 'two',
+            iconCls: 'fa fa-circle'
+        }];
+
         return (
             <div className="example dropdown-select-examples">
 
@@ -23,7 +35,7 @@ export default class DropdownSelectExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Dropdown Select Simple Example"/>
+                    <WidgetHeader className="example-header" title="Dropdown Select Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -32,7 +44,7 @@ export default class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="dropdown-select-label">Number</label>
-                                    <DropdownSelect data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                                    <DropdownSelect data={data}
                                                     autoClose={false}/>
                                 </div>
 
