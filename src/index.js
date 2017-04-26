@@ -1,5 +1,6 @@
 export Accordion from './Accordion';
 export ArrowStep from './ArrowStep';
+export ButtonCheckbox from './ButtonCheckbox';
 export Checkbox from './Checkbox';
 export CheckboxGroup from './CheckboxGroup';
 export CircularLoading from './CircularLoading';
@@ -36,7 +37,6 @@ export Theme from './Theme';
 export TimePicker from './TimePicker';
 export Tip from './Tip';
 export Toaster from './Toaster';
-export ToggleButton from './ToggleButton';
 export TouchRipple from './TouchRipple';
 export TreeSelect from './TreeSelect';
 export Widget from './Widget';
