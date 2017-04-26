@@ -1,10 +1,9 @@
-/**
- * Created by DT314 on 2017/4/7.
- */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
+import RaisedButton from 'dist/RaisedButton';
 import Dialog from 'dist/Dialog';
-import FlatButton from 'dist/FlatButton';
+import List from 'dist/List';
+import Theme from 'dist/Theme';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
@@ -14,31 +13,40 @@ import DialogDoc from 'assets/propTypes/Dialog.json';
 import 'sass/containers/app/modules/popup/DialogExamples.scss';
 
 export default class DialogExamples extends Component {
+
     constructor(props) {
-        super();
-        this.clickHandle = this::this.clickHandle;
-        this.hideHandle = this::this.hideHandle;
+
+        super(props);
+
         this.state = {
-            hide: 'hide'
-        }
+            dialogVisible: false,
+            triggerEl: null
+        };
+
+        this.toggleDialog = this::this.toggleDialog;
+        this.closeDialog = this::this.closeDialog;
+
     }
 
-    clickHandle() {
+    toggleDialog(e) {
         this.setState({
-            hide: ''
-        })
+            dialogVisible: !this.state.dialogVisible,
+            triggerEl: e.currentTarget
+        });
     }
 
-    hideHandle() {
+    closeDialog() {
         this.setState({
-            hide: 'hide'
-        })
+            dialogVisible: false
+        });
     }
 
     render() {
 
+        const {dialogVisible, triggerEl} = this.state;
+
         return (
-            <div className="example dialog-example">
+            <div className="example dialog-examples">
 
                 <h2 className="example-title">Dialog</h2>
 
@@ -49,17 +57,22 @@ export default class DialogExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Please click this button to show Dialog.</p>
+                            <div className="popup-example-wrapper">
 
-                            <FlatButton onTouchTap={this.clickHandle} value="Dialog"/>
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Dialog"
+                                              onTouchTap={this.toggleDialog}/>
 
-                            <Dialog className={this.state.hide}
-                                    onHide={this.hideHandle}
-                                    onSure={this.hideHandle}/>
+                                <Dialog visible={dialogVisible}
+                                        triggerEl={triggerEl}
+                                        onRequestClose={this.closeDialog}>
+                                    <div className="dialog-content">Content</div>
+                                </Dialog>
+
+                            </div>
 
                         </div>
                     </div>
-
                 </Widget>
 
                 <h2 className="example-title">Properties</h2>
@@ -67,7 +80,6 @@ export default class DialogExamples extends Component {
                 <PropTypeDescTable data={DialogDoc}/>
 
             </div>
-
         );
     }
-}
+};

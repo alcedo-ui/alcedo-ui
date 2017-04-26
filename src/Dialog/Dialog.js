@@ -1,39 +1,133 @@
-/**
- * Created by DT314 on 2017/4/6.
- */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
-import FlatButton from '../FlatButton/FlatButton';
+import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 
-import './dialog.css';
+import './Dialog.css';
 
 export default class Dialog extends Component {
+
     constructor(props) {
-        super();
+
+        super(props);
+
+        this.wrapper = null;
+        this.wrapperElement = null;
+
+        this.state = {
+            visible: !!props.visible
+        };
+
+        this.mousedownHandle = this::this.mousedownHandle;
+        this.renderWrapper = this::this.renderWrapper;
+        this.renderer = this::this.renderer;
+        this.renderElement = this::this.renderElement;
+
+    }
+
+    triggerDialogEventHandle(el, triggerEl, dialogEl, currentVisible) {
+
+        let flag = true;
+
+        while (el) {
+            if (el == dialogEl || el == triggerEl) {
+                return currentVisible;
+            }
+            el = el.parentNode;
+        }
+
+        if (flag) {
+            return false;
+        }
+
+    }
+
+    mousedownHandle(e) {
+
+        const {triggerEl, onRequestClose} = this.props,
+            visible = this.triggerDialogEventHandle(
+                e.target,
+                triggerEl,
+                this.wrapperElement,
+                this.state.visible
+            );
+
+        this.setState({
+            visible
+        }, () => {
+            !visible && onRequestClose && onRequestClose();
+        });
+
+    }
+
+    renderWrapper() {
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'dialog-wrapper';
+        document.body.appendChild(this.wrapper);
+    }
+
+    renderer() {
+
+        const {children, className, style, disabled, theme} = this.props;
+        const {visible} = this.state;
+
+        return (
+            <div className={`dialog ${visible ? '' : 'hidden'} ${theme ? `theme-${theme}` : ''} ${className}`}
+                 style={style}
+                 disabled={disabled}>
+
+                <div className="triangle"></div>
+
+                <div className="content">
+                    {children}
+                </div>
+
+            </div>
+        );
+
+    }
+
+    renderElement() {
+        this.wrapperElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+    }
+
+    componentDidMount() {
+
+        Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
+        this.renderWrapper();
+        this.renderElement();
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: !!nextProps.visible
+            });
+        }
+        this.renderElement();
+    }
+
+    componentDidUpdate() {
+        this.renderElement();
+    }
+
+    componentWillUnmount() {
+
+        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
+
+        unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.wrapper = null;
+
     }
 
     render() {
-        const {className, title, desc, buttonBool, onHide, onSure} = this.props;
-
-        return (
-            <div className={'dialog-cover ' + className}>
-                <div className="dialog-shadow"
-                     onClick={onHide}></div>
-                <div className="dialog-box">
-                    <h3>{title}</h3>
-                    <p>{desc}</p>
-                    <div className="dialog-button-group">
-                        <FlatButton className={'button ' + (buttonBool[0] ? '' : 'disappear')}
-                                    onTouchTap={onHide}>cancel</FlatButton>
-                        <FlatButton className={'button ' + (buttonBool[1] ? '' : 'disappear')}
-                                    onTouchTap={onSure}>commit</FlatButton>
-                    </div>
-                </div>
-            </div>
-        );
+        return null;
     }
-
 };
 
 Dialog.propTypes = {
@@ -44,35 +138,45 @@ Dialog.propTypes = {
     className: PropTypes.string,
 
     /**
-     * The title to display on the Dialog. Could be number, string, element or an array containing these types.
+     * The styles of the root element.
      */
-    title: PropTypes.string,
+    style: PropTypes.object,
 
     /**
-     * The description of the dialog box.
+     *
      */
-    desc: PropTypes.string,
+    triggerEl: PropTypes.object,
 
     /**
-     * Whether the button is clickable.
+     *
      */
-    buttonBool: PropTypes.array,
+    disabled: PropTypes.bool,
 
     /**
-     * The function that trigger when click cancel.
+     *
      */
-    onHide: PropTypes.func,
+    visible: PropTypes.bool,
+
+    /**
+     *
+     */
+    theme: PropTypes.string,
 
     /**
      * The function that trigger when click submit.
      */
-    onSure: PropTypes.func
+    onRequestClose: PropTypes.func
+
 };
 
 Dialog.defaultProps = {
-    className: 'hide',
 
-    title: 'Dialog',
-    desc: 'here is the dialog description.',
-    buttonBool: [true, true]
+    className: '',
+    style: null,
+
+    triggerEl: null,
+    disabled: false,
+    visible: false,
+    theme: ''
+
 };
