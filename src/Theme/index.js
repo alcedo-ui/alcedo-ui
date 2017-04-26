@@ -1,4 +1,5 @@
 export default {
+    DEFAULT: '',
     PRIMARY: 'primary',
     HIGHLIGHT: 'highlight',
     SUCCESS: 'success',

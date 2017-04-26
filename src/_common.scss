@@ -38,6 +38,8 @@ $blue-grey: #607d8b;
 
 // z-index
 $root-loading-z-index: 99;
+$dialog-z-index: 92;
+$dialog-modal-z-index: 91;
 $nav-bar-z-index: 90;
 $field-msg-z-index: 81;
 $popup-z-index: 80;
@@ -190,18 +192,16 @@ $transition-duration: 250ms;
 @mixin popup-theme($bg-color) {
     background: $bg-color;
 
-    .triangle {
+    .popup-triangle {
         border-bottom-color: $bg-color;
     }
 
-    .content {
+    .popup-content {
         background: $bg-color;
     }
+}
 
-    &[disabled] {
-        .triangle {
-            border-bottom-color: lighten(#fff, 8%);
-        }
-    }
+@mixin dialog-theme($bg-color) {
+    background: $bg-color;
 }
 

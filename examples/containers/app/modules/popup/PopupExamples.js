@@ -29,14 +29,10 @@ export default class PopupExamples extends Component {
     }
 
     togglePopup(e) {
-
-        // e.stopPropagation();
-
         this.setState({
             popupVisible: !this.state.popupVisible,
             triggerEl: e.currentTarget
         });
-
     }
 
     closePopup() {
@@ -75,6 +71,7 @@ export default class PopupExamples extends Component {
                         <div className="example-content">
 
                             <div className="popup-example-wrapper">
+
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
                                               onTouchTap={this.togglePopup}/>
@@ -85,6 +82,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={this.closePopup}>
                                     <List items={items}/>
                                 </Popup>
+
                             </div>
 
                         </div>

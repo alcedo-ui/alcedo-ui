@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
+import Theme from '../Theme';
 
 import './IconAnchor.css';
 
@@ -80,7 +81,7 @@ IconAnchor.propTypes = {
     /**
      * The button theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * Disables the button if set to true.
@@ -118,7 +119,7 @@ IconAnchor.defaultProps = {
 
     className: '',
     style: null,
-    theme: '',
+    theme: Theme.DEFAULT,
 
     disabled: false,
     isLoading: false,
