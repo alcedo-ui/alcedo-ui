@@ -25,6 +25,7 @@ export default class DialogExamples extends Component {
 
         this.toggleDialog = this::this.toggleDialog;
         this.closeDialog = this::this.closeDialog;
+        this.okHandle = this::this.okHandle;
 
     }
 
@@ -39,6 +40,10 @@ export default class DialogExamples extends Component {
         this.setState({
             dialogVisible: false
         });
+    }
+
+    okHandle(callback) {
+        callback();
     }
 
     render() {
@@ -65,8 +70,11 @@ export default class DialogExamples extends Component {
 
                                 <Dialog visible={dialogVisible}
                                         triggerEl={triggerEl}
-                                        onRequestClose={this.closeDialog}>
-                                    <div className="dialog-content">Content</div>
+                                        onRequestClose={this.closeDialog}
+                                        onOKButtonTouchTap={this.okHandle}>
+                                    <div className="dialog-example-content">
+                                        Dialog Content
+                                    </div>
                                 </Dialog>
 
                             </div>

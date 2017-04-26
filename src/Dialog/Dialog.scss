@@ -8,55 +8,84 @@
     height: 0;
     overflow: visible;
 
-    .dialog {
+    .dialog-modal {
         position: fixed;
-        left: 50%;
-        top: 50%;
-        width: 500px;
-        height: 300px;
-        border-radius: $border-radius;
-        transform: translate(-50%, -50%) rotate(0deg);
-        transition: left 0s, opacity $transition-duration ease-in-out,
-        transform $transition-duration ease-in-out;
-        z-index: $popup-z-index;
-        margin-top: 4px;
-
-        .content {
-
-            @include shadow(4);
-
-            width: 100%;
-            overflow: hidden;
-            border-radius: $border-radius;
-            transform: rotate(0deg);
-        }
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: $dialog-modal-z-index;
+        background: transparentize(#000, .5);
 
         &.hidden {
             opacity: 0 !important;
             left: -99999px !important;
             transition: left 0s $transition-duration,
-            opacity $transition-duration ease-in-out,
+            opacity $transition-duration ease-in-out;
+        }
+    }
+
+    .dialog {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 500px;
+        height: 250px;
+        border-radius: $border-radius;
+        transform: translate(-50%, -50%);
+        transition: left 0s, opacity $transition-duration ease-in-out,
+        transform $transition-duration ease-in-out;
+        z-index: $dialog-z-index;
+        padding: 20px;
+        box-sizing: border-box;
+
+        .dialog-content {
+            width: 100%;
+            height: calc(100% - 40px);
+            color: $theme-text;
+
+            .dialog-content-title {
+
+            }
+        }
+
+        .dialog-buttons {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+
+            & > .base-button {
+                float: right;
+                margin: 0 0 0 10px;
+            }
+        }
+
+        &.hidden {
+            opacity: 0 !important;
+            left: -99999px !important;
+            transform: translate(-50%, -70%);
+            transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
             transform $transition-duration ease-in-out;
         }
 
         // default theme
-        @include popup-theme(#fff);
+        @include dialog-theme(#fff);
 
         // other themes
         &.theme-primary {
-            @include popup-theme($theme-menu);
+            @include dialog-theme($theme-menu);
         }
         &.theme-highlight {
-            @include popup-theme($theme-highlight);
+            @include dialog-theme($theme-highlight);
         }
         &.theme-success {
-            @include popup-theme($success);
+            @include dialog-theme($success);
         }
         &.theme-warning {
-            @include popup-theme($warning);
+            @include dialog-theme($warning);
         }
         &.theme-error {
-            @include popup-theme($error);
+            @include dialog-theme($error);
         }
 
     }
