@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
-import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
 import FieldMsg from '../FieldMsg';
@@ -22,7 +22,7 @@ export default class TreeSelect extends Component {
             infoMsgHidden: true,
             errorMsgHidden: true,
             showAll: false,
-            value:this.props.value
+            value: this.props.value
         };
 
         this.list = [];
@@ -105,12 +105,12 @@ export default class TreeSelect extends Component {
         });
     }
 
-    filterListLength (list){
-        let length =0;
-        for(let i = 0 ;i <list.length ;i++){
-            if(list[i].children){
-                length += list[i].children.length
-                this.filterListLength(list[i].children)
+    filterListLength(list) {
+        let length = 0;
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].children) {
+                length += list[i].children.length;
+                this.filterListLength(list[i].children);
             }
         }
     }
@@ -143,7 +143,7 @@ export default class TreeSelect extends Component {
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value)) {
             this.setState({
-                value:nextProps.value
+                value: nextProps.value
             });
         }
     }
@@ -158,8 +158,8 @@ export default class TreeSelect extends Component {
             window.attachEvent('click', this.toggle);
         }
         this.setState({
-            value:this.props.value
-        })
+            value: this.props.value
+        });
     }
 
     componentWillUnmount() {
@@ -172,11 +172,11 @@ export default class TreeSelect extends Component {
 
     render() {
 
-        const {data, width, className, style, name, invalidMsg,  placeholder, disabled, infoMsg} = this.props;
-        const {hidden, filter, infoMsgHidden, errorMsgHidden, showAll,value} = this.state;
+        const {data, width, className, style, name, invalidMsg, placeholder, disabled, infoMsg} = this.props;
+        const {hidden, filter, infoMsgHidden, errorMsgHidden, showAll, value} = this.state;
         const {
             optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
-            getRestList, getFilterList, showInfo, hideInfo, showError, triggerHeight,filterHeight
+            getRestList, getFilterList, showInfo, hideInfo, showError, triggerHeight, filterHeight
         } = this;
         this.list = getRestList(data, value);
 
@@ -188,28 +188,28 @@ export default class TreeSelect extends Component {
             width: componentWidth,
             height: hidden ? 0 : optionHeight,
             maxHeight: maxOptionsHeight,
-            padding:0,
-            overflow:'inherit'
+            padding: 0,
+            overflow: 'inherit'
         };
 
         const optionsStyle = {
             width: componentWidth,
             height: hidden ? 0 : this.filterList.length * optionHeight,
-            top:optionHeight
+            top: optionHeight
         };
 
         const optionStyle = {
             height: optionHeight,
             lineHeight: optionHeight + 'px'
         };
-        let optionsHeight = optionsStyle.height ? optionsStyle.height : optionHeight ;
-        const popupStyle={
+        let optionsHeight = optionsStyle.height ? optionsStyle.height : optionHeight;
+        const popupStyle = {
             height: hidden ? 0 : optionsHeight + filterHeight
-        }
+        };
 
         const wrapperStyle = {
-            height: hidden ? triggerHeight : popupStyle.height + triggerHeight,
-        }
+            height: hidden ? triggerHeight : popupStyle.height + triggerHeight
+        };
         return (
             <div ref="TreeSelect"
                  className={`tree-select ${className ? className : ''}`}
@@ -221,7 +221,7 @@ export default class TreeSelect extends Component {
                 <div className={`tree-select-inner ${hidden ? 'hidden' : 'open'}`}
                      ref="wrapper"
                      style={wrapperStyle}
-                     >
+                >
                     <RaisedButton ref="trigger"
                                   className={`tree-select-trigger ${value ? '' : 'empty'}`}
                                   value={(typeof value === 'object' ? value.text : value) || placeholder}
@@ -229,7 +229,7 @@ export default class TreeSelect extends Component {
 
                     <div className="popup"
                          style={popupStyle}
-                        >
+                    >
                         <input ref="filter"
                                type="text"
                                className="filter"
@@ -265,8 +265,8 @@ export default class TreeSelect extends Component {
                                                                   className="option"
                                                                   style={optionStyle}
                                                                   value={value}
-                                                                  selectedHandle={(value)=>{
-                                                                      this.onChangeHandle(value)
+                                                                  selectedHandle={(value) => {
+                                                                      this.onChangeHandle(value);
                                                                   }}/>
                                                     );
                                                 })

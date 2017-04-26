@@ -1,8 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
-
-import FieldMsg from '../FieldMsg';
 
 import './MultipleSelect.css';
 
@@ -87,9 +86,9 @@ export default class MultipleSelect extends Component {
         }
 
         if (this.refs.options) {
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight + 'px'
+            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight + 'px';
         } else {
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + 'px'
+            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + 'px';
         }
     }
 
@@ -130,8 +129,8 @@ export default class MultipleSelect extends Component {
 
     showAllToggle(e) {
         e.stopPropagation();
-        const {showAll}=this.state;
-        this.setState({showAll: !showAll})
+        const {showAll} = this.state;
+        this.setState({showAll: !showAll});
     }
 
     deselect(item, e) {
@@ -346,7 +345,7 @@ export default class MultipleSelect extends Component {
                                         <span className="deselectButton"
                                               onClick={deselect.bind(this, item)}>×</span>
                                     </div>
-                                )
+                                );
                             })
                             :
                             (value instanceof Array ? value : [] ).map((item, index) => {
@@ -361,15 +360,15 @@ export default class MultipleSelect extends Component {
                                             <span className="deselectButton"
                                                   onClick={deselect.bind(this, item)}>×</span>
                                         </div>
-                                    )
+                                    );
                                 }
                             })
                     }
                     <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
                        aria-hidden="true"
-                       onClick={(e)=> {
+                       onClick={(e) => {
                            if (value.length > 2) {
-                               this.showAllToggle(e)
+                               this.showAllToggle(e);
                            }
                        }}></i>
                 </div>

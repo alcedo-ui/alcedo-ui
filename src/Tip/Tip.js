@@ -4,40 +4,52 @@ import PropTypes from 'prop-types';
 import './Tip.css';
 
 export default class Tip extends Component {
+
     constructor(props) {
         super(props);
     }
 
     render() {
 
+        const {className, style, text} = this.props;
+
+        {/*<div className="tip-wrapper">*/
+        }
+        {/*</div>*/
+        }
+
         return (
-            <div className="tip-container">
-                {this.props.text}
+            <div className={`tip ${className}`}
+                 style={style}>
+                {text}
             </div>
         );
+
     }
+
 }
 
 Tip.propTypes = {
 
     /**
-     * The CSS class name of the root element.
+     * The css class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * Override the styles of the root element.
+     * The styles of the root element.
      */
     style: PropTypes.object,
 
-    /**
-     * The text value of tip.
-     */
-    text: 'tip'
+    text: PropTypes.string
 
 };
 
 Tip.defaultProps = {
+
     className: '',
-    style: null
+    style: null,
+
+    text: ''
+
 };

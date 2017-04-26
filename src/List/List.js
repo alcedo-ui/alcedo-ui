@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 import './List.css';
 
@@ -78,7 +79,7 @@ List.propTypes = {
         /**
          * The theme of the list button.
          */
-        theme: PropTypes.string,
+        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
         /**
          * The text value of the list button.Type can be string or number.

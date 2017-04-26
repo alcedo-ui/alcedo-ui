@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/3/13.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -20,7 +21,7 @@ export default class DatePicker extends Component {
 
         super(props);
 
-        const value = this.props.value
+        const value = this.props.value;
         this.state = {
             value: value,
             popupVisible: false,
@@ -43,15 +44,15 @@ export default class DatePicker extends Component {
     }
 
     datePickerChangeHandle(select) {
-        let {datePickerLevel}=this.state;
+        let {datePickerLevel} = this.state;
         datePickerLevel = datePickerLevel + 1;
         this.setState({
             datePickerLevel: datePickerLevel
-        })
+        });
     }
 
     textFieldChangeHandle(text) {
-        const {minValue, maxValue}=this.props;
+        const {minValue, maxValue} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
@@ -60,24 +61,24 @@ export default class DatePicker extends Component {
                 } else {
                     const year = moment(text).format('YYYY'),
                         month = moment(text).format('MM'),
-                        day = moment(text).format('DD')
+                        day = moment(text).format('DD');
                     this.setState({
                         value: text,
                         year: year,
                         month: month,
                         day: day
-                    })
+                    });
                 }
             }
         } else {
             this.setState({
                 value: text
-            })
+            });
         }
     }
 
     dayPickerChangeHandle(date) {
-        const {autoClose}=this.props;
+        const {autoClose} = this.props;
         let state = _.cloneDeep(this.state);
         state.value = date.time;
         state.year = date.year;
@@ -85,9 +86,9 @@ export default class DatePicker extends Component {
         state.day = date.day;
 
         if (autoClose) {
-            state.popupVisible = false
+            state.popupVisible = false;
         }
-        this.setState(state)
+        this.setState(state);
     }
 
     monthPickerChangeHandle(date) {
@@ -95,14 +96,14 @@ export default class DatePicker extends Component {
             datePickerLevel: 0,
             year: date.year,
             month: date.month
-        })
+        });
     }
 
     yearPickerChangeHandle(year) {
         this.setState({
             datePickerLevel: 1,
             year: year
-        })
+        });
     }
 
     todayHandle() {
@@ -115,7 +116,7 @@ export default class DatePicker extends Component {
             year: year,
             month: month,
             day: day
-        })
+        });
     }
 
     mousedownHandle(e) {
@@ -140,7 +141,7 @@ export default class DatePicker extends Component {
         if ((left + width) >= windowWidth) {
             marginLeft = (left + width) - windowWidth;
         } else {
-            marginLeft = 0
+            marginLeft = 0;
         }
         this.setState({
             marginLeft: marginLeft
@@ -161,7 +162,7 @@ export default class DatePicker extends Component {
 
     componentDidMount() {
         // debugger
-        const {value}=this.props;
+        const {value} = this.props;
         let state = _.cloneDeep(this.state);
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
@@ -170,7 +171,7 @@ export default class DatePicker extends Component {
         if ((left + width) >= windowWidth) {
             marginLeft = (left + width) - windowWidth;
         } else {
-            marginLeft = 0
+            marginLeft = 0;
         }
         if (value) {
             const year = moment(value).format('YYYY'),
@@ -183,7 +184,7 @@ export default class DatePicker extends Component {
             if (marginLeft) {
                 state.marginLeft = marginLeft;
             }
-            this.setState(state)
+            this.setState(state);
         }
 
         Event.addEvent(window, 'mousedown', this.mousedownHandle);

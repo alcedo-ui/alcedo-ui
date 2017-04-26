@@ -20,7 +20,7 @@ export default class ButtonCheckboxExamples extends Component {
             <div className="example button-checkbox-examples">
 
 
-                <h2 className="example-title">ToggleButton</h2>
+                <h2 className="example-title">ButtonCheckbox</h2>
 
                 <Widget>
 

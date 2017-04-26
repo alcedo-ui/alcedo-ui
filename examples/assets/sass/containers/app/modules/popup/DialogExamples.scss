@@ -3,15 +3,10 @@
 .dialog-examples {
 
     .example-content {
-
-        .raised-button {
-
-            @include shadow(2);
-
-        }
-
-        p {
-            color: $theme-menu;
-        }
     }
+}
+
+.dialog-example-content {
+    padding: 20px;
+    font-size: 16px;
 }

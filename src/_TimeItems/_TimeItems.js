@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/4/6.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
 
 export default class _TimeItems extends Component {
@@ -10,7 +11,7 @@ export default class _TimeItems extends Component {
         super(props);
         this.state = {
             value: this.props.value
-        }
+        };
         this.clickHandle = this::this.clickHandle;
         this.mousemoveHandle = this::this.mousemoveHandle;
         this.mouseoutHandle = this::this.mouseoutHandle;
@@ -25,18 +26,18 @@ export default class _TimeItems extends Component {
     }
 
     mousemoveHandle(e) {
-        this.refs.timeItems.style.overflowY = 'scroll'
+        this.refs.timeItems.style.overflowY = 'scroll';
     }
 
     mouseoutHandle(e) {
-        this.refs.timeItems.style.overflowY = 'hidden'
+        this.refs.timeItems.style.overflowY = 'hidden';
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value || nextProps.popupVisible !== this.props.popupVisible) {
             if (nextProps.popupVisible) {
                 if (this.refs.timeItems) {
-                    this.refs.timeItems.scrollTop = (nextProps.value) * 30
+                    this.refs.timeItems.scrollTop = (nextProps.value) * 30;
                 }
             }
             this.setState({
@@ -46,9 +47,9 @@ export default class _TimeItems extends Component {
     }
 
     componentDidMount() {
-        const {value}=this.props;
+        const {value} = this.props;
         if (this.refs.timeItems) {
-            this.refs.timeItems.scrollTop = (value) * 30
+            this.refs.timeItems.scrollTop = (value) * 30;
         }
         this.setState({
             value: value
@@ -63,9 +64,9 @@ export default class _TimeItems extends Component {
     }
 
     render() {
-        const {className, data}=this.props;
+        const {className, data} = this.props;
 
-        const {value}=this.state;
+        const {value} = this.state;
         return (
             <div className={`timeItems ${className ? className : ''}`}
                  ref="timeItems">
@@ -73,25 +74,25 @@ export default class _TimeItems extends Component {
                     ref="timeList">
                     {
                         data && data.length ?
-                            data.map((item, key)=> {
+                            data.map((item, key) => {
                                 return (
                                     <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
                                         key={key}
-                                        onClick={()=> {
+                                        onClick={() => {
                                             if (item.value) {
-                                                this.clickHandle(item.text)
+                                                this.clickHandle(item.text);
                                             }
                                         }}>
                                         {item.text}
                                     </li>
-                                )
+                                );
                             })
                             :
                             null
                     }
                 </ul>
             </div>
-        )
+        );
 
     }
 }
@@ -99,4 +100,4 @@ _TimeItems.PropTypes = {
 
     className: PropTypes.string,
     data: PropTypes.array
-}
+};

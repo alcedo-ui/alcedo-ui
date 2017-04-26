@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/3/7.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
@@ -14,7 +15,7 @@ export default class _YearPicker extends Component {
         this.defaultTable = {
             row_number: 4,
             col_number: 3
-        }
+        };
         const value = this.props.value;
         this.state = {
             YearArr: this.getYearArr(this.props.year),
@@ -24,7 +25,7 @@ export default class _YearPicker extends Component {
             selectDay: this.props.day,
             maxValue: this.props.maxValue,
             minValue: this.props.minValue
-        }
+        };
 
         this.selectDate = this::this.selectDate;
         this.previousYear = this::this.previousYear;
@@ -36,7 +37,7 @@ export default class _YearPicker extends Component {
         this.setState({
             currentYear: s_year,
             selectYear: s_year
-        }, ()=> {
+        }, () => {
             this.props.onChange && this.props.onChange(s_year);
         });
     }
@@ -47,16 +48,16 @@ export default class _YearPicker extends Component {
         this.setState({
             YearArr: this.getYearArr(selectYear),
             selectYear: selectYear
-        })
+        });
     }
 
     nextYear() {
-        let {selectYear}=this.state;
+        let {selectYear} = this.state;
         selectYear = +selectYear + 10;
         this.setState({
             YearArr: this.getYearArr(selectYear),
             selectYear: selectYear
-        })
+        });
     }
 
     getYearArr(num) {
@@ -64,9 +65,9 @@ export default class _YearPicker extends Component {
         yearString = yearString.substr(0, yearString.length - 1);
         let YearArr = [];
         for (let i = 0; i < 10; i++) {
-            YearArr.push(yearString + i)
+            YearArr.push(yearString + i);
         }
-        return YearArr
+        return YearArr;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -89,7 +90,7 @@ export default class _YearPicker extends Component {
                 selectYear: year,
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
-            })
+            });
         }
     }
 
@@ -99,7 +100,7 @@ export default class _YearPicker extends Component {
 
         let {YearArr, selectYear} = this.state;
 
-        const {previousYear, nextYear, selectDate}=this;
+        const {previousYear, nextYear, selectDate} = this;
         let previous_years = [],
             current_years = [],
             next_years = [],
@@ -109,16 +110,16 @@ export default class _YearPicker extends Component {
             (<li className="item-gray" key={Number(YearArr[0]) - 1}>
                 <a href="javascript:;">{Number(YearArr[0]) - 1}</a>
             </li>)
-        )
+        );
         for (let i = 0; i < YearArr.length; i++) {
             let Years = (<li className={`${Number(selectYear) == Number(YearArr[(i)]) ? 'active' : ''}
                                            ${(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) || (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))) ? 'item-gray' : 'current-years'}`}
                              key={'current' + i}
-                             onClick={()=> {
+                             onClick={() => {
                                  if ((maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) || (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)])))) {
-                                     return
+                                     return;
                                  } else {
-                                     selectDate(YearArr[(i)])
+                                     selectDate(YearArr[(i)]);
                                  }
                              }}>
                 <a href="javascript:;">
@@ -132,7 +133,7 @@ export default class _YearPicker extends Component {
             (<li className="item-gray" key={Number(YearArr[YearArr.length - 1]) + 1}>
                 <a href="javascript:;">{Number(YearArr[YearArr.length - 1]) + 1}</a>
             </li>)
-        )
+        );
         total_years = previous_years.concat(current_years, next_years);
         if (total_years.length > 0) {
             for (let i = 0; i < this.defaultTable.row_number; i++) {
@@ -154,7 +155,7 @@ export default class _YearPicker extends Component {
         let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +yearRangeStart) ? true : false;
 
         return (
-            <div className={"calendar " + className}>
+            <div className={'calendar ' + className}>
                 <div className="calendar-header">
                     {
                         rightPreYear ?

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import Highlight from 'react-highlight';
 
-import 'highlight.js/styles/androidstudio.css';
 import 'sass/containers/landing/sections/LandingGetStarted.scss';
 
 export default class LandingGetStarted extends Component {
@@ -20,9 +18,10 @@ export default class LandingGetStarted extends Component {
                     <div className="landing-section-title">Get Started</div>
                     <div className="landing-section-subtitle">NPM</div>
 
-                    <Highlight className='bash landing-bash'>
-                        {'# latest stable' + '\n' + '$ npm install alcedo-ui --save'}
-                    </Highlight>
+                    <code className="landing-bash">
+                        <div className="comment"># latest stable</div>
+                        $ npm install alcedo-ui --save
+                    </code>
 
                 </div>
 

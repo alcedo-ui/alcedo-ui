@@ -4,6 +4,7 @@ import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import Theme from '../Theme';
 
 import './Popup.css';
 
@@ -101,13 +102,13 @@ export default class Popup extends Component {
         const {visible} = this.state;
 
         return (
-            <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'hasTriangle' : ''}
-                    ${theme ? `theme-${theme}` : ''} ${position ? `position-${position}` : ''} ${className}`}
+            <div className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'popup-has-triangle' : ''}
+                    ${theme ? `theme-${theme}` : ''} ${position ? `popup-position-${position}` : ''} ${className}`}
                  style={{...this.getPopupStyle(), ...style}}>
 
-                <div className="triangle"></div>
+                <div className="popup-triangle"></div>
 
-                <div className="content">
+                <div className="popup-content">
                     {children}
                 </div>
 
@@ -192,7 +193,7 @@ Popup.propTypes = {
     /**
      * The popover theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
@@ -214,7 +215,7 @@ Popup.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    theme: '',
+    theme: Theme.DEFAULT,
     position: Popup.Position.LEFT
 
 };

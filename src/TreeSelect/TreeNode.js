@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import './TreeSelect.css';
 
 export default class TreeNode extends Component {
@@ -6,54 +6,56 @@ export default class TreeNode extends Component {
     constructor(props) {
 
         super(props);
-        this.state={
-            expaned:true
-        }
+        this.state = {
+            expaned: true
+        };
 
-        this.selectedHandle=this::this.selectedHandle;
-        this.treeSwitcherHandle=this::this.treeSwitcherHandle;
+        this.selectedHandle = this::this.selectedHandle;
+        this.treeSwitcherHandle = this::this.treeSwitcherHandle;
     }
 
-    selectedHandle(node){
-        this.props.selectedHandle && this.props.selectedHandle(node)
+    selectedHandle(node) {
+        this.props.selectedHandle && this.props.selectedHandle(node);
     }
 
-    treeSwitcherHandle(){
+    treeSwitcherHandle() {
         // debugger
-        const {expaned}=this.state;
+        const {expaned} = this.state;
         this.setState({
-            expaned:!expaned
-        })
+            expaned: !expaned
+        });
     }
 
-    renderHeader(node){
-        const {value}=this.props;
-        const {expaned}=this.state;
+    renderHeader(node) {
+        const {value} = this.props;
+        const {expaned} = this.state;
         let text;
-        text = (typeof value === 'object') ?  value.text : value;
+        text = (typeof value === 'object') ? value.text : value;
         // debugger
         return (
             <div className="parentNode">
                 { node && node.children ?
-                    <span className={`tree-switcher ${expaned ? '': 'down'}`} onClick={this.treeSwitcherHandle}>
-                        <i className={`fa fa-caret-right`}aria-hidden="true"></i>
+                    <span className={`tree-switcher ${expaned ? '' : 'down'}`} onClick={this.treeSwitcherHandle}>
+                        <i className={`fa fa-caret-right`} aria-hidden="true"></i>
                     </span>
 
                     :
                     <span className="tree-switcher"></span>
                 }
-                <span className={`node-text ${ text == node.text ? 'active': ''}`} onClick={()=>{this.selectedHandle(node)}}>{node.text}</span>
+                <span className={`node-text ${ text == node.text ? 'active' : ''}`} onClick={() => {
+                    this.selectedHandle(node);
+                }}>{node.text}</span>
             </div>
         );
     }
 
-    renderDrawer(node){
-        const {expaned}=this.state;
-        return node && node.children && expaned ? this.renderChildren(node.children) : null
+    renderDrawer(node) {
+        const {expaned} = this.state;
+        return node && node.children && expaned ? this.renderChildren(node.children) : null;
     }
 
-    renderChildren(data){
-        const {value}=this.props;
+    renderChildren(data) {
+        const {value} = this.props;
         let childList = data;
         if (!Array.isArray(childList)) {
             childList = childList ? [childList] : [];
@@ -65,8 +67,8 @@ export default class TreeNode extends Component {
                     <TreeNode key={child.id || index}
                               node={child}
                               value={value}
-                              selectedHandle={(value)=>{
-                                  this.selectedHandle(value)
+                              selectedHandle={(value) => {
+                                  this.selectedHandle(value);
                               }}
                     />
                 )}
@@ -110,6 +112,4 @@ export default class TreeNode extends Component {
     }
 };
 
-TreeNode.propTypes = {
-
-};
+TreeNode.propTypes = {};
