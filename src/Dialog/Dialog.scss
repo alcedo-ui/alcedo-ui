@@ -30,7 +30,7 @@
         left: 50%;
         top: 50%;
         width: 500px;
-        height: 250px;
+        height: 300px;
         border-radius: $border-radius;
         transform: translate(-50%, -50%);
         transition: left 0s, opacity $transition-duration ease-in-out,
@@ -38,15 +38,18 @@
         z-index: $dialog-z-index;
         padding: 20px;
         box-sizing: border-box;
+        color: $theme-text;
+
+        .dialog-title {
+            padding: 0 10px 10px;
+            line-height: 29px;
+            font-size: 16px;
+            border-bottom: 1px solid $theme-bg;
+        }
 
         .dialog-content {
             width: 100%;
-            height: calc(100% - 40px);
-            color: $theme-text;
-
-            .dialog-content-title {
-
-            }
+            height: calc(100% - 80px);
         }
 
         .dialog-buttons {

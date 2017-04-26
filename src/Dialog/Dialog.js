@@ -145,13 +145,13 @@ export default class Dialog extends Component {
                      style={style}
                      disabled={disabled}>
 
-                    <div className="dialog-content">
+                    {
+                        title
+                            ? <div className="dialog-title">{title}</div>
+                            : null
+                    }
 
-                        {
-                            title
-                                ? <div className="dialog-content-title">{title}</div>
-                                : null
-                        }
+                    <div className="dialog-content">
 
                         {children}
 

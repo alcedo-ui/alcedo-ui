@@ -70,6 +70,7 @@ export default class DialogExamples extends Component {
 
                                 <Dialog visible={dialogVisible}
                                         triggerEl={triggerEl}
+                                        title="Dialog Title"
                                         onRequestClose={this.closeDialog}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">
