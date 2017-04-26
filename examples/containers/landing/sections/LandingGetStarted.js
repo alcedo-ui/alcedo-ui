@@ -18,10 +18,10 @@ export default class LandingGetStarted extends Component {
                     <div className="landing-section-title">Get Started</div>
                     <div className="landing-section-subtitle">NPM</div>
 
-                    <code className="landing-bash">
+                    <pre className="landing-code landing-bash">
                         <div className="comment"># latest stable</div>
                         $ npm install alcedo-ui --save
-                    </code>
+                    </pre>
 
                 </div>
 
