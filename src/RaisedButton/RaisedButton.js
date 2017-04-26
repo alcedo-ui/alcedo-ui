@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
+import Theme from '../Theme';
 
 import './RaisedButton.css';
 

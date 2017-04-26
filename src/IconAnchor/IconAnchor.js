@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
+import Theme from '../Theme';
 
 import './IconAnchor.css';
 

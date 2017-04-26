@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
 import Tip from '../Tip';
+import Theme from '../Theme';
 
 import './IconButton.css';
 

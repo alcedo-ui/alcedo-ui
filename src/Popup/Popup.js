@@ -4,6 +4,7 @@ import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import Theme from '../Theme';
 
 import './Popup.css';
 
