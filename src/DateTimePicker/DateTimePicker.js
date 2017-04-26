@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/3/13.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -21,7 +22,7 @@ export default class DateTimePicker extends Component {
     constructor(props) {
 
         super(props);
-        const value = this.props.value
+        const value = this.props.value;
         this.state = {
             value: value,
             popupVisible: false,
@@ -50,15 +51,15 @@ export default class DateTimePicker extends Component {
     }
 
     datePickerChangeHandle(select) {
-        let {datePickerLevel}=this.state;
+        let {datePickerLevel} = this.state;
         datePickerLevel = datePickerLevel + 1;
         this.setState({
             datePickerLevel: datePickerLevel
-        })
+        });
     }
 
     textFieldChangeHandle(text) {
-        const {minValue, maxValue}=this.props;
+        const {minValue, maxValue} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
@@ -70,7 +71,7 @@ export default class DateTimePicker extends Component {
                         select_day = moment(text).format('DD'),
                         hour = moment(text).format('HH'),
                         minute = moment(text).format('mm'),
-                        second = moment(text).format('ss')
+                        second = moment(text).format('ss');
                     this.setState({
                         value: text,
                         year: select_year,
@@ -79,13 +80,13 @@ export default class DateTimePicker extends Component {
                         hour: hour,
                         minute: minute,
                         second: second
-                    })
+                    });
                 }
             }
         } else {
             this.setState({
                 value: text
-            })
+            });
         }
     }
 
@@ -94,8 +95,8 @@ export default class DateTimePicker extends Component {
             value: date.time,
             year: date.year,
             month: date.month,
-            day: date.day,
-        })
+            day: date.day
+        });
     }
 
     monthPickerChangeHandle(date) {
@@ -103,14 +104,14 @@ export default class DateTimePicker extends Component {
             datePickerLevel: 0,
             year: date.year,
             month: date.month
-        })
+        });
     }
 
     yearPickerChangeHandle(year) {
         this.setState({
             datePickerLevel: 1,
             year: year
-        })
+        });
     }
 
     timePickerChangeHandle(obj) {
@@ -124,13 +125,13 @@ export default class DateTimePicker extends Component {
             minute: obj.minute,
             second: obj.second,
             value: timer
-        })
+        });
     }
 
     chooseDateAndTimeHandle(value) {
         this.setState({
             datePickerLevel: value
-        })
+        });
     }
 
     selectDateTimeHandle() {
@@ -157,7 +158,7 @@ export default class DateTimePicker extends Component {
             hour: hour,
             minute: minute,
             second: second
-        })
+        });
     }
 
     mousedownHandle(e) {
@@ -182,7 +183,7 @@ export default class DateTimePicker extends Component {
         if ((left + width) >= windowWidth) {
             marginLeft = (left + width) - windowWidth;
         } else {
-            marginLeft = 0
+            marginLeft = 0;
         }
         this.setState({
             marginLeft: marginLeft
@@ -207,7 +208,7 @@ export default class DateTimePicker extends Component {
 
     componentDidMount() {
         // debugger
-        const {value, dateFormat}=this.props;
+        const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         const {left} = Util.getOffset(this.refs.datePicker);
         const width = 300;
@@ -216,7 +217,7 @@ export default class DateTimePicker extends Component {
         if ((left + width) >= windowWidth) {
             marginLeft = (left + width) - windowWidth;
         } else {
-            marginLeft = 0
+            marginLeft = 0;
         }
         if (value) {
             const select_year = moment(value).format('YYYY'),
@@ -231,7 +232,7 @@ export default class DateTimePicker extends Component {
             if (marginLeft) {
                 state.marginLeft = marginLeft;
             }
-            this.setState(state)
+            this.setState(state);
         }
 
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
@@ -248,7 +249,7 @@ export default class DateTimePicker extends Component {
         const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, marginLeft, isFooter} = this.state;
         const popStyle = {
             left: '-' + marginLeft + 'px'
-        }
+        };
 
         return (
             <div className={`date-picker ${className}`}
@@ -349,14 +350,14 @@ export default class DateTimePicker extends Component {
                                     }
                                     {
                                         datePickerLevel == 3 ?
-                                            <a href="javascript:;" className="fr" onClick={()=> {
-                                                this.chooseDateAndTimeHandle(0)
+                                            <a href="javascript:;" className="fr" onClick={() => {
+                                                this.chooseDateAndTimeHandle(0);
                                             }}>
                                                 Select date
                                             </a>
                                             :
-                                            <a href="javascript:;" className="fr" onClick={()=> {
-                                                this.chooseDateAndTimeHandle(3)
+                                            <a href="javascript:;" className="fr" onClick={() => {
+                                                this.chooseDateAndTimeHandle(3);
                                             }}>
                                                 Select time
                                             </a>

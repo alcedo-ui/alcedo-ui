@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/3/7.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
@@ -14,7 +15,7 @@ export default class _MonthPicker extends Component {
         this.defaultTable = {
             row_number: 4,
             col_number: 3
-        }
+        };
         const value = this.props.value;
         this.state = {
             selectYear: this.props.year,
@@ -22,7 +23,7 @@ export default class _MonthPicker extends Component {
             currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM'),
             selectDay: this.props.day
-        }
+        };
         this.previousLevel = this::this.previousLevel;
         this.selectDate = this::this.selectDate;
         this.previousYear = this::this.previousYear;
@@ -31,7 +32,7 @@ export default class _MonthPicker extends Component {
     }
 
     previousLevel() {
-        this.props.previousClick && this.props.previousClick(1)
+        this.props.previousClick && this.props.previousClick(1);
     }
 
     selectDate(s_month) {
@@ -40,8 +41,8 @@ export default class _MonthPicker extends Component {
             currentYear: selectYear,
             currentMonth: s_month,
             selectMonth: s_month
-        }, ()=> {
-            this.props.onChange && this.props.onChange({year: selectYear, month: s_month})
+        }, () => {
+            this.props.onChange && this.props.onChange({year: selectYear, month: s_month});
         });
     }
 
@@ -56,11 +57,11 @@ export default class _MonthPicker extends Component {
         this.setState({
             selectYear: selectYear,
             selectMonth: selectMonth
-        })
+        });
     }
 
     nextYear() {
-        let {currentYear, currentMonth, selectYear, selectMonth}=this.state;
+        let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
         selectYear = +selectYear + 1;
 
         if (Number(currentYear) === Number(selectYear)) {
@@ -71,7 +72,7 @@ export default class _MonthPicker extends Component {
         this.setState({
             selectYear: selectYear,
             selectMonth: selectMonth
-        })
+        });
     }
 
 
@@ -95,7 +96,7 @@ export default class _MonthPicker extends Component {
                 selectMonth: month,
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
-            })
+            });
 
         }
     }
@@ -106,10 +107,10 @@ export default class _MonthPicker extends Component {
 
         let {selectYear, selectMonth, currentYear} = this.state;
 
-        const {previousYear, nextYear, selectDate, previousLevel}=this;
+        const {previousYear, nextYear, selectDate, previousLevel} = this;
         let current_months = [],
             ul_list = [];
-        let MonthEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 
         for (let i = 0; i < MonthEn.length; i++) {
@@ -119,12 +120,12 @@ export default class _MonthPicker extends Component {
                 (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}
                                 `}
                     key={'current' + i}
-                    onClick={()=> {
+                    onClick={() => {
                         if ((maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
                             (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1))) {
-                            return
+                            return;
                         } else {
-                            selectDate(i + 1)
+                            selectDate(i + 1);
                         }
                     }}>
                     <a href="javascript:;">
@@ -151,7 +152,7 @@ export default class _MonthPicker extends Component {
         let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear) ? true : false;
 
         return (
-            <div className={"calendar " + className}>
+            <div className={'calendar ' + className}>
                 <div className="calendar-header">
                     {
                         rightPreYear ?

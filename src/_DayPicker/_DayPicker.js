@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2017/3/7.
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
@@ -14,7 +15,7 @@ export default class _DayPicker extends Component {
         this.defaultTable = {
             row_number: 6,
             col_number: 7
-        }
+        };
         const value = this.props.value;
         this.state = {
             selectYear: this.props.year,
@@ -28,7 +29,7 @@ export default class _DayPicker extends Component {
             currentDay: moment(value).format('DD'),
             date_num_array: this.MonthDays(this.props.year),
             first_day: this.weekday(this.props.year, this.props.month)
-        }
+        };
 
         this.previousLevel = this::this.previousLevel;
         this.selectDate = this::this.selectDate;
@@ -74,7 +75,7 @@ export default class _DayPicker extends Component {
     }
 
     previousLevel() {
-        this.props.previousClick && this.props.previousClick(0)
+        this.props.previousClick && this.props.previousClick(0);
     }
 
     hoverDateHandle(s_day) {
@@ -87,7 +88,7 @@ export default class _DayPicker extends Component {
             year: selectYear,
             month: selectMonth,
             day: s_day
-        })
+        });
     }
 
     selectDate(s_day) {
@@ -105,13 +106,13 @@ export default class _DayPicker extends Component {
             currentMonth: selectMonth,
             currentDay: s_day,
             selectDay: s_day
-        }, ()=> {
+        }, () => {
             this.props.onChange && this.props.onChange({
                 time: timer,
                 year: selectYear,
                 month: selectMonth,
                 day: s_day
-            })
+            });
         });
     }
 
@@ -132,9 +133,9 @@ export default class _DayPicker extends Component {
             selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
-        }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
-        })
+        }, () => {
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+        });
     }
 
     previousMonth() {
@@ -162,14 +163,14 @@ export default class _DayPicker extends Component {
             selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
-        }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
-        })
+        }, () => {
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+        });
     }
 
     nextMonth() {
         // debugger
-        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day}=this.state;
+        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
         if (selectMonth == 12) {
             selectYear = +selectYear + 1;
             selectMonth = 1;
@@ -191,13 +192,13 @@ export default class _DayPicker extends Component {
             selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
-        }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
-        })
+        }, () => {
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+        });
     }
 
     nextYear() {
-        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day}=this.state;
+        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
         selectYear = +selectYear + 1;
         date_num_array = this.MonthDays(selectYear);
         first_day = this.weekday(selectYear, selectMonth);
@@ -213,23 +214,23 @@ export default class _DayPicker extends Component {
             selectDay: selectDay,
             date_num_array: date_num_array,
             first_day: first_day
-        }, ()=> {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth})
-        })
+        }, () => {
+            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+        });
     }
 
     MonthEn(num) {
         num = num - 1;
-        let MonthEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        return MonthEn[num]
+        let MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return MonthEn[num];
     }
 
     weekday(selectYear, selectMonth) {
         let num = new Date(selectYear + '/' + selectMonth + '/01').getDay();
         if (num == 0) {
-            num = 7
+            num = 7;
         }
-        return num
+        return num;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -267,7 +268,7 @@ export default class _DayPicker extends Component {
                 currentDay: moment(value).format('DD'),
                 date_num_array: this.MonthDays(year),
                 first_day: this.weekday(year, month)
-            })
+            });
 
         }
     }
@@ -278,7 +279,7 @@ export default class _DayPicker extends Component {
 
         const {date_num_array, selectYear, selectMonth, selectDay, first_day, currentYear, currentMonth} = this.state;
 
-        const {previousMonth, previousYear, nextYear, nextMonth, selectDate, previousLevel}=this;
+        const {previousMonth, previousYear, nextYear, nextMonth, selectDate, previousLevel} = this;
         let month = Number(selectMonth);
         let MonthEn = this.MonthEn(month);
         month = month - 1;
@@ -325,11 +326,11 @@ export default class _DayPicker extends Component {
                     || moment(start).isBefore(item) && moment(item).isBefore(hover) ? 'hover' : ''} ${i == 0 ? 'first-day' : ''} ${ i == (+month_days - 1) ? 'last-day' : ''}
                     ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`}
                         key={'current' + i}
-                        onClick={()=> {
-                            selectDate(i + 1)
+                        onClick={() => {
+                            selectDate(i + 1);
                         }}
-                        onMouseOver={()=> {
-                            this.hoverDateHandle((i + 1))
+                        onMouseOver={() => {
+                            this.hoverDateHandle((i + 1));
                         }}
                     >
                         <a href="javascript:;">
@@ -346,11 +347,11 @@ export default class _DayPicker extends Component {
                     <li className={`${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''}
                                                      ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`}
                         key={'current' + i}
-                        onClick={()=> {
+                        onClick={() => {
                             if ((minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))) {
-                                return
+                                return;
                             } else {
-                                selectDate(i + 1)
+                                selectDate(i + 1);
                             }
                         }}>
                         <a href="javascript:;">
