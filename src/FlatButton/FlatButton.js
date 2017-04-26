@@ -55,7 +55,7 @@ FlatButton.propTypes = {
     /**
      * The button theme.Can be success,primary,error,default,warning,disabled.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * If true,the button will have rounded corners.
@@ -119,7 +119,7 @@ FlatButton.defaultProps = {
     className: '',
     style: null,
 
-    theme: '',
+    theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: false,
 

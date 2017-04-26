@@ -192,7 +192,7 @@ Popup.propTypes = {
     /**
      *
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      *
@@ -214,7 +214,7 @@ Popup.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    theme: '',
+    theme: Theme.DEFAULT,
     position: Popup.Position.LEFT
 
 };

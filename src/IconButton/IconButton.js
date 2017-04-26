@@ -61,7 +61,7 @@ IconButton.propTypes = {
     /**
      * The button theme.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * Whether need rounded corners.
@@ -128,7 +128,7 @@ IconButton.defaultProps = {
     className: '',
     style: null,
 
-    theme: '',
+    theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: true,
 

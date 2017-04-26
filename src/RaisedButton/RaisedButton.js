@@ -55,7 +55,7 @@ RaisedButton.propTypes = {
     /**
      * The button theme.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * Whether need rounded corners.
@@ -119,7 +119,7 @@ RaisedButton.defaultProps = {
     className: '',
     style: null,
 
-    theme: '',
+    theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: false,
 

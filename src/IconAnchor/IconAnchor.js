@@ -80,7 +80,7 @@ IconAnchor.propTypes = {
     /**
      * The Icon Anchor theme.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * Icon anchor disabled.
@@ -118,7 +118,7 @@ IconAnchor.defaultProps = {
 
     className: '',
     style: null,
-    theme: '',
+    theme: Theme.DEFAULT,
 
     disabled: false,
     isLoading: false,

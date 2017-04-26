@@ -61,7 +61,7 @@ List.propTypes = {
         className: PropTypes.string,
         style: PropTypes.object,
 
-        theme: PropTypes.string,
+        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         disabled: PropTypes.bool,
         isLoading: PropTypes.bool,
