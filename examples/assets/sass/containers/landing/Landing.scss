@@ -29,7 +29,7 @@
                 color: transparentize($theme-text, .4);
             }
 
-            .landing-bash {
+            .landing-code {
 
                 @include shadow(3);
 
@@ -42,9 +42,34 @@
                 font-size: 18px;
                 box-sizing: border-box;
                 background: #3c3f41;
+                color: #a9b7c6;
 
                 .comment {
                     color: #808080;
+                }
+
+                .keyword {
+                    color: #cc7832;
+                }
+
+                .function {
+                    color: #ffc66d;
+                }
+
+                .string {
+                    color: #6a8759;
+                }
+
+                .attr {
+                    color: #bababa;
+                }
+
+                &.landing-bash {
+                    color: $theme-highlight;
+                }
+
+                &.landing-jsx {
+
                 }
             }
         }

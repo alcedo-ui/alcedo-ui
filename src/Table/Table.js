@@ -119,7 +119,7 @@ export default class Table extends Component {
         let startIndex = Math.floor(scrollTop / rowHeight), // 下取整
             stopIndex = isAdaptiveHeight
                 ? startIndex + Math.ceil(bodyHeight / rowHeight) // 上取整
-                : stopIndex = startIndex + pagging.pageSize; // 默认显示的条数
+                : startIndex + pagging.pageSize; // 默认显示的条数
 
         // 缓冲
         startIndex -= 6;

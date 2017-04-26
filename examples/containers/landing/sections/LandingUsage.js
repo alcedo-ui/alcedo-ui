@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
-import Highlight from 'react-highlight';
 
-import 'highlight.js/styles/androidstudio.css';
+import landingExampleHTML from './landingExample.html';
+
 import 'sass/containers/landing/sections/LandingUsage.scss';
 
 export default class LandingUsage extends Component {
 
     constructor(props) {
         super(props);
+    }
+
+    getExampleHTML() {
+        return {
+            __html: landingExampleHTML
+        };
     }
 
     render() {
@@ -19,27 +25,9 @@ export default class LandingUsage extends Component {
 
                     <div className="landing-section-title">Usage</div>
 
-                    <Highlight className='jsx landing-bash'>
-                        {'import React, {Component} from \'react\';\n'
-                        + 'import RaisedButton from \'alcedo-ui/RaisedButton\';\n'
-                        + '\n'
-                        + 'export default class MyComponent extends Component {\n'
-                        + '\n'
-                        + '\tconstructor(props) {\n'
-                        + '\t\tsuper(props);\n'
-                        + '\t}\n'
-                        + '\n'
-                        + '\t// ...\n'
-                        + '\n'
-                        + '\trender() {\n'
-                        + '\t\treturn (\n'
-                        + '\t\t\t<RaisedButton value="Default"/>\n'
-                        + '\t\t);\n'
-                        + '\t}\n'
-                        + '\n'
-                        + '}'}
-                    </Highlight>
-
+                    <pre className="landing-code landing-jsx"
+                         dangerouslySetInnerHTML={this.getExampleHTML()}>
+                    </pre>
                 </div>
 
             </section>
