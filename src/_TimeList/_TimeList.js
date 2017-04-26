@@ -15,9 +15,9 @@ export default class _TimeList extends Component {
             hour: this.props.hour,
             minute: this.props.minute,
             second: this.props.second,
-            hoursData:[],
-            minutesData:[],
-            secondsData:[]
+            hoursData: [],
+            minutesData: [],
+            secondsData: []
         };
 
         this.hourChangeHandle = this::this.hourChangeHandle;
@@ -83,9 +83,9 @@ export default class _TimeList extends Component {
         } else {
             state.secondsData = this.rangeData(60);
         }
-        if(minValue && moment('2000-01-01 '+ value + state.minute + state.second).isBefore('2000-01-01 '+minValue) || moment('2000-01-01 '+ value + state.minute + state.second).isAfter('2000-01-01 '+maxValue)){
+        if (minValue && moment('2000-01-01 ' + value + state.minute + state.second).isBefore('2000-01-01 ' + minValue) || moment('2000-01-01 ' + value + state.minute + state.second).isAfter('2000-01-01 ' + maxValue)) {
 
-        }else {
+        } else {
             this.setState(state, ()=> {
                 this.props.onChange && this.props.onChange({hour: value, minute: state.minute, second: state.second})
             })
@@ -117,9 +117,9 @@ export default class _TimeList extends Component {
             state.secondsData = this.rangeData(60);
         }
 
-        if(minValue && moment('2000-01-01 '+ state.hour + state.minute + value).isBefore('2000-01-01 '+minValue) || moment('2000-01-01 '+ state.hour + state.minute + value).isAfter('2000-01-01 '+maxValue)){
+        if (minValue && moment('2000-01-01 ' + state.hour + state.minute + value).isBefore('2000-01-01 ' + minValue) || moment('2000-01-01 ' + state.hour + state.minute + value).isAfter('2000-01-01 ' + maxValue)) {
 
-        }else{
+        } else {
             this.setState(state, ()=> {
                 this.props.onChange && this.props.onChange({hour: state.hour, minute: value, second: state.second})
             })
@@ -129,14 +129,14 @@ export default class _TimeList extends Component {
 
     secondChangeHandle(value) {
         let state = _.cloneDeep(this.state);
-        const {minValue,maxValue} = this.props;
-        if(minValue && moment('2000-01-01 '+ state.hour + state.minute + value).isBefore('2000-01-01 '+minValue) || moment('2000-01-01 '+ state.hour + state.minute + value).isAfter('2000-01-01 '+maxValue)){
+        const {minValue, maxValue} = this.props;
+        if (minValue && moment('2000-01-01 ' + state.hour + state.minute + value).isBefore('2000-01-01 ' + minValue) || moment('2000-01-01 ' + state.hour + state.minute + value).isAfter('2000-01-01 ' + maxValue)) {
 
-        }else{
+        } else {
             this.setState({
                 second: value
             }, ()=> {
-                this.props.onChange && this.props.onChange({hour: state.hour, minute:state.minute, second: value})
+                this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: value})
             })
         }
 
