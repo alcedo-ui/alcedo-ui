@@ -1,14 +1,17 @@
 @import '../../../../common.scss';
 
-.example-content {
+.dialog-examples {
 
-    padding-bottom: 50px;
+    .example-content {
 
-    .flat-button{
-        @include shadow(2);
-    }
+        .raised-button {
 
-    p {
-        color: $theme-menu;
+            @include shadow(2);
+
+        }
+
+        p {
+            color: $theme-menu;
+        }
     }
 }

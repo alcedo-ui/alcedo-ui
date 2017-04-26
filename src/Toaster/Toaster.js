@@ -86,6 +86,7 @@ Toaster.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object
+
 };
 
 Toaster.defaultProps = {

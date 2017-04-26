@@ -5,11 +5,11 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ToggleButtonDoc from 'assets/propTypes/ToggleButton.json';
+import ButtonCheckboxDoc from 'assets/propTypes/ButtonCheckbox.json';
 
-import 'sass/containers/app/modules/fields/ToggleButtonExamples.scss';
+import 'sass/containers/app/modules/fields/ButtonCheckboxExamples.scss';
 
-export default class ToggleButtonExamples extends Component {
+export default class ButtonCheckboxExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -17,14 +17,14 @@ export default class ToggleButtonExamples extends Component {
 
     render() {
         return (
-            <div className="example toggle-button-examples">
+            <div className="example button-checkbox-examples">
 
 
                 <h2 className="example-title">ToggleButton</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ToggleButton Example"/>
+                    <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -47,7 +47,7 @@ export default class ToggleButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ToggleButtonDoc}/>
+                <PropTypeDescTable data={ButtonCheckboxDoc}/>
 
             </div>
         );

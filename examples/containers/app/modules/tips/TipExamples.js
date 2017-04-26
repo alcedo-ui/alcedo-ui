@@ -4,11 +4,16 @@
 import React, {Component} from 'react';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import FlatButton from 'dist/FlatButton';
+import ReactCSSTransitionGroup from 'react-addons-transition-group';
+
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TipDoc from 'assets/propTypes/Tip.json';
 
 import Tip from '../../../../../dist/Tip/Tip';
+
+import 'sass/containers/app/modules/message/TipExamples.scss';
 
 export default class DialogExamples extends Component {
     constructor(props) {
@@ -24,7 +29,7 @@ export default class DialogExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Tip Simple Example"/>
+                    <WidgetHeader className="example-header" title="Tip Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

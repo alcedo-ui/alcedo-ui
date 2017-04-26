@@ -9,6 +9,7 @@ export default class Tip extends Component {
     }
 
     render() {
+
         return (
             <div className="tip-container">
                 {this.props.text}
@@ -16,3 +17,27 @@ export default class Tip extends Component {
         );
     }
 }
+
+Tip.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The text value of tip.
+     */
+    text: 'tip'
+
+};
+
+Tip.defaultProps = {
+    className: '',
+    style: null
+};

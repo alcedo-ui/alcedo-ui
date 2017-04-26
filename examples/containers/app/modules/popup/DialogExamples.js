@@ -4,7 +4,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import Dialog from 'dist/Dialog';
-import FlatButton from 'dist/FlatButton';
+import RaisedButton from 'dist/RaisedButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
@@ -51,7 +51,8 @@ export default class DialogExamples extends Component {
 
                             <p>Please click this button to show Dialog.</p>
 
-                            <FlatButton onTouchTap={this.clickHandle} value="Dialog"/>
+                            <RaisedButton value="Dialog"
+                                          onTouchTap={this.clickHandle}/>
 
                             <Dialog className={this.state.hide}
                                     onHide={this.hideHandle}

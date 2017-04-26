@@ -21,13 +21,13 @@ export default class FlatButtonExamples extends Component {
     render() {
 
         return (
-            <div className="example flat-button-example">
+            <div className="example icon-anchor-examples">
 
                 <h2 className="example-title">Icon Anchor</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Anchor Simple Example"/>
+                    <WidgetHeader className="example-header" title="Icon Anchor Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

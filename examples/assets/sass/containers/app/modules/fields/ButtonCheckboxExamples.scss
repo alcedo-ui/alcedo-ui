@@ -1,11 +1,19 @@
 @import '../../../../common.scss';
 
-.toggle-button-examples {
+.button-checkbox-examples {
 
     .examples-wrapper {
 
         label {
+
             margin-right: 10px;
+
+        }
+
+        .base-button {
+
+            margin: 0 10px 10px 0;
+
         }
 
         .field-group {

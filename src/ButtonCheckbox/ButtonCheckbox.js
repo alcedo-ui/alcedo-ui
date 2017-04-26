@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
 
-import './ToggleButton.css';
+import './ButtonCheckbox.css';
 
 export default class ToggleButton extends Component {
 

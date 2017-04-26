@@ -93,7 +93,7 @@ IconAnchor.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * The icon within the IconAnchor is a Font Awesome component.This property is the classname of the icon.
+     * The icon within the IconAnchor is a Font Awesome component.This property is the className of the icon.
      */
     iconCls: PropTypes.string,
 

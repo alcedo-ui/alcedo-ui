@@ -58,8 +58,8 @@ export default [{
         text: 'Radio',
         route: '/components/Radio'
     }, {
-        text: 'ToggleButton',
-        route: '/components/ToggleButton'
+        text: 'ButtonCheckbox',
+        route: '/components/ButtonCheckbox'
     }, {
         text: 'Switcher',
         route: '/components/Switcher'
@@ -117,5 +117,8 @@ export default [{
     children: [{
         text: 'Toaster',
         route: '/components/Toaster'
+    },{
+        text: 'Tip',
+        route: '/components/Tip'
     }]
 }];
