@@ -76,17 +76,9 @@ export default class Dialog extends Component {
     }
 
     renderWrapper() {
-
-        const popupContainer = document.querySelector('#popup-container');
-
-        if (popupContainer) {
-            this.wrapper = popupContainer;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.id = 'popup-container';
-            document.body.appendChild(this.wrapper);
-        }
-
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'dialog-container';
+        document.body.appendChild(this.wrapper);
     }
 
     getButton(uiType, value, iconCls, theme, handle, disabled, isLoading) {
@@ -217,6 +209,10 @@ export default class Dialog extends Component {
 
     unrenderElement() {
         unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.dialogEl = null;
+        this.wrapper = null;
     }
 
     componentDidMount() {

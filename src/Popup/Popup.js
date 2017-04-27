@@ -92,17 +92,9 @@ export default class Popup extends Component {
     }
 
     renderWrapper() {
-
-        const popupContainer = document.querySelector('#popup-container');
-
-        if (popupContainer) {
-            this.wrapper = popupContainer;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.id = 'popup-container';
-            document.body.appendChild(this.wrapper);
-        }
-
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'popup-container';
+        document.body.appendChild(this.wrapper);
     }
 
     renderer() {
@@ -132,6 +124,9 @@ export default class Popup extends Component {
 
     unrenderElement() {
         unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.wrapper = null;
     }
 
     componentDidMount() {
