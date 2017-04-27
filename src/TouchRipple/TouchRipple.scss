@@ -17,8 +17,9 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background: #CCC;
+        background: #ccc;
         transition: opacity 1s ease-out, transform .5s ease-out;
         transform: scale(0);
+        pointer-events: none;
     }
 }

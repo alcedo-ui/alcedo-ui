@@ -15,7 +15,7 @@ export default class Popup extends Component {
         super(props);
 
         this.wrapper = null;
-        this.wrapperElement = null;
+        this.element = null;
 
         this.state = {
             visible: !!props.visible
@@ -26,6 +26,7 @@ export default class Popup extends Component {
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
+        this.unrenderElement = this::this.unrenderElement;
 
     }
 
@@ -52,7 +53,7 @@ export default class Popup extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                this.wrapperElement,
+                this.element,
                 this.state.visible
             );
 
@@ -69,13 +70,13 @@ export default class Popup extends Component {
         const {triggerEl, position} = this.props;
 
         let popupStyle = {};
-        if (triggerEl && this.wrapperElement) {
+        if (triggerEl && this.element) {
 
             const offset = Util.getOffset(triggerEl);
 
             if (position === Popup.Position.RIGHT) {
                 popupStyle = {
-                    left: offset.left - (this.wrapperElement.clientWidth - triggerEl.clientWidth),
+                    left: offset.left - (this.element.clientWidth - triggerEl.clientWidth),
                     top: offset.top + triggerEl.clientHeight
                 };
             } else { // default left
@@ -91,9 +92,17 @@ export default class Popup extends Component {
     }
 
     renderWrapper() {
-        this.wrapper = document.createElement('div');
-        this.wrapper.className = 'popup-wrapper';
-        document.body.appendChild(this.wrapper);
+
+        const popupContainer = document.querySelector('#popup-container');
+
+        if (popupContainer) {
+            this.wrapper = popupContainer;
+        } else {
+            this.wrapper = document.createElement('div');
+            this.wrapper.id = 'popup-container';
+            document.body.appendChild(this.wrapper);
+        }
+
     }
 
     renderer() {
@@ -118,7 +127,11 @@ export default class Popup extends Component {
     }
 
     renderElement() {
-        this.wrapperElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+    }
+
+    unrenderElement() {
+        unmountComponentAtNode(this.wrapper);
     }
 
     componentDidMount() {
@@ -126,7 +139,6 @@ export default class Popup extends Component {
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
 
         this.renderWrapper();
-        this.renderElement();
 
     }
 
@@ -136,7 +148,6 @@ export default class Popup extends Component {
                 visible: !!nextProps.visible
             });
         }
-        this.renderElement();
     }
 
     componentDidUpdate() {
@@ -147,9 +158,7 @@ export default class Popup extends Component {
 
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
 
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.wrapper = null;
+        this.unrenderElement();
 
     }
 
