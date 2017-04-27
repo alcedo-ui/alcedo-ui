@@ -1,8 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-    react = require('react'),
-    PropTypes = react.PropTypes;
+    PropTypes = require('prop-types');
 
 /**
  * format propTypes according to react.PropTypes
