@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
-import Dialog from 'dist/Dialog';
 import Popup from 'dist/Popup';
 import List from 'dist/List';
 import Theme from 'dist/Theme';
@@ -21,16 +20,11 @@ export default class PopupExamples extends Component {
 
         this.state = {
             popupVisible: false,
-            triggerEl: null,
-            dialogVisible: false
+            triggerEl: null
         };
 
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
-
-        this.toggleDialog = this::this.toggleDialog;
-        this.closeDialog = this::this.closeDialog;
-        this.okHandle = this::this.okHandle;
 
     }
 
@@ -47,38 +41,22 @@ export default class PopupExamples extends Component {
         });
     }
 
-    toggleDialog() {
-        this.setState({
-            dialogVisible: !this.state.dialogVisible
-        });
-    }
-
-    closeDialog() {
-        this.setState({
-            dialogVisible: false
-        });
-    }
-
-    okHandle(callback) {
-        callback();
-    }
-
     render() {
 
-        const {popupVisible, triggerEl, dialogVisible} = this.state;
-        let items = [{
-            iconCls: 'fa fa-facebook',
-            value: 'Facebook',
-            theme: Theme.PRIMARY
-        }, {
-            iconCls: 'fa fa-twitter',
-            value: 'Twitter',
-            theme: Theme.PRIMARY
-        }, {
-            iconCls: 'fa fa-google-plus',
-            value: 'Google+',
-            theme: Theme.PRIMARY
-        }];
+        const {popupVisible, triggerEl} = this.state,
+            items = [{
+                iconCls: 'fa fa-facebook',
+                value: 'Facebook',
+                theme: Theme.PRIMARY
+            }, {
+                iconCls: 'fa fa-twitter',
+                value: 'Twitter',
+                theme: Theme.PRIMARY
+            }, {
+                iconCls: 'fa fa-google-plus',
+                value: 'Google+',
+                theme: Theme.PRIMARY
+            }];
 
         return (
             <div className="example popup-examples">
@@ -104,34 +82,6 @@ export default class PopupExamples extends Component {
                                        onRequestClose={this.closePopup}>
                                     <List items={items}/>
                                 </Popup>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Dialog Simple Example"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
-                                <RaisedButton className="trigger-button"
-                                              value="Toggle Dialog"
-                                              onTouchTap={this.toggleDialog}/>
-
-                                <Dialog visible={dialogVisible}
-                                        title="Dialog Title"
-                                        onRequestClose={this.closeDialog}
-                                        onOKButtonTouchTap={this.okHandle}>
-                                    <div className="dialog-example-content">
-                                        Dialog Content
-                                    </div>
-                                </Dialog>
 
                             </div>
 
