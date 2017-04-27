@@ -26,7 +26,7 @@ export default class Popup extends Component {
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
-        this.unrenderElement = this::this.unrenderElement;
+        this.unrender = this::this.unrender;
 
     }
 
@@ -122,7 +122,7 @@ export default class Popup extends Component {
         this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
     }
 
-    unrenderElement() {
+    unrender() {
         unmountComponentAtNode(this.wrapper);
         document.body.removeChild(this.wrapper);
         this.element = null;
@@ -153,7 +153,7 @@ export default class Popup extends Component {
 
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
 
-        this.unrenderElement();
+        this.unrender();
 
     }
 

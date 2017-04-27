@@ -30,7 +30,7 @@ export default class Dialog extends Component {
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
-        this.unrenderElement = this::this.unrenderElement;
+        this.unrender = this::this.unrender;
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
@@ -207,7 +207,7 @@ export default class Dialog extends Component {
         this.dialogEl = [].find.call(this.element.childNodes, node => node.className.includes('dialog-wrapper'));
     }
 
-    unrenderElement() {
+    unrender() {
         unmountComponentAtNode(this.wrapper);
         document.body.removeChild(this.wrapper);
         this.element = null;
@@ -239,7 +239,7 @@ export default class Dialog extends Component {
 
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
 
-        this.unrenderElement();
+        this.unrender();
 
     }
 
