@@ -117,8 +117,5 @@ export default [{
     children: [{
         text: 'Toaster',
         route: '/components/Toaster'
-    }, {
-        text: 'Tip',
-        route: '/components/Tip'
     }]
 }];

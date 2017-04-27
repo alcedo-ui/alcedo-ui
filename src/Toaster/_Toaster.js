@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
-import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
 import Toast from '../_Toast';
 
@@ -13,8 +12,6 @@ export default class Toaster extends Component {
 
         super(props);
 
-        this.wrapper = null;
-        this.element = null;
         this.nextKey = 0;
 
         this.state = {
@@ -23,10 +20,6 @@ export default class Toaster extends Component {
 
         this.addToast = this::this.addToast;
         this.removeToast = this::this.removeToast;
-        this.renderWrapper = this::this.renderWrapper;
-        this.renderer = this::this.renderer;
-        this.renderElement = this::this.renderElement;
-        this.unrender = this::this.unrender;
 
     }
 
@@ -54,13 +47,7 @@ export default class Toaster extends Component {
 
     }
 
-    renderWrapper() {
-        this.wrapper = document.createElement('div');
-        this.wrapper.className = 'toaster-container';
-        document.body.appendChild(this.wrapper);
-    }
-
-    renderer() {
+    render() {
 
         const {className, style} = this.props;
         const {toasts} = this.state;
@@ -86,34 +73,6 @@ export default class Toaster extends Component {
         );
 
     }
-
-    renderElement() {
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-    }
-
-    unrender() {
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.element = null;
-        this.wrapper = null;
-    }
-
-    componentDidMount() {
-        this.renderWrapper();
-    }
-
-    componentDidUpdate() {
-        this.renderElement();
-    }
-
-    componentWillUnmount() {
-        this.unrender();
-    }
-
-    render() {
-        return null;
-    }
-
 };
 
 Toaster.propTypes = {

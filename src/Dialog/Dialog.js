@@ -20,6 +20,7 @@ export default class Dialog extends Component {
 
         this.wrapper = null;
         this.element = null;
+        this.dialogEl = null;
 
         this.state = {
             visible: !!props.visible
@@ -29,19 +30,19 @@ export default class Dialog extends Component {
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
-        this.unrenderElement = this::this.unrenderElement;
+        this.unrender = this::this.unrender;
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
 
     }
 
-    triggerDialogEventHandle(el, triggerEl, dialogEl, currentVisible) {
+    triggerDialogEventHandle(el, dialogEl, currentVisible) {
 
         let flag = true;
 
         while (el) {
-            if (el == dialogEl || el == triggerEl) {
+            if (el == dialogEl) {
                 return currentVisible;
             }
             el = el.parentNode;
@@ -55,11 +56,14 @@ export default class Dialog extends Component {
 
     mousedownHandle(e) {
 
-        const {triggerEl, onRequestClose} = this.props,
+        if (!this.props.isBlurClose || !this.state.visible) {
+            return;
+        }
+
+        const {onRequestClose} = this.props,
             visible = this.triggerDialogEventHandle(
                 e.target,
-                triggerEl,
-                this.element,
+                this.dialogEl,
                 this.state.visible
             );
 
@@ -72,17 +76,9 @@ export default class Dialog extends Component {
     }
 
     renderWrapper() {
-
-        const popupContainer = document.querySelector('#popup-container');
-
-        if (popupContainer) {
-            this.wrapper = popupContainer;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.id = 'popup-container';
-            document.body.appendChild(this.wrapper);
-        }
-
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'dialog-container';
+        document.body.appendChild(this.wrapper);
     }
 
     getButton(uiType, value, iconCls, theme, handle, disabled, isLoading) {
@@ -158,7 +154,8 @@ export default class Dialog extends Component {
                         : null
                 }
 
-                <div className={`dialog ${visible ? '' : 'hidden'} ${theme ? `theme-${theme}` : ''} ${className}`}
+                <div className={`dialog-wrapper ${visible ? '' : 'hidden'}
+                         ${theme ? `theme-${theme}` : ''} ${className}`}
                      style={style}
                      disabled={disabled}>
 
@@ -207,10 +204,15 @@ export default class Dialog extends Component {
 
     renderElement() {
         this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+        this.dialogEl = [].find.call(this.element.childNodes, node => node.className.includes('dialog-wrapper'));
     }
 
-    unrenderElement() {
+    unrender() {
         unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.dialogEl = null;
+        this.wrapper = null;
     }
 
     componentDidMount() {
@@ -237,7 +239,7 @@ export default class Dialog extends Component {
 
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
 
-        this.unrenderElement();
+        this.unrender();
 
     }
 
@@ -265,8 +267,6 @@ Dialog.propTypes = {
      */
     style: PropTypes.object,
 
-    triggerEl: PropTypes.object,
-
     disabled: PropTypes.bool,
 
     visible: PropTypes.bool,
@@ -276,6 +276,8 @@ Dialog.propTypes = {
     showModal: PropTypes.bool,
 
     title: PropTypes.any,
+
+    isBlurClose: PropTypes.bool,
 
     okButtonVisible: PropTypes.bool,
     okButtonText: PropTypes.string,
@@ -308,13 +310,14 @@ Dialog.defaultProps = {
     className: '',
     style: null,
 
-    triggerEl: null,
     disabled: false,
     visible: false,
     theme: '',
     showModal: true,
 
     title: '',
+
+    isBlurClose: false,
 
     okButtonVisible: true,
     okButtonText: 'OK',

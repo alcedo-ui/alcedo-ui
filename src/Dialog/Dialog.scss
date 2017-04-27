@@ -1,6 +1,6 @@
 @import '../_common.scss';
 
-#popup-container {
+.dialog-container {
     position: absolute;
     left: 0;
     top: 0;
@@ -25,7 +25,10 @@
         }
     }
 
-    .dialog {
+    .dialog-wrapper {
+
+        @include shadow(4);
+
         position: fixed;
         left: 50%;
         top: 50%;

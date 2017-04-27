@@ -26,7 +26,7 @@ export default class Popup extends Component {
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
-        this.unrenderElement = this::this.unrenderElement;
+        this.unrender = this::this.unrender;
 
     }
 
@@ -92,17 +92,9 @@ export default class Popup extends Component {
     }
 
     renderWrapper() {
-
-        const popupContainer = document.querySelector('#popup-container');
-
-        if (popupContainer) {
-            this.wrapper = popupContainer;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.id = 'popup-container';
-            document.body.appendChild(this.wrapper);
-        }
-
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'popup-container';
+        document.body.appendChild(this.wrapper);
     }
 
     renderer() {
@@ -130,8 +122,11 @@ export default class Popup extends Component {
         this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
     }
 
-    unrenderElement() {
+    unrender() {
         unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.wrapper = null;
     }
 
     componentDidMount() {
@@ -158,7 +153,7 @@ export default class Popup extends Component {
 
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
 
-        this.unrenderElement();
+        this.unrender();
 
     }
 

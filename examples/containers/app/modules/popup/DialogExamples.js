@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
 import Dialog from 'dist/Dialog';
-import List from 'dist/List';
-import Theme from 'dist/Theme';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
@@ -19,8 +17,7 @@ export default class DialogExamples extends Component {
         super(props);
 
         this.state = {
-            dialogVisible: false,
-            triggerEl: null
+            dialogVisible: false
         };
 
         this.toggleDialog = this::this.toggleDialog;
@@ -29,10 +26,9 @@ export default class DialogExamples extends Component {
 
     }
 
-    toggleDialog(e) {
+    toggleDialog() {
         this.setState({
-            dialogVisible: !this.state.dialogVisible,
-            triggerEl: e.currentTarget
+            dialogVisible: !this.state.dialogVisible
         });
     }
 
@@ -48,7 +44,7 @@ export default class DialogExamples extends Component {
 
     render() {
 
-        const {dialogVisible, triggerEl} = this.state;
+        const {dialogVisible} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -69,7 +65,6 @@ export default class DialogExamples extends Component {
                                               onTouchTap={this.toggleDialog}/>
 
                                 <Dialog visible={dialogVisible}
-                                        triggerEl={triggerEl}
                                         title="Dialog Title"
                                         onRequestClose={this.closeDialog}
                                         onOKButtonTouchTap={this.okHandle}>
