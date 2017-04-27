@@ -70,49 +70,49 @@ export default class Tip extends Component {
             const offset = Util.getOffset(triggerEl);
 
             switch (position){
-                case Tip.Position.RIGHT:
+                case 'right':
                     tipStyle = {
                         left: offset.left + (triggerEl.clientWidth),
                         top: offset.top - (this.element.clientHeight - triggerEl.clientHeight)/2
                     };
                     break;
-                case Tip.Position.LEFT:
+                case 'left':
                     tipStyle = {
                         left: offset.left - (this.element.clientWidth),
                         top: offset.top - (this.element.clientHeight - triggerEl.clientHeight)/2
                     };
                     break;
-                case Tip.Position.TOP_LEFT:
+                case 'top-left':
                     tipStyle = {
                         left: offset.left - (this.element.clientWidth),
                         top: offset.top - (this.element.clientHeight)
                     };
                     break;
-                case Tip.Position.TOP_RIGHT:
+                case 'top-right':
                     tipStyle = {
                         left: offset.left + (triggerEl.clientWidth),
                         top: offset.top - (this.element.clientHeight)
                     };
                     break;
-                case Tip.Position.TOP_CENTER:
+                case 'top-center':
                     tipStyle = {
                         left: offset.left - (this.element.clientWidth - triggerEl.clientWidth)/2,
                         top: offset.top - (this.element.clientHeight)
                     };
                     break;
-                case Tip.Position.BOTTOM_LEFT:
+                case 'bottom-left':
                     tipStyle = {
                         left: offset.left - (this.element.clientWidth),
                         top: offset.top + (triggerEl.clientHeight)
                     };
                     break;
-                case Tip.Position.BOTTOM_CENTER:
+                case 'bottom-center':
                     tipStyle = {
                         left: offset.left - (this.element.clientWidth - triggerEl.clientWidth)/2,
                         top: offset.top + (triggerEl.clientHeight)
                     };
                     break;
-                case Tip.Position.BOTTOM_RIGHT:
+                case 'bottom-right':
                     tipStyle = {
                         left: offset.left + (triggerEl.clientWidth),
                         top: offset.top + (triggerEl.clientHeight)
@@ -198,18 +198,6 @@ export default class Tip extends Component {
     }
 }
 
-Tip.Position = {
-    LEFT:'left',
-    RIGHT:'right',
-    TOP_LEFT: 'top-left',
-    TOP_RIGHT: 'top-right',
-    TOP_CENTER: 'top-center',
-    BOTTOM_LEFT: 'bottom-left',
-    BOTTOM_RIGHT: 'bottom-right',
-    BOTTOM_CENTER: 'bottom-center'
-
-};
-
 Tip.propTypes = {
 
     /**
@@ -238,7 +226,7 @@ Tip.propTypes = {
     visible: PropTypes.bool,
 
     /**
-     * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     * The popover alignment.
      */
     position: PropTypes.string,
 
@@ -256,6 +244,6 @@ Tip.defaultProps = {
 
     triggerEl: null,
     visible: false,
-    position: Tip.Position.BOTTOM_CENTER
+    position: 'bottom-center'
 
 };
