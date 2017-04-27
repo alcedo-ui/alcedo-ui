@@ -14,10 +14,32 @@ export default class TipExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.text="This is a icon button";
+        this.state = {
+            popupVisible: false,
+            triggerEl: null
+        };
+
+        this.openTip = this::this.openTip;
+        this.closeTip = this::this.closeTip;
+    }
+
+   openTip(e) {
+        this.setState({
+            popupVisible: !this.state.popupVisible,
+            triggerEl: e.currentTarget
+        });
+    }
+
+    closeTip() {
+        this.setState({
+            popupVisible: false
+        });
     }
 
     render() {
-
+        const {popupVisible, triggerEl} = this.state;
+        const {text} = this;
         return (
             <div className="example tip-example">
 
@@ -34,8 +56,14 @@ export default class TipExamples extends Component {
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
-                                            tip="123456789"/>
+                                            onMouseOver={this.openTip}
+                                            onMouseOut={this.closeTip}/>
 
+                                <Tip text={text}
+                                     visible={popupVisible}
+                                     triggerEl={triggerEl}
+                                     onRequestClose={this.closeTip}
+                                />
                             </div>
 
                         </div>

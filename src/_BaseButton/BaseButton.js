@@ -36,7 +36,7 @@ export default class BaseButton extends Component {
 
         const {
             children, className, style, theme, isRounded, isCircular,
-            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter
+            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter, onMouseOver,onMouseOut
         } = this.props;
 
         return (
@@ -45,7 +45,9 @@ export default class BaseButton extends Component {
                     style={style}
                     type={type}
                     disabled={disabled || isLoading}
-                    onClick={this.clickHandle}>
+                    onClick={this.clickHandle}
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}>
 
                 {
                     isLoading
