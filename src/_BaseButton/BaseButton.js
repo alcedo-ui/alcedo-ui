@@ -48,15 +48,14 @@ export default class BaseButton extends Component {
                     onClick={this.clickHandle}>
 
                 {
-                    iconCls ?
-                        (
-                            isLoading
-                                ? <CircularLoading size="small"/>
-                                : <i className={`button-icon button-icon-left ${iconCls}`}
-                                     aria-hidden="true"></i>
-                        )
-                        :
-                        null
+                    isLoading
+                        ? <CircularLoading size="small"/>
+                        : (
+                        iconCls
+                            ? <i className={`button-icon button-icon-left ${iconCls}`}
+                                 aria-hidden="true"></i>
+                            : null
+                    )
                 }
 
                 {value}

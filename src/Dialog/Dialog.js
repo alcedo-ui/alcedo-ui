@@ -19,7 +19,7 @@ export default class Dialog extends Component {
         super(props);
 
         this.wrapper = null;
-        this.wrapperElement = null;
+        this.element = null;
 
         this.state = {
             visible: !!props.visible
@@ -29,6 +29,7 @@ export default class Dialog extends Component {
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
+        this.unrenderElement = this::this.unrenderElement;
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
@@ -58,7 +59,7 @@ export default class Dialog extends Component {
             visible = this.triggerDialogEventHandle(
                 e.target,
                 triggerEl,
-                this.wrapperElement,
+                this.element,
                 this.state.visible
             );
 
@@ -71,31 +72,47 @@ export default class Dialog extends Component {
     }
 
     renderWrapper() {
-        this.wrapper = document.createElement('div');
-        this.wrapper.className = 'dialog-wrapper';
-        document.body.appendChild(this.wrapper);
+
+        const popupContainer = document.querySelector('#popup-container');
+
+        if (popupContainer) {
+            this.wrapper = popupContainer;
+        } else {
+            this.wrapper = document.createElement('div');
+            this.wrapper.id = 'popup-container';
+            document.body.appendChild(this.wrapper);
+        }
+
     }
 
-    getButton(uiType, value, iconCls, theme, handle) {
+    getButton(uiType, value, iconCls, theme, handle, disabled, isLoading) {
         switch (uiType) {
             case Dialog.ButtonUITypes.RAISED:
                 return <RaisedButton value={value}
                                      iconCls={iconCls}
                                      theme={theme}
+                                     disabled={disabled}
+                                     isLoading={isLoading}
                                      onTouchTap={handle}/>;
             case Dialog.ButtonUITypes.FLAT:
                 return <FlatButton value={value}
                                    iconCls={iconCls}
                                    theme={theme}
+                                   disabled={disabled}
+                                   isLoading={isLoading}
                                    onTouchTap={handle}/>;
             case Dialog.ButtonUITypes.GHOST:
                 return <GhostButton value={value}
                                     iconCls={iconCls}
                                     theme={theme}
+                                    disabled={disabled}
+                                    isLoading={isLoading}
                                     onTouchTap={handle}/>;
             case Dialog.ButtonUITypes.ICON:
                 return <IconButton iconCls={iconCls}
                                    theme={theme}
+                                   disabled={disabled}
+                                   isLoading={isLoading}
                                    onTouchTap={handle}/>;
         }
     }
@@ -127,7 +144,7 @@ export default class Dialog extends Component {
 
         const {
             children, className, style, disabled, theme, showModal, title, buttons,
-            okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonUIType,
+            okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonUIType, okButtonDisabled, okButtonIsLoading,
             cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
         } = this.props;
         const {visible} = this.state;
@@ -168,7 +185,7 @@ export default class Dialog extends Component {
                         {
                             !buttons && okButtonVisible
                                 ? this.getButton(okButtonUIType, okButtonText,
-                                okButtonIconCls, okButtonTheme, this.okButtonTouchTapHandle)
+                                okButtonIconCls, okButtonTheme, this.okButtonTouchTapHandle, okButtonDisabled, okButtonIsLoading)
                                 : null
                         }
 
@@ -189,7 +206,11 @@ export default class Dialog extends Component {
     }
 
     renderElement() {
-        this.wrapperElement = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+    }
+
+    unrenderElement() {
+        unmountComponentAtNode(this.wrapper);
     }
 
     componentDidMount() {
@@ -197,7 +218,6 @@ export default class Dialog extends Component {
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
 
         this.renderWrapper();
-        this.renderElement();
 
     }
 
@@ -207,7 +227,6 @@ export default class Dialog extends Component {
                 visible: !!nextProps.visible
             });
         }
-        this.renderElement();
     }
 
     componentDidUpdate() {
@@ -218,9 +237,7 @@ export default class Dialog extends Component {
 
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
 
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.wrapper = null;
+        this.unrenderElement();
 
     }
 
@@ -263,6 +280,8 @@ Dialog.propTypes = {
     okButtonVisible: PropTypes.bool,
     okButtonText: PropTypes.string,
     okButtonIconCls: PropTypes.string,
+    okButtonDisabled: PropTypes.bool,
+    okButtonIsLoading: PropTypes.bool,
     okButtonTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
     okButtonUIType: PropTypes.oneOf(Object.keys(Dialog.ButtonUITypes).map(key => Dialog.ButtonUITypes[key])),
 
@@ -300,6 +319,8 @@ Dialog.defaultProps = {
     okButtonVisible: true,
     okButtonText: 'OK',
     okButtonIconCls: '',
+    okButtonDisabled: false,
+    okButtonIsLoading: false,
     okButtonTheme: Theme.SUCCESS,
     okButtonUIType: Dialog.ButtonUITypes.RAISED,
 

@@ -144,13 +144,9 @@ export default class Popup extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.visible !== this.state.visible) {
-
-            const visible = !!nextProps.visible;
-
             this.setState({
-                visible
+                visible: !!nextProps.visible
             });
-
         }
     }
 
