@@ -44,7 +44,7 @@ export default class ToasterExamples extends Component {
         const {type, title, message} = this.state;
 
         let toasts = this.state.toasts;
-        toasts.unshift({
+        toasts.push({
             type,
             title,
             message

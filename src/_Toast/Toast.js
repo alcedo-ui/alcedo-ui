@@ -12,6 +12,7 @@ export default class Toast extends Component {
         super(props);
 
         this.hasMounted = false;
+        this.unrenderTimeout = null;
 
         this.state = {
             hidden: true,
@@ -20,6 +21,8 @@ export default class Toast extends Component {
 
         this.getIconCls = this::this.getIconCls;
         this.clickHandle = this::this.clickHandle;
+        this.mouseOverHandle = this::this.mouseOverHandle;
+        this.mouseOutHandle = this::this.mouseOutHandle;
 
     }
 
@@ -53,6 +56,22 @@ export default class Toast extends Component {
         });
     }
 
+    mouseOverHandle() {
+        if (this.unrenderTimeout) {
+            clearTimeout(this.unrenderTimeout);
+        }
+    }
+
+    mouseOutHandle() {
+
+        const {onRequestClose, toastsId} = this.props;
+
+        this.unrenderTimeout = setTimeout(() => {
+            onRequestClose && onRequestClose(toastsId);
+        }, 2500);
+
+    }
+
     componentDidMount() {
 
         const {onRequestClose, toastsId} = this.props;
@@ -60,7 +79,7 @@ export default class Toast extends Component {
         this.hasMounted = true;
         this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
 
-        setTimeout(() => {
+        this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(toastsId);
         }, 2500);
 
@@ -107,7 +126,9 @@ export default class Toast extends Component {
                  className={`toast ${type ? `toast-${type}` : ''} ${hidden ? 'hidden' : ''}
                     ${leave ? 'leave' : ''} ${className}`}
                  style={style}
-                 onClick={this.clickHandle}>
+                 onClick={this.clickHandle}
+                 onMouseOver={this.mouseOverHandle}
+                 onMouseOut={this.mouseOutHandle}>
 
                 <i className={`${this.getIconCls()} toast-icon`}
                    aria-hidden="true"></i>

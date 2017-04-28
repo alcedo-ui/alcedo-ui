@@ -86,8 +86,16 @@ export default class Toaster extends Component {
     }
 
     renderElement() {
+
+        if (this.unrenderTimeout) {
+            clearTimeout(this.unrenderTimeout);
+            this.unrenderTimeout = null;
+        }
+
         this.renderWrapper();
+
         this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+
     }
 
     unrender() {
@@ -141,7 +149,7 @@ export default class Toaster extends Component {
             }
 
             this.setState({
-                toasts: [...toasts, ...this.state.toasts]
+                toasts: [...toasts.reverse(), ...this.state.toasts]
             }, () => {
                 this.props.onToastPop();
             });
