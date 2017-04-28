@@ -16,6 +16,7 @@ export default class Toaster extends Component {
         this.wrapper = null;
         this.element = null;
         this.nextKey = 0;
+        this.unrenderTimeout = null;
 
         this.state = {
             toasts: []
@@ -31,6 +32,11 @@ export default class Toaster extends Component {
     }
 
     addToast(toast) {
+
+        if (this.unrenderTimeout) {
+            clearTimeout(this.unrenderTimeout);
+            this.unrenderTimeout = null;
+        }
 
         let toasts = this.state.toasts;
 
@@ -50,14 +56,46 @@ export default class Toaster extends Component {
 
         this.setState({
             toasts
+        }, () => {
+            if (toasts.length < 1) {
+                this.unrenderTimeout = setTimeout(() => {
+                    this.unrender();
+                    this.unrenderTimeout = null;
+                }, 1250);
+            }
         });
 
     }
 
     renderWrapper() {
-        this.wrapper = document.createElement('div');
-        this.wrapper.className = 'toaster-container';
-        document.body.appendChild(this.wrapper);
+
+        // debugger;
+
+        if (this.wrapper) {
+            return;
+        }
+
+        const wrapper = document.querySelector('.toaster-container');
+        if (wrapper) {
+            this.wrapper = wrapper;
+        } else {
+            this.wrapper = document.createElement('div');
+            this.wrapper.className = 'toaster-container';
+            document.body.appendChild(this.wrapper);
+        }
+
+    }
+
+    renderElement() {
+        this.renderWrapper();
+        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+    }
+
+    unrender() {
+        unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.wrapper = null;
     }
 
     renderer() {
@@ -87,19 +125,8 @@ export default class Toaster extends Component {
 
     }
 
-    renderElement() {
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-    }
-
-    unrender() {
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.element = null;
-        this.wrapper = null;
-    }
-
     componentDidMount() {
-        this.renderWrapper();
+        // this.renderWrapper();
     }
 
     componentDidUpdate() {
