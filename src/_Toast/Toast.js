@@ -126,9 +126,7 @@ export default class Toast extends Component {
                  className={`toast ${type ? `toast-${type}` : ''} ${hidden ? 'hidden' : ''}
                     ${leave ? 'leave' : ''} ${className}`}
                  style={style}
-                 onClick={this.clickHandle}
-                 onMouseOver={this.mouseOverHandle}
-                 onMouseOut={this.mouseOutHandle}>
+                 onClick={this.clickHandle}>
 
                 <i className={`${this.getIconCls()} toast-icon`}
                    aria-hidden="true"></i>
