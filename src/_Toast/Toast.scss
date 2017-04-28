@@ -6,15 +6,15 @@
 
     position: relative;
     width: 240px;
-    min-height: 70px;
+    height: 70px;
     border-radius: $border-radius;
     padding: 15px 15px 15px 50px;
-    background: $theme-menu;
     color: #fff;
     margin-top: 10px;
     cursor: pointer;
     user-select: none;
-    opacity: .8;
+    opacity: .9;
+    overflow: hidden;
     box-sizing: border-box;
     transition: opacity $transition-duration ease-in-out;
 
@@ -45,6 +45,10 @@
         opacity: 1 !important;
     }
 
+    &.toast-info {
+        background: $theme-menu;
+    }
+
     &.toast-success {
         background: $success;
     }
@@ -62,10 +66,10 @@
     }
 
     &.leave {
-        min-height: 0 !important;
+        margin-top: 0 !important;
         height: 0 !important;
-        transition: opacity 1s ease-in-out,
-        height $transition-duration ease-in-out 1s;
+        transition: opacity 1s ease-in-out, height $transition-duration ease-in-out 1s,
+        margin-top $transition-duration ease-in-out 1s;
     }
 
 }

@@ -21,13 +21,15 @@ export default class ToasterExamples extends Component {
         super(props);
 
         this.state = {
-            type: '',
+            type: 'info',
             title: 'Title',
-            message: 'Message'
+            message: 'Message',
+            toasts: []
         };
 
         this.updateField = this::this.updateField;
         this.addToast = this::this.addToast;
+        this.toastPopHandle = this::this.toastPopHandle;
 
     }
 
@@ -41,17 +43,28 @@ export default class ToasterExamples extends Component {
 
         const {type, title, message} = this.state;
 
-        this.refs.toaster.addToast({
+        let toasts = this.state.toasts;
+        toasts.push({
             type,
             title,
             message
         });
 
+        this.setState({
+            toasts
+        });
+
+    }
+
+    toastPopHandle() {
+        this.setState({
+            toasts: []
+        });
     }
 
     render() {
 
-        const {type, title, message} = this.state;
+        const {type, title, message, toasts} = this.state;
 
         return (
             <div className="example toaster-examples">
@@ -70,8 +83,8 @@ export default class ToasterExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
                                     <RadioGroup data={[{
-                                        label: 'Default',
-                                        value: ''
+                                        label: 'Info',
+                                        value: 'info'
                                     }, {
                                         label: 'Success',
                                         value: 'success'
@@ -109,7 +122,8 @@ export default class ToasterExamples extends Component {
                                               buttonStyle={Theme.PRIMARY}
                                               onTouchTap={this.addToast}/>
 
-                                <Toaster ref="toaster"/>
+                                <Toaster toasts={toasts}
+                                         onToastPop={this.toastPopHandle}/>
 
                             </div>
 

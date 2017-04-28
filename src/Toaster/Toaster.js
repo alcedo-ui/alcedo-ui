@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
@@ -16,6 +17,7 @@ export default class Toaster extends Component {
         this.wrapper = null;
         this.element = null;
         this.nextKey = 0;
+        this.unrenderTimeout = null;
 
         this.state = {
             toasts: []
@@ -31,6 +33,11 @@ export default class Toaster extends Component {
     }
 
     addToast(toast) {
+
+        if (this.unrenderTimeout) {
+            clearTimeout(this.unrenderTimeout);
+            this.unrenderTimeout = null;
+        }
 
         let toasts = this.state.toasts;
 
@@ -50,14 +57,56 @@ export default class Toaster extends Component {
 
         this.setState({
             toasts
+        }, () => {
+            if (toasts.length < 1) {
+                this.unrenderTimeout = setTimeout(() => {
+                    this.unrender();
+                    this.unrenderTimeout = null;
+                }, 1250);
+            }
         });
 
     }
 
     renderWrapper() {
-        this.wrapper = document.createElement('div');
-        this.wrapper.className = 'toaster-container';
-        document.body.appendChild(this.wrapper);
+
+        if (this.wrapper) {
+            return;
+        }
+
+        const wrapper = document.querySelector('.toaster-container');
+        if (wrapper) {
+            this.wrapper = wrapper;
+        } else {
+            this.wrapper = document.createElement('div');
+            this.wrapper.className = 'toaster-container';
+            document.body.appendChild(this.wrapper);
+        }
+
+    }
+
+    renderElement() {
+
+        if (this.unrenderTimeout) {
+            clearTimeout(this.unrenderTimeout);
+            this.unrenderTimeout = null;
+        }
+
+        this.renderWrapper();
+
+        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+
+    }
+
+    unrender() {
+
+        unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.wrapper = null;
+
+        // this.props.onToastPop();
+
     }
 
     renderer() {
@@ -87,19 +136,25 @@ export default class Toaster extends Component {
 
     }
 
-    renderElement() {
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-    }
-
-    unrender() {
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.element = null;
-        this.wrapper = null;
-    }
-
     componentDidMount() {
-        this.renderWrapper();
+        // this.renderWrapper();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.toasts && nextProps.toasts.length > 0) {
+
+            let toasts = _.cloneDeep(nextProps.toasts);
+            for (let toast of toasts) {
+                toast.toastsId = this.nextKey++;
+            }
+
+            this.setState({
+                toasts: [...toasts.reverse(), ...this.state.toasts]
+            }, () => {
+                this.props.onToastPop();
+            });
+
+        }
     }
 
     componentDidUpdate() {
@@ -126,7 +181,20 @@ Toaster.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    toasts: PropTypes.arrayOf(PropTypes.shape({
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
+        title: PropTypes.string,
+        message: PropTypes.string
+
+    })),
+
+    onToastPop: PropTypes.func
 
 };
 
