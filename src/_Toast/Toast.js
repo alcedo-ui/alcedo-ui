@@ -62,7 +62,7 @@ export default class Toast extends Component {
 
         setTimeout(() => {
             onRequestClose && onRequestClose(toastsId);
-        }, 2000);
+        }, 2500);
 
     }
 
