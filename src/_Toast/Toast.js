@@ -21,8 +21,8 @@ export default class Toast extends Component {
 
         this.getIconCls = this::this.getIconCls;
         this.clickHandle = this::this.clickHandle;
-        this.mouseOverHandle = this::this.mouseOverHandle;
-        this.mouseOutHandle = this::this.mouseOutHandle;
+        // this.mouseOverHandle = this::this.mouseOverHandle;
+        // this.mouseOutHandle = this::this.mouseOutHandle;
 
     }
 
@@ -56,21 +56,21 @@ export default class Toast extends Component {
         });
     }
 
-    mouseOverHandle() {
-        if (this.unrenderTimeout) {
-            clearTimeout(this.unrenderTimeout);
-        }
-    }
+    // mouseOverHandle() {
+    //     if (this.unrenderTimeout) {
+    //         clearTimeout(this.unrenderTimeout);
+    //     }
+    // }
 
-    mouseOutHandle() {
-
-        const {onRequestClose, toastsId} = this.props;
-
-        this.unrenderTimeout = setTimeout(() => {
-            onRequestClose && onRequestClose(toastsId);
-        }, 2500);
-
-    }
+    // mouseOutHandle() {
+    //
+    //     const {onRequestClose, toastsId} = this.props;
+    //
+    //     this.unrenderTimeout = setTimeout(() => {
+    //         onRequestClose && onRequestClose(toastsId);
+    //     }, 2500);
+    //
+    // }
 
     componentDidMount() {
 
