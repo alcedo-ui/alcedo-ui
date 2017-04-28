@@ -68,6 +68,11 @@ export default class Switcher extends Component {
     }
 };
 
+Switcher.Size = {
+    DEFAULT: '',
+    SMALL: 'small'
+};
+
 Switcher.propTypes = {
 
     /**
@@ -98,7 +103,7 @@ Switcher.propTypes = {
     /**
      * The size of switcher.The value can be small or default.
      */
-    size: PropTypes.string,
+    size: PropTypes.oneOf(Object.keys(Switcher.Size).map(key => Switcher.Size[key])),
 
     /**
      * Callback function fired when the switcher is touch-tapped.
@@ -115,6 +120,6 @@ Switcher.defaultProps = {
     value: false,
     disabled: false,
     isLoading: false,
-    size: ''
+    size: Switcher.Size.DEFAULT
 
 };

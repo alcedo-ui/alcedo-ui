@@ -14,7 +14,7 @@ export default class CircularLoading extends Component {
         const {className, style, size} = this.props;
 
         return (
-            <div className={`circular-loading ${size} ${className}`}
+            <div className={`circular-loading circular-loading-size-${size} ${className}`}
                  style={style}>
                 <div className="spinner">
                     <div className="circle left">
@@ -33,12 +33,18 @@ export default class CircularLoading extends Component {
     }
 };
 
+CircularLoading.Size = {
+    DEFAULT: '',
+    SMALL: 'small',
+    LARGE: 'large'
+};
+
 CircularLoading.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
 
-    size: PropTypes.string
+    size: PropTypes.oneOf(Object.keys(CircularLoading.Size).map(key => CircularLoading.Size[key]))
 
 };
 
@@ -47,6 +53,6 @@ CircularLoading.defaultProps = {
     className: '',
     style: null,
 
-    size: '' // big / small / ''
+    size: CircularLoading.Size.DEFAULT
 
 };
