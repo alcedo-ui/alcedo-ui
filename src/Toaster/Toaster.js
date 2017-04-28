@@ -100,12 +100,14 @@ export default class Toaster extends Component {
 
     unrender() {
 
+        if (!this.wrapper) {
+            return;
+        }
+
         unmountComponentAtNode(this.wrapper);
         document.body.removeChild(this.wrapper);
         this.element = null;
         this.wrapper = null;
-
-        // this.props.onToastPop();
 
     }
 
@@ -136,11 +138,8 @@ export default class Toaster extends Component {
 
     }
 
-    componentDidMount() {
-        // this.renderWrapper();
-    }
-
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.toasts && nextProps.toasts.length > 0) {
 
             let toasts = _.cloneDeep(nextProps.toasts);
@@ -155,6 +154,7 @@ export default class Toaster extends Component {
             });
 
         }
+
     }
 
     componentDidUpdate() {

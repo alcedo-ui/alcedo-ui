@@ -21,6 +21,8 @@ export default class Toast extends Component {
 
         this.getIconCls = this::this.getIconCls;
         this.clickHandle = this::this.clickHandle;
+        this.initializeAnimation = this::this.initializeAnimation;
+        this.animate = this::this.animate;
         // this.mouseOverHandle = this::this.mouseOverHandle;
         // this.mouseOutHandle = this::this.mouseOutHandle;
 
@@ -106,14 +108,14 @@ export default class Toast extends Component {
             hidden: true,
             leave: true
         }, () => {
-            this.timeout = setTimeout(() => {
+            this.unrenderTimeout = setTimeout(() => {
                 this.hasMounted && callback();
             }, 1250);
         });
     }
 
     componentWillUnmount() {
-        this.timeout && clearTimeout(this.timeout);
+        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
     render() {
