@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
@@ -69,8 +70,6 @@ export default class Toaster extends Component {
 
     renderWrapper() {
 
-        // debugger;
-
         if (this.wrapper) {
             return;
         }
@@ -92,10 +91,14 @@ export default class Toaster extends Component {
     }
 
     unrender() {
+
         unmountComponentAtNode(this.wrapper);
         document.body.removeChild(this.wrapper);
         this.element = null;
         this.wrapper = null;
+
+        // this.props.onToastPop();
+
     }
 
     renderer() {
@@ -129,6 +132,23 @@ export default class Toaster extends Component {
         // this.renderWrapper();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.toasts && nextProps.toasts.length > 0) {
+
+            let toasts = _.cloneDeep(nextProps.toasts);
+            for (let toast of toasts) {
+                toast.toastsId = this.nextKey++;
+            }
+
+            this.setState({
+                toasts: [...toasts, ...this.state.toasts]
+            }, () => {
+                this.props.onToastPop();
+            });
+
+        }
+    }
+
     componentDidUpdate() {
         this.renderElement();
     }
@@ -153,7 +173,20 @@ Toaster.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    toasts: PropTypes.arrayOf(PropTypes.shape({
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
+        title: PropTypes.string,
+        message: PropTypes.string
+
+    })),
+
+    onToastPop: PropTypes.func
 
 };
 

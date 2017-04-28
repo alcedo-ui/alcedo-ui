@@ -123,13 +123,20 @@ export default class Toast extends Component {
     }
 };
 
+Toast.Type = {
+    INFO: 'info',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error'
+};
+
 Toast.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
 
     toastsId: PropTypes.number,
-    type: PropTypes.any,
+    type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
     title: PropTypes.any,
     message: PropTypes.any,
 
@@ -143,7 +150,7 @@ Toast.defaultProps = {
     style: null,
 
     toastsId: 0,
-    type: '',
+    type: Toast.Type.INFO,
     title: '',
     message: ''
 
