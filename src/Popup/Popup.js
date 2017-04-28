@@ -99,6 +99,11 @@ export default class Popup extends Component {
 
 };
 
+Popup.Position = {
+    LEFT: 'left',
+    RIGHT: 'right'
+};
+
 Popup.propTypes = {
 
     /**
@@ -134,7 +139,7 @@ Popup.propTypes = {
     /**
      * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
-    position: PropTypes.oneOf(Object.keys(PopupBody.Position).map(key => PopupBody.Position[key])),
+    position: PropTypes.oneOf(Object.keys(Popup.Position).map(key => Popup.Position[key])),
 
     /**
      * Callback function fired when the popover is requested to be closed.
@@ -152,6 +157,6 @@ Popup.defaultProps = {
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
-    position: PopupBody.Position.LEFT
+    position: Popup.Position.LEFT
 
 };
