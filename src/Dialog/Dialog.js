@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
-import Event from '../_vendors/Event';
-
-import FlatButton from '../FlatButton';
-import RaisedButton from '../RaisedButton';
-import GhostButton from '../GhostButton';
-import IconButton from '../IconButton';
+import DialogBody from './DialogBody';
 import Theme from '../Theme';
 
 import './Dialog.css';
@@ -20,215 +16,72 @@ export default class Dialog extends Component {
 
         this.wrapper = null;
         this.element = null;
-        this.dialogEl = null;
 
-        this.state = {
-            visible: !!props.visible
-        };
-
-        this.mousedownHandle = this::this.mousedownHandle;
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
         this.renderElement = this::this.renderElement;
         this.unrender = this::this.unrender;
-        this.getButton = this::this.getButton;
-        this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
-        this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
-
-    }
-
-    triggerDialogEventHandle(el, dialogEl, currentVisible) {
-
-        let flag = true;
-
-        while (el) {
-            if (el == dialogEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
-        }
-
-        if (flag) {
-            return false;
-        }
-
-    }
-
-    mousedownHandle(e) {
-
-        if (!this.props.isBlurClose || !this.state.visible) {
-            return;
-        }
-
-        const {onRequestClose} = this.props,
-            visible = this.triggerDialogEventHandle(
-                e.target,
-                this.dialogEl,
-                this.state.visible
-            );
-
-        this.setState({
-            visible
-        }, () => {
-            !visible && onRequestClose && onRequestClose();
-        });
+        this.requestCloseHandle = this::this.requestCloseHandle;
 
     }
 
     renderWrapper() {
-        this.wrapper = document.createElement('div');
-        this.wrapper.className = 'dialog-container';
-        document.body.appendChild(this.wrapper);
-    }
 
-    getButton(uiType, value, iconCls, theme, handle, disabled, isLoading) {
-        switch (uiType) {
-            case Dialog.ButtonUITypes.RAISED:
-                return <RaisedButton value={value}
-                                     iconCls={iconCls}
-                                     theme={theme}
-                                     disabled={disabled}
-                                     isLoading={isLoading}
-                                     onTouchTap={handle}/>;
-            case Dialog.ButtonUITypes.FLAT:
-                return <FlatButton value={value}
-                                   iconCls={iconCls}
-                                   theme={theme}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   onTouchTap={handle}/>;
-            case Dialog.ButtonUITypes.GHOST:
-                return <GhostButton value={value}
-                                    iconCls={iconCls}
-                                    theme={theme}
-                                    disabled={disabled}
-                                    isLoading={isLoading}
-                                    onTouchTap={handle}/>;
-            case Dialog.ButtonUITypes.ICON:
-                return <IconButton iconCls={iconCls}
-                                   theme={theme}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   onTouchTap={handle}/>;
+        if (this.wrapper) {
+            return;
         }
-    }
 
-    okButtonTouchTapHandle() {
-
-        const {onOKButtonTouchTap} = this.props;
-
-        onOKButtonTouchTap && onOKButtonTouchTap(() => {
-            this.cancelButtonTouchTapHandle();
-        });
-
-    }
-
-    cancelButtonTouchTapHandle() {
-
-        const {onCancelButtonTouchTap, onRequestClose} = this.props;
-
-        this.setState({
-            visible: false
-        }, () => {
-            onCancelButtonTouchTap && onCancelButtonTouchTap();
-            onRequestClose && onRequestClose();
-        });
-
-    }
-
-    renderer() {
-
-        const {
-            children, className, style, disabled, theme, showModal, title, buttons,
-            okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonUIType, okButtonDisabled, okButtonIsLoading,
-            cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
-        } = this.props;
-        const {visible} = this.state;
-
-        return (
-            <div>
-
-                {
-                    showModal
-                        ? <div className={`dialog-modal ${visible ? '' : 'hidden'}`}></div>
-                        : null
-                }
-
-                <div className={`dialog-wrapper ${visible ? '' : 'hidden'}
-                         ${theme ? `theme-${theme}` : ''} ${className}`}
-                     style={style}
-                     disabled={disabled}>
-
-                    {
-                        title
-                            ? <div className="dialog-title">{title}</div>
-                            : null
-                    }
-
-                    <div className="dialog-content">
-
-                        {children}
-
-                    </div>
-
-                    <div className="dialog-buttons">
-
-                        {
-                            buttons
-                                ? buttons
-                                : null
-                        }
-
-                        {
-                            !buttons && okButtonVisible
-                                ? this.getButton(okButtonUIType, okButtonText,
-                                okButtonIconCls, okButtonTheme, this.okButtonTouchTapHandle, okButtonDisabled, okButtonIsLoading)
-                                : null
-                        }
-
-                        {
-                            !buttons && cancelButtonVisible
-                                ? this.getButton(cancelButtonUIType, cancelButtonText,
-                                cancelButtonIconCls, cancelButtonTheme, this.cancelButtonTouchTapHandle)
-                                : null
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
-        );
+        const wrapper = document.querySelector('.dialog-container');
+        if (wrapper) {
+            this.wrapper = wrapper;
+        } else {
+            this.wrapper = document.createElement('div');
+            this.wrapper.className = 'dialog-container';
+            document.body.appendChild(this.wrapper);
+        }
 
     }
 
     renderElement() {
+
+        if (!this.props.visible) {
+            return;
+        }
+
+        this.renderWrapper();
         this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-        this.dialogEl = [].find.call(this.element.childNodes, node => node.className.includes('dialog-wrapper'));
+
     }
 
     unrender() {
+
+        if (!this.wrapper) {
+            return;
+        }
+
         unmountComponentAtNode(this.wrapper);
         document.body.removeChild(this.wrapper);
         this.element = null;
-        this.dialogEl = null;
         this.wrapper = null;
-    }
-
-    componentDidMount() {
-
-        Event.addEvent(document, 'mousedown', this.mousedownHandle);
-
-        this.renderWrapper();
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: !!nextProps.visible
-            });
-        }
+    requestCloseHandle() {
+
+        const {onRequestClose} = this.props;
+
+        this.unrender();
+        onRequestClose && onRequestClose();
+
+    }
+
+    renderer() {
+        return (
+            <ReactCSSTransitionGroup component="div">
+                <DialogBody {...this.props}
+                            onRequestClose={this.requestCloseHandle}/>
+            </ReactCSSTransitionGroup>
+        );
     }
 
     componentDidUpdate() {
@@ -236,16 +89,13 @@ export default class Dialog extends Component {
     }
 
     componentWillUnmount() {
-
-        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
-
         this.unrender();
-
     }
 
     render() {
         return null;
     }
+
 };
 
 Dialog.ButtonUITypes = {
