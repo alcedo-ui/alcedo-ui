@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
+import Tip from '../Tip/Tip';
 import TouchRipple from '../TouchRipple/TouchRipple';
 import Theme from '../Theme';
 
@@ -13,6 +14,13 @@ export default class BaseButton extends Component {
 
         super(props);
 
+        this.state = {
+            popupVisible: false,
+            triggerEl: null
+        };
+
+        this.openTip = this::this.openTip;
+        this.closeTip = this::this.closeTip;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
@@ -32,12 +40,27 @@ export default class BaseButton extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
+    openTip(e) {
+        this.setState({
+            popupVisible: !this.state.popupVisible,
+            triggerEl: e.currentTarget
+        });
+    }
+
+    closeTip() {
+        this.setState({
+            popupVisible: false
+        });
+    }
+
     render() {
 
         const {
             children, className, style, theme, isRounded, isCircular,
-            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter, onMouseOver,onMouseOut
+            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,tip,tipPosition
         } = this.props;
+
+        const {popupVisible,triggerEl}=this.state;
 
         return (
             <button className={`base-button ${theme ? `theme-${theme}` : ''}
@@ -46,8 +69,8 @@ export default class BaseButton extends Component {
                     type={type}
                     disabled={disabled || isLoading}
                     onClick={this.clickHandle}
-                    onMouseOver={onMouseOver}
-                    onMouseOut={onMouseOut}>
+                    onMouseOver={this.openTip}
+                    onMouseOut={this.closeTip}>
 
                 {
                     isLoading
@@ -70,6 +93,19 @@ export default class BaseButton extends Component {
                 }
 
                 {children}
+
+                {
+                    tip ?
+
+                    <Tip text={tip}
+                         visible={popupVisible}
+                         triggerEl={triggerEl}
+                         position={tipPosition}
+                         onRequestClose={this.closeTip}
+                    />
+                        :
+                        null
+                }
 
                 <TouchRipple ref="touchRipple"
                              className={disabled || isLoading ? 'hidden' : ''}
@@ -98,6 +134,9 @@ BaseButton.propTypes = {
 
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.string,
 
     rippleDisplayCenter: PropTypes.bool,
 

@@ -16,12 +16,10 @@
         transition: left 0s, opacity $transition-duration ease-in-out,
         transform $transition-duration ease-in-out;
         z-index: $popup-z-index;
-        margin-top: 4px;
         padding: 6px;
         background: rgba(0,0,0,0.5);
         color: #fff;
         cursor: pointer;
-
         &.hidden {
             opacity: 0 !important;
             left: -99999px !important;
