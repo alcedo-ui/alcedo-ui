@@ -38,10 +38,14 @@ export default class AccordionExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>
+                                    Accordion simple example.
+                                </p>
+
                                 <Paper>
-                                    <Accordion title="Browser">
+                                    <Accordion title="Title">
                                         <div className="accordion-example-content">
-                                            chrome
+                                            content
                                         </div>
                                     </Accordion>
                                 </Paper>
@@ -62,10 +66,16 @@ export default class AccordionExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>
+                                    Set collapseIcon and expandIcon properties to show different icons.
+                                </p>
+
                                 <Paper>
-                                    <Accordion title="Browser" collapseIcon="fa fa-chrome">
+                                    <Accordion title="Title"
+                                               collapseIcon="fa fa-arrow-circle-up"
+                                               expandIcon="fa fa-arrow-circle-down">
                                         <div className="accordion-example-content">
-                                            chrome
+                                            content
                                         </div>
                                     </Accordion>
                                 </Paper>
