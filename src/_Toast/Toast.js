@@ -172,7 +172,7 @@ Toast.defaultProps = {
 
     toastsId: 0,
     type: Toast.Type.INFO,
-    title: '',
+    title: 'message',
     message: ''
 
 };

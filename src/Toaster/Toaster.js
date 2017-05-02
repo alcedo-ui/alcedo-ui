@@ -144,6 +144,11 @@ export default class Toaster extends Component {
 
             let toasts = _.cloneDeep(nextProps.toasts);
             for (let toast of toasts) {
+                if (typeof toast !== 'object') {
+                    toast = {
+                        message: toast
+                    };
+                }
                 toast.toastsId = this.nextKey++;
             }
 
@@ -183,7 +188,7 @@ Toaster.propTypes = {
      */
     style: PropTypes.object,
 
-    toasts: PropTypes.arrayOf(PropTypes.shape({
+    toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         className: PropTypes.string,
         style: PropTypes.object,
@@ -192,7 +197,7 @@ Toaster.propTypes = {
         title: PropTypes.string,
         message: PropTypes.string
 
-    })),
+    }), PropTypes.string])),
 
     onToastPop: PropTypes.func
 
