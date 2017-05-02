@@ -86,7 +86,8 @@ export default class Test extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Circular Progress without percentage description by default.Set the word property to true for percentage description.</p>
+                            <p>Circular Progress without percentage description by default.Set the word property to true
+                                for percentage description.</p>
 
                             <CircularProgress r={20}
                                               width={3}
@@ -106,7 +107,8 @@ export default class Test extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Set the word property to true and include a "span" element in this component for percentage and text description.</p>
+                            <p>Set the word property to true and include a "span" element in this component for
+                                percentage and text description.</p>
 
                             <CircularProgress r={100}
                                               width={15}

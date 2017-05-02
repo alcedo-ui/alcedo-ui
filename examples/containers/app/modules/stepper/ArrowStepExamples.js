@@ -69,6 +69,14 @@ export default class ArrowStepExamples extends Component {
 
                 <h2 className="example-title">ArrowStep</h2>
 
+                <p>
+                    A stepper is an interface for users to show numbered steps or for navigation. It just provides
+                    views, not handling logic (when the step is active, or when the step is completed, or how to move to
+                    the next step).
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="ArrowStep Example"/>
@@ -76,16 +84,20 @@ export default class ArrowStepExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
+                            <p>A simple ArrowStep example.</p>
+
                             <ArrowStep steps={steps}
                                        activatedStep={activatedStep}
                                        finishedStep={finishedStep}
                                        onChange={this.updateStep}/>
 
                             <div className="step-ctrls">
+
                                 <RaisedButton value="Prev"
                                               iconCls="fa fa-angle-left"
                                               disabled={activatedStep <= 0}
                                               onTouchTap={this.prev}/>
+
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
                                               rightIconCls={activatedStep < steps.length - 1 ? 'fa fa-angle-right' : ''}
                                               disabled={activatedStep >= steps.length}

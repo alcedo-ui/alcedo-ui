@@ -429,7 +429,7 @@ Table.defaultProps = {
     columns: [],
     data: [],
     isPagging: false,
-    rowHeight: 60,
+    rowHeight: 90,
     isAdaptiveHeight: false,
     hasLineNumber: false,
     isMultiSelect: false

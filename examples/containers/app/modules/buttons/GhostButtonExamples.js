@@ -22,6 +22,12 @@ export default class GhostButtonExamples extends Component {
 
                 <h2 className="example-title">Ghost Button</h2>
 
+                <p>
+                    <span>Ghost Button</span> .
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Ghost Button Example"/>
@@ -30,6 +36,8 @@ export default class GhostButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Ghost Button with default theme,success,warning,error and disabled props applied.</p>
 
                                 <GhostButton value="Default"/>
 
@@ -63,6 +71,8 @@ export default class GhostButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Set the isRounded property to true for button round corner.</p>
 
                                 <GhostButton value="Default"
                                              isRounded={true}/>
@@ -102,6 +112,9 @@ export default class GhostButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Set the iconCls property for button left icon.And set the rightIconCls property for
+                                    button right icon.</p>
 
                                 <GhostButton value="Reset"
                                              iconCls="fa fa-undo"/>
