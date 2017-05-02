@@ -143,13 +143,13 @@ export default class Toaster extends Component {
         if (nextProps.toasts && nextProps.toasts.length > 0) {
 
             let toasts = _.cloneDeep(nextProps.toasts);
-            for (let toast of toasts) {
-                if (typeof toast !== 'object') {
-                    toast = {
-                        message: toast
+            for (let i = 0, len = toasts.length; i < len; i++) {
+                if (typeof toasts[i] !== 'object') {
+                    toasts[i] = {
+                        message: toasts[i]
                     };
                 }
-                toast.toastsId = this.nextKey++;
+                toasts[i].toastsId = this.nextKey++;
             }
 
             this.setState({
