@@ -22,6 +22,13 @@ export default class AccordionExamples extends Component {
 
                 <h2 className="example-title">Accordion</h2>
 
+                <p>
+                    <span>Accordion</span> will rotate to show the progress of a task or that there is a wait
+                    for a task to complete.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Accordion Example"/>
@@ -32,9 +39,33 @@ export default class AccordionExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <Paper>
-                                    <Accordion title="Title">
+                                    <Accordion title="Browser">
                                         <div className="accordion-example-content">
-                                            Content
+                                            chrome
+                                        </div>
+                                    </Accordion>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Accordion Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Paper>
+                                    <Accordion title="Browser" collapseIcon="fa fa-chrome">
+                                        <div className="accordion-example-content">
+                                            chrome
                                         </div>
                                     </Accordion>
                                 </Paper>

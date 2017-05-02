@@ -21,6 +21,12 @@ export default class CheckboxExamples extends Component {
 
                 <h2 className="example-title">Paper</h2>
 
+                <p>
+                    A <span>Paper</span> element is a basic container that can give depth to the page.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Paper Example"/>
@@ -28,7 +34,10 @@ export default class CheckboxExamples extends Component {
                     <div className="widget-content">
 
                         <div className="example-content">
+
                             <div className="examples-wrapper">
+
+                                <p>Paper examples showing the range of zDepth.</p>
 
                                 <Paper depth={0}/>
                                 <Paper depth={1}/>
@@ -52,6 +61,9 @@ export default class CheckboxExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <div className="examples-wrapper">
+
+                                <p>Corners are rounded by default.Set the nonRounded property to true for square
+                                    corners.</p>
 
                                 <Paper depth={0}
                                        nonRounded={true}/>
@@ -83,6 +95,8 @@ export default class CheckboxExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <div className="examples-wrapper">
+
+                                <p>Pages are square by default. Set the isCircular property to true for round page.</p>
 
                                 <Paper depth={0}
                                        isCircular={true}/>

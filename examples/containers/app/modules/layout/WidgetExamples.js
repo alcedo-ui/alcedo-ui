@@ -21,6 +21,12 @@ export default class WidgetExamples extends Component {
 
                 <h2 className="example-title">Widget</h2>
 
+                <p>
+                    A <span>Widget</span> element is a basic container that can give a title.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Widget Example"/>
@@ -30,6 +36,9 @@ export default class WidgetExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>Widget example showing title and content.Set the value of the title property to
+                                    'Title' and place the content in the widget-content container.</p>
+
                                 <Widget>
 
                                     <WidgetHeader title="Title">
@@ -38,7 +47,7 @@ export default class WidgetExamples extends Component {
                                     </WidgetHeader>
 
                                     <div className="widget-content">
-                                        content
+                                        widget content
                                     </div>
 
                                 </Widget>

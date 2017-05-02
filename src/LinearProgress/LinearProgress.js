@@ -92,7 +92,7 @@ LinearProgress.propTypes = {
     word: PropTypes.bool,
 
     /**
-     * The percent text location.
+     * The percent text location.Desirable values include front,middle,follow.
      */
     wordStyle: PropTypes.string
 

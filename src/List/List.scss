@@ -13,8 +13,12 @@
         padding: 0 20px;
 
         .button-icon {
-            float: left;
             margin-right: 15px;
+
+            &.button-icon-right {
+
+                float: right;
+            }
         }
 
         &:hover {

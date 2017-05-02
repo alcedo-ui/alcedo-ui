@@ -53,7 +53,7 @@ Paper.propTypes = {
     depth: PropTypes.number,
 
     /**
-     * If true,the paper container will have a border radius.
+     * If true,the paper container will have no border radius.
      */
     nonRounded: PropTypes.bool,
 

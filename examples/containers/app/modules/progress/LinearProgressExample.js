@@ -13,8 +13,9 @@ import LinearProgressDoc from 'assets/propTypes/LinearProgress.json';
 import 'sass/containers/app/modules/progress/LinearProgressExample.scss';
 
 export default class LinearProgressExample extends Component {
+
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             percent: 0
         }
@@ -69,6 +70,13 @@ export default class LinearProgressExample extends Component {
 
                 <h2 className="example-title">Linear Progress</h2>
 
+                <p>
+                    <span>Linear Progress</span> bars fill from 0% to 100% to show the progress of a task.
+                    It also will animate to show there is a task waiting to be done.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Linear Progress Example"/>
@@ -76,17 +84,33 @@ export default class LinearProgressExample extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Linear Progress will rotate to show the progress of a task or that there is a wait for a
-                                task to complete.</p>
+                            <p>Linear Progress without percentage description.</p>
 
                             <div style={progressGroup}>
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style1}
                                                 background="#f3f6fa"
-                                                highlight="#38b1eb"
-                                                word={true}
-                                                wordStyle='front'/>
+                                                highlight="#38b1eb"/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Linear Progress Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Linear Progress without percentage description by default.Set the word property to true
+                                and wordStyle property to middle for percentage description stay at middle.</p>
+
+                            <div style={progressGroup}>
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style2}
@@ -94,6 +118,25 @@ export default class LinearProgressExample extends Component {
                                                 highlight="#38b1eb"
                                                 word={true}
                                                 wordStyle='middle'/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Linear Progress Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Linear Progress without percentage description by default.Set the word property to true
+                                and wordStyle property to follow for percentage description stay at end.</p>
+
+                            <div style={progressGroup}>
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style3}

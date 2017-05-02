@@ -28,6 +28,7 @@ export default class LandingUsage extends Component {
                     <pre className="landing-code landing-jsx"
                          dangerouslySetInnerHTML={this.getExampleHTML()}>
                     </pre>
+
                 </div>
 
             </section>

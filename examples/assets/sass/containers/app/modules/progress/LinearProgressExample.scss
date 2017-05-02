@@ -1,19 +1,26 @@
-.example-box{
-  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-  margin: 50px;
-  padding: 0px 0 20px;
-  overflow: hidden;
-  background: white;
-  >h3{
-    font-size: 16px;
-    color: #758697;
-    background-color: #E3EAF3;
-    margin: 0;
-    padding: 15px 20px;
-  }
-  >p{
-    margin-left: 20px;
-    font-size: 14px;
-    color: #4C637B;
-  }
+.example-box {
+
+    margin: 50px;
+    padding: 0 0 20px;
+    overflow: hidden;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+
+    > h3 {
+
+        font-size: 16px;
+        color: #758697;
+        background-color: #E3EAF3;
+        margin: 0;
+        padding: 15px 20px;
+
+    }
+
+    > p {
+
+        margin-left: 20px;
+        font-size: 14px;
+        color: #4C637B;
+
+    }
 }

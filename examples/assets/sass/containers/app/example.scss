@@ -3,15 +3,14 @@
 .example {
     padding: 40px;
 
-    .widget {
-        margin-bottom: 30px;
-    }
+    p {
+        padding: 10px;
+        font-size: 14px;
+        line-height: 24px;
 
-    .example-header {
-
-        color: #fff;
-        background: $theme-title;
-
+        span {
+            color: $light-blue;
+        }
     }
 
     .example-title {
@@ -24,12 +23,23 @@
 
     }
 
+    .widget {
+        margin-bottom: 30px;
+    }
+
+    .example-header {
+
+        color: #fff;
+        background: $theme-title;
+
+    }
+
     .example-content {
 
         @include float-fix;
 
         padding: 30px;
-        background: lighten($grey,32%);
+        background: lighten($grey, 32%);
         box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
     }
@@ -38,7 +48,7 @@
 
         tbody tr td:first-child {
 
-            color: $cyan;
+            color: $light-blue;
 
         }
 

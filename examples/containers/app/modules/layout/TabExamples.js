@@ -29,6 +29,54 @@ export default class TabExamples extends Component {
 
                 <h2 className="example-title">Tabs</h2>
 
+                <p>
+                    <span>Tabs</span> make it easy to explore and switch between different views or functional aspects
+                    of an app or to browse categorized data sets.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Full Width Tabs Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A simple example of Tabs. The third tab demonstrates the onActive property of Tab.
+                                </p>
+
+                                <Tab tabs={[{
+                                    value: 'Tab 1',
+                                    renderer: <div>
+                                        <h1>Tab 1</h1>
+                                    </div>
+                                }, {
+                                    value: 'Tab 2',
+                                    renderer: <div>
+                                        <h1>Tab 2</h1>
+                                    </div>
+                                }, {
+                                    value: 'onActive',
+                                    renderer: <div>
+                                        <h1>onActive</h1>
+                                    </div>,
+                                    onActive: this.activeHandle
+                                }, {
+                                    value: 'Disabled',
+                                    disabled: true
+                                }]}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Tabs Example"/>
@@ -37,6 +85,11 @@ export default class TabExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>
+                                    Tabs use full container width by default.Set the isTabFullWidth property to false
+                                    for partial width.
+                                </p>
 
                                 <Tab tabs={[{
                                     value: 'Tab 1',
@@ -69,33 +122,42 @@ export default class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Full Width Tabs Example"/>
+                    <WidgetHeader className="example-header" title="Tabs Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
+                                <p>
+                                    Tabs without icons by default.Set the iconCls property for left icons.
+                                </p>
+
                                 <Tab tabs={[{
-                                    value: 'Tab 1',
+                                    value: 'Bicycle',
+                                    iconCls: 'fa fa-bicycle',
                                     renderer: <div>
-                                        <h1>Tab 1</h1>
+                                        <h1>Bicycle</h1>
                                     </div>
                                 }, {
-                                    value: 'Tab 2',
+                                    value: 'Taxi',
+                                    iconCls: 'fa fa-taxi',
                                     renderer: <div>
-                                        <h1>Tab 2</h1>
+                                        <h1>Taxi</h1>
                                     </div>
                                 }, {
-                                    value: 'onActive',
+                                    value: 'Plane',
+                                    iconCls: 'fa fa-plane',
                                     renderer: <div>
-                                        <h1>onActive</h1>
+                                        <h1>Plane</h1>
                                     </div>,
                                     onActive: this.activeHandle
                                 }, {
-                                    value: 'Disabled',
+                                    value: 'Rocket',
+                                    iconCls: 'fa fa-rocket',
                                     disabled: true
-                                }]}/>
+                                }]}
+                                     isTabFullWidth={false}/>
 
                             </div>
 

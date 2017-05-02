@@ -49,6 +49,14 @@ export default class Test extends Component {
             <div className="example circular-progress-examples">
 
                 <h2 className="example-title">Circular Progress</h2>
+
+                <p>
+                    <span>Circular Progress</span> will rotate to show the progress of a task or that there is a wait
+                    for a task to complete.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Circular Progress Example"/>
@@ -56,16 +64,29 @@ export default class Test extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Circular Progress will rotate to show the progress of a task or that there is a wait for
-                                a task to complete.</p>
+                            <p>Circular Progress without percentage and text description.</p>
 
                             <CircularProgress r={50}
                                               width={10}
                                               rgba="#38b1eb"
                                               percent={this.state.percent}
-                                              word={true}>
+                                              word={false}>
                                 <span>百分比：</span>
                             </CircularProgress>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Circular Progress Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Circular Progress without percentage description by default.Set the word property to true for percentage description.</p>
 
                             <CircularProgress r={20}
                                               width={3}
@@ -73,12 +94,26 @@ export default class Test extends Component {
                                               percent={this.state.percent}
                                               word={true}/>
 
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Circular Progress Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Set the word property to true and include a "span" element in this component for percentage and text description.</p>
+
                             <CircularProgress r={100}
                                               width={15}
                                               rgba="#38b1eb"
                                               percent={this.state.percent}
                                               word={true}
-                                              percentStyle={{color: 'white'}}>
+                                              percentStyle={{color: '#03a9f4'}}>
                                 <span>已完成：</span>
                             </CircularProgress>
 

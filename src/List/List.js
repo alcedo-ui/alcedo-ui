@@ -27,6 +27,7 @@ export default class List extends Component {
                         items.map((item, index) => {
                             return (
                                 <RaisedButton {...item}
+                                              rightIconCls={item.iconPosition}
                                               disabled={disabled || item.disabled}
                                               key={index}
                                               className={`list-item ${item.className ? item.className : ''}`}/>
@@ -102,7 +103,7 @@ List.propTypes = {
         disableTouchRipple: PropTypes.bool,
 
         /**
-         * Use this property to display an icon.It will display on the left.
+         * Use this property to display an icon.
          */
         iconCls: PropTypes.string,
 

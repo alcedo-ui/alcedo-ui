@@ -13,11 +13,6 @@ export default class Tip extends Component {
 
         const {className, style, text} = this.props;
 
-        {/*<div className="tip-wrapper">*/
-        }
-        {/*</div>*/
-        }
-
         return (
             <div className={`tip ${className}`}
                  style={style}>
