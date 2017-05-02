@@ -56,8 +56,8 @@ export default class TipExamples extends Component {
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
-                                            onMouseOver={this.openTip}
-                                            onMouseOut={this.closeTip}/>
+                                            onMouseOver={this.openTip}/>
+                                            {/*onMouseOut={this.closeTip}/>*/}
 
                                 <Tip text={text}
                                      visible={popupVisible}
