@@ -109,11 +109,8 @@ export default class PopupBody extends Component {
     }
 
     componentDidMount() {
-
         this.hasMounted = true;
-
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
-
     }
 
     componentWillAppear(callback) {
