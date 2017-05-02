@@ -317,20 +317,22 @@ export default class DateTimePicker extends Component {
                                         onChange={this.yearPickerChangeHandle}
                                     />
                                     :
-                                    <TimeList className="time-picker-body"
-                                              popupVisible={popupVisible}
-                                              hour={hour}
-                                              minute={minute}
-                                              second={second}
-                                              isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true : false }
-                                              maxValue={maxValue && value.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
-                                              minValue={minValue && value.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
-                                              onChange={this.timePickerChangeHandle}
-                                    />
+                                    null
                             )
 
                         )
-
+                    }
+                    {
+                        <TimeList className={`time-picker-body ${datePickerLevel == 3 ? '' : 'hidden'}`}
+                                  popupVisible={datePickerLevel == 3 ? true : false}
+                                  hour={hour}
+                                  minute={minute}
+                                  second={second}
+                                  isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true : false }
+                                  maxValue={maxValue && value.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
+                                  minValue={minValue && value.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
+                                  onChange={this.timePickerChangeHandle}
+                        />
                     }
                     {
                         isFooter ?

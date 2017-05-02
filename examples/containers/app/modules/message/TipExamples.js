@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import IconButton from 'dist/IconButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
-import Tip from 'dist/Tip';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TipDoc from 'assets/propTypes/Tip.json';
@@ -14,10 +13,10 @@ export default class TipExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.text="This is a icon button";
     }
 
     render() {
-
         return (
             <div className="example tip-example">
 
@@ -34,7 +33,7 @@ export default class TipExamples extends Component {
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
-                                            tip="123456789"/>
+                                            tip={this.text}/>
 
                             </div>
 
