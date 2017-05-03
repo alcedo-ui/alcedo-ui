@@ -1,96 +1,58 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
-import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
+import SubtreeContainer from '../_SubtreeContainer';
 import TipBody from './TipBody';
+
 import './Tip.css';
 
 export default class Tip extends Component {
 
     constructor(props) {
+
         super(props);
 
-        this.wrapper = null;
-        this.element = null;
+        this.state = {
+            visible: !!props.visible
+        };
 
-        this.renderWrapper = this::this.renderWrapper;
-        this.renderer = this::this.renderer;
-        this.renderElement = this::this.renderElement;
-        this.unrenderElement = this::this.unrenderElement;
         this.requestCloseHandle = this::this.requestCloseHandle;
-    }
 
-    renderWrapper() {
-
-        if (this.wrapper) {
-            return;
-        }
-
-        const wrapper = document.querySelector('.tip-container');
-        if (wrapper) {
-            this.wrapper = wrapper;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.className = 'tip-container';
-            document.body.appendChild(this.wrapper);
-        }
-
-    }
-
-    renderElement() {
-        if (!this.props.visible) {
-            return;
-        }
-
-        this.renderWrapper();
-
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-    }
-
-    unrenderElement() {
-
-        if (!this.wrapper) {
-            return;
-        }
-
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.wrapper = null;
-        this.element = null;
     }
 
     requestCloseHandle() {
+
         const {onRequestClose} = this.props;
-        // debugger
-        this.unrenderElement();
-        onRequestClose && onRequestClose();
+
+        this.setState({
+            visible: false
+        }, () => {
+            onRequestClose && onRequestClose();
+        });
 
     }
 
-    renderer() {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: !!nextProps.visible
+            });
+        }
+    }
+
+    render() {
+
+        const {visible} = this.state;
+
         return (
-            <ReactCSSTransitionGroup component="div">
+            <SubtreeContainer visible={visible}>
                 <TipBody {...this.props}
-                           onRequestClose={this.requestCloseHandle}/>
-            </ReactCSSTransitionGroup>
+                         onRequestClose={this.requestCloseHandle}/>
+            </SubtreeContainer>
         );
 
     }
 
-    componentDidUpdate() {
-        this.renderElement();
-    }
-
-    componentWillUnmount() {
-
-        this.unrenderElement();
-
-    }
-
-    render() {
-        return null;
-    }
 }
 
 Tip.propTypes = {
