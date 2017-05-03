@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import * as actions from 'reduxes/actions';
 
 import IconButton from 'dist/IconButton';
 import IconAnchor from 'dist/IconAnchor';
 
 import 'sass/containers/app/navBar/brand/Brand.scss';
 
-export default class Brand extends Component {
+class Brand extends Component {
 
     constructor(props) {
 
@@ -48,3 +52,13 @@ export default class Brand extends Component {
 Brand.propTypes = {
     toggleNavMenu: PropTypes.func
 };
+
+function mapStateToProps(state, ownProps) {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Brand);

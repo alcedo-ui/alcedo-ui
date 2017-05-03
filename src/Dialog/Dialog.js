@@ -19,7 +19,7 @@ export default class Dialog extends Component {
 
         this.renderWrapper = this::this.renderWrapper;
         this.renderer = this::this.renderer;
-        this.renderElement = this::this.renderElement;
+        this.dorender = this::this.dorender;
         this.unrender = this::this.unrender;
         this.requestCloseHandle = this::this.requestCloseHandle;
 
@@ -42,15 +42,13 @@ export default class Dialog extends Component {
 
     }
 
-    renderElement() {
-
-        if (!this.props.visible) {
-            return;
+    dorender() {
+        if (this.props.visible) {
+            this.renderWrapper();
+            this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+        } else {
+            this.unrender();
         }
-
-        this.renderWrapper();
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-
     }
 
     unrender() {
@@ -85,7 +83,7 @@ export default class Dialog extends Component {
     }
 
     componentDidUpdate() {
-        this.renderElement();
+        this.dorender();
     }
 
     componentWillUnmount() {
