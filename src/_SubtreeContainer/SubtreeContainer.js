@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
-import './PopupContainer.scss';
+import './SubtreeContainer.css';
 
-export default class PopupContainer extends Component {
+export default class SubtreeContainer extends Component {
 
     constructor(props) {
 
@@ -28,18 +28,14 @@ export default class PopupContainer extends Component {
             return;
         }
 
-        const wrapper = document.querySelector('.popup-container');
-        if (wrapper) {
-            this.wrapper = wrapper;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.className = 'popup-container';
-            document.body.appendChild(this.wrapper);
-        }
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'subtree-container';
+        document.body.appendChild(this.wrapper);
 
     }
 
     dorender() {
+        console.log(this.props.visible);
         if (this.props.visible) {
             this.renderWrapper();
             this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
@@ -92,7 +88,7 @@ export default class PopupContainer extends Component {
 
 };
 
-PopupContainer.propTypes = {
+SubtreeContainer.propTypes = {
 
     /**
      * The css class name of the root element.
@@ -102,11 +98,16 @@ PopupContainer.propTypes = {
     /**
      * The styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    visible: PropTypes.bool,
+
+    onRequestClose: PropTypes.func
 
 };
 
-PopupContainer.defaultProps = {
+SubtreeContainer.defaultProps = {
     className: '',
-    style: null
+    style: null,
+    visible: false
 };
