@@ -134,9 +134,7 @@ export default class TipBody extends Component {
 
 
     initializeAnimation(callback) {
-        setTimeout(() => {
-            this && this.hasMounted && callback && callback();
-        }, 0);
+        this.hasMounted && callback();
     }
 
     animate() {
