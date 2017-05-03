@@ -29,9 +29,16 @@ export default class DropdownSelectExamples extends Component {
         }];
 
         return (
-            <div className="example dropdown-select-examples">
+            <div className="example drop-down-select-examples">
 
                 <h2 className="example-title">Dropdown Select</h2>
+
+                <p>
+                    <span>Dropdown Select</span> use to store operating elements. Click on the contact
+                    and a drop-down menu will appear. You can select from the list and execute the appropriate command.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
@@ -41,6 +48,8 @@ export default class DropdownSelectExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Dropdown Select .</p>
 
                                 <div className="field-group">
                                     <label className="dropdown-select-label">Number</label>
