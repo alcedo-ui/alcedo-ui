@@ -1,0 +1,57 @@
+@import '../_common.scss';
+
+.time-line {
+    background: $theme-nav;
+    padding: 10px;
+
+    &-item {
+        position: relative;
+        padding: 0 0 12px;
+        list-style: none;
+        margin: 0;
+
+        &-tail {
+
+            position: absolute;
+            left: 7px;
+            top: 0;
+            height: 100%;
+            border-left: 2px solid $theme-menu;
+
+        }
+
+        &-head {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: $theme-bg;
+            border-radius: 10px;
+            border: 2px solid transparent;
+
+            &-blue {
+                border-color: $blue;
+                color: $blue;
+            }
+
+            &-red {
+                border-color: $error;
+                color: $error;
+            }
+
+            &-green {
+                border-color: $success;
+                color: $success;
+            }
+        }
+
+        &-content {
+            padding: 0 0 10px 24px;
+            font-size: 14px;
+            position: relative;
+            top: -3px;
+        }
+
+    }
+
+}
+

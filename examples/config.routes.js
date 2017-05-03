@@ -47,6 +47,9 @@ import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples'
 import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
 import TipExamples from 'containers/app/modules/message/TipExamples';
 
+
+import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
+
 export default (
     <Route path="/" component={Root}>
 
@@ -141,6 +144,10 @@ export default (
                    component={ToasterExamples}/>
             <Route path="Tip"
                    component={TipExamples}/>
+
+            {/* timeLine */}
+            <Route path="TimeLine"
+                   component={TimeLineExamples}/>
 
         </Route>
 

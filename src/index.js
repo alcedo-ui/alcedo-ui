@@ -34,6 +34,7 @@ export Table from './Table';
 export TextField from './TextField';
 export TextFieldGroup from './TextFieldGroup';
 export Theme from './Theme';
+export TimeLine from './TimeLine';
 export TimePicker from './TimePicker';
 export Tip from './Tip';
 export Toaster from './Toaster';

@@ -121,4 +121,10 @@ export default [{
         text: 'Tip',
         route: '/components/Tip'
     }]
+}, {
+    text: 'TimeLine',
+    children: [{
+        text: 'TimeLine',
+        route: '/components/TimeLine'
+    }]
 }];
