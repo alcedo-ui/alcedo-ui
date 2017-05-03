@@ -38,8 +38,8 @@ export default class DialogExamples extends Component {
         });
     }
 
-    okHandle(callback) {
-        callback();
+    okHandle(closeDialog) {
+        closeDialog();
     }
 
     render() {

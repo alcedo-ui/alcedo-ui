@@ -176,6 +176,13 @@ export default class Toaster extends Component {
 
 };
 
+Toaster.ToastType = {
+    INFO: 'info',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error'
+};
+
 Toaster.propTypes = {
 
     /**
