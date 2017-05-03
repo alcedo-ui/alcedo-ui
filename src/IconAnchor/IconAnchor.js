@@ -45,15 +45,16 @@ export default class IconAnchor extends Component {
                onClick={this.clickHandle}>
 
                 {
-                    iconCls ?
-                        (
-                            isLoading
-                                ? <CircularLoading size="small"/>
-                                : <i className={`icon-anchor-icon ${iconCls}`}
-                                     aria-hidden="true"></i>
-                        )
+                    isLoading ?
+                        <CircularLoading size="small"/>
                         :
-                        null
+                        (
+                            iconCls ?
+                                <i className={`icon-anchor-icon ${iconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
                 }
 
                 {
