@@ -56,9 +56,14 @@ export default class IconAnchor extends Component {
                         null
                 }
 
-                <TouchRipple ref="touchRipple"
-                             className={disabled || isLoading ? 'hidden' : ''}
-                             displayCenter={true}/>
+                {
+                    disabled || isLoading ?
+                        null
+                        :
+                        <TouchRipple ref="touchRipple"
+                                     className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={true}/>
+                }
 
             </a>
         );
