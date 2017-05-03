@@ -18,7 +18,6 @@ export default class SubtreeContainer extends Component {
         this.renderer = this::this.renderer;
         this.dorender = this::this.dorender;
         this.unrender = this::this.unrender;
-        this.requestCloseHandle = this::this.requestCloseHandle;
 
     }
 
@@ -35,7 +34,6 @@ export default class SubtreeContainer extends Component {
     }
 
     dorender() {
-        console.log(this.props.visible);
         if (this.props.visible) {
             this.renderWrapper();
             this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
@@ -54,15 +52,6 @@ export default class SubtreeContainer extends Component {
         document.body.removeChild(this.wrapper);
         this.element = null;
         this.wrapper = null;
-
-    }
-
-    requestCloseHandle() {
-
-        const {onRequestClose} = this.props;
-
-        this.unrender();
-        onRequestClose && onRequestClose();
 
     }
 
@@ -100,9 +89,7 @@ SubtreeContainer.propTypes = {
      */
     style: PropTypes.object,
 
-    visible: PropTypes.bool,
-
-    onRequestClose: PropTypes.func
+    visible: PropTypes.bool
 
 };
 

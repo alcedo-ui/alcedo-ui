@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-transition-group';
+import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
-import SubtreeContainer from '../_SubtreeContainer';
 import DialogBody from './DialogBody';
 import Theme from '../Theme';
 
@@ -13,11 +14,53 @@ export default class Dialog extends Component {
 
         super(props);
 
-        this.state = {
-            visible: !!props.visible
-        };
+        this.wrapper = null;
+        this.element = null;
 
+        this.renderWrapper = this::this.renderWrapper;
+        this.renderer = this::this.renderer;
+        this.dorender = this::this.dorender;
+        this.unrender = this::this.unrender;
         this.requestCloseHandle = this::this.requestCloseHandle;
+
+    }
+
+    renderWrapper() {
+
+        if (this.wrapper) {
+            return;
+        }
+
+        const wrapper = document.querySelector('.dialog-container');
+        if (wrapper) {
+            this.wrapper = wrapper;
+        } else {
+            this.wrapper = document.createElement('div');
+            this.wrapper.className = 'dialog-container';
+            document.body.appendChild(this.wrapper);
+        }
+
+    }
+
+    dorender() {
+        if (this.props.visible) {
+            this.renderWrapper();
+            this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
+        } else {
+            this.unrender();
+        }
+    }
+
+    unrender() {
+
+        if (!this.wrapper) {
+            return;
+        }
+
+        unmountComponentAtNode(this.wrapper);
+        document.body.removeChild(this.wrapper);
+        this.element = null;
+        this.wrapper = null;
 
     }
 
@@ -25,33 +68,30 @@ export default class Dialog extends Component {
 
         const {onRequestClose} = this.props;
 
-        this.setState({
-            visible: false
-        }, () => {
-            onRequestClose && onRequestClose();
-        });
+        this.unrender();
+        onRequestClose && onRequestClose();
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: !!nextProps.visible
-            });
-        }
+    renderer() {
+        return (
+            <ReactCSSTransitionGroup component="div">
+                <DialogBody {...this.props}
+                            onRequestClose={this.requestCloseHandle}/>
+            </ReactCSSTransitionGroup>
+        );
+    }
+
+    componentDidUpdate() {
+        this.dorender();
+    }
+
+    componentWillUnmount() {
+        this.unrender();
     }
 
     render() {
-
-        const {visible} = this.state;
-
-        return (
-            <SubtreeContainer visible={visible}>
-                <DialogBody {...this.props}
-                            onRequestClose={this.requestCloseHandle}/>
-            </SubtreeContainer>
-        );
-
+        return null;
     }
 
 };
