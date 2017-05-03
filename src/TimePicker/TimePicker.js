@@ -75,13 +75,19 @@ export default class TimePicker extends Component {
     }
 
     timePickerChangeHandle(obj) {
-        let timer = obj.hour + ':' + obj.minute + ':' + obj.second
-        this.setState({
-            hour: obj.hour,
-            minute: obj.minute,
-            second: obj.second,
-            textFieldValue: timer
-        })
+        let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
+        let validDate = '1970-01-01 ' + timer;
+        let validFormat = 'YYYY-MM-DD ' + this.props.dateFormat;
+        const flag = moment(validDate, validFormat, true).isValid();
+        if(flag){
+            this.setState({
+                hour: obj.hour,
+                minute: obj.minute,
+                second: obj.second,
+                textFieldValue: timer
+            })
+        }
+
     }
 
     mousedownHandle(e) {
