@@ -139,6 +139,7 @@ export default class FlatButtonExamples extends Component {
                     </div>
 
                 </Widget>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Flat Button Use Circle Shape Example"/>
