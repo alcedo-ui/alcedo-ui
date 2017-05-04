@@ -3,14 +3,8 @@
 .table-wrapper {
     position: relative;
 
-    //.paper {
-    //    margin: 0;
-    //    height: 100%;
-    //    position: relative;
-
     .table {
         width: 100%;
-        //height: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         background: $theme-field;
@@ -253,5 +247,4 @@
         }
 
     }
-    //}
 }
