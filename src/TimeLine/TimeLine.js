@@ -17,7 +17,13 @@ export default class TimeLine extends Component {
     }
 
     render() {
-        const {prefixCls, data, style, className} = this.props;
+        const {prefixCls, data, style, className, pending, title} = this.props;
+        const pendingItem = pending ?
+            (
+                <TimeLineItem><a href="javascript:void(0)">更多</a></TimeLineItem>
+            )
+            :
+            null;
 
         return (
             <ul className={`${prefixCls} ${prefixCls}-pending ? "${prefixCls}-pending":null ${className}`}
@@ -26,18 +32,20 @@ export default class TimeLine extends Component {
                 {
                     data.map((item, index) => {
 
-                        const isArray = _.isArray(item.textContent);
+                        const isArray = _.isArray(item.description);
 
                         return (
                             <TimeLineItem key={index}
                                           color={item.color}
-                                          className={`${prefixCls}-${item.color} ${item.customDot}` }>
+                                          title={item.title}
+                                          date={item.date}
+                                          className={`${prefixCls}-${item.color}`}>
 
                                 {
-                                    item.textContent && isArray ?
-                                        item.textContent.map((ele, i)=> {
+                                    item.description && isArray ?
+                                        item.description.map((ele, i)=> {
                                             return (
-                                                <div className="text-content-con"
+                                                <div className="text-content-list"
                                                      key={i}>
                                                     {ele}
                                                 </div>
@@ -45,13 +53,15 @@ export default class TimeLine extends Component {
 
                                         })
                                         :
-                                        item.textContent
+                                        item.description
                                 }
+
 
                             </TimeLineItem>
                         );
                     })
                 }
+                {pendingItem}
 
             </ul>
         )

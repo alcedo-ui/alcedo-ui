@@ -22,12 +22,16 @@ export default class TimeLineExamples extends Component {
         let data = [{
             index: '1',
             color: 'green',
-            textContent: 'Alcedo-UI examples update 2017-04-01.',
+            title:'just a title',
+            date:'2017-05-02 10:46:29',
+            description: 'Alcedo-UI examples update 2017-04-01.',
             prefixCls: 'time-line'
         }, {
             index: '2',
             color: 'blue',
-            textContent: [
+            date:'2017-05-03 15:16:34',
+            title:'hello',
+            description: [
                 'Alcedo-UI examples update 2017-04-03.',
                 'Alcedo-UI examples update 2017-04-06.'
             ],
@@ -35,7 +39,8 @@ export default class TimeLineExamples extends Component {
         }, {
             index: '3',
             color: 'red',
-            textContent: [
+            date:'2017-05-04 20:23:12',
+            description: [
                 'Alcedo-UI examples update 2017-04-09.',
                 'Alcedo-UI examples update 2017-04-15.',
                 'Alcedo-UI examples update 2017-04-20.'
@@ -44,10 +49,8 @@ export default class TimeLineExamples extends Component {
         }, {
             index: '4',
             color: 'green',
-            textContent: [
-                'Alcedo-UI examples update 2017-04-24.',
-                'Alcedo-UI examples update 2017-05-04.'
-            ],
+            description:  ['Alcedo-UI examples update 2017-04-24.',
+            'Alcedo-UI examples update 2017-05-04.'],
             prefixCls: 'time-line'
         }];
 
@@ -72,6 +75,7 @@ export default class TimeLineExamples extends Component {
                             <p>A simple TimeLine example.</p>
 
                             <TimeLine prefixCls="time-line"
+                                      pending={true}
                                       data={data}/>
 
                         </div>
