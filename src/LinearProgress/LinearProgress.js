@@ -24,24 +24,14 @@ export default class LinearProgress extends Component {
 
     render() {
         const {className, highlightWidth, style, word, wordStyle, theme} = this.props;
+        const {WordStyle} = LinearProgress;
 
         const highlightStyle = {
             width: highlightWidth
         }, percentStyle = {
             marginLeft: this.getProgressWidth()
         };
-        let divClass;
-        switch (wordStyle) {
-            case LinearProgress.WordStyle.front:
-                divClass = 'linear-progress-one';
-                break;
-            case LinearProgress.WordStyle.middle:
-                divClass = 'linear-progress-two';
-                break;
-            case LinearProgress.WordStyle.follow:
-                divClass = 'linear-progress-three';
-                break;
-        }
+        let divClass = WordStyle[wordStyle];
 
         return (
             <div className={`linear-progress ${divClass} ${theme ? `theme-${theme}` : ''} ${className}`}
@@ -75,9 +65,9 @@ export default class LinearProgress extends Component {
 };
 
 LinearProgress.WordStyle = {
-    front: 'front',
-    middle: 'middle',
-    follow: 'follow'
+    front: 'linear-progress-one',
+    middle: 'linear-progress-two',
+    follow: 'linear-progress-three'
 };
 
 LinearProgress.propTypes = {
@@ -110,7 +100,7 @@ LinearProgress.propTypes = {
     /**
      * The percent text location.Desirable values include front,middle,follow.
      */
-    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map((key) => LinearProgress.WordStyle[key]))
+    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle))
 
 };
 
