@@ -14,15 +14,15 @@ export default class TimeLineItem extends Component {
 
     render() {
 
-        const {prefixCls, className, children, color} = this.props;
+        const {prefixCls, className, children, color,dot} = this.props;
 
         return (
 
             <li className={`${prefixCls}-item ${prefixCls}-item-last ${prefixCls}-item-pending ${className}`}>
 
-                <div className={`${prefixCls}-item-tail`}/>
+                <div className={`${prefixCls}-item-thread`}/>
 
-                <div className={`${prefixCls}-item-head ${prefixCls}-item-head-custom ${prefixCls}-item-head-${color}`}
+                <div className={`${prefixCls}-item-head ${prefixCls}-item-head-icon ${prefixCls}-item-head-${color} ${dot}?"${dot}":null`}
                      style={{borderColor: /blue|red|green/.test(color) ? null : color}}>
 
                 </div>
@@ -39,10 +39,9 @@ export default class TimeLineItem extends Component {
 
 TimeLineItem.propTypes = {
 
-    className: PropTypes.string,
     prefixCls: PropTypes.string,
+    className: PropTypes.string,
     color: PropTypes.string
-
 
 };
 

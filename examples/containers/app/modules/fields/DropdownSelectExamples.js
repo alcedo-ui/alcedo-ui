@@ -52,9 +52,11 @@ export default class DropdownSelectExamples extends Component {
                                 <p>Dropdown Select .</p>
 
                                 <div className="field-group">
+
                                     <label className="dropdown-select-label">Number</label>
                                     <DropdownSelect data={data}
                                                     autoClose={false}/>
+
                                 </div>
 
                             </div>

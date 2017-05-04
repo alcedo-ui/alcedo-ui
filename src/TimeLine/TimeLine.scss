@@ -10,7 +10,7 @@
         list-style: none;
         margin: 0;
 
-        &-tail {
+        &-thread {
 
             position: absolute;
             left: 7px;
@@ -42,13 +42,36 @@
                 border-color: $success;
                 color: $success;
             }
+
+            &-head-icon {
+                position: absolute;
+                text-align: center;
+                width: 40px;
+                left: -14px;
+                line-height: 1;
+                margin-top: 6px;
+                border: 0;
+                height: auto;
+                border-radius: 0;
+                padding: 3px 0;
+                font-size: 14px;
+                transform: translateY(-50%);
+            }
         }
+
+
 
         &-content {
             padding: 0 0 10px 24px;
             font-size: 14px;
             position: relative;
             top: -3px;
+            user-select: none;
+
+            .text-content-con{
+                height: 24px;
+                line-height: 24px;
+            }
         }
 
     }
