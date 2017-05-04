@@ -2,9 +2,8 @@
 
 .tip {
     position: absolute;
-    width: 120px;
-    height: 44px;
     border-radius: $border-radius;
+    min-width: 120px;
     transition: opacity $transition-duration ease-in-out,
     left 250ms $transition-duration,
     top 250ms $transition-duration,
