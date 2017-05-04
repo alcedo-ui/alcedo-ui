@@ -55,8 +55,8 @@ export default class Switcher extends Component {
                 <IconButton className="switcher-slider-wrapper">
                     <div className="switcher-slider">
                         {
-                            isLoading
-                                ? <i className="fa fa-spinner fa-pulse fa-3x fa-fw switcher-loading"></i>
+                            isLoading ?
+                                <i className="fa fa-spinner fa-pulse fa-3x fa-fw switcher-loading"></i>
                                 : null
                         }
                     </div>
