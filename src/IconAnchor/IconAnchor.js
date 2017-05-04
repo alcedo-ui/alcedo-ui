@@ -102,7 +102,7 @@ IconAnchor.propTypes = {
     /**
      * The icon within the IconAnchor is a Font Awesome component.This property is the className of the icon.
      */
-    iconCls: PropTypes.string,
+    iconCls: PropTypes.string.isRequired,
 
     /**
      * The URL to link to when the button is clicked.
