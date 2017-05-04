@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import SortIcon from './SortIcon';
+import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
 export default class TableHeader extends Component {
 
@@ -47,7 +47,7 @@ export default class TableHeader extends Component {
 
                 {
                     sortable ?
-                        <SortIcon sort={sort}/>
+                        <TableHeaderSortIcon sort={sort}/>
                         :
                         null
                 }

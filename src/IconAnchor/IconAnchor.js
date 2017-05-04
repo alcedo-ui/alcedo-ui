@@ -45,20 +45,26 @@ export default class IconAnchor extends Component {
                onClick={this.clickHandle}>
 
                 {
-                    iconCls ?
-                        (
-                            isLoading
-                                ? <CircularLoading size="small"/>
-                                : <i className={`icon-anchor-icon ${iconCls}`}
-                                     aria-hidden="true"></i>
-                        )
+                    isLoading ?
+                        <CircularLoading size="small"/>
                         :
-                        null
+                        (
+                            iconCls ?
+                                <i className={`icon-anchor-icon ${iconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
                 }
 
-                <TouchRipple ref="touchRipple"
-                             className={disabled || isLoading ? 'hidden' : ''}
-                             displayCenter={true}/>
+                {
+                    disabled || isLoading ?
+                        null
+                        :
+                        <TouchRipple ref="touchRipple"
+                                     className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={true}/>
+                }
 
             </a>
         );
@@ -96,7 +102,7 @@ IconAnchor.propTypes = {
     /**
      * The icon within the IconAnchor is a Font Awesome component.This property is the className of the icon.
      */
-    iconCls: PropTypes.string,
+    iconCls: PropTypes.string.isRequired,
 
     /**
      * The URL to link to when the button is clicked.

@@ -100,16 +100,16 @@ $transition-duration: 250ms;
         border-color: inherit;
     }
 
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
-    }
-
     &:hover {
         background: darken($bg-color, 4%);
     }
 
     &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
         background: darken($bg-color, 8%);
     }
 }
@@ -126,11 +126,6 @@ $transition-duration: 250ms;
         border-color: inherit;
     }
 
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
-    }
-
     &:hover {
         background: transparentize($theme-menu, .9);
 
@@ -140,6 +135,11 @@ $transition-duration: 250ms;
     }
 
     &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
         background: darken($bg-color, 8%);
     }
 }
@@ -157,11 +157,6 @@ $transition-duration: 250ms;
         border-color: inherit;
     }
 
-    &[disabled] {
-        color: transparentize($color, .5);
-        border-color: transparentize($color, .5);
-    }
-
     &:hover {
         color: $activated-color;
         background: $color;
@@ -170,6 +165,12 @@ $transition-duration: 250ms;
     &:active {
         background: $color;
         color: $activated-color;
+    }
+
+    &[disabled] {
+        color: darken($color, 8%);
+        border-color: darken($color, 8%);
+        background: transparent;
     }
 }
 
