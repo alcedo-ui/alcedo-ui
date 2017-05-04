@@ -5,8 +5,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
+import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
+
+import Ripple from '../_Ripple';
 
 import './Tip.css';
 
@@ -19,48 +21,14 @@ export default class TipBody extends Component {
         this.unrenderTimeout = null;
 
         this.state = {
-            visible: false
+            visible: false,
+            rippleStyle:null
         };
 
         this.getTipStyle = this::this.getTipStyle;
-        this.mouseoverHandle = this::this.mouseoverHandle;
+        this.getRippleStyle = this::this.getRippleStyle;
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
-    }
-
-    triggerTipEventHandle(el, triggerEl, tipEl) {
-
-        let flag = true;
-
-        while (el) {
-            if (el == tipEl || el == triggerEl) {
-                return true;
-            }
-            el = el.parentNode;
-        }
-
-        if (flag) {
-            return false;
-        }
-
-    }
-
-    mouseoverHandle(e) {
-        const {triggerEl, onRequestClose} = this.props,
-            visible = this.triggerTipEventHandle(
-                e.target,
-                triggerEl,
-                this.refs.tip,
-                this.state.visible
-            );
-        this.setState({
-            visible
-        }, () => {
-            if (!visible) {
-                onRequestClose && onRequestClose();
-            }
-        });
-
     }
 
     getTipStyle() {
@@ -132,6 +100,40 @@ export default class TipBody extends Component {
 
     }
 
+    getDiag(a, b) {
+        console.log(a,b)
+        return Math.sqrt((a * a) + (b * b));
+    }
+
+
+    getRippleStyle(){
+        const {triggerEl} = this.props;
+
+        let rippleStyle = {};
+        if (triggerEl && this.refs.tip) {
+            const offset = Util.getOffset(triggerEl);
+            rippleStyle.top = offset.top + triggerEl.clientHeight / 2;
+            rippleStyle.left = offset.left + triggerEl.clientWidth / 2;
+
+            const elWidth = this.refs.tip.clientWidth;
+            const elHeight = this.refs.tip.clientHeight;
+            const elOffset = Util.getOffset(this.refs.tip);
+            const rect = this.refs.tip.getBoundingClientRect();
+            console.log(rect)
+            // 涟漪半径为4个距离的最大值
+            const rippleRadius = Math.max(
+                this.getDiag(elOffset.top - rippleStyle.top, elOffset.left - rippleStyle.left),
+                this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left - rippleStyle.left),
+                this.getDiag(elOffset.top - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left),
+                this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left)
+            );
+            const rippleSize = rippleRadius;
+            rippleStyle.width = rippleSize;
+            rippleStyle.height = rippleSize;
+        }
+        return rippleStyle;
+    }
+
 
     initializeAnimation(callback) {
         this.hasMounted && callback();
@@ -144,10 +146,11 @@ export default class TipBody extends Component {
     }
 
     componentDidMount() {
-
+        const rippleStyle = this.getRippleStyle();
+        this.setState({
+            rippleStyle:rippleStyle
+        })
         this.hasMounted = true;
-
-        Event.addEvent(document, 'mouseover', this.mouseoverHandle);
 
     }
 
@@ -187,21 +190,28 @@ export default class TipBody extends Component {
 
     componentWillUnmount() {
 
-        Event.removeEvent(document, 'mouseover', this.mouseoverHandle);
-
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
 
     }
 
     render() {
         const {className, style, position, text} = this.props;
-        const {visible} = this.state;
+        const {visible,rippleStyle} = this.state;
         return (
             <div className={`tip ${visible ? '' : 'hidden'} ${position ? `tip-position-${position}` : ''} ${className}`}
                  style={{...this.getTipStyle(), ...style}} ref="tip">
 
                 {text}
 
+                <ReactCSSTransitionGroup component="div">
+                {
+                    visible ?
+                        <Ripple className="tipRipple"
+                                style={rippleStyle}/>
+                        :
+                        null
+                }
+                </ReactCSSTransitionGroup>
             </div>
         );
     }
