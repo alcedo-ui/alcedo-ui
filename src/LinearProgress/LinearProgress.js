@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Theme from '../Theme';
 
 import Percent from '../CircularProgress/Percent';
 
@@ -11,33 +12,45 @@ import './LinearProgress.css';
 export default class LinearProgress extends Component {
     constructor(props) {
         super();
+
+        this.getProgressWidth = this :: this.getProgressWidth;
+    }
+
+    getProgressWidth() {
+        if (this.refs.progress) {
+            return parseInt(this.refs.progress.offsetWidth) / 2;
+        }
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
-        const {highlightWidth, background, highlight, style, word, wordStyle} = this.props;
+        const {className, highlightWidth, style, word, wordStyle, theme} = this.props;
 
-        const backgroundStyle = {
-            background: background
-        }, highlightStyle = {
-            background: highlight,
+        const highlightStyle = {
             width: highlightWidth
+        }, percentStyle = {
+            marginLeft: this.getProgressWidth()
         };
         let divClass;
         switch (wordStyle) {
-            case 'front':
+            case LinearProgress.WordStyle.front:
                 divClass = 'linear-progress-one';
                 break;
-            case 'middle':
+            case LinearProgress.WordStyle.middle:
                 divClass = 'linear-progress-two';
                 break;
-            case 'follow':
+            case LinearProgress.WordStyle.follow:
                 divClass = 'linear-progress-three';
                 break;
         }
 
         return (
-            <div className={'linear-progress ' + divClass}
-                 style={style}>
+            <div className={`linear-progress ${divClass} ${theme ? `theme-${theme}` : ''} ${className}`}
+                 style={style}
+                 ref="progress">
                 {
                     word
                         ? (
@@ -48,15 +61,27 @@ export default class LinearProgress extends Component {
                     )
                         : null
                 }
-                <div className="linear-progress-background"
-                     style={backgroundStyle}>
+                <div className="linear-progress-background">
                     <div className="linear-progress-highlight"
                          style={highlightStyle}>
+                        {
+                            wordStyle === 'middle'
+                                ? <Percent endNum={parseInt(highlightWidth)}
+                                           className="linear-progress-word"
+                                           style={percentStyle}/>
+                                : null
+                        }
                     </div>
                 </div>
             </div>
         );
     }
+};
+
+LinearProgress.WordStyle = {
+    front: 'front',
+    middle: 'middle',
+    follow: 'follow'
 };
 
 LinearProgress.propTypes = {
@@ -72,19 +97,14 @@ LinearProgress.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The progress theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    /**
      * The highlight width of linearProgress.
      */
     highlightWidth: PropTypes.string,
-
-    /**
-     * The background color of linearProgress.
-     */
-    background: PropTypes.string,
-
-    /**
-     * The highlight color of linearProgress.
-     */
-    highlight: PropTypes.string,
 
     /**
      * If true,there will have a text description.
@@ -94,7 +114,7 @@ LinearProgress.propTypes = {
     /**
      * The percent text location.Desirable values include front,middle,follow.
      */
-    wordStyle: PropTypes.string
+    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map((key) => LinearProgress.WordStyle[key]))
 
 };
 
@@ -106,8 +126,6 @@ LinearProgress.defaultProps = {
     },
 
     highlightWidth: '50%',
-    background: 'gray',
-    highlight: 'blue',
     word: false,
     wordStyle: 'front'
 };

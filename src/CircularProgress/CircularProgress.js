@@ -4,7 +4,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Theme from '../Theme';
 import Percent from './Percent';
+
 
 import './CircularProgress.css';
 
@@ -18,7 +20,7 @@ export default class CircularProgress extends Component {
     }
 
     render() {
-        const {r, width, rgba, word, percent, style, percentStyle} = this.props;
+        const {r, width, rgba, word, percent, style, percentStyle, theme} = this.props;
 
         const l = 2 * this.props.r * Math.PI;
         const circleStyle = {
@@ -30,7 +32,7 @@ export default class CircularProgress extends Component {
         };
 
         return (
-            <div className="circular-progress"
+            <div className={`circular-progress ${theme ? `theme-${theme}` : ''}`}
                  style={svgStyle}>
                 <svg className="circular-progress-svg">
                     <circle className="circular-progress-circle"
@@ -90,6 +92,11 @@ CircularProgress.propTypes = {
      * The value of progress.
      */
     percent: PropTypes.number,
+
+    /**
+     * The progress theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * If true,there will have a text description.

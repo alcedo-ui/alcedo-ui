@@ -36,7 +36,7 @@ export default class Percent extends Component {
     }
 
     render() {
-        const {move, endNum, style} = this.props;
+        const {move, endNum, style, className} = this.props;
         const {percent} = this.state;
 
         const widthStyle = move === true ? {
@@ -49,7 +49,7 @@ export default class Percent extends Component {
 
         return (
             <div>
-                <div className="circular-progress-percent"
+                <div className={`circular-progress-percent ${className}`}
                      style={widthStyle}>
                     {React.Children.map(this.props.children, function (child) {
                         return <span>{ child }</span>;
