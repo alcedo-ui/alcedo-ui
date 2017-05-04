@@ -22,10 +22,6 @@ export default class LinearProgress extends Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         const {className, highlightWidth, style, word, wordStyle, theme} = this.props;
 

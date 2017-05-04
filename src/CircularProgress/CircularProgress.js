@@ -20,7 +20,7 @@ export default class CircularProgress extends Component {
     }
 
     render() {
-        const {r, width, rgba, word, percent, style, percentStyle, theme} = this.props;
+        const {r, width, rgba, word, percent, style, percentStyle, className} = this.props;
 
         const l = 2 * this.props.r * Math.PI;
         const circleStyle = {
@@ -32,7 +32,7 @@ export default class CircularProgress extends Component {
         };
 
         return (
-            <div className={`circular-progress ${theme ? `theme-${theme}` : ''}`}
+            <div className={`circular-progress ${className}`}
                  style={svgStyle}>
                 <svg className="circular-progress-svg">
                     <circle className="circular-progress-circle"
@@ -92,11 +92,6 @@ CircularProgress.propTypes = {
      * The value of progress.
      */
     percent: PropTypes.number,
-
-    /**
-     * The progress theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      * If true,there will have a text description.
