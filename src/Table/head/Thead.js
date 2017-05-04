@@ -11,10 +11,11 @@ export default class Thead extends Component {
 
     render() {
 
-        const {columns, sort, onSort} = this.props;
+        const {className, style, columns, sort, onSort} = this.props;
 
         return (
-            <thead>
+            <thead className={className}
+                   style={style}>
                 <tr>
                     {
                         columns.map((item, index) => {
@@ -43,6 +44,9 @@ export default class Thead extends Component {
 
 Thead.propTypes = {
 
+    className: PropTypes.string,
+    style: PropTypes.object,
+
     columns: PropTypes.array,
     sort: PropTypes.object,
 
@@ -51,6 +55,11 @@ Thead.propTypes = {
 };
 
 Thead.defaultProps = {
+
+    className: '',
+    style: null,
+
     columns: [],
     sort: null
+
 };

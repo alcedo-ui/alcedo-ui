@@ -120,6 +120,7 @@
                     transition: none;
                     user-select: none;
                     cursor: default;
+                    white-space: nowrap;
 
                     &:first-child {
                         padding-left: 30px;
