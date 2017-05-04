@@ -101,7 +101,6 @@ export default class TipBody extends Component {
     }
 
     getDiag(a, b) {
-        console.log(a,b)
         return Math.sqrt((a * a) + (b * b));
     }
 
@@ -117,9 +116,7 @@ export default class TipBody extends Component {
 
             const elWidth = this.refs.tip.clientWidth;
             const elHeight = this.refs.tip.clientHeight;
-            const elOffset = Util.getOffset(this.refs.tip);
-            const rect = this.refs.tip.getBoundingClientRect();
-            console.log(rect)
+            const elOffset = this.getTipStyle();
             // 涟漪半径为4个距离的最大值
             const rippleRadius = Math.max(
                 this.getDiag(elOffset.top - rippleStyle.top, elOffset.left - rippleStyle.left),
@@ -127,9 +124,11 @@ export default class TipBody extends Component {
                 this.getDiag(elOffset.top - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left),
                 this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left)
             );
-            const rippleSize = rippleRadius;
+            const rippleSize = rippleRadius * 2;
             rippleStyle.width = rippleSize;
             rippleStyle.height = rippleSize;
+            rippleStyle.top =rippleStyle.top  - rippleRadius - elOffset.top;
+            rippleStyle.left = rippleStyle.left - rippleRadius - elOffset.left;
         }
         return rippleStyle;
     }
@@ -200,9 +199,7 @@ export default class TipBody extends Component {
         return (
             <div className={`tip ${visible ? '' : 'hidden'} ${position ? `tip-position-${position}` : ''} ${className}`}
                  style={{...this.getTipStyle(), ...style}} ref="tip">
-
                 {text}
-
                 <ReactCSSTransitionGroup component="div">
                 {
                     visible ?
