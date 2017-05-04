@@ -56,11 +56,28 @@ function generatePropTypes(componentName, fileString, result) {
 
     var propTypesFileString = fileString.slice(fileString.indexOf(componentName + '.propTypes')),
         propTypesFileArray = propTypesFileString.split('\n'),
-        braceCount = 0, commentStart, comment, fieldString, fieldObj;
+        lastLineBraceCount = 0, braceCount = 0, commentStart, comment, fieldString, fieldObj;
 
     for (var i = 0, len = propTypesFileArray.length; i < len; i++) {
 
         var line = propTypesFileArray[i];
+
+        lastLineBraceCount = braceCount;
+
+        braceCount += (line.split('(').length - 1);
+        braceCount += (line.split('[').length - 1);
+        braceCount += (line.split('{').length - 1);
+        braceCount -= (line.split(')').length - 1);
+        braceCount -= (line.split(']').length - 1);
+        braceCount -= (line.split('}').length - 1);
+
+        if (lastLineBraceCount > 1 || braceCount > 1) {
+            continue;
+        }
+
+        if (braceCount < 1) {
+            break;
+        }
 
         if (commentStart && line.indexOf('*/') > -1) {
 
@@ -78,7 +95,6 @@ function generatePropTypes(componentName, fileString, result) {
             }
 
             commentStart = comment = undefined;
-            i++;
 
         } else if (commentStart) {
             comment += (comment === '' ? '' : ' ') + _.trim(line.slice(line.indexOf('*') + 1));
@@ -93,15 +109,6 @@ function generatePropTypes(componentName, fileString, result) {
             result[fieldObj.key] = {
                 type: formatPropTypes(fieldObj.value)
             };
-
-        } else {
-
-            braceCount += (line.split('{').length - 1);
-            braceCount -= (line.split('}').length - 1);
-
-            if (braceCount == 0) {
-                break;
-            }
 
         }
 

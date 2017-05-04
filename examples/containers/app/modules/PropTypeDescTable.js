@@ -52,7 +52,8 @@ export default class PropTypeDescTable extends Component {
         return (
             <Table className="prop-type-desc-table"
                    columns={this.columns}
-                   data={this.generateData()}/>
+                   data={this.generateData()}
+                   isAdaptiveHeight={true}/>
         );
     }
 };
