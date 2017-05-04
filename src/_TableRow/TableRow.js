@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TableCell from './TableCell';
+import TableCell from '../_TableCell';
 
 export default class Tbody extends Component {
 

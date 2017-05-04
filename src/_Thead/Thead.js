@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TableHeader from './TableHeader';
+import TableHeader from '../_TableHeader';
 
 export default class Thead extends Component {
 

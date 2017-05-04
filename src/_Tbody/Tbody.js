@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TableRow from './TableRow';
+import TableRow from '../_TableRow';
 
 export default class Tbody extends Component {
 

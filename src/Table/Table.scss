@@ -65,17 +65,20 @@
                         cursor: pointer;
                         padding-right: 30px;
 
-                        .sort-icon {
+                        .table-header-sort-icon {
                             position: absolute;
-                            right: 15px;
-                            top: 20px;
+                            right: 30px;
+                            top: 15px;
+                            display: block;
+                            width: 30px;
+                            height: 30px;
+                            line-height: 30px;
+                            text-align: center;
+                            color: lighten($theme-title, 36%);
+                            transition: all $transition-duration ease-in-out;
 
-                            i {
-                                display: block;
-                                height: 10px;
-                                line-height: 10px;
-                                text-align: center;
-                                color: lighten($theme-title, 36%);
+                            &.desc {
+                                transform: rotate(180deg);
                             }
                         }
 

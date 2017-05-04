@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
-import Thead from './head/Thead';
-import Tbody from './body/Tbody';
+import Thead from '../_Thead';
+import Tbody from '../_Tbody';
 import Pagging from '../Pagging';
 
 import Event from '../_vendors/Event';
