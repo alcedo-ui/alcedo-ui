@@ -1,32 +1,25 @@
 @import '../_common.scss';
 
-.tip-container {
+.tip {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-    overflow: visible;
+    min-width: 120px;
+    width: auto;
+    border-radius: $border-radius;
+    transition: left 0s, opacity $transition-duration ease-in-out,
+    transform $transition-duration ease-in-out;
+    z-index: $popup-z-index;
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    cursor: pointer;
 
-    .tip {
-        position: absolute;
-        min-width: 120px;
-        width: auto;
-        border-radius: $border-radius;
-        transition: left 0s, opacity $transition-duration ease-in-out,
+    &.hidden {
+        opacity: 0 !important;
+        left: -99999px !important;
+        transition: left 0s $transition-duration,
+        opacity $transition-duration ease-in-out,
         transform $transition-duration ease-in-out;
-        z-index: $popup-z-index;
-        padding: 6px;
-        background: rgba(0,0,0,0.5);
-        color: #fff;
-        cursor: pointer;
-        &.hidden {
-            opacity: 0 !important;
-            left: -99999px !important;
-            transition: left 0s $transition-duration,
-            opacity $transition-duration ease-in-out,
-            transform $transition-duration ease-in-out;
-            transform: translate(-50%, -50%) scale(.01, .01);
-        }
+        transform: translate(-50%, -50%) scale(.01, .01);
     }
+
 }

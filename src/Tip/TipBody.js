@@ -56,7 +56,7 @@ export default class TipBody extends Component {
         this.setState({
             visible
         }, () => {
-            if(!visible){
+            if (!visible) {
                 onRequestClose && onRequestClose();
             }
         });
@@ -134,9 +134,7 @@ export default class TipBody extends Component {
 
 
     initializeAnimation(callback) {
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
+        this.hasMounted && callback();
     }
 
     animate() {
@@ -207,8 +205,6 @@ export default class TipBody extends Component {
             </div>
         );
     }
-
-
 
 
 }

@@ -1,98 +1,89 @@
 @import '../_common.scss';
 
-.dialog-container {
-    position: absolute;
+.dialog-modal {
+    position: fixed;
     left: 0;
     top: 0;
-    width: 0;
-    height: 0;
-    overflow: visible;
+    width: 100%;
+    height: 100%;
+    z-index: $dialog-modal-z-index;
+    background: transparentize(#000, .5);
 
-    .dialog-modal {
-        position: fixed;
-        left: 0;
-        top: 0;
+    &.hidden {
+        opacity: 0 !important;
+        left: -99999px !important;
+        transition: left 0s $transition-duration,
+        opacity $transition-duration ease-in-out;
+    }
+}
+
+.dialog-wrapper {
+
+    @include shadow(4);
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    height: 300px;
+    border-radius: $border-radius;
+    transform: translate(-50%, -50%);
+    transition: left 0s, opacity $transition-duration ease-in-out,
+    transform $transition-duration ease-in-out;
+    z-index: $dialog-z-index;
+    padding: 20px;
+    box-sizing: border-box;
+    color: $theme-text;
+
+    .dialog-title {
+        padding: 0 10px 10px;
+        line-height: 29px;
+        font-size: 16px;
+        border-bottom: 1px solid $theme-bg;
+    }
+
+    .dialog-content {
         width: 100%;
-        height: 100%;
-        z-index: $dialog-modal-z-index;
-        background: transparentize(#000, .5);
+        height: calc(100% - 80px);
+    }
 
-        &.hidden {
-            opacity: 0 !important;
-            left: -99999px !important;
-            transition: left 0s $transition-duration,
-            opacity $transition-duration ease-in-out;
+    .dialog-buttons {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+
+        & > .base-button {
+            float: right;
+            margin: 0 0 0 10px;
         }
     }
 
-    .dialog-wrapper {
-
-        @include shadow(4);
-
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        width: 500px;
-        height: 300px;
-        border-radius: $border-radius;
-        transform: translate(-50%, -50%);
-        transition: left 0s, opacity $transition-duration ease-in-out,
+    &.hidden {
+        opacity: 0 !important;
+        left: -99999px !important;
+        transform: translate(-50%, -70%);
+        transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
         transform $transition-duration ease-in-out;
-        z-index: $dialog-z-index;
-        padding: 20px;
-        box-sizing: border-box;
-        color: $theme-text;
-
-        .dialog-title {
-            padding: 0 10px 10px;
-            line-height: 29px;
-            font-size: 16px;
-            border-bottom: 1px solid $theme-bg;
-        }
-
-        .dialog-content {
-            width: 100%;
-            height: calc(100% - 80px);
-        }
-
-        .dialog-buttons {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-
-            & > .base-button {
-                float: right;
-                margin: 0 0 0 10px;
-            }
-        }
-
-        &.hidden {
-            opacity: 0 !important;
-            left: -99999px !important;
-            transform: translate(-50%, -70%);
-            transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
-            transform $transition-duration ease-in-out;
-        }
-
-        // default theme
-        @include dialog-theme(#fff);
-
-        // other themes
-        &.theme-primary {
-            @include dialog-theme($theme-menu);
-        }
-        &.theme-highlight {
-            @include dialog-theme($theme-highlight);
-        }
-        &.theme-success {
-            @include dialog-theme($success);
-        }
-        &.theme-warning {
-            @include dialog-theme($warning);
-        }
-        &.theme-error {
-            @include dialog-theme($error);
-        }
-
     }
+
+    // default theme
+    @include dialog-theme(#fff);
+
+    // other themes
+    &.theme-primary {
+        @include dialog-theme($theme-menu);
+    }
+    &.theme-highlight {
+        @include dialog-theme($theme-highlight);
+    }
+    &.theme-success {
+        @include dialog-theme($success);
+    }
+    &.theme-warning {
+        @include dialog-theme($warning);
+    }
+    &.theme-error {
+        @include dialog-theme($error);
+    }
+
 }

@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
-import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
-import Theme from '../Theme';
-
+import SubtreeContainer from '../_SubtreeContainer';
 import PopupBody from './PopupBody';
+import Theme from '../Theme';
 
 import './Popup.css';
 
@@ -15,55 +13,11 @@ export default class Popup extends Component {
 
         super(props);
 
-        this.wrapper = null;
-        this.element = null;
+        this.state = {
+            visible: !!props.visible
+        };
 
-        this.renderWrapper = this::this.renderWrapper;
-        this.renderer = this::this.renderer;
-        this.renderElement = this::this.renderElement;
-        this.unrender = this::this.unrender;
         this.requestCloseHandle = this::this.requestCloseHandle;
-
-    }
-
-    renderWrapper() {
-
-        if (this.wrapper) {
-            return;
-        }
-
-        const wrapper = document.querySelector('.popup-container');
-        if (wrapper) {
-            this.wrapper = wrapper;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.className = 'popup-container';
-            document.body.appendChild(this.wrapper);
-        }
-
-    }
-
-    renderElement() {
-
-        if (!this.props.visible) {
-            return;
-        }
-
-        this.renderWrapper();
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-
-    }
-
-    unrender() {
-
-        if (!this.wrapper) {
-            return;
-        }
-
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.element = null;
-        this.wrapper = null;
 
     }
 
@@ -71,30 +25,33 @@ export default class Popup extends Component {
 
         const {onRequestClose} = this.props;
 
-        this.unrender();
-        onRequestClose && onRequestClose();
+        this.setState({
+            visible: false
+        }, () => {
+            onRequestClose && onRequestClose();
+        });
 
     }
 
-    renderer() {
-        return (
-            <ReactCSSTransitionGroup component="div">
-                <PopupBody {...this.props}
-                           onRequestClose={this.requestCloseHandle}/>
-            </ReactCSSTransitionGroup>
-        );
-    }
-
-    componentDidUpdate() {
-        this.renderElement();
-    }
-
-    componentWillUnmount() {
-        this.unrender();
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: !!nextProps.visible
+            });
+        }
     }
 
     render() {
-        return null;
+
+        const {visible} = this.state;
+
+        return (
+            <SubtreeContainer visible={visible}>
+                <PopupBody {...this.props}
+                           onRequestClose={this.requestCloseHandle}/>
+            </SubtreeContainer>
+        );
+
     }
 
 };

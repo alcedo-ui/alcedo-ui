@@ -20,7 +20,7 @@ export default class SliderExamples extends Component {
     }
 
     change(left, right) {
-        console.log(left + '   ' + right);
+        //console.log(left + '   ' + right);
     }
 
     render() {

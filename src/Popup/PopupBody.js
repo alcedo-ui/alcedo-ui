@@ -81,7 +81,7 @@ export default class PopupBody extends Component {
 
             if (position === PopupBody.Position.RIGHT) {
                 popupStyle = {
-                    left: offset.left - (this.refs.popup.clientWidth - triggerEl.clientWidth),
+                    left: offset.left - (200 - triggerEl.clientWidth),
                     top: offset.top + triggerEl.clientHeight
                 };
             } else { // default left

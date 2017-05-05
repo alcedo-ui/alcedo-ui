@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
-import Thead from './head/Thead';
-import Tbody from './body/Tbody';
+import Thead from '../_Thead';
+import Tbody from '../_Tbody';
 import Pagging from '../Pagging';
 
 import Event from '../_vendors/Event';
@@ -29,6 +29,7 @@ export default class Table extends Component {
             sort: null,
 
             scrollTop: 0,
+            scrollLeft: 0,
             bodyHeight: 0,
 
             // 排序
@@ -97,7 +98,8 @@ export default class Table extends Component {
         // e.persist();
         // this.debounceTableScrollHandle(e);
         !this.props.isPagging && this.setState({
-            scrollTop: e.target.scrollTop
+            scrollTop: e.target.scrollTop,
+            scrollLeft: e.target.scrollLeft
         });
     }
 
@@ -179,7 +181,11 @@ export default class Table extends Component {
     render() {
 
         const {className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect} = this.props;
-        const {sort, pagging} = this.state;
+        const {scrollLeft, sort, pagging} = this.state;
+
+        const headTableStyle = {
+            transform: `translateX(-${scrollLeft}px)`
+        };
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
@@ -241,7 +247,8 @@ export default class Table extends Component {
                 <div className="head-table">
                     <table className="table">
 
-                        <Thead columns={finalColumns}
+                        <Thead style={headTableStyle}
+                               columns={finalColumns}
                                sort={sort}
                                onSort={this.sortHandle}/>
 

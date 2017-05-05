@@ -88,7 +88,8 @@ export default class TimePickerExamples extends Component {
                                             placeholder="hello"
                                             dateFormat="HH:mm"
                                             maxValue="23:56:20"
-                                            minValue="01:20:20"/>
+                                            minValue="01:20:20"
+                                            dateFormat={'HH:mm'}/>
                             </div>
 
                         </div>
