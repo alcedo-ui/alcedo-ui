@@ -1,0 +1,131 @@
+@import '../_common.scss';
+
+.time-line {
+    background: #F0F3F4;
+    padding: 10px;
+
+    &-item {
+        position: relative;
+        padding: 0 0 12px;
+        list-style: none;
+
+        &-con:hover {
+            cursor: pointer;
+
+            .time-line-item-head {
+                width: 10px;
+                height: 10px;
+                border-color: $theme-bg;
+                color: $theme-bg;
+                left: 124px;
+
+                &-blue {
+                    background-color: $blue;
+                }
+
+                &-green {
+                    background-color: $success;
+                }
+
+                &-red {
+                    background-color: $error;
+                }
+            }
+
+            .time-line-item-title,.time-line-item-description {
+
+                &.blue {
+                    background: lighten($blue, 20%);
+                }
+
+                &.green {
+                    background: lighten($success, 20%);
+                }
+
+                &.red {
+                    background: lighten($error, 20%);
+                }
+
+            }
+
+
+        }
+
+        &-time-stamp {
+
+            position: absolute;
+            top: 0;
+
+        }
+
+        &-thread {
+
+            position: absolute;
+            left: 130px;
+            top: 0;
+            height: 100%;
+            border-left: 2px solid $theme-menu;
+
+        }
+
+        &-head {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            left: 123px;
+            background-color: $theme-bg;
+            border-radius: 10px;
+            border: 2px solid transparent;
+
+            &-blue {
+                border-color: $blue;
+                color: $blue;
+            }
+
+            &-red {
+                border-color: $error;
+                color: $error;
+            }
+
+            &-green {
+                border-color: $success;
+                color: $success;
+            }
+        }
+
+        &-content {
+            padding: 0 0 10px 24px;
+            font-size: 14px;
+            position: relative;
+            top: -3px;
+            left: 130px;
+            user-select: none;
+            max-width: calc(100% - 160px);
+
+        }
+
+        &-title {
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #DEE5E7;
+            border-bottom: none;
+            padding: 5px 0 5px 10px;
+            width: auto;
+
+        }
+
+        &-description {
+            padding: 10px;
+            border: 1px solid #DEE5E7;
+            width: auto;
+
+            .text-content-list {
+                margin: 5px 0;
+            }
+
+        }
+
+    }
+
+}
+

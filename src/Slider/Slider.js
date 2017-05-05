@@ -262,7 +262,7 @@ Slider.propTypes = {
     width: PropTypes.number,
 
     /**
-     * The scale ot slider.
+     * The size displayed on slider.
      */
     scale: PropTypes.array,
 
@@ -282,7 +282,7 @@ Slider.propTypes = {
     ruler: PropTypes.number,
 
     /**
-     * Number of decimal places.
+     * Decimal digits of tip.
      */
     decimalPlaces: PropTypes.number,
 

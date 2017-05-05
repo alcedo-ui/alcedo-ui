@@ -23,8 +23,8 @@ export default class AccordionExamples extends Component {
                 <h2 className="example-title">Accordion</h2>
 
                 <p>
-                    <span>Accordion</span> will rotate to show the progress of a task or that there is a wait
-                    for a task to complete.
+                    <span>Accordion</span> is a folding list effect component.You can click title's row to show or hide
+                    the drop-down list.
                 </p>
 
                 <h2 className="example-title">Examples</h2>

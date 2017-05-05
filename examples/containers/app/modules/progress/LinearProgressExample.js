@@ -1,9 +1,9 @@
 /**
  * Created by DT314 on 2017/4/10.
  */
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react';
 
-import LinearProgress from '../../../../../dist/LinearProgress'
+import LinearProgress from '../../../../../dist/LinearProgress';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
@@ -18,11 +18,11 @@ export default class LinearProgressExample extends Component {
         super(props);
         this.state = {
             percent: 0
-        }
+        };
     }
 
     componentDidMount() {
-        this.timer = setTimeout(() => this.progress(0), 1000)
+        this.timer = setTimeout(() => this.progress(0), 1000);
     }
 
     componentWillUnmount() {
@@ -52,7 +52,7 @@ export default class LinearProgressExample extends Component {
             lineHeight: '30px',
             margin: '30px 0 0 20px'
         }, style2 = {
-            width: '600px',
+            width: '80%',
             height: '30px',
             lineHeight: '30px',
             margin: '30px 0 0 20px'
@@ -90,8 +90,7 @@ export default class LinearProgressExample extends Component {
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style1}
-                                                background="#f3f6fa"
-                                                highlight="#38b1eb"/>
+                                                theme="warning"/>
 
                             </div>
 
@@ -114,10 +113,9 @@ export default class LinearProgressExample extends Component {
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style2}
-                                                background="#f3f6fa"
-                                                highlight="#38b1eb"
                                                 word={true}
-                                                wordStyle='middle'/>
+                                                wordStyle='middle'
+                                                theme='success'/>
 
                             </div>
 
@@ -140,10 +138,9 @@ export default class LinearProgressExample extends Component {
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style3}
-                                                background="#f3f6fa"
-                                                highlight="#38b1eb"
                                                 word={true}
-                                                wordStyle='follow'/>
+                                                wordStyle='follow'
+                                                theme="error"/>
 
                             </div>
 
@@ -157,7 +154,7 @@ export default class LinearProgressExample extends Component {
                 <PropTypeDescTable data={LinearProgressDoc}/>
 
             </div>
-        )
+        );
     }
 
-}
+};

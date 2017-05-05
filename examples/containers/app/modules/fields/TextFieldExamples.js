@@ -22,6 +22,12 @@ export default class TextFieldExamples extends Component {
 
                 <h2 className="example-title">TextField</h2>
 
+                <p>
+                    <span>TextField</span> allow users to input text.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header"
@@ -31,6 +37,9 @@ export default class TextFieldExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>TextField using the type property to set the type of input to display such as
+                                    "password" or "text".</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
@@ -58,6 +67,9 @@ export default class TextFieldExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>TextField using the iconCls property to set the icon of TextField to display at
+                                    left.</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
@@ -87,10 +99,16 @@ export default class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>TextFieldGroup without label element and disabled props applied.</p>
+
                                 <TextFieldGroup>
+
                                     <TextField iconCls="fa fa-user"/>
+
                                     <TextField iconCls="fa fa-lock"
+                                               disabled={true}
                                                type="password"/>
+
                                 </TextFieldGroup>
 
                             </div>
