@@ -49,7 +49,7 @@ export default class SwitcherExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Small Size Simple Example"/>
+                    <WidgetHeader className="example-header" title="Switcher Size Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -69,7 +69,7 @@ export default class SwitcherExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Small Size Simple Example"/>
+                    <WidgetHeader className="example-header" title="Switcher Disabled Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
