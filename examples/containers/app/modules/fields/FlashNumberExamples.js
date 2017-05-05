@@ -39,6 +39,12 @@ export default class FlashNumberExamples extends Component {
 
                 <h2 className="example-title">FlashNumber</h2>
 
+                <p>
+                    A <span>FlashNumber</span> is a numerical calculation animation.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header"
@@ -48,6 +54,8 @@ export default class FlashNumberExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>FlashNumber simple default example.</p>
 
                                 <div className="field-group">
                                     <TextField type="number"

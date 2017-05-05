@@ -34,6 +34,12 @@ export default class EditableFieldExamples extends Component {
 
                 <h2 className="example-title">Editable Field</h2>
 
+                <p>
+                    An <span>Editable Field</span> is an editable text display area.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Editable Field Example"/>
@@ -43,7 +49,10 @@ export default class EditableFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <EditableField value={this.state.value} onChange={this.onChange}/>
+                                <p>Editable Field simple default example.</p>
+
+                                <EditableField value={this.state.value}
+                                               onChange={this.onChange}/>
 
                             </div>
 
