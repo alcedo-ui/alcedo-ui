@@ -22,14 +22,23 @@ export default class RadioExamples extends Component {
 
                 <h2 className="example-title">Radio</h2>
 
+                <p>
+                    <span>Radio</span> button is one of a set of mutually exclusive option buttons. When a button is
+                    selected, the previously selected button becomes unselected.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Radio Simple Example"/>
+                    <WidgetHeader className="example-header" title="Radio Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Radio simple default example.</p>
 
                                 <Radio label="Licence"/>
 
@@ -40,14 +49,38 @@ export default class RadioExamples extends Component {
 
                 </Widget>
 
+
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Radio Group Simple Example"/>
+                    <WidgetHeader className="example-header" title="Radio Disabled Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Set the disabled property to true to disable the radio button.</p>
+
+                                <Radio label="Licence"
+                                       disabled={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Radio Group Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Radio Group simple example.</p>
 
                                 <RadioGroup data={[{
                                     label: 1,
@@ -65,6 +98,42 @@ export default class RadioExamples extends Component {
                                     label: 5,
                                     value: 5
                                 }]}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Radio Group Disabled Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the disabled property to true to disable the radio group button.</p>
+
+                                <RadioGroup data={[{
+                                    label: 1,
+                                    value: 1
+                                }, {
+                                    label: 2,
+                                    value: 2
+                                }, {
+                                    label: 3,
+                                    value: 3
+                                }, {
+                                    label: 4,
+                                    value: 4
+                                }, {
+                                    label: 5,
+                                    value: 5
+                                }]}
+                                            disabled={true}/>
 
                             </div>
 

@@ -18,6 +18,7 @@ export default class RadioGroup extends Component {
     }
 
     changeHandle(item) {
+
         this.setState({
             value: item.value
         }, () => {
@@ -55,6 +56,7 @@ export default class RadioGroup extends Component {
                                    name={name}
                                    label={item.label}
                                    value={isChecked}
+                                   disabled={disabled}
                                    onChange={() => {
                                        this.changeHandle(item);
                                    }}/>

@@ -7,6 +7,7 @@
     width: 200px;
     color: $theme-text;
     height: 50px;
+    cursor: pointer;
 
     .checkbox-icon-wrapper {
         float: left;
@@ -24,7 +25,7 @@
             text-align: center;
             line-height: 50px;
             font-size: 16px;
-            cursor: pointer;
+            cursor: inherit;
         }
 
         .checkbox-bg-icon {
@@ -47,7 +48,7 @@
         float: left;
         height: 50px;
         line-height: 50px;
-        cursor: pointer;
+        cursor: inherit;
         user-select: none;
     }
 
@@ -68,6 +69,7 @@
 
     &[disabled] {
         color: lighten($theme-text, 30%);
+        cursor: not-allowed;
 
         &.activated {
             color: lighten($theme-brand, 30%);

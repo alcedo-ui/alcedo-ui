@@ -22,6 +22,12 @@ export default class CheckboxExamples extends Component {
 
                 <h2 className="example-title">Checkbox</h2>
 
+                <p>
+                    A <span>Checkbox</span> is a control that can be selected multiple times at the same time.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header"
@@ -32,7 +38,31 @@ export default class CheckboxExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>Checkbox simple default example.</p>
+
                                 <Checkbox label="Licence"/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Checkbox Disabled Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the disabled property to true to disable the checkbox.</p>
+
+                                <Checkbox label="Licence"
+                                          disabled={true}/>
 
                             </div>
 
@@ -51,6 +81,8 @@ export default class CheckboxExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>Checkbox Group simple example.</p>
+
                                 <CheckboxGroup data={[{
                                     label: 1,
                                     value: 1
@@ -67,6 +99,43 @@ export default class CheckboxExamples extends Component {
                                     label: 5,
                                     value: 5
                                 }]}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Checkbox Group Disabled Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Checkbox Group disabled example.</p>
+
+                                <CheckboxGroup data={[{
+                                    label: 1,
+                                    value: 1
+                                }, {
+                                    label: 2,
+                                    value: 2
+                                }, {
+                                    label: 3,
+                                    value: 3
+                                }, {
+                                    label: 4,
+                                    value: 4
+                                }, {
+                                    label: 5,
+                                    value: 5
+                                }]}
+                                               disabled={true}/>
 
                             </div>
 

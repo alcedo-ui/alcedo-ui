@@ -22,10 +22,10 @@ export default class MultipleSelectExamples extends Component {
                 text: 'two'
             }, {
                 key: 3,
-                text: 'threethreethree'
+                text: 'three'
             }, {
                 key: 4,
-                text: 'fourthreethree'
+                text: 'four'
             }, {
                 key: 5,
                 text: 'five'
@@ -45,6 +45,7 @@ export default class MultipleSelectExamples extends Component {
             value: []
         };
         this.onChangeHandle = this::this.onChangeHandle;
+        this.onChangeHandleDisabled = this::this.onChangeHandleDisabled;
     }
 
     onChangeHandle(value) {
@@ -53,8 +54,14 @@ export default class MultipleSelectExamples extends Component {
         })
     }
 
+    onChangeHandleDisabled(value) {
+        this.setState({
+            value: value
+        })
+    }
+
     render() {
-        const {data, value}=this.state;
+        const {data, value, value2}=this.state;
         return (
             <div className="example multiple-select-examples">
 
@@ -69,6 +76,8 @@ export default class MultipleSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>Multiple Select simple default example.</p>
+
                                 <div className="field-group">
                                     <label className="multiple-select-label">Number</label>
                                     <MultipleSelect className="multiple-select"
@@ -77,6 +86,36 @@ export default class MultipleSelectExamples extends Component {
                                                     infoMsg="please select number"
                                                     onChange={(value)=> {
                                                         this.onChangeHandle(value)
+                                                    }}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Multiple Select Disabled Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Multiple Select disabled example.</p>
+
+                                <div className="field-group">
+                                    <label className="multiple-select-label">Number</label>
+                                    <MultipleSelect className="multiple-select"
+                                                    data={data}
+                                                    value={value2}
+                                                    disabled={true}
+                                                    infoMsg="please select number"
+                                                    onChange={(value)=> {
+                                                        this.onChangeHandleDisabled(value)
                                                     }}/>
                                 </div>
 

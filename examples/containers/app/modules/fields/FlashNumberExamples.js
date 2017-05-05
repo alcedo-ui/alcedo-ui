@@ -17,22 +17,30 @@ export default class FlashNumberExamples extends Component {
         super(props);
 
         this.state = {
-            value: ''
+            value1: '',
+            value2: ''
         };
 
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandleValue1 = this::this.changeHandleValue1;
+        this.changeHandleValue2 = this::this.changeHandleValue2;
 
     }
 
-    changeHandle(value) {
+    changeHandleValue1(value1) {
         this.setState({
-            value
+            value1
         });
+    }
+
+    changeHandleValue2(value2) {
+        this.setState({
+            value2
+        })
     }
 
     render() {
 
-        const {value} = this.state;
+        const {value1, value2} = this.state;
 
         return (
             <div className="example flash-number-examples">
@@ -59,11 +67,40 @@ export default class FlashNumberExamples extends Component {
 
                                 <div className="field-group">
                                     <TextField type="number"
-                                               value={value}
-                                               onChange={this.changeHandle}/>
+                                               value={value1}
+                                               onChange={this.changeHandleValue1}/>
                                     <span>&nbsp;&nbsp;X 2 =&nbsp;</span>
                                     <FlashNumber initValue={0}
-                                                 value={value * 2}/>
+                                                 value={value1 * 2}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="FlashNumber Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the flashTime property to reset animation execution time.</p>
+
+                                <div className="field-group">
+                                    <TextField type="number"
+                                               value={value2}
+                                               onChange={this.changeHandleValue2}/>
+                                    <span>&nbsp;&nbsp;X 3 =&nbsp;</span>
+                                    <FlashNumber initValue={0}
+                                                 flashTime={1000}
+                                                 value={value2 * 3}/>
                                 </div>
 
                             </div>

@@ -67,6 +67,7 @@ export default class CheckboxGroup extends Component {
                                       style={item.style}
                                       name={name}
                                       label={item.label}
+                                      disabled={disabled}
                                       value={isChecked}
                                       onChange={() => {
                                           this.changeHandle(item);
