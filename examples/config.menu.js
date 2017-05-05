@@ -46,6 +46,9 @@ export default [{
         text: 'Text Field',
         route: '/components/TextField'
     }, {
+        text: 'Text Area',
+        route: '/components/TextArea'
+    }, {
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'
     }, {
