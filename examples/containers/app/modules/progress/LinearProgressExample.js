@@ -140,7 +140,8 @@ export default class LinearProgressExample extends Component {
                                                 style={style3}
                                                 word={true}
                                                 wordStyle='follow'
-                                                theme="error"/>
+                                                theme="error"
+                                                animation={true}/>
 
                             </div>
 
