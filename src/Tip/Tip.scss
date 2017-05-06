@@ -12,8 +12,8 @@
     text-align: center;
     opacity: 0;
     overflow: hidden;
-    transform: rotate(0);
-    transition: opacity $transition-duration ease-in-out;
+    transform: translateY(-5px) rotate(0);
+    transition: opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
 
     .tip-ripple {
         position: absolute;
@@ -21,11 +21,12 @@
         background: transparentize(#000, .4);
         border-radius: 50%;
         transform: scale(.4);
-        transition: transform $transition-duration ease-in-out
+        transition: transform $transition-duration ease-in-out;
     }
 
     &.visible {
         opacity: 1;
+        transform: translateY(5px) rotate(0);
 
         .tip-ripple {
             transform: scale(1);
