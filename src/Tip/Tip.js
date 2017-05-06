@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SubtreeContainer from '../_SubtreeContainer';
 import TipBody from './TipBody';
+import Theme from '../Theme';
 
 import './Tip.css';
 
@@ -83,6 +84,11 @@ Tip.propTypes = {
     visible: PropTypes.bool,
 
     /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    /**
      * The popover alignment.Possible values are: "bottom-center", "top-center", "bottom-right", "top-right", "bottom-left", "top-left", "left" and "right".
      */
     position: PropTypes.string,
@@ -99,8 +105,10 @@ Tip.defaultProps = {
     className: '',
     style: null,
 
+    text: '',
     triggerEl: null,
     visible: false,
+    theme: Theme.DEFAULT,
     position: 'bottom-center'
 
 };

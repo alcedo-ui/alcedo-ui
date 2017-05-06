@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
-
-import './Tip.css';
+import Theme from '../Theme';
 
 export default class TipBody extends Component {
 
@@ -81,33 +80,8 @@ export default class TipBody extends Component {
 
     }
 
-    triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
-
-        if (!triggerEl) {
-            return true;
-        }
-
-        let flag = true;
-
-        while (el) {
-            if (el == popupEl) {
-                return currentVisible;
-            } else if (el == triggerEl) {
-                return !currentVisible;
-            }
-            el = el.parentNode;
-        }
-
-        if (flag) {
-            return false;
-        }
-
-    }
-
     initializeAnimation(callback) {
-        // setTimeout(() => {
-            this.hasMounted && callback();
-        // }, 0);
+        this.hasMounted && callback();
     }
 
     animate() {
