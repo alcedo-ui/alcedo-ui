@@ -30,6 +30,75 @@ export default class TipBody extends Component {
         return Math.sqrt((a * a) + (b * b));
     }
 
+    // getTipStyle() {
+    //
+    //     const {triggerEl, position} = this.props;
+    //
+    //     let tipStyle = {};
+    //     if (triggerEl && this.refs.tip) {
+    //         const offset = Util.getOffset(triggerEl);
+    //
+    //         switch (position) {
+    //             case 'right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
+    //                 };
+    //                 break;
+    //             case 'left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
+    //                 };
+    //                 break;
+    //             case 'top-left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'top-right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'top-center':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-center':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             default:
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //         }
+    //     }
+    //
+    //     return tipStyle;
+    //
+    // }
+
     getWrapperStyle() {
 
         const {triggerEl} = this.props;
@@ -193,6 +262,20 @@ export default class TipBody extends Component {
 
 }
 
+TipBody.Position = {
+
+    TOP: 'top',
+    LEFT: 'left',
+    RIGHT: 'right',
+    BOTTOM: 'bottom',
+
+    TOP_LEFT: 'top-left',
+    TOP_RIGHT: 'top-right',
+    BOTTOM_LEFT: 'bottom-left',
+    BOTTOM_RIGHT: 'bottom-right'
+
+};
+
 TipBody.propTypes = {
 
     /**
@@ -221,9 +304,11 @@ TipBody.propTypes = {
     visible: PropTypes.bool,
 
     /**
-     * The popover alignment.Possible values are: "bottom-center", "top-center", "bottom-right", "top-right", "bottom-left", "top-left", "left" and "right".
+     * The popover theme. Can be primary,highlight,success,warning,error.
      */
-    position: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    position: PropTypes.oneOf(Object.keys(TipBody.Position).map(key => TipBody.Position[key])),
 
     /**
      * Callback function fired when the popover is requested to be closed.
@@ -237,8 +322,10 @@ TipBody.defaultProps = {
     className: '',
     style: null,
 
+    text: '',
     triggerEl: null,
     visible: false,
-    position: 'bottom-center'
+    theme: Theme.DEFAULT,
+    position: TipBody.Position.BOTTOM
 
 };

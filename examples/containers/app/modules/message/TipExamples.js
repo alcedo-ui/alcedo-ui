@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import IconButton from 'dist/IconButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Tip from 'dist/Tip';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TipDoc from 'assets/propTypes/Tip.json';
@@ -13,7 +14,7 @@ export default class TipExamples extends Component {
 
     constructor(props) {
         super(props);
-        this.text="This is a icon button";
+        this.text = 'This is a icon button';
     }
 
     render() {
@@ -32,44 +33,44 @@ export default class TipExamples extends Component {
                             <div className="examples-wrapper">
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="bottom-left"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="bottom-left"/>*/}
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
                                             tip={this.text}
-                                            tipPosition="bottom-center"/>
+                                            tipPosition={Tip.Position.BOTTOM}/>
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="bottom-right"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="bottom-right"/>*/}
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="left"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="left"/>*/}
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="right"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="right"/>*/}
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="top-left"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="top-left"/>*/}
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="top-center"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="top-center"/>*/}
 
                                 {/*<IconButton iconCls="fa fa-plus"*/}
-                                            {/*theme="success"*/}
-                                            {/*tip={this.text}*/}
-                                            {/*tipPosition="top-right"/>*/}
+                                {/*theme="success"*/}
+                                {/*tip={this.text}*/}
+                                {/*tipPosition="top-right"/>*/}
 
                             </div>
 

@@ -43,23 +43,20 @@ export default class BaseButton extends Component {
 
     mouseEnterHandle(e) {
 
-        const {onMouseOver} = this.props;
+        const {onMouseEnter} = this.props;
 
         this.setState({
             tipVisible: !this.state.tipVisible,
             triggerEl: e.currentTarget
         }, () => {
-            onMouseOver && onMouseOver();
+            onMouseEnter && onMouseEnter();
         });
 
     }
 
     mouseLeaveHandle() {
-
-        const {onMouseOut} = this.props;
-
-        onMouseOut && onMouseOut();
-
+        const {onMouseLeave} = this.props;
+        onMouseLeave && onMouseLeave();
     }
 
     hideTip() {
@@ -161,8 +158,8 @@ BaseButton.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
 
     onTouchTap: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
 
 };
 
