@@ -1,48 +1,103 @@
+@import '../_common.scss';
+
+@mixin progress-theme($color1,$color2, $bg-color) {
+    .linear-progress-highlight {
+        background-color: $bg-color;
+    }
+    .circular-progress-percent {
+        color: $color1;
+    }
+    .linear-progress-word {
+        color: $color2
+    }
+}
+
 .linear-progress {
     position: relative;
     .linear-progress-background {
+        background-color: #f3f6fa;
         border-radius: 2px;
         height: 100%;
         .linear-progress-highlight {
             height: 100%;
             transition: width 0.3s linear 0ms;
+            overflow: hidden;
+            &.linear-progress-animate {
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-size: 40px 40px;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+            .linear-progress-word {
+                position: static;
+                transform: translate(-50%, 0);
+            }
         }
     }
+
+    @include progress-theme(#000, #fff, $theme-menu);
+
+    &.theme-primary {
+        @include progress-theme(#000, #fff, $theme-menu);
+    }
+    &.theme-highlight {
+        @include progress-theme(#000, #fff, $theme-highlight);
+    }
+    &.theme-success {
+        @include progress-theme(#000, #fff, $success);
+    }
+    &.theme-warning {
+        @include progress-theme(#000, #fff, $warning);
+    }
+    &.theme-error {
+        @include progress-theme(#000, #fff, $error);
+    }
+
+    &.linear-progress-one {
+        overflow: hidden;
+        .circular-progress-percent {
+            width: 40px;
+            text-align: left;
+            float: left;
+        }
+        .linear-progress-background {
+            float: left;
+            width: calc(100% - 40px);
+        }
+    }
+
+    &.linear-progress-two {
+        .circular-progress-percent {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+        }
+    }
+
+    &.linear-progress-three {
+        .circular-progress-percent {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(-0, -50%);
+            transition: width 0.3s linear 0ms;
+            padding-right: 10px;
+            box-sizing: border-box;
+            min-width: 40px;
+            color: #fff;
+        }
+    }
+
 }
 
-.linear-progress-one {
-    overflow: hidden;
-    .circular-progress-percent {
-        width: 40px;
-        text-align: left;
-        float: left;
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
     }
-    .linear-progress-background {
-        float: left;
-        width: calc(100% - 40px);
-    }
-}
-
-.linear-progress-two {
-    .circular-progress-percent {
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-.linear-progress-three {
-    .circular-progress-percent {
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translate(-0, -50%);
-        transition: width 0.3s linear 0ms;
-        padding-right: 10px;
-        box-sizing: border-box;
-        min-width: 40px;
+    to {
+        background-position: 0 0;
     }
 }

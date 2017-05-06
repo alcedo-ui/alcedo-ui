@@ -4,7 +4,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Theme from '../Theme';
 import Percent from './Percent';
+
 
 import './CircularProgress.css';
 
@@ -18,7 +20,7 @@ export default class CircularProgress extends Component {
     }
 
     render() {
-        const {r, width, rgba, word, percent, style, percentStyle} = this.props;
+        const {r, width, rgba, word, percent, style, percentStyle, className} = this.props;
 
         const l = 2 * this.props.r * Math.PI;
         const circleStyle = {
@@ -30,7 +32,7 @@ export default class CircularProgress extends Component {
         };
 
         return (
-            <div className="circular-progress"
+            <div className={`circular-progress ${className}`}
                  style={svgStyle}>
                 <svg className="circular-progress-svg">
                     <circle className="circular-progress-circle"
@@ -40,7 +42,8 @@ export default class CircularProgress extends Component {
                             strokeWidth={width}
                             stroke={rgba}
                             fill="none"
-                            style={circleStyle}></circle>
+                            style={circleStyle}>
+                    </circle>
                 </svg>
                 {
                     word

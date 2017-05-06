@@ -1,0 +1,21 @@
+@import '../_common.scss';
+
+.text-area{
+    textarea{
+        border-radius: 5px;
+        max-width: 100%;
+        transition: all .3s;
+        cursor: text;
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(0,0,0,.65);
+        padding: 4px 7px;
+        &:hover{
+            border: solid 1px $theme-highlight;
+        }
+        &.area-focus{
+            box-shadow: 0 0 0 2px rgba(16,142,233,.2);
+            border: solid 1px $theme-highlight;
+        }
+    }
+}

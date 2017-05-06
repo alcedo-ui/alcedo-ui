@@ -75,7 +75,9 @@ export default class TimePicker extends Component {
     }
 
     timePickerChangeHandle(obj) {
-        let timer = obj.hour + ':' + obj.minute + ':' + obj.second
+        let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
+        let validDate = '1970-01-01 ' + timer;
+        timer = moment(validDate).format(this.props.dateFormat);
         this.setState({
             hour: obj.hour,
             minute: obj.minute,

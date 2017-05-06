@@ -22,6 +22,13 @@ export default class RaisedButtonExamples extends Component {
 
                 <h2 className="example-title">Raised Button</h2>
 
+                <p>
+                    <span>Raised Button</span> is used to add dimension to mostly flat layouts and emphasizes important
+                    functions on your page.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Raised Button Example"/>
@@ -30,6 +37,10 @@ export default class RaisedButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>
+                                    Raised Button with default theme,success,warning,error and disabled props applied.
+                                </p>
 
                                 <RaisedButton value="Default"/>
 
@@ -63,6 +74,10 @@ export default class RaisedButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>
+                                    Set the isRounded property to true for button round corner.
+                                </p>
 
                                 <RaisedButton value="Default"
                                               isRounded={true}/>
@@ -103,6 +118,9 @@ export default class RaisedButtonExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>Set the iconCls property for button left icon.And set the rightIconCls property for
+                                    button right icon.</p>
+
                                 <RaisedButton value="Reset"
                                               iconCls="fa fa-undo"/>
 
@@ -117,6 +135,39 @@ export default class RaisedButtonExamples extends Component {
                                 <RaisedButton value="Next"
                                               theme="primary"
                                               rightIconCls="fa fa-chevron-right"/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Raised Button with Icon Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the isCircular property to true for circle shape raised button.</p>
+
+                                <RaisedButton value="Reset"
+                                              isCircular={true}/>
+
+                                <RaisedButton value="Add"
+                                              theme="success"
+                                              isCircular={true}/>
+
+                                <RaisedButton value="Delete"
+                                              theme="error"
+                                              isCircular={true}/>
+
+                                <RaisedButton value="Next"
+                                              theme="primary"
+                                              isCircular={true}/>
 
                             </div>
 

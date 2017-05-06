@@ -6,7 +6,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import DialogDoc from 'assets/propTypes/Dialog.json';
+import DialogDoc from 'assets/propTypes/DialogBody.json';
 
 import 'sass/containers/app/modules/popup/DialogExamples.scss';
 

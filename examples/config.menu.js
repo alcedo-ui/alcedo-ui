@@ -46,6 +46,9 @@ export default [{
         text: 'Text Field',
         route: '/components/TextField'
     }, {
+        text: 'Text Area',
+        route: '/components/TextArea'
+    }, {
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'
     }, {
@@ -120,5 +123,11 @@ export default [{
     }, {
         text: 'Tip',
         route: '/components/Tip'
+    }]
+}, {
+    text: 'TimeLine',
+    children: [{
+        text: 'TimeLine',
+        route: '/components/TimeLine'
     }]
 }];

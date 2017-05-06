@@ -163,22 +163,32 @@ export default class Slider extends Component {
         });
         Event.addEvent(document, 'mousemove', this.moveHandle);
         Event.addEvent(document, 'mouseup', this.upHandle);
-        Event.addEvent(this.refs.circle, 'mouseover', this.overHandle);
-        Event.addEvent(this.refs.circle, 'mouseout', this.outHandle);
+        Event.addEvent(this.refs.circleRight, 'mouseover', this.overHandle);
+        Event.addEvent(this.refs.circleRight, 'mouseout', this.outHandle);
+        if (this.refs.circleLeft) {
+            Event.addEvent(this.refs.circleLeft, 'mouseover', this.overHandle);
+            Event.addEvent(this.refs.circleLeft, 'mouseout', this.outHandle);
+        }
     }
 
     componentWillUnmount() {
         Event.removeEvent(document, 'mousemove', this.moveHandle);
         Event.removeEvent(document, 'mouseup', this.upHandle);
-        Event.removeEvent(this.refs.circle, 'mouseover', this.overHandle);
-        Event.removeEvent(this.refs.circle, 'mouseout', this.outHandle);
+        Event.removeEvent(this.refs.circleRight, 'mouseover', this.overHandle);
+        Event.removeEvent(this.refs.circleRight, 'mouseout', this.outHandle);
+        if (this.refs.circleLeft) {
+            Event.removeEvent(this.refs.circleLeft, 'mouseover', this.overHandle);
+            Event.removeEvent(this.refs.circleLeft, 'mouseout', this.outHandle);
+        }
     }
 
     render() {
-        const {leftPoint, scale, width, showScale, decimalPlaces} = this.props;
+        const {leftPoint, scale, width, showScale, decimalPlaces, className, style, tipShow} = this.props;
         const {left, right, shadow, tip} = this.state;
-
-        const grayStyle = {width: width},
+        const grayStyle = {
+                width,
+                ...style
+            },
             highStyle = {width: Math.abs(left - right), left: Math.min(left, right)},
             leftStyle = {left: left},
             rightStyle = {left: right};
@@ -189,31 +199,33 @@ export default class Slider extends Component {
             rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
 
         return (
-            <div className="slider"
+            <div className={`slider ${className}`}
                  style={grayStyle}>
                 <div className="slider-box"
                      onMouseDown={this.clickHandle}
                      ref="sliderBox">
                     {
                         leftPoint
-                            ? (<div className={'slider-circle slider-circle-left ' + leftShadow}
+                            ? (<div className={`slider-circle slider-circle-left ${leftShadow}`}
                                     onMouseDown={this.downHandle}
                                     style={leftStyle}
-                                    ref="circle"></div>)
+                                    ref="circleLeft"></div>)
                             : null
                     }
-                    <div className={'slider-circle slider-circle-right ' + rightShadow}
+                    <div className={`slider-circle slider-circle-right ${rightShadow}`}
                          onMouseDown={this.downHandle}
                          style={rightStyle}
-                         ref="circle"></div>
+                         ref="circleRight"></div>
                     <div className="slider-highlight"
                          style={highStyle}></div>
                     {
+
                         shadow === 'left' || tip === 'left'
-                            ? <div className={'slider-tip ' + display}
+                            ? <div className={`slider-tip ${display}`}
                                    style={leftStyle}>{leftTip}</div>
-                            : <div className={'slider-tip ' + display}
+                            : <div className={`slider-tip ${display}`}
                                    style={rightStyle}>{rightTip}</div>
+
                     }
 
                 </div>
@@ -262,7 +274,7 @@ Slider.propTypes = {
     width: PropTypes.number,
 
     /**
-     * The scale ot slider.
+     * The size displayed on slider.
      */
     scale: PropTypes.array,
 
@@ -272,9 +284,9 @@ Slider.propTypes = {
     showScale: PropTypes.bool,
 
     /**
-     *
+     * If true,the tip will display.
      */
-    tip: PropTypes.string,
+    tipShow: PropTypes.bool,
 
     /**
      * The granularity the slider can step through values.
@@ -282,7 +294,7 @@ Slider.propTypes = {
     ruler: PropTypes.number,
 
     /**
-     * Number of decimal places.
+     * Decimal digits of tip.
      */
     decimalPlaces: PropTypes.number,
 
@@ -301,7 +313,7 @@ Slider.defaultProps = {
     width: 300,
     scale: [0, 100],
     showScale: false,
-    tip: 'left',
+    tipShow: true,
     decimalPlaces: 0
 };
 

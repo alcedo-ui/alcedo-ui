@@ -22,6 +22,13 @@ export default class GhostButtonExamples extends Component {
 
                 <h2 className="example-title">Ghost Button</h2>
 
+                <p>
+                    <span>Ghost Button</span> outside only to wire frame outline,within only the text represent its
+                    function,background revealed,and the entire page/background combined into a design.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Ghost Button Example"/>
@@ -30,6 +37,8 @@ export default class GhostButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Ghost Button with default theme,success,warning,error and disabled props applied.</p>
 
                                 <GhostButton value="Default"/>
 
@@ -63,6 +72,8 @@ export default class GhostButtonExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Set the isRounded property to true for button round corner.</p>
 
                                 <GhostButton value="Default"
                                              isRounded={true}/>
@@ -103,6 +114,9 @@ export default class GhostButtonExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>Set the iconCls property for button left icon.And set the rightIconCls property for
+                                    button right icon.</p>
+
                                 <GhostButton value="Reset"
                                              iconCls="fa fa-undo"/>
 
@@ -117,6 +131,40 @@ export default class GhostButtonExamples extends Component {
                                 <GhostButton value="Next"
                                              theme="primary"
                                              rightIconCls="fa fa-chevron-right"/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Ghost Button with Icon Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the iconCls property for button left icon.And set the rightIconCls property for
+                                    button right icon.</p>
+
+                                <GhostButton value="Reset"
+                                             isCircular={true}/>
+
+                                <GhostButton value="Add"
+                                             theme="success"
+                                             isCircular={true}/>
+
+                                <GhostButton value="Delete"
+                                             theme="error"
+                                             isCircular={true}/>
+
+                                <GhostButton value="Next"
+                                             theme="primary"
+                                             isCircular={true}/>
 
                             </div>
 

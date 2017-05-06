@@ -12,6 +12,7 @@ import IconButtonExamples from 'containers/app/modules/buttons/IconButtonExample
 import IconAnchorExamples from 'containers/app/modules/buttons/IconAnchorExamples';
 
 import TextFieldExamples from 'containers/app/modules/fields/TextFieldExamples';
+import TextAreaExamples from 'containers/app/modules/fields/TextAreaExamples';
 import DropdownSelectExamples from 'containers/app/modules/fields/DropdownSelectExamples';
 import MultipleSelectExamples from 'containers/app/modules/fields/MultipleSelectExamples';
 import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples';
@@ -47,6 +48,9 @@ import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples'
 import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
 import TipExamples from 'containers/app/modules/message/TipExamples';
 
+
+import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
+
 export default (
     <Route path="/" component={Root}>
 
@@ -75,6 +79,8 @@ export default (
             {/* fields */}
             <Route path="TextField"
                    component={TextFieldExamples}/>
+            <Route path="TextArea"
+                   component={TextAreaExamples}/>
             <Route path="DatePicker"
                    component={DatePickerExamples}/>
             <Route path="DateRangePicker"
@@ -141,6 +147,10 @@ export default (
                    component={ToasterExamples}/>
             <Route path="Tip"
                    component={TipExamples}/>
+
+            {/* timeLine */}
+            <Route path="TimeLine"
+                   component={TimeLineExamples}/>
 
         </Route>
 

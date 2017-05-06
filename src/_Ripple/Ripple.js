@@ -62,11 +62,12 @@ export default class Ripple extends Component {
 
     render() {
 
-        const {className, style} = this.props;
+        const {className, style, children} = this.props;
 
         return (
             <div className={`ripple ${className}`}
                  style={style}>
+                {children}
             </div>
         );
 

@@ -56,8 +56,13 @@ export default class SubtreeContainer extends Component {
     }
 
     renderer() {
+
+        const {className, style} = this.props;
+
         return (
-            <ReactCSSTransitionGroup component="div">
+            <ReactCSSTransitionGroup component="div"
+                                     className={className}
+                                     style={style}>
                 {this.props.children}
             </ReactCSSTransitionGroup>
         );

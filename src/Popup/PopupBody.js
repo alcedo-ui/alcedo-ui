@@ -31,8 +31,6 @@ export default class PopupBody extends Component {
             return true;
         }
 
-        let flag = true;
-
         while (el) {
             if (el == popupEl) {
                 return currentVisible;
@@ -42,9 +40,7 @@ export default class PopupBody extends Component {
             el = el.parentNode;
         }
 
-        if (flag) {
-            return false;
-        }
+        return false;
 
     }
 
@@ -81,7 +77,7 @@ export default class PopupBody extends Component {
 
             if (position === PopupBody.Position.RIGHT) {
                 popupStyle = {
-                    left: offset.left - (this.refs.popup.clientWidth - triggerEl.clientWidth),
+                    left: offset.left - (200 - triggerEl.clientWidth),
                     top: offset.top + triggerEl.clientHeight
                 };
             } else { // default left

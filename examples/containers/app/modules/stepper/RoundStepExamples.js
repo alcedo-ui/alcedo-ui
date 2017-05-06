@@ -69,6 +69,14 @@ export default class RoundStepExamples extends Component {
 
                 <h2 className="example-title">RoundStep</h2>
 
+                <p>
+                    A stepper is an interface for users to show numbered steps or for navigation. It just provides
+                    views, not handling logic (when the step is active, or when the step is completed, or how to move to
+                    the next step).
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header"
@@ -76,6 +84,8 @@ export default class RoundStepExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
+
+                            <p>A simple RoundStep example.</p>
 
                             <RoundStep steps={steps}
                                        activatedStep={activatedStep}
