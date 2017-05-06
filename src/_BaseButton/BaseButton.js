@@ -19,8 +19,8 @@ export default class BaseButton extends Component {
             triggerEl: null
         };
 
-        this.mouseOverHandle = this::this.mouseOverHandle;
-        this.mouseOutHandle = this::this.mouseOutHandle;
+        this.mouseEnterHandle = this::this.mouseEnterHandle;
+        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
@@ -41,7 +41,7 @@ export default class BaseButton extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
-    mouseOverHandle(e) {
+    mouseEnterHandle(e) {
 
         const {onMouseOver} = this.props;
 
@@ -54,7 +54,7 @@ export default class BaseButton extends Component {
 
     }
 
-    mouseOutHandle() {
+    mouseLeaveHandle() {
 
         const {onMouseOut} = this.props;
 
@@ -85,8 +85,8 @@ export default class BaseButton extends Component {
                     type={type}
                     disabled={disabled || isLoading}
                     onClick={this.clickHandle}
-                    onMouseOver={this.mouseOverHandle}
-                    onMouseOut={this.mouseOutHandle}>
+                    onMouseEnter={this.mouseEnterHandle}
+                    onMouseLeave={this.mouseLeaveHandle}>
 
                 {
                     isLoading

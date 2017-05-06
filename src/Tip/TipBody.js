@@ -82,11 +82,7 @@ export default class TipBody extends Component {
 
     }
 
-    triggerEventHandle(el, triggerEl, currentVisible) {
-
-        // if (!triggerEl) {
-        //     return currentVisible;
-        // }
+    triggerEventHandle(el, triggerEl) {
 
         while (el) {
             if (el == triggerEl) {
@@ -104,8 +100,7 @@ export default class TipBody extends Component {
         const {triggerEl, onRequestClose} = this.props,
             visible = this.triggerEventHandle(
                 e.target,
-                triggerEl,
-                this.state.visible
+                triggerEl
             );
 
         this.setState({
