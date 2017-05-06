@@ -6,7 +6,7 @@ import WidgetHeader from 'dist/WidgetHeader';
 import Tip from 'dist/Tip';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import TipDoc from 'assets/propTypes/Tip.json';
+import TipDoc from 'assets/propTypes/TipBody.json';
 
 import 'sass/containers/app/modules/message/TipExamples.scss';
 
