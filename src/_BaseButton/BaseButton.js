@@ -15,15 +15,16 @@ export default class BaseButton extends Component {
         super(props);
 
         this.state = {
-            popupVisible: false,
+            tipVisible: false,
             triggerEl: null
         };
 
-        this.openTip = this::this.openTip;
-        this.closeTip = this::this.closeTip;
+        this.mouseEnterHandle = this::this.mouseEnterHandle;
+        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
+        this.hideTip = this::this.hideTip;
 
     }
 
@@ -40,16 +41,27 @@ export default class BaseButton extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
-    openTip(e) {
+    mouseEnterHandle(e) {
+
+        const {onMouseEnter} = this.props;
+
         this.setState({
-            popupVisible: !this.state.popupVisible,
+            tipVisible: !this.state.tipVisible,
             triggerEl: e.currentTarget
+        }, () => {
+            onMouseEnter && onMouseEnter();
         });
+
     }
 
-    closeTip() {
+    mouseLeaveHandle() {
+        const {onMouseLeave} = this.props;
+        onMouseLeave && onMouseLeave();
+    }
+
+    hideTip() {
         this.setState({
-            popupVisible: false
+            tipVisible: false
         });
     }
 
@@ -57,10 +69,11 @@ export default class BaseButton extends Component {
 
         const {
             children, className, style, theme, isRounded, isCircular,
-            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,tip,tipPosition
+            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
+            tip, tipPosition
         } = this.props;
 
-        const {popupVisible,triggerEl}=this.state;
+        const {tipVisible, triggerEl} = this.state;
 
         return (
             <button className={`base-button ${theme ? `theme-${theme}` : ''}
@@ -69,12 +82,13 @@ export default class BaseButton extends Component {
                     type={type}
                     disabled={disabled || isLoading}
                     onClick={this.clickHandle}
-                    onMouseOver={this.openTip}
-                    onMouseOut={this.closeTip}>
+                    onMouseEnter={this.mouseEnterHandle}
+                    onMouseLeave={this.mouseLeaveHandle}>
 
                 {
                     isLoading
-                        ? <CircularLoading size="small"/>
+                        ? <CircularLoading className="button-icon button-loading-icon"
+                                           size="small"/>
                         : (
                         iconCls
                             ? <i className={`button-icon button-icon-left ${iconCls}`}
@@ -86,23 +100,26 @@ export default class BaseButton extends Component {
                 {value}
 
                 {
-                    rightIconCls
-                        ? <i className={`button-icon button-icon-right ${rightIconCls}`}
-                             aria-hidden="true"></i>
-                        : null
+                    isLoading
+                        ? <CircularLoading className="button-icon button-loading-icon"
+                                           size="small"/>
+                        : (
+                        rightIconCls
+                            ? <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                 aria-hidden="true"></i>
+                            : null
+                    )
                 }
 
                 {children}
 
                 {
                     tip ?
-
-                    <Tip text={tip}
-                         visible={popupVisible}
-                         triggerEl={triggerEl}
-                         position={tipPosition}
-                         onRequestClose={this.closeTip}
-                    />
+                        <Tip text={tip}
+                             visible={tipVisible}
+                             triggerEl={triggerEl}
+                             position={tipPosition}
+                             onRequestClose={this.hideTip}/>
                         :
                         null
                 }
@@ -140,7 +157,9 @@ BaseButton.propTypes = {
 
     rippleDisplayCenter: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onTouchTap: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
 
 };
 
