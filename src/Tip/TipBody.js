@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 import Theme from '../Theme';
 
 export default class TipBody extends Component {
@@ -19,6 +20,7 @@ export default class TipBody extends Component {
 
         this.getWrapperStyle = this::this.getWrapperStyle;
         this.getRippleStyle = this::this.getRippleStyle;
+        this.mouseMoveHandle = this::this.mouseMoveHandle;
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
 
@@ -80,6 +82,44 @@ export default class TipBody extends Component {
 
     }
 
+    triggerEventHandle(el, triggerEl, currentVisible) {
+
+        // if (!triggerEl) {
+        //     return currentVisible;
+        // }
+
+        while (el) {
+            if (el == triggerEl) {
+                return true;
+            }
+            el = el.parentNode;
+        }
+
+        return false;
+
+    }
+
+    mouseMoveHandle(e) {
+
+        const {triggerEl, onRequestClose} = this.props,
+            visible = this.triggerEventHandle(
+                e.target,
+                triggerEl,
+                this.state.visible
+            );
+
+        this.setState({
+            visible
+        }, () => {
+            if (!visible) {
+                setTimeout(() => {
+                    onRequestClose && onRequestClose();
+                }, 250);
+            }
+        });
+
+    }
+
     initializeAnimation(callback) {
         this.hasMounted && callback();
     }
@@ -92,6 +132,7 @@ export default class TipBody extends Component {
 
     componentDidMount() {
         this.hasMounted = true;
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
     }
 
     componentWillAppear(callback) {
@@ -129,6 +170,7 @@ export default class TipBody extends Component {
     }
 
     componentWillUnmount() {
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 

@@ -58,11 +58,7 @@ export default class BaseButton extends Component {
 
         const {onMouseOut} = this.props;
 
-        this.setState({
-            tipVisible: false
-        }, () => {
-            onMouseOut && onMouseOut();
-        });
+        onMouseOut && onMouseOut();
 
     }
 
