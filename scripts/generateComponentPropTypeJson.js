@@ -79,7 +79,17 @@ function generatePropTypes(componentName, fileString, result) {
             break;
         }
 
-        if (commentStart && line.indexOf('*/') > -1) {
+        if (line.indexOf('PropTypes') > -1) {
+
+            fieldString = line;
+            fieldObj = splitField(fieldString);
+
+            if (!(fieldObj.key in result)) {
+                result[fieldObj.key] = {};
+            }
+            result[fieldObj.key].type = formatPropTypes(fieldObj.value);
+
+        } else if (commentStart != undefined && line.indexOf('*/') > -1) {
 
             if (propTypesFileArray[i + 1]) {
 
@@ -87,29 +97,21 @@ function generatePropTypes(componentName, fileString, result) {
                 fieldObj = splitField(fieldString);
                 comment += _.trim(line.slice(0, line.indexOf('*/')));
 
-                result[fieldObj.key] = {
-                    type: formatPropTypes(fieldObj.value),
-                    desc: comment
-                };
+                if (!(fieldObj.key in result)) {
+                    result[fieldObj.key] = {};
+                }
+                result[fieldObj.key].type = formatPropTypes(fieldObj.value);
+                result[fieldObj.key].desc = comment;
 
             }
 
             commentStart = comment = undefined;
 
-        } else if (commentStart) {
+        } else if (commentStart != undefined) {
             comment += (comment === '' ? '' : ' ') + _.trim(line.slice(line.indexOf('*') + 1));
         } else if (line.indexOf('/**') > -1) {
             commentStart = i;
             comment = _.trim(line.slice(line.indexOf('/**') + 3));
-        } else if (line.indexOf('PropTypes') > -1) {
-
-            fieldString = line;
-            fieldObj = splitField(fieldString);
-
-            result[fieldObj.key] = {
-                type: formatPropTypes(fieldObj.value)
-            };
-
         }
 
     }
