@@ -31,45 +31,45 @@ export default class TipExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="bottom-left"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="bottom-left"/>*/}
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
                                             tip={this.text}
                                             tipPosition="bottom-center"/>
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="bottom-right"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="bottom-right"/>*/}
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="left"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="left"/>*/}
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="right"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="right"/>*/}
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="top-left"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="top-left"/>*/}
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="top-center"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="top-center"/>*/}
 
-                                <IconButton iconCls="fa fa-plus"
-                                            theme="success"
-                                            tip={this.text}
-                                            tipPosition="top-right"/>
+                                {/*<IconButton iconCls="fa fa-plus"*/}
+                                            {/*theme="success"*/}
+                                            {/*tip={this.text}*/}
+                                            {/*tipPosition="top-right"/>*/}
 
                             </div>
 
