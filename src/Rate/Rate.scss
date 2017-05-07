@@ -1,0 +1,49 @@
+.rate {
+    height: 30px;
+    overflow: hidden;
+    user-select: none;
+    .star {
+        width: 30px;
+        height: 30px;
+        float: left;
+        cursor: pointer;
+        i {
+            margin-left: 10px;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            &.zero {
+                color: #e9e9e9;
+            }
+            &.full {
+                color: #f5a623;
+            }
+
+        }
+    }
+    .half-star{
+        position: relative;
+        width: 30px;
+        height: 30px;
+        float: left;
+        cursor: pointer;
+        i{
+            position: absolute;
+            top:0;
+            left:10px;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            transform: translateX(1px);
+            &.zero {
+                color: #e9e9e9;
+            }
+            &.full {
+                color: #f5a623;
+            }
+            &.right{
+                transform: scaleX(-1) translateX(1px);
+            }
+        }
+    }
+}

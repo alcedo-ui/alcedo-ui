@@ -49,6 +49,7 @@ import TipExamples from 'containers/app/modules/message/TipExamples';
 
 
 import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
+import RateExamples from 'containers/app/modules/Rate/RateExamples';
 
 export default (
     <Route path="/" component={Root}>
@@ -148,6 +149,10 @@ export default (
             {/* timeLine */}
             <Route path="TimeLine"
                    component={TimeLineExamples}/>
+
+            {/* rate */}
+            <Route path="Rate"
+                   component={RateExamples}/>
 
         </Route>
 
