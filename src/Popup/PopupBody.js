@@ -31,8 +31,6 @@ export default class PopupBody extends Component {
             return true;
         }
 
-        let flag = true;
-
         while (el) {
             if (el == popupEl) {
                 return currentVisible;
@@ -42,9 +40,7 @@ export default class PopupBody extends Component {
             el = el.parentNode;
         }
 
-        if (flag) {
-            return false;
-        }
+        return false;
 
     }
 

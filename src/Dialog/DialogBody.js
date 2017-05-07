@@ -33,8 +33,6 @@ export default class DialogBody extends Component {
 
     triggerDialogEventHandle(el, dialogEl, currentVisible) {
 
-        let flag = true;
-
         while (el) {
             if (el == dialogEl) {
                 return currentVisible;
@@ -42,9 +40,7 @@ export default class DialogBody extends Component {
             el = el.parentNode;
         }
 
-        if (flag) {
-            return false;
-        }
+        return false;
 
     }
 

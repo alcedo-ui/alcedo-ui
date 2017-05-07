@@ -2,7 +2,7 @@
 
 @mixin progress-theme($color1,$color2, $bg-color) {
     .linear-progress-highlight {
-        background: $bg-color;
+        background-color: $bg-color;
     }
     .circular-progress-percent {
         color: $color1;
@@ -15,13 +15,18 @@
 .linear-progress {
     position: relative;
     .linear-progress-background {
-        background: #f3f6fa;
+        background-color: #f3f6fa;
         border-radius: 2px;
         height: 100%;
         .linear-progress-highlight {
             height: 100%;
             transition: width 0.3s linear 0ms;
             overflow: hidden;
+            &.linear-progress-animate {
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-size: 40px 40px;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
             .linear-progress-word {
                 position: static;
                 transform: translate(-50%, 0);
@@ -88,3 +93,11 @@
 
 }
 
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}

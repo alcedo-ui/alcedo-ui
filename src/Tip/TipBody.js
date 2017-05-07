@@ -1,102 +1,28 @@
-/**
- * Created by Administrator on 2017/4/28.
- */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import Util from '../_vendors/Util';
-
-import Ripple from '../_Ripple';
-
-import './Tip.css';
+import Event from '../_vendors/Event';
+import Theme from '../Theme';
 
 export default class TipBody extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.hasMounted = false;
         this.unrenderTimeout = null;
 
         this.state = {
-            visible: false,
-            rippleStyle:null
+            visible: false
         };
 
-        this.getTipStyle = this::this.getTipStyle;
+        this.getWrapperStyle = this::this.getWrapperStyle;
         this.getRippleStyle = this::this.getRippleStyle;
+        this.mouseMoveHandle = this::this.mouseMoveHandle;
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
-    }
-
-    getTipStyle() {
-
-        const {triggerEl, position} = this.props;
-
-        let tipStyle = {};
-        if (triggerEl && this.refs.tip) {
-            const offset = Util.getOffset(triggerEl);
-
-            switch (position) {
-                case 'right':
-                    tipStyle = {
-                        left: offset.left + (triggerEl.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
-                    };
-                    break;
-                case 'left':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
-                    };
-                    break;
-                case 'top-left':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight)
-                    };
-                    break;
-                case 'top-right':
-                    tipStyle = {
-                        left: offset.left + (triggerEl.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight)
-                    };
-                    break;
-                case 'top-center':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
-                        top: offset.top - (this.refs.tip.clientHeight)
-                    };
-                    break;
-                case 'bottom-left':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth),
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-                    break;
-                case 'bottom-center':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-                    break;
-                case 'bottom-right':
-                    tipStyle = {
-                        left: offset.left + (triggerEl.clientWidth),
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-                    break;
-                default:
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-            }
-        }
-
-        return tipStyle;
 
     }
 
@@ -104,35 +30,159 @@ export default class TipBody extends Component {
         return Math.sqrt((a * a) + (b * b));
     }
 
+    // getTipStyle() {
+    //
+    //     const {triggerEl, position} = this.props;
+    //
+    //     let tipStyle = {};
+    //     if (triggerEl && this.refs.tip) {
+    //         const offset = Util.getOffset(triggerEl);
+    //
+    //         switch (position) {
+    //             case 'right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
+    //                 };
+    //                 break;
+    //             case 'left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
+    //                 };
+    //                 break;
+    //             case 'top-left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'top-right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'top-center':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-center':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             default:
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //         }
+    //     }
+    //
+    //     return tipStyle;
+    //
+    // }
 
-    getRippleStyle(){
+    getWrapperStyle() {
+
         const {triggerEl} = this.props;
 
-        let rippleStyle = {};
-        if (triggerEl && this.refs.tip) {
-            const offset = Util.getOffset(triggerEl);
-            rippleStyle.top = offset.top + triggerEl.clientHeight / 2;
-            rippleStyle.left = offset.left + triggerEl.clientWidth / 2;
-
-            const elWidth = this.refs.tip.clientWidth;
-            const elHeight = this.refs.tip.clientHeight;
-            const elOffset = this.getTipStyle();
-            // 涟漪半径为4个距离的最大值
-            const rippleRadius = Math.max(
-                this.getDiag(elOffset.top - rippleStyle.top, elOffset.left - rippleStyle.left),
-                this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left - rippleStyle.left),
-                this.getDiag(elOffset.top - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left),
-                this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left)
-            );
-            const rippleSize = rippleRadius * 2;
-            rippleStyle.width = rippleSize;
-            rippleStyle.height = rippleSize;
-            rippleStyle.top =rippleStyle.top  - rippleRadius - elOffset.top;
-            rippleStyle.left = rippleStyle.left - rippleRadius - elOffset.left;
+        if (!triggerEl || !this.refs.tip) {
+            return;
         }
-        return rippleStyle;
+
+        const triggerOffset = Util.getOffset(triggerEl);
+
+        return {
+            left: triggerOffset.left + triggerEl.clientWidth / 2 - this.refs.tip.clientWidth / 2,
+            top: triggerOffset.top + triggerEl.clientHeight
+        };
+
     }
 
+    getRippleStyle(elOffset) {
+
+        const {triggerEl} = this.props;
+
+        if (!triggerEl || !this.refs.tip || !elOffset) {
+            return;
+        }
+
+        let rippleStyle = {};
+
+        const offset = Util.getOffset(triggerEl);
+        rippleStyle.top = offset.top + triggerEl.clientHeight / 2;
+        rippleStyle.left = offset.left + triggerEl.clientWidth / 2;
+
+        const elWidth = this.refs.tip.clientWidth;
+        const elHeight = this.refs.tip.clientHeight;
+
+        const rippleRadius = Math.max(
+            this.getDiag(elOffset.top - rippleStyle.top, elOffset.left - rippleStyle.left),
+            this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left - rippleStyle.left),
+            this.getDiag(elOffset.top - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left),
+            this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left)
+        );
+
+        const rippleSize = rippleRadius * 2;
+
+        rippleStyle.width = rippleSize;
+        rippleStyle.height = rippleSize;
+        rippleStyle.top = rippleStyle.top - rippleRadius - elOffset.top;
+        rippleStyle.left = rippleStyle.left - rippleRadius - elOffset.left;
+
+        return rippleStyle;
+
+    }
+
+    triggerEventHandle(el, triggerEl) {
+
+        while (el) {
+            if (el == triggerEl) {
+                return true;
+            }
+            el = el.parentNode;
+        }
+
+        return false;
+
+    }
+
+    mouseMoveHandle(e) {
+
+        const {triggerEl, onRequestClose} = this.props,
+            visible = this.triggerEventHandle(
+                e.target,
+                triggerEl
+            );
+
+        this.setState({
+            visible
+        }, () => {
+            if (!visible) {
+                setTimeout(() => {
+                    onRequestClose && onRequestClose();
+                }, 250);
+            }
+        });
+
+    }
 
     initializeAnimation(callback) {
         this.hasMounted && callback();
@@ -145,12 +195,8 @@ export default class TipBody extends Component {
     }
 
     componentDidMount() {
-        const rippleStyle = this.getRippleStyle();
-        this.setState({
-            rippleStyle:rippleStyle
-        })
         this.hasMounted = true;
-
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
     }
 
     componentWillAppear(callback) {
@@ -188,33 +234,47 @@ export default class TipBody extends Component {
     }
 
     componentWillUnmount() {
-
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-
     }
 
     render() {
+
         const {className, style, position, text} = this.props;
-        const {visible,rippleStyle} = this.state;
+        const {visible} = this.state;
+
+        const wrapperStyle = this.getWrapperStyle();
+
         return (
-            <div className={`tip ${visible ? '' : 'hidden'} ${position ? `tip-position-${position}` : ''} ${className}`}
-                 style={{...this.getTipStyle(), ...style}} ref="tip">
+            <div ref="tip"
+                 className={`tip ${visible ? 'visible' : ''} ${className}`}
+                 style={{...style, ...wrapperStyle}}>
+
                 {text}
-                <ReactCSSTransitionGroup component="div">
-                {
-                    visible ?
-                        <Ripple className="tipRipple"
-                                style={rippleStyle}/>
-                        :
-                        null
-                }
-                </ReactCSSTransitionGroup>
+
+                <div className="tip-ripple"
+                     style={this.getRippleStyle(wrapperStyle)}></div>
+
             </div>
         );
+
     }
 
-
 }
+
+TipBody.Position = {
+
+    TOP: 'top',
+    LEFT: 'left',
+    RIGHT: 'right',
+    BOTTOM: 'bottom',
+
+    TOP_LEFT: 'top-left',
+    TOP_RIGHT: 'top-right',
+    BOTTOM_LEFT: 'bottom-left',
+    BOTTOM_RIGHT: 'bottom-right'
+
+};
 
 TipBody.propTypes = {
 
@@ -244,9 +304,11 @@ TipBody.propTypes = {
     visible: PropTypes.bool,
 
     /**
-     * The popover alignment.Possible values are: "bottom-center", "top-center", "bottom-right", "top-right", "bottom-left", "top-left", "left" and "right".
+     * The popover theme. Can be primary,highlight,success,warning,error.
      */
-    position: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    position: PropTypes.oneOf(Object.keys(TipBody.Position).map(key => TipBody.Position[key])),
 
     /**
      * Callback function fired when the popover is requested to be closed.
@@ -260,8 +322,10 @@ TipBody.defaultProps = {
     className: '',
     style: null,
 
+    text: '',
     triggerEl: null,
     visible: false,
-    position: 'bottom-center'
+    theme: Theme.DEFAULT,
+    position: TipBody.Position.BOTTOM
 
 };

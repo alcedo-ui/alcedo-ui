@@ -23,7 +23,7 @@ export default class LinearProgress extends Component {
     }
 
     render() {
-        const {className, highlightWidth, style, word, wordStyle, theme} = this.props;
+        const {className, highlightWidth, style, word, wordStyle, theme, animation} = this.props;
         const {WordStyle} = LinearProgress;
 
         const highlightStyle = {
@@ -48,7 +48,7 @@ export default class LinearProgress extends Component {
                         : null
                 }
                 <div className="linear-progress-background">
-                    <div className="linear-progress-highlight"
+                    <div className={`linear-progress-highlight ${animation ? 'linear-progress-animate' : ''}`}
                          style={highlightStyle}>
                         {
                             wordStyle === 'middle'
@@ -100,7 +100,12 @@ LinearProgress.propTypes = {
     /**
      * The percent text location.Desirable values include front,middle,follow.
      */
-    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle))
+    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle)),
+
+    /**
+     * The percent text location.Desirable values include front,middle,follow.
+     */
+    animation: PropTypes.bool,
 
 };
 
@@ -113,5 +118,6 @@ LinearProgress.defaultProps = {
 
     highlightWidth: '50%',
     word: false,
-    wordStyle: 'front'
+    wordStyle: 'front',
+    animation: false
 };

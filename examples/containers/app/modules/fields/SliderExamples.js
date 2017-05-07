@@ -141,7 +141,7 @@ export default class SliderExamples extends Component {
                                         showScale={true}
                                         decimalPlaces={1}
                                         width={600}
-                                        tip="left"
+                                        tip={true}
                                         onChange={this.change}/>
 
                             </div>

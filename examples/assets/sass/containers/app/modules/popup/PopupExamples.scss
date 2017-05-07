@@ -2,26 +2,9 @@
 
 .popup-examples {
 
-    .example-content {
-
-        overflow: visible !important;
-
-        .popup-example-wrapper {
-
-            position: relative;
-
-            .trigger-button {
-
-                @include shadow(2);
-
-                width: 160px;
-                height: 50px;
-                margin: 0;
-
-            }
-
-        }
-
+    .trigger-button {
+        width: 160px;
+        height: 50px;
+        margin: 0;
     }
-
 }
