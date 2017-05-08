@@ -14,13 +14,12 @@ export default class Rate extends Component {
             items:[]
         };
 
-        this.hoverHandle = this::this.hoverHandle;
+        this.mouseMoveHandle = this::this.mouseMoveHandle;
+        this.selectHandle = this::this.selectHandle;
         this.createItems = this::this.createItems;
-        this.renderStar = this::this.renderStar;
     }
 
     triggerEventHandle(el, triggerEl) {
-
         while (el) {
             if (el == triggerEl) {
                 return true;
@@ -32,19 +31,37 @@ export default class Rate extends Component {
 
     }
 
-    hoverHandle(e){
+    mouseMoveHandle(e){
+        const {disabled} = this.props;
+        if(disabled){
+            return;
+        }
         const mouseEnterFalg = this.triggerEventHandle(e.target , require('react-dom').findDOMNode(this.refs.rate));
-        let {value}=this.state;
+        let {value}= this.props;
         if(mouseEnterFalg){
-            if(e.target.className.indexOf('filter') != -1) {
-
+            if(e.target.nodeName === 'I') {
+                value = e.target.getAttribute('data-key');
             }
         }else{
-            value = 0;
+            value = this.props.value;
         }
-        const items = this.createItems(value);
+        // if(value!==this.props.value){
+            const items = this.createItems(value);
+            this.setState({
+                items
+            })
+        // }
+    }
+
+    selectHandle(value){
+        const {disabled} = this.props;
+        if(disabled){
+            return;
+        }
         this.setState({
-            items
+            value
+        },()=>{
+            this.props.onChange && this.props.onChange(value)
         })
     }
 
@@ -58,7 +75,7 @@ export default class Rate extends Component {
                 }else if(i < value && i > value - 1){
                     items.push('full-zero')
                 }else if(i > value){
-                    items.push('full')
+                    items.push('zero')
                 }else{
                     items.push('zero')
                 }
@@ -77,76 +94,15 @@ export default class Rate extends Component {
         return items
     }
 
-    renderStar(type,key){
-        const {allowHalf} = this.props;
-        if(allowHalf){
-            switch (type){
-                case 'zero':
-                    return (<div className="half-star"
-                                  key={key}>
-                        <div className="half-star-left">
-                            <i className={`fa fa-star-half zero`}></i>
-                        </div>
-                        <div className="half-star-right">
-                            <i className={`fa fa-star-half zero`}></i>
-                        </div>
-                    </div>)
-                    break;
-                case 'full':
-                    return (<div className="half-star"
-                                  key={key}>
-                        <div className="half-star-left">
-                            <i className={`fa fa-star-half full`}></i>
-                        </div>
-                        <div className="half-star-right">
-                            <i className={`fa fa-star-half full`}></i>
-                        </div>
-                    </div>)
-                    break;
-                case 'full-zero':
-                    return (<div className="half-star"
-                                  key={key}>
-                        <div className="half-star-left">
-                            <i className={`fa fa-star-half full`}></i>
-                        </div>
-                        <div className="half-star-right">
-                            <i className={`fa fa-star-half zero`}></i>
-                        </div>
-                    </div>)
-                    break;
-                default:
-                    return (<div className="half-star"
-                                  key={key}>
-                        <div className="half-star-left">
-                            <i className={`fa fa-star-half zero`}></i>
-                        </div>
-                        <div className="half-star-right">
-                            <i className={`fa fa-star-half zero`}></i>
-                        </div>
-                    </div>)
-            }
-        }else{
-            switch (type){
-                case 'zero':
-                    return (<div className="star"
-                                  key={key}>
-                        <i className={`fa fa-star zero`}></i>
-                    </div>)
-                    break;
-                case 'full':
-                    return (<div className="star"
-                                  key={key}>
-                        <i className={`fa fa-star full`}></i>
-                    </div>)
-                    break;
-                default:
-                    return (<div className="star"
-                                  key={key}>
-                        <i className={`fa fa-star zero`}></i>
-                    </div>)
-            }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value) {
+            const value = nextProps.value;
+            const items = this.createItems(value);
+            this.setState({
+                    value,
+                    items
+            });
         }
-
     }
 
     componentDidMount() {
@@ -161,16 +117,11 @@ export default class Rate extends Component {
 
     componentWillUnmount() {
         Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
-
-
-
     render() {
-        const {count, className, style ,allowHalf} = this.props;
-        const {value,items} = this.state;
-
+        const {className, style ,allowHalf, disabled} = this.props;
+        const {items} = this.state;
 
         return (
             <div className={`rate ${className ? className : ''}`}
@@ -178,9 +129,35 @@ export default class Rate extends Component {
                  ref = "rate">
                 {
                     items.map((item,key)=>{
-                       return (
-                           this.renderStar(item,key)
-                       )
+                        if(allowHalf){
+                            return (<div className={`half-star ${disabled ? 'disabled':''}`}>
+                                        <div className="half-star-left">
+                                            <i className={`fa fa-star-half ${ item=='full'|| item=='full-zero' ? 'full':'zero'} ${disabled ? 'disabled':''}`}
+                                               data-key={key + 0.5}
+                                               onClick={()=>{
+                                                   this.selectHandle(key+0.5)
+                                               }}
+                                            ></i>
+                                        </div>
+                                        <div className="half-star-right">
+                                            <i className={`fa fa-star-half ${ item=='zero'|| item=='full-zero' ? 'zero':'full'} ${disabled ? 'disabled':''}`}
+                                               data-key={key + 1}
+                                               onClick={()=>{
+                                                   this.selectHandle(key+1)
+                                               }}
+                                            ></i>
+                                        </div>
+                                </div>)
+                        }else{
+                            return (<div className={`star ${disabled ? 'disabled':''}`}>
+                                        <i className={`fa fa-star ${ item=='zero' ? 'zero':'full'} ${disabled ? 'disabled':''}`}
+                                           data-key={key + 1}
+                                           onClick={()=>{
+                                               this.selectHandle(key+1)
+                                           }}
+                                        ></i>
+                            </div>)
+                        }
                     })
                 }
             </div>
@@ -201,7 +178,7 @@ Rate.propTypes = {
     style: PropTypes.object,
 
     /**
-     * If true,the slider will have leftPoint.
+     *
      */
     value: PropTypes.number,
 
@@ -221,8 +198,6 @@ Rate.defaultProps = {
     style:null,
     count: 5,
     defaultValue: 0,
-    disabled: false,
-    tip: 'left',
-    decimalPlaces: 0
+    disabled:false
 };
 

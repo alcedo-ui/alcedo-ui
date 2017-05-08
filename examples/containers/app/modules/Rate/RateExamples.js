@@ -5,17 +5,31 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import TimeLineDoc from 'assets/propTypes/TimeLine.json';
+import RateDoc from 'assets/propTypes/Rate.json';
 
-import 'sass/containers/app/modules/TimeLine/TimeLineExamples.scss';
+import 'sass/containers/app/modules/Rate/RateExamples.scss';
 
 export default class RateExamples extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state={
+            value : 3.5
+        }
+
+        this.onChangeHandle = this::this.onChangeHandle;
+    }
+
+    onChangeHandle(value){
+        this.setState({
+            value
+        })
     }
 
     render() {
+
+        const {value}=this.state;
 
         return (
             <div className="example rate-examples">
@@ -37,8 +51,11 @@ export default class RateExamples extends Component {
 
                             <p>A simple Rate example.</p>
 
-                            <Rate value={3}
-                                  allowHalf={false}/>
+                            <Rate value={value}
+                                  allowHalf={true}
+                                  onChange={(value)=>{
+                                      this.onChangeHandle(value)
+                                  }}/>
 
                         </div>
                     </div>
@@ -47,7 +64,7 @@ export default class RateExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TimeLineDoc}/>
+                <PropTypeDescTable data={RateDoc}/>
 
             </div>
         )
