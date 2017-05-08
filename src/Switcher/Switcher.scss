@@ -55,13 +55,17 @@
         border: 1px solid grayscale(darken($theme-bg, 2%));
         cursor: not-allowed;
 
-        .switcher-slider {
-            box-shadow: none;
+        &.active {
+            background: grayscale($theme-bg);
         }
-    }
 
-    &[disabled].active {
-        background: grayscale($theme-bg);
+        .switcher-slider-wrapper {
+            cursor: not-allowed;
+
+            .switcher-slider {
+                box-shadow: none;
+            }
+        }
     }
 
     &.small {

@@ -70,7 +70,7 @@ export default class BaseButton extends Component {
     render() {
 
         const {
-            children, className, style, theme, isRounded, isCircular,
+            children, className, style, theme, isRounded, isCircular, disableTouchRipple,
             iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
             tip, tipPosition
         } = this.props;
@@ -126,9 +126,14 @@ export default class BaseButton extends Component {
                         null
                 }
 
-                <TouchRipple ref="touchRipple"
-                             className={disabled || isLoading ? 'hidden' : ''}
-                             displayCenter={rippleDisplayCenter}/>
+                {
+                    disableTouchRipple ?
+                        null
+                        :
+                        <TouchRipple ref="touchRipple"
+                                     className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={rippleDisplayCenter}/>
+                }
 
             </button>
         );
