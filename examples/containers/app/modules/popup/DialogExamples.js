@@ -149,7 +149,7 @@ export default class DialogExamples extends Component {
                                 <Dialog visible={dialogVisible}
                                         title={`${type} dialog`}
                                         okButtonTheme={type}
-                                        theme="primary"
+                                        theme={type}
                                         isBlurClose={true}
                                         okButtonText="OK"
                                         okButtonIconCls="fa fa-check-circle"
