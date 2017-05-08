@@ -1,23 +1,5 @@
 import moment from 'moment';
 
-function isEmptyObject(obj) {
-    try {
-        for (let key in obj) {
-            return false;
-        }
-    } catch (e) {
-        return true;
-    }
-}
-
-function isArray(v) {
-    return ({}).toString.call(v) === '[object Array]';
-}
-
-function isDate(v) {
-    return ({}).toString.call(v) === '[object Date]';
-}
-
 function getOffset(el) {
 
     if (!el) {
@@ -103,9 +85,6 @@ function value2Moment(value, format) {
 }
 
 export default {
-    isEmptyObject,
-    isArray,
-    isDate,
     getOffset,
     isEnableLocalStorage,
     isEnableSessionStorage,

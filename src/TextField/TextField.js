@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
 
+import Valid from '../_vendors/Valid';
+
 import './TextField.css';
 
 export default class TextField extends Component {
@@ -37,6 +39,14 @@ export default class TextField extends Component {
 
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
+
+        if (type === TextField.Type.EMAIL && !Valid.isEmail(value)) {
+            invalidMsgs.push('Invalid E-mail address');
+        }
+
+        if (type === TextField.Type.URL && !Valid.isUrl(value)) {
+            invalidMsgs.push('Invalid url');
+        }
 
         if (required === true && value === '') {
             invalidMsgs.push('Required');
