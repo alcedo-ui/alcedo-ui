@@ -204,7 +204,8 @@ $transition-duration: 250ms;
 }
 
 @mixin dialog-theme($bg-color) {
-    background: $bg-color;
+
+    color: $bg-color;
 }
 
 @mixin field-msg-theme($color, $bg-color) {
