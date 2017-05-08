@@ -41,6 +41,8 @@ export default class Rate extends Component {
         if(mouseEnterFalg){
             if(e.target.nodeName === 'I') {
                 value = e.target.getAttribute('data-key');
+            }else if(e.target.nodeName === 'DIV' && ((e.target.className.indexOf('half-star')!==-1)||(e.target.className.indexOf('star')!==-1))){
+                value = e.target.getAttribute('data-key');
             }
         }else{
             value = this.props.value;
@@ -130,7 +132,7 @@ export default class Rate extends Component {
                 {
                     items.map((item,key)=>{
                         if(allowHalf){
-                            return (<div className={`half-star ${disabled ? 'disabled':''}`}>
+                            return (<div className={`half-star ${disabled ? 'disabled':''}`} data-key={key + 1}>
                                         <div className="half-star-left">
                                             <i className={`fa fa-star-half ${ item=='full'|| item=='full-zero' ? 'full':'zero'} ${disabled ? 'disabled':''}`}
                                                data-key={key + 0.5}
@@ -149,7 +151,7 @@ export default class Rate extends Component {
                                         </div>
                                 </div>)
                         }else{
-                            return (<div className={`star ${disabled ? 'disabled':''}`}>
+                            return (<div className={`star ${disabled ? 'disabled':''}`} data-key={key + 1}>
                                         <i className={`fa fa-star ${ item=='zero' ? 'zero':'full'} ${disabled ? 'disabled':''}`}
                                            data-key={key + 1}
                                            onClick={()=>{
