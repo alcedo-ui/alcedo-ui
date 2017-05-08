@@ -81,7 +81,7 @@ export default class PopupExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <p>Popup example </p>
+                                <p>Popup simple example.</p>
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"

@@ -19,18 +19,27 @@ export default class TipExamples extends Component {
 
     render() {
         return (
-            <div className="example tip-example">
+            <div className="example tip-examples">
 
-                <h2 className="example-title">Tip Button</h2>
+                <h2 className="example-title">Tip</h2>
+
+                <p>
+                    <span>Tip</span>is a simple text bubble box.Move the mouse to display the prompt, remove the
+                    disappearance, bubble floating layer does not carry the complex text and operation.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Tip Simple Example"/>
+                    <WidgetHeader className="example-header" title="Tip Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Set theme property to different theme and tipPosition to different position.</p>
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
@@ -38,22 +47,22 @@ export default class TipExamples extends Component {
                                             tipPosition={Tip.Position.TOP}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                            theme="success"
+                                            theme="error"
                                             tip={this.text}
                                             tipPosition={Tip.Position.RIGHT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                            theme="success"
+                                            theme="primary"
                                             tip={this.text}
                                             tipPosition={Tip.Position.BOTTOM}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                            theme="success"
+                                            theme="highlight"
                                             tip={this.text}
                                             tipPosition={Tip.Position.LEFT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                            theme="success"
+                                            theme="warning"
                                             tip={this.text}
                                             tipPosition={Tip.Position.TOP_LEFT}/>
 
