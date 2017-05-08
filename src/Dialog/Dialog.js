@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 
 import SubtreeContainer from '../_SubtreeContainer';
-import DialogBody from './DialogBody';
-
-import './Dialog.css';
+import DialogBody from '../_DialogBody/DialogBody';
 
 export default class Dialog extends Component {
 

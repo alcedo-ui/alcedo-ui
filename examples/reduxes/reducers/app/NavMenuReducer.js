@@ -53,6 +53,9 @@ function navMenu(state = initialState, action) {
         }
 
         case types.EXPAND_MENU: {
+
+            console.log(action.menuName);
+
             return {
                 ...state,
                 expandMenuName: action.menuName
@@ -63,7 +66,8 @@ function navMenu(state = initialState, action) {
 
             let expandMenuName;
             for (let i = 0, len = state.menu.length; i < len; i++) {
-                if (state.menu[i].children.findIndex(item => item.route === action.route) > -1) {
+                if (state.menu[i].children
+                    && state.menu[i].children.findIndex(item => item.route === action.route) > -1) {
                     expandMenuName = state.menu[i].text;
                 }
             }

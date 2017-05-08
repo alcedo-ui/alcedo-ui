@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import CharSize from '../_vendors/CharSize';
+import Util from '../_vendors/Util';
 
 import './FieldMsg.css';
 
@@ -101,7 +102,7 @@ export default class FieldMsg extends Component {
         };
 
         return (
-            <div className={`field-msg ${type ? type : ''} ${className}`}
+            <div className={`field-msg ${type ? `theme-${type}` : ''} ${className}`}
                  style={style}>
 
                 <div className="triangle"></div>
@@ -133,12 +134,20 @@ export default class FieldMsg extends Component {
 
 };
 
+FieldMsg.Type = {
+    DEFAULT: '',
+    INFO: 'info',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error'
+};
+
 FieldMsg.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
 
-    type: PropTypes.string,
+    type: PropTypes.oneOf(Util.enumerateValue(FieldMsg.Type)),
     msg: PropTypes.any,
     isHtmlMsg: PropTypes.bool
 
@@ -149,7 +158,7 @@ FieldMsg.defaultProps = {
     className: '',
     style: null,
 
-    type: '',
+    type: FieldMsg.Type.DEFAULT,
     msg: '',
     isHtmlMsg: false
 

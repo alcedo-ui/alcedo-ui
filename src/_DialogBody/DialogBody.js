@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import FlatButton from '../FlatButton/index';
+import RaisedButton from '../RaisedButton/index';
+import GhostButton from '../GhostButton/index';
+import IconButton from '../IconButton/index';
+import Theme from '../Theme/index';
+
+import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
-import FlatButton from '../FlatButton';
-import RaisedButton from '../RaisedButton';
-import GhostButton from '../GhostButton';
-import IconButton from '../IconButton';
-import Theme from '../Theme';
+import './DialogBody.css';
 
 export default class DialogBody extends Component {
 
@@ -285,14 +288,14 @@ DialogBody.propTypes = {
     okButtonIconCls: PropTypes.string,
     okButtonDisabled: PropTypes.bool,
     okButtonIsLoading: PropTypes.bool,
-    okButtonTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-    okButtonUIType: PropTypes.oneOf(Object.keys(DialogBody.ButtonUITypes).map(key => DialogBody.ButtonUITypes[key])),
+    okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    okButtonUIType: PropTypes.oneOf(Util.enumerateValue(DialogBody.ButtonUITypes)),
 
     cancelButtonVisible: PropTypes.bool,
     cancelButtonText: PropTypes.string,
     cancelButtonIconCls: PropTypes.string,
-    cancelButtonTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-    cancelButtonUIType: PropTypes.oneOf(Object.keys(DialogBody.ButtonUITypes).map(key => DialogBody.ButtonUITypes[key])),
+    cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    cancelButtonUIType: PropTypes.oneOf(Util.enumerateValue(DialogBody.ButtonUITypes)),
 
     buttons: PropTypes.any,
 

@@ -1,0 +1,15 @@
+@import '../_common.scss';
+
+.pagging-size {
+    float: left;
+
+    & > * {
+        float: left;
+    }
+
+    .pagging-size-select {
+        margin-left: 10px;
+        width: 100px;
+        height: 40px;
+    }
+}

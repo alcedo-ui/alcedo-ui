@@ -176,12 +176,7 @@ export default class Toaster extends Component {
 
 };
 
-Toaster.ToastType = {
-    INFO: 'info',
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    ERROR: 'error'
-};
+Toaster.ToastType = Toast.Type;
 
 Toaster.propTypes = {
 
@@ -200,7 +195,7 @@ Toaster.propTypes = {
         className: PropTypes.string,
         style: PropTypes.object,
 
-        type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
+        type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
         title: PropTypes.string,
         message: PropTypes.string
 

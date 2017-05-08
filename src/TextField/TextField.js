@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
 
+import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
+
 import './TextField.css';
 
 export default class TextField extends Component {
@@ -37,6 +40,14 @@ export default class TextField extends Component {
 
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
+
+        if (type === TextField.Type.EMAIL && !Valid.isEmail(value)) {
+            invalidMsgs.push('Invalid E-mail address');
+        }
+
+        if (type === TextField.Type.URL && !Valid.isUrl(value)) {
+            invalidMsgs.push('Invalid url');
+        }
 
         if (required === true && value === '') {
             invalidMsgs.push('Required');
@@ -168,12 +179,9 @@ export default class TextField extends Component {
     }
 
     componentDidMount() {
-
         if (this.props.autoFocus === true) {
             this.refs.input.focus();
         }
-
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -288,7 +296,7 @@ TextField.propTypes = {
     /**
      * Specifies the type of input to display such as "password" or "text".
      */
-    type: PropTypes.oneOf(Object.keys(TextField.Type).map(key => TextField.Type[key])),
+    type: PropTypes.oneOf(Util.enumerateValue(TextField.Type)),
 
     /**
      * The name of the text field.

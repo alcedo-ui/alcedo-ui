@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import ArrowStepItem from './ArrowStepItem';
+import ArrowStepItem from '../_ArrowStepItem';
 
 import './ArrowStep.css';
 

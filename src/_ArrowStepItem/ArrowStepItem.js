@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import './ArrowStepItem.css';
+
 export default class ArrowStepItem extends Component {
 
     constructor(props) {
@@ -30,12 +32,13 @@ export default class ArrowStepItem extends Component {
                  style={style}
                  onClick={this.clickHandle}>
 
-                <div className="number">
-                    {index + 1}
-                </div>
-
-                <div className="title">
-                    {value.title}
+                <div className="arrow-step-item-content">
+                    <div className="number">
+                        {index + 1}
+                    </div>
+                    <div className="title">
+                        {value.title}
+                    </div>
                 </div>
 
                 {
