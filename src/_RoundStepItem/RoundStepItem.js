@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import './RoundStepItem.css';
+
 export default class RoundStepItem extends Component {
 
     constructor(props) {
