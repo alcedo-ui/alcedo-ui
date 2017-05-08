@@ -37,8 +37,8 @@ export default class RateExamples extends Component {
 
                             <p>A simple Rate example.</p>
 
-                            <Rate value={3.5}
-                                  allowHalf={true}/>
+                            <Rate value={3}
+                                  allowHalf={false}/>
 
                         </div>
                     </div>

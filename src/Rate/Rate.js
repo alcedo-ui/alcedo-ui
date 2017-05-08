@@ -15,6 +15,7 @@ export default class Rate extends Component {
     }
 
     hoverHandle(value){
+
         if(value){
             this.setState({
                 value
@@ -41,11 +42,11 @@ export default class Rate extends Component {
                 let item =(
                     <div className="half-star">
                         <i className={`fa fa-star-half ${i < value ? 'full':'zero'}`}
-                           onMouseOver={() => {
+                           onMouseEnter={() => {
                                this.hoverHandle(i);
                            }}></i>
                         <i className={`fa fa-star-half right  ${i < value && i+1 <= value ? 'full':'zero'}`}
-                           onMouseOver={() => {
+                           onMouseEnter={() => {
                                this.hoverHandle(i+0.5);
                            }}></i>
                     </div>
@@ -55,9 +56,17 @@ export default class Rate extends Component {
         }else{
             for(let i = 0; i < count; i++){
                 let item =(
-                    <div className="star">
+                    <div className="star"
+                         onMouseEnter={() => {
+                             if(i=0){
+                                 this.hoverHandle(i);
+                             }else{
+                                 return
+                             }
+                         }}
+                    >
                         <i className={`fa fa-star ${i < value ? 'full':'zero'}`}
-                           onMouseOver={() => {
+                           onMouseEnter={() => {
                                this.hoverHandle(i+1);
                            }}></i>
                     </div>
