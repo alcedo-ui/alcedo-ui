@@ -46,39 +46,40 @@ class NavMenuItem extends Component {
 
                 {/* title or link */}
                 {
-                    hasChildren
-                        ? (
-                        <div className="nav-menu-item-title"
-                             disabled={options.disabled}
-                             onMouseDown={this.menuMousedownHandle}>
+                    hasChildren ?
+                        (
+                            <div className="nav-menu-item-title"
+                                 disabled={options.disabled}
+                                 onMouseDown={this.menuMousedownHandle}>
 
-                            <div className="nav-menu-item-name">
-                                {options.text}
-                            </div>
+                                <div className="nav-menu-item-name">
+                                    {options.text}
+                                </div>
 
-                            <i className={`fa fa-angle-down nav-menu-item-collapse-button
+                                <i className={`fa fa-angle-down nav-menu-item-collapse-button
                                 ${collapsed ? 'collapsed' : ''}`}
-                               aria-hidden="true"></i>
+                                   aria-hidden="true"></i>
 
-                            <TouchRipple/>
+                                <TouchRipple/>
 
-                        </div>
-                    )
-                        : (
-                        <Link className="nav-menu-item-link"
-                              to={options.route}
-                              disabled={options.disabled}
-                              activeClassName="router-link-active">
-
-                            <div className="nav-menu-item-name"
-                                 style={{marginLeft: depth * subMenuIndent}}>
-                                {options.text}
                             </div>
+                        )
+                        :
+                        (
+                            <Link className="nav-menu-item-link"
+                                  to={options.route}
+                                  disabled={options.disabled}
+                                  activeClassName="router-link-active">
 
-                            <TouchRipple/>
+                                <div className="nav-menu-item-name"
+                                     style={{marginLeft: depth * subMenuIndent}}>
+                                    {options.text}
+                                </div>
 
-                        </Link>
-                    )
+                                <TouchRipple/>
+
+                            </Link>
+                        )
                 }
 
                 {/* sub menu */}

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Util from '../_vendors/Util';
+
 import './CircularLoading.css';
 
 export default class CircularLoading extends Component {
@@ -44,7 +46,7 @@ CircularLoading.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    size: PropTypes.oneOf(Object.keys(CircularLoading.Size).map(key => CircularLoading.Size[key]))
+    size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size))
 
 };
 

@@ -57,7 +57,7 @@ gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJs
  * generate props type json include name, type, default and desc of components
  */
 gulp.task('propType', function () {
-    return gulp.src(['./src/**/*.js', '!./src/_*/*.js', '!./src/**/index.js'])
+    return gulp.src(['./src/**/*.js', '!./src/**/index.js'])
         .pipe(componentPropTypeJson())
         .pipe(rename(function (path) {
             path.dirname = '';
