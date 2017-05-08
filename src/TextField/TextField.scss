@@ -83,14 +83,18 @@ input:focus {
         }
     }
 
-    &.error {
-        outline: 1px solid transparentize($error, .3);
-    }
-
     &.has-icon {
         .text-field-input {
             padding-left: 50px !important;
         }
+    }
+
+    &.focused {
+        border-color: $theme-title;
+    }
+
+    &.error {
+        border-color: transparentize($error, .3);
     }
 
     &.disabled {

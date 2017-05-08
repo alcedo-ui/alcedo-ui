@@ -17,6 +17,7 @@ export default class TextField extends Component {
 
         this.state = {
             value: props.value,
+            isFocused: props.autoFocus ? true : false,
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
@@ -126,11 +127,19 @@ export default class TextField extends Component {
     }
 
     focusHandle() {
-        this.props.onFocus && this.props.onFocus();
+        this.setState({
+            isFocused: true
+        }, () => {
+            this.props.onFocus && this.props.onFocus(this.state.value);
+        });
     }
 
-    blurHandle(event) {
-        this.props.onBlur && this.props.onBlur(event.target.value);
+    blurHandle() {
+        this.setState({
+            isFocused: false
+        }, () => {
+            this.props.onBlur && this.props.onBlur(this.state.value);
+        });
     }
 
     inputKeydownHandle(e) {
@@ -167,7 +176,7 @@ export default class TextField extends Component {
             className, style, type, name, placeholder, iconCls, disabled, infoMsg,
             required, maxLength, max, min, step, readOnly, clearButtonVisible, passwordButtonVisible
         } = this.props;
-        const {value, passwordVisible, infoVisible, errorVisible} = this.state;
+        const {value, isFocused, passwordVisible, infoVisible, errorVisible} = this.state;
 
         const isPassword = type === 'password';
 
@@ -184,7 +193,7 @@ export default class TextField extends Component {
 
             <div className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''}
                     ${iconCls ? 'has-icon' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''}
-                    ${className}`}
+                    ${isFocused ? 'focused' : ''} ${className}`}
                  style={style}>
 
                 {

@@ -106,7 +106,6 @@ export default class TextFieldExamples extends Component {
                                     <TextField iconCls="fa fa-user"/>
 
                                     <TextField iconCls="fa fa-lock"
-                                               disabled={true}
                                                type="password"/>
 
                                 </TextFieldGroup>
