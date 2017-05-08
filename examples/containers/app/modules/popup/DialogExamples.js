@@ -19,7 +19,7 @@ export default class DialogExamples extends Component {
 
         this.state = {
             dialogVisible: false,
-            type:'primary'
+            type: 'primary'
 
         };
 
@@ -32,7 +32,7 @@ export default class DialogExamples extends Component {
 
     toggleDialog() {
         this.setState({
-            dialogVisible: !this.state.dialogVisible,
+            dialogVisible: !this.state.dialogVisible
         });
     }
 
@@ -119,7 +119,50 @@ export default class DialogExamples extends Component {
                                         onRequestClose={this.closeDialog}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">
-                                        Dialog Content
+                                        content
+                                    </div>
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Dialog Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <p>Dialog example use basic properties.</p>
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Dialog"
+                                              style={{width: '120px'}}
+                                              onTouchTap={this.toggleDialog}/>
+
+
+                                <Dialog visible={dialogVisible}
+                                        title={`${type} dialog`}
+                                        okButtonTheme={type}
+                                        theme="primary"
+                                        isBlurClose={true}
+                                        okButtonText="OK"
+                                        okButtonIconCls="fa fa-check-circle"
+                                        okButtonDisabled={true}
+                                        cancelButtonVisible={true}
+                                        cancelButtonText="CANCEL"
+                                        cancelButtonIconCls="fa fa-times-circle"
+                                        cancelButtonTheme="error"
+                                        showModal={false}
+                                        onRequestClose={this.closeDialog}
+                                        onOKButtonTouchTap={this.okHandle}>
+                                    <div className="dialog-example-content">
+                                        content
                                     </div>
                                 </Dialog>
 

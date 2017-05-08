@@ -39,22 +39,23 @@
         line-height: 30px;
         box-sizing: border-box;
         padding: 20px 0 20px 30px;
+        border-bottom: 1px solid $theme-title-bg;
 
-        &.theme-primary {
-            border-bottom: 1px solid $theme-menu;
-        }
-        &.theme-success {
-            border-bottom: 1px solid $success;
-        }
-        &.theme-error {
-            border-bottom: 1px solid $error;
-        }
-        &.theme-warning {
-            border-bottom: 1px solid $warning;
-        }
-        &.theme-highlight {
-            border-bottom: 1px solid $theme-highlight;
-        }
+        //&.theme-primary {
+        //    border-bottom: 1px solid $theme-menu;
+        //}
+        //&.theme-success {
+        //    border-bottom: 1px solid $success;
+        //}
+        //&.theme-error {
+        //    border-bottom: 1px solid $error;
+        //}
+        //&.theme-warning {
+        //    border-bottom: 1px solid $warning;
+        //}
+        //&.theme-highlight {
+        //    border-bottom: 1px solid $theme-highlight;
+        //}
 
         .dialog-icon {
             font-size: 30px;
