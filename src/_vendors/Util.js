@@ -84,6 +84,10 @@ function value2Moment(value, format) {
 
 }
 
+function enumerateValue(enumerate) {
+    return Object.keys(enumerate).map(key => enumerate[key]);
+}
+
 export default {
     getOffset,
     isEnableLocalStorage,
@@ -93,5 +97,6 @@ export default {
     getScrollHeight,
     getScrollTop,
     value2Timestamp,
-    value2Moment
+    value2Moment,
+    enumerateValue
 };

@@ -6,6 +6,8 @@ import Tip from '../Tip/Tip';
 import TouchRipple from '../TouchRipple/TouchRipple';
 import Theme from '../Theme';
 
+import Util from '../_vendors/Util';
+
 import './BaseButton.css';
 
 export default class BaseButton extends Component {
@@ -139,7 +141,7 @@ BaseButton.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 

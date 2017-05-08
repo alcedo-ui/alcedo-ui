@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
 
+import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
 import './TextField.css';
@@ -178,12 +179,9 @@ export default class TextField extends Component {
     }
 
     componentDidMount() {
-
         if (this.props.autoFocus === true) {
             this.refs.input.focus();
         }
-
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -298,7 +296,7 @@ TextField.propTypes = {
     /**
      * Specifies the type of input to display such as "password" or "text".
      */
-    type: PropTypes.oneOf(Object.keys(TextField.Type).map(key => TextField.Type[key])),
+    type: PropTypes.oneOf(Util.enumerateValue(TextField.Type)),
 
     /**
      * The name of the text field.

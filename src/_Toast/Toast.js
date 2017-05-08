@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import TouchRipple from '../TouchRipple';
 
+import Util from '../_vendors/Util';
+
 import './Toast.css';
 
 export default class Toast extends Component {
@@ -157,7 +159,7 @@ Toast.propTypes = {
     style: PropTypes.object,
 
     toastsId: PropTypes.number,
-    type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
+    type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
     title: PropTypes.any,
     message: PropTypes.any,
 
