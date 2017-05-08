@@ -206,14 +206,13 @@ Toaster.propTypes = {
         style: PropTypes.object,
 
         /**
-         * The theme of toaster.
+         * The type of toaster.
          */
-        type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
+        type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
 
         /**
          * The title of toaster.
          */
-        type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
         title: PropTypes.string,
 
         /**

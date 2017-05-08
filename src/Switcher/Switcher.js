@@ -56,8 +56,7 @@ export default class Switcher extends Component {
 
                 <IconButton className="switcher-slider-wrapper"
                             disableTouchRipple={disabled || isLoading}>
-                <IconButton className="switcher-slider-wrapper"
-                            disabled={disabled}>
+
                     <div className="switcher-slider">
                         {
                             isLoading ?
