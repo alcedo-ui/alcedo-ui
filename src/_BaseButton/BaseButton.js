@@ -46,7 +46,7 @@ export default class BaseButton extends Component {
         const {onMouseEnter} = this.props;
 
         this.setState({
-            tipVisible: !this.state.tipVisible,
+            tipVisible: true,
             triggerEl: e.currentTarget
         }, () => {
             onMouseEnter && onMouseEnter();
