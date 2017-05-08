@@ -114,7 +114,7 @@ export default class LinearProgressExample extends Component {
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style2}
                                                 word={true}
-                                                wordStyle='middle'
+                                                wordStyle={LinearProgress.WordStyle.MIDDLE}
                                                 theme='success'/>
 
                             </div>
@@ -139,7 +139,7 @@ export default class LinearProgressExample extends Component {
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style3}
                                                 word={true}
-                                                wordStyle='follow'
+                                                wordStyle={LinearProgress.WordStyle.FOLLOW}
                                                 theme="error"
                                                 animation={true}/>
 

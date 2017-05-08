@@ -24,23 +24,21 @@ export default class LinearProgress extends Component {
 
     render() {
         const {className, highlightWidth, style, word, wordStyle, theme, animation} = this.props;
-        const {WordStyle} = LinearProgress;
 
         const highlightStyle = {
             width: highlightWidth
         }, percentStyle = {
             marginLeft: this.getProgressWidth()
         };
-        let divClass = WordStyle[wordStyle];
 
         return (
-            <div className={`linear-progress ${divClass} ${theme ? `theme-${theme}` : ''} ${className}`}
+            <div className={`linear-progress ${wordStyle} ${theme ? `theme-${theme}` : ''} ${className}`}
                  style={style}
                  ref="progress">
                 {
                     word
                         ? (
-                        wordStyle === 'follow'
+                        wordStyle === LinearProgress.WordStyle.FOLLOW
                             ? <Percent endNum={parseInt(highlightWidth)}
                                        move={true}/>
                             : <Percent endNum={parseInt(highlightWidth)}/>
@@ -51,7 +49,7 @@ export default class LinearProgress extends Component {
                     <div className={`linear-progress-highlight ${animation ? 'linear-progress-animate' : ''}`}
                          style={highlightStyle}>
                         {
-                            wordStyle === 'middle'
+                            wordStyle === LinearProgress.WordStyle.MIDDLE
                                 ? <Percent endNum={parseInt(highlightWidth)}
                                            className="linear-progress-word"
                                            style={percentStyle}/>
@@ -65,9 +63,9 @@ export default class LinearProgress extends Component {
 };
 
 LinearProgress.WordStyle = {
-    front: 'linear-progress-one',
-    middle: 'linear-progress-two',
-    follow: 'linear-progress-three'
+    FRONT: 'linear-progress-one',
+    MIDDLE: 'linear-progress-two',
+    FOLLOW: 'linear-progress-three'
 };
 
 LinearProgress.propTypes = {
@@ -100,12 +98,12 @@ LinearProgress.propTypes = {
     /**
      * The percent text location.Desirable values include front,middle,follow.
      */
-    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle)),
+    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map((key) => LinearProgress.WordStyle[key])),
 
     /**
      * The percent text location.Desirable values include front,middle,follow.
      */
-    animation: PropTypes.bool,
+    animation: PropTypes.bool
 
 };
 
@@ -118,6 +116,6 @@ LinearProgress.defaultProps = {
 
     highlightWidth: '50%',
     word: false,
-    wordStyle: 'front',
+    wordStyle: LinearProgress.WordStyle.FRONT,
     animation: false
 };
