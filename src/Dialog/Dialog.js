@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import SubtreeContainer from '../_SubtreeContainer';
-import DialogBody from './DialogBody';
-import Theme from '../Theme';
-
-import './Dialog.css';
+import DialogBody from '../_DialogBody/DialogBody';
 
 export default class Dialog extends Component {
 
@@ -216,3 +212,6 @@ Dialog.defaultProps = {
     cancelButtonUIType: Dialog.ButtonUITypes.FLAT
 
 };
+Dialog.ButtonUITypes = DialogBody.ButtonUITypes;
+Dialog.propTypes = DialogBody.propTypes;
+Dialog.defaultProps = DialogBody.defaultProps;

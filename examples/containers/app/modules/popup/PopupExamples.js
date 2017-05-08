@@ -8,7 +8,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import PopupDoc from 'assets/propTypes/Popup.json';
+import PopupDoc from 'assets/propTypes/PopupBody.json';
 
 import 'sass/containers/app/modules/popup/PopupExamples.scss';
 

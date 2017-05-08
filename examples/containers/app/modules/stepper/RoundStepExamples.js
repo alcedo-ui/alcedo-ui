@@ -24,6 +24,7 @@ export default class RoundStepExamples extends Component {
         this.updateStep = this::this.updateStep;
         this.prev = this::this.prev;
         this.next = this::this.next;
+        this.reset = this::this.reset;
 
     }
 
@@ -49,6 +50,13 @@ export default class RoundStepExamples extends Component {
             finishedStep
         });
 
+    }
+
+    reset() {
+        this.setState({
+            activatedStep: 0,
+            finishedStep: 0
+        });
     }
 
     render() {
@@ -93,14 +101,21 @@ export default class RoundStepExamples extends Component {
                                        onChange={this.updateStep}/>
 
                             <div className="step-ctrls">
+
                                 <RaisedButton value="Prev"
                                               iconCls="fa fa-angle-left"
                                               disabled={activatedStep <= 0}
                                               onTouchTap={this.prev}/>
+
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
                                               rightIconCls={activatedStep < steps.length - 1 ? 'fa fa-angle-right' : ''}
                                               disabled={activatedStep >= steps.length}
                                               onTouchTap={this.next}/>
+
+                                <RaisedButton value="Reset"
+                                              iconCls="fa fa-undo"
+                                              onTouchTap={this.reset}/>
+
                             </div>
 
                         </div>

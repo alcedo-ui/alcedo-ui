@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Theme from '../Theme/index';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import Theme from '../Theme';
+
+import './PopupBody.css';
 
 export default class PopupBody extends Component {
 
@@ -31,8 +34,6 @@ export default class PopupBody extends Component {
             return true;
         }
 
-        let flag = true;
-
         while (el) {
             if (el == popupEl) {
                 return currentVisible;
@@ -42,9 +43,7 @@ export default class PopupBody extends Component {
             el = el.parentNode;
         }
 
-        if (flag) {
-            return false;
-        }
+        return false;
 
     }
 

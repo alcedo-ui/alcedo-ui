@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
+import './PaggingSize.css';
+
 export default class PaggingSize extends Component {
 
     constructor(props) {

@@ -2,24 +2,78 @@
 
 .tip {
     position: absolute;
-    min-width: 120px;
     width: auto;
-    border-radius: $border-radius;
-    transition: left 0s, opacity $transition-duration ease-in-out,
-    transform $transition-duration ease-in-out;
-    z-index: $popup-z-index;
-    padding: 6px;
-    background: rgba(0, 0, 0, 0.5);
+    height: 30px;
+    line-height: 30px;
+    padding: 0 6px;
     color: #fff;
-    cursor: pointer;
+    white-space: nowrap;
+    border-radius: $border-radius;
+    text-align: center;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-5px) rotate(0);
+    transition: opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
 
-    &.hidden {
-        opacity: 0 !important;
-        left: -99999px !important;
-        transition: left 0s $transition-duration,
-        opacity $transition-duration ease-in-out,
-        transform $transition-duration ease-in-out;
-        transform: translate(-50%, -50%) scale(.01, .01);
+    .tip-ripple {
+        position: absolute;
+        z-index: -1;
+        background: transparentize(#000, .4);
+        border-radius: 50%;
+        transform: scale(.4);
+        transition: transform $transition-duration ease-in-out;
     }
 
+    &.visible {
+        opacity: 1;
+        transform: translateY(5px) rotate(0);
+
+        .tip-ripple {
+            transform: scale(1);
+        }
+    }
+
+    //&.tip-position-left {
+    //    &.hidden {
+    //        transform: translate(50%, 0) scale(.01, 0);
+    //    }
+    //}
+    //&.tip-position-right {
+    //    &.hidden {
+    //        transform: translate(-50%, 0) scale(.01, 0);
+    //    }
+    //}
+    //&.tip-position-top-left {
+    //    &.hidden {
+    //        transform: translate(50%, 50%) scale(0.1, .01);
+    //    }
+    //}
+    //
+    //&.tip-position-top-center {
+    //    &.hidden {
+    //        transform: translate(0, 50%) scale(0, .01);
+    //    }
+    //}
+    //
+    //&.tip-position-top-right {
+    //    &.hidden {
+    //        transform: translate(-50%, 50%) scale(.01, .01);
+    //    }
+    //}
+    //
+    //&.tip-position-bottom-left {
+    //    &.hidden {
+    //        transform: translate(50%, -50%) scale(.01, .01);
+    //    }
+    //}
+    //&.tip-position-bottom-center {
+    //    &.hidden {
+    //        transform: translate(0, -50%) scale(0, .01);
+    //    }
+    //}
+    //&.tip-position-bottom-right {
+    //    &.hidden {
+    //        transform: translate(-50%, -50%) scale(.01, .01);
+    //    }
+    //}
 }

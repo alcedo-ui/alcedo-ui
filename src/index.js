@@ -31,6 +31,7 @@ export Slider from './Slider';
 export Switcher from './Switcher';
 export Tab from './Tab';
 export Table from './Table';
+export TextArea from './TextArea';
 export TextField from './TextField';
 export TextFieldGroup from './TextFieldGroup';
 export Theme from './Theme';

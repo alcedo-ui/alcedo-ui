@@ -1,0 +1,56 @@
+/**
+ * Created by DT314 on 2017/5/5.
+ */
+import React, {Component} from 'react';
+import TextArea from 'dist/TextArea';
+
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import TextAreaDoc from 'assets/propTypes/TextArea.json';
+
+
+export default class TextAreaExamples extends Component{
+    constructor(props){
+        super();
+    }
+
+    render() {
+        return (
+            <div className="example">
+                <h2 className="example-title">TextArea</h2>
+
+                <p>
+                    A <span>TextArea</span> is an interface for users to input a value in a range. TextArea can be
+                    continuous or discrete.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+                <Widget>
+                    <WidgetHeader className="example-header" title="TextArea Example"/>
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <p>TextArea with auto size.</p>
+                            <TextArea autoSize={true}/>
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+                    <WidgetHeader className="example-header" title="TextArea Example"/>
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <p>TextArea with regular size.</p>
+                            <TextArea autoSize={false} initialHeight={100}/>
+                        </div>
+                    </div>
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={TextAreaDoc}/>
+            </div>
+        )
+    }
+}

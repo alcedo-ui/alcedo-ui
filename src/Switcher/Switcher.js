@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
+import Util from '../_vendors/Util';
+
 import './Switcher.css';
 
 export default class Switcher extends Component {
@@ -52,6 +54,8 @@ export default class Switcher extends Component {
                  onClick={this.toggle}
                  disabled={disabled || isLoading}>
 
+                <IconButton className="switcher-slider-wrapper"
+                            disableTouchRipple={disabled || isLoading}>
                 <IconButton className="switcher-slider-wrapper"
                             disabled={disabled}>
                     <div className="switcher-slider">
@@ -104,7 +108,7 @@ Switcher.propTypes = {
     /**
      * The size of switcher.The value can be small or default.
      */
-    size: PropTypes.oneOf(Object.keys(Switcher.Size).map(key => Switcher.Size[key])),
+    size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
 
     /**
      * Callback function fired when the switcher is touch-tapped.

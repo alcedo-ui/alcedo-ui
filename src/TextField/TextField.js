@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
-
-import Event from '../_vendors/Event';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
+
+import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
 
 import './TextField.css';
 
@@ -17,10 +17,11 @@ export default class TextField extends Component {
 
         this.state = {
             value: props.value,
+            isFocused: props.autoFocus ? true : false,
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
-            invalidMsg: ''
+            invalidMsgs: ''
         };
 
         this.valid = this::this.valid;
@@ -32,61 +33,97 @@ export default class TextField extends Component {
         this.mouseoutHandle = this::this.mouseoutHandle;
         this.focusHandle = this::this.focusHandle;
         this.blurHandle = this::this.blurHandle;
-        this.inputKeydownHandle = this::this.inputKeydownHandle;
+
     }
 
     valid(value) {
 
-        let invalidMsg = '';
+        const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
+        let invalidMsgs = [];
 
-        if (this.props.required && value === '') {
-            invalidMsg = 'required';
+        if (type === TextField.Type.EMAIL && !Valid.isEmail(value)) {
+            invalidMsgs.push('Invalid E-mail address');
         }
 
-        return invalidMsg;
+        if (type === TextField.Type.URL && !Valid.isUrl(value)) {
+            invalidMsgs.push('Invalid url');
+        }
+
+        if (required === true && value === '') {
+            invalidMsgs.push('Required');
+        }
+
+        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value.length > maxLength) {
+            invalidMsgs.push(`Max length is ${maxLength}`);
+        }
+
+        if (type === TextField.Type.NUMBER && max !== undefined && +value > max) {
+            invalidMsgs.push(`Maximum value is ${max}`);
+        }
+
+        if (type === TextField.Type.NUMBER && min !== undefined && +value < min) {
+            invalidMsgs.push(`Minimum value is ${min}`);
+        }
+
+        if (pattern !== undefined && !pattern.test(value)) {
+            invalidMsgs.push(patternInvalidMsg);
+        }
+
+        return invalidMsgs;
 
     }
 
     changeHandle(e) {
 
+        const {onValid, onInvalid} = this.props;
+
         const value = e.target.value;
-        const invalidMsg = this.valid(value);
+        const invalidMsgs = this.valid(value);
 
         this.setState({
             value,
-            invalidMsg
+            invalidMsgs
         }, () => {
 
             this.props.onChange && this.props.onChange(value);
 
-            if (invalidMsg) {
-                this.props.onInvalid && this.props.onInvalid();
-            } else {
-                this.props.onValid && this.props.onValid();
-            }
+            invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
 
         });
 
     }
 
     keydownHandle(e) {
+
+        const {type, onPressEnter} = this.props;
+
         if (e.keyCode === 13) {
-            this.props.onPressEnter && this.props.onPressEnter();
+            onPressEnter && onPressEnter();
         }
+
+        if (type === 'number' && isNaN(e.key) && e.key !== '-' && e.keyCode !== 8) {
+            e.preventDefault();
+        }
+
     }
 
     clearValue() {
 
-        const {disabled, clearButtonVisible, onClear, onChange} = this.props;
+        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
+
+        const invalidMsgs = this.valid('');
 
         !disabled && clearButtonVisible && this.setState({
-            value: ''
+            value: '',
+            invalidMsgs
         }, () => {
 
             this.refs.input.focus();
 
             onClear && onClear();
             onChange && onChange('');
+
+            invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
 
         });
 
@@ -126,27 +163,25 @@ export default class TextField extends Component {
     }
 
     focusHandle() {
-        this.props.onFocus && this.props.onFocus();
+        this.setState({
+            isFocused: true
+        }, () => {
+            this.props.onFocus && this.props.onFocus(this.state.value);
+        });
     }
 
-    blurHandle(event) {
-        this.props.onBlur && this.props.onBlur(event.target.value);
-    }
-
-    inputKeydownHandle(e) {
-        if (this.props.type === 'number' && isNaN(e.key)) {
-            e.preventDefault();
-        }
+    blurHandle() {
+        this.setState({
+            isFocused: false
+        }, () => {
+            this.props.onBlur && this.props.onBlur(this.state.value);
+        });
     }
 
     componentDidMount() {
-
         if (this.props.autoFocus === true) {
             this.refs.input.focus();
         }
-
-        Event.addEvent(this.refs.input, 'keydown', this.inputKeydownHandle);
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -157,34 +192,28 @@ export default class TextField extends Component {
         }
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(this.refs.input, 'keydown', this.inputKeydownHandle);
-    }
-
     render() {
 
         const {
             className, style, type, name, placeholder, iconCls, disabled, infoMsg,
-            required, maxLength, max, min, step, readOnly, clearButtonVisible, passwordButtonVisible
+            required, maxLength, max, min, readOnly, clearButtonVisible, passwordButtonVisible
         } = this.props;
-        const {value, passwordVisible, infoVisible, errorVisible} = this.state;
+        const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
-        const isPassword = type === 'password';
+        const isPassword = type === TextField.Type.PASSWORD;
 
         let inputType = type;
-        if (inputType === 'password') {
-            inputType = passwordVisible ? 'text' : 'password';
-        } else if (inputType === 'number') {
-            inputType = 'text';
+        if (inputType === TextField.Type.PASSWORD) {
+            inputType = passwordVisible ? TextField.Type.TEXT : TextField.Type.PASSWORD;
+        } else if (inputType === TextField.Type.NUMBER) {
+            inputType = TextField.Type.TEXT;
         }
-
-        const invalidMsg = this.props.invalidMsg || this.state.invalidMsg;
 
         return (
 
             <div className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''}
-                    ${iconCls ? 'has-icon' : ''} ${invalidMsg ? 'error' : ''} ${disabled ? 'disabled' : ''}
-                    ${className}`}
+                    ${iconCls ? 'has-icon' : ''} ${invalidMsgs.length > 0 ? 'error' : ''} ${disabled ? 'disabled' : ''}
+                    ${isFocused ? 'focused' : ''} ${className}`}
                  style={style}>
 
                 {
@@ -207,7 +236,6 @@ export default class TextField extends Component {
                        readOnly={readOnly}
                        max={max}
                        min={min}
-                       step={step}
                        onChange={this.changeHandle}
                        onKeyDown={this.keydownHandle}
                        onMouseOver={this.mouseoverHandle}
@@ -223,36 +251,34 @@ export default class TextField extends Component {
                             iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
                             onTouchTap={this.togglePasswordVisible}/>
 
-                <ReactCSSTransitionGroup component="div"
-                                         transitionName="fade"
-                                         transitionEnterTimeout={250}
-                                         transitionLeaveTimeout={250}>
-                    {
-                        infoVisible && infoMsg ?
-                            <FieldMsg type="info"
-                                      msg={infoMsg}/>
-                            :
-                            null
-                    }
-                </ReactCSSTransitionGroup>
+                {
+                    infoVisible && infoMsg ?
+                        <FieldMsg type="info"
+                                  msg={infoMsg}/>
+                        :
+                        null
+                }
 
-                <ReactCSSTransitionGroup component="div"
-                                         transitionName="fade"
-                                         transitionEnterTimeout={250}
-                                         transitionLeaveTimeout={250}>
-                    {
-                        errorVisible && invalidMsg ?
-                            <FieldMsg type="error"
-                                      msg={invalidMsg}/>
-                            :
-                            null
-                    }
-                </ReactCSSTransitionGroup>
+                {
+                    errorVisible && invalidMsgs.length > 0 ?
+                        <FieldMsg type="error"
+                                  msg={invalidMsgs.join(', ')}/>
+                        :
+                        null
+                }
 
             </div>
         );
 
     }
+};
+
+TextField.Type = {
+    EMAIL: 'email',
+    NUMBER: 'number',
+    PASSWORD: 'password',
+    TEXT: 'text',
+    URL: 'url'
 };
 
 TextField.propTypes = {
@@ -270,7 +296,7 @@ TextField.propTypes = {
     /**
      * Specifies the type of input to display such as "password" or "text".
      */
-    type: PropTypes.string,
+    type: PropTypes.oneOf(Util.enumerateValue(TextField.Type)),
 
     /**
      * The name of the text field.
@@ -347,17 +373,12 @@ TextField.propTypes = {
     /**
      *
      */
-    step: PropTypes.number,
-
-    /**
-     *
-     */
     pattern: PropTypes.object,
 
     /**
      * The invalid message of textField.
      */
-    invalidMsg: PropTypes.string,
+    patternInvalidMsg: PropTypes.string,
 
     // callback
     /**
@@ -427,6 +448,6 @@ TextField.defaultProps = {
 
     // valid
     required: false,
-    invalidMsg: ''
+    patternInvalidMsg: ''
 
 };

@@ -1,18 +1,14 @@
-/**
- * Created by Administrator on 2017/4/28.
- */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-
-import './Tip.css';
+import Theme from '../Theme';
 
 export default class TipBody extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.hasMounted = false;
@@ -22,116 +18,179 @@ export default class TipBody extends Component {
             visible: false
         };
 
-        this.getTipStyle = this::this.getTipStyle;
-        this.mouseoverHandle = this::this.mouseoverHandle;
+        this.getWrapperStyle = this::this.getWrapperStyle;
+        this.getRippleStyle = this::this.getRippleStyle;
+        this.mouseMoveHandle = this::this.mouseMoveHandle;
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
+
     }
 
-    triggerTipEventHandle(el, triggerEl, tipEl) {
+    getDiag(a, b) {
+        return Math.sqrt((a * a) + (b * b));
+    }
 
-        let flag = true;
+    // getTipStyle() {
+    //
+    //     const {triggerEl, position} = this.props;
+    //
+    //     let tipStyle = {};
+    //     if (triggerEl && this.refs.tip) {
+    //         const offset = Util.getOffset(triggerEl);
+    //
+    //         switch (position) {
+    //             case 'right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
+    //                 };
+    //                 break;
+    //             case 'left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
+    //                 };
+    //                 break;
+    //             case 'top-left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'top-right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'top-center':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top - (this.refs.tip.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-left':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth),
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-center':
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             case 'bottom-right':
+    //                 tipStyle = {
+    //                     left: offset.left + (triggerEl.clientWidth),
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //                 break;
+    //             default:
+    //                 tipStyle = {
+    //                     left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
+    //                     top: offset.top + (triggerEl.clientHeight)
+    //                 };
+    //         }
+    //     }
+    //
+    //     return tipStyle;
+    //
+    // }
+
+    getWrapperStyle() {
+
+        const {triggerEl} = this.props;
+
+        if (!triggerEl || !this.refs.tip) {
+            return;
+        }
+
+        const triggerOffset = Util.getOffset(triggerEl);
+
+        return {
+            left: triggerOffset.left + triggerEl.clientWidth / 2 - this.refs.tip.clientWidth / 2,
+            top: triggerOffset.top + triggerEl.clientHeight
+        };
+
+    }
+
+    getRippleStyle(elOffset) {
+
+        const {triggerEl} = this.props;
+
+        if (!triggerEl || !this.refs.tip || !elOffset) {
+            return;
+        }
+
+        let rippleStyle = {};
+
+        const offset = Util.getOffset(triggerEl);
+        rippleStyle.top = offset.top + triggerEl.clientHeight / 2;
+        rippleStyle.left = offset.left + triggerEl.clientWidth / 2;
+
+        const elWidth = this.refs.tip.clientWidth;
+        const elHeight = this.refs.tip.clientHeight;
+
+        const rippleRadius = Math.max(
+            this.getDiag(elOffset.top - rippleStyle.top, elOffset.left - rippleStyle.left),
+            this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left - rippleStyle.left),
+            this.getDiag(elOffset.top - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left),
+            this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left)
+        );
+
+        const rippleSize = rippleRadius * 2;
+
+        rippleStyle.width = rippleSize;
+        rippleStyle.height = rippleSize;
+        rippleStyle.top = rippleStyle.top - rippleRadius - elOffset.top;
+        rippleStyle.left = rippleStyle.left - rippleRadius - elOffset.left;
+
+        return rippleStyle;
+
+    }
+
+    triggerEventHandle(el, triggerEl, tipEl, currentVisible) {
 
         while (el) {
-            if (el == tipEl || el == triggerEl) {
+            if (el == triggerEl) {
                 return true;
+            } else if (el == tipEl) {
+                return currentVisible;
             }
             el = el.parentNode;
         }
 
-        if (flag) {
-            return false;
-        }
+        return false;
 
     }
 
-    mouseoverHandle(e) {
+    mouseMoveHandle(e) {
+
         const {triggerEl, onRequestClose} = this.props,
-            visible = this.triggerTipEventHandle(
+            visible = this.triggerEventHandle(
                 e.target,
                 triggerEl,
                 this.refs.tip,
                 this.state.visible
             );
+
+        if (visible === this.state.visible) {
+            return;
+        }
+
         this.setState({
             visible
         }, () => {
             if (!visible) {
-                onRequestClose && onRequestClose();
+                setTimeout(() => {
+                    onRequestClose && onRequestClose();
+                }, 250);
             }
         });
 
     }
-
-    getTipStyle() {
-
-        const {triggerEl, position} = this.props;
-
-        let tipStyle = {};
-        if (triggerEl && this.refs.tip) {
-            const offset = Util.getOffset(triggerEl);
-
-            switch (position) {
-                case 'right':
-                    tipStyle = {
-                        left: offset.left + (triggerEl.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
-                    };
-                    break;
-                case 'left':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight - triggerEl.clientHeight) / 2
-                    };
-                    break;
-                case 'top-left':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight)
-                    };
-                    break;
-                case 'top-right':
-                    tipStyle = {
-                        left: offset.left + (triggerEl.clientWidth),
-                        top: offset.top - (this.refs.tip.clientHeight)
-                    };
-                    break;
-                case 'top-center':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
-                        top: offset.top - (this.refs.tip.clientHeight)
-                    };
-                    break;
-                case 'bottom-left':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth),
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-                    break;
-                case 'bottom-center':
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-                    break;
-                case 'bottom-right':
-                    tipStyle = {
-                        left: offset.left + (triggerEl.clientWidth),
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-                    break;
-                default:
-                    tipStyle = {
-                        left: offset.left - (this.refs.tip.clientWidth - triggerEl.clientWidth) / 2,
-                        top: offset.top + (triggerEl.clientHeight)
-                    };
-            }
-        }
-
-        return tipStyle;
-
-    }
-
 
     initializeAnimation(callback) {
         this.hasMounted && callback();
@@ -144,11 +203,8 @@ export default class TipBody extends Component {
     }
 
     componentDidMount() {
-
         this.hasMounted = true;
-
-        Event.addEvent(document, 'mouseover', this.mouseoverHandle);
-
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
     }
 
     componentWillAppear(callback) {
@@ -186,28 +242,47 @@ export default class TipBody extends Component {
     }
 
     componentWillUnmount() {
-
-        Event.removeEvent(document, 'mouseover', this.mouseoverHandle);
-
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-
     }
 
     render() {
+
         const {className, style, position, text} = this.props;
         const {visible} = this.state;
+
+        const wrapperStyle = this.getWrapperStyle();
+
         return (
-            <div className={`tip ${visible ? '' : 'hidden'} ${position ? `tip-position-${position}` : ''} ${className}`}
-                 style={{...this.getTipStyle(), ...style}} ref="tip">
+            <div ref="tip"
+                 className={`tip ${visible ? 'visible' : ''} ${className}`}
+                 style={{...style, ...wrapperStyle}}>
 
                 {text}
 
+                <div className="tip-ripple"
+                     style={this.getRippleStyle(wrapperStyle)}></div>
+
             </div>
         );
+
     }
 
-
 }
+
+TipBody.Position = {
+
+    TOP: 'top',
+    LEFT: 'left',
+    RIGHT: 'right',
+    BOTTOM: 'bottom',
+
+    TOP_LEFT: 'top-left',
+    TOP_RIGHT: 'top-right',
+    BOTTOM_LEFT: 'bottom-left',
+    BOTTOM_RIGHT: 'bottom-right'
+
+};
 
 TipBody.propTypes = {
 
@@ -237,9 +312,11 @@ TipBody.propTypes = {
     visible: PropTypes.bool,
 
     /**
-     * The popover alignment.Possible values are: "bottom-center", "top-center", "bottom-right", "top-right", "bottom-left", "top-left", "left" and "right".
+     * The popover theme. Can be primary,highlight,success,warning,error.
      */
-    position: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    position: PropTypes.oneOf(Object.keys(TipBody.Position).map(key => TipBody.Position[key])),
 
     /**
      * Callback function fired when the popover is requested to be closed.
@@ -253,8 +330,10 @@ TipBody.defaultProps = {
     className: '',
     style: null,
 
+    text: '',
     triggerEl: null,
     visible: false,
-    position: 'bottom-center'
+    theme: Theme.DEFAULT,
+    position: TipBody.Position.BOTTOM
 
 };

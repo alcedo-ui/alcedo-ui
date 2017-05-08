@@ -24,6 +24,7 @@ export default class ArrowStepExamples extends Component {
         this.updateStep = this::this.updateStep;
         this.prev = this::this.prev;
         this.next = this::this.next;
+        this.reset = this::this.reset;
 
     }
 
@@ -49,6 +50,13 @@ export default class ArrowStepExamples extends Component {
             finishedStep
         });
 
+    }
+
+    reset() {
+        this.setState({
+            activatedStep: 0,
+            finishedStep: 0
+        });
     }
 
     render() {
@@ -102,6 +110,10 @@ export default class ArrowStepExamples extends Component {
                                               rightIconCls={activatedStep < steps.length - 1 ? 'fa fa-angle-right' : ''}
                                               disabled={activatedStep >= steps.length}
                                               onTouchTap={this.next}/>
+
+                                <RaisedButton value="Reset"
+                                              iconCls="fa fa-undo"
+                                              onTouchTap={this.reset}/>
                             </div>
 
                         </div>

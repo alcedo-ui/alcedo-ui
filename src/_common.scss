@@ -208,3 +208,19 @@ $transition-duration: 250ms;
     color: $bg-color;
 }
 
+@mixin field-msg-theme($color, $bg-color) {
+
+    .triangle {
+        border-top: none;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid transparentize($bg-color, .1);
+    }
+
+    .msg-wrap {
+        top: 6px;
+        background: transparentize($bg-color, .1);
+        color: $color;
+    }
+}
+
