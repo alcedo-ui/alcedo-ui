@@ -75,16 +75,34 @@ Dialog.propTypes = {
      */
     style: PropTypes.object,
 
+    /**
+     * .
+     */
     disabled: PropTypes.bool,
 
+    /**
+     * If true,dialog box will display.
+     */
     visible: PropTypes.bool,
 
-    type: PropTypes.string,
+    /**
+     * The theme of dialog.
+     */
+    theme: PropTypes.string,
 
+    /**
+     * .
+     */
     showModal: PropTypes.bool,
 
+    /**
+     * The title of dialog.
+     */
     title: PropTypes.any,
 
+    /**
+     * If true,.
+     */
     isBlurClose: PropTypes.bool,
 
     okButtonVisible: PropTypes.bool,

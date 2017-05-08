@@ -188,8 +188,8 @@ export default class DialogBody extends Component {
     }
 
     getIconCls() {
-        switch (this.props.type) {
-            case 'confirm':
+        switch (this.props.theme) {
+            case 'highlight':
                 return 'fa fa-question-circle';
             case 'success':
                 return 'fa fa-check-circle';
@@ -197,6 +197,8 @@ export default class DialogBody extends Component {
                 return 'fa fa-exclamation-triangle';
             case 'error':
                 return 'fa fa-times-circle';
+            case 'primary':
+                return 'fa fa-info-circle';
             default:
                 return 'fa fa-info-circle';
         }
@@ -205,7 +207,7 @@ export default class DialogBody extends Component {
     render() {
 
         const {
-            children, className, style, disabled, type, showModal, title, buttons,
+            children, className, style, disabled, theme, showModal, title, buttons,
             okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonUIType, okButtonDisabled, okButtonIsLoading,
             cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
         } = this.props;
@@ -227,8 +229,8 @@ export default class DialogBody extends Component {
 
                     {
                         title
-                            ? <div className={`dialog-title theme-${type}`}><i
-                            className={`${this.getIconCls()} theme-${type} dialog-icon`}
+                            ? <div className={`dialog-title theme-${theme}`}><i
+                            className={`${this.getIconCls()} theme-${theme} dialog-icon`}
                             aria-hidden="true"></i>
                             <span>{title}</span>
                         </div>

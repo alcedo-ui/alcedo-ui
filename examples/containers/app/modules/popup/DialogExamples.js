@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
+import RadioGroup from 'dist/RadioGroup';
 import Dialog from 'dist/Dialog';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
@@ -17,18 +18,21 @@ export default class DialogExamples extends Component {
         super(props);
 
         this.state = {
-            dialogVisible: false
+            dialogVisible: false,
+            type:'primary'
+
         };
 
         this.toggleDialog = this::this.toggleDialog;
         this.closeDialog = this::this.closeDialog;
         this.okHandle = this::this.okHandle;
+        this.updateField = this::this.updateField;
 
     }
 
     toggleDialog() {
         this.setState({
-            dialogVisible: !this.state.dialogVisible
+            dialogVisible: !this.state.dialogVisible,
         });
     }
 
@@ -42,9 +46,15 @@ export default class DialogExamples extends Component {
         closeDialog();
     }
 
+    updateField(key, value) {
+        let state = {};
+        state[key] = value;
+        this.setState(state);
+    }
+
     render() {
 
-        const {dialogVisible} = this.state;
+        const {dialogVisible, type} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -60,23 +70,52 @@ export default class DialogExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Dialog Simple Example"/>
+                    <WidgetHeader className="example-header" title="Dialog Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="popup-example-wrapper">
 
-                                <p>Dialog simple example.</p>
+                                <p>Dialog example with RadioGroup.You can select different radio button and then click
+                                    the toggle dialog button to show different type Dialog.</p>
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Type</label>
+                                    <RadioGroup data={[{
+                                        label: 'Primary',
+                                        value: 'primary'
+                                    }, {
+                                        label: 'Success',
+                                        value: 'success'
+                                    }, {
+                                        label: 'Warning',
+                                        value: 'warning'
+                                    }, {
+                                        label: 'Highlight',
+                                        value: 'highlight'
+                                    }, {
+                                        label: 'Error',
+                                        value: 'error'
+                                    }]}
+                                                value={type}
+                                                onChange={(value) => {
+                                                    this.updateField('type', value);
+                                                }}/>
+                                </div>
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
                                               onTouchTap={this.toggleDialog}/>
 
+
                                 <Dialog visible={dialogVisible}
-                                        title="Dialog Title"
-                                        type="warning"
+                                        title={`${type} dialog`}
+                                        theme={type}
+                                        disabled={true}
+                                        okButtonTheme={type}
+                                        isBlurClose={true}
                                         onRequestClose={this.closeDialog}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">

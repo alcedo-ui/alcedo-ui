@@ -52,9 +52,8 @@
         &.theme-warning {
             border-bottom: 1px solid $warning;
         }
-
         &.theme-highlight {
-            border-bottom: 1px solid $warning;
+            border-bottom: 1px solid $theme-highlight;
         }
 
         .dialog-icon {
@@ -86,7 +85,7 @@
     .dialog-content {
         width: 100%;
         height: calc(100% - 80px);
-        padding-left: 30px;
+        padding: 20px 0 0 30px;
     }
 
     .dialog-buttons {
