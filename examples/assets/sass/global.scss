@@ -1,8 +1,8 @@
 @import './common.scss';
 
 ::selection {
-    color: #FFF;
-    background: #8D98B3;
+    color: #fff;
+    background: #8d98b3;
 }
 
 ::-webkit-input-placeholder {
@@ -36,16 +36,4 @@ body {
     padding: 0;
     font-size: 12px;
     -webkit-font-smoothing: antialiased;
-}
-
-input, input:focus, textarea, textarea:focus, button, button:focus {
-    outline: none;
-}
-
-.fade-enter-active, .fade-leave-active {
-    transition: opacity $transition-duration ease-in-out;
-}
-
-.fade-enter, .fade-leave-active {
-    opacity: 0
 }

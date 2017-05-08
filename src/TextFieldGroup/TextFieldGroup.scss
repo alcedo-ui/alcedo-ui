@@ -4,17 +4,25 @@
 
     .text-field {
         border-radius: 0;
-        border-top: none;
+        border-bottom: none;
 
         &:first-child {
             border-top-left-radius: $border-radius;
             border-top-right-radius: $border-radius;
-            border-top: 1px solid $theme-title-bg;
         }
 
         &:last-child {
             border-bottom-left-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
+            border-bottom: 1px solid $theme-title-bg;
+
+            &.focused {
+                border-color: $theme-title;
+            }
+        }
+
+        &.focused + .text-field {
+            border-top-color: $theme-title;
         }
     }
 }

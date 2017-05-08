@@ -1,6 +1,6 @@
-export const COLLAPSE_NAV_MENU = 'COLLAPSE_NAV_MENU';
-export const EXPAND_NAV_MENU = 'EXPAND_NAV_MENU';
-export const TOGGLE_NAV_MENU = 'TOGGLE_NAV_MENU';
+export const COLLAPSE_NAV_MENU = Symbol('COLLAPSE_NAV_MENU');
+export const EXPAND_NAV_MENU = Symbol('EXPAND_NAV_MENU');
+export const TOGGLE_NAV_MENU = Symbol('TOGGLE_NAV_MENU');
 
-export const EXPAND_MENU = 'EXPAND_MENU';
-export const EXPAND_ACTIVATED_MENU = 'EXPAND_ACTIVATED_MENU';
+export const EXPAND_MENU = Symbol('EXPAND_MENU');
+export const EXPAND_ACTIVATED_MENU = Symbol('EXPAND_ACTIVATED_MENU');
