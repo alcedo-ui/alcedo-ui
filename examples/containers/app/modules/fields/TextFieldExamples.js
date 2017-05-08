@@ -117,6 +117,41 @@ export default class TextFieldExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="TextField Validation"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div>Required</div>
+                                <div className="field-group">
+                                    <TextField required={true}/>
+                                </div>
+
+                                <div>Min / Max</div>
+                                <div className="field-group">
+                                    <TextField type="number"
+                                               min={0}
+                                               max={100}/>
+                                </div>
+
+                                <div>Pattern</div>
+                                <div className="field-group">
+                                    <TextField pattern={/^[abc]*$/}
+                                               patternInvalidMsg="Only a, b, c is allowed."/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={TextFieldDoc}/>
