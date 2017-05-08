@@ -364,7 +364,7 @@ export default class MultipleSelect extends Component {
                                 }
                             })
                     }
-                    <i className={`fa fa-angle-double-up ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
+                    <i className={`fa fa-angle-double-down ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
                        aria-hidden="true"
                        onClick={(e) => {
                            if (value.length > 2) {

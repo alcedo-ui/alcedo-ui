@@ -1,0 +1,67 @@
+.rate {
+    height: 30px;
+    overflow: hidden;
+    user-select: none;
+    .star {
+        width: 30px;
+        height: 30px;
+        float: left;
+        cursor: pointer;
+        i {
+            margin-left: 10px;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            &.zero {
+                color: #e9e9e9;
+            }
+            &.full {
+                color: #f5a623;
+            }
+
+        }
+    }
+    .half-star {
+        width: 30px;
+        height: 30px;
+        float: left;
+        cursor: pointer;
+        .half-star-left,
+        .half-star-right {
+            width: 10px;
+            height: 20px;
+            overflow: hidden;
+            float: left;
+            i {
+                width: 20px;
+                height: 20px;
+                font-size: 20px;
+                transform: translateX(1px);
+                &.zero {
+                    color: #e9e9e9;
+                }
+                &.full {
+                    color: #f5a623;
+                }
+                &.disabled {
+                    cursor: not-allowed;
+                }
+            }
+            &.disabled {
+                cursor: not-allowed;
+            }
+        }
+        .half-star-right {
+            i {
+                transform: scaleX(-1) translateX(11px);
+                &.disabled {
+                    cursor: not-allowed;
+                }
+            }
+        }
+        &.disabled {
+            cursor: not-allowed;
+        }
+
+    }
+}

@@ -26,6 +26,7 @@ export Popup from './Popup';
 export Radio from './Radio';
 export RadioGroup from './RadioGroup';
 export RaisedButton from './RaisedButton';
+export Rate from './Rate';
 export RoundStep from './RoundStep';
 export Slider from './Slider';
 export Switcher from './Switcher';
