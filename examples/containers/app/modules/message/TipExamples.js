@@ -33,9 +33,9 @@ export default class TipExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.TOP}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.TOP}/>
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
@@ -43,34 +43,34 @@ export default class TipExamples extends Component {
                                             tipPosition={Tip.Position.RIGHT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.BOTTOM}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.BOTTOM}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.LEFT}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.LEFT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.TOP_LEFT}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.TOP_LEFT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.TOP_RIGHT}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.TOP_RIGHT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.BOTTOM_RIGHT}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.BOTTOM_RIGHT}/>
 
                                 <IconButton iconCls="fa fa-plus"
-                                theme="success"
-                                tip={this.text}
-                                tipPosition={Tip.Position.BOTTOM_LEFT}/>
+                                            theme="success"
+                                            tip={this.text}
+                                            tipPosition={Tip.Position.BOTTOM_LEFT}/>
 
                             </div>
 

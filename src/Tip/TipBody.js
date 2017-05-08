@@ -39,7 +39,7 @@ export default class TipBody extends Component {
         }
 
         const triggerOffset = Util.getOffset(triggerEl);
-        let WrapperStyle={};
+        let WrapperStyle = {};
         switch (position) {
             case 'right':
                 WrapperStyle.left = triggerOffset.left + triggerEl.clientHeight;

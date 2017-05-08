@@ -11,7 +11,7 @@ export default class Rate extends Component {
 
         this.state = {
             value: 0,
-            items:[]
+            items: []
         };
 
         this.mouseMoveHandle = this::this.mouseMoveHandle;
@@ -31,64 +31,64 @@ export default class Rate extends Component {
 
     }
 
-    mouseMoveHandle(e){
+    mouseMoveHandle(e) {
         const {disabled} = this.props;
-        if(disabled){
+        if (disabled) {
             return;
         }
-        const mouseEnterFalg = this.triggerEventHandle(e.target , require('react-dom').findDOMNode(this.refs.rate));
+        const mouseEnterFalg = this.triggerEventHandle(e.target, require('react-dom').findDOMNode(this.refs.rate));
         let {value}= this.props;
-        if(mouseEnterFalg){
-            if(e.target.nodeName === 'I') {
+        if (mouseEnterFalg) {
+            if (e.target.nodeName === 'I') {
                 value = e.target.getAttribute('data-key');
-            }else if(e.target.nodeName === 'DIV' && ((e.target.className.indexOf('half-star')!==-1)||(e.target.className.indexOf('star')!==-1))){
+            } else if (e.target.nodeName === 'DIV' && ((e.target.className.indexOf('half-star') !== -1) || (e.target.className.indexOf('star') !== -1))) {
                 value = e.target.getAttribute('data-key');
             }
-        }else{
+        } else {
             value = this.props.value;
         }
         // if(value!==this.props.value){
-            const items = this.createItems(value);
-            this.setState({
-                items
-            })
+        const items = this.createItems(value);
+        this.setState({
+            items
+        })
         // }
     }
 
-    selectHandle(value){
+    selectHandle(value) {
         const {disabled} = this.props;
-        if(disabled){
+        if (disabled) {
             return;
         }
         this.setState({
             value
-        },()=>{
+        }, ()=> {
             this.props.onChange && this.props.onChange(value)
         })
     }
 
-    createItems(value){
-        const {allowHalf,count} =this.props;
-        let items=[];
-        if(allowHalf){
-            for(let i = 0; i < count; i++){
-                if(i <= value - 1){
+    createItems(value) {
+        const {allowHalf, count} =this.props;
+        let items = [];
+        if (allowHalf) {
+            for (let i = 0; i < count; i++) {
+                if (i <= value - 1) {
                     items.push('full')
-                }else if(i < value && i > value - 1){
+                } else if (i < value && i > value - 1) {
                     items.push('full-zero')
-                }else if(i > value){
+                } else if (i > value) {
                     items.push('zero')
-                }else{
+                } else {
                     items.push('zero')
                 }
             }
-        }else{
-            for(let i = 0; i < count; i++){
-                if( i < value){
+        } else {
+            for (let i = 0; i < count; i++) {
+                if (i < value) {
                     items.push('full')
-                }else if(i > value){
+                } else if (i > value) {
                     items.push('zero')
-                }else{
+                } else {
                     items.push('zero')
                 }
             }
@@ -101,8 +101,8 @@ export default class Rate extends Component {
             const value = nextProps.value;
             const items = this.createItems(value);
             this.setState({
-                    value,
-                    items
+                value,
+                items
             });
         }
     }
@@ -122,43 +122,51 @@ export default class Rate extends Component {
     }
 
     render() {
-        const {className, style ,allowHalf, disabled} = this.props;
+        const {className, style, allowHalf, disabled} = this.props;
         const {items} = this.state;
 
         return (
             <div className={`rate ${className ? className : ''}`}
                  style={style}
-                 ref = "rate">
+                 ref="rate">
                 {
-                    items.map((item,key)=>{
-                        if(allowHalf){
-                            return (<div className={`half-star ${disabled ? 'disabled':''}`} data-key={key + 1}>
-                                        <div className="half-star-left">
-                                            <i className={`fa fa-star-half ${ item=='full'|| item=='full-zero' ? 'full':'zero'} ${disabled ? 'disabled':''}`}
-                                               data-key={key + 0.5}
-                                               onClick={()=>{
-                                                   this.selectHandle(key+0.5)
-                                               }}
-                                            ></i>
-                                        </div>
-                                        <div className="half-star-right">
-                                            <i className={`fa fa-star-half ${ item=='zero'|| item=='full-zero' ? 'zero':'full'} ${disabled ? 'disabled':''}`}
-                                               data-key={key + 1}
-                                               onClick={()=>{
-                                                   this.selectHandle(key+1)
-                                               }}
-                                            ></i>
-                                        </div>
-                                </div>)
-                        }else{
-                            return (<div className={`star ${disabled ? 'disabled':''}`} data-key={key + 1}>
-                                        <i className={`fa fa-star ${ item=='zero' ? 'zero':'full'} ${disabled ? 'disabled':''}`}
-                                           data-key={key + 1}
-                                           onClick={()=>{
-                                               this.selectHandle(key+1)
-                                           }}
-                                        ></i>
-                            </div>)
+                    items.map((item, index)=> {
+                        if (allowHalf) {
+                            return (
+                                <div key={index}
+                                    className={`half-star ${disabled ? 'disabled' : ''}`}
+                                     data-key={index + 1}>
+                                <div className="half-star-left">
+                                    <i className={`fa fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
+                                       data-key={index + 0.5}
+                                       onClick={()=> {
+                                           this.selectHandle(index + 0.5)
+                                       }}
+                                    ></i>
+                                </div>
+                                <div className="half-star-right">
+                                    <i className={`fa fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                       data-key={index + 1}
+                                       onClick={()=> {
+                                           this.selectHandle(index + 1)
+                                       }}
+                                    ></i>
+                                </div>
+                            </div>
+                            )
+                        } else {
+                            return (
+                                <div key={index}
+                                    className={`star ${disabled ? 'disabled' : ''}`}
+                                     data-key={index + 1}>
+                                <i className={`fa fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                   data-key={index + 1}
+                                   onClick={()=> {
+                                       this.selectHandle(index + 1)
+                                   }}
+                                ></i>
+                            </div>
+                            )
                         }
                     })
                 }
@@ -197,9 +205,9 @@ Rate.propTypes = {
 
 Rate.defaultProps = {
     className: '',
-    style:null,
+    style: null,
     count: 5,
     defaultValue: 0,
-    disabled:false
+    disabled: false
 };
 

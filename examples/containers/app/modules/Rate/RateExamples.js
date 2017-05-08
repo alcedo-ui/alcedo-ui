@@ -14,14 +14,14 @@ export default class RateExamples extends Component {
     constructor(props) {
         super(props);
 
-        this.state={
-            value : 3.5
+        this.state = {
+            value: 3.5
         }
 
         this.onChangeHandle = this::this.onChangeHandle;
     }
 
-    onChangeHandle(value){
+    onChangeHandle(value) {
         this.setState({
             value
         })
@@ -53,7 +53,7 @@ export default class RateExamples extends Component {
 
                             <Rate value={value}
                                   allowHalf={true}
-                                  onChange={(value)=>{
+                                  onChange={(value)=> {
                                       this.onChangeHandle(value)
                                   }}/>
 

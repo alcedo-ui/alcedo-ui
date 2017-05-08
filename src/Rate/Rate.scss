@@ -21,18 +21,18 @@
 
         }
     }
-    .half-star{
+    .half-star {
         width: 30px;
         height: 30px;
         float: left;
         cursor: pointer;
         .half-star-left,
-        .half-star-right{
+        .half-star-right {
             width: 10px;
             height: 20px;
             overflow: hidden;
             float: left;
-            i{
+            i {
                 width: 20px;
                 height: 20px;
                 font-size: 20px;
@@ -43,23 +43,23 @@
                 &.full {
                     color: #f5a623;
                 }
-                &.disabled{
+                &.disabled {
                     cursor: not-allowed;
                 }
             }
-            &.disabled{
+            &.disabled {
                 cursor: not-allowed;
             }
         }
-        .half-star-right{
-            i{
+        .half-star-right {
+            i {
                 transform: scaleX(-1) translateX(11px);
-                &.disabled{
+                &.disabled {
                     cursor: not-allowed;
                 }
             }
         }
-        &.disabled{
+        &.disabled {
             cursor: not-allowed;
         }
 
