@@ -15,7 +15,7 @@ export default class RateExamples extends Component {
         super(props);
 
         this.state = {
-            value: 3.5
+            value: 3
         }
 
         this.onChangeHandle = this::this.onChangeHandle;
@@ -52,7 +52,7 @@ export default class RateExamples extends Component {
                             <p>A simple Rate example.</p>
 
                             <Rate value={value}
-                                  allowHalf={true}
+                                  allowHalf={false}
                                   onChange={(value)=> {
                                       this.onChangeHandle(value)
                                   }}/>

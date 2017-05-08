@@ -122,12 +122,14 @@ export default class Rate extends Component {
     }
 
     render() {
-        const {className, style, allowHalf, disabled} = this.props;
+        const {className, style, allowHalf, disabled, count} = this.props;
         const {items} = this.state;
-
+        const warpStyle = {
+            width:count * 30
+        }
         return (
             <div className={`rate ${className ? className : ''}`}
-                 style={style}
+                 style={{...warpStyle , ...style}}
                  ref="rate">
                 {
                     items.map((item, index)=> {
