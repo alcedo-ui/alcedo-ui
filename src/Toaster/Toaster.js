@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
+import Util from '../_vendors/Util';
 
 import Toast from '../_Toast';
 
