@@ -42,20 +42,26 @@ export default class TextArea extends Component {
             const {style} = target;
 
             style.height = initialHeight + 'px';
-
-            if (initialHeight < target.scrollHeight - 8) {
-                if (maxHeight && maxHeight > target.scrollHeight - 8) {
-                    style.height = target.scrollHeight - 8 + 'px';
+            style.overflow = 'hidden';
+            if (initialHeight < target.scrollHeight + 2) {
+                if (maxHeight && maxHeight > target.scrollHeight + 2) {
+                    style.height = target.scrollHeight + 2 + 'px';
                 } else {
                     style.height = maxHeight + 'px';
+                    style.overflow = 'auto';
                 }
             }
         }
     }
 
     render() {
-        const {className, style, cols, rows, initialHeight} = this.props;
+        const {className, style, cols, rows, initialHeight, autoSize} = this.props;
         const {focus} = this.state;
+
+        let textStyle = {
+            height: initialHeight,
+            overflow: autoSize ? 'hidden' : 'auto'
+        };
 
         return (
             <div className={`text-area ${className}`}
@@ -67,7 +73,7 @@ export default class TextArea extends Component {
                           onBlur={this.onBlur}
                           onChange={this.onChange}
                           className={focus ? 'area-focus' : ''}
-                          style={{height: initialHeight}}>
+                          style={{...textStyle}}>
                 </textarea>
             </div>
         );
@@ -117,7 +123,7 @@ TextArea.defaultProps = {
     style: {},
     cols: 50,
     rows: 3,
-    initialHeight: 20,
+    initialHeight: 30,
     maxHeight: 100,
     autoSize: true
 };
