@@ -51,6 +51,13 @@ export default class DialogExamples extends Component {
 
                 <h2 className="example-title">Dialog</h2>
 
+                <p>
+                    <span>Dialogs</span> contain text and UI controls focused on a specific task.They inform users about
+                    critical information require users to make decisions.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Dialog Simple Example"/>
@@ -60,12 +67,16 @@ export default class DialogExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
+                                <p>Dialog simple example.</p>
+
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
+                                              style={{width: '120px'}}
                                               onTouchTap={this.toggleDialog}/>
 
                                 <Dialog visible={dialogVisible}
                                         title="Dialog Title"
+                                        type="warning"
                                         onRequestClose={this.closeDialog}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">

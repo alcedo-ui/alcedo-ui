@@ -195,17 +195,42 @@ Toaster.propTypes = {
      */
     style: PropTypes.object,
 
+    /**
+     * Children passed into the toaster.
+     */
     toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
+        /**
+         * The CSS class name of toaster.
+         */
         className: PropTypes.string,
+
+        /**
+         * Override the styles of the toaster.
+         */
         style: PropTypes.object,
 
+        /**
+         * The theme of toaster.
+         */
         type: PropTypes.oneOf(Object.keys(Toast.Type).map(key => Toast.Type[key])),
+
+        /**
+         * The title of toaster.
+         */
         title: PropTypes.string,
+
+        /**
+         * The message of toaster.
+         */
         message: PropTypes.string
 
     }), PropTypes.string])),
 
+
+    /**
+     * Callback function fired when the toaster pop.
+     */
     onToastPop: PropTypes.func
 
 };

@@ -79,7 +79,7 @@ Dialog.propTypes = {
 
     visible: PropTypes.bool,
 
-    theme: PropTypes.string,
+    type: PropTypes.string,
 
     showModal: PropTypes.bool,
 

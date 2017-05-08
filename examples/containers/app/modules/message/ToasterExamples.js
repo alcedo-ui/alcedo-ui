@@ -71,6 +71,12 @@ export default class ToasterExamples extends Component {
 
                 <h2 className="example-title">Toaster</h2>
 
+                <p>
+                    <span>Toaster</span> .
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="Toaster Example"/>
@@ -79,6 +85,10 @@ export default class ToasterExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p>Toaster example with RadioGroup and TextField.You can select different radio button
+                                    to show different theme toaster,also input different title and message to use this
+                                    component.</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
@@ -119,6 +129,7 @@ export default class ToasterExamples extends Component {
 
                                 <RaisedButton className="show-toast-button"
                                               value="Show Toaster"
+                                              style={{width: '120px'}}
                                               buttonStyle={Theme.PRIMARY}
                                               onTouchTap={this.addToast}/>
 
@@ -131,6 +142,7 @@ export default class ToasterExamples extends Component {
                     </div>
 
                 </Widget>
+
 
                 <h2 className="example-title">Properties</h2>
 

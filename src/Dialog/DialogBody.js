@@ -28,6 +28,7 @@ export default class DialogBody extends Component {
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
+        this.getIconCls = this::this.getIconCls;
 
     }
 
@@ -186,10 +187,25 @@ export default class DialogBody extends Component {
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
+    getIconCls() {
+        switch (this.props.type) {
+            case 'confirm':
+                return 'fa fa-question-circle';
+            case 'success':
+                return 'fa fa-check-circle';
+            case 'warning':
+                return 'fa fa-exclamation-triangle';
+            case 'error':
+                return 'fa fa-times-circle';
+            default:
+                return 'fa fa-info-circle';
+        }
+    }
+
     render() {
 
         const {
-            children, className, style, disabled, theme, showModal, title, buttons,
+            children, className, style, disabled, type, showModal, title, buttons,
             okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonUIType, okButtonDisabled, okButtonIsLoading,
             cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
         } = this.props;
@@ -204,15 +220,20 @@ export default class DialogBody extends Component {
                         : null
                 }
 
-                <div className={`dialog-wrapper ${visible ? '' : 'hidden'}
-                         ${theme ? `theme-${theme}` : ''} ${className}`}
+                <div className={`dialog-wrapper ${visible ? '' : 'hidden'} ${className}`}
                      style={style}
                      disabled={disabled}>
 
+
                     {
                         title
-                            ? <div className="dialog-title">{title}</div>
-                            : null
+                            ? <div className={`dialog-title theme-${type}`}><i
+                            className={`${this.getIconCls()} theme-${type} dialog-icon`}
+                            aria-hidden="true"></i>
+                            <span>{title}</span>
+                        </div>
+                            :
+                            null
                     }
 
                     <div className="dialog-content">
