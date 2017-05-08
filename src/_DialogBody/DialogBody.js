@@ -7,6 +7,7 @@ import GhostButton from '../GhostButton/index';
 import IconButton from '../IconButton/index';
 import Theme from '../Theme/index';
 
+import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
 import './DialogBody.css';
