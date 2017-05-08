@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
 
+import './PaggingPage.css';
+
 export default class PaggingPage extends Component {
 
     constructor(props) {

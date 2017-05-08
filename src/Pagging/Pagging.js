@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import PaggingSize from './PaggingSize';
-import PaggingPage from './PaggingPage';
+import PaggingSize from '../_PaggingSize';
+import PaggingPage from '../_PaggingPage';
 
 import './Pagging.css';
 
