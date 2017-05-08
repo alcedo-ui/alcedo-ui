@@ -20,7 +20,6 @@ export default class DialogExamples extends Component {
         this.state = {
             dialogVisible: false,
             type: 'primary'
-
         };
 
         this.toggleDialog = this::this.toggleDialog;

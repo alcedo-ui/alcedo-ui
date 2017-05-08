@@ -32,11 +32,6 @@ export default class TipExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                {/*<IconButton iconCls="fa fa-plus"*/}
-                                {/*theme="success"*/}
-                                {/*tip={this.text}*/}
-                                {/*tipPosition="bottom-left"/>*/}
-
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"
                                             tip={this.text}
