@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -244,31 +243,21 @@ export default class TextField extends Component {
                             iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
                             onTouchTap={this.togglePasswordVisible}/>
 
-                <ReactCSSTransitionGroup component="div"
-                                         transitionName="fade"
-                                         transitionEnterTimeout={250}
-                                         transitionLeaveTimeout={250}>
-                    {
-                        infoVisible && infoMsg ?
-                            <FieldMsg type="info"
-                                      msg={infoMsg}/>
-                            :
-                            null
-                    }
-                </ReactCSSTransitionGroup>
+                {
+                    infoVisible && infoMsg ?
+                        <FieldMsg type="info"
+                                  msg={infoMsg}/>
+                        :
+                        null
+                }
 
-                <ReactCSSTransitionGroup component="div"
-                                         transitionName="fade"
-                                         transitionEnterTimeout={250}
-                                         transitionLeaveTimeout={250}>
-                    {
-                        errorVisible && invalidMsgs.length > 0 ?
-                            <FieldMsg type="error"
-                                      msg={invalidMsgs.join(', ')}/>
-                            :
-                            null
-                    }
-                </ReactCSSTransitionGroup>
+                {
+                    errorVisible && invalidMsgs.length > 0 ?
+                        <FieldMsg type="error"
+                                  msg={invalidMsgs.join(', ')}/>
+                        :
+                        null
+                }
 
             </div>
         );

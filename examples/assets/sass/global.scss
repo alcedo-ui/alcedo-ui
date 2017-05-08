@@ -37,11 +37,3 @@ body {
     font-size: 12px;
     -webkit-font-smoothing: antialiased;
 }
-
-.fade-enter-active, .fade-leave-active {
-    transition: opacity $transition-duration ease-in-out;
-}
-
-.fade-enter, .fade-leave-active {
-    opacity: 0
-}
