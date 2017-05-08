@@ -101,7 +101,7 @@ LinearProgress.propTypes = {
     wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map((key) => LinearProgress.WordStyle[key])),
 
     /**
-     * The percent text location.Desirable values include front,middle,follow.
+     * If true, the linearProgress will have animation.
      */
     animation: PropTypes.bool
 

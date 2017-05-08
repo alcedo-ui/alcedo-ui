@@ -103,27 +103,30 @@ TextArea.propTypes = {
     rows: PropTypes.number,
 
     /**
-     * The number of height.
+     * The initial height of textArea.
      */
     initialHeight: PropTypes.number,
 
     /**
-     * Max of height.
+     * The max height of textArea.
      */
     maxHeight: PropTypes.number,
 
     /**
-     * Max of height.
+     * If true, the textArea will change its size by words.
      */
     autoSize: PropTypes.bool
 };
 
 TextArea.defaultProps = {
+
     className: '',
-    style: {},
+    style: null,
+
     cols: 50,
     rows: 3,
     initialHeight: 30,
     maxHeight: 100,
     autoSize: true
+
 };
