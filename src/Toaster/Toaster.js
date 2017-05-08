@@ -7,6 +7,8 @@ import Util from '../_vendors/Util';
 
 import Toast from '../_Toast';
 
+import Util from '../_vendors/Util';
+
 import './Toaster.css';
 
 export default class Toaster extends Component {
