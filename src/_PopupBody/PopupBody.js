@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Theme from '../Theme/index';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import Theme from '../Theme';
+
+import './PopupBody.css';
 
 export default class PopupBody extends Component {
 

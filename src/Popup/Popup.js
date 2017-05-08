@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import SubtreeContainer from '../_SubtreeContainer';
-import PopupBody from './PopupBody';
-import Theme from '../Theme';
-
-import './Popup.css';
+import PopupBody from '../_PopupBody';
 
 export default class Popup extends Component {
 
