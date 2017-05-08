@@ -34,15 +34,27 @@ export default class TextArea extends Component {
     }
 
     onChange(ev) {
-        let oEvent = ev || event;
-        const {offsetHeight, scrollHeight} = oEvent.target;
-        if (offsetHeight < scrollHeight) {
-            oEvent.target.style.height = scrollHeight + 'px';
+        const {initialHeight, maxHeight, autoSize} = this.props;
+
+        if (autoSize) {
+            const oEvent = ev || event;
+            const {target} = oEvent;
+            const {style} = target;
+
+            style.height = initialHeight + 'px';
+
+            if (initialHeight < target.scrollHeight - 8) {
+                if (maxHeight && maxHeight > target.scrollHeight - 8) {
+                    style.height = target.scrollHeight - 8 + 'px';
+                } else {
+                    style.height = maxHeight + 'px';
+                }
+            }
         }
     }
 
     render() {
-        const {className, style, cols, rows} = this.props;
+        const {className, style, cols, rows, initialHeight} = this.props;
         const {focus} = this.state;
 
         return (
@@ -54,14 +66,16 @@ export default class TextArea extends Component {
                           onFocus={this.onFocus}
                           onBlur={this.onBlur}
                           onChange={this.onChange}
-                          className={focus ? 'area-focus' : ''}>
+                          className={focus ? 'area-focus' : ''}
+                          style={{height: initialHeight}}>
                 </textarea>
             </div>
         );
     }
 };
 
-TextArea.PropTypes = {
+TextArea.propTypes = {
+
     /**
      * The CSS class name of the root element.
      */
@@ -80,12 +94,30 @@ TextArea.PropTypes = {
     /**
      * The number of rows.
      */
-    rows: PropTypes.number
+    rows: PropTypes.number,
+
+    /**
+     * The number of height.
+     */
+    initialHeight: PropTypes.number,
+
+    /**
+     * Max of height.
+     */
+    maxHeight: PropTypes.number,
+
+    /**
+     * Max of height.
+     */
+    autoSize: PropTypes.bool
 };
 
 TextArea.defaultProps = {
     className: '',
     style: {},
-    cols: 20,
-    rows: 3
+    cols: 50,
+    rows: 3,
+    initialHeight: 20,
+    maxHeight: 100,
+    autoSize: true
 };

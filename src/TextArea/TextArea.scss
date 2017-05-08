@@ -1,10 +1,11 @@
 @import '../_common.scss';
 
+::-webkit-scrollbar{width: 0;}
 .text-area{
     textarea{
         border-radius: 5px;
         max-width: 100%;
-        transition: all .3s;
+        transition: box-shadow .3s;
         cursor: text;
         font-size: 12px;
         line-height: 1.5;
@@ -15,7 +16,7 @@
         }
         &.area-focus{
             box-shadow: 0 0 0 2px rgba(16,142,233,.2);
-            border: solid 1px $theme-highlight;
+            border: solid 1px $theme-highlight;;
         }
     }
 }
