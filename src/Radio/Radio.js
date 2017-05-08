@@ -32,18 +32,30 @@ export default class Radio extends Component {
         this.setState({
             value: true
         }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(true);
+            this.props.onChange && this.props.onChange(true);
         });
 
     }
 
     mouseDownHandle(e) {
+
+        if (this.props.disabled) {
+            return;
+        }
+
         this.refs.radioIcon.startRipple(e);
         this.clickHandle();
+
     }
 
     mouseUpHandle() {
+
+        if (this.props.disabled) {
+            return;
+        }
+
         this.refs.radioIcon.endRipple();
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -72,11 +84,13 @@ export default class Radio extends Component {
                     <IconButton ref="radioIcon"
                                 className="radio-bg-icon"
                                 iconCls="fa fa-circle-o"
-                                onTouchTap={this.clickHandle}/>
+                                onTouchTap={this.clickHandle}
+                                disabled={disabled}/>
 
                     <IconButton className="radio-icon"
                                 iconCls="fa fa-dot-circle-o"
-                                onTouchTap={this.clickHandle}/>
+                                onTouchTap={this.clickHandle}
+                                disabled={disabled}/>
                 </div>
 
                 <div className="radio-label"

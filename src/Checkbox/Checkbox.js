@@ -26,16 +26,23 @@ export default class Checkbox extends Component {
         this.setState({
             value
         }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(value);
+            this.props.onChange && this.props.onChange(value);
         });
     }
 
     mouseDownHandle(e) {
+
+        if (this.props.disabled) {
+            return
+        }
         this.refs.checkboxIcon.startRipple(e);
         this.clickHandle();
     }
 
     mouseUpHandle() {
+        if (this.props.disabled) {
+            return
+        }
         this.refs.checkboxIcon.endRipple();
     }
 
@@ -69,11 +76,13 @@ export default class Checkbox extends Component {
                     <IconButton ref="checkboxIcon"
                                 className="checkbox-bg-icon"
                                 iconCls="fa fa-square-o"
-                                onTouchTap={this.clickHandle}/>
+                                onTouchTap={this.clickHandle}
+                                disabled={disabled}/>
 
                     <IconButton className="checkbox-icon"
                                 iconCls="fa fa-check-square"
-                                onTouchTap={this.clickHandle}/>
+                                onTouchTap={this.clickHandle}
+                                disabled={disabled}/>
                 </div>
 
                 <div className="checkbox-label"

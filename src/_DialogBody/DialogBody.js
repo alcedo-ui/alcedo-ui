@@ -31,6 +31,7 @@ export default class DialogBody extends Component {
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
+        this.getIconCls = this::this.getIconCls;
 
     }
 
@@ -185,6 +186,23 @@ export default class DialogBody extends Component {
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
+    getIconCls() {
+        switch (this.props.theme) {
+            case 'highlight':
+                return 'fa fa-question-circle';
+            case 'success':
+                return 'fa fa-check-circle';
+            case 'warning':
+                return 'fa fa-exclamation-triangle';
+            case 'error':
+                return 'fa fa-times-circle';
+            case 'primary':
+                return 'fa fa-info-circle';
+            default:
+                return 'fa fa-info-circle';
+        }
+    }
+
     render() {
 
         const {
@@ -203,15 +221,20 @@ export default class DialogBody extends Component {
                         : null
                 }
 
-                <div className={`dialog-wrapper ${visible ? '' : 'hidden'}
-                         ${theme ? `theme-${theme}` : ''} ${className}`}
+                <div className={`dialog-wrapper ${visible ? '' : 'hidden'} ${className}`}
                      style={style}
                      disabled={disabled}>
 
+
                     {
                         title
-                            ? <div className="dialog-title">{title}</div>
-                            : null
+                            ? <div className={`dialog-title theme-${theme}`}><i
+                            className={`${this.getIconCls()} theme-${theme} dialog-icon`}
+                            aria-hidden="true"></i>
+                            <span>{title}</span>
+                        </div>
+                            :
+                            null
                     }
 
                     <div className="dialog-content">

@@ -2,14 +2,32 @@
 
 .dialog-examples {
 
-    .trigger-button {
-        width: 160px;
-        height: 50px;
-        margin: 0;
+    .example-content {
+
+        .field-group {
+
+            @include float-fix;
+
+            float: none;
+
+            .radio {
+                width: 100px;
+                display: inline-block;
+
+            }
+
+            .text-field-label,
+            .text-field {
+                float: left;
+            }
+
+            .text-field-label {
+                font-size: 14px;
+                line-height: 50px;
+                width: 60px;
+            }
+        }
+
     }
 }
 
-.dialog-example-content {
-    padding: 20px;
-    font-size: 16px;
-}

@@ -28,23 +28,65 @@
     height: 300px;
     border-radius: $border-radius;
     transform: translate(-50%, -50%);
-    transition: left 0s, opacity $transition-duration ease-in-out,
-    transform $transition-duration ease-in-out;
+    transition: left 0s, opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
     z-index: $dialog-z-index;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
-    color: $theme-text;
+    background: $theme-bg;
 
     .dialog-title {
-        padding: 0 10px 10px;
-        line-height: 29px;
-        font-size: 16px;
-        border-bottom: 1px solid $theme-bg;
+        font-size: 20px;
+        line-height: 30px;
+        box-sizing: border-box;
+        padding: 20px 0 20px 30px;
+        border-bottom: 1px solid $theme-title-bg;
+
+        //&.theme-primary {
+        //    border-bottom: 1px solid $theme-menu;
+        //}
+        //&.theme-success {
+        //    border-bottom: 1px solid $success;
+        //}
+        //&.theme-error {
+        //    border-bottom: 1px solid $error;
+        //}
+        //&.theme-warning {
+        //    border-bottom: 1px solid $warning;
+        //}
+        //&.theme-highlight {
+        //    border-bottom: 1px solid $theme-highlight;
+        //}
+
+        .dialog-icon {
+            font-size: 30px;
+            float: left;
+            margin-right: 20px;
+
+            @include dialog-theme($theme-bg);
+
+            &.theme-primary {
+                @include dialog-theme($theme-menu);
+            }
+            &.theme-success {
+                @include dialog-theme($success);
+            }
+            &.theme-warning {
+                @include dialog-theme($warning);
+            }
+            &.theme-error {
+                @include dialog-theme($error);
+            }
+            &.theme-highlight {
+                @include dialog-theme($theme-highlight);
+            }
+        }
+
     }
 
     .dialog-content {
         width: 100%;
         height: calc(100% - 80px);
+        padding: 20px 0 0 30px;
     }
 
     .dialog-buttons {
@@ -64,26 +106,6 @@
         transform: translate(-50%, -70%);
         transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
         transform $transition-duration ease-in-out;
-    }
-
-    // default theme
-    @include dialog-theme(#fff);
-
-    // other themes
-    &.theme-primary {
-        @include dialog-theme($theme-menu);
-    }
-    &.theme-highlight {
-        @include dialog-theme($theme-highlight);
-    }
-    &.theme-success {
-        @include dialog-theme($success);
-    }
-    &.theme-warning {
-        @include dialog-theme($warning);
-    }
-    &.theme-error {
-        @include dialog-theme($error);
     }
 
 }

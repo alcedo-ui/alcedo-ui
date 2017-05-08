@@ -39,7 +39,7 @@
         @include float-fix;
 
         padding: 30px;
-        background: lighten($grey, 32%);
+        background: $theme-widget-bg;
         box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
     }

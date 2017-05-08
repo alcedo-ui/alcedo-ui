@@ -22,6 +22,12 @@ export default class ButtonCheckboxExamples extends Component {
 
                 <h2 className="example-title">ButtonCheckbox</h2>
 
+                <p>
+                    <span>ButtonCheckbox</span> is a checkbox use button style.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
                 <Widget>
 
                     <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
@@ -31,12 +37,75 @@ export default class ButtonCheckboxExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p>ButtonCheckbox simple default example.</p>
+
                                 <label>Number</label>
                                 <ButtonCheckbox text="1"/>
                                 <ButtonCheckbox text="2"/>
                                 <ButtonCheckbox text="3"/>
                                 <ButtonCheckbox text="4"/>
                                 <ButtonCheckbox text="5"/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the value property to true for ButtonCheckbox using active status.</p>
+
+                                <label>Number</label>
+                                <ButtonCheckbox text="1"
+                                                value={true}/>
+                                <ButtonCheckbox text="2"
+                                                value={true}/>
+                                <ButtonCheckbox text="3"
+                                                value={true}/>
+                                <ButtonCheckbox text="4"
+                                                value={true}/>
+                                <ButtonCheckbox text="5"
+                                                value={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the disabled property to true for disabling the ButtonCheckbox.</p>
+
+                                <label>Number</label>
+                                <ButtonCheckbox text="one"
+                                                value={true}
+                                                disabled={true}/>
+                                <ButtonCheckbox text="two"
+                                                disabled={true}/>
+                                <ButtonCheckbox text="three"
+                                                value={true}/>
+                                <ButtonCheckbox text="four"
+                                                disabled={true}/>
+                                <ButtonCheckbox text="five"
+                                                value={true}/>
 
                             </div>
 
