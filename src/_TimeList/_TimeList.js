@@ -84,7 +84,7 @@ export default class _TimeList extends Component {
             state.secondsData = this.rangeData(60);
         }
         if (minValue && moment('2000-01-01 ' + value + state.minute + state.second).isBefore('2000-01-01 ' + minValue) || moment('2000-01-01 ' + value + state.minute + state.second).isAfter('2000-01-01 ' + maxValue)) {
-
+                console.log(value,state)
         } else {
             this.setState(state, ()=> {
                 this.props.onChange && this.props.onChange({hour: value, minute: state.minute, second: state.second})
@@ -235,29 +235,40 @@ export default class _TimeList extends Component {
     }
 
     render() {
-        const {className, popupVisible} = this.props;
+        const {className, popupVisible, dateFormat} = this.props;
         const {hour, minute, second, hoursData, minutesData, secondsData} = this.state;
-
+        const TimeItemsStyle = {
+            width : 100 / (dateFormat.split(':').length) +'%'
+        }
         return (
             <div className={`calendar ${className ? className : ''}`}>
                 <TimeItems className="hours"
+                           style={TimeItemsStyle}
                            data={hoursData}
                            value={hour}
                            popupVisible={popupVisible}
                            onChange={this.hourChangeHandle}
                 />
                 <TimeItems className="minutes"
+                           style={TimeItemsStyle}
                            data={minutesData}
                            value={minute}
                            popupVisible={popupVisible}
                            onChange={this.minuteChangeHandle}
                 />
-                <TimeItems className="seconds"
-                           data={secondsData}
-                           value={second}
-                           popupVisible={popupVisible}
-                           onChange={this.secondChangeHandle}
-                />
+                {
+                    dateFormat.split(':').length == 2 ?
+                        null
+                        :
+                        <TimeItems className="seconds"
+                                   style={TimeItemsStyle}
+                                   data={secondsData}
+                                   value={second}
+                                   popupVisible={popupVisible}
+                                   onChange={this.secondChangeHandle}
+                        />
+                 }
+
             </div>
         );
     }

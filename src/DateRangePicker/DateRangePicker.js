@@ -419,9 +419,6 @@ export default class DateRangePicker extends Component {
                                            this.textFieldChangeHandle('left', text);
                                        }}
                             />
-                            <div className="fl">
-                                ~
-                            </div>
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
                                        value={right.text}

@@ -324,6 +324,7 @@ export default class DateTimePicker extends Component {
                     }
                     {
                         <TimeList className={`time-picker-body ${datePickerLevel == 3 ? '' : 'hidden'}`}
+                                  dateFormat = {dateFormat.split(' ')[1]}
                                   popupVisible={datePickerLevel == 3 ? true : false}
                                   hour={hour}
                                   minute={minute}

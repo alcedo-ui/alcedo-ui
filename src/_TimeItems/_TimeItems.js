@@ -56,10 +56,14 @@ export default class _TimeItems extends Component {
     }
 
     render() {
-        const {className, data, value}=this.props;
-
+        const {className, style, data, value}=this.props;
+        const width = style.width;
+        let liStyle={
+            paddingLeft: width=='50%' ? '60px':'36px'
+        }
         return (
             <div className={`timeItems ${className ? className : ''}`}
+                 style={style}
                  ref="timeItems">
                 <ul className="timeList"
                     ref="timeList">
@@ -69,6 +73,7 @@ export default class _TimeItems extends Component {
                                 return (
                                     <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
                                         key={key}
+                                        style={liStyle}
                                         onClick={() => {
                                             if (item.value) {
                                                 this.clickHandle(item.text);

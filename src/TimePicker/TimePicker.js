@@ -124,13 +124,13 @@ export default class TimePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, maxValue, minValue} = this.props;
+        const {className, style, name, placeholder, maxValue, minValue,dateFormat} = this.props;
         const {popupVisible, textFieldValue, hour, minute, second} = this.state;
         const wrapperHeight = this.wrapperHeight();
         const wrapperStyle = {
             height: wrapperHeight + 'px'
         };
-        const popupTextField = hour + ':' + minute + ':' + second;
+        const popupTextField =moment('2001-01-01 '+hour + ':' + minute + ':' + second).format(dateFormat);
         return (
             <div className={`time-picker ${className}`}
                  style={style}>
@@ -156,6 +156,7 @@ export default class TimePicker extends Component {
                                   maxValue={maxValue}
                                   minValue={minValue}
                                   isRequired={true}
+                                  dateFormat = {dateFormat}
                                   popupVisible={popupVisible}
                                   onChange={this.timePickerChangeHandle}/>
                     </div>

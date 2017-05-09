@@ -199,7 +199,7 @@ Rate.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * Callback function fired when the slider change.
+     * Callback function fired when the rate change.
      */
     onChange: PropTypes.func
 
