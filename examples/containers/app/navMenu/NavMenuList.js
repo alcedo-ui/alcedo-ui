@@ -15,7 +15,7 @@ class NavMenuList extends Component {
 
     render() {
 
-        const {$navMenu} = this.props;
+        const {$navMenu, $expandMenuName, expandMenu} = this.props;
 
         return (
             <div className="nav-menu-list">
@@ -24,7 +24,9 @@ class NavMenuList extends Component {
                         $navMenu.map((menu, index) => {
                             return (
                                 <NavMenuItem key={index}
-                                             options={menu}/>
+                                             expandMenuName={$expandMenuName}
+                                             options={menu}
+                                             expandMenu={expandMenu}/>
                             );
                         })
                     }
@@ -36,12 +38,18 @@ class NavMenuList extends Component {
 }
 
 NavMenuList.propTypes = {
-    $navMenu: PropTypes.array
+
+    $navMenu: PropTypes.array,
+    $expandMenuName: PropTypes.string,
+
+    expandMenu: PropTypes.func
+
 };
 
 function mapStateToProps(state, ownProps) {
     return {
-        $navMenu: state.navMenu.menu
+        $navMenu: state.navMenu.menu,
+        $expandMenuName: state.navMenu.expandMenuName
     };
 }
 

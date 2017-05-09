@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {Link} from 'react-router';
-
-import * as actions from 'reduxes/actions';
 
 import TouchRipple from 'dist/TouchRipple';
 
-class NavMenuItem extends Component {
+export default class NavMenuItem extends Component {
 
     constructor(props) {
 
@@ -17,15 +13,16 @@ class NavMenuItem extends Component {
         this.menuHeight = 50;
         this.subMenuIndent = 20;
 
+        this.menuGroupMousedownHandle = this::this.menuGroupMousedownHandle;
         this.menuMousedownHandle = this::this.menuMousedownHandle;
 
     }
 
-    menuMousedownHandle() {
+    menuGroupMousedownHandle() {
 
-        const {$expandMenuName, options, expandMenu} = this.props;
+        const {expandMenuName, options, expandMenu} = this.props;
 
-        if ($expandMenuName === options.text) {
+        if (expandMenuName === options.text) {
             expandMenu('');
         } else {
             expandMenu(options.text);
@@ -33,12 +30,17 @@ class NavMenuItem extends Component {
 
     }
 
+    menuMousedownHandle() {
+        const {depth, expandMenu} = this.props;
+        depth === 0 && expandMenu('');
+    }
+
     render() {
 
-        const {$expandMenuName, options, depth} = this.props;
+        const {expandMenuName, options, depth, expandMenu} = this.props;
         const {menuHeight, subMenuIndent} = this;
 
-        const collapsed = $expandMenuName !== options.text,
+        const collapsed = expandMenuName !== options.text,
             hasChildren = options.children && options.children.length > 0;
 
         return (
@@ -50,7 +52,7 @@ class NavMenuItem extends Component {
                         (
                             <div className="nav-menu-item-title"
                                  disabled={options.disabled}
-                                 onMouseDown={this.menuMousedownHandle}>
+                                 onMouseDown={this.menuGroupMousedownHandle}>
 
                                 <div className="nav-menu-item-name">
                                     {options.text}
@@ -69,7 +71,8 @@ class NavMenuItem extends Component {
                             <Link className="nav-menu-item-link"
                                   to={options.route}
                                   disabled={options.disabled}
-                                  activeClassName="router-link-active">
+                                  activeClassName="router-link-active"
+                                  onClick={this.menuMousedownHandle}>
 
                                 <div className="nav-menu-item-name"
                                      style={{marginLeft: depth * subMenuIndent}}>
@@ -92,8 +95,10 @@ class NavMenuItem extends Component {
                                 options.children.map((item, index) => {
                                     return (
                                         <NavMenuItem key={index}
+                                                     expandMenuName={expandMenuName}
                                                      options={item}
-                                                     depth={depth + 1}/>
+                                                     depth={depth + 1}
+                                                     expandMenu={expandMenu}/>
                                     );
                                 })
                             }
@@ -107,11 +112,10 @@ class NavMenuItem extends Component {
 
     }
 }
-;
 
 NavMenuItem.propTypes = {
 
-    $expandMenuName: PropTypes.string,
+    expandMenuName: PropTypes.string,
 
     options: PropTypes.object,
     depth: PropTypes.number,
@@ -122,21 +126,9 @@ NavMenuItem.propTypes = {
 
 NavMenuItem.defaultProps = {
 
-    $expandMenuName: '',
+    expandMenuName: '',
 
     options: null,
     depth: 0
 
 };
-
-function mapStateToProps(state, ownProps) {
-    return {
-        $expandMenuName: state.navMenu.expandMenuName
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenuItem);

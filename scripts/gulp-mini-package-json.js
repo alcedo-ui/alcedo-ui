@@ -34,6 +34,7 @@ module.exports = function () {
                     'lodash': data.dependencies['lodash'],
                     'moment': data.dependencies['moment'],
                     'react': data.dependencies['react'],
+                    'prop-types': data.dependencies['prop-types'],
                     'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
                     'react-dom': data.dependencies['react-dom']
                 }
