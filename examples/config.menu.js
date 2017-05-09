@@ -126,14 +126,8 @@ export default [{
     }]
 }, {
     text: 'TimeLine',
-    children: [{
-        text: 'TimeLine',
-        route: '/components/TimeLine'
-    }]
+    route: '/components/TimeLine'
 }, {
     text: 'Rate',
-    children: [{
-        text: 'Rate',
-        route: '/components/Rate'
-    }]
+    route: '/components/Rate'
 }];
