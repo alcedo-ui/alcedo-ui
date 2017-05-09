@@ -51,7 +51,7 @@ export default class Rate extends Component {
         const items = this.createItems(value);
         this.setState({
             items
-        })
+        });
         // }
     }
 

@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import TimeLineItem from './TimelineItem';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 import './TimeLine.css';
 
@@ -16,57 +19,60 @@ export default class TimeLine extends Component {
 
     }
 
+    componentDidMount(){
+
+    }
+
     render() {
-        const {prefixCls, data, style, className, pending, title} = this.props;
-        const pendingItem = pending ?
-            (
-                <TimeLineItem><a href="javascript:void(0)">更多</a></TimeLineItem>
-            )
-            :
-            null;
+        const {data, style, className} = this.props;
 
         return (
-            <ul className={`${prefixCls} ${prefixCls}-pending ? "${prefixCls}-pending":null ${className}`}
+            <ul className={`time-line ${className}`}
                 style={style}>
 
                 {
                     data.map((item, index) => {
 
-                        const isArray = _.isArray(item.description);
+                        {/*const isArray = _.isArray(item.description);*/
+                        }
 
                         return (
                             <TimeLineItem key={index}
-                                          color={item.color}
+                                          theme={item.theme}
+                                          type={item.type}
                                           title={item.title}
                                           date={item.date}
-                                          className={`${prefixCls}-${item.color}`}>
+                                          hasBorder={item.hasBorder}
+                                          contentText={item.contentText}
+                                          headerText={item.headerText}>
 
-                                {
-                                    item.description && isArray ?
-                                        item.description.map((ele, i)=> {
-                                            return (
-                                                <div className="text-content-list"
-                                                     key={i}>
-                                                    {ele}
-                                                </div>
-                                            )
+                                {/*{*/}
+                                {/*item.description && isArray ?*/}
+                                {/*item.description.map((ele, i)=> {*/}
+                                {/*return (*/}
+                                {/*<div className="text-content-list"*/}
+                                {/*key={i}>*/}
+                                {/*{ele}*/}
+                                {/*</div>*/}
+                                {/*)*/}
 
-                                        })
-                                        :
-                                        item.description
-                                }
+                                {/*})*/}
+                                {/*:*/}
+                                {/*item.description*/}
+                                {/*}*/}
 
 
                             </TimeLineItem>
                         );
                     })
                 }
-                {pendingItem}
+
 
             </ul>
         )
     }
 }
+TimeLine.Type = TimeLineItem.Type;
 
 TimeLine.propTypes = {
 
@@ -81,20 +87,50 @@ TimeLine.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The prefix of element className.
-     */
-    prefixCls: PropTypes.string,
-
-    /**
      * The items data.
      */
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+    data: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * The TimeLine theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        /**
+         * The TimeLine type.Can be header or title.
+         */
+        type: PropTypes.string,
+
+        /**
+         * The text value of TimeLine header.
+         */
+        headerText: PropTypes.string,
+
+        /**
+         * The date value of TimeLine.
+         */
+        date: PropTypes.string,
+
+        /**
+         * If true,the right content will have border style.
+         */
+        hasBorder: PropTypes.bool,
+
+        /**
+         * The text value of right content.
+         */
+        contentText: PropTypes.string
+
+    })).isRequired
 
 };
 
 TimeLine.defaultProps = {
+
     className: '',
     style: null,
-    prefixCls: "time-line"
+    hasBorder: true,
+    title: '',
+    type: ''
 
 };

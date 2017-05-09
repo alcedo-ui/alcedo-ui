@@ -2,10 +2,12 @@
  * Created by Wendy on 2017/5/3.
  */
 import React, {Component} from 'react';
+import moment from 'moment';
 
 import TimeLine from 'dist/TimeLine';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TimeLineDoc from 'assets/propTypes/TimeLine.json';
@@ -20,38 +22,41 @@ export default class TimeLineExamples extends Component {
 
     render() {
         let data = [{
-            index: '1',
-            color: 'green',
-            title:'just a title',
-            date:'2017-05-02 10:46:29',
-            description: 'Alcedo-UI examples update 2017-04-01.',
-            prefixCls: 'time-line'
+            type: 'header',
+            headerText: 'Now'
         }, {
-            index: '2',
-            color: 'blue',
-            date:'2017-05-03 15:16:34',
-            title:'hello',
-            description: [
-                'Alcedo-UI examples update 2017-04-03.',
-                'Alcedo-UI examples update 2017-04-06.'
-            ],
-            prefixCls: 'time-line'
+            theme: Theme.PRIMARY,
+            type: 'title',
+            contentText: 'just a title.',
+            hasBorder: false,
+            date: '2017-05-03 15:16:34'
         }, {
-            index: '3',
-            color: 'red',
-            date:'2017-05-04 20:23:12',
-            description: [
-                'Alcedo-UI examples update 2017-04-09.',
-                'Alcedo-UI examples update 2017-04-15.',
-                'Alcedo-UI examples update 2017-04-20.'
-            ],
-            prefixCls: 'time-line'
+            theme: Theme.HIGHLIGHT,
+            type: 'title',
+            hasBorder: true,
+            contentText: 'just a title.',
+            date: '2017-05-03 15:16:34'
         }, {
-            index: '4',
-            color: 'green',
-            description:  ['Alcedo-UI examples update 2017-04-24.',
-            'Alcedo-UI examples update 2017-05-04.'],
-            prefixCls: 'time-line'
+            theme: Theme.SUCCESS,
+            type: 'title',
+            contentText: 'just a title.',
+            hasBorder: true,
+            date: '2017-05-03 15:16:34'
+        }, {
+            theme: Theme.WARNING,
+            type: 'title',
+            hasBorder: true,
+            contentText: 'example content.',
+            date: '2017-05-06 12:52:12'
+        }, {
+            theme: Theme.ERROR,
+            type: 'title',
+            hasBorder: true,
+            contentText: 'welcome to China.',
+            date: '2017-05-03 15:16:34'
+        },{
+            type: 'header',
+            headerText: '2016'
         }];
 
         return (
@@ -74,9 +79,7 @@ export default class TimeLineExamples extends Component {
 
                             <p>A simple TimeLine example.</p>
 
-                            <TimeLine prefixCls="time-line"
-                                      pending={true}
-                                      data={data}/>
+                            <TimeLine data={data}/>
 
                         </div>
                     </div>
