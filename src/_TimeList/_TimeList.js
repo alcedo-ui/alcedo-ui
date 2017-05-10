@@ -84,18 +84,22 @@ export default class _TimeList extends Component {
             state.secondsData = this.rangeData(60);
         }
         if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isAfter('2000-01-01 ' + maxValue)) {
-                if(minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)){
-                    state.hour = moment('2000-01-01 ' + minValue).format('HH');
-                    state.minute= moment('2000-01-01 ' + minValue).format('mm');
-                    state.second= moment('2000-01-01 ' + minValue).format('ss');
-                }else{
-                    state.hour = moment('2000-01-01 ' + maxValue).format('HH');
-                    state.minute= moment('2000-01-01 ' + maxValue).format('mm');
-                    state.second= moment('2000-01-01 ' + maxValue).format('ss');
-                }
-                this.setState(state, ()=> {
-                    this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: state.second})
+            if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
+                state.hour = moment('2000-01-01 ' + minValue).format('HH');
+                state.minute = moment('2000-01-01 ' + minValue).format('mm');
+                state.second = moment('2000-01-01 ' + minValue).format('ss');
+            } else {
+                state.hour = moment('2000-01-01 ' + maxValue).format('HH');
+                state.minute = moment('2000-01-01 ' + maxValue).format('mm');
+                state.second = moment('2000-01-01 ' + maxValue).format('ss');
+            }
+            this.setState(state, ()=> {
+                this.props.onChange && this.props.onChange({
+                    hour: state.hour,
+                    minute: state.minute,
+                    second: state.second
                 })
+            })
         } else {
             this.setState(state, ()=> {
                 this.props.onChange && this.props.onChange({hour: value, minute: state.minute, second: state.second})
@@ -129,17 +133,21 @@ export default class _TimeList extends Component {
         }
 
         if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
-            if(minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)){
+            if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
                 state.hour = moment('2000-01-01 ' + minValue).format('HH');
-                state.minute= moment('2000-01-01 ' + minValue).format('mm');
-                state.second= moment('2000-01-01 ' + minValue).format('ss');
-            }else{
+                state.minute = moment('2000-01-01 ' + minValue).format('mm');
+                state.second = moment('2000-01-01 ' + minValue).format('ss');
+            } else {
                 state.hour = moment('2000-01-01 ' + maxValue).format('HH');
-                state.minute= moment('2000-01-01 ' + maxValue).format('mm');
-                state.second= moment('2000-01-01 ' + maxValue).format('ss');
+                state.minute = moment('2000-01-01 ' + maxValue).format('mm');
+                state.second = moment('2000-01-01 ' + maxValue).format('ss');
             }
             this.setState(state, ()=> {
-                this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: state.second})
+                this.props.onChange && this.props.onChange({
+                    hour: state.hour,
+                    minute: state.minute,
+                    second: state.second
+                })
             })
         } else {
             this.setState(state, ()=> {
@@ -152,18 +160,22 @@ export default class _TimeList extends Component {
     secondChangeHandle(value) {
         let state = _.cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
-        if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue &&　moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
-            if(minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)){
+        if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
+            if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
                 state.hour = moment('2000-01-01 ' + minValue).format('HH');
-                state.minute= moment('2000-01-01 ' + minValue).format('mm');
-                state.second= moment('2000-01-01 ' + minValue).format('ss');
-            }else{
+                state.minute = moment('2000-01-01 ' + minValue).format('mm');
+                state.second = moment('2000-01-01 ' + minValue).format('ss');
+            } else {
                 state.hour = moment('2000-01-01 ' + maxValue).format('HH');
-                state.minute= moment('2000-01-01 ' + maxValue).format('mm');
-                state.second= moment('2000-01-01 ' + maxValue).format('ss');
+                state.minute = moment('2000-01-01 ' + maxValue).format('mm');
+                state.second = moment('2000-01-01 ' + maxValue).format('ss');
             }
             this.setState(state, ()=> {
-                this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: state.second})
+                this.props.onChange && this.props.onChange({
+                    hour: state.hour,
+                    minute: state.minute,
+                    second: state.second
+                })
             })
         } else {
             this.setState({
@@ -216,7 +228,7 @@ export default class _TimeList extends Component {
             }
 
             state.hour = nextProps.hour;
-            state.minute =  nextProps.minute;
+            state.minute = nextProps.minute;
             state.second = nextProps.second;
             state.minValue = nextProps.minValue;
             state.maxValue = nextProps.maxValue;
@@ -271,7 +283,7 @@ export default class _TimeList extends Component {
         const {className, popupVisible, dateFormat} = this.props;
         const {hour, minute, second, hoursData, minutesData, secondsData} = this.state;
         const TimeItemsStyle = {
-            width : 100 / (dateFormat.split(':').length) +'%'
+            width: 100 / (dateFormat.split(':').length) + '%'
         }
         return (
             <div className={`calendar ${className ? className : ''}`}>
@@ -300,7 +312,7 @@ export default class _TimeList extends Component {
                                    popupVisible={popupVisible}
                                    onChange={this.secondChangeHandle}
                         />
-                 }
+                }
 
             </div>
         );

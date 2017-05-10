@@ -89,7 +89,7 @@ export default class TimePickerExamples extends Component {
                                             dateFormat="HH:mm"
                                             maxValue="23:56"
                                             minValue="01:20"
-                                      />
+                                />
                             </div>
 
                         </div>
