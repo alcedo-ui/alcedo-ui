@@ -29,6 +29,7 @@ export RaisedButton from './RaisedButton';
 export Rate from './Rate';
 export RoundStep from './RoundStep';
 export Slider from './Slider';
+export SpanLoading from './SpanLoading';
 export Switcher from './Switcher';
 export Tab from './Tab';
 export Table from './Table';
