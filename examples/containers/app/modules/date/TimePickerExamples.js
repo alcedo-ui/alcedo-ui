@@ -85,7 +85,7 @@ export default class TimePickerExamples extends Component {
                                     dateFormat property constructor set time format.</p>
 
                                 <TimePicker value="12:00"
-                                            placeholder="hello"
+                                            placeholder="date"
                                             dateFormat="HH:mm"
                                             maxValue="23:56"
                                             minValue="01:20"
