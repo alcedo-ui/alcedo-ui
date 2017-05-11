@@ -1,0 +1,102 @@
+@import '../_common.scss';
+
+.span-loading {
+    opacity: 1;
+    position: static;
+    display: inline-block;
+    color: $theme-highlight;
+    vertical-align: middle;
+    text-align: center;
+    margin-right: 15px;
+
+    .span-loading-dot {
+        position: relative;
+        display: block;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
+        animation: antRotate 1.2s infinite linear;
+
+        i {
+            width: 9px;
+            height: 9px;
+            border-radius: 100%;
+            background-color: #108ee9;
+            transform: scale(0.75);
+            display: block;
+            position: absolute;
+            opacity: .3;
+            animation: antSpinMove 1s infinite linear alternate;
+            transform-origin: 50% 50%;
+
+            &:first-child {
+                left: 0;
+                top: 0;
+            }
+
+            &:nth-child(2) {
+                right: 0;
+                top: 0;
+                animation-delay: .4s;
+            }
+
+            &:nth-child(3) {
+                right: 0;
+                bottom: 0;
+                animation-delay: .8s;
+            }
+
+            &:nth-child(4) {
+                left: 0;
+                bottom: 0;
+                animation-delay: 1.2s;
+            }
+        }
+        &.small {
+
+            i {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        &.large {
+
+            i {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+
+    .small{
+        width: 14px;
+        height: 14px;
+
+    }
+
+    .large{
+        width: 32px;
+        height: 32px;
+    }
+
+
+    .span-loading-text {
+        position: relative;
+        top: 10px;
+        left: -10px;
+        width: 100%;
+    }
+
+    @keyframes antSpinMove {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes antRotate {
+        to {
+            transform: rotate(405deg);
+        }
+    }
+}

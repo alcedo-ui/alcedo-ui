@@ -14,41 +14,37 @@ export default class TimeLineItem extends Component {
 
     render() {
 
-        const {prefixCls, className, children, color, title,date} = this.props;
+        const {className, date, theme, type, headerText, contentText, hasBorder, style} = this.props;
 
         return (
 
-            <li className={`${prefixCls}-item ${prefixCls}-item-last ${prefixCls}-item-pending ${className}`}>
+            <li className={`time-line-item ${className}`}
+                style={style}>
 
-                <div className={`${prefixCls}-item-con`}>
-
-                    <div className={`${prefixCls}-item-time-stamp`}>
-                        <span>{date}</span>
-                    </div>
-
-                    <div className={`${prefixCls}-item-thread`}/>
-
-                    <div className={`${prefixCls}-item-head ${prefixCls}-item-head-icon ${prefixCls}-item-head-${color}`}
-                        style={{borderColor: /blue|red|green/.test(color) ? null : color}}/>
-
-                    <div className={`${prefixCls}-item-content`}>
-
-                        {
-                            title?
-                                <div className={`${prefixCls}-item-title ${color}`}>
-                                    {title}
+                {
+                    type && type == "header" ?
+                        <div className={`time-line-item-header`}>{headerText}</div>
+                        :
+                        (
+                            type && type == "title" ?
+                                <div className={`time-line-item-title time-line-item-title-${theme}`}>
+                                    <span className="tl-date">{date}</span>
+                                    {
+                                        hasBorder
+                                            ?
+                                            <div className={`tl-content panel panel-${theme}`}>
+                                                <span className={`triangle triangle-${theme}`}> </span>
+                                                <span className={`tag tag-${theme}`}> </span>
+                                                <div>{contentText}</div>
+                                            </div>
+                                            :
+                                            <div className="tl-content">{contentText}</div>
+                                    }
                                 </div>
                                 :
                                 null
-                        }
-
-                        <div className={`${prefixCls}-item-description ${color}`}>
-                            {children}
-                        </div>
-                    </div>
-
-                </div>
-
+                        )
+                }
 
             </li>
 
@@ -56,18 +52,27 @@ export default class TimeLineItem extends Component {
     }
 }
 
+TimeLineItem.Type = {
+    HEADER: 'header',
+    TITLE: 'title'
+};
+
 TimeLineItem.propTypes = {
 
-    prefixCls: PropTypes.string,
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
-    color: PropTypes.string
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object
 
 };
 
 TimeLineItem.defaultProps = {
 
-    className: '',
-    prefixCls: 'time-line',
-    color: 'blue'
+    className: ''
 
 };

@@ -1,128 +1,210 @@
 @import '../_common.scss';
 
 .time-line {
-    background: #F0F3F4;
+    background: $theme-content-bg;
     padding: 10px;
+    list-style: none;
 
     &-item {
-        position: relative;
-        padding: 0 0 12px;
-        list-style: none;
+        display: block;
+        margin-left: 50px;
+        user-select: none;
 
-        &-con:hover {
-            cursor: pointer;
+        &:hover {
+            .time-line-item-title {
+                &-success {
+                    border-color: $success;
 
-            .time-line-item-head {
-                width: 10px;
-                height: 10px;
-                border-color: $theme-bg;
-                color: $theme-bg;
-                left: 124px;
-
-                &-blue {
-                    background-color: $blue;
+                    &:before {
+                        background: $success;
+                        width: 8px;
+                        height: 8px;
+                        margin-left: -29px;
+                    }
                 }
-
-                &-green {
-                    background-color: $success;
+                &-error {
+                    border-color: $error;
+                    &:before {
+                        background: $error;
+                        width: 8px;
+                        height: 8px;
+                        margin-left: -29px;
+                    }
                 }
+                &-warning {
+                    border-color: $warning;
 
-                &-red {
-                    background-color: $error;
+                    &:before {
+                        background: $warning;
+                        width: 8px;
+                        height: 8px;
+                        margin-left: -29px;
+                    }
+                }
+                &-highlight {
+                    border-color: $theme-highlight;
+
+                    &:before {
+                        background: $theme-highlight;
+                        width: 8px;
+                        height: 8px;
+                        margin-left: -29px;
+                    }
+                }
+                &-primary {
+                    border-color: lighten($theme-title, 20%);
+
+                    &:before {
+                        background: $theme-title;
+                        width: 8px;
+                        height: 8px;
+                        margin-left: -29px;
+                    }
                 }
             }
-
-            .time-line-item-title,.time-line-item-description {
-
-                &.blue {
-                    background: lighten($blue, 20%);
-                }
-
-                &.green {
-                    background: lighten($success, 20%);
-                }
-
-                &.red {
-                    background: lighten($error, 20%);
-                }
-
-            }
-
 
         }
 
-        &-time-stamp {
+    }
 
-            position: absolute;
-            top: 0;
+    &-item-header {
+        width: 50px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: $theme-nav !important;
+        background-color: $theme-highlight;
+        border-color: #23b7e5;
+        border-radius: 2px;
+        outline: 0 !important;
+        cursor: pointer;
+    }
 
-        }
+    &-item-title {
 
-        &-thread {
+        display: block;
+        padding: 20px 20px;
+        border-color: #dee5e7;
+        margin-left: 23px;
+        border-style: solid;
+        border-width: 0 0 0 4px;
 
-            position: absolute;
-            left: 130px;
-            top: 0;
-            height: 100%;
-            border-left: 2px solid $theme-menu;
-
-        }
-
-        &-head {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            left: 123px;
-            background-color: $theme-bg;
-            border-radius: 10px;
-            border: 2px solid transparent;
-
-            &-blue {
-                border-color: $blue;
-                color: $blue;
-            }
-
-            &-red {
-                border-color: $error;
-                color: $error;
-            }
-
-            &-green {
-                border-color: $success;
-                color: $success;
-            }
-        }
-
-        &-content {
-            padding: 0 0 10px 24px;
-            font-size: 14px;
+        &:before {
             position: relative;
-            top: -3px;
-            left: 130px;
-            user-select: none;
-            max-width: calc(100% - 160px);
+            top: 15px;
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin-left: -30px;
+            background: #edf1f2;
+            border-color: inherit;
+            border-style: solid;
+            border-width: 3px;
+            border-radius: 50%;
+            content: "";
+            box-shadow: 0 0 0 4px #f0f3f4;
+            display: table;
 
         }
 
-        &-title {
-            height: 30px;
-            line-height: 30px;
-            border: 1px solid #DEE5E7;
-            border-bottom: none;
-            padding: 5px 0 5px 10px;
-            width: auto;
+        &:after {
+            clear: both;
+        }
+
+        .tl-date {
+            display: block;
+            float: left;
+            position: relative;
+            top: 10px;
+            width: 100px;
+            margin-left: -140px;
+            text-align: right;
+        }
+
+        .tl-content {
+            position: relative;
+            display: inline-block;
+            padding: 10px 15px;
+            top: 5px;
+            left: 10px;
 
         }
 
-        &-description {
-            padding: 10px;
-            border: 1px solid #DEE5E7;
-            width: auto;
+        .panel {
+            border: 1px solid #dee5e7;
+            border-radius: $border-radius;
+            background-color: $theme-field;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 
-            .text-content-list {
-                margin: 5px 0;
+            &-success {
+                background: $success;
+                color: $theme-field;
+            }
+            &-error {
+                background: $error;
+                color: $theme-field;
+            }
+            &-warning {
+                background: $warning;
+                color: $theme-field;
+            }
+            &-highlight {
+                background: $theme-highlight;
+                color: $theme-field;
             }
 
+        }
+
+        .triangle {
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            left: -20px;
+            top: 8px;
+            border-style: dashed solid dashed dashed;
+            z-index: 10;
+            border-width: 10px;
+            border-color: transparent #dee5e7 transparent transparent;
+
+            &-success {
+                border-color: transparent $success transparent transparent;
+            }
+            &-error {
+                border-color: transparent $error transparent transparent;
+            }
+            &-warning {
+                border-color: transparent $warning transparent transparent;
+            }
+            &-highlight {
+                border-color: transparent $theme-highlight transparent transparent;
+            }
+        }
+
+        .tag {
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            left: -17px;
+            top: 8px;
+            border-style: dashed solid dashed dashed;
+            z-index: 10;
+            border-width: 10px;
+            border-color: transparent $theme-field transparent transparent;
+
+            &-success {
+                border-color: transparent $success transparent transparent;
+            }
+            &-error {
+                border-color: transparent $error transparent transparent;
+            }
+            &-warning {
+                border-color: transparent $warning transparent transparent;
+            }
+            &-highlight {
+                border-color: transparent $theme-highlight transparent transparent;
+            }
         }
 
     }

@@ -48,7 +48,7 @@ export default class Switcher extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`switcher ${value == true ? 'active' : 'inactive'}
+             <div className={`switcher ${value == true ? 'active' : 'inactive'}
                     ${size === 'small' ? 'small' : ''} ${className}`}
                  style={style}
                  onClick={this.toggle}

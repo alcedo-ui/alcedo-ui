@@ -50,6 +50,7 @@ import TipExamples from 'containers/app/modules/message/TipExamples';
 
 
 import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
+import SpanLoadingExamples from 'containers/app/modules/SpanLoading/SpanLoadingExamples';
 import RateExamples from 'containers/app/modules/Rate/RateExamples';
 
 export default (
@@ -152,6 +153,10 @@ export default (
             {/* timeLine */}
             <Route path="TimeLine"
                    component={TimeLineExamples}/>
+
+            {/* spanLoading */}
+            <Route path="SpanLoading"
+                   component={SpanLoadingExamples}/>
 
             {/* rate */}
             <Route path="Rate"

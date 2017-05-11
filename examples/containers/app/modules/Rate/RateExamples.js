@@ -44,7 +44,7 @@ export default class RateExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="TimeLine Example"/>
+                    <WidgetHeader className="example-header" title="Rate Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">

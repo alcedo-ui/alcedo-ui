@@ -53,9 +53,6 @@ function navMenu(state = initialState, action) {
         }
 
         case types.EXPAND_MENU: {
-
-            console.log(action.menuName);
-
             return {
                 ...state,
                 expandMenuName: action.menuName
