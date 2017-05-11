@@ -34,7 +34,7 @@ export default class RateExamples extends Component {
         return (
             <div className="example rate-examples">
 
-                <h2 className="example-title">TimeLine</h2>
+                <h2 className="example-title">Rate</h2>
 
                 <p>
                     The Rate is used to display time flow information vertically.
