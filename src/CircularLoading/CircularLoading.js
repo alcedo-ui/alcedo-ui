@@ -13,10 +13,12 @@ export default class CircularLoading extends Component {
 
     render() {
 
-        const {className, style, size} = this.props;
+        const {className, style, size,type} = this.props;
 
         return (
+
             <div className={`circular-loading circular-loading-size-${size} ${className}`}
+                 type={type}
                  style={style}>
                 <div className="spinner">
                     <div className="circle left">
@@ -30,6 +32,7 @@ export default class CircularLoading extends Component {
                     </div>
                 </div>
             </div>
+
         );
 
     }
@@ -43,9 +46,19 @@ CircularLoading.Size = {
 
 CircularLoading.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * Set the size of Loading,can use small or large.
+     */
     size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size))
 
 };

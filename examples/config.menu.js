@@ -131,6 +131,12 @@ export default [{
     text: 'Rate',
     route: '/components/Rate'
 }, {
-    text: 'SpanLoading',
-    route: '/components/SpanLoading'
+    text: 'Loading',
+    children: [{
+        text: 'SpanLoading',
+        route: '/components/SpanLoading'
+    }, {
+        text: 'CircularLoading',
+        route: '/components/CircularLoading'
+    }]
 }];
