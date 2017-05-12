@@ -61,7 +61,7 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="TextField Example"/>
+                                  title="Search TextField Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
