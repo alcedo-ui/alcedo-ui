@@ -58,8 +58,13 @@ export default class _TimeItems extends Component {
     render() {
         const {className, style, data, value}=this.props;
         const width = style.width;
-        let liStyle={
-            paddingLeft: width=='50%' ? '60px':'36px'
+        let liStyle={};
+        if(width == '100%'){
+            liStyle.paddingLeft = '140px'
+        }else if(width == '50%'){
+            liStyle.paddingLeft = '60px'
+        }else{
+            liStyle.paddingLeft = '36px'
         }
         return (
             <div className={`timeItems ${className ? className : ''}`}

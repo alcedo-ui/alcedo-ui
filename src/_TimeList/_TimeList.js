@@ -294,17 +294,21 @@ export default class _TimeList extends Component {
                            popupVisible={popupVisible}
                            onChange={this.hourChangeHandle}
                 />
-                <TimeItems className="minutes"
-                           style={TimeItemsStyle}
-                           data={minutesData}
-                           value={minute}
-                           popupVisible={popupVisible}
-                           onChange={this.minuteChangeHandle}
-                />
                 {
-                    dateFormat.split(':').length == 2 ?
-                        null
+                    dateFormat.split(':').length > 1 ?
+                        <TimeItems className="minutes"
+                                   style={TimeItemsStyle}
+                                   data={minutesData}
+                                   value={minute}
+                                   popupVisible={popupVisible}
+                                   onChange={this.minuteChangeHandle}
+                        />
                         :
+                        null
+                }
+
+                {
+                    dateFormat.split(':').length > 2 ?
                         <TimeItems className="seconds"
                                    style={TimeItemsStyle}
                                    data={secondsData}
@@ -312,6 +316,8 @@ export default class _TimeList extends Component {
                                    popupVisible={popupVisible}
                                    onChange={this.secondChangeHandle}
                         />
+                        :
+                        null
                 }
 
             </div>
