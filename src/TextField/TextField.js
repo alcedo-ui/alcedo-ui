@@ -196,7 +196,7 @@ export default class TextField extends Component {
 
         const {
             className, style, type, name, placeholder, iconCls, disabled, infoMsg,
-            required, maxLength, max, min, readOnly, clearButtonVisible, searchButtonVisible, passwordButtonVisible
+            required, maxLength, max, min, readOnly, clearButtonVisible, rightIconCls, passwordButtonVisible
         } = this.props;
         const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
@@ -247,8 +247,8 @@ export default class TextField extends Component {
                             iconCls="fa fa-times-circle"
                             onTouchTap={this.clearValue}/>
 
-                <IconButton className={`search-icon ${ searchButtonVisible && !value ? '' : 'hidden'}`}
-                            iconCls="fa fa-search"
+                <IconButton className={`right-icon ${ !value ? '' : 'hidden'}`}
+                            rightIconCls={rightIconCls}
                             />
 
                 <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
@@ -348,9 +348,9 @@ TextField.propTypes = {
     clearButtonVisible: PropTypes.bool,
 
     /**
-     * If true,clearButton will display when the textField is not empty.
+     * Use this property to display an icon.
      */
-    searchButtonVisible: PropTypes.bool,
+    rightIconCls: PropTypes.string,
 
     /**
      * If true,passwordButton will display.

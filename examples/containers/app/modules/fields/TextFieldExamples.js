@@ -72,7 +72,7 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
-                                    <TextField searchButtonVisible={true}/>
+                                    <TextField rightIconCls={'fa fa-search'}/>
                                 </div>
 
                             </div>
