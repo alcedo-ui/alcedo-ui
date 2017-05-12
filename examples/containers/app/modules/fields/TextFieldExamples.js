@@ -61,6 +61,31 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
+                                  title="TextField Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Search TextField</p>
+
+                                <div className="field-group">
+                                    <label className="text-field-label">Default</label>
+                                    <TextField searchButtonVisible={true}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
                                   title="TextField with Icon Example"/>
 
                     <div className="widget-content">
