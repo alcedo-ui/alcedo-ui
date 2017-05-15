@@ -2,12 +2,12 @@
 
 .span-loading {
     opacity: 1;
-    position: static;
+    position: relative;
     display: inline-block;
     color: $theme-highlight;
     vertical-align: middle;
     text-align: center;
-    margin-right: 15px;
+    margin-right: 25px;
 
     .span-loading-dot {
         position: relative;
@@ -21,7 +21,7 @@
             width: 9px;
             height: 9px;
             border-radius: 100%;
-            background-color: #108ee9;
+            background-color: $theme-highlight;
             transform: scale(0.75);
             display: block;
             position: absolute;

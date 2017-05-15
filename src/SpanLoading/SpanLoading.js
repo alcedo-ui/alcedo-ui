@@ -7,43 +7,43 @@ import PropTypes from 'prop-types';
 import './SpanLoading.css';
 
 export default class SpanLoading extends Component {
+
     constructor(props) {
         super(props);
 
     }
 
-    // componentDidMount() {
-    //
-    // }
-    //
     // componentWillUnmount() {
     //     if (this.delayTimeout) {
     //         clearTimeout(this.delayTimeout);
     //     }
+    //     if (this.debounceTimeout) {
+    //         clearTimeout(this.debounceTimeout);
+    //     }
     // }
-
+    //
     // componentWillReceiveProps(nextProps) {
     //
-    //     const currentSpinning = this.props.spinning;
-    //     const spinning = nextProps.spinning;
+    //     const currentSpinning = this.props.spanning;
+    //     const spanning = nextProps.spanning;
     //     const {delay} = this.props;
     //
-    //     if (currentSpinning && !spinning) {
-    //         this.debounceTimeout = setTimeout(() => this.setState({spinning}), 300);
+    //     if (currentSpinning && !spanning) {
+    //         this.debounceTimeout = setTimeout(() => this.setState({spanning}), 300);
     //         if (this.delayTimeout) {
     //             clearTimeout(this.delayTimeout);
     //         }
     //     } else {
-    //         if (spinning && delay && !isNaN(Number(delay))) {
-    //             this.delayTimeout = setTimeout(() => this.setState({spinning}), delay);
+    //         if (spanning && delay && !isNaN(Number(delay))) {
+    //             this.delayTimeout = setTimeout(() => this.setState({spanning}), delay);
     //         } else {
-    //             this.setState({spinning});
+    //             this.setState({spanning});
     //         }
     //     }
     // }
 
     render() {
-        const {className, style, spanning, tip, size, children}=this.props;
+        const {className, style, tip, size, children,spanning}=this.props;
 
         return (
             <div className={`span-loading span-loading-${size} ${className}`}
@@ -97,12 +97,12 @@ SpanLoading.propTypes = {
     spanning: PropTypes.bool,
 
     /**
-     * Set the tip text,there will be a description under the SpanLoading.
+     * Set the tip text,there will be a description under the Loading.
      */
     tip: PropTypes.string,
 
     /**
-     * Set the size of SpanLoading,can use small or large.
+     * Set the size of Loading,can use small or large.
      */
     size: PropTypes.string
 };
