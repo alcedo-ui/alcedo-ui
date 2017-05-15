@@ -166,7 +166,7 @@ export default class SpanLoadingExamples extends Component {
                             <p>Set the delay property to delay the loading animation.</p>
 
                             <SpanLoading spanning={loading2}
-                                         delay={1000}
+                                         delay={2000}
                                          className="span-loading-nested">
 
                                 <div className={`span-loading-info ${loading2 ? 'span-loading-blur' : ''}`}>

@@ -5,9 +5,33 @@ import DEFAULT_MENU from 'examples/config.menu';
 
 const userMenuCollapsed = localStorage.getItem('userMenuCollapsed');
 
+const orderMenu = _.cloneDeep(DEFAULT_MENU);
+
+function sortObject(arrays) {
+    let len = arrays.length;
+    for (let i = 0; i < len - 1; i++) {
+        if (i < arrays.length - 1) {
+            for (let j = i + 1; j < len; j++) {
+                if (arrays[i].text.charAt(0).toUpperCase() > arrays[j].text.charAt(0).toUpperCase()) {
+                    let obj = arrays[i];
+                    arrays[i] = arrays[j];
+                    arrays[j] = obj;
+                }
+            }
+        }
+
+        if (arrays[i].hasOwnProperty("children")) {
+            sortObject(arrays[i].children);
+        }
+
+    }
+}
+
+sortObject(orderMenu);
+
 const initialState = {
 
-    menu: _.cloneDeep(DEFAULT_MENU),
+    menu: orderMenu,
 
     navMenuCollapsed: true,
 

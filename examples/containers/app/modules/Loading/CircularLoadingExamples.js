@@ -48,7 +48,7 @@ export default class CircularLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="CircularLoading Example"/>
+                    <WidgetHeader className="example-header" title="CircularLoading Size Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -60,6 +60,67 @@ export default class CircularLoadingExamples extends Component {
                             <CircularLoading />
 
                             <CircularLoading size="large"/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="CircularLoading Theme Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Set the theme property for different theme CircularLoading.</p>
+
+                            <CircularLoading />
+
+                            <CircularLoading theme="success"/>
+
+                            <CircularLoading theme="error"/>
+
+                            <CircularLoading theme="warning"/>
+
+                            <CircularLoading theme="highlight"/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="CircularLoading Type Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Set the type property for different border-style CircularLoading.</p>
+
+                            <CircularLoading />
+                            <CircularLoading type="dotted"/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="CircularLoading Weight Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>Set the weight property for different border-width CircularLoading.</p>
+
+                            <CircularLoading weight={5}
+                                             size="large"/>
+
+                            <CircularLoading weight={2}
+                                             type="dotted"/>
 
                         </div>
                     </div>

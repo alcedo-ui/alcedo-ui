@@ -1,5 +1,5 @@
 export default [{
-    text: 'buttons',
+    text: 'Buttons',
     children: [{
         text: 'Raised Button',
         route: '/components/RaisedButton'
@@ -17,7 +17,7 @@ export default [{
         route: '/components/IconAnchor'
     }]
 }, {
-    text: 'popup',
+    text: 'Popup',
     children: [{
         text: 'Dialog',
         route: '/components/Dialog'
@@ -26,7 +26,7 @@ export default [{
         route: '/components/Popup'
     }]
 }, {
-    text: 'date',
+    text: 'Date',
     children: [{
         text: 'Date Picker',
         route: '/components/DatePicker'
@@ -41,7 +41,7 @@ export default [{
         route: '/components/DateTimePicker'
     }]
 }, {
-    text: 'fields',
+    text: 'Fields',
     children: [{
         text: 'Text Field',
         route: '/components/TextField'
@@ -77,7 +77,7 @@ export default [{
         route: '/components/FlashNumber'
     }]
 }, {
-    text: 'progress',
+    text: 'Progress',
     children: [{
         text: 'CircleProgress',
         route: '/components/CircularProgress'
@@ -86,7 +86,7 @@ export default [{
         route: '/components/linearProgress'
     }]
 }, {
-    text: 'layout',
+    text: 'Layout',
     children: [{
         text: 'Paper',
         route: '/components/Paper'
@@ -107,7 +107,7 @@ export default [{
         route: '/components/Table'
     }]
 }, {
-    text: 'stepper',
+    text: 'Stepper',
     children: [{
         text: 'ArrowStep',
         route: '/components/ArrowStep'
@@ -116,7 +116,7 @@ export default [{
         route: '/components/RoundStep'
     }]
 }, {
-    text: 'message',
+    text: 'Message',
     children: [{
         text: 'Toaster',
         route: '/components/Toaster'

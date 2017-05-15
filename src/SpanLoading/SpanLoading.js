@@ -10,40 +10,45 @@ export default class SpanLoading extends Component {
 
     constructor(props) {
         super(props);
+        const spanning = props.spanning;
+        this.state = {
+            spanning
+        };
 
     }
 
-    // componentWillUnmount() {
-    //     if (this.delayTimeout) {
-    //         clearTimeout(this.delayTimeout);
-    //     }
-    //     if (this.debounceTimeout) {
-    //         clearTimeout(this.debounceTimeout);
-    //     }
-    // }
-    //
-    // componentWillReceiveProps(nextProps) {
-    //
-    //     const currentSpinning = this.props.spanning;
-    //     const spanning = nextProps.spanning;
-    //     const {delay} = this.props;
-    //
-    //     if (currentSpinning && !spanning) {
-    //         this.debounceTimeout = setTimeout(() => this.setState({spanning}), 300);
-    //         if (this.delayTimeout) {
-    //             clearTimeout(this.delayTimeout);
-    //         }
-    //     } else {
-    //         if (spanning && delay && !isNaN(Number(delay))) {
-    //             this.delayTimeout = setTimeout(() => this.setState({spanning}), delay);
-    //         } else {
-    //             this.setState({spanning});
-    //         }
-    //     }
-    // }
+    componentWillUnmount() {
+        if (this.delayTimeout) {
+            clearTimeout(this.delayTimeout);
+        }
+        if (this.debounceTimeout) {
+            clearTimeout(this.debounceTimeout);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        const currentSpinning = this.props.spanning;
+        const spanning = nextProps.spanning;
+        const {delay} = this.props;
+
+        if (currentSpinning && !spanning) {
+            this.debounceTimeout = setTimeout(() => this.setState({spanning}), 1000);
+            if (this.delayTimeout) {
+                clearTimeout(this.delayTimeout);
+            }
+        } else {
+            if (spanning && delay && !isNaN(Number(delay))) {
+                this.delayTimeout = setTimeout(() => this.setState({spanning}), delay);
+            } else {
+                this.setState({spanning});
+            }
+        }
+    }
 
     render() {
-        const {className, style, tip, size, children,spanning}=this.props;
+        const {className, style, tip, size, children}=this.props;
+        const {spanning} = this.state;
 
         return (
             <div className={`span-loading span-loading-${size} ${className}`}
@@ -53,11 +58,11 @@ export default class SpanLoading extends Component {
                     spanning
                         ?
                         <span className={`span-loading-dot ${size ? size : ''}`}>
-                                <i />
-                                <i />
-                                <i />
-                                <i />
-                            </span>
+                            <i />
+                            <i />
+                            <i />
+                            <i />
+                        </span>
                         :
                         null
 

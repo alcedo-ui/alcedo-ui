@@ -3,8 +3,8 @@
 .circular-loading {
     display: inline-block;
     position: relative;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     box-sizing: border-box;
     animation: container-rotate 1568ms linear infinite;
 
@@ -30,7 +30,6 @@
                 width: 200%;
                 height: 100%;
                 border-width: 1px;
-                border-style: solid;
                 border-color: inherit;
                 border-bottom-color: transparent !important;
                 border-radius: 50%;
@@ -39,6 +38,29 @@
                 top: 0;
                 right: 0;
                 bottom: 0;
+
+                &.solid {
+                    border-style: solid;
+                }
+
+                &.dotted {
+                    border-style: dotted;
+                }
+            }
+
+            &.success {
+                border-color: $success;
+            }
+
+            &.error {
+                border-color: $error;
+            }
+
+            &.warning {
+                border-color: $warning;
+            }
+            &.highlight {
+                border-color: $theme-highlight;
             }
 
             &.left {
