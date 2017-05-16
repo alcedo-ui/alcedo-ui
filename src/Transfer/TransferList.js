@@ -59,12 +59,13 @@ export default class TransferList extends Component {
     }
 
     selectAllHandle(){
-        const {selectAll}=this.state;
+        const {selectAll,filter}=this.state;
         const {data}=this.props;
+        const filterList = this.getFilterList(data, filter);
         let newData=[];
-        for(let i = 0;i < data.length; i++){
-            if(!data[i]['disabled']){
-                newData.push(data[i])
+        for(let i = 0;i < filterList.length; i++){
+            if(!filterList[i]['disabled']){
+                newData.push(filterList[i])
             }
         }
         let value = selectAll ? [] : newData;
