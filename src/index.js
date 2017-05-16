@@ -20,6 +20,7 @@ export IconButton from './IconButton';
 export LinearProgress from './LinearProgress';
 export List from './List';
 export MultipleSelect from './MultipleSelect';
+export OutComplete from './OutComplete';
 export Pagging from './Pagging';
 export Paper from './Paper';
 export Popup from './Popup';
