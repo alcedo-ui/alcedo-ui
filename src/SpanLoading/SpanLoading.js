@@ -102,17 +102,17 @@ SpanLoading.propTypes = {
     spanning: PropTypes.bool,
 
     /**
-     * Set the tip text,there will be a description under the Loading.
+     * Set the tip text,there will be a description under the loading.
      */
     tip: PropTypes.string,
 
     /**
-     * Set the size of Loading,can use small or large.
+     * Set the size of loading,can use small or large.
      */
     size: PropTypes.string,
 
     /**
-     * Set the delay time of Loading animation.
+     * Set the delay time of loading animation.
      */
     delay: PropTypes.number,
 };

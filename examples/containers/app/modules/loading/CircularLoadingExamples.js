@@ -10,7 +10,7 @@ import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import CircularLoadingDoc from 'assets/propTypes/CircularLoading.json';
 
-import '../../../../assets/sass/containers/app/modules/Loading/CircularLoadingExamples.scss';
+import '../../../../assets/sass/containers/app/modules/loading/CircularLoadingExamples.scss';
 
 export default class CircularLoadingExamples extends Component {
     constructor(props) {

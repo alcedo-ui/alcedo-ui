@@ -50,8 +50,8 @@ import TipExamples from 'containers/app/modules/message/TipExamples';
 
 
 import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
-import SpanLoadingExamples from 'containers/app/modules/Loading/SpanLoadingExamples';
-import CircularLoadingExamples from 'containers/app/modules/Loading/CircularLoadingExamples';
+import SpanLoadingExamples from 'containers/app/modules/loading/SpanLoadingExamples';
+import CircularLoadingExamples from 'containers/app/modules/loading/CircularLoadingExamples';
 import RateExamples from 'containers/app/modules/Rate/RateExamples';
 
 export default (
