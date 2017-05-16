@@ -13,7 +13,11 @@ export default class CircularLoading extends Component {
 
     render() {
 
-        const {className, style, size,type} = this.props;
+        const {className, style, size, theme, type, weight} = this.props;
+
+        const border = {
+            borderWidth: weight
+        };
 
         return (
 
@@ -21,14 +25,20 @@ export default class CircularLoading extends Component {
                  type={type}
                  style={style}>
                 <div className="spinner">
-                    <div className="circle left">
-                        <div></div>
+                    <div className={`${theme} circle left border-${type}`}>
+                        <div className={`${type ? type : 'solid'}`}
+                             style={border}>
+
+                        </div>
                     </div>
                     <div className="gap">
                         <div></div>
                     </div>
-                    <div className="circle right">
-                        <div></div>
+                    <div className={`${theme} circle right border-${type}`}>
+                        <div className={`${type ? type : 'solid'}`}
+                             style={border}>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +69,22 @@ CircularLoading.propTypes = {
     /**
      * Set the size of Loading,can use small or large.
      */
-    size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size))
+    size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size)),
+
+    /**
+     * Set the theme of Loading,can use highlight,success,error,warning.
+     */
+    theme: PropTypes.string,
+
+    /**
+     * Set the CircularLoading border-width.
+     */
+    weight: PropTypes.number,
+
+    /**
+     * Set the border style of CircularLoading,can use solid,dotted.
+     */
+    type: PropTypes.string
 
 };
 
@@ -68,6 +93,9 @@ CircularLoading.defaultProps = {
     className: '',
     style: null,
 
-    size: CircularLoading.Size.DEFAULT
+    size: CircularLoading.Size.DEFAULT,
+    theme: '',
+    width: '1',
+    type: 'solid'
 
 };

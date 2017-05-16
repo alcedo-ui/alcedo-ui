@@ -111,7 +111,7 @@ export default class TextArea extends Component {
     }
 
     render() {
-        const {className, style, cols, rows, initialHeight, autoSize, placeholder, maxWidth} = this.props;
+        const {className, style, cols, rows, autoSize, placeholder, maxWidth} = this.props;
         const {focus, width, height, value} = this.state;
 
         let textStyle = {
