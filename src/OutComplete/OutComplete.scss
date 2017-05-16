@@ -24,18 +24,17 @@
             }
         }
         ul{
+            position: absolute;
             width: 300px;
             margin: 0;
             padding: 0;
             background: white;
             border-top: 1px solid #dfdfdf;
-            max-height: 250px;
             overflow-y: auto;
+            transition: all 250ms ease-in-out;
             li{
                 list-style: none;
                 font-size: 12px;
-                line-height: 25px;
-                height: 25px;
                 padding: 0 15px;
                 &:hover{
                     background: whitesmoke;

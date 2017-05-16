@@ -17,6 +17,9 @@ export default class OutComplete extends Component {
             focus: false
         };
 
+        this.liHeight = 25;
+        this.maxHeight = 250;
+
         this.onChange = this :: this.onChange;
         this.onClick = this :: this.onClick;
         this.getClassName = this :: this.getClassName;
@@ -54,7 +57,6 @@ export default class OutComplete extends Component {
         const {onBlur} = this.props;
         const className = this.getClassName(ev.target);
 
-        console.log(className);
         if (className.indexOf('out-complete-li') > -1) {
             const {onChange} = this.props;
             let oEvent = ev.srcElement ? ev.srcElement : ev.target;
@@ -65,7 +67,6 @@ export default class OutComplete extends Component {
                 onChange && onChange(oEvent.innerText);
             });
         } else if (className.indexOf('text-field') > -1) {
-            console.log(1);
             return;
         } else {
             this.setState({
@@ -97,27 +98,41 @@ export default class OutComplete extends Component {
     render() {
         const {data, searchLength, className, style} = this.props;
         const {value, focus} = this.state;
+        const {liHeight, maxHeight} = this;
+
+        let ulHeight = (data.length > 0 && value.length >= searchLength) ? data.length * liHeight : 0;
+        let ulStyle = {
+            height: ulHeight > maxHeight ? maxHeight : ulHeight,
+            maxHeight: maxHeight
+        }, innerStyle = {
+            height: ulStyle.height + 50
+        }, liStyle = {
+            height: liHeight,
+            lineHeight: liHeight + 'px'
+        };
 
         return (
             <div className={`out-complete ${className}`}
                  style={style}>
-                <div className={`out-complete-inner ${focus === true ? 'focused' : ''}`}>
+                <div className={`out-complete-inner ${focus === true ? 'focused' : ''}`}
+                     style={innerStyle}>
                     <TextField onChange={this.onChange}
                                value={value}
                                onFocus={this.onFocus}/>
-                    {
-                        data.length > 0 && value.length >= searchLength
-                            ?
-                            <ul>
-                                {
+                    <ul style={ulStyle}>
+                        {
+                            data.length > 0 && value.length >= searchLength
+                                ?
+                                (
                                     data.map((value) => {
                                         return <li className="out-complete-li"
-                                                   key={value}>{value}</li>;
+                                                   key={value}
+                                                   style={liStyle}>{value}</li>;
                                     })
-                                }
-                            </ul>
-                            : null
-                    }
+                                )
+                                : null
+                        }
+                    </ul>
                 </div>
             </div>
         );
