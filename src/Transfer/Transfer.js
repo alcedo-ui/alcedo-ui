@@ -57,6 +57,8 @@ export default class Transfer extends Component {
             leftSelected:[],
             leftData:newLeftData,
             rightData:rightData
+        },()=>{
+            this.props.onChange && this.props.onChange();
         })
 
     }
@@ -80,11 +82,12 @@ export default class Transfer extends Component {
             }
 
         }
-
         this.setState({
             rightSelected:[],
             leftData:leftData,
             rightData:newRightData
+        },()=>{
+            this.props.onChange && this.props.onChange();
         })
     }
 
@@ -138,37 +141,19 @@ Transfer.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the toaster.
+     *
      */
-    toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
-
-        /**
-         * The CSS class name of toaster.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the toaster.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The title of toaster.
-         */
-        title: PropTypes.string,
-
-        /**
-         * The message of toaster.
-         */
-        message: PropTypes.string
-
-    }), PropTypes.string])),
-
+    leftData: PropTypes.array,
 
     /**
-     * Callback function fired when the toaster pop.
+     *
      */
-    onToastPop: PropTypes.func
+    rightData: PropTypes.array,
+
+    /**
+     * Callback function .
+     */
+    onChange: PropTypes.func
 
 };
 
