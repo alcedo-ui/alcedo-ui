@@ -33,7 +33,7 @@ export default class SpanLoading extends Component {
         const {delay} = this.props;
 
         if (currentSpinning && !spanning) {
-            this.debounceTimeout = setTimeout(() => this.setState({spanning}), 1000);
+            this.debounceTimeout = setTimeout(() => this.setState({spanning}), 100);
             if (this.delayTimeout) {
                 clearTimeout(this.delayTimeout);
             }

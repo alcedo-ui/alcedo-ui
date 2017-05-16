@@ -25,7 +25,7 @@ export default class CircularLoadingExamples extends Component {
                 <h2 className="example-title">CircularLoading</h2>
 
                 <p>
-                    <span>CircularLoading</span> use to show pages and blocks loading status.
+                    <spin>CircularLoading</spin> use to show pages and blocks loading status.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
