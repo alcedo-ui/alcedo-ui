@@ -10,7 +10,7 @@ import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import OutCompleteDoc from 'assets/propTypes/OutComplete.json';
 
-import 'sass/containers/app/modules/fields/OutCompleteExamples.scss'
+import 'sass/containers/app/modules/fields/OutCompleteExamples.scss';
 
 export default class OutCompleteExamples extends Component {
     constructor(props) {
@@ -27,19 +27,26 @@ export default class OutCompleteExamples extends Component {
         this.onBlur = this :: this.onBlur;
     }
 
-    onChange(text) {
+    onChange(text, bool) {
         if (text) {
             let data = [];
             this.data.map((value) => {
-                if (value.indexOf(text) === 0 && value !== text) {
+                if (value.indexOf(text) === 0) {
                     data.push(value);
                 }
             });
+            if (bool) {
+                this.setState({
+                    chooseData: data,
+                    text: text
+                });
+            } else {
+                this.setState({
+                    chooseData: [],
+                    text: text
+                });
+            }
 
-            this.setState({
-                chooseData: data,
-                text: text
-            });
         } else {
             this.setState({
                 chooseData: [],
@@ -79,7 +86,8 @@ export default class OutCompleteExamples extends Component {
 
                                 <p>Out Complete simple default example.</p>
 
-                                <OutComplete data={chooseData} onChange={this.onChange} value={text} onBlur={this.onBlur} searchLength={2}/>
+                                <OutComplete data={chooseData} onChange={this.onChange} value={text}
+                                             onBlur={this.onBlur} searchLength={2}/>
 
                             </div>
 

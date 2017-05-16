@@ -1,42 +1,47 @@
 @import '../_common.scss';
 
-.out-complete{
+.out-complete {
     height: 50px;
-    .out-complete-inner{
+    width: 300px;
+    .out-complete-inner {
         position: relative;
         z-index: 10;
-        width: 300px;
+        width: 100%;
         border: 1px solid #dfdfdf;
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
         transition: all 250ms ease-in-out;
-        &.focused{
+        &.focused {
             box-shadow: rgba(0, 0, 0, 0.12) 0 5px 6px, rgba(0, 0, 0, 0.12) 0 2px 6px;
         }
-        &:hover{
+        &:hover {
             box-shadow: rgba(0, 0, 0, 0.12) 0 5px 6px, rgba(0, 0, 0, 0.12) 0 2px 6px;
         }
-        .text-field{
+        .text-field {
+            width: 100%;
             border: none;
             border-radius: 0;
-            &.focused{
+            &.focused {
                 border: none;
             }
         }
-        ul{
+        ul {
             position: absolute;
-            width: 300px;
+            width: 100%;
             margin: 0;
             padding: 0;
             background: white;
             border-top: 1px solid #dfdfdf;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
             overflow-y: auto;
             transition: all 250ms ease-in-out;
-            li{
+            box-sizing: border-box;
+            li {
                 list-style: none;
                 font-size: 12px;
                 padding: 0 15px;
-                &:hover{
+                &:hover {
                     background: whitesmoke;
                 }
             }

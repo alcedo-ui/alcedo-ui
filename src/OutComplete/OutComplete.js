@@ -18,7 +18,9 @@ export default class OutComplete extends Component {
         };
 
         this.liHeight = 25;
-        this.maxHeight = 250;
+        this.maxHeight = 251;
+        this.inputHeight = 50;
+        this.borderWidth = 1;
 
         this.onChange = this :: this.onChange;
         this.onClick = this :: this.onClick;
@@ -40,7 +42,7 @@ export default class OutComplete extends Component {
     onChange(text) {
         const {onChange} = this.props;
 
-        onChange && onChange(text);
+        onChange && onChange(text, true);
     }
 
     onFocus() {
@@ -62,12 +64,12 @@ export default class OutComplete extends Component {
             let oEvent = ev.srcElement ? ev.srcElement : ev.target;
 
             this.setState({
-                focus: false
+                focus: true
             }, () => {
-                onChange && onChange(oEvent.innerText);
+                onChange && onChange(oEvent.innerText, false);
             });
         } else if (className.indexOf('text-field') > -1) {
-            return;
+            return false;
         } else {
             this.setState({
                 focus: false
@@ -96,19 +98,21 @@ export default class OutComplete extends Component {
     }
 
     render() {
-        const {data, searchLength, className, style} = this.props;
+        const {data, searchLength, className, style, placeholder} = this.props;
         const {value, focus} = this.state;
-        const {liHeight, maxHeight} = this;
+        const {liHeight, maxHeight, inputHeight, borderWidth} = this;
 
-        let ulHeight = (data.length > 0 && value.length >= searchLength) ? data.length * liHeight : 0;
+        let ulHeight = (data.length > 0 && value.length >= searchLength) ? data.length * liHeight + borderWidth : 0;
         let ulStyle = {
             height: ulHeight > maxHeight ? maxHeight : ulHeight,
             maxHeight: maxHeight
         }, innerStyle = {
-            height: ulStyle.height + 50
+            height: ulStyle.height + inputHeight
         }, liStyle = {
             height: liHeight,
             lineHeight: liHeight + 'px'
+        }, inputStyle = {
+            height: inputHeight
         };
 
         return (
@@ -118,7 +122,9 @@ export default class OutComplete extends Component {
                      style={innerStyle}>
                     <TextField onChange={this.onChange}
                                value={value}
-                               onFocus={this.onFocus}/>
+                               onFocus={this.onFocus}
+                               placeholder={placeholder}
+                               style={inputStyle}/>
                     <ul style={ulStyle}>
                         {
                             data.length > 0 && value.length >= searchLength
@@ -165,6 +171,11 @@ OutComplete.propTypes = {
      * The length of input will be completed.
      */
     searchLength: PropTypes.number,
+
+    /**
+     * The placeholder of input.
+     */
+    placeholder: PropTypes.string,
 
     /**
      * Callback function fired when value change.
