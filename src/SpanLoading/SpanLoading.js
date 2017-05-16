@@ -109,7 +109,12 @@ SpanLoading.propTypes = {
     /**
      * Set the size of Loading,can use small or large.
      */
-    size: PropTypes.string
+    size: PropTypes.string,
+
+    /**
+     * Set the delay time of Loading animation.
+     */
+    delay: PropTypes.number,
 };
 
 SpanLoading.defaultProps = {

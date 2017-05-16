@@ -25,7 +25,8 @@ export default class CircularLoadingExamples extends Component {
                 <h2 className="example-title">CircularLoading</h2>
 
                 <p>
-                    <spin>CircularLoading</spin> use to show pages and blocks loading status.
+                    <spin>CircularLoading</spin>
+                    use to show pages and blocks loading status.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -39,7 +40,7 @@ export default class CircularLoadingExamples extends Component {
 
                             <p>A simple CircularLoading example.</p>
 
-                            <CircularLoading />
+                            <CircularLoading spanning={true}/>
 
                         </div>
                     </div>
@@ -55,11 +56,13 @@ export default class CircularLoadingExamples extends Component {
 
                             <p>Set the size property to small or large for different size CircularLoading.</p>
 
-                            <CircularLoading size="small"/>
+                            <CircularLoading spanning={true}
+                                             size="small"/>
 
-                            <CircularLoading />
+                            <CircularLoading spanning={true}/>
 
-                            <CircularLoading size="large"/>
+                            <CircularLoading spanning={true}
+                                             size="large"/>
 
                         </div>
                     </div>
@@ -75,15 +78,19 @@ export default class CircularLoadingExamples extends Component {
 
                             <p>Set the theme property for different theme CircularLoading.</p>
 
-                            <CircularLoading />
+                            <CircularLoading spanning={true}/>
 
-                            <CircularLoading theme="success"/>
+                            <CircularLoading spanning={true}
+                                             theme="success"/>
 
-                            <CircularLoading theme="error"/>
+                            <CircularLoading spanning={true}
+                                             theme="error"/>
 
-                            <CircularLoading theme="warning"/>
+                            <CircularLoading spanning={true}
+                                             theme="warning"/>
 
-                            <CircularLoading theme="highlight"/>
+                            <CircularLoading spanning={true}
+                                             theme="highlight"/>
 
                         </div>
                     </div>
@@ -99,8 +106,9 @@ export default class CircularLoadingExamples extends Component {
 
                             <p>Set the type property for different border-style CircularLoading.</p>
 
-                            <CircularLoading />
-                            <CircularLoading type="dotted"/>
+                            <CircularLoading spanning={true}/>
+                            <CircularLoading spanning={true}
+                                             type="dotted"/>
 
                         </div>
                     </div>
@@ -116,17 +124,18 @@ export default class CircularLoadingExamples extends Component {
 
                             <p>Set the weight property for different border-width CircularLoading.</p>
 
-                            <CircularLoading weight={5}
+                            <CircularLoading spanning={true}
+                                             weight={5}
                                              size="large"/>
 
-                            <CircularLoading weight={2}
+                            <CircularLoading spanning={true}
+                                             weight={2}
                                              type="dotted"/>
 
                         </div>
                     </div>
 
                 </Widget>
-
 
                 <h2 className="example-title">Properties</h2>
 

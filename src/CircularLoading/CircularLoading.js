@@ -14,7 +14,6 @@ export default class CircularLoading extends Component {
     render() {
 
         const {className, style, size, theme, type, weight} = this.props;
-
         const border = {
             borderWidth: weight
         };
@@ -24,6 +23,7 @@ export default class CircularLoading extends Component {
             <div className={`circular-loading circular-loading-size-${size} ${className}`}
                  type={type}
                  style={style}>
+
                 <div className="spinner">
                     <div className={`${theme} circle left border-${type}`}>
                         <div className={`${type ? type : 'solid'}`}
@@ -41,6 +41,7 @@ export default class CircularLoading extends Component {
                         </div>
                     </div>
                 </div>
+
             </div>
 
         );
