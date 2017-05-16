@@ -75,6 +75,9 @@ export default [{
     }, {
         text: 'FlashNumber',
         route: '/components/FlashNumber'
+    },{
+        text:'Transfer',
+        route: '/components/Transfer'
     }]
 }, {
     text: 'progress',

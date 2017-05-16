@@ -23,6 +23,7 @@ import SwitcherExamples from 'containers/app/modules/fields/SwitcherExamples';
 import SliderExamples from 'containers/app/modules/fields/SliderExamples';
 import EditableFieldExamples from 'containers/app/modules/fields/EditableFieldExamples';
 import FlashNumberExamples from 'containers/app/modules/fields/FlashNumberExamples';
+import TransferExamples from 'containers/app/modules/fields/TransferExamples';
 
 import DatePickerExamples from 'containers/app/modules/date/DatePickerExamples';
 import DateRangePickerExamples from 'containers/app/modules/date/DateRangePickerExamples';
@@ -112,6 +113,8 @@ export default (
                    component={EditableFieldExamples}/>
             <Route path="FlashNumber"
                    component={FlashNumberExamples}/>
+            <Route path="Transfer"
+                   component={TransferExamples}/>
 
             {/* popups */}
             <Route path="Dialog"

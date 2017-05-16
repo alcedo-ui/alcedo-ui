@@ -42,6 +42,7 @@ export TimePicker from './TimePicker';
 export Tip from './Tip';
 export Toaster from './Toaster';
 export TouchRipple from './TouchRipple';
+export Transfer from './Transfer';
 export TreeSelect from './TreeSelect';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';

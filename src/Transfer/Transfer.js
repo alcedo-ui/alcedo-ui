@@ -1,0 +1,178 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
+import RaisedButton from '../RaisedButton';
+import TransferList from './TransferList';
+import './Transfer.css';
+
+export default class Transfer extends Component {
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            leftData: this.props.leftData,
+            rightData:this.props.rightData,
+            leftSelected:[],
+            rightSelected:[]
+        };
+
+        this.leftSelectHandle = this::this.leftSelectHandle;
+        this.rightSelectHandle = this::this.rightSelectHandle;
+        this.moveToRightHandle = this::this.moveToRightHandle;
+        this.moveToLeftHandle = this::this.moveToLeftHandle;
+    }
+
+    leftSelectHandle(data){
+        this.setState({
+            leftSelected:data
+        })
+    }
+    rightSelectHandle(data){
+        this.setState({
+            rightSelected:data
+        })
+    }
+
+    moveToRightHandle() {
+        let {leftSelected, leftData, rightData}=this.state;
+        let newLeftData = [];
+        for (let i = 0; i < leftSelected.length; i++){
+            rightData.push(leftSelected[i])
+        }
+        for (let i = 0; i< leftData.length; i++) {
+            let flag = false;
+            for(let j = 0; j< leftSelected.length; j++){
+                if (leftData[i].id === leftSelected[j].id) {
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                newLeftData.push(leftData[i])
+            }
+        }
+        this.setState({
+            leftSelected:[],
+            leftData:newLeftData,
+            rightData:rightData
+        })
+
+    }
+
+    moveToLeftHandle(){
+        let {rightSelected ,leftData, rightData}=this.state;
+        let newRightData = [];
+        for (let i = 0; i < rightSelected.length; i++){
+            leftData.push(rightSelected[i])
+        }
+        for (let i = 0; i< rightData.length; i++) {
+            let flag = false;
+            for(let j = 0; j< rightSelected.length; j++){
+                if (rightData[i].id === rightSelected[j].id) {
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                newRightData.push(rightData[i])
+            }
+
+        }
+
+        this.setState({
+            rightSelected:[],
+            leftData:leftData,
+            rightData:newRightData
+        })
+    }
+
+    render() {
+        const {className, style}=this.props;
+        const {leftData, rightData, leftSelected, rightSelected}=this.state;
+        return (
+            <div className={`transfer ${className ? className: ''}`}
+                 style={style}>
+                <TransferList className="fl"
+                              data={leftData}
+                              value={leftSelected}
+                              onChange={this.leftSelectHandle}
+                              />
+                <div className="transfer-operation fl">
+                    <div>
+                        <RaisedButton className='action-button'
+                                      iconCls="fa fa-chevron-right"
+                                      disabled={leftSelected && leftSelected.length < 1}
+                                      onTouchTap={this.moveToRightHandle}/>
+                    </div>
+                    <div>
+                        <RaisedButton className='action-button'
+                                      iconCls="fa fa-chevron-left"
+                                      disabled={rightSelected && rightSelected.length < 1}
+                                      onTouchTap={this.moveToLeftHandle}/>
+                    </div>
+
+                </div>
+                <TransferList className="fl"
+                              data={rightData}
+                              value={rightSelected}
+                              onChange={this.rightSelectHandle}
+                />
+            </div>
+        );
+    }
+
+};
+
+Transfer.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Children passed into the toaster.
+     */
+    toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+        /**
+         * The CSS class name of toaster.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the toaster.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The title of toaster.
+         */
+        title: PropTypes.string,
+
+        /**
+         * The message of toaster.
+         */
+        message: PropTypes.string
+
+    }), PropTypes.string])),
+
+
+    /**
+     * Callback function fired when the toaster pop.
+     */
+    onToastPop: PropTypes.func
+
+};
+
+Transfer.defaultProps = {
+    className: '',
+    style: null
+};

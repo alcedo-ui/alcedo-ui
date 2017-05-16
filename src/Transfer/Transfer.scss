@@ -1,0 +1,93 @@
+@import '../_common.scss';
+
+.transfer {
+    overflow: hidden;
+    .fl {
+       float: left;
+    }
+    .transfer-list{
+        width: 200px;
+        height: 300px;
+        border:1px solid #dfdfdf;
+        border-radius: $border-radius;
+        background: $theme-field;
+        .transfer-header{
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            border-bottom:1px solid #dfdfdf;
+            .checkbox{
+                width: 100%;
+                height: 100%;
+                .checkbox-icon-wrapper{
+                    width: 30px;
+                    height: 40px;
+                    line-height: 40px;
+                    .base-button{
+                        width: 30px;
+                        height: 30px;
+                        line-height:40px;
+                    }
+                }
+                .checkbox-label{
+                    width: calc(100% - 40px);
+                    height: 40px;
+                    line-height: 40px;
+                }
+            }
+        }
+        .search{
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            border:none;
+            .base-button{
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                margin: 0;
+            }
+        }
+        .options{
+            width: 100%;
+            height: 220px;
+            overflow-y: scroll;
+            border-top:1px solid #dfdfdf;
+            .option{
+                height: 35px;
+                line-height: 35px;
+                width: 100%;
+                .checkbox{
+                    width: 100%;
+                    height: 100%;
+                    .checkbox-icon-wrapper{
+                        width: 35px;
+                        height: 35px;
+                        line-height: 35px;
+                        .base-button{
+                            width: 35px;
+                            height: 35px;
+                            line-height: 35px;
+                        }
+                    }
+                    .checkbox-label{
+                        width: calc(100% - 35px);
+                        height: 35px;
+                        line-height: 35px;
+                    }
+                }
+                &:hover{
+                    background: $theme-bg;
+                }
+            }
+        }
+    }
+    .transfer-operation{
+        padding: 50px 20px;
+        .action-button{
+            width: 40px;
+            height:40px;
+            margin-top: 20px;
+        }
+    }
+}
