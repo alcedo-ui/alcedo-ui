@@ -79,6 +79,9 @@
                 &:hover {
                     background: $theme-bg;
                 }
+                &.disabled:hover {
+                    background: $theme-field;
+                }
             }
         }
     }

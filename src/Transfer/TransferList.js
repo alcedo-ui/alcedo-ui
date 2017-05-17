@@ -144,7 +144,7 @@ export default class TransferList extends Component {
                             let itemValue = getItemValue(item.id);
                             return (
                                 <div key={item.text}
-                                     className="option">
+                                     className={`option ${item.disabled ? 'disabled' : ''}`}>
                                     <Checkbox label={item.text}
                                               value={itemValue}
                                               disabled={item.disabled ? item.disabled : false}
