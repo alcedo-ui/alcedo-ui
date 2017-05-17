@@ -12,10 +12,10 @@ export default class Transfer extends Component {
         super(props);
 
         this.state = {
-            leftData:[],
-            rightData:[],
-            leftSelected:[],
-            rightSelected:[]
+            leftData: [],
+            rightData: [],
+            leftSelected: [],
+            rightSelected: []
         };
 
         this.leftSelectHandle = this::this.leftSelectHandle;
@@ -24,69 +24,70 @@ export default class Transfer extends Component {
         this.moveToLeftHandle = this::this.moveToLeftHandle;
     }
 
-    leftSelectHandle(data){
+    leftSelectHandle(data) {
         this.setState({
-            leftSelected:data
+            leftSelected: data
         })
     }
-    rightSelectHandle(data){
+
+    rightSelectHandle(data) {
         this.setState({
-            rightSelected:data
+            rightSelected: data
         })
     }
 
     moveToRightHandle() {
         let {leftSelected, leftData, rightData}=this.state;
         let newLeftData = [];
-        for (let i = 0; i < leftSelected.length; i++){
+        for (let i = 0; i < leftSelected.length; i++) {
             rightData.push(leftSelected[i])
         }
-        for (let i = 0; i< leftData.length; i++) {
+        for (let i = 0; i < leftData.length; i++) {
             let flag = false;
-            for(let j = 0; j< leftSelected.length; j++){
+            for (let j = 0; j < leftSelected.length; j++) {
                 if (leftData[i].id === leftSelected[j].id) {
                     flag = true;
                     break;
                 }
             }
-            if(!flag){
+            if (!flag) {
                 newLeftData.push(leftData[i])
             }
         }
         this.setState({
-            leftSelected:[],
-            leftData:newLeftData,
-            rightData:rightData
-        },()=>{
+            leftSelected: [],
+            leftData: newLeftData,
+            rightData: rightData
+        }, ()=> {
             this.props.onChange && this.props.onChange();
         })
 
     }
 
-    moveToLeftHandle(){
-        let {rightSelected ,leftData, rightData}=this.state;
+    moveToLeftHandle() {
+        let {rightSelected, leftData, rightData}=this.state;
         let newRightData = [];
-        for (let i = 0; i < rightSelected.length; i++){
+        for (let i = 0; i < rightSelected.length; i++) {
             leftData.push(rightSelected[i])
         }
-        for (let i = 0; i< rightData.length; i++) {
+        for (let i = 0; i < rightData.length; i++) {
             let flag = false;
-            for(let j = 0; j< rightSelected.length; j++){
+            for (let j = 0; j < rightSelected.length; j++) {
                 if (rightData[i].id === rightSelected[j].id) {
                     flag = true;
                     break;
                 }
             }
-            if(!flag){
+            if (!flag) {
                 newRightData.push(rightData[i])
             }
 
         }
         this.setState({
-            rightSelected:[],
-            leftData:leftData,
-            rightData:newRightData
-        },()=>{
+            rightSelected: [],
+            leftData: leftData,
+            rightData: newRightData
+        }, ()=> {
             this.props.onChange && this.props.onChange();
         })
     }
@@ -105,13 +106,13 @@ export default class Transfer extends Component {
         const {className, style}=this.props;
         const {leftData, rightData, leftSelected, rightSelected}=this.state;
         return (
-            <div className={`transfer ${className ? className: ''}`}
+            <div className={`transfer ${className ? className : ''}`}
                  style={style}>
                 <TransferList className="fl"
                               data={leftData}
                               value={leftSelected}
                               onChange={this.leftSelectHandle}
-                              />
+                />
                 <div className="transfer-operation fl">
                     <div>
                         <RaisedButton className='action-button'
@@ -170,8 +171,8 @@ Transfer.propTypes = {
 Transfer.defaultProps = {
     className: '',
     style: null,
-    leftData:[],
-    rightData:[],
-    leftSelected:[],
-    rightSelected:[]
+    leftData: [],
+    rightData: [],
+    leftSelected: [],
+    rightSelected: []
 };

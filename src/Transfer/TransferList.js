@@ -14,7 +14,7 @@ export default class TransferList extends Component {
         super(props);
 
         this.state = {
-            filter:''
+            filter: ''
         };
 
         this.select = this::this.select;
@@ -25,7 +25,7 @@ export default class TransferList extends Component {
     }
 
     select(item) {
-        if(!item.disabled){
+        if (!item.disabled) {
             let data = _.cloneDeep(this.props.value);
             let selectAll = this.state.selectAll;
             let flag = false;
@@ -35,49 +35,49 @@ export default class TransferList extends Component {
                     break;
                 }
             }
-            if(flag){
-                let index = data.findIndex(function(value, index, arr) {
+            if (flag) {
+                let index = data.findIndex(function (value, index, arr) {
                     return value.id == item.id;
                 })
                 data.splice(index, 1);
                 selectAll = false;
-            }else{
+            } else {
                 data.push(item);
-                if(data.length == this.props.data.length){
+                if (data.length == this.props.data.length) {
                     selectAll = true;
                 }
             }
             this.setState({
                 selectAll
-            },()=>{
+            }, ()=> {
                 this.props.onChange && this.props.onChange(data);
             })
         }
     }
 
-    selectAllHandle(){
-        const {selectAll,filter}=this.state;
+    selectAllHandle() {
+        const {selectAll, filter}=this.state;
         const {data}=this.props;
         const filterList = this.getFilterList(data, filter);
-        let newData=[];
-        for(let i = 0;i < filterList.length; i++){
-            if(!filterList[i]['disabled']){
+        let newData = [];
+        for (let i = 0; i < filterList.length; i++) {
+            if (!filterList[i]['disabled']) {
                 newData.push(filterList[i])
             }
         }
         let value = selectAll ? [] : newData;
         this.setState({
-            selectAll:!selectAll
-        },()=>{
+            selectAll: !selectAll
+        }, ()=> {
             this.props.onChange && this.props.onChange(value);
         })
     }
 
     filterChangeHandle(value) {
         this.setState({
-            filter:value,
-            selectAll:false
-        },()=>{
+            filter: value,
+            selectAll: false
+        }, ()=> {
             this.props.onChange && this.props.onChange([]);
         });
     }
@@ -85,11 +85,11 @@ export default class TransferList extends Component {
     getItemValue(id) {
         let data = this.props.value;
         let flag = false;
-        for (let i = 0; i< data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             if (data[i].id === id) {
                 flag = true;
                 break
-            }else{
+            } else {
                 flag = false;
             }
         }
@@ -107,26 +107,27 @@ export default class TransferList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.data.length !== this.props.data.length){
+        if (nextProps.data.length !== this.props.data.length) {
             this.setState({
-                selectAll:false
+                selectAll: false
             })
         }
     }
 
     render() {
         const {className, listStyle, data, value}=this.props;
-        const {filter, selectAll }=this.state;
+        const {filter, selectAll}=this.state;
         const {filterChangeHandle, getItemValue, getFilterList, select, selectAllHandle}=this;
         this.filterList = getFilterList(data, filter);
 
         return (
-            <div className={`transfer-list ${className ? className:''}`}
+            <div className={`transfer-list ${className ? className : ''}`}
                  style={listStyle}>
                 <div className="transfer-header">
-                    <Checkbox label={value && value.length > 0 ? value.length +'/'+this.filterList.length +'items':this.filterList.length +'items'}
-                              value={selectAll}
-                              onChange={selectAllHandle}/>
+                    <Checkbox
+                        label={value && value.length > 0 ? value.length + '/' + this.filterList.length + 'items' : this.filterList.length + 'items'}
+                        value={selectAll}
+                        onChange={selectAllHandle}/>
                 </div>
 
                 <TextField className="search"
@@ -147,7 +148,9 @@ export default class TransferList extends Component {
                                     <Checkbox label={item.text}
                                               value={itemValue}
                                               disabled={item.disabled ? item.disabled : false}
-                                              onChange={()=>{select(item)}}/>
+                                              onChange={()=> {
+                                                  select(item)
+                                              }}/>
                                 </div>
                             );
                         })
