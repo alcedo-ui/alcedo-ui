@@ -12,8 +12,8 @@ export default class Transfer extends Component {
         super(props);
 
         this.state = {
-            leftData: this.props.leftData,
-            rightData:this.props.rightData,
+            leftData:[],
+            rightData:[],
             leftSelected:[],
             rightSelected:[]
         };
@@ -91,6 +91,16 @@ export default class Transfer extends Component {
         })
     }
 
+    componentDidMount() {
+        const {leftData, rightData, leftSelected, rightSelected}=this.props;
+        this.setState({
+            leftData,
+            rightData,
+            leftSelected,
+            rightSelected
+        })
+    }
+
     render() {
         const {className, style}=this.props;
         const {leftData, rightData, leftSelected, rightSelected}=this.state;
@@ -159,5 +169,9 @@ Transfer.propTypes = {
 
 Transfer.defaultProps = {
     className: '',
-    style: null
+    style: null,
+    leftData:[],
+    rightData:[],
+    leftSelected:[],
+    rightSelected:[]
 };
