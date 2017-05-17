@@ -49,8 +49,8 @@ export default [{
         text: 'Text Area',
         route: '/components/TextArea'
     }, {
-        text: 'Out Complete',
-        route: '/components/OutComplete'
+        text: 'Auto Complete',
+        route: '/components/AutoComplete'
     }, {
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'

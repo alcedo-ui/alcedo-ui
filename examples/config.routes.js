@@ -13,7 +13,7 @@ import IconAnchorExamples from 'containers/app/modules/buttons/IconAnchorExample
 
 import TextFieldExamples from 'containers/app/modules/fields/TextFieldExamples';
 import TextAreaExamples from 'containers/app/modules/fields/TextAreaExamples';
-import OutCompleteExamples from 'containers/app/modules/fields/OutCompleteExamples';
+import AutoCompleteExamples from 'containers/app/modules/fields/AutoCompleteExamples';
 import DropdownSelectExamples from 'containers/app/modules/fields/DropdownSelectExamples';
 import MultipleSelectExamples from 'containers/app/modules/fields/MultipleSelectExamples';
 import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples';
@@ -86,8 +86,8 @@ export default (
                    component={TextFieldExamples}/>
             <Route path="TextArea"
                    component={TextAreaExamples}/>
-            <Route path="OutComplete"
-                   component={OutCompleteExamples}/>
+            <Route path="AutoComplete"
+                   component={AutoCompleteExamples}/>
             <Route path="DatePicker"
                    component={DatePickerExamples}/>
             <Route path="DateRangePicker"

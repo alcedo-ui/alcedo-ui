@@ -1,0 +1,114 @@
+/**
+ * Created by DT314 on 2017/5/15.
+ */
+import React, {Component} from 'react';
+import AutoComplete from 'dist/AutoComplete';
+
+import Widget from 'dist/Widget';
+import WidgetHeader from 'dist/WidgetHeader';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import AutoCompleteDoc from 'assets/propTypes/AutoComplete.json';
+
+import 'sass/containers/app/modules/fields/AutoCompleteExamples.scss';
+
+export default class AutoCompleteExamples extends Component {
+    constructor(props) {
+        super(props);
+
+        this.data = ['test1', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+
+        this.state = {
+            chooseData: [],
+            text: '',
+            loading: false
+        };
+
+        this.onChange = this :: this.onChange;
+        this.onBlur = this :: this.onBlur;
+    }
+
+    onChange(text, bool) {
+        if (text) {
+            setTimeout(()=>{
+                let data = [];
+                this.data.map((value) => {
+                    if (value.indexOf(text) === 0) {
+                        data.push(value);
+                    }
+                });
+                if (bool) {
+                    this.setState({
+                        chooseData: data,
+                        text: text
+                    });
+                } else {
+                    this.setState({
+                        chooseData: [],
+                        text: text
+                    });
+                }
+            }, 2000);
+        } else {
+            this.setState({
+                chooseData: [],
+                text: text
+            });
+        }
+    }
+
+    onBlur(text) {
+        this.setState({
+            chooseData: [],
+            text
+        });
+    }
+
+    render() {
+        const {chooseData, text, loading} = this.state;
+
+        return (
+            <div className="example auto-complete-examples">
+
+                <h2 className="example-title">Out Complete</h2>
+
+                <p>
+                    A <span>Out Complete</span> is an interface to help users to complete their input.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="auto Complete Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Out Complete simple default example.</p>
+
+                                <AutoComplete data={chooseData}
+                                              onChange={this.onChange}
+                                              value={text}
+                                              onBlur={this.onBlur}
+                                              searchLength={2}
+                                              loading={loading}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={AutoCompleteDoc}/>
+
+            </div>
+
+        );
+    }
+};

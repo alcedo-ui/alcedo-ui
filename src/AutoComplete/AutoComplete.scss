@@ -1,9 +1,9 @@
 @import '../_common.scss';
 
-.out-complete {
+.auto-complete {
     height: 50px;
     width: 300px;
-    .out-complete-inner {
+    .auto-complete-inner {
         position: relative;
         z-index: 10;
         width: 100%;
@@ -38,6 +38,12 @@
             transition: all 250ms ease-in-out;
             box-sizing: border-box;
             li {
+                &.auto-complete-li-loading {
+                    text-align: center;
+                    overflow: hidden;
+                    height: 49px;
+                    line-height: 69px;
+                }
                 list-style: none;
                 font-size: 12px;
                 padding: 0 15px;

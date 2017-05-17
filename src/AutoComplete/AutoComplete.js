@@ -6,19 +6,22 @@ import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
 
 import TextField from '../TextField/TextField';
-import './OutComplete.css';
+import CircularLoading from '../CircularLoading/CircularLoading';
 
-export default class OutComplete extends Component {
+import './AutoComplete.css';
+
+export default class AutoComplete extends Component {
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             value: props.value,
-            focus: false
+            focus: false,
+            loading: props.loading
         };
 
-        this.liHeight = 25;
-        this.maxHeight = 251;
+        this.liHeight = 40;
+        this.maxHeight = 401;
         this.inputHeight = 50;
         this.borderWidth = 1;
 
@@ -40,9 +43,20 @@ export default class OutComplete extends Component {
     }
 
     onChange(text) {
-        const {onChange} = this.props;
+        const {onChange, searchLength} = this.props;
 
-        onChange && onChange(text, true);
+        this.setState({
+            value: text
+        }, () => {
+            if (text && text.length >= searchLength) {
+                this.setState({
+                    loading: true
+                }, () => {
+                    onChange && onChange(text, true);
+                });
+            }
+        });
+
     }
 
     onFocus() {
@@ -59,7 +73,7 @@ export default class OutComplete extends Component {
         const {onBlur} = this.props;
         const className = this.getClassName(ev.target);
 
-        if (className.indexOf('out-complete-li') > -1) {
+        if (className.indexOf('auto-complete-li') > -1) {
             const {onChange} = this.props;
             let oEvent = ev.srcElement ? ev.srcElement : ev.target;
 
@@ -74,17 +88,18 @@ export default class OutComplete extends Component {
             this.setState({
                 focus: false
             }, () => {
-                onBlur && onBlur();
+                onBlur && onBlur(this.state.value);
             });
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        const {value} = this.state;
+        const {value, loading} = this.state;
 
-        if (nextProps.value !== value) {
+        if (nextProps.value !== value || nextProps.loading !== loading) {
             this.setState({
-                value: nextProps.value
+                value: nextProps.value,
+                loading: nextProps.loading
             });
         }
     }
@@ -99,10 +114,10 @@ export default class OutComplete extends Component {
 
     render() {
         const {data, searchLength, className, style, placeholder} = this.props;
-        const {value, focus} = this.state;
+        const {value, focus, loading} = this.state;
         const {liHeight, maxHeight, inputHeight, borderWidth} = this;
 
-        let ulHeight = (data.length > 0 && value.length >= searchLength) ? data.length * liHeight + borderWidth : 0;
+        let ulHeight = loading ? 50 : ((data.length > 0 && value.length >= searchLength) ? data.length * liHeight + borderWidth : 0);
         let ulStyle = {
             height: ulHeight > maxHeight ? maxHeight : ulHeight,
             maxHeight: maxHeight
@@ -116,9 +131,9 @@ export default class OutComplete extends Component {
         };
 
         return (
-            <div className={`out-complete ${className}`}
+            <div className={`auto-complete ${className}`}
                  style={style}>
-                <div className={`out-complete-inner ${focus === true ? 'focused' : ''}`}
+                <div className={`auto-complete-inner ${focus === true ? 'focused' : ''}`}
                      style={innerStyle}>
                     <TextField onChange={this.onChange}
                                value={value}
@@ -127,16 +142,23 @@ export default class OutComplete extends Component {
                                style={inputStyle}/>
                     <ul style={ulStyle}>
                         {
-                            data.length > 0 && value.length >= searchLength
+                            loading
                                 ?
+                                <li className="auto-complete-li-loading"><CircularLoading className="loading"
+                                                     size={CircularLoading.Size.DEFAULT}/></li>
+                                :
                                 (
-                                    data.map((value) => {
-                                        return <li className="out-complete-li"
-                                                   key={value}
-                                                   style={liStyle}>{value}</li>;
-                                    })
+                                    data.length > 0
+                                        ?
+                                        (
+                                            data.map((value) => {
+                                                return <li className="auto-complete-li"
+                                                           key={value}
+                                                           style={liStyle}>{value}</li>;
+                                            })
+                                        )
+                                        : null
                                 )
-                                : null
                         }
                     </ul>
                 </div>
@@ -145,7 +167,7 @@ export default class OutComplete extends Component {
     }
 };
 
-OutComplete.propTypes = {
+AutoComplete.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -166,6 +188,11 @@ OutComplete.propTypes = {
      * The options data.
      */
     data: PropTypes.array,
+
+    /**
+     * If true, the list is loading.
+     */
+    loading: PropTypes.bool,
 
     /**
      * The length of input will be completed.
@@ -193,11 +220,12 @@ OutComplete.propTypes = {
     onFocus: PropTypes.func
 };
 
-OutComplete.defaultProps = {
+AutoComplete.defaultProps = {
     className: '',
     style: {},
 
     value: '',
     data: [],
-    searchLength: 1
+    searchLength: 1,
+    loading: false
 };
