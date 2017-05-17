@@ -162,6 +162,16 @@ Transfer.propTypes = {
     rightData: PropTypes.array,
 
     /**
+     *
+     */
+    leftSelected: PropTypes.array,
+
+    /**
+     *
+     */
+    rightSelected: PropTypes.array,
+
+    /**
      * Callback function .
      */
     onChange: PropTypes.func
