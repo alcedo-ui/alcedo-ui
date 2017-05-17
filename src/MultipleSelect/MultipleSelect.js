@@ -499,7 +499,7 @@ MultipleSelect.defaultProps = {
     style: null,
 
     name: '',
-    value: '',
+    value: [],
     width: 300,
     placeholder: 'select number',
     disabled: false

@@ -239,7 +239,7 @@ DropdownSelect.propTypes = {
     invalidMsg: PropTypes.string,
 
     /**
-     * If true, the dropDownSelect will be disabled.
+     * If true,the dropDownSelect will be disabled.
      */
     disabled: PropTypes.bool,
 

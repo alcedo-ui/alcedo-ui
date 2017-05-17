@@ -1,0 +1,65 @@
+@import '../_common.scss';
+
+.cascader {
+    margin: 20px 0;
+
+    .alcedo-cascader-picker {
+
+        min-width: 220px;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 12px;
+        background-color: #fff;
+        border-radius: $border-radius;
+        outline: 0;
+        color: rgba(0, 0, 0, .33);
+
+        .alcedo-input {
+            padding: 7px 0;
+            background-color: transparent !important;
+            cursor: pointer;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            display: inline-block;
+            height: 28px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: inherit;
+            border: 1px solid #dfdfdf;
+            border-radius: 4px;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            text-indent: 10px;
+
+            &:hover {
+                border: 1px solid $theme-highlight;
+            }
+        }
+
+        .cascader-icon {
+            filter: none;
+            display: inline-block;
+            position: absolute;
+            top: calc(50% - 8px);
+            right: 8px;
+            font-size: 16px;
+            color: inherit;
+            transform: scale(.75) rotate(0deg);
+
+            &.up {
+                transform: rotate(180deg);
+            }
+
+        }
+    }
+
+    .cascader-menu-con {
+        width: 130px;
+        height: 200px;
+        background: $theme-bg;
+
+    }
+
+}

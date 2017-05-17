@@ -139,4 +139,7 @@ export default [{
         text: 'CircularLoading',
         route: '/components/CircularLoading'
     }]
+}, {
+    text: 'Cascader',
+    route: '/components/Cascader'
 }];
