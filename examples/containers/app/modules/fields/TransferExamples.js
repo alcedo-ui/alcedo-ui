@@ -19,10 +19,14 @@ export default class TransferExamples extends Component {
     render() {
         let leftData = [], rightData = [];
         for(let i = 0 ; i < 30 ; i++){
+            let obj={text: 'item' + (i + 1),id:i};
+            if(i%2==0){
+                obj.disabled = true
+            }
             if(Math.random() * 2 > 1) {
-                leftData.push({text: 'item' + (i + 1),id:i})
+                leftData.push(obj)
             }else{
-                rightData.push({text: 'item' + (i + 1),id:i})
+                rightData.push(obj)
             }
         }
         return (

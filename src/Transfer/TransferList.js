@@ -149,10 +149,11 @@ export default class TransferList extends Component {
                         this.filterList.map((item, index) => {
                             let itemValue = getItemValue(item.id);
                             return (
-                                <div key={index}
+                                <div key={item.text}
                                      className="option">
                                     <Checkbox label={item.text}
                                               value={itemValue}
+                                              disabled={item.disabled ? item.disabled : false}
                                               onChange={()=>{select(item)}}/>
                                 </div>
                             );
