@@ -247,9 +247,14 @@ export default class TextField extends Component {
                             iconCls="fa fa-times-circle"
                             onTouchTap={this.clearValue}/>
 
-                <IconButton className={`right-icon ${ !value ? '' : 'hidden'}`}
-                            rightIconCls={rightIconCls}
-                            />
+                {
+                    rightIconCls ?
+                        <IconButton className={`right-icon ${!value ? '' : 'hidden'}`}
+                                    rightIconCls={rightIconCls}
+                                    disableTouchRipple={true}/>
+                        :
+                        null
+                }
 
                 <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
                             iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}

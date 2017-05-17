@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Util from '../_vendors/Util';
 
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
-
 
 import './Transfer.css';
 
@@ -16,8 +14,7 @@ export default class TransferList extends Component {
         super(props);
 
         this.state = {
-            filter:'',
-            selectAll:this.props.selectAll
+            filter:''
         };
 
         this.select = this::this.select;
@@ -117,10 +114,6 @@ export default class TransferList extends Component {
         }
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         const {className, listStyle, data, value}=this.props;
         const {filter, selectAll }=this.state;
@@ -131,7 +124,7 @@ export default class TransferList extends Component {
             <div className={`transfer-list ${className ? className:''}`}
                  style={listStyle}>
                 <div className="transfer-header">
-                    <Checkbox label={value.length > 0 ? value.length +'/'+this.filterList.length +'items':this.filterList.length +'items'}
+                    <Checkbox label={value && value.length > 0 ? value.length +'/'+this.filterList.length +'items':this.filterList.length +'items'}
                               value={selectAll}
                               onChange={selectAllHandle}/>
                 </div>
