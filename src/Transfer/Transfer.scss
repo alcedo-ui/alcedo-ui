@@ -50,7 +50,7 @@
         }
         .options {
             width: 100%;
-            height: 220px;
+            height: 218px;
             overflow-y: scroll;
             border-top: 1px solid #dfdfdf;
             .option {
@@ -78,6 +78,9 @@
                 }
                 &:hover {
                     background: $theme-bg;
+                }
+                &.disabled:hover {
+                    background: $theme-field;
                 }
             }
         }
