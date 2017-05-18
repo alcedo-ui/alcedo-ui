@@ -66,6 +66,12 @@ export default class MultipleSelectExamples extends Component {
             <div className="example multiple-select-examples">
 
                 <h2 className="example-title">Multiple Select</h2>
+                <p>
+                    <span>Multiple Select</span> is a user-friendly replacement for select boxes with the multiple
+                    attribute.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
 
                 <Widget>
 

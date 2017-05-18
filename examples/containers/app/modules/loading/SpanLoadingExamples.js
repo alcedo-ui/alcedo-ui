@@ -11,7 +11,7 @@ import Switcher from 'dist/Switcher';
 import PropTypeDescTable from '../PropTypeDescTable';
 import SpanLoadingDoc from 'assets/propTypes/SpanLoading.json';
 
-import '../../../../assets/sass/containers/app/modules/Loading/SpanLoadingExamples.scss';
+import '../../../../assets/sass/containers/app/modules/loading/SpanLoadingExamples.scss';
 
 export default class SpanLoadingExamples extends Component {
     constructor(props) {
