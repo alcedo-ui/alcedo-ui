@@ -242,7 +242,7 @@ export default class MultipleSelect extends Component {
 
     render() {
 
-        const {data, width, className, style, name, invalidMsg, value, placeholder, disabled} = this.props;
+        const {data, width, className, style, name, value, placeholder, disabled} = this.props;
         const {hidden, filter, showAll} = this.state;
         const {
             optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
@@ -300,7 +300,6 @@ export default class MultipleSelect extends Component {
                  className={'MultipleSelect'
                  + (className ? ' ' + className : '')
                  + (hidden ? '' : ' open')
-                 + (invalidMsg ? ' error' : '')
                  + (!value || value.length == 0 ? ' empty' : '')}
                  style={style}>
 

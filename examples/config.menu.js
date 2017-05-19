@@ -81,6 +81,9 @@ export default [{
     },{
         text:'Transfer',
         route: '/components/Transfer'
+    },{
+        text:'TreeSelect',
+        route: '/components/TreeSelect'
     }]
 }, {
     text: 'Progress',

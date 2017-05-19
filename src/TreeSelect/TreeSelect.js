@@ -33,10 +33,6 @@ export default class TreeSelect extends Component {
         this.toggle = this::this.toggle;
         this.onChangeHandle = this::this.onChangeHandle;
         this.filterChangeHandle = this::this.filterChangeHandle;
-        this.showInfo = this::this.showInfo;
-        this.hideInfo = this::this.hideInfo;
-        this.showError = this::this.showError;
-        this.hideError = this::this.hideError;
 
     }
 
@@ -74,7 +70,7 @@ export default class TreeSelect extends Component {
             if (value && value.length) {
                 let flag = false;
                 for (let valueItem of value) {
-                    if (typeof dataItem == 'object' && dataItem.key === valueItem.key) {
+                    if (typeof dataItem == 'object' && dataItem.id === valueItem.id) {
                         flag = true;
                         break;
                     } else if (dataItem === valueItem) {
@@ -115,31 +111,6 @@ export default class TreeSelect extends Component {
         }
     }
 
-
-    showInfo() {
-        this.setState({
-            infoMsgHidden: false
-        });
-    }
-
-    hideInfo() {
-        this.setState({
-            infoMsgHidden: true
-        });
-    }
-
-    showError() {
-        this.setState({
-            errorMsgHidden: false
-        });
-    }
-
-    hideError() {
-        this.setState({
-            errorMsgHidden: true
-        });
-    }
-
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value)) {
             this.setState({
@@ -172,11 +143,10 @@ export default class TreeSelect extends Component {
 
     render() {
 
-        const {data, width, className, style, name, invalidMsg, placeholder, disabled, infoMsg} = this.props;
-        const {hidden, filter, infoMsgHidden, errorMsgHidden, showAll, value} = this.state;
+        const {data, width, className, style, name, placeholder, disabled} = this.props;
+        const {hidden, filter, value} = this.state;
         const {
-            optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
-            getRestList, getFilterList, showInfo, hideInfo, showError, triggerHeight, filterHeight
+            optionHeight, maxOptionsHeight, filterChangeHandle,getRestList, getFilterList, triggerHeight, filterHeight
         } = this;
         this.list = getRestList(data, value);
 
@@ -216,7 +186,7 @@ export default class TreeSelect extends Component {
                  style={style}>
                 <input type="hidden"
                        name={name}
-                       value={typeof value == 'object' ? value.value : item}/>
+                       value={typeof value == 'object' ? value.id : value}/>
 
                 <div className={`tree-select-inner ${hidden ? 'hidden' : 'open'}`}
                      ref="wrapper"
@@ -237,8 +207,7 @@ export default class TreeSelect extends Component {
                                placeholder={placeholder}
                                onChange={filterChangeHandle}
                                disabled={disabled}
-                               onMouseOver={showInfo}
-                               onMouseOut={hideInfo}/>
+                               />
                         {
                             hidden ?
                                 null
@@ -260,7 +229,7 @@ export default class TreeSelect extends Component {
                                             {
                                                 this.filterList.map((item, index) => {
                                                     return (
-                                                        <TreeNode key={index}
+                                                        <TreeNode key={item.id}
                                                                   node={item}
                                                                   className="option"
                                                                   style={optionStyle}
@@ -275,21 +244,6 @@ export default class TreeSelect extends Component {
                                 )
                         }
                     </div>
-                    {
-                        invalidMsg && !errorMsgHidden ?
-                            <FieldMsg type="error"
-                                      msg={invalidMsg}/>
-                            :
-                            null
-                    }
-
-                    {
-                        infoMsg && !errorMsgHidden ?
-                            <FieldMsg type="info"
-                                      msg={infoMsg}/>
-                            :
-                            null
-                    }
                 </div>
             </div>
         );
@@ -305,8 +259,6 @@ TreeSelect.propTypes = {
     data: PropTypes.array,
     onChange: PropTypes.func,
     width: PropTypes.number,
-    invalidMsg: PropTypes.string,
     placeholder: PropTypes.string,
-    disabled: PropTypes.bool,
-    infoMsg: PropTypes.string
+    disabled: PropTypes.bool
 };

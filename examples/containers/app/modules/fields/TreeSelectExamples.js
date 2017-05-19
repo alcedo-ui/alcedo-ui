@@ -9,13 +9,13 @@ export default class TreeSelectExamples extends Component {
     constructor(props) {
         super(props);
         this.state={
-            data: [{key: 1, text: 'one',children:[{key: 1-1, text: 'one-1'}]},
-                    {key: 2, text: 'two'},
-                    {key: 3,text: 'three'},
-                    {key: 4, text: 'four',children:[{key: 4-1, text: 'four-1',children:[{key: 4-1-1, text: 'four-1-1'}]}]},
-                    {key: 5, text: 'five'},
-                    {key: 6, text: 'six',children:[{key: 6-1, text: 'six-1'}]}],
-            value:{key: 2, text: 'two'}
+            data: [{id: 1, text: 'one',children:[{id: 1-1, text: 'one-1'}]},
+                    {id: 2, text: 'two'},
+                    {id: 3,text: 'three'},
+                    {id: 4, text: 'four',children:[{id: 4-1, text: 'four-1',children:[{id: 4-1-1, text: 'four-1-1'}]}]},
+                    {id: 5, text: 'five'},
+                    {id: 6, text: 'six',children:[{id: 6-1, text: 'six-1'}]}],
+            value:{id: 2, text: 'two'}
         };
         this.onChangeHandle=this::this.onChangeHandle;
     }
