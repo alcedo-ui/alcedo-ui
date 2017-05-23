@@ -43,20 +43,17 @@ export default class AutoComplete extends Component {
     }
 
     onChange(text) {
-        const {onChange, searchLength} = this.props;
+        const {onChange} = this.props;
 
         this.setState({
             value: text
         }, () => {
-            if (text && text.length >= searchLength) {
-                this.setState({
-                    loading: true
-                }, () => {
-                    onChange && onChange(text, true);
-                });
-            }
+            this.setState({
+                loading: true
+            }, () => {
+                onChange && onChange(text, true);
+            });
         });
-
     }
 
     onFocus() {
@@ -113,11 +110,11 @@ export default class AutoComplete extends Component {
     }
 
     render() {
-        const {data, searchLength, className, style, placeholder} = this.props;
+        const {data, className, style, placeholder} = this.props;
         const {value, focus, loading} = this.state;
         const {liHeight, maxHeight, inputHeight, borderWidth} = this;
 
-        let ulHeight = loading ? 50 : ((data.length > 0 && value.length >= searchLength) ? data.length * liHeight + borderWidth : 0);
+        let ulHeight = loading ? 50 : ((data.length > 0) ? data.length * liHeight + borderWidth : 0);
         let ulStyle = {
             height: ulHeight > maxHeight ? maxHeight : ulHeight,
             maxHeight: maxHeight
@@ -145,7 +142,8 @@ export default class AutoComplete extends Component {
                             loading
                                 ?
                                 <li className="auto-complete-li-loading"><CircularLoading className="loading"
-                                                     size={CircularLoading.Size.DEFAULT}/></li>
+                                                                                          size={CircularLoading.Size.DEFAULT}/>
+                                </li>
                                 :
                                 (
                                     data.length > 0
@@ -193,11 +191,6 @@ AutoComplete.propTypes = {
      * If true, the list is loading.
      */
     loading: PropTypes.bool,
-
-    /**
-     * The length of input will be completed.
-     */
-    searchLength: PropTypes.number,
 
     /**
      * The placeholder of input.
