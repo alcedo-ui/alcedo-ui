@@ -32,6 +32,9 @@ export default class AutoComplete extends Component {
 
     }
 
+    /**
+     * 获取当前元素及父元素的类名
+     */
     getClassName(element) {
         let className = element.className;
         let current = element.offsetParent;
@@ -66,6 +69,9 @@ export default class AutoComplete extends Component {
         });
     }
 
+    /**
+     * 点击下拉选项时自动填充且不再auto complete
+     */
     onClick(ev) {
         const {onBlur} = this.props;
         const className = this.getClassName(ev.target);
@@ -116,8 +122,7 @@ export default class AutoComplete extends Component {
 
         let ulHeight = loading ? 50 : ((data.length > 0) ? data.length * liHeight + borderWidth : 0);
         let ulStyle = {
-            height: ulHeight > maxHeight ? maxHeight : ulHeight,
-            maxHeight: maxHeight
+            height: ulHeight > maxHeight ? maxHeight : ulHeight
         }, innerStyle = {
             height: ulStyle.height + inputHeight
         }, liStyle = {
