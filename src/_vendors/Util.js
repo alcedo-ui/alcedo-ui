@@ -91,8 +91,8 @@ function enumerateValue(enumerate) {
 function tree(data, callback) {
     let loop = function loop(children, level) {
 
-        children.forEach((item, index)=>{
-            var pos = level + '-' + (1+index);
+        children.forEach((item, index)=> {
+            var pos = level + '-' + (1 + index);
             if (item.children) {
                 loop(item.children, pos);
             }

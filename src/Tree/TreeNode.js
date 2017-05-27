@@ -17,7 +17,7 @@ export default class TreeNode extends Component {
     }
 
     selectedHandle(node) {
-        let arr =[];
+        let arr = [];
         arr.push(node);
         this.props.onChangeHandle && this.props.onChangeHandle(arr);
     }
@@ -87,7 +87,7 @@ export default class TreeNode extends Component {
                 let index = value.findIndex(function (item, index, arr) {
                     return item.id == parentNode.id;
                 })
-                if(index !== -1){
+                if (index !== -1) {
                     value.splice(index, 1);
                 }
                 posCode = parentPos;
@@ -128,7 +128,7 @@ export default class TreeNode extends Component {
                     let index = value.findIndex(function (item, index, arr) {
                         return item.id == parentNodeArr[i].id;
                     })
-                    if(index == -1){
+                    if (index == -1) {
                         nodeFlag = false
                     }
                 }
@@ -136,7 +136,7 @@ export default class TreeNode extends Component {
                     let index = value.findIndex(function (item, index, arr) {
                         return item.id == parentNode.id;
                     })
-                    if(index !== -1){
+                    if (index !== -1) {
                         value.splice(index, 1);
                     }
                     break;
@@ -177,7 +177,7 @@ export default class TreeNode extends Component {
     renderHeader(node) {
         const {value, multiple} = this.props;
         const {expaned} = this.state;
-        let id =value[0].id ;
+        let id = value[0].id;
         let checkboxValue = this.getItemValue(node);
         return (
             <div className="parentNode">

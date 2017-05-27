@@ -54,16 +54,16 @@
                             }
                         }
                     }
-                    .checkbox{
-                        height:30px;
+                    .checkbox {
+                        height: 30px;
                         line-height: 30px;
                         display: inline-block;
                         width: auto;
-                        .checkbox-icon-wrapper{
+                        .checkbox-icon-wrapper {
                             width: 30px;
-                            .base-button{
+                            .base-button {
                                 width: 26px;
-                                .checkbox-bg-icon{
+                                .checkbox-bg-icon {
                                     width: 20px;
                                 }
                             }
@@ -96,7 +96,7 @@
                 }
             }
 
-            &.noValue{
+            &.noValue {
                 background: #F8F8F8;
             }
         }
