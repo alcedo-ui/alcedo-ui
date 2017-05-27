@@ -95,10 +95,14 @@ export default class TextArea extends Component {
     }
 
     componentDidMount() {
-        const {autoSize} = this.props;
+        const {autoSize, autoFocus} = this.props;
 
         if (!autoSize) {
             Event.addEvent(this.refs.textarea, 'mouseup', this.mouseUpHandle);
+        }
+
+        if (autoFocus === true) {
+            this.refs.textarea.focus();
         }
     }
 
@@ -192,6 +196,11 @@ TextArea.propTypes = {
     autoSize: PropTypes.bool,
 
     /**
+     * If true,the textField will autoFocus.
+     */
+    autoFocus: PropTypes.bool,
+
+    /**
      * The placeholder of textArea.
      */
     placeholder: PropTypes.string,
@@ -225,6 +234,7 @@ TextArea.defaultProps = {
     maxHeight: 100,
     maxWidth: 500,
     autoSize: true,
+    autoFocus: false,
     placeholder: 'Please input something.',
     value: ''
 
