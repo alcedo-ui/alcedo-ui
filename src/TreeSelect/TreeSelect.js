@@ -255,7 +255,7 @@ TreeSelect.propTypes = {
     className: PropTypes.string,
     name: PropTypes.string,
     style: PropTypes.object,
-    value: PropTypes.object || PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     data: PropTypes.array,
     onChange: PropTypes.func,
     width: PropTypes.number,

@@ -17,6 +17,7 @@ import AutoCompleteExamples from 'containers/app/modules/fields/AutoCompleteExam
 import DropdownSelectExamples from 'containers/app/modules/fields/DropdownSelectExamples';
 import MultipleSelectExamples from 'containers/app/modules/fields/MultipleSelectExamples';
 import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples';
+import TreeExamples from 'containers/app/modules/fields/TreeExamples';
 import CheckboxExamples from 'containers/app/modules/fields/CheckboxExamples';
 import RadioExamples from 'containers/app/modules/fields/RadioExamples';
 import ButtonCheckboxExamples from 'containers/app/modules/fields/ButtonCheckboxExamples';
@@ -104,6 +105,8 @@ export default (
                    component={MultipleSelectExamples}/>
             <Route path="TreeSelect"
                    component={TreeSelectExamples}/>
+            <Route path="Tree"
+                   component={TreeExamples}/>
             <Route path="Checkbox"
                    component={CheckboxExamples}/>
             <Route path="Radio"

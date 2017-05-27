@@ -1,0 +1,121 @@
+@import '../_common';
+
+.tree {
+    max-width: 300px;
+    .tree-inner {
+        border: 1px solid #dfdfdf;
+        width: 100%;
+        height: auto;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        transition: all $transition-duration ease-in-out;
+
+        .filter {
+            height: 40px;
+            border: none;
+            outline: none;
+            width: 100%;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .options {
+            padding: 10px 30px 10px 20px;
+            box-sizing: border-box;
+            background: #FFF;
+            transition: all $transition-duration ease-in-out;
+            border-top: 1px solid #dfdfdf;
+            height: auto;
+            overflow-y: auto;
+            max-height: 400px;
+            .option {
+                box-sizing: border-box;
+                width: 100%;
+                color: $theme-text;
+                padding: 0;
+                margin: 8px 0;
+                border-top: none;
+                cursor: pointer;
+                user-select: none;
+                .parentNode {
+                    .tree-switcher {
+                        display: inline-block;
+                        height: 16px;
+                        width: 16px;
+                        line-height: 16px;
+                        text-align: center;
+                        i {
+                            transition: all $transition-duration ease-in-out;
+                            transform: rotate(90deg);
+                            font-size: 16px;
+                        }
+                        &.down {
+                            i {
+                                transform: rotate(0deg);
+                            }
+                        }
+                    }
+                    .checkbox{
+                        height:30px;
+                        line-height: 30px;
+                        display: inline-block;
+                        width: auto;
+                        .checkbox-icon-wrapper{
+                            width: 30px;
+                            .base-button{
+                                width: 26px;
+                                .checkbox-bg-icon{
+                                    width: 20px;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                .sub-options {
+                    padding: 0 0 0 16px;
+                }
+                .node-text {
+                    padding: 2px;
+                    border-radius: $border-radius;
+                    margin-left: 6px;
+                    &:hover {
+                        background: #F0F2F5;
+                    }
+                    &.active {
+                        background: #F0F2F5;
+                    }
+                }
+                &.disabled {
+                    font-size: 12px;
+                    background: #F8F8F8;
+                    color: lighten($theme-text, 30%);
+
+                    &:hover {
+                        background: #F8F8F8;
+                    }
+                }
+            }
+
+            &.noValue{
+                background: #F8F8F8;
+            }
+        }
+    }
+
+    &.above {
+        .options {
+            border-top: none;
+            .option {
+                border: 1px solid #dfdfdf;
+                border-bottom: none;
+            }
+        }
+    }
+    &.empty {
+        .filter {
+            border-top: none !important;
+            margin-top: 0 !important;
+        }
+    }
+
+}

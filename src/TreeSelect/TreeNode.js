@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './TreeSelect.css';
 
+import Checkbox from 'dist/Checkbox';
 export default class TreeNode extends Component {
 
     constructor(props) {
@@ -38,7 +38,6 @@ export default class TreeNode extends Component {
                     <span className={`tree-switcher ${expaned ? '' : 'down'}`} onClick={this.treeSwitcherHandle}>
                         <i className={`fa fa-caret-right`} aria-hidden="true"></i>
                     </span>
-
                     :
                     <span className="tree-switcher"></span>
                 }

@@ -84,6 +84,9 @@ export default [{
     },{
         text:'TreeSelect',
         route: '/components/TreeSelect'
+    },{
+        text:'Tree',
+        route: '/components/Tree'
     }]
 }, {
     text: 'Progress',

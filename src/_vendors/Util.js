@@ -88,6 +88,21 @@ function enumerateValue(enumerate) {
     return Object.keys(enumerate).map(key => enumerate[key]);
 }
 
+function tree(data, callback) {
+    let loop = function loop(children, level) {
+
+        children.forEach((item, index)=>{
+            var pos = level + '-' + (1+index);
+            if (item.children) {
+                loop(item.children, pos);
+            }
+            callback(item, index, pos);
+        });
+    };
+
+    loop(data, 1);
+}
+
 export default {
     getOffset,
     isEnableLocalStorage,
@@ -98,5 +113,6 @@ export default {
     getScrollTop,
     value2Timestamp,
     value2Moment,
-    enumerateValue
+    enumerateValue,
+    tree
 };
