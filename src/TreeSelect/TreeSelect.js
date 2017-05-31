@@ -15,7 +15,7 @@ export default class TreeSelect extends Component {
         super(props);
 
         this.state = {
-            hidden: true
+            optionsVisible: false
         };
 
         this.toggle = this::this.toggle;
@@ -25,11 +25,11 @@ export default class TreeSelect extends Component {
 
     toggle(e) {
         !this.props.disabled && this.setState({
-            hidden: Event.triggerPopupEventHandle(
+            optionsVisible: Event.triggerPopupEventHandle(
                 e.target,
                 require('react-dom').findDOMNode(this.refs.trigger),
-                this.refs.options,
-                this.state.hidden
+                this.refs.popup,
+                this.state.optionsVisible
             )
         });
     }
@@ -74,12 +74,12 @@ export default class TreeSelect extends Component {
     render() {
 
         const {data, className, style, name, placeholder, value} = this.props;
-        const {hidden} = this.state;
+        const {optionsVisible} = this.state;
         const {triggerHeight, popupHeight} = this;
         let wrapperStyle;
         if (triggerHeight && popupHeight) {
             wrapperStyle = {
-                height: hidden ? triggerHeight : popupHeight + triggerHeight
+                height: optionsVisible ?  popupHeight + triggerHeight : triggerHeight
             };
         }
         let valueStr = '';
@@ -104,7 +104,7 @@ export default class TreeSelect extends Component {
                         );
                     })
                 }
-                <div className={`tree-select-inner ${hidden ? 'hidden' : 'open'}`}
+                <div className={`tree-select-inner ${optionsVisible ? 'open' : 'hidden'}`}
                      ref="wrapper"
                      style={wrapperStyle}>
                     <RaisedButton ref="trigger"
