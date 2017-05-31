@@ -7,7 +7,7 @@ import PropTypeDescTable from '../PropTypeDescTable';
 import Transfer from 'dist/Transfer';
 import TransferDoc from 'assets/propTypes/Transfer.json';
 
-import 'sass/containers/app/modules/fields/TextFieldExamples.scss';
+import 'sass/containers/app/modules/fields/TransferExamples.scss';
 
 export default class TransferExamples extends Component {
 
@@ -30,7 +30,7 @@ export default class TransferExamples extends Component {
             }
         }
         return (
-            <div className="example text-field-examples">
+            <div className="example transfer-examples">
 
                 <h2 className="example-title">Transfer</h2>
 

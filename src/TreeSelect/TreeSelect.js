@@ -152,6 +152,7 @@ TreeSelect.propTypes = {
     style: PropTypes.object,
     value: PropTypes.array,
     data: PropTypes.array,
+    multiple:PropTypes.bool,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool
