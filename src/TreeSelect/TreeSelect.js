@@ -15,22 +15,34 @@ export default class TreeSelect extends Component {
         super(props);
 
         this.state = {
-            optionsVisible: false
+            optionsVisible: false,
+            filter: '',
+            expaned: true
         };
 
         this.toggle = this::this.toggle;
         this.onChangeHandle = this::this.onChangeHandle;
+        this.filterChangeHandle = this::this.filterChangeHandle;
 
     }
 
     toggle(e) {
+        let {expaned, optionsVisible}=this.state;
+        let newOptionsVisible = Event.triggerPopupEventHandle(
+            e.target,
+            require('react-dom').findDOMNode(this.refs.trigger),
+            this.refs.popup,
+            optionsVisible
+        )
+        if (e.target.className.indexOf('tree-switcher') !== -1 && e.target.parentNode.className == 'parentNode' ||
+            e.target.className.indexOf('fa-caret-right') !== -1 && e.target.parentNode.className.indexOf('tree-switcher') !== -1) {
+            expaned = !expaned
+            this.popupHeight = require('react-dom').findDOMNode(this.refs.popup).offsetHeight;
+            this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
+        }
         !this.props.disabled && this.setState({
-            optionsVisible: Event.triggerPopupEventHandle(
-                e.target,
-                require('react-dom').findDOMNode(this.refs.trigger),
-                this.refs.popup,
-                this.state.optionsVisible
-            )
+            optionsVisible: newOptionsVisible,
+            expaned: expaned
         });
     }
 
@@ -40,6 +52,12 @@ export default class TreeSelect extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(item);
         });
+    }
+
+    filterChangeHandle(filter) {
+        this.setState({filter})
+        this.popupHeight = require('react-dom').findDOMNode(this.refs.popup).offsetHeight;
+        this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,18 +92,19 @@ export default class TreeSelect extends Component {
     render() {
 
         const {data, className, style, name, placeholder, value} = this.props;
-        const {optionsVisible} = this.state;
+        const {optionsVisible, filter} = this.state;
         const {triggerHeight, popupHeight} = this;
+
         let wrapperStyle;
         if (triggerHeight && popupHeight) {
             wrapperStyle = {
-                height: optionsVisible ?  popupHeight + triggerHeight : triggerHeight
+                height: optionsVisible ? popupHeight + triggerHeight : triggerHeight
             };
         }
         let valueStr = '';
         if (value instanceof Array && value.length <= 2) {
             value.map((item, index) => {
-                index == 0 ? valueStr += item.text : valueStr += ',' + item.text
+                index == 0 ? valueStr += item.text : valueStr += ' , ' + item.text
             })
         } else {
             valueStr = value[0].text + ' and ' + (value.length - 1) + ' selected'
@@ -117,7 +136,9 @@ export default class TreeSelect extends Component {
                         <Tree className="tree-example"
                               data={data}
                               value={value}
-                              multiple={true}/>
+                              filter={filter}
+                              multiple={true}
+                              filterChangeHandle={this.filterChangeHandle}/>
                     </div>
                 </div>
             </div>

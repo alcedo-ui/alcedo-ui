@@ -19,7 +19,6 @@ export default class TreeNode extends Component {
     }
 
     treeSwitcherHandle() {
-        // debugger
         const {expaned} = this.state;
         this.setState({
             expaned: !expaned

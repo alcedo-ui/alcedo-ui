@@ -11,7 +11,7 @@ export default class Tree extends Component {
         super(props);
 
         this.state = {
-            filter: '',
+            filter: this.props.filter,
             value: this.props.value
         };
 
@@ -31,8 +31,11 @@ export default class Tree extends Component {
     }
 
     filterChangeHandle(e) {
+        const filter = e.target.value;
         this.setState({
-            filter: e.target.value
+            filter: filter
+        }, ()=> {
+            this.props.filterChangeHandle && this.props.filterChangeHandle(filter)
         });
     }
 
