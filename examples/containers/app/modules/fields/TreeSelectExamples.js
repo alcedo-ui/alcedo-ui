@@ -70,7 +70,7 @@ export default class TreeSelectExamples extends Component {
             <Widget>
 
                 <WidgetHeader className="example-header"
-                              title="Transfer Example"/>
+                              title="Tree Select Example"/>
 
                 <div className="widget-content">
                     <div className="example-content">
