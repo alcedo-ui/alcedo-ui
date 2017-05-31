@@ -17,6 +17,7 @@ export default class AutoCompleteExamples extends Component {
         super(props);
 
         this.data = ['test1', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+        this.searchLength = 2;
 
         this.state = {
             chooseData: [],
@@ -29,26 +30,29 @@ export default class AutoCompleteExamples extends Component {
     }
 
     onChange(text, bool) {
-        if (text) {
-            setTimeout(()=>{
-                let data = [];
-                this.data.map((value) => {
-                    if (value.indexOf(text) === 0) {
-                        data.push(value);
-                    }
-                });
-                if (bool) {
+        if (this.timing) {
+            clearTimeout(this.timing);
+        }
+        if (text && text.length >= this.searchLength) {
+            if (bool) {
+                this.timing = setTimeout(() => {
+                    let data = [];
+                    this.data.map((value) => {
+                        if (value.indexOf(text) === 0) {
+                            data.push(value);
+                        }
+                    });
                     this.setState({
                         chooseData: data,
                         text: text
                     });
-                } else {
-                    this.setState({
-                        chooseData: [],
-                        text: text
-                    });
-                }
-            }, 2000);
+                }, 2000);
+            } else {
+                this.setState({
+                    chooseData: [],
+                    text: text
+                });
+            }
         } else {
             this.setState({
                 chooseData: [],
@@ -70,10 +74,10 @@ export default class AutoCompleteExamples extends Component {
         return (
             <div className="example auto-complete-examples">
 
-                <h2 className="example-title">Out Complete</h2>
+                <h2 className="example-title">Auto Complete</h2>
 
                 <p>
-                    A <span>Out Complete</span> is an interface to help users to complete their input.
+                    A <span>Auto Complete</span> is an interface to help users to complete their input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -87,13 +91,12 @@ export default class AutoCompleteExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>Out Complete simple default example.</p>
+                                <p>Auto Complete simple default example.</p>
 
                                 <AutoComplete data={chooseData}
                                               onChange={this.onChange}
                                               value={text}
                                               onBlur={this.onBlur}
-                                              searchLength={2}
                                               loading={loading}/>
 
                             </div>

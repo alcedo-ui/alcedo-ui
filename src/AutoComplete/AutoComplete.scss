@@ -38,6 +38,11 @@
             transition: all 250ms ease-in-out;
             box-sizing: border-box;
             li {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                box-sizing: border-box;
                 &.auto-complete-li-loading {
                     text-align: center;
                     overflow: hidden;
