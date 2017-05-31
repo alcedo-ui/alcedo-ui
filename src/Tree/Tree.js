@@ -138,5 +138,6 @@ Tree.propTypes = {
 
 Tree.defaultProps = {
     value: [],
-    placeholder: 'Search'
+    placeholder: 'Search',
+    filter:''
 };
