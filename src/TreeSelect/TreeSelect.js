@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 
-import FieldMsg from '../FieldMsg';
-
 import RaisedButton from '../RaisedButton';
-import TreeNode from './TreeNode';
+import Tree from '../Tree';
 
 import './TreeSelect.css';
 
@@ -17,22 +15,11 @@ export default class TreeSelect extends Component {
         super(props);
 
         this.state = {
-            hidden: true,
-            filter: '',
-            infoMsgHidden: true,
-            errorMsgHidden: true,
-            showAll: false,
-            value: this.props.value
+            hidden: true
         };
-
-        this.list = [];
-        this.filterList = [];
-        this.optionHeight = 40;
-        this.maxOptionsHeight = 200;
 
         this.toggle = this::this.toggle;
         this.onChangeHandle = this::this.onChangeHandle;
-        this.filterChangeHandle = this::this.filterChangeHandle;
 
     }
 
@@ -55,62 +42,6 @@ export default class TreeSelect extends Component {
         });
     }
 
-    filterChangeHandle(e) {
-        this.setState({
-            filter: e.target.value
-        });
-    }
-
-    getRestList(data, value) {
-
-        let list = [];
-        // debugger
-        for (let dataItem of data) {
-
-            if (value && value.length) {
-                let flag = false;
-                for (let valueItem of value) {
-                    if (typeof dataItem == 'object' && dataItem.id === valueItem.id) {
-                        flag = true;
-                        break;
-                    } else if (dataItem === valueItem) {
-                        flag = true;
-                        break;
-                    }
-                }
-
-                if (!flag) {
-                    list.push(dataItem);
-                }
-            } else {
-                list.push(dataItem);
-            }
-        }
-
-        return list;
-
-    }
-
-    getFilterList(list, filter) {
-        return list.filter((value) => {
-            if (typeof value == 'object') {
-                return value.text.toUpperCase().indexOf(filter.toUpperCase()) != -1;
-            } else {
-                return value.toUpperCase().indexOf(filter.toUpperCase()) != -1;
-            }
-        });
-    }
-
-    filterListLength(list) {
-        let length = 0;
-        for (let i = 0; i < list.length; i++) {
-            if (list[i].children) {
-                length += list[i].children.length;
-                this.filterListLength(list[i].children);
-            }
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value)) {
             this.setState({
@@ -120,9 +51,8 @@ export default class TreeSelect extends Component {
     }
 
     componentDidMount() {
+        this.popupHeight = require('react-dom').findDOMNode(this.refs.popup).offsetHeight;
         this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
-        this.filterHeight = require('react-dom').findDOMNode(this.refs.filter).offsetHeight;
-
         if (window.addEventListener) {
             window.addEventListener('click', this.toggle);
         } else {
@@ -143,111 +73,55 @@ export default class TreeSelect extends Component {
 
     render() {
 
-        const {data, width, className, style, name, placeholder, disabled} = this.props;
-        const {hidden, filter, value} = this.state;
-        const {
-            optionHeight, maxOptionsHeight, filterChangeHandle,getRestList, getFilterList, triggerHeight, filterHeight
-        } = this;
-        this.list = getRestList(data, value);
-
-        this.filterList = getFilterList(this.list, filter);
-
-        let componentWidth = width || '100%';
-
-        const emptyOptionsStyle = {
-            width: componentWidth,
-            height: hidden ? 0 : optionHeight,
-            maxHeight: maxOptionsHeight,
-            padding: 0,
-            overflow: 'inherit'
-        };
-
-        const optionsStyle = {
-            width: componentWidth,
-            height: hidden ? 0 : this.filterList.length * optionHeight,
-            top: optionHeight
-        };
-
-        const optionStyle = {
-            height: optionHeight,
-            lineHeight: optionHeight + 'px'
-        };
-        let optionsHeight = optionsStyle.height ? optionsStyle.height : optionHeight;
-        const popupStyle = {
-            height: hidden ? 0 : optionsHeight + filterHeight
-        };
-
-        const wrapperStyle = {
-            height: hidden ? triggerHeight : popupStyle.height + triggerHeight
-        };
+        const {data, className, style, name, placeholder, value} = this.props;
+        const {hidden} = this.state;
+        const {triggerHeight, popupHeight} = this;
+        let wrapperStyle;
+        if (triggerHeight && popupHeight) {
+            wrapperStyle = {
+                height: hidden ? triggerHeight : popupHeight + triggerHeight
+            };
+        }
+        let valueStr = '';
+        if (value instanceof Array && value.length <= 2) {
+            value.map((item, index) => {
+                index == 0 ? valueStr += item.text : valueStr += ',' + item.text
+            })
+        } else {
+            valueStr = value[0].text + ' and ' + (value.length - 1) + ' selected'
+        }
         return (
             <div ref="TreeSelect"
                  className={`tree-select ${className ? className : ''}`}
                  style={style}>
-                <input type="hidden"
-                       name={name}
-                       value={typeof value == 'object' ? value.id : value}/>
-
+                {
+                    (value instanceof Array ? value : []).map((item, index) => {
+                        return (
+                            <input key={index}
+                                   type="hidden"
+                                   name={name + '[' + index + ']'}
+                                   value={typeof item == 'object' ? item.id : item}/>
+                        );
+                    })
+                }
                 <div className={`tree-select-inner ${hidden ? 'hidden' : 'open'}`}
                      ref="wrapper"
-                     style={wrapperStyle}
-                >
+                     style={wrapperStyle}>
                     <RaisedButton ref="trigger"
                                   className={`tree-select-trigger ${value ? '' : 'empty'}`}
-                                  value={(typeof value === 'object' ? value.text : value) || placeholder}
+                                  value={valueStr || placeholder}
                                   iconCls={`fa fa-angle-down tree-select-trigger-right-icon`}/>
 
                     <div className="popup"
-                         style={popupStyle}
-                    >
-                        <input ref="filter"
-                               type="text"
-                               className="filter"
-                               value={filter}
-                               placeholder={placeholder}
-                               onChange={filterChangeHandle}
-                               disabled={disabled}
-                               />
-                        {
-                            hidden ?
-                                null
-                                :
-                                (
-                                    this.filterList.length == 0 ?
-                                        <div ref="options"
-                                             className="options"
-                                             style={emptyOptionsStyle}>
-                                            <div className="option disabled"
-                                                 style={optionStyle}>
-                                                No value matched
-                                            </div>
-                                        </div>
-                                        :
-                                        <div ref="options"
-                                             className="options"
-                                             style={optionsStyle}>
-                                            {
-                                                this.filterList.map((item, index) => {
-                                                    return (
-                                                        <TreeNode key={item.id}
-                                                                  node={item}
-                                                                  className="option"
-                                                                  style={optionStyle}
-                                                                  value={value}
-                                                                  selectedHandle={(value) => {
-                                                                      this.onChangeHandle(value);
-                                                                  }}/>
-                                                    );
-                                                })
-                                            }
-                                        </div>
-                                )
-                        }
+                         ref="popup">
+                        <Tree className="tree-example"
+                              data={data}
+                              value={value}
+                              multiple={true}/>
                     </div>
                 </div>
             </div>
         );
-
     }
 };
 
@@ -255,10 +129,9 @@ TreeSelect.propTypes = {
     className: PropTypes.string,
     name: PropTypes.string,
     style: PropTypes.object,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    value: PropTypes.array,
     data: PropTypes.array,
     onChange: PropTypes.func,
-    width: PropTypes.number,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool
 };

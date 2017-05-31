@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Util from '../_vendors/Util';
 
 import Checkbox from '../Checkbox';
@@ -177,7 +178,7 @@ export default class TreeNode extends Component {
     renderHeader(node) {
         const {value, multiple} = this.props;
         const {expaned} = this.state;
-        let id = value[0].id;
+        let id = (value && value.length) ? value[0].id :'';
         let checkboxValue = this.getItemValue(node);
         return (
             <div className="parentNode">

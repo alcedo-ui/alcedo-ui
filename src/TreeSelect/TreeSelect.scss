@@ -19,8 +19,8 @@
         &.open {
             @include shadow(3);
             z-index: $popup-z-index;
-            .tree-select-trigger{
-                .tree-select-trigger-right-icon{
+            .tree-select-trigger {
+                .tree-select-trigger-right-icon {
                     transform: rotate(180deg);
                 }
             }
@@ -61,7 +61,7 @@
                 color: $theme-highlight;
             }
         }
-        .popup{
+        .popup {
             position: absolute;
             top: 50px;
             width: 100%;
@@ -71,83 +71,16 @@
             border-bottom-left-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
             transition: all $transition-duration ease-in-out;
-            .filter{
-                height: 40px;
-                border:none;
-                outline: none;
-                width: 100%;
-                padding-left: 20px;
-                box-sizing: border-box;
-            }
-            .options {
-                position: absolute;
-                overflow: auto;
-                padding: 10px 30px 10px 20px;
-                box-sizing: border-box;
-                background: #FFF;
-                transition: all $transition-duration ease-in-out;
-                border-top: 1px solid #dfdfdf;
-                .option {
-                    box-sizing: border-box;
-                    width: 100%;
-                    color: $theme-text;
-                    padding: 0;
-                    margin: 8px 0;
-                    border-top: none;
-                    cursor: pointer;
-                    user-select: none;
-                    .parentNode{
-                        .tree-switcher{
-                            display: inline-block;
-                            height: 16px;
-                            width: 16px;
-                            i{
-                                transition: all $transition-duration ease-in-out;
-                                transform: rotate(90deg);
-                            }
-                            //&:hover {
-                            //    background: #F0F2F5;
-                            //}
-                            &.down{
-                                i{
-                                    transform: rotate(0deg);
-                                }
-                            }
-                        }
-                    }
-                    .sub-options{
-                        padding: 0 0 0 16px;
-                    }
-                    .node-text{
-                        padding: 2px;
-                        border-radius: $border-radius;
-                        &:hover {
-                            background: #F0F2F5;
-                        }
-                        &.active {
-                            background: #F0F2F5;
-                        }
-                    }
-                    &.disabled {
-                        font-size: 12px;
-                        background: #F8F8F8;
-                        color: lighten($theme-text, 30%);
-
-                        &:hover {
-                            background: #F8F8F8;
-                        }
-                    }
-                }
+            .tree-inner {
+                border: none;
             }
         }
-
 
         &.error {
             .trigger {
                 border: 1px solid $error !important;
             }
         }
-
         &.above {
             .options {
                 border-top: none;
@@ -172,20 +105,5 @@
             }
         }
 
-        &.open.below {
-            .FieldMsg.error {
-                right: -4px;
-
-                .triangle {
-                    left: -3px;
-                    top: 2px;
-                    border-bottom-width: 8px;
-                    border-left-width: 4px;
-                    border-right-width: 4px;
-                    transform: rotate(-45deg);
-                }
-
-            }
-        }
     }
 }
