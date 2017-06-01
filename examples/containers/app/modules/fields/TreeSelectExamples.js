@@ -57,48 +57,49 @@ export default class TreeSelectExamples extends Component {
     render() {
         const {data, value}=this.state;
         return (
-        <div className="example tree-select-examples">
+            <div className="example tree-select-examples">
 
-            <h2 className="examples-title">Tree Select</h2>
+                <h2 className="examples-title">Tree Select</h2>
 
-            <p>
-                <span>Tree Select</span>
-            </p>
+                <p>
+                    <span>Tree Select</span>
+                </p>
 
-            <h2 className="example-title">Examples</h2>
+                <h2 className="example-title">Examples</h2>
 
-            <Widget>
+                <Widget>
 
-                <WidgetHeader className="example-header"
-                              title="Tree Select Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="Tree Select Example"/>
 
-                <div className="widget-content">
-                    <div className="example-content">
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                        <div className="examples-wrapper">
+                            <div className="examples-wrapper">
 
-                            <p>Tree Select</p>
-                            <div className="field-group">
-                                <TreeSelect className="tree-select-example"
-                                            data={data}
-                                            value={value}
-                                            placeholder={'please select a node'}
-                                            onChange={(value)=> {
-                                                this.onChangeHandle(value)
-                                            }}/>
+                                <p>Tree Select</p>
+                                <div className="field-group">
+                                    <TreeSelect className="tree-select-example"
+                                                data={data}
+                                                value={value}
+                                                placeholder={'please select a node'}
+                                                multiple={true}
+                                                onChange={(value)=> {
+                                                    this.onChangeHandle(value)
+                                                }}/>
+                                </div>
                             </div>
+
                         </div>
-
                     </div>
-                </div>
 
-            </Widget>
+                </Widget>
 
-            <h2 className="example-title">Properties</h2>
+                <h2 className="example-title">Properties</h2>
 
-            <PropTypeDescTable data={TreeSelectDoc}/>
+                <PropTypeDescTable data={TreeSelectDoc}/>
 
-        </div>
+            </div>
 
         );
     }

@@ -91,7 +91,7 @@ export default class TreeSelect extends Component {
 
     render() {
 
-        const {data, className, style, name, placeholder, value} = this.props;
+        const {data, className, style, name, placeholder, value, multiple} = this.props;
         const {optionsVisible, filter} = this.state;
         const {triggerHeight, popupHeight} = this;
 
@@ -137,8 +137,11 @@ export default class TreeSelect extends Component {
                               data={data}
                               value={value}
                               filter={filter}
-                              multiple={true}
-                              filterChangeHandle={this.filterChangeHandle}/>
+                              multiple={multiple}
+                              filterChangeHandle={this.filterChangeHandle}
+                              onChange={(value)=> {
+                                  this.onChangeHandle(value)
+                              }}/>
                     </div>
                 </div>
             </div>
@@ -152,7 +155,7 @@ TreeSelect.propTypes = {
     style: PropTypes.object,
     value: PropTypes.array,
     data: PropTypes.array,
-    multiple:PropTypes.bool,
+    multiple: PropTypes.bool,
     onChange: PropTypes.func,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool

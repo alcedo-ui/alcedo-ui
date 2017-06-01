@@ -58,7 +58,7 @@ export default class TreeExamples extends Component {
         return (
             <div className="example tree-examples">
 
-                    <h2 className="examples-title">Tree</h2>
+                <h2 className="examples-title">Tree</h2>
 
                 <p>
                     <span>Tree</span>
@@ -81,7 +81,7 @@ export default class TreeExamples extends Component {
                                     <Tree className="tree-example"
                                           data={data}
                                           value={value}
-                                          multiple={true}/>
+                                          multiple={false}/>
                                 </div>
                             </div>
 

@@ -21,12 +21,11 @@ export default class Tree extends Component {
     }
 
     onChangeHandle(item) {
-        // console.log(item)
         this.setState({
             filter: '',
             value: item
         }, () => {
-            this.props.onChange && this.props.onChange();
+            this.props.onChange && this.props.onChange(item);
         });
     }
 
@@ -139,5 +138,5 @@ Tree.propTypes = {
 Tree.defaultProps = {
     value: [],
     placeholder: 'Search',
-    filter:''
+    filter: ''
 };
