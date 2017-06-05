@@ -74,7 +74,7 @@ export default class Tree extends Component {
 
     render() {
 
-        const {data, className, style, multiple, placeholder} = this.props;
+        const {data, className, style, multiple, placeholder, iconCls} = this.props;
         const {filter, value} = this.state;
         const {getFilterList, filterChangeHandle} = this;
         this.filterList = getFilterList(data, filter);
@@ -111,6 +111,7 @@ export default class Tree extends Component {
                                                       data={this.filterList}
                                                       className="option"
                                                       value={value}
+                                                      iconCls={iconCls}
                                                       onChangeHandle={(value) => {
                                                           this.onChangeHandle(value);
                                                       }}/>
@@ -132,6 +133,7 @@ Tree.propTypes = {
     value: PropTypes.array,
     data: PropTypes.array,
     multiple: PropTypes.bool,
+    iconCls: PropTypes.string,
     onChange: PropTypes.func,
     placeholder: PropTypes.string
 };
@@ -139,5 +141,6 @@ Tree.propTypes = {
 Tree.defaultProps = {
     value: [],
     placeholder: 'Search',
-    filter: ''
+    filter: '',
+    iconCls: ''
 };

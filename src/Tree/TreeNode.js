@@ -159,6 +159,19 @@ export default class TreeNode extends Component {
         this.props.onChangeHandle && this.props.onChangeHandle(value)
     }
 
+    renderIcon(icon, text) {
+        return (
+            icon ?
+                <span>
+                    <i className={`fa ${icon}`} aria-hidden="true"></i>
+                    {text}
+                </span>
+                :
+                text
+        )
+
+    }
+
 
     getItemValue(node) {
         let data = this.props.value;
@@ -176,9 +189,9 @@ export default class TreeNode extends Component {
 
 
     renderHeader(node) {
-        const {value, multiple} = this.props;
+        const {value, multiple, iconCls} = this.props;
         const {expaned} = this.state;
-        let id = (value && value.length) ? value[0].id :'';
+        let id = (value && value.length) ? value[0].id : '';
         let checkboxValue = this.getItemValue(node);
         return (
             <div className="parentNode">
@@ -193,7 +206,7 @@ export default class TreeNode extends Component {
                 }
                 {
                     multiple ?
-                        <Checkbox label={node.text}
+                        <Checkbox label={this.renderIcon(iconCls, node.text)}
                                   value={checkboxValue}
                                   onChange={()=> {
                                       this.checkboxSelected(node)
@@ -203,6 +216,12 @@ export default class TreeNode extends Component {
                               onClick={() => {
                                   this.selectedHandle(node);
                               }}>
+                            {
+                                iconCls ?
+                                    <i className={`fa ${iconCls}`} aria-hidden="true"></i>
+                                    :
+                                    null
+                            }
                             {node.text}
                         </span>
                 }
@@ -216,7 +235,7 @@ export default class TreeNode extends Component {
     }
 
     renderChildren(arr) {
-        const {data, value, multiple} = this.props;
+        const {data, value, multiple, iconCls} = this.props;
         let childList = arr;
         if (!Array.isArray(childList)) {
             childList = childList ? [childList] : [];
@@ -230,6 +249,7 @@ export default class TreeNode extends Component {
                               node={child}
                               value={value}
                               multiple={multiple}
+                              iconCls={iconCls}
                               onChangeHandle={(value) => {
                                   this.props.onChangeHandle(value);
                               }}

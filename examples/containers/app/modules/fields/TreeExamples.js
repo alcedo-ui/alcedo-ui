@@ -81,7 +81,8 @@ export default class TreeExamples extends Component {
                                     <Tree className="tree-example"
                                           data={data}
                                           value={value}
-                                          multiple={false}/>
+                                          multiple={false}
+                                          iconCls="fa-id-card-o"/>
                                 </div>
                             </div>
 

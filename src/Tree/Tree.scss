@@ -68,16 +68,24 @@
                                 }
                             }
                         }
-
+                        .checkbox-label {
+                            i {
+                                margin-right: 8px;
+                            }
+                        }
                     }
                 }
                 .sub-options {
                     padding: 0 0 0 16px;
                 }
                 .node-text {
+                    line-height: 20px;
                     padding: 2px;
                     border-radius: $border-radius;
                     margin-left: 6px;
+                    i {
+                        margin-right: 8px;
+                    }
                     &:hover {
                         background: #F0F2F5;
                     }
