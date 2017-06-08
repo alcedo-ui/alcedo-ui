@@ -236,6 +236,10 @@ export default class TextField extends Component {
                        readOnly={readOnly}
                        max={max}
                        min={min}
+                       autoComplete="off"
+                       autoCorrect="off"
+                       autoCapitalize="off"
+                       spellCheck="false"
                        onChange={this.changeHandle}
                        onKeyDown={this.keydownHandle}
                        onMouseOver={this.mouseoverHandle}

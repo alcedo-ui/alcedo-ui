@@ -128,16 +128,20 @@ export default class TextArea extends Component {
         };
 
         return (
-            <textarea cols={cols}
+            <textarea ref="textarea"
+                      className={`text-area ${focus ? 'area-focus' : ''} ${className}`}
+                      style={{...textStyle}}
+                      cols={cols}
                       rows={rows}
                       placeholder={placeholder}
                       value={value}
+                      autoComplete="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellCheck="false"
                       onFocus={this.onFocus}
                       onBlur={this.onBlur}
-                      onChange={this.onChange}
-                      className={`text-area ${focus ? 'area-focus' : ''} ${className}`}
-                      style={{...textStyle}}
-                      ref='textarea'>
+                      onChange={this.onChange}>
             </textarea>
         );
     }
