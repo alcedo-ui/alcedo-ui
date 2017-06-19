@@ -21,6 +21,7 @@ export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';
 export LinearProgress from './LinearProgress';
 export List from './List';
+export LocalAutoComplete from './LocalAutoComplete';
 export MultipleSelect from './MultipleSelect';
 export Pagging from './Pagging';
 export Paper from './Paper';

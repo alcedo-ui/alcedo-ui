@@ -1,0 +1,42 @@
+@import '../_common.scss';
+
+.list-item {
+    width: 100%;
+    height: 50px;
+    border-radius: 0;
+    text-align: left;
+    box-shadow: none;
+    padding: 0 20px;
+
+    .button-icon {
+        vertical-align: middle;
+
+        &.button-icon-left {
+            margin-right: 15px;
+        }
+
+        &.button-icon-right {
+            float: right;
+        }
+    }
+
+    .list-item-content {
+        display: inline-block;
+        vertical-align: middle;
+
+        .list-item-content-value {
+            height: 25px;
+            line-height: 35px;
+        }
+
+        .list-item-content-desc {
+            height: 25px;
+            line-height: 15px;
+            opacity: .5;
+        }
+    }
+
+    &:hover {
+        box-shadow: none;
+    }
+}

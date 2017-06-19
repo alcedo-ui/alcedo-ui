@@ -111,20 +111,57 @@ export default class ListExamples extends Component {
                                     <List items={[{
                                         value: 'Success',
                                         theme: 'success',
-                                        iconPosition: 'fa fa-check-circle'
+                                        rightIconCls: 'fa fa-check-circle'
                                     }, {
                                         value: 'Error',
                                         theme: 'error',
-                                        iconPosition: 'fa fa-times-circle-o'
+                                        rightIconCls: 'fa fa-times-circle-o'
                                     }, {
                                         value: 'Warning',
                                         theme: 'warning',
-                                        iconPosition: 'fa fa-exclamation-triangle'
+                                        rightIconCls: 'fa fa-exclamation-triangle'
                                     }, {
                                         value: 'Primary',
                                         theme: 'primary',
-                                        iconPosition: 'fa fa-gratipay'
+                                        rightIconCls: 'fa fa-gratipay'
                                     }]}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="List Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A simple List with desc.
+                                </p>
+
+                                <Paper style={{width: 240}}>
+                                    <List style={{width: 240}}
+                                          items={[{
+                                              iconCls: 'fa fa-facebook',
+                                              value: 'Facebook',
+                                              desc: 'Here is a Facebook Desc.'
+                                          }, {
+                                              iconCls: 'fa fa-twitter',
+                                              value: 'Twitter',
+                                              desc: 'Here is a Twitter Desc.'
+                                          }, {
+                                              iconCls: 'fa fa-google-plus',
+                                              value: 'Google+',
+                                              desc: 'Here is a Google+ Desc.'
+                                          }]}/>
                                 </Paper>
 
                             </div>

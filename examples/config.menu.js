@@ -52,6 +52,9 @@ export default [{
         text: 'Auto Complete',
         route: '/components/AutoComplete'
     }, {
+        text: 'Local Auto Complete',
+        route: '/components/LocalAutoComplete'
+    }, {
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'
     }, {
@@ -78,14 +81,14 @@ export default [{
     }, {
         text: 'FlashNumber',
         route: '/components/FlashNumber'
-    },{
-        text:'Transfer',
+    }, {
+        text: 'Transfer',
         route: '/components/Transfer'
-    },{
-        text:'TreeSelect',
+    }, {
+        text: 'TreeSelect',
         route: '/components/TreeSelect'
-    },{
-        text:'Tree',
+    }, {
+        text: 'Tree',
         route: '/components/Tree'
     }]
 }, {

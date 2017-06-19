@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import ListItem from '../_ListItem';
+import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-import './List.css';
+import './ListItem.css';
 
-export default class List extends Component {
+export default class ListItem extends Component {
 
     constructor(props) {
         super(props);
@@ -14,56 +14,41 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, disabled} = this.props;
+        const {data, disabled} = this.props;
 
-        return (
-            <div className={`list ${className}`}
-                 disabled={disabled}
-                 style={style}>
-
-                {
-                    items.length > 0
-                        ? (
-                        items.map((item, index) => {
-                            return (
-                                <ListItem key={index}
-                                          data={item}
-                                          disabled={disabled}/>
-                            );
-                        })
-                    )
-                        : null
-                }
-
-                {children}
-
-            </div>
-        );
+        return typeof data === 'object' ?
+            (
+                !data.renderer && data.desc ?
+                    <RaisedButton {...data}
+                                  className={`list-item ${data.className ? data.className : ''}`}
+                                  disabled={disabled || data.disabled}
+                                  renderer={(props) => {
+                                      return (
+                                          <div className="list-item-content">
+                                              <div className="list-item-content-value">{props.value}</div>
+                                              <div className="list-item-content-desc">{props.desc}</div>
+                                          </div>
+                                      );
+                                  }}/>
+                    :
+                    <RaisedButton {...data}
+                                  className={`list-item ${data.className ? data.className : ''}`}
+                                  disabled={disabled || data.disabled}/>
+            )
+            :
+            <RaisedButton className="list-item"
+                          value={data}
+                          disabled={disabled}/>;
 
     }
 };
 
-List.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * If true, the list will be disabled.
-     */
-    disabled: PropTypes.bool,
+ListItem.propTypes = {
 
     /**
      * Children passed into the _ListItem.
      */
-    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the list button.
@@ -81,7 +66,7 @@ List.propTypes = {
         theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
         /**
-         * The text value of the list button.Type can be string or number.
+         * The text value of the list button. Type can be string or number.
          */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
@@ -125,17 +110,16 @@ List.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number])).isRequired
+    }), PropTypes.string, PropTypes.number]).isRequired,
+
+    disabled: PropTypes.bool
 
 };
 
-List.defaultProps = {
+ListItem.defaultProps = {
 
-    className: '',
-    style: null,
+    data: [],
 
-    disabled: false,
-
-    items: []
+    disabled: false
 
 };

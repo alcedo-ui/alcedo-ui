@@ -20,6 +20,9 @@ button:focus {
     font-size: 12px;
     text-align: center;
     user-select: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     .button-icon {
         width: 16px;

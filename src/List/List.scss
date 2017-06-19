@@ -3,26 +3,4 @@
 .list {
     width: 200px;
     background: $theme-field;
-
-    .list-item {
-        width: 100%;
-        height: 50px;
-        border-radius: 0;
-        text-align: left;
-        box-shadow: none;
-        padding: 0 20px;
-
-        .button-icon {
-            margin-right: 15px;
-
-            &.button-icon-right {
-
-                float: right;
-            }
-        }
-
-        &:hover {
-            box-shadow: none;
-        }
-    }
 }
