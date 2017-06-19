@@ -25,13 +25,17 @@ export default class List extends Component {
                     items.length > 0
                         ? (
                         items.map((item, index) => {
-                            return (
+                            return typeof item === 'object' ?
                                 <RaisedButton {...item}
-                                              rightIconCls={item.iconPosition}
-                                              disabled={disabled || item.disabled}
                                               key={index}
-                                              className={`list-item ${item.className ? item.className : ''}`}/>
-                            );
+                                              className={`list-item ${item.className ? item.className : ''}`}
+                                              rightIconCls={item.iconPosition}
+                                              disabled={disabled || item.disabled}/>
+                                :
+                                <RaisedButton key={index}
+                                              className="list-item"
+                                              value={item}
+                                              disabled={disabled}/>;
                         })
                     )
                         : null
@@ -65,7 +69,7 @@ List.propTypes = {
     /**
      * Children passed into the ListItem.
      */
-    items: PropTypes.arrayOf(PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the list button.
@@ -113,11 +117,16 @@ List.propTypes = {
         iconPosition: PropTypes.string,
 
         /**
+         * You can create a complicated renderer callback instead of value prop.
+         */
+        renderer: PropTypes.func,
+
+        /**
          * Callback function fired when a list item touch-tapped.
          */
         onTouchTap: PropTypes.func
 
-    })).isRequired
+    }), PropTypes.string, PropTypes.number])).isRequired
 
 };
 

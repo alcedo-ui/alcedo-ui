@@ -109,6 +109,11 @@ RaisedButton.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
 
     /**
+     * You can create a complicated renderer callback instead of value prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
      * Callback function fired when the button is touch-tapped.
      */
     onTouchTap: PropTypes.func

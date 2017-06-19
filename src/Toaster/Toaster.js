@@ -222,7 +222,7 @@ Toaster.propTypes = {
          */
         message: PropTypes.string
 
-    }), PropTypes.string])),
+    }), PropTypes.string, PropTypes.number])),
 
 
     /**

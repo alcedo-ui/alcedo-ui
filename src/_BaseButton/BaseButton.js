@@ -72,7 +72,7 @@ export default class BaseButton extends Component {
         const {
             children, className, style, theme, isRounded, isCircular, disableTouchRipple,
             iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
-            tip, tipPosition
+            tip, tipPosition, renderer
         } = this.props;
 
         const {tipVisible, triggerEl} = this.state;
@@ -99,7 +99,12 @@ export default class BaseButton extends Component {
                     )
                 }
 
-                {value}
+                {
+                    renderer && typeof renderer === 'function' ?
+                        renderer(this.props)
+                        :
+                        value
+                }
 
                 {
                     isLoading
@@ -164,6 +169,7 @@ BaseButton.propTypes = {
 
     rippleDisplayCenter: PropTypes.bool,
 
+    renderer: PropTypes.func,
     onTouchTap: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
