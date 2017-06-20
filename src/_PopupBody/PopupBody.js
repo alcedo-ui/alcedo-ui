@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Theme from '../Theme/index';
+import Paper from '../Paper';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -28,7 +29,7 @@ export default class PopupBody extends Component {
 
     }
 
-    triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
+    triggerPopupEventHandle(el, triggerEl, popupEl, triggerMode, currentVisible) {
 
         if (!triggerEl) {
             return true;
@@ -38,7 +39,7 @@ export default class PopupBody extends Component {
             if (el == popupEl) {
                 return currentVisible;
             } else if (el == triggerEl) {
-                return !currentVisible;
+                return triggerMode === PopupBody.triggerMode.TOGGLE ? !currentVisible : true;
             }
             el = el.parentNode;
         }
@@ -53,7 +54,8 @@ export default class PopupBody extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                this.refs.popup,
+                require('react-dom').findDOMNode(this.refs.popup),
+                this.props.triggerMode,
                 this.state.visible
             );
 
@@ -157,10 +159,10 @@ export default class PopupBody extends Component {
         const {visible} = this.state;
 
         return (
-            <div ref="popup"
-                 className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'popup-has-triangle' : ''}
+            <Paper ref="popup"
+                   className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'popup-has-triangle' : ''}
                      ${theme ? `theme-${theme}` : ''} ${position ? `popup-position-${position}` : ''} ${className}`}
-                 style={{...this.getPopupStyle(), ...style}}>
+                   style={{...this.getPopupStyle(), ...style}}>
 
                 <div className="popup-triangle"></div>
 
@@ -168,7 +170,7 @@ export default class PopupBody extends Component {
                     {children}
                 </div>
 
-            </div>
+            </Paper>
         );
 
     }
@@ -177,6 +179,11 @@ export default class PopupBody extends Component {
 PopupBody.Position = {
     LEFT: 'left',
     RIGHT: 'right'
+};
+
+PopupBody.TriggerMode = {
+    TOGGLE: 'toggle',
+    OPEN: 'open'
 };
 
 PopupBody.propTypes = {
@@ -209,12 +216,22 @@ PopupBody.propTypes = {
     /**
      * The popover theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
-    position: PropTypes.oneOf(Object.keys(PopupBody.Position).map(key => PopupBody.Position[key])),
+    position: PropTypes.oneOf(Util.enumerateValue(PopupBody.Position)),
+
+    /**
+     * This number represents the zDepth of the popup shadow.
+     */
+    depth: PropTypes.number,
+
+    /**
+     *
+     */
+    triggerMode: PropTypes.oneOf(Util.enumerateValue(PopupBody.TriggerMode)),
 
     /**
      * Callback function fired when the popover is requested to be closed.
@@ -232,6 +249,7 @@ PopupBody.defaultProps = {
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
-    position: PopupBody.Position.LEFT
+    position: PopupBody.Position.LEFT,
+    depth: 4
 
 };

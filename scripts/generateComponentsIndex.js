@@ -25,7 +25,7 @@ fs.readdir('./src', function (err, files) {
                 if (error) {
                     throw error;
                 }
-                console.log('Generate Components Index Successfully!');
+                console.log('Generate Components Index Successfully!\n');
             });
 
         } catch (e) {

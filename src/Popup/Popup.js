@@ -53,5 +53,6 @@ export default class Popup extends Component {
 };
 
 Popup.Position = PopupBody.Position;
+Popup.TriggerMode = PopupBody.TriggerMode;
 Popup.propTypes = PopupBody.propTypes;
 Popup.defaultProps = PopupBody.defaultProps;

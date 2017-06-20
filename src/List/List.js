@@ -61,7 +61,7 @@ List.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * Children passed into the _ListItem.
+     * Children passed into the ListItem.
      */
     items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 

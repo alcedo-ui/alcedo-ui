@@ -36,7 +36,7 @@ input:focus {
             right: 0;
         }
 
-        &.right-icon{
+        &.right-icon {
             right: 0;
         }
 
@@ -94,7 +94,7 @@ input:focus {
     }
 
     &.focused {
-        border-color: $theme-title;
+        border-color: lighten($theme-title, 20%);
     }
 
     &.error {

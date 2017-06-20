@@ -85,7 +85,7 @@ export default class TextField extends Component {
             invalidMsgs
         }, () => {
 
-            this.props.onChange && this.props.onChange(value);
+            this.props.onChange && this.props.onChange(value, e);
 
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
 
@@ -162,19 +162,19 @@ export default class TextField extends Component {
         });
     }
 
-    focusHandle() {
+    focusHandle(e) {
         this.setState({
             isFocused: true
         }, () => {
-            this.props.onFocus && this.props.onFocus(this.state.value);
+            this.props.onFocus && this.props.onFocus(this.state.value, e);
         });
     }
 
-    blurHandle() {
+    blurHandle(e) {
         this.setState({
             isFocused: false
         }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.value);
+            this.props.onBlur && this.props.onBlur(this.state.value, e);
         });
     }
 
