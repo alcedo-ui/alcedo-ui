@@ -12,7 +12,8 @@ import AutoCompleteDoc from 'assets/propTypes/AutoComplete.json';
 
 import 'sass/containers/app/modules/fields/AutoCompleteExamples.scss';
 
-export default class AutoCompleteExamples extends Component {
+export default class RemoteAutoCompleteExamples extends Component {
+
     constructor(props) {
         super(props);
 
@@ -74,24 +75,24 @@ export default class AutoCompleteExamples extends Component {
         return (
             <div className="example auto-complete-examples">
 
-                <h2 className="example-title">Auto Complete</h2>
+                <h2 className="example-title">Remote Auto Complete</h2>
 
                 <p>
-                    A <span>Auto Complete</span> is an interface to help users to complete their input.
+                    A <span>Remote Auto Complete</span> is an interface to help users to complete their input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="auto Complete Example"/>
+                    <WidgetHeader className="example-header" title="Remote Auto Complete Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Auto Complete simple default example.</p>
+                                <p>Remote Auto Complete simple default example.</p>
 
                                 <AutoComplete data={chooseData}
                                               onChange={this.onChange}

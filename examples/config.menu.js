@@ -49,11 +49,11 @@ export default [{
         text: 'Text Area',
         route: '/components/TextArea'
     }, {
-        text: 'Auto Complete',
-        route: '/components/AutoComplete'
-    }, {
         text: 'Local Auto Complete',
         route: '/components/LocalAutoComplete'
+    }, {
+        text: 'Remote Auto Complete',
+        route: '/components/RemoteAutoComplete'
     }, {
         text: 'Dropdown Select',
         route: '/components/DropdownSelect'

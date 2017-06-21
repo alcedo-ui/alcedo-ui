@@ -1,6 +1,6 @@
 export Accordion from './Accordion';
 export ArrowStep from './ArrowStep';
-export AutoComplete from './AutoComplete';
+export AutoComplete from './RemoteAutoComplete';
 export ButtonCheckbox from './ButtonCheckbox';
 export Cascader from './Cascader';
 export Checkbox from './Checkbox';

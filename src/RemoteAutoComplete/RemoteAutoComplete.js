@@ -8,9 +8,10 @@ import Event from '../_vendors/Event';
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 
-import './AutoComplete.css';
+import './RemoteAutoComplete.css';
 
-export default class AutoComplete extends Component {
+export default class RemoteAutoComplete extends Component {
+
     constructor(props) {
         super(props);
 
@@ -133,7 +134,7 @@ export default class AutoComplete extends Component {
         };
 
         return (
-            <div className={`auto-complete ${className}`}
+            <div className={`remote-auto-complete ${className}`}
                  style={style}>
                 <div className={`auto-complete-inner ${focus === true ? 'focused' : ''}`}
                      style={innerStyle}>
@@ -170,7 +171,7 @@ export default class AutoComplete extends Component {
     }
 };
 
-AutoComplete.propTypes = {
+RemoteAutoComplete.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -218,7 +219,7 @@ AutoComplete.propTypes = {
     onFocus: PropTypes.func
 };
 
-AutoComplete.defaultProps = {
+RemoteAutoComplete.defaultProps = {
     className: '',
     style: {},
 
