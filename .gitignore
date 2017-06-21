@@ -12,6 +12,9 @@ Thumbs.db
 # Dependency directories
 /node_modules
 
+# npm lock json
+package-lock.json
+
 # Distribution
 /dist
 /examples/assets/propTypes
