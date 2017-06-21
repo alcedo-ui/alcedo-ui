@@ -2,15 +2,15 @@
  * Created by DT314 on 2017/5/15.
  */
 import React, {Component} from 'react';
-import AutoComplete from 'dist/AutoComplete';
+import RemoteAutoComplete from 'dist/RemoteAutoComplete';
 
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import AutoCompleteDoc from 'assets/propTypes/AutoComplete.json';
+import RemoteAutoCompleteDoc from 'assets/propTypes/RemoteAutoComplete.json';
 
-import 'sass/containers/app/modules/fields/AutoCompleteExamples.scss';
+import 'sass/containers/app/modules/fields/RemoteAutoCompleteExamples.scss';
 
 export default class RemoteAutoCompleteExamples extends Component {
 
@@ -94,11 +94,11 @@ export default class RemoteAutoCompleteExamples extends Component {
 
                                 <p>Remote Auto Complete simple default example.</p>
 
-                                <AutoComplete data={chooseData}
-                                              onChange={this.onChange}
-                                              value={text}
-                                              onBlur={this.onBlur}
-                                              loading={loading}/>
+                                <RemoteAutoComplete data={chooseData}
+                                                    onChange={this.onChange}
+                                                    value={text}
+                                                    onBlur={this.onBlur}
+                                                    loading={loading}/>
 
                             </div>
 
@@ -109,7 +109,7 @@ export default class RemoteAutoCompleteExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={AutoCompleteDoc}/>
+                <PropTypeDescTable data={RemoteAutoCompleteDoc}/>
 
             </div>
 

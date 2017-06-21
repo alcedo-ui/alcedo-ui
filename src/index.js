@@ -1,6 +1,5 @@
 export Accordion from './Accordion';
 export ArrowStep from './ArrowStep';
-export AutoComplete from './RemoteAutoComplete';
 export ButtonCheckbox from './ButtonCheckbox';
 export Cascader from './Cascader';
 export Checkbox from './Checkbox';
@@ -30,6 +29,7 @@ export Radio from './Radio';
 export RadioGroup from './RadioGroup';
 export RaisedButton from './RaisedButton';
 export Rate from './Rate';
+export RemoteAutoComplete from './RemoteAutoComplete';
 export RoundStep from './RoundStep';
 export Slider from './Slider';
 export SpanLoading from './SpanLoading';
