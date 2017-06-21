@@ -1,15 +1,6 @@
 @import '../_common.scss';
 
-.auto-complete {
-
-}
-
 .auto-complete-popup {
-    width: 300px;
     max-height: 300px;
     overflow-y: auto;
-
-    .auto-complete-list {
-        width: 300px;
-    }
 }

@@ -155,7 +155,7 @@ export default class LocalAutoComplete extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, disabled, iconCls, rightIconCls} = this.props;
+        const {className, popupClassName, style, name, placeholder, disabled, iconCls, rightIconCls} = this.props;
         const {value, filter, popupVisible, filteredData} = this.state;
 
         return (
@@ -182,7 +182,8 @@ export default class LocalAutoComplete extends Component {
                            onBlur={this.blurHandle}
                            onChange={this.changeHandle}/>
 
-                <Popup className="auto-complete-popup"
+                <Popup className={`auto-complete-popup ${popupClassName}`}
+                       style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -206,6 +207,11 @@ LocalAutoComplete.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -344,6 +350,7 @@ LocalAutoComplete.propTypes = {
 LocalAutoComplete.defaultProps = {
 
     className: '',
+    popupClassName: '',
     style: {},
 
     name: '',
