@@ -130,12 +130,12 @@ List.propTypes = {
     }), PropTypes.string, PropTypes.number])).isRequired,
 
     /**
-     * The value field name in data.
+     * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
 
     /**
-     * The display field name in data.
+     * The display field name in data. (default: "text")
      */
     displayField: PropTypes.string,
 

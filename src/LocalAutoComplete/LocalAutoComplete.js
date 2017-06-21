@@ -18,11 +18,13 @@ export default class LocalAutoComplete extends Component {
         this.triggerEl = null;
 
         this.state = {
+            value: null,
             filter: '',
             popupVisible: false,
             filteredData: this.formatData(this.filterData('', props.data))
         };
 
+        this.getValue = this::this.getValue;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.filterData = this::this.filterData;
         this.formatData = this::this.formatData;
@@ -32,28 +34,42 @@ export default class LocalAutoComplete extends Component {
 
     }
 
+    getValue(data) {
+
+        if (!data) {
+            return;
+        }
+
+        const {valueField} = this.props;
+
+        switch (typeof data) {
+            case 'object': {
+                return data[valueField];
+            }
+            default:
+                return data;
+        }
+
+    }
+
     itemTouchTapHandle(item, callback) {
 
         return (function (item, callback) {
 
-            const {autoClose, onChange} = this.props;
-
-            function cb() {
-                onChange && onChange(item);
-                callback && typeof callback === 'function' && callback();
-            }
+            const {autoClose, onChange} = this.props,
+                state = {
+                    filter: this.getValue(item),
+                    value: item
+                };
 
             if (autoClose === true) {
-
-                this.setState({
-                    popupVisible: false
-                }, () => {
-                    cb();
-                });
-
-            } else {
-                cb();
+                state.popupVisible = false;
             }
+
+            this.setState(state, () => {
+                onChange && onChange(item);
+                callback && typeof callback === 'function' && callback();
+            });
 
         }).bind(this, item, callback);
 
@@ -101,7 +117,7 @@ export default class LocalAutoComplete extends Component {
     }
 
     focusHandle() {
-        this.setState({
+        !this.props.disabled && this.setState({
             popupVisible: true
         });
     }
@@ -125,16 +141,26 @@ export default class LocalAutoComplete extends Component {
 
     render() {
 
-        const {className, style} = this.props;
-        const {filter, popupVisible, filteredData} = this.state;
+        const {className, style, name, disabled} = this.props;
+        const {value, filter, popupVisible, filteredData} = this.state;
 
         return (
             <div className={`auto-complete ${className}`}
                  style={style}>
 
+                {
+                    name ?
+                        <input type="hidden"
+                               name={name}
+                               value={this.getValue(value)}/>
+                        :
+                        null
+                }
+
                 <TextField ref="trigger"
                            className="auto-complete-trigger"
                            value={filter}
+                           disabled={disabled}
                            onFocus={this.focusHandle}
                            onChange={this.changeHandle}/>
 
@@ -144,8 +170,10 @@ export default class LocalAutoComplete extends Component {
                        hasTriangle={false}
                        triggerMode={Popup.TriggerMode.OPEN}
                        onRequestClose={this.closePopup}>
+
                     <List className="auto-complete-list"
                           items={filteredData}/>
+
                 </Popup>
 
             </div>
@@ -165,6 +193,11 @@ LocalAutoComplete.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The name of the auto complete.
+     */
+    name: PropTypes.string,
 
     /**
      * Children passed into the List.
@@ -234,14 +267,29 @@ LocalAutoComplete.propTypes = {
     }), PropTypes.string, PropTypes.number])).isRequired,
 
     /**
-     * Callback function fired when value changed.
+     * If true, the auto complete will be disabled.
      */
-    filterCallback: PropTypes.func,
+    disabled: PropTypes.bool,
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
 
     /**
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    /**
+     * Callback function fired when value changed.
+     */
+    filterCallback: PropTypes.func,
 
     /**
      * select callback.
@@ -255,7 +303,11 @@ LocalAutoComplete.defaultProps = {
     className: '',
     style: {},
 
-    value: '',
-    data: []
+    name: '',
+    data: [],
+    disabled: false,
+    valueField: 'value',
+    displayField: 'text',
+    autoClose: false
 
 };
