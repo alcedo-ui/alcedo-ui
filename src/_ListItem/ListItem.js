@@ -50,7 +50,8 @@ export default class ListItem extends Component {
         return typeof data === 'object' ?
             (
                 data.renderer && typeof data.renderer === 'function' ?
-                    data.renderer(data) :
+                    data.renderer(data)
+                    :
                     (
                         data.desc ?
                             <RaisedButton {...data}
