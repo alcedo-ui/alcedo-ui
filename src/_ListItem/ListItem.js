@@ -45,7 +45,7 @@ export default class ListItem extends Component {
 
     render() {
 
-        const {data, disabled} = this.props;
+        const {data, disabled, valueField, displayField} = this.props;
 
         return typeof data === 'object' ?
             (
@@ -60,8 +60,12 @@ export default class ListItem extends Component {
                                           renderer={(props) => {
                                               return (
                                                   <div className="list-item-content">
-                                                      <div className="list-item-content-value">{props.value}</div>
-                                                      <div className="list-item-content-desc">{props.desc}</div>
+                                                      <div className="list-item-content-value">
+                                                          {props[displayField] || props[valueField]}
+                                                      </div>
+                                                      <div className="list-item-content-desc">
+                                                          {props.desc}
+                                                      </div>
                                                   </div>
                                               );
                                           }}/>

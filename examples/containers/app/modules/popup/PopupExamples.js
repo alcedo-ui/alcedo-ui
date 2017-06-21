@@ -85,15 +85,15 @@ export default class PopupExamples extends Component {
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={(e)=> {
-                                                  this.togglePopup(e, 1)
+                                              onTouchTap={(e) => {
+                                                  this.togglePopup(e, 1);
                                               }}/>
 
                                 <Popup visible={popupVisible1}
                                        triggerEl={triggerEl}
                                        theme={Theme.PRIMARY}
-                                       onRequestClose={(e)=> {
-                                           this.closePopup(e, 1)
+                                       onRequestClose={() => {
+                                           this.closePopup(1);
                                        }}>
                                     <List items={items}/>
                                 </Popup>
@@ -118,15 +118,15 @@ export default class PopupExamples extends Component {
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={(e)=> {
-                                                  this.togglePopup(e, 2)
+                                              onTouchTap={(e) => {
+                                                  this.togglePopup(e, 2);
                                               }}/>
 
                                 <Popup visible={popupVisible2}
                                        triggerEl={triggerEl}
                                        position={Popup.Position.RIGHT}
-                                       onRequestClose={(e)=> {
-                                           this.closePopup(e, 2)
+                                       onRequestClose={() => {
+                                           this.closePopup(2);
                                        }}>
                                     <List items={items}/>
                                 </Popup>
@@ -151,15 +151,15 @@ export default class PopupExamples extends Component {
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={(e)=> {
-                                                  this.togglePopup(e, 3)
+                                              onTouchTap={(e) => {
+                                                  this.togglePopup(e, 3);
                                               }}/>
 
                                 <Popup visible={popupVisible3}
                                        triggerEl={triggerEl}
                                        hasTriangle={false}
-                                       onRequestClose={(e)=> {
-                                           this.closePopup(e, 3)
+                                       onRequestClose={() => {
+                                           this.closePopup(3);
                                        }}>
                                     <List items={items}/>
                                 </Popup>

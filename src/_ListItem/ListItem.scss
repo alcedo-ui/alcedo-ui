@@ -23,15 +23,14 @@
     .list-item-content {
         display: inline-block;
         vertical-align: middle;
+        padding: 8px 0;
 
         .list-item-content-value {
-            height: 25px;
-            line-height: 35px;
+            line-height: 16px;
         }
 
         .list-item-content-desc {
-            height: 25px;
-            line-height: 15px;
+            line-height: 16px;
             opacity: .5;
         }
     }
