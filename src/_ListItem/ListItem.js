@@ -49,21 +49,27 @@ export default class ListItem extends Component {
 
         return typeof data === 'object' ?
             (
-                !data.renderer && data.desc ?
-                    <RaisedButton {...data}
-                                  className={`list-item ${data.className ? data.className : ''}`}
-                                  value={this.displayValue(data)}
-                                  disabled={disabled || data.disabled}
-                                  renderer={(props) => {
-                                      return (
-                                          <div className="list-item-content">
-                                              <div className="list-item-content-value">{props.value}</div>
-                                              <div className="list-item-content-desc">{props.desc}</div>
-                                          </div>
-                                      );
-                                  }}/>
-                    :
-                    data.renderer(data)
+                data.renderer && typeof data.renderer === 'function' ?
+                    data.renderer(data) :
+                    (
+                        data.desc ?
+                            <RaisedButton {...data}
+                                          className={`list-item ${data.className ? data.className : ''}`}
+                                          disabled={disabled || data.disabled}
+                                          renderer={(props) => {
+                                              return (
+                                                  <div className="list-item-content">
+                                                      <div className="list-item-content-value">{props.value}</div>
+                                                      <div className="list-item-content-desc">{props.desc}</div>
+                                                  </div>
+                                              );
+                                          }}/>
+                            :
+                            <RaisedButton {...data}
+                                          className={`list-item ${data.className ? data.className : ''}`}
+                                          value={this.displayValue(data)}
+                                          disabled={disabled || data.disabled}/>
+                    )
             )
             :
             <RaisedButton className="list-item"

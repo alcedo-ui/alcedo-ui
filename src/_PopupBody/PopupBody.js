@@ -250,6 +250,7 @@ PopupBody.defaultProps = {
     hasTriangle: true,
     theme: Theme.DEFAULT,
     position: PopupBody.Position.LEFT,
-    depth: 4
+    depth: 4,
+    triggerMode: PopupBody.TriggerMode.TOGGLE
 
 };
