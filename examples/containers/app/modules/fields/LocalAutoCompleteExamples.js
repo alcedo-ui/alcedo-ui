@@ -15,18 +15,25 @@ export default class LocalAutoCompleteExamples extends Component {
 
         super(props);
 
-        this.data = ['test1', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4',
-            'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+        this.data = ['test0', 'test1', {
+            value: 'test2',
+            onTouchTap() {
+                console.log('test2 selected!');
+            }
+        }, 'test3', 'test4', 'test5', {
+            value: 'test6',
+            onTouchTap() {
+                console.log('test6 selected!');
+            }
+        }, 'test7', 'test8', 'test9'];
         this.searchLength = 2;
 
-        this.onChange = this :: this.onChange;
+        this.onChange = this::this.onChange;
 
     }
 
     onChange(item) {
-
-
-
+        console.log('select item: ', item);
     }
 
     render() {

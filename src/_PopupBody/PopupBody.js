@@ -39,7 +39,7 @@ export default class PopupBody extends Component {
             if (el == popupEl) {
                 return currentVisible;
             } else if (el == triggerEl) {
-                return triggerMode === PopupBody.triggerMode.TOGGLE ? !currentVisible : true;
+                return triggerMode === PopupBody.TriggerMode.TOGGLE ? !currentVisible : true;
             }
             el = el.parentNode;
         }

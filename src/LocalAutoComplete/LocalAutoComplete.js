@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -19,25 +20,83 @@ export default class LocalAutoComplete extends Component {
         this.state = {
             filter: '',
             popupVisible: false,
-            filteredData: props.data
+            filteredData: this.formatData(this.filterData('', props.data))
         };
 
+        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.filterData = this::this.filterData;
+        this.formatData = this::this.formatData;
         this.focusHandle = this::this.focusHandle;
         this.changeHandle = this::this.changeHandle;
         this.closePopup = this::this.closePopup;
 
     }
 
-    filterData(filter = this.state.filter) {
+    itemTouchTapHandle(item, callback) {
 
-        const {filterCallback, data} = this.props;
+        return (function (item, callback) {
+
+            const {autoClose, onChange} = this.props;
+
+            function cb() {
+                onChange && onChange(item);
+                callback && typeof callback === 'function' && callback();
+            }
+
+            if (autoClose === true) {
+
+                this.setState({
+                    popupVisible: false
+                }, () => {
+                    cb();
+                });
+
+            } else {
+                cb();
+            }
+
+        }).bind(this, item, callback);
+
+    }
+
+    filterData(filter = this.state.filter, data = this.props.data) {
+
+        const {filterCallback} = this.props;
 
         if (filterCallback) {
-            return filterCallback(data, filter);
+            return filterCallback(filter, data);
         }
 
-        return data.filter(item => item.includes(filter));
+        return data.filter(item => {
+            return typeof item === 'object' && item.value ?
+                item.value.includes(filter)
+                :
+                item.includes(filter);
+        });
+
+    }
+
+    formatData(data = this.props.data) {
+
+        return data.map(listItem => {
+
+            if (typeof listItem === 'object') {
+
+                let item = _.cloneDeep(listItem);
+                item.raw = listItem;
+                item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
+
+                return item;
+
+            }
+
+            return {
+                raw: listItem,
+                value: listItem,
+                onTouchTap: this.itemTouchTapHandle(listItem)
+            };
+
+        });
 
     }
 
@@ -50,7 +109,7 @@ export default class LocalAutoComplete extends Component {
     changeHandle(filter) {
         this.setState({
             filter,
-            filteredData: this.filterData(filter)
+            filteredData: this.formatData(this.filterData(filter))
         });
     }
 
@@ -177,7 +236,17 @@ LocalAutoComplete.propTypes = {
     /**
      * Callback function fired when value changed.
      */
-    filterCallback: PropTypes.func
+    filterCallback: PropTypes.func,
+
+    /**
+     * If true, the popup list automatically closed after selection.
+     */
+    autoClose: PropTypes.bool,
+
+    /**
+     * select callback.
+     */
+    onChange: PropTypes.func
 
 };
 
