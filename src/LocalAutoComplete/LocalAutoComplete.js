@@ -141,7 +141,7 @@ export default class LocalAutoComplete extends Component {
 
     render() {
 
-        const {className, style, name, disabled} = this.props;
+        const {className, style, name, placeholder, disabled} = this.props;
         const {value, filter, popupVisible, filteredData} = this.state;
 
         return (
@@ -160,6 +160,7 @@ export default class LocalAutoComplete extends Component {
                 <TextField ref="trigger"
                            className="auto-complete-trigger"
                            value={filter}
+                           placeholder={placeholder}
                            disabled={disabled}
                            onFocus={this.focusHandle}
                            onChange={this.changeHandle}/>
@@ -198,6 +199,11 @@ LocalAutoComplete.propTypes = {
      * The name of the auto complete.
      */
     name: PropTypes.string,
+
+    /**
+     * The placeholder of the field.
+     */
+    placeholder: PropTypes.string,
 
     /**
      * Children passed into the List.
@@ -304,6 +310,7 @@ LocalAutoComplete.defaultProps = {
     style: {},
 
     name: '',
+    placeholder: '',
     data: [],
     disabled: false,
     valueField: 'value',

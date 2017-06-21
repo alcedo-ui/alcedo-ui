@@ -61,6 +61,7 @@ export default class LocalAutoCompleteExamples extends Component {
                                 <p>Local Auto Complete simple default example.</p>
 
                                 <LocalAutoComplete data={this.data}
+                                                   placeholder="Please select ..."
                                                    onChange={this.onChange}/>
 
                             </div>
