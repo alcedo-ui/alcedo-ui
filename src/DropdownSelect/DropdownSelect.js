@@ -207,25 +207,21 @@ DropdownSelect.propTypes = {
      */
     data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        // 图标 class
         /**
          * Use this property to display an icon of the options.
          */
         iconCls: PropTypes.string,
 
-        // 值
         /**
          * The dropDownSelect input value.Type can be string,number or bool.
          */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
 
-        // 显示文本
         /**
          * The options's text.Type can be string,number or bool.
          */
         text: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
 
-        // 是否禁止选择
         /**
          * Disables the option if set to true.
          */

@@ -14,7 +14,7 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, disabled} = this.props;
+        const {children, className, style, items, valueField, displayField, disabled} = this.props;
 
         return (
             <div className={`list ${className}`}
@@ -28,6 +28,8 @@ export default class List extends Component {
                             return (
                                 <ListItem key={index}
                                           data={item}
+                                          valueField={valueField}
+                                          displayField={displayField}
                                           disabled={disabled}/>
                             );
                         })
@@ -56,11 +58,6 @@ List.propTypes = {
     style: PropTypes.object,
 
     /**
-     * If true, the list will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
      * Children passed into the ListItem.
      */
     items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
@@ -84,6 +81,11 @@ List.propTypes = {
          * The text value of the list button.Type can be string or number.
          */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The list item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
          * The desc value of the list button. Type can be string or number.
@@ -125,7 +127,22 @@ List.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number])).isRequired
+    }), PropTypes.string, PropTypes.number])).isRequired,
+
+    /**
+     * The value field name in data.
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data.
+     */
+    displayField: PropTypes.string,
+
+    /**
+     * If true, the list will be disabled.
+     */
+    disabled: PropTypes.bool
 
 };
 
@@ -134,8 +151,10 @@ List.defaultProps = {
     className: '',
     style: null,
 
-    disabled: false,
+    items: [],
 
-    items: []
+    valueField: 'value',
+    displayField: 'text',
+    disabled: false
 
 };

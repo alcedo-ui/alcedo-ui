@@ -9,7 +9,38 @@ import './ListItem.css';
 export default class ListItem extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.displayValue = this::this.displayValue;
+
+    }
+
+    displayValue(data = this.props.data) {
+
+        if (!data) {
+            return;
+        }
+
+        const {valueField, displayField} = this.props;
+
+        switch (typeof data) {
+
+            case 'object': {
+
+                if (data[displayField]) {
+                    return data[displayField];
+                }
+
+                return data[valueField];
+
+            }
+
+            default:
+                return data;
+
+        }
+
     }
 
     render() {
@@ -21,6 +52,7 @@ export default class ListItem extends Component {
                 !data.renderer && data.desc ?
                     <RaisedButton {...data}
                                   className={`list-item ${data.className ? data.className : ''}`}
+                                  value={this.displayValue(data)}
                                   disabled={disabled || data.disabled}
                                   renderer={(props) => {
                                       return (
@@ -33,11 +65,12 @@ export default class ListItem extends Component {
                     :
                     <RaisedButton {...data}
                                   className={`list-item ${data.className ? data.className : ''}`}
+                                  value={this.displayValue(data)}
                                   disabled={disabled || data.disabled}/>
             )
             :
             <RaisedButton className="list-item"
-                          value={data}
+                          value={this.displayValue(data)}
                           disabled={disabled}/>;
 
     }
@@ -69,6 +102,11 @@ ListItem.propTypes = {
          * The text value of the list button. Type can be string or number.
          */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The list item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
          * The desc value of the list button. Type can be string or number.
@@ -112,14 +150,29 @@ ListItem.propTypes = {
 
     }), PropTypes.string, PropTypes.number]).isRequired,
 
+    /**
+     * The value field name in data.
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data.
+     */
+    displayField: PropTypes.string,
+
+    /**
+     * If true, the list will be disabled.
+     */
     disabled: PropTypes.bool
 
 };
 
 ListItem.defaultProps = {
 
-    data: [],
+    data: null,
 
+    valueField: 'value',
+    displayField: 'text',
     disabled: false
 
 };
