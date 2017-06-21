@@ -78,17 +78,17 @@ export default class LocalAutoComplete extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {filterCallback} = this.props;
+        const {valueField, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
         return data.filter(item => {
-            return typeof item === 'object' && item.value ?
-                item.value.includes(filter)
+            return typeof item === 'object' && item[valueField] ?
+                item[valueField].includes(filter)
                 :
-                item.includes(filter);
+                item.toString().includes(filter);
         });
 
     }
@@ -131,7 +131,7 @@ export default class LocalAutoComplete extends Component {
     }
 
     blurHandle() {
-        const {disabled} = this.props;
+        const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur();
     }
 

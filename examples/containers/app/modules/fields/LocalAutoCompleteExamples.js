@@ -16,12 +16,14 @@ export default class LocalAutoCompleteExamples extends Component {
         super(props);
 
         this.data = ['test0', 'test1', {
-            value: 'test2',
+            text: 'test2',
+            desc: 'Here is test2.',
             onTouchTap() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
-            value: 'test6',
+            text: 'test6',
+            desc: 'Here is test6.',
             onTouchTap() {
                 console.log('test6 selected!');
             }
@@ -62,6 +64,7 @@ export default class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
+                                                   valueField="text"
                                                    onChange={this.onChange}/>
 
                             </div>
