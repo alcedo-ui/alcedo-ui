@@ -3,4 +3,8 @@
 .auto-complete-popup {
     max-height: 300px;
     overflow-y: auto;
+
+    .auto-complete-list {
+        width: 100%;
+    }
 }
