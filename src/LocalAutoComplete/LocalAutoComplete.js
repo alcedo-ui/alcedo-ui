@@ -29,6 +29,7 @@ export default class LocalAutoComplete extends Component {
         this.filterData = this::this.filterData;
         this.formatData = this::this.formatData;
         this.focusHandle = this::this.focusHandle;
+        this.blurHandle = this::this.blurHandle;
         this.changeHandle = this::this.changeHandle;
         this.closePopup = this::this.closePopup;
 
@@ -117,14 +118,27 @@ export default class LocalAutoComplete extends Component {
     }
 
     focusHandle() {
-        !this.props.disabled && this.setState({
+
+        const {disabled, onFocus} = this.props,
+            {filter} = this.state;
+
+        !disabled && filter && this.setState({
             popupVisible: true
+        }, () => {
+            onFocus && onFocus();
         });
+
+    }
+
+    blurHandle() {
+        const {disabled} = this.props;
+        !disabled && onBlur && onBlur();
     }
 
     changeHandle(filter) {
         this.setState({
             filter,
+            popupVisible: !!filter,
             filteredData: this.formatData(this.filterData(filter))
         });
     }
@@ -141,7 +155,7 @@ export default class LocalAutoComplete extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, disabled} = this.props;
+        const {className, style, name, placeholder, disabled, iconCls, rightIconCls} = this.props;
         const {value, filter, popupVisible, filteredData} = this.state;
 
         return (
@@ -162,7 +176,10 @@ export default class LocalAutoComplete extends Component {
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
+                           iconCls={iconCls}
+                           rightIconCls={rightIconCls}
                            onFocus={this.focusHandle}
+                           onBlur={this.blurHandle}
                            onChange={this.changeHandle}/>
 
                 <Popup className="auto-complete-popup"
@@ -298,9 +315,29 @@ LocalAutoComplete.propTypes = {
     filterCallback: PropTypes.func,
 
     /**
+     * Use this property to display an icon.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * Use this property to display an icon.
+     */
+    rightIconCls: PropTypes.string,
+
+    /**
      * select callback.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     * focus callback.
+     */
+    onFocus: PropTypes.func,
+
+    /**
+     * blur callback.
+     */
+    onBlur: PropTypes.func
 
 };
 
@@ -315,6 +352,8 @@ LocalAutoComplete.defaultProps = {
     disabled: false,
     valueField: 'value',
     displayField: 'text',
-    autoClose: false
+    autoClose: false,
+    iconCls: '',
+    rightIconCls: ''
 
 };
