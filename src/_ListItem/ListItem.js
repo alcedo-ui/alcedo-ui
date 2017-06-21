@@ -63,10 +63,7 @@ export default class ListItem extends Component {
                                       );
                                   }}/>
                     :
-                    <RaisedButton {...data}
-                                  className={`list-item ${data.className ? data.className : ''}`}
-                                  value={this.displayValue(data)}
-                                  disabled={disabled || data.disabled}/>
+                    data.renderer(data)
             )
             :
             <RaisedButton className="list-item"
