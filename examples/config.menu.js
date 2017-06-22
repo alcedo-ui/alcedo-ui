@@ -63,9 +63,12 @@ export default [{
     }, {
         text: 'Checkbox',
         route: '/components/Checkbox'
-    }, {
-        text: 'Radio',
-        route: '/components/Radio'
+    }/*, {
+     text: 'Radio',
+     route: '/components/Radio'
+     }*/, {
+        text: 'RadioGroup',
+        route: '/components/RadioGroup'
     }, {
         text: 'ButtonCheckbox',
         route: '/components/ButtonCheckbox'
