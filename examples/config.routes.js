@@ -21,7 +21,9 @@ import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples
 import TreeExamples from 'containers/app/modules/fields/TreeExamples';
 import CheckboxExamples from 'containers/app/modules/fields/CheckboxExamples';
 import RadioExamples from 'containers/app/modules/fields/RadioExamples';
+import RadioGroupExamples from 'containers/app/modules/fields/RadioGroupExamples';
 import ButtonCheckboxExamples from 'containers/app/modules/fields/ButtonCheckboxExamples';
+import ButtonRadioGroupExamples from 'containers/app/modules/fields/ButtonRadioGroupExamples';
 import SwitcherExamples from 'containers/app/modules/fields/SwitcherExamples';
 import SliderExamples from 'containers/app/modules/fields/SliderExamples';
 import EditableFieldExamples from 'containers/app/modules/fields/EditableFieldExamples';
@@ -114,8 +116,12 @@ export default (
                    component={CheckboxExamples}/>
             <Route path="Radio"
                    component={RadioExamples}/>
+            <Route path="RadioGroup"
+                   component={RadioGroupExamples}/>
             <Route path="ButtonCheckbox"
                    component={ButtonCheckboxExamples}/>
+            <Route path="ButtonRadioGroup"
+                   component={ButtonRadioGroupExamples}/>
             <Route path="Switcher"
                    component={SwitcherExamples}/>
             <Route path="Slider"
