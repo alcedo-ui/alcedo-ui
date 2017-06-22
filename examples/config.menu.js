@@ -73,6 +73,9 @@ export default [{
         text: 'ButtonCheckbox',
         route: '/components/ButtonCheckbox'
     }, {
+        text: 'ButtonRadioGroup',
+        route: '/components/ButtonRadioGroup'
+    }, {
         text: 'Switcher',
         route: '/components/Switcher'
     }, {
