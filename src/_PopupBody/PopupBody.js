@@ -164,7 +164,12 @@ export default class PopupBody extends Component {
                      ${theme ? `theme-${theme}` : ''} ${position ? `popup-position-${position}` : ''} ${className}`}
                    style={{...this.getPopupStyle(), ...style}}>
 
-                <div className="popup-triangle"></div>
+                {
+                    hasTriangle ?
+                        <div className="popup-triangle"></div>
+                        :
+                        null
+                }
 
                 <div className="popup-content">
                     {children}
