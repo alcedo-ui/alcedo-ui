@@ -118,34 +118,8 @@ export default class PopupBody extends Component {
         this.initializeAnimation(callback);
     }
 
-    componentWillEnter(callback) {
-        this.initializeAnimation(callback);
-    }
-
     componentDidAppear() {
         this.animate();
-    }
-
-    componentDidEnter() {
-        this.animate();
-    }
-
-    componentWillLeave(callback) {
-        this.setState({
-            visible: false
-        }, () => {
-            this.unrenderTimeout = setTimeout(() => {
-                this.hasMounted && callback();
-            }, 250);
-        });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: !!nextProps.visible
-            });
-        }
     }
 
     componentWillUnmount() {
