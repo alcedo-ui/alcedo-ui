@@ -22,7 +22,9 @@ export default class PopupExamples extends Component {
             popupVisible1: false,
             popupVisible2: false,
             popupVisible3: false,
-            triggerEl: null
+            triggerEl1: null,
+            triggerEl2: null,
+            triggerEl3: null
         };
 
         this.togglePopup = this::this.togglePopup;
@@ -33,7 +35,7 @@ export default class PopupExamples extends Component {
     togglePopup(e, id) {
         this.setState({
             [`popupVisible${id}`]: !this.state[`popupVisible${id}`],
-            triggerEl: e.currentTarget
+            [`triggerEl${id}`]: e.currentTarget
         });
     }
 
@@ -45,7 +47,7 @@ export default class PopupExamples extends Component {
 
     render() {
 
-        const {popupVisible1, popupVisible2, popupVisible3, triggerEl} = this.state,
+        const {popupVisible1, popupVisible2, popupVisible3, triggerEl1, triggerEl2, triggerEl3} = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
                 value: 'Facebook',
@@ -90,7 +92,7 @@ export default class PopupExamples extends Component {
                                               }}/>
 
                                 <Popup visible={popupVisible1}
-                                       triggerEl={triggerEl}
+                                       triggerEl={triggerEl1}
                                        theme={Theme.PRIMARY}
                                        onRequestClose={() => {
                                            this.closePopup(1);
@@ -123,7 +125,7 @@ export default class PopupExamples extends Component {
                                               }}/>
 
                                 <Popup visible={popupVisible2}
-                                       triggerEl={triggerEl}
+                                       triggerEl={triggerEl2}
                                        theme={Theme.PRIMARY}
                                        position={Popup.Position.RIGHT}
                                        onRequestClose={() => {
@@ -157,7 +159,7 @@ export default class PopupExamples extends Component {
                                               }}/>
 
                                 <Popup visible={popupVisible3}
-                                       triggerEl={triggerEl}
+                                       triggerEl={triggerEl3}
                                        hasTriangle={false}
                                        onRequestClose={() => {
                                            this.closePopup(3);
