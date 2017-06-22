@@ -1,0 +1,26 @@
+@import '../_common.scss';
+
+.button-radio-group {
+    & > .button-radio-group-item {
+        border-radius: 0;
+
+        &.activated {
+            color: #fff;
+            background: $theme-menu;
+
+            &:hover {
+                background: darken($theme-menu, 4%);
+            }
+        }
+
+        &:first-child {
+            border-top-left-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
+        }
+
+        &:last-child {
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+        }
+    }
+}

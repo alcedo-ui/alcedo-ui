@@ -12,7 +12,33 @@ import 'sass/containers/app/modules/fields/ButtonCheckboxExamples.scss';
 export default class ButtonRadioGroupExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.data = [{
+            label: 1,
+            value: 1
+        }, {
+            label: 2,
+            value: 2
+        }, {
+            label: 3,
+            value: 3
+        }, {
+            label: 4,
+            value: 4,
+            disabled: true
+        }, {
+            label: 5,
+            value: 5
+        }];
+
+        this.changeHandle = this::this.changeHandle;
+
+    }
+
+    changeHandle(value) {
+        console.log(value);
     }
 
     render() {
@@ -39,23 +65,9 @@ export default class ButtonRadioGroupExamples extends Component {
 
                                 <p>Button Radio Group simple default example.</p>
 
-                                <label>Number</label>
-                                <ButtonRadioGroup data={[{
-                                    label: 1,
-                                    value: 1
-                                }, {
-                                    label: 2,
-                                    value: 2
-                                }, {
-                                    label: 3,
-                                    value: 3
-                                }, {
-                                    label: 4,
-                                    value: 4
-                                }, {
-                                    label: 5,
-                                    value: 5
-                                }]}/>
+                                <ButtonRadioGroup data={this.data}
+                                                  value={1}
+                                                  onChange={this.changeHandle}/>
 
                             </div>
 

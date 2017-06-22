@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Radio from '../Radio';
+import RaisedButton from '../RaisedButton';
+
+import './ButtonRadioGroup.css';
 
 export default class ButtonRadioGroup extends Component {
 
@@ -18,7 +21,6 @@ export default class ButtonRadioGroup extends Component {
     }
 
     changeHandle(item) {
-
         this.setState({
             value: item.value
         }, () => {
@@ -40,26 +42,34 @@ export default class ButtonRadioGroup extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`radio-group ${className}`}
+            <div className={`button-radio-group ${className}`}
                  style={style}
                  disabled={disabled}>
 
                 {
+                    name ?
+                        <input type="hidden"
+                               name={name}
+                               value={value}/>
+                        :
+                        null
+                }
+
+                {
                     data.map((item, index) => {
 
-                        const isChecked = item.value === value;
+                        const isChecked = item.value === value,
+                            className = (isChecked ? ' activated' : '') + (item.className ? ' ' + item.className : '');
 
                         return (
-                            <Radio key={index}
-                                   className={item.className ? item.className : ''}
-                                   style={item.style}
-                                   name={name}
-                                   label={item.label}
-                                   value={isChecked}
-                                   disabled={disabled}
-                                   onChange={() => {
-                                       this.changeHandle(item);
-                                   }}/>
+                            <RaisedButton key={index}
+                                          className={'button-radio-group-item' + className}
+                                          style={item.style}
+                                          value={item.label}
+                                          disabled={disabled || item.disabled}
+                                          onTouchTap={() => {
+                                              this.changeHandle(item);
+                                          }}/>
                         );
 
                     })
@@ -83,7 +93,9 @@ ButtonRadioGroup.propTypes = {
         style: PropTypes.object,
 
         label: PropTypes.any,
-        value: PropTypes.any
+        value: PropTypes.any,
+
+        disabled: PropTypes.bool
 
     })).isRequired,
     value: PropTypes.any,
