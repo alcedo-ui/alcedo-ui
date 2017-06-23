@@ -280,9 +280,9 @@ TipBody.propTypes = {
     /**
      * The popover theme. Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Object.keys(TipBody.Position).map(key => TipBody.Position[key])),
+    position: PropTypes.oneOf(Util.enumerateValue(TipBody.Position)),
 
     /**
      * Callback function fired when the popover is requested to be closed.
