@@ -95,25 +95,52 @@ export default class LocalAutoComplete extends Component {
 
     formatData(data = this.props.data) {
 
-        return data.map(listItem => {
+        const {noMatchedMsg} = this.props;
 
-            if (typeof listItem === 'object') {
+        return data.length > 0 ?
+            (
+                data.map(listItem => {
 
-                let item = _.cloneDeep(listItem);
-                item.raw = listItem;
-                item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
+                    if (typeof listItem === 'object') {
 
-                return item;
+                        let item = _.cloneDeep(listItem);
+                        item.raw = listItem;
+                        item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
 
-            }
+                        return item;
 
-            return {
-                raw: listItem,
-                value: listItem,
-                onTouchTap: this.itemTouchTapHandle(listItem)
-            };
+                    }
 
-        });
+                    return {
+                        raw: listItem,
+                        value: listItem,
+                        onTouchTap: this.itemTouchTapHandle(listItem)
+                    };
+
+                })
+            )
+            :
+            (
+                [{
+                    renderer() {
+                        return (
+                            <div className="no-matched-list-item">
+
+                                {
+                                    noMatchedMsg ?
+                                        noMatchedMsg
+                                        :
+                                        <span>
+                                            <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                            No matched value.
+                                        </span>
+                                }
+
+                            </div>
+                        );
+                    }
+                }]
+            );
 
     }
 
@@ -330,6 +357,8 @@ LocalAutoComplete.propTypes = {
      */
     rightIconCls: PropTypes.string,
 
+    noMatchedMsg: PropTypes.string,
+
     /**
      * select callback.
      */
@@ -361,6 +390,7 @@ LocalAutoComplete.defaultProps = {
     displayField: 'text',
     autoClose: false,
     iconCls: '',
-    rightIconCls: ''
+    rightIconCls: '',
+    noMatchedMsg: ''
 
 };
