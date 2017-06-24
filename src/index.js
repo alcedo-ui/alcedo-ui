@@ -49,5 +49,6 @@ export TouchRipple from './TouchRipple';
 export Transfer from './Transfer';
 export Tree from './Tree';
 export TreeSelect from './TreeSelect';
+export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';

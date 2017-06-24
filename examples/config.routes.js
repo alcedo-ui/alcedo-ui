@@ -47,6 +47,7 @@ import ListExamples from 'containers/app/modules/layout/ListExamples';
 import TabExamples from 'containers/app/modules/layout/TabExamples';
 import AccordionExamples from 'containers/app/modules/layout/AccordionExamples';
 import TableExamples from 'containers/app/modules/layout/TableExamples';
+import WaterfallExamples from 'containers/app/modules/layout/WaterfallExamples';
 
 import ArrowStepExamples from 'containers/app/modules/stepper/ArrowStepExamples';
 import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples';
@@ -158,6 +159,8 @@ export default (
                    component={AccordionExamples}/>
             <Route path="Table"
                    component={TableExamples}/>
+            <Route path="Waterfall"
+                   component={WaterfallExamples}/>
 
             {/* steppers */}
             <Route path="ArrowStep"
