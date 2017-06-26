@@ -14,13 +14,11 @@
     }
 
     .example-title {
-
         font-size: 18px;
         cursor: default;
         user-select: none;
         padding-bottom: 10px;
         border-bottom: 1px solid rgba(0, 0, 0, .06);
-
     }
 
     .widget {
@@ -28,10 +26,8 @@
     }
 
     .example-header {
-
         color: #fff;
         background: $theme-title;
-
     }
 
     .example-content {
@@ -40,22 +36,17 @@
 
         padding: 30px;
         background: $theme-widget-bg;
-        box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
     }
 
     .prop-type-desc-table {
 
         tbody tr td:first-child {
-
             color: $light-blue;
-
         }
 
         tbody tr td:nth-child(2) {
-
             color: $error;
-
         }
 
         thead tr th {
