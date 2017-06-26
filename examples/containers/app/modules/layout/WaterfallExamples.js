@@ -4,6 +4,8 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 import Waterfall from 'dist/Waterfall';
 import Paper from 'dist/Paper';
+import RaisedButton from 'dist/RaisedButton';
+import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import WaterfallDoc from 'assets/propTypes/Waterfall.json';
@@ -13,12 +15,27 @@ import 'sass/containers/app/modules/layout/WaterfallExamples.scss';
 export default class WaterfallExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            column: 3
+        };
+
+    }
+
+    columnChangeHandle(column) {
+        this.setState({
+            column
+        });
     }
 
     render() {
+
+        const {column} = this.state;
+
         return (
-            <div className="example widget-examples">
+            <div className="example waterfall-examples">
 
                 <h2 className="example-title">Waterfall</h2>
 
@@ -37,7 +54,34 @@ export default class WaterfallExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Waterfall>
+                                <div className="buttons">
+                                    <RaisedButton className="column-button"
+                                                  value="One Column"
+                                                  theme={Theme.PRIMARY}
+                                                  onTouchTap={() => {
+                                                      this.columnChangeHandle(1);
+                                                  }}/>
+                                    <RaisedButton className="column-button"
+                                                  value="Two Columns"
+                                                  theme={Theme.PRIMARY}
+                                                  onTouchTap={() => {
+                                                      this.columnChangeHandle(2);
+                                                  }}/>
+                                    <RaisedButton className="column-button"
+                                                  value="Three Columns"
+                                                  theme={Theme.PRIMARY}
+                                                  onTouchTap={() => {
+                                                      this.columnChangeHandle(3);
+                                                  }}/>
+                                    <RaisedButton className="column-button"
+                                                  value="Four Columns"
+                                                  theme={Theme.PRIMARY}
+                                                  onTouchTap={() => {
+                                                      this.columnChangeHandle(4);
+                                                  }}/>
+                                </div>
+
+                                <Waterfall column={column}>
                                     <Paper style={{height: 20}}/>
                                     <Paper style={{height: 90}}/>
                                     <Paper style={{height: 30}}/>

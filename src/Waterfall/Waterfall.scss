@@ -8,14 +8,6 @@
         float: left;
         box-sizing: border-box;
         padding: 10px;
-
-        & > * {
-            margin-bottom: 10px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
     }
 
     .waterfall-hidden {

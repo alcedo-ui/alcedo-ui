@@ -11,6 +11,7 @@ export default class Waterfall extends Component {
         super(props);
 
         this.shouldRender = false;
+        this.renderTimeout = null;
 
         this.state = {
             dom: null
@@ -47,35 +48,56 @@ export default class Waterfall extends Component {
         }
 
         let minItem = columns[0],
+            index = 0,
             min = minItem.heightCount;
 
         for (let i = 1, len = columns.length; i < len; i++) {
             if (columns[i].heightCount < min) {
                 minItem = columns[i];
+                index = i;
                 min = columns[i].heightCount;
             }
         }
 
-        return minItem;
+        return {
+            item: minItem,
+            index,
+            vslue: min
+        };
 
     }
 
     generateTempColumns(props = this.props) {
 
-        const {column, children} = props,
+        const {column, separator, children} = props,
             tempColumns = this.initTempColumns(column);
-
-        let el, elHeight, item;
 
         Children.forEach(children, (child, index) => {
 
-            el = findDOMNode(this.refs[`waterfallTempChild${index}`]);
+            console.log(child);
+
+            const el = findDOMNode(this.refs[`waterfallTempChild${index}`]);
             if (el) {
-                elHeight = parseInt(getComputedStyle(el).height);
-                if (elHeight) {
-                    item = this.getMinHeightColumn(tempColumns);
-                    item.heightCount += elHeight;
-                    item.children.push(child);
+
+                const elHeight = parseInt(getComputedStyle(el).height);
+                if (!isNaN(elHeight)) {
+
+                    const result = this.getMinHeightColumn(tempColumns);
+                    if (result) {
+
+                        const {item, index: columnNo} = result,
+                            no = item.children.length;
+
+                        item.heightCount += elHeight + (no === 0 ? 0 : separator);
+                        item.children.push(cloneElement(child, {
+                            key: `${columnNo}-${no}`,
+                            style: {
+                                ...child.props.style,
+                                marginTop: no === 0 ? 0 : separator
+                            }
+                        }));
+
+                    }
                 }
             }
 
@@ -118,13 +140,24 @@ export default class Waterfall extends Component {
         this.shouldRender = true;
     }
 
-    componentDidUpdate(nextProps) {
+    componentDidUpdate(prevProps) {
+
         if (this.shouldRender) {
-            this.shouldRender = false;
-            this.setState({
-                dom: this.renderChildren(nextProps)
-            });
+
+            if (this.renderTimeout) {
+                clearTimeout(this.renderTimeout);
+            }
+
+            this.renderTimeout = setTimeout(() => {
+                this.setState({
+                    dom: this.renderChildren(prevProps)
+                }, () => {
+                    this.shouldRender = false;
+                });
+            }, 0);
+
         }
+
     }
 
     render() {
@@ -170,7 +203,12 @@ Waterfall.propTypes = {
     /**
      * Column count of waterfall.
      */
-    column: PropTypes.number
+    column: PropTypes.number,
+
+    /**
+     * horizontal separator between items for calculation and display.
+     */
+    separator: PropTypes.number
 
 };
 
@@ -179,6 +217,7 @@ Waterfall.defaultProps = {
     className: '',
     style: null,
 
-    column: 3
+    column: 3,
+    separator: 10
 
 };
