@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 import Waterfall from 'dist/Waterfall';
+import Paper from 'dist/Paper';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import WaterfallDoc from 'assets/propTypes/Waterfall.json';
@@ -36,6 +37,17 @@ export default class WaterfallExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <Waterfall>
+                                    <Paper style={{height: 20}}/>
+                                    <Paper style={{height: 90}}/>
+                                    <Paper style={{height: 30}}/>
+                                    <Paper style={{height: 40}}/>
+                                    <Paper style={{height: 80}}/>
+                                    <Paper style={{height: 50}}/>
+                                    <Paper style={{height: 60}}/>
+                                    <Paper style={{height: 20}}/>
+                                    <Paper style={{height: 70}}/>
+                                </Waterfall>
 
                             </div>
 
