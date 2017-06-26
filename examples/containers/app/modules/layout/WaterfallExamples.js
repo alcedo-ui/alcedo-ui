@@ -4,9 +4,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 import Waterfall from 'dist/Waterfall';
 import Paper from 'dist/Paper';
-import RaisedButton from 'dist/RaisedButton';
 import ButtonRadioGroup from 'dist/ButtonRadioGroup';
-import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import WaterfallDoc from 'assets/propTypes/Waterfall.json';
