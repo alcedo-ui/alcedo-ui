@@ -133,7 +133,7 @@ export default class Waterfall extends Component {
             {dom} = this.state;
 
         return (
-            <div className={'waterfall' + (className ? '' + className : '')}
+            <div className={'waterfall' + (className ? ' ' + className : '')}
                  style={style}>
 
                 {dom}
