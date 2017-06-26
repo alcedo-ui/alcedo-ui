@@ -129,11 +129,12 @@ export default class Waterfall extends Component {
 
     render() {
 
-        const {children} = this.props,
+        const {className, style, children} = this.props,
             {dom} = this.state;
 
         return (
-            <div className="waterfall">
+            <div className={'waterfall' + (className ? '' + className : '')}
+                 style={style}>
 
                 {dom}
 
