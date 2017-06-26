@@ -126,6 +126,9 @@ export default [{
     }, {
         text: 'Table',
         route: '/components/Table'
+    }, {
+        text: 'Waterfall',
+        route: '/components/Waterfall'
     }]
 }, {
     text: 'Stepper',
