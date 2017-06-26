@@ -74,8 +74,6 @@ export default class Waterfall extends Component {
 
         Children.forEach(children, (child, index) => {
 
-            console.log(child);
-
             const el = findDOMNode(this.refs[`waterfallTempChild${index}`]);
             if (el) {
 
