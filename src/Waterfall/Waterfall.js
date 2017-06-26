@@ -114,7 +114,7 @@ export default class Waterfall extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps() {
         this.shouldRender = true;
     }
 
