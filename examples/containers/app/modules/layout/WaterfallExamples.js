@@ -4,9 +4,7 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 import Waterfall from 'dist/Waterfall';
 import Paper from 'dist/Paper';
-import RaisedButton from 'dist/RaisedButton';
 import ButtonRadioGroup from 'dist/ButtonRadioGroup';
-import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import WaterfallDoc from 'assets/propTypes/Waterfall.json';
@@ -72,30 +70,6 @@ export default class WaterfallExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <div className="buttons">
-                                    {/*<RaisedButton className="column-button"*/}
-                                    {/*value="One Column"*/}
-                                    {/*theme={Theme.PRIMARY}*/}
-                                    {/*onTouchTap={() => {*/}
-                                    {/*this.columnChangeHandle(1);*/}
-                                    {/*}}/>*/}
-                                    {/*<RaisedButton className="column-button"*/}
-                                    {/*value="Two Columns"*/}
-                                    {/*theme={Theme.PRIMARY}*/}
-                                    {/*onTouchTap={() => {*/}
-                                    {/*this.columnChangeHandle(2);*/}
-                                    {/*}}/>*/}
-                                    {/*<RaisedButton className="column-button"*/}
-                                    {/*value="Three Columns"*/}
-                                    {/*theme={Theme.PRIMARY}*/}
-                                    {/*onTouchTap={() => {*/}
-                                    {/*this.columnChangeHandle(3);*/}
-                                    {/*}}/>*/}
-                                    {/*<RaisedButton className="column-button"*/}
-                                    {/*value="Four Columns"*/}
-                                    {/*theme={Theme.PRIMARY}*/}
-                                    {/*onTouchTap={() => {*/}
-                                    {/*this.columnChangeHandle(4);*/}
-                                    {/*}}/>*/}
                                     <ButtonRadioGroup data={this.data}
                                                       value={column}
                                                       onChange={this.columnChangeHandle}/>
