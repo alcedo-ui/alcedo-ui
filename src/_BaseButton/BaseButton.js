@@ -70,12 +70,12 @@ export default class BaseButton extends Component {
     render() {
 
         const {
-            children, className, style, theme, isRounded, isCircular, disableTouchRipple,
-            iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
-            tip, tipPosition, renderer
-        } = this.props;
-
-        const {tipVisible, triggerEl} = this.state;
+                children, className, style, theme, isRounded, isCircular, disableTouchRipple,
+                iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
+                tip, tipPosition, renderer
+            } = this.props,
+            {tipVisible, triggerEl} = this.state,
+            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
             <button className={`base-button ${theme ? `theme-${theme}` : ''}
@@ -88,15 +88,17 @@ export default class BaseButton extends Component {
                     onMouseLeave={this.mouseLeaveHandle}>
 
                 {
-                    isLoading
-                        ? <CircularLoading className="button-icon button-loading-icon"
-                                           size="small"/>
-                        : (
-                        iconCls
-                            ? <i className={`button-icon button-icon-left ${iconCls}`}
-                                 aria-hidden="true"></i>
-                            : null
-                    )
+                    isLoading && loadingIconPosition === 'left' ?
+                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                         size="small"/>
+                        :
+                        (
+                            iconCls ?
+                                <i className={`button-icon button-icon-left ${iconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
                 }
 
                 {
@@ -107,15 +109,17 @@ export default class BaseButton extends Component {
                 }
 
                 {
-                    isLoading
-                        ? <CircularLoading className="button-icon button-loading-icon"
-                                           size="small"/>
-                        : (
-                        rightIconCls
-                            ? <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                 aria-hidden="true"></i>
-                            : null
-                    )
+                    isLoading && loadingIconPosition === 'right' ?
+                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                         size="small"/>
+                        :
+                        (
+                            iconCls ?
+                                <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
                 }
 
                 {children}
