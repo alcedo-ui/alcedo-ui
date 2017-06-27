@@ -114,7 +114,7 @@ export default class BaseButton extends Component {
                                          size="small"/>
                         :
                         (
-                            iconCls ?
+                            rightIconCls ?
                                 <i className={`button-icon button-icon-right ${rightIconCls}`}
                                    aria-hidden="true"></i>
                                 :
