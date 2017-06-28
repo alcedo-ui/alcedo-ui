@@ -10,6 +10,7 @@ input:focus {
     height: 50px;
     border-radius: $border-radius;
     position: relative;
+    color: $theme-text;
     background: $theme-field;
     border: 1px solid $theme-title-bg;
 
@@ -60,7 +61,7 @@ input:focus {
         font-size: 12px;
         background: transparent;
         white-space: nowrap;
-        color: $theme-text;
+        color: inherit;
         text-overflow: ellipsis;
     }
 
