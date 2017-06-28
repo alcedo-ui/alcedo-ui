@@ -21,3 +21,8 @@ export const expandActivatedMenu = (route) => ({
     type: types.EXPAND_ACTIVATED_MENU,
     route
 });
+
+export const updateFilter = (filter) => ({
+    type: types.UPDATE_FILTER,
+    filter
+});

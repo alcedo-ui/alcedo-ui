@@ -14,12 +14,26 @@
     transition-timing-function: ease-in-out !important;
     z-index: $menu-z-index;
 
+    .nav-menu-filter {
+        width: 250px;
+        height: 40px;
+        border-radius: 0;
+        border: none;
+        margin-bottom: 10px;
+        color: transparentize(#fff, .3);
+        background: darken($theme-menu, 6%);
+
+        .icon-button {
+            margin: 0;
+        }
+    }
+
     .nav-menu-list {
         font-size: 12px;
         user-select: none;
         overflow-x: hidden;
         overflow-y: auto;
-        height: 100%;
+        height: calc(100% - 50px);
 
         .nav-menu-scroller {
 

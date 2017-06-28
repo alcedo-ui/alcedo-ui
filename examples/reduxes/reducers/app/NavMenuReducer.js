@@ -3,13 +3,42 @@ import _ from 'lodash';
 import * as types from 'reduxes/actionTypes';
 import DEFAULT_MENU from 'examples/config.menu';
 
-const userMenuCollapsed = localStorage.getItem('userMenuCollapsed');
+function filterMenu(menu, filter) {
 
-const orderMenu = _.cloneDeep(DEFAULT_MENU);
+    if (!menu || !filter) {
+        return;
+    }
 
-function sortObject(arrays) {
+    for (let i = 0; i < menu.length; i++) {
+
+        let item = menu[i];
+
+        if (item.children && item.children.length > 0) { // group
+
+            filterMenu(item.children, filter);
+
+            if (item.children.length < 1) {
+                menu.splice(i, 1);
+                i--;
+            }
+
+        } else {
+            if (!item.text || !item.text.toUpperCase().includes(filter.toUpperCase())) {
+                menu.splice(i, 1);
+                i--;
+            }
+        }
+
+    }
+
+}
+
+function sortMenu(arrays) {
+
     let len = arrays.length;
+
     for (let i = 0; i < len - 1; i++) {
+
         if (i < arrays.length - 1) {
             for (let j = i + 1; j < len; j++) {
                 if (arrays[i].text.charAt(0).toUpperCase() > arrays[j].text.charAt(0).toUpperCase()) {
@@ -20,24 +49,60 @@ function sortObject(arrays) {
             }
         }
 
-        if (arrays[i].hasOwnProperty("children")) {
-            sortObject(arrays[i].children);
+        if (arrays[i].hasOwnProperty('children')) {
+            sortMenu(arrays[i].children);
         }
 
     }
+
 }
 
-sortObject(orderMenu);
+function getMenu(filter) {
 
-const initialState = {
+    let menu = _.cloneDeep(DEFAULT_MENU);
 
-    menu: orderMenu,
+    if (filter) {
+        filterMenu(menu, filter);
+    }
 
-    navMenuCollapsed: true,
+    sortMenu(menu);
 
-    expandMenuName: 'buttons'
+    return menu;
 
-};
+}
+
+function calExpandMenuName(menu, lastValue) {
+
+    let result;
+
+    for (let item of menu) {
+
+        if (lastValue && item.text === lastValue) {
+            return lastValue;
+        }
+
+        if (item.children && item.children.length > 0) {
+            result = item.text;
+        }
+
+    }
+
+    return result;
+
+}
+
+const initialMenu = getMenu(),
+    initialState = {
+
+        filter: '',
+
+        menu: initialMenu,
+
+        navMenuCollapsed: true,
+
+        expandMenuName: calExpandMenuName(initialMenu)
+
+    };
 
 function navMenu(state = initialState, action) {
     switch (action.type) {
@@ -95,6 +160,21 @@ function navMenu(state = initialState, action) {
 
             return {
                 ...state,
+                expandMenuName
+            };
+
+        }
+
+        case types.UPDATE_FILTER: {
+
+            const filter = action.filter,
+                menu = getMenu(action.filter),
+                expandMenuName = calExpandMenuName(menu, state.expandMenuName);
+
+            return {
+                ...state,
+                filter,
+                menu,
                 expandMenuName
             };
 
