@@ -32,12 +32,18 @@ export default class Slider extends Component {
 
     }
 
+    /**
+     * 获取当前指针的位置
+     */
     getPosition(ev) {
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
         return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
     }
 
+    /**
+     * 获取当前元素的左偏移量
+     */
     getElementLeft(element) {
         let offsetLeft = element.offsetLeft;
         let current = element.offsetParent;
@@ -48,6 +54,9 @@ export default class Slider extends Component {
         return offsetLeft;
     }
 
+    /**
+     * 判断当前点击对象是否是小圆点，修改shadow
+     */
     downHandle(ev) {
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
@@ -62,6 +71,9 @@ export default class Slider extends Component {
         return false;
     }
 
+    /**
+     * 当点击对象为小圆点时，移动指针则改变slider的值
+     */
     moveHandle(ev) {
         if (this.state.shadow) {
             let oEvent = ev || event;
@@ -87,6 +99,9 @@ export default class Slider extends Component {
         }
     }
 
+    /**
+     * 修改tip位置
+     */
     changeHandle() {
         const {scale, decimalPlaces, width} = this.props;
         const {left, right} = this.state;
@@ -102,6 +117,9 @@ export default class Slider extends Component {
         });
     }
 
+    /**
+     * 当mouseOver至小圆点，则显示tip
+     */
     overHandle(ev) {
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
@@ -121,6 +139,9 @@ export default class Slider extends Component {
         });
     }
 
+    /**
+     * 点击slider时，改变slider的值
+     */
     clickHandle(ev) {
         let oEvent = ev || event;
         let offsetLeft = this.getElementLeft(this.refs.sliderBox);
@@ -143,6 +164,9 @@ export default class Slider extends Component {
         }
     }
 
+    /**
+     * 当slider设置了ruler参数时，移动或点击操作时，自动匹配到最近的刻度点。
+     */
     getNearest(clickLeft) {
         const {width, ruler} = this.props;
         let nearest = width;
@@ -186,8 +210,8 @@ export default class Slider extends Component {
         const {leftPoint, scale, width, showScale, decimalPlaces, className, style, tipShow} = this.props;
         const {left, right, shadow, tip} = this.state;
         const grayStyle = {
-                width,
-                ...style
+                ...style,
+                width
             },
             highStyle = {width: Math.abs(left - right), left: Math.min(left, right)},
             leftStyle = {left: left},

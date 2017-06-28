@@ -17,7 +17,7 @@ export default class RemoteAutoCompleteExamples extends Component {
     constructor(props) {
         super(props);
 
-        this.data = ['test1', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+        this.data = ['test123456789123456789123456789123456789', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
         this.searchLength = 2;
 
         this.state = {
@@ -30,12 +30,15 @@ export default class RemoteAutoCompleteExamples extends Component {
         this.onBlur = this :: this.onBlur;
     }
 
-    onChange(text, bool) {
+    /**
+     * 若input输入时，长度大于searchLength，则进行获取数据操作，并修改chooseData，否则置空。
+     */
+    onChange(text, search) {
         if (this.timing) {
             clearTimeout(this.timing);
         }
         if (text && text.length >= this.searchLength) {
-            if (bool) {
+            if (search) {
                 this.timing = setTimeout(() => {
                     let data = [];
                     this.data.map((value) => {

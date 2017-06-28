@@ -13,6 +13,9 @@ export default class Percent extends Component {
         };
     }
 
+    /**
+     * 百分比数字递增
+     */
     numberChange() {
         if (this.state.percent < 100) {
             if (this.state.percent < this.props.endNum) {
