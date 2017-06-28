@@ -52,7 +52,7 @@ export default class RateExamples extends Component {
                             <p>A simple Rate example.</p>
 
                             <Rate value={value}
-                                  allowHalf={false}
+                                  allowHalf={true}
                                   onChange={(value)=> {
                                       this.onChangeHandle(value)
                                   }}/>

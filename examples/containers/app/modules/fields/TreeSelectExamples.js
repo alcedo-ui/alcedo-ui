@@ -84,7 +84,6 @@ export default class TreeSelectExamples extends Component {
                                                 value={value}
                                                 placeholder={'please select a node'}
                                                 multiple={true}
-                                                iconCls="fa-id-card-o"
                                                 onChange={(value)=> {
                                                     this.onChangeHandle(value)
                                                 }}/>
