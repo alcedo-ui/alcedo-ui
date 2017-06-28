@@ -75,6 +75,9 @@
                         height: 40px;
                         line-height: 40px;
                     }
+                    &.activated{
+                        background: $theme-bg;
+                    }
                 }
                 &:hover {
                     background: $theme-bg;
