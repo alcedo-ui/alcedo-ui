@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 
 import RaisedButton from '../RaisedButton';
-import FlatButton from '../FlatButton';
+import Popup from '../Popup';
+import List from '../List';
+import Theme from '../Theme';
 
 import './DropdownSelect.css';
 
@@ -17,24 +18,16 @@ export default class DropdownSelect extends Component {
 
         this.state = {
             value: props.value,
-            optionsVisible: false
+            popupVisible: false
         };
 
-        this.mousedownHandle = this::this.mousedownHandle;
         this.isAbove = this::this.isAbove;
-        this.select = this::this.select;
+        this.getValue = this::this.getValue;
+        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
+        this.togglePopup = this::this.togglePopup;
+        this.closePopup = this::this.closePopup;
+        this.formatData = this::this.formatData;
 
-    }
-
-    mousedownHandle(e) {
-        !this.props.disabled && this.setState({
-            optionsVisible: Event.triggerPopupEventHandle(
-                e.target,
-                require('react-dom').findDOMNode(this.refs.trigger),
-                this.refs.options,
-                this.state.optionsVisible
-            )
-        });
     }
 
     isAbove(optionsHeight) {
@@ -51,16 +44,82 @@ export default class DropdownSelect extends Component {
 
     }
 
-    select(value) {
+    getValue(data) {
 
-        const {disabled, autoClose, onChange} = this.props;
+        if (!data) {
+            return;
+        }
 
-        let state = {value};
-        autoClose && (state.optionsVisible = false);
+        const {valueField} = this.props;
 
-        this.setState(state, () => {
-            !disabled && onChange && onChange(value);
+        switch (typeof data) {
+            case 'object': {
+                return data[valueField];
+            }
+            default:
+                return data;
+        }
+
+    }
+
+    itemTouchTapHandle(item, callback) {
+
+        return (function (item, callback) {
+
+            const {autoClose, onChange} = this.props,
+                state = {
+                    filter: this.getValue(item),
+                    value: item
+                };
+
+            if (autoClose === true) {
+                state.popupVisible = false;
+            }
+
+            this.setState(state, () => {
+                onChange && onChange(item);
+                callback && typeof callback === 'function' && callback();
+            });
+
+        }).bind(this, item, callback);
+
+    }
+
+    togglePopup() {
+        this.setState({
+            popupVisible: !this.state.popupVisible
         });
+    }
+
+    closePopup() {
+        this.setState({
+            popupVisible: false
+        });
+    }
+
+    formatData(data = this.props.data) {
+
+        return (
+            data.map(listItem => {
+
+                if (typeof listItem === 'object') {
+
+                    let item = _.cloneDeep(listItem);
+                    item.raw = listItem;
+                    item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
+
+                    return item;
+
+                }
+
+                return {
+                    raw: listItem,
+                    value: listItem,
+                    onTouchTap: this.itemTouchTapHandle(listItem)
+                };
+
+            })
+        );
 
     }
 
@@ -73,54 +132,27 @@ export default class DropdownSelect extends Component {
     }
 
     componentDidMount() {
-        this.triggerHeight = require('react-dom').findDOMNode(this).clientHeight;
-        Event.addEvent(window, 'mousedown', this.mousedownHandle);
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'mousedown', this.mousedownHandle);
+        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
+        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     render() {
 
         const {
-            className, style, name, placeholder, disabled,
-            textFormat, data, optionHeight, optionsMaxHeight
-        } = this.props;
-        const {optionsVisible, value} = this.state;
-        const {triggerHeight} = this;
-
-        // 计算 options 高度
-        const dataLen = data.length;
-
-        let optionsHeight = optionHeight * dataLen;
-        optionsHeight = optionsHeight > optionsMaxHeight ? optionsMaxHeight : optionsHeight;
-
-        let above = this.isAbove(optionsHeight),
-            wrapperStyle = {
-                top: above && optionsVisible ? -optionsHeight : 0,
-                height: optionsVisible ? triggerHeight + optionsHeight : triggerHeight
-            },
-            triggerStyle = {
-                height: triggerHeight
-            },
-            optionsStyle = {
-                top: above ? 0 : triggerHeight,
-                height: optionsHeight,
-                maxHeight: optionsMaxHeight
+                className, style, name, placeholder, disabled, data, popupClassName, optionsMaxHeight
+            } = this.props,
+            {popupVisible, value} = this.state,
+            popupStyle = {
+                width: this.triggerEl && getComputedStyle(this.triggerEl).width,
+                height: optionsMaxHeight
             };
 
-        if (above) {
-            triggerStyle.bottom = 0;
-        } else {
-            triggerStyle.top = 0;
-        }
+        let above = false;
 
         return (
             <div ref="DropdownSelect"
-                 className={`dropdown-select ${className}`}
-                 style={style}
-                 disabled={disabled}>
+                 className={'dropdown-select' + (className ? ' ' + className : '')}
+                 style={style}>
 
                 {
                     name && value ?
@@ -131,43 +163,24 @@ export default class DropdownSelect extends Component {
                         null
                 }
 
-                <div className={`dropdown-select-inner ${above ? 'above' : ''} ${optionsVisible ? '' : 'hidden'}`}
-                     style={wrapperStyle}>
+                <RaisedButton ref="trigger"
+                              className={`dropdown-select-trigger ${value ? '' : 'empty'}`}
+                              value={(typeof value === 'object' ? value.text : value) || placeholder}
+                              rightIconCls={`fa fa-angle-${above ? 'down' : 'up'} dropdown-select-trigger-right-icon`}
+                              disabled={disabled}
+                              onTouchTap={this.togglePopup}/>
 
-                    <RaisedButton ref="trigger"
-                                  className={`dropdown-select-trigger ${value ? '' : 'empty'}`}
-                                  style={triggerStyle}
-                                  value={(typeof value === 'object' ? value.text : value) || placeholder}
-                                  iconCls={`fa fa-angle-${above ? 'down' : 'up'} dropdown-select-trigger-right-icon`}/>
+                <Popup className={`dropdown-select-popup ${popupClassName}`}
+                       style={popupStyle}
+                       visible={popupVisible}
+                       triggerEl={this.triggerEl}
+                       hasTriangle={false}
+                       onRequestClose={this.closePopup}>
 
-                    <div ref="options"
-                         className="dropdown-select-options"
-                         style={optionsStyle}>
+                    <List className="dropdown-select-list"
+                          items={this.formatData(data)}/>
 
-                        {
-                            data.map((item, index) => {
-
-                                const isObject = typeof item === 'object',
-                                    text = isObject ? item.text : item,
-                                    isActivated = JSON.stringify(item) == JSON.stringify(value);
-
-                                return (
-                                    <FlatButton key={index}
-                                                className={`dropdown-select-option ${isActivated ? 'activated' : ''}`}
-                                                iconCls={isObject ? item.iconCls : ''}
-                                                value={textFormat && typeof textFormat === 'function'
-                                                    ? textFormat(text) : text}
-                                                disabled={isObject ? item.disabled : false}
-                                                onTouchTap={() => {
-                                                    this.select(item);
-                                                }}/>
-                                );
-                            })
-                        }
-
-                    </div>
-
-                </div>
+                </Popup>
 
             </div>
         );
@@ -181,6 +194,11 @@ DropdownSelect.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -208,24 +226,64 @@ DropdownSelect.propTypes = {
     data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * Use this property to display an icon of the options.
+         * The CSS class name of the list button.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the list button.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The theme of the list button.
+         */
+        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+        /**
+         * The text value of the list button.Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The desc value of the list button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * If true, the list button will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
+
+        /**
+         * Use this property to display an icon. It will display on the left.
          */
         iconCls: PropTypes.string,
 
         /**
-         * The dropDownSelect input value.Type can be string,number or bool.
+         * Use this property to display an icon. It will display on the right.
          */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        rightIconCls: PropTypes.string,
 
         /**
-         * The options's text.Type can be string,number or bool.
+         * You can create a complicated renderer callback instead of value and desc prop.
          */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        renderer: PropTypes.func,
 
         /**
-         * Disables the option if set to true.
+         * Callback function fired when a list item touch-tapped.
          */
-        disabled: PropTypes.bool
+        onTouchTap: PropTypes.func
 
     }), PropTypes.string, PropTypes.number])).isRequired,
 
@@ -238,6 +296,16 @@ DropdownSelect.propTypes = {
      * If true,the dropDownSelect will be disabled.
      */
     disabled: PropTypes.bool,
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
 
     /**
      * The message of the dropDownSelect.
@@ -255,11 +323,6 @@ DropdownSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     * The height of the option.
-     */
-    optionHeight: PropTypes.number,
-
-    /**
      * The maxHeight of the drop-down box.
      */
     optionsMaxHeight: PropTypes.number,
@@ -274,6 +337,7 @@ DropdownSelect.propTypes = {
 DropdownSelect.defaultProps = {
 
     className: '',
+    popupClassName: '',
     style: null,
 
     name: '',
@@ -282,9 +346,10 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: '',
     disabled: false,
+    valueField: 'value',
+    displayField: 'text',
     infoMsg: '',
     autoClose: true,
-    optionHeight: 50,
     optionsMaxHeight: 250
 
 };
