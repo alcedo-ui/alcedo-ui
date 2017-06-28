@@ -71,17 +71,38 @@ function getMenu(filter) {
 
 }
 
-const initialState = {
+function calExpandMenuName(menu, lastValue) {
 
-    filter: '',
+    let result;
 
-    menu: getMenu(),
+    for (let item of menu) {
 
-    navMenuCollapsed: true,
+        if (lastValue && item.text === lastValue) {
+            return lastValue;
+        }
 
-    expandMenuName: 'buttons'
+        if (item.children && item.children.length > 0) {
+            result = item.text;
+        }
 
-};
+    }
+
+    return result;
+
+}
+
+const initialMenu = getMenu(),
+    initialState = {
+
+        filter: '',
+
+        menu: initialMenu,
+
+        navMenuCollapsed: true,
+
+        expandMenuName: calExpandMenuName(initialMenu)
+
+    };
 
 function navMenu(state = initialState, action) {
     switch (action.type) {
@@ -146,10 +167,15 @@ function navMenu(state = initialState, action) {
 
         case types.UPDATE_FILTER: {
 
+            const filter = action.filter,
+                menu = getMenu(action.filter),
+                expandMenuName = calExpandMenuName(menu, state.expandMenuName);
+
             return {
                 ...state,
-                filter: action.filter,
-                menu: getMenu(action.filter)
+                filter,
+                menu,
+                expandMenuName
             };
 
         }
