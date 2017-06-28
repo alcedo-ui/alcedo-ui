@@ -42,6 +42,9 @@ export default class TextArea extends Component {
         });
     }
 
+    /**
+     * 根据textArea的宽高设置state中宽高
+     */
     resizeHandle(e) {
         this.setState({
             width: e.target.clientWidth + 2,
@@ -49,12 +52,18 @@ export default class TextArea extends Component {
         });
     }
 
+    /**
+     * mouseUp时，若textArea的宽高右边，则resizeHandle
+     */
     mouseUpHandle(e) {
         if (e.target.clientWidth + 2 !== this.state.width || e.target.clientHeight + 2 !== this.state.height) {
             this.resizeHandle(e);
         }
     }
 
+    /**
+     * input变化时，如果为autoSize，则控制高度，使之随内容变化而变化
+     */
     onChange(ev) {
         const {initialHeight, maxHeight, autoSize} = this.props;
         const oEvent = ev || event;

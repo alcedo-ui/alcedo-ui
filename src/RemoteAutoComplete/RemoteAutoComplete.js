@@ -46,6 +46,9 @@ export default class RemoteAutoComplete extends Component {
         return className;
     }
 
+    /**
+     * input变化时改变loading状态并触发onChange
+     */
     onChange(text) {
         const {onChange} = this.props;
 
@@ -60,6 +63,9 @@ export default class RemoteAutoComplete extends Component {
         });
     }
 
+    /**
+     * 获得焦点时触发onFocus
+     */
     onFocus() {
         const {onFocus} = this.props;
 
@@ -97,6 +103,9 @@ export default class RemoteAutoComplete extends Component {
         }
     }
 
+    /**
+     * 接收新的props，如果input或loading有变化，则setState
+     */
     componentWillReceiveProps(nextProps) {
         const {value, loading} = this.state;
 
@@ -158,7 +167,8 @@ export default class RemoteAutoComplete extends Component {
                                             data.map((value) => {
                                                 return <li className="auto-complete-li"
                                                            key={value}
-                                                           style={liStyle}>{value}</li>;
+                                                           style={liStyle}
+                                                           title={value}>{value}</li>;
                                             })
                                         )
                                         : null
