@@ -79,38 +79,55 @@ export default class PopupBody extends Component {
             return;
         }
 
-        const triggerOffset = Util.getOffset(triggerEl);
+        const triggerOffset = Util.getOffset(triggerEl),
+
+            // top
+            topBottom = triggerOffset.top + triggerEl.clientHeight,
+            topTop = triggerOffset.top - this.popupEl.offsetHeight
+                - parseInt(getComputedStyle(this.popupEl).marginTop)
+                - parseInt(getComputedStyle(this.popupEl).marginBottom),
+
+            // left
+            leftLeft = triggerOffset.left,
+            leftCenter = triggerOffset.left + triggerEl.clientWidth / 2 - this.popupEl.clientWidth / 2,
+            leftRight = triggerOffset.left - (this.popupEl.clientWidth - triggerEl.clientWidth);
 
         switch (position) {
-
+            case PopupBody.Position.TOP_LEFT: {
+                return {
+                    top: topTop,
+                    left: leftLeft
+                };
+            }
+            case PopupBody.Position.TOP: {
+                return {
+                    top: topTop,
+                    left: leftCenter
+                };
+            }
+            case PopupBody.Position.TOP_RIGHT: {
+                return {
+                    top: topTop,
+                    left: leftRight
+                };
+            }
             case PopupBody.Position.BOTTOM_LEFT: {
                 return {
-                    left: triggerOffset.left,
-                    top: triggerOffset.top + triggerEl.clientHeight
+                    top: topBottom,
+                    left: leftLeft
                 };
             }
-
             case PopupBody.Position.BOTTOM: {
                 return {
-                    left: triggerOffset.left + triggerEl.clientWidth / 2 - this.popupEl.clientWidth / 2,
-                    top: triggerOffset.top + triggerEl.clientHeight
+                    top: topBottom,
+                    left: leftCenter
                 };
             }
-
             case PopupBody.Position.BOTTOM_RIGHT: {
                 return {
-                    left: triggerOffset.left - (200 - triggerEl.clientWidth),
-                    top: triggerOffset.top + triggerEl.clientHeight
+                    top: topBottom,
+                    left: leftRight
                 };
-            }
-
-            case PopupBody.Position.TOP_LEFT: {
-            }
-
-            case PopupBody.Position.TOP: {
-            }
-
-            case PopupBody.Position.TOP_RIGHT: {
             }
         }
 
@@ -181,14 +198,23 @@ export default class PopupBody extends Component {
 };
 
 PopupBody.Position = {
+
     TOP_LEFT: 'top-left',
     TOP: 'top',
     TOP_RIGHT: 'top-right',
+
     BOTTOM_LEFT: 'bottom-left',
     BOTTOM: 'bottom',
     BOTTOM_RIGHT: 'bottom-right',
-    LEFT: 'left',
-    RIGHT: 'right'
+
+    LEFT_TOP: 'left-top',
+    LEFT: 'left-top',
+    LEFT_BOTTOM: 'left-bottom',
+
+    RIGHT_TOP: 'right-top',
+    RIGHT: 'right',
+    RIGHT_BOTTOM: 'right-bottom'
+
 };
 
 PopupBody.TriggerMode = {
