@@ -82,51 +82,94 @@ export default class PopupBody extends Component {
         const triggerOffset = Util.getOffset(triggerEl),
 
             // top
-            topBottom = triggerOffset.top + triggerEl.clientHeight,
-            topTop = triggerOffset.top - this.popupEl.offsetHeight
+            topVerticalBottom = triggerOffset.top + triggerEl.clientHeight,
+            topVerticalTop = triggerOffset.top - this.popupEl.offsetHeight
                 - parseInt(getComputedStyle(this.popupEl).marginTop)
                 - parseInt(getComputedStyle(this.popupEl).marginBottom),
+            topHorizontalTop = triggerOffset.top,
+            topHorizontalMiddle = triggerOffset.top + triggerEl.clientHeight / 2 - this.popupEl.clientHeight / 2,
+            topHorizontalBottom = triggerOffset.top + triggerEl.clientHeight - this.popupEl.clientHeight,
 
             // left
-            leftLeft = triggerOffset.left,
-            leftCenter = triggerOffset.left + triggerEl.clientWidth / 2 - this.popupEl.clientWidth / 2,
-            leftRight = triggerOffset.left - (this.popupEl.clientWidth - triggerEl.clientWidth);
+            leftVerticalLeft = triggerOffset.left,
+            leftVerticalCenter = triggerOffset.left + triggerEl.clientWidth / 2 - this.popupEl.clientWidth / 2,
+            leftVerticalRight = triggerOffset.left - (this.popupEl.clientWidth - triggerEl.clientWidth),
+            leftHorizontalLeft = triggerOffset.left - this.popupEl.clientWidth
+                - parseInt(getComputedStyle(this.popupEl).marginLeft)
+                - parseInt(getComputedStyle(this.popupEl).marginRight),
+            leftHorizontalRight = triggerOffset.left + triggerEl.clientWidth;
 
         switch (position) {
             case PopupBody.Position.TOP_LEFT: {
                 return {
-                    top: topTop,
-                    left: leftLeft
+                    top: topVerticalTop,
+                    left: leftVerticalLeft
                 };
             }
             case PopupBody.Position.TOP: {
                 return {
-                    top: topTop,
-                    left: leftCenter
+                    top: topVerticalTop,
+                    left: leftVerticalCenter
                 };
             }
             case PopupBody.Position.TOP_RIGHT: {
                 return {
-                    top: topTop,
-                    left: leftRight
+                    top: topVerticalTop,
+                    left: leftVerticalRight
                 };
             }
             case PopupBody.Position.BOTTOM_LEFT: {
                 return {
-                    top: topBottom,
-                    left: leftLeft
+                    top: topVerticalBottom,
+                    left: leftVerticalLeft
                 };
             }
             case PopupBody.Position.BOTTOM: {
                 return {
-                    top: topBottom,
-                    left: leftCenter
+                    top: topVerticalBottom,
+                    left: leftVerticalCenter
                 };
             }
             case PopupBody.Position.BOTTOM_RIGHT: {
                 return {
-                    top: topBottom,
-                    left: leftRight
+                    top: topVerticalBottom,
+                    left: leftVerticalRight
+                };
+            }
+            case PopupBody.Position.LEFT_TOP: {
+                return {
+                    top: topHorizontalTop,
+                    left: leftHorizontalLeft
+                };
+            }
+            case PopupBody.Position.LEFT: {
+                return {
+                    top: topHorizontalMiddle,
+                    left: leftHorizontalLeft
+                };
+            }
+            case PopupBody.Position.LEFT_BOTTOM: {
+                return {
+                    top: topHorizontalBottom,
+                    left: leftHorizontalLeft
+                };
+            }
+            case PopupBody.Position.RIGHT_TOP: {
+                return {
+                    top: topHorizontalTop,
+                    left: leftHorizontalRight
+                };
+            }
+            case PopupBody.Position.RIGHT: {
+                return {
+                    top: topHorizontalMiddle,
+                    left: leftHorizontalRight
+                };
+            }
+            case PopupBody.Position.RIGHT_BOTTOM: {
+                return {
+                    top: topHorizontalBottom,
+                    left: leftHorizontalRight
                 };
             }
         }
