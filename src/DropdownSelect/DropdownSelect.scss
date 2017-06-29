@@ -23,11 +23,21 @@
             color: inherit;
             transition: all $transition-duration ease-in-out;
         }
+
+        &.activated {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
     }
 
 }
 
 .dropdown-select-popup {
+    box-sizing: border-box;
     height: 250px;
     overflow-y: auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin: 0;
+    border-top: 1px solid $theme-content-bg;
 }

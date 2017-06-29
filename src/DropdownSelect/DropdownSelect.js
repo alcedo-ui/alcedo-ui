@@ -17,12 +17,14 @@ export default class DropdownSelect extends Component {
         super(props);
 
         this.state = {
-            value: props.value,
+            selectItem: this.getItem(props),
             popupVisible: false
         };
 
-        this.isAbove = this::this.isAbove;
+        // this.isAbove = this::this.isAbove;
         this.getValue = this::this.getValue;
+        this.getText = this::this.getText;
+        this.getItem = this::this.getItem;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
@@ -30,19 +32,19 @@ export default class DropdownSelect extends Component {
 
     }
 
-    isAbove(optionsHeight) {
-
-        if (optionsHeight && this.refs.DropdownSelect) {
-            const {top} = Util.getOffset(this.refs.DropdownSelect),
-                scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
-            if (top + this.triggerHeight + optionsHeight - scrollTop > window.innerHeight) {
-                return true;
-            }
-        }
-
-        return false;
-
-    }
+    // isAbove(optionsHeight) {
+    //
+    //     if (optionsHeight && this.refs.DropdownSelect) {
+    //         const {top} = Util.getOffset(this.refs.DropdownSelect),
+    //             scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
+    //         if (top + this.triggerHeight + optionsHeight - scrollTop > window.innerHeight) {
+    //             return true;
+    //         }
+    //     }
+    //
+    //     return false;
+    //
+    // }
 
     getValue(data) {
 
@@ -62,13 +64,57 @@ export default class DropdownSelect extends Component {
 
     }
 
+    getText(data) {
+
+        if (!data) {
+            return;
+        }
+
+        const {displayField} = this.props;
+
+        switch (typeof data) {
+            case 'object': {
+                return data[displayField];
+            }
+            default:
+                return data;
+        }
+
+    }
+
+    getItem(props = this.props) {
+
+        const {data, value, valueField} = props;
+
+        if (!data || data.length < 1 || !value) {
+            return;
+        }
+
+        for (let item of data) {
+
+            let v;
+
+            if (typeof item === 'object' && valueField in item) {
+                v = item[valueField];
+            } else {
+                v = item;
+            }
+
+            if (v === value) {
+                return item;
+            }
+
+        }
+
+    }
+
     itemTouchTapHandle(item, callback) {
 
         return (function (item, callback) {
 
             const {autoClose, onChange} = this.props,
                 state = {
-                    value: this.getValue(item)
+                    selectItem: item
                 };
 
             if (autoClose === true) {
@@ -125,7 +171,7 @@ export default class DropdownSelect extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
-                value: nextProps.value
+                selectItem: this.getItem(nextProps)
             });
         }
     }
@@ -138,7 +184,11 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {className, style, name, placeholder, disabled, data, popupClassName} = this.props,
-            {popupVisible, value} = this.state,
+            {popupVisible, selectItem} = this.state,
+            value = this.getValue(selectItem),
+            text = this.getText(selectItem),
+
+            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
             popupStyle = {
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             };
@@ -151,7 +201,7 @@ export default class DropdownSelect extends Component {
                  style={style}>
 
                 {
-                    name && value ?
+                    name ?
                         <input type="hidden"
                                name={name}
                                value={value}/>
@@ -160,8 +210,8 @@ export default class DropdownSelect extends Component {
                 }
 
                 <RaisedButton ref="trigger"
-                              className={`dropdown-select-trigger ${value ? '' : 'empty'}`}
-                              value={(typeof value === 'object' ? value.text : value) || placeholder}
+                              className={'dropdown-select-trigger' + triggerClassName}
+                              value={value ? text : placeholder}
                               rightIconCls={`fa fa-angle-${above ? 'down' : 'up'} dropdown-select-trigger-right-icon`}
                               disabled={disabled}
                               onTouchTap={this.togglePopup}/>
