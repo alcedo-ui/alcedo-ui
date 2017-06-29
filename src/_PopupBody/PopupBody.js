@@ -54,7 +54,7 @@ export default class PopupBody extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                require('react-dom').findDOMNode(this.refs.popup),
+                this.popupEl,
                 this.props.triggerMode,
                 this.state.visible
             );
@@ -75,25 +75,44 @@ export default class PopupBody extends Component {
 
         const {triggerEl, position} = this.props;
 
-        let popupStyle = {};
-        if (triggerEl) {
-
-            const offset = Util.getOffset(triggerEl);
-
-            if (position === PopupBody.Position.RIGHT) {
-                popupStyle = {
-                    left: offset.left - (200 - triggerEl.clientWidth),
-                    top: offset.top + triggerEl.clientHeight
-                };
-            } else { // default left
-                popupStyle = {
-                    left: offset.left,
-                    top: offset.top + triggerEl.clientHeight
-                };
-            }
+        if (!triggerEl || !this.popupEl) {
+            return;
         }
 
-        return popupStyle;
+        const triggerOffset = Util.getOffset(triggerEl);
+
+        switch (position) {
+
+            case PopupBody.Position.BOTTOM_LEFT: {
+                return {
+                    left: triggerOffset.left,
+                    top: triggerOffset.top + triggerEl.clientHeight
+                };
+            }
+
+            case PopupBody.Position.BOTTOM: {
+                return {
+                    left: triggerOffset.left + triggerEl.clientWidth / 2 - this.popupEl.clientWidth / 2,
+                    top: triggerOffset.top + triggerEl.clientHeight
+                };
+            }
+
+            case PopupBody.Position.BOTTOM_RIGHT: {
+                return {
+                    left: triggerOffset.left - (200 - triggerEl.clientWidth),
+                    top: triggerOffset.top + triggerEl.clientHeight
+                };
+            }
+
+            case PopupBody.Position.TOP_LEFT: {
+            }
+
+            case PopupBody.Position.TOP: {
+            }
+
+            case PopupBody.Position.TOP_RIGHT: {
+            }
+        }
 
     }
 
@@ -110,8 +129,12 @@ export default class PopupBody extends Component {
     }
 
     componentDidMount() {
+
         this.hasMounted = true;
+        this.popupEl = require('react-dom').findDOMNode(this.refs.popup);
+
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
     }
 
     componentWillAppear(callback) {
@@ -129,13 +152,15 @@ export default class PopupBody extends Component {
 
     render() {
 
-        const {children, className, style, hasTriangle, theme, position} = this.props;
-        const {visible} = this.state;
+        const {children, className, style, hasTriangle, theme, position} = this.props,
+            {visible} = this.state,
+            popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
+                + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
+                + (className ? ' ' + className : '');
 
         return (
             <Paper ref="popup"
-                   className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'popup-has-triangle' : ''}
-                     ${theme ? `theme-${theme}` : ''} ${position ? `popup-position-${position}` : ''} ${className}`}
+                   className={'popup' + popupClassName}
                    style={{...this.getPopupStyle(), ...style}}>
 
                 {
@@ -156,6 +181,12 @@ export default class PopupBody extends Component {
 };
 
 PopupBody.Position = {
+    TOP_LEFT: 'top-left',
+    TOP: 'top',
+    TOP_RIGHT: 'top-right',
+    BOTTOM_LEFT: 'bottom-left',
+    BOTTOM: 'bottom',
+    BOTTOM_RIGHT: 'bottom-right',
     LEFT: 'left',
     RIGHT: 'right'
 };
@@ -228,7 +259,7 @@ PopupBody.defaultProps = {
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
-    position: PopupBody.Position.LEFT,
+    position: PopupBody.Position.BOTTOM_LEFT,
     depth: 4,
     triggerMode: PopupBody.TriggerMode.TOGGLE
 

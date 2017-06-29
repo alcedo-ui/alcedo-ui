@@ -39,24 +39,41 @@
         transform $transition-duration ease-in-out;
     }
 
-    &.popup-position-left {
+    &.popup-position-bottom-left {
+
         .popup-triangle {
             left: 10px;
         }
 
         &.hidden {
-            transform: translate(-50%, -50%) scale(.01, .01);
+            transform: translate(-50%, -50%) scale(0);
         }
+
     }
 
-    &.popup-position-right {
+    &.popup-position-bottom {
+
+        .popup-triangle {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        &.hidden {
+            transform: translate(0, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-bottom-right {
+
         .popup-triangle {
             right: 10px;
         }
 
         &.hidden {
-            transform: translate(50%, -50%) scale(.01, .01);
+            transform: translate(50%, -50%) scale(0);
         }
+
     }
 
     &.popup-has-triangle {
