@@ -138,42 +138,42 @@ export default class PopupExamples extends Component {
                     </div>
                 </Widget>
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="Popup Example"/>
+                    {/*<WidgetHeader className="example-header"*/}
+                                  {/*title="Popup Example"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                    {/*<div className="widget-content">*/}
+                        {/*<div className="example-content">*/}
 
-                            <div className="popup-example-wrapper">
+                            {/*<div className="popup-example-wrapper">*/}
 
-                                <p>
-                                    Set position property to Popup.Position.BOTTOM_RIGHT and triggerEl to true
-                                    the popover will align right.
-                                </p>
+                                {/*<p>*/}
+                                    {/*Set position property to Popup.Position.BOTTOM_RIGHT and triggerEl to true*/}
+                                    {/*the popover will align right.*/}
+                                {/*</p>*/}
 
-                                <RaisedButton className="trigger-button"
-                                              value="Toggle Popup"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 2);
-                                              }}/>
+                                {/*<RaisedButton className="trigger-button"*/}
+                                              {/*value="Toggle Popup"*/}
+                                              {/*onTouchTap={(e) => {*/}
+                                                  {/*this.togglePopup(e, 2);*/}
+                                              {/*}}/>*/}
 
-                                <Popup visible={popupVisible2}
-                                       triggerEl={triggerEl2}
-                                       theme={Theme.PRIMARY}
-                                       position={Popup.Position.BOTTOM_RIGHT}
-                                       onRequestClose={() => {
-                                           this.closePopup(2);
-                                       }}>
-                                    <List items={items}/>
-                                </Popup>
+                                {/*<Popup visible={popupVisible2}*/}
+                                       {/*triggerEl={triggerEl2}*/}
+                                       {/*theme={Theme.PRIMARY}*/}
+                                       {/*position={Popup.Position.BOTTOM_RIGHT}*/}
+                                       {/*onRequestClose={() => {*/}
+                                           {/*this.closePopup(2);*/}
+                                       {/*}}>*/}
+                                    {/*<List items={items}/>*/}
+                                {/*</Popup>*/}
 
-                            </div>
+                            {/*</div>*/}
 
-                        </div>
-                    </div>
-                </Widget>
+                        {/*</div>*/}
+                    {/*</div>*/}
+                {/*</Widget>*/}
 
                 <Widget>
 
