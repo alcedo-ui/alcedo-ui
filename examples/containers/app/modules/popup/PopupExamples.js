@@ -225,69 +225,81 @@ export default class PopupExamples extends Component {
 
                                 </p>
 
-                                <RaisedButton className="trigger-position-button"
-                                              value="Bottom Left"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 4);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Bottom"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 5);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Bottom Right"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 6);
-                                              }}/>
+                                <div className="button-group-wrapper">
 
-                                <RaisedButton className="trigger-position-button"
-                                              value="Top Left"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 7);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Top"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 8);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Top right"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 9);
-                                              }}/>
+                                    <div className="button-group top">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Top Left"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 7);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Top"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 8);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Top right"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 9);
+                                                      }}/>
+                                    </div>
 
-                                <RaisedButton className="trigger-position-button"
-                                              value="Left Top"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 10);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Left"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 11);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Left Bottom"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 12);
-                                              }}/>
+                                    <div className="button-group right">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Right Top"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 13);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Right"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 14);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Right Bottom"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 15);
+                                                      }}/>
+                                    </div>
 
-                                <RaisedButton className="trigger-position-button"
-                                              value="Right Top"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 13);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Right"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 14);
-                                              }}/>
-                                <RaisedButton className="trigger-position-button"
-                                              value="Right Bottom"
-                                              onTouchTap={(e) => {
-                                                  this.togglePopup(e, 15);
-                                              }}/>
+                                    <div className="button-group bottom">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Bottom Left"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 4);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Bottom"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 5);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Bottom Right"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 6);
+                                                      }}/>
+                                    </div>
+
+                                    <div className="button-group left">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Left Top"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 10);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Left"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 11);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Left Bottom"
+                                                      onTouchTap={(e) => {
+                                                          this.togglePopup(e, 12);
+                                                      }}/>
+                                    </div>
+
+                                </div>
 
                                 <Popup visible={popupVisible4}
                                        triggerEl={triggerEl4}

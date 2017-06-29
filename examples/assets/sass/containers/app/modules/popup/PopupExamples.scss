@@ -8,13 +8,73 @@
         margin: 0;
     }
 
-    .trigger-position-button {
-        width: 100px;
-        margin-left: 20px;
-        margin-bottom: 20px;
+    .button-group-wrapper {
+        position: relative;
+        width: 440px;
+        height: 280px;
 
-        &:first-child {
-            margin-left: 0;
+        .button-group {
+
+            .trigger-position-button {
+                width: 100px;
+            }
+
+            &.top {
+                position: absolute;
+                left: 50px;
+
+                .trigger-position-button {
+                    margin-left: 20px;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
+
+            &.left {
+                position: absolute;
+                top: 60px;
+                left: 0;
+
+                .trigger-position-button {
+                    display: block;
+                    margin-top: 20px;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &.right {
+                position: absolute;
+                top: 60px;
+                right: 0;
+
+                .trigger-position-button {
+                    display: block;
+                    margin-top: 20px;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &.bottom {
+                position: absolute;
+                left: 50px;
+                bottom: 0;
+
+                .trigger-position-button {
+                    margin-left: 20px;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
         }
     }
 }
