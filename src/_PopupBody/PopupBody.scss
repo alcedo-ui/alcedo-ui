@@ -183,6 +183,113 @@
 
     }
 
+    &.popup-position-left {
+
+        &.popup-has-triangle {
+            margin-right: 10px;
+        }
+
+        .popup-triangle {
+            left: 100%;
+            top: 50%;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-left-width: 6px;
+            border-left-style: solid;
+            transform: translateY(-50%);
+        }
+
+        &.hidden {
+            transform: translate(50%, 0) scale(0);
+        }
+
+    }
+
+    &.popup-position-left-bottom {
+
+        &.popup-has-triangle {
+            margin-right: 10px;
+        }
+
+        .popup-triangle {
+            left: 100%;
+            bottom: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-left-width: 6px;
+            border-left-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(50%, 50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-right-top {
+
+        &.popup-has-triangle {
+            margin-left: 10px;
+        }
+
+        .popup-triangle {
+            left: -6px;
+            top: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-right-width: 6px;
+            border-right-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-right {
+
+        &.popup-has-triangle {
+            margin-left: 10px;
+        }
+
+        .popup-triangle {
+            left: -6px;
+            top: 50%;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-right-width: 6px;
+            border-right-style: solid;
+            transform: translateY(-50%);
+        }
+
+        &.hidden {
+            transform: translate(-50%, 0) scale(0);
+        }
+
+    }
+
+    &.popup-position-right-bottom {
+
+        &.popup-has-triangle {
+            margin-left: 10px;
+        }
+
+        .popup-triangle {
+            left: -6px;
+            bottom: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-right-width: 6px;
+            border-right-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(-50%, 50%) scale(0);
+        }
+
+    }
+
     // default theme
     @include popup-theme(#fff);
 
