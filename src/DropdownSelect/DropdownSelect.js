@@ -68,8 +68,7 @@ export default class DropdownSelect extends Component {
 
             const {autoClose, onChange} = this.props,
                 state = {
-                    filter: this.getValue(item),
-                    value: item
+                    value: this.getValue(item)
                 };
 
             if (autoClose === true) {
@@ -138,13 +137,10 @@ export default class DropdownSelect extends Component {
 
     render() {
 
-        const {
-                className, style, name, placeholder, disabled, data, popupClassName, optionsMaxHeight
-            } = this.props,
+        const {className, style, name, placeholder, disabled, data, popupClassName} = this.props,
             {popupVisible, value} = this.state,
             popupStyle = {
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width,
-                height: optionsMaxHeight
+                width: this.triggerEl && getComputedStyle(this.triggerEl).width
             };
 
         let above = false;
@@ -323,11 +319,6 @@ DropdownSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     * The maxHeight of the drop-down box.
-     */
-    optionsMaxHeight: PropTypes.number,
-
-    /**
      * Callback function fired when a menu item is selected.
      */
     onChange: PropTypes.func
@@ -349,7 +340,6 @@ DropdownSelect.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     infoMsg: '',
-    autoClose: true,
-    optionsMaxHeight: 250
+    autoClose: true
 
 };

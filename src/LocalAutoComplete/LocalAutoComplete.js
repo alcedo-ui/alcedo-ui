@@ -25,6 +25,7 @@ export default class LocalAutoComplete extends Component {
         };
 
         this.getValue = this::this.getValue;
+        this.getText = this::this.getText;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.filterData = this::this.filterData;
         this.formatData = this::this.formatData;
@@ -53,14 +54,32 @@ export default class LocalAutoComplete extends Component {
 
     }
 
+    getText(data) {
+
+        if (!data) {
+            return;
+        }
+
+        const {displayField} = this.props;
+
+        switch (typeof data) {
+            case 'object': {
+                return data[displayField];
+            }
+            default:
+                return data;
+        }
+
+    }
+
     itemTouchTapHandle(item, callback) {
 
         return (function (item, callback) {
 
             const {autoClose, onChange} = this.props,
                 state = {
-                    filter: this.getValue(item),
-                    value: item
+                    filter: this.getText(item),
+                    value: this.getValue(item)
                 };
 
             if (autoClose === true) {
@@ -85,10 +104,10 @@ export default class LocalAutoComplete extends Component {
         }
 
         return data.filter(item => {
-            return typeof item === 'object' && item[valueField] ?
-                item[valueField].includes(filter)
+            return typeof item === 'object' && !!item[valueField] ?
+                item[valueField].toString().toUpperCase().includes(filter.toUpperCase())
                 :
-                item.toString().includes(filter);
+                item.toString().toUpperCase().includes(filter.toUpperCase());
         });
 
     }
