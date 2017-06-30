@@ -69,6 +69,7 @@ export default class DropdownSelectExamples extends Component {
                                     {/*<label className="dropdown-select-label">Number</label>*/}
                                     <DropdownSelect data={this.data}
                                                     autoClose={false}
+                                                    useFilter={true}
                                                     onChange={this.onChange}/>
 
                                 </div>

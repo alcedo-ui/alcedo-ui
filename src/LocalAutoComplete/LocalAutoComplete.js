@@ -97,15 +97,15 @@ export default class LocalAutoComplete extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {valueField, filterCallback} = this.props;
+        const {textField, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
         return data.filter(item => {
-            return typeof item === 'object' && !!item[valueField] ?
-                item[valueField].toString().toUpperCase().includes(filter.toUpperCase())
+            return typeof item === 'object' && !!item[textField] ?
+                item[textField].toString().toUpperCase().includes(filter.toUpperCase())
                 :
                 item.toString().toUpperCase().includes(filter.toUpperCase());
         });

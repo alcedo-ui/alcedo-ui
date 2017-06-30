@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Util from '../_vendors/Util';
-
 import RaisedButton from '../RaisedButton';
+import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
@@ -17,6 +16,7 @@ export default class DropdownSelect extends Component {
         super(props);
 
         this.state = {
+            filter: '',
             selectItem: this.getItem(props),
             popupVisible: false
         };
@@ -26,8 +26,10 @@ export default class DropdownSelect extends Component {
         this.getText = this::this.getText;
         this.getItem = this::this.getItem;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
+        this.filterChangeHandle = this::this.filterChangeHandle;
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
+        this.filterData = this::this.filterData;
         this.formatData = this::this.formatData;
 
     }
@@ -130,6 +132,12 @@ export default class DropdownSelect extends Component {
 
     }
 
+    filterChangeHandle(filter) {
+        this.setState({
+            filter
+        });
+    }
+
     togglePopup() {
         this.setState({
             popupVisible: !this.state.popupVisible
@@ -140,6 +148,19 @@ export default class DropdownSelect extends Component {
         this.setState({
             popupVisible: false
         });
+    }
+
+    filterData(filter = this.state.filter, data = this.props.data) {
+
+        const {textField} = this.props;
+
+        return data.filter(item => {
+            return typeof item === 'object' && !!item[textField] ?
+                item[textField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase());
+        });
+
     }
 
     formatData(data = this.props.data) {
@@ -183,8 +204,9 @@ export default class DropdownSelect extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, disabled, data, popupClassName} = this.props,
-            {popupVisible, selectItem} = this.state,
+        const {className, popupClassName, style, name, placeholder, disabled, data, useFilter} = this.props,
+            {filter, popupVisible, selectItem} = this.state,
+
             value = this.getValue(selectItem),
             text = this.getText(selectItem),
 
@@ -223,8 +245,18 @@ export default class DropdownSelect extends Component {
                        hasTriangle={false}
                        onRequestClose={this.closePopup}>
 
+                    {
+                        useFilter ?
+                            <TextField className="dropdown-select-filter"
+                                       value={filter}
+                                       rightIconCls="fa fa-search"
+                                       onChange={this.filterChangeHandle}/>
+                            :
+                            null
+                    }
+
                     <List className="dropdown-select-list"
-                          items={this.formatData(data)}/>
+                          items={this.formatData(this.filterData(filter, data))}/>
 
                 </Popup>
 
@@ -369,6 +401,11 @@ DropdownSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     *
+     */
+    useFilter: PropTypes.bool,
+
+    /**
      * Callback function fired when a menu item is selected.
      */
     onChange: PropTypes.func
@@ -390,6 +427,7 @@ DropdownSelect.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     infoMsg: '',
-    autoClose: true
+    autoClose: true,
+    useFilter: false
 
 };
