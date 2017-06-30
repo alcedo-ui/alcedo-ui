@@ -12,21 +12,34 @@ import 'sass/containers/app/modules/fields/DropdownSelectExamples.scss';
 export default class DropdownSelectExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.data = ['test0', 'test1', {
+            text: 'test2',
+            value: 2,
+            desc: 'Here is test2.',
+            onTouchTap() {
+                console.log('test2 selected!');
+            }
+        }, 'test3', 'test4', 'test5', {
+            text: 'test6',
+            value: 6,
+            desc: 'Here is test6.',
+            onTouchTap() {
+                console.log('test6 selected!');
+            }
+        }, 'test7', 'test8', 'test9'];
+
+        this.onChange = this::this.onChange;
+
+    }
+
+    onChange(item) {
+        console.log('select item: ', item);
     }
 
     render() {
-
-        let data = [{
-            value: '1',
-            text: 'one',
-            iconCls: 'fa fa-circle',
-            disabled: true
-        }, {
-            value: '2',
-            text: 'two',
-            iconCls: 'fa fa-circle'
-        }];
 
         return (
             <div className="example drop-down-select-examples">
@@ -54,8 +67,10 @@ export default class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     {/*<label className="dropdown-select-label">Number</label>*/}
-                                    <DropdownSelect data={data}
-                                                    autoClose={false}/>
+                                    <DropdownSelect data={this.data}
+                                                    autoClose={false}
+                                                    useFilter={true}
+                                                    onChange={this.onChange}/>
 
                                 </div>
 

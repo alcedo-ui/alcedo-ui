@@ -7,6 +7,8 @@ import Event from '../_vendors/Event';
 
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
+import Popup from '../Popup';
+import List from '../List';
 
 import './RemoteAutoComplete.css';
 
@@ -119,6 +121,7 @@ export default class RemoteAutoComplete extends Component {
 
     componentDidMount() {
         Event.addEvent(document, 'click', this.onClick);
+        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
     }
 
     componentWillUnmount() {
@@ -134,7 +137,7 @@ export default class RemoteAutoComplete extends Component {
         let ulStyle = {
             height: ulHeight > maxHeight ? maxHeight : ulHeight
         }, innerStyle = {
-            height: ulStyle.height + inputHeight
+            height: inputHeight
         }, liStyle = {
             height: liHeight,
             lineHeight: liHeight + 'px'
@@ -151,30 +154,38 @@ export default class RemoteAutoComplete extends Component {
                                value={value}
                                onFocus={this.onFocus}
                                placeholder={placeholder}
-                               style={inputStyle}/>
-                    <ul style={ulStyle}>
-                        {
-                            loading
-                                ?
-                                <li className="auto-complete-li-loading"><CircularLoading className="loading"
-                                                                                          size={CircularLoading.Size.DEFAULT}/>
-                                </li>
-                                :
-                                (
-                                    data.length > 0
-                                        ?
-                                        (
-                                            data.map((value) => {
-                                                return <li className="auto-complete-li"
-                                                           key={value}
-                                                           style={liStyle}
-                                                           title={value}>{value}</li>;
-                                            })
-                                        )
-                                        : null
-                                )
-                        }
-                    </ul>
+                               style={inputStyle}
+                               ref="trigger"/>
+                    <Popup visible={focus}
+                           triggerEl={this.triggerEl}
+                           hasTriangle={false}
+                           triggerMode={Popup.TriggerMode.OPEN}
+                           style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}>
+                        <ul className="auto-complete-list"
+                            style={ulStyle}>
+                            {
+                                loading
+                                    ?
+                                    <li className="auto-complete-li-loading"><CircularLoading className="loading"
+                                                                                              size={CircularLoading.Size.DEFAULT}/>
+                                    </li>
+                                    :
+                                    (
+                                        data.length > 0
+                                            ?
+                                            (
+                                                data.map((value) => {
+                                                    return <li className="auto-complete-li"
+                                                               key={value}
+                                                               style={liStyle}
+                                                               title={value}>{value}</li>;
+                                                })
+                                            )
+                                            : null
+                                    )
+                            }
+                        </ul>
+                    </Popup>
                 </div>
             </div>
         );
