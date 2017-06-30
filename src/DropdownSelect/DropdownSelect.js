@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
 import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
@@ -21,7 +22,7 @@ export default class DropdownSelect extends Component {
             popupVisible: false
         };
 
-        // this.isAbove = this::this.isAbove;
+        this.isAbove = this::this.isAbove;
         this.getValue = this::this.getValue;
         this.getText = this::this.getText;
         this.getItem = this::this.getItem;
@@ -34,19 +35,19 @@ export default class DropdownSelect extends Component {
 
     }
 
-    // isAbove(optionsHeight) {
-    //
-    //     if (optionsHeight && this.refs.DropdownSelect) {
-    //         const {top} = Util.getOffset(this.refs.DropdownSelect),
-    //             scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
-    //         if (top + this.triggerHeight + optionsHeight - scrollTop > window.innerHeight) {
-    //             return true;
-    //         }
-    //     }
-    //
-    //     return false;
-    //
-    // }
+    isAbove(optionsHeight) {
+
+        if (optionsHeight && this.refs.DropdownSelect) {
+            const {top} = Util.getOffset(this.refs.DropdownSelect),
+                scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
+            if (top + this.triggerHeight + optionsHeight - scrollTop > window.innerHeight) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
     getValue(data) {
 
@@ -197,8 +198,15 @@ export default class DropdownSelect extends Component {
         }
     }
 
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.state.popupVisible) {
+    //         this.popupEl = require('react-dom').findDOMNode(this.refs.popup);
+    //         this.popupHeight = this.popupEl.clientHeight;
+    //     }
+    // }
+
     componentDidMount() {
-        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
+        this.triggerEl = findDOMNode(this.refs.trigger);
         this.triggerHeight = this.triggerEl.clientHeight;
     }
 
@@ -238,7 +246,8 @@ export default class DropdownSelect extends Component {
                               disabled={disabled}
                               onTouchTap={this.togglePopup}/>
 
-                <Popup className={`dropdown-select-popup ${popupClassName}`}
+                <Popup ref="popup"
+                       className={`dropdown-select-popup ${popupClassName}`}
                        style={popupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}

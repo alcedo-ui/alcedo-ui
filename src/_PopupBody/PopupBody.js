@@ -82,22 +82,22 @@ export default class PopupBody extends Component {
         const triggerOffset = Util.getOffset(triggerEl),
 
             // top
-            topVerticalBottom = triggerOffset.top + triggerEl.clientHeight,
+            topVerticalBottom = triggerOffset.top + triggerEl.offsetHeight,
             topVerticalTop = triggerOffset.top - this.popupEl.offsetHeight
                 - parseInt(getComputedStyle(this.popupEl).marginTop)
                 - parseInt(getComputedStyle(this.popupEl).marginBottom),
             topHorizontalTop = triggerOffset.top,
-            topHorizontalMiddle = triggerOffset.top + triggerEl.clientHeight / 2 - this.popupEl.clientHeight / 2,
-            topHorizontalBottom = triggerOffset.top + triggerEl.clientHeight - this.popupEl.clientHeight,
+            topHorizontalMiddle = triggerOffset.top + triggerEl.offsetHeight / 2 - this.popupEl.offsetHeight / 2,
+            topHorizontalBottom = triggerOffset.top + triggerEl.offsetHeight - this.popupEl.offsetHeight,
 
             // left
             leftVerticalLeft = triggerOffset.left,
-            leftVerticalCenter = triggerOffset.left + triggerEl.clientWidth / 2 - this.popupEl.clientWidth / 2,
-            leftVerticalRight = triggerOffset.left - (this.popupEl.clientWidth - triggerEl.clientWidth),
-            leftHorizontalLeft = triggerOffset.left - this.popupEl.clientWidth
+            leftVerticalCenter = triggerOffset.left + triggerEl.offsetWidth / 2 - this.popupEl.offsetWidth / 2,
+            leftVerticalRight = triggerOffset.left - (this.popupEl.offsetWidth - triggerEl.offsetWidth),
+            leftHorizontalLeft = triggerOffset.left - this.popupEl.offsetWidth
                 - parseInt(getComputedStyle(this.popupEl).marginLeft)
                 - parseInt(getComputedStyle(this.popupEl).marginRight),
-            leftHorizontalRight = triggerOffset.left + triggerEl.clientWidth;
+            leftHorizontalRight = triggerOffset.left + triggerEl.offsetWidth;
 
         switch (position) {
             case PopupBody.Position.TOP_LEFT: {

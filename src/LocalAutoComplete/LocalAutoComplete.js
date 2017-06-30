@@ -218,7 +218,7 @@ export default class LocalAutoComplete extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className="auto-complete-trigger"
+                           className={'auto-complete-trigger' + (popupVisible ? ' activated' : '')}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
