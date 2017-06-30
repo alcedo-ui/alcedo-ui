@@ -8,6 +8,8 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
+import Util from 'vendors/Util';
+
 import './DropdownSelect.css';
 
 export default class DropdownSelect extends Component {
@@ -32,15 +34,16 @@ export default class DropdownSelect extends Component {
         this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
         this.formatData = this::this.formatData;
+        this.popupRenderHandle = this::this.popupRenderHandle;
 
     }
 
-    isAbove(optionsHeight) {
+    isAbove() {
 
-        if (optionsHeight && this.refs.DropdownSelect) {
+        if (this.popupHeight && this.refs.DropdownSelect) {
             const {top} = Util.getOffset(this.refs.DropdownSelect),
                 scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
-            if (top + this.triggerHeight + optionsHeight - scrollTop > window.innerHeight) {
+            if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
                 return true;
             }
         }
@@ -190,6 +193,11 @@ export default class DropdownSelect extends Component {
 
     }
 
+    popupRenderHandle(popupEl) {
+        this.popupEl = findDOMNode(popupEl);
+        this.popupHeight = this.popupEl.offsetHeight;
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
@@ -197,13 +205,6 @@ export default class DropdownSelect extends Component {
             });
         }
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.popupVisible) {
-    //         this.popupEl = require('react-dom').findDOMNode(this.refs.popup);
-    //         this.popupHeight = this.popupEl.clientHeight;
-    //     }
-    // }
 
     componentDidMount() {
         this.triggerEl = findDOMNode(this.refs.trigger);
@@ -217,13 +218,15 @@ export default class DropdownSelect extends Component {
 
             value = this.getValue(selectItem),
             text = this.getText(selectItem),
+            isAbove = this.isAbove(),
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
+            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
+                + (value ? '' : ' empty'),
+            dropdownSelectPopupClassName = (isAbove ? ' above' : ' blow')
+                + (popupClassName ? ' ' + popupClassName : ''),
             popupStyle = {
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             };
-
-        let above = false;
 
         return (
             <div ref="DropdownSelect"
@@ -242,16 +245,18 @@ export default class DropdownSelect extends Component {
                 <RaisedButton ref="trigger"
                               className={'dropdown-select-trigger' + triggerClassName}
                               value={value ? text : placeholder}
-                              rightIconCls={`fa fa-angle-${above ? 'down' : 'up'} dropdown-select-trigger-right-icon`}
+                              rightIconCls={`fa fa-angle-${isAbove ? 'down' : 'up'} dropdown-select-trigger-right-icon`}
                               disabled={disabled}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
-                       className={`dropdown-select-popup ${popupClassName}`}
+                       className={'dropdown-select-popup' + dropdownSelectPopupClassName}
                        style={popupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
+                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
                     {

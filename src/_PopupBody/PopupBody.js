@@ -205,6 +205,12 @@ export default class PopupBody extends Component {
         this.animate();
     }
 
+    componentDidUpdate() {
+        const {onRender} = this.props,
+            {visible} = this.state;
+        visible && onRender && onRender(this.refs.popup);
+    }
+
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
@@ -311,6 +317,9 @@ PopupBody.propTypes = {
      *
      */
     triggerMode: PropTypes.oneOf(Util.enumerateValue(PopupBody.TriggerMode)),
+
+
+    onRender: PropTypes.func,
 
     /**
      * Callback function fired when the popover is requested to be closed.
