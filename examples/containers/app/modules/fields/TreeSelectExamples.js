@@ -82,8 +82,94 @@ export default class TreeSelectExamples extends Component {
                                     <TreeSelect className="tree-select-example"
                                                 data={data}
                                                 value={value}
+                                                placeholder={'please select a n ode'}
+                                                multiple={false}
+                                                onChange={(value)=> {
+                                                    this.onChangeHandle(value)
+                                                }}/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tree Select Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Icon Tree Select</p>
+                                <div className="field-group">
+                                    <TreeSelect className="tree-select-example"
+                                                data={data}
+                                                value={value}
+                                                placeholder={'please select a node'}
+                                                multiple={false}
+                                                iconCls='fa-file'
+                                                onChange={(value)=> {
+                                                    this.onChangeHandle(value)
+                                                }}/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tree Select Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Multiple Tree Select</p>
+                                <div className="field-group">
+                                    <TreeSelect className="tree-select-example"
+                                                data={data}
+                                                value={value}
                                                 placeholder={'please select a node'}
                                                 multiple={true}
+                                                onChange={(value)=> {
+                                                    this.onChangeHandle(value)
+                                                }}/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tree Select Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Multiple Icon Tree Select</p>
+                                <div className="field-group">
+                                    <TreeSelect className="tree-select-example"
+                                                data={data}
+                                                value={value}
+                                                placeholder={'please select a node'}
+                                                multiple={true}
+                                                iconCls='fa-file'
                                                 onChange={(value)=> {
                                                     this.onChangeHandle(value)
                                                 }}/>
