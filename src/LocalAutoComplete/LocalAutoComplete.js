@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import _ from 'lodash';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
+
+import Util from 'vendors/Util';
 
 import './LocalAutoComplete.css';
 
@@ -21,9 +24,11 @@ export default class LocalAutoComplete extends Component {
             value: null,
             filter: '',
             popupVisible: false,
-            filteredData: this.formatData(this.filterData('', props.data))
+            filteredData: this.formatData(this.filterData('', props.data)),
+            isAbove: false
         };
 
+        this.isAbove = this::this.isAbove;
         this.getValue = this::this.getValue;
         this.getText = this::this.getText;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
@@ -33,6 +38,26 @@ export default class LocalAutoComplete extends Component {
         this.blurHandle = this::this.blurHandle;
         this.changeHandle = this::this.changeHandle;
         this.closePopup = this::this.closePopup;
+        this.popupRenderHandle = this::this.popupRenderHandle;
+
+    }
+
+    isAbove() {
+
+        const autoComplete = this.refs.autoComplete;
+
+        if (!this.popupHeight || !autoComplete) {
+            return false;
+        }
+
+        const {top} = Util.getOffset(autoComplete),
+            scrollTop = SCROLL_EL.scrollTop || document.body.scrollTop;
+
+        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
+            return true;
+        }
+
+        return false;
 
     }
 
@@ -195,17 +220,36 @@ export default class LocalAutoComplete extends Component {
         });
     }
 
+    popupRenderHandle(popupEl) {
+
+        this.popupEl = findDOMNode(popupEl);
+        this.popupHeight = this.popupEl.offsetHeight;
+
+        const isAbove = this.isAbove();
+
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
+    }
+
     componentDidMount() {
         this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
+        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     render() {
 
-        const {className, popupClassName, style, name, placeholder, disabled, iconCls, rightIconCls} = this.props;
-        const {value, filter, popupVisible, filteredData} = this.state;
+        const {className, popupClassName, style, name, placeholder, disabled, iconCls, rightIconCls} = this.props,
+            {isAbove, value, filter, popupVisible, filteredData} = this.state,
+            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
+            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
 
         return (
-            <div className={`auto-complete ${className}`}
+            <div ref="autoComplete"
+                 className={`auto-complete ${className}`}
                  style={style}>
 
                 {
@@ -218,22 +262,24 @@ export default class LocalAutoComplete extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'auto-complete-trigger' + (popupVisible ? ' activated' : '')}
+                           className={'auto-complete-trigger' + triggerClassName}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
-                           rightIconCls={rightIconCls}
+                           rightIconCls={rightIconCls || 'fa fa-search'}
                            onFocus={this.focusHandle}
                            onBlur={this.blurHandle}
                            onChange={this.changeHandle}/>
 
-                <Popup className={`auto-complete-popup ${popupClassName}`}
+                <Popup className={'auto-complete-popup' + autoCompletePopupClassName}
                        style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
                        triggerMode={Popup.TriggerMode.OPEN}
+                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
                     <List className="auto-complete-list"

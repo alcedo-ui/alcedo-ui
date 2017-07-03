@@ -1,10 +1,21 @@
 @import '../_common.scss';
 
 .auto-complete {
+
     .auto-complete-trigger {
-        &.activated {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+
+        &.above {
+            &.activated {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+
+        &.blow {
+            &.activated {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
     }
 }
@@ -28,5 +39,15 @@
                 margin-right: 10px;
             }
         }
+    }
+
+    &.above {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &.blow {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 }
