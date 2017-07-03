@@ -24,9 +24,18 @@
             transition: all $transition-duration ease-in-out;
         }
 
-        &.activated {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+        &.above {
+            &.activated {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+
+        &.blow {
+            &.activated {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
     }
 
@@ -36,8 +45,6 @@
     box-sizing: border-box;
     max-height: 250px;
     overflow-y: auto;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
     margin: 0;
     border-top: 1px solid $theme-title-bg;
 
@@ -51,5 +58,15 @@
         .icon-button {
             margin: 0;
         }
+    }
+
+    &.above {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &.blow {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 }

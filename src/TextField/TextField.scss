@@ -10,6 +10,7 @@ input:focus {
     height: 50px;
     border-radius: $border-radius;
     position: relative;
+    box-sizing: border-box;
     color: $theme-text;
     background: $theme-field;
     border: 1px solid $theme-title-bg;
