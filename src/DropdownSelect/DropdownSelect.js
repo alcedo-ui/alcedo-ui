@@ -254,7 +254,7 @@ export default class DropdownSelect extends Component {
 
     render() {
 
-        const {className, popupClassName, style, name, placeholder, disabled, data, useFilter} = this.props,
+        const {className, popupClassName, style, name, placeholder, disabled, multi, data, useFilter} = this.props,
             {filter, popupVisible, selectItem, isAbove} = this.state,
 
             value = this.getValue(selectItem),
@@ -310,6 +310,7 @@ export default class DropdownSelect extends Component {
                     }
 
                     <List className="dropdown-select-list"
+                          multi={multi}
                           items={this.formatData(this.filterData(filter, data))}/>
 
                 </Popup>
@@ -430,6 +431,11 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     *
+     */
+    multi: PropTypes.bool,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -483,6 +489,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: '',
     disabled: false,
+    multi: false,
     valueField: 'value',
     displayField: 'text',
     infoMsg: '',

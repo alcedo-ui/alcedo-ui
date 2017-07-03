@@ -55,7 +55,7 @@ export default class ListItem extends Component {
                     (
                         data.desc ?
                             <RaisedButton {...data}
-                                          className={`list-item ${data.className ? data.className : ''}`}
+                                          className={'list-item' + (data.className ? ' ' + data.className : '')}
                                           disabled={disabled || data.disabled}
                                           renderer={(props) => {
                                               return (
@@ -71,7 +71,7 @@ export default class ListItem extends Component {
                                           }}/>
                             :
                             <RaisedButton {...data}
-                                          className={`list-item ${data.className ? data.className : ''}`}
+                                          className={'list-item' + (data.className ? ' ' + data.className : '')}
                                           value={this.displayValue(data)}
                                           disabled={disabled || data.disabled}/>
                     )
@@ -171,7 +171,12 @@ ListItem.propTypes = {
     /**
      * If true, the list will be disabled.
      */
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+
+    /**
+     *
+     */
+    multi: PropTypes.bool
 
 };
 
@@ -181,6 +186,7 @@ ListItem.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
-    disabled: false
+    disabled: false,
+    multi: false
 
 };

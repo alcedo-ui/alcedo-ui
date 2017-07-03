@@ -14,7 +14,7 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled} = this.props;
+        const {children, className, style, items, valueField, displayField, disabled, multi} = this.props;
 
         return (
             <div className={`list ${className}`}
@@ -30,7 +30,8 @@ export default class List extends Component {
                                           data={item}
                                           valueField={valueField}
                                           displayField={displayField}
-                                          disabled={disabled}/>
+                                          disabled={disabled}
+                                          multi={multi}/>
                             );
                         })
                     )
@@ -142,7 +143,12 @@ List.propTypes = {
     /**
      * If true, the list will be disabled.
      */
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+
+    /**
+     *
+     */
+    multi: PropTypes.bool
 
 };
 
@@ -155,6 +161,7 @@ List.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
-    disabled: false
+    disabled: false,
+    multi: false
 
 };
