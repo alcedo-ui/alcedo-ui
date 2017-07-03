@@ -175,27 +175,52 @@ export default class DropdownSelect extends Component {
 
     formatData(data = this.props.data) {
 
-        return (
-            data.map(listItem => {
+        const {noMatchedMsg} = this.props;
 
-                if (typeof listItem === 'object') {
+        return data.length > 0 ?
+            (
+                data.map(listItem => {
 
-                    let item = _.cloneDeep(listItem);
-                    item.raw = listItem;
-                    item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
+                    if (typeof listItem === 'object') {
 
-                    return item;
+                        let item = _.cloneDeep(listItem);
+                        item.raw = listItem;
+                        item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
 
-                }
+                        return item;
 
-                return {
-                    raw: listItem,
-                    value: listItem,
-                    onTouchTap: this.itemTouchTapHandle(listItem)
-                };
+                    }
 
-            })
-        );
+                    return {
+                        raw: listItem,
+                        value: listItem,
+                        onTouchTap: this.itemTouchTapHandle(listItem)
+                    };
+
+                })
+            )
+            :
+            (
+                [{
+                    renderer() {
+                        return (
+                            <div className="no-matched-list-item">
+
+                                {
+                                    noMatchedMsg ?
+                                        noMatchedMsg
+                                        :
+                                        <span>
+                                            <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                            No matched value.
+                                        </span>
+                                }
+
+                            </div>
+                        );
+                    }
+                }]
+            );
 
     }
 
@@ -435,6 +460,11 @@ DropdownSelect.propTypes = {
     useFilter: PropTypes.bool,
 
     /**
+     *
+     */
+    noMatchedMsg: PropTypes.string,
+
+    /**
      * Callback function fired when a menu item is selected.
      */
     onChange: PropTypes.func
@@ -457,6 +487,7 @@ DropdownSelect.defaultProps = {
     displayField: 'text',
     infoMsg: '',
     autoClose: true,
-    useFilter: false
+    useFilter: false,
+    noMatchedMsg: ''
 
 };
