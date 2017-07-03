@@ -260,7 +260,7 @@ export default class DropdownSelect extends Component {
                 <RaisedButton ref="trigger"
                               className={'dropdown-select-trigger' + triggerClassName}
                               value={value ? text : placeholder}
-                              rightIconCls={`fa fa-angle-${isAbove ? 'down' : 'up'} dropdown-select-trigger-right-icon`}
+                              rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
                               onTouchTap={this.togglePopup}/>
 
