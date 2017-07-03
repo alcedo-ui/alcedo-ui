@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import RaisedButton from '../RaisedButton';
+import CircularLoading from '../CircularLoading/CircularLoading';
+import Tip from '../Tip/Tip';
+import TouchRipple from '../TouchRipple/TouchRipple';
 import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 import './ListItem.css';
 
@@ -12,181 +16,199 @@ export default class ListItem extends Component {
 
         super(props);
 
-        this.displayValue = this::this.displayValue;
+        this.state = {
+            tipVisible: false,
+            triggerEl: null
+        };
+
+        this.mouseEnterHandle = this::this.mouseEnterHandle;
+        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
+        this.clickHandle = this::this.clickHandle;
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
+        this.hideTip = this::this.hideTip;
 
     }
 
-    displayValue(data = this.props.data) {
+    clickHandle(e) {
+        const {disabled, isLoading, onTouchTap} = this.props;
+        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+    }
 
-        if (!data) {
-            return;
-        }
+    startRipple(e) {
+        this.refs.touchRipple.addRipple(e);
+    }
 
-        const {valueField, displayField} = this.props;
+    endRipple() {
+        this.refs.touchRipple.removeRipple();
+    }
 
-        switch (typeof data) {
+    mouseEnterHandle(e) {
 
-            case 'object': {
+        const {onMouseEnter} = this.props;
 
-                if (data[displayField]) {
-                    return data[displayField];
-                }
+        this.setState({
+            tipVisible: true,
+            triggerEl: e.currentTarget
+        }, () => {
+            onMouseEnter && onMouseEnter();
+        });
 
-                return data[valueField];
+    }
 
-            }
+    mouseLeaveHandle() {
+        const {onMouseLeave} = this.props;
+        onMouseLeave && onMouseLeave();
+    }
 
-            default:
-                return data;
-
-        }
-
+    hideTip() {
+        this.setState({
+            tipVisible: false
+        });
     }
 
     render() {
 
-        const {data, disabled, valueField, displayField} = this.props;
+        const {
+                children, className, style, theme, disableTouchRipple, iconCls, rightIconCls,
+                value, text, desc, disabled, isLoading, rippleDisplayCenter,
+                tip, tipPosition, renderer
+            } = this.props,
+            {tipVisible, triggerEl} = this.state,
+            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
-        return typeof data === 'object' ?
-            (
-                data.renderer && typeof data.renderer === 'function' ?
-                    data.renderer(data)
-                    :
-                    (
-                        data.desc ?
-                            <RaisedButton {...data}
-                                          className={'list-item' + (data.className ? ' ' + data.className : '')}
-                                          disabled={disabled || data.disabled}
-                                          renderer={(props) => {
-                                              return (
-                                                  <div className="list-item-content">
-                                                      <div className="list-item-content-value">
-                                                          {props[displayField] || props[valueField]}
-                                                      </div>
-                                                      <div className="list-item-content-desc">
-                                                          {props.desc}
-                                                      </div>
-                                                  </div>
-                                              );
-                                          }}/>
-                            :
-                            <RaisedButton {...data}
-                                          className={'list-item' + (data.className ? ' ' + data.className : '')}
-                                          value={this.displayValue(data)}
-                                          disabled={disabled || data.disabled}/>
-                    )
-            )
-            :
-            <RaisedButton className="list-item"
-                          value={this.displayValue(data)}
-                          disabled={disabled}/>;
+        return (
+            <button className={`list-item ${theme ? `theme-${theme}` : ''} ${className}`}
+                    style={style}
+                    type="button"
+                    disabled={disabled || isLoading}
+                    onClick={this.clickHandle}
+                    onMouseEnter={this.mouseEnterHandle}
+                    onMouseLeave={this.mouseLeaveHandle}>
+
+                {
+                    isLoading && loadingIconPosition === 'left' ?
+                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                         size="small"/>
+                        :
+                        (
+                            iconCls ?
+                                <i className={`button-icon button-icon-left ${iconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
+                }
+
+                {
+                    renderer && typeof renderer === 'function' ?
+                        renderer(this.props)
+                        :
+                        (
+                            desc ?
+                                <div className="list-item-content">
+                                    <div className="list-item-content-value">
+                                        {text}
+                                    </div>
+                                    <div className="list-item-content-desc">
+                                        {desc}
+                                    </div>
+                                </div>
+                                :
+                                text
+                        )
+                }
+
+                {
+                    isLoading && loadingIconPosition === 'right' ?
+                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                         size="small"/>
+                        :
+                        (
+                            rightIconCls ?
+                                <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
+                }
+
+                {children}
+
+                {
+                    tip ?
+                        <Tip text={tip}
+                             visible={tipVisible}
+                             triggerEl={triggerEl}
+                             position={tipPosition}
+                             onRequestClose={this.hideTip}/>
+                        :
+                        null
+                }
+
+                {
+                    disableTouchRipple ?
+                        null
+                        :
+                        <TouchRipple ref="touchRipple"
+                                     className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={rippleDisplayCenter}/>
+                }
+
+            </button>
+        );
 
     }
 };
 
 ListItem.propTypes = {
 
-    /**
-     * Children passed into the _ListItem.
-     */
-    data: PropTypes.oneOfType([PropTypes.shape({
+    className: PropTypes.string,
+    style: PropTypes.object,
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    text: PropTypes.any,
+    desc: PropTypes.string,
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-
-        /**
-         * The text value of the list button. Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-        /**
-         * The list item's display text. Type can be string, number or bool.
-         */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
-
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
-
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
-
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
-
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
-
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
-
-    }), PropTypes.string, PropTypes.number]).isRequired,
-
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
-
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
-
-    /**
-     * If true, the list will be disabled.
-     */
     disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    disableTouchRipple: PropTypes.bool,
 
-    /**
-     *
-     */
-    multi: PropTypes.bool
+    iconCls: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+    rippleDisplayCenter: PropTypes.bool,
+
+    renderer: PropTypes.func,
+    onTouchTap: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
 
 };
 
 ListItem.defaultProps = {
 
-    data: null,
+    className: '',
+    style: null,
 
-    valueField: 'value',
-    displayField: 'text',
+    theme: Theme.DEFAULT,
+
+    value: '',
     disabled: false,
-    multi: false
+    isLoading: false,
+    disableTouchRipple: false,
+
+    tip: '',
+    tipPosition: Tip.Position.BOTTOM,
+
+    rippleDisplayCenter: false,
+
+    iconCls: '',
+    rightIconCls: ''
 
 };

@@ -43,13 +43,13 @@ export default class ListExamples extends Component {
                                 <Paper>
                                     <List items={[{
                                         iconCls: 'fa fa-facebook',
-                                        value: 'Facebook'
+                                        text: 'Facebook'
                                     }, {
                                         iconCls: 'fa fa-twitter',
-                                        value: 'Twitter'
+                                        text: 'Twitter'
                                     }, {
                                         iconCls: 'fa fa-google-plus',
-                                        value: 'Google+'
+                                        text: 'Google+'
                                     }]}/>
                                 </Paper>
 
@@ -75,14 +75,14 @@ export default class ListExamples extends Component {
                                 <Paper>
                                     <List items={[{
                                         iconCls: 'fa fa-firefox',
-                                        value: 'Firefox',
+                                        text: 'Firefox',
                                         disabled: true
                                     }, {
                                         iconCls: 'fa fa-chrome',
-                                        value: 'Chrome'
+                                        text: 'Chrome'
                                     }, {
                                         iconCls: 'fa fa-safari',
-                                        value: 'Safari',
+                                        text: 'Safari',
                                         disabled: true
                                     }]}/>
                                 </Paper>
@@ -109,19 +109,19 @@ export default class ListExamples extends Component {
 
                                 <Paper>
                                     <List items={[{
-                                        value: 'Success',
+                                        text: 'Success',
                                         theme: 'success',
                                         rightIconCls: 'fa fa-check-circle'
                                     }, {
-                                        value: 'Error',
+                                        text: 'Error',
                                         theme: 'error',
                                         rightIconCls: 'fa fa-times-circle-o'
                                     }, {
-                                        value: 'Warning',
+                                        text: 'Warning',
                                         theme: 'warning',
                                         rightIconCls: 'fa fa-exclamation-triangle'
                                     }, {
-                                        value: 'Primary',
+                                        text: 'Primary',
                                         theme: 'primary',
                                         rightIconCls: 'fa fa-gratipay'
                                     }]}/>
@@ -151,15 +151,53 @@ export default class ListExamples extends Component {
                                     <List style={{width: 240}}
                                           items={[{
                                               iconCls: 'fa fa-facebook',
-                                              value: 'Facebook',
+                                              text: 'Facebook',
                                               desc: 'Here is a Facebook Desc.'
                                           }, {
                                               iconCls: 'fa fa-twitter',
-                                              value: 'Twitter',
+                                              text: 'Twitter',
                                               desc: 'Here is a Twitter Desc.'
                                           }, {
                                               iconCls: 'fa fa-google-plus',
-                                              value: 'Google+',
+                                              text: 'Google+',
+                                              desc: 'Here is a Google+ Desc.'
+                                          }]}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Multi"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A simple List with desc.
+                                </p>
+
+                                <Paper style={{width: 240}}>
+                                    <List style={{width: 240}}
+                                          multi={true}
+                                          items={[{
+                                              iconCls: 'fa fa-facebook',
+                                              text: 'Facebook',
+                                              desc: 'Here is a Facebook Desc.'
+                                          }, {
+                                              iconCls: 'fa fa-twitter',
+                                              text: 'Twitter',
+                                              desc: 'Here is a Twitter Desc.'
+                                          }, {
+                                              iconCls: 'fa fa-google-plus',
+                                              text: 'Google+',
                                               desc: 'Here is a Google+ Desc.'
                                           }]}/>
                                 </Paper>

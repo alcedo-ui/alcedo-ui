@@ -27,10 +27,10 @@ export default class List extends Component {
                         items.map((item, index) => {
                             return (
                                 <ListItem key={index}
-                                          data={item}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          disabled={disabled}
+                                          {...item}
+                                          value={item[valueField]}
+                                          test={item[displayField]}
+                                          disabled={disabled || item.disabled}
                                           multi={multi}/>
                             );
                         })
