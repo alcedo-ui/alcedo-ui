@@ -21,7 +21,8 @@ export default class DropdownSelect extends Component {
         this.state = {
             filter: '',
             selectItem: this.getItem(props),
-            popupVisible: false
+            popupVisible: false,
+            isAbove: false
         };
 
         this.isAbove = this::this.isAbove;
@@ -40,12 +41,17 @@ export default class DropdownSelect extends Component {
 
     isAbove() {
 
-        if (this.popupHeight && this.refs.DropdownSelect) {
-            const {top} = Util.getOffset(this.refs.DropdownSelect),
-                scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
-            if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-                return true;
-            }
+        const dropdownSelect = this.refs.dropdownSelect;
+
+        if (!this.popupHeight || !dropdownSelect) {
+            return false;
+        }
+
+        const {top} = Util.getOffset(dropdownSelect),
+            scrollTop = SCROLL_EL.scrollTop || document.body.scrollTop;
+
+        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
+            return true;
         }
 
         return false;
@@ -194,8 +200,18 @@ export default class DropdownSelect extends Component {
     }
 
     popupRenderHandle(popupEl) {
+
         this.popupEl = findDOMNode(popupEl);
         this.popupHeight = this.popupEl.offsetHeight;
+
+        const isAbove = this.isAbove();
+
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -214,11 +230,10 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {className, popupClassName, style, name, placeholder, disabled, data, useFilter} = this.props,
-            {filter, popupVisible, selectItem} = this.state,
+            {filter, popupVisible, selectItem, isAbove} = this.state,
 
             value = this.getValue(selectItem),
             text = this.getText(selectItem),
-            isAbove = this.isAbove(),
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
@@ -229,7 +244,7 @@ export default class DropdownSelect extends Component {
             };
 
         return (
-            <div ref="DropdownSelect"
+            <div ref="dropdownSelect"
                  className={'dropdown-select' + (className ? ' ' + className : '')}
                  style={style}>
 

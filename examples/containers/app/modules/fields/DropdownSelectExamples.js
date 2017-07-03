@@ -49,9 +49,6 @@ export default class DropdownSelectExamples extends Component {
                 <p>
                     <span>Dropdown Select</span> use to store operating elements. Click on the contact
                     and a drop-down menu will appear. You can select from the list and execute the appropriate command.
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </p>
 
                 <h2 className="example-title">Examples</h2>
