@@ -1,7 +1,29 @@
 @import '../_common.scss';
 
+.auto-complete {
+
+    .auto-complete-trigger {
+
+        &.above {
+            &.activated {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+
+        &.blow {
+            &.activated {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+}
+
 .auto-complete-popup {
     max-height: 300px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     overflow-y: auto;
 
     .auto-complete-list {
@@ -17,5 +39,15 @@
                 margin-right: 10px;
             }
         }
+    }
+
+    &.above {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &.blow {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 }

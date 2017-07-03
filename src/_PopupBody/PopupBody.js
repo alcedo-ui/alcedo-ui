@@ -54,7 +54,7 @@ export default class PopupBody extends Component {
             visible = this.triggerPopupEventHandle(
                 e.target,
                 triggerEl,
-                require('react-dom').findDOMNode(this.refs.popup),
+                this.popupEl,
                 this.props.triggerMode,
                 this.state.visible
             );
@@ -75,25 +75,104 @@ export default class PopupBody extends Component {
 
         const {triggerEl, position} = this.props;
 
-        let popupStyle = {};
-        if (triggerEl) {
+        if (!triggerEl || !this.popupEl) {
+            return;
+        }
 
-            const offset = Util.getOffset(triggerEl);
+        const triggerOffset = Util.getOffset(triggerEl),
 
-            if (position === PopupBody.Position.RIGHT) {
-                popupStyle = {
-                    left: offset.left - (200 - triggerEl.clientWidth),
-                    top: offset.top + triggerEl.clientHeight
+            // top
+            topVerticalBottom = triggerOffset.top + triggerEl.offsetHeight,
+            topVerticalTop = triggerOffset.top - this.popupEl.offsetHeight
+                - parseInt(getComputedStyle(this.popupEl).marginTop)
+                - parseInt(getComputedStyle(this.popupEl).marginBottom),
+            topHorizontalTop = triggerOffset.top,
+            topHorizontalMiddle = triggerOffset.top + triggerEl.offsetHeight / 2 - this.popupEl.offsetHeight / 2,
+            topHorizontalBottom = triggerOffset.top + triggerEl.offsetHeight - this.popupEl.offsetHeight,
+
+            // left
+            leftVerticalLeft = triggerOffset.left,
+            leftVerticalCenter = triggerOffset.left + triggerEl.offsetWidth / 2 - this.popupEl.offsetWidth / 2,
+            leftVerticalRight = triggerOffset.left - (this.popupEl.offsetWidth - triggerEl.offsetWidth),
+            leftHorizontalLeft = triggerOffset.left - this.popupEl.offsetWidth
+                - parseInt(getComputedStyle(this.popupEl).marginLeft)
+                - parseInt(getComputedStyle(this.popupEl).marginRight),
+            leftHorizontalRight = triggerOffset.left + triggerEl.offsetWidth;
+
+        switch (position) {
+            case PopupBody.Position.TOP_LEFT: {
+                return {
+                    top: topVerticalTop,
+                    left: leftVerticalLeft
                 };
-            } else { // default left
-                popupStyle = {
-                    left: offset.left,
-                    top: offset.top + triggerEl.clientHeight
+            }
+            case PopupBody.Position.TOP: {
+                return {
+                    top: topVerticalTop,
+                    left: leftVerticalCenter
+                };
+            }
+            case PopupBody.Position.TOP_RIGHT: {
+                return {
+                    top: topVerticalTop,
+                    left: leftVerticalRight
+                };
+            }
+            case PopupBody.Position.BOTTOM_LEFT: {
+                return {
+                    top: topVerticalBottom,
+                    left: leftVerticalLeft
+                };
+            }
+            case PopupBody.Position.BOTTOM: {
+                return {
+                    top: topVerticalBottom,
+                    left: leftVerticalCenter
+                };
+            }
+            case PopupBody.Position.BOTTOM_RIGHT: {
+                return {
+                    top: topVerticalBottom,
+                    left: leftVerticalRight
+                };
+            }
+            case PopupBody.Position.LEFT_TOP: {
+                return {
+                    top: topHorizontalTop,
+                    left: leftHorizontalLeft
+                };
+            }
+            case PopupBody.Position.LEFT: {
+                return {
+                    top: topHorizontalMiddle,
+                    left: leftHorizontalLeft
+                };
+            }
+            case PopupBody.Position.LEFT_BOTTOM: {
+                return {
+                    top: topHorizontalBottom,
+                    left: leftHorizontalLeft
+                };
+            }
+            case PopupBody.Position.RIGHT_TOP: {
+                return {
+                    top: topHorizontalTop,
+                    left: leftHorizontalRight
+                };
+            }
+            case PopupBody.Position.RIGHT: {
+                return {
+                    top: topHorizontalMiddle,
+                    left: leftHorizontalRight
+                };
+            }
+            case PopupBody.Position.RIGHT_BOTTOM: {
+                return {
+                    top: topHorizontalBottom,
+                    left: leftHorizontalRight
                 };
             }
         }
-
-        return popupStyle;
 
     }
 
@@ -110,8 +189,12 @@ export default class PopupBody extends Component {
     }
 
     componentDidMount() {
+
         this.hasMounted = true;
+        this.popupEl = require('react-dom').findDOMNode(this.refs.popup);
+
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
     }
 
     componentWillAppear(callback) {
@@ -122,6 +205,12 @@ export default class PopupBody extends Component {
         this.animate();
     }
 
+    componentDidUpdate() {
+        const {onRender} = this.props,
+            {visible} = this.state;
+        visible && onRender && onRender(this.refs.popup);
+    }
+
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
@@ -129,13 +218,15 @@ export default class PopupBody extends Component {
 
     render() {
 
-        const {children, className, style, hasTriangle, theme, position} = this.props;
-        const {visible} = this.state;
+        const {children, className, style, hasTriangle, theme, position, isAnimated} = this.props,
+            {visible} = this.state,
+            popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
+                + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
+                + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : '');
 
         return (
             <Paper ref="popup"
-                   className={`popup ${visible ? '' : 'hidden'} ${hasTriangle ? 'popup-has-triangle' : ''}
-                     ${theme ? `theme-${theme}` : ''} ${position ? `popup-position-${position}` : ''} ${className}`}
+                   className={'popup' + popupClassName}
                    style={{...this.getPopupStyle(), ...style}}>
 
                 {
@@ -156,8 +247,23 @@ export default class PopupBody extends Component {
 };
 
 PopupBody.Position = {
+
+    TOP_LEFT: 'top-left',
+    TOP: 'top',
+    TOP_RIGHT: 'top-right',
+
+    BOTTOM_LEFT: 'bottom-left',
+    BOTTOM: 'bottom',
+    BOTTOM_RIGHT: 'bottom-right',
+
+    LEFT_TOP: 'left-top',
     LEFT: 'left',
-    RIGHT: 'right'
+    LEFT_BOTTOM: 'left-bottom',
+
+    RIGHT_TOP: 'right-top',
+    RIGHT: 'right',
+    RIGHT_BOTTOM: 'right-bottom'
+
 };
 
 PopupBody.TriggerMode = {
@@ -203,14 +309,17 @@ PopupBody.propTypes = {
     position: PropTypes.oneOf(Util.enumerateValue(PopupBody.Position)),
 
     /**
-     * This number represents the zDepth of the popup shadow.
+     *
      */
-    depth: PropTypes.number,
+    isAnimated: PropTypes.bool,
 
     /**
      *
      */
     triggerMode: PropTypes.oneOf(Util.enumerateValue(PopupBody.TriggerMode)),
+
+
+    onRender: PropTypes.func,
 
     /**
      * Callback function fired when the popover is requested to be closed.
@@ -228,8 +337,8 @@ PopupBody.defaultProps = {
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
-    position: PopupBody.Position.LEFT,
-    depth: 4,
+    position: PopupBody.Position.BOTTOM_LEFT,
+    isAnimated: true,
     triggerMode: PopupBody.TriggerMode.TOGGLE
 
 };
