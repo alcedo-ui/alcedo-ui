@@ -1,23 +1,160 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import ListItem from '../_ListItem';
+import Tip from '../Tip';
 import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 import './List.css';
 
 export default class List extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: this.initValue(props)
+        };
+
+        this.initValue = this::this.initValue;
+        this.isItemChecked = this::this.isItemChecked;
+        this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
+        this.listItemSelectHandle = this::this.listItemSelectHandle;
+        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+
+    }
+
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, mode} = props;
+
+        if (!mode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (mode) {
+            case List.Mode.CHECKBOX:
+                return [];
+            case List.Mode.RADIO:
+                return null;
+            default:
+                return value;
+        }
+
+    }
+
+    isItemChecked(item) {
+
+        const {mode} = this.props,
+            {value} = this.state;
+
+        if (!item || !value) {
+            return false;
+        }
+
+        if (mode === List.Mode.CHECKBOX) {
+            return _.isArray(value) && value.filter(valueItem => valueItem == item).length > 0;
+        } else if (mode === List.Mode.RADIO) {
+            return value == item;
+        }
+
+    }
+
+    listItemTouchTapHandle(value) {
+
+        const {mode} = this.props;
+
+        if (mode !== List.Mode.NORMAL) {
+            return;
+        }
+
+        this.setState({
+            value
+        });
+
+    }
+
+    listItemSelectHandle(item) {
+
+        const {mode, onChange} = this.props;
+
+        if (mode === List.Mode.NORMAL) {
+            return;
+        }
+
+        let {value} = this.state;
+
+        if (mode === List.Mode.CHECKBOX) {
+
+            if (!value || !_.isArray(value)) {
+                value = [];
+            }
+
+            value.push(item);
+
+        } else if (mode === List.Mode.RADIO) {
+            value = item;
+        }
+
+        this.setState({
+            value
+        }, () => {
+            onChange && onChange(value);
+        });
+
+    }
+
+    listItemDeselectHandle(item) {
+
+        const {mode, onChange} = this.props;
+
+        if (mode !== List.Mode.CHECKBOX) {
+            return;
+        }
+
+        let {value} = this.state;
+
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => valueItem != item);
+        }
+
+        this.setState({
+            value
+        }, () => {
+            onChange && onChange(value);
+        });
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: this.initValue(nextProps)
+            });
+        }
     }
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled} = this.props;
+        const {children, className, style, items, valueField, displayField, disabled, isLoading, mode} = this.props,
+            listClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={`list ${className}`}
+            <div className={'list' + (listClassName)}
                  disabled={disabled}
                  style={style}>
 
@@ -25,13 +162,52 @@ export default class List extends Component {
                     items.length > 0
                         ? (
                         items.map((item, index) => {
-                            return (
-                                <ListItem key={index}
-                                          data={item}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          disabled={disabled}/>
-                            );
+
+                            if (!item) {
+                                return null;
+                            }
+
+                            return typeof item === 'object' ?
+                                (
+                                    <ListItem key={index}
+                                              {...item}
+                                              checked={this.isItemChecked(item)}
+                                              value={item[valueField]}
+                                              text={item[displayField]}
+                                              disabled={disabled || item.disabled}
+                                              isLoading={isLoading || item.isLoading}
+                                              mode={mode}
+                                              onTouchTap={() => {
+                                                  this.listItemTouchTapHandle(item);
+                                                  item.onTouchTap && item.onTouchTap();
+                                              }}
+                                              onSelect={() => {
+                                                  this.listItemSelectHandle(item);
+                                              }}
+                                              onDeselect={() => {
+                                                  this.listItemDeselectHandle(item);
+                                              }}/>
+                                )
+                                :
+                                (
+                                    <ListItem key={index}
+                                              checked={this.isItemChecked(item)}
+                                              value={item}
+                                              text={item}
+                                              disabled={disabled}
+                                              isLoading={isLoading}
+                                              mode={mode}
+                                              onTouchTap={() => {
+                                                  this.listItemTouchTapHandle(item);
+                                              }}
+                                              onSelect={() => {
+                                                  this.listItemSelectHandle(item);
+                                              }}
+                                              onDeselect={() => {
+                                                  this.listItemDeselectHandle(item);
+                                              }}/>
+                                );
+
                         })
                     )
                         : null
@@ -44,6 +220,8 @@ export default class List extends Component {
 
     }
 };
+
+List.Mode = ListItem.Mode;
 
 List.propTypes = {
 
@@ -93,6 +271,11 @@ List.propTypes = {
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
+         *
+         */
+        checked: PropTypes.bool,
+
+        /**
          * If true, the list button will be disabled.
          */
         disabled: PropTypes.bool,
@@ -116,6 +299,21 @@ List.propTypes = {
          * Use this property to display an icon. It will display on the right.
          */
         rightIconCls: PropTypes.string,
+
+        /**
+         *
+         */
+        tip: PropTypes.string,
+
+        /**
+         *
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+        /**
+         *
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
@@ -142,7 +340,22 @@ List.propTypes = {
     /**
      * If true, the list will be disabled.
      */
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+
+    /**
+     * If true, the list will be loading.
+     */
+    isLoading: PropTypes.bool,
+
+    /**
+     *
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+
+    /**
+     *
+     */
+    onChange: PropTypes.func
 
 };
 
@@ -155,6 +368,7 @@ List.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
-    disabled: false
+    disabled: false,
+    mode: ListItem.Mode.NORMAL
 
 };

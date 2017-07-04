@@ -62,6 +62,21 @@
         }
     }
 
+    .dropdown-select-list {
+        width: 100%;
+
+        .no-matched-list-item {
+            line-height: 40px;
+            padding: 0 20px;
+            color: $theme-text;
+
+            .no-matched-list-item-icon {
+                color: $warning;
+                margin-right: 10px;
+            }
+        }
+    }
+
     &.above {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;

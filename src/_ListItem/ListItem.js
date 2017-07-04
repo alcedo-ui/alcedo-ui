@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import RaisedButton from '../RaisedButton';
+import Checkbox from '../Checkbox';
+import CircularLoading from '../CircularLoading';
+import Tip from '../Tip';
+import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 import './ListItem.css';
 
@@ -12,175 +17,382 @@ export default class ListItem extends Component {
 
         super(props);
 
-        this.displayValue = this::this.displayValue;
+        this.state = {
+            tipVisible: false,
+            triggerEl: null,
+            checked: props.checked
+        };
+
+        this.checkboxChangeHandle = this::this.checkboxChangeHandle;
+        this.clickHandle = this::this.clickHandle;
+        this.startRipple = this::this.startRipple;
+        this.endRipple = this::this.endRipple;
+        this.hideTip = this::this.hideTip;
+        this.mouseEnterHandle = this::this.mouseEnterHandle;
+        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
 
     }
 
-    displayValue(data = this.props.data) {
+    checkboxChangeHandle(checked, callback) {
+        this.setState({
+            checked
+        }, () => {
 
-        if (!data) {
+            const {onSelect, onDeselect} = this.props;
+
+            if (checked) {
+                onSelect && onSelect();
+            } else {
+                onDeselect && onDeselect();
+            }
+
+            callback && typeof callback === 'function' && callback();
+
+        });
+    }
+
+    radioChangeHandle(callback) {
+
+        const {checked} = this.state;
+
+        if (!checked) {
+            this.setState({
+                checked: true
+            }, () => {
+                const {onSelect} = this.props;
+                onSelect && onSelect();
+                callback && typeof callback === 'function' && callback();
+            });
+        } else {
+            callback && typeof callback === 'function' && callback();
+        }
+
+    }
+
+    clickHandle(e) {
+
+        const {disabled, isLoading} = this.props;
+
+        if (disabled || isLoading) {
             return;
         }
 
-        const {valueField, displayField} = this.props;
+        const {mode, onTouchTap} = this.props,
+            callback = () => {
+                onTouchTap && onTouchTap(e);
+            };
 
-        switch (typeof data) {
-
-            case 'object': {
-
-                if (data[displayField]) {
-                    return data[displayField];
-                }
-
-                return data[valueField];
-
-            }
-
-            default:
-                return data;
-
+        if (mode === ListItem.Mode.NORMAL) {
+            callback();
         }
 
+        switch (mode) {
+            case ListItem.Mode.CHECKBOX:
+                this.checkboxChangeHandle(!this.state.checked, callback);
+                return;
+            case ListItem.Mode.RADIO:
+                this.radioChangeHandle(callback);
+                return;
+            case ListItem.Mode.NORMAL:
+                callback();
+                return;
+        }
+
+    }
+
+    startRipple(e) {
+        this.refs.touchRipple.addRipple(e);
+    }
+
+    endRipple() {
+        this.refs.touchRipple.removeRipple();
+    }
+
+    mouseEnterHandle(e) {
+
+        const {onMouseEnter} = this.props;
+
+        this.setState({
+            tipVisible: true,
+            triggerEl: e.currentTarget
+        }, () => {
+            onMouseEnter && onMouseEnter();
+        });
+
+    }
+
+    mouseLeaveHandle() {
+        const {onMouseLeave} = this.props;
+        onMouseLeave && onMouseLeave();
+    }
+
+    hideTip() {
+        this.setState({
+            tipVisible: false
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.checked !== this.state.checked) {
+            this.setState({
+                checked: nextProps.checked
+            });
+        }
     }
 
     render() {
 
-        const {data, disabled, valueField, displayField} = this.props;
+        const {
+                className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer
+            } = this.props,
+            {tipVisible, triggerEl, checked} = this.state,
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
+            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
-        return typeof data === 'object' ?
-            (
-                data.renderer && typeof data.renderer === 'function' ?
-                    data.renderer(data)
-                    :
-                    (
-                        data.desc ?
-                            <RaisedButton {...data}
-                                          className={`list-item ${data.className ? data.className : ''}`}
-                                          disabled={disabled || data.disabled}
-                                          renderer={(props) => {
-                                              return (
-                                                  <div className="list-item-content">
-                                                      <div className="list-item-content-value">
-                                                          {props[displayField] || props[valueField]}
-                                                      </div>
-                                                      <div className="list-item-content-desc">
-                                                          {props.desc}
-                                                      </div>
-                                                  </div>
-                                              );
-                                          }}/>
-                            :
-                            <RaisedButton {...data}
-                                          className={`list-item ${data.className ? data.className : ''}`}
-                                          value={this.displayValue(data)}
-                                          disabled={disabled || data.disabled}/>
-                    )
-            )
-            :
-            <RaisedButton className="list-item"
-                          value={this.displayValue(data)}
-                          disabled={disabled}/>;
+        return (
+            <div className={'list-item' + listItemClassName}
+                 style={style}
+                 disabled={disabled || isLoading}
+                 onClick={this.clickHandle}
+                 onMouseEnter={this.mouseEnterHandle}
+                 onMouseLeave={this.mouseLeaveHandle}>
+
+                {
+                    mode === ListItem.Mode.CHECKBOX ?
+                        <Checkbox className="list-item-checkbox"
+                                  value={checked}/>
+                        :
+                        null
+                }
+
+                {
+                    mode === ListItem.Mode.RADIO ?
+                        <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
+                           aria-hidden="true"></i>
+                        :
+                        null
+                }
+
+                {
+                    isLoading && loadingIconPosition === 'left' ?
+                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                         size="small"/>
+                        :
+                        (
+                            iconCls ?
+                                <i className={`button-icon button-icon-left ${iconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
+                }
+
+                {
+                    renderer && typeof renderer === 'function' ?
+                        renderer(this.props)
+                        :
+                        (
+                            desc ?
+                                <div className="list-item-content">
+                                    <div className="list-item-content-value">
+                                        {text}
+                                    </div>
+                                    <div className="list-item-content-desc">
+                                        {desc}
+                                    </div>
+                                </div>
+                                :
+                                text
+                        )
+                }
+
+                {
+                    isLoading && loadingIconPosition === 'right' ?
+                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                         size="small"/>
+                        :
+                        (
+                            rightIconCls ?
+                                <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        )
+                }
+
+                {
+                    tip ?
+                        <Tip text={tip}
+                             visible={tipVisible}
+                             triggerEl={triggerEl}
+                             position={tipPosition}
+                             onRequestClose={this.hideTip}/>
+                        :
+                        null
+                }
+
+                {
+                    disableTouchRipple ?
+                        null
+                        :
+                        <TouchRipple ref="touchRipple"
+                                     className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={rippleDisplayCenter}/>
+                }
+
+            </div>
+        );
 
     }
+};
+
+ListItem.Mode = {
+    NORMAL: 'normal',
+    CHECKBOX: 'checkbox',
+    RADIO: 'radio'
 };
 
 ListItem.propTypes = {
 
     /**
-     * Children passed into the _ListItem.
+     * The CSS class name of the list button.
      */
-    data: PropTypes.oneOfType([PropTypes.shape({
-
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-
-        /**
-         * The text value of the list button. Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-        /**
-         * The list item's display text. Type can be string, number or bool.
-         */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
-
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
-
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
-
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
-
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
-
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
-
-    }), PropTypes.string, PropTypes.number]).isRequired,
+    className: PropTypes.string,
 
     /**
-     * The value field name in data. (default: "value")
+     * Override the styles of the list button.
      */
-    valueField: PropTypes.string,
+    style: PropTypes.object,
 
     /**
-     * The display field name in data. (default: "text")
+     * The theme of the list button.
      */
-    displayField: PropTypes.string,
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
-     * If true, the list will be disabled.
+     * The text value of the list button. Type can be string or number.
      */
-    disabled: PropTypes.bool
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     * The list item's display text. Type can be string, number or bool.
+     */
+    text: PropTypes.any,
+
+    /**
+     * The desc value of the list button. Type can be string or number.
+     */
+    desc: PropTypes.string,
+
+    /**
+     * If true, the list button will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true,the button will be have loading effect.
+     */
+    isLoading: PropTypes.bool,
+
+    /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
+
+    /**
+     * Use this property to display an icon. It will display on the left.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * Use this property to display an icon. It will display on the right.
+     */
+    rightIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    tip: PropTypes.string,
+
+    /**
+     *
+     */
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+    /**
+     *
+     */
+    rippleDisplayCenter: PropTypes.bool,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
+     * Callback function fired when a list item touch-tapped.
+     */
+    onTouchTap: PropTypes.func,
+
+    /**
+     *
+     */
+    checked: PropTypes.bool,
+
+    /**
+     *
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+
+    /**
+     *
+     */
+    onSelect: PropTypes.func,
+
+    /**
+     *
+     */
+    onDeselect: PropTypes.func,
+
+    /**
+     *
+     */
+    onMouseEnter: PropTypes.func,
+
+    /**
+     *
+     */
+    onMouseLeave: PropTypes.func
 
 };
 
 ListItem.defaultProps = {
 
-    data: null,
+    className: '',
+    style: null,
 
-    valueField: 'value',
-    displayField: 'text',
-    disabled: false
+    theme: Theme.DEFAULT,
+
+    value: '',
+    text: '',
+    desc: '',
+
+    disabled: false,
+    isLoading: false,
+
+    disableTouchRipple: false,
+
+    iconCls: '',
+    rightIconCls: '',
+
+    tip: '',
+    tipPosition: Tip.Position.BOTTOM,
+
+    rippleDisplayCenter: false,
+
+    checked: false,
+
+    mode: ListItem.Mode.NORMAL
 
 };

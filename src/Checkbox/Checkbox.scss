@@ -6,13 +6,13 @@
 
     width: 200px;
     color: $theme-text;
-    height: 50px;
+    height: 40px;
     cursor: pointer;
 
     .checkbox-icon-wrapper {
         float: left;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         position: relative;
 
         .checkbox-bg-icon,
@@ -21,14 +21,16 @@
             top: 0;
             left: 0;
             width: 50px;
-            height: 50px;
+            height: 40px;
             text-align: center;
-            line-height: 50px;
+            line-height: 40px;
             font-size: 16px;
             cursor: inherit;
         }
 
         .checkbox-bg-icon {
+            color: lighten($theme-text, 45%);
+
             .button-icon {
                 transition: all $transition-duration ease-in-out;
             }
@@ -46,8 +48,8 @@
 
     .checkbox-label {
         float: left;
-        height: 50px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
         cursor: inherit;
         user-select: none;
     }

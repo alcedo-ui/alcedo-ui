@@ -33,7 +33,7 @@ export default class Checkbox extends Component {
     mouseDownHandle(e) {
 
         if (this.props.disabled) {
-            return
+            return;
         }
         this.refs.checkboxIcon.startRipple(e);
         this.clickHandle();
@@ -41,7 +41,7 @@ export default class Checkbox extends Component {
 
     mouseUpHandle() {
         if (this.props.disabled) {
-            return
+            return;
         }
         this.refs.checkboxIcon.endRipple();
     }
@@ -56,11 +56,12 @@ export default class Checkbox extends Component {
 
     render() {
 
-        const {className, style, name, label, disabled} = this.props;
-        const {value} = this.state;
+        const {className, style, name, label, disabled} = this.props,
+            {value} = this.state,
+            checkboxClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={`checkbox ${value ? 'activated' : ''} ${className}`}
+            <div className={'checkbox' + checkboxClassName}
                  style={style}
                  disabled={disabled}>
 
