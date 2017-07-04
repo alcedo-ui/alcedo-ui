@@ -164,7 +164,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder,
-                disabled, multi, data, useFilter, valueField, displayField
+                disabled, multi, data, useFilter, valueField, displayField, noMatchedMsg
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
