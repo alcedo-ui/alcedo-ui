@@ -115,16 +115,18 @@ export default class ListItem extends Component {
 
     render() {
 
-        const {data, disabled, isLoading, multi} = this.props,
+        const {
+                className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, multi, renderer
+            } = this.props,
             {tipVisible, triggerEl, checked} = this.state,
-            listItemClassName = (data.theme ? ` theme-${data.theme}` : '')
-                + (data.className ? ' ' + data.className : ''),
-            loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
+            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
             <div className={'list-item' + listItemClassName}
-                 style={data.style}
-                 disabled={disabled || isLoading || data.disabled || data.isLoading}
+                 style={style}
+                 disabled={disabled || isLoading}
                  onClick={this.clickHandle}
                  onMouseEnter={this.mouseEnterHandle}
                  onMouseLeave={this.mouseLeaveHandle}>
@@ -132,20 +134,20 @@ export default class ListItem extends Component {
                 {
                     multi ?
                         <Checkbox className="list-item-checkbox"
-                                  value={data.checked}
+                                  value={checked}
                                   onChange={this.checkboxChangeHandle}/>
                         :
                         null
                 }
 
                 {
-                    data.isLoading && loadingIconPosition === 'left' ?
+                    isLoading && loadingIconPosition === 'left' ?
                         <CircularLoading className="button-icon button-icon-left button-loading-icon"
                                          size="small"/>
                         :
                         (
-                            data.iconCls ?
-                                <i className={`button-icon button-icon-left ${data.iconCls}`}
+                            iconCls ?
+                                <i className={`button-icon button-icon-left ${iconCls}`}
                                    aria-hidden="true"></i>
                                 :
                                 null
@@ -153,32 +155,32 @@ export default class ListItem extends Component {
                 }
 
                 {
-                    data.renderer && typeof data.renderer === 'function' ?
-                        data.renderer(this.props)
+                    renderer && typeof renderer === 'function' ?
+                        renderer(this.props)
                         :
                         (
-                            data.desc ?
+                            desc ?
                                 <div className="list-item-content">
                                     <div className="list-item-content-value">
-                                        {data.text}
+                                        {text}
                                     </div>
                                     <div className="list-item-content-desc">
-                                        {data.desc}
+                                        {desc}
                                     </div>
                                 </div>
                                 :
-                                data.text
+                                text
                         )
                 }
 
                 {
-                    data.isLoading && loadingIconPosition === 'right' ?
+                    isLoading && loadingIconPosition === 'right' ?
                         <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                          size="small"/>
                         :
                         (
-                            data.rightIconCls ?
-                                <i className={`button-icon button-icon-right ${data.rightIconCls}`}
+                            rightIconCls ?
+                                <i className={`button-icon button-icon-right ${rightIconCls}`}
                                    aria-hidden="true"></i>
                                 :
                                 null
@@ -186,23 +188,23 @@ export default class ListItem extends Component {
                 }
 
                 {
-                    data.tip ?
-                        <Tip text={data.tip}
+                    tip ?
+                        <Tip text={tip}
                              visible={tipVisible}
                              triggerEl={triggerEl}
-                             position={data.tipPosition}
+                             position={tipPosition}
                              onRequestClose={this.hideTip}/>
                         :
                         null
                 }
 
                 {
-                    data.disableTouchRipple ?
+                    disableTouchRipple ?
                         null
                         :
                         <TouchRipple ref="touchRipple"
-                                     className={data.disabled || data.isLoading ? 'hidden' : ''}
-                                     displayCenter={data.rippleDisplayCenter}/>
+                                     className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={rippleDisplayCenter}/>
                 }
 
             </div>
@@ -213,94 +215,35 @@ export default class ListItem extends Component {
 
 ListItem.propTypes = {
 
-    data: PropTypes.shape({
+    /**
+     * The CSS class name of the list button.
+     */
+    className: PropTypes.string,
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+    /**
+     * Override the styles of the list button.
+     */
+    style: PropTypes.object,
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+    /**
+     * The theme of the list button.
+     */
+    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    /**
+     * The text value of the list button. Type can be string or number.
+     */
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * The text value of the list button. Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /**
+     * The list item's display text. Type can be string, number or bool.
+     */
+    text: PropTypes.any,
 
-        /**
-         * The list item's display text. Type can be string, number or bool.
-         */
-        text: PropTypes.any,
-
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.string,
-
-        /**
-         *
-         */
-        checked: PropTypes.bool,
-
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
-
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
-
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
-
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
-
-        /**
-         *
-         */
-        tip: PropTypes.string,
-
-        /**
-         *
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-        /**
-         *
-         */
-        rippleDisplayCenter: PropTypes.bool,
-
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
-
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
-
-    }),
+    /**
+     * The desc value of the list button. Type can be string or number.
+     */
+    desc: PropTypes.string,
 
     /**
      * If true, the list button will be disabled.
@@ -313,14 +256,54 @@ ListItem.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     *
+     * If true,the element's ripple effect will be disabled.
      */
-    multi: PropTypes.bool,
+    disableTouchRipple: PropTypes.bool,
+
+    /**
+     * Use this property to display an icon. It will display on the left.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * Use this property to display an icon. It will display on the right.
+     */
+    rightIconCls: PropTypes.string,
 
     /**
      *
      */
+    tip: PropTypes.string,
+
+    /**
+     *
+     */
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+    /**
+     *
+     */
+    rippleDisplayCenter: PropTypes.bool,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
+     * Callback function fired when a list item touch-tapped.
+     */
     onTouchTap: PropTypes.func,
+
+    /**
+     *
+     */
+    checked: PropTypes.bool,
+
+    /**
+     *
+     */
+    multi: PropTypes.bool,
 
     /**
      *
@@ -346,10 +329,30 @@ ListItem.propTypes = {
 
 ListItem.defaultProps = {
 
-    data: null,
+    className: '',
+    style: null,
+
+    theme: Theme.DEFAULT,
+
+    value: '',
+    text: '',
+    desc: '',
 
     disabled: false,
     isLoading: false,
+
+    disableTouchRipple: false,
+
+    iconCls: '',
+    rightIconCls: '',
+
+    tip: '',
+    tipPosition: Tip.Position.BOTTOM,
+
+    rippleDisplayCenter: false,
+
+    checked: false,
+
     multi: false
 
 };

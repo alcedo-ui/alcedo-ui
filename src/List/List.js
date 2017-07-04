@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import ListItem from '../_ListItem';
 import Tip from '../Tip';
@@ -16,24 +17,79 @@ export default class List extends Component {
         super(props);
 
         this.state = {
-            value: props.value
+            value: props.value || []
         };
 
+        this.isItemChecked = this::this.isItemChecked;
         this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
         this.listItemSelectHandle = this::this.listItemSelectHandle;
         this.listItemDeselectHandle = this::this.listItemDeselectHandle;
 
     }
 
-    listItemTouchTapHandle() {
+    isItemChecked(item) {
+
+        const {value} = this.state;
+
+        if (!item || !value || !_.isArray(value)) {
+            return false;
+        }
+
+        return this.state.value.filter(valueItem => valueItem == item).length > 0;
 
     }
 
-    listItemSelectHandle() {
+    listItemTouchTapHandle(value) {
+
+        const {multi} = this.props;
+
+        if (multi) {
+            return;
+        }
+
+        console.log('listItemTouchTapHandle');
+
+        this.setState({
+            value
+        });
 
     }
 
-    listItemDeselectHandle() {
+    listItemSelectHandle(item) {
+
+        console.log('listItemSelectHandle');
+
+        let {value} = this.state;
+
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = _.cloneDeep(value);
+        }
+
+        value.push(item);
+
+        this.setState({
+            value
+        });
+
+    }
+
+    listItemDeselectHandle(item) {
+
+        console.log('listItemDeselectHandle');
+
+        let {value} = this.state;
+
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => valueItem != item);
+        }
+
+        this.setState({
+            value
+        });
 
     }
 
@@ -47,7 +103,8 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props;
+        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props,
+            {value} = this.state;
 
         return (
             <div className={`list ${className}`}
@@ -58,21 +115,18 @@ export default class List extends Component {
                     items.length > 0
                         ? (
                         items.map((item, index) => {
-
-                            item = {
-                                ...item,
-                                value: item[valueField],
-                                text: item[displayField]
-                            };
-
                             return (
                                 <ListItem key={index}
-                                          data={item}
-                                          disabled={disabled}
-                                          isLoading={isLoading}
+                                          {...item}
+                                          checked={this.isItemChecked(item)}
+                                          value={item[valueField]}
+                                          text={item[displayField]}
+                                          disabled={disabled || item.disabled}
+                                          isLoading={isLoading || item.isLoading}
                                           multi={multi}
                                           onTouchTap={() => {
                                               this.listItemTouchTapHandle(item);
+                                              item.onTouchTap && item.onTouchTap();
                                           }}
                                           onSelect={() => {
                                               this.listItemSelectHandle(item);
