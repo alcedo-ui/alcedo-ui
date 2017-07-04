@@ -35,7 +35,7 @@ export default class List extends Component {
             return false;
         }
 
-        return this.state.value.filter(valueItem => valueItem == item).length > 0;
+        return value.filter(valueItem => valueItem == item).length > 0;
 
     }
 
@@ -47,8 +47,6 @@ export default class List extends Component {
             return;
         }
 
-        console.log('listItemTouchTapHandle');
-
         this.setState({
             value
         });
@@ -57,14 +55,10 @@ export default class List extends Component {
 
     listItemSelectHandle(item) {
 
-        console.log('listItemSelectHandle');
-
         let {value} = this.state;
 
         if (!value || !_.isArray(value)) {
             value = [];
-        } else {
-            value = _.cloneDeep(value);
         }
 
         value.push(item);
@@ -76,8 +70,6 @@ export default class List extends Component {
     }
 
     listItemDeselectHandle(item) {
-
-        console.log('listItemDeselectHandle');
 
         let {value} = this.state;
 
@@ -103,8 +95,7 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props,
-            {value} = this.state;
+        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props;
 
         return (
             <div className={`list ${className}`}
