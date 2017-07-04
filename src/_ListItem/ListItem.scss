@@ -37,7 +37,7 @@ button:focus {
         width: 16px;
         line-height: 40px;
         margin-right: 10px;
-        color: $theme-title-bg;
+        color: lighten($theme-text, 45%);
         text-align: center;
 
         &.activated {
