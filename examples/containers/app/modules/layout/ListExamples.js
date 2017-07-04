@@ -218,6 +218,45 @@ export default class ListExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With Radio"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A simple List with desc.
+                                </p>
+
+                                <Paper style={{width: 240}}>
+                                    <List style={{width: 240}}
+                                          mode={List.Mode.RADIO}
+                                          items={[{
+                                              iconCls: 'fa fa-facebook',
+                                              text: 'Facebook',
+                                              desc: 'Here is a Facebook Desc.'
+                                          }, {
+                                              iconCls: 'fa fa-twitter',
+                                              text: 'Twitter',
+                                              desc: 'Here is a Twitter Desc.'
+                                          }, {
+                                              iconCls: 'fa fa-google-plus',
+                                              text: 'Google+',
+                                              desc: 'Here is a Google+ Desc.'
+                                          }]}
+                                          onChange={this.changeHandle}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={ListDoc}/>

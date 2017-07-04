@@ -51,6 +51,24 @@ export default class ListItem extends Component {
         });
     }
 
+    radioChangeHandle(callback) {
+
+        const {checked} = this.state;
+
+        if (!checked) {
+            this.setState({
+                checked: true
+            }, () => {
+                const {onSelect} = this.props;
+                onSelect && onSelect();
+                callback && typeof callback === 'function' && callback();
+            });
+        } else {
+            callback && typeof callback === 'function' && callback();
+        }
+
+    }
+
     clickHandle(e) {
 
         const {disabled, isLoading} = this.props;
@@ -66,10 +84,19 @@ export default class ListItem extends Component {
 
         if (mode === ListItem.Mode.NORMAL) {
             callback();
-            return;
         }
 
-        this.checkboxChangeHandle(!this.state.checked, callback);
+        switch (mode) {
+            case ListItem.Mode.CHECKBOX:
+                this.checkboxChangeHandle(!this.state.checked, callback);
+                return;
+            case ListItem.Mode.RADIO:
+                this.radioChangeHandle(callback);
+                return;
+            case ListItem.Mode.NORMAL:
+                callback();
+                return;
+        }
 
     }
 
@@ -134,8 +161,15 @@ export default class ListItem extends Component {
                 {
                     mode === ListItem.Mode.CHECKBOX ?
                         <Checkbox className="list-item-checkbox"
-                                  value={checked}
-                                  onChange={this.checkboxChangeHandle}/>
+                                  value={checked}/>
+                        :
+                        null
+                }
+
+                {
+                    mode === ListItem.Mode.RADIO ?
+                        <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
+                           aria-hidden="true"></i>
                         :
                         null
                 }
