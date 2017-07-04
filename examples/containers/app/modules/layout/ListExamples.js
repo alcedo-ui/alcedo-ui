@@ -13,7 +13,15 @@ import 'sass/containers/app/modules/layout/ListExamples.scss';
 export default class ListExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.changeHandle = this::this.changeHandle;
+
+    }
+
+    changeHandle(value) {
+        console.log(value);
     }
 
     render() {
@@ -161,7 +169,8 @@ export default class ListExamples extends Component {
                                               iconCls: 'fa fa-google-plus',
                                               text: 'Google+',
                                               desc: 'Here is a Google+ Desc.'
-                                          }]}/>
+                                          }]}
+                                          onChange={this.changeHandle}/>
                                 </Paper>
 
                             </div>
@@ -194,13 +203,13 @@ export default class ListExamples extends Component {
                                           }, {
                                               iconCls: 'fa fa-twitter',
                                               text: 'Twitter',
-                                              desc: 'Here is a Twitter Desc.',
-                                              checked: true
+                                              desc: 'Here is a Twitter Desc.'
                                           }, {
                                               iconCls: 'fa fa-google-plus',
                                               text: 'Google+',
                                               desc: 'Here is a Google+ Desc.'
-                                          }]}/>
+                                          }]}
+                                          onChange={this.changeHandle}/>
                                 </Paper>
 
                             </div>

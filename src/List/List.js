@@ -41,7 +41,7 @@ export default class List extends Component {
 
     listItemTouchTapHandle(value) {
 
-        const {multi} = this.props;
+        const {multi, onChange} = this.props;
 
         if (multi) {
             return;
@@ -49,12 +49,15 @@ export default class List extends Component {
 
         this.setState({
             value
+        }, () => {
+            onChange && onChange(value);
         });
 
     }
 
     listItemSelectHandle(item) {
 
+        const {onChange} = this.props;
         let {value} = this.state;
 
         if (!value || !_.isArray(value)) {
@@ -65,12 +68,15 @@ export default class List extends Component {
 
         this.setState({
             value
+        }, () => {
+            onChange && onChange(value);
         });
 
     }
 
     listItemDeselectHandle(item) {
 
+        const {onChange} = this.props;
         let {value} = this.state;
 
         if (!value || !_.isArray(value)) {
@@ -81,6 +87,8 @@ export default class List extends Component {
 
         this.setState({
             value
+        }, () => {
+            onChange && onChange(value);
         });
 
     }
@@ -95,10 +103,11 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props;
+        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props,
+            listClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={`list ${className}`}
+            <div className={'list' + (listClassName)}
                  disabled={disabled}
                  style={style}>
 
@@ -266,7 +275,12 @@ List.propTypes = {
     /**
      *
      */
-    multi: PropTypes.bool
+    multi: PropTypes.bool,
+
+    /**
+     *
+     */
+    onChange: PropTypes.func
 
 };
 
