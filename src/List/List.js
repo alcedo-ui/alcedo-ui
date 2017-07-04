@@ -17,7 +17,7 @@ export default class List extends Component {
         super(props);
 
         this.state = {
-            value: props.value || []
+            value: props.value
         };
 
         this.isItemChecked = this::this.isItemChecked;
@@ -29,42 +29,51 @@ export default class List extends Component {
 
     isItemChecked(item) {
 
-        const {value} = this.state;
+        const {mode} = this.props,
+            {value} = this.state;
 
-        if (!item || !value || !_.isArray(value)) {
+        if (!item || !value) {
             return false;
         }
 
-        return value.filter(valueItem => valueItem == item).length > 0;
+        if (mode === List.Mode.CHECKBOX) {
+            return _.isArray(value) && value.filter(valueItem => valueItem == item).length > 0;
+        } else if (mode === List.Mode.RADIO) {
+            return value == item;
+        }
 
     }
 
     listItemTouchTapHandle(value) {
 
-        const {multi, onChange} = this.props;
+        const {mode} = this.props;
 
-        if (multi) {
+        if (mode === List.Mode.NORMAL) {
             return;
         }
 
         this.setState({
             value
-        }, () => {
-            onChange && onChange(value);
         });
 
     }
 
     listItemSelectHandle(item) {
 
-        const {onChange} = this.props;
+        const {mode, onChange} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
-            value = [];
-        }
+        if (mode === List.Mode.CHECKBOX) {
 
-        value.push(item);
+            if (!value || !_.isArray(value)) {
+                value = [];
+            }
+
+            value.push(item);
+
+        } else if (mode === List.Mode.RADIO) {
+            value = item;
+        }
 
         this.setState({
             value
@@ -76,13 +85,17 @@ export default class List extends Component {
 
     listItemDeselectHandle(item) {
 
-        const {onChange} = this.props;
+        const {mode, onChange} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
-            value = [];
-        } else {
-            value = value.filter(valueItem => valueItem != item);
+        if (mode === List.Mode.CHECKBOX) {
+
+            if (!value || !_.isArray(value)) {
+                value = [];
+            } else {
+                value = value.filter(valueItem => valueItem != item);
+            }
+
         }
 
         this.setState({
@@ -103,7 +116,7 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props,
+        const {children, className, style, items, valueField, displayField, disabled, isLoading, mode} = this.props,
             listClassName = (className ? ' ' + className : '');
 
         return (
@@ -123,7 +136,7 @@ export default class List extends Component {
                                           text={item[displayField]}
                                           disabled={disabled || item.disabled}
                                           isLoading={isLoading || item.isLoading}
-                                          multi={multi}
+                                          mode={mode}
                                           onTouchTap={() => {
                                               this.listItemTouchTapHandle(item);
                                               item.onTouchTap && item.onTouchTap();
@@ -147,6 +160,8 @@ export default class List extends Component {
 
     }
 };
+
+List.Mode = ListItem.Mode;
 
 List.propTypes = {
 
@@ -275,7 +290,7 @@ List.propTypes = {
     /**
      *
      */
-    multi: PropTypes.bool,
+    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
 
     /**
      *
@@ -294,6 +309,6 @@ List.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     disabled: false,
-    multi: false
+    mode: ListItem.Mode.NORMAL
 
 };

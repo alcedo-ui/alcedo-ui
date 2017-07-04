@@ -169,8 +169,7 @@ export default class ListExamples extends Component {
                                               iconCls: 'fa fa-google-plus',
                                               text: 'Google+',
                                               desc: 'Here is a Google+ Desc.'
-                                          }]}
-                                          onChange={this.changeHandle}/>
+                                          }]}/>
                                 </Paper>
 
                             </div>
@@ -182,7 +181,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Multi"/>
+                    <WidgetHeader className="example-header" title="With Checkbox"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -195,7 +194,7 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          multi={true}
+                                          mode={List.Mode.CHECKBOX}
                                           items={[{
                                               iconCls: 'fa fa-facebook',
                                               text: 'Facebook',

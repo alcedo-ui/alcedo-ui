@@ -59,17 +59,17 @@ export default class ListItem extends Component {
             return;
         }
 
-        const {multi, onTouchTap} = this.props,
+        const {mode, onTouchTap} = this.props,
             callback = () => {
                 onTouchTap && onTouchTap(e);
             };
 
-        if (multi) {
-            this.checkboxChangeHandle(!this.state.checked, callback);
+        if (mode === ListItem.Mode.NORMAL) {
+            callback();
             return;
         }
 
-        callback();
+        this.checkboxChangeHandle(!this.state.checked, callback);
 
     }
 
@@ -117,7 +117,7 @@ export default class ListItem extends Component {
 
         const {
                 className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, multi, renderer
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer
             } = this.props,
             {tipVisible, triggerEl, checked} = this.state,
             listItemClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
@@ -132,7 +132,7 @@ export default class ListItem extends Component {
                  onMouseLeave={this.mouseLeaveHandle}>
 
                 {
-                    multi ?
+                    mode === ListItem.Mode.CHECKBOX ?
                         <Checkbox className="list-item-checkbox"
                                   value={checked}
                                   onChange={this.checkboxChangeHandle}/>
@@ -211,6 +211,12 @@ export default class ListItem extends Component {
         );
 
     }
+};
+
+ListItem.Mode = {
+    NORMAL: 'normal',
+    CHECKBOX: 'checkbox',
+    RADIO: 'radio'
 };
 
 ListItem.propTypes = {
@@ -303,7 +309,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    multi: PropTypes.bool,
+    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
 
     /**
      *
@@ -353,6 +359,6 @@ ListItem.defaultProps = {
 
     checked: false,
 
-    multi: false
+    mode: ListItem.Mode.NORMAL
 
 };
