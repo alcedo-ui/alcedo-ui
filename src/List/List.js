@@ -17,13 +17,41 @@ export default class List extends Component {
         super(props);
 
         this.state = {
-            value: props.value
+            value: this.initValue(props)
         };
 
+        this.initValue = this::this.initValue;
         this.isItemChecked = this::this.isItemChecked;
         this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
         this.listItemSelectHandle = this::this.listItemSelectHandle;
         this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+
+    }
+
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, mode} = props;
+
+        if (!mode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (mode) {
+            case List.Mode.CHECKBOX:
+                return [];
+            case List.Mode.RADIO:
+                return null;
+            default:
+                return value;
+        }
 
     }
 
@@ -48,7 +76,7 @@ export default class List extends Component {
 
         const {mode} = this.props;
 
-        if (mode === List.Mode.NORMAL) {
+        if (mode !== List.Mode.NORMAL) {
             return;
         }
 
@@ -61,6 +89,11 @@ export default class List extends Component {
     listItemSelectHandle(item) {
 
         const {mode, onChange} = this.props;
+
+        if (mode === List.Mode.NORMAL) {
+            return;
+        }
+
         let {value} = this.state;
 
         if (mode === List.Mode.CHECKBOX) {
@@ -86,16 +119,17 @@ export default class List extends Component {
     listItemDeselectHandle(item) {
 
         const {mode, onChange} = this.props;
+
+        if (mode !== List.Mode.CHECKBOX) {
+            return;
+        }
+
         let {value} = this.state;
 
-        if (mode === List.Mode.CHECKBOX) {
-
-            if (!value || !_.isArray(value)) {
-                value = [];
-            } else {
-                value = value.filter(valueItem => valueItem != item);
-            }
-
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => valueItem != item);
         }
 
         this.setState({
@@ -109,7 +143,7 @@ export default class List extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: nextProps.value
+                value: this.initValue(nextProps)
             });
         }
     }
