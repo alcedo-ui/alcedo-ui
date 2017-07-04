@@ -35,8 +35,8 @@ export default class DropdownSelectExamples extends Component {
 
     }
 
-    onChange(item) {
-        console.log('select item: ', item);
+    onChange(value) {
+        console.log(value);
     }
 
     render() {

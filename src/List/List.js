@@ -162,26 +162,52 @@ export default class List extends Component {
                     items.length > 0
                         ? (
                         items.map((item, index) => {
-                            return (
-                                <ListItem key={index}
-                                          {...item}
-                                          checked={this.isItemChecked(item)}
-                                          value={item[valueField]}
-                                          text={item[displayField]}
-                                          disabled={disabled || item.disabled}
-                                          isLoading={isLoading || item.isLoading}
-                                          mode={mode}
-                                          onTouchTap={() => {
-                                              this.listItemTouchTapHandle(item);
-                                              item.onTouchTap && item.onTouchTap();
-                                          }}
-                                          onSelect={() => {
-                                              this.listItemSelectHandle(item);
-                                          }}
-                                          onDeselect={() => {
-                                              this.listItemDeselectHandle(item);
-                                          }}/>
-                            );
+
+                            if (!item) {
+                                return null;
+                            }
+
+                            return typeof item === 'object' ?
+                                (
+                                    <ListItem key={index}
+                                              {...item}
+                                              checked={this.isItemChecked(item)}
+                                              value={item[valueField]}
+                                              text={item[displayField]}
+                                              disabled={disabled || item.disabled}
+                                              isLoading={isLoading || item.isLoading}
+                                              mode={mode}
+                                              onTouchTap={() => {
+                                                  this.listItemTouchTapHandle(item);
+                                                  item.onTouchTap && item.onTouchTap();
+                                              }}
+                                              onSelect={() => {
+                                                  this.listItemSelectHandle(item);
+                                              }}
+                                              onDeselect={() => {
+                                                  this.listItemDeselectHandle(item);
+                                              }}/>
+                                )
+                                :
+                                (
+                                    <ListItem key={index}
+                                              checked={this.isItemChecked(item)}
+                                              value={item}
+                                              text={item}
+                                              disabled={disabled}
+                                              isLoading={isLoading}
+                                              mode={mode}
+                                              onTouchTap={() => {
+                                                  this.listItemTouchTapHandle(item);
+                                              }}
+                                              onSelect={() => {
+                                                  this.listItemSelectHandle(item);
+                                              }}
+                                              onDeselect={() => {
+                                                  this.listItemDeselectHandle(item);
+                                              }}/>
+                                );
+
                         })
                     )
                         : null

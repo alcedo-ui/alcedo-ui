@@ -19,8 +19,8 @@ export default class DropdownSelect extends Component {
         super(props);
 
         this.state = {
+            value: props.value,
             filter: '',
-            selectItem: this.getItem(props),
             popupVisible: false,
             isAbove: false
         };
@@ -28,14 +28,12 @@ export default class DropdownSelect extends Component {
         this.isAbove = this::this.isAbove;
         this.getValue = this::this.getValue;
         this.getText = this::this.getText;
-        this.getItem = this::this.getItem;
-        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.filterChangeHandle = this::this.filterChangeHandle;
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
-        this.formatData = this::this.formatData;
         this.popupRenderHandle = this::this.popupRenderHandle;
+        this.changeHandle = this::this.changeHandle;
 
     }
 
@@ -94,54 +92,6 @@ export default class DropdownSelect extends Component {
 
     }
 
-    getItem(props = this.props) {
-
-        const {data, value, valueField} = props;
-
-        if (!data || data.length < 1 || !value) {
-            return;
-        }
-
-        for (let item of data) {
-
-            let v;
-
-            if (typeof item === 'object' && valueField in item) {
-                v = item[valueField];
-            } else {
-                v = item;
-            }
-
-            if (v === value) {
-                return item;
-            }
-
-        }
-
-    }
-
-    itemTouchTapHandle(item, callback) {
-
-        return (function (item, callback) {
-
-            const {autoClose, onChange} = this.props,
-                state = {
-                    selectItem: item
-                };
-
-            if (autoClose === true) {
-                state.popupVisible = false;
-            }
-
-            this.setState(state, () => {
-                onChange && onChange(item);
-                callback && typeof callback === 'function' && callback();
-            });
-
-        }).bind(this, item, callback);
-
-    }
-
     filterChangeHandle(filter) {
         this.setState({
             filter
@@ -173,57 +123,6 @@ export default class DropdownSelect extends Component {
 
     }
 
-    formatData(data = this.props.data) {
-
-        const {noMatchedMsg} = this.props;
-
-        return data.length > 0 ?
-            (
-                data.map(listItem => {
-
-                    if (typeof listItem === 'object') {
-
-                        let item = _.cloneDeep(listItem);
-                        item.raw = listItem;
-                        item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
-
-                        return item;
-
-                    }
-
-                    return {
-                        raw: listItem,
-                        value: listItem,
-                        onTouchTap: this.itemTouchTapHandle(listItem)
-                    };
-
-                })
-            )
-            :
-            (
-                [{
-                    renderer() {
-                        return (
-                            <div className="no-matched-list-item">
-
-                                {
-                                    noMatchedMsg ?
-                                        noMatchedMsg
-                                        :
-                                        <span>
-                                            <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                            No matched value.
-                                        </span>
-                                }
-
-                            </div>
-                        );
-                    }
-                }]
-            );
-
-    }
-
     popupRenderHandle(popupEl) {
 
         this.popupEl = findDOMNode(popupEl);
@@ -239,10 +138,19 @@ export default class DropdownSelect extends Component {
 
     }
 
+    changeHandle(value) {
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
-                selectItem: this.getItem(nextProps)
+                value: nextProps.value
             });
         }
     }
@@ -254,19 +162,36 @@ export default class DropdownSelect extends Component {
 
     render() {
 
-        const {className, popupClassName, style, name, placeholder, disabled, multi, data, useFilter} = this.props,
-            {filter, popupVisible, selectItem, isAbove} = this.state,
-
-            value = this.getValue(selectItem),
-            text = this.getText(selectItem),
+        const {
+                className, popupClassName, style, name, placeholder,
+                disabled, multi, data, useFilter, valueField, displayField
+            } = this.props,
+            {value, filter, popupVisible, isAbove} = this.state,
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
+            triggerValue = value ?
+                (
+                    multi ?
+                        (
+                            value.length > 0 ?
+                                value.length + ' selected'
+                                :
+                                placeholder
+                        )
+                        :
+                        this.getText(value)
+                )
+                :
+                placeholder,
+
             dropdownSelectPopupClassName = (isAbove ? ' above' : ' blow')
                 + (popupClassName ? ' ' + popupClassName : ''),
             popupStyle = {
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            };
+            },
+
+            listData = this.filterData(filter, data);
 
         return (
             <div ref="dropdownSelect"
@@ -284,7 +209,7 @@ export default class DropdownSelect extends Component {
 
                 <RaisedButton ref="trigger"
                               className={'dropdown-select-trigger' + triggerClassName}
-                              value={value ? text : placeholder}
+                              value={triggerValue}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
                               onTouchTap={this.togglePopup}/>
@@ -310,8 +235,34 @@ export default class DropdownSelect extends Component {
                     }
 
                     <List className="dropdown-select-list"
-                          multi={multi}
-                          items={this.formatData(this.filterData(filter, data))}/>
+                          value={value}
+                          mode={multi ? List.Mode.CHECKBOX : List.Mode.RADIO}
+                          items={listData.length > 0 ?
+                              listData
+                              :
+                              [{
+                                  renderer() {
+                                      return (
+                                          <div className="no-matched-list-item">
+
+                                              {
+                                                  noMatchedMsg ?
+                                                      noMatchedMsg
+                                                      :
+                                                      <span>
+                                                          <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                                          No matched value.
+                                                      </span>
+                                              }
+
+                                          </div>
+                                      );
+                                  }
+                              }]
+                          }
+                          valueField={valueField}
+                          displayField={displayField}
+                          onChange={this.changeHandle}/>
 
                 </Popup>
 
@@ -484,7 +435,7 @@ DropdownSelect.defaultProps = {
     style: null,
 
     name: '',
-    value: '',
+    value: null,
     placeholder: 'Please select ...',
     data: [],
     invalidMsg: '',
