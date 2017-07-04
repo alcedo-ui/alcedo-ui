@@ -8,6 +8,7 @@
     box-shadow: none;
     padding: 0 20px;
     cursor: not-allowed;
+    transition: none;
 
     .button-icon {
         vertical-align: middle;
@@ -42,7 +43,7 @@
 
     &.activated {
         cursor: default;
-        background: #20566a;
+        background: #38b1eb;
         color: #fff;
         i {
             color: #fff;
@@ -51,12 +52,10 @@
 
     &.finished {
         cursor: pointer;
-        &:hover {
-            box-shadow: none;
-            color: #ff5722;
-            i {
-                color: #4c637b;
-            }
+        background: #4c637b;
+        color: #fff;
+        i {
+            color: #fff;
         }
     }
 }
