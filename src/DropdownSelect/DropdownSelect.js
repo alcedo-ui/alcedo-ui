@@ -112,14 +112,12 @@ export default class DropdownSelect extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {textField} = this.props;
+        const {displayField} = this.props;
 
-        return data.filter(item => {
-            return typeof item === 'object' && !!item[textField] ?
-                item[textField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase());
-        });
+        return data.filter(item => typeof item === 'object' && !!item[displayField] ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+            :
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
     }
 

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
-import _ from 'lodash';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -98,18 +97,16 @@ export default class LocalAutoComplete extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {textField, filterCallback} = this.props;
+        const {displayField, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
-        return data.filter(item => {
-            return typeof item === 'object' && !!item[textField] ?
-                item[textField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase());
-        });
+        return data.filter(item => typeof item === 'object' && displayField in item ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+            :
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
     }
 
@@ -132,11 +129,25 @@ export default class LocalAutoComplete extends Component {
     }
 
     filterChangeHandle(filter) {
-        this.setState({
-            filter,
-            popupVisible: !!filter,
-            filteredData: this.filterData(filter)
+
+        const value = this.state.value,
+            state = {
+                filter,
+                popupVisible: !!filter,
+                filteredData: this.filterData(filter)
+            };
+
+        if (!filter) {
+            state.value = undefined;
+        }
+
+        this.setState(state, () => {
+            if (state.value !== value) {
+                const {onChange} = this.props;
+                onChange && onChange(state.value);
+            }
         });
+
     }
 
     closePopup() {
@@ -161,17 +172,26 @@ export default class LocalAutoComplete extends Component {
     }
 
     changeHandle(value) {
-        this.setState({
-            value,
-            filter: this.getText(value)
-        }, () => {
+
+        const {autoClose} = this.props,
+            state = {
+                value,
+                filter: this.getText(value)
+            };
+
+        if (autoClose) {
+            state.popupVisible = false;
+        }
+
+        this.setState(state, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
+
     }
 
     componentDidMount() {
-        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
+        this.triggerEl = findDOMNode(this.refs.trigger);
         this.triggerHeight = this.triggerEl.clientHeight;
     }
 
@@ -387,6 +407,9 @@ LocalAutoComplete.propTypes = {
      */
     rightIconCls: PropTypes.string,
 
+    /**
+     *
+     */
     noMatchedMsg: PropTypes.string,
 
     /**
