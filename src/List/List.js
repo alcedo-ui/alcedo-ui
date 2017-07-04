@@ -2,19 +2,52 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import ListItem from '../_ListItem';
+import Tip from '../Tip';
 import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 import './List.css';
 
 export default class List extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: props.value
+        };
+
+        this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
+        this.listItemSelectHandle = this::this.listItemSelectHandle;
+        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+
+    }
+
+    listItemTouchTapHandle() {
+
+    }
+
+    listItemSelectHandle() {
+
+    }
+
+    listItemDeselectHandle() {
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
     }
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled, multi} = this.props;
+        const {children, className, style, items, valueField, displayField, disabled, isLoading, multi} = this.props;
 
         return (
             <div className={`list ${className}`}
@@ -25,13 +58,28 @@ export default class List extends Component {
                     items.length > 0
                         ? (
                         items.map((item, index) => {
+
+                            item = {
+                                ...item,
+                                value: item[valueField],
+                                text: item[displayField]
+                            };
+
                             return (
                                 <ListItem key={index}
-                                          {...item}
-                                          value={item[valueField]}
-                                          test={item[displayField]}
-                                          disabled={disabled || item.disabled}
-                                          multi={multi}/>
+                                          data={item}
+                                          disabled={disabled}
+                                          isLoading={isLoading}
+                                          multi={multi}
+                                          onTouchTap={() => {
+                                              this.listItemTouchTapHandle(item);
+                                          }}
+                                          onSelect={() => {
+                                              this.listItemSelectHandle(item);
+                                          }}
+                                          onDeselect={() => {
+                                              this.listItemDeselectHandle(item);
+                                          }}/>
                             );
                         })
                     )
@@ -94,6 +142,11 @@ List.propTypes = {
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
+         *
+         */
+        checked: PropTypes.bool,
+
+        /**
          * If true, the list button will be disabled.
          */
         disabled: PropTypes.bool,
@@ -117,6 +170,21 @@ List.propTypes = {
          * Use this property to display an icon. It will display on the right.
          */
         rightIconCls: PropTypes.string,
+
+        /**
+         *
+         */
+        tip: PropTypes.string,
+
+        /**
+         *
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+        /**
+         *
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
@@ -144,6 +212,11 @@ List.propTypes = {
      * If true, the list will be disabled.
      */
     disabled: PropTypes.bool,
+
+    /**
+     * If true, the list will be loading.
+     */
+    isLoading: PropTypes.bool,
 
     /**
      *

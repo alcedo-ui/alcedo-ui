@@ -194,7 +194,8 @@ export default class ListExamples extends Component {
                                           }, {
                                               iconCls: 'fa fa-twitter',
                                               text: 'Twitter',
-                                              desc: 'Here is a Twitter Desc.'
+                                              desc: 'Here is a Twitter Desc.',
+                                              checked: true
                                           }, {
                                               iconCls: 'fa fa-google-plus',
                                               text: 'Google+',

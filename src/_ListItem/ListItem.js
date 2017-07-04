@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import CircularLoading from '../CircularLoading/CircularLoading';
-import Tip from '../Tip/Tip';
-import TouchRipple from '../TouchRipple/TouchRipple';
+import Checkbox from '../Checkbox';
+import CircularLoading from '../CircularLoading';
+import Tip from '../Tip';
+import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -18,21 +19,58 @@ export default class ListItem extends Component {
 
         this.state = {
             tipVisible: false,
-            triggerEl: null
+            triggerEl: null,
+            checked: props.checked
         };
 
-        this.mouseEnterHandle = this::this.mouseEnterHandle;
-        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
+        this.checkboxChangeHandle = this::this.checkboxChangeHandle;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
         this.hideTip = this::this.hideTip;
+        this.mouseEnterHandle = this::this.mouseEnterHandle;
+        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
 
     }
 
+    checkboxChangeHandle(checked, callback) {
+        this.setState({
+            checked
+        }, () => {
+
+            const {onSelect, onDeselect} = this.props;
+
+            if (checked) {
+                onSelect && onSelect();
+            } else {
+                onDeselect && onDeselect();
+            }
+
+            callback && typeof callback === 'function' && callback();
+
+        });
+    }
+
     clickHandle(e) {
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+
+        const {disabled, isLoading} = this.props;
+
+        if (disabled || isLoading) {
+            return;
+        }
+
+        const {multi, onTouchTap} = this.props,
+            callback = () => {
+                onTouchTap && onTouchTap(e);
+            };
+
+        if (multi) {
+            this.checkboxChangeHandle(!this.state.checked, callback);
+            return;
+        }
+
+        callback();
+
     }
 
     startRipple(e) {
@@ -67,33 +105,47 @@ export default class ListItem extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.checked !== this.state.checked) {
+            this.setState({
+                checked: nextProps.checked
+            });
+        }
+    }
+
     render() {
 
-        const {
-                children, className, style, theme, disableTouchRipple, iconCls, rightIconCls,
-                value, text, desc, disabled, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer
-            } = this.props,
-            {tipVisible, triggerEl} = this.state,
-            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
+        const {data, disabled, isLoading, multi} = this.props,
+            {tipVisible, triggerEl, checked} = this.state,
+            listItemClassName = (data.theme ? ` theme-${data.theme}` : '')
+                + (data.className ? ' ' + data.className : ''),
+            loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
-            <button className={`list-item ${theme ? `theme-${theme}` : ''} ${className}`}
-                    style={style}
-                    type="button"
-                    disabled={disabled || isLoading}
-                    onClick={this.clickHandle}
-                    onMouseEnter={this.mouseEnterHandle}
-                    onMouseLeave={this.mouseLeaveHandle}>
+            <div className={'list-item' + listItemClassName}
+                 style={data.style}
+                 disabled={disabled || isLoading || data.disabled || data.isLoading}
+                 onClick={this.clickHandle}
+                 onMouseEnter={this.mouseEnterHandle}
+                 onMouseLeave={this.mouseLeaveHandle}>
 
                 {
-                    isLoading && loadingIconPosition === 'left' ?
+                    multi ?
+                        <Checkbox className="list-item-checkbox"
+                                  value={data.checked}
+                                  onChange={this.checkboxChangeHandle}/>
+                        :
+                        null
+                }
+
+                {
+                    data.isLoading && loadingIconPosition === 'left' ?
                         <CircularLoading className="button-icon button-icon-left button-loading-icon"
                                          size="small"/>
                         :
                         (
-                            iconCls ?
-                                <i className={`button-icon button-icon-left ${iconCls}`}
+                            data.iconCls ?
+                                <i className={`button-icon button-icon-left ${data.iconCls}`}
                                    aria-hidden="true"></i>
                                 :
                                 null
@@ -101,61 +153,59 @@ export default class ListItem extends Component {
                 }
 
                 {
-                    renderer && typeof renderer === 'function' ?
-                        renderer(this.props)
+                    data.renderer && typeof data.renderer === 'function' ?
+                        data.renderer(this.props)
                         :
                         (
-                            desc ?
+                            data.desc ?
                                 <div className="list-item-content">
                                     <div className="list-item-content-value">
-                                        {text}
+                                        {data.text}
                                     </div>
                                     <div className="list-item-content-desc">
-                                        {desc}
+                                        {data.desc}
                                     </div>
                                 </div>
                                 :
-                                text
+                                data.text
                         )
                 }
 
                 {
-                    isLoading && loadingIconPosition === 'right' ?
+                    data.isLoading && loadingIconPosition === 'right' ?
                         <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                          size="small"/>
                         :
                         (
-                            rightIconCls ?
-                                <i className={`button-icon button-icon-right ${rightIconCls}`}
+                            data.rightIconCls ?
+                                <i className={`button-icon button-icon-right ${data.rightIconCls}`}
                                    aria-hidden="true"></i>
                                 :
                                 null
                         )
                 }
 
-                {children}
-
                 {
-                    tip ?
-                        <Tip text={tip}
+                    data.tip ?
+                        <Tip text={data.tip}
                              visible={tipVisible}
                              triggerEl={triggerEl}
-                             position={tipPosition}
+                             position={data.tipPosition}
                              onRequestClose={this.hideTip}/>
                         :
                         null
                 }
 
                 {
-                    disableTouchRipple ?
+                    data.disableTouchRipple ?
                         null
                         :
                         <TouchRipple ref="touchRipple"
-                                     className={disabled || isLoading ? 'hidden' : ''}
-                                     displayCenter={rippleDisplayCenter}/>
+                                     className={data.disabled || data.isLoading ? 'hidden' : ''}
+                                     displayCenter={data.rippleDisplayCenter}/>
                 }
 
-            </button>
+            </div>
         );
 
     }
@@ -163,52 +213,143 @@ export default class ListItem extends Component {
 
 ListItem.propTypes = {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    data: PropTypes.shape({
 
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the list button.
+         */
+        className: PropTypes.string,
 
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    text: PropTypes.any,
-    desc: PropTypes.string,
+        /**
+         * Override the styles of the list button.
+         */
+        style: PropTypes.object,
 
+        /**
+         * The theme of the list button.
+         */
+        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+        /**
+         * The text value of the list button. Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The list item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.any,
+
+        /**
+         * The desc value of the list button. Type can be string or number.
+         */
+        desc: PropTypes.string,
+
+        /**
+         *
+         */
+        checked: PropTypes.bool,
+
+        /**
+         * If true, the list button will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
+
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
+
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
+
+        /**
+         *
+         */
+        tip: PropTypes.string,
+
+        /**
+         *
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+        /**
+         *
+         */
+        rippleDisplayCenter: PropTypes.bool,
+
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        renderer: PropTypes.func,
+
+        /**
+         * Callback function fired when a list item touch-tapped.
+         */
+        onTouchTap: PropTypes.func
+
+    }),
+
+    /**
+     * If true, the list button will be disabled.
+     */
     disabled: PropTypes.bool,
+
+    /**
+     * If true,the button will be have loading effect.
+     */
     isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
+    /**
+     *
+     */
+    multi: PropTypes.bool,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-    rippleDisplayCenter: PropTypes.bool,
-
-    renderer: PropTypes.func,
+    /**
+     *
+     */
     onTouchTap: PropTypes.func,
+
+    /**
+     *
+     */
+    onSelect: PropTypes.func,
+
+    /**
+     *
+     */
+    onDeselect: PropTypes.func,
+
+    /**
+     *
+     */
     onMouseEnter: PropTypes.func,
+
+    /**
+     *
+     */
     onMouseLeave: PropTypes.func
 
 };
 
 ListItem.defaultProps = {
 
-    className: '',
-    style: null,
+    data: null,
 
-    theme: Theme.DEFAULT,
-
-    value: '',
     disabled: false,
     isLoading: false,
-    disableTouchRipple: false,
-
-    tip: '',
-    tipPosition: Tip.Position.BOTTOM,
-
-    rippleDisplayCenter: false,
-
-    iconCls: '',
-    rightIconCls: ''
+    multi: false
 
 };
