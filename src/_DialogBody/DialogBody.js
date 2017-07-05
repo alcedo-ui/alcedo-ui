@@ -33,7 +33,6 @@ export default class DialogBody extends Component {
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
-        this.getIconCls = this::this.getIconCls;
 
     }
 
@@ -144,23 +143,6 @@ export default class DialogBody extends Component {
         });
     }
 
-    getIconCls() {
-        switch (this.props.theme) {
-            case 'highlight':
-                return 'fa fa-question-circle';
-            case 'success':
-                return 'fa fa-check-circle';
-            case 'warning':
-                return 'fa fa-exclamation-triangle';
-            case 'error':
-                return 'fa fa-times-circle';
-            case 'primary':
-                return 'fa fa-info-circle';
-            default:
-                return 'fa fa-info-circle';
-        }
-    }
-
     componentDidMount() {
 
         this.hasMounted = true;
@@ -186,23 +168,32 @@ export default class DialogBody extends Component {
     render() {
 
         const {
-            children, className, style, disabled, theme, showModal, title, buttons,
-            okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonUIType, okButtonDisabled, okButtonIsLoading,
-            cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
-        } = this.props;
-        const {visible} = this.state;
+
+                children, className, style, disabled, showModal, title, buttons,
+
+                okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme,
+                okButtonUIType, okButtonDisabled, okButtonIsLoading,
+
+                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
+
+            } = this.props,
+            {visible} = this.state,
+
+            modalClassName = (visible ? '' : ' hidden'),
+            dialogClassName = (visible ? '' : ' hidden') + (className ? ' ' + className : '');
 
         return (
             <div>
 
                 {
-                    showModal
-                        ? <div className={`dialog-modal ${visible ? '' : 'hidden'}`}></div>
-                        : null
+                    showModal ?
+                        <div className={'dialog-modal' + modalClassName}></div>
+                        :
+                        null
                 }
 
                 <Paper ref="dialog"
-                       className={`dialog-wrapper ${visible ? '' : 'hidden'} ${className}`}
+                       className={'dialog-wrapper' + dialogClassName}
                        style={style}
                        disabled={disabled}>
 
@@ -218,9 +209,7 @@ export default class DialogBody extends Component {
                     }
 
                     <div className="dialog-content">
-
                         {children}
-
                     </div>
 
                     <div className="dialog-buttons">
@@ -232,17 +221,19 @@ export default class DialogBody extends Component {
                         }
 
                         {
-                            !buttons && okButtonVisible
-                                ? this.getButton(okButtonUIType, okButtonText,
-                                okButtonIconCls, okButtonTheme, this.okButtonTouchTapHandle, okButtonDisabled, okButtonIsLoading)
-                                : null
+                            !buttons && okButtonVisible ?
+                                this.getButton(okButtonUIType, okButtonText, okButtonIconCls, okButtonTheme,
+                                    this.okButtonTouchTapHandle, okButtonDisabled, okButtonIsLoading)
+                                :
+                                null
                         }
 
                         {
-                            !buttons && cancelButtonVisible
-                                ? this.getButton(cancelButtonUIType, cancelButtonText,
-                                cancelButtonIconCls, cancelButtonTheme, this.cancelButtonTouchTapHandle)
-                                : null
+                            !buttons && cancelButtonVisible ?
+                                this.getButton(cancelButtonUIType, cancelButtonText,
+                                    cancelButtonIconCls, cancelButtonTheme, this.cancelButtonTouchTapHandle)
+                                :
+                                null
                         }
 
                     </div>

@@ -18,7 +18,8 @@ export default class DialogExamples extends Component {
         super(props);
 
         this.state = {
-            dialogVisible: false,
+            dialogVisible1: false,
+            dialogVisible2: false,
             type: 'primary'
         };
 
@@ -29,15 +30,15 @@ export default class DialogExamples extends Component {
 
     }
 
-    toggleDialog() {
+    toggleDialog(id) {
         this.setState({
-            dialogVisible: !this.state.dialogVisible
+            [`dialogVisible${id}`]: !this.state.dialogVisible
         });
     }
 
-    closeDialog() {
+    closeDialog(id) {
         this.setState({
-            dialogVisible: false
+            [`dialogVisible${id}`]: false
         });
     }
 
@@ -53,7 +54,7 @@ export default class DialogExamples extends Component {
 
     render() {
 
-        const {dialogVisible, type} = this.state;
+        const {dialogVisible1, dialogVisible2, type} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -106,16 +107,19 @@ export default class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={this.toggleDialog}/>
+                                              onTouchTap={() => {
+                                                  this.toggleDialog(1);
+                                              }}/>
 
-
-                                <Dialog visible={dialogVisible}
+                                <Dialog visible={dialogVisible1}
                                         title={`${type} dialog`}
                                         theme={type}
                                         disabled={true}
                                         okButtonTheme={type}
                                         isBlurClose={true}
-                                        onRequestClose={this.closeDialog}
+                                        onRequestClose={() => {
+                                            this.closeDialog(1);
+                                        }}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">
                                         content
@@ -142,23 +146,26 @@ export default class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={this.toggleDialog}/>
+                                              onTouchTap={() => {
+                                                  this.toggleDialog(2);
+                                              }}/>
 
 
-                                <Dialog visible={dialogVisible}
+                                <Dialog visible={dialogVisible2}
                                         title={`${type} dialog`}
                                         okButtonTheme={type}
                                         theme={type}
                                         isBlurClose={true}
                                         okButtonText="OK"
                                         okButtonIconCls="fa fa-check-circle"
-                                        okButtonDisabled={true}
                                         cancelButtonVisible={true}
                                         cancelButtonText="CANCEL"
                                         cancelButtonIconCls="fa fa-times-circle"
                                         cancelButtonTheme="error"
                                         showModal={false}
-                                        onRequestClose={this.closeDialog}
+                                        onRequestClose={() => {
+                                            this.closeDialog(2);
+                                        }}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">
                                         content

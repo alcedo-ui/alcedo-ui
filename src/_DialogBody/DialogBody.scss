@@ -19,10 +19,9 @@
 
 .dialog-wrapper {
     position: fixed;
+    width: 500px;
     left: 50%;
     top: 50%;
-    width: 500px;
-    height: 300px;
     transform: translate(-50%, -50%);
     transition: left 0s, opacity $transition-duration ease-in-out,
     transform $transition-duration ease-in-out;
@@ -38,46 +37,28 @@
         border-bottom: 1px solid $theme-title-bg;
         box-sizing: border-box;
         text-align: center;
-
-        .dialog-icon {
-            font-size: 20px;
-            margin-right: 20px;
-
-            @include dialog-theme($theme-bg);
-
-            &.theme-primary {
-                @include dialog-theme($theme-menu);
-            }
-            &.theme-success {
-                @include dialog-theme($success);
-            }
-            &.theme-warning {
-                @include dialog-theme($warning);
-            }
-            &.theme-error {
-                @include dialog-theme($error);
-            }
-            &.theme-highlight {
-                @include dialog-theme($theme-highlight);
-            }
-        }
-
     }
 
     .dialog-content {
         width: 100%;
-        height: calc(100% - 80px);
+        height: 200px;
         padding: 20px 0 0 30px;
+        box-sizing: border-box;
+        background: $theme-bg;
     }
 
     .dialog-buttons {
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
+
+        @include float-fix;
+
+        box-sizing: border-box;
+        padding: 15px 25px;
+        background: $theme-bg;
+        border-top: 1px solid $theme-title-bg;
 
         & > .base-button {
             float: right;
-            margin: 0 0 0 10px;
+            margin-left: 10px;
         }
     }
 
