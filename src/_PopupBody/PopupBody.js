@@ -219,7 +219,7 @@ export default class PopupBody extends Component {
 
     render() {
 
-        const {children, className, style, hasTriangle, theme, position, isAnimated} = this.props,
+        const {children, className, style, hasTriangle, theme, position, isAnimated, depth} = this.props,
             {visible} = this.state,
             popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
                 + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
@@ -228,7 +228,8 @@ export default class PopupBody extends Component {
         return (
             <Paper ref="popup"
                    className={'popup' + popupClassName}
-                   style={{...this.getPopupStyle(), ...style}}>
+                   style={{...this.getPopupStyle(), ...style}}
+                   depth={depth}>
 
                 {
                     hasTriangle ?
@@ -319,7 +320,14 @@ PopupBody.propTypes = {
      */
     triggerMode: PropTypes.oneOf(Util.enumerateValue(PopupBody.TriggerMode)),
 
+    /**
+     *
+     */
+    depth: PropTypes.number,
 
+    /**
+     *
+     */
     onRender: PropTypes.func,
 
     /**
@@ -340,6 +348,7 @@ PopupBody.defaultProps = {
     theme: Theme.DEFAULT,
     position: PopupBody.Position.BOTTOM_LEFT,
     isAnimated: true,
-    triggerMode: PopupBody.TriggerMode.TOGGLE
+    triggerMode: PopupBody.TriggerMode.TOGGLE,
+    depth: 4
 
 };
