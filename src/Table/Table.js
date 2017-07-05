@@ -243,6 +243,8 @@ export default class Table extends Component {
 
         }
 
+        const finalDataCount = finalData.length;
+
         return (
             <div className={`table-wrapper ${className}`}
                  style={style}>
@@ -256,7 +258,7 @@ export default class Table extends Component {
                                onSort={this.sortHandle}/>
 
                         {
-                            finalData && finalData.length > 0
+                            finalData && finalDataCount > 0
                                 ? <Tbody columns={finalColumns}
                                          data={finalData}
                                          startIndex={startIndex}/>
@@ -278,7 +280,7 @@ export default class Table extends Component {
                                    onSort={this.sortHandle}/>
 
                             {
-                                finalData && finalData.length > 0
+                                finalData && finalDataCount > 0
                                     ? <Tbody columns={finalColumns}
                                              data={finalData}
                                              startIndex={startIndex}/>
@@ -291,7 +293,11 @@ export default class Table extends Component {
                                         <Tfoot columns={finalColumns}>
                                             {
                                                 useBriefPagging ?
-                                                    <BriefPagging/>
+                                                    <BriefPagging page={pagging.page}
+                                                                  count={data.length}
+                                                                  total={totalPage}
+                                                                  pageSize={pagging.pageSize}
+                                                                  onChange={this.pageChangedHandle}/>
                                                     :
                                                     <Pagging page={pagging.page}
                                                              total={totalPage}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import PaggingSize from '../_PaggingSize';
+import IconButton from '../IconButton';
 
 import './BriefPagging.css';
 
@@ -40,14 +41,33 @@ export default class BriefPagging extends Component {
 
     render() {
 
-        const {page, total, pageSize} = this.props;
+        const {count, page, total, pageSize} = this.props;
 
         return (
-            <div className="brief-pagging">
+            <div className="brief-pagging-wrapper">
 
-                <PaggingSize pageSize={pageSize}
-                             onPageSizeChange={this.pageSizeChangedHandle}/>
+                <div className="brief-pagging">
 
+                    <PaggingSize pageSize={pageSize}
+                                 onPageSizeChange={this.pageSizeChangedHandle}/>
+
+                    <div className="brief-pagging-info">
+                        {`${page * pageSize + 1}-${(page + 1) * pageSize} of ${count}`}
+                    </div>
+
+                    <IconButton iconCls="fa fa-chevron-left"
+                                disabled={page <= 0}
+                                onTouchTap={() => {
+                                    this.pageChangedHandle(page - 1);
+                                }}/>
+
+                    <IconButton iconCls="fa fa-chevron-right"
+                                disabled={page >= total}
+                                onTouchTap={() => {
+                                    this.pageChangedHandle(page + 1);
+                                }}/>
+
+                </div>
 
             </div>
         );
@@ -60,6 +80,7 @@ BriefPagging.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    count: PropTypes.number,
     page: PropTypes.number,
     total: PropTypes.number,
     pageSize: PropTypes.number,
@@ -73,6 +94,7 @@ BriefPagging.defaultProps = {
     className: '',
     style: null,
 
+    count: 0,
     page: 0,
     total: 0,
     pageSize: 10
