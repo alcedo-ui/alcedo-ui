@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
+import Theme from '../Theme';
 
 import './PaggingSize.css';
 
@@ -39,6 +40,8 @@ export default class PaggingSize extends Component {
                 <DropdownSelect className="pagging-size-select"
                                 value={pageSize}
                                 data={pageSizes}
+                                triggerTheme={Theme.PRIMARY}
+                                autoClose={true}
                                 onChange={this.pageSizeChangeHandle}/>
 
             </div>

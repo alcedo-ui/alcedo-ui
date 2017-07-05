@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import Paper from '../Paper';
 import Checkbox from '../Checkbox';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
+import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
 
 import Event from '../_vendors/Event';
@@ -243,7 +245,6 @@ export default class Table extends Component {
             <div className={`table-wrapper ${className}`}
                  style={style}>
 
-                {/*<Paper>*/}
                 <div className="head-table">
                     <table className="table">
 
@@ -259,8 +260,6 @@ export default class Table extends Component {
                                          startIndex={startIndex}/>
                                 : null
                         }
-
-                        {/*<Tfoot/>*/}
 
                     </table>
                 </div>
@@ -284,21 +283,22 @@ export default class Table extends Component {
                                     : null
                             }
 
-                            {/*<Tfoot/>*/}
+                            {
+                                isPagging ?
+                                    (
+                                        <Tfoot columns={finalColumns}>
+                                            <Pagging page={pagging.page}
+                                                     total={totalPage}
+                                                     pageSize={pagging.pageSize}
+                                                     onChange={this.pageChangedHandle}/>
+                                        </Tfoot>
+                                    )
+                                    : null
+                            }
 
                         </table>
                     </div>
                 </div>
-                {/*</Paper>*/}
-
-                {
-                    isPagging
-                        ? <Pagging page={pagging.page}
-                                   total={totalPage}
-                                   pageSize={pagging.pageSize}
-                                   onChange={this.pageChangedHandle}/>
-                        : null
-                }
 
             </div>
         );

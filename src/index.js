@@ -1,5 +1,6 @@
 export Accordion from './Accordion';
 export ArrowStep from './ArrowStep';
+export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
 export Cascader from './Cascader';

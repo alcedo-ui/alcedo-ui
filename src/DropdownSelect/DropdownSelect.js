@@ -8,7 +8,7 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
-import Util from 'vendors/Util';
+import Util from '../_vendors/Util';
 
 import './DropdownSelect.css';
 
@@ -162,7 +162,8 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder,
-                disabled, multi, data, useFilter, valueField, displayField, noMatchedMsg
+                disabled, multi, data, useFilter, valueField, displayField, noMatchedMsg,
+                triggerTheme
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
@@ -210,6 +211,7 @@ export default class DropdownSelect extends Component {
                               value={triggerValue}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
+                              theme={triggerTheme}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
@@ -320,7 +322,7 @@ DropdownSelect.propTypes = {
         /**
          * The theme of the list button.
          */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
          * The text value of the list button.Type can be string or number.
@@ -420,6 +422,11 @@ DropdownSelect.propTypes = {
     noMatchedMsg: PropTypes.string,
 
     /**
+     *
+     */
+    triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * Callback function fired when a menu item is selected.
      */
     onChange: PropTypes.func
@@ -444,6 +451,7 @@ DropdownSelect.defaultProps = {
     infoMsg: '',
     autoClose: true,
     useFilter: false,
-    noMatchedMsg: ''
+    noMatchedMsg: '',
+    triggerTheme: Theme.DEFAULT
 
 };
