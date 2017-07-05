@@ -1,8 +1,20 @@
 @import '../_common.scss';
 
-.pagging {
-    margin: 20px 0 0;
+.brief-pagging {
+    width: 100%;
     height: 40px;
     line-height: 40px;
     user-select: none;
+
+    .pagging-size {
+        float: right;
+
+        .dropdown-select-trigger {
+            box-shadow: none;
+
+            &.activated {
+                @include shadow(4);
+            }
+        }
+    }
 }

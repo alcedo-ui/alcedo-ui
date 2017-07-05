@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import PaggingSize from '../_PaggingSize';
-import PaggingPage from '../_PaggingPage';
 
 import './BriefPagging.css';
 
@@ -46,6 +45,8 @@ export default class BriefPagging extends Component {
         return (
             <div className="brief-pagging">
 
+                <PaggingSize pageSize={pageSize}
+                             onPageSizeChange={this.pageSizeChangedHandle}/>
 
 
             </div>

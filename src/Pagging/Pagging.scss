@@ -5,5 +5,8 @@
     height: 40px;
     line-height: 40px;
     user-select: none;
-    overflow: hidden;
+
+    .pagging-size {
+        float: left;
+    }
 }
