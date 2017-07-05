@@ -195,6 +195,7 @@ export default class DialogBody extends Component {
                 <Paper ref="dialog"
                        className={'dialog-wrapper' + dialogClassName}
                        style={style}
+                       depth={4}
                        disabled={disabled}>
 
                     {
@@ -202,6 +203,9 @@ export default class DialogBody extends Component {
                             (
                                 <div className="dialog-title">
                                     <span>{title}</span>
+                                    <IconButton className="dialog-title-close-button"
+                                                iconCls="fa fa-times"
+                                                onTouchTap={this.cancelButtonTouchTapHandle}/>
                                 </div>
                             )
                             :
