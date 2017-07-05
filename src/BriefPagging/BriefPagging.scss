@@ -1,0 +1,29 @@
+@import '../_common.scss';
+
+.brief-pagging-wrapper {
+    height: 40px;
+    padding: 5px 10px;
+
+    .brief-pagging {
+        float: right;
+        line-height: 40px;
+        user-select: none;
+
+        .pagging-size {
+            float: left;
+
+            .dropdown-select-trigger {
+                box-shadow: none;
+
+                &.activated {
+                    @include shadow(4);
+                }
+            }
+        }
+
+        .brief-pagging-info {
+            float: left;
+            margin: 0 10px;
+        }
+    }
+}

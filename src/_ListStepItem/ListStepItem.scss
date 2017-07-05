@@ -1,0 +1,61 @@
+@import '../_common.scss';
+
+.list-step-item {
+    width: 100%;
+    height: 50px;
+    border-radius: 0;
+    text-align: left;
+    box-shadow: none;
+    padding: 0 20px;
+    cursor: not-allowed;
+    transition: none;
+
+    .button-icon {
+        vertical-align: middle;
+
+        &.button-icon-left {
+            margin-right: 15px;
+        }
+
+        &.button-icon-right {
+            float: right;
+        }
+    }
+
+    .list-item-content {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 8px 0;
+
+        .list-item-content-value {
+            line-height: 16px;
+        }
+
+        .list-item-content-desc {
+            line-height: 16px;
+            opacity: .5;
+        }
+    }
+
+    &:hover {
+        box-shadow: none;
+    }
+
+    &.activated {
+        cursor: default;
+        background: #38b1eb;
+        color: #fff;
+        i {
+            color: #fff;
+        }
+    }
+
+    &.finished {
+        cursor: pointer;
+        background: #4c637b;
+        color: #fff;
+        i {
+            color: #fff;
+        }
+    }
+}

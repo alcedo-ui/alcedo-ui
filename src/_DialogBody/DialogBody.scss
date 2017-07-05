@@ -18,85 +18,60 @@
 }
 
 .dialog-wrapper {
-
-    @include shadow(4);
-
     position: fixed;
+    width: 500px;
     left: 50%;
     top: 50%;
-    width: 500px;
-    height: 300px;
-    border-radius: $border-radius;
     transform: translate(-50%, -50%);
-    transition: left 0s, opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
+    transition: left 0s, opacity $transition-duration ease-in-out,
+    transform $transition-duration ease-in-out;
     z-index: $dialog-z-index;
-    padding: 0;
     box-sizing: border-box;
-    background: $theme-bg;
+    overflow: hidden;
 
     .dialog-title {
-        font-size: 20px;
-        line-height: 30px;
-        box-sizing: border-box;
-        padding: 20px 0 20px 30px;
+        position: relative;
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+        padding: 5px;
         border-bottom: 1px solid $theme-title-bg;
+        text-align: center;
 
-        //&.theme-primary {
-        //    border-bottom: 1px solid $theme-menu;
-        //}
-        //&.theme-success {
-        //    border-bottom: 1px solid $success;
-        //}
-        //&.theme-error {
-        //    border-bottom: 1px solid $error;
-        //}
-        //&.theme-warning {
-        //    border-bottom: 1px solid $warning;
-        //}
-        //&.theme-highlight {
-        //    border-bottom: 1px solid $theme-highlight;
-        //}
+        .dialog-title-close-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 16px;
+            vertical-align: middle;
+            color: $theme-title;
 
-        .dialog-icon {
-            font-size: 30px;
-            float: left;
-            margin-right: 20px;
-
-            @include dialog-theme($theme-bg);
-
-            &.theme-primary {
-                @include dialog-theme($theme-menu);
-            }
-            &.theme-success {
-                @include dialog-theme($success);
-            }
-            &.theme-warning {
-                @include dialog-theme($warning);
-            }
-            &.theme-error {
-                @include dialog-theme($error);
-            }
-            &.theme-highlight {
-                @include dialog-theme($theme-highlight);
+            &:hover {
+                color: $error;
             }
         }
-
     }
 
     .dialog-content {
         width: 100%;
-        height: calc(100% - 80px);
+        height: 200px;
         padding: 20px 0 0 30px;
+        box-sizing: border-box;
+        background: $theme-bg;
     }
 
     .dialog-buttons {
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
+
+        @include float-fix;
+
+        box-sizing: border-box;
+        padding: 15px 25px;
+        background: $theme-bg;
+        border-top: 1px solid $theme-title-bg;
 
         & > .base-button {
             float: right;
-            margin: 0 0 0 10px;
+            margin-left: 10px;
         }
     }
 
@@ -104,7 +79,8 @@
         opacity: 0 !important;
         left: -99999px !important;
         transform: translate(-50%, -70%);
-        transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
+        transition: left 0s $transition-duration,
+        opacity $transition-duration ease-in-out,
         transform $transition-duration ease-in-out;
     }
 

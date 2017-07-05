@@ -15,9 +15,6 @@
     }
 
     .popup-content {
-
-        @include shadow(4);
-
         width: 100%;
         overflow: hidden;
         border-radius: $border-radius;

@@ -103,7 +103,8 @@ export default class TableExamples extends Component {
                                    isPagging={true}
                                    isMultiSelect={true}
                                    hasLineNumber={true}
-                                   data={data}/>
+                                   data={data}
+                                   useBriefPagging={false}/>
 
                         </div>
                     </div>

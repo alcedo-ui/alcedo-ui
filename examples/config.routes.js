@@ -51,6 +51,7 @@ import WaterfallExamples from 'containers/app/modules/layout/WaterfallExamples';
 
 import ArrowStepExamples from 'containers/app/modules/stepper/ArrowStepExamples';
 import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples';
+import ListStepExamples from 'containers/app/modules/stepper/ListStepExamples';
 
 import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
 import TipExamples from 'containers/app/modules/message/TipExamples';
@@ -167,6 +168,8 @@ export default (
                    component={ArrowStepExamples}/>
             <Route path="RoundStep"
                    component={RoundStepExamples}/>
+            <Route path="ListStep"
+                   component={ListStepExamples}/>
 
             {/* messages */}
             <Route path="Toaster"

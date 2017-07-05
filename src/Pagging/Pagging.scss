@@ -1,8 +1,12 @@
 @import '../_common.scss';
 
 .pagging {
-    margin: 20px 0 0;
     height: 40px;
     line-height: 40px;
     user-select: none;
+    padding: 20px 30px;
+
+    .pagging-size {
+        float: left;
+    }
 }

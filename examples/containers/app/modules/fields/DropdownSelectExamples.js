@@ -35,8 +35,8 @@ export default class DropdownSelectExamples extends Component {
 
     }
 
-    onChange(item) {
-        console.log('select item: ', item);
+    onChange(value) {
+        console.log(value);
     }
 
     render() {
@@ -49,30 +49,73 @@ export default class DropdownSelectExamples extends Component {
                 <p>
                     <span>Dropdown Select</span> use to store operating elements. Click on the contact
                     and a drop-down menu will appear. You can select from the list and execute the appropriate command.
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Dropdown Select Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Dropdown Select simply example.</p>
+                                <div className="field-group">
+
+                                    <DropdownSelect data={this.data}
+                                                    autoClose={false}
+                                                    onChange={this.onChange}/>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With Filter"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
 
                                 <div className="field-group">
 
-                                    {/*<label className="dropdown-select-label">Number</label>*/}
                                     <DropdownSelect data={this.data}
                                                     autoClose={false}
                                                     useFilter={true}
+                                                    onChange={this.onChange}/>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Multi Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+
+                                    <DropdownSelect data={this.data}
+                                                    autoClose={false}
+                                                    multi={true}
                                                     onChange={this.onChange}/>
 
                                 </div>

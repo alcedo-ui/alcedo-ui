@@ -81,15 +81,15 @@ export default class PopupExamples extends Component {
             } = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
-                value: 'Facebook',
+                text: 'Facebook',
                 theme: Theme.PRIMARY
             }, {
                 iconCls: 'fa fa-twitter',
-                value: 'Twitter',
+                text: 'Twitter',
                 theme: Theme.PRIMARY
             }, {
                 iconCls: 'fa fa-google-plus',
-                value: 'Google+',
+                text: 'Google+',
                 theme: Theme.PRIMARY
             }];
 

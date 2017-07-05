@@ -1,5 +1,6 @@
 export Accordion from './Accordion';
 export ArrowStep from './ArrowStep';
+export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
 export Cascader from './Cascader';
@@ -21,6 +22,7 @@ export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';
 export LinearProgress from './LinearProgress';
 export List from './List';
+export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
 export MultipleSelect from './MultipleSelect';
 export Pagging from './Pagging';

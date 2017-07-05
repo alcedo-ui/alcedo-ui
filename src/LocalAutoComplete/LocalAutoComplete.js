@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {findDOMNode} from 'react-dom';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
+
+import Util from 'vendors/Util';
 
 import './LocalAutoComplete.css';
 
@@ -21,18 +23,39 @@ export default class LocalAutoComplete extends Component {
             value: null,
             filter: '',
             popupVisible: false,
-            filteredData: this.formatData(this.filterData('', props.data))
+            filteredData: this.filterData('', props.data),
+            isAbove: false
         };
 
+        this.isAbove = this::this.isAbove;
         this.getValue = this::this.getValue;
         this.getText = this::this.getText;
-        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.filterData = this::this.filterData;
-        this.formatData = this::this.formatData;
         this.focusHandle = this::this.focusHandle;
         this.blurHandle = this::this.blurHandle;
-        this.changeHandle = this::this.changeHandle;
+        this.filterChangeHandle = this::this.filterChangeHandle;
         this.closePopup = this::this.closePopup;
+        this.popupRenderHandle = this::this.popupRenderHandle;
+        this.changeHandle = this::this.changeHandle;
+
+    }
+
+    isAbove() {
+
+        const autoComplete = this.refs.autoComplete;
+
+        if (!this.popupHeight || !autoComplete) {
+            return false;
+        }
+
+        const {top} = Util.getOffset(autoComplete),
+            scrollTop = SCROLL_EL.scrollTop || document.body.scrollTop;
+
+        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
+            return true;
+        }
+
+        return false;
 
     }
 
@@ -72,94 +95,18 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    itemTouchTapHandle(item, callback) {
-
-        return (function (item, callback) {
-
-            const {autoClose, onChange} = this.props,
-                state = {
-                    filter: this.getText(item),
-                    value: this.getValue(item)
-                };
-
-            if (autoClose === true) {
-                state.popupVisible = false;
-            }
-
-            this.setState(state, () => {
-                onChange && onChange(item);
-                callback && typeof callback === 'function' && callback();
-            });
-
-        }).bind(this, item, callback);
-
-    }
-
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {textField, filterCallback} = this.props;
+        const {displayField, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
-        return data.filter(item => {
-            return typeof item === 'object' && !!item[textField] ?
-                item[textField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase());
-        });
-
-    }
-
-    formatData(data = this.props.data) {
-
-        const {noMatchedMsg} = this.props;
-
-        return data.length > 0 ?
-            (
-                data.map(listItem => {
-
-                    if (typeof listItem === 'object') {
-
-                        let item = _.cloneDeep(listItem);
-                        item.raw = listItem;
-                        item.onTouchTap = this.itemTouchTapHandle(listItem, listItem.onTouchTap);
-
-                        return item;
-
-                    }
-
-                    return {
-                        raw: listItem,
-                        value: listItem,
-                        onTouchTap: this.itemTouchTapHandle(listItem)
-                    };
-
-                })
-            )
+        return data.filter(item => typeof item === 'object' && displayField in item ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
             :
-            (
-                [{
-                    renderer() {
-                        return (
-                            <div className="no-matched-list-item">
-
-                                {
-                                    noMatchedMsg ?
-                                        noMatchedMsg
-                                        :
-                                        <span>
-                                            <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                            No matched value.
-                                        </span>
-                                }
-
-                            </div>
-                        );
-                    }
-                }]
-            );
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
     }
 
@@ -181,12 +128,26 @@ export default class LocalAutoComplete extends Component {
         !disabled && onBlur && onBlur();
     }
 
-    changeHandle(filter) {
-        this.setState({
-            filter,
-            popupVisible: !!filter,
-            filteredData: this.formatData(this.filterData(filter))
+    filterChangeHandle(filter) {
+
+        const value = this.state.value,
+            state = {
+                filter,
+                popupVisible: !!filter,
+                filteredData: this.filterData(filter)
+            };
+
+        if (!filter) {
+            state.value = undefined;
+        }
+
+        this.setState(state, () => {
+            if (state.value !== value) {
+                const {onChange} = this.props;
+                onChange && onChange(state.value);
+            }
         });
+
     }
 
     closePopup() {
@@ -195,17 +156,58 @@ export default class LocalAutoComplete extends Component {
         });
     }
 
+    popupRenderHandle(popupEl) {
+
+        this.popupEl = findDOMNode(popupEl);
+        this.popupHeight = this.popupEl.offsetHeight;
+
+        const isAbove = this.isAbove();
+
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
+    }
+
+    changeHandle(value) {
+
+        const {autoClose} = this.props,
+            state = {
+                value,
+                filter: this.getText(value)
+            };
+
+        if (autoClose) {
+            state.popupVisible = false;
+        }
+
+        this.setState(state, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+
+    }
+
     componentDidMount() {
-        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
+        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     render() {
 
-        const {className, popupClassName, style, name, placeholder, disabled, iconCls, rightIconCls} = this.props;
-        const {value, filter, popupVisible, filteredData} = this.state;
+        const {
+                className, popupClassName, style, name, placeholder,
+                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
+            } = this.props,
+            {isAbove, value, filter, popupVisible, filteredData} = this.state,
+            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
+            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
 
         return (
-            <div className={`auto-complete ${className}`}
+            <div ref="autoComplete"
+                 className={`auto-complete ${className}`}
                  style={style}>
 
                 {
@@ -218,26 +220,55 @@ export default class LocalAutoComplete extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'auto-complete-trigger' + (popupVisible ? ' activated' : '')}
+                           className={'auto-complete-trigger' + triggerClassName}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
-                           rightIconCls={rightIconCls}
+                           rightIconCls={rightIconCls || 'fa fa-search'}
                            onFocus={this.focusHandle}
                            onBlur={this.blurHandle}
-                           onChange={this.changeHandle}/>
+                           onChange={this.filterChangeHandle}/>
 
-                <Popup className={`auto-complete-popup ${popupClassName}`}
+                <Popup className={'auto-complete-popup' + autoCompletePopupClassName}
                        style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
                        triggerMode={Popup.TriggerMode.OPEN}
+                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
                     <List className="auto-complete-list"
-                          items={filteredData}/>
+                          value={value}
+                          mode={filteredData.length > 0 ? List.Mode.RADIO : List.Mode.NORMAL}
+                          items={filteredData.length > 0 ?
+                              filteredData
+                              :
+                              [{
+                                  renderer() {
+                                      return (
+                                          <div className="no-matched-list-item">
+
+                                              {
+                                                  noMatchedMsg ?
+                                                      noMatchedMsg
+                                                      :
+                                                      <span>
+                                                          <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                                          No matched value.
+                                                      </span>
+                                              }
+
+                                          </div>
+                                      );
+                                  }
+                              }]
+                          }
+                          valueField={valueField}
+                          displayField={displayField}
+                          onChange={this.changeHandle}/>
 
                 </Popup>
 
@@ -376,6 +407,9 @@ LocalAutoComplete.propTypes = {
      */
     rightIconCls: PropTypes.string,
 
+    /**
+     *
+     */
     noMatchedMsg: PropTypes.string,
 
     /**

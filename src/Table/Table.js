@@ -5,7 +5,9 @@ import _ from 'lodash';
 import Checkbox from '../Checkbox';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
+import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
+import BriefPagging from '../BriefPagging';
 
 import Event from '../_vendors/Event';
 
@@ -180,7 +182,9 @@ export default class Table extends Component {
 
     render() {
 
-        const {className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect} = this.props;
+        const {
+            className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect, useBriefPagging
+        } = this.props;
         const {scrollLeft, sort, pagging} = this.state;
 
         const headTableStyle = {
@@ -239,11 +243,12 @@ export default class Table extends Component {
 
         }
 
+        const finalDataCount = finalData.length;
+
         return (
             <div className={`table-wrapper ${className}`}
                  style={style}>
 
-                {/*<Paper>*/}
                 <div className="head-table">
                     <table className="table">
 
@@ -253,14 +258,12 @@ export default class Table extends Component {
                                onSort={this.sortHandle}/>
 
                         {
-                            finalData && finalData.length > 0
+                            finalData && finalDataCount > 0
                                 ? <Tbody columns={finalColumns}
                                          data={finalData}
                                          startIndex={startIndex}/>
                                 : null
                         }
-
-                        {/*<Tfoot/>*/}
 
                     </table>
                 </div>
@@ -277,28 +280,38 @@ export default class Table extends Component {
                                    onSort={this.sortHandle}/>
 
                             {
-                                finalData && finalData.length > 0
+                                finalData && finalDataCount > 0
                                     ? <Tbody columns={finalColumns}
                                              data={finalData}
                                              startIndex={startIndex}/>
                                     : null
                             }
 
-                            {/*<Tfoot/>*/}
+                            {
+                                isPagging ?
+                                    (
+                                        <Tfoot columns={finalColumns}>
+                                            {
+                                                useBriefPagging ?
+                                                    <BriefPagging page={pagging.page}
+                                                                  count={data.length}
+                                                                  total={totalPage}
+                                                                  pageSize={pagging.pageSize}
+                                                                  onChange={this.pageChangedHandle}/>
+                                                    :
+                                                    <Pagging page={pagging.page}
+                                                             total={totalPage}
+                                                             pageSize={pagging.pageSize}
+                                                             onChange={this.pageChangedHandle}/>
+                                            }
+                                        </Tfoot>
+                                    )
+                                    : null
+                            }
 
                         </table>
                     </div>
                 </div>
-                {/*</Paper>*/}
-
-                {
-                    isPagging
-                        ? <Pagging page={pagging.page}
-                                   total={totalPage}
-                                   pageSize={pagging.pageSize}
-                                   onChange={this.pageChangedHandle}/>
-                        : null
-                }
 
             </div>
         );
@@ -318,55 +331,46 @@ Table.propTypes = {
      */
     style: PropTypes.object,
 
-    // 表格数据
     /**
      * The table list data.
      */
     data: PropTypes.array.isRequired,
 
-    // 是否分页，默认true
     /**
      * If true,the paging will display.
      */
     isPagging: PropTypes.bool,
 
-    // 排序函数
     /**
      * Sorting method.
      */
     sortFunc: PropTypes.func,
 
-    // 行高 默认60px
     /**
      * The table row height.
      */
     rowHeight: PropTypes.number,
 
-    // 是否高度自适应
     /**
      * The function that trigger when step changes.
      */
     isAdaptiveHeight: PropTypes.bool,
 
-    // 是否显示行号
     /**
      *  Whether need line number.
      */
     hasLineNumber: PropTypes.bool,
 
-    // 是否多选
     /**
      * Whether have multiple choose.
      */
     isMultiSelect: PropTypes.bool,
 
-    // 选择变更回调
     /**
      * The function that trigger when show rows changes.
      */
     onSelectChange: PropTypes.func,
 
-    // 表格列渲染配置
     /**
      * Children passed into the TableList.
      */
@@ -424,7 +428,12 @@ Table.propTypes = {
          */
         sortProp: PropTypes.string
 
-    })).isRequired
+    })).isRequired,
+
+    /**
+     *
+     */
+    useBriefPagging: PropTypes.bool
 
 };
 
@@ -439,6 +448,7 @@ Table.defaultProps = {
     rowHeight: 90,
     isAdaptiveHeight: false,
     hasLineNumber: false,
-    isMultiSelect: false
+    isMultiSelect: false,
+    useBriefPagging: true
 
 };

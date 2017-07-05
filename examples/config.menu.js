@@ -138,6 +138,9 @@ export default [{
     }, {
         text: 'RoundStep',
         route: '/components/RoundStep'
+    }, {
+        text: 'ListStep',
+        route: '/components/ListStep'
     }]
 }, {
     text: 'Message',

@@ -29,6 +29,8 @@
         }
 
         .radio-bg-icon {
+            color: lighten($theme-text, 45%);
+
             .button-icon {
                 transition: all $transition-duration ease-in-out;
             }

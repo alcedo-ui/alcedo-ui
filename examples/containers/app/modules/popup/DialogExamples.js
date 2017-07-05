@@ -18,7 +18,8 @@ export default class DialogExamples extends Component {
         super(props);
 
         this.state = {
-            dialogVisible: false,
+            dialogVisible1: false,
+            dialogVisible2: false,
             type: 'primary'
         };
 
@@ -29,15 +30,15 @@ export default class DialogExamples extends Component {
 
     }
 
-    toggleDialog() {
+    toggleDialog(id) {
         this.setState({
-            dialogVisible: !this.state.dialogVisible
+            [`dialogVisible${id}`]: !this.state.dialogVisible
         });
     }
 
-    closeDialog() {
+    closeDialog(id) {
         this.setState({
-            dialogVisible: false
+            [`dialogVisible${id}`]: false
         });
     }
 
@@ -53,7 +54,7 @@ export default class DialogExamples extends Component {
 
     render() {
 
-        const {dialogVisible, type} = this.state;
+        const {dialogVisible1, dialogVisible2, type} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -76,89 +77,31 @@ export default class DialogExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <p>Dialog example with RadioGroup.You can select different radio button and then click
-                                    the toggle dialog button to show different type Dialog.</p>
-
-                                <div className="field-group">
-                                    <label className="text-field-label">Type</label>
-                                    <RadioGroup data={[{
-                                        label: 'Primary',
-                                        value: 'primary'
-                                    }, {
-                                        label: 'Success',
-                                        value: 'success'
-                                    }, {
-                                        label: 'Warning',
-                                        value: 'warning'
-                                    }, {
-                                        label: 'Highlight',
-                                        value: 'highlight'
-                                    }, {
-                                        label: 'Error',
-                                        value: 'error'
-                                    }]}
-                                                value={type}
-                                                onChange={(value) => {
-                                                    this.updateField('type', value);
-                                                }}/>
-                                </div>
-
-                                <RaisedButton className="trigger-button"
-                                              value="Toggle Dialog"
-                                              style={{width: '120px'}}
-                                              onTouchTap={this.toggleDialog}/>
-
-
-                                <Dialog visible={dialogVisible}
-                                        title={`${type} dialog`}
-                                        theme={type}
-                                        disabled={true}
-                                        okButtonTheme={type}
-                                        isBlurClose={true}
-                                        onRequestClose={this.closeDialog}
-                                        onOKButtonTouchTap={this.okHandle}>
-                                    <div className="dialog-example-content">
-                                        content
-                                    </div>
-                                </Dialog>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Dialog Example"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
                                 <p>Dialog example use basic properties.</p>
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={this.toggleDialog}/>
+                                              onTouchTap={() => {
+                                                  this.toggleDialog(2);
+                                              }}/>
 
 
-                                <Dialog visible={dialogVisible}
+                                <Dialog visible={dialogVisible2}
                                         title={`${type} dialog`}
                                         okButtonTheme={type}
                                         theme={type}
                                         isBlurClose={true}
                                         okButtonText="OK"
-                                        okButtonIconCls="fa fa-check-circle"
-                                        okButtonDisabled={true}
+                                        okButtonIconCls="fa fa-check"
                                         cancelButtonVisible={true}
                                         cancelButtonText="CANCEL"
-                                        cancelButtonIconCls="fa fa-times-circle"
+                                        cancelButtonIconCls="fa fa-times"
                                         cancelButtonTheme="error"
                                         showModal={false}
-                                        onRequestClose={this.closeDialog}
+                                        onRequestClose={() => {
+                                            this.closeDialog(2);
+                                        }}
                                         onOKButtonTouchTap={this.okHandle}>
                                     <div className="dialog-example-content">
                                         content
