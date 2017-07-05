@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 
 import Paper from '../Paper';
@@ -191,7 +192,7 @@ export default class PopupBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.popupEl = require('react-dom').findDOMNode(this.refs.popup);
+        this.popupEl = findDOMNode(this.refs.popup);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
 

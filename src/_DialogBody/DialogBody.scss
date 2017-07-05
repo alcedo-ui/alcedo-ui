@@ -18,48 +18,29 @@
 }
 
 .dialog-wrapper {
-
-    @include shadow(4);
-
     position: fixed;
     left: 50%;
     top: 50%;
     width: 500px;
     height: 300px;
-    border-radius: $border-radius;
     transform: translate(-50%, -50%);
-    transition: left 0s, opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
+    transition: left 0s, opacity $transition-duration ease-in-out,
+    transform $transition-duration ease-in-out;
     z-index: $dialog-z-index;
-    padding: 0;
     box-sizing: border-box;
-    background: $theme-bg;
 
     .dialog-title {
-        font-size: 20px;
+        font-size: 16px;
+        height: 50px;
         line-height: 30px;
         box-sizing: border-box;
-        padding: 20px 0 20px 30px;
+        padding: 10px 20px;
         border-bottom: 1px solid $theme-title-bg;
-
-        //&.theme-primary {
-        //    border-bottom: 1px solid $theme-menu;
-        //}
-        //&.theme-success {
-        //    border-bottom: 1px solid $success;
-        //}
-        //&.theme-error {
-        //    border-bottom: 1px solid $error;
-        //}
-        //&.theme-warning {
-        //    border-bottom: 1px solid $warning;
-        //}
-        //&.theme-highlight {
-        //    border-bottom: 1px solid $theme-highlight;
-        //}
+        box-sizing: border-box;
+        text-align: center;
 
         .dialog-icon {
-            font-size: 30px;
-            float: left;
+            font-size: 20px;
             margin-right: 20px;
 
             @include dialog-theme($theme-bg);
@@ -104,7 +85,8 @@
         opacity: 0 !important;
         left: -99999px !important;
         transform: translate(-50%, -70%);
-        transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
+        transition: left 0s $transition-duration,
+        opacity $transition-duration ease-in-out,
         transform $transition-duration ease-in-out;
     }
 

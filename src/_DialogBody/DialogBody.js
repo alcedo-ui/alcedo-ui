@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 
-import FlatButton from '../FlatButton/index';
-import RaisedButton from '../RaisedButton/index';
-import GhostButton from '../GhostButton/index';
-import IconButton from '../IconButton/index';
-import Theme from '../Theme/index';
+import Paper from '../Paper';
+import FlatButton from '../FlatButton';
+import RaisedButton from '../RaisedButton';
+import GhostButton from '../GhostButton';
+import IconButton from '../IconButton';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -142,24 +144,6 @@ export default class DialogBody extends Component {
         });
     }
 
-    componentDidMount() {
-        this.hasMounted = true;
-        Event.addEvent(document, 'mousedown', this.mousedownHandle);
-    }
-
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-    }
-
     getIconCls() {
         switch (this.props.theme) {
             case 'highlight':
@@ -175,6 +159,28 @@ export default class DialogBody extends Component {
             default:
                 return 'fa fa-info-circle';
         }
+    }
+
+    componentDidMount() {
+
+        this.hasMounted = true;
+        this.dialogEl = findDOMNode(this.refs.dialog);
+
+        Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
+    }
+
+    componentWillAppear(callback) {
+        this.initializeAnimation(callback);
+    }
+
+    componentDidAppear() {
+        this.animate();
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
+        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
     render() {
@@ -195,18 +201,18 @@ export default class DialogBody extends Component {
                         : null
                 }
 
-                <div className={`dialog-wrapper ${visible ? '' : 'hidden'} ${className}`}
-                     style={style}
-                     disabled={disabled}>
-
+                <Paper ref="dialog"
+                       className={`dialog-wrapper ${visible ? '' : 'hidden'} ${className}`}
+                       style={style}
+                       disabled={disabled}>
 
                     {
-                        title
-                            ? <div className={`dialog-title theme-${theme}`}><i
-                            className={`${this.getIconCls()} theme-${theme} dialog-icon`}
-                            aria-hidden="true"></i>
-                            <span>{title}</span>
-                        </div>
+                        title ?
+                            (
+                                <div className="dialog-title">
+                                    <span>{title}</span>
+                                </div>
+                            )
                             :
                             null
                     }
@@ -241,7 +247,7 @@ export default class DialogBody extends Component {
 
                     </div>
 
-                </div>
+                </Paper>
 
             </div>
         );
