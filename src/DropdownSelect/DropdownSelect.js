@@ -33,6 +33,7 @@ export default class DropdownSelect extends Component {
         this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
         this.popupRenderHandle = this::this.popupRenderHandle;
+        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.changeHandle = this::this.changeHandle;
 
     }
@@ -133,6 +134,18 @@ export default class DropdownSelect extends Component {
                 isAbove
             });
         }
+
+    }
+
+    itemTouchTapHandle(value) {
+
+        const {autoClose, onItemTouchTap} = this.props;
+
+        onItemTouchTap && onItemTouchTap(value);
+
+        autoClose && this.setState({
+            popupVisible: false
+        });
 
     }
 
@@ -262,6 +275,7 @@ export default class DropdownSelect extends Component {
                           }
                           valueField={valueField}
                           displayField={displayField}
+                          onItemTouchTap={this.itemTouchTapHandle}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -425,6 +439,11 @@ DropdownSelect.propTypes = {
      *
      */
     triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     *
+     */
+    onTtemTouchTap: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.

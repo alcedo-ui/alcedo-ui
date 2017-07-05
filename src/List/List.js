@@ -74,14 +74,20 @@ export default class List extends Component {
 
     listItemTouchTapHandle(value) {
 
-        const {mode} = this.props;
+        const {mode} = this.props,
+            callback = () => {
+                const {onItemTouchTap} = this.props;
+                onItemTouchTap && onItemTouchTap(value);
+            };
 
         if (mode !== List.Mode.NORMAL) {
-            return;
+            callback();
         }
 
         this.setState({
             value
+        }, () => {
+            callback();
         });
 
     }
@@ -351,6 +357,11 @@ List.propTypes = {
      *
      */
     mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+
+    /**
+     *
+     */
+    onItemTouchTap: PropTypes.func,
 
     /**
      *
