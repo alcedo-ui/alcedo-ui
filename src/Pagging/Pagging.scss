@@ -1,7 +1,9 @@
 @import '../_common.scss';
 
 .pagging {
+    width: 100%;
     height: 40px;
     line-height: 40px;
     user-select: none;
+    overflow: hidden;
 }

@@ -22,8 +22,8 @@
             background: lighten($theme-menu, 20%);
 
             &.page {
-                color: $theme-text;
-                background: $theme-field;
+                color: $theme-highlight;
+                background: $theme-bg;
             }
         }
     }
