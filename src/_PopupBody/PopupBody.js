@@ -204,11 +204,9 @@ export default class PopupBody extends Component {
     }
 
     debounceResizeHandle() {
-        setTimeout(() => {
-            this.setState({
-                visible: true
-            });
-        }, 0);
+        this.setState({
+            visible: true
+        });
     }
 
     initializeAnimation(callback) {
