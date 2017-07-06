@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import Paper from '../Paper';
 import Theme from '../Theme';
@@ -25,8 +26,134 @@ export default class PopupBody extends Component {
 
         this.getPopupStyle = this::this.getPopupStyle;
         this.mousedownHandle = this::this.mousedownHandle;
+        this.resizeHandle = this::this.resizeHandle;
+        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
+
+    }
+
+    calTopVerticalBottom(triggerEl, triggerOffset) {
+        return triggerOffset.top + triggerEl.offsetHeight;
+    }
+
+    calTopVerticalTop(triggerOffset, popupEl) {
+        return triggerOffset.top - popupEl.offsetHeight
+            - parseInt(getComputedStyle(popupEl).marginTop)
+            - parseInt(getComputedStyle(popupEl).marginBottom);
+    }
+
+    calTopHorizontalTop(triggerOffset) {
+        return triggerOffset.top;
+    }
+
+    calTopHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
+        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
+    }
+
+    calTopHorizontalBottom(triggerEl, triggerOffset, popupEl) {
+        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
+    }
+
+    calLeftVerticalLeft(triggerOffset) {
+        return triggerOffset.left;
+    }
+
+    calLeftVerticalCenter(triggerEl, triggerOffset, popupEl) {
+        return triggerOffset.left + triggerEl.offsetWidth / 2 - popupEl.offsetWidth / 2;
+    }
+
+    calLeftVerticalRight(triggerEl, triggerOffset, popupEl) {
+        return triggerOffset.left - (popupEl.offsetWidth - triggerEl.offsetWidth);
+    }
+
+    calLeftHorizontalLeft(triggerOffset, popupEl) {
+        return triggerOffset.left - popupEl.offsetWidth
+            - parseInt(getComputedStyle(popupEl).marginLeft)
+            - parseInt(getComputedStyle(popupEl).marginRight);
+    }
+
+    calLeftHorizontalRight(triggerEl, triggerOffset) {
+        return triggerOffset.left + triggerEl.offsetWidth;
+    }
+
+    getPopupStyle() {
+
+        const {triggerEl, position} = this.props;
+
+        if (!triggerEl || !this.popupEl) {
+            return;
+        }
+
+        const triggerOffset = Util.getOffset(triggerEl);
+        let left, top;
+
+        switch (position) {
+            case PopupBody.Position.TOP_LEFT: {
+                left = this.calLeftVerticalLeft(triggerOffset);
+                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                break;
+            }
+            case PopupBody.Position.TOP: {
+                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
+                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                break;
+            }
+            case PopupBody.Position.TOP_RIGHT: {
+                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.popupEl);
+                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                break;
+            }
+            case PopupBody.Position.BOTTOM_LEFT: {
+                left = this.calLeftVerticalLeft(triggerOffset);
+                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                break;
+            }
+            case PopupBody.Position.BOTTOM: {
+                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
+                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                break;
+            }
+            case PopupBody.Position.BOTTOM_RIGHT: {
+                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.popupEl);
+                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                break;
+            }
+            case PopupBody.Position.LEFT_TOP: {
+                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
+                top = this.calTopHorizontalTop(triggerOffset);
+                break;
+            }
+            case PopupBody.Position.LEFT: {
+                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
+                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
+                break;
+            }
+            case PopupBody.Position.LEFT_BOTTOM: {
+                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
+                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
+                break;
+            }
+            case PopupBody.Position.RIGHT_TOP: {
+                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
+                top = this.calTopHorizontalTop(triggerOffset);
+                break;
+            }
+            case PopupBody.Position.RIGHT: {
+                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
+                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
+                break;
+            }
+            case PopupBody.Position.RIGHT_BOTTOM: {
+                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
+                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
+                break;
+            }
+        }
+
+        return {
+            transform: `translate(${left}px, ${top}px)`
+        };
 
     }
 
@@ -72,109 +199,16 @@ export default class PopupBody extends Component {
 
     }
 
-    getPopupStyle() {
+    resizeHandle() {
+        this.debounceResizeHandle();
+    }
 
-        const {triggerEl, position} = this.props;
-
-        if (!triggerEl || !this.popupEl) {
-            return;
-        }
-
-        const triggerOffset = Util.getOffset(triggerEl),
-
-            // top
-            topVerticalBottom = triggerOffset.top + triggerEl.offsetHeight,
-            topVerticalTop = triggerOffset.top - this.popupEl.offsetHeight
-                - parseInt(getComputedStyle(this.popupEl).marginTop)
-                - parseInt(getComputedStyle(this.popupEl).marginBottom),
-            topHorizontalTop = triggerOffset.top,
-            topHorizontalMiddle = triggerOffset.top + triggerEl.offsetHeight / 2 - this.popupEl.offsetHeight / 2,
-            topHorizontalBottom = triggerOffset.top + triggerEl.offsetHeight - this.popupEl.offsetHeight,
-
-            // left
-            leftVerticalLeft = triggerOffset.left,
-            leftVerticalCenter = triggerOffset.left + triggerEl.offsetWidth / 2 - this.popupEl.offsetWidth / 2,
-            leftVerticalRight = triggerOffset.left - (this.popupEl.offsetWidth - triggerEl.offsetWidth),
-            leftHorizontalLeft = triggerOffset.left - this.popupEl.offsetWidth
-                - parseInt(getComputedStyle(this.popupEl).marginLeft)
-                - parseInt(getComputedStyle(this.popupEl).marginRight),
-            leftHorizontalRight = triggerOffset.left + triggerEl.offsetWidth;
-
-        switch (position) {
-            case PopupBody.Position.TOP_LEFT: {
-                return {
-                    top: topVerticalTop,
-                    left: leftVerticalLeft
-                };
-            }
-            case PopupBody.Position.TOP: {
-                return {
-                    top: topVerticalTop,
-                    left: leftVerticalCenter
-                };
-            }
-            case PopupBody.Position.TOP_RIGHT: {
-                return {
-                    top: topVerticalTop,
-                    left: leftVerticalRight
-                };
-            }
-            case PopupBody.Position.BOTTOM_LEFT: {
-                return {
-                    top: topVerticalBottom,
-                    left: leftVerticalLeft
-                };
-            }
-            case PopupBody.Position.BOTTOM: {
-                return {
-                    top: topVerticalBottom,
-                    left: leftVerticalCenter
-                };
-            }
-            case PopupBody.Position.BOTTOM_RIGHT: {
-                return {
-                    top: topVerticalBottom,
-                    left: leftVerticalRight
-                };
-            }
-            case PopupBody.Position.LEFT_TOP: {
-                return {
-                    top: topHorizontalTop,
-                    left: leftHorizontalLeft
-                };
-            }
-            case PopupBody.Position.LEFT: {
-                return {
-                    top: topHorizontalMiddle,
-                    left: leftHorizontalLeft
-                };
-            }
-            case PopupBody.Position.LEFT_BOTTOM: {
-                return {
-                    top: topHorizontalBottom,
-                    left: leftHorizontalLeft
-                };
-            }
-            case PopupBody.Position.RIGHT_TOP: {
-                return {
-                    top: topHorizontalTop,
-                    left: leftHorizontalRight
-                };
-            }
-            case PopupBody.Position.RIGHT: {
-                return {
-                    top: topHorizontalMiddle,
-                    left: leftHorizontalRight
-                };
-            }
-            case PopupBody.Position.RIGHT_BOTTOM: {
-                return {
-                    top: topHorizontalBottom,
-                    left: leftHorizontalRight
-                };
-            }
-        }
-
+    debounceResizeHandle() {
+        setTimeout(() => {
+            this.setState({
+                visible: true
+            });
+        }, 0);
     }
 
     initializeAnimation(callback) {
@@ -195,6 +229,7 @@ export default class PopupBody extends Component {
         this.popupEl = findDOMNode(this.refs.popup);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
+        Event.addEvent(window, 'resize', this.resizeHandle);
 
     }
 
@@ -214,6 +249,7 @@ export default class PopupBody extends Component {
 
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
+        Event.removeEvent(window, 'resize', this.resizeHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
