@@ -6,14 +6,18 @@
 
         @include float-fix;
 
-        height: 32px;
-        overflow: hidden;
-        padding: 0 4px 8px 4px;
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+        padding: 0 40px 8px 4px;
         background: $theme-field;
         border: 1px solid $theme-title-bg;
         border-bottom: none;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
+        cursor: default;
+        user-select: none;
 
         &.above {
             &.activated {
@@ -36,7 +40,7 @@
             line-height: 16px;
             line-height: 16px;
             margin: 8px 4px 0 4px;
-            padding: 4px 28px 4px 8px;
+            padding: 4px 26px 4px 8px;
             float: left;
             border-radius: $border-radius;
             background: $theme-bg;
@@ -50,10 +54,25 @@
                 height: 24px;
                 font-size: 16px;
                 line-height: 20px;
-                background: $theme-title-bg;
                 border-top-right-radius: $border-radius;
                 border-bottom-right-radius: $border-radius;
+                cursor: pointer;
+
+                &:hover {
+                    background: $theme-title-bg;
+                }
             }
+        }
+
+        .multiple-select-selected-collapse-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        &.collapsed {
+            height: 40px;
+            overflow: hidden;
         }
 
     }

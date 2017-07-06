@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
+import IconButton from '../IconButton';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
@@ -20,6 +21,7 @@ export default class MultipleSelect extends Component {
         this.triggerEl = null;
 
         this.state = {
+            selectedCollapsed: true,
             isFocused: false,
             value: null,
             filter: '',
@@ -32,6 +34,8 @@ export default class MultipleSelect extends Component {
         this.getValue = this::this.getValue;
         this.getText = this::this.getText;
         this.filterData = this::this.filterData;
+        this.removeSelected = this::this.removeSelected;
+        this.toggleSelectedCollapse = this::this.toggleSelectedCollapse;
         this.focusHandle = this::this.focusHandle;
         this.blurHandle = this::this.blurHandle;
         this.filterChangeHandle = this::this.filterChangeHandle;
@@ -109,6 +113,28 @@ export default class MultipleSelect extends Component {
             :
             item.toString().toUpperCase().includes(filter.toUpperCase()));
 
+    }
+
+    removeSelected(index) {
+
+        const {value} = this.state;
+
+        if (!value || value.length < 1) {
+            return;
+        }
+
+        value.splice(index, 1);
+
+        this.setState({
+            value
+        });
+
+    }
+
+    toggleSelectedCollapse() {
+        this.setState({
+            selectedCollapsed: !this.state.selectedCollapsed
+        });
     }
 
     focusHandle() {
@@ -208,15 +234,14 @@ export default class MultipleSelect extends Component {
                 className, popupClassName, style, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
             } = this.props,
-            {isFocused, isAbove, value, filter, popupVisible, filteredData} = this.state,
+            {selectedCollapsed, isFocused, isAbove, value, filter, popupVisible, filteredData} = this.state,
 
             valueLen = (value ? value.length : 0),
 
             multipleSelectClassName = (isFocused ? ' focused' : '') + (valueLen > 0 ? ' not-empty' : '')
                 + (className ? ' ' + className : ''),
-
+            selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
-
             autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
 
         return (
@@ -236,7 +261,7 @@ export default class MultipleSelect extends Component {
                 {
                     value && valueLen > 0 ?
                         (
-                            <div className="multiple-select-selected-wrapper">
+                            <div className={'multiple-select-selected-wrapper' + selectedClassName}>
 
                                 <div className="multiple-select-selected-count">
                                     {`${valueLen} selected`}
@@ -248,11 +273,21 @@ export default class MultipleSelect extends Component {
                                             <div key={index}
                                                  className="multiple-select-selected">
                                                 {this.getText(item)}
-                                                <div className="multiple-select-selected-remove-button">×</div>
+                                                <div className="multiple-select-selected-remove-button"
+                                                     onClick={() => {
+                                                         this.removeSelected(index);
+                                                     }}>
+                                                    ×
+                                                </div>
                                             </div>
                                         );
                                     })
                                 }
+
+                                <IconButton className="multiple-select-selected-collapse-button"
+                                            iconCls="fa fa-angle-double-down"
+                                            onTouchTap={this.toggleSelectedCollapse}/>
+
                             </div>
                         )
                         :
