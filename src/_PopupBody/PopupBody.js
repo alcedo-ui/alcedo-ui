@@ -151,9 +151,7 @@ export default class PopupBody extends Component {
             }
         }
 
-        return {
-            transform: `translate(${left}px, ${top}px)`
-        };
+        return {left, top};
 
     }
 
@@ -204,9 +202,7 @@ export default class PopupBody extends Component {
     }
 
     debounceResizeHandle() {
-        this.setState({
-            visible: true
-        });
+        this.forceUpdate();
     }
 
     initializeAnimation(callback) {

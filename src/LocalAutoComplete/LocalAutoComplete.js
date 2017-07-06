@@ -207,7 +207,7 @@ export default class LocalAutoComplete extends Component {
 
         return (
             <div ref="autoComplete"
-                 className={`auto-complete ${className}`}
+                 className={`local-auto-complete ${className}`}
                  style={style}>
 
                 {
@@ -220,7 +220,7 @@ export default class LocalAutoComplete extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'auto-complete-trigger' + triggerClassName}
+                           className={'local-auto-complete-trigger' + triggerClassName}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
@@ -230,7 +230,7 @@ export default class LocalAutoComplete extends Component {
                            onBlur={this.blurHandle}
                            onChange={this.filterChangeHandle}/>
 
-                <Popup className={'auto-complete-popup' + autoCompletePopupClassName}
+                <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
                        style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
@@ -240,7 +240,7 @@ export default class LocalAutoComplete extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <List className="auto-complete-list"
+                    <List className="local-auto-complete-list"
                           value={value}
                           mode={filteredData.length > 0 ? List.Mode.RADIO : List.Mode.NORMAL}
                           items={filteredData.length > 0 ?

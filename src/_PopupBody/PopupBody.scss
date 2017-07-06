@@ -5,7 +5,6 @@
     width: 200px;
     border-radius: $border-radius;
     z-index: $popup-z-index;
-    transition: transform $transition-duration ease-in-out;
 
     .popup-triangle {
         display: block;
