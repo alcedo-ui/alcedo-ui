@@ -18,7 +18,7 @@ export default class PopupBody extends Component {
         super(props);
 
         this.hasMounted = false;
-        this.unrenderTimeout = null;
+        this.requestCloseTimeout = null;
 
         this.state = {
             visible: false
@@ -189,8 +189,9 @@ export default class PopupBody extends Component {
             visible
         }, () => {
             if (!visible) {
-                setTimeout(() => {
-                    onRequestClose && onRequestClose();
+                this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
+                this.requestCloseTimeout = setTimeout(() => {
+                    this.hasMounted && onRequestClose && onRequestClose();
                 }, 250);
             }
         });
@@ -242,9 +243,13 @@ export default class PopupBody extends Component {
     }
 
     componentWillUnmount() {
+
+        this.hasMounted = false;
+        this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
+
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
         Event.removeEvent(window, 'resize', this.resizeHandle);
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
+
     }
 
     render() {
