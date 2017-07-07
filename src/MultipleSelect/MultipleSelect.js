@@ -161,13 +161,8 @@ export default class MultipleSelect extends Component {
         const value = this.state.value,
             state = {
                 filter,
-                popupVisible: !!filter,
                 filteredData: this.filterData(filter)
             };
-
-        if (!filter) {
-            state.value = undefined;
-        }
 
         this.setState(state, () => {
             if (state.value !== value) {
