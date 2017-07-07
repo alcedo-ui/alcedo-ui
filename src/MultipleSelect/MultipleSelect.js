@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
-import Util from '../_vendors/Util';
+import IconButton from '../IconButton';
+import TextField from '../TextField';
+import Popup from '../Popup';
+import List from '../List';
+import Theme from '../Theme';
+
+import Util from 'vendors/Util';
 
 import './MultipleSelect.css';
 
@@ -11,436 +18,363 @@ export default class MultipleSelect extends Component {
 
         super(props);
 
+        this.triggerEl = null;
+
         this.state = {
-            hidden: true,
+            selectedCollapsed: true,
+            value: null,
             filter: '',
-            showAll: false
+            popupVisible: false,
+            isAbove: false
         };
 
-        this.list = [];
-        this.filterList = [];
-        this.optionHeight = 40;
-        this.maxOptionsHeight = 200;
-
-        this.setPosition = this::this.setPosition;
-        this.toggle = this::this.toggle;
+        this.isAbove = this::this.isAbove;
+        this.getValue = this::this.getValue;
+        this.getText = this::this.getText;
+        this.filterData = this::this.filterData;
+        this.removeSelected = this::this.removeSelected;
+        this.toggleSelectedCollapse = this::this.toggleSelectedCollapse;
+        this.focusHandle = this::this.focusHandle;
+        this.blurHandle = this::this.blurHandle;
         this.filterChangeHandle = this::this.filterChangeHandle;
-        this.showAllToggle = this::this.showAllToggle;
+        this.closePopup = this::this.closePopup;
+        this.popupRenderHandle = this::this.popupRenderHandle;
+        this.changeHandle = this::this.changeHandle;
+        this.triggerHandle = this::this.triggerHandle;
 
     }
 
-    /**
-     * 设置 option 的位置
-     * @param move [boolean] 是否需要移动位置（移动到input上方或下方）
-     */
-    setPosition(move) {
+    isAbove() {
 
-        const optionsHeight = this.filterList.length > 0 ?
-            (this.filterList.length > 10 ? this.maxOptionsHeight : this.filterList.length * this.optionHeight)
-            :
-            this.optionHeight;
+        const multipleSelect = this.refs.multipleSelect;
 
-        // 整个控件的偏移
-        const offset = Util.getOffset(this.refs.MultipleSelect);
+        if (!this.popupHeight || !multipleSelect) {
+            return false;
+        }
 
-        if (offset) {
-            const offsetTop = (offset.top || 0) + 30;
+        const {top} = Util.getOffset(multipleSelect),
+            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
 
-            if (move) {
+        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
+            return true;
+        }
 
-                // 显示在上方
-                // if ((document.body.scrollHeight || document.documentElement.scrollHeight) - offsetTop < optionsHeight) {
-                if (offsetTop + this.refs.MultipleSelect.offsetHeight + optionsHeight
-                    > (document.body.scrollHeight || document.documentElement.scrollHeight)) {
-                    if (this.refs.MultipleSelect) {
-                        this.refs.MultipleSelect.className = 'MultipleSelect'
-                            + (this.props.className ? ' ' + this.props.className : '') + ' above'
-                            + (this.state.hidden ? '' : ' open')
-                            + (this.props.invalidMsg ? ' error' : '')
-                            + (!this.props.value || this.props.value.length == 0 ? ' empty' : '');
-                    }
-                    if (this.refs.options) {
-                        this.refs.options.style.top = -optionsHeight + 'px';
-                    }
-                }
+        return false;
 
-                // 显示在下方
-                else {
-                    if (this.refs.MultipleSelect) {
-                        this.refs.MultipleSelect.className = 'MultipleSelect'
-                            + (this.props.className ? ' ' + this.props.className : '') + ' below'
-                            + (this.state.hidden ? '' : ' open')
-                            + (this.props.invalidMsg ? ' error' : '')
-                            + (!this.props.value || this.props.value.length == 0 ? ' empty' : '');
-                    }
-                }
+    }
 
-            } else {
+    getValue(data) {
 
-                // 如果 options 显示在 input 上方
-                if (this.refs.MultipleSelect.className.indexOf('above') != -1 && this.refs.options) {
-                    this.refs.options.style.top = -optionsHeight + 'px';
-                }
+        if (!data) {
+            return;
+        }
 
+        const {valueField} = this.props;
+
+        switch (typeof data) {
+            case 'object': {
+                return data[valueField];
             }
+            default:
+                return data;
         }
 
-        if (this.refs.options) {
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + this.refs.options.offsetHeight + 'px';
-        } else {
-            this.refs.wrapper.style.height = this.refs.trigger.offsetHeight + 'px';
+    }
+
+    getText(data) {
+
+        if (!data) {
+            return;
         }
-    }
 
-    toggle(e) {
-        const className = e.target.className;
-        if (!this.props.disabled
-            && className.indexOf('filter') != -1
-            && e.target.parentElement.parentElement.parentElement == this.refs.MultipleSelect) {
-            this.setState({
-                hidden: false
-            }, () => {
-                this.setPosition(true);
-            });
-        } else if (
-            (
-                (className.indexOf('filter') != -1 || className.indexOf('deselectButton') != -1)
-                && (e.target.parentElement && e.target.parentElement.parentElement
-                && e.target.parentElement.parentElement.parentElement == this.refs.MultipleSelect)
-            )
-            ||
-            (
-                className.indexOf('selected') != -1
-                && (e.target.parentElement && e.target.parentElement.parentElement == this.refs.MultipleSelect)
-            )
-            ||
-            (
-                className.indexOf('option') != -1
-                && (e.target.parentElement && e.target.parentElement.parentElement == this.refs.MultipleSelect)
-            )
-        ) {
-            //
-        } else {
-            this.setState({
-                hidden: true
-            });
-        }
-    }
+        const {displayField} = this.props;
 
-    showAllToggle(e) {
-        e.stopPropagation();
-        const {showAll} = this.state;
-        this.setState({showAll: !showAll});
-    }
-
-    deselect(item, e) {
-
-        e.stopPropagation();
-
-        if (!this.props.disabled) {
-
-            let value = this.props.value.slice();
-            for (let i = 0, len = value.length; i < len; i++) {
-                let valueItem = value[i];
-                if (typeof valueItem == 'object' && valueItem.key === item.key) {
-                    value.splice(i, 1);
-                    break;
-                } else if (valueItem === item) {
-                    value.splice(i, 1);
-                    break;
-                }
+        switch (typeof data) {
+            case 'object': {
+                return data[displayField];
             }
-
-            this.setPosition(false);
-            this.props.onChange && this.props.onChange(value);
+            default:
+                return data;
         }
 
     }
 
-    select(item, e) {
+    filterData(filter = this.state.filter, data = this.props.data) {
 
-        e.stopPropagation();
+        if (!filter) {
+            return data;
+        }
 
-        let value = this.props.value.slice();
-        value.push(item);
+        const {displayField, filterCallback, isGrouped} = this.props;
+
+        if (filterCallback) {
+            return filterCallback(filter, data);
+        }
+
+        const filterFunc = (originData) => {
+            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase()));
+        };
+
+        if (isGrouped) {
+            return data.map(group => {
+
+                const children = filterFunc(group.children);
+
+                if (children.length < 1) {
+                    return;
+                } else {
+                    return {
+                        ...group,
+                        children
+                    };
+                }
+
+            }).filter(item => !!item);
+        }
+
+        return filterFunc(data);
+
+    }
+
+    removeSelected(index) {
+
+        const {value} = this.state;
+
+        if (!value || value.length < 1) {
+            return;
+        }
+
+        value.splice(index, 1);
+
         this.setState({
-            filter: ''
-        }, () => {
-            this.setPosition(false);
-            this.props.onChange && this.props.onChange(value);
+            value
         });
+
     }
 
-    filterChangeHandle(e) {
+    toggleSelectedCollapse() {
         this.setState({
-            filter: e.target.value
-        }, () => {
-            this.setPosition(false);
+            selectedCollapsed: !this.state.selectedCollapsed
         });
     }
 
-    getRestList(data, value) {
+    focusHandle() {
 
-        let list = [];
-        // debugger
-        for (let dataItem of data) {
+        const {disabled, onFocus} = this.props;
 
-            if (value && value.length) {
-                let flag = false;
-                for (let valueItem of value) {
-                    if (typeof dataItem == 'object' && dataItem.key === valueItem.key) {
-                        flag = true;
-                        break;
-                    } else if (dataItem === valueItem) {
-                        flag = true;
-                        break;
-                    }
-                }
+        !disabled && this.setState({
+            popupVisible: true
+        }, () => {
+            onFocus && onFocus();
+        });
 
-                if (!flag) {
-                    list.push(dataItem);
-                }
-            } else {
-                list.push(dataItem);
-            }
+    }
+
+    blurHandle() {
+
+        const {disabled, onBlur} = this.props;
+
+        !disabled && onBlur && onBlur();
+
+    }
+
+    filterChangeHandle(filter) {
+        this.setState({
+            filter
+        });
+    }
+
+    closePopup() {
+        this.setState({
+            popupVisible: false
+        });
+    }
+
+    popupRenderHandle(popupEl) {
+
+        this.popupEl = findDOMNode(popupEl);
+        this.popupHeight = this.popupEl.offsetHeight;
+
+        const isAbove = this.isAbove();
+
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
         }
 
-        return list;
+    }
+
+    changeHandle(value) {
+
+        const {autoClose} = this.props,
+            state = {
+                value
+            };
+
+        if (autoClose) {
+            state.popupVisible = false;
+        }
+
+        this.setState(state, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
 
     }
 
-    getFilterList(list, filter) {
-        return list.filter((value) => {
-            if (typeof value == 'object') {
-                return value.text.toUpperCase().indexOf(filter.toUpperCase()) != -1;
-            } else {
-                return value.toUpperCase().indexOf(filter.toUpperCase()) != -1;
+    triggerHandle(el, triggerEl, popupEl, triggerMode, currentVisible) {
+
+        if (!triggerEl) {
+            return true;
+        }
+
+        while (el) {
+            if (el == this.refs.multipleSelect || el == popupEl || el == triggerEl) {
+                return currentVisible;
             }
-        });
+            el = el.parentNode;
+        }
+
+        return false;
+
     }
 
     componentDidMount() {
-        if (window.addEventListener) {
-            window.addEventListener('click', this.toggle);
-            window.addEventListener('resize', this.setPosition);
-        } else {
-            window.attachEvent('click', this.toggle);
-            window.attachEvent('resize', this.setPosition);
-        }
-
-    }
-
-    componentWillUnmount() {
-        if (window.removeEventListener) {
-            window.removeEventListener('click', this.toggle);
-            window.removeEventListener('resize', this.setPosition);
-        } else {
-            window.detachEvent('click', this.toggle);
-            window.detachEvent('resize', this.setPosition);
-        }
+        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     render() {
 
-        const {data, width, className, style, name, value, placeholder, disabled} = this.props;
-        const {hidden, filter, showAll} = this.state;
         const {
-            optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
-            getRestList, getFilterList
-        } = this;
+                className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
+                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
+            } = this.props,
+            {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
-        this.list = getRestList(data, value);
+            emptyEl = [{
+                renderer() {
+                    return (
+                        <div className="no-matched-list-item">
 
-        this.filterList = getFilterList(this.list, filter);
+                            {
+                                noMatchedMsg ?
+                                    noMatchedMsg
+                                    :
+                                    <span>
+                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                        No matched value.
+                                    </span>
+                            }
 
-        let componentWidth = width || '100%';
+                        </div>
+                    );
+                }
+            }],
 
-        const triggerStyle = {
-            width: componentWidth
-        };
+            valueLen = (value ? value.length : 0),
 
-        let filterStyle = {
-            width: '100%'
-        };
+            multipleSelectClassName = (valueLen > 0 ? ' not-empty' : '') + (popupVisible ? ' activated' : '')
+                + (isAbove ? ' above' : ' blow') + (className ? ' ' + className : ''),
+            selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
+            selectPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            selectPopupStyle = Object.assign({
+                width: this.triggerEl && getComputedStyle(this.triggerEl).width
+            }, popupStyle),
 
-        let selectedStyle = {};
-        if (value && value.length) {
-            selectedStyle.borderTop = '1px solid #dfdfdf';
-            selectedStyle.height = showAll ? 'auto' : '40px';
-        } else {
-            selectedStyle.borderTop = 'none';
-            selectedStyle.height = 0;
-        }
+            listData = this.filterData();
 
-        const emptyOptionsStyle = {
-            width: componentWidth,
-            height: hidden ? 0 : optionHeight,
-            maxHeight: maxOptionsHeight
-        };
-        const optionsStyle = {
-            width: componentWidth,
-            height: hidden ? 0 : 'auto',
-            maxHeight: maxOptionsHeight
-        };
-
-        const optionStyle = {
-            height: optionHeight,
-            lineHeight: optionHeight + 'px'
-        };
-
-        const optionsHeight = (this.filterList.length * optionHeight) > maxOptionsHeight ? maxOptionsHeight : this.filterList.length * optionHeight;
-
-        const wrapperStyle = {
-            width: componentWidth,
-            height: hidden ? 40 : (optionsHeight < emptyOptionsStyle.height ? (emptyOptionsStyle.height + 40) : (optionsHeight + 40))
-        };
-        // debugger
         return (
-            <div ref="MultipleSelect"
-                 className={'MultipleSelect'
-                 + (className ? ' ' + className : '')
-                 + (hidden ? '' : ' open')
-                 + (!value || value.length == 0 ? ' empty' : '')}
+            <div ref="multipleSelect"
+                 className={'multiple-select' + multipleSelectClassName}
                  style={style}>
 
                 {
-                    (value instanceof Array ? value : []).map((item, index) => {
-                        return (
-                            <input key={index}
-                                   type="hidden"
-                                   name={name + '[' + index + ']'}
-                                   value={typeof item == 'object' ? item.value : item}/>
-                        );
-                    })
+                    name ?
+                        <input type="hidden"
+                               name={name}
+                               value={this.getValue(value)}/>
+                        :
+                        null
                 }
-                <div className={`selected-container ${hidden ? 'hidden' : 'open'}`}
-                     ref="selectedContainer"
-                     style={selectedStyle}>
-                    {
-                        showAll ?
-                            null
-                            :
-                            (
-                                value.length > 2 ?
-                                    <div className="more-selected">
-                                        {value.length} selected
-                                    </div>
-                                    :
-                                    null
 
-                            )
-                    }
+                {
+                    value && valueLen > 0 ?
+                        (
+                            <div className={'multiple-select-selected-wrapper' + selectedClassName}>
 
-                    {
-                        showAll ?
-                            (value instanceof Array ? value : [] ).map((item, index) => {
-                                return (
-                                    <div key={index}
-                                         className="selected"
-                                         disabled={disabled}>
-                                            <span className="text">
-                                                {typeof item == 'object' ? item.text : item}
-                                            </span>
-                                        <span className="deselectButton"
-                                              onClick={deselect.bind(this, item)}>×</span>
-                                    </div>
-                                );
-                            })
-                            :
-                            (value instanceof Array ? value : [] ).map((item, index) => {
-                                if (index < 2) {
-                                    return (
-                                        <div key={index}
-                                             className="selected"
-                                             disabled={disabled}>
-                                        <span className="text">
-                                            {typeof item == 'object' ? item.text : item}
-                                        </span>
-                                            <span className="deselectButton"
-                                                  onClick={deselect.bind(this, item)}>×</span>
-                                        </div>
-                                    );
-                                }
-                            })
-                    }
-                    <i className={`fa fa-angle-double-down ${showAll ? 'up' : 'down'} multiple-select-trigger-right-icon ${value.length > 2 ? '' : 'disabled'}`}
-                       aria-hidden="true"
-                       onClick={(e) => {
-                           if (value.length > 2) {
-                               this.showAllToggle(e);
-                           }
-                       }}></i>
-                </div>
-                <div className={`dropdown-select-inner ${hidden ? 'hidden' : 'open'}`}
-                     ref="wrapper"
-                     style={wrapperStyle}>
+                                <div className="multiple-select-selected-count">
+                                    {`${valueLen} selected`}
+                                </div>
 
-                    <div ref="trigger"
-                         className="trigger"
-                         style={triggerStyle}
-                         disabled={disabled}>
-
-                        <input ref="filter"
-                               type="text"
-                               className="filter"
-                               style={filterStyle}
-                               value={filter}
-                               placeholder={placeholder}
-                               onChange={filterChangeHandle}
-                               disabled={disabled}
-                        />
-                    </div>
-
-                    {
-                        hidden ?
-                            null
-                            :
-                            (
-                                this.list.length == 0 ?
-                                    <div ref="options"
-                                         className="options"
-                                         style={emptyOptionsStyle}>
-                                        <div className="option disabled"
-                                             style={optionStyle}>
-                                            All options are selected
-                                        </div>
-                                    </div>
-                                    :
-                                    (
-                                        this.filterList.length == 0 ?
-                                            <div ref="options"
-                                                 className="options"
-                                                 style={emptyOptionsStyle}>
-                                                <div className="option disabled"
-                                                     style={optionStyle}>
-                                                    No value matched
+                                {
+                                    value.map((item, index) => {
+                                        return (
+                                            <div key={index}
+                                                 className="multiple-select-selected">
+                                                {this.getText(item)}
+                                                <div className="multiple-select-selected-remove-button"
+                                                     onClick={() => {
+                                                         this.removeSelected(index);
+                                                     }}>
+                                                    ×
                                                 </div>
                                             </div>
-                                            :
-                                            <div ref="options"
-                                                 className="options"
-                                                 style={optionsStyle}>
-                                                {
-                                                    this.filterList.map((item, index) => {
-                                                        return (
-                                                            <div key={index}
-                                                                 className="option"
-                                                                 style={optionStyle}
-                                                                 onClick={select.bind(this, item)}>
-                                                                {typeof item == 'object' ? item.text : item}
-                                                            </div>
-                                                        );
-                                                    })
-                                                }
-                                            </div>
-                                    )
-                            )
-                    }
-                </div>
+                                        );
+                                    })
+                                }
+
+                                <IconButton className="multiple-select-selected-collapse-button"
+                                            iconCls="fa fa-angle-double-up"
+                                            onTouchTap={this.toggleSelectedCollapse}/>
+
+                            </div>
+                        )
+                        :
+                        null
+                }
+
+                <TextField ref="trigger"
+                           className="multiple-select-trigger"
+                           value={filter}
+                           placeholder={placeholder}
+                           disabled={disabled}
+                           iconCls={iconCls}
+                           rightIconCls={rightIconCls || 'fa fa-search'}
+                           onFocus={this.focusHandle}
+                           onBlur={this.blurHandle}
+                           onChange={this.filterChangeHandle}/>
+
+                <Popup className={'multiple-select-popup' + selectPopupClassName}
+                       style={selectPopupStyle}
+                       visible={popupVisible}
+                       triggerEl={this.triggerEl}
+                       hasTriangle={false}
+                       triggerMode={Popup.TriggerMode.OPEN}
+                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       triggerHandle={this.triggerHandle}
+                       onRender={this.popupRenderHandle}
+                       onRequestClose={this.closePopup}>
+
+                    <List className="multiple-select-list"
+                          value={value}
+                          mode={List.Mode.CHECKBOX}
+                          isGrouped={isGrouped}
+                          items={listData.length < 1 ? emptyEl : listData}
+                          valueField={valueField}
+                          displayField={displayField}
+                          onChange={this.changeHandle}/>
+
+                </Popup>
+
             </div>
         );
-
     }
+
 };
 
 MultipleSelect.propTypes = {
@@ -451,9 +385,9 @@ MultipleSelect.propTypes = {
     className: PropTypes.string,
 
     /**
-     * The name of the multipleSelect field.
+     * The CSS class name of the popup element.
      */
-    name: PropTypes.string,
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -461,46 +395,174 @@ MultipleSelect.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The options data.
+     * Override the styles of the popup element.
      */
-    data: PropTypes.array,
+    popupStyle: PropTypes.object,
 
     /**
-     * The multipleSelect input value.
+     * The name of the auto complete.
      */
-    value: PropTypes.array,
+    name: PropTypes.string,
 
     /**
-     * The width of the multipleSelect drop-down box.
-     */
-    width: PropTypes.number,
-
-    /**
-     * The placeholder of the multipleSelect.
+     * The placeholder of the field.
      */
     placeholder: PropTypes.string,
 
     /**
-     * If true, the multipleSelect will be disabled.
+     * Children passed into the List.
+     */
+    data: PropTypes.oneOfType([
+
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
+
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
+
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        // grouped
+        PropTypes.array
+
+    ]).isRequired,
+
+    /**
+     * If true, the auto complete will be disabled.
      */
     disabled: PropTypes.bool,
 
     /**
-     * Callback function fired when a menu item is selected.
+     * The value field name in data. (default: "value")
      */
-    onChange: PropTypes.func
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
+    /**
+     * If true, the popup list automatically closed after selection.
+     */
+    autoClose: PropTypes.bool,
+
+    /**
+     * Callback function fired when value changed.
+     */
+    filterCallback: PropTypes.func,
+
+    /**
+     * Use this property to display an icon.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * Use this property to display an icon.
+     */
+    rightIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    noMatchedMsg: PropTypes.string,
+
+    /**
+     *
+     */
+    isGrouped: PropTypes.bool,
+
+    /**
+     * select callback.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * focus callback.
+     */
+    onFocus: PropTypes.func,
+
+    /**
+     * blur callback.
+     */
+    onBlur: PropTypes.func
 
 };
 
 MultipleSelect.defaultProps = {
 
     className: '',
+    popupClassName: '',
     style: null,
+    popupStyle: null,
 
     name: '',
-    value: [],
-    width: 300,
-    placeholder: 'select number',
-    disabled: false
+    placeholder: '',
+    data: [],
+    disabled: false,
+    valueField: 'value',
+    displayField: 'text',
+    autoClose: false,
+    iconCls: '',
+    rightIconCls: '',
+    noMatchedMsg: '',
+    isGrouped: false
 
 };

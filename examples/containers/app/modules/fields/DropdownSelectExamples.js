@@ -31,6 +31,38 @@ export default class DropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
+        this.groupedData = [{
+            name: 'socialNetwork',
+            children: [{
+                iconCls: 'fa fa-facebook',
+                text: 'Facebook',
+                desc: 'Here is a Facebook Desc.'
+            }, {
+                iconCls: 'fa fa-twitter',
+                text: 'Twitter',
+                desc: 'Here is a Twitter Desc.'
+            }, {
+                iconCls: 'fa fa-google-plus',
+                text: 'Google+',
+                desc: 'Here is a Google+ Desc.'
+            }]
+        }, {
+            name: 'device',
+            children: [{
+                iconCls: 'fa fa-android',
+                text: 'Android',
+                desc: 'Here is a Android Desc.'
+            }, {
+                iconCls: 'fa fa-apple',
+                text: 'Apple',
+                desc: 'Here is a Apple Desc.'
+            }, {
+                iconCls: 'fa fa-windows',
+                text: 'Windows',
+                desc: 'Here is a Windows Desc.'
+            }]
+        }];
+
         this.onChange = this::this.onChange;
 
     }
@@ -114,8 +146,35 @@ export default class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <DropdownSelect data={this.data}
+                                                    multi={true}
+                                                    onChange={this.onChange}/>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Multi Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+
+                                    <DropdownSelect style={{width: 240}}
+                                                    popupStyle={{maxHeight: 300}}
+                                                    data={this.groupedData}
                                                     autoClose={false}
                                                     multi={true}
+                                                    isGrouped={true}
                                                     onChange={this.onChange}/>
 
                                 </div>
