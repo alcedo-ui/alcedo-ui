@@ -176,14 +176,23 @@ export default class PopupBody extends Component {
 
     mousedownHandle(e) {
 
-        const {triggerEl, onRequestClose} = this.props,
-            visible = this.triggerPopupEventHandle(
-                e.target,
-                triggerEl,
-                this.popupEl,
-                this.props.triggerMode,
-                this.state.visible
-            );
+        const {triggerEl, triggerHandle, onRequestClose} = this.props,
+            visible = triggerHandle ?
+                triggerHandle(
+                    e.target,
+                    triggerEl,
+                    this.popupEl,
+                    this.props.triggerMode,
+                    this.state.visible
+                )
+                :
+                this.triggerPopupEventHandle(
+                    e.target,
+                    triggerEl,
+                    this.popupEl,
+                    this.props.triggerMode,
+                    this.state.visible
+                );
 
         this.setState({
             visible
@@ -359,6 +368,11 @@ PopupBody.propTypes = {
      *
      */
     depth: PropTypes.number,
+
+    /**
+     *
+     */
+    triggerHandle: PropTypes.func,
 
     /**
      *
