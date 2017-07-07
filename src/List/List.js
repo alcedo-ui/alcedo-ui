@@ -76,12 +76,29 @@ export default class List extends Component {
 
     listGroupedItemsRenderer(items = this.props.items) {
         return _.isArray(items) ?
-            items.map((group, groupIndex) => ([
-                <ListItem key={`group${groupIndex}`}
-                          text={group.name}
-                          isGroupName={true}/>,
-                ...this.listItemsRenderer(group.children)
-            ]))
+            items.map((group, groupIndex) => {
+
+                if (!group) {
+                    return;
+                }
+
+                let result = [];
+
+                if (group.name) {
+                    result.push(
+                        <ListItem key={`group${groupIndex}`}
+                                  text={group.name}
+                                  isGroupName={true}/>
+                    );
+                }
+
+                if (group.children && group.children.length > 0) {
+                    result = result.concat(this.listItemsRenderer(group.children));
+                }
+
+                return result;
+
+            })
             :
             null;
     }

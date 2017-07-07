@@ -100,6 +100,10 @@ export default class MultipleSelect extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
+        if (!filter) {
+            return data;
+        }
+
         const {displayField, filterCallback, isGrouped} = this.props;
 
         if (filterCallback) {
@@ -114,18 +118,20 @@ export default class MultipleSelect extends Component {
         };
 
         if (isGrouped) {
+            return data.map(group => {
 
-            let result = Object.assign(data);
+                const children = filterFunc(group.children);
 
-            for (let i = 0, len = result.length; i < len; i++) {
-                let group = result[i];
-                group.children = filterFunc(group.children);
-                if (group.children.length < 1) {
-                    result.splice(i, 1);
-                    i--;
+                if (children.length < 1) {
+                    return;
+                } else {
+                    return {
+                        ...group,
+                        children
+                    };
                 }
-            }
 
+            }).filter(item => !!item);
         }
 
         return filterFunc(data);
@@ -227,7 +233,7 @@ export default class MultipleSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, name, placeholder, isGrouped,
+                className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
                 disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
@@ -257,7 +263,10 @@ export default class MultipleSelect extends Component {
             multipleSelectClassName = (valueLen > 0 ? ' not-empty' : '') + (popupVisible ? ' activated' : '')
                 + (isAbove ? ' above' : ' blow') + (className ? ' ' + className : ''),
             selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            selectPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            selectPopupStyle = Object.assign({
+                width: this.triggerEl && getComputedStyle(this.triggerEl).width
+            }, popupStyle),
 
             listData = this.filterData();
 
@@ -322,8 +331,8 @@ export default class MultipleSelect extends Component {
                            onBlur={this.blurHandle}
                            onChange={this.filterChangeHandle}/>
 
-                <Popup className={'multiple-select-popup' + autoCompletePopupClassName}
-                       style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
+                <Popup className={'multiple-select-popup' + selectPopupClassName}
+                       style={selectPopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -365,6 +374,11 @@ MultipleSelect.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
 
     /**
      * The name of the auto complete.
@@ -517,7 +531,8 @@ MultipleSelect.defaultProps = {
 
     className: '',
     popupClassName: '',
-    style: {},
+    style: null,
+    popupStyle: null,
 
     name: '',
     placeholder: '',
