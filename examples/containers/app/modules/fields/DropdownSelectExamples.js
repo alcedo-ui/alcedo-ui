@@ -31,8 +31,9 @@ export default class DropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.groupedData = {
-            socialNetwork: [{
+        this.groupedData = [{
+            name: 'socialNetwork',
+            children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
@@ -44,8 +45,10 @@ export default class DropdownSelectExamples extends Component {
                 iconCls: 'fa fa-google-plus',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
-            }],
-            device: [{
+            }]
+        }, {
+            name: 'device',
+            children: [{
                 iconCls: 'fa fa-android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
@@ -58,7 +61,7 @@ export default class DropdownSelectExamples extends Component {
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
             }]
-        };
+        }];
 
         this.onChange = this::this.onChange;
 
@@ -167,6 +170,7 @@ export default class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <DropdownSelect style={{width: 240}}
+                                                    popupStyle={{maxHeight: 300}}
                                                     data={this.groupedData}
                                                     autoClose={false}
                                                     multi={true}

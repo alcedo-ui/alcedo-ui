@@ -129,14 +129,14 @@ export default class DropdownSelect extends Component {
 
             let result = Object.assign(data);
 
-            for (let groupName in result) {
-                result[groupName] = filterFunc(result[groupName]);
+            for (let i = 0, len = result.length; i < len; i++) {
+                let group = result[i];
+                group.children = filterFunc(group.children);
                 if (result[groupName].length < 1) {
-                    delete result[groupName];
+                    result.splice(i, 1);
+                    i--;
                 }
             }
-
-            return result;
 
         }
 
@@ -196,7 +196,7 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, name, placeholder,
+                className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, noMatchedMsg,
                 triggerTheme, isGrouped
             } = this.props,
@@ -241,9 +241,9 @@ export default class DropdownSelect extends Component {
 
             dropdownSelectPopupClassName = (isAbove ? ' above' : ' blow')
                 + (popupClassName ? ' ' + popupClassName : ''),
-            popupStyle = {
+            dropdownPopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            },
+            }, popupStyle),
 
             listData = this.filterData();
 
@@ -271,7 +271,7 @@ export default class DropdownSelect extends Component {
 
                 <Popup ref="popup"
                        className={'dropdown-select-popup' + dropdownSelectPopupClassName}
-                       style={popupStyle}
+                       style={dropdownPopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -293,18 +293,7 @@ export default class DropdownSelect extends Component {
                           value={value}
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.RADIO}
                           isGrouped={isGrouped}
-                          items={
-                              isGrouped ?
-                                  _.isEmpty(listData) ?
-                                      emptyEl
-                                      :
-                                      listData
-                                  :
-                                  listData.length < 1 ?
-                                      emptyEl
-                                      :
-                                      listData
-                          }
+                          items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           onItemTouchTap={this.itemTouchTapHandle}
@@ -334,6 +323,11 @@ DropdownSelect.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
 
     /**
      * The name of the dropDownSelect.
@@ -421,7 +415,7 @@ DropdownSelect.propTypes = {
         }), PropTypes.string, PropTypes.number])),
 
         // grouped
-        PropTypes.object
+        PropTypes.array
 
     ]).isRequired,
 
@@ -502,6 +496,7 @@ DropdownSelect.defaultProps = {
     className: '',
     popupClassName: '',
     style: null,
+    popupStyle: null,
 
     name: '',
     value: null,
