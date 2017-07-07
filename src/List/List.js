@@ -75,12 +75,12 @@ export default class List extends Component {
     }
 
     listGroupedItemsRenderer(items = this.props.items) {
-        return _.isObject(items) ?
-            Object.keys(items).map((groupName, groupIndex) => ([
+        return _.isArray(items) ?
+            items.map((group, groupIndex) => ([
                 <ListItem key={`group${groupIndex}`}
-                          text={groupName}
+                          text={group.name}
                           isGroupName={true}/>,
-                ...this.listItemsRenderer(items[groupName])
+                ...this.listItemsRenderer(group.children)
             ]))
             :
             null;
@@ -365,7 +365,7 @@ List.propTypes = {
         }), PropTypes.string, PropTypes.number])),
 
         // grouped
-        PropTypes.object
+        PropTypes.array
 
     ]).isRequired,
 

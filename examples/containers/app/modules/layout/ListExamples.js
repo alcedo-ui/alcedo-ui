@@ -72,8 +72,9 @@ export default class ListExamples extends Component {
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.groupedListData = {
-            socialNetwork: [{
+        this.groupedListData = [{
+            name: 'socialNetwork',
+            children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
@@ -85,8 +86,10 @@ export default class ListExamples extends Component {
                 iconCls: 'fa fa-google-plus',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
-            }],
-            device: [{
+            }]
+        }, {
+            name: 'device',
+            children: [{
                 iconCls: 'fa fa-android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
@@ -99,7 +102,7 @@ export default class ListExamples extends Component {
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
             }]
-        };
+        }];
 
         this.changeHandle = this::this.changeHandle;
 
