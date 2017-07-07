@@ -402,11 +402,6 @@ List.propTypes = {
     /**
      *
      */
-    allowGroupedSelect: PropTypes.bool,
-
-    /**
-     *
-     */
     onItemTouchTap: PropTypes.func,
 
     /**
@@ -427,7 +422,6 @@ List.defaultProps = {
     displayField: 'text',
     disabled: false,
     mode: ListItem.Mode.NORMAL,
-    isGrouped: false,
-    allowGroupedSelect: false
+    isGrouped: false
 
 };

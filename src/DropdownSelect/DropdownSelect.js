@@ -113,12 +113,34 @@ export default class DropdownSelect extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {displayField} = this.props;
+        if (!filter) {
+            return data;
+        }
 
-        return data.filter(item => typeof item === 'object' && !!item[displayField] ?
-            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-            :
-            item.toString().toUpperCase().includes(filter.toUpperCase()));
+        const {displayField, isGrouped} = this.props,
+            filterFunc = (originData) => {
+                return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                    item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                    :
+                    item.toString().toUpperCase().includes(filter.toUpperCase()));
+            };
+
+        if (isGrouped) {
+
+            let result = Object.assign(data);
+
+            for (let groupName in result) {
+                result[groupName] = filterFunc(result[groupName]);
+                if (result[groupName].length < 1) {
+                    delete result[groupName];
+                }
+            }
+
+            return result;
+
+        }
+
+        return filterFunc(data);
 
     }
 
@@ -176,9 +198,29 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, name, placeholder,
                 disabled, multi, data, useFilter, valueField, displayField, noMatchedMsg,
-                triggerTheme
+                triggerTheme, isGrouped
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
+
+            emptyEl = [{
+                renderer() {
+                    return (
+                        <div className="no-matched-list-item">
+
+                            {
+                                noMatchedMsg ?
+                                    noMatchedMsg
+                                    :
+                                    <span>
+                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                        No matched value.
+                                    </span>
+                            }
+
+                        </div>
+                    );
+                }
+            }],
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
@@ -203,7 +245,7 @@ export default class DropdownSelect extends Component {
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             },
 
-            listData = this.filterData(filter, data);
+            listData = this.filterData();
 
         return (
             <div ref="dropdownSelect"
@@ -250,28 +292,18 @@ export default class DropdownSelect extends Component {
                     <List className="dropdown-select-list"
                           value={value}
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.RADIO}
-                          items={listData.length > 0 ?
-                              listData
-                              :
-                              [{
-                                  renderer() {
-                                      return (
-                                          <div className="no-matched-list-item">
-
-                                              {
-                                                  noMatchedMsg ?
-                                                      noMatchedMsg
-                                                      :
-                                                      <span>
-                                                          <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                                          No matched value.
-                                                      </span>
-                                              }
-
-                                          </div>
-                                      );
-                                  }
-                              }]
+                          isGrouped={isGrouped}
+                          items={
+                              isGrouped ?
+                                  _.isEmpty(listData) ?
+                                      emptyEl
+                                      :
+                                      listData
+                                  :
+                                  listData.length < 1 ?
+                                      emptyEl
+                                      :
+                                      listData
                           }
                           valueField={valueField}
                           displayField={displayField}
@@ -321,69 +353,77 @@ DropdownSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.oneOfType([
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-        /**
-         * The text value of the list button.Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
 
-    }), PropTypes.string, PropTypes.number])).isRequired,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        // grouped
+        PropTypes.object
+
+    ]).isRequired,
 
     /**
      * The invalid message of dropDownSelect.
@@ -443,6 +483,11 @@ DropdownSelect.propTypes = {
     /**
      *
      */
+    isGrouped: PropTypes.bool,
+
+    /**
+     *
+     */
     onTtemTouchTap: PropTypes.func,
 
     /**
@@ -471,6 +516,7 @@ DropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     noMatchedMsg: '',
-    triggerTheme: Theme.DEFAULT
+    triggerTheme: Theme.DEFAULT,
+    isGrouped: false
 
 };
