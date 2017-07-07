@@ -49,7 +49,7 @@ export default class LocalAutoComplete extends Component {
         }
 
         const {top} = Util.getOffset(autoComplete),
-            scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
+            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;

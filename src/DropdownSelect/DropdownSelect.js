@@ -47,7 +47,7 @@ export default class DropdownSelect extends Component {
         }
 
         const {top} = Util.getOffset(dropdownSelect),
-            scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
+            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
@@ -197,7 +197,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder,
-                disabled, multi, data, useFilter, valueField, displayField, noMatchedMsg,
+                disabled, multi, useFilter, valueField, displayField, noMatchedMsg,
                 triggerTheme, isGrouped
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
