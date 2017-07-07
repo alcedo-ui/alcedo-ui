@@ -40,6 +40,24 @@ export default class ListExamples extends Component {
             disabled: true
         }];
 
+        this.themeListData = [{
+            text: 'Success',
+            theme: 'success',
+            rightIconCls: 'fa fa-check-circle'
+        }, {
+            text: 'Error',
+            theme: 'error',
+            rightIconCls: 'fa fa-times-circle-o'
+        }, {
+            text: 'Warning',
+            theme: 'warning',
+            rightIconCls: 'fa fa-exclamation-triangle'
+        }, {
+            text: 'Primary',
+            theme: 'primary',
+            rightIconCls: 'fa fa-gratipay'
+        }];
+
         this.descListData = [{
             iconCls: 'fa fa-facebook',
             text: 'Facebook',
@@ -67,6 +85,19 @@ export default class ListExamples extends Component {
                 iconCls: 'fa fa-google-plus',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
+            }],
+            device: [{
+                iconCls: 'fa fa-android',
+                text: 'Android',
+                desc: 'Here is a Android Desc.'
+            }, {
+                iconCls: 'fa fa-apple',
+                text: 'Apple',
+                desc: 'Here is a Apple Desc.'
+            }, {
+                iconCls: 'fa fa-windows',
+                text: 'Windows',
+                desc: 'Here is a Windows Desc.'
             }]
         };
 
@@ -150,23 +181,7 @@ export default class ListExamples extends Component {
                                     icon class.</p>
 
                                 <Paper>
-                                    <List items={[{
-                                        text: 'Success',
-                                        theme: 'success',
-                                        rightIconCls: 'fa fa-check-circle'
-                                    }, {
-                                        text: 'Error',
-                                        theme: 'error',
-                                        rightIconCls: 'fa fa-times-circle-o'
-                                    }, {
-                                        text: 'Warning',
-                                        theme: 'warning',
-                                        rightIconCls: 'fa fa-exclamation-triangle'
-                                    }, {
-                                        text: 'Primary',
-                                        theme: 'primary',
-                                        rightIconCls: 'fa fa-gratipay'
-                                    }]}/>
+                                    <List items={this.themeListData}/>
                                 </Paper>
 
                             </div>
@@ -203,7 +218,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Grouped List"/>
+                    <WidgetHeader className="example-header" title="With Radio"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -211,13 +226,14 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A simple grouped List.
+                                    A simple List with desc.
                                 </p>
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          isGrouped={true}
-                                          items={this.groupedListData}/>
+                                          mode={List.Mode.RADIO}
+                                          items={this.descListData}
+                                          onChange={this.changeHandle}/>
                                 </Paper>
 
                             </div>
@@ -256,7 +272,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With Radio"/>
+                    <WidgetHeader className="example-header" title="Grouped List"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -264,13 +280,42 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A simple List with desc.
+                                    A simple grouped List.
                                 </p>
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
                                           mode={List.Mode.RADIO}
-                                          items={this.descListData}
+                                          isGrouped={true}
+                                          items={this.groupedListData}
+                                          onChange={this.changeHandle}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Grouped List"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A simple grouped List.
+                                </p>
+
+                                <Paper style={{width: 240}}>
+                                    <List style={{width: 240}}
+                                          mode={List.Mode.CHECKBOX}
+                                          isGrouped={true}
+                                          items={this.groupedListData}
                                           onChange={this.changeHandle}/>
                                 </Paper>
 

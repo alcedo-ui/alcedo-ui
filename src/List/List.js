@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ListItem from '../_ListItem';
+import ListItem from '../ListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -22,6 +22,7 @@ export default class List extends Component {
 
         this.initValue = this::this.initValue;
         this.isItemChecked = this::this.isItemChecked;
+        this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
         this.listItemsRenderer = this::this.listItemsRenderer;
         this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
         this.listItemSelectHandle = this::this.listItemSelectHandle;
@@ -73,11 +74,21 @@ export default class List extends Component {
 
     }
 
+    listGroupedItemsRenderer(items = this.props.items) {
+        return _.isObject(items) ?
+            Object.keys(items).map((groupName, groupIndex) => ([
+                <ListItem key={`group${groupIndex}`}
+                          text={groupName}
+                          isGroupName={true}/>,
+                ...this.listItemsRenderer(items[groupName])
+            ]))
+            :
+            null;
+    }
+
     listItemsRenderer(items = this.props.items) {
 
-        const {
-            valueField, displayField, disabled, isLoading, mode
-        } = this.props;
+        const {valueField, displayField, disabled, isLoading, mode} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -145,6 +156,7 @@ export default class List extends Component {
 
         if (mode !== List.Mode.NORMAL) {
             callback();
+            return;
         }
 
         this.setState({
@@ -219,20 +231,12 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, disabled, isGrouped} = this.props,
+        const {children, className, style, disabled, isGrouped} = this.props,
             listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
 
         let renderEl;
         if (isGrouped) {
-            renderEl = _.isObject(items) ?
-                Object.keys(items).map((groupName, groupIndex) => ([
-                    <ListItem key={`group${groupIndex}`}
-                              className="list-group-name"
-                              text={groupName}/>,
-                    ...this.listItemsRenderer(items[groupName])
-                ]))
-                :
-                null;
+            renderEl = this.listGroupedItemsRenderer();
         } else {
             renderEl = this.listItemsRenderer();
         }
@@ -398,6 +402,11 @@ List.propTypes = {
     /**
      *
      */
+    allowGroupedSelect: PropTypes.bool,
+
+    /**
+     *
+     */
     onItemTouchTap: PropTypes.func,
 
     /**
@@ -418,6 +427,7 @@ List.defaultProps = {
     displayField: 'text',
     disabled: false,
     mode: ListItem.Mode.NORMAL,
-    isGrouped: false
+    isGrouped: false,
+    allowGroupedSelect: false
 
 };
