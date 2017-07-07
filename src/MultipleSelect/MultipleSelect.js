@@ -22,7 +22,6 @@ export default class MultipleSelect extends Component {
 
         this.state = {
             selectedCollapsed: true,
-            isFocused: false,
             value: null,
             filter: '',
             popupVisible: false,
@@ -54,7 +53,7 @@ export default class MultipleSelect extends Component {
         }
 
         const {top} = Util.getOffset(multipleSelect),
-            scrollTop = SCROLL_EL.scrollTop || document.body.scrollTop;
+            scrollTop = SCROLL_EL ? SCROLL_EL.scrollTop : document.body.scrollTop;
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
@@ -142,7 +141,6 @@ export default class MultipleSelect extends Component {
         const {disabled, onFocus} = this.props;
 
         !disabled && this.setState({
-            isFocused: true,
             popupVisible: true
         }, () => {
             onFocus && onFocus();
@@ -154,11 +152,7 @@ export default class MultipleSelect extends Component {
 
         const {disabled, onBlur} = this.props;
 
-        !disabled && this.setState({
-            isFocused: false
-        }, () => {
-            onBlur && onBlur();
-        });
+        !disabled && onBlur && onBlur();
 
     }
 
@@ -234,14 +228,12 @@ export default class MultipleSelect extends Component {
                 className, popupClassName, style, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
             } = this.props,
-            {selectedCollapsed, isFocused, isAbove, value, filter, popupVisible, filteredData} = this.state,
-
+            {selectedCollapsed, isAbove, value, filter, popupVisible, filteredData} = this.state,
             valueLen = (value ? value.length : 0),
 
-            multipleSelectClassName = (isFocused ? ' focused' : '') + (valueLen > 0 ? ' not-empty' : '')
-                + (className ? ' ' + className : ''),
+            multipleSelectClassName = (valueLen > 0 ? ' not-empty' : '') + (popupVisible ? ' activated' : '')
+                + (isAbove ? ' above' : ' blow') + (className ? ' ' + className : ''),
             selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
             autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
 
         return (
@@ -295,7 +287,7 @@ export default class MultipleSelect extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'multiple-select-trigger' + triggerClassName}
+                           className="multiple-select-trigger"
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}

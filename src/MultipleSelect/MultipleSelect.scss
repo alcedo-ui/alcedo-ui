@@ -3,9 +3,7 @@
 .multiple-select {
 
     .multiple-select-selected-wrapper {
-
         @include float-fix;
-
         position: relative;
         box-sizing: border-box;
         width: 100%;
@@ -18,13 +16,7 @@
         border-top-right-radius: 4px;
         cursor: default;
         user-select: none;
-
-        &.above {
-            &.activated {
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-            }
-        }
+        transition: all $transition-duration ease-in-out;
 
         .multiple-select-selected-count {
             margin: 4px;
@@ -78,18 +70,41 @@
     }
 
     .multiple-select-trigger {
+        @include shadow(0);
+        transition: all $transition-duration ease-in-out;
 
-        &.blow {
-            &.activated {
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
+        &.focused {
+            border-color: $theme-title-bg;
+        }
+    }
+
+    &.activated {
+        .multiple-select-selected-wrapper,
+        .multiple-select-trigger {
+            @include shadow(4);
+        }
+
+        .multiple-select-trigger.blow {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    &.above {
+        &.activated {
+            .multiple-select-selected-wrapper {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
             }
         }
     }
 
-    &.focused {
-        .multiple-select-selected-wrapper {
-            border-color: lighten($theme-title, 20%);
+    &.blow {
+        &.activated {
+            .multiple-select-trigger {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
     }
 
@@ -103,6 +118,8 @@
 
 .multiple-select-popup {
     max-height: 300px;
+    box-sizing: border-box;
+    border: 1px solid $theme-title-bg;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     overflow-y: auto;
@@ -124,10 +141,12 @@
     &.above {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        border-bottom: none;
     }
 
     &.blow {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
+        border-top: none;
     }
 }
