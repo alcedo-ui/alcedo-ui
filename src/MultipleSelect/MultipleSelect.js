@@ -25,7 +25,6 @@ export default class MultipleSelect extends Component {
             value: null,
             filter: '',
             popupVisible: false,
-            filteredData: this.filterData('', props.data),
             isAbove: false
         };
 
@@ -101,16 +100,35 @@ export default class MultipleSelect extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {displayField, filterCallback} = this.props;
+        const {displayField, filterCallback, isGrouped} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
-        return data.filter(item => typeof item === 'object' && displayField in item ?
-            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-            :
-            item.toString().toUpperCase().includes(filter.toUpperCase()));
+        const filterFunc = (originData) => {
+            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase()));
+        };
+
+        if (isGrouped) {
+
+            let result = Object.assign(data);
+
+            for (let groupName in result) {
+                result[groupName] = filterFunc(result[groupName]);
+                if (result[groupName].length < 1) {
+                    delete result[groupName];
+                }
+            }
+
+            return result;
+
+        }
+
+        return filterFunc(data);
 
     }
 
@@ -157,20 +175,9 @@ export default class MultipleSelect extends Component {
     }
 
     filterChangeHandle(filter) {
-
-        const value = this.state.value,
-            state = {
-                filter,
-                filteredData: this.filterData(filter)
-            };
-
-        this.setState(state, () => {
-            if (state.value !== value) {
-                const {onChange} = this.props;
-                onChange && onChange(state.value);
-            }
+        this.setState({
+            filter
         });
-
     }
 
     closePopup() {
@@ -220,16 +227,39 @@ export default class MultipleSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, name, placeholder,
+                className, popupClassName, style, name, placeholder, isGrouped,
                 disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
             } = this.props,
-            {selectedCollapsed, isAbove, value, filter, popupVisible, filteredData} = this.state,
+            {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
+
+            emptyEl = [{
+                renderer() {
+                    return (
+                        <div className="no-matched-list-item">
+
+                            {
+                                noMatchedMsg ?
+                                    noMatchedMsg
+                                    :
+                                    <span>
+                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                        No matched value.
+                                    </span>
+                            }
+
+                        </div>
+                    );
+                }
+            }],
+
             valueLen = (value ? value.length : 0),
 
             multipleSelectClassName = (valueLen > 0 ? ' not-empty' : '') + (popupVisible ? ' activated' : '')
                 + (isAbove ? ' above' : ' blow') + (className ? ' ' + className : ''),
             selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
+            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+
+            listData = this.filterData();
 
         return (
             <div ref="multipleSelect"
@@ -305,28 +335,18 @@ export default class MultipleSelect extends Component {
                     <List className="multiple-select-list"
                           value={value}
                           mode={List.Mode.CHECKBOX}
-                          items={filteredData.length > 0 ?
-                              filteredData
-                              :
-                              [{
-                                  renderer() {
-                                      return (
-                                          <div className="no-matched-list-item">
-
-                                              {
-                                                  noMatchedMsg ?
-                                                      noMatchedMsg
-                                                      :
-                                                      <span>
-                                                          <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                                          No matched value.
-                                                      </span>
-                                              }
-
-                                          </div>
-                                      );
-                                  }
-                              }]
+                          isGrouped={isGrouped}
+                          items={
+                              isGrouped ?
+                                  _.isEmpty(listData) ?
+                                      emptyEl
+                                      :
+                                      listData
+                                  :
+                                  listData.length < 1 ?
+                                      emptyEl
+                                      :
+                                      listData
                           }
                           valueField={valueField}
                           displayField={displayField}
@@ -370,69 +390,75 @@ MultipleSelect.propTypes = {
     /**
      * Children passed into the List.
      */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.oneOfType([
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-        /**
-         * The text value of the list button.Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
 
-    }), PropTypes.string, PropTypes.number])).isRequired,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        PropTypes.object
+
+    ]).isRequired,
 
     /**
      * If true, the auto complete will be disabled.
