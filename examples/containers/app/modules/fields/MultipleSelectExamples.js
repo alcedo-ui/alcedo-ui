@@ -47,8 +47,9 @@ export default class MultipleSelectExamples extends Component {
             value: []
         };
 
-        this.groupedListData = {
-            socialNetwork: [{
+        this.groupedData = [{
+            name: 'socialNetwork',
+            children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
@@ -60,8 +61,10 @@ export default class MultipleSelectExamples extends Component {
                 iconCls: 'fa fa-google-plus',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
-            }],
-            device: [{
+            }]
+        }, {
+            name: 'device',
+            children: [{
                 iconCls: 'fa fa-android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
@@ -74,7 +77,7 @@ export default class MultipleSelectExamples extends Component {
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
             }]
-        };
+        }];
 
         this.onChangeHandle = this::this.onChangeHandle;
         this.onChangeHandleDisabled = this::this.onChangeHandleDisabled;
@@ -151,7 +154,7 @@ export default class MultipleSelectExamples extends Component {
                                 <div className="field-group">
                                     <label className="multiple-select-label">Number</label>
                                     <MultipleSelect isGrouped={true}
-                                                    data={this.groupedListData}/>
+                                                    data={this.groupedData}/>
                                 </div>
 
                             </div>

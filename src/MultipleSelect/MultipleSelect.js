@@ -117,14 +117,14 @@ export default class MultipleSelect extends Component {
 
             let result = Object.assign(data);
 
-            for (let groupName in result) {
-                result[groupName] = filterFunc(result[groupName]);
-                if (result[groupName].length < 1) {
-                    delete result[groupName];
+            for (let i = 0, len = result.length; i < len; i++) {
+                let group = result[i];
+                group.children = filterFunc(group.children);
+                if (group.children.length < 1) {
+                    result.splice(i, 1);
+                    i--;
                 }
             }
-
-            return result;
 
         }
 
@@ -336,18 +336,7 @@ export default class MultipleSelect extends Component {
                           value={value}
                           mode={List.Mode.CHECKBOX}
                           isGrouped={isGrouped}
-                          items={
-                              isGrouped ?
-                                  _.isEmpty(listData) ?
-                                      emptyEl
-                                      :
-                                      listData
-                                  :
-                                  listData.length < 1 ?
-                                      emptyEl
-                                      :
-                                      listData
-                          }
+                          items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           onChange={this.changeHandle}/>
@@ -392,6 +381,7 @@ MultipleSelect.propTypes = {
      */
     data: PropTypes.oneOfType([
 
+        // not grouped
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
             /**
@@ -456,7 +446,8 @@ MultipleSelect.propTypes = {
 
         }), PropTypes.string, PropTypes.number])),
 
-        PropTypes.object
+        // grouped
+        PropTypes.array
 
     ]).isRequired,
 

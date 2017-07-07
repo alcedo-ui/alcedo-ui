@@ -132,7 +132,7 @@ export default class DropdownSelect extends Component {
             for (let i = 0, len = result.length; i < len; i++) {
                 let group = result[i];
                 group.children = filterFunc(group.children);
-                if (result[groupName].length < 1) {
+                if (group.children.length < 1) {
                     result.splice(i, 1);
                     i--;
                 }
