@@ -22,6 +22,7 @@ export default class List extends Component {
 
         this.initValue = this::this.initValue;
         this.isItemChecked = this::this.isItemChecked;
+        this.listItemsRenderer = this::this.listItemsRenderer;
         this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
         this.listItemSelectHandle = this::this.listItemSelectHandle;
         this.listItemDeselectHandle = this::this.listItemDeselectHandle;
@@ -69,6 +70,68 @@ export default class List extends Component {
         } else if (mode === List.Mode.RADIO) {
             return value == item;
         }
+
+    }
+
+    listItemsRenderer(items = this.props.items) {
+
+        const {
+            valueField, displayField, disabled, isLoading, mode
+        } = this.props;
+
+        return _.isArray(items) && items.length > 0 ?
+            (
+                items.map((item, index) => {
+
+                    if (!item) {
+                        return null;
+                    }
+
+                    return typeof item === 'object' ?
+                        (
+                            <ListItem key={index}
+                                      {...item}
+                                      checked={this.isItemChecked(item)}
+                                      value={item[valueField]}
+                                      text={item[displayField]}
+                                      disabled={disabled || item.disabled}
+                                      isLoading={isLoading || item.isLoading}
+                                      mode={mode}
+                                      onTouchTap={() => {
+                                          this.listItemTouchTapHandle(item);
+                                          item.onTouchTap && item.onTouchTap();
+                                      }}
+                                      onSelect={() => {
+                                          this.listItemSelectHandle(item);
+                                      }}
+                                      onDeselect={() => {
+                                          this.listItemDeselectHandle(item);
+                                      }}/>
+                        )
+                        :
+                        (
+                            <ListItem key={index}
+                                      checked={this.isItemChecked(item)}
+                                      value={item}
+                                      text={item}
+                                      disabled={disabled}
+                                      isLoading={isLoading}
+                                      mode={mode}
+                                      onTouchTap={() => {
+                                          this.listItemTouchTapHandle(item);
+                                      }}
+                                      onSelect={() => {
+                                          this.listItemSelectHandle(item);
+                                      }}
+                                      onDeselect={() => {
+                                          this.listItemDeselectHandle(item);
+                                      }}/>
+                        );
+
+                })
+            )
+            :
+            null;
 
     }
 
@@ -156,74 +219,35 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, items, valueField, displayField, disabled, isLoading, mode} = this.props,
-            listClassName = (className ? ' ' + className : '');
+        const {children, className, style, items, disabled, isGrouped} = this.props,
+            listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
+
+        let renderEl;
+        if (isGrouped) {
+            renderEl = _.isObject(items) ?
+                Object.keys(items).map((groupName, groupIndex) => ([
+                    <ListItem key={`group${groupIndex}`}
+                              className="list-group-name"
+                              text={groupName}/>,
+                    ...this.listItemsRenderer(items[groupName])
+                ]))
+                :
+                null;
+        } else {
+            renderEl = this.listItemsRenderer();
+        }
 
         return (
-            <div className={'list' + (listClassName)}
+            <div className={'list' + listClassName}
                  disabled={disabled}
                  style={style}>
 
-                {
-                    items.length > 0
-                        ? (
-                        items.map((item, index) => {
-
-                            if (!item) {
-                                return null;
-                            }
-
-                            return typeof item === 'object' ?
-                                (
-                                    <ListItem key={index}
-                                              {...item}
-                                              checked={this.isItemChecked(item)}
-                                              value={item[valueField]}
-                                              text={item[displayField]}
-                                              disabled={disabled || item.disabled}
-                                              isLoading={isLoading || item.isLoading}
-                                              mode={mode}
-                                              onTouchTap={() => {
-                                                  this.listItemTouchTapHandle(item);
-                                                  item.onTouchTap && item.onTouchTap();
-                                              }}
-                                              onSelect={() => {
-                                                  this.listItemSelectHandle(item);
-                                              }}
-                                              onDeselect={() => {
-                                                  this.listItemDeselectHandle(item);
-                                              }}/>
-                                )
-                                :
-                                (
-                                    <ListItem key={index}
-                                              checked={this.isItemChecked(item)}
-                                              value={item}
-                                              text={item}
-                                              disabled={disabled}
-                                              isLoading={isLoading}
-                                              mode={mode}
-                                              onTouchTap={() => {
-                                                  this.listItemTouchTapHandle(item);
-                                              }}
-                                              onSelect={() => {
-                                                  this.listItemSelectHandle(item);
-                                              }}
-                                              onDeselect={() => {
-                                                  this.listItemDeselectHandle(item);
-                                              }}/>
-                                );
-
-                        })
-                    )
-                        : null
-                }
+                {renderEl}
 
                 {children}
 
             </div>
         );
-
     }
 };
 
@@ -244,94 +268,102 @@ List.propTypes = {
     /**
      * Children passed into the ListItem.
      */
-    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    items: PropTypes.oneOfType([
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-        /**
-         * The text value of the list button.Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
-        /**
-         * The list item's display text. Type can be string, number or bool.
-         */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The list item's display text. Type can be string, number or bool.
+             */
+            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         *
-         */
-        checked: PropTypes.bool,
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
+            /**
+             *
+             */
+            checked: PropTypes.bool,
 
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-        /**
-         *
-         */
-        tip: PropTypes.string,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-        /**
-         *
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+            /**
+             *
+             */
+            tip: PropTypes.string,
 
-        /**
-         *
-         */
-        rippleDisplayCenter: PropTypes.bool,
+            /**
+             *
+             */
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+            /**
+             *
+             */
+            rippleDisplayCenter: PropTypes.bool,
 
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
 
-    }), PropTypes.string, PropTypes.number])).isRequired,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        // grouped
+        PropTypes.object
+
+    ]).isRequired,
 
     /**
      * The value field name in data. (default: "value")
@@ -361,6 +393,11 @@ List.propTypes = {
     /**
      *
      */
+    isGrouped: PropTypes.bool,
+
+    /**
+     *
+     */
     onItemTouchTap: PropTypes.func,
 
     /**
@@ -380,6 +417,7 @@ List.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     disabled: false,
-    mode: ListItem.Mode.NORMAL
+    mode: ListItem.Mode.NORMAL,
+    isGrouped: false
 
 };

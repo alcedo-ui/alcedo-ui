@@ -16,6 +16,60 @@ export default class ListExamples extends Component {
 
         super(props);
 
+        this.listData = [{
+            iconCls: 'fa fa-facebook',
+            text: 'Facebook'
+        }, {
+            iconCls: 'fa fa-twitter',
+            text: 'Twitter'
+        }, {
+            iconCls: 'fa fa-google-plus',
+            text: 'Google+'
+        }];
+
+        this.disabledListData = [{
+            iconCls: 'fa fa-firefox',
+            text: 'Firefox',
+            disabled: true
+        }, {
+            iconCls: 'fa fa-chrome',
+            text: 'Chrome'
+        }, {
+            iconCls: 'fa fa-safari',
+            text: 'Safari',
+            disabled: true
+        }];
+
+        this.descListData = [{
+            iconCls: 'fa fa-facebook',
+            text: 'Facebook',
+            desc: 'Here is a Facebook Desc.'
+        }, {
+            iconCls: 'fa fa-twitter',
+            text: 'Twitter',
+            desc: 'Here is a Twitter Desc.'
+        }, {
+            iconCls: 'fa fa-google-plus',
+            text: 'Google+',
+            desc: 'Here is a Google+ Desc.'
+        }];
+
+        this.groupedListData = {
+            socialNetwork: [{
+                iconCls: 'fa fa-facebook',
+                text: 'Facebook',
+                desc: 'Here is a Facebook Desc.'
+            }, {
+                iconCls: 'fa fa-twitter',
+                text: 'Twitter',
+                desc: 'Here is a Twitter Desc.'
+            }, {
+                iconCls: 'fa fa-google-plus',
+                text: 'Google+',
+                desc: 'Here is a Google+ Desc.'
+            }]
+        };
+
         this.changeHandle = this::this.changeHandle;
 
     }
@@ -49,16 +103,7 @@ export default class ListExamples extends Component {
                                 <p>A simple List with left icons.</p>
 
                                 <Paper>
-                                    <List items={[{
-                                        iconCls: 'fa fa-facebook',
-                                        text: 'Facebook'
-                                    }, {
-                                        iconCls: 'fa fa-twitter',
-                                        text: 'Twitter'
-                                    }, {
-                                        iconCls: 'fa fa-google-plus',
-                                        text: 'Google+'
-                                    }]}/>
+                                    <List items={this.listData}/>
                                 </Paper>
 
                             </div>
@@ -81,18 +126,7 @@ export default class ListExamples extends Component {
                                     items.</p>
 
                                 <Paper>
-                                    <List items={[{
-                                        iconCls: 'fa fa-firefox',
-                                        text: 'Firefox',
-                                        disabled: true
-                                    }, {
-                                        iconCls: 'fa fa-chrome',
-                                        text: 'Chrome'
-                                    }, {
-                                        iconCls: 'fa fa-safari',
-                                        text: 'Safari',
-                                        disabled: true
-                                    }]}/>
+                                    <List items={this.disabledListData}/>
                                 </Paper>
 
                             </div>
@@ -157,19 +191,33 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          items={[{
-                                              iconCls: 'fa fa-facebook',
-                                              text: 'Facebook',
-                                              desc: 'Here is a Facebook Desc.'
-                                          }, {
-                                              iconCls: 'fa fa-twitter',
-                                              text: 'Twitter',
-                                              desc: 'Here is a Twitter Desc.'
-                                          }, {
-                                              iconCls: 'fa fa-google-plus',
-                                              text: 'Google+',
-                                              desc: 'Here is a Google+ Desc.'
-                                          }]}/>
+                                          items={this.descListData}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Grouped List"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A simple grouped List.
+                                </p>
+
+                                <Paper style={{width: 240}}>
+                                    <List style={{width: 240}}
+                                          isGrouped={true}
+                                          items={this.groupedListData}/>
                                 </Paper>
 
                             </div>
@@ -195,19 +243,7 @@ export default class ListExamples extends Component {
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
                                           mode={List.Mode.CHECKBOX}
-                                          items={[{
-                                              iconCls: 'fa fa-facebook',
-                                              text: 'Facebook',
-                                              desc: 'Here is a Facebook Desc.'
-                                          }, {
-                                              iconCls: 'fa fa-twitter',
-                                              text: 'Twitter',
-                                              desc: 'Here is a Twitter Desc.'
-                                          }, {
-                                              iconCls: 'fa fa-google-plus',
-                                              text: 'Google+',
-                                              desc: 'Here is a Google+ Desc.'
-                                          }]}
+                                          items={this.descListData}
                                           onChange={this.changeHandle}/>
                                 </Paper>
 
@@ -234,19 +270,7 @@ export default class ListExamples extends Component {
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
                                           mode={List.Mode.RADIO}
-                                          items={[{
-                                              iconCls: 'fa fa-facebook',
-                                              text: 'Facebook',
-                                              desc: 'Here is a Facebook Desc.'
-                                          }, {
-                                              iconCls: 'fa fa-twitter',
-                                              text: 'Twitter',
-                                              desc: 'Here is a Twitter Desc.'
-                                          }, {
-                                              iconCls: 'fa fa-google-plus',
-                                              text: 'Google+',
-                                              desc: 'Here is a Google+ Desc.'
-                                          }]}
+                                          items={this.descListData}
                                           onChange={this.changeHandle}/>
                                 </Paper>
 
