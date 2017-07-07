@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
+import Checkbox from '../Checkbox';
 
 import './MultipleSelect.css';
 
@@ -19,13 +20,14 @@ export default class MultipleSelect extends Component {
 
         this.list = [];
         this.filterList = [];
-        this.optionHeight = 40;
-        this.maxOptionsHeight = 200;
+        this.optionHeight = 50;
+        this.maxOptionsHeight = 300;
 
         this.setPosition = this::this.setPosition;
         this.toggle = this::this.toggle;
         this.filterChangeHandle = this::this.filterChangeHandle;
         this.showAllToggle = this::this.showAllToggle;
+        this.getValue = this::this.getValue;
 
     }
 
@@ -162,7 +164,30 @@ export default class MultipleSelect extends Component {
         e.stopPropagation();
 
         let value = this.props.value.slice();
-        value.push(item);
+        if(typeof item == 'object'){
+            let flag = false;
+           for(let i =0; i< value.length;i++){
+               if(item.key == value[i].key){
+                   flag = true;
+                   break;
+               }
+           }
+           if(flag){
+               let evens = _.remove(value, function(n) {
+                   return n.key == item.key;
+               });
+           }else{
+               value.push(item);
+           }
+        }else{
+            if(value.includes(item)){
+                let evens = _.remove(value, function(n) {
+                    return n == item
+                });
+            }else{
+                value.push(item);
+            }
+        }
         this.setState({
             filter: ''
         }, () => {
@@ -179,34 +204,22 @@ export default class MultipleSelect extends Component {
         });
     }
 
-    getRestList(data, value) {
-
-        let list = [];
-        // debugger
-        for (let dataItem of data) {
-
-            if (value && value.length) {
-                let flag = false;
-                for (let valueItem of value) {
-                    if (typeof dataItem == 'object' && dataItem.key === valueItem.key) {
-                        flag = true;
-                        break;
-                    } else if (dataItem === valueItem) {
-                        flag = true;
-                        break;
-                    }
+    getValue(item) {
+        let value = this.props.value.slice();
+        let flag = false;
+        if(typeof item == 'object'){
+            for(let i =0; i< value.length;i++){
+                if(item.key == value[i].key){
+                    flag = true;
+                    break;
                 }
-
-                if (!flag) {
-                    list.push(dataItem);
-                }
-            } else {
-                list.push(dataItem);
+            }
+        }else{
+            if(value.includes(item)){
+                flag = true;
             }
         }
-
-        return list;
-
+        return flag
     }
 
     getFilterList(list, filter) {
@@ -246,13 +259,13 @@ export default class MultipleSelect extends Component {
         const {hidden, filter, showAll} = this.state;
         const {
             optionHeight, maxOptionsHeight, deselect, select, filterChangeHandle,
-            getRestList, getFilterList
+            getValue, getFilterList
         } = this;
 
-        this.list = getRestList(data, value);
+        // this.list = getRestList(data, value);
 
-        this.filterList = getFilterList(this.list, filter);
-
+        this.filterList = getFilterList(data, filter);
+        console.log(this.filterList)
         let componentWidth = width || '100%';
 
         const triggerStyle = {
@@ -396,44 +409,35 @@ export default class MultipleSelect extends Component {
                             null
                             :
                             (
-                                this.list.length == 0 ?
+                                this.filterList.length == 0 ?
                                     <div ref="options"
                                          className="options"
                                          style={emptyOptionsStyle}>
                                         <div className="option disabled"
                                              style={optionStyle}>
-                                            All options are selected
+                                            No value matched
                                         </div>
                                     </div>
                                     :
-                                    (
-                                        this.filterList.length == 0 ?
-                                            <div ref="options"
-                                                 className="options"
-                                                 style={emptyOptionsStyle}>
-                                                <div className="option disabled"
-                                                     style={optionStyle}>
-                                                    No value matched
-                                                </div>
-                                            </div>
-                                            :
-                                            <div ref="options"
-                                                 className="options"
-                                                 style={optionsStyle}>
-                                                {
-                                                    this.filterList.map((item, index) => {
-                                                        return (
-                                                            <div key={index}
-                                                                 className="option"
-                                                                 style={optionStyle}
-                                                                 onClick={select.bind(this, item)}>
-                                                                {typeof item == 'object' ? item.text : item}
-                                                            </div>
-                                                        );
-                                                    })
-                                                }
-                                            </div>
-                                    )
+                                    <div ref="options"
+                                         className="options"
+                                         style={optionsStyle}>
+                                        {
+                                            this.filterList.map((item, index) => {
+                                                let itemValue = getValue(item);
+                                                return (
+                                                    <div key={index}
+                                                         className="option"
+                                                         style={optionStyle}
+                                                         onClick={select.bind(this, item)}>
+                                                        <Checkbox label={typeof item == 'object' ? item.text : item}
+                                                                  value={itemValue}
+                                                        />
+                                                    </div>
+                                                );
+                                            })
+                                        }
+                                    </div>
                             )
                     }
                 </div>

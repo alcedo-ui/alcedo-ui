@@ -118,7 +118,6 @@ export default class MultipleSelectExamples extends Component {
                                     <MultipleSelect className="multiple-select"
                                                     data={data}
                                                     value={value2}
-                                                    disabled={true}
                                                     infoMsg="please select number"
                                                     onChange={(value)=> {
                                                         this.onChangeHandleDisabled(value)
