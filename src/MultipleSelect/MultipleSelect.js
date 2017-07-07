@@ -277,7 +277,7 @@ export default class MultipleSelect extends Component {
                                 }
 
                                 <IconButton className="multiple-select-selected-collapse-button"
-                                            iconCls="fa fa-angle-double-down"
+                                            iconCls="fa fa-angle-double-up"
                                             onTouchTap={this.toggleSelectedCollapse}/>
 
                             </div>
@@ -480,6 +480,11 @@ MultipleSelect.propTypes = {
     noMatchedMsg: PropTypes.string,
 
     /**
+     *
+     */
+    isGrouped: PropTypes.bool,
+
+    /**
      * select callback.
      */
     onChange: PropTypes.func,
@@ -511,6 +516,7 @@ MultipleSelect.defaultProps = {
     autoClose: false,
     iconCls: '',
     rightIconCls: '',
-    noMatchedMsg: ''
+    noMatchedMsg: '',
+    isGrouped: false
 
 };

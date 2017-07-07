@@ -63,8 +63,12 @@
         }
 
         &.collapsed {
-            height: 40px;
+            height: 41px;
             overflow: hidden;
+
+            .multiple-select-selected-collapse-button .button-icon {
+                transform: rotate(180deg);
+            }
         }
 
     }
