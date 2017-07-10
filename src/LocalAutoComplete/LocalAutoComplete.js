@@ -341,7 +341,7 @@ LocalAutoComplete.propTypes = {
             /**
              * The theme of the list button.
              */
-            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
             /**
              * The text value of the list button.Type can be string or number.
