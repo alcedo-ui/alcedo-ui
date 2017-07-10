@@ -26,8 +26,6 @@ export default class DropdownSelect extends Component {
         };
 
         this.isAbove = this::this.isAbove;
-        this.getValue = this::this.getValue;
-        this.getText = this::this.getText;
         this.filterChangeHandle = this::this.filterChangeHandle;
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
@@ -47,49 +45,13 @@ export default class DropdownSelect extends Component {
         }
 
         const {top} = Util.getOffset(dropdownSelect),
-            scrollTop = SCROLL_EL.scrollTop || document.body.scrollTop;
+            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
         }
 
         return false;
-
-    }
-
-    getValue(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {valueField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[valueField];
-            }
-            default:
-                return data;
-        }
-
-    }
-
-    getText(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {displayField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[displayField];
-            }
-            default:
-                return data;
-        }
 
     }
 
@@ -113,12 +75,34 @@ export default class DropdownSelect extends Component {
 
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {displayField} = this.props;
+        if (!filter) {
+            return data;
+        }
 
-        return data.filter(item => typeof item === 'object' && !!item[displayField] ?
-            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-            :
-            item.toString().toUpperCase().includes(filter.toUpperCase()));
+        const {displayField, isGrouped} = this.props,
+            filterFunc = (originData) => {
+                return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                    item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                    :
+                    item.toString().toUpperCase().includes(filter.toUpperCase()));
+            };
+
+        if (isGrouped) {
+
+            let result = Object.assign(data);
+
+            for (let i = 0, len = result.length; i < len; i++) {
+                let group = result[i];
+                group.children = filterFunc(group.children);
+                if (group.children.length < 1) {
+                    result.splice(i, 1);
+                    i--;
+                }
+            }
+
+        }
+
+        return filterFunc(data);
 
     }
 
@@ -158,6 +142,11 @@ export default class DropdownSelect extends Component {
         });
     }
 
+    componentDidMount() {
+        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.triggerHeight = this.triggerEl.clientHeight;
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
@@ -166,19 +155,34 @@ export default class DropdownSelect extends Component {
         }
     }
 
-    componentDidMount() {
-        this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
-    }
-
     render() {
 
         const {
-                className, popupClassName, style, name, placeholder,
-                disabled, multi, data, useFilter, valueField, displayField, noMatchedMsg,
-                triggerTheme
+                className, popupClassName, style, popupStyle, name, placeholder,
+                disabled, multi, useFilter, valueField, displayField, noMatchedMsg,
+                triggerTheme, isGrouped
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
+
+            emptyEl = [{
+                renderer() {
+                    return (
+                        <div className="no-matched-list-item">
+
+                            {
+                                noMatchedMsg ?
+                                    noMatchedMsg
+                                    :
+                                    <span>
+                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                        No matched value.
+                                    </span>
+                            }
+
+                        </div>
+                    );
+                }
+            }],
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
@@ -192,18 +196,18 @@ export default class DropdownSelect extends Component {
                                 placeholder
                         )
                         :
-                        this.getText(value)
+                        Util.getTextByDisplayField(value, displayField, valueField)
                 )
                 :
                 placeholder,
 
             dropdownSelectPopupClassName = (isAbove ? ' above' : ' blow')
                 + (popupClassName ? ' ' + popupClassName : ''),
-            popupStyle = {
+            dropdownPopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            },
+            }, popupStyle),
 
-            listData = this.filterData(filter, data);
+            listData = this.filterData();
 
         return (
             <div ref="dropdownSelect"
@@ -214,7 +218,7 @@ export default class DropdownSelect extends Component {
                     name ?
                         <input type="hidden"
                                name={name}
-                               value={value}/>
+                               value={Util.getValueByValueField(value, valueField, displayField)}/>
                         :
                         null
                 }
@@ -229,7 +233,7 @@ export default class DropdownSelect extends Component {
 
                 <Popup ref="popup"
                        className={'dropdown-select-popup' + dropdownSelectPopupClassName}
-                       style={popupStyle}
+                       style={dropdownPopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -250,29 +254,8 @@ export default class DropdownSelect extends Component {
                     <List className="dropdown-select-list"
                           value={value}
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.RADIO}
-                          items={listData.length > 0 ?
-                              listData
-                              :
-                              [{
-                                  renderer() {
-                                      return (
-                                          <div className="no-matched-list-item">
-
-                                              {
-                                                  noMatchedMsg ?
-                                                      noMatchedMsg
-                                                      :
-                                                      <span>
-                                                          <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                                          No matched value.
-                                                      </span>
-                                              }
-
-                                          </div>
-                                      );
-                                  }
-                              }]
-                          }
+                          isGrouped={isGrouped}
+                          items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           onItemTouchTap={this.itemTouchTapHandle}
@@ -304,6 +287,11 @@ DropdownSelect.propTypes = {
     style: PropTypes.object,
 
     /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
+
+    /**
      * The name of the dropDownSelect.
      */
     name: PropTypes.string,
@@ -321,69 +309,77 @@ DropdownSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.oneOfType([
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-        /**
-         * The text value of the list button.Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
 
-    }), PropTypes.string, PropTypes.number])).isRequired,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        // grouped
+        PropTypes.array
+
+    ]).isRequired,
 
     /**
      * The invalid message of dropDownSelect.
@@ -443,6 +439,11 @@ DropdownSelect.propTypes = {
     /**
      *
      */
+    isGrouped: PropTypes.bool,
+
+    /**
+     *
+     */
     onTtemTouchTap: PropTypes.func,
 
     /**
@@ -457,6 +458,7 @@ DropdownSelect.defaultProps = {
     className: '',
     popupClassName: '',
     style: null,
+    popupStyle: null,
 
     name: '',
     value: null,
@@ -471,6 +473,7 @@ DropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     noMatchedMsg: '',
-    triggerTheme: Theme.DEFAULT
+    triggerTheme: Theme.DEFAULT,
+    isGrouped: false
 
 };

@@ -44,9 +44,17 @@ export default class BriefPagging extends Component {
         const {count, page, total, pageSize} = this.props;
 
         return (
-            <div className="brief-pagging-wrapper">
+            <div className="brief-pagging">
 
-                <div className="brief-pagging">
+                <div className="brief-pagging-left">
+
+                    <div className="brief-pagging-totle">
+                        {`totle: ${count}`}
+                    </div>
+
+                </div>
+
+                <div className="brief-pagging-right">
 
                     <PaggingSize pageSize={pageSize}
                                  onPageSizeChange={this.pageSizeChangedHandle}/>
