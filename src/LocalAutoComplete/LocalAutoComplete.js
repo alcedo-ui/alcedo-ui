@@ -198,7 +198,8 @@ export default class LocalAutoComplete extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
-                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg, onFilterPressEnter
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
+                onFilterPressEnter
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -274,6 +275,7 @@ export default class LocalAutoComplete extends Component {
                           items={isEmpty ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
+                          descriptionField={descriptionField}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -283,6 +285,8 @@ export default class LocalAutoComplete extends Component {
     }
 
 };
+
+LocalAutoComplete.Mode = List.Mode;
 
 LocalAutoComplete.propTypes = {
 
@@ -407,9 +411,19 @@ LocalAutoComplete.propTypes = {
     displayField: PropTypes.string,
 
     /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
+
+    /**
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    /**
+     *
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
      * Callback function fired when value changed.
@@ -476,6 +490,7 @@ LocalAutoComplete.defaultProps = {
     disabled: false,
     valueField: 'value',
     displayField: 'text',
+    descriptionField: 'desc',
     autoClose: false,
     iconCls: '',
     rightIconCls: '',

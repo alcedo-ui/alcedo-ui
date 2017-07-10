@@ -107,7 +107,7 @@ export default class List extends Component {
 
     listItemsRenderer(items = this.props.items) {
 
-        const {valueField, displayField, disabled, isLoading, mode} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -124,6 +124,7 @@ export default class List extends Component {
                                       checked={this.isItemChecked(item)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
                                       text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                      desc={item[descriptionField] || null}
                                       disabled={disabled || item.disabled}
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
@@ -403,6 +404,11 @@ List.propTypes = {
     displayField: PropTypes.string,
 
     /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
+
+    /**
      * If true, the list will be disabled.
      */
     disabled: PropTypes.bool,
@@ -443,6 +449,7 @@ List.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
+    descriptionField: 'desc',
     disabled: false,
     mode: ListItem.Mode.NORMAL,
     isGrouped: false
