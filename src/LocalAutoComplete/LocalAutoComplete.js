@@ -7,7 +7,7 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
-import Util from 'vendors/Util';
+import Util from '../_vendors/Util';
 
 import './LocalAutoComplete.css';
 
@@ -20,16 +20,13 @@ export default class LocalAutoComplete extends Component {
         this.triggerEl = null;
 
         this.state = {
-            value: null,
+            value: props.value,
             filter: '',
             popupVisible: false,
-            filteredData: this.filterData('', props.data),
             isAbove: false
         };
 
         this.isAbove = this::this.isAbove;
-        this.getValue = this::this.getValue;
-        this.getText = this::this.getText;
         this.filterData = this::this.filterData;
         this.focusHandle = this::this.focusHandle;
         this.blurHandle = this::this.blurHandle;
@@ -49,7 +46,7 @@ export default class LocalAutoComplete extends Component {
         }
 
         const {top} = Util.getOffset(autoComplete),
-            scrollTop = SCROLL_EL.scrollTop || document.body.scrollTop;
+            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
@@ -59,54 +56,43 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    getValue(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {valueField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[valueField];
-            }
-            default:
-                return data;
-        }
-
-    }
-
-    getText(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {displayField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[displayField];
-            }
-            default:
-                return data;
-        }
-
-    }
-
     filterData(filter = this.state.filter, data = this.props.data) {
 
-        const {displayField, filterCallback} = this.props;
+        if (!filter) {
+            return data;
+        }
+
+        const {displayField, filterCallback, isGrouped} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
-        return data.filter(item => typeof item === 'object' && displayField in item ?
-            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-            :
-            item.toString().toUpperCase().includes(filter.toUpperCase()));
+        const filterFunc = (originData) => {
+            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase()));
+        };
+
+        if (isGrouped) {
+            return data.map(group => {
+
+                const children = filterFunc(group.children);
+
+                if (children.length < 1) {
+                    return;
+                } else {
+                    return {
+                        ...group,
+                        children
+                    };
+                }
+
+            }).filter(item => !!item);
+        }
+
+        return filterFunc(data);
 
     }
 
@@ -133,8 +119,7 @@ export default class LocalAutoComplete extends Component {
         const value = this.state.value,
             state = {
                 filter,
-                popupVisible: !!filter,
-                filteredData: this.filterData(filter)
+                popupVisible: !!filter
             };
 
         if (!filter) {
@@ -142,10 +127,16 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
+
             if (state.value !== value) {
-                const {onChange} = this.props;
+
+                const {onFilterChange, onChange} = this.props;
+
+                onFilterChange && onFilterChange(filter);
                 onChange && onChange(state.value);
+
             }
+
         });
 
     }
@@ -173,10 +164,10 @@ export default class LocalAutoComplete extends Component {
 
     changeHandle(value) {
 
-        const {autoClose} = this.props,
+        const {autoClose, valueField, displayField} = this.props,
             state = {
                 value,
-                filter: this.getText(value)
+                filter: Util.getTextByDisplayField(value, displayField, valueField)
             };
 
         if (autoClose) {
@@ -195,32 +186,67 @@ export default class LocalAutoComplete extends Component {
         this.triggerHeight = this.triggerEl.clientHeight;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
+    }
+
     render() {
 
         const {
-                className, popupClassName, style, name, placeholder,
-                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
+                className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
+                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg, onFilterPressEnter
             } = this.props,
-            {isAbove, value, filter, popupVisible, filteredData} = this.state,
+            {isAbove, value, filter, popupVisible} = this.state,
+
+            emptyEl = [{
+                renderer() {
+                    return (
+                        <div className="no-matched-list-item">
+
+                            {
+                                noMatchedMsg ?
+                                    noMatchedMsg
+                                    :
+                                    <span>
+                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                        No matched value.
+                                    </span>
+                            }
+
+                        </div>
+                    );
+                }
+            }],
+
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
+            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            autoCompletePopupStyle = Object.assign({
+                width: this.triggerEl && getComputedStyle(this.triggerEl).width
+            }, popupStyle),
+
+            listData = this.filterData(),
+            isEmpty = listData.length < 1;
 
         return (
             <div ref="autoComplete"
-                 className={`auto-complete ${className}`}
+                 className={`local-auto-complete ${className}`}
                  style={style}>
 
                 {
                     name ?
                         <input type="hidden"
                                name={name}
-                               value={this.getValue(value)}/>
+                               value={Util.getValueByValueField(value, valueField, displayField)}/>
                         :
                         null
                 }
 
                 <TextField ref="trigger"
-                           className={'auto-complete-trigger' + triggerClassName}
+                           className={'local-auto-complete-trigger' + triggerClassName}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
@@ -228,10 +254,11 @@ export default class LocalAutoComplete extends Component {
                            rightIconCls={rightIconCls || 'fa fa-search'}
                            onFocus={this.focusHandle}
                            onBlur={this.blurHandle}
-                           onChange={this.filterChangeHandle}/>
+                           onChange={this.filterChangeHandle}
+                           onPressEnter={onFilterPressEnter}/>
 
-                <Popup className={'auto-complete-popup' + autoCompletePopupClassName}
-                       style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
+                <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
+                       style={autoCompletePopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -240,32 +267,11 @@ export default class LocalAutoComplete extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <List className="auto-complete-list"
+                    <List className="local-auto-complete-list"
                           value={value}
-                          mode={filteredData.length > 0 ? List.Mode.RADIO : List.Mode.NORMAL}
-                          items={filteredData.length > 0 ?
-                              filteredData
-                              :
-                              [{
-                                  renderer() {
-                                      return (
-                                          <div className="no-matched-list-item">
-
-                                              {
-                                                  noMatchedMsg ?
-                                                      noMatchedMsg
-                                                      :
-                                                      <span>
-                                                          <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                                          No matched value.
-                                                      </span>
-                                              }
-
-                                          </div>
-                                      );
-                                  }
-                              }]
-                          }
+                          mode={isEmpty ? List.Mode.NORMAL : List.Mode.RADIO}
+                          isGrouped={isEmpty ? false : isGrouped}
+                          items={isEmpty ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           onChange={this.changeHandle}/>
@@ -296,6 +302,11 @@ LocalAutoComplete.propTypes = {
     style: PropTypes.object,
 
     /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
+
+    /**
      * The name of the auto complete.
      */
     name: PropTypes.string,
@@ -308,69 +319,77 @@ LocalAutoComplete.propTypes = {
     /**
      * Children passed into the List.
      */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.oneOfType([
 
-        /**
-         * The CSS class name of the list button.
-         */
-        className: PropTypes.string,
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * Override the styles of the list button.
-         */
-        style: PropTypes.object,
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The theme of the list button.
-         */
-        theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-        /**
-         * The text value of the list button.Type can be string or number.
-         */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
-        /**
-         * The desc value of the list button. Type can be string or number.
-         */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true, the list button will be disabled.
-         */
-        disabled: PropTypes.bool,
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        /**
-         * If true,the button will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
 
-    }), PropTypes.string, PropTypes.number])).isRequired,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        // grouped
+        PropTypes.array
+
+    ]).isRequired,
 
     /**
      * If true, the auto complete will be disabled.
@@ -413,6 +432,21 @@ LocalAutoComplete.propTypes = {
     noMatchedMsg: PropTypes.string,
 
     /**
+     *
+     */
+    isGrouped: PropTypes.bool,
+
+    /**
+     *
+     */
+    onFilterChange: PropTypes.func,
+
+    /**
+     *
+     */
+    onFilterPressEnter: PropTypes.func,
+
+    /**
      * select callback.
      */
     onChange: PropTypes.func,
@@ -433,7 +467,8 @@ LocalAutoComplete.defaultProps = {
 
     className: '',
     popupClassName: '',
-    style: {},
+    style: null,
+    popupStyle: null,
 
     name: '',
     placeholder: '',
@@ -444,6 +479,7 @@ LocalAutoComplete.defaultProps = {
     autoClose: false,
     iconCls: '',
     rightIconCls: '',
-    noMatchedMsg: ''
+    noMatchedMsg: '',
+    isGrouped: false
 
 };

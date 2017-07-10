@@ -113,4 +113,16 @@ button:focus {
     &.theme-error {
         @include raised-button-theme(#fff, $error);
     }
+
+    &.list-group-name {
+        height: 30px;
+        line-height: 30px;
+        padding-left: 15px !important;
+        cursor: default;
+
+        &:hover,
+        &:active {
+            background: $theme-field;
+        }
+    }
 }

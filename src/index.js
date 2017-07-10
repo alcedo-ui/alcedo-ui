@@ -22,6 +22,7 @@ export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';
 export LinearProgress from './LinearProgress';
 export List from './List';
+export ListItem from './ListItem';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
 export MultipleSelect from './MultipleSelect';

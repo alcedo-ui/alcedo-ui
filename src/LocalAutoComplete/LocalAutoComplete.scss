@@ -1,13 +1,20 @@
 @import '../_common.scss';
 
-.auto-complete {
+.local-auto-complete {
 
-    .auto-complete-trigger {
+    .local-auto-complete-trigger {
+        @include shadow(0);
+        transition: all $transition-duration ease-in-out;
+
+        &.activated {
+            @include shadow(4);
+        }
 
         &.above {
             &.activated {
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
+                z-index: $popup-z-index + 1;
             }
         }
 
@@ -17,16 +24,22 @@
                 border-bottom-right-radius: 0;
             }
         }
+
+        &.focused {
+            border-color: $theme-title-bg;
+        }
     }
 }
 
-.auto-complete-popup {
-    max-height: 300px;
+.local-auto-complete-popup {
+    box-sizing: border-box;
+    max-height: 240px;
+    border: 1px solid $theme-title-bg;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     overflow-y: auto;
 
-    .auto-complete-list {
+    .local-auto-complete-list {
         width: 100%;
 
         .no-matched-list-item {
@@ -43,10 +56,12 @@
     &.above {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        border-bottom: none;
     }
 
     &.blow {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
+        border-top: none;
     }
 }

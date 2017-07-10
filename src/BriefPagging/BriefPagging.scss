@@ -1,13 +1,20 @@
 @import '../_common.scss';
 
-.brief-pagging-wrapper {
+.brief-pagging {
+    @include float-fix;
     height: 40px;
-    padding: 5px 10px;
+    padding: 5px 5px 5px 20px;
+    user-select: none;
+    cursor: default;
 
-    .brief-pagging {
+    .brief-pagging-left {
+        float: left;
+        line-height: 40px;
+    }
+
+    .brief-pagging-right {
         float: right;
         line-height: 40px;
-        user-select: none;
 
         .pagging-size {
             float: left;

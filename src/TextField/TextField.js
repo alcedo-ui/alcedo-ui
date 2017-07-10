@@ -95,10 +95,11 @@ export default class TextField extends Component {
 
     keydownHandle(e) {
 
-        const {type, onPressEnter} = this.props;
+        const {type, onPressEnter} = this.props,
+            {value} = this.state;
 
         if (e.keyCode === 13) {
-            onPressEnter && onPressEnter();
+            onPressEnter && onPressEnter(value);
         }
 
         if (type === 'number' && isNaN(e.key) && e.key !== '-' && e.keyCode !== 8) {
@@ -195,7 +196,7 @@ export default class TextField extends Component {
     render() {
 
         const {
-            className, style, type, name, placeholder, iconCls, disabled, infoMsg,
+            children, className, style, type, name, placeholder, iconCls, disabled, infoMsg,
             required, maxLength, max, min, readOnly, clearButtonVisible, rightIconCls, passwordButtonVisible
         } = this.props;
         const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
@@ -279,6 +280,8 @@ export default class TextField extends Component {
                         :
                         null
                 }
+
+                {children}
 
             </div>
         );

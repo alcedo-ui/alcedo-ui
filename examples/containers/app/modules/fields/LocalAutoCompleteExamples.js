@@ -30,14 +30,50 @@ export default class LocalAutoCompleteExamples extends Component {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
-        this.searchLength = 2;
+
+        this.groupedData = [{
+            name: 'socialNetwork',
+            children: [{
+                iconCls: 'fa fa-facebook',
+                text: 'Facebook',
+                desc: 'Here is a Facebook Desc.'
+            }, {
+                iconCls: 'fa fa-twitter',
+                text: 'Twitter',
+                desc: 'Here is a Twitter Desc.'
+            }, {
+                iconCls: 'fa fa-google-plus',
+                text: 'Google+',
+                desc: 'Here is a Google+ Desc.'
+            }]
+        }, {
+            name: 'device',
+            children: [{
+                iconCls: 'fa fa-android',
+                text: 'Android',
+                desc: 'Here is a Android Desc.'
+            }, {
+                iconCls: 'fa fa-apple',
+                text: 'Apple',
+                desc: 'Here is a Apple Desc.'
+            }, {
+                iconCls: 'fa fa-windows',
+                text: 'Windows',
+                desc: 'Here is a Windows Desc.'
+            }]
+        }];
 
         this.onChange = this::this.onChange;
+        this.filterPressEnterHandle = this::this.filterPressEnterHandle;
 
     }
 
     onChange(item) {
         console.log('select item: ', item);
+    }
+
+    filterPressEnterHandle(value) {
+        console.log('filter value: ', value);
     }
 
     render() {
@@ -65,6 +101,31 @@ export default class LocalAutoCompleteExamples extends Component {
                                 <p>Local Auto Complete simple default example.</p>
 
                                 <LocalAutoComplete data={this.data}
+                                                   placeholder="Please select ..."
+                                                   onChange={this.onChange}
+                                                   onFilterPressEnter={this.filterPressEnterHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="auto Complete Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Local Auto Complete simple default example.</p>
+
+                                <LocalAutoComplete popupStyle={{maxHeight: 300}}
+                                                   isGrouped={true}
+                                                   data={this.groupedData}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>
 
