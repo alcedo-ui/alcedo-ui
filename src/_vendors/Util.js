@@ -50,7 +50,7 @@ function getScrollHeight() {
 
 function getScrollTop() {
 
-    if (SCROLL_EL && SCROLL_EL.scrollTop) {
+    if (window.SCROLL_EL && window.SCROLL_EL.scrollTop) {
         return SCROLL_EL.scrollTop;
     }
 

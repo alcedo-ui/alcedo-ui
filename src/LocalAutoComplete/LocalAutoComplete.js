@@ -197,7 +197,7 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
+                className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
                 onFilterPressEnter
             } = this.props,
@@ -270,7 +270,7 @@ export default class LocalAutoComplete extends Component {
 
                     <List className="local-auto-complete-list"
                           value={value}
-                          mode={isEmpty ? List.Mode.NORMAL : List.Mode.RADIO}
+                          mode={isEmpty ? List.Mode.NORMAL : (mode || List.Mode.NORMAL)}
                           isGrouped={isEmpty ? false : isGrouped}
                           items={isEmpty ? emptyEl : listData}
                           valueField={valueField}
