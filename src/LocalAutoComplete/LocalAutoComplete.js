@@ -165,10 +165,16 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
+
             if (state.value !== value) {
-                const {onChange} = this.props;
+
+                const {onFilterChange, onChange} = this.props;
+
+                onFilterChange && onFilterChange(filter);
                 onChange && onChange(state.value);
+
             }
+
         });
 
     }
@@ -222,7 +228,7 @@ export default class LocalAutoComplete extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
-                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
+                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg, onFilterPressEnter
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -278,7 +284,8 @@ export default class LocalAutoComplete extends Component {
                            rightIconCls={rightIconCls || 'fa fa-search'}
                            onFocus={this.focusHandle}
                            onBlur={this.blurHandle}
-                           onChange={this.filterChangeHandle}/>
+                           onChange={this.filterChangeHandle}
+                           onPressEnter={onFilterPressEnter}/>
 
                 <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
                        style={autoCompletePopupStyle}
@@ -458,6 +465,16 @@ LocalAutoComplete.propTypes = {
      *
      */
     isGrouped: PropTypes.bool,
+
+    /**
+     *
+     */
+    onFilterChange: PropTypes.func,
+
+    /**
+     *
+     */
+    onFilterPressEnter: PropTypes.func,
 
     /**
      * select callback.

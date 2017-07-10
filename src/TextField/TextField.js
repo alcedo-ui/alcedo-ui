@@ -95,10 +95,11 @@ export default class TextField extends Component {
 
     keydownHandle(e) {
 
-        const {type, onPressEnter} = this.props;
+        const {type, onPressEnter} = this.props,
+            {value} = this.state;
 
         if (e.keyCode === 13) {
-            onPressEnter && onPressEnter();
+            onPressEnter && onPressEnter(value);
         }
 
         if (type === 'number' && isNaN(e.key) && e.key !== '-' && e.keyCode !== 8) {
