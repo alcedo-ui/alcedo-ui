@@ -16,36 +16,46 @@ export default class MultipleSelectExamples extends Component {
         super(props);
 
         this.state = {
-            data: [{
-                key: 1,
+            value: [{
+                value: 1,
                 text: 'one'
             }, {
-                key: 2,
-                text: 'two'
-            }, {
-                key: 3,
-                text: 'three'
-            }, {
-                key: 4,
-                text: 'four'
-            }, {
-                key: 5,
+                value: 5,
                 text: 'five'
             }, {
-                key: 6,
-                text: 'six'
-            }, {
-                key: 7,
-                text: 'seven'
-            }, {
-                key: 8,
-                text: 'eight'
-            }, {
-                key: 9,
+                value: 9,
                 text: 'nine'
-            }],
-            value: []
+            }]
         };
+
+        this.data = [{
+            value: 1,
+            text: 'one'
+        }, {
+            value: 2,
+            text: 'two'
+        }, {
+            value: 3,
+            text: 'three'
+        }, {
+            value: 4,
+            text: 'four'
+        }, {
+            value: 5,
+            text: 'five'
+        }, {
+            value: 6,
+            text: 'six'
+        }, {
+            value: 7,
+            text: 'seven'
+        }, {
+            value: 8,
+            text: 'eight'
+        }, {
+            value: 9,
+            text: 'nine'
+        }];
 
         this.groupedData = [{
             name: 'socialNetwork',
@@ -80,7 +90,6 @@ export default class MultipleSelectExamples extends Component {
         }];
 
         this.onChangeHandle = this::this.onChangeHandle;
-        this.onChangeHandleDisabled = this::this.onChangeHandleDisabled;
 
     }
 
@@ -90,15 +99,9 @@ export default class MultipleSelectExamples extends Component {
         });
     }
 
-    onChangeHandleDisabled(value) {
-        this.setState({
-            value: value
-        });
-    }
-
     render() {
 
-        const {data, value} = this.state;
+        const {value} = this.state;
 
         return (
             <div className="example multiple-select-examples">
@@ -125,12 +128,10 @@ export default class MultipleSelectExamples extends Component {
                                 <div className="field-group">
                                     <label className="multiple-select-label">Number</label>
                                     <MultipleSelect className="multiple-select"
-                                                    data={data}
+                                                    data={this.data}
                                                     value={value}
-                                                    infoMsg="please select number"
-                                                    onChange={(value) => {
-                                                        this.onChangeHandle(value);
-                                                    }}/>
+                                                    placeholder="please select number"
+                                                    onChange={this.onChangeHandle}/>
                                 </div>
 
                             </div>

@@ -59,7 +59,7 @@ export default class List extends Component {
 
     isItemChecked(item) {
 
-        const {mode} = this.props,
+        const {mode, valueField, displayField} = this.props,
             {value} = this.state;
 
         if (!item || !value) {
@@ -67,9 +67,11 @@ export default class List extends Component {
         }
 
         if (mode === List.Mode.CHECKBOX) {
-            return _.isArray(value) && value.filter(valueItem => valueItem == item).length > 0;
+            return _.isArray(value) && value.filter(valueItem => {
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
         } else if (mode === List.Mode.RADIO) {
-            return value == item;
+            return Util.isValueEqual(value, item, valueField, displayField);
         }
 
     }
@@ -120,8 +122,8 @@ export default class List extends Component {
                             <ListItem key={index}
                                       {...item}
                                       checked={this.isItemChecked(item)}
-                                      value={item[valueField]}
-                                      text={item[displayField]}
+                                      value={Util.getValueByValueField(item, valueField, displayField)}
+                                      text={Util.getTextByDisplayField(item, displayField, valueField)}
                                       disabled={disabled || item.disabled}
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
@@ -216,18 +218,22 @@ export default class List extends Component {
 
     listItemDeselectHandle(item) {
 
-        const {mode, onChange} = this.props;
+        const {mode} = this.props;
 
         if (mode !== List.Mode.CHECKBOX) {
             return;
         }
 
+        const {valueField, displayField, onChange} = this.props;
         let {value} = this.state;
 
         if (!value || !_.isArray(value)) {
             value = [];
         } else {
-            value = value.filter(valueItem => valueItem != item);
+            value = value.filter(valueItem => {
+                return Util.getValueByValueField(valueItem, valueField, displayField)
+                    != Util.getValueByValueField(item, valueField, displayField);
+            });
         }
 
         this.setState({

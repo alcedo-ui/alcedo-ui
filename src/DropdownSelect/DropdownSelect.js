@@ -26,8 +26,6 @@ export default class DropdownSelect extends Component {
         };
 
         this.isAbove = this::this.isAbove;
-        this.getValue = this::this.getValue;
-        this.getText = this::this.getText;
         this.filterChangeHandle = this::this.filterChangeHandle;
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
@@ -54,42 +52,6 @@ export default class DropdownSelect extends Component {
         }
 
         return false;
-
-    }
-
-    getValue(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {valueField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[valueField];
-            }
-            default:
-                return data;
-        }
-
-    }
-
-    getText(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {displayField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[displayField];
-            }
-            default:
-                return data;
-        }
 
     }
 
@@ -180,17 +142,17 @@ export default class DropdownSelect extends Component {
         });
     }
 
+    componentDidMount() {
+        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.triggerHeight = this.triggerEl.clientHeight;
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
                 value: nextProps.value
             });
         }
-    }
-
-    componentDidMount() {
-        this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     render() {
@@ -234,7 +196,7 @@ export default class DropdownSelect extends Component {
                                 placeholder
                         )
                         :
-                        this.getText(value)
+                        Util.getTextByDisplayField(value, displayField, valueField)
                 )
                 :
                 placeholder,
@@ -256,7 +218,7 @@ export default class DropdownSelect extends Component {
                     name ?
                         <input type="hidden"
                                name={name}
-                               value={value}/>
+                               value={Util.getValueByValueField(value, valueField, displayField)}/>
                         :
                         null
                 }

@@ -7,7 +7,7 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
-import Util from 'vendors/Util';
+import Util from '../_vendors/Util';
 
 import './LocalAutoComplete.css';
 
@@ -20,15 +20,13 @@ export default class LocalAutoComplete extends Component {
         this.triggerEl = null;
 
         this.state = {
-            value: null,
+            value: props.value,
             filter: '',
             popupVisible: false,
             isAbove: false
         };
 
         this.isAbove = this::this.isAbove;
-        this.getValue = this::this.getValue;
-        this.getText = this::this.getText;
         this.filterData = this::this.filterData;
         this.focusHandle = this::this.focusHandle;
         this.blurHandle = this::this.blurHandle;
@@ -55,42 +53,6 @@ export default class LocalAutoComplete extends Component {
         }
 
         return false;
-
-    }
-
-    getValue(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {valueField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[valueField];
-            }
-            default:
-                return data;
-        }
-
-    }
-
-    getText(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {displayField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[displayField];
-            }
-            default:
-                return data;
-        }
 
     }
 
@@ -202,10 +164,10 @@ export default class LocalAutoComplete extends Component {
 
     changeHandle(value) {
 
-        const {autoClose} = this.props,
+        const {autoClose, valueField, displayField} = this.props,
             state = {
                 value,
-                filter: this.getText(value)
+                filter: Util.getTextByDisplayField(value, displayField, valueField)
             };
 
         if (autoClose) {
@@ -222,6 +184,14 @@ export default class LocalAutoComplete extends Component {
     componentDidMount() {
         this.triggerEl = findDOMNode(this.refs.trigger);
         this.triggerHeight = this.triggerEl.clientHeight;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
     }
 
     render() {
@@ -270,7 +240,7 @@ export default class LocalAutoComplete extends Component {
                     name ?
                         <input type="hidden"
                                name={name}
-                               value={this.getValue(value)}/>
+                               value={Util.getValueByValueField(value, valueField, displayField)}/>
                         :
                         null
                 }

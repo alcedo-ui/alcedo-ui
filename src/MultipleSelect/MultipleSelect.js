@@ -8,7 +8,7 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
-import Util from 'vendors/Util';
+import Util from '../_vendors/Util';
 
 import './MultipleSelect.css';
 
@@ -22,15 +22,13 @@ export default class MultipleSelect extends Component {
 
         this.state = {
             selectedCollapsed: true,
-            value: null,
+            value: props.value,
             filter: '',
             popupVisible: false,
             isAbove: false
         };
 
         this.isAbove = this::this.isAbove;
-        this.getValue = this::this.getValue;
-        this.getText = this::this.getText;
         this.filterData = this::this.filterData;
         this.removeSelected = this::this.removeSelected;
         this.toggleSelectedCollapse = this::this.toggleSelectedCollapse;
@@ -60,42 +58,6 @@ export default class MultipleSelect extends Component {
         }
 
         return false;
-
-    }
-
-    getValue(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {valueField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[valueField];
-            }
-            default:
-                return data;
-        }
-
-    }
-
-    getText(data) {
-
-        if (!data) {
-            return;
-        }
-
-        const {displayField} = this.props;
-
-        switch (typeof data) {
-            case 'object': {
-                return data[displayField];
-            }
-            default:
-                return data;
-        }
 
     }
 
@@ -248,6 +210,14 @@ export default class MultipleSelect extends Component {
         this.triggerHeight = this.triggerEl.clientHeight;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
+    }
+
     render() {
 
         const {
@@ -297,7 +267,7 @@ export default class MultipleSelect extends Component {
                     name ?
                         <input type="hidden"
                                name={name}
-                               value={this.getValue(value)}/>
+                               value={Util.getValueByValueField(value, valueField, displayField)}/>
                         :
                         null
                 }
@@ -316,7 +286,7 @@ export default class MultipleSelect extends Component {
                                         return (
                                             <div key={index}
                                                  className="multiple-select-selected">
-                                                {this.getText(item)}
+                                                {Util.getTextByDisplayField(item, displayField, valueField)}
                                                 <div className="multiple-select-selected-remove-button"
                                                      onClick={() => {
                                                          this.removeSelected(index);

@@ -91,7 +91,7 @@ function enumerateValue(enumerate) {
 function tree(data, callback) {
     let loop = function loop(children, level) {
 
-        children.forEach((item, index)=> {
+        children.forEach((item, index) => {
             var pos = level + '-' + (1 + index);
             if (item.children) {
                 loop(item.children, pos);
@@ -101,6 +101,39 @@ function tree(data, callback) {
     };
 
     loop(data, 1);
+}
+
+function getValueByValueField(data, valueField = 'value', displayField = 'text') {
+
+    if (!data) {
+        return;
+    }
+
+    if (typeof data === 'object') {
+        return data[valueField] || data[displayField];
+    }
+
+    return data;
+
+}
+
+function getTextByDisplayField(data, displayField = 'text', valueField = 'value') {
+
+    if (!data) {
+        return;
+    }
+
+    if (typeof data === 'object') {
+        return data[displayField] || data[valueField];
+    }
+
+    return data;
+
+}
+
+function isValueEqual(data1, data2, valueField = 'value', displayField = 'text') {
+    return getValueByValueField(data1, valueField, displayField)
+        == getValueByValueField(data2, valueField, displayField);
 }
 
 export default {
@@ -114,5 +147,8 @@ export default {
     value2Timestamp,
     value2Moment,
     enumerateValue,
-    tree
+    tree,
+    getValueByValueField,
+    getTextByDisplayField,
+    isValueEqual
 };
