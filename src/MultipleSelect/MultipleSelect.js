@@ -51,7 +51,7 @@ export default class MultipleSelect extends Component {
         }
 
         const {top} = Util.getOffset(multipleSelect),
-            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
+            scrollTop = Util.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
