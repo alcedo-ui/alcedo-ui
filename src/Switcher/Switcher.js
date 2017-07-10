@@ -23,14 +23,26 @@ export default class Switcher extends Component {
 
     toggle() {
 
-        const {disabled, isLoading, onChange} = this.props;
-        const value = !this.state.value;
+        const {disabled, isLoading, beforeChange, onChange} = this.props;
 
-        !disabled && !isLoading && this.setState({
-            value
-        }, () => {
-            onChange && onChange(value);
-        });
+        if (disabled || isLoading) {
+            return;
+        }
+
+        const value = !this.state.value,
+            callback = () => {
+                this.setState({
+                    value
+                }, () => {
+                    onChange && onChange(value);
+                });
+            };
+
+        if (beforeChange) {
+            beforeChange(value) && callback();
+        } else {
+            callback();
+        }
 
     }
 
@@ -48,7 +60,7 @@ export default class Switcher extends Component {
         const {value} = this.state;
 
         return (
-             <div className={`switcher ${value == true ? 'active' : 'inactive'}
+            <div className={`switcher ${value == true ? 'active' : 'inactive'}
                     ${size === 'small' ? 'small' : ''} ${className}`}
                  style={style}
                  onClick={this.toggle}
@@ -108,6 +120,11 @@ Switcher.propTypes = {
      * The size of switcher.The value can be small or default.
      */
     size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
+
+    /**
+     * Callback function fired before the switcher is touch-tapped.
+     */
+    beforeChange: PropTypes.func,
 
     /**
      * Callback function fired when the switcher is touch-tapped.
