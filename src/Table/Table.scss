@@ -9,6 +9,43 @@
         border-spacing: 0;
         background: $theme-field;
 
+        .table-line-number-th,
+        .table-line-number-td {
+            width: 1px;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            background: #fbfbfb;
+            text-align: right;
+        }
+
+        .table-checkbox-th,
+        .table-checkbox-td {
+            width: 30px;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+
+            .table-checkbox {
+                width: 30px;
+                height: 30px;
+
+                .checkbox-icon-wrapper {
+                    width: 30px;
+                    height: 30px;
+
+                    .checkbox-bg-icon,
+                    .checkbox-icon {
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                    }
+                }
+
+                .checkbox-label {
+                    display: none;
+                }
+            }
+        }
+
         thead {
             tr {
                 border-bottom: 1px solid transparentize($theme-title-bg, .6);
@@ -26,26 +63,6 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
-
-                    &.table-checkbox {
-                        width: 1px;
-                        padding-left: 15px !important;
-
-                        .checkbox {
-                            width: 30px;
-                            height: 30px;
-
-                            .checkbox-icon {
-                                width: 30px;
-                                height: 30px;
-                                line-height: 30px;
-                            }
-
-                            .checkbox-label {
-                                display: none;
-                            }
-                        }
-                    }
 
                     &:first-child {
                         padding-left: 30px;
@@ -125,32 +142,6 @@
 
                     &:last-child {
                         padding-right: 30px;
-                    }
-
-                    &.table-line-number {
-                        width: 1px;
-                        padding-left: 15px;
-                        background: #fbfbfb;
-                    }
-
-                    &.table-checkbox {
-                        width: 1px;
-                        padding-left: 15px;
-
-                        .checkbox {
-                            width: 30px;
-                            height: 30px;
-
-                            .checkbox-icon {
-                                width: 30px;
-                                height: 30px;
-                                line-height: 30px;
-                            }
-
-                            .checkbox-label {
-                                display: none;
-                            }
-                        }
                     }
 
                     &.actions {

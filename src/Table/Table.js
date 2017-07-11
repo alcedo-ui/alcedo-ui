@@ -221,20 +221,21 @@ export default class Table extends Component {
 
         if (isMultiSelect) {
             finalColumns.unshift({
-                headerClassName: 'table-checkbox',
+                headerClassName: 'table-checkbox-th',
                 header() {
-                    return <Checkbox/>;
+                    return <Checkbox className="table-checkbox"/>;
                 },
-                className: 'table-checkbox',
+                className: 'table-checkbox-td',
                 renderer() {
-                    return <Checkbox/>;
+                    return <Checkbox className="table-checkbox"/>;
                 }
             });
         }
 
         if (hasLineNumber) {
             finalColumns.unshift({
-                className: 'table-line-number',
+                headerClassName: 'table-line-number-th',
+                className: 'table-line-number-td',
                 renderer(rowData, rowIndex) {
                     return rowIndex + 1;
                 }
