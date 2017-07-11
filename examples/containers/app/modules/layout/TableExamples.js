@@ -33,7 +33,10 @@ export default class TableExamples extends Component {
                                  size="small"/>;
             }
         }];
-        this.data = this.generateData();
+
+        this.state = {
+            data: this.generateData()
+        };
 
     }
 
@@ -54,6 +57,8 @@ export default class TableExamples extends Component {
     }
 
     render() {
+
+        const {data} = this.state;
 
         return (
             <div className="example table-examples">
@@ -77,7 +82,7 @@ export default class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    isPagging={true}
-                                   data={this.data}/>
+                                   data={data}/>
 
                         </div>
                     </div>
@@ -98,7 +103,7 @@ export default class TableExamples extends Component {
                                    isPagging={true}
                                    isMultiSelect={true}
                                    hasLineNumber={true}
-                                   data={this.data}
+                                   data={data}
                                    useBriefPagging={false}/>
 
                         </div>

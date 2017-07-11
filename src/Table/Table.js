@@ -168,7 +168,7 @@ export default class Table extends Component {
     resetPage(data = this.props.data, pagging = this.state.pagging) {
 
         const {page, pageSize} = pagging,
-            total = Math.ceil(data / pageSize);
+            total = Math.ceil(data.length / pageSize);
 
         if (page + 1 > total) {
             this.setState({

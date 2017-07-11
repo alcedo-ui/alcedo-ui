@@ -41,7 +41,12 @@ export default class BriefPagging extends Component {
 
     render() {
 
-        const {count, page, total, pageSize} = this.props;
+        const {count, page, total, pageSize} = this.props,
+
+            startNumber = page * pageSize + 1,
+
+            tempStopMunber = (page + 1) * pageSize,
+            stopNumber = tempStopMunber > count ? count : tempStopMunber;
 
         return (
             <div className="brief-pagging">
@@ -60,7 +65,7 @@ export default class BriefPagging extends Component {
                                  onPageSizeChange={this.pageSizeChangedHandle}/>
 
                     <div className="brief-pagging-info">
-                        {`${page * pageSize + 1}-${(page + 1) * pageSize} of ${count}`}
+                        {`${startNumber}-${stopNumber} of ${count}`}
                     </div>
 
                     <IconButton iconCls="fa fa-chevron-left"
