@@ -19,11 +19,14 @@ export default class Thead extends Component {
                 <tr>
                     {
                         columns.map((item, index) => {
+
+                            const headerClassName = (item.sortable ? 'sortable' : '')
+                                + (sort && sort.prop === item.sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '')
+                                + (item.headerClassName ? ' ' + item.headerClassName : '');
+
                             return (
                                 <TableHeader key={index}
-                                             className={`${item.sortable ? 'sortable' : ''}
-                                                ${sort && sort.prop === item.sortProp ? (sort.type > 0 ? 'asc' : 'desc') : ''}
-                                                ${item.headerClassName ? item.headerClassName : ''}`}
+                                             className={headerClassName}
                                              style={item.headerStyle}
                                              header={item.header}
                                              colIndex={index}
@@ -33,6 +36,7 @@ export default class Thead extends Component {
                                                  onSort(item.sortProp);
                                              }}/>
                             );
+
                         })
                     }
                 </tr>

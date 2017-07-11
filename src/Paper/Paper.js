@@ -22,11 +22,12 @@ export default class Paper extends Component {
 
     render() {
 
-        const {children, className, style, depth, nonRounded, isCircular} = this.props;
+        const {children, className, style, depth, nonRounded, isCircular} = this.props,
+            paperClassName = (nonRounded ? ' nonRounded' : (isCircular ? ' circular' : ''))
+                + (className ? ' ' + className : '');
 
         return (
-            <div className={`paper depth-${this.formatDepth(depth)}
-                    ${nonRounded ? 'nonRounded' : (isCircular ? 'circular' : '')} ${className}`}
+            <div className={`paper depth-${this.formatDepth(depth)}` + paperClassName}
                  style={style}>
                 {children}
             </div>

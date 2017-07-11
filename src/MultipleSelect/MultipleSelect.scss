@@ -83,6 +83,7 @@
     }
 
     &.activated {
+
         .multiple-select-selected-wrapper,
         .multiple-select-trigger {
             @include shadow(4);
@@ -96,6 +97,8 @@
 
     &.above {
         &.activated {
+            z-index: $popup-z-index + 1;
+
             .multiple-select-selected-wrapper {
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
