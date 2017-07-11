@@ -222,7 +222,7 @@ export default class MultipleSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
-                disabled, iconCls, rightIconCls, valueField, displayField,descriptionField, noMatchedMsg
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
@@ -283,10 +283,14 @@ export default class MultipleSelect extends Component {
 
                                 {
                                     value.map((item, index) => {
+
+                                        const text = Util.getTextByDisplayField(item, displayField, valueField);
+
                                         return (
                                             <div key={index}
-                                                 className="multiple-select-selected">
-                                                {Util.getTextByDisplayField(item, displayField, valueField)}
+                                                 className="multiple-select-selected"
+                                                 title={text}>
+                                                {text}
                                                 <div className="multiple-select-selected-remove-button"
                                                      onClick={() => {
                                                          this.removeSelected(index);
