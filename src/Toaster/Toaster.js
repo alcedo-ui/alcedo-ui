@@ -23,17 +23,22 @@ export default class Toaster extends Component {
             toasts: []
         };
 
+        this.clearUnrenderTimeout = this::this.clearUnrenderTimeout;
         this.addToast = this::this.addToast;
         this.removeToast = this::this.removeToast;
 
     }
 
-    addToast(toast) {
-
+    clearUnrenderTimeout() {
         if (this.unrenderTimeout) {
             clearTimeout(this.unrenderTimeout);
             this.unrenderTimeout = null;
         }
+    }
+
+    addToast(toast) {
+
+        this.clearUnrenderTimeout();
 
         let toasts = this.state.toasts;
 
@@ -57,9 +62,7 @@ export default class Toaster extends Component {
         }, () => {
             if (toasts.length < 1) {
 
-                if (this.unrenderTimeout) {
-                    clearTimeout(this.unrenderTimeout);
-                }
+                this.clearUnrenderTimeout();
 
                 this.unrenderTimeout = setTimeout(() => {
                     this.setState({
@@ -75,6 +78,8 @@ export default class Toaster extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.toasts && nextProps.toasts.length > 0) {
+
+            this.clearUnrenderTimeout();
 
             let toasts = _.cloneDeep(nextProps.toasts);
             for (let i = 0, len = toasts.length; i < len; i++) {
