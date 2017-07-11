@@ -103,7 +103,7 @@ export default class Toaster extends Component {
     }
 
     componentWillUnmount() {
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
+        this.clearUnrenderTimeout();
     }
 
     render() {

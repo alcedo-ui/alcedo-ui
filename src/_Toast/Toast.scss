@@ -6,7 +6,6 @@
 
     position: relative;
     width: 240px;
-    height: 70px;
     border-radius: $border-radius;
     padding: 15px 15px 15px 50px;
     color: #fff;
@@ -35,10 +34,15 @@
         opacity: .6;
     }
 
-    .toast-message {
-        font-size: 14px;
-        line-height: 20px;
-        word-wrap: break-word;
+    .toast-message-wrapper {
+        width: 175px;
+
+        .toast-message {
+            width: 175px;
+            font-size: 14px;
+            word-wrap: break-word;
+            vertical-align: middle;
+        }
     }
 
     &:hover {
