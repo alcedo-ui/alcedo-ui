@@ -43,8 +43,6 @@ export default class BriefPagging extends Component {
 
         const {count, page, total, pageSize} = this.props;
 
-        console.log(page, total);
-
         return (
             <div className="brief-pagging">
 
