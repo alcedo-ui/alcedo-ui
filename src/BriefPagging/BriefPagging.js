@@ -43,6 +43,8 @@ export default class BriefPagging extends Component {
 
         const {count, page, total, pageSize} = this.props;
 
+        console.log(page, total);
+
         return (
             <div className="brief-pagging">
 
@@ -70,7 +72,7 @@ export default class BriefPagging extends Component {
                                 }}/>
 
                     <IconButton iconCls="fa fa-chevron-right"
-                                disabled={page >= total}
+                                disabled={page >= total - 1}
                                 onTouchTap={() => {
                                     this.pageChangedHandle(page + 1);
                                 }}/>
