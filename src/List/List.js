@@ -170,8 +170,9 @@ export default class List extends Component {
 
         const {mode} = this.props,
             callback = () => {
-                const {onItemTouchTap} = this.props;
+                const {onChange, onItemTouchTap} = this.props;
                 onItemTouchTap && onItemTouchTap(value);
+                onChange && onChange(value);
             };
 
         if (mode !== List.Mode.NORMAL) {

@@ -199,7 +199,7 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                onFilterPressEnter
+                onFilterPressEnter, onItemTouchTap
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -276,6 +276,7 @@ export default class LocalAutoComplete extends Component {
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
+                          onItemTouchTap={onItemTouchTap}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -464,6 +465,11 @@ LocalAutoComplete.propTypes = {
      * select callback.
      */
     onChange: PropTypes.func,
+
+    /**
+     * item touch tap callback.
+     */
+    onItemTouchTap: PropTypes.func,
 
     /**
      * focus callback.
