@@ -49,7 +49,13 @@ function getScrollHeight() {
 }
 
 function getScrollTop() {
+
+    if (window.SCROLL_EL && window.SCROLL_EL.scrollTop) {
+        return SCROLL_EL.scrollTop;
+    }
+
     return document.body.scrollTop || document.documentElement.scrollTop;
+
 }
 
 function value2Timestamp(value, format) {

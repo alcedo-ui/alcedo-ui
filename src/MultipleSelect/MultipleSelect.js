@@ -51,7 +51,7 @@ export default class MultipleSelect extends Component {
         }
 
         const {top} = Util.getOffset(multipleSelect),
-            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
+            scrollTop = Util.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
@@ -222,7 +222,7 @@ export default class MultipleSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
-                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg
+                disabled, iconCls, rightIconCls, valueField, displayField,descriptionField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
@@ -337,6 +337,7 @@ export default class MultipleSelect extends Component {
                           items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
+                          descriptionField={descriptionField}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -470,6 +471,11 @@ MultipleSelect.propTypes = {
     displayField: PropTypes.string,
 
     /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
+
+    /**
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
@@ -527,8 +533,11 @@ MultipleSelect.defaultProps = {
     placeholder: '',
     data: [],
     disabled: false,
+
     valueField: 'value',
     displayField: 'text',
+    descriptionField: 'desc',
+
     autoClose: false,
     iconCls: '',
     rightIconCls: '',

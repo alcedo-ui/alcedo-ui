@@ -1,17 +1,8 @@
 @import '../_common.scss';
 
-.toaster-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-    overflow: visible;
-
-    .toaster {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        z-index: $toast-z-index;
-    }
+.toaster {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: $toast-z-index;
 }

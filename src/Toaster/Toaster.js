@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
-import {unstable_renderSubtreeIntoContainer, unmountComponentAtNode} from 'react-dom';
 
+import SubtreeContainer from '../_SubtreeContainer';
 import Toast from '../_Toast';
 
 import Util from '../_vendors/Util';
@@ -16,37 +15,38 @@ export default class Toaster extends Component {
 
         super(props);
 
-        this.wrapper = null;
-        this.element = null;
         this.nextKey = 0;
         this.unrenderTimeout = null;
 
         this.state = {
+            visible: false,
             toasts: []
         };
 
+        this.clearUnrenderTimeout = this::this.clearUnrenderTimeout;
         this.addToast = this::this.addToast;
         this.removeToast = this::this.removeToast;
-        this.renderWrapper = this::this.renderWrapper;
-        this.renderer = this::this.renderer;
-        this.renderElement = this::this.renderElement;
-        this.unrender = this::this.unrender;
 
     }
 
-    addToast(toast) {
-
+    clearUnrenderTimeout() {
         if (this.unrenderTimeout) {
             clearTimeout(this.unrenderTimeout);
             this.unrenderTimeout = null;
         }
+    }
+
+    addToast(toast) {
+
+        this.clearUnrenderTimeout();
 
         let toasts = this.state.toasts;
 
         toasts.unshift({...toast, toastsId: this.nextKey++});
 
         this.setState({
-            toasts
+            toasts,
+            visible: true
         });
 
     }
@@ -61,88 +61,25 @@ export default class Toaster extends Component {
             toasts
         }, () => {
             if (toasts.length < 1) {
+
+                this.clearUnrenderTimeout();
+
                 this.unrenderTimeout = setTimeout(() => {
-                    this.unrender();
-                    this.unrenderTimeout = null;
+                    this.setState({
+                        visible: false
+                    });
                 }, 1250);
+
             }
         });
-
-    }
-
-    renderWrapper() {
-
-        if (this.wrapper) {
-            return;
-        }
-
-        const wrapper = document.querySelector('.toaster-container');
-        if (wrapper) {
-            this.wrapper = wrapper;
-        } else {
-            this.wrapper = document.createElement('div');
-            this.wrapper.className = 'toaster-container';
-            document.body.appendChild(this.wrapper);
-        }
-
-    }
-
-    renderElement() {
-
-        if (this.unrenderTimeout) {
-            clearTimeout(this.unrenderTimeout);
-            this.unrenderTimeout = null;
-        }
-
-        this.renderWrapper();
-
-        this.element = unstable_renderSubtreeIntoContainer(this, this.renderer(), this.wrapper);
-
-    }
-
-    unrender() {
-
-        if (!this.wrapper) {
-            return;
-        }
-
-        unmountComponentAtNode(this.wrapper);
-        document.body.removeChild(this.wrapper);
-        this.element = null;
-        this.wrapper = null;
-
-    }
-
-    renderer() {
-
-        const {className, style} = this.props;
-        const {toasts} = this.state;
-
-        return (
-            <ReactCSSTransitionGroup component="div"
-                                     className={`toaster ${className}`}
-                                     style={style}>
-                {
-                    toasts && toasts.length > 0
-                        ? (
-                        toasts.map(options => {
-                            return (
-                                <Toast {...options}
-                                       key={options.toastsId}
-                                       onRequestClose={this.removeToast}/>
-                            );
-                        })
-                    )
-                        : null
-                }
-            </ReactCSSTransitionGroup>
-        );
 
     }
 
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.toasts && nextProps.toasts.length > 0) {
+
+            this.clearUnrenderTimeout();
 
             let toasts = _.cloneDeep(nextProps.toasts);
             for (let i = 0, len = toasts.length; i < len; i++) {
@@ -155,7 +92,8 @@ export default class Toaster extends Component {
             }
 
             this.setState({
-                toasts: [...toasts.reverse(), ...this.state.toasts]
+                toasts: [...toasts.reverse(), ...this.state.toasts],
+                visible: true
             }, () => {
                 this.props.onToastPop();
             });
@@ -164,16 +102,31 @@ export default class Toaster extends Component {
 
     }
 
-    componentDidUpdate() {
-        this.renderElement();
-    }
-
     componentWillUnmount() {
-        this.unrender();
+        this.clearUnrenderTimeout();
     }
 
     render() {
-        return null;
+
+        const {toasts, visible} = this.state;
+
+        return (
+            <SubtreeContainer className="toaster"
+                              visible={visible}>
+                {
+                    toasts.length > 0 ?
+                        (
+                            toasts.map(options =>
+                                <Toast {...options}
+                                       key={options.toastsId}
+                                       onRequestClose={this.removeToast}/>
+                            )
+                        )
+                        : null
+                }
+            </SubtreeContainer>
+        );
+
     }
 
 };
