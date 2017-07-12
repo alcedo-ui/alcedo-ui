@@ -28,7 +28,9 @@
 
         .multiple-select-selected {
             position: relative;
-            height: 16px;
+            box-sizing: border-box;
+            max-width: 100%;
+            height: 24px;
             line-height: 16px;
             line-height: 16px;
             margin: 8px 4px 0 4px;
@@ -36,6 +38,9 @@
             float: left;
             border-radius: $border-radius;
             background: $theme-bg;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
 
             .multiple-select-selected-remove-button {
                 position: absolute;
@@ -131,16 +136,20 @@
     border-top-right-radius: 0;
     overflow-y: auto;
 
-    .multiple-select-list {
-        width: 100%;
+    .popup-content {
+        border-radius: 0;
 
-        .no-matched-list-item {
-            line-height: 40px;
-            color: $theme-text;
+        .multiple-select-list {
+            width: 100%;
 
-            .no-matched-list-item-icon {
-                color: $warning;
-                margin-right: 10px;
+            .no-matched-list-item {
+                line-height: 40px;
+                color: $theme-text;
+
+                .no-matched-list-item-icon {
+                    color: $warning;
+                    margin-right: 10px;
+                }
             }
         }
     }

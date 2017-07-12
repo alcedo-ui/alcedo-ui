@@ -33,6 +33,7 @@ export default class DialogBody extends Component {
         this.getButton = this::this.getButton;
         this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
+        this.closeButtonTouchTapHandle = this::this.closeButtonTouchTapHandle;
 
     }
 
@@ -131,6 +132,21 @@ export default class DialogBody extends Component {
 
     }
 
+    closeButtonTouchTapHandle() {
+
+        const {onCloseButtonTouchTap, onRequestClose} = this.props;
+
+        this.setState({
+            visible: false
+        }, () => {
+            onCloseButtonTouchTap && onCloseButtonTouchTap();
+            setTimeout(() => {
+                onRequestClose && onRequestClose();
+            }, 250);
+        });
+
+    }
+
     initializeAnimation(callback) {
         setTimeout(() => {
             this.hasMounted && callback();
@@ -205,7 +221,7 @@ export default class DialogBody extends Component {
                                     <span>{title}</span>
                                     <IconButton className="dialog-title-close-button"
                                                 iconCls="fa fa-times"
-                                                onTouchTap={this.cancelButtonTouchTapHandle}/>
+                                                onTouchTap={this.closeButtonTouchTapHandle}/>
                                 </div>
                             )
                             :
@@ -377,7 +393,12 @@ DialogBody.propTypes = {
     /**
      * Callback function fired when click the cancel button.
      */
-    onCancelButtonTouchTap: PropTypes.func
+    onCancelButtonTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when click the close button.
+     */
+    onCloseButtonTouchTap: PropTypes.func
 
 };
 

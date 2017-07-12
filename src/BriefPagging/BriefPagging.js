@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import PaggingSize from '../_PaggingSize';
 import IconButton from '../IconButton';
 
+import Valid from '../_vendors/Valid';
+
 import './BriefPagging.css';
 
 export default class BriefPagging extends Component {
@@ -42,11 +44,8 @@ export default class BriefPagging extends Component {
     render() {
 
         const {count, page, total, pageSize} = this.props,
-
-            startNumber = page * pageSize + 1,
-
-            tempStopMunber = (page + 1) * pageSize,
-            stopNumber = tempStopMunber > count ? count : tempStopMunber;
+            startNumber = Valid.range(page * pageSize + 1, 0, count),
+            stopNumber = Valid.range((page + 1) * pageSize, 0, count);
 
         return (
             <div className="brief-pagging">

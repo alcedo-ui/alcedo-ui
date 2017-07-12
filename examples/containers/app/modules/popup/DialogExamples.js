@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import RaisedButton from 'dist/RaisedButton';
-import RadioGroup from 'dist/RadioGroup';
 import Dialog from 'dist/Dialog';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
@@ -26,6 +25,8 @@ export default class DialogExamples extends Component {
         this.toggleDialog = this::this.toggleDialog;
         this.closeDialog = this::this.closeDialog;
         this.okHandle = this::this.okHandle;
+        this.cancelHandle = this::this.cancelHandle;
+        this.closeHandle = this::this.closeHandle;
         this.updateField = this::this.updateField;
 
     }
@@ -43,7 +44,16 @@ export default class DialogExamples extends Component {
     }
 
     okHandle(closeDialog) {
+        console.log('OK button clicked');
         closeDialog();
+    }
+
+    cancelHandle() {
+        console.log('Cancel button clicked');
+    }
+
+    closeHandle() {
+        console.log('Close button clicked');
     }
 
     updateField(key, value) {
@@ -86,7 +96,6 @@ export default class DialogExamples extends Component {
                                                   this.toggleDialog(2);
                                               }}/>
 
-
                                 <Dialog visible={dialogVisible2}
                                         title={`${type} dialog`}
                                         okButtonTheme={type}
@@ -102,7 +111,9 @@ export default class DialogExamples extends Component {
                                         onRequestClose={() => {
                                             this.closeDialog(2);
                                         }}
-                                        onOKButtonTouchTap={this.okHandle}>
+                                        onOKButtonTouchTap={this.okHandle}
+                                        onCancelButtonTouchTap={this.cancelHandle}
+                                        onCloseButtonTouchTap={this.closeHandle}>
                                     <div className="dialog-example-content">
                                         content
                                     </div>
