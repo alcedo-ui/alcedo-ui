@@ -10,6 +10,7 @@ import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
 import Event from '../_vendors/Event';
+import Valid from '../_vendors/Valid';
 
 import './Table.css';
 
@@ -174,7 +175,7 @@ export default class Table extends Component {
             this.setState({
                 pagging: {
                     pageSize,
-                    page: total - 1
+                    page: Valid.range(total - 1, 0)
                 }
             });
         }
