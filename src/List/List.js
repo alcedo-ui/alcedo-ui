@@ -172,7 +172,6 @@ export default class List extends Component {
             callback = () => {
                 const {onChange, onItemTouchTap} = this.props;
                 onItemTouchTap && onItemTouchTap(value);
-                onChange && onChange(value);
             };
 
         if (mode !== List.Mode.NORMAL) {
