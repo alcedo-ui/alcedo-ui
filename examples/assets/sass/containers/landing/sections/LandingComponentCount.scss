@@ -1,0 +1,17 @@
+@import '../../../common.scss';
+
+#landing-component-count {
+
+    .landing-section-inner {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 300;
+
+        .components-total-count {
+            font-size: 60px;
+            color: $theme-highlight;
+            margin: 0 10px;
+            font-weight: 400;
+        }
+    }
+}

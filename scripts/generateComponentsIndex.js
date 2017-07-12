@@ -11,15 +11,18 @@ fs.readdir('./src', function (err, files) {
 
         try {
 
-            let indexArray = [];
+            let indexArray = [],
+                totalCount = 0;
 
             files.forEach(function (item) {
 
                 if (item.slice(0, 1) !== '_') {
                     indexArray.push('export ' + item + ' from \'./' + item + '\';');
+                    totalCount++;
                 }
 
             });
+            indexArray.push('', 'export const COMPONENTS_TOTAL_COUNT = ' + totalCount + ';');
 
             fs.writeFile(path.join(__dirname, '../src/index.js'), indexArray.join('\n'), function (error) {
                 if (error) {

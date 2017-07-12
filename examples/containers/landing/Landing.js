@@ -5,6 +5,7 @@ import Event from 'vendors/Event';
 
 import LandingNav from './LandingNav';
 import LandingIntro from './sections/LandingIntro';
+import LandingComponentCount from './sections/LandingComponentCount';
 import LandingGetStarted from './sections/LandingGetStarted';
 import LandingUsage from './sections/LandingUsage';
 import LandingExamples from './sections/LandingExamples';
@@ -55,6 +56,8 @@ export default class Landing extends Component {
                 <LandingNav bodyScrollTop={bodyScrollTop}/>
 
                 <LandingIntro/>
+
+                <LandingComponentCount bodyScrollTop={bodyScrollTop}/>
 
                 <LandingGetStarted/>
 
