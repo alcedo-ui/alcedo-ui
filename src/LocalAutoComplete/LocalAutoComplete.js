@@ -46,7 +46,7 @@ export default class LocalAutoComplete extends Component {
         }
 
         const {top} = Util.getOffset(autoComplete),
-            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
+            scrollTop = Util.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
@@ -127,16 +127,10 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-
             if (state.value !== value) {
-
-                const {onFilterChange, onChange} = this.props;
-
+                const {onFilterChange} = this.props;
                 onFilterChange && onFilterChange(filter);
-                onChange && onChange(state.value);
-
             }
-
         });
 
     }
@@ -197,8 +191,9 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
-                disabled, iconCls, rightIconCls, valueField, displayField, noMatchedMsg, onFilterPressEnter
+                className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
+                onFilterPressEnter, onItemTouchTap, onFilterClear
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -255,7 +250,8 @@ export default class LocalAutoComplete extends Component {
                            onFocus={this.focusHandle}
                            onBlur={this.blurHandle}
                            onChange={this.filterChangeHandle}
-                           onPressEnter={onFilterPressEnter}/>
+                           onPressEnter={onFilterPressEnter}
+                           onClear={onFilterClear}/>
 
                 <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
                        style={autoCompletePopupStyle}
@@ -269,11 +265,13 @@ export default class LocalAutoComplete extends Component {
 
                     <List className="local-auto-complete-list"
                           value={value}
-                          mode={isEmpty ? List.Mode.NORMAL : List.Mode.RADIO}
+                          mode={isEmpty ? List.Mode.NORMAL : (mode || List.Mode.NORMAL)}
                           isGrouped={isEmpty ? false : isGrouped}
                           items={isEmpty ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
+                          descriptionField={descriptionField}
+                          onItemTouchTap={onItemTouchTap}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -283,6 +281,8 @@ export default class LocalAutoComplete extends Component {
     }
 
 };
+
+LocalAutoComplete.Mode = List.Mode;
 
 LocalAutoComplete.propTypes = {
 
@@ -337,7 +337,7 @@ LocalAutoComplete.propTypes = {
             /**
              * The theme of the list button.
              */
-            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
             /**
              * The text value of the list button.Type can be string or number.
@@ -407,9 +407,19 @@ LocalAutoComplete.propTypes = {
     displayField: PropTypes.string,
 
     /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
+
+    /**
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    /**
+     *
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
      * Callback function fired when value changed.
@@ -447,9 +457,19 @@ LocalAutoComplete.propTypes = {
     onFilterPressEnter: PropTypes.func,
 
     /**
+     *
+     */
+    onFilterClear: PropTypes.func,
+
+    /**
      * select callback.
      */
     onChange: PropTypes.func,
+
+    /**
+     * item touch tap callback.
+     */
+    onItemTouchTap: PropTypes.func,
 
     /**
      * focus callback.
@@ -476,6 +496,7 @@ LocalAutoComplete.defaultProps = {
     disabled: false,
     valueField: 'value',
     displayField: 'text',
+    descriptionField: 'desc',
     autoClose: false,
     iconCls: '',
     rightIconCls: '',

@@ -13,13 +13,37 @@ import 'sass/containers/app/modules/layout/TableExamples.scss';
 export default class TableExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.columns = [{
+            header: 'ID',
+            sortable: true,
+            sortProp: 'id',
+            renderer: 'id',
+            headerClassName: 'test-header',
+            cellClassName: 'test-cell'
+        }, {
+            header: 'Name',
+            renderer: '${firstName} - ${lastName}'
+        }, {
+            header: 'Status',
+            renderer(rowDate) {
+                return <Switcher value={!rowDate.disabled}
+                                 size="small"/>;
+            }
+        }];
+
+        this.state = {
+            data: this.generateData()
+        };
+
     }
 
-    render() {
+    generateData(size = 100) {
 
         let data = [];
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < size; i++) {
             data.push({
                 id: i,
                 firstName: `firstName${i}`,
@@ -27,6 +51,14 @@ export default class TableExamples extends Component {
                 disabled: true
             });
         }
+
+        return data;
+
+    }
+
+    render() {
+
+        const {data} = this.state;
 
         return (
             <div className="example table-examples">
@@ -48,23 +80,7 @@ export default class TableExamples extends Component {
 
                             <p>A simple table example.Set isPagging Property to true for pagination.</p>
 
-                            <Table columns={[{
-                                header: 'ID',
-                                sortable: true,
-                                sortProp: 'id',
-                                renderer: 'id',
-                                headerClassName: 'test-header',
-                                cellClassName: 'test-cell'
-                            }, {
-                                header: 'Name',
-                                renderer: '${firstName} - ${lastName}'
-                            }, {
-                                header: 'Status',
-                                renderer(rowDate) {
-                                    return <Switcher value={!rowDate.disabled}
-                                                     size="small"/>;
-                                }
-                            }]}
+                            <Table columns={this.columns}
                                    isPagging={true}
                                    data={data}/>
 
@@ -83,23 +99,7 @@ export default class TableExamples extends Component {
                             <p>A more complex example.Set the hasLineNumber and isMultiSelect to true for showLineNumber
                                 and checkbox.</p>
 
-                            <Table columns={[{
-                                header: 'ID',
-                                sortable: true,
-                                sortProp: 'id',
-                                renderer: 'id',
-                                headerClassName: 'test-header',
-                                cellClassName: 'test-cell'
-                            }, {
-                                header: 'Name',
-                                renderer: '${firstName} - ${lastName}'
-                            }, {
-                                header: 'Status',
-                                renderer(rowDate) {
-                                    return <Switcher value={!rowDate.disabled}
-                                                     size="small"/>;
-                                }
-                            }]}
+                            <Table columns={this.columns}
                                    isPagging={true}
                                    isMultiSelect={true}
                                    hasLineNumber={true}

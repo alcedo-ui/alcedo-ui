@@ -10,6 +10,7 @@ import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
 import Event from '../_vendors/Event';
+import Valid from '../_vendors/Valid';
 
 import './Table.css';
 
@@ -50,6 +51,7 @@ export default class Table extends Component {
         this.paggingData = this::this.paggingData;
         this.pageChangedHandle = this::this.pageChangedHandle;
         this.resizeHandle = this::this.resizeHandle;
+        this.resetPage = this::this.resetPage;
 
     }
 
@@ -159,7 +161,25 @@ export default class Table extends Component {
     pageChangedHandle(pagging) {
         this.setState({
             pagging
+        }, () => {
+            this.resetPage(this.props.data, pagging);
         });
+    }
+
+    resetPage(data = this.props.data, pagging = this.state.pagging) {
+
+        const {page, pageSize} = pagging,
+            total = Math.ceil(data.length / pageSize);
+
+        if (page + 1 > total) {
+            this.setState({
+                pagging: {
+                    pageSize,
+                    page: Valid.range(total - 1, 0)
+                }
+            });
+        }
+
     }
 
     resizeHandle() {
@@ -176,6 +196,12 @@ export default class Table extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.data.length !== this.props.data.length) {
+            this.resetPage(nextProps.data);
+        }
+    }
+
     componentWillUnmount() {
         Event.removeEvent(window, 'resize', this.resizeHandle);
     }
@@ -183,33 +209,34 @@ export default class Table extends Component {
     render() {
 
         const {
-            className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect, useBriefPagging
-        } = this.props;
-        const {scrollLeft, sort, pagging} = this.state;
+                className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect, useBriefPagging
+            } = this.props,
+            {scrollLeft, sort, pagging} = this.state,
 
-        const headTableStyle = {
-            transform: `translateX(-${scrollLeft}px)`
-        };
+            headTableStyle = {
+                transform: `translateX(-${scrollLeft}px)`
+            };
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
 
         if (isMultiSelect) {
             finalColumns.unshift({
-                headerClassName: 'table-checkbox',
+                headerClassName: 'table-checkbox-th',
                 header() {
-                    return <Checkbox/>;
+                    return <Checkbox className="table-checkbox"/>;
                 },
-                className: 'table-checkbox',
+                className: 'table-checkbox-td',
                 renderer() {
-                    return <Checkbox/>;
+                    return <Checkbox className="table-checkbox"/>;
                 }
             });
         }
 
         if (hasLineNumber) {
             finalColumns.unshift({
-                className: 'table-line-number',
+                headerClassName: 'table-line-number-th',
+                className: 'table-line-number-td',
                 renderer(rowData, rowIndex) {
                     return rowIndex + 1;
                 }

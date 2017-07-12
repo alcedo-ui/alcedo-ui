@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import PaggingSize from '../_PaggingSize';
 import IconButton from '../IconButton';
 
+import Valid from '../_vendors/Valid';
+
 import './BriefPagging.css';
 
 export default class BriefPagging extends Component {
@@ -41,7 +43,9 @@ export default class BriefPagging extends Component {
 
     render() {
 
-        const {count, page, total, pageSize} = this.props;
+        const {count, page, total, pageSize} = this.props,
+            startNumber = Valid.range(page * pageSize + 1, 0, count),
+            stopNumber = Valid.range((page + 1) * pageSize, 0, count);
 
         return (
             <div className="brief-pagging">
@@ -60,7 +64,7 @@ export default class BriefPagging extends Component {
                                  onPageSizeChange={this.pageSizeChangedHandle}/>
 
                     <div className="brief-pagging-info">
-                        {`${page * pageSize + 1}-${(page + 1) * pageSize} of ${count}`}
+                        {`${startNumber}-${stopNumber} of ${count}`}
                     </div>
 
                     <IconButton iconCls="fa fa-chevron-left"
@@ -70,7 +74,7 @@ export default class BriefPagging extends Component {
                                 }}/>
 
                     <IconButton iconCls="fa fa-chevron-right"
-                                disabled={page >= total}
+                                disabled={page >= total - 1}
                                 onTouchTap={() => {
                                     this.pageChangedHandle(page + 1);
                                 }}/>

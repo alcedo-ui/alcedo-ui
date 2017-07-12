@@ -65,6 +65,7 @@ export default class LocalAutoCompleteExamples extends Component {
 
         this.onChange = this::this.onChange;
         this.filterPressEnterHandle = this::this.filterPressEnterHandle;
+        this.filterClearHandle = this::this.filterClearHandle;
 
     }
 
@@ -74,6 +75,10 @@ export default class LocalAutoCompleteExamples extends Component {
 
     filterPressEnterHandle(value) {
         console.log('filter value: ', value);
+    }
+
+    filterClearHandle() {
+        console.log('filter cleared');
     }
 
     render() {
@@ -103,7 +108,8 @@ export default class LocalAutoCompleteExamples extends Component {
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}
-                                                   onFilterPressEnter={this.filterPressEnterHandle}/>
+                                                   onFilterPressEnter={this.filterPressEnterHandle}
+                                                   onFilterClear={this.filterClearHandle}/>
 
                             </div>
 

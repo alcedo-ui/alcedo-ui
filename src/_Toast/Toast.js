@@ -25,8 +25,6 @@ export default class Toast extends Component {
         this.clickHandle = this::this.clickHandle;
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
-        // this.mouseOverHandle = this::this.mouseOverHandle;
-        // this.mouseOutHandle = this::this.mouseOutHandle;
 
     }
 
@@ -59,22 +57,6 @@ export default class Toast extends Component {
             hidden: false
         });
     }
-
-    // mouseOverHandle() {
-    //     if (this.unrenderTimeout) {
-    //         clearTimeout(this.unrenderTimeout);
-    //     }
-    // }
-
-    // mouseOutHandle() {
-    //
-    //     const {onRequestClose, toastsId} = this.props;
-    //
-    //     this.unrenderTimeout = setTimeout(() => {
-    //         onRequestClose && onRequestClose(toastsId);
-    //     }, 2500);
-    //
-    // }
 
     componentDidMount() {
 
@@ -122,13 +104,14 @@ export default class Toast extends Component {
 
     render() {
 
-        const {className, style, type, title, message} = this.props;
-        const {hidden, leave} = this.state;
+        const {className, style, type, title, message} = this.props,
+            {hidden, leave} = this.state,
+            toastClassName = (type ? ` toast-${type}` : '') + (hidden ? ' hidden' : '')
+                + (leave ? ' leave' : '') + (className ? ' ' + className : '');
 
         return (
             <div ref="toast"
-                 className={`toast ${type ? `toast-${type}` : ''} ${hidden ? 'hidden' : ''}
-                    ${leave ? 'leave' : ''} ${className}`}
+                 className={'toast' + toastClassName}
                  style={style}
                  onClick={this.clickHandle}>
 
@@ -136,7 +119,11 @@ export default class Toast extends Component {
                    aria-hidden="true"></i>
 
                 <div className="toast-title">{title}</div>
-                <div className="toast-message">{message}</div>
+                <div className="toast-message-wrapper">
+                    <div className="toast-message">
+                        {message}
+                    </div>
+                </div>
 
                 <TouchRipple/>
 

@@ -45,7 +45,7 @@ export default class DropdownSelect extends Component {
         }
 
         const {top} = Util.getOffset(dropdownSelect),
-            scrollTop = (SCROLL_EL && SCROLL_EL.scrollTop) || document.body.scrollTop;
+            scrollTop = Util.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
@@ -159,7 +159,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, multi, useFilter, valueField, displayField, noMatchedMsg,
+                disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
                 triggerTheme, isGrouped
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
@@ -258,6 +258,7 @@ export default class DropdownSelect extends Component {
                           items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
+                          descriptionField={descriptionField}
                           onItemTouchTap={this.itemTouchTapHandle}
                           onChange={this.changeHandle}/>
 
@@ -407,6 +408,11 @@ DropdownSelect.propTypes = {
     displayField: PropTypes.string,
 
     /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
+
+    /**
      * The message of the dropDownSelect.
      */
     infoMsg: PropTypes.string,
@@ -467,8 +473,11 @@ DropdownSelect.defaultProps = {
     invalidMsg: '',
     disabled: false,
     multi: false,
+
     valueField: 'value',
     displayField: 'text',
+    descriptionField: 'desc',
+
     infoMsg: '',
     autoClose: true,
     useFilter: false,

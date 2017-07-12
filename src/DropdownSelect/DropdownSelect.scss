@@ -18,7 +18,6 @@
         }
 
         &.activated {
-
             @include shadow(4);
 
             .dropdown-select-trigger-icon {
@@ -62,16 +61,20 @@
         }
     }
 
-    .dropdown-select-list {
-        width: 100%;
+    .popup-content {
+        border-radius: 0;
 
-        .no-matched-list-item {
-            line-height: 40px;
-            color: $theme-text;
+        .dropdown-select-list {
+            width: 100%;
 
-            .no-matched-list-item-icon {
-                color: $warning;
-                margin-right: 10px;
+            .no-matched-list-item {
+                line-height: 40px;
+                color: $theme-text;
+
+                .no-matched-list-item-icon {
+                    color: $warning;
+                    margin-right: 10px;
+                }
             }
         }
     }

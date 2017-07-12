@@ -75,11 +75,15 @@ export default class BaseButton extends Component {
                 tip, tipPosition, renderer
             } = this.props,
             {tipVisible, triggerEl} = this.state,
+
+            buttonClassName = (theme ? ` theme-${theme}` : '')
+                + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
+                + (className ? ' ' + className : ''),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <button className={`base-button ${theme ? `theme-${theme}` : ''}
-                        ${isCircular ? 'button-circular' : (isRounded ? 'button-rounded' : '')} ${className}`}
+            <button className={'base-button' + buttonClassName}
                     style={style}
                     type={type}
                     disabled={disabled || isLoading}
