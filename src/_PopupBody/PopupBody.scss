@@ -17,6 +17,7 @@
     .popup-content {
         width: 100%;
         overflow: hidden;
+        border-radius: $border-radius;
         transform: rotate(0deg);
     }
 
