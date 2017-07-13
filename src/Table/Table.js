@@ -29,7 +29,7 @@ export default class Table extends Component {
 			 *	    type: 1 | -1 // 正序 | 倒序
 			 *  }
              */
-            sort: null,
+            sort: props.sortInitConfig,
 
             scrollTop: 0,
             scrollLeft: 0,
@@ -460,7 +460,24 @@ Table.propTypes = {
     /**
      *
      */
-    useBriefPagging: PropTypes.bool
+    useBriefPagging: PropTypes.bool,
+
+    /**
+     *
+     */
+    sortInitConfig: PropTypes.shape({
+
+        /**
+         *
+         */
+        prop: PropTypes.string,
+
+        /**
+         *
+         */
+        type: PropTypes.oneOf([1, -1])
+
+    })
 
 };
 
