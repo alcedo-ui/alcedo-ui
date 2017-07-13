@@ -53,7 +53,7 @@ export default class BriefPagging extends Component {
                 <div className="brief-pagging-left">
 
                     <div className="brief-pagging-totle">
-                        {`totle: ${count}`}
+                        {`total: ${count}`}
                     </div>
 
                 </div>
