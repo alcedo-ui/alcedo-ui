@@ -209,7 +209,8 @@ export default class Table extends Component {
     render() {
 
         const {
-                className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect, useBriefPagging
+                className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect,
+                idProp, useBriefPagging
             } = this.props,
             {scrollLeft, sort, pagging} = this.state,
 
@@ -288,7 +289,8 @@ export default class Table extends Component {
                             finalData && finalDataCount > 0
                                 ? <Tbody columns={finalColumns}
                                          data={finalData}
-                                         startIndex={startIndex}/>
+                                         startIndex={startIndex}
+                                         idProp={idProp}/>
                                 : null
                         }
 
@@ -310,7 +312,8 @@ export default class Table extends Component {
                                 finalData && finalDataCount > 0
                                     ? <Tbody columns={finalColumns}
                                              data={finalData}
-                                             startIndex={startIndex}/>
+                                             startIndex={startIndex}
+                                             idProp={idProp}/>
                                     : null
                             }
 
@@ -460,6 +463,11 @@ Table.propTypes = {
     /**
      *
      */
+    idProp: PropTypes.string,
+
+    /**
+     *
+     */
     useBriefPagging: PropTypes.bool,
 
     /**
@@ -493,6 +501,8 @@ Table.defaultProps = {
     isAdaptiveHeight: false,
     hasLineNumber: false,
     isMultiSelect: false,
-    useBriefPagging: true
+    idProp: 'id',
+    useBriefPagging: true,
+    sortInitConfig: null
 
 };
