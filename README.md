@@ -16,7 +16,7 @@ A set of React components.
 **NPM**
 
 ```bash
-npm install alcedo-ui --save
+$ npm install alcedo-ui --save
 ```
 
 ## Usage
@@ -50,7 +50,7 @@ Examples can be found in the
 **Run Demo**
 
 ```bash
-npm run demo
+$ npm run demo
 ```
 
 ## License
