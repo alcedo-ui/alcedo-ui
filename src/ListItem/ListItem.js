@@ -77,14 +77,11 @@ export default class ListItem extends Component {
             return;
         }
 
-        const {mode, onTouchTap} = this.props,
+        const {mode} = this.props,
             callback = () => {
+                const {onTouchTap} = this.props;
                 onTouchTap && onTouchTap(e);
             };
-
-        if (mode === ListItem.Mode.NORMAL) {
-            callback();
-        }
 
         switch (mode) {
             case ListItem.Mode.CHECKBOX:
@@ -332,11 +329,6 @@ ListItem.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when a list item touch-tapped.
-     */
-    onTouchTap: PropTypes.func,
-
-    /**
      *
      */
     checked: PropTypes.bool,
@@ -350,6 +342,11 @@ ListItem.propTypes = {
      *
      */
     isGroupName: PropTypes.bool,
+
+    /**
+     * Callback function fired when a list item touch-tapped.
+     */
+    onTouchTap: PropTypes.func,
 
     /**
      *

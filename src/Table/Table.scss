@@ -85,7 +85,7 @@
                             height: 30px;
                             line-height: 30px;
                             text-align: center;
-                            color: lighten($theme-title, 36%);
+                            color: lighten($theme-text, 16%);
                             transition: all $transition-duration ease-in-out;
 
                             &.desc {
@@ -96,15 +96,15 @@
                         &:hover {
                             color: $theme-text;
 
-                            i {
-                                color: lighten($theme-menu, 36%);
+                            .table-header-sort-icon {
+                                color: $theme-text;
                             }
                         }
 
                         &.asc {
                             color: $theme-text;
 
-                            i.asc-icon {
+                            .table-header-sort-icon.asc-icon {
                                 color: $theme-text;
                             }
                         }
@@ -112,7 +112,7 @@
                         &.desc {
                             color: $theme-text;
 
-                            i.desc-icon {
+                            .table-header-sort-icon.desc-icon {
                                 color: $theme-text;
                             }
                         }

@@ -122,24 +122,26 @@ export default class DropdownSelect extends Component {
     }
 
     itemTouchTapHandle(value) {
-
-        const {autoClose, onItemTouchTap} = this.props;
-
+        const {onItemTouchTap} = this.props;
         onItemTouchTap && onItemTouchTap(value);
-
-        autoClose && this.setState({
-            popupVisible: false
-        });
-
     }
 
     changeHandle(value) {
-        this.setState({
-            value
-        }, () => {
+
+        const {autoClose} = this.props,
+            state = {
+                value
+            };
+
+        if (autoClose) {
+            state.popupVisible = false;
+        }
+
+        this.setState(state, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
+
     }
 
     componentDidMount() {

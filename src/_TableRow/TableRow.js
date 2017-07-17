@@ -56,8 +56,8 @@ export default class Tbody extends Component {
 				{
 					columns.map((col, colIndex) => {
 						return <TableCell key={colIndex}
-						                  className={col.className}
-						                  style={col.style}
+						                  className={col.cellClassName}
+						                  style={col.cellStyle}
 						                  data={this.contentRenderer(col.renderer, colIndex)}/>
 					})
 				}

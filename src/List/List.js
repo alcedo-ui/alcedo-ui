@@ -168,29 +168,25 @@ export default class List extends Component {
 
     listItemTouchTapHandle(value) {
 
-        const {mode} = this.props,
-            callback = () => {
-                const {onChange, onItemTouchTap} = this.props;
-                onItemTouchTap && onItemTouchTap(value);
-                onChange && onChange(value);
-            };
+        const {mode} = this.props;
 
         if (mode !== List.Mode.NORMAL) {
-            callback();
             return;
         }
 
         this.setState({
             value
         }, () => {
-            callback();
+            const {onItemTouchTap, onChange} = this.props;
+            onItemTouchTap && onItemTouchTap(value);
+            onChange && onChange(value);
         });
 
     }
 
     listItemSelectHandle(item) {
 
-        const {mode, onChange} = this.props;
+        const {mode} = this.props;
 
         if (mode === List.Mode.NORMAL) {
             return;
@@ -213,6 +209,7 @@ export default class List extends Component {
         this.setState({
             value
         }, () => {
+            const {onChange} = this.props;
             onChange && onChange(value);
         });
 
@@ -226,7 +223,7 @@ export default class List extends Component {
             return;
         }
 
-        const {valueField, displayField, onChange} = this.props;
+        const {valueField, displayField} = this.props;
         let {value} = this.state;
 
         if (!value || !_.isArray(value)) {
@@ -241,6 +238,7 @@ export default class List extends Component {
         this.setState({
             value
         }, () => {
+            const {onChange} = this.props;
             onChange && onChange(value);
         });
 

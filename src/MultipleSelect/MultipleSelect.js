@@ -113,6 +113,9 @@ export default class MultipleSelect extends Component {
 
         this.setState({
             value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
         });
 
     }

@@ -28,12 +28,13 @@ export default class LocalAutoComplete extends Component {
 
         this.isAbove = this::this.isAbove;
         this.filterData = this::this.filterData;
-        this.focusHandle = this::this.focusHandle;
-        this.blurHandle = this::this.blurHandle;
-        this.filterChangeHandle = this::this.filterChangeHandle;
+        this.focusHandler = this::this.focusHandler;
+        this.blurHandler = this::this.blurHandler;
+        this.filterChangeHandler = this::this.filterChangeHandler;
+        this.filterPressEnterHandler = this::this.filterPressEnterHandler;
         this.closePopup = this::this.closePopup;
-        this.popupRenderHandle = this::this.popupRenderHandle;
-        this.changeHandle = this::this.changeHandle;
+        this.popupRenderHandler = this::this.popupRenderHandler;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -96,7 +97,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    focusHandle() {
+    focusHandler() {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -109,12 +110,12 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    blurHandle() {
+    blurHandler() {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur();
     }
 
-    filterChangeHandle(filter) {
+    filterChangeHandler(filter) {
 
         const value = this.state.value,
             state = {
@@ -135,13 +136,33 @@ export default class LocalAutoComplete extends Component {
 
     }
 
+    filterPressEnterHandler(filter) {
+
+        const {autoClose} = this.props,
+            callback = () => {
+                const {onFilterPressEnter} = this.props;
+                onFilterPressEnter && onFilterPressEnter(filter);
+            };
+
+        if (autoClose) {
+            this.setState({
+                popupVisible: false
+            }, () => {
+                callback();
+            });
+        } else {
+            callback();
+        }
+
+    }
+
     closePopup() {
         this.setState({
             popupVisible: false
         });
     }
 
-    popupRenderHandle(popupEl) {
+    popupRenderHandler(popupEl) {
 
         this.popupEl = findDOMNode(popupEl);
         this.popupHeight = this.popupEl.offsetHeight;
@@ -156,7 +177,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    changeHandle(value) {
+    changeHandler(value) {
 
         const {autoClose, valueField, displayField} = this.props,
             state = {
@@ -247,10 +268,10 @@ export default class LocalAutoComplete extends Component {
                            disabled={disabled}
                            iconCls={iconCls}
                            rightIconCls={rightIconCls || 'fa fa-search'}
-                           onFocus={this.focusHandle}
-                           onBlur={this.blurHandle}
-                           onChange={this.filterChangeHandle}
-                           onPressEnter={onFilterPressEnter}
+                           onFocus={this.focusHandler}
+                           onBlur={this.blurHandler}
+                           onChange={this.filterChangeHandler}
+                           onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}/>
 
                 <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
@@ -260,7 +281,7 @@ export default class LocalAutoComplete extends Component {
                        hasTriangle={false}
                        triggerMode={Popup.TriggerMode.OPEN}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       onRender={this.popupRenderHandle}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
 
                     <List className="local-auto-complete-list"
@@ -272,7 +293,7 @@ export default class LocalAutoComplete extends Component {
                           displayField={displayField}
                           descriptionField={descriptionField}
                           onItemTouchTap={onItemTouchTap}
-                          onChange={this.changeHandle}/>
+                          onChange={this.changeHandler}/>
 
                 </Popup>
 
