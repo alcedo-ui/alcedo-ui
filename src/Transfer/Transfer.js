@@ -152,27 +152,27 @@ Transfer.propTypes = {
     style: PropTypes.object,
 
     /**
-     *
+     * The data of left select field.
      */
     leftData: PropTypes.array,
 
     /**
-     *
+     * The data of left select field.
      */
     rightData: PropTypes.array,
 
     /**
-     *
+     * The left-selected data items.
      */
     leftSelected: PropTypes.array,
 
     /**
-     *
+     * The left-selected data items.
      */
     rightSelected: PropTypes.array,
 
     /**
-     * Callback function .
+     * Callback function fired when select item changed.
      */
     onChange: PropTypes.func
 

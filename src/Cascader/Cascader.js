@@ -199,32 +199,32 @@ export default class Cascader extends Component {
                           onChange={this.changeHandle}/>
                 </Popup>
 
-                {/*{*/}
-                    {/*proviceIndex && data[proviceIndex-1].hasOwnProperty("children") ?*/}
-                       {/*<Popup ref="popup"*/}
-                              {/*className={'cascader-popup cascader-popup-second' + cascaderPopupClassName}*/}
-                              {/*visible={true}*/}
-                              {/*style={cascaderPopupStyle}*/}
-                              {/*hasTriangle={false}*/}
-                              {/*triggerEl={this.triggerEl}*/}
-                              {/*position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}*/}
-                              {/*onRender={this.popupRenderHandle}*/}
-                              {/*onRequestClose={this.closePopup}>*/}
+                {
+                    proviceIndex && data[proviceIndex-1].children ?
+                       <Popup ref="popup"
+                              className={'cascader-popup cascader-popup-second' + cascaderPopupClassName}
+                              visible={true}
+                              style={cascaderPopupStyle}
+                              hasTriangle={false}
+                              triggerEl={this.triggerEl}
+                              position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                              onRender={this.popupRenderHandle}
+                              onRequestClose={this.closePopup}>
 
-                           {/*<List className="cascader-list"*/}
-                                 {/*value={value}*/}
-                                 {/*rightIconCls={true}*/}
-                                 {/*valueField={valueField}*/}
-                                 {/*displayField={displayField}*/}
-                                 {/*items={data[proviceIndex-1].children}*/}
-                                 {/*descriptionField={descriptionField}*/}
-                                 {/*onItemTouchTap={this.itemTouchTapHandle2}*/}
-                                 {/*onChange={this.changeHandle2}/>*/}
-                       {/*</Popup>*/}
-                       {/*:*/}
-                       {/*null*/}
+                           <List className="cascader-list"
+                                 value={value}
+                                 rightIconCls={true}
+                                 valueField={valueField}
+                                 displayField={displayField}
+                                 items={data[proviceIndex-1].children}
+                                 descriptionField={descriptionField}
+                                 onItemTouchTap={this.itemTouchTapHandle2}
+                                 onChange={this.changeHandle2}/>
+                       </Popup>
+                       :
+                       null
 
-                {/*}*/}
+                }
 
 
 

@@ -61,7 +61,8 @@ export default class TreeExamples extends Component {
                 <h2 className="examples-title">Tree</h2>
 
                 <p>
-                    <span>Tree</span>
+                    <span>Tree</span> can fully display the hierarchy, and has interactive functions such as
+                    expansion, withdrawal and selection.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -69,14 +70,14 @@ export default class TreeExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Tree Example"/>
+                                  title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Tree</p>
+                                <p><code>Tree</code>simple example.</p>
                                 <div className="field-group">
                                     <Tree className="tree-example"
                                           data={data}

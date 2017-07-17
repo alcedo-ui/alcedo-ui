@@ -59,10 +59,10 @@ export default class TreeSelectExamples extends Component {
         return (
             <div className="example tree-select-examples">
 
-                <h2 className="examples-title">Tree Select</h2>
+                <h2 className="examples-title">TreeSelect</h2>
 
                 <p>
-                    <span>Tree Select</span>
+                    <span>TreeSelect</span> is a Tree component withe select field.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -70,14 +70,14 @@ export default class TreeSelectExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Tree Select Example"/>
+                                  title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Tree Select</p>
+                                <p><code>TreeSelect</code> simple example.</p>
                                 <div className="field-group">
                                     <TreeSelect className="tree-select-example"
                                                 data={data}

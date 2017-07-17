@@ -89,14 +89,39 @@ export default class BriefPagging extends Component {
 
 BriefPagging.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The total of data.
+     */
     count: PropTypes.number,
+
+    /**
+     * The valid page.
+     */
     page: PropTypes.number,
+
+    /**
+     * The page count.
+     */
     total: PropTypes.number,
+
+    /**
+     * The number of per page.
+     */
     pageSize: PropTypes.number,
 
+    /**
+     * Callback function fired when the number of pages varies.
+     */
     onChange: PropTypes.func
 
 };

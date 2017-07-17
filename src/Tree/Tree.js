@@ -128,13 +128,44 @@ export default class Tree extends Component {
 };
 
 Tree.propTypes = {
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
+
+    /**
+     * The value of default selected item.
+     */
     value: PropTypes.array,
+
+    /**
+     * The data of tree items.
+     */
     data: PropTypes.array,
+
+    /**
+     * If true,the tree-node can be multi-select.
+     */
     multiple: PropTypes.bool,
+
+    /**
+     * Use this property to display an icon.It will display on the left.
+     */
     iconCls: PropTypes.string,
+
+    /**
+     * Callback function fired when the tree-node is touch-tapped.
+     */
     onChange: PropTypes.func,
+
+    /**
+     * The placeholder of the text field.
+     */
     placeholder: PropTypes.string
 };
 

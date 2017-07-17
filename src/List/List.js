@@ -331,12 +331,12 @@ List.propTypes = {
             desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
             /**
-             *
+             * If true,the item will be in the selected state.
              */
             checked: PropTypes.bool,
 
             /**
-             * If true, the list button will be disabled.
+             * If true,the list item will be disabled.
              */
             disabled: PropTypes.bool,
 
@@ -361,17 +361,17 @@ List.propTypes = {
             rightIconCls: PropTypes.string,
 
             /**
-             *
+             * The message of tip.
              */
             tip: PropTypes.string,
 
             /**
-             *
+             * The position of tip.
              */
             tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
             /**
-             *
+             * If true,the item will have center displayed ripple effect.
              */
             rippleDisplayCenter: PropTypes.bool,
 
@@ -413,28 +413,28 @@ List.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * If true, the list will be loading.
+     * If true, the list will be at loading status.
      */
     isLoading: PropTypes.bool,
 
     /**
-     *
+     * The mode of listItem.Can be normal,checkbox.
      */
     mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
 
     /**
-     *
+     * If true,the listData will be grouped.
      */
     isGrouped: PropTypes.bool,
 
     /**
-     *
+     * Callback function fired when the list-item select.
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     *
-     */
+     * Callback function fired when the list changed.
+     **/
     onChange: PropTypes.func
 
 };

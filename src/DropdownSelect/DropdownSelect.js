@@ -280,7 +280,7 @@ DropdownSelect.propTypes = {
     className: PropTypes.string,
 
     /**
-     * The CSS class name of the popup element.
+     * The class name of the popup element.
      */
     popupClassName: PropTypes.string,
 
