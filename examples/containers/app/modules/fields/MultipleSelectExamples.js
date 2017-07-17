@@ -94,9 +94,13 @@ export default class MultipleSelectExamples extends Component {
     }
 
     onChangeHandle(value) {
+
+        console.log('value changed: ', value);
+
         this.setState({
             value: value
         });
+
     }
 
     render() {

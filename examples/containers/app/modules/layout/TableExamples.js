@@ -82,7 +82,11 @@ export default class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    isPagging={true}
-                                   data={data}/>
+                                   data={data}
+                                   sortInitConfig={{
+                                       prop: 'id',
+                                       type: -1
+                                   }}/>
 
                         </div>
                     </div>

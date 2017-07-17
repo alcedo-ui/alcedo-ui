@@ -11,7 +11,7 @@ export default class Tbody extends Component {
 
     render() {
 
-        const {columns, data, startIndex} = this.props;
+        const {columns, data, startIndex, idProp} = this.props;
 
         return (
             <tbody>
@@ -19,7 +19,7 @@ export default class Tbody extends Component {
                 {
                     data.map((row, rowIndex) => {
                         return (
-                            <TableRow key={rowIndex}
+                            <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
                                       rowIndex={startIndex + rowIndex}
                                       columns={columns}
                                       data={row}/>
@@ -36,11 +36,13 @@ export default class Tbody extends Component {
 Tbody.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
-    startIndex: PropTypes.number
+    startIndex: PropTypes.number,
+    idProp: PropTypes.string
 };
 
 Tbody.defaultProps = {
     data: [],
     columns: [],
-    startIndex: 0
+    startIndex: 0,
+    idProp: 'id'
 };
