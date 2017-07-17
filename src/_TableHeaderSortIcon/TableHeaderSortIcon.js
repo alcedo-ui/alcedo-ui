@@ -11,13 +11,17 @@ export default class TableHeaderSortIcon extends Component {
 
     render() {
 
-        const {className, style, sort} = this.props;
+        const {className, style, sort} = this.props,
+            iconClassName = (sort && sort.type < 0 ? ' desc' : '') + (className ? ' ' + className : '');
 
-        return (
-            <IconButton className={`table-header-sort-icon ${sort && sort.type < 0 ? 'desc' : ''} ${className}`}
-                        style={style}
-                        iconCls={`fa fa-angle-up`}/>
-        );
+        return sort ?
+            (
+                <IconButton className={'table-header-sort-icon' + iconClassName}
+                            style={style}
+                            iconCls="fa fa-angle-up"/>
+            )
+            :
+            <div className="table-header-sort-icon">—</div>;
 
     }
 };
