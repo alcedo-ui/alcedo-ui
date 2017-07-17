@@ -15,34 +15,80 @@ import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 export default class CascaderExamples extends Component {
     constructor(props) {
         super(props);
+
+        this.data = [{
+            text: '河南省',
+            value: 1,
+            rightIconCls:'fa fa-angle-right',
+            children:[{
+                text: '郑州市',
+                value: 1
+            }],
+        }, {
+            text: '湖北省',
+            value: 2,
+            rightIconCls:'fa fa-angle-right',
+            onTouchTap() {
+                console.log('湖北省');
+            }
+        }, {
+            text: '四川省',
+            value: 3,
+            rightIconCls:'fa fa-angle-right',
+            onTouchTap() {
+                console.log('四川省');
+            }
+        }, {
+            text: '辽宁省',
+            value: 4,
+            rightIconCls:'fa fa-angle-right',
+            onTouchTap() {
+                console.log('辽宁省');
+            }
+        }, {
+            text: '上海市',
+            value: 5,
+            rightIconCls:'fa fa-angle-right',
+            onTouchTap() {
+                console.log('上海市');
+            }
+        }, {
+            text: '北京市',
+            value: 6,
+            rightIconCls:'fa fa-angle-right',
+            onTouchTap() {
+                console.log('北京市');
+            }
+        }, {
+            text: '安徽省',
+            value: 7,
+            rightIconCls:'fa fa-angle-right',
+
+            onTouchTap() {
+                console.log('安徽省');
+            }
+        }, {
+            text: '山西省',
+            value: 8,
+            rightIconCls:'fa fa-angle-right',
+        }, {
+            text: '江苏省',
+            value: 9,
+            rightIconCls:'fa fa-angle-right',
+        }, {
+            text: '浙江省',
+            value: 10,
+            rightIconCls:'fa fa-angle-right',
+        }];
+
+        this.onChange = this::this.onChange;
+    }
+
+    onChange(value) {
+        console.log(value);
     }
 
     render() {
-        let data = [{
-            value: 'shanghai',
-            text: 'shanghai',
-            rightIconCls: 'fa fa-chevron-right'
-        }, {
-            value: 'zhejiang',
-            text: 'zhejiang',
-            rightIconCls: 'fa fa-chevron-right'
-        }, {
-            value: 'beijing',
-            text: 'beijing',
-            rightIconCls: 'fa fa-chevron-right'
-        }, {
-            value: 'hangzhou',
-            text: 'hangzhou',
-            rightIconCls: 'fa fa-chevron-right'
-        }, {
-            value: 'shenzhen',
-            text: 'shenzhen',
-            rightIconCls: 'fa fa-chevron-right'
-        }, {
-            value: 'guangzhou',
-            text: 'guangzhou',
-            rightIconCls: 'fa fa-chevron-right'
-        }];
 
         return (
             <div className="example cascader-examples">
@@ -56,7 +102,7 @@ export default class CascaderExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Cascader Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -65,28 +111,10 @@ export default class CascaderExamples extends Component {
 
                                 <p>Cascader simple example.</p>
 
-                                <Cascader data={data}
-                                          optionsVisible={true}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Cascader Example"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>Cascader simple example.</p>
-
-                                <Cascader placeholder="Please select..."/>
+                                <Cascader data={this.data}
+                                          autoClose={false}
+                                          popupStyle={{width: 130}}
+                                          onChange={this.onChange}/>
 
                             </div>
 

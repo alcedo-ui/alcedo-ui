@@ -31,14 +31,15 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Flat Button Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Flat Button with default theme,success,warning,error and disabled props applied.</p>
+                                <p><code>Flat Button</code> with default theme,<code>success</code>,<code>warning</code>
+                                    ,<code>error</code> and <code>disabled</code> props applied.</p>
 
                                 <FlatButton value="Default"/>
 
@@ -67,14 +68,14 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Flat Button With Rounded Example"/>
+                    <WidgetHeader className="example-header" title="With border radius"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the isRounded property to true for button round corner.</p>
+                                <p>Set the <code>isRounded</code> property to true for button round corner.</p>
 
                                 <FlatButton value="Default"
                                             isRounded={true}/>
@@ -108,15 +109,15 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Flat Button With Icon Example"/>
+                    <WidgetHeader className="example-header" title="With icon"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the iconCls property for button left icon.And set the rightIconCls property for
-                                    button right icon.</p>
+                                <p>Set the <code>iconCls</code> property for button left icon.And set the
+                                    <code>rightIconCls</code> property for button right icon.</p>
 
                                 <FlatButton value="Reset"
                                             iconCls="fa fa-undo"/>
@@ -142,14 +143,14 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Flat Button Use Circle Shape Example"/>
+                    <WidgetHeader className="example-header" title="Use circle shape"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the isCircular property to true for circle shape flat button.</p>
+                                <p>Set the <code>isCircular</code> property to true for circle shape flat button.</p>
 
                                 <FlatButton value="Primary"
                                             isCircular={true}/>

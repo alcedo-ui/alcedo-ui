@@ -1,19 +1,19 @@
 export default [{
     text: 'Buttons',
     children: [{
-        text: 'Raised Button',
+        text: 'RaisedButton',
         route: '/components/RaisedButton'
     }, {
-        text: 'Flat Button',
+        text: 'FlatButton',
         route: '/components/FlatButton'
     }, {
-        text: 'Ghost Button',
+        text: 'GhostButton',
         route: '/components/GhostButton'
     }, {
-        text: 'Icon Button',
+        text: 'IconButton',
         route: '/components/IconButton'
     }, {
-        text: 'Icon Anchor',
+        text: 'IconAnchor',
         route: '/components/IconAnchor'
     }]
 }, {
@@ -28,45 +28,42 @@ export default [{
 }, {
     text: 'Date',
     children: [{
-        text: 'Date Picker',
+        text: 'DatePicker',
         route: '/components/DatePicker'
     }, {
-        text: 'Date Range Picker',
+        text: 'DateRangePicker',
         route: '/components/DateRangePicker'
     }, {
-        text: 'Time Picker',
+        text: 'TimePicker',
         route: '/components/TimePicker'
     }, {
-        text: 'Date Time Picker',
+        text: 'DateTimePicker',
         route: '/components/DateTimePicker'
     }]
 }, {
     text: 'Fields',
     children: [{
-        text: 'Text Field',
+        text: 'TextField',
         route: '/components/TextField'
     }, {
-        text: 'Text Area',
+        text: 'TextArea',
         route: '/components/TextArea'
     }, {
-        text: 'Local Auto Complete',
+        text: 'LocalAutoComplete',
         route: '/components/LocalAutoComplete'
     }, {
-        text: 'Remote Auto Complete',
+        text: 'RemoteAutoComplete',
         route: '/components/RemoteAutoComplete'
     }, {
-        text: 'Dropdown Select',
+        text: 'DropdownSelect',
         route: '/components/DropdownSelect'
     }, {
-        text: 'Multiple Select',
+        text: 'MultipleSelect',
         route: '/components/MultipleSelect'
     }, {
         text: 'Checkbox',
         route: '/components/Checkbox'
-    }/*, {
-     text: 'Radio',
-     route: '/components/Radio'
-     }*/, {
+    }, {
         text: 'RadioGroup',
         route: '/components/RadioGroup'
     }, {
@@ -166,4 +163,7 @@ export default [{
         text: 'CircularLoading',
         route: '/components/CircularLoading'
     }]
-}];
+}, {
+ text: 'Cascader',
+ route: '/components/Cascader'
+ }];

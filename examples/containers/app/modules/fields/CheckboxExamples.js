@@ -31,14 +31,14 @@ export default class CheckboxExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Checkbox Example"/>
+                                  title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Checkbox simple default example.</p>
+                                <p><code>Checkbox</code> simple example.</p>
 
                                 <Checkbox label="Licence"/>
 
@@ -51,15 +51,14 @@ export default class CheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header"
-                                  title="Checkbox Disabled Example"/>
+                    <WidgetHeader className="example-header" title="With disabled"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the disabled property to true to disable the checkbox.</p>
+                                <p>Set the <code>disabled</code> property to true to disable the checkbox.</p>
 
                                 <Checkbox label="Licence"
                                           disabled={true}/>
@@ -74,14 +73,14 @@ export default class CheckboxExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Checkbox Group Example"/>
+                                  title="CheckboxGroup"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Checkbox Group simple example.</p>
+                                <p>CheckboxGroup simple example.</p>
 
                                 <CheckboxGroup data={[{
                                     label: 1,
@@ -117,7 +116,7 @@ export default class CheckboxExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>Checkbox Group disabled example.</p>
+                                <p>Set the <code>disabled</code> property to true to disable the CheckboxGroup.</p>
 
                                 <CheckboxGroup data={[{
                                     label: 1,

@@ -30,14 +30,14 @@ export default class ButtonCheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>ButtonCheckbox simple default example.</p>
+                                <p><code>ButtonCheckbox</code> simple example.</p>
 
                                 <label>Number</label>
                                 <ButtonCheckbox text="1"/>
@@ -55,14 +55,15 @@ export default class ButtonCheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
+                    <WidgetHeader className="example-header" title="With value"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the value property to true for ButtonCheckbox using active status.</p>
+                                <p>Set the <code>value</code> property to true for ButtonCheckbox using active status.
+                                </p>
 
                                 <label>Number</label>
                                 <ButtonCheckbox text="1"
@@ -85,14 +86,14 @@ export default class ButtonCheckboxExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ButtonCheckbox Example"/>
+                    <WidgetHeader className="example-header" title="With disabled"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the disabled property to true for disabling the ButtonCheckbox.</p>
+                                <p>Set the <code>disabled</code> property to true for disabling the ButtonCheckbox.</p>
 
                                 <label>Number</label>
                                 <ButtonCheckbox text="one"

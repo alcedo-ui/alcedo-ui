@@ -417,12 +417,12 @@ LocalAutoComplete.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     *
+     * The type of dropDown list,can be normal,checkbox,radio.
      */
     mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
-     * Callback function fired when value changed.
+     *
      */
     filterCallback: PropTypes.func,
 
@@ -437,12 +437,12 @@ LocalAutoComplete.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
-     *
+     * The message of no matched value.
      */
     noMatchedMsg: PropTypes.string,
 
     /**
-     *
+     * If true,
      */
     isGrouped: PropTypes.bool,
 
@@ -462,22 +462,22 @@ LocalAutoComplete.propTypes = {
     onFilterClear: PropTypes.func,
 
     /**
-     * select callback.
+     *
      */
     onChange: PropTypes.func,
 
     /**
-     * item touch tap callback.
+     *
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     * focus callback.
+     * Callback function fired when LocalAutoComplete get focus.
      */
     onFocus: PropTypes.func,
 
     /**
-     * blur callback.
+     * Callback function fired when LocalAutoComplete lose focus.
      */
     onBlur: PropTypes.func
 
