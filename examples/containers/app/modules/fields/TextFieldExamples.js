@@ -31,15 +31,15 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="TextField Example"/>
+                                  title="With type"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextField</code> using the type property to set the type of input to display
-                                    such as "password" or "text".</p>
+                                <p><code>TextField</code> using the <code>type</code> property to set the type of input
+                                    to display such as "password" or "text".</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
@@ -61,14 +61,15 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Search TextField Example"/>
+                                  title="With rightIconCls"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Search TextField</p>
+                                <p><code>TextField</code> using the <code>rightIconCls</code> property to set a icon
+                                    display at right.</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
@@ -76,7 +77,6 @@ export default class TextFieldExamples extends Component {
                                 </div>
 
                             </div>
-
 
                         </div>
                     </div>
@@ -87,15 +87,15 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="TextField with Icon Example"/>
+                                  title="With icon"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>TextField using the iconCls property to set the icon of TextField to display at
-                                    left.</p>
+                                <p><code>TextField</code> using the <code>iconCls</code> property to set the icon of
+                                    TextField to display at left.</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
@@ -118,14 +118,15 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="TextFieldGroup Example"/>
+                                  title="TextFieldGroup without label"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>TextFieldGroup without label element and disabled props applied.</p>
+                                <p><code>TextFieldGroup</code>code> without <code>label</code> element and <code>disabled</code>
+                                    props applied.</p>
 
                                 <TextFieldGroup>
 
@@ -146,12 +147,15 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="TextField Validation"/>
+                                  title="With pattern and patternInvalidMsg"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
+                                <p><code>TextField</code> with <code>pattern</code> and <code>patternInvalidMsg</code>
+                                    applied.</p>
 
                                 <div>Required</div>
                                 <div className="field-group">
