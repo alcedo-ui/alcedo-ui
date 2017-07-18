@@ -13,39 +13,24 @@ export default class CascaderList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            popupVisible: flase
-        }
     }
 
     render() {
-        const {cascaderPopupClassName,triggerEl,popupRenderHandle,closePopup,valueField,displayField,itemTouchTapHandle,changeHandle,descriptionField,value,data}=this.props;
+        const {listData, className, style, visible, cascaderPopupStyle, popupClassName, triggerEl}=this.props;
 
         return (
-            <div className="cascader-popup-list">
-                <Popup ref="popup"
-                       className={'cascader-popup' + cascaderPopupClassName}
-                       visible={popupVisible}
-                       style={cascaderPopupStyle}
-                       hasTriangle={false}
-                       triggerEl={triggerEl}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       onRender={popupRenderHandle}
-                       onRequestClose={closePopup}>
+            <div className={`cascader-list ${className}`}
+                 style={style}>
 
-                    <List className="cascader-list"
-                          value={value}
-                          rightIconCls={true}
-                          valueField={valueField}
-                          displayField={displayField}
-                          items={data}
-                          descriptionField={descriptionField}
-                          onItemTouchTap={()=>{
-                              itemTouchTapHandle
-                          }}
-                          onChange={()=>{
-                              changeHandle
-                          }}/>
+                <Popup ref="popup"
+                       style={cascaderPopupStyle}
+                       visible={visible}
+                       className={`cascader-popup ${popupClassName}`}
+                       triggerEl={triggerEl}
+                       hasTriangle={false}>
+
+                    <List className={`cascader-popup-list`}
+                          items={listData}/>
                 </Popup>
 
             </div>
@@ -64,6 +49,8 @@ CascaderList.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    items: PropTypes.array
 
 };

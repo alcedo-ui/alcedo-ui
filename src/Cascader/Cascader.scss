@@ -44,13 +44,14 @@
 
     }
 }
+
 .cascader-popup {
     box-sizing: border-box;
-    max-height: 240px;
+    max-height: 300px;
     overflow-y: auto;
     margin: 0;
 
-    .cascader-list {
+    .cascader-popup-list {
         width: 100%;
     }
 

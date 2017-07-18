@@ -7,6 +7,7 @@ import {findDOMNode} from 'react-dom';
 
 import Popup from '../Popup';
 import List from '../List';
+import CascaderList from './CascaderList';
 import RaisedButton from '../RaisedButton';
 
 import Util from '../_vendors/Util';
@@ -18,7 +19,6 @@ export default class Cascader extends Component {
         super(props);
         this.state = {
             popupVisible: false,
-            proviceIndex:null,
             isAbove: false
         };
         this.togglePopup = this::this.togglePopup;
@@ -27,20 +27,17 @@ export default class Cascader extends Component {
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.changeHandle = this::this.changeHandle;
-        this.changeHandle2 = this::this.changeHandle2;
     }
 
     togglePopup() {
         this.setState({
-            popupVisible: !this.state.popupVisible,
-            proviceIndex: null
+            popupVisible: !this.state.popupVisible
         });
     }
 
     closePopup() {
         this.setState({
-            popupVisible: false,
-            proviceIndex: null
+            popupVisible: false
         });
     }
 
@@ -90,28 +87,12 @@ export default class Cascader extends Component {
 
     }
 
-    itemTouchTapHandle2(value) {
-
-        alert(JSON.stringify(value))
-
-    }
 
     changeHandle(value) {
 
         this.setState({
-            value,
-            proviceIndex:value.value
-
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
-    }
-
-    changeHandle2(value) {
-
-        this.setState({
             value
+
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
@@ -133,10 +114,10 @@ export default class Cascader extends Component {
 
     render() {
         const {
-                className, style, triggerTheme, disabled, popupStyle, data, name, popupClassName,placeholder,
-                valueField, displayField, descriptionField
+                className, style, triggerTheme, disabled, popupStyle, data, name, popupClassName, placeholder
             } = this.props,
-            {value, popupVisible, isAbove,proviceIndex} = this.state,
+
+            {value, popupVisible, isAbove} = this.state,
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
             triggerValue = value ?
@@ -149,13 +130,8 @@ export default class Cascader extends Component {
 
                 )
                 :
-                placeholder,
+                placeholder;
 
-            cascaderPopupClassName = (isAbove ? ' above' : ' blow')
-                + (popupClassName ? ' ' + popupClassName : ''),
-            cascaderPopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle);
         return (
 
             <div ref="cascader"
@@ -178,56 +154,10 @@ export default class Cascader extends Component {
                               theme={triggerTheme}
                               onTouchTap={this.togglePopup}/>
 
-                <Popup ref="popup"
-                       className={'cascader-popup' + cascaderPopupClassName}
-                       visible={popupVisible}
-                       style={cascaderPopupStyle}
-                       hasTriangle={false}
-                       triggerEl={this.triggerEl}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       onRender={this.popupRenderHandle}
-                       onRequestClose={this.closePopup}>
-
-                    <List className="cascader-list"
-                          value={value}
-                          rightIconCls={true}
-                          valueField={valueField}
-                          displayField={displayField}
-                          items={data}
-                          descriptionField={descriptionField}
-                          onItemTouchTap={this.itemTouchTapHandle}
-                          onChange={this.changeHandle}/>
-                </Popup>
-
-                {
-                    proviceIndex && data[proviceIndex-1].children ?
-                       <Popup ref="popup"
-                              className={'cascader-popup cascader-popup-second' + cascaderPopupClassName}
-                              visible={true}
-                              style={cascaderPopupStyle}
-                              hasTriangle={false}
+                <CascaderList listData={data}
+                              className={`cascader-list-con ${popupClassName}`}
                               triggerEl={this.triggerEl}
-                              position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                              onRender={this.popupRenderHandle}
-                              onRequestClose={this.closePopup}>
-
-                           <List className="cascader-list"
-                                 value={value}
-                                 rightIconCls={true}
-                                 valueField={valueField}
-                                 displayField={displayField}
-                                 items={data[proviceIndex-1].children}
-                                 descriptionField={descriptionField}
-                                 onItemTouchTap={this.itemTouchTapHandle2}
-                                 onChange={this.changeHandle2}/>
-                       </Popup>
-                       :
-                       null
-
-                }
-
-
-
+                              visible={popupVisible}/>
 
 
             </div>
