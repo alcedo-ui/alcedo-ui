@@ -179,8 +179,8 @@ export default class ListExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>Set the theme property to "success","error","warning","primary" and set the
-                                    rightIconCls property to get rightIcons.</p>
+                                <p>Set the <code>theme</code> property to "success","error","warning","primary" and set
+                                    the <code>rightIconCls</code> property to get rightIcons.</p>
 
                                 <Paper>
                                     <List items={this.themeListData}/>

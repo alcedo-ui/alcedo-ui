@@ -32,14 +32,15 @@ export default class TipExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Tip Example"/>
+                    <WidgetHeader className="example-header" title="With theme and tipPosition"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set theme property to different theme and tipPosition to different position.</p>
+                                <p>Set <code>theme</code> property to different theme and <code>tipPosition</code> to
+                                    different position.</p>
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"

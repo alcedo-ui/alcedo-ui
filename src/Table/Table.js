@@ -466,22 +466,22 @@ Table.propTypes = {
     idProp: PropTypes.string,
 
     /**
-     *
+     * If true,the table will use BriefPagging component.
      */
     useBriefPagging: PropTypes.bool,
 
     /**
-     *
+     * Sort init config.
      */
     sortInitConfig: PropTypes.shape({
 
         /**
-         *
+         * Specify the sorting column.
          */
         prop: PropTypes.string,
 
         /**
-         *
+         * If type equals 1,data will ascending ordered,else type equals -1,data will descending ordered.
          */
         type: PropTypes.oneOf([1, -1])
 

@@ -286,7 +286,7 @@ DialogBody.propTypes = {
     style: PropTypes.object,
 
     /**
-     * .
+     *
      */
     disabled: PropTypes.bool,
 
@@ -336,7 +336,7 @@ DialogBody.propTypes = {
     okButtonDisabled: PropTypes.bool,
 
     /**
-     *
+     * If true,the ok button will have loading effect.
      */
     okButtonIsLoading: PropTypes.bool,
 
@@ -376,7 +376,7 @@ DialogBody.propTypes = {
     cancelButtonUIType: PropTypes.oneOf(Util.enumerateValue(DialogBody.ButtonUITypes)),
 
     /**
-     *
+     * The buttons of Dialog.
      */
     buttons: PropTypes.any,
 

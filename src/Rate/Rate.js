@@ -126,7 +126,7 @@ export default class Rate extends Component {
         const {items} = this.state;
         const warpStyle = {
             width:count * 30
-        }
+        };
         return (
             <div className={`rate ${className ? className : ''}`}
                  style={{...warpStyle , ...style}}
@@ -190,12 +190,18 @@ Rate.propTypes = {
     style: PropTypes.object,
 
     /**
-     *
+     * The value of Rate component.
      */
     value: PropTypes.number,
 
+    /**
+     * If true,the Rate will have half star.
+     */
     allowHalf: PropTypes.bool,
 
+    /**
+     * If true,the Rate component will be disabled.
+     */
     disabled: PropTypes.bool,
 
     /**

@@ -443,7 +443,7 @@ LocalAutoComplete.propTypes = {
     mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
-     *
+     * Callback function fired when filter changed.
      */
     filterCallback: PropTypes.func,
 
@@ -463,32 +463,32 @@ LocalAutoComplete.propTypes = {
     noMatchedMsg: PropTypes.string,
 
     /**
-     * If true,
+     * If true,the list data will be grouped.
      */
     isGrouped: PropTypes.bool,
 
     /**
-     *
+     * The function that trigger when filter changes.
      */
     onFilterChange: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when press enter.
      */
     onFilterPressEnter: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when filter cleared.
      */
     onFilterClear: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when value changed.
      */
     onChange: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when touch-tap the list items.
      */
     onItemTouchTap: PropTypes.func,
 

@@ -38,8 +38,8 @@ export default class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>TextField using the type property to set the type of input to display such as
-                                    "password" or "text".</p>
+                                <p><code>TextField</code> using the type property to set the type of input to display
+                                    such as "password" or "text".</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
