@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Popup from '../Popup';
-import List from '../List';
 import CascaderList from './CascaderList';
 import RaisedButton from '../RaisedButton';
 
@@ -25,8 +24,6 @@ export default class Cascader extends Component {
         this.closePopup = this::this.closePopup;
         this.isAbove = this::this.isAbove;
         this.popupRenderHandle = this::this.popupRenderHandle;
-        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
-        this.changeHandle = this::this.changeHandle;
     }
 
     togglePopup() {
@@ -75,30 +72,6 @@ export default class Cascader extends Component {
 
     }
 
-    itemTouchTapHandle(value) {
-
-        const {autoClose, onItemTouchTap} = this.props;
-
-        onItemTouchTap && onItemTouchTap(value);
-
-        autoClose && this.setState({
-            popupVisible: false
-        });
-
-    }
-
-
-    changeHandle(value) {
-
-        this.setState({
-            value
-
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
-    }
-
     componentDidMount() {
         this.triggerEl = findDOMNode(this.refs.trigger);
         this.triggerHeight = this.triggerEl.clientHeight;
@@ -114,7 +87,8 @@ export default class Cascader extends Component {
 
     render() {
         const {
-                className, style, triggerTheme, disabled, popupStyle, data, name, popupClassName, placeholder
+                className, style, triggerTheme, disabled, valueField, displayField, popupStyle,
+                name, popupClassName, placeholder,data
             } = this.props,
 
             {value, popupVisible, isAbove} = this.state,
@@ -123,14 +97,17 @@ export default class Cascader extends Component {
             triggerValue = value ?
                 (
 
-                    value.length > 0 ?
-                    value.length + ' selected'
-                        :
-                        placeholder
+                    Util.getTextByDisplayField(value, displayField, valueField)
 
                 )
                 :
-                placeholder;
+                placeholder,
+            popupRenderClassName = (isAbove ? ' above' : ' blow')
+                + (popupClassName ? ' ' + popupClassName : ''),
+            popupRenderStyle = Object.assign({
+                width: this.triggerEl && getComputedStyle(this.triggerEl).width
+            }, popupStyle);
+
 
         return (
 
@@ -146,6 +123,7 @@ export default class Cascader extends Component {
                         :
                         null
                 }
+
                 <RaisedButton ref="trigger"
                               className={'cascader-trigger' + triggerClassName}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
@@ -154,11 +132,21 @@ export default class Cascader extends Component {
                               theme={triggerTheme}
                               onTouchTap={this.togglePopup}/>
 
-                <CascaderList listData={data}
-                              className={`cascader-list-con ${popupClassName}`}
-                              triggerEl={this.triggerEl}
-                              visible={popupVisible}/>
+                <Popup ref="popup"
+                       visible={popupVisible}
+                       style={popupRenderStyle}
+                       className={`cascader-popup ${popupRenderClassName}`}
+                       triggerEl={this.triggerEl}
+                       hasTriangle={false}
+                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       onRender={this.popupRenderHandle}
+                       onRequestClose={this.closePopup}>
 
+                    <CascaderList className={`cascader-list`}
+                                  value={value}
+                                  listData={data}/>
+
+                </Popup>
 
             </div>
         )

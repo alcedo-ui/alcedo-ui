@@ -19,12 +19,34 @@ export default class CascaderExamples extends Component {
 
         this.data = [{
             text: '河南省',
-            value: 1,
+            value: '河南省',
             rightIconCls: 'fa fa-angle-right',
             children: [{
                 text: '郑州市',
-                value: 1
-            }],
+                value: '郑州市',
+                children: [{
+                    text: '二七纪念塔',
+                    value: '二七纪念塔',
+                }]
+            }, {
+                text: '平顶山市',
+                value: '平顶山市'
+            }, {
+                text: '郑州市',
+                value: '郑州市'
+            }, {
+                text: '平顶山市',
+                value: '平顶山市'
+            }, {
+                text: '郑州市',
+                value: '郑州市'
+            }, {
+                text: '平顶山市',
+                value: '平顶山市'
+            }, {
+                text: '郑州市',
+                value: '郑州市'
+            }]
         }, {
             text: '湖北省',
             value: 2,
@@ -64,7 +86,6 @@ export default class CascaderExamples extends Component {
             text: '安徽省',
             value: 7,
             rightIconCls: 'fa fa-angle-right',
-
             onTouchTap() {
                 console.log('安徽省');
             }
@@ -72,15 +93,26 @@ export default class CascaderExamples extends Component {
             text: '山西省',
             value: 8,
             rightIconCls: 'fa fa-angle-right',
+            onTouchTap() {
+                console.log('山西省');
+            }
         }, {
             text: '江苏省',
             value: 9,
             rightIconCls: 'fa fa-angle-right',
+            onTouchTap() {
+                console.log('江苏省');
+            }
         }, {
             text: '浙江省',
             value: 10,
             rightIconCls: 'fa fa-angle-right',
+            onTouchTap() {
+                console.log('浙江省');
+            }
         }];
+
+
         this.listData = [{
             iconCls: 'fa fa-facebook',
             text: 'Facebook'
@@ -121,7 +153,8 @@ export default class CascaderExamples extends Component {
 
                                 <p>CascaderList simple example.</p>
 
-                                <Cascader data={this.data}/>
+                                <Cascader data={this.data}
+                                          popupStyle={{width: 130}}/>
 
                             </div>
 

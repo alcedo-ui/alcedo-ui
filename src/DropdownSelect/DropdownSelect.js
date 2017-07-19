@@ -124,6 +124,7 @@ export default class DropdownSelect extends Component {
     itemTouchTapHandle(value) {
         const {onItemTouchTap} = this.props;
         onItemTouchTap && onItemTouchTap(value);
+        console.log(value);
     }
 
     changeHandle(value) {
@@ -254,7 +255,6 @@ export default class DropdownSelect extends Component {
                     }
 
                     <List className="dropdown-select-list"
-                          value={value}
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.RADIO}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
