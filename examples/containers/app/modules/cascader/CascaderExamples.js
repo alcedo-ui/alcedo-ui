@@ -26,7 +26,13 @@ export default class CascaderExamples extends Component {
                 value: '郑州市',
                 children: [{
                     text: '二七纪念塔',
-                    value: '二七纪念塔',
+                    value: '二七纪念塔'
+                }, {
+                    text: '海洋馆',
+                    value: '海洋馆'
+                }, {
+                    text: '动物园',
+                    value: '动物园'
                 }]
             }, {
                 text: '平顶山市',
@@ -49,7 +55,7 @@ export default class CascaderExamples extends Component {
             }]
         }, {
             text: '湖北省',
-            value: 2,
+            value: '湖北省',
             rightIconCls: 'fa fa-angle-right',
             onTouchTap() {
                 console.log('湖北省');
@@ -153,8 +159,7 @@ export default class CascaderExamples extends Component {
 
                                 <p>CascaderList simple example.</p>
 
-                                <Cascader data={this.data}
-                                          popupStyle={{width: 130}}/>
+                                <Cascader data={this.data}/>
 
                             </div>
 

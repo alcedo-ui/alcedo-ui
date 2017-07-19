@@ -19,41 +19,24 @@
 
         }
 
-        //&.activated {
-        //    @include shadow(4);
-        //
-        //    .cascader-trigger-icon {
-        //        transform: rotate(180deg);
-        //    }
-        //}
-        //
-        //&.above {
-        //    &.activated {
-        //        border-top-left-radius: 0;
-        //        border-top-right-radius: 0;
-        //        z-index: $popup-z-index + 1;
-        //    }
-        //}
-        //
-        //&.blow {
-        //    &.activated {
-        //        border-bottom-left-radius: 0;
-        //        border-bottom-right-radius: 0;
-        //    }
-        //}
+        &.activated {
+            @include shadow(4);
+
+            .cascader-trigger-icon {
+                transform: rotate(180deg);
+            }
+        }
 
     }
 }
 
 .cascader-popup {
     box-sizing: border-box;
-    max-height: 300px;
+    height: 280px;
     overflow-y: auto;
     margin: 0;
 
-    .cascader-popup-list {
-        width: 100%;
-    }
+
 
     &.above {
         border-top-left-radius: 0;

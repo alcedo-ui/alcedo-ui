@@ -4,8 +4,6 @@ import {findDOMNode} from 'react-dom';
 
 import List from '../List';
 
-import Util from '../_vendors/Util';
-
 import './Cascader.css';
 
 export default class CascaderList extends Component {
@@ -29,7 +27,7 @@ export default class CascaderList extends Component {
         }, () => {
             if (!activatedNode.children || activatedNode.children.length < 1) {
                 const {onChange} = this.props;
-                onChange && onChange(value);
+                onChange && onChange(activatedNode);
             }
         });
 
