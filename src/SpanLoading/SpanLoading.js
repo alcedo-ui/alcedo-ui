@@ -17,22 +17,7 @@ export default class SpanLoading extends Component {
 
     }
 
-    componentWillUnmount() {
-        if (this.delayTimeout) {
-            clearTimeout(this.delayTimeout);
-        }
-    }
-
     componentWillReceiveProps(nextProps) {
-
-        // const currentSpinning = this.props.spanning;
-        // if (currentSpinning && !spanning) {
-        //     if (this.delayTimeout) {
-        //         clearTimeout(this.delayTimeout);
-        //     }
-        // } else {
-        //
-        // }
         const spanning = nextProps.spanning;
         const {delay} = this.props;
 
@@ -45,8 +30,14 @@ export default class SpanLoading extends Component {
 
     }
 
+    componentWillUnmount() {
+        if (this.delayTimeout) {
+            clearTimeout(this.delayTimeout);
+        }
+    }
+
     render() {
-        const {className, style, tip, size, children}=this.props;
+        const {className, style, description, size, children}=this.props;
         const {spanning} = this.state;
 
         return (
@@ -70,9 +61,9 @@ export default class SpanLoading extends Component {
                 {children}
 
                 {
-                    tip
+                    description
                         ?
-                        <div className={`span-loading-text`}>{tip}</div>
+                        <div className={`span-loading-text`}>{description}</div>
                         :
                         null
                 }

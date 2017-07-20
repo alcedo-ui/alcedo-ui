@@ -13,7 +13,7 @@ export default class CascaderList extends Component {
             activatedNode: null
         };
         this.changeHandle = this::this.changeHandle;
-        this.onItemTouchTapHandle = this::this.onItemTouchTapHandle;
+        // this.onItemTouchTapHandle = this::this.onItemTouchTapHandle;
 
     }
 

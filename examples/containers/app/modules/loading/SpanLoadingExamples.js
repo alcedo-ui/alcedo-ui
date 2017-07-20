@@ -63,15 +63,15 @@ export default class SpanLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="SpanLoading With Text Example"/>
+                    <WidgetHeader className="example-header" title="With description"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Set the tip property to add a description for SpanLoading.</p>
+                            <p>Set the <code>description</code> property to add a description for SpanLoading.</p>
 
                             <SpanLoading spanning={true}
-                                         tip="Loading..."/>
+                                         description="Loading..."/>
 
                         </div>
                     </div>
@@ -80,12 +80,12 @@ export default class SpanLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="SpanLoading In Different Size Example"/>
+                    <WidgetHeader className="example-header" title="With size"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Set the size property to small or large for different size SpanLoading.</p>
+                            <p>Set the <code>size</code> property to small or large for different size SpanLoading.</p>
 
                             <SpanLoading spanning={true}
                                          size="small"/>
@@ -158,12 +158,12 @@ export default class SpanLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="SpanLoading Delay Example"/>
+                    <WidgetHeader className="example-header" title="With delay"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Set the delay property to delay the loading animation.</p>
+                            <p>Set the <code>delay</code> property to delay the loading animation.</p>
 
                             <SpanLoading spanning={loading2}
                                          delay={1000}
