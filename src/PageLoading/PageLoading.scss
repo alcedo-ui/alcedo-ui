@@ -1,0 +1,61 @@
+@import '../common';
+
+.linear-progress {
+    &.linear-progress-one {
+        position: absolute;
+        z-index: 500;
+        top: 0;
+        .linear-progress-background {
+            width: 100%;
+            border-radius: 0;
+            .linear-progress-highlight {
+                width: 1px;
+                background: $light-blue linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-size: 10px 10px;
+                animation: progress-bar-stripes 2s linear infinite;
+                transition: width 1s linear 0ms;
+                //&.loading {
+                //    animation: progress-bar-stripes 2s linear infinite, loading 5s linear forwards;
+                //}
+                //&.fast {
+                //    width: 80%;
+                //}
+                //&.slow {
+                //    width: 95%;
+                //    transition: width 2500ms linear 0ms;
+                //}
+                //&.slowest {
+                //    width: 99%;
+                //    transition: width 25000ms linear 0ms;
+                //}
+                //&.finished {
+                //    width: 100%;
+                //    transition: width 250ms linear 0ms;
+                //    animation: progress-bar-stripes 2s linear infinite;
+                //}
+            }
+        }
+    }
+}
+
+//@keyframes loading {
+//    0% {
+//        width: 0;
+//    }
+//    10% {
+//        width: 50%;
+//    }
+//    50% {
+//        width: 80%;
+//    }
+//    100% {
+//        width: 90%;
+//    }
+//}
+//
+//@keyframes loaded {
+//
+//    100% {
+//        width: 100%;
+//    }
+//}

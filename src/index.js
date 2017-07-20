@@ -26,6 +26,7 @@ export ListItem from './ListItem';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
 export MultipleSelect from './MultipleSelect';
+export PageLoading from './PageLoading';
 export Pagging from './Pagging';
 export Paper from './Paper';
 export Popup from './Popup';
