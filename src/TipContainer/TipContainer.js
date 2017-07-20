@@ -38,7 +38,13 @@ export default class TipContainer extends Component {
 
     render() {
 
-        const {children, text, position} = this.props,
+        const {children, text} = this.props;
+
+        if (!text) {
+            return children;
+        }
+
+        const {position} = this.props,
             {tipVisible, triggerEl} = this.state;
 
         return (
