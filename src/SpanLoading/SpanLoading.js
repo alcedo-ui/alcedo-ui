@@ -21,29 +21,28 @@ export default class SpanLoading extends Component {
         if (this.delayTimeout) {
             clearTimeout(this.delayTimeout);
         }
-        if (this.debounceTimeout) {
-            clearTimeout(this.debounceTimeout);
-        }
     }
 
     componentWillReceiveProps(nextProps) {
 
-        const currentSpinning = this.props.spanning;
+        // const currentSpinning = this.props.spanning;
+        // if (currentSpinning && !spanning) {
+        //     if (this.delayTimeout) {
+        //         clearTimeout(this.delayTimeout);
+        //     }
+        // } else {
+        //
+        // }
         const spanning = nextProps.spanning;
         const {delay} = this.props;
 
-        if (currentSpinning && !spanning) {
-            this.debounceTimeout = setTimeout(() => this.setState({spanning}), 100);
-            if (this.delayTimeout) {
-                clearTimeout(this.delayTimeout);
-            }
+        if (spanning && delay && !isNaN(Number(delay))) {
+            this.delayTimeout = setTimeout(() => this.setState({spanning}), delay);
         } else {
-            if (spanning && delay && !isNaN(Number(delay))) {
-                this.delayTimeout = setTimeout(() => this.setState({spanning}), delay);
-            } else {
-                this.setState({spanning});
-            }
+            this.setState({spanning});
         }
+
+
     }
 
     render() {

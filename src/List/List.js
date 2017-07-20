@@ -129,14 +129,14 @@ export default class List extends Component {
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
                                       onTouchTap={() => {
-                                          this.listItemTouchTapHandle(item);
+                                          this.listItemTouchTapHandle(item,index);
                                           item.onTouchTap && item.onTouchTap();
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item);
+                                          this.listItemSelectHandle(item,index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item);
+                                          this.listItemDeselectHandle(item,index);
                                       }}/>
                         )
                         :
@@ -149,13 +149,13 @@ export default class List extends Component {
                                       isLoading={isLoading}
                                       mode={mode}
                                       onTouchTap={() => {
-                                          this.listItemTouchTapHandle(item);
+                                          this.listItemTouchTapHandle(item,index);
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item);
+                                          this.listItemSelectHandle(item,index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item);
+                                          this.listItemDeselectHandle(item,index);
                                       }}/>
                         );
 
@@ -166,7 +166,7 @@ export default class List extends Component {
 
     }
 
-    listItemTouchTapHandle(value) {
+    listItemTouchTapHandle(value,index) {
 
         const {mode} = this.props;
 
@@ -178,8 +178,8 @@ export default class List extends Component {
             value
         }, () => {
             const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value);
-            onChange && onChange(value);
+            onItemTouchTap && onItemTouchTap(value,index);
+            onChange && onChange(value,index);
         });
 
     }

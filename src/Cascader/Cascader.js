@@ -74,12 +74,12 @@ export default class Cascader extends Component {
 
     }
 
-    changeHandler(obj) {
+    changeHandler(obj, index) {
         this.setState({
-            value:obj.text,
-            popupVisible:!this.state.popupVisible
-        })
-
+            value: obj.text,
+            popupVisible: !this.state.popupVisible
+        });
+        console.log(index);
 
     }
 
@@ -99,7 +99,7 @@ export default class Cascader extends Component {
     render() {
         const {
                 className, style, triggerTheme, disabled, valueField, displayField, popupStyle,
-                name, popupClassName, placeholder, data
+                name, popupClassName, data
             } = this.props,
 
             {value, popupVisible, isAbove} = this.state,
@@ -166,19 +166,7 @@ Cascader.propTypes = {
      */
     style: PropTypes.object,
 
-    /**
-     * The placeholder of Cascader.
-     */
-    placeholder: PropTypes.string,
 
-    /**
-     * If true,the Cascader will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * If true,the Cascader options box will be show.
-     */
 };
 
 Cascader.defaultProps = {

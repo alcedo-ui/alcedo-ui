@@ -33,10 +33,33 @@
 .cascader-popup {
     box-sizing: border-box;
     height: 280px;
-    overflow-y: auto;
     margin: 0;
+    background: transparent;
+    box-shadow: none!important;
+    overflow: visible;
 
+    .popup-content {
+        @include float-fix;
+        overflow: visible;
 
+        & > .cascader-list {
+            width: 99999px;
+        }
+
+        .cascader-list {
+            float: left;
+        }
+
+        .cascader-popup-list{
+            @include shadow(4);
+            float: left;
+            border:1px solid $theme-title-bg;
+            box-sizing: border-box;
+            height:300px;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+    }
 
     &.above {
         border-top-left-radius: 0;

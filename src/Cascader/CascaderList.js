@@ -13,10 +13,11 @@ export default class CascaderList extends Component {
             activatedNode: null
         };
         this.changeHandle = this::this.changeHandle;
+        this.onItemTouchTapHandle = this::this.onItemTouchTapHandle;
 
     }
 
-    changeHandle(activatedNode) {
+    changeHandle(activatedNode, index) {
 
         if (!activatedNode) {
             return
@@ -27,39 +28,25 @@ export default class CascaderList extends Component {
         }, () => {
             if (!activatedNode.children || activatedNode.children.length < 1) {
                 const {onChange} = this.props;
-                onChange && onChange(activatedNode);
+                onChange && onChange(activatedNode, index);
             }
         });
 
     }
 
 
+
+
     render() {
-        const {listData, className, style, listValueField, listDisplayField, listDescriptionField}=this.props;
+        const {listData, className, style}=this.props;
         const {activatedNode}=this.state;
 
-        // const result = [<List className={`cascader-popup-list`}
-        //                       valueField={listValueField}
-        //                       displayField={listDisplayField}
-        //                       descriptionField={listDescriptionField}
-        //                       onChange={this.changeHandle}
-        //                       items={listData}/>];
-        //
-        // if (activatedNode && activatedNode.children && activatedNode.children.length > 0){
-        //     result.push(<CascaderList {...this.props}
-        //                               listData={activatedNode.children}/>)
-        // }
-        //
-        // return result;
 
         return (
             <div className={`cascader-list ${className}`}
                  style={style}>
 
                 <List className={`cascader-popup-list`}
-                      valueField={listValueField}
-                      displayField={listDisplayField}
-                      descriptionField={listDescriptionField}
                       onChange={this.changeHandle}
                       items={listData}/>
 
