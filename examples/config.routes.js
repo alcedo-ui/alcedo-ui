@@ -1,15 +1,11 @@
 import React from 'react';
 import {IndexRoute, Route, Redirect} from 'react-router';
 
+import * as types from 'reduxes/actionTypes';
+
 import Root from 'containers/Root';
 import Landing from 'containers/landing/Landing';
 import App from 'containers/app/App';
-
-import RaisedButtonExamples from 'containers/app/modules/buttons/RaisedButtonExamples';
-import FlatButtonExamples from 'containers/app/modules/buttons/FlatButtonExamples';
-import GhostButtonExamples from 'containers/app/modules/buttons/GhostButtonExamples';
-import IconButtonExamples from 'containers/app/modules/buttons/IconButtonExamples';
-import IconAnchorExamples from 'containers/app/modules/buttons/IconAnchorExamples';
 
 import TextFieldExamples from 'containers/app/modules/fields/TextFieldExamples';
 import TextAreaExamples from 'containers/app/modules/fields/TextAreaExamples';
@@ -56,7 +52,6 @@ import ListStepExamples from 'containers/app/modules/stepper/ListStepExamples';
 import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
 import TipExamples from 'containers/app/modules/message/TipExamples';
 
-
 import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
 import SpanLoadingExamples from 'containers/app/modules/loading/SpanLoadingExamples';
 import CircularLoadingExamples from 'containers/app/modules/loading/CircularLoadingExamples';
@@ -64,8 +59,18 @@ import RateExamples from 'containers/app/modules/Rate/RateExamples';
 
 import CascaderExamples from 'containers/app/modules/Cascader/CascaderExamples';
 
-export default (
-    <Route path="/" component={Root}>
+
+export default function configureRoute(store) {
+
+    function loadStartCallback() {
+        store.dispatch({type: types.LOAD_COMPONENT_START});
+    }
+
+    function loadCompleteCallback() {
+        store.dispatch({type: types.LOAD_COMPONENT_COMPLETE});
+    }
+
+    return <Route path="/" component={Root}>
 
         <IndexRoute component={Landing}/>
 
@@ -79,15 +84,45 @@ export default (
 
             {/* buttons */}
             <Route path="RaisedButton"
-                   component={RaisedButtonExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/buttons/RaisedButtonExamples').default);
+                           loadCompleteCallback();
+                       }, 'RaisedButtonExamples');
+                   }}/>
             <Route path="FlatButton"
-                   component={FlatButtonExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/buttons/FlatButtonExamples').default);
+                           loadCompleteCallback();
+                       }, 'FlatButtonExamples');
+                   }}/>
             <Route path="GhostButton"
-                   component={GhostButtonExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/buttons/GhostButtonExamples').default);
+                           loadCompleteCallback();
+                       }, 'GhostButtonExamples');
+                   }}/>
             <Route path="IconButton"
-                   component={IconButtonExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/buttons/IconButtonExamples').default);
+                           loadCompleteCallback();
+                       }, 'IconButtonExamples');
+                   }}/>
             <Route path="IconAnchor"
-                   component={IconAnchorExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/buttons/IconAnchorExamples').default);
+                           loadCompleteCallback();
+                       }, 'IconAnchorExamples');
+                   }}/>
 
             {/* fields */}
             <Route path="TextField"
@@ -197,5 +232,6 @@ export default (
 
         </Route>
 
-    </Route>
-);
+    </Route>;
+
+};

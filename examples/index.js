@@ -5,8 +5,8 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {hashHistory, Router} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
-import routes from './config.routes';
-import configureStore from 'reduxes/store/configureStore';
+import configureRoute from './config.routes';
+import configureStore from 'reduxes/store';
 
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
@@ -28,7 +28,7 @@ if (!(Object.setPrototypeOf || {}.__proto__)) {
 
 render(
     <Provider store={store}>
-        <Router history={history} routes={routes}/>
+        <Router history={history} routes={configureRoute(store)}/>
     </Provider>,
     document.getElementById('app-container')
 );
