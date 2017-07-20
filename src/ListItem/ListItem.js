@@ -134,7 +134,7 @@ export default class ListItem extends Component {
 
         return (
             <TipContainer className='block'
-                          text={text}
+                          text={tip}
                           tipPosition={tipPosition}>
 
                 <div className={'list-item' + listItemClassName}
