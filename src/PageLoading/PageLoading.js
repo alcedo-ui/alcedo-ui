@@ -77,10 +77,12 @@ export default class PageLoading extends Component {
     }
 
     render() {
+        const {className, style} = this.props;
 
         return (
             <div>
-                <div className={`page-loading page-loading-one`}
+                <div className={`page-loading page-loading-one ${className}`}
+                     style={style}
                      ref="progress">
                     <div className="page-loading-background">
                         <div className={`page-loading-highlight`} ref="highlight">
@@ -94,6 +96,13 @@ export default class PageLoading extends Component {
 };
 
 PageLoading.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
     onRequestClose: PropTypes.func
+};
+
+PageLoading.defaultProps = {
+    className: '',
+    style: null,
 };
 
