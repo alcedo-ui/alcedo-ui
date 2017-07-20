@@ -47,9 +47,6 @@ export default class TipContainer extends Component {
                 <div className="children-wrapper"
                      onMouseEnter={e => {
                          this.showTip(e);
-                     }}
-                     onMouseLeave={e => {
-                         this.hideTip(e);
                      }}>
                     {children}
                 </div>
