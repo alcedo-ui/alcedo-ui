@@ -76,12 +76,15 @@ class App extends Component {
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
 
-                <div className="load-component">
-                    <ReactCSSTransitionGroup>
-                        {$componentLoading ? <PageLoading key={loading.id}
-                                                          onRequestClose={this.finishLoading}/> : null}
-                    </ReactCSSTransitionGroup>
-                </div>
+                <ReactCSSTransitionGroup>
+                    {
+                        $componentLoading ?
+                            <PageLoading key={loading.id}
+                                         onRequestClose={this.finishLoading}/>
+                            :
+                            null
+                    }
+                </ReactCSSTransitionGroup>
 
                 <NavMenu/>
 
