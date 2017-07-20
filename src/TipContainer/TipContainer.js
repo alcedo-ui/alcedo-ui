@@ -44,11 +44,12 @@ export default class TipContainer extends Component {
             return children;
         }
 
-        const {position} = this.props,
+        const {className, style, position} = this.props,
             {tipVisible, triggerEl} = this.state;
 
         return (
-            <div className="tip-container">
+            <div className={'tip-container' + (className ? ' ' + className : '')}
+                 style={style}>
 
                 <div className="children-wrapper"
                      onMouseEnter={e => {

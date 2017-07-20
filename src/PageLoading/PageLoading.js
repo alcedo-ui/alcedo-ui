@@ -4,9 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-
 import './PageLoading.css';
-
 
 export default class PageLoading extends Component {
     constructor(props) {
@@ -38,11 +36,12 @@ export default class PageLoading extends Component {
     }
 
     setLoading(array, index = 0) {
-        let {width, timeout} = array[index];
+        const {width, timeout} = array[index];
+        let highlight = this.refs.highlight;
 
-        if (this.refs.highlight) {
-            this.refs.highlight.style.width = width + '%';
-            this.refs.highlight.style.transition = 'width ' + timeout + 'ms linear 0ms';
+        if (highlight) {
+            highlight.style.width = width + '%';
+            highlight.style.transition = 'width ' + timeout + 'ms linear 0ms';
             if (index < array.length - 1) {
                 this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
                 this.unrenderTimeout = setTimeout(() => {
@@ -85,8 +84,8 @@ export default class PageLoading extends Component {
                      style={style}
                      ref="progress">
                     <div className="page-loading-background">
-                        <div className={`page-loading-highlight`} ref="highlight">
-
+                        <div className={`page-loading-highlight`}
+                             ref="highlight">
                         </div>
                     </div>
                 </div>
@@ -98,11 +97,12 @@ export default class PageLoading extends Component {
 PageLoading.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+
     onRequestClose: PropTypes.func
 };
 
 PageLoading.defaultProps = {
     className: '',
-    style: null,
+    style: null
 };
 
