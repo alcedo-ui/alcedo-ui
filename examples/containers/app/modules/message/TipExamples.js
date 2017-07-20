@@ -6,7 +6,6 @@ import WidgetHeader from 'dist/WidgetHeader';
 import Tip from 'dist/Tip';
 
 import TipContainer from 'dist/TipContainer';
-import RaisedButton from 'dist/RaisedButton';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TipDoc from 'assets/propTypes/TipBody.json';
@@ -100,9 +99,11 @@ export default class TipExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-                                    <RaisedButton className="tip-button"
-                                                  value="Show me a tip"
-                                                  tip="Here is a tip."/>
+                                <TipContainer text="Here is a tip.">
+                                    <button className="tip-button">
+                                            Show me a tip
+                                    </button>
+                                </TipContainer>
                             </div>
 
                         </div>
