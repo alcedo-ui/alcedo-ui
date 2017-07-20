@@ -31,7 +31,7 @@ export default class RaisedButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Raised Button Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -39,7 +39,8 @@ export default class RaisedButtonExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    Raised Button with default theme,success,warning,error and disabled props applied.
+                                    <code>Raised Button</code> with default theme,<code>success</code>,
+                                    <code>warning</code>,<code>error</code> and <code>disabled</code> props applied.
                                 </p>
 
                                 <RaisedButton value="Default"/>
@@ -68,7 +69,7 @@ export default class RaisedButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Raised Button Rounded Example"/>
+                    <WidgetHeader className="example-header" title="With border radius"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -76,7 +77,7 @@ export default class RaisedButtonExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    Set the isRounded property to true for button round corner.
+                                    Set the <code>isRounded</code> property to true for button round corner.
                                 </p>
 
                                 <RaisedButton value="Default"
@@ -111,15 +112,15 @@ export default class RaisedButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Raised Button with Icon Example"/>
+                    <WidgetHeader className="example-header" title="With icon"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the iconCls property for button left icon.And set the rightIconCls property for
-                                    button right icon.</p>
+                                <p>Set the <code>iconCls</code> property for button left icon.And set the
+                                    <code>rightIconCls</code> property for button right icon.</p>
 
                                 <RaisedButton value="Reset"
                                               iconCls="fa fa-undo"/>
@@ -145,14 +146,14 @@ export default class RaisedButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Raised Button with Icon Example"/>
+                    <WidgetHeader className="example-header" title="Use circle shape"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the isCircular property to true for circle shape raised button.</p>
+                                <p>Set the <code>isCircular</code> property to true for circle shape raised button.</p>
 
                                 <RaisedButton value="Reset"
                                               isCircular={true}/>

@@ -72,22 +72,61 @@ export default class RadioGroup extends Component {
 
 RadioGroup.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The name of Radio.
+     */
     name: PropTypes.string,
+
+    /**
+     * The data of GroupRadio.
+     */
     data: PropTypes.arrayOf(PropTypes.shape({
 
+        /**
+         * The CSS class name of Radio component.
+         */
         className: PropTypes.string,
+
+        /**
+         * Override the styles of Radio component.
+         */
         style: PropTypes.object,
 
+        /**
+         * The label text of Radio component.
+         */
         label: PropTypes.any,
+
+        /**
+         * The value of Radio component.
+         */
         value: PropTypes.any
 
     })).isRequired,
+
+    /**
+     * The value of RadioGroup component.
+     */
     value: PropTypes.any,
+
+    /**
+     * If true,the RadioGroup will be disabled.
+     */
     disabled: PropTypes.bool,
 
+    /**
+     * Callback function fired when the value of RadioGroup changed.
+     */
     onChange: PropTypes.func
 
 };

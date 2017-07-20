@@ -35,7 +35,7 @@ export default class TransferExamples extends Component {
                 <h2 className="example-title">Transfer</h2>
 
                 <p>
-                    <span>Transfer</span>
+                    <span>Transfer</span> double column shuttle selection box.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -43,14 +43,14 @@ export default class TransferExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Transfer Example"/>
+                                  title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Transfer</p>
+                                <p><code>Transfer</code> simple example.</p>
                                 <div className="field-group">
                                     <Transfer leftData={leftData}
                                               rightData={rightData}/>

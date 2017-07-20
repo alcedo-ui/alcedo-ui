@@ -5,7 +5,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Theme from '../Theme';
 
-export default class TipBody extends Component {
+export default class  TipBody extends Component {
 
     constructor(props) {
 
@@ -282,6 +282,9 @@ TipBody.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    /**
+     * The position of Tip.Can be top,left,right,bottom,top-left,top-right,bottom-left,bottom-right.
+     */
     position: PropTypes.oneOf(Util.enumerateValue(TipBody.Position)),
 
     /**

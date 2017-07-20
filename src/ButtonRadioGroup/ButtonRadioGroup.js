@@ -83,24 +83,66 @@ export default class ButtonRadioGroup extends Component {
 
 ButtonRadioGroup.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The hidden input name for form submit.
+     */
     name: PropTypes.string,
+
+    /**
+     * Data for ButtonRadioGroup.
+     */
     data: PropTypes.arrayOf(PropTypes.shape({
 
+        /**
+         * The className of RaisedButton.
+         */
         className: PropTypes.string,
+
+        /**
+         * The style of RaisedButton.
+         */
         style: PropTypes.object,
 
+        /**
+         * The label of RaisedButton.
+         */
         label: PropTypes.any,
+
+        /**
+         * The value of RaisedButton.
+         */
         value: PropTypes.any,
 
+        /**
+         * If true, the RaisedButton will be disabled.
+         */
         disabled: PropTypes.bool
 
     })).isRequired,
+
+    /**
+     * Set one of the button activation.
+     */
     value: PropTypes.any,
+
+    /**
+     * If true, the ButtonRadioGroup will be disabled.
+     */
     disabled: PropTypes.bool,
 
+    /**
+     * Callback function fired when click RaisedButton.
+     */
     onChange: PropTypes.func
 
 };

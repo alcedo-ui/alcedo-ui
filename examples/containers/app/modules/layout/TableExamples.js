@@ -73,12 +73,32 @@ export default class TableExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Table Example"/>
+                    <WidgetHeader className="example-header" title="With isPagging"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple table example.Set isPagging Property to true for pagination.</p>
+                            <p>A simple <code>Table</code> example.Set <code>isPagging</code> property to true for
+                                pagination.</p>
+
+                            <Table columns={this.columns}
+                                   isPagging={true}
+                                   data={data}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With isPagging"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>A simple <code>Table</code> example.Set <code>isPagging</code> property to true for
+                                pagination.</p>
 
                             <Table columns={this.columns}
                                    isPagging={true}
@@ -95,18 +115,17 @@ export default class TableExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Table Example"/>
+                    <WidgetHeader className="example-header" title="With hasLineNumber and isMultiSelect"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A more complex example.Set the hasLineNumber and isMultiSelect to true for showLineNumber
-                                and checkbox.</p>
+                            <p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>
+                                to true for showLineNumber and checkbox.</p>
 
                             <Table columns={this.columns}
                                    isPagging={true}
                                    isMultiSelect={true}
-                                   hasLineNumber={true}
                                    data={data}
                                    useBriefPagging={false}/>
 

@@ -72,10 +72,10 @@ export default class PopupExamples extends Component {
     render() {
 
         const {
-                popupVisible1, popupVisible2, popupVisible3, popupVisible4, popupVisible5, popupVisible6,
+                popupVisible1, popupVisible3, popupVisible4, popupVisible5, popupVisible6,
                 popupVisible7, popupVisible8, popupVisible9, popupVisible10, popupVisible11, popupVisible12,
                 popupVisible13, popupVisible14, popupVisible15,
-                triggerEl1, triggerEl2, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
+                triggerEl1, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
                 triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11, triggerEl12
                 , triggerEl13, triggerEl14, triggerEl15
             } = this.state,
@@ -108,14 +108,14 @@ export default class PopupExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Popup Example"/>
+                                  title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="popup-example-wrapper">
 
-                                <p>Popup simple example.</p>
+                                <p><code>Popup</code> simple example.</p>
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
@@ -138,47 +138,10 @@ export default class PopupExamples extends Component {
                     </div>
                 </Widget>
 
-                {/*<Widget>*/}
-
-                {/*<WidgetHeader className="example-header"*/}
-                {/*title="Popup Example"/>*/}
-
-                {/*<div className="widget-content">*/}
-                {/*<div className="example-content">*/}
-
-                {/*<div className="popup-example-wrapper">*/}
-
-                {/*<p>*/}
-                {/*Set position property to Popup.Position.BOTTOM_RIGHT and triggerEl to true*/}
-                {/*the popover will align right.*/}
-                {/*</p>*/}
-
-                {/*<RaisedButton className="trigger-button"*/}
-                {/*value="Toggle Popup"*/}
-                {/*onTouchTap={(e) => {*/}
-                {/*this.togglePopup(e, 2);*/}
-                {/*}}/>*/}
-
-                {/*<Popup visible={popupVisible2}*/}
-                {/*triggerEl={triggerEl2}*/}
-                {/*theme={Theme.PRIMARY}*/}
-                {/*position={Popup.Position.BOTTOM_RIGHT}*/}
-                {/*onRequestClose={() => {*/}
-                {/*this.closePopup(2);*/}
-                {/*}}>*/}
-                {/*<List items={items}/>*/}
-                {/*</Popup>*/}
-
-                {/*</div>*/}
-
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*</Widget>*/}
-
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Popup No Triangle Example"/>
+                                  title="Without triangle"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -186,7 +149,7 @@ export default class PopupExamples extends Component {
                             <div className="popup-example-wrapper">
 
                                 <p>
-                                    Set hasTriangle to false,the popover will have
+                                    Set <code>hasTriangle</code> to false,the popover will have
                                     no triangle on the top of the DOM element.
                                 </p>
 
@@ -214,7 +177,7 @@ export default class PopupExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Popup display position Example"/>
+                                  title="With value"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -222,7 +185,7 @@ export default class PopupExamples extends Component {
                             <div className="popup-example-wrapper">
 
                                 <p>
-
+                                    Set the <code>value</code> property to show different position of <code>Popup</code>.
                                 </p>
 
                                 <div className="button-group-wrapper">

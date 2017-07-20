@@ -30,14 +30,14 @@ export default class IconButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Button Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Icon Button using icon specified with the iconCls property and a disabled
+                                <p><code>Icon Button</code> using icon specified with the <code>iconCls</code> property
                                     example.</p>
 
                                 <IconButton iconCls="fa fa-plus"/>
@@ -56,14 +56,14 @@ export default class IconButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Button Example"/>
+                    <WidgetHeader className="example-header" title="With theme"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Icon Button using different theme and a disabled example.</p>
+                                <p><code>Icon Button</code> using different <code>theme</code> example.</p>
 
                                 <IconButton iconCls="fa fa-plus"
                                             theme="success"/>
@@ -83,15 +83,15 @@ export default class IconButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Button Example"/>
+                    <WidgetHeader className="example-header" title="Without circle shape"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the isCircular property to false for not circular shape and use the value
-                                    property for text description.</p>
+                                <p>Set the <code>isCircular</code> property to false for not circular shape and use the
+                                    <code>value</code> property for text description.</p>
 
                                 <IconButton iconCls="fa fa-plus"
                                             value="add"

@@ -33,6 +33,23 @@ export default class ButtonRadioGroupExamples extends Component {
             value: 5
         }];
 
+        this.datas = [{
+            label: 'one',
+            value: 1
+        }, {
+            label: 2,
+            value: 2
+        }, {
+            label: 'three',
+            value: 3
+        }, {
+            label: 4,
+            value: 4
+        }, {
+            label: 5,
+            value: 5
+        }];
+
         this.changeHandle = this::this.changeHandle;
 
     }
@@ -56,17 +73,61 @@ export default class ButtonRadioGroupExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="ButtonRadioGroup Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Button Radio Group simple default example.</p>
+                                <p><code>Button Radio Group</code> simple example.</p>
+
+                                <ButtonRadioGroup data={this.data}
+                                                  onChange={this.changeHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>value</code> property to activate one button.</p>
 
                                 <ButtonRadioGroup data={this.data}
                                                   value={1}
+                                                  onChange={this.changeHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With disabled"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>disabled</code> property to true for disabling the ButtonRadioGroup.
+                                </p>
+
+                                <ButtonRadioGroup data={this.datas}
+                                                  disabled={true}
                                                   onChange={this.changeHandle}/>
 
                             </div>
