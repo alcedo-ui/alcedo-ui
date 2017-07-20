@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import Tip from '../Tip';
+import TipContainer from 'dist/TipContainer';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -18,8 +18,6 @@ export default class ListItem extends Component {
         super(props);
 
         this.state = {
-            tipVisible: false,
-            triggerEl: null,
             checked: props.checked
         };
 
@@ -27,7 +25,6 @@ export default class ListItem extends Component {
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.hideTip = this::this.hideTip;
         this.mouseEnterHandle = this::this.mouseEnterHandle;
         this.mouseLeaveHandle = this::this.mouseLeaveHandle;
 
@@ -108,25 +105,12 @@ export default class ListItem extends Component {
     mouseEnterHandle(e) {
 
         const {onMouseEnter} = this.props;
-
-        this.setState({
-            tipVisible: true,
-            triggerEl: e.currentTarget
-        }, () => {
-            onMouseEnter && onMouseEnter();
-        });
-
+        onMouseEnter && onMouseEnter();
     }
 
     mouseLeaveHandle() {
         const {onMouseLeave} = this.props;
         onMouseLeave && onMouseLeave();
-    }
-
-    hideTip() {
-        this.setState({
-            tipVisible: false
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -143,103 +127,96 @@ export default class ListItem extends Component {
                 className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, isGroupName
             } = this.props,
-            {tipVisible, triggerEl, checked} = this.state,
+            {checked} = this.state,
             listItemClassName = (theme ? ` theme-${theme}` : '') + (isGroupName ? ' list-group-name' : '')
                 + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <div className={'list-item' + listItemClassName}
-                 style={style}
-                 disabled={disabled || isLoading}
-                 onClick={this.clickHandle}
-                 onMouseEnter={this.mouseEnterHandle}
-                 onMouseLeave={this.mouseLeaveHandle}>
+            <TipContainer text={tip}
+                          tipPosition={tipPosition}>
 
-                {
-                    mode === ListItem.Mode.CHECKBOX ?
-                        <Checkbox className="list-item-checkbox"
-                                  value={checked}/>
-                        :
-                        null
-                }
+                <div className={'list-item' + listItemClassName}
+                     style={style}
+                     disabled={disabled || isLoading}
+                     onClick={this.clickHandle}
+                     onMouseEnter={this.mouseEnterHandle}
+                     onMouseLeave={this.mouseLeaveHandle}>
 
-                {
-                    mode === ListItem.Mode.RADIO ?
-                        <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
-                           aria-hidden="true"></i>
-                        :
-                        null
-                }
+                    {
+                        mode === ListItem.Mode.CHECKBOX ?
+                            <Checkbox className="list-item-checkbox"
+                                      value={checked}/>
+                            :
+                            null
+                    }
 
-                {
-                    isLoading && loadingIconPosition === 'left' ?
-                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                         size="small"/>
-                        :
-                        (
-                            iconCls ?
-                                <i className={`button-icon button-icon-left ${iconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                    {
+                        mode === ListItem.Mode.RADIO ?
+                            <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
+                               aria-hidden="true"></i>
+                            :
+                            null
+                    }
 
-                {
-                    renderer && typeof renderer === 'function' ?
-                        renderer(this.props)
-                        :
-                        (
-                            desc ?
-                                <div className="list-item-content">
-                                    <div className="list-item-content-value">
-                                        {text}
+                    {
+                        isLoading && loadingIconPosition === 'left' ?
+                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                iconCls ?
+                                    <i className={`button-icon button-icon-left ${iconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
+
+                    {
+                        renderer && typeof renderer === 'function' ?
+                            renderer(this.props)
+                            :
+                            (
+                                desc ?
+                                    <div className="list-item-content">
+                                        <div className="list-item-content-value">
+                                            {text}
+                                        </div>
+                                        <div className="list-item-content-desc">
+                                            {desc}
+                                        </div>
                                     </div>
-                                    <div className="list-item-content-desc">
-                                        {desc}
-                                    </div>
-                                </div>
-                                :
-                                text
-                        )
-                }
+                                    :
+                                    text
+                            )
+                    }
 
-                {
-                    isLoading && loadingIconPosition === 'right' ?
-                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                         size="small"/>
-                        :
-                        (
-                            rightIconCls ?
-                                <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                    {
+                        isLoading && loadingIconPosition === 'right' ?
+                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                rightIconCls ?
+                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
-                {
-                    tip ?
-                        <Tip text={tip}
-                             visible={tipVisible}
-                             triggerEl={triggerEl}
-                             position={tipPosition}
-                             onRequestClose={this.hideTip}/>
-                        :
-                        null
-                }
+                    {
+                        disableTouchRipple || isGroupName ?
+                            null
+                            :
+                            <TouchRipple ref="touchRipple"
+                                         className={disabled || isLoading ? 'hidden' : ''}
+                                         displayCenter={rippleDisplayCenter}/>
+                    }
 
-                {
-                    disableTouchRipple || isGroupName ?
-                        null
-                        :
-                        <TouchRipple ref="touchRipple"
-                                     className={disabled || isLoading ? 'hidden' : ''}
-                                     displayCenter={rippleDisplayCenter}/>
-                }
-
-            </div>
+                </div>
+            </TipContainer>
         );
 
     }
@@ -316,7 +293,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
 
     /**
      *
@@ -390,7 +367,7 @@ ListItem.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: Tip.Position.BOTTOM,
+    tipPosition: TipContainer.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 
