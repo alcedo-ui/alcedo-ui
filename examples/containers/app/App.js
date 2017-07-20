@@ -9,6 +9,9 @@ import Event from 'vendors/Event';
 import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 
+import PageLoading from 'dist/PageLoading';
+import ReactCSSTransitionGroup from 'react-addons-transition-group';
+
 import 'sass/containers/app/App.scss';
 import 'sass/containers/app/example.scss';
 
@@ -18,8 +21,28 @@ class App extends Component {
 
         super(props);
 
-        this.contentMousedownHandle = this::this.contentMousedownHandle;
+        this.unrenderTimeout = null;
+        this.nextKey = 1;
 
+        this.state = {
+            loading: {
+                id: this.nextKey++
+            }
+        };
+
+        this.contentMousedownHandle = this::this.contentMousedownHandle;
+        this.finishLoading = this::this.finishLoading;
+
+    }
+
+    finishLoading() {
+        this.unrenderTimeout = setTimeout(() => {
+            this.setState({
+                loading: {
+                    id: this.nextKey++
+                }
+            });
+        }, 250);
     }
 
     contentMousedownHandle() {
@@ -49,12 +72,15 @@ class App extends Component {
     render() {
 
         const {children, $navMenuCollapsed, $componentLoading} = this.props;
-
+        const {loading} = this.state;
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
 
                 <div className="load-component">
-                    {$componentLoading ? 'Loading' : 'Loaded'}
+                    <ReactCSSTransitionGroup>
+                        {$componentLoading ? <PageLoading key={loading.id}
+                                                          onRequestClose={this.finishLoading}/> : null}
+                    </ReactCSSTransitionGroup>
                 </div>
 
                 <NavMenu/>

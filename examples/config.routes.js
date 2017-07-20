@@ -126,109 +126,367 @@ export default function configureRoute(store) {
 
             {/* fields */}
             <Route path="TextField"
-                   component={TextFieldExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/TextFieldExamples').default);
+                           loadCompleteCallback();
+                       }, 'TextFieldExamples');
+                   }}/>
             <Route path="TextArea"
-                   component={TextAreaExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/TextAreaExamples').default);
+                           loadCompleteCallback();
+                       }, 'TextAreaExamples');
+                   }}/>
             <Route path="RemoteAutoComplete"
-                   component={RemoteAutoCompleteExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/RemoteAutoCompleteExamples').default);
+                           loadCompleteCallback();
+                       }, 'RemoteAutoCompleteExamples');
+                   }}/>
             <Route path="LocalAutoComplete"
-                   component={LocalAutoCompleteExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/LocalAutoCompleteExamples').default);
+                           loadCompleteCallback();
+                       }, 'LocalAutoCompleteExamples');
+                   }}/>
             <Route path="DatePicker"
-                   component={DatePickerExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/date/DatePickerExamples').default);
+                           loadCompleteCallback();
+                       }, 'DatePickerExamples');
+                   }}/>
             <Route path="DateRangePicker"
-                   component={DateRangePickerExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/date/DateRangePickerExamples').default);
+                           loadCompleteCallback();
+                       }, 'DateRangePickerExamples');
+                   }}/>
             <Route path="TimePicker"
-                   component={TimePickerExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/date/TimePickerExamples').default);
+                           loadCompleteCallback();
+                       }, 'TimePickerExamples');
+                   }}/>
             <Route path="DateTimePicker"
-                   component={DateTimePickerExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/date/DateTimePickerExamples').default);
+                           loadCompleteCallback();
+                       }, 'DateTimePickerExamples');
+                   }}/>
             <Route path="DropdownSelect"
-                   component={DropdownSelectExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/DropdownSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'DropdownSelectExamples');
+                   }}/>
             <Route path="MultipleSelect"
-                   component={MultipleSelectExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MultipleSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'MultipleSelectExamples');
+                   }}/>
             <Route path="TreeSelect"
-                   component={TreeSelectExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/TreeSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'TreeSelectExamples');
+                   }}/>
             <Route path="Tree"
-                   component={TreeExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/TreeExamples').default);
+                           loadCompleteCallback();
+                       }, 'TreeExamples');
+                   }}/>
             <Route path="Checkbox"
-                   component={CheckboxExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/CheckboxExamples').default);
+                           loadCompleteCallback();
+                       }, 'CheckboxExamples');
+                   }}/>
             <Route path="Radio"
-                   component={RadioExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/RadioExamples').default);
+                           loadCompleteCallback();
+                       }, 'RadioExamples');
+                   }}/>
             <Route path="RadioGroup"
-                   component={RadioGroupExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/RadioGroupExamples').default);
+                           loadCompleteCallback();
+                       }, 'RadioGroupExamples');
+                   }}/>
             <Route path="ButtonCheckbox"
-                   component={ButtonCheckboxExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/ButtonCheckboxExamples').default);
+                           loadCompleteCallback();
+                       }, 'ButtonCheckboxExamples');
+                   }}/>
             <Route path="ButtonRadioGroup"
-                   component={ButtonRadioGroupExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/ButtonRadioGroupExamples').default);
+                           loadCompleteCallback();
+                       }, 'ButtonRadioGroupExamples');
+                   }}/>
             <Route path="Switcher"
-                   component={SwitcherExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/SwitcherExamples').default);
+                           loadCompleteCallback();
+                       }, 'SwitcherExamples');
+                   }}/>
             <Route path="Slider"
-                   component={SliderExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/SliderExamples').default);
+                           loadCompleteCallback();
+                       }, 'SliderExamples');
+                   }}/>
             <Route path="EditableField"
-                   component={EditableFieldExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/EditableFieldExamples').default);
+                           loadCompleteCallback();
+                       }, 'EditableFieldExamples');
+                   }}/>
             <Route path="FlashNumber"
-                   component={FlashNumberExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/FlashNumberExamples').default);
+                           loadCompleteCallback();
+                       }, 'FlashNumberExamples');
+                   }}/>
             <Route path="Transfer"
-                   component={TransferExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/TransferExamples').default);
+                           loadCompleteCallback();
+                       }, 'TransferExamples');
+                   }}/>
 
             {/* popups */}
             <Route path="Dialog"
-                   component={DialogExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/popup/DialogExamples').default);
+                           loadCompleteCallback();
+                       }, 'DialogExamples');
+                   }}/>
             <Route path="Popup"
-                   component={PopupExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/popup/PopupExamples').default);
+                           loadCompleteCallback();
+                       }, 'PopupExamples');
+                   }}/>
 
             {/* progresses */}
             <Route path="CircularProgress"
-                   component={CircularProgressExample}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/progress/CircularProgressExample').default);
+                           loadCompleteCallback();
+                       }, 'CircularProgressExample');
+                   }}/>
             <Route path="LinearProgress"
-                   component={LinearProgressExample}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/progress/LinearProgressExample').default);
+                           loadCompleteCallback();
+                       }, 'LinearProgressExample');
+                   }}/>
 
             {/* layouts */}
             <Route path="Paper"
-                   component={PaperExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/PaperExamples').default);
+                           loadCompleteCallback();
+                       }, 'PaperExamples');
+                   }}/>
             <Route path="Widget"
-                   component={WidgetExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/WidgetExamples').default);
+                           loadCompleteCallback();
+                       }, 'WidgetExamples');
+                   }}/>
             <Route path="List"
-                   component={ListExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/ListExamples').default);
+                           loadCompleteCallback();
+                       }, 'ListExamples');
+                   }}/>
             <Route path="Tab"
-                   component={TabExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/TabExamples').default);
+                           loadCompleteCallback();
+                       }, 'TabExamples');
+                   }}/>
             <Route path="Accordion"
-                   component={AccordionExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/AccordionExamples').default);
+                           loadCompleteCallback();
+                       }, 'AccordionExamples');
+                   }}/>
             <Route path="Table"
-                   component={TableExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/TableExamples').default);
+                           loadCompleteCallback();
+                       }, 'TableExamples');
+                   }}/>
             <Route path="Waterfall"
-                   component={WaterfallExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/WaterfallExamples').default);
+                           loadCompleteCallback();
+                       }, 'WaterfallExamples');
+                   }}/>
 
             {/* steppers */}
             <Route path="ArrowStep"
-                   component={ArrowStepExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/stepper/ArrowStepExamples').default);
+                           loadCompleteCallback();
+                       }, 'ArrowStepExamples');
+                   }}/>
             <Route path="RoundStep"
-                   component={RoundStepExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/stepper/RoundStepExamples').default);
+                           loadCompleteCallback();
+                       }, 'RoundStepExamples');
+                   }}/>
             <Route path="ListStep"
-                   component={ListStepExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/stepper/ListStepExamples').default);
+                           loadCompleteCallback();
+                       }, 'ListStepExamples');
+                   }}/>
 
             {/* messages */}
             <Route path="Toaster"
-                   component={ToasterExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/message/ToasterExamples').default);
+                           loadCompleteCallback();
+                       }, 'ToasterExamples');
+                   }}/>
             <Route path="Tip"
-                   component={TipExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/message/TipExamples').default);
+                           loadCompleteCallback();
+                       }, 'TipExamples');
+                   }}/>
 
             {/* timeLine */}
             <Route path="TimeLine"
-                   component={TimeLineExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/TimeLine/TimeLineExamples').default);
+                           loadCompleteCallback();
+                       }, 'TimeLineExamples');
+                   }}/>
 
             {/* loading */}
             <Route path="SpanLoading"
-                   component={SpanLoadingExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/loading/SpanLoadingExamples').default);
+                           loadCompleteCallback();
+                       }, 'SpanLoadingExamples');
+                   }}/>
             <Route path="CircularLoading"
-                   component={CircularLoadingExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/loading/CircularLoadingExamples').default);
+                           loadCompleteCallback();
+                       }, 'CircularLoadingExamples');
+                   }}/>
 
             {/* rate */}
             <Route path="Rate"
-                   component={RateExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/Rate/RateExamples').default);
+                           loadCompleteCallback();
+                       }, 'RateExamples');
+                   }}/>
 
             {/* cascader */}
             <Route path="Cascader"
-                   component={CascaderExamples}/>
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/cascader/CascaderExamples').default);
+                           loadCompleteCallback();
+                       }, 'CascaderExamples');
+                   }}/>
 
         </Route>
 
