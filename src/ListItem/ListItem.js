@@ -133,7 +133,8 @@ export default class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer text={tip}
+            <TipContainer className='block'
+                          text={text}
                           tipPosition={tipPosition}>
 
                 <div className={'list-item' + listItemClassName}
