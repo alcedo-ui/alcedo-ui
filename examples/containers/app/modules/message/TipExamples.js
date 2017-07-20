@@ -5,6 +5,9 @@ import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 import Tip from 'dist/Tip';
 
+import TipContainer from 'dist/TipContainer';
+import RaisedButton from 'dist/RaisedButton';
+
 import PropTypeDescTable from '../PropTypeDescTable';
 import TipDoc from 'assets/propTypes/TipBody.json';
 
@@ -81,6 +84,30 @@ export default class TipExamples extends Component {
                                             theme="success"
                                             tip={this.text}
                                             tipPosition={Tip.Position.BOTTOM_LEFT}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With theme and tipPosition"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set <code>theme</code> property to different theme and <code>tipPosition</code> to
+                                    different position.</p>
+
+                                <TipContainer text="Here is a tip.">
+                                    <RaisedButton className="tip-button"
+                                                  value="Show me a tip"/>
+                                </TipContainer>
 
                             </div>
 

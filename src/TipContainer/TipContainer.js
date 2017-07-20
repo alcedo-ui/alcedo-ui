@@ -5,6 +5,8 @@ import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 
+import './TipContainer.css';
+
 export default class TipContainer extends Component {
 
     constructor(props) {
@@ -42,7 +44,7 @@ export default class TipContainer extends Component {
         return (
             <div className="tip-container">
 
-                <div className=""
+                <div className="children-wrapper"
                      onMouseEnter={e => {
                          this.showTip(e);
                      }}
