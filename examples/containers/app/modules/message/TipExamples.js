@@ -100,12 +100,9 @@ export default class TipExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-
-                                <TipContainer text="Here is a tip.">
                                     <RaisedButton className="tip-button"
-                                                  value="Show me a tip"/>
-                                </TipContainer>
-
+                                                  value="Show me a tip"
+                                                  tip="Here is a tip."/>
                             </div>
 
                         </div>
