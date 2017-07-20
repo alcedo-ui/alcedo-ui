@@ -2,6 +2,7 @@
 
 .transfer {
     overflow: hidden;
+    width: 484px;
     .fl {
         float: left;
     }
@@ -75,7 +76,7 @@
                         height: 40px;
                         line-height: 40px;
                     }
-                    &.activated{
+                    &.activated {
                         background: $theme-bg;
                     }
                 }

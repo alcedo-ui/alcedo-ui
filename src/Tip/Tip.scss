@@ -14,6 +14,7 @@
     overflow: hidden;
     transform: translateY(-5px) rotate(0);
     transition: opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
+    z-index: $tip-z-index;
 
     .tip-ripple {
         position: absolute;

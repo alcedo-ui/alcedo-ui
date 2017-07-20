@@ -83,7 +83,7 @@ export default class TreeExamples extends Component {
                                           data={data}
                                           value={value}
                                           multiple={false}
-                                          iconCls="fa-id-card-o"/>
+                                    />
                                 </div>
                             </div>
 
@@ -92,6 +92,80 @@ export default class TreeExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tree Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Icon Tree</p>
+                                <div className="field-group">
+                                    <Tree className="tree-example"
+                                          data={data}
+                                          value={value}
+                                          multiple={false}
+                                          iconCls="fa-file"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tree Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Multiple Tree</p>
+                                <div className="field-group">
+                                    <Tree className="tree-example"
+                                          data={data}
+                                          value={value}
+                                          multiple={true}
+                                          />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tree Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Multiple Icon Tree</p>
+                                <div className="field-group">
+                                    <Tree className="tree-example"
+                                          data={data}
+                                          value={value}
+                                          multiple={true}
+                                          iconCls="fa-file"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={TreeDoc}/>
