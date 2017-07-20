@@ -57,7 +57,7 @@ import SpanLoadingExamples from 'containers/app/modules/loading/SpanLoadingExamp
 import CircularLoadingExamples from 'containers/app/modules/loading/CircularLoadingExamples';
 import RateExamples from 'containers/app/modules/Rate/RateExamples';
 
-import CascaderExamples from 'containers/app/modules/Cascader/CascaderExamples';
+import CascaderExamples from 'containers/app/modules/cascader/CascaderExamples';
 
 
 export default function configureRoute(store) {

@@ -58,4 +58,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 58;
+export const COMPONENTS_TOTAL_COUNT = 59;
