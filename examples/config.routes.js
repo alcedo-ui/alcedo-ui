@@ -7,59 +7,6 @@ import Root from 'containers/Root';
 import Landing from 'containers/landing/Landing';
 import App from 'containers/app/App';
 
-import TextFieldExamples from 'containers/app/modules/fields/TextFieldExamples';
-import TextAreaExamples from 'containers/app/modules/fields/TextAreaExamples';
-import RemoteAutoCompleteExamples from 'containers/app/modules/fields/RemoteAutoCompleteExamples';
-import LocalAutoCompleteExamples from 'containers/app/modules/fields/LocalAutoCompleteExamples';
-import DropdownSelectExamples from 'containers/app/modules/fields/DropdownSelectExamples';
-import MultipleSelectExamples from 'containers/app/modules/fields/MultipleSelectExamples';
-import TreeSelectExamples from 'containers/app/modules/fields/TreeSelectExamples';
-import TreeExamples from 'containers/app/modules/fields/TreeExamples';
-import CheckboxExamples from 'containers/app/modules/fields/CheckboxExamples';
-import RadioExamples from 'containers/app/modules/fields/RadioExamples';
-import RadioGroupExamples from 'containers/app/modules/fields/RadioGroupExamples';
-import ButtonCheckboxExamples from 'containers/app/modules/fields/ButtonCheckboxExamples';
-import ButtonRadioGroupExamples from 'containers/app/modules/fields/ButtonRadioGroupExamples';
-import SwitcherExamples from 'containers/app/modules/fields/SwitcherExamples';
-import SliderExamples from 'containers/app/modules/fields/SliderExamples';
-import EditableFieldExamples from 'containers/app/modules/fields/EditableFieldExamples';
-import FlashNumberExamples from 'containers/app/modules/fields/FlashNumberExamples';
-import TransferExamples from 'containers/app/modules/fields/TransferExamples';
-
-import DatePickerExamples from 'containers/app/modules/date/DatePickerExamples';
-import DateRangePickerExamples from 'containers/app/modules/date/DateRangePickerExamples';
-import TimePickerExamples from 'containers/app/modules/date/TimePickerExamples';
-import DateTimePickerExamples from 'containers/app/modules/date/DateTimePickerExamples';
-
-import DialogExamples from 'containers/app/modules/popup/DialogExamples';
-import PopupExamples from 'containers/app/modules/popup/PopupExamples';
-
-import CircularProgressExample from 'containers/app/modules/progress/CircularProgressExample';
-import LinearProgressExample from 'containers/app/modules/progress/LinearProgressExample';
-
-import PaperExamples from 'containers/app/modules/layout/PaperExamples';
-import WidgetExamples from 'containers/app/modules/layout/WidgetExamples';
-import ListExamples from 'containers/app/modules/layout/ListExamples';
-import TabExamples from 'containers/app/modules/layout/TabExamples';
-import AccordionExamples from 'containers/app/modules/layout/AccordionExamples';
-import TableExamples from 'containers/app/modules/layout/TableExamples';
-import WaterfallExamples from 'containers/app/modules/layout/WaterfallExamples';
-
-import ArrowStepExamples from 'containers/app/modules/stepper/ArrowStepExamples';
-import RoundStepExamples from 'containers/app/modules/stepper/RoundStepExamples';
-import ListStepExamples from 'containers/app/modules/stepper/ListStepExamples';
-
-import ToasterExamples from 'containers/app/modules/message/ToasterExamples';
-import TipExamples from 'containers/app/modules/message/TipExamples';
-
-import TimeLineExamples from 'containers/app/modules/TimeLine/TimeLineExamples';
-import SpanLoadingExamples from 'containers/app/modules/loading/SpanLoadingExamples';
-import CircularLoadingExamples from 'containers/app/modules/loading/CircularLoadingExamples';
-import RateExamples from 'containers/app/modules/Rate/RateExamples';
-
-import CascaderExamples from 'containers/app/modules/cascader/CascaderExamples';
-
-
 export default function configureRoute(store) {
 
     function loadStartCallback() {
