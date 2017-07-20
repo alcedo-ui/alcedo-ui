@@ -196,7 +196,7 @@ export default class TreeNode extends Component {
         return (
             <div className="parentNode">
                 { node && node.children ?
-                    <span className={`tree-switcher ${expaned ? '' : 'down'}`}
+                    <span className={`tree-switcher ${expaned ? '' : 'down'} ${multiple ? 'multiple-tree-switcher':''}`}
                           onClick={this.treeSwitcherHandle}
                     >
                         <i className={`fa fa-caret-right`} aria-hidden="true"></i>

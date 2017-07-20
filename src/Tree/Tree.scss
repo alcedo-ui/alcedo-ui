@@ -43,6 +43,8 @@
                         width: 16px;
                         line-height: 16px;
                         text-align: center;
+                        vertical-align: bottom;
+
                         i {
                             transition: all $transition-duration ease-in-out;
                             transform: rotate(90deg);
@@ -52,6 +54,9 @@
                             i {
                                 transform: rotate(0deg);
                             }
+                        }
+                        &.multiple-tree-switcher{
+                            vertical-align: super;
                         }
                     }
                     .checkbox {
