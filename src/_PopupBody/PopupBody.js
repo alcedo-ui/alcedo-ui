@@ -355,27 +355,27 @@ PopupBody.propTypes = {
     position: PropTypes.oneOf(Util.enumerateValue(PopupBody.Position)),
 
     /**
-     *
+     * If true,popup will have animation effects.
      */
     isAnimated: PropTypes.bool,
 
     /**
-     *
+     * The status of popup-triangle.Can be open or toggle.
      */
     triggerMode: PropTypes.oneOf(Util.enumerateValue(PopupBody.TriggerMode)),
 
     /**
-     *
+     * The depth of Paper component.
      */
     depth: PropTypes.number,
 
     /**
-     *
+     * The function of popup event handler.
      */
     triggerHandle: PropTypes.func,
 
     /**
-     *
+     * The function of popup render.
      */
     onRender: PropTypes.func,
 

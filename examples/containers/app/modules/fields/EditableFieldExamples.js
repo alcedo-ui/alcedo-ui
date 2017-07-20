@@ -42,14 +42,14 @@ export default class EditableFieldExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Editable Field Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Editable Field simple default example.</p>
+                                <p><code>Editable Field</code> simple example.</p>
 
                                 <EditableField value={this.state.value}
                                                onChange={this.onChange}/>

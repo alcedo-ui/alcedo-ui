@@ -33,14 +33,16 @@ export default class DatePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Picker Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Picker using the value property to set initial date.</p>
+                                <p>
+                                    <code>Date Picker</code> using the <code>value</code> property to set initial date.
+                                </p>
 
                                 <DatePicker value='2017-04-17'
                                             name="date"/>
@@ -53,15 +55,16 @@ export default class DatePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Picker Example"/>
+                    <WidgetHeader className="example-header" title="With dateFormat and placeholder"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Picker using the dateFormat property to set date format and using placeholder
-                                    property to set a default date when no date choice.</p>
+                                <p><code>Date Picker</code> using the <code>dateFormat</code> property to set date
+                                    format and using <code>placeholder</code> property to set a default date when no
+                                    date choice.</p>
 
                                 <DatePicker name="date"
                                             placeholder="2017-08-09"
@@ -75,15 +78,15 @@ export default class DatePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Picker Example"/>
+                    <WidgetHeader className="example-header" title="With maxValue and minValue"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Picker using the maxValue and minValue property to set date selectable
-                                    range.</p>
+                                <p><code>Date Picker</code> using the <code>maxValue</code> and <code>minValue</code>
+                                    property to set date selectable range.</p>
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY-MM-DD'
@@ -98,14 +101,15 @@ export default class DatePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Picker Example"/>
+                    <WidgetHeader className="example-header" title="With autoClose"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set autoClose property to false for closing date picker after choose a date.</p>
+                                <p>Set <code>autoClose</code> property to false for closing date picker after choose a
+                                    date.</p>
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY-MM-DD'

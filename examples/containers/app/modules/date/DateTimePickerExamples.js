@@ -33,14 +33,34 @@ export default class DateTimePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Time Picker Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Time Picker using the value property to set initial date and time.</p>
+                                <p><code>Date Time Picker</code> simple example.</p>
+
+                                <DateTimePicker/>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Date Time Picker</code> using the <code>value</code> property to set initial
+                                    date and time.</p>
 
                                 <DateTimePicker value='2017-04-21 12:23:10'/>
 
@@ -52,15 +72,15 @@ export default class DateTimePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Time Picker Example"/>
+                    <WidgetHeader className="example-header" title="With maxVale and minValue"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Time Picker using the maxValue property and minValue property to set date
-                                    selectable range.</p>
+                                <p><code>Date Time Picker</code> using the <code>maxValue</code> property and <code>minValue</code>
+                                    property to set date selectable range.</p>
 
                                 <DateTimePicker value='2017-04-21 12:23:10'
                                                 maxValue="2017-09-12 12:23:00"
@@ -73,15 +93,15 @@ export default class DateTimePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Time Picker Example"/>
+                    <WidgetHeader className="example-header" title="With placeholder and dateFormat"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Time Picker using the placeholder property to set default value and using the
-                                    dateFormat property to format date time.</p>
+                                <p><code>Date Time Picker</code> using the <code>placeholder</code> property to set
+                                    default value and using the <code>dateFormat</code> property to format date time.</p>
 
                                 <DateTimePicker value='2017-04-21 12:23:10'
                                                 maxValue="2017-09-12 12:23:00"

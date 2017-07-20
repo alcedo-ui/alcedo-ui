@@ -19,10 +19,10 @@ export default class RadioGroupExamples extends Component {
         return (
             <div className="example radio-examples">
 
-                <h2 className="example-title">Radio Group</h2>
+                <h2 className="example-title">RadioGroup</h2>
 
                 <p>
-                    <span>Radio Group</span> is one of a set of mutually exclusive option buttons. When a button is
+                    <span>RadioGroup</span> is one of a set of mutually exclusive option groupButtons. When a button is
                     selected, the previously selected button becomes unselected.
                 </p>
 
@@ -30,14 +30,14 @@ export default class RadioGroupExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Radio Group Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Radio Group simple example.</p>
+                                <p><code>RadioGroup</code> simple example.</p>
 
                                 <RadioGroup data={[{
                                     label: 1,
@@ -65,14 +65,14 @@ export default class RadioGroupExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Radio Group Disabled Example"/>
+                    <WidgetHeader className="example-header" title="With disabled"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the disabled property to true to disable the radio group button.</p>
+                                <p>Set the <code>disabled</code> property to true to disable the radio group button.</p>
 
                                 <RadioGroup data={[{
                                     label: 1,

@@ -77,7 +77,8 @@ export default class ListExamples extends Component {
             children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
+                desc: 'Here is a Facebook Desc.',
+                checked: 'true'
             }, {
                 iconCls: 'fa fa-twitter',
                 text: 'Twitter',
@@ -119,7 +120,7 @@ export default class ListExamples extends Component {
                 <h2 className="example-title">List</h2>
 
                 <p>
-                    <span>List</span> Lists are used to present multiple items vertically as a single continuous
+                    <span>List</span> are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>
 
@@ -127,14 +128,14 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="List Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>A simple List with left icons.</p>
+                                <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
                                     <List items={this.listData}/>
@@ -149,15 +150,14 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="List Example"/>
+                    <WidgetHeader className="example-header" title="With disabled"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>A simple List with disabled item.Set the disabled property to true for disabled
-                                    items.</p>
+                                <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
                                 <Paper>
                                     <List items={this.disabledListData}/>
@@ -172,16 +172,15 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="List Example"/>
+                    <WidgetHeader className="example-header" title="With theme and rightIconCls"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>A simple List with right icons and different themes.Set the theme property to
-                                    "success","error","warning","primary" and set the iconPosition property to different
-                                    icon class.</p>
+                                <p>Set the <code>theme</code> property to "success","error","warning","primary" and set
+                                    the <code>rightIconCls</code> property to get rightIcons.</p>
 
                                 <Paper>
                                     <List items={this.themeListData}/>
@@ -196,7 +195,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="List Example"/>
+                    <WidgetHeader className="example-header" title="With desc"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -204,7 +203,7 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A simple List with desc.
+                                    A <code>List</code> with desc.
                                 </p>
 
                                 <Paper style={{width: 240}}>
@@ -221,7 +220,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With Radio"/>
+                    <WidgetHeader className="example-header" title="With mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -229,7 +228,7 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A simple List with desc.
+                                    A <code>List</code> with mode.Can be normal,radio,checkbox.
                                 </p>
 
                                 <Paper style={{width: 240}}>
@@ -248,7 +247,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With Checkbox"/>
+                    <WidgetHeader className="example-header" title="With isGrouped"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -256,62 +255,7 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A simple List with desc.
-                                </p>
-
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
-                                          mode={List.Mode.CHECKBOX}
-                                          items={this.descListData}
-                                          onChange={this.changeHandle}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Grouped List"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A simple grouped List.
-                                </p>
-
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
-                                          mode={List.Mode.RADIO}
-                                          isGrouped={true}
-                                          items={this.groupedListData}
-                                          onChange={this.changeHandle}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Grouped List"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A simple grouped List.
+                                    A <code>List</code> with isGrouped.
                                 </p>
 
                                 <Paper style={{width: 240}}>

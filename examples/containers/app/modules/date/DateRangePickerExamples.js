@@ -34,15 +34,35 @@ export default class DateRangePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Range Picker Example"/>
+                    <WidgetHeader className="example-header" title="With value and dateFormat"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Range Picker using the value property to set initial date and the dateFormat
-                                    property to set date format.</p>
+                                <p><code>Date Range Picker</code>simple example.</p>
+
+                                <DateRangePicker/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value and dateFormat"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Date Range Picker</code> using the <code>value</code> property to set initial
+                                    date and the <code>dateFormat</code> property to set date format.</p>
 
                                 <DateRangePicker value={['2015-07-01', '2017-04-21']}
                                                  dateFormat={'YYYY-MM-DD'}/>
@@ -56,15 +76,15 @@ export default class DateRangePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Range Picker Example"/>
+                    <WidgetHeader className="example-header" title="With maxValue and minValue"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Range Picker using the maxValue property and minValue property to set date
-                                    selectable range.</p>
+                                <p><code>Date Range Picker</code> using the <code>maxValue</code> property and <code>minValue</code>
+                                    property to set date selectable range.</p>
 
                                 <DateRangePicker dateFormat={'YYYY-MM-DD'}
                                                  maxValue={'2018-12-21'}
@@ -78,14 +98,15 @@ export default class DateRangePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Date Range Picker Example"/>
+                    <WidgetHeader className="example-header" title="With placeholder"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Date Range Picker using the placeholder property to set default value.</p>
+                                <p><code>Date Range Picker</code> using the <code>placeholder</code> property to set
+                                    default value.</p>
 
                                 <DateRangePicker dateFormat={'YYYY-MM-DD'}
                                                  placeholder="hello"

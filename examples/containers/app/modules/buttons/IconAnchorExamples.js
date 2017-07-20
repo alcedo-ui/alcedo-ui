@@ -34,14 +34,14 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Anchor Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Icon Anchor using icon specified with the iconCls property and a disabled
+                                <p><code>Icon Anchor</code> using icon specified with the <code>iconCls</code> property
                                     example.</p>
 
                                 <IconAnchor iconCls="fa fa-github"
@@ -68,15 +68,15 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Anchor Example"/>
+                    <WidgetHeader className="example-header" title="With theme and style"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Icon Anchor using the style property to set size and the theme property to set
-                                    different theme.</p>
+                                <p><code>Icon Anchor</code> using the <code>style</code> property to set size and the
+                                    <code>theme</code> property to set different theme.</p>
 
                                 <IconAnchor iconCls="fa fa-github"
                                             style={{fontSize: '14px'}}
@@ -117,14 +117,15 @@ export default class FlatButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Icon Anchor Example"/>
+                    <WidgetHeader className="example-header" title="With target"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Icon Anchor using the target property to set where to open the connection href.</p>
+                                <p><code>Icon Anchor</code> using the <code>target</code> property to set where to open
+                                    the connection href.</p>
 
                                 <IconAnchor iconCls="fa fa-github"
                                             style={{fontSize: '14px'}}

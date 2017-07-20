@@ -86,24 +86,24 @@ export default class LocalAutoCompleteExamples extends Component {
         return (
             <div className="example auto-complete-examples">
 
-                <h2 className="example-title">Local Auto Complete</h2>
+                <h2 className="example-title">LocalAutoComplete</h2>
 
                 <p>
-                    A <span>Local Auto Complete</span> is an interface to help users to complete their input.
+                    A <span>LocalAutoComplete</span> is an interface to help users to complete their input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="auto Complete Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Local Auto Complete simple default example.</p>
+                                <p><code>LocalAutoComplete</code> simple example.</p>
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
@@ -120,18 +120,94 @@ export default class LocalAutoCompleteExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="auto Complete Example"/>
+                    <WidgetHeader className="example-header" title="With isGrouped"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Local Auto Complete simple default example.</p>
+                                <p>Set the <code>isGrouped</code> property to true,the <code>LocalAutoComplete</code>
+                                    will have groupedData.</p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
                                                    isGrouped={true}
                                                    data={this.groupedData}
+                                                   placeholder="Please select ..."
+                                                   onChange={this.onChange}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With mode"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>LocalAutoComplete</code> with default mode,<code>normal</code>,
+                                    <code>checkbox</code>,<code>radio</code>applied.</p>
+
+                                <LocalAutoComplete popupStyle={{maxHeight: 300}}
+                                                   mode="checkbox"
+                                                   isGrouped={true}
+                                                   data={this.groupedData}
+                                                   placeholder="Please select ..."
+                                                   onChange={this.onChange}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With mode"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>disabled</code> property to true,the <code>LocalAutoComplete</code>
+                                    will disabled.</p>
+
+                                <LocalAutoComplete popupStyle={{maxHeight: 300}}
+                                                   disabled={true}
+                                                   data={this.data}
+                                                   placeholder="Please select ..."
+                                                   onChange={this.onChange}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With mode"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>noMatchedMsg</code> property for no matched message.</p>
+
+                                <LocalAutoComplete popupStyle={{maxHeight: 300}}
+                                                   noMatchedMsg="There have no matched value."
+                                                   data={this.data}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>
 

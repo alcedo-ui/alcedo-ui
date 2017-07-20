@@ -94,6 +94,34 @@ export default class DropdownSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p><code>Dropdown Select</code> simple example.</p>
+
+                                <div className="field-group">
+
+                                    <DropdownSelect data={this.data}
+                                                    onChange={this.onChange}/>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With autoClose"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>autoClose</code> property to false,the select list will not close when
+                                    choose one item.</p>
+
                                 <div className="field-group">
 
                                     <DropdownSelect data={this.data}
@@ -120,6 +148,9 @@ export default class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
 
+                                    <p>Set the <code>filter</code> property to true,the DropdownSelect will have user
+                                        search input.</p>
+
                                     <DropdownSelect data={this.data}
                                                     autoClose={false}
                                                     useFilter={true}
@@ -136,7 +167,7 @@ export default class DropdownSelectExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Multi Select"/>
+                    <WidgetHeader className="example-header" title="With multi"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -144,6 +175,9 @@ export default class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <div className="field-group">
+
+                                    <p>Set the <code>multi</code> property to true,the DropdownSelect can be
+                                        Multiselect.</p>
 
                                     <DropdownSelect data={this.data}
                                                     multi={true}
@@ -160,7 +194,7 @@ export default class DropdownSelectExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Multi Select"/>
+                    <WidgetHeader className="example-header" title="With isGrouped"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -168,6 +202,10 @@ export default class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <div className="field-group">
+
+                                    <p>Set the <code>isGrouped</code> property to true,the DropdownSelect will have
+                                        group.
+                                    </p>
 
                                     <DropdownSelect style={{width: 240}}
                                                     popupStyle={{maxHeight: 300}}

@@ -34,14 +34,34 @@ export default class TimePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Time Picker Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Time Picker using the value property to set initial time.</p>
+                                <p><code>Time Picker</code> simple example.</p>
+
+                                <TimePicker/>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Time Picker</code> using the <code>value</code> property to set initial time.
+                                </p>
 
                                 <TimePicker value="12:00:00"/>
 
@@ -53,15 +73,15 @@ export default class TimePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Time Picker Example"/>
+                    <WidgetHeader className="example-header" title="With maxValue and minValue"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Time Picker using the maxValue and minValue property to set time selectable
-                                    range.</p>
+                                <p><code>Time Picker</code> using the <code>maxValue</code> and <code>minValue</code>
+                                    property to set time selectable range.</p>
 
                                 <TimePicker value="10:00:00"
                                             maxValue="20:56:20"
@@ -74,15 +94,16 @@ export default class TimePickerExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Time Picker Example"/>
+                    <WidgetHeader className="example-header" title="With placeholder and dateFormat"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Time Picker using the placeholder property to set time default value and using the
-                                    dateFormat property constructor set time format.</p>
+                                <p><code>Time Picker</code> using the <code>placeholder</code> property to set time
+                                    default value and using the <code>dateFormat</code> property constructor set time
+                                    format.</p>
 
                                 <TimePicker value="12:00"
                                             placeholder="date"

@@ -80,14 +80,14 @@ export default class DialogExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Dialog Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="popup-example-wrapper">
 
-                                <p>Dialog example use basic properties.</p>
+                                <p><code>Dialog</code> example use basic properties.</p>
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"

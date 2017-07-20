@@ -280,7 +280,7 @@ DropdownSelect.propTypes = {
     className: PropTypes.string,
 
     /**
-     * The CSS class name of the popup element.
+     * The class name of the popup element.
      */
     popupClassName: PropTypes.string,
 
@@ -395,7 +395,7 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     *
+     * If true,the dropDownSelect will be multiply select.
      */
     multi: PropTypes.bool,
 
@@ -430,29 +430,29 @@ DropdownSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     *
+     * If true,the drop-down box will have search input.
      */
     useFilter: PropTypes.bool,
 
     /**
-     *
+     * The message of no matching option.
      */
     noMatchedMsg: PropTypes.string,
 
     /**
-     *
+     * The theme of DropdownSelect.Can be primary,highlight,success,warning,error.
      */
     triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     *
+     * If true,the drop-down box will be have group selection.
      */
     isGrouped: PropTypes.bool,
 
     /**
-     *
+     * Callback function fired when the button is touch-tapped.
      */
-    onTtemTouchTap: PropTypes.func,
+    onItemTouchTap: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.

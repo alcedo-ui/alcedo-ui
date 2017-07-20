@@ -56,14 +56,14 @@ export default class FlashNumberExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="FlashNumber Example"/>
+                                  title="Basic"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>FlashNumber simple default example.</p>
+                                <p><code>FlashNumber</code> simple example.</p>
 
                                 <div className="field-group">
                                     <TextField type="number"
@@ -84,14 +84,14 @@ export default class FlashNumberExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="FlashNumber Example"/>
+                                  title="With flashTime"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>Set the flashTime property to reset animation execution time.</p>
+                                <p>Set the <code>flashTime</code> property to reset animation execution time.</p>
 
                                 <div className="field-group">
                                     <TextField type="number"

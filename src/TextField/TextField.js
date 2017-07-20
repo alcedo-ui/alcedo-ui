@@ -392,7 +392,7 @@ TextField.propTypes = {
     min: PropTypes.number,
 
     /**
-     *
+     * The matching rule of textField.
      */
     pattern: PropTypes.object,
 
