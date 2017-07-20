@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import CircularLoading from '../CircularLoading/CircularLoading';
-import Tip from '../Tip/Tip';
-import TouchRipple from '../TouchRipple/TouchRipple';
+import CircularLoading from '../CircularLoading';
+import TipContainer from '../TipContainer';
+import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -16,17 +16,11 @@ export default class BaseButton extends Component {
 
         super(props);
 
-        this.state = {
-            tipVisible: false,
-            triggerEl: null
-        };
-
         this.mouseEnterHandle = this::this.mouseEnterHandle;
         this.mouseLeaveHandle = this::this.mouseLeaveHandle;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.hideTip = this::this.hideTip;
 
     }
 
@@ -44,27 +38,13 @@ export default class BaseButton extends Component {
     }
 
     mouseEnterHandle(e) {
-
         const {onMouseEnter} = this.props;
-
-        this.setState({
-            tipVisible: true,
-            triggerEl: e.currentTarget
-        }, () => {
-            onMouseEnter && onMouseEnter();
-        });
-
+        onMouseEnter && onMouseEnter();
     }
 
     mouseLeaveHandle() {
         const {onMouseLeave} = this.props;
         onMouseLeave && onMouseLeave();
-    }
-
-    hideTip() {
-        this.setState({
-            tipVisible: false
-        });
     }
 
     render() {
@@ -74,7 +54,6 @@ export default class BaseButton extends Component {
                 iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
                 tip, tipPosition, renderer
             } = this.props,
-            {tipVisible, triggerEl} = this.state,
 
             buttonClassName = (theme ? ` theme-${theme}` : '')
                 + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
@@ -83,72 +62,64 @@ export default class BaseButton extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <button className={'base-button' + buttonClassName}
-                    style={style}
-                    type={type}
-                    disabled={disabled || isLoading}
-                    onClick={this.clickHandle}
-                    onMouseEnter={this.mouseEnterHandle}
-                    onMouseLeave={this.mouseLeaveHandle}>
+            <TipContainer text={tip}
+                          position={tipPosition}>
+                <button className={'base-button' + buttonClassName}
+                        style={style}
+                        type={type}
+                        disabled={disabled || isLoading}
+                        onClick={this.clickHandle}
+                        onMouseEnter={this.mouseEnterHandle}
+                        onMouseLeave={this.mouseLeaveHandle}>
 
-                {
-                    isLoading && loadingIconPosition === 'left' ?
-                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                         size="small"/>
-                        :
-                        (
-                            iconCls ?
-                                <i className={`button-icon button-icon-left ${iconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                    {
+                        isLoading && loadingIconPosition === 'left' ?
+                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                iconCls ?
+                                    <i className={`button-icon button-icon-left ${iconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
-                {
-                    renderer && typeof renderer === 'function' ?
-                        renderer(this.props)
-                        :
-                        value
-                }
+                    {
+                        renderer && typeof renderer === 'function' ?
+                            renderer(this.props)
+                            :
+                            value
+                    }
 
-                {
-                    isLoading && loadingIconPosition === 'right' ?
-                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                         size="small"/>
-                        :
-                        (
-                            rightIconCls ?
-                                <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                    {
+                        isLoading && loadingIconPosition === 'right' ?
+                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                rightIconCls ?
+                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
-                {children}
+                    {children}
 
-                {
-                    tip ?
-                        <Tip text={tip}
-                             visible={tipVisible}
-                             triggerEl={triggerEl}
-                             position={tipPosition}
-                             onRequestClose={this.hideTip}/>
-                        :
-                        null
-                }
+                    {
+                        disableTouchRipple ?
+                            null
+                            :
+                            <TouchRipple ref="touchRipple"
+                                         className={disabled || isLoading ? 'hidden' : ''}
+                                         displayCenter={rippleDisplayCenter}/>
+                    }
 
-                {
-                    disableTouchRipple ?
-                        null
-                        :
-                        <TouchRipple ref="touchRipple"
-                                     className={disabled || isLoading ? 'hidden' : ''}
-                                     displayCenter={rippleDisplayCenter}/>
-                }
-
-            </button>
+                </button>
+            </TipContainer>
         );
 
     }

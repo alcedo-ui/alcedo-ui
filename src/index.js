@@ -47,6 +47,7 @@ export Theme from './Theme';
 export TimeLine from './TimeLine';
 export TimePicker from './TimePicker';
 export Tip from './Tip';
+export TipContainer from './TipContainer';
 export Toaster from './Toaster';
 export TouchRipple from './TouchRipple';
 export Transfer from './Transfer';
@@ -56,4 +57,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 57;
+export const COMPONENTS_TOTAL_COUNT = 58;

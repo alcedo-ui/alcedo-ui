@@ -36,6 +36,10 @@ class App extends Component {
 
         this.props.expandActivatedMenu(this.context.router.location.pathname);
 
+        // this.context.router.listen((location) => {
+        //     console.log(location);
+        // });
+
     }
 
     componentWillUnmount() {
@@ -44,10 +48,14 @@ class App extends Component {
 
     render() {
 
-        const {children, $navMenuCollapsed} = this.props;
+        const {children, $navMenuCollapsed, $componentLoading} = this.props;
 
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
+
+                <div className="load-component">
+                    {$componentLoading ? 'Loading' : 'Loaded'}
+                </div>
 
                 <NavMenu/>
 
@@ -76,6 +84,7 @@ App.propTypes = {
 
     $isDesktop: PropTypes.bool,
     $navMenuCollapsed: PropTypes.bool,
+    $componentLoading: PropTypes.bool,
 
     expandActivatedMenu: PropTypes.func
 
@@ -84,7 +93,8 @@ App.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         $isDesktop: state.device.isDesktop,
-        $navMenuCollapsed: state.navMenu.navMenuCollapsed
+        $navMenuCollapsed: state.navMenu.navMenuCollapsed,
+        $componentLoading: state.loadComponent.loading
     };
 }
 
