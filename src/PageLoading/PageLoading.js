@@ -77,18 +77,15 @@ export default class PageLoading extends Component {
     }
 
     render() {
+        const {className, style} = this.props;
 
-        const style1 = {
-            width: '100%',
-            height: '3px'
-        };
         return (
             <div>
-                <div className={`linear-progress linear-progress-one`}
-                     style={style1}
+                <div className={`page-loading page-loading-one ${className}`}
+                     style={style}
                      ref="progress">
-                    <div className="linear-progress-background">
-                        <div className={`linear-progress-highlight`} ref="highlight">
+                    <div className="page-loading-background">
+                        <div className={`page-loading-highlight`} ref="highlight">
 
                         </div>
                     </div>
@@ -99,6 +96,13 @@ export default class PageLoading extends Component {
 };
 
 PageLoading.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
     onRequestClose: PropTypes.func
+};
+
+PageLoading.defaultProps = {
+    className: '',
+    style: null,
 };
 
