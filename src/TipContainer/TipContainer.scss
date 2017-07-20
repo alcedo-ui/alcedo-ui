@@ -2,9 +2,11 @@
 
 .tip-container {
     display: inline-block;
+
     &.block {
         display: block;
     }
+
     .children-wrapper {
         display: inherit;
     }
