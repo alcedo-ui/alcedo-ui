@@ -13,29 +13,26 @@ export default class PageLoading extends Component {
         super(props);
 
         this.unrenderTimeout = null;
-        this.loadingArray = [
-            {
-                width: 0,
-                timeout: 1
-            },
-            {
-                width: 50,
-                timeout: 500
-            }, {
-                width: 80,
-                timeout: 2000
-            }, {
-                width: 90,
-                timeout: 2500
-            }, {
-                width: 95,
-                timeout: 25000
-            }];
-        this.finishedArray = [
-            {
-                width: 100,
-                timeout: 250
-            }];
+        this.loadingArray = [{
+            width: 0,
+            timeout: 1
+        }, {
+            width: 50,
+            timeout: 200
+        }, {
+            width: 80,
+            timeout: 2000
+        }, {
+            width: 90,
+            timeout: 2500
+        }, {
+            width: 95,
+            timeout: 25000
+        }];
+        this.finishedArray = [{
+            width: 100,
+            timeout: 250
+        }];
 
         this.setLoading = this::this.setLoading;
     }
