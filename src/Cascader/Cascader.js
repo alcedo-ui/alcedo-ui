@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
-import _ from 'lodash';
 
 import Popup from '../Popup';
 import CascaderList from './CascaderList';
@@ -158,7 +157,7 @@ export default class Cascader extends Component {
             }
         }
 
-        if (list && list.children && list.children.length > 0) {
+        if (list && list.length > 0) {
             return depth + 1;
         }
 
@@ -405,7 +404,6 @@ Cascader.propTypes = {
      */
     separator: PropTypes.string
 
-
 };
 
 Cascader.defaultProps = {
@@ -426,6 +424,5 @@ Cascader.defaultProps = {
     displayField: 'text',
 
     separator: '/'
-
 
 };

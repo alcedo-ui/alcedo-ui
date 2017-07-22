@@ -68,8 +68,8 @@ export default class List extends Component {
 
         if (mode === List.Mode.CHECKBOX) {
             return _.isArray(value) && value.filter(valueItem => {
-                    return Util.isValueEqual(valueItem, item, valueField, displayField);
-                }).length > 0;
+                return Util.isValueEqual(valueItem, item, valueField, displayField);
+            }).length > 0;
         } else if (mode === List.Mode.RADIO) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
@@ -129,14 +129,14 @@ export default class List extends Component {
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
                                       onTouchTap={() => {
-                                          this.listItemTouchTapHandle(item,index);
+                                          this.listItemTouchTapHandle(item, index);
                                           item.onTouchTap && item.onTouchTap();
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item,index);
+                                          this.listItemSelectHandle(item, index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item,index);
+                                          this.listItemDeselectHandle(item, index);
                                       }}/>
                         )
                         :
@@ -149,13 +149,13 @@ export default class List extends Component {
                                       isLoading={isLoading}
                                       mode={mode}
                                       onTouchTap={() => {
-                                          this.listItemTouchTapHandle(item,index);
+                                          this.listItemTouchTapHandle(item, index);
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item,index);
+                                          this.listItemSelectHandle(item, index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item,index);
+                                          this.listItemDeselectHandle(item, index);
                                       }}/>
                         );
 
@@ -166,7 +166,7 @@ export default class List extends Component {
 
     }
 
-    listItemTouchTapHandle(value,index) {
+    listItemTouchTapHandle(value, index) {
 
         const {mode} = this.props;
 
@@ -178,13 +178,13 @@ export default class List extends Component {
             value
         }, () => {
             const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value,index);
-            onChange && onChange(value,index);
+            onItemTouchTap && onItemTouchTap(value, index);
+            onChange && onChange(value, index);
         });
 
     }
 
-    listItemSelectHandle(item) {
+    listItemSelectHandle(item, index) {
 
         const {mode} = this.props;
 
@@ -210,12 +210,12 @@ export default class List extends Component {
             value
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange(value, index);
         });
 
     }
 
-    listItemDeselectHandle(item) {
+    listItemDeselectHandle(item, index) {
 
         const {mode} = this.props;
 
@@ -239,7 +239,7 @@ export default class List extends Component {
             value
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange(value, index);
         });
 
     }
