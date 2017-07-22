@@ -209,8 +209,93 @@ Cascader.propTypes = {
     /**
      *
      */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     *
+     */
+    name: PropTypes.string,
+
+    /**
+     *
+     */
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+        /**
+         * The CSS class name of the list button.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the list button.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The theme of the list button.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        /**
+         * The text value of the list button.Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The desc value of the list button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * If true, the list button will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
+
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
+
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
+
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        renderer: PropTypes.func,
+
+        /**
+         *
+         */
+        children: PropTypes.array,
+
+        /**
+         * Callback function fired when a list item touch-tapped.
+         */
+        onTouchTap: PropTypes.func
+
+    }), PropTypes.string, PropTypes.number])),
+
+    /**
+     *
+     */
     placeholder: PropTypes.string,
 
+    /**
+     *
+     */
     disabled: PropTypes.bool,
 
     /**
@@ -235,9 +320,13 @@ Cascader.defaultProps = {
 
     className: '',
     style: null,
-
+    popupClassName: '',
+    popupStyle: null,
     listWidth: 200,
+    theme: Theme.DEFAULT,
 
+    name: '',
+    data: [],
     placeholder: 'Please select ...',
     disabled: false,
 
