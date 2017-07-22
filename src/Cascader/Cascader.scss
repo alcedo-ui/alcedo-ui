@@ -25,6 +25,11 @@
             .cascader-trigger-icon {
                 transform: rotate(180deg);
             }
+
+            &.blow {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
 
     }
