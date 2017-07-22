@@ -40,10 +40,10 @@ export default class CascaderList extends Component {
         }
 
         const {onChange} = this.props,
-            depth = this.props.depth || 0;
+            currDepth = this.props.currDepth || 0;
 
-        let path = this.props.path.slice(0, depth + 1);
-        path[depth] = {
+        let path = this.props.path.slice(0, currDepth + 1);
+        path[currDepth] = {
             value,
             index
         };
@@ -54,22 +54,21 @@ export default class CascaderList extends Component {
 
     render() {
 
-        const {listWidth, listData, path} = this.props,
+        const {listWidth, listData, path, depth} = this.props,
 
-            depth = this.props.depth || 0,
-            activatedNode = depth in path ? listData[path[depth].index] : null,
+            currDepth = this.props.currDepth || 0,
+            activatedNode = currDepth in path ? listData[path[currDepth].index] : null,
             hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
-            lastDepth = path.length + (hasChildren ? 1 : 0),
 
-            listStyle = depth === 0 ?
-                {width: listWidth * Valid.range(path.length + (hasChildren ? 1 : 0), 1)}
+            listStyle = currDepth === 0 ?
+                {width: listWidth * Valid.range(depth, 1)}
                 :
                 null,
 
-            popupListClassName = (depth === 0 ? ' first' : '') + (depth === lastDepth ? ' last' : ''),
+            popupListClassName = (currDepth === 0 ? ' first' : '') + (currDepth === depth - 1 ? ' last' : ''),
             popupListStyle = {
                 width: listWidth,
-                zIndex: 99 - depth
+                zIndex: 99 - currDepth
             };
 
         return (
@@ -85,7 +84,7 @@ export default class CascaderList extends Component {
                     hasChildren ?
                         <CascaderList {...this.props}
                                       listData={activatedNode.children}
-                                      depth={depth + 1}/>
+                                      currDepth={currDepth + 1}/>
                         :
                         null
                 }
@@ -119,6 +118,7 @@ CascaderList.propTypes = {
 
     })),
 
+    currDepth: PropTypes.number,
     depth: PropTypes.number
 
 };
@@ -131,6 +131,7 @@ CascaderList.defaultProps = {
 
     path: [],
 
+    currDepth: 0,
     depth: 0
 
 };

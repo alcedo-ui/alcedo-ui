@@ -144,6 +144,28 @@ export default class Cascader extends Component {
 
     }
 
+    calDepth(data, path) {
+
+        let list = data,
+            depth = 0;
+
+        for (let item of path) {
+            if (item.index in list) {
+                list = list[item.index].children;
+                depth++;
+            } else {
+                return depth;
+            }
+        }
+
+        if (list && list.children && list.children.length > 0) {
+            return depth + 1;
+        }
+
+        return depth;
+
+    }
+
     popupRenderHandle(popupEl) {
 
         this.popupEl = findDOMNode(popupEl);
@@ -237,7 +259,8 @@ export default class Cascader extends Component {
                     <CascaderList listData={data}
                                   listWidth={listWidth}
                                   path={path}
-                                  onChange={this.changeHandler}/>
+                                  onChange={this.changeHandler}
+                                  depth={this.calDepth(data, path)}/>
 
                 </Popup>
 
