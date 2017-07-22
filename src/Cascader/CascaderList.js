@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import List from '../List';
 
+import Valid from '../_vendors/Valid';
+
 import './Cascader.css';
 
 export default class CascaderList extends Component {
@@ -52,7 +54,7 @@ export default class CascaderList extends Component {
 
     render() {
 
-        const {listData, listWidth, path} = this.props,
+        const {listWidth, listData, path} = this.props,
 
             depth = this.props.depth || 0,
             activatedNode = depth in path ? listData[path[depth].index] : null,
@@ -60,7 +62,7 @@ export default class CascaderList extends Component {
             hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
 
             listStyle = depth === 0 ?
-                {width: listWidth * (path.length + (hasChildren ? 1 : 0))}
+                {width: listWidth * Valid.range(path.length + (hasChildren ? 1 : 0), 1)}
                 :
                 null,
 
@@ -100,7 +102,23 @@ CascaderList.propTypes = {
     /**
      * The data of popup-list.
      */
-    listData: PropTypes.array
+    listData: PropTypes.array,
+
+    path: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         *
+         */
+        value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+
+        /**
+         *
+         */
+        index: PropTypes.number
+
+    })),
+
+    depth: PropTypes.number
 
 };
 
@@ -108,6 +126,10 @@ CascaderList.defaultProps = {
 
     listWidth: 200,
 
-    listData: []
+    listData: [],
+
+    path: [],
+
+    depth: 0
 
 };

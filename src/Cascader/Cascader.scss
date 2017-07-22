@@ -54,6 +54,10 @@
         overflow: visible;
         background: transparent;
 
+        & > .cascader-list {
+            //overflow: hidden;
+        }
+
         .cascader-list {
             float: left;
         }
@@ -76,6 +80,8 @@
 
         .popup-content > .cascader-list {
             border-bottom: 1px solid $theme-title-bg;
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
         }
     }
 
@@ -85,6 +91,8 @@
 
         .popup-content > .cascader-list {
             border-top: 1px solid $theme-title-bg;
+            border-bottom-left-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
         }
     }
 }

@@ -67,9 +67,15 @@ export default class Cascader extends Component {
     }
 
     calValue(path, props = this.props) {
+
+        if (!path || path.length < 1) {
+            return;
+        }
+
         const {valueField, displayField, separator} = props;
         return path.map(item => Util.getTextByDisplayField(item.value, displayField, valueField))
             .join(` ${separator} `);
+
     }
 
     popupRenderHandle(popupEl) {
@@ -117,8 +123,8 @@ export default class Cascader extends Component {
     render() {
 
         const {
-                className, style, listWidth, triggerTheme, disabled, valueField, displayField, popupStyle,
-                name, popupClassName, data
+                className, style, popupClassName, popupStyle, listWidth, theme,
+                disabled, valueField, displayField, name, data, placeholder
             } = this.props,
 
             {value, popupVisible, isAbove, path} = this.state,
@@ -147,8 +153,8 @@ export default class Cascader extends Component {
                               className={'cascader-trigger' + triggerClassName}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
                               disabled={disabled}
-                              value={this.calValue(path)}
-                              theme={triggerTheme}
+                              value={this.calValue(path) || placeholder}
+                              theme={theme}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
@@ -185,7 +191,27 @@ Cascader.propTypes = {
      */
     style: PropTypes.object,
 
+    /**
+     *
+     */
+    popupClassName: PropTypes.string,
+
+    /**
+     *
+     */
+    popupStyle: PropTypes.object,
+
+    /**
+     *
+     */
     listWidth: PropTypes.number,
+
+    /**
+     *
+     */
+    placeholder: PropTypes.string,
+
+    disabled: PropTypes.bool,
 
     /**
      * The value field name in data. (default: "value")
@@ -197,6 +223,9 @@ Cascader.propTypes = {
      */
     displayField: PropTypes.string,
 
+    /**
+     *
+     */
     separator: PropTypes.string
 
 
@@ -209,7 +238,7 @@ Cascader.defaultProps = {
 
     listWidth: 200,
 
-    placeholder: '',
+    placeholder: 'Please select ...',
     disabled: false,
 
     valueField: 'value',

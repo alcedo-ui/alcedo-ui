@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import BaseButton from '../_BaseButton';
 import Theme from '../Theme';
 
+import Util from '../_vendors/Util';
+
 import './FlatButton.css';
 
 export default class FlatButton extends Component {
@@ -56,7 +58,7 @@ FlatButton.propTypes = {
     /**
      * The button theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * If true,the button will have rounded corners.
