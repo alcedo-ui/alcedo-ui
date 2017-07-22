@@ -67,37 +67,9 @@ export default class Cascader extends Component {
     }
 
     calValue(path, props = this.props) {
-
-        if (!path || path.length < 1) {
-            return;
-        }
-
-        const {data} = props;
-
-        if (!data || data.length < 1) {
-            return;
-        }
-
-        let list = data,
-            value;
-        for (let index of path) {
-
-            if (!(index in list)) {
-                break;
-            }
-
-            value = list[index];
-
-            if (!value.children || value.children.length < 1) {
-                break;
-            }
-
-            list = value.children;
-
-        }
-
-        return value;
-
+        const {valueField, displayField, separator} = props;
+        return path.map(item => Util.getTextByDisplayField(item.value, displayField, valueField))
+            .join(` ${separator} `);
     }
 
     popupRenderHandle(popupEl) {
@@ -117,8 +89,8 @@ export default class Cascader extends Component {
 
     changeHandler(path) {
 
-        const {onChange} = this.props,
-            value = this.calValue(path);
+        const {onChange} = this.props;
+        const value = path[path.length - 1].value;
 
         this.setState({
             path,
@@ -145,7 +117,7 @@ export default class Cascader extends Component {
     render() {
 
         const {
-                className, style, triggerTheme, disabled, valueField, displayField, popupStyle,
+                className, style, listWidth, triggerTheme, disabled, valueField, displayField, popupStyle,
                 name, popupClassName, data
             } = this.props,
 
@@ -176,7 +148,7 @@ export default class Cascader extends Component {
                               className={'cascader-trigger' + triggerClassName}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
                               disabled={disabled}
-                              value={''}
+                              value={this.calValue(path)}
                               theme={triggerTheme}
                               onTouchTap={this.togglePopup}/>
 
@@ -190,10 +162,10 @@ export default class Cascader extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <CascaderList className={`cascader-list`}
-                                  onChange={this.changeHandler}
-                                  listData={data}
-                                  path={path}/>
+                    <CascaderList listData={data}
+                                  listWidth={listWidth}
+                                  path={path}
+                                  onChange={this.changeHandler}/>
 
                 </Popup>
 
@@ -212,7 +184,21 @@ Cascader.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    listWidth: PropTypes.number,
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
+    separator: PropTypes.string
 
 
 };
@@ -222,9 +208,15 @@ Cascader.defaultProps = {
     className: '',
     style: null,
 
+    listWidth: 200,
+
     placeholder: '',
     disabled: false,
-    optionsVisible: false
+
+    valueField: 'value',
+    displayField: 'text',
+
+    separator: '/'
 
 
 };

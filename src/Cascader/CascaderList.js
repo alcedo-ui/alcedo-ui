@@ -31,9 +31,9 @@ export default class CascaderList extends Component {
 
     }
 
-    changeHandle(activatedNode, index) {
+    changeHandle(value, index) {
 
-        if (!activatedNode) {
+        if (!value) {
             return;
         }
 
@@ -41,7 +41,10 @@ export default class CascaderList extends Component {
             depth = this.props.depth || 0;
 
         let path = this.props.path.slice(0, depth + 1);
-        path[depth] = index;
+        path[depth] = {
+            value,
+            index
+        };
 
         onChange && onChange(path);
 
@@ -49,20 +52,34 @@ export default class CascaderList extends Component {
 
     render() {
 
-        const {listData, className, style, path} = this.props,
+        const {listData, listWidth, path} = this.props,
+
             depth = this.props.depth || 0,
-            activatedNode = depth in path ? listData[path[depth]] : null;
+            activatedNode = depth in path ? listData[path[depth].index] : null,
+
+            hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
+
+            listStyle = depth === 0 ?
+                {width: listWidth * (path.length + (hasChildren ? 1 : 0))}
+                :
+                null,
+
+            popupListStyle = {
+                width: listWidth,
+                zIndex: 99 - depth
+            };
 
         return (
-            <div className={`cascader-list ${className}`}
-                 style={style}>
+            <div className="cascader-list"
+                 style={listStyle}>
 
                 <List className={`cascader-popup-list`}
+                      style={popupListStyle}
                       onChange={this.changeHandle}
                       items={this.formatData(listData)}/>
 
                 {
-                    activatedNode && activatedNode.children && activatedNode.children.length > 0 ?
+                    hasChildren ?
                         <CascaderList {...this.props}
                                       listData={activatedNode.children}
                                       depth={depth + 1}/>
@@ -78,19 +95,19 @@ export default class CascaderList extends Component {
 
 CascaderList.propTypes = {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    listWidth: PropTypes.number,
 
     /**
      * The data of popup-list.
      */
     listData: PropTypes.array
+
+};
+
+CascaderList.defaultProps = {
+
+    listWidth: 200,
+
+    listData: []
 
 };
