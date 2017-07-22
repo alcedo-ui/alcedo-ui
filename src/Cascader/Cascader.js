@@ -8,6 +8,7 @@ import {findDOMNode} from 'react-dom';
 import Popup from '../Popup';
 import CascaderList from './CascaderList';
 import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
