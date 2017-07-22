@@ -108,7 +108,7 @@ export default class Cascader extends Component {
 
                     path.unshift({
                         value: node,
-                        index: i
+                        index: index
                     });
                     return path;
 

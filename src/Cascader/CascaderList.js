@@ -58,14 +58,15 @@ export default class CascaderList extends Component {
 
             depth = this.props.depth || 0,
             activatedNode = depth in path ? listData[path[depth].index] : null,
-
             hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
+            lastDepth = path.length + (hasChildren ? 1 : 0),
 
             listStyle = depth === 0 ?
                 {width: listWidth * Valid.range(path.length + (hasChildren ? 1 : 0), 1)}
                 :
                 null,
 
+            popupListClassName = (depth === 0 ? ' first' : '') + (depth === lastDepth ? ' last' : ''),
             popupListStyle = {
                 width: listWidth,
                 zIndex: 99 - depth
@@ -75,7 +76,7 @@ export default class CascaderList extends Component {
             <div className="cascader-list"
                  style={listStyle}>
 
-                <List className={`cascader-popup-list`}
+                <List className={'cascader-popup-list' + popupListClassName}
                       style={popupListStyle}
                       onChange={this.changeHandle}
                       items={this.formatData(listData)}/>
