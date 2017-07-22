@@ -14,18 +14,25 @@ import Util from '../_vendors/Util';
 import './Cascader.css';
 
 export default class Cascader extends Component {
+
     constructor(props) {
+
         super(props);
+
         this.state = {
             popupVisible: false,
             isAbove: false,
-            value: props.value
+            value: props.value,
+            path: []
         };
+
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
         this.isAbove = this::this.isAbove;
+        this.calValue = this::this.calValue;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.changeHandler = this::this.changeHandler;
+
     }
 
     togglePopup() {
@@ -59,6 +66,40 @@ export default class Cascader extends Component {
 
     }
 
+    calValue(path, props = this.props) {
+
+        if (!path || path.length < 1) {
+            return;
+        }
+
+        const {data} = props;
+
+        if (!data || data.length < 1) {
+            return;
+        }
+
+        let list = data,
+            value;
+        for (let index of path) {
+
+            if (!(index in list)) {
+                break;
+            }
+
+            value = list[index];
+
+            if (!value.children || value.children.length < 1) {
+                break;
+            }
+
+            list = value.children;
+
+        }
+
+        return value;
+
+    }
+
     popupRenderHandle(popupEl) {
 
         this.popupEl = findDOMNode(popupEl);
@@ -74,12 +115,17 @@ export default class Cascader extends Component {
 
     }
 
-    changeHandler(obj, index) {
+    changeHandler(path) {
+
+        const {onChange} = this.props,
+            value = this.calValue(path);
+
         this.setState({
-            value: obj.text,
-            popupVisible: !this.state.popupVisible
+            path,
+            value
+        }, () => {
+            onChange && onChange(value, path);
         });
-        console.log(index);
 
     }
 
@@ -97,17 +143,19 @@ export default class Cascader extends Component {
     }
 
     render() {
+
         const {
                 className, style, triggerTheme, disabled, valueField, displayField, popupStyle,
                 name, popupClassName, data
             } = this.props,
 
-            {value, popupVisible, isAbove} = this.state,
+            {value, popupVisible, isAbove, path} = this.state,
+
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
+
             popupRenderClassName = (isAbove ? ' above' : ' blow')
                 + (popupClassName ? ' ' + popupClassName : '');
-
 
         return (
 
@@ -128,7 +176,7 @@ export default class Cascader extends Component {
                               className={'cascader-trigger' + triggerClassName}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
                               disabled={disabled}
-                              value={value}
+                              value={''}
                               theme={triggerTheme}
                               onTouchTap={this.togglePopup}/>
 
@@ -143,14 +191,14 @@ export default class Cascader extends Component {
                        onRequestClose={this.closePopup}>
 
                     <CascaderList className={`cascader-list`}
-                                  value={value}
                                   onChange={this.changeHandler}
-                                  listData={data}/>
+                                  listData={data}
+                                  path={path}/>
 
                 </Popup>
 
             </div>
-        )
+        );
     }
 }
 
@@ -164,7 +212,7 @@ Cascader.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object,
+    style: PropTypes.object
 
 
 };
