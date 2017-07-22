@@ -156,6 +156,7 @@ export default class CascaderExamples extends Component {
                                 <p>CascaderList simple example.</p>
 
                                 <Cascader data={this.data}
+                                          value={'田子坊'}
                                           onChange={this.changeHandler}/>
 
                             </div>

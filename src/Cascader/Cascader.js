@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import _ from 'lodash';
 
 import Popup from '../Popup';
 import CascaderList from './CascaderList';
@@ -20,17 +21,20 @@ export default class Cascader extends Component {
 
         super(props);
 
+        this.rootSymbol = Symbol('root');
+
         this.state = {
             popupVisible: false,
             isAbove: false,
             value: props.value,
-            path: []
+            path: this.calPath(props.value)
         };
 
         this.togglePopup = this::this.togglePopup;
         this.closePopup = this::this.closePopup;
         this.isAbove = this::this.isAbove;
         this.calValue = this::this.calValue;
+        this.calPath = this::this.calPath;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.changeHandler = this::this.changeHandler;
 
@@ -79,6 +83,67 @@ export default class Cascader extends Component {
 
     }
 
+    traverseData(node, value, props, index = 0) {
+
+        if (!node || node.length < 1 || !value) {
+            return;
+        }
+
+        const {valueField, displayField} = props;
+
+        // find in children
+        if (node.children && node.children.length > 0) {
+
+            for (let i = 0, len = node.children.length; i < len; i++) {
+
+                // traverse child node
+                const path = this.traverseData(node.children[i], value, props, i);
+
+                // if finded in child node
+                if (path) {
+
+                    if (node[this.rootSymbol]) {
+                        return path;
+                    }
+
+                    path.unshift({
+                        value: node,
+                        index: i
+                    });
+                    return path;
+
+                }
+
+            }
+        }
+
+        if (Util.getValueByValueField(node, valueField, displayField)
+            === Util.getValueByValueField(value, valueField, displayField)) {
+            return [{
+                value: node,
+                index
+            }];
+        }
+
+        return;
+
+    }
+
+    calPath(value, props = this.props) {
+
+        const {data} = props;
+
+        if (!value || !data) {
+            return;
+        }
+
+        return this.traverseData({
+            [this.rootSymbol]: true,
+            children: data
+        }, value, props);
+
+    }
+
     popupRenderHandle(popupEl) {
 
         this.popupEl = findDOMNode(popupEl);
@@ -96,13 +161,13 @@ export default class Cascader extends Component {
 
     changeHandler(path) {
 
-        const {onChange} = this.props;
         const value = path[path.length - 1].value;
 
         this.setState({
             path,
             value
         }, () => {
+            const {onChange} = this.props;
             onChange && onChange(value, path);
         });
 
@@ -116,7 +181,8 @@ export default class Cascader extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
-                value: nextProps.value
+                value: nextProps.value,
+                path: this.calPath(nextProps.value, nextProps)
             });
         }
     }
