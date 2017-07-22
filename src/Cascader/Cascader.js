@@ -126,8 +126,7 @@ export default class Cascader extends Component {
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
 
-            popupRenderClassName = (isAbove ? ' above' : ' blow')
-                + (popupClassName ? ' ' + popupClassName : '');
+            popupRenderClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
 
         return (
 
@@ -153,9 +152,9 @@ export default class Cascader extends Component {
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
-                       visible={popupVisible}
+                       className={'cascader-popup' + popupRenderClassName}
                        style={popupStyle}
-                       className={`cascader-popup ${popupRenderClassName}`}
+                       visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}

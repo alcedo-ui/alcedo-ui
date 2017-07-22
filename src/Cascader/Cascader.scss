@@ -26,6 +26,12 @@
                 transform: rotate(180deg);
             }
 
+            &.above {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                z-index: $popup-z-index + 1;
+            }
+
             &.blow {
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
@@ -37,7 +43,6 @@
 
 .cascader-popup {
     box-sizing: border-box;
-    height: 280px;
     margin: 0;
     background: transparent;
     box-shadow: none !important;
@@ -47,6 +52,7 @@
     .popup-content {
         @include float-fix;
         overflow: visible;
+        background: transparent;
 
         .cascader-list {
             float: left;
@@ -59,7 +65,7 @@
             //border: 1px solid $theme-title-bg;
             box-sizing: border-box;
             height: 300px;
-            overflow-y: hidden;
+            overflow-y: auto;
             overflow-x: hidden;
         }
     }
@@ -67,12 +73,18 @@
     &.above {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        border-bottom: 1px solid $theme-title-bg;
+
+        .popup-content > .cascader-list {
+            border-bottom: 1px solid $theme-title-bg;
+        }
     }
 
     &.blow {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        border-top: 1px solid $theme-title-bg;
+
+        .popup-content > .cascader-list {
+            border-top: 1px solid $theme-title-bg;
+        }
     }
 }

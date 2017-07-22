@@ -23,18 +23,14 @@
             .dropdown-select-trigger-icon {
                 transform: rotate(180deg);
             }
-        }
 
-        &.above {
-            &.activated {
+            &.above {
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
                 z-index: $popup-z-index + 1;
             }
-        }
 
-        &.blow {
-            &.activated {
+            &.blow {
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
             }
