@@ -259,8 +259,10 @@ export default class Cascader extends Component {
                     <CascaderList listData={data}
                                   listWidth={listWidth}
                                   path={path}
-                                  onChange={this.changeHandler}
-                                  depth={this.calDepth(data, path)}/>
+                                  valueField={valueField}
+                                  displayField={displayField}
+                                  depth={this.calDepth(data, path)}
+                                  onChange={this.changeHandler}/>
 
                 </Popup>
 

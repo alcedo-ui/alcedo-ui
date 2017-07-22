@@ -54,7 +54,7 @@ export default class CascaderList extends Component {
 
     render() {
 
-        const {listWidth, listData, path, depth} = this.props,
+        const {listWidth, listData, valueField, displayField, path, depth} = this.props,
 
             currDepth = this.props.currDepth || 0,
             activatedNode = currDepth in path ? listData[path[currDepth].index] : null,
@@ -77,8 +77,12 @@ export default class CascaderList extends Component {
 
                 <List className={'cascader-popup-list' + popupListClassName}
                       style={popupListStyle}
-                      onChange={this.changeHandle}
-                      items={this.formatData(listData)}/>
+                      items={this.formatData(listData)}
+                      value={activatedNode}
+                      valueField={valueField}
+                      displayField={displayField}
+                      mode={List.Mode.RADIO}
+                      onChange={this.changeHandle}/>
 
                 {
                     hasChildren ?
@@ -118,6 +122,16 @@ CascaderList.propTypes = {
 
     })),
 
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
     currDepth: PropTypes.number,
     depth: PropTypes.number
 
@@ -130,6 +144,9 @@ CascaderList.defaultProps = {
     listData: [],
 
     path: [],
+
+    valueField: 'value',
+    displayField: 'text',
 
     currDepth: 0,
     depth: 0
