@@ -25,6 +25,17 @@
             .cascader-trigger-icon {
                 transform: rotate(180deg);
             }
+
+            &.above {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                z-index: $popup-z-index + 1;
+            }
+
+            &.blow {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
 
     }
@@ -32,44 +43,71 @@
 
 .cascader-popup {
     box-sizing: border-box;
-    height: 280px;
     margin: 0;
     background: transparent;
-    box-shadow: none!important;
+    box-shadow: none !important;
     overflow: visible;
+    border: none !important;
+    border-radius: 0 !important;
 
     .popup-content {
         @include float-fix;
         overflow: visible;
-
-        & > .cascader-list {
-            width: 99999px;
-        }
+        background: transparent;
 
         .cascader-list {
             float: left;
         }
 
-        .cascader-popup-list{
+        .cascader-popup-list {
             @include shadow(4);
+            position: relative;
             float: left;
-            border:1px solid $theme-title-bg;
+            //border: 1px solid $theme-title-bg;
             box-sizing: border-box;
-            height:300px;
-            overflow-y: hidden;
+            height: 300px;
+            overflow-y: auto;
             overflow-x: hidden;
+
+            .list-item-checked {
+                display: none;
+            }
         }
     }
 
     &.above {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom: 1px solid $theme-title-bg;
+
+        .popup-content > .cascader-list {
+            border-bottom: 1px solid $theme-title-bg;
+        }
+
+        .cascader-popup-list {
+
+            &.first {
+                border-top-left-radius: $border-radius;
+            }
+
+            &.last {
+                border-top-right-radius: $border-radius;
+            }
+        }
     }
 
     &.blow {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top: 1px solid $theme-title-bg;
+
+        .popup-content > .cascader-list {
+            border-top: 1px solid $theme-title-bg;
+        }
+
+        .cascader-popup-list {
+
+            &.first {
+                border-bottom-left-radius: $border-radius;
+            }
+
+            &.last {
+                border-bottom-right-radius: $border-radius;
+            }
+        }
     }
 }

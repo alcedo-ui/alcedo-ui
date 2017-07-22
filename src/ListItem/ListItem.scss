@@ -95,23 +95,23 @@ button:focus {
     }
 
     // default theme
-    @include raised-button-theme($theme-text, $theme-field);
+    @include list-theme($theme-text, $theme-field);
 
     // other themes
     &.theme-primary {
-        @include raised-button-theme(#fff, $theme-menu);
+        @include list-theme(#fff, $theme-menu);
     }
     &.theme-highlight {
-        @include raised-button-theme(#fff, $theme-highlight);
+        @include list-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include raised-button-theme(#fff, $success);
+        @include list-theme(#fff, $success);
     }
     &.theme-warning {
-        @include raised-button-theme(#fff, $warning);
+        @include list-theme(#fff, $warning);
     }
     &.theme-error {
-        @include raised-button-theme(#fff, $error);
+        @include list-theme(#fff, $error);
     }
 
     &.list-group-name {

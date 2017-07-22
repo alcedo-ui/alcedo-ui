@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
-import CascaderList from 'dist/Cascader';
 import Cascader from 'dist/Cascader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
@@ -14,17 +13,17 @@ import CascaderDoc from 'assets/propTypes/Cascader.json';
 import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
 export default class CascaderExamples extends Component {
+
     constructor(props) {
+
         super(props);
 
         this.data = [{
             text: '河南省',
             value: '河南省',
-            rightIconCls:'fa fa-angle-right',
             children: [{
                 text: '郑州市',
                 value: '郑州市',
-                rightIconCls:'fa fa-angle-right',
                 children: [{
                     text: '二七纪念塔',
                     value: '二七纪念塔'
@@ -38,7 +37,6 @@ export default class CascaderExamples extends Component {
             }, {
                 text: '平顶山市',
                 value: '平顶山市',
-                rightIconCls:'fa fa-angle-right',
                 children: [{
                     text: '白龟山水库',
                     value: '白龟山水库'
@@ -49,7 +47,6 @@ export default class CascaderExamples extends Component {
             }, {
                 text: '洛阳市',
                 value: '洛阳市',
-                rightIconCls:'fa fa-angle-right',
                 children: [{
                     text: '龙门石窟',
                     value: '龙门石窟'
@@ -61,7 +58,6 @@ export default class CascaderExamples extends Component {
         }, {
             text: '湖北省',
             value: '湖北省',
-            rightIconCls:'fa fa-angle-right',
             children: [{
                 text: '武汉市',
                 value: '武汉市'
@@ -71,38 +67,26 @@ export default class CascaderExamples extends Component {
             }, {
                 text: '襄樊市',
                 value: '襄樊市'
-            }],
-            onTouchTap() {
-                console.log('湖北省');
-            }
+            }]
         }, {
             text: '四川省',
             value: '四川省',
-            rightIconCls:'fa fa-angle-right',
             children: [{
                 text: '成都市',
                 value: '成都市'
             }, {
                 text: '重庆市',
                 value: '重庆市'
-            }],
-            onTouchTap() {
-                console.log('四川省');
-            }
+            }]
         }, {
             text: '辽宁省',
-            value: '辽宁省',
-            onTouchTap() {
-                console.log('辽宁省');
-            }
+            value: '辽宁省'
         }, {
             text: '上海市',
             value: '上海市',
-            rightIconCls:'fa fa-angle-right',
             children: [{
                 text: '上海市',
                 value: '上海市',
-                rightIconCls:'fa fa-angle-right',
                 children: [{
                     text: '东方明珠塔',
                     value: '东方明珠塔'
@@ -116,39 +100,22 @@ export default class CascaderExamples extends Component {
                     text: '田子坊',
                     value: '田子坊'
                 }]
-            }],
-            onTouchTap() {
-                console.log('上海市');
-            }
+            }]
         }, {
             text: '北京市',
-            value: '北京市',
-            rightIconCls:'fa fa-angle-right',
-            onTouchTap() {
-                console.log('北京市');
-            }
+            value: '北京市'
         }, {
             text: '安徽省',
-            value: '安徽省',
-            onTouchTap() {
-                console.log('安徽省');
-            }
+            value: '安徽省'
         }, {
             text: '山西省',
-            value: '山西省',
-            onTouchTap() {
-                console.log('山西省');
-            }
+            value: '山西省'
         }, {
             text: '江苏省',
-            value: '江苏省',
-            onTouchTap() {
-                console.log('江苏省');
-            }
+            value: '江苏省'
         }, {
             text: '浙江省',
             value: '浙江省',
-            rightIconCls:'fa fa-angle-right',
             children: [{
                 text: '杭州市',
                 value: '杭州市',
@@ -156,14 +123,14 @@ export default class CascaderExamples extends Component {
                     text: '西湖',
                     value: '西湖'
                 }]
-            }],
-            onTouchTap() {
-                console.log('浙江省');
-            }
+            }]
         }];
 
     }
 
+    changeHandler(value, path) {
+        console.log(value);
+    }
 
     render() {
 
@@ -188,7 +155,9 @@ export default class CascaderExamples extends Component {
 
                                 <p>CascaderList simple example.</p>
 
-                                <Cascader data={this.data}/>
+                                <Cascader data={this.data}
+                                          value={'田子坊'}
+                                          onChange={this.changeHandler}/>
 
                             </div>
 
@@ -202,6 +171,6 @@ export default class CascaderExamples extends Component {
                 <PropTypeDescTable data={CascaderDoc}/>
 
             </div>
-        )
+        );
     }
 }

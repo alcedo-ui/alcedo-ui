@@ -129,7 +129,7 @@ export default class ListItem extends Component {
             } = this.props,
             {checked} = this.state,
             listItemClassName = (theme ? ` theme-${theme}` : '') + (isGroupName ? ' list-group-name' : '')
-                + (className ? ' ' + className : ''),
+                + (checked ? ' activated' : '') + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
