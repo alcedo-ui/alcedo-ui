@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import TipContainer from 'dist/TipContainer';
+import TipContainer from '../TipContainer';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
