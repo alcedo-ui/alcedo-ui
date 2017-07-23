@@ -266,6 +266,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'PopupExamples');
                    }}/>
+            <Route path="Menu"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/popup/MenuExamples').default);
+                           loadCompleteCallback();
+                       }, 'MenuExamples');
+                   }}/>
 
             {/* progresses */}
             <Route path="CircularProgress"

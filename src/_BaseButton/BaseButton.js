@@ -16,8 +16,6 @@ export default class BaseButton extends Component {
 
         super(props);
 
-        this.mouseEnterHandle = this::this.mouseEnterHandle;
-        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
@@ -37,22 +35,12 @@ export default class BaseButton extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
-    mouseEnterHandle(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandle(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
-    }
-
     render() {
 
         const {
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
                 iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer
+                tip, tipPosition, renderer, onMouseEnter, onMouseLeave
             } = this.props,
 
             buttonClassName = (theme ? ` theme-${theme}` : '')
@@ -64,13 +52,14 @@ export default class BaseButton extends Component {
         return (
             <TipContainer text={tip}
                           position={tipPosition}>
+
                 <button className={'base-button' + buttonClassName}
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
                         onClick={this.clickHandle}
-                        onMouseEnter={this.mouseEnterHandle}
-                        onMouseLeave={this.mouseLeaveHandle}>
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -119,6 +108,7 @@ export default class BaseButton extends Component {
                     }
 
                 </button>
+
             </TipContainer>
         );
 

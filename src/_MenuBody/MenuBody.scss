@@ -1,0 +1,314 @@
+@import '../common';
+
+.popup {
+    position: absolute;
+    width: 200px;
+    border-radius: $border-radius;
+    z-index: $popup-z-index;
+
+    .popup-triangle {
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .popup-content {
+        width: 100%;
+        overflow: hidden;
+        border-radius: $border-radius;
+        transform: rotate(0deg);
+    }
+
+    &.hidden {
+        opacity: 0 !important;
+        left: -99999px !important;
+    }
+
+    &.popup-position-bottom-left {
+
+        &.popup-has-triangle {
+            margin-top: 10px;
+        }
+
+        .popup-triangle {
+            left: 10px;
+            top: -6px;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-bottom-width: 6px;
+            border-bottom-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-bottom {
+
+        &.popup-has-triangle {
+            margin-top: 10px;
+        }
+
+        .popup-triangle {
+            left: 50%;
+            top: -6px;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-bottom-width: 6px;
+            border-bottom-style: solid;
+            transform: translateX(-50%);
+        }
+
+        &.hidden {
+            transform: translate(0, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-bottom-right {
+
+        &.popup-has-triangle {
+            margin-top: 10px;
+        }
+
+        .popup-triangle {
+            right: 10px;
+            top: -6px;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-bottom-width: 6px;
+            border-bottom-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(50%, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-top-left {
+
+        &.popup-has-triangle {
+            margin-bottom: 10px;
+        }
+
+        .popup-triangle {
+            left: 10px;
+            top: 100%;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-top-width: 6px;
+            border-top-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(-50%, 50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-top {
+
+        &.popup-has-triangle {
+            margin-bottom: 10px;
+        }
+
+        .popup-triangle {
+            left: 50%;
+            top: 100%;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-top-width: 6px;
+            border-top-style: solid;
+            transform: translateX(-50%);
+        }
+
+        &.hidden {
+            transform: translate(0, 50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-top-right {
+
+        &.popup-has-triangle {
+            margin-bottom: 10px;
+        }
+
+        .popup-triangle {
+            right: 10px;
+            top: 100%;
+            border-left: 6px solid transparent !important;
+            border-right: 6px solid transparent !important;
+            border-top-width: 6px;
+            border-top-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(50%, 50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-left-top {
+
+        &.popup-has-triangle {
+            margin-right: 10px;
+        }
+
+        .popup-triangle {
+            left: 100%;
+            top: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-left-width: 6px;
+            border-left-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(50%, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-left {
+
+        &.popup-has-triangle {
+            margin-right: 10px;
+        }
+
+        .popup-triangle {
+            left: 100%;
+            top: 50%;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-left-width: 6px;
+            border-left-style: solid;
+            transform: translateY(-50%);
+        }
+
+        &.hidden {
+            transform: translate(50%, 0) scale(0);
+        }
+
+    }
+
+    &.popup-position-left-bottom {
+
+        &.popup-has-triangle {
+            margin-right: 10px;
+        }
+
+        .popup-triangle {
+            left: 100%;
+            bottom: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-left-width: 6px;
+            border-left-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(50%, 50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-right-top {
+
+        &.popup-has-triangle {
+            margin-left: 10px;
+        }
+
+        .popup-triangle {
+            left: -6px;
+            top: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-right-width: 6px;
+            border-right-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+    }
+
+    &.popup-position-right {
+
+        &.popup-has-triangle {
+            margin-left: 10px;
+        }
+
+        .popup-triangle {
+            left: -6px;
+            top: 50%;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-right-width: 6px;
+            border-right-style: solid;
+            transform: translateY(-50%);
+        }
+
+        &.hidden {
+            transform: translate(-50%, 0) scale(0);
+        }
+
+    }
+
+    &.popup-position-right-bottom {
+
+        &.popup-has-triangle {
+            margin-left: 10px;
+        }
+
+        .popup-triangle {
+            left: -6px;
+            bottom: 10px;
+            border-top: 6px solid transparent !important;
+            border-bottom: 6px solid transparent !important;
+            border-right-width: 6px;
+            border-right-style: solid;
+        }
+
+        &.hidden {
+            transform: translate(-50%, 50%) scale(0);
+        }
+
+    }
+
+    &.popup-animated {
+        transition: left 0s, opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
+
+        &.hidden {
+            transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
+            transform $transition-duration ease-in-out;
+        }
+    }
+
+    // default theme
+    @include popup-theme(#fff);
+
+    // other themes
+    &.theme-primary {
+        @include popup-theme($theme-menu);
+    }
+    &.theme-highlight {
+        @include popup-theme($theme-highlight);
+    }
+    &.theme-success {
+        @include popup-theme($success);
+    }
+    &.theme-warning {
+        @include popup-theme($warning);
+    }
+    &.theme-error {
+        @include popup-theme($error);
+    }
+
+}

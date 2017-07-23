@@ -25,6 +25,7 @@ export List from './List';
 export ListItem from './ListItem';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
+export Menu from './Menu';
 export MultipleSelect from './MultipleSelect';
 export PageLoading from './PageLoading';
 export Pagging from './Pagging';
@@ -58,4 +59,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 59;
+export const COMPONENTS_TOTAL_COUNT = 60;

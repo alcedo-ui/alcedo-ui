@@ -24,6 +24,9 @@ export default [{
     }, {
         text: 'Popup',
         route: '/components/Popup'
+    }, {
+        text: 'Menu',
+        route: '/components/Menu'
     }]
 }, {
     text: 'Date',
@@ -164,6 +167,6 @@ export default [{
         route: '/components/CircularLoading'
     }]
 }, {
- text: 'Cascader',
- route: '/components/Cascader'
- }];
+    text: 'Cascader',
+    route: '/components/Cascader'
+}];
