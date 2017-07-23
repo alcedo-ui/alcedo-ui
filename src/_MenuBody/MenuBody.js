@@ -220,7 +220,7 @@ export default class MenuBody extends Component {
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
-        visible && onRender && onRender(this.refs.popup);
+        visible && onRender && onRender(this.refs.menu);
     }
 
     componentWillUnmount() {
@@ -327,17 +327,17 @@ MenuBody.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
      */
     position: PropTypes.oneOf(Util.enumerateValue(MenuBody.Position)),
 
     /**
-     * If true,popup will have animation effects.
+     * If true, menu will have animation effects.
      */
     isAnimated: PropTypes.bool,
 
     /**
-     * The status of popup-triangle.Can be open or toggle.
+     * The status of menu-triangle.Can be open or toggle.
      */
     triggerMode: PropTypes.oneOf(Util.enumerateValue(MenuBody.TriggerMode)),
 
@@ -347,7 +347,7 @@ MenuBody.propTypes = {
     depth: PropTypes.number,
 
     /**
-     * The function of popup render.
+     * The function of menu render.
      */
     onRender: PropTypes.func,
 
