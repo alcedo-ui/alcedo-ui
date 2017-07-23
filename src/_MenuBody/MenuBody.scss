@@ -1,12 +1,12 @@
 @import '../common';
 
-.popup {
+.menu {
     position: absolute;
     width: 200px;
     border-radius: $border-radius;
     z-index: $popup-z-index;
 
-    .popup-triangle {
+    .menu-triangle {
         display: block;
         width: 0;
         height: 0;
@@ -14,7 +14,7 @@
         z-index: 1;
     }
 
-    .popup-content {
+    .menu-content {
         width: 100%;
         overflow: hidden;
         border-radius: $border-radius;
@@ -26,13 +26,13 @@
         left: -99999px !important;
     }
 
-    &.popup-position-bottom-left {
+    &.menu-position-bottom-left {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-top: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 10px;
             top: -6px;
             border-left: 6px solid transparent !important;
@@ -47,13 +47,13 @@
 
     }
 
-    &.popup-position-bottom {
+    &.menu-position-bottom {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-top: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 50%;
             top: -6px;
             border-left: 6px solid transparent !important;
@@ -69,13 +69,13 @@
 
     }
 
-    &.popup-position-bottom-right {
+    &.menu-position-bottom-right {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-top: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             right: 10px;
             top: -6px;
             border-left: 6px solid transparent !important;
@@ -90,13 +90,13 @@
 
     }
 
-    &.popup-position-top-left {
+    &.menu-position-top-left {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-bottom: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 10px;
             top: 100%;
             border-left: 6px solid transparent !important;
@@ -111,13 +111,13 @@
 
     }
 
-    &.popup-position-top {
+    &.menu-position-top {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-bottom: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 50%;
             top: 100%;
             border-left: 6px solid transparent !important;
@@ -133,13 +133,13 @@
 
     }
 
-    &.popup-position-top-right {
+    &.menu-position-top-right {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-bottom: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             right: 10px;
             top: 100%;
             border-left: 6px solid transparent !important;
@@ -154,13 +154,13 @@
 
     }
 
-    &.popup-position-left-top {
+    &.menu-position-left-top {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-right: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 100%;
             top: 10px;
             border-top: 6px solid transparent !important;
@@ -175,13 +175,13 @@
 
     }
 
-    &.popup-position-left {
+    &.menu-position-left {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-right: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 100%;
             top: 50%;
             border-top: 6px solid transparent !important;
@@ -197,13 +197,13 @@
 
     }
 
-    &.popup-position-left-bottom {
+    &.menu-position-left-bottom {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-right: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: 100%;
             bottom: 10px;
             border-top: 6px solid transparent !important;
@@ -218,13 +218,13 @@
 
     }
 
-    &.popup-position-right-top {
+    &.menu-position-right-top {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-left: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: -6px;
             top: 10px;
             border-top: 6px solid transparent !important;
@@ -239,13 +239,13 @@
 
     }
 
-    &.popup-position-right {
+    &.menu-position-right {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-left: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: -6px;
             top: 50%;
             border-top: 6px solid transparent !important;
@@ -261,13 +261,13 @@
 
     }
 
-    &.popup-position-right-bottom {
+    &.menu-position-right-bottom {
 
-        &.popup-has-triangle {
+        &.menu-has-triangle {
             margin-left: 10px;
         }
 
-        .popup-triangle {
+        .menu-triangle {
             left: -6px;
             bottom: 10px;
             border-top: 6px solid transparent !important;
@@ -282,7 +282,7 @@
 
     }
 
-    &.popup-animated {
+    &.menu-animated {
         transition: left 0s, opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
 
         &.hidden {
@@ -292,23 +292,23 @@
     }
 
     // default theme
-    @include popup-theme(#fff);
+    @include menu-theme(#fff);
 
     // other themes
     &.theme-primary {
-        @include popup-theme($theme-menu);
+        @include menu-theme($theme-menu);
     }
     &.theme-highlight {
-        @include popup-theme($theme-highlight);
+        @include menu-theme($theme-highlight);
     }
     &.theme-success {
-        @include popup-theme($success);
+        @include menu-theme($success);
     }
     &.theme-warning {
-        @include popup-theme($warning);
+        @include menu-theme($warning);
     }
     &.theme-error {
-        @include popup-theme($error);
+        @include menu-theme($error);
     }
 
 }

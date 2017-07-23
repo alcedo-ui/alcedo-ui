@@ -25,7 +25,7 @@ export default class MenuBody extends Component {
             visible: false
         };
 
-        this.getPopupStyle = this::this.getPopupStyle;
+        this.getMenuStyle = this::this.getMenuStyle;
         this.triggerMouseEnterHandler = this::this.triggerMouseEnterHandler;
         this.triggerMouseLeaveHandler = this::this.triggerMouseLeaveHandler;
         this.resizeHandler = this::this.resizeHandler;
@@ -39,51 +39,51 @@ export default class MenuBody extends Component {
         return triggerOffset.top + triggerEl.offsetHeight;
     }
 
-    calTopVerticalTop(triggerOffset, popupEl) {
-        return triggerOffset.top - popupEl.offsetHeight
-            - parseInt(getComputedStyle(popupEl).marginTop)
-            - parseInt(getComputedStyle(popupEl).marginBottom);
+    calTopVerticalTop(triggerOffset, menuEl) {
+        return triggerOffset.top - menuEl.offsetHeight
+            - parseInt(getComputedStyle(menuEl).marginTop)
+            - parseInt(getComputedStyle(menuEl).marginBottom);
     }
 
     calTopHorizontalTop(triggerOffset) {
         return triggerOffset.top;
     }
 
-    calTopHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
+    calTopHorizontalMiddle(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.top + triggerEl.offsetHeight / 2 - menuEl.offsetHeight / 2;
     }
 
-    calTopHorizontalBottom(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
+    calTopHorizontalBottom(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.top + triggerEl.offsetHeight - menuEl.offsetHeight;
     }
 
     calLeftVerticalLeft(triggerOffset) {
         return triggerOffset.left;
     }
 
-    calLeftVerticalCenter(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.left + triggerEl.offsetWidth / 2 - popupEl.offsetWidth / 2;
+    calLeftVerticalCenter(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.left + triggerEl.offsetWidth / 2 - menuEl.offsetWidth / 2;
     }
 
-    calLeftVerticalRight(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.left - (popupEl.offsetWidth - triggerEl.offsetWidth);
+    calLeftVerticalRight(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.left - (menuEl.offsetWidth - triggerEl.offsetWidth);
     }
 
-    calLeftHorizontalLeft(triggerOffset, popupEl) {
-        return triggerOffset.left - popupEl.offsetWidth
-            - parseInt(getComputedStyle(popupEl).marginLeft)
-            - parseInt(getComputedStyle(popupEl).marginRight);
+    calLeftHorizontalLeft(triggerOffset, menuEl) {
+        return triggerOffset.left - menuEl.offsetWidth
+            - parseInt(getComputedStyle(menuEl).marginLeft)
+            - parseInt(getComputedStyle(menuEl).marginRight);
     }
 
     calLeftHorizontalRight(triggerEl, triggerOffset) {
         return triggerOffset.left + triggerEl.offsetWidth;
     }
 
-    getPopupStyle() {
+    getMenuStyle() {
 
         const {triggerEl, position} = this.props;
 
-        if (!triggerEl || !this.popupEl) {
+        if (!triggerEl || !this.menuEl) {
             return;
         }
 
@@ -93,17 +93,17 @@ export default class MenuBody extends Component {
         switch (position) {
             case MenuBody.Position.TOP_LEFT: {
                 left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                top = this.calTopVerticalTop(triggerOffset, this.menuEl);
                 break;
             }
             case MenuBody.Position.TOP: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
-                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.menuEl);
+                top = this.calTopVerticalTop(triggerOffset, this.menuEl);
                 break;
             }
             case MenuBody.Position.TOP_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.popupEl);
-                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.menuEl);
+                top = this.calTopVerticalTop(triggerOffset, this.menuEl);
                 break;
             }
             case MenuBody.Position.BOTTOM_LEFT: {
@@ -112,28 +112,28 @@ export default class MenuBody extends Component {
                 break;
             }
             case MenuBody.Position.BOTTOM: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
+                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.menuEl);
                 top = this.calTopVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
             case MenuBody.Position.BOTTOM_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.popupEl);
+                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.menuEl);
                 top = this.calTopVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
             case MenuBody.Position.LEFT_TOP: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
+                left = this.calLeftHorizontalLeft(triggerOffset, this.menuEl);
                 top = this.calTopHorizontalTop(triggerOffset);
                 break;
             }
             case MenuBody.Position.LEFT: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
+                left = this.calLeftHorizontalLeft(triggerOffset, this.menuEl);
+                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.menuEl);
                 break;
             }
             case MenuBody.Position.LEFT_BOTTOM: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
+                left = this.calLeftHorizontalLeft(triggerOffset, this.menuEl);
+                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.menuEl);
                 break;
             }
             case MenuBody.Position.RIGHT_TOP: {
@@ -143,12 +143,12 @@ export default class MenuBody extends Component {
             }
             case MenuBody.Position.RIGHT: {
                 left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
+                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.menuEl);
                 break;
             }
             case MenuBody.Position.RIGHT_BOTTOM: {
                 left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
+                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.menuEl);
                 break;
             }
         }
@@ -199,12 +199,12 @@ export default class MenuBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.popupEl = findDOMNode(this.refs.popup);
+        this.menuEl = findDOMNode(this.refs.menu);
 
         Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
-        Event.addEvent(this.popupEl, 'mouseenter', this.triggerMouseEnterHandler);
-        Event.addEvent(this.popupEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.addEvent(this.menuEl, 'mouseenter', this.triggerMouseEnterHandler);
+        Event.addEvent(this.menuEl, 'mouseleave', this.triggerMouseLeaveHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
 
     }
@@ -231,8 +231,8 @@ export default class MenuBody extends Component {
 
         Event.removeEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.removeEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
-        Event.removeEvent(this.popupEl, 'mouseenter', this.triggerMouseEnterHandler);
-        Event.removeEvent(this.popupEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.removeEvent(this.menuEl, 'mouseenter', this.triggerMouseEnterHandler);
+        Event.removeEvent(this.menuEl, 'mouseleave', this.triggerMouseLeaveHandler);
         Event.removeEvent(window, 'resize', this.resizeHandler);
 
     }
@@ -241,24 +241,25 @@ export default class MenuBody extends Component {
 
         const {children, className, style, hasTriangle, theme, position, isAnimated, depth} = this.props,
             {visible} = this.state,
-            popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
-                + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
-                + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : '');
+
+            menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' menu-has-triangle' : '')
+                + (theme ? ` theme-${theme}` : '') + (position ? ` menu-position-${position}` : '')
+                + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <Paper ref="popup"
-                   className={'popup' + popupClassName}
-                   style={{...this.getPopupStyle(), ...style}}
+            <Paper ref="menu"
+                   className={'menu' + menuClassName}
+                   style={{...this.getMenuStyle(), ...style}}
                    depth={depth}>
 
                 {
                     hasTriangle ?
-                        <div className="popup-triangle"></div>
+                        <div className="menu-triangle"></div>
                         :
                         null
                 }
 
-                <div className="popup-content">
+                <div className="menu-content">
                     {children}
                 </div>
 

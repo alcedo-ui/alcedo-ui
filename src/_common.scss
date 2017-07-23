@@ -206,6 +206,18 @@ $transition-duration: 250ms;
     }
 }
 
+@mixin menu-theme($bg-color) {
+    background: $bg-color;
+
+    .menu-triangle {
+        border-color: $bg-color;
+    }
+
+    .menu-content {
+        background: $bg-color;
+    }
+}
+
 @mixin dialog-theme($bg-color) {
 
     color: $bg-color;
