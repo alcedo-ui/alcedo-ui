@@ -1,24 +1,37 @@
 @import '../_common.scss';
 
-.nameInput {
+.editable-field {
     position: relative;
-    width: 150px;
-    height: 50px;
-    line-height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    height: 40px;
+    line-height: 40px;
     font-size: 12px;
     text-align: left;
-    .nameText {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
+
+    .editable-field-span {
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: calc(100% + 40px);
         height: 100%;
-        border: 1px solid #f3f6fa;
-        padding: 0 30px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        background: white;
+        border: 1px solid #b8c6d6;
+        box-sizing: border-box;
+        border-radius: 3px;
+        display: none;
+        z-index: 2;
+        text-align: left;
+        line-height: 38px;
+        padding-left: 9px;
+
+        &:hover {
+            display: block;
+        }
+
         .fa-pencil {
-            opacity: 0;
+            opacity: 1;
             position: absolute;
             right: 10px;
             top: 50%;
@@ -26,24 +39,40 @@
             font-size: 16px;
             float: right;
         }
-        &:hover {
-            border: 1px solid #b8c6d6;
-            border-radius: 3px;
-            .fa-pencil {
-                opacity: 1;
-            }
-        }
     }
-    .hideInput {
+
+    .editable-field-text {
+        display: block;
+
         width: 100%;
         height: 100%;
+
+        //padding: 0 30px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        z-index: 1;
+
+        &:hover + .editable-field-span {
+            display: block;
+        }
+    }
+
+    .editable-field-input {
         position: absolute;
+        background: white;
+        width: 120px;
+        height: 100%;
         top: 0;
-        left: 0;
+        left: -11px;
+        z-index: 3;
+        line-height: 38px;
+
         input {
-            padding: 0 30px;
+            padding: 0 30px 0 10px;
             text-align: left;
         }
+
         button {
             height: auto;
             line-height: 0;
@@ -56,6 +85,7 @@
             }
         }
     }
+
     .hide {
         display: none;
     }
