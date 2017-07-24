@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import EditableField from '../EditableField';
+
 import Util from '../_vendors/Util';
 
 import './TagField.css';
@@ -96,10 +98,10 @@ export default class TagField extends Component {
                             )
                             :
                             (
-                                <div key={index}
-                                     className="tag-field-item">
-                                    {Util.getTextByDisplayField(data[index], displayField, valueField)}
-                                </div>
+                                <EditableField key={index}
+                                               className="tag-field-item"
+                                               value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
+
                             );
                     })
                 }

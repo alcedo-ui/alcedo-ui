@@ -16,7 +16,7 @@ export default class EditableField extends Component {
         super();
 
         this.state = {
-            hide: 'hide',
+            editing: false,
             text: props.value
         };
 
@@ -63,7 +63,7 @@ export default class EditableField extends Component {
      */
     showInput() {
         this.setState({
-            hide: ''
+            editing: true
         }, () => {
             this.refs.textField.refs.input.focus();
         });
@@ -82,7 +82,7 @@ export default class EditableField extends Component {
             inputHeight = this.refs.editableField.offsetHeight;
         if (mouseX < inputX || mouseX > (inputX + inputWidth) || mouseY < inputY || mouseY > (inputY + inputHeight)) {
             this.setState({
-                hide: 'hide'
+                editing: false
             });
         }
     }
@@ -113,22 +113,28 @@ export default class EditableField extends Component {
                  style={style}
                  title="Click to edit">
 
+                <input type="hidden"
+                       value={this.state.text}
+                       readOnly
+                       name={name}/>
+
                 {
-                    this.state.hide === 'hide' ?
-                        <span className="nameText"
-                              onClick={this.showInput}>
-                            {this.state.text}
-                            <i className="fa fa-pencil"
-                               aria-hidden="true"></i>
-                        </span>
-                        :
+                    this.state.editing ?
                         <TextField ref="textField"
                                    value={this.state.text}
                                    className={'hideInput'}
                                    onChange={this.onChange}/>
-                }
+                        :
+                        <div className="nameText"
+                             onClick={this.showInput}>
 
-                <input type="hidden" value={this.state.text} readOnly name={name}/>
+                            {this.state.text}
+
+                            <i className="fa fa-pencil"
+                               aria-hidden="true"></i>
+
+                        </div>
+                }
 
             </div>
         );
