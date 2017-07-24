@@ -1,24 +1,22 @@
 @import '../_common.scss';
 
-.editable-field {
+.nameInput {
     position: relative;
-    width: 100px;
-    height: 40px;
-    line-height: 40px;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
     font-size: 12px;
     text-align: left;
-
     .nameText {
         display: block;
         box-sizing: border-box;
         width: 100%;
         height: 100%;
         border: 1px solid #f3f6fa;
-        padding: 0 30px 0 12px;
+        padding: 0 30px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-
         .fa-pencil {
             opacity: 0;
             position: absolute;
@@ -28,29 +26,24 @@
             font-size: 16px;
             float: right;
         }
-
         &:hover {
             border: 1px solid #b8c6d6;
             border-radius: 3px;
-
             .fa-pencil {
                 opacity: 1;
             }
         }
     }
-
     .hideInput {
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
-
         input {
-            padding: 0 30px 0 12px;
+            padding: 0 30px;
             text-align: left;
         }
-
         button {
             height: auto;
             line-height: 0;
@@ -58,13 +51,11 @@
             top: 50%;
             padding: 5px 0;
             transform: translate(0, -50%);
-
             i {
                 line-height: 0;
             }
         }
     }
-
     .hide {
         display: none;
     }
