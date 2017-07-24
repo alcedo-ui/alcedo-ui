@@ -10,13 +10,11 @@ import Event from '../_vendors/Event';
 import './EditableField.css';
 
 export default class EditableField extends Component {
-
     constructor(props) {
-
         super();
 
         this.state = {
-            editing: false,
+            hide: 'hide',
             text: props.value
         };
 
@@ -25,7 +23,6 @@ export default class EditableField extends Component {
         this.downHandle = this :: this.downHandle;
         this.getPosition = this :: this.getPosition;
         this.getElementLeft = this :: this.getElementLeft;
-
     }
 
     /**
@@ -63,7 +60,7 @@ export default class EditableField extends Component {
      */
     showInput() {
         this.setState({
-            editing: true
+            hide: ''
         }, () => {
             this.refs.textField.refs.input.focus();
         });
@@ -82,7 +79,7 @@ export default class EditableField extends Component {
             inputHeight = this.refs.editableField.offsetHeight;
         if (mouseX < inputX || mouseX > (inputX + inputWidth) || mouseY < inputY || mouseY > (inputY + inputHeight)) {
             this.setState({
-                editing: false
+                hide: 'hide'
             });
         }
     }
@@ -104,37 +101,26 @@ export default class EditableField extends Component {
     }
 
     render() {
-
-        const {className, style, name} = this.props;
+        const {style, name} = this.props;
 
         return (
-            <div ref="editableField"
-                 className={'editable-field' + (className ? ' ' + className : '')}
+            <div className="nameInput"
+                 title="Click to edit"
                  style={style}
-                 title="Click to edit">
-
-                <input type="hidden"
-                       value={this.state.text}
-                       readOnly
-                       name={name}/>
+                 ref="editableField">
 
                 {
-                    this.state.editing ?
-                        <TextField ref="textField"
-                                   value={this.state.text}
-                                   className={'hideInput'}
-                                   onChange={this.onChange}/>
-                        :
-                        <div className="nameText"
-                             onClick={this.showInput}>
-
-                            {this.state.text}
-
-                            <i className="fa fa-pencil"
-                               aria-hidden="true"></i>
-
-                        </div>
+                    this.state.hide === 'hide'
+                        ? <span className="nameText"
+                                onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
+                                                                             aria-hidden="true"></i></span>
+                        : <TextField ref="textField"
+                                     value={this.state.text}
+                                     className={'hideInput'}
+                                     onChange={this.onChange}/>
                 }
+
+                <input type="hidden" value={this.state.text} readOnly name={name}/>
 
             </div>
         );
@@ -167,15 +153,12 @@ EditableField.propTypes = {
      * Callback function fired when the editableField change.
      */
     onChange: PropTypes.func
-
 };
 
 EditableField.defaultProps = {
-
     className: '',
     style: {},
 
     value: 'text',
     name: ''
-
 };
