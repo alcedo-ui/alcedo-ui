@@ -108,6 +108,8 @@ export default class DialogExamples extends Component {
                                         theme={type}
                                         isBlurClose={true}
                                         showModal={false}
+                                        isLoading={true}
+                                        disabled={true}
                                         onRequestClose={() => {
                                             this.closeDialog(1);
                                         }}
