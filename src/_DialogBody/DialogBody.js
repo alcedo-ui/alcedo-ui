@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -51,22 +51,24 @@ export default class DialogBody extends Component {
     }
 
     mousedownHandle(e) {
+        const {isBlurClose, isLoading, disabled} =this.props;
+        const {visible}=this.state;
 
-        if (!this.props.isBlurClose || !this.state.visible) {
+        if (!isBlurClose || !visible || isLoading || disabled) {
             return;
         }
 
         const {onRequestClose} = this.props,
-            visible = this.triggerDialogEventHandle(
+            currVisible = this.triggerDialogEventHandle(
                 e.target,
                 this.dialogEl,
-                this.state.visible
+                visible
             );
 
         this.setState({
-            visible
+            currVisible
         }, () => {
-            if (!visible) {
+            if (!currVisible) {
                 setTimeout(() => {
                     onRequestClose && onRequestClose();
                 }, 250);
@@ -185,7 +187,7 @@ export default class DialogBody extends Component {
 
         const {
 
-                children, className, modalClassName, style, disabled, showModal, title, buttons,
+                children, className, modalClassName, style, disabled, showModal, title, buttons, isLoading,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme,
                 okButtonUIType, okButtonDisabled, okButtonIsLoading,
@@ -211,8 +213,7 @@ export default class DialogBody extends Component {
                 <Paper ref="dialog"
                        className={'dialog-wrapper' + dialogClassName}
                        style={style}
-                       depth={4}
-                       disabled={disabled}>
+                       depth={4}>
 
                     {
                         title ?
@@ -221,6 +222,7 @@ export default class DialogBody extends Component {
                                     <span>{title}</span>
                                     <IconButton className="dialog-title-close-button"
                                                 iconCls="fa fa-times"
+                                                disabled={disabled}
                                                 onTouchTap={this.closeButtonTouchTapHandle}/>
                                 </div>
                             )
@@ -235,15 +237,19 @@ export default class DialogBody extends Component {
                     <div className="dialog-buttons">
 
                         {
-                            buttons
-                                ? buttons
-                                : null
+                            buttons ?
+                                Children.map(buttons, (button)=>cloneElement(button, {
+                                    isLoading,
+                                    disabled
+                                }))
+                                :
+                                null
                         }
 
                         {
                             !buttons && okButtonVisible ?
                                 this.getButton(okButtonUIType, okButtonText, okButtonIconCls, okButtonTheme,
-                                    this.okButtonTouchTapHandle, okButtonDisabled, okButtonIsLoading)
+                                    this.okButtonTouchTapHandle, okButtonDisabled, (isLoading || okButtonIsLoading))
                                 :
                                 null
                         }
@@ -251,7 +257,7 @@ export default class DialogBody extends Component {
                         {
                             !buttons && cancelButtonVisible ?
                                 this.getButton(cancelButtonUIType, cancelButtonText,
-                                    cancelButtonIconCls, cancelButtonTheme, this.cancelButtonTouchTapHandle)
+                                    cancelButtonIconCls, cancelButtonTheme, this.cancelButtonTouchTapHandle, disabled)
                                 :
                                 null
                         }
@@ -291,7 +297,7 @@ DialogBody.propTypes = {
     style: PropTypes.object,
 
     /**
-     *
+     * If true,the element will disabled.
      */
     disabled: PropTypes.bool,
 
