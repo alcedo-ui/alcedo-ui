@@ -10,7 +10,9 @@ import Event from '../_vendors/Event';
 import './EditableField.css';
 
 export default class EditableField extends Component {
+
     constructor(props) {
+
         super();
 
         this.state = {
@@ -23,6 +25,7 @@ export default class EditableField extends Component {
         this.downHandle = this :: this.downHandle;
         this.getPosition = this :: this.getPosition;
         this.getElementLeft = this :: this.getElementLeft;
+
     }
 
     /**
@@ -101,23 +104,28 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const {style, name} = this.props;
+
+        const {className, style, name} = this.props;
 
         return (
-            <div className="nameInput"
-                 title="Click to edit"
+            <div ref="editableField"
+                 className={'editable-field' + (className ? ' ' + className : '')}
                  style={style}
-                 ref="editableField">
+                 title="Click to edit">
 
                 {
-                    this.state.hide === 'hide'
-                        ? <span className="nameText"
-                                onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
-                                                                             aria-hidden="true"></i></span>
-                        : <TextField ref="textField"
-                                     value={this.state.text}
-                                     className={'hideInput'}
-                                     onChange={this.onChange}/>
+                    this.state.hide === 'hide' ?
+                        <span className="nameText"
+                              onClick={this.showInput}>
+                            {this.state.text}
+                            <i className="fa fa-pencil"
+                               aria-hidden="true"></i>
+                        </span>
+                        :
+                        <TextField ref="textField"
+                                   value={this.state.text}
+                                   className={'hideInput'}
+                                   onChange={this.onChange}/>
                 }
 
                 <input type="hidden" value={this.state.text} readOnly name={name}/>
@@ -153,12 +161,15 @@ EditableField.propTypes = {
      * Callback function fired when the editableField change.
      */
     onChange: PropTypes.func
+
 };
 
 EditableField.defaultProps = {
+
     className: '',
     style: {},
 
     value: 'text',
     name: ''
+
 };
