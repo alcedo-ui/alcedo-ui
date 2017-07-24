@@ -1,65 +1,100 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 import List from '../List';
+
+import Valid from '../_vendors/Valid';
 
 import './Cascader.css';
 
 export default class CascaderList extends Component {
+
     constructor(props) {
+
         super(props);
-        this.state = {
-            activatedNode: null
-        };
+
+        this.formatData = this::this.formatData;
         this.changeHandle = this::this.changeHandle;
-        // this.onItemTouchTapHandle = this::this.onItemTouchTapHandle;
 
     }
 
-    changeHandle(activatedNode, index) {
+    formatData(data) {
 
-        if (!activatedNode) {
-            return
+        if (!data || data.length < 1) {
+            return data;
         }
 
-        this.setState({
-            activatedNode
-        }, () => {
-            if (!activatedNode.children || activatedNode.children.length < 1) {
-                const {onChange} = this.props;
-                onChange && onChange(activatedNode, index);
+        return data.map(item => {
+            if (item.children && item.children.length > 0) {
+                item.rightIconCls = 'fa fa-angle-right';
             }
+            return item;
         });
 
     }
 
+    changeHandle(value, index) {
 
+        if (!value) {
+            return;
+        }
 
+        const {onChange} = this.props,
+            currDepth = this.props.currDepth || 0;
+
+        let path = this.props.path.slice(0, currDepth + 1);
+        path[currDepth] = {
+            value,
+            index
+        };
+
+        onChange && onChange(path);
+
+    }
 
     render() {
-        const {listData, className, style}=this.props;
-        const {activatedNode}=this.state;
 
+        const {listWidth, listData, valueField, displayField, path, depth} = this.props,
+
+            currDepth = this.props.currDepth || 0,
+            activatedNode = currDepth in path ? listData[path[currDepth].index] : null,
+            hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
+
+            listStyle = currDepth === 0 ?
+                {width: listWidth * Valid.range(depth, 1)}
+                :
+                null,
+
+            popupListClassName = (currDepth === 0 ? ' first' : '') + (currDepth === depth - 1 ? ' last' : ''),
+            popupListStyle = {
+                width: listWidth,
+                zIndex: 99 - currDepth
+            };
 
         return (
-            <div className={`cascader-list ${className}`}
-                 style={style}>
+            <div className="cascader-list"
+                 style={listStyle}>
 
-                <List className={`cascader-popup-list`}
-                      onChange={this.changeHandle}
-                      items={listData}/>
+                <List className={'cascader-popup-list' + popupListClassName}
+                      style={popupListStyle}
+                      items={this.formatData(listData)}
+                      value={activatedNode}
+                      valueField={valueField}
+                      displayField={displayField}
+                      mode={List.Mode.RADIO}
+                      onChange={this.changeHandle}/>
 
                 {
-                    activatedNode && activatedNode.children && activatedNode.children.length > 0 ?
+                    hasChildren ?
                         <CascaderList {...this.props}
-                                      listData={activatedNode.children}/>
+                                      listData={activatedNode.children}
+                                      currDepth={currDepth + 1}/>
                         :
                         null
                 }
 
             </div>
-        )
+        );
 
     }
 }
@@ -67,18 +102,66 @@ export default class CascaderList extends Component {
 CascaderList.propTypes = {
 
     /**
-     * The CSS class name of the root element.
+     *
      */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    listWidth: PropTypes.number,
 
     /**
      * The data of popup-list.
      */
-    listData: PropTypes.array
+    listData: PropTypes.array,
+
+    /**
+     *
+     */
+    path: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         *
+         */
+        value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+
+        /**
+         *
+         */
+        index: PropTypes.number
+
+    })),
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
+    /**
+     *
+     */
+    currDepth: PropTypes.number,
+
+    /**
+     *
+     */
+    depth: PropTypes.number
+
+};
+
+CascaderList.defaultProps = {
+
+    listWidth: 200,
+
+    listData: [],
+
+    path: [],
+
+    valueField: 'value',
+    displayField: 'text',
+
+    currDepth: 0,
+    depth: 0
 
 };
