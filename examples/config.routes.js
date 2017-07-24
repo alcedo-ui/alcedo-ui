@@ -248,6 +248,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'TransferExamples');
                    }}/>
+            <Route path="TagField"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/TagFieldExamples').default);
+                           loadCompleteCallback();
+                       }, 'TagFieldExamples');
+                   }}/>
 
             {/* popups */}
             <Route path="Dialog"

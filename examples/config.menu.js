@@ -96,6 +96,9 @@ export default [{
     }, {
         text: 'Tree',
         route: '/components/Tree'
+    }, {
+        text: 'TagField',
+        route: '/components/TagField'
     }]
 }, {
     text: 'Progress',

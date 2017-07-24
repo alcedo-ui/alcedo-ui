@@ -42,6 +42,7 @@ export SpanLoading from './SpanLoading';
 export Switcher from './Switcher';
 export Tab from './Tab';
 export Table from './Table';
+export TagField from './TagField';
 export TextArea from './TextArea';
 export TextField from './TextField';
 export TextFieldGroup from './TextFieldGroup';
@@ -59,4 +60,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 60;
+export const COMPONENTS_TOTAL_COUNT = 61;
