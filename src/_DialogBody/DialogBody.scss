@@ -28,15 +28,16 @@
     z-index: $dialog-z-index;
     box-sizing: border-box;
     overflow: hidden;
+    color: $theme-text;
 
     .dialog-title {
         position: relative;
         font-size: 16px;
         height: 40px;
         line-height: 40px;
-        padding: 5px;
+        padding: 5px 20px;
         border-bottom: 1px solid $theme-title-bg;
-        text-align: center;
+        text-align: left;
 
         .dialog-title-close-button {
             position: absolute;
