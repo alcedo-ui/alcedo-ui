@@ -34,12 +34,18 @@ export default class DialogExamples extends Component {
     toggleDialog(id) {
         this.setState({
             [`dialogVisible${id}`]: !this.state.dialogVisible
+        }, () => {
+            if (id === 2) {
+                document.querySelector('.app').style.filter = 'blur(10px)';
+            }
         });
     }
 
     closeDialog(id) {
         this.setState({
             [`dialogVisible${id}`]: false
+        }, () => {
+            document.querySelector('.app').style.filter = '';
         });
     }
 
@@ -93,21 +99,61 @@ export default class DialogExamples extends Component {
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
                                               onTouchTap={() => {
-                                                  this.toggleDialog(2);
+                                                  this.toggleDialog(1);
                                               }}/>
 
-                                <Dialog visible={dialogVisible2}
+                                <Dialog visible={dialogVisible1}
                                         title={`${type} dialog`}
                                         okButtonTheme={type}
                                         theme={type}
                                         isBlurClose={true}
+                                        showModal={false}
+                                        onRequestClose={() => {
+                                            this.closeDialog(1);
+                                        }}
+                                        onOKButtonTouchTap={this.okHandle}
+                                        onCancelButtonTouchTap={this.cancelHandle}
+                                        onCloseButtonTouchTap={this.closeHandle}>
+                                    <div className="dialog-example-content">
+                                        content
+                                    </div>
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Blur Modal"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <p><code>Dialog</code> example use modal.</p>
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Dialog"
+                                              style={{width: '120px'}}
+                                              onTouchTap={() => {
+                                                  this.toggleDialog(2);
+                                              }}/>
+
+                                <Dialog modalClassName="blur-modal"
+                                        visible={dialogVisible2}
+                                        title={`${type} dialog`}
+                                        okButtonTheme={type}
+                                        theme={type}
                                         okButtonText="OK"
                                         okButtonIconCls="fa fa-check"
                                         cancelButtonVisible={true}
                                         cancelButtonText="CANCEL"
                                         cancelButtonIconCls="fa fa-times"
                                         cancelButtonTheme="error"
-                                        showModal={false}
                                         onRequestClose={() => {
                                             this.closeDialog(2);
                                         }}

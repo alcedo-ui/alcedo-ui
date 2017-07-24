@@ -185,7 +185,7 @@ export default class DialogBody extends Component {
 
         const {
 
-                children, className, style, disabled, showModal, title, buttons,
+                children, className, modalClassName, style, disabled, showModal, title, buttons,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme,
                 okButtonUIType, okButtonDisabled, okButtonIsLoading,
@@ -195,7 +195,7 @@ export default class DialogBody extends Component {
             } = this.props,
             {visible} = this.state,
 
-            modalClassName = (visible ? '' : ' hidden'),
+            modalClass = (visible ? '' : ' hidden') + (modalClassName ? ' ' + modalClassName : ''),
             dialogClassName = (visible ? '' : ' hidden') + (className ? ' ' + className : '');
 
         return (
@@ -203,7 +203,7 @@ export default class DialogBody extends Component {
 
                 {
                     showModal ?
-                        <div className={'dialog-modal' + modalClassName}></div>
+                        <div className={'dialog-modal' + modalClass}></div>
                         :
                         null
                 }
@@ -279,6 +279,11 @@ DialogBody.propTypes = {
      * The css class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The css class name of the modal.
+     */
+    modalClassName: PropTypes.string,
 
     /**
      * The styles of the root element.
@@ -405,6 +410,7 @@ DialogBody.propTypes = {
 DialogBody.defaultProps = {
 
     className: '',
+    modalClassName: '',
     style: null,
 
     disabled: false,
