@@ -142,6 +142,21 @@ function isValueEqual(data1, data2, valueField = 'value', displayField = 'text')
         == getValueByValueField(data2, valueField, displayField);
 }
 
+function genIndexArray(len) {
+
+    if (!len || isNaN(len) || len < 1) {
+        return [];
+    }
+
+    const result = [];
+    for (let i = 0; i < len; i++) {
+        result[i] = i;
+    }
+
+    return result;
+
+}
+
 export default {
     getOffset,
     isEnableLocalStorage,
@@ -156,5 +171,6 @@ export default {
     tree,
     getValueByValueField,
     getTextByDisplayField,
-    isValueEqual
+    isValueEqual,
+    genIndexArray
 };
