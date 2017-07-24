@@ -96,12 +96,12 @@ export default class LandingNav extends Component {
                                     iconCls="fa fa-github"
                                     href="https://github.com/alcedo-ui/alcedo-ui"/>
 
-                        <ul className="menu">
+                        <ul className="landing-nav-menu">
                             {
                                 this.menu.map((item, index) => {
                                     return (
                                         <li key={index}
-                                            className={`menu-item
+                                            className={`landing-nav-menu-item
                                                 ${activatedMenu.hash === item.hash ? 'activated' : ''}`}
                                             onClick={() => {
                                                 this.menuClickHandle(item);
