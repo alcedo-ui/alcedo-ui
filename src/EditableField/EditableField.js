@@ -13,23 +13,18 @@ export default class EditableField extends Component {
     constructor(props) {
         super();
 
-        this.input = {
-            width: 120,
-            height: 40
-        };
-
         this.state = {
             hide: true,
             text: props.value,
             changeText: props.value
         };
 
-        this.onBlur = this :: this.onBlur;
         this.onChange = this :: this.onChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
         this.getPosition = this :: this.getPosition;
         this.getElementLeft = this :: this.getElementLeft;
+        this.triggerElement = this :: this.triggerElement;
     }
 
     /**
@@ -39,6 +34,16 @@ export default class EditableField extends Component {
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
         return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
+    }
+
+    triggerElement(el, targetEl) {
+        while (el) {
+            if (el == targetEl) {
+                return true;
+            }
+            el = el.parentNode;
+        }
+        return false;
     }
 
     /**
@@ -52,14 +57,6 @@ export default class EditableField extends Component {
             current = current.offsetParent;
         }
         return offsetX;
-    }
-
-    onBlur(text, e) {
-        this.setState({
-            text: text
-        }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.text);
-        });
     }
 
     onChange(text) {
@@ -86,13 +83,7 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        let mouseX = this.getPosition(oEvent).x,
-            mouseY = this.getPosition(oEvent).y,
-            inputX = this.getElementLeft(this.refs.editableField, 'offsetLeft') - 10,
-            inputY = this.getElementLeft(this.refs.editableField, 'offsetTop'),
-            inputWidth = this.input.width,
-            inputHeight = this.input.height;
-        if (mouseX < inputX || mouseX > (inputX + inputWidth) || mouseY < inputY || mouseY > (inputY + inputHeight)) {
+        if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
             this.setState({
                 hide: true,
                 text: this.state.changeText
@@ -133,12 +124,7 @@ export default class EditableField extends Component {
                                                                            aria-hidden="true"></i></span>
                         : <TextField ref="textField"
                                      className={'editable-field-input'}
-                                     style={{
-                                         width: this.input.width,
-                                         height: this.input.height
-                                     }}
                                      value={this.state.changeText}
-                        // onBlur={this.downHandle}
                                      onChange={this.onChange}/>
                 }
                 <input type="hidden"
