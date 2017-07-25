@@ -25,6 +25,7 @@ export default class TagField extends Component {
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
+        this.inputPasteHandler = this::this.inputPasteHandler;
 
     }
 
@@ -55,20 +56,30 @@ export default class TagField extends Component {
 
             const {data, inputValue, inputIndex} = this.state;
 
-            data.splice(inputIndex, 0, {
-                value: inputValue
-            });
+            if (!inputValue) {
+                return;
+            }
+
+            const splitedValue = inputValue.split(',').map(value => ({
+                value
+            }));
+
+            data.splice(inputIndex, 0, ...splitedValue);
 
             this.setState({
                 data,
                 inputValue: '',
-                inputIndex: inputIndex + 1
+                inputIndex: inputIndex + splitedValue.length
             }, () => {
                 const {onChange} = this.props;
                 onChange && onChange(data);
             });
 
         }
+    }
+
+    inputPasteHandler(e) {
+        console.log(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -105,7 +116,8 @@ export default class TagField extends Component {
                                        autoFocus="true"
                                        value={inputValue}
                                        onChange={this.inputChangeHandler}
-                                       onKeyDown={this.inputKeyDownHandler}/>
+                                       onKeyDown={this.inputKeyDownHandler}
+                                       onPaste={this.inputPasteHandler}/>
                             )
                             :
                             (
