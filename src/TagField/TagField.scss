@@ -31,7 +31,14 @@ input:focus {
     }
 
     .tag-field-item {
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
 
+        .tag-field-item-field {
+            height: 24px;
+            line-height: 24px;
+        }
     }
 
 }

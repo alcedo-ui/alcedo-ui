@@ -98,10 +98,12 @@ export default class TagField extends Component {
                             )
                             :
                             (
-                                <EditableField key={index}
-                                               className="tag-field-item"
-                                               value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
-
+                                <span key={index}
+                                      className="tag-field-item">
+                                    <EditableField className="tag-field-item-field"
+                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
+                                    ,&nbsp;
+                                </span>
                             );
                     })
                 }
