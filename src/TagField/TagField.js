@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import EditableField from '../EditableField';
 
 import Util from '../_vendors/Util';
+import CharSize from '../_vendors/CharSize';
 
 import './TagField.css';
 
@@ -27,16 +28,25 @@ export default class TagField extends Component {
 
     }
 
-    mouseDownHandler() {
-        setTimeout(() => {
-            this.refs.input.focus();
-        }, 0);
+    mouseDownHandler(e) {
+        if (e.target == this.refs.wrapper) {
+            setTimeout(() => {
+                this.refs.input.focus();
+            }, 0);
+        }
     }
 
     inputChangeHandler(e) {
+
+        const inputValue = e.target.value;
+
         this.setState({
-            inputValue: e.target.value
+            inputValue
+        }, () => {
+            const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
+            this.refs.input.style.width = `${width + 1}px`;
         });
+
     }
 
     inputKeyDownHandler(e) {
@@ -80,7 +90,8 @@ export default class TagField extends Component {
         indexData.splice(inputIndex, 0, this.inputSymbol);
 
         return (
-            <div className={'tag-field' + tagFieldClassName}
+            <div ref="wrapper"
+                 className={'tag-field' + tagFieldClassName}
                  style={style}
                  onMouseDown={this.mouseDownHandler}>
 
@@ -102,11 +113,14 @@ export default class TagField extends Component {
                                       className="tag-field-item">
                                     <EditableField className="tag-field-item-field"
                                                    value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
-                                    ,&nbsp;
+                                    {', '}
                                 </span>
                             );
                     })
                 }
+
+                <div ref="test"
+                     className="tag-field-test-container"></div>
 
             </div>
         );
