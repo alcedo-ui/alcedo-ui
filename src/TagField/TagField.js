@@ -110,7 +110,7 @@ export default class TagField extends Component {
                             :
                             (
                                 <span key={index}
-                                      className="tag-field-item">
+                                      className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
                                                    value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
                                     {', '}
