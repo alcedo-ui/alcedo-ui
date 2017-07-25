@@ -19,42 +19,20 @@ export default class EditableField extends Component {
             changeText: props.value
         };
 
-        this.onBlur = this :: this.onBlur;
         this.onChange = this :: this.onChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
-        this.getPosition = this :: this.getPosition;
-        this.getElementLeft = this :: this.getElementLeft;
+        this.triggerElement = this :: this.triggerElement;
     }
 
-    /**
-     * 获取指针坐标
-     */
-    getPosition(ev) {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-        return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
-    }
-
-    /**
-     * 获取元素偏移量
-     */
-    getElementLeft(element, offset) {
-        let offsetX = element[offset];
-        let current = element.offsetParent;
-        while (current !== null) {
-            offsetX += current[offset];
-            current = current.offsetParent;
+    triggerElement(el, targetEl) {
+        while (el) {
+            if (el == targetEl) {
+                return true;
+            }
+            el = el.parentNode;
         }
-        return offsetX;
-    }
-
-    onBlur(text, e) {
-        this.setState({
-            text: text
-        }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.text);
-        });
+        return false;
     }
 
     onChange(text) {
@@ -81,13 +59,7 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        let mouseX = this.getPosition(oEvent).x,
-            mouseY = this.getPosition(oEvent).y,
-            inputX = this.getElementLeft(this.refs.editableField, 'offsetLeft'),
-            inputY = this.getElementLeft(this.refs.editableField, 'offsetTop'),
-            inputWidth = this.refs.editableField.offsetWidth,
-            inputHeight = this.refs.editableField.offsetHeight;
-        if (mouseX < inputX || mouseX > (inputX + inputWidth) || mouseY < inputY || mouseY > (inputY + inputHeight)) {
+        if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
             this.setState({
                 hide: true,
                 text: this.state.changeText
@@ -112,27 +84,29 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const {style, name} = this.props;
+        const {style, name, className} = this.props;
 
         return (
-            <div className="editable-field"
-                 title="Click to edit"
+            <div ref="editableField"
+                 className={`editable-field ${className}`}
                  style={style}
-                 ref="editableField">
+                 title="Click to edit">
                 <span className="editable-field-text">{this.state.text}</span>
                 {
                     this.state.hide === true
                         ?
-                            <span className="editable-field-span"
-                                  onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
-                                                                               aria-hidden="true"></i></span>
+                        <span className="editable-field-span"
+                              onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
+                                                                           aria-hidden="true"></i></span>
                         : <TextField ref="textField"
-                                     value={this.state.changeText}
                                      className={'editable-field-input'}
-                                     onBlur={this.onBlur}
+                                     value={this.state.changeText}
                                      onChange={this.onChange}/>
                 }
-                <input type="hidden" value={this.state.text} readOnly name={name}/>
+                <input type="hidden"
+                       value={this.state.text}
+                       readOnly
+                       name={name}/>
 
             </div>
         );
@@ -169,7 +143,7 @@ EditableField.propTypes = {
     /**
      * Callback function fired when the editableField change.
      */
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 EditableField.defaultProps = {
