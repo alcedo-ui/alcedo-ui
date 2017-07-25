@@ -26,11 +26,16 @@ export default class TagField extends Component {
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
         this.inputPasteHandler = this::this.inputPasteHandler;
+        this.itemChangeHandler = this::this.itemChangeHandler;
 
     }
 
     mouseDownHandler(e) {
         if (e.target == this.refs.wrapper) {
+
+            console.log('clientX:: ', e.clientX);
+            console.log('pageX:: ', e.pageX);
+
             setTimeout(() => {
                 this.refs.input.focus();
             }, 0);
@@ -82,6 +87,24 @@ export default class TagField extends Component {
         console.log(e);
     }
 
+    itemChangeHandler(value, index) {
+
+        if (value) {
+            return;
+        }
+
+        const {data} = this.state;
+        data.splice(index, 1);
+
+        this.setState({
+            data
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(data);
+        });
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state.data) {
             this.setState({
@@ -124,8 +147,11 @@ export default class TagField extends Component {
                                 <span key={index}
                                       className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
-                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
-                                    {', '}
+                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}
+                                                   onChange={(value) => {
+                                                       this.itemChangeHandler(value, index);
+                                                   }}/>
+                                    ,
                                 </span>
                             );
                     })
