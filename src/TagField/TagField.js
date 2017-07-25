@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import EditableField from '../EditableField';
 
 import Util from '../_vendors/Util';
+import CharSize from '../_vendors/CharSize';
 
 import './TagField.css';
 
@@ -24,19 +25,29 @@ export default class TagField extends Component {
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
+        this.inputPasteHandler = this::this.inputPasteHandler;
 
     }
 
-    mouseDownHandler() {
-        setTimeout(() => {
-            this.refs.input.focus();
-        }, 0);
+    mouseDownHandler(e) {
+        if (e.target == this.refs.wrapper) {
+            setTimeout(() => {
+                this.refs.input.focus();
+            }, 0);
+        }
     }
 
     inputChangeHandler(e) {
+
+        const inputValue = e.target.value;
+
         this.setState({
-            inputValue: e.target.value
+            inputValue
+        }, () => {
+            const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
+            this.refs.input.style.width = `${width + 1}px`;
         });
+
     }
 
     inputKeyDownHandler(e) {
@@ -45,20 +56,30 @@ export default class TagField extends Component {
 
             const {data, inputValue, inputIndex} = this.state;
 
-            data.splice(inputIndex, 0, {
-                value: inputValue
-            });
+            if (!inputValue) {
+                return;
+            }
+
+            const splitedValue = inputValue.split(',').map(value => ({
+                value
+            }));
+
+            data.splice(inputIndex, 0, ...splitedValue);
 
             this.setState({
                 data,
                 inputValue: '',
-                inputIndex: inputIndex + 1
+                inputIndex: inputIndex + splitedValue.length
             }, () => {
                 const {onChange} = this.props;
                 onChange && onChange(data);
             });
 
         }
+    }
+
+    inputPasteHandler(e) {
+        console.log(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -80,7 +101,8 @@ export default class TagField extends Component {
         indexData.splice(inputIndex, 0, this.inputSymbol);
 
         return (
-            <div className={'tag-field' + tagFieldClassName}
+            <div ref="wrapper"
+                 className={'tag-field' + tagFieldClassName}
                  style={style}
                  onMouseDown={this.mouseDownHandler}>
 
@@ -94,17 +116,23 @@ export default class TagField extends Component {
                                        autoFocus="true"
                                        value={inputValue}
                                        onChange={this.inputChangeHandler}
-                                       onKeyDown={this.inputKeyDownHandler}/>
+                                       onKeyDown={this.inputKeyDownHandler}
+                                       onPaste={this.inputPasteHandler}/>
                             )
                             :
                             (
-                                <EditableField key={index}
-                                               className="tag-field-item"
-                                               value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
-
+                                <span key={index}
+                                      className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
+                                    <EditableField className="tag-field-item-field"
+                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
+                                    {', '}
+                                </span>
                             );
                     })
                 }
+
+                <div ref="test"
+                     className="tag-field-test-container"></div>
 
             </div>
         );

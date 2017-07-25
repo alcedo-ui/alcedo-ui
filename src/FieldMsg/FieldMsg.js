@@ -14,7 +14,7 @@ export default class FieldMsg extends Component {
 
         this.MAX_WIDTH = 460;
 
-        this.charCount = null;
+        this.charCount = 100;
         this.charSize = {};
 
         this.state = {
@@ -40,9 +40,6 @@ export default class FieldMsg extends Component {
         }
 
         const component = this.refs.testCharWidthDiv;
-        if (!this.charCount) {
-            this.charCount = CharSize.computerCharCount();
-        }
         component.innerHTML = char.repeat(this.charCount);
 
         return this.charSize[char] = component.getBoundingClientRect().width / this.charCount;

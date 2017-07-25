@@ -4,5 +4,15 @@
 
     .examples-wrapper {
 
+        .tag-field-item {
+
+            &.duplicate {
+                color: $blue;
+            }
+
+            &.unfound {
+                color: $error;
+            }
+        }
     }
 }

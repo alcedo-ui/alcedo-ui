@@ -12,7 +12,26 @@ import 'sass/containers/app/modules/fields/TagFieldExamples.scss';
 export default class TagFieldExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.data = [{
+            text: 'Hotelcode1'
+        }, {
+            text: 'Hotelcode2'
+        }, {
+            className: 'duplicate',
+            text: 'Hotelcode3'
+        }, {
+            className: 'duplicate',
+            text: 'Hotelcode4'
+        }, {
+            text: 'Hotelcode5'
+        }, {
+            className: 'unfound',
+            text: 'Hotelcode6'
+        }];
+
     }
 
     render() {
@@ -39,7 +58,7 @@ export default class TagFieldExamples extends Component {
 
                                 <p><code>TagField</code></p>
 
-                                <TagField/>
+                                <TagField data={this.data}/>
 
                             </div>
 
