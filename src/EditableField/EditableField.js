@@ -108,7 +108,7 @@ export default class EditableField extends Component {
                  style={style}
                  title={`${disabled ? '' : 'Click to edit'}`}>
                 <span
-                    className={`editable-field-text ${disabled === true ? '' : 'editable-field-enabled'}`}>{this.state.text}</span>
+                    className={`editable-field-text ${disabled ? '' : 'editable-field-enabled'}`}>{this.state.text}</span>
                 {
                     this.state.hide === true
                         ?
