@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
+import TipContainer from 'dist/TipContainer';
 
 import './Radio.css';
 
@@ -68,38 +69,42 @@ export default class Radio extends Component {
 
     render() {
 
-        const {className, style, name, label, disabled} = this.props,
+        const {className, style, name, label, disabled, tip, tipPosition} = this.props,
             {value} = this.state;
 
         return (
-            <div className={`radio ${value ? 'activated' : ''} ${className}`}
-                 style={style}
-                 disabled={disabled}>
+            <TipContainer className='block'
+                          text={tip}
+                          tipPosition={tipPosition}>
+                <div className={`radio ${value ? 'activated' : ''} ${className}`}
+                     style={style}
+                     disabled={disabled}>
 
-                <input type="hidden"
-                       name={name}
-                       value={value}/>
+                    <input type="hidden"
+                           name={name}
+                           value={value}/>
 
-                <div className="radio-icon-wrapper">
-                    <IconButton ref="radioIcon"
-                                className="radio-bg-icon"
-                                iconCls="fa fa-circle-o"
-                                onTouchTap={this.clickHandle}
-                                disabled={disabled}/>
+                    <div className="radio-icon-wrapper">
+                        <IconButton ref="radioIcon"
+                                    className="radio-bg-icon"
+                                    iconCls="fa fa-circle-o"
+                                    onTouchTap={this.clickHandle}
+                                    disabled={disabled}/>
 
-                    <IconButton className="radio-icon"
-                                iconCls="fa fa-dot-circle-o"
-                                onTouchTap={this.clickHandle}
-                                disabled={disabled}/>
+                        <IconButton className="radio-icon"
+                                    iconCls="fa fa-dot-circle-o"
+                                    onTouchTap={this.clickHandle}
+                                    disabled={disabled}/>
+                    </div>
+
+                    <div className="radio-label"
+                         onMouseDown={this.mouseDownHandle}
+                         onMouseUp={this.mouseUpHandle}>
+                        {label}
+                    </div>
+
                 </div>
-
-                <div className="radio-label"
-                     onMouseDown={this.mouseDownHandle}
-                     onMouseUp={this.mouseUpHandle}>
-                    {label}
-                </div>
-
-            </div>
+            </TipContainer>
         );
 
     }
