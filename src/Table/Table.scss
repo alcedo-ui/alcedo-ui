@@ -79,32 +79,31 @@
                         .table-header-sort-icon {
                             position: absolute;
                             right: 30px;
-                            top: 15px;
                             display: block;
                             width: 30px;
                             height: 30px;
                             line-height: 30px;
                             text-align: center;
-                            color: lighten($theme-text, 16%);
+                            color: lighten($theme-text, 45%);
                             transition: all $transition-duration ease-in-out;
 
-                            &.desc {
-                                transform: rotate(180deg);
+                            &.up {
+                                top: 10px;
+                            }
+
+                            &.down {
+                                top: 20px;
                             }
                         }
 
                         &:hover {
                             color: $theme-text;
-
-                            .table-header-sort-icon {
-                                color: $theme-text;
-                            }
                         }
 
                         &.asc {
                             color: $theme-text;
 
-                            .table-header-sort-icon.asc-icon {
+                            .table-header-sort-icon.up {
                                 color: $theme-text;
                             }
                         }
@@ -112,7 +111,7 @@
                         &.desc {
                             color: $theme-text;
 
-                            .table-header-sort-icon.desc-icon {
+                            .table-header-sort-icon.down {
                                 color: $theme-text;
                             }
                         }

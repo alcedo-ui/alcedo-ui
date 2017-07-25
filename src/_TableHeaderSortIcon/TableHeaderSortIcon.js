@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import IconButton from '../IconButton';
-
 export default class TableHeaderSortIcon extends Component {
 
     constructor(props) {
@@ -11,17 +9,17 @@ export default class TableHeaderSortIcon extends Component {
 
     render() {
 
-        const {className, style, sort} = this.props,
-            iconClassName = (sort && sort.type < 0 ? ' desc' : '') + (className ? ' ' + className : '');
+        const {className, style, sort} = this.props;
 
-        return sort ?
-            (
-                <IconButton className={'table-header-sort-icon' + iconClassName}
-                            style={style}
-                            iconCls="fa fa-angle-up"/>
-            )
-            :
-            <div className="table-header-sort-icon">—</div>;
+        return (
+            <div className={'header-icon'}
+                 style={style}>
+                <i className={`table-header-sort-icon fa fa-angle-up up ${sort ? className : ''}`}
+                   aria-hidden="true"></i>
+                <i className={`table-header-sort-icon fa fa-angle-down down ${sort ? className : ''}`}
+                   aria-hidden="true"></i>
+            </div>
+        )
 
     }
 };
