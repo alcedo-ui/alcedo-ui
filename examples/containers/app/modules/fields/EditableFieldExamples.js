@@ -51,8 +51,26 @@ export default class EditableFieldExamples extends Component {
 
                                 <p><code>Editable Field</code> simple example.</p>
 
-                                <EditableField value={this.state.value}
-                                               onChange={this.onChange}/>
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
+                                    ,&nbsp;
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
+                                    ,&nbsp;
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
+                                    ,&nbsp;
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
+                                    ,&nbsp;
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
+                                    ,&nbsp;
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
+                                    ,&nbsp;
+                                    <EditableField value={this.state.value}
+                                                   onBlur={this.onBlur}/>
 
                             </div>
 
@@ -69,4 +87,4 @@ export default class EditableFieldExamples extends Component {
 
         );
     }
-}
+};

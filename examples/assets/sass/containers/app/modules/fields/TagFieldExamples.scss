@@ -1,0 +1,18 @@
+@import '../../../../common.scss';
+
+.tag-field-examples {
+
+    .examples-wrapper {
+
+        .tag-field-item {
+
+            &.duplicate {
+                color: $blue;
+            }
+
+            &.unfound {
+                color: $error;
+            }
+        }
+    }
+}

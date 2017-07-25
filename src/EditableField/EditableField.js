@@ -14,44 +14,32 @@ export default class EditableField extends Component {
         super();
 
         this.state = {
-            hide: 'hide',
-            text: props.value
+            hide: true,
+            text: props.value,
+            changeText: props.value
         };
 
         this.onChange = this :: this.onChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
-        this.getPosition = this :: this.getPosition;
-        this.getElementLeft = this :: this.getElementLeft;
+        this.triggerElement = this :: this.triggerElement;
     }
 
-    /**
-     * 获取指针坐标
-     */
-    getPosition(ev) {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-        return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
-    }
-
-    /**
-     * 获取元素偏移量
-     */
-    getElementLeft(element, offset) {
-        let offsetX = element[offset];
-        let current = element.offsetParent;
-        while (current !== null) {
-            offsetX += current[offset];
-            current = current.offsetParent;
+    triggerElement(el, targetEl) {
+        while (el) {
+            if (el == targetEl) {
+                return true;
+            }
+            el = el.parentNode;
         }
-        return offsetX;
+        return false;
     }
 
     onChange(text) {
         this.setState({
-            text: text
+            changeText: text
         }, () => {
-            this.props.onChange && this.props.onChange(this.state.text);
+            this.props.onChange && this.props.onChange(text);
         });
     }
 
@@ -60,7 +48,7 @@ export default class EditableField extends Component {
      */
     showInput() {
         this.setState({
-            hide: ''
+            hide: false
         }, () => {
             this.refs.textField.refs.input.focus();
         });
@@ -71,15 +59,10 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        let mouseX = this.getPosition(oEvent).x,
-            mouseY = this.getPosition(oEvent).y,
-            inputX = this.getElementLeft(this.refs.editableField, 'offsetLeft'),
-            inputY = this.getElementLeft(this.refs.editableField, 'offsetTop'),
-            inputWidth = this.refs.editableField.offsetWidth,
-            inputHeight = this.refs.editableField.offsetHeight;
-        if (mouseX < inputX || mouseX > (inputX + inputWidth) || mouseY < inputY || mouseY > (inputY + inputHeight)) {
+        if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
             this.setState({
-                hide: 'hide'
+                hide: true,
+                text: this.state.changeText
             });
         }
     }
@@ -101,26 +84,29 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const {style, name} = this.props;
+        const {style, name, className} = this.props;
 
         return (
-            <div className="nameInput"
-                 title="Click to edit"
+            <div ref="editableField"
+                 className={`editable-field ${className}`}
                  style={style}
-                 ref="editableField">
-
+                 title="Click to edit">
+                <span className="editable-field-text">{this.state.text}</span>
                 {
-                    this.state.hide === 'hide'
-                        ? <span className="nameText"
-                                onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
-                                                                             aria-hidden="true"></i></span>
+                    this.state.hide === true
+                        ?
+                        <span className="editable-field-span"
+                              onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
+                                                                           aria-hidden="true"></i></span>
                         : <TextField ref="textField"
-                                     value={this.state.text}
-                                     className={'hideInput'}
+                                     className={'editable-field-input'}
+                                     value={this.state.changeText}
                                      onChange={this.onChange}/>
                 }
-
-                <input type="hidden" value={this.state.text} readOnly name={name}/>
+                <input type="hidden"
+                       value={this.state.text}
+                       readOnly
+                       name={name}/>
 
             </div>
         );
@@ -148,6 +134,11 @@ EditableField.propTypes = {
      * The name of the editableField.
      */
     name: PropTypes.string,
+
+    /**
+     * Callback function fired when the editableField blur.
+     */
+    onBlur: PropTypes.func,
 
     /**
      * Callback function fired when the editableField change.

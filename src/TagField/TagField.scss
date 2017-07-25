@@ -1,0 +1,66 @@
+@import '../_common.scss';
+
+input,
+input:focus {
+    outline: none;
+}
+
+.tag-field {
+    width: 400px;
+    height: 100px;
+    border-radius: $border-radius;
+    box-sizing: border-box;
+    color: $theme-text;
+    background: $theme-field;
+    border: 1px solid $theme-title-bg;
+    cursor: text;
+    padding: 0 8px 4px 0;
+
+    .tag-field-input,
+    .tag-field-item {
+        margin: 4px 0 0 8px;
+        box-sizing: border-box;
+        height: 24px;
+        line-height: 24px;
+        padding: 0;
+    }
+
+    .tag-field-input {
+        display: inline-block;
+        width: 1px;
+        border: 0;
+        overflow-x: visible;
+        overflow-y: visible;
+    }
+
+    .tag-field-item {
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
+
+        .tag-field-item-field {
+            height: 24px;
+            line-height: 24px;
+
+            .editable-field-span,
+            .editable-field-input,
+            .editable-field-input .text-field-input {
+                line-height: 22px;
+            }
+        }
+    }
+
+    .tag-field-test-container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: auto;
+        width: auto;
+        visibility: hidden;
+        white-space: pre;
+        font: inherit;
+        line-height: inherit;
+        overflow: visible;
+    }
+
+}

@@ -20,7 +20,7 @@ export default class Thead extends Component {
                     {
                         columns.map((item, index) => {
 
-                            const headerClassName = (item.sortable ? 'sortable' : '')
+                            const headerClassName = (item.sortable ? 'sortable ' : '')
                                 + (sort && sort.prop === item.sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '')
                                 + (item.headerClassName ? ' ' + item.headerClassName : '');
 
