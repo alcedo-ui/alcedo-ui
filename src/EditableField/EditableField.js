@@ -22,18 +22,7 @@ export default class EditableField extends Component {
         this.onChange = this :: this.onChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
-        this.getPosition = this :: this.getPosition;
-        this.getElementLeft = this :: this.getElementLeft;
         this.triggerElement = this :: this.triggerElement;
-    }
-
-    /**
-     * 获取指针坐标
-     */
-    getPosition(ev) {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-        return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
     }
 
     triggerElement(el, targetEl) {
@@ -44,19 +33,6 @@ export default class EditableField extends Component {
             el = el.parentNode;
         }
         return false;
-    }
-
-    /**
-     * 获取元素偏移量
-     */
-    getElementLeft(element, offset) {
-        let offsetX = element[offset];
-        let current = element.offsetParent;
-        while (current !== null) {
-            offsetX += current[offset];
-            current = current.offsetParent;
-        }
-        return offsetX;
     }
 
     onChange(text) {
