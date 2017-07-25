@@ -52,6 +52,7 @@ export default class Table extends Component {
         this.pageChangedHandle = this::this.pageChangedHandle;
         this.resizeHandle = this::this.resizeHandle;
         this.resetPage = this::this.resetPage;
+        // this.wdithHandle = this::this.wdithHandle;
 
     }
 
@@ -194,6 +195,8 @@ export default class Table extends Component {
 
         Event.addEvent(window, 'resize', this.resizeHandle);
 
+        // this.wdithHandle();
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -205,6 +208,33 @@ export default class Table extends Component {
     componentWillUnmount() {
         Event.removeEvent(window, 'resize', this.resizeHandle);
     }
+
+    // wdithHandle() {
+    //     const columns = this.props.columns;
+    //
+    //     let finalColumns = _.cloneDeep(columns);
+    //
+    //     console.log("finalColumns:"+JSON.stringify(finalColumns));
+    //
+    //     let flagFlex = finalColumns.every(function (item) {
+    //         return item.flex && typeof item.flex == "number"
+    //     });
+    //
+    //     if (flagFlex) {
+    //         let sum = 0;
+    //         finalColumns.forEach(function (item) {
+    //             sum += item.flex;
+    //         });
+    //         console.log(sum);
+    //
+    //         for (let i = 0; i < finalColumns.length; i++) {
+    //             finalColumns[i].width = (100 / sum) * finalColumns[i].flex
+    //         }
+    //     }
+    //     console.log(finalColumns)
+    //
+    // }
+
 
     render() {
 
@@ -221,6 +251,7 @@ export default class Table extends Component {
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
 
+
         if (isMultiSelect) {
             finalColumns.unshift({
                 headerClassName: 'table-checkbox-th',
@@ -233,6 +264,7 @@ export default class Table extends Component {
                 }
             });
         }
+
 
         if (hasLineNumber) {
             finalColumns.unshift({
