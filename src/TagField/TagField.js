@@ -19,7 +19,9 @@ export default class TagField extends Component {
         this.state = {
             data: props.data,
             inputValue: '',
-            inputIndex: props.data.length
+            inputIndex: props.data.length,
+            itemDisabled: false,
+            editingItemIndex: -1
         };
 
         this.mouseDownHandler = this::this.mouseDownHandler;
@@ -27,6 +29,8 @@ export default class TagField extends Component {
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
         this.inputPasteHandler = this::this.inputPasteHandler;
         this.itemChangeHandler = this::this.itemChangeHandler;
+        this.itemEditStartHandler = this::this.itemEditStartHandler;
+        this.itemEditEndHandler = this::this.itemEditEndHandler;
 
     }
 
@@ -34,11 +38,11 @@ export default class TagField extends Component {
         if (e.target == this.refs.wrapper) {
 
             console.log('clientX:: ', e.clientX);
-            console.log('pageX:: ', e.pageX);
 
             setTimeout(() => {
                 this.refs.input.focus();
             }, 0);
+
         }
     }
 
@@ -105,6 +109,19 @@ export default class TagField extends Component {
 
     }
 
+    itemEditStartHandler(editingItemIndex) {
+        this.setState({
+            itemDisabled: true,
+            editingItemIndex
+        });
+    }
+
+    itemEditEndHandler() {
+        this.setState({
+            itemDisabled: false
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state.data) {
             this.setState({
@@ -116,7 +133,7 @@ export default class TagField extends Component {
     render() {
 
         const {className, style, valueField, displayField} = this.props,
-            {data, inputValue, inputIndex} = this.state,
+            {data, inputValue, inputIndex, itemDisabled, editingItemIndex} = this.state,
 
             tagFieldClassName = (className ? ' ' + className : '');
 
@@ -148,9 +165,14 @@ export default class TagField extends Component {
                                       className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
                                                    value={Util.getTextByDisplayField(data[index], displayField, valueField)}
+                                                   disabled={itemDisabled && index !== editingItemIndex}
                                                    onChange={(value) => {
                                                        this.itemChangeHandler(value, index);
-                                                   }}/>
+                                                   }}
+                                                   onEditStart={() => {
+                                                       this.itemEditStartHandler(index);
+                                                   }}
+                                                   onEditEnd={this.itemEditEndHandler}/>
                                     ,
                                 </span>
                             );
