@@ -87,6 +87,14 @@ export default class EditableField extends Component {
                 text: nextProps.value
             });
         }
+        if (nextProps.disabled === true && nextProps.disabled !== this.props.disabled) {
+            this.setState({
+                hide: true,
+                changeText: this.state.text
+            }, () => {
+                this.props.onEditEnd && this.props.onEditEnd();
+            });
+        }
     }
 
     componentDidMount() {
@@ -107,8 +115,8 @@ export default class EditableField extends Component {
                  className={`editable-field ${className}`}
                  style={style}
                  title={`${disabled ? '' : 'Click to edit'}`}>
-                <span
-                    className={`editable-field-text ${disabled ? '' : 'editable-field-enabled'}`}>{this.state.text}</span>
+                <span className={`editable-field-text`}
+                      disabled={disabled}>{this.state.text}</span>
                 {
                     this.state.hide === true
                         ?

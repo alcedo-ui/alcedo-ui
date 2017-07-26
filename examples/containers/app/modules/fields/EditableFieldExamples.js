@@ -17,7 +17,8 @@ export default class EditableFieldExamples extends Component {
         super();
 
         this.state = {
-            value: 'text'
+            value: 'text',
+            disabled: false
         };
 
         this.onChange = this :: this.onChange;
@@ -28,6 +29,11 @@ export default class EditableFieldExamples extends Component {
 
     onChange(text) {
         console.log(text);
+        if(text === '123') {
+            this.setState({
+                disabled: true
+            });
+        }
     }
 
     onEditEnd() {
@@ -66,7 +72,9 @@ export default class EditableFieldExamples extends Component {
                                                    disabled={true}/>
                                     ,&nbsp;
                                     <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
+                                                   onBlur={this.onBlur}
+                                                   disabled={this.state.disabled}
+                                                   onChange={this.onChange}/>
                                     ,&nbsp;
                                     <EditableField value={this.state.value}
                                                    onBlur={this.onBlur}/>
