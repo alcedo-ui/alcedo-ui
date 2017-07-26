@@ -19,21 +19,83 @@ export default class TagField extends Component {
         this.state = {
             data: props.data,
             inputValue: '',
-            inputIndex: props.data.length
+            inputIndex: props.data.length,
+            itemEditing: false,
+            editingItemIndex: -1
         };
 
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
         this.inputPasteHandler = this::this.inputPasteHandler;
+        this.inputBlurHandler = this::this.inputBlurHandler;
+        this.itemChangeHandler = this::this.itemChangeHandler;
+        this.itemEditStartHandler = this::this.itemEditStartHandler;
+        this.itemEditEndHandler = this::this.itemEditEndHandler;
 
     }
 
     mouseDownHandler(e) {
+
         if (e.target == this.refs.wrapper) {
-            setTimeout(() => {
-                this.refs.input.focus();
-            }, 0);
+
+            if (this.state.itemEditing) {
+                return;
+            }
+
+            let x = e.clientX,
+                y = e.clientY;
+
+            if (!x || !y) {
+                return;
+            }
+
+            const wrapperEl = this.refs.wrapper,
+                offset = Util.getOffset(wrapperEl);
+
+            if (!offset) {
+                return;
+            }
+
+            const {left: minX} = offset,
+                wrapperWidth = wrapperEl.getBoundingClientRect().width,
+                maxX = minX + wrapperWidth;
+
+            let inputIndex = -1;
+            while (x >= minX) {
+
+                let item = document.elementFromPoint(x, y);
+                if (item.className.includes('tag-field-item')) {
+                    inputIndex = +item.dataset.index + 1;
+                    break;
+                }
+
+                x--;
+
+            }
+
+            if (inputIndex < 0) {
+                while (x <= maxX) {
+
+                    let item = document.elementFromPoint(x, y);
+                    if (item.className.includes('tag-field-item')) {
+                        inputIndex = +item.dataset.index;
+                        break;
+                    }
+
+                    x++;
+
+                }
+            }
+
+            this.setState({
+                inputIndex: inputIndex < 0 ? this.state.data.length : inputIndex
+            }, () => {
+                setTimeout(() => {
+                    this.refs.input.focus();
+                }, 0);
+            });
+
         }
     }
 
@@ -51,35 +113,73 @@ export default class TagField extends Component {
     }
 
     inputKeyDownHandler(e) {
-
         if (e.keyCode === 13) {
-
-            const {data, inputValue, inputIndex} = this.state;
-
-            if (!inputValue) {
-                return;
-            }
-
-            const splitedValue = inputValue.split(',').map(value => ({
-                value
-            }));
-
-            data.splice(inputIndex, 0, ...splitedValue);
-
-            this.setState({
-                data,
-                inputValue: '',
-                inputIndex: inputIndex + splitedValue.length
-            }, () => {
-                const {onChange} = this.props;
-                onChange && onChange(data);
-            });
-
+            this.inputBlurHandler();
         }
     }
 
     inputPasteHandler(e) {
         console.log(e);
+    }
+
+    inputBlurHandler() {
+
+        const {data, inputValue, inputIndex} = this.state;
+
+        if (!inputValue) {
+            return;
+        }
+
+        const splitedValue = inputValue.split(',').map(value => ({
+            value
+        }));
+
+        data.splice(inputIndex, 0, ...splitedValue);
+
+        this.setState({
+            data,
+            inputValue: '',
+            inputIndex: inputIndex + splitedValue.length
+        }, () => {
+
+            this.refs.input.style.width = '1px';
+
+            const {onChange} = this.props;
+            onChange && onChange(data);
+
+        });
+
+    }
+
+    itemChangeHandler(value, index) {
+
+        if (value) {
+            return;
+        }
+
+        const {data} = this.state;
+        data.splice(index, 1);
+
+        this.setState({
+            data
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(data);
+        });
+
+    }
+
+    itemEditStartHandler(editingItemIndex) {
+        this.setState({
+            itemEditing: true,
+            editingItemIndex
+        });
+    }
+
+    itemEditEndHandler() {
+        this.setState({
+            itemEditing: false
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,7 +193,7 @@ export default class TagField extends Component {
     render() {
 
         const {className, style, valueField, displayField} = this.props,
-            {data, inputValue, inputIndex} = this.state,
+            {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
             tagFieldClassName = (className ? ' ' + className : '');
 
@@ -117,15 +217,25 @@ export default class TagField extends Component {
                                        value={inputValue}
                                        onChange={this.inputChangeHandler}
                                        onKeyDown={this.inputKeyDownHandler}
-                                       onPaste={this.inputPasteHandler}/>
+                                       onPaste={this.inputPasteHandler}
+                                       onBlur={this.inputBlurHandler}/>
                             )
                             :
                             (
                                 <span key={index}
+                                      data-index={index}
                                       className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
-                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}/>
-                                    {', '}
+                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}
+                                                   disabled={itemEditing && index !== editingItemIndex}
+                                                   onChange={(value) => {
+                                                       this.itemChangeHandler(value, index);
+                                                   }}
+                                                   onEditStart={() => {
+                                                       this.itemEditStartHandler(index);
+                                                   }}
+                                                   onEditEnd={this.itemEditEndHandler}/>
+                                    ,
                                 </span>
                             );
                     })

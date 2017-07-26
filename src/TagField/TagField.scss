@@ -18,7 +18,7 @@ input:focus {
 
     .tag-field-input,
     .tag-field-item {
-        margin: 4px 0 0 8px;
+        margin: 4px 0 0 12px;
         box-sizing: border-box;
         height: 24px;
         line-height: 24px;
@@ -46,6 +46,12 @@ input:focus {
             .editable-field-input,
             .editable-field-input .text-field-input {
                 line-height: 22px;
+            }
+
+            .editable-field-span {
+                width: calc(100% + 30px);
+                left: -5px;
+                padding-left: 4px;
             }
         }
     }

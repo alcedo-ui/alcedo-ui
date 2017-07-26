@@ -7,11 +7,15 @@
         .tag-field-item {
 
             &.duplicate {
-                color: $blue;
+                .editable-field-text {
+                    color: $blue;
+                }
             }
 
             &.unfound {
-                color: $error;
+                .editable-field-text {
+                    color: $error;
+                }
             }
         }
     }
