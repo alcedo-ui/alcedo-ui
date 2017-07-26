@@ -21,11 +21,21 @@ export default class EditableFieldExamples extends Component {
         };
 
         this.onChange = this :: this.onChange;
+        this.onEditEnd = this :: this.onEditEnd;
+        this.onEditStart = this :: this.onEditStart;
 
     }
 
     onChange(text) {
         console.log(text);
+    }
+
+    onEditEnd() {
+        console.log('end');
+    }
+
+    onEditStart() {
+        console.log('start');
     }
 
     render() {
@@ -52,7 +62,8 @@ export default class EditableFieldExamples extends Component {
                                 <p><code>Editable Field</code> simple example.</p>
 
                                     <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
+                                                   onBlur={this.onBlur}
+                                                   disabled={true}/>
                                     ,&nbsp;
                                     <EditableField value={this.state.value}
                                                    onBlur={this.onBlur}/>
@@ -70,7 +81,9 @@ export default class EditableFieldExamples extends Component {
                                                    onBlur={this.onBlur}/>
                                     ,&nbsp;
                                     <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
+                                                   onBlur={this.onBlur}
+                                                   onEditStart={this.onEditStart}
+                                                   onEditEnd={this.onEditEnd}/>
 
                             </div>
 
