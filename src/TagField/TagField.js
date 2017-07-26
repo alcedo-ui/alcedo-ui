@@ -20,7 +20,7 @@ export default class TagField extends Component {
             data: props.data,
             inputValue: '',
             inputIndex: props.data.length,
-            itemDisabled: false,
+            itemEditing: false,
             editingItemIndex: -1
         };
 
@@ -28,6 +28,7 @@ export default class TagField extends Component {
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
         this.inputPasteHandler = this::this.inputPasteHandler;
+        this.inputBlurHandler = this::this.inputBlurHandler;
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
@@ -35,13 +36,65 @@ export default class TagField extends Component {
     }
 
     mouseDownHandler(e) {
+
         if (e.target == this.refs.wrapper) {
 
-            console.log('clientX:: ', e.clientX);
+            if (this.state.itemEditing) {
+                return;
+            }
 
-            setTimeout(() => {
-                this.refs.input.focus();
-            }, 0);
+            let x = e.clientX,
+                y = e.clientY;
+
+            if (!x || !y) {
+                return;
+            }
+
+            const wrapperEl = this.refs.wrapper,
+                offset = Util.getOffset(wrapperEl);
+
+            if (!offset) {
+                return;
+            }
+
+            const {left: minX} = offset,
+                wrapperWidth = wrapperEl.getBoundingClientRect().width,
+                maxX = minX + wrapperWidth;
+
+            let inputIndex = -1;
+            while (x >= minX) {
+
+                let item = document.elementFromPoint(x, y);
+                if (item.className.includes('tag-field-item')) {
+                    inputIndex = +item.dataset.index + 1;
+                    break;
+                }
+
+                x--;
+
+            }
+
+            if (inputIndex < 0) {
+                while (x <= maxX) {
+
+                    let item = document.elementFromPoint(x, y);
+                    if (item.className.includes('tag-field-item')) {
+                        inputIndex = +item.dataset.index;
+                        break;
+                    }
+
+                    x++;
+
+                }
+            }
+
+            this.setState({
+                inputIndex: inputIndex < 0 ? this.state.data.length : inputIndex
+            }, () => {
+                setTimeout(() => {
+                    this.refs.input.focus();
+                }, 0);
+            });
 
         }
     }
@@ -60,35 +113,42 @@ export default class TagField extends Component {
     }
 
     inputKeyDownHandler(e) {
-
         if (e.keyCode === 13) {
-
-            const {data, inputValue, inputIndex} = this.state;
-
-            if (!inputValue) {
-                return;
-            }
-
-            const splitedValue = inputValue.split(',').map(value => ({
-                value
-            }));
-
-            data.splice(inputIndex, 0, ...splitedValue);
-
-            this.setState({
-                data,
-                inputValue: '',
-                inputIndex: inputIndex + splitedValue.length
-            }, () => {
-                const {onChange} = this.props;
-                onChange && onChange(data);
-            });
-
+            this.inputBlurHandler();
         }
     }
 
     inputPasteHandler(e) {
         console.log(e);
+    }
+
+    inputBlurHandler() {
+
+        const {data, inputValue, inputIndex} = this.state;
+
+        if (!inputValue) {
+            return;
+        }
+
+        const splitedValue = inputValue.split(',').map(value => ({
+            value
+        }));
+
+        data.splice(inputIndex, 0, ...splitedValue);
+
+        this.setState({
+            data,
+            inputValue: '',
+            inputIndex: inputIndex + splitedValue.length
+        }, () => {
+
+            this.refs.input.style.width = '1px';
+
+            const {onChange} = this.props;
+            onChange && onChange(data);
+
+        });
+
     }
 
     itemChangeHandler(value, index) {
@@ -111,14 +171,14 @@ export default class TagField extends Component {
 
     itemEditStartHandler(editingItemIndex) {
         this.setState({
-            itemDisabled: true,
+            itemEditing: true,
             editingItemIndex
         });
     }
 
     itemEditEndHandler() {
         this.setState({
-            itemDisabled: false
+            itemEditing: false
         });
     }
 
@@ -133,7 +193,7 @@ export default class TagField extends Component {
     render() {
 
         const {className, style, valueField, displayField} = this.props,
-            {data, inputValue, inputIndex, itemDisabled, editingItemIndex} = this.state,
+            {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
             tagFieldClassName = (className ? ' ' + className : '');
 
@@ -157,15 +217,17 @@ export default class TagField extends Component {
                                        value={inputValue}
                                        onChange={this.inputChangeHandler}
                                        onKeyDown={this.inputKeyDownHandler}
-                                       onPaste={this.inputPasteHandler}/>
+                                       onPaste={this.inputPasteHandler}
+                                       onBlur={this.inputBlurHandler}/>
                             )
                             :
                             (
                                 <span key={index}
+                                      data-index={index}
                                       className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
                                                    value={Util.getTextByDisplayField(data[index], displayField, valueField)}
-                                                   disabled={itemDisabled && index !== editingItemIndex}
+                                                   disabled={itemEditing && index !== editingItemIndex}
                                                    onChange={(value) => {
                                                        this.itemChangeHandler(value, index);
                                                    }}
