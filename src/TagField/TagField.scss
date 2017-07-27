@@ -49,9 +49,14 @@ input:focus {
             }
 
             .editable-field-span {
-                width: calc(100% + 30px);
+                box-sizing: content-box;
+                width: 100%;
                 left: -5px;
-                padding-left: 4px;
+                padding: 0 4px 0 4px;
+
+                .editable-field-icon {
+                    display: none;
+                }
             }
         }
     }
