@@ -5,6 +5,7 @@ import EditableField from '../EditableField';
 import IconButton from '../IconButton';
 
 import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 
 import './TagField.css';
@@ -72,7 +73,7 @@ export default class TagField extends Component {
             }
 
             const wrapperEl = this.refs.wrapper,
-                offset = Util.getOffset(wrapperEl);
+                offset = Dom.getOffset(wrapperEl);
 
             if (!offset) {
                 return;
@@ -86,7 +87,9 @@ export default class TagField extends Component {
             while (x >= minX) {
 
                 let item = document.elementFromPoint(x, y);
-                if (item.className.includes('tag-field-item')) {
+
+
+                if (item.className.includes('tag-field-item-wrapper')) {
                     inputIndex = +item.dataset.index + 1;
                     break;
                 }
@@ -99,7 +102,7 @@ export default class TagField extends Component {
                 while (x <= maxX) {
 
                     let item = document.elementFromPoint(x, y);
-                    if (item.className.includes('tag-field-item')) {
+                    if (item.className.includes('tag-field-item-wrapper')) {
                         inputIndex = +item.dataset.index;
                         break;
                     }
@@ -245,7 +248,7 @@ export default class TagField extends Component {
                             (
                                 <span key={index}
                                       data-index={index}
-                                      className={'tag-field-item' + (data[index].className ? ' ' + data[index].className : '')}>
+                                      className={'tag-field-item-wrapper' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
                                                    value={Util.getTextByDisplayField(data[index], displayField, valueField)}
                                                    disabled={itemEditing && index !== editingItemIndex}

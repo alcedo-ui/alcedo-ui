@@ -1,25 +1,5 @@
 import moment from 'moment';
 
-function getOffset(el) {
-
-    if (!el) {
-        return null;
-    }
-
-    let offset = {
-        top: el.offsetTop,
-        left: el.offsetLeft
-    };
-    while (el.offsetParent) {
-        el = el.offsetParent;
-        offset.top += el.offsetTop;
-        offset.left += el.offsetLeft;
-    }
-
-    return offset;
-
-}
-
 function isEnableLocalStorage() {
     try {
         return 'localStorage' in window && window['localStorage'] !== null;
@@ -42,20 +22,6 @@ function isEnableCookieAndStorage() {
 
 function formatCapitalize(value) {
     return value ? value.charAt(0).toUpperCase() + value.substring(1).toLowerCase() : value;
-}
-
-function getScrollHeight() {
-    return document.body.scrollHeight || document.documentElement.scrollHeight;
-}
-
-function getScrollTop() {
-
-    if (window.SCROLL_EL && window.SCROLL_EL.scrollTop) {
-        return SCROLL_EL.scrollTop;
-    }
-
-    return document.body.scrollTop || document.documentElement.scrollTop;
-
 }
 
 function value2Timestamp(value, format) {
@@ -158,13 +124,10 @@ function genIndexArray(len) {
 }
 
 export default {
-    getOffset,
     isEnableLocalStorage,
     isEnableSessionStorage,
     isEnableCookieAndStorage,
     formatCapitalize,
-    getScrollHeight,
-    getScrollTop,
     value2Timestamp,
     value2Moment,
     enumerateValue,

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Theme from '../Theme';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import Theme from '../Theme';
+import Dom from '../_vendors/Dom';
 
 export default class TipBody extends Component {
 
@@ -38,7 +40,7 @@ export default class TipBody extends Component {
             return;
         }
 
-        const triggerOffset = Util.getOffset(triggerEl);
+        const triggerOffset = Dom.getOffset(triggerEl);
         let WrapperStyle = {};
         switch (position) {
             case 'right':
@@ -92,7 +94,7 @@ export default class TipBody extends Component {
 
         let rippleStyle = {};
 
-        const offset = Util.getOffset(triggerEl);
+        const offset = Dom.getOffset(triggerEl);
         rippleStyle.top = offset.top + triggerEl.clientHeight / 2;
         rippleStyle.left = offset.left + triggerEl.clientWidth / 2;
 

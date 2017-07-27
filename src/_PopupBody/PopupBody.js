@@ -7,6 +7,7 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 
 import './PopupBody.css';
@@ -85,7 +86,7 @@ export default class PopupBody extends Component {
             return;
         }
 
-        const triggerOffset = Util.getOffset(triggerEl);
+        const triggerOffset = Dom.getOffset(triggerEl);
         let left, top;
 
         switch (position) {

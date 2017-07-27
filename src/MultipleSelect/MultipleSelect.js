@@ -9,6 +9,7 @@ import List from '../List';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
 
 import './MultipleSelect.css';
 
@@ -50,8 +51,8 @@ export default class MultipleSelect extends Component {
             return false;
         }
 
-        const {top} = Util.getOffset(multipleSelect),
-            scrollTop = Util.getScrollTop();
+        const {top} = Dom.getOffset(multipleSelect),
+            scrollTop = Dom.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;

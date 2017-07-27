@@ -17,7 +17,7 @@ input:focus {
     padding: 0 8px 4px 0;
 
     .tag-field-input,
-    .tag-field-item {
+    .tag-field-item-wrapper {
         margin: 4px 0 0 12px;
         box-sizing: border-box;
         height: 24px;
@@ -33,7 +33,7 @@ input:focus {
         overflow-y: visible;
     }
 
-    .tag-field-item {
+    .tag-field-item-wrapper {
         display: inline-block;
         height: 24px;
         line-height: 24px;

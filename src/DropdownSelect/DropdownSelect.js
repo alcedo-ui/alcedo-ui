@@ -9,6 +9,7 @@ import List from '../List';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
 
 import './DropdownSelect.css';
 
@@ -44,8 +45,8 @@ export default class DropdownSelect extends Component {
             return false;
         }
 
-        const {top} = Util.getOffset(dropdownSelect),
-            scrollTop = Util.getScrollTop();
+        const {top} = Dom.getOffset(dropdownSelect),
+            scrollTop = Dom.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
