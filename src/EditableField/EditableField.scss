@@ -30,31 +30,38 @@
             display: block;
         }
 
-        .fa-pencil {
+        .editable-field-icon {
             opacity: 1;
             position: absolute;
             right: 10px;
             top: 50%;
             transform: translate(0, -50%);
             font-size: 16px;
-            float: right;
         }
     }
 
     .editable-field-text {
         display: block;
-
         width: 100%;
         height: 100%;
-
-        //padding: 0 30px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         z-index: 1;
+        cursor: auto;
+        color: $theme-menu;
 
         &:hover + .editable-field-span {
             display: block;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: $grey;
+
+            &:hover + .editable-field-span {
+                display: none;
+            }
         }
     }
 

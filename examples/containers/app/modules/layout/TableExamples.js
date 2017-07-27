@@ -22,16 +22,19 @@ export default class TableExamples extends Component {
             sortProp: 'id',
             renderer: 'id',
             headerClassName: 'test-header',
-            cellClassName: 'test-cell'
+            cellClassName: 'test-cell',
+            flex: 1
         }, {
             header: 'Name',
-            renderer: '${firstName} - ${lastName}'
+            renderer: '${firstName} - ${lastName}',
+            flex: 2
         }, {
             header: 'Status',
             renderer(rowDate) {
                 return <Switcher value={!rowDate.disabled}
                                  size="small"/>;
-            }
+            },
+            flex: 2
         }];
 
         this.state = {

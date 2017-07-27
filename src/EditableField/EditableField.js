@@ -19,10 +19,11 @@ export default class EditableField extends Component {
             changeText: props.value
         };
 
-        this.onChange = this :: this.onChange;
+        this.onInputChange = this :: this.onInputChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
         this.triggerElement = this :: this.triggerElement;
+        this.keyDownHandle = this :: this.keyDownHandle;
     }
 
     triggerElement(el, targetEl) {
@@ -35,11 +36,9 @@ export default class EditableField extends Component {
         return false;
     }
 
-    onChange(text) {
+    onInputChange(text) {
         this.setState({
             changeText: text
-        }, () => {
-            this.props.onChange && this.props.onChange(text);
         });
     }
 
@@ -51,6 +50,7 @@ export default class EditableField extends Component {
             hide: false
         }, () => {
             this.refs.textField.refs.input.focus();
+            this.props.onEditStart && this.props.onEditStart();
         });
     }
 
@@ -60,53 +60,86 @@ export default class EditableField extends Component {
     downHandle(ev) {
         let oEvent = ev || event;
         if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
+            const change = this.state.text !== this.state.changeText;
+
             this.setState({
                 hide: true,
                 text: this.state.changeText
+            }, () => {
+                this.props.onEditEnd && this.props.onEditEnd();
+                change && this.props.onChange && this.props.onChange(this.state.text);
             });
         }
+    }
+
+    keyDownHandle(ev) {
+        const {regExp} = this.props;
+
+        if (regExp && !regExp.test(ev.key)) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.text) {
             this.setState({
-                text: nextProps.value
+                text: nextProps.value,
+                changeText: nextProps.value
+            });
+        }
+        if (nextProps.disabled === true && nextProps.disabled !== this.props.disabled) {
+            this.setState({
+                hide: true,
+                changeText: this.state.text
+            }, () => {
+                this.props.onEditEnd && this.props.onEditEnd();
             });
         }
     }
 
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.downHandle);
+        Event.addEvent(document, 'keydown', this.keyDownHandle);
     }
 
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.downHandle);
+        Event.removeEvent(document, 'keydown', this.keyDownHandle);
     }
 
     render() {
-        const {style, name, className} = this.props;
+
+        const {children, className, style, name, disabled} = this.props;
 
         return (
             <div ref="editableField"
                  className={`editable-field ${className}`}
                  style={style}
-                 title="Click to edit">
-                <span className="editable-field-text">{this.state.text}</span>
+                 title={`${disabled ? '' : 'Click to edit'}`}>
+
+                <span className={`editable-field-text`}
+                      disabled={disabled}>{this.state.text}</span>
+
                 {
                     this.state.hide === true
                         ?
                         <span className="editable-field-span"
-                              onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil"
+                              onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
                                                                            aria-hidden="true"></i></span>
                         : <TextField ref="textField"
                                      className={'editable-field-input'}
                                      value={this.state.changeText}
-                                     onChange={this.onChange}/>
+                                     onChange={this.onInputChange}/>
                 }
+
                 <input type="hidden"
                        value={this.state.text}
                        readOnly
                        name={name}/>
+
+                {children}
 
             </div>
         );
@@ -136,6 +169,16 @@ EditableField.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The regular expression of the input.
+     */
+    regExp: PropTypes.object,
+
+    /**
+     * If true, the input is disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
      * Callback function fired when the editableField blur.
      */
     onBlur: PropTypes.func,
@@ -143,7 +186,17 @@ EditableField.propTypes = {
     /**
      * Callback function fired when the editableField change.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when start editableField change.
+     */
+    onEditStart: PropTypes.func,
+
+    /**
+     * Callback function fired when end editableField change.
+     */
+    onEditEnd: PropTypes.func
 };
 
 EditableField.defaultProps = {
@@ -151,5 +204,6 @@ EditableField.defaultProps = {
     style: {},
 
     value: 'text',
-    name: ''
+    name: '',
+    disabled: false
 };

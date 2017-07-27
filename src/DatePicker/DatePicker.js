@@ -4,8 +4,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import _ from 'lodash';
 
 import TextField from '../TextField';
@@ -13,6 +11,10 @@ import DayPicker from '../_DayPicker';
 
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
+
+import Dom from '../_vendors/Dom';
+import Event from '../_vendors/Event';
+
 import './DatePicker.css';
 
 export default class DatePicker extends Component {
@@ -134,7 +136,7 @@ export default class DatePicker extends Component {
     }
 
     resizeHandle() {
-        const {left} = Util.getOffset(this.refs.datePicker);
+        const {left} = Dom.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
@@ -164,7 +166,7 @@ export default class DatePicker extends Component {
         // debugger
         const {value} = this.props;
         let state = _.cloneDeep(this.state);
-        const {left} = Util.getOffset(this.refs.datePicker);
+        const {left} = Dom.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
@@ -243,28 +245,28 @@ export default class DatePicker extends Component {
                                 previousClick={this.datePickerChangeHandle}
                             />
                             : (
-                            datePickerLevel == 1 ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}
-                                />
-                                :
-                                <YearPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.yearPickerChangeHandle}
-                                />
-                        )
+                                datePickerLevel == 1 ?
+                                    <MonthPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}
+                                    />
+                                    :
+                                    <YearPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.yearPickerChangeHandle}
+                                    />
+                            )
                     }
                     {
                         isFooter ?

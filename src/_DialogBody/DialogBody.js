@@ -51,8 +51,8 @@ export default class DialogBody extends Component {
     }
 
     mousedownHandle(e) {
-        const {isBlurClose, isLoading, disabled} =this.props;
-        const {visible}=this.state;
+        const {isBlurClose, isLoading, disabled} = this.props;
+        const {visible} = this.state;
 
         if (!isBlurClose || !visible || isLoading || disabled) {
             return;
@@ -215,20 +215,13 @@ export default class DialogBody extends Component {
                        style={style}
                        depth={4}>
 
-                    {
-                        title ?
-                            (
-                                <div className="dialog-title">
-                                    <span>{title}</span>
-                                    <IconButton className="dialog-title-close-button"
-                                                iconCls="fa fa-times"
-                                                disabled={disabled}
-                                                onTouchTap={this.closeButtonTouchTapHandle}/>
-                                </div>
-                            )
-                            :
-                            null
-                    }
+                    <div className="dialog-title">
+                        {title}
+                        <IconButton className="dialog-title-close-button"
+                                    iconCls="fa fa-times"
+                                    disabled={disabled}
+                                    onTouchTap={this.closeButtonTouchTapHandle}/>
+                    </div>
 
                     <div className="dialog-content">
                         {children}
@@ -238,7 +231,7 @@ export default class DialogBody extends Component {
 
                         {
                             buttons ?
-                                Children.map(buttons, (button)=>cloneElement(button, {
+                                Children.map(buttons, (button) => cloneElement(button, {
                                     isLoading,
                                     disabled
                                 }))

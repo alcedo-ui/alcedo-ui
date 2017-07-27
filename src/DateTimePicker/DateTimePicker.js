@@ -4,17 +4,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import _ from 'lodash';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
-
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import TimeList from '../_TimeList';
 import RaisedButton from '../RaisedButton';
+
+import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
+import Event from '../_vendors/Event';
+
 import './DateTimePicker.css';
 
 export default class DateTimePicker extends Component {
@@ -176,7 +178,7 @@ export default class DateTimePicker extends Component {
     }
 
     resizeHandle() {
-        const {left} = Util.getOffset(this.refs.datePicker);
+        const {left} = Dom.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
@@ -210,7 +212,7 @@ export default class DateTimePicker extends Component {
         // debugger
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
-        const {left} = Util.getOffset(this.refs.datePicker);
+        const {left} = Dom.getOffset(this.refs.datePicker);
         const width = 300;
         const windowWidth = document.body.clientWidth;
         let marginLeft;
@@ -294,42 +296,42 @@ export default class DateTimePicker extends Component {
                                 previousClick={this.datePickerChangeHandle}
                             />
                             : (
-                            datePickerLevel == 1 ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                    minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}
-                                />
-                                : (
-                                datePickerLevel == 2 ?
-                                    <YearPicker
+                                datePickerLevel == 1 ?
+                                    <MonthPicker
                                         value={value}
                                         year={year}
                                         month={month}
                                         day={day}
                                         maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                         minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                        onChange={this.yearPickerChangeHandle}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}
                                     />
-                                    :
-                                    null
-                            )
+                                    : (
+                                        datePickerLevel == 2 ?
+                                            <YearPicker
+                                                value={value}
+                                                year={year}
+                                                month={month}
+                                                day={day}
+                                                maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                                minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                                onChange={this.yearPickerChangeHandle}
+                                            />
+                                            :
+                                            null
+                                    )
 
-                        )
+                            )
                     }
                     {
                         <TimeList className={`time-picker-body ${datePickerLevel == 3 ? '' : 'hidden'}`}
-                                  dateFormat = {dateFormat.split(' ')[1]}
+                                  dateFormat={dateFormat.split(' ')[1]}
                                   popupVisible={datePickerLevel == 3 ? true : false}
                                   hour={hour}
                                   minute={minute}
                                   second={second}
-                                  isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true : false }
+                                  isRequired={(minValue && value.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && value.split(' ')[0] == maxValue.split(' ')[0]) ? true : false}
                                   maxValue={maxValue && value.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
                                   minValue={minValue && value.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
                                   onChange={this.timePickerChangeHandle}

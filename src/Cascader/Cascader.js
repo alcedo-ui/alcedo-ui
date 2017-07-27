@@ -11,6 +11,7 @@ import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
 
 import './Cascader.css';
 
@@ -59,8 +60,8 @@ export default class Cascader extends Component {
             return false;
         }
 
-        const {top} = Util.getOffset(cascader),
-            scrollTop = Util.getScrollTop();
+        const {top} = Dom.getOffset(cascader),
+            scrollTop = Dom.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
             return true;
