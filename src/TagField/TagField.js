@@ -25,6 +25,7 @@ export default class TagField extends Component {
             editingItemIndex: -1
         };
 
+        this.removeItem = this::this.removeItem;
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
@@ -33,6 +34,25 @@ export default class TagField extends Component {
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
+
+    }
+
+    removeItem(index) {
+
+        const {data} = this.state;
+
+        if (!data || data.length < 1 || !(index in data)) {
+            return;
+        }
+
+        data.splice(index, 1);
+
+        this.setState({
+            data
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(data);
+        });
 
     }
 
@@ -238,7 +258,10 @@ export default class TagField extends Component {
                                                    onEditEnd={this.itemEditEndHandler}>
 
                                         <IconButton className="tag-field-item-field-delete-button"
-                                                    iconCls="fa fa-times"/>
+                                                    iconCls="fa fa-times"
+                                                    onTouchTap={() => {
+                                                        this.removeItem(index);
+                                                    }}/>
 
                                     </EditableField>
                                 </span>
