@@ -57,7 +57,8 @@ export default class ListGroup extends Component {
                      onMouseEnter={this.mouseEnterHandler}
                      onMouseLeave={this.mouseLeaveHandler}>
 
-                    <ListItem text={text}
+                    <ListItem className="list-group-name"
+                              text={text}
                               iconCls={iconCls}
                               rightIconCls={rightIconCls}
                               disabled={disabled}

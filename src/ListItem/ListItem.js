@@ -128,8 +128,8 @@ export default class ListItem extends Component {
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, readOnly
             } = this.props,
             {checked} = this.state,
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (readOnly ? ' list-group-name' : '')
-                + (checked ? ' activated' : '') + (className ? ' ' + className : ''),
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
+                + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -140,6 +140,7 @@ export default class ListItem extends Component {
                 <div className={'list-item' + listItemClassName}
                      style={style}
                      disabled={disabled || isLoading}
+                     readOnly={readOnly}
                      onClick={this.clickHandle}
                      onMouseEnter={this.mouseEnterHandle}
                      onMouseLeave={this.mouseLeaveHandle}>

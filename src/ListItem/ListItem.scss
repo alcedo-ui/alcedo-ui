@@ -114,10 +114,7 @@ button:focus {
         @include list-theme(#fff, $error);
     }
 
-    &.list-group-name {
-        height: 30px;
-        line-height: 30px;
-        padding-left: 15px !important;
+    &[readonly] {
         cursor: default;
 
         &:hover,
