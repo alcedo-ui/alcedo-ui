@@ -68,7 +68,7 @@
     .editable-field-input {
         position: absolute;
         background: white;
-        width: 120px;
+        width: calc(100% + 42px);
         height: 100%;
         top: 0;
         left: -11px;
