@@ -94,4 +94,9 @@ input:focus {
         overflow: visible;
     }
 
+    &[disabled] {
+        background: darken($theme-field, 4%);
+        cursor: not-allowed;
+    }
+
 }

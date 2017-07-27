@@ -58,6 +58,10 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
+        if (this.props.disabled) {
+            return;
+        }
+
         if (e.target == this.refs.wrapper) {
 
             if (this.state.itemEditing) {
@@ -126,6 +130,10 @@ export default class TagField extends Component {
 
     inputChangeHandler(e) {
 
+        if (this.props.disabled) {
+            return;
+        }
+
         const inputValue = e.target.value;
 
         this.setState({
@@ -138,12 +146,22 @@ export default class TagField extends Component {
     }
 
     inputKeyDownHandler(e) {
+
+        if (this.props.disabled) {
+            return;
+        }
+
         if (e.keyCode === 13) {
             this.inputBlurHandler();
         }
+
     }
 
     inputBlurHandler() {
+
+        if (this.props.disabled) {
+            return;
+        }
 
         const {data, inputValue, inputIndex} = this.state;
 
@@ -174,6 +192,10 @@ export default class TagField extends Component {
 
     itemChangeHandler(value, index) {
 
+        if (this.props.disabled) {
+            return;
+        }
+
         const {data} = this.state;
 
         if (value) {
@@ -192,16 +214,28 @@ export default class TagField extends Component {
     }
 
     itemEditStartHandler(editingItemIndex) {
+
+        if (this.props.disabled) {
+            return;
+        }
+
         this.setState({
             itemEditing: true,
             editingItemIndex
         });
+
     }
 
     itemEditEndHandler() {
+
+        if (this.props.disabled) {
+            return;
+        }
+
         this.setState({
             itemEditing: false
         });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -214,7 +248,7 @@ export default class TagField extends Component {
 
     render() {
 
-        const {className, style, valueField, displayField} = this.props,
+        const {className, style, valueField, displayField, disabled} = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
             tagFieldClassName = (className ? ' ' + className : '');
@@ -226,20 +260,24 @@ export default class TagField extends Component {
             <div ref="wrapper"
                  className={'tag-field' + tagFieldClassName}
                  style={style}
-                 onMouseDown={this.mouseDownHandler}>
+                 onMouseDown={this.mouseDownHandler}
+                 disabled={disabled}>
 
                 {
                     indexData.map(index => {
                         return index === this.inputSymbol ?
                             (
-                                <input key="input"
-                                       ref="input"
-                                       className="tag-field-input"
-                                       autoFocus="true"
-                                       value={inputValue}
-                                       onChange={this.inputChangeHandler}
-                                       onKeyDown={this.inputKeyDownHandler}
-                                       onBlur={this.inputBlurHandler}/>
+                                !disabled ?
+                                    <input key="input"
+                                           ref="input"
+                                           className="tag-field-input"
+                                           autoFocus="true"
+                                           value={inputValue}
+                                           onChange={this.inputChangeHandler}
+                                           onKeyDown={this.inputKeyDownHandler}
+                                           onBlur={this.inputBlurHandler}/>
+                                    :
+                                    null
                             )
                             :
                             (
@@ -248,7 +286,7 @@ export default class TagField extends Component {
                                       className={'tag-field-item-wrapper' + (data[index].className ? ' ' + data[index].className : '')}>
                                     <EditableField className="tag-field-item-field"
                                                    value={Util.getTextByDisplayField(data[index], displayField, valueField)}
-                                                   disabled={itemEditing && index !== editingItemIndex}
+                                                   disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                                    onChange={(value) => {
                                                        this.itemChangeHandler(value, index);
                                                    }}
@@ -259,6 +297,7 @@ export default class TagField extends Component {
 
                                         <IconButton className="tag-field-item-field-delete-button"
                                                     iconCls="fa fa-times"
+                                                    disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                                     onTouchTap={() => {
                                                         this.removeItem(index);
                                                     }}/>
@@ -308,6 +347,11 @@ TagField.propTypes = {
     /**
      *
      */
+    disabled: PropTypes.bool,
+
+    /**
+     *
+     */
     onChange: PropTypes.func
 
 };
@@ -320,6 +364,8 @@ TagField.defaultProps = {
     data: [],
 
     valueField: 'value',
-    displayField: 'text'
+    displayField: 'text',
+
+    disabled: false
 
 };
