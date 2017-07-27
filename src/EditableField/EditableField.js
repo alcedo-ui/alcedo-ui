@@ -19,7 +19,7 @@ export default class EditableField extends Component {
             changeText: props.value
         };
 
-        this.onChange = this :: this.onChange;
+        this.onInputChange = this :: this.onInputChange;
         this.showInput = this :: this.showInput;
         this.downHandle = this :: this.downHandle;
         this.triggerElement = this :: this.triggerElement;
@@ -36,11 +36,9 @@ export default class EditableField extends Component {
         return false;
     }
 
-    onChange(text) {
+    onInputChange(text) {
         this.setState({
             changeText: text
-        }, () => {
-            this.props.onChange && this.props.onChange(text);
         });
     }
 
@@ -62,11 +60,14 @@ export default class EditableField extends Component {
     downHandle(ev) {
         let oEvent = ev || event;
         if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
+            const change = this.state.text !== this.state.changeText;
+
             this.setState({
                 hide: true,
                 text: this.state.changeText
             }, () => {
                 this.props.onEditEnd && this.props.onEditEnd();
+                change && this.props.onChange && this.props.onChange(this.state.text);
             });
         }
     }
@@ -129,7 +130,7 @@ export default class EditableField extends Component {
                         : <TextField ref="textField"
                                      className={'editable-field-input'}
                                      value={this.state.changeText}
-                                     onChange={this.onChange}/>
+                                     onChange={this.onInputChange}/>
                 }
 
                 <input type="hidden"
