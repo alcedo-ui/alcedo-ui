@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import EditableField from '../EditableField';
+import IconButton from '../IconButton';
 
 import Util from '../_vendors/Util';
 import CharSize from '../_vendors/CharSize';
@@ -234,8 +235,12 @@ export default class TagField extends Component {
                                                    onEditStart={() => {
                                                        this.itemEditStartHandler(index);
                                                    }}
-                                                   onEditEnd={this.itemEditEndHandler}/>
-                                    ,
+                                                   onEditEnd={this.itemEditEndHandler}>
+
+                                        <IconButton className="tag-field-item-field-delete-button"
+                                                    iconCls="fa fa-times"/>
+
+                                    </EditableField>
                                 </span>
                             );
                     })

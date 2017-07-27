@@ -108,15 +108,18 @@ export default class EditableField extends Component {
     }
 
     render() {
-        const {style, name, className, disabled} = this.props;
+
+        const {children, className, style, name, disabled} = this.props;
 
         return (
             <div ref="editableField"
                  className={`editable-field ${className}`}
                  style={style}
                  title={`${disabled ? '' : 'Click to edit'}`}>
+
                 <span className={`editable-field-text`}
                       disabled={disabled}>{this.state.text}</span>
+
                 {
                     this.state.hide === true
                         ?
@@ -128,10 +131,13 @@ export default class EditableField extends Component {
                                      value={this.state.changeText}
                                      onChange={this.onChange}/>
                 }
+
                 <input type="hidden"
                        value={this.state.text}
                        readOnly
                        name={name}/>
+
+                {children}
 
             </div>
         );

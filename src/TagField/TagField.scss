@@ -41,6 +41,9 @@ input:focus {
         .tag-field-item-field {
             height: 24px;
             line-height: 24px;
+            background: $theme-content-bg;
+            padding: 0 20px 0 8px;
+            border-radius: 12px;
 
             .editable-field-span,
             .editable-field-input,
@@ -49,14 +52,31 @@ input:focus {
             }
 
             .editable-field-span {
-                box-sizing: content-box;
                 width: 100%;
-                left: -5px;
-                padding: 0 4px 0 4px;
+                top: 0;
+                left: 0;
+                background: $theme-content-bg;
+                padding-left: 7px;
+                border-radius: 12px;
 
                 .editable-field-icon {
-                    display: none;
+                    //display: none;
+                    font-size: 12px;
+                    width: 24px;
+                    height: 24px;
+                    right: 0;
+                    text-align: center;
+                    line-height: 24px;
                 }
+            }
+
+            .tag-field-item-field-delete-button {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
             }
         }
     }
