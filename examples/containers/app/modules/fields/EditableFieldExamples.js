@@ -31,7 +31,8 @@ export default class EditableFieldExamples extends Component {
         console.log(text);
         if(text === '123') {
             this.setState({
-                disabled: true
+                disabled: true,
+                value: 'text111'
             });
         }
     }

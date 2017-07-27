@@ -85,7 +85,8 @@ export default class EditableField extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.text) {
             this.setState({
-                text: nextProps.value
+                text: nextProps.value,
+                changeText: nextProps.value
             });
         }
         if (nextProps.disabled === true && nextProps.disabled !== this.props.disabled) {
