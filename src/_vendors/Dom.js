@@ -32,8 +32,45 @@ function getScrollTop() {
 
 }
 
+function hasClass(el, className) {
+
+    if (!el || !className) {
+        return false;
+    }
+
+    const elClassName = el.className;
+
+    if (!elClassName) {
+        return false;
+    }
+
+    const elClass = elClassName.split(/\s+/);
+
+    return elClass.findIndex(item => item === className) !== -1;
+
+}
+
+function findParent(el, className) {
+
+    if (!el || !className) {
+        return;
+    }
+
+    while (el) {
+        if (hasClass(el, className)) {
+            return el;
+        }
+        el = el.parentNode;
+    }
+
+    return;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
-    getScrollTop
+    getScrollTop,
+    hasClass,
+    findParent
 };

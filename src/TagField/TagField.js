@@ -86,11 +86,11 @@ export default class TagField extends Component {
             let inputIndex = -1;
             while (x >= minX) {
 
-                let item = document.elementFromPoint(x, y);
+                const item = document.elementFromPoint(x, y),
+                    wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
 
-
-                if (item.className.includes('tag-field-item-wrapper')) {
-                    inputIndex = +item.dataset.index + 1;
+                if (wrapperEl) {
+                    inputIndex = +wrapperEl.dataset.index + 1;
                     break;
                 }
 
@@ -101,9 +101,11 @@ export default class TagField extends Component {
             if (inputIndex < 0) {
                 while (x <= maxX) {
 
-                    let item = document.elementFromPoint(x, y);
-                    if (item.className.includes('tag-field-item-wrapper')) {
-                        inputIndex = +item.dataset.index;
+                    const item = document.elementFromPoint(x, y),
+                        wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+
+                    if (wrapperEl) {
+                        inputIndex = +wrapperEl.dataset.index;
                         break;
                     }
 
