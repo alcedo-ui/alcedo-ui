@@ -30,7 +30,6 @@ export default class TagField extends Component {
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
-        this.inputPasteHandler = this::this.inputPasteHandler;
         this.inputBlurHandler = this::this.inputBlurHandler;
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
@@ -144,10 +143,6 @@ export default class TagField extends Component {
         }
     }
 
-    inputPasteHandler(e) {
-        console.log(e);
-    }
-
     inputBlurHandler() {
 
         const {data, inputValue, inputIndex} = this.state;
@@ -244,7 +239,6 @@ export default class TagField extends Component {
                                        value={inputValue}
                                        onChange={this.inputChangeHandler}
                                        onKeyDown={this.inputKeyDownHandler}
-                                       onPaste={this.inputPasteHandler}
                                        onBlur={this.inputBlurHandler}/>
                             )
                             :
