@@ -179,12 +179,13 @@ export default class TagField extends Component {
 
     itemChangeHandler(value, index) {
 
-        if (value) {
-            return;
-        }
-
         const {data} = this.state;
-        data.splice(index, 1);
+
+        if (value) {
+            data[index] = value;
+        } else {
+            data.splice(index, 1);
+        }
 
         this.setState({
             data
