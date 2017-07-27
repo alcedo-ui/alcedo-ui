@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import ListGroup from '../ListGroup';
 import ListItem from '../ListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
@@ -80,25 +81,41 @@ export default class List extends Component {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
-                if (!group) {
-                    return;
-                }
+                // if (!group) {
+                //     return;
+                // }
+                //
+                // let result = [];
+                //
+                // if (group.name) {
+                //     result.push(
+                //         <ListItem key={`group${groupIndex}`}
+                //                   text={group.name}
+                //                   isGroupName={true}/>
+                //     );
+                // }
+                //
+                // if (group.children && group.children.length > 0) {
+                //     result = result.concat(this.listItemsRenderer(group.children));
+                // }
+                //
+                // return result;
 
-                let result = [];
-
-                if (group.name) {
-                    result.push(
-                        <ListItem key={`group${groupIndex}`}
-                                  text={group.name}
-                                  isGroupName={true}/>
+                if (group && group.name) {
+                    return (
+                        <ListGroup key={`group${groupIndex}`}
+                                   text={group.name}>
+                            {
+                                group.children && group.children.length > 0 ?
+                                    this.listItemsRenderer(group.children)
+                                    :
+                                    null
+                            }
+                        </ListGroup>
                     );
                 }
 
-                if (group.children && group.children.length > 0) {
-                    result = result.concat(this.listItemsRenderer(group.children));
-                }
-
-                return result;
+                return;
 
             })
             :

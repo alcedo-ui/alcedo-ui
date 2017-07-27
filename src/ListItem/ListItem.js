@@ -68,9 +68,9 @@ export default class ListItem extends Component {
 
     clickHandle(e) {
 
-        const {disabled, isLoading, isGroupName} = this.props;
+        const {disabled, isLoading, readOnly} = this.props;
 
-        if (disabled || isLoading || isGroupName) {
+        if (disabled || isLoading || readOnly) {
             return;
         }
 
@@ -125,10 +125,10 @@ export default class ListItem extends Component {
 
         const {
                 className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, isGroupName
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, readOnly
             } = this.props,
             {checked} = this.state,
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (isGroupName ? ' list-group-name' : '')
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (readOnly ? ' list-group-name' : '')
                 + (checked ? ' activated' : '') + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -208,7 +208,7 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        disableTouchRipple || isGroupName ?
+                        disableTouchRipple || readOnly ?
                             null
                             :
                             <TouchRipple ref="touchRipple"
@@ -319,7 +319,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    isGroupName: PropTypes.bool,
+    readOnly: PropTypes.bool,
 
     /**
      * Callback function fired when a list item touch-tapped.
@@ -376,6 +376,6 @@ ListItem.defaultProps = {
 
     mode: ListItem.Mode.NORMAL,
 
-    isGroupName: false
+    readOnly: false
 
 };
