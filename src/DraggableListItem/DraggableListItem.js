@@ -132,6 +132,9 @@ export default class DraggableListItem extends Component {
                         )
                 }
 
+                <i className="fa fa-bars button-icon button-icon-right draggable-flag"
+                   aria-hidden="true"></i>
+
             </div>
         ));
 

@@ -89,6 +89,26 @@
         cursor: not-allowed;
     }
 
+    &[readonly] {
+        height: 30px;
+        line-height: 30px;
+        padding-left: 15px !important;
+        cursor: default;
+
+        &:hover,
+        &:active {
+            background: $theme-field;
+        }
+    }
+
+    &.dragging {
+        opacity: .1;
+    }
+
+    .draggable-flag {
+        color: lighten($theme-title, 32%) !important;
+    }
+
     // default theme
     @include draggable-list-theme($theme-text, $theme-field);
 
@@ -107,21 +127,5 @@
     }
     &.theme-error {
         @include draggable-list-theme(#fff, $error);
-    }
-
-    &[readonly] {
-        height: 30px;
-        line-height: 30px;
-        padding-left: 15px !important;
-        cursor: default;
-
-        &:hover,
-        &:active {
-            background: $theme-field;
-        }
-    }
-
-    &.dragging {
-        opacity: .1;
     }
 }
