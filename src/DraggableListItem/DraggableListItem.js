@@ -4,11 +4,7 @@ import {findDOMNode} from 'react-dom';
 import {DragSource, DropTarget} from 'react-dnd';
 
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
-import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
-
-import Util from '../_vendors/Util';
 
 import './DraggableListItem.css';
 
@@ -17,7 +13,6 @@ const DRAG_TYPE_SYMBOL = Symbol('DRAG_TYPE');
 const cardSource = {
     beginDrag(props) {
         return {
-            id: props.id,
             index: props.index
         };
     }
