@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import _ from 'lodash';
 
 import DraggableListGroup from '../DraggableListGroup';
@@ -11,6 +13,7 @@ import Util from '../_vendors/Util';
 
 import './DraggableList.css';
 
+@DragDropContext(HTML5Backend)
 export default class DraggableList extends Component {
 
     constructor(props) {
@@ -75,6 +78,8 @@ export default class DraggableList extends Component {
                                                desc={item[descriptionField] || null}
                                                disabled={disabled || item.disabled}
                                                isLoading={isLoading || item.isLoading}
+                                               moveListItem={() => {
+                                               }}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandle(item, index);
                                                    item.onTouchTap && item.onTouchTap();
@@ -89,6 +94,8 @@ export default class DraggableList extends Component {
                                                text={item}
                                                disabled={disabled}
                                                isLoading={isLoading}
+                                               moveListItem={() => {
+                                               }}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandle(item, index);
                                                }}/>

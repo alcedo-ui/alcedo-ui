@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import {DragSource, DropTarget} from 'react-dnd';
 
 import CircularLoading from '../CircularLoading';
@@ -24,6 +25,7 @@ const cardSource = {
 
 const cardTarget = {
     hover(props, monitor, component) {
+
         const dragIndex = monitor.getItem().index;
         const hoverIndex = props.index;
 
@@ -59,13 +61,14 @@ const cardTarget = {
         }
 
         // Time to actually perform the action
-        props.moveCard(dragIndex, hoverIndex);
+        props.moveListItem(dragIndex, hoverIndex);
 
         // Note: we're mutating the monitor item here!
         // Generally it's better to avoid mutations,
         // but it's good here for the sake of performance
         // to avoid expensive index searches.
         monitor.getItem().index = hoverIndex;
+
     }
 };
 
@@ -125,8 +128,8 @@ export default class DraggableListItem extends Component {
 
         const {
                 connectDragSource, connectDropTarget,
-                className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, readOnly
+                className, style, theme, text, desc, iconCls, rightIconCls,
+                disabled, isLoading, renderer, readOnly
             } = this.props,
             listItemClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
@@ -187,15 +190,6 @@ export default class DraggableListItem extends Component {
                         )
                 }
 
-                {
-                    disableTouchRipple || readOnly ?
-                        null
-                        :
-                        <TouchRipple ref="touchRipple"
-                                     className={disabled || isLoading ? 'hidden' : ''}
-                                     displayCenter={rippleDisplayCenter}/>
-                }
-
             </div>
         ));
 
@@ -204,8 +198,8 @@ export default class DraggableListItem extends Component {
 
 DraggableListItem.propTypes = {
 
-    connectDragSource: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func.isRequired,
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
 
     /**
      * The CSS class name of the list button.
@@ -248,11 +242,6 @@ DraggableListItem.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * If true,the element's ripple effect will be disabled.
-     */
-    disableTouchRipple: PropTypes.bool,
-
-    /**
      * Use this property to display an icon. It will display on the left.
      */
     iconCls: PropTypes.string,
@@ -261,21 +250,6 @@ DraggableListItem.propTypes = {
      * Use this property to display an icon. It will display on the right.
      */
     rightIconCls: PropTypes.string,
-
-    /**
-     *
-     */
-    tip: PropTypes.string,
-
-    /**
-     *
-     */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
-
-    /**
-     *
-     */
-    rippleDisplayCenter: PropTypes.bool,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -328,15 +302,8 @@ DraggableListItem.defaultProps = {
     disabled: false,
     isLoading: false,
 
-    disableTouchRipple: false,
-
     iconCls: '',
     rightIconCls: '',
-
-    tip: '',
-    tipPosition: TipContainer.Position.BOTTOM,
-
-    rippleDisplayCenter: false,
 
     readOnly: false
 
