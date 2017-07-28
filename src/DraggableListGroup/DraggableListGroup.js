@@ -50,14 +50,14 @@ export default class DraggableListGroup extends Component {
                           text={tip}
                           tipPosition={tipPosition}>
 
-                <div className={'list-group' + listGroupClassName}
+                <div className={'draggable-list-group' + listGroupClassName}
                      style={style}
                      disabled={disabled || isLoading}
                      onClick={this.clickHandler}
                      onMouseEnter={this.mouseEnterHandler}
                      onMouseLeave={this.mouseLeaveHandler}>
 
-                    <DraggableListItem className="list-group-name"
+                    <DraggableListItem className="draggable-list-group-name"
                                        text={text}
                                        iconCls={iconCls}
                                        rightIconCls={rightIconCls}
@@ -65,7 +65,7 @@ export default class DraggableListGroup extends Component {
                                        isLoading={isLoading}
                                        readOnly={true}/>
 
-                    <div className="list-group-item-wrapper">
+                    <div className="draggable-list-group-item-wrapper">
                         {children}
                     </div>
 
