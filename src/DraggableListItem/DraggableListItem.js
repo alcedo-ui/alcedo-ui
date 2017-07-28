@@ -137,7 +137,7 @@ export default class DraggableListItem extends Component {
                           text={tip}
                           tipPosition={tipPosition}>
 
-                <div className={'draggable-list-item' + listItemClassName}
+                <div className={'list-item' + listItemClassName}
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
@@ -147,7 +147,7 @@ export default class DraggableListItem extends Component {
 
                     {
                         mode === DraggableListItem.Mode.CHECKBOX ?
-                            <Checkbox className="draggable-list-item-checkbox"
+                            <Checkbox className="list-item-checkbox"
                                       value={checked}/>
                             :
                             null
@@ -155,7 +155,7 @@ export default class DraggableListItem extends Component {
 
                     {
                         mode === DraggableListItem.Mode.RADIO ?
-                            <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
+                            <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
                             null
@@ -181,11 +181,11 @@ export default class DraggableListItem extends Component {
                             :
                             (
                                 desc ?
-                                    <div className="draggable-list-item-content">
-                                        <div className="draggable-list-item-content-value">
+                                    <div className="list-item-content">
+                                        <div className="list-item-content-value">
                                             {text}
                                         </div>
-                                        <div className="draggable-list-item-content-desc">
+                                        <div className="list-item-content-desc">
                                             {desc}
                                         </div>
                                     </div>

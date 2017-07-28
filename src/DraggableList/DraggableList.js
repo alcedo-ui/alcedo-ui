@@ -262,7 +262,7 @@ export default class DraggableList extends Component {
         }
 
         return (
-            <div className={'draggable-list' + listClassName}
+            <div className={'list' + listClassName}
                  disabled={disabled}
                  style={style}>
 
