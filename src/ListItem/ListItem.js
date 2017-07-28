@@ -68,9 +68,9 @@ export default class ListItem extends Component {
 
     clickHandle(e) {
 
-        const {disabled, isLoading, isGroupName} = this.props;
+        const {disabled, isLoading, readOnly} = this.props;
 
-        if (disabled || isLoading || isGroupName) {
+        if (disabled || isLoading || readOnly) {
             return;
         }
 
@@ -103,14 +103,13 @@ export default class ListItem extends Component {
     }
 
     mouseEnterHandle(e) {
-
         const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter();
+        onMouseEnter && onMouseEnter(e);
     }
 
-    mouseLeaveHandle() {
+    mouseLeaveHandle(e) {
         const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave();
+        onMouseLeave && onMouseLeave(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -125,11 +124,11 @@ export default class ListItem extends Component {
 
         const {
                 className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, isGroupName
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, readOnly
             } = this.props,
             {checked} = this.state,
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (isGroupName ? ' list-group-name' : '')
-                + (checked ? ' activated' : '') + (className ? ' ' + className : ''),
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
+                + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -140,6 +139,7 @@ export default class ListItem extends Component {
                 <div className={'list-item' + listItemClassName}
                      style={style}
                      disabled={disabled || isLoading}
+                     readOnly={readOnly}
                      onClick={this.clickHandle}
                      onMouseEnter={this.mouseEnterHandle}
                      onMouseLeave={this.mouseLeaveHandle}>
@@ -208,7 +208,7 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        disableTouchRipple || isGroupName ?
+                        disableTouchRipple || readOnly ?
                             null
                             :
                             <TouchRipple ref="touchRipple"
@@ -319,7 +319,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    isGroupName: PropTypes.bool,
+    readOnly: PropTypes.bool,
 
     /**
      * Callback function fired when a list item touch-tapped.
@@ -376,6 +376,6 @@ ListItem.defaultProps = {
 
     mode: ListItem.Mode.NORMAL,
 
-    isGroupName: false
+    readOnly: false
 
 };

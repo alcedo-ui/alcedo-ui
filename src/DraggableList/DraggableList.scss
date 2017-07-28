@@ -1,0 +1,12 @@
+@import '../_common.scss';
+
+.draggable-list {
+    width: 200px;
+    background: $theme-field;
+
+    &.grouped {
+        .draggable-list-item {
+            padding-left: 30px;
+        }
+    }
+}
