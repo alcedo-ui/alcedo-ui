@@ -66,11 +66,14 @@ export default class DraggableListItem extends Component {
     render() {
 
         const {
-                connectDragSource, connectDropTarget,
+                connectDragSource, connectDropTarget, isDragging,
                 className, style, theme, text, desc, iconCls, rightIconCls,
                 disabled, isLoading, renderer, readOnly
             } = this.props,
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
+
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
+                + (className ? ' ' + className : ''),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return connectDragSource(connectDropTarget(
@@ -139,6 +142,7 @@ DraggableListItem.propTypes = {
 
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool,
 
     /**
      * The CSS class name of the list button.

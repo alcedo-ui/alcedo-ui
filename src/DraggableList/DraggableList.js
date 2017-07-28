@@ -58,8 +58,7 @@ export default class DraggableList extends Component {
 
     listItemsRenderer(items = this.state.items) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading} = this.props,
-            indexArray = Util.genIndexArray(items.length);
+        const {valueField, displayField, descriptionField, disabled, isLoading} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -71,9 +70,9 @@ export default class DraggableList extends Component {
 
                     return typeof item === 'object' ?
                         (
-                            <DraggableListItem key={indexArray[index]}
+                            <DraggableListItem key={item.id}
                                                {...item}
-                                               index={indexArray[index]}
+                                               index={index}
                                                value={Util.getValueByValueField(item, valueField, displayField)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                desc={item[descriptionField] || null}
@@ -87,8 +86,8 @@ export default class DraggableList extends Component {
                         )
                         :
                         (
-                            <DraggableListItem key={indexArray[index]}
-                                               index={indexArray[index]}
+                            <DraggableListItem key={item.id}
+                                               index={index}
                                                value={item}
                                                text={item}
                                                disabled={disabled}

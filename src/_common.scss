@@ -263,3 +263,29 @@ $transition-duration: 250ms;
     }
 }
 
+@mixin draggable-list-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &.activated {
+        background: darken($bg-color, 4%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+}
+

@@ -18,12 +18,15 @@ export default class ListExamples extends Component {
         super(props);
 
         this.listData = [{
+            id: 0,
             iconCls: 'fa fa-facebook',
             text: 'Facebook'
         }, {
+            id: 1,
             iconCls: 'fa fa-twitter',
             text: 'Twitter'
         }, {
+            id: 2,
             iconCls: 'fa fa-google-plus',
             text: 'Google+'
         }];

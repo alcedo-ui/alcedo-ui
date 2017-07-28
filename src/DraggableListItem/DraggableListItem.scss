@@ -1,10 +1,5 @@
 @import '../_common.scss';
 
-button,
-button:focus {
-    outline: none;
-}
-
 .draggable-list-item {
     display: block;
     width: 100%;
@@ -95,23 +90,23 @@ button:focus {
     }
 
     // default theme
-    @include list-theme($theme-text, $theme-field);
+    @include draggable-list-theme($theme-text, $theme-field);
 
     // other themes
     &.theme-primary {
-        @include list-theme(#fff, $theme-menu);
+        @include draggable-list-theme(#fff, $theme-menu);
     }
     &.theme-highlight {
-        @include list-theme(#fff, $theme-highlight);
+        @include draggable-list-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include list-theme(#fff, $success);
+        @include draggable-list-theme(#fff, $success);
     }
     &.theme-warning {
-        @include list-theme(#fff, $warning);
+        @include draggable-list-theme(#fff, $warning);
     }
     &.theme-error {
-        @include list-theme(#fff, $error);
+        @include draggable-list-theme(#fff, $error);
     }
 
     &[readonly] {
@@ -124,5 +119,10 @@ button:focus {
         &:active {
             background: $theme-field;
         }
+    }
+
+    &.dragging {
+        opacity: .1;
+        background: #ccc;
     }
 }
