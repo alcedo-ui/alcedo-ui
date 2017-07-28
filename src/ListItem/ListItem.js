@@ -103,14 +103,13 @@ export default class ListItem extends Component {
     }
 
     mouseEnterHandle(e) {
-
         const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter();
+        onMouseEnter && onMouseEnter(e);
     }
 
-    mouseLeaveHandle() {
+    mouseLeaveHandle(e) {
         const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave();
+        onMouseLeave && onMouseLeave(e);
     }
 
     componentWillReceiveProps(nextProps) {

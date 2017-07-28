@@ -68,6 +68,7 @@ export default class DraggableList extends Component {
                         (
                             <DraggableListItem key={index}
                                                {...item}
+                                               id={index}
                                                index={index}
                                                value={Util.getValueByValueField(item, valueField, displayField)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
@@ -82,6 +83,7 @@ export default class DraggableList extends Component {
                         :
                         (
                             <DraggableListItem key={index}
+                                               id={index}
                                                index={index}
                                                value={item}
                                                text={item}
