@@ -17,52 +17,11 @@ export default class DraggableListItem extends Component {
 
         super(props);
 
-        this.state = {
-            checked: props.checked
-        };
-
-        this.checkboxChangeHandle = this::this.checkboxChangeHandle;
         this.clickHandle = this::this.clickHandle;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
         this.mouseEnterHandle = this::this.mouseEnterHandle;
         this.mouseLeaveHandle = this::this.mouseLeaveHandle;
-
-    }
-
-    checkboxChangeHandle(checked, callback) {
-        this.setState({
-            checked
-        }, () => {
-
-            const {onSelect, onDeselect} = this.props;
-
-            if (checked) {
-                onSelect && onSelect();
-            } else {
-                onDeselect && onDeselect();
-            }
-
-            callback && typeof callback === 'function' && callback();
-
-        });
-    }
-
-    radioChangeHandle(callback) {
-
-        const {checked} = this.state;
-
-        if (!checked) {
-            this.setState({
-                checked: true
-            }, () => {
-                const {onSelect} = this.props;
-                onSelect && onSelect();
-                callback && typeof callback === 'function' && callback();
-            });
-        } else {
-            callback && typeof callback === 'function' && callback();
-        }
 
     }
 
@@ -74,23 +33,8 @@ export default class DraggableListItem extends Component {
             return;
         }
 
-        const {mode} = this.props,
-            callback = () => {
-                const {onTouchTap} = this.props;
-                onTouchTap && onTouchTap(e);
-            };
-
-        switch (mode) {
-            case DraggableListItem.Mode.CHECKBOX:
-                this.checkboxChangeHandle(!this.state.checked, callback);
-                return;
-            case DraggableListItem.Mode.RADIO:
-                this.radioChangeHandle(callback);
-                return;
-            case DraggableListItem.Mode.NORMAL:
-                callback();
-                return;
-        }
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
 
     }
 
@@ -103,7 +47,6 @@ export default class DraggableListItem extends Component {
     }
 
     mouseEnterHandle(e) {
-
         const {onMouseEnter} = this.props;
         onMouseEnter && onMouseEnter();
     }
@@ -113,23 +56,13 @@ export default class DraggableListItem extends Component {
         onMouseLeave && onMouseLeave();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: nextProps.checked
-            });
-        }
-    }
-
     render() {
 
         const {
                 className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, readOnly
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, readOnly
             } = this.props,
-            {checked} = this.state,
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -144,22 +77,6 @@ export default class DraggableListItem extends Component {
                      onClick={this.clickHandle}
                      onMouseEnter={this.mouseEnterHandle}
                      onMouseLeave={this.mouseLeaveHandle}>
-
-                    {
-                        mode === DraggableListItem.Mode.CHECKBOX ?
-                            <Checkbox className="list-item-checkbox"
-                                      value={checked}/>
-                            :
-                            null
-                    }
-
-                    {
-                        mode === DraggableListItem.Mode.RADIO ?
-                            <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
-                               aria-hidden="true"></i>
-                            :
-                            null
-                    }
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -222,12 +139,6 @@ export default class DraggableListItem extends Component {
         );
 
     }
-};
-
-DraggableListItem.Mode = {
-    NORMAL: 'normal',
-    CHECKBOX: 'checkbox',
-    RADIO: 'radio'
 };
 
 DraggableListItem.propTypes = {
@@ -310,16 +221,6 @@ DraggableListItem.propTypes = {
     /**
      *
      */
-    checked: PropTypes.bool,
-
-    /**
-     *
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(DraggableListItem.Mode)),
-
-    /**
-     *
-     */
     readOnly: PropTypes.bool,
 
     /**
@@ -372,10 +273,6 @@ DraggableListItem.defaultProps = {
     tipPosition: TipContainer.Position.BOTTOM,
 
     rippleDisplayCenter: false,
-
-    checked: false,
-
-    mode: DraggableListItem.Mode.NORMAL,
 
     readOnly: false
 
