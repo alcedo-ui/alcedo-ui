@@ -14,6 +14,8 @@ function getTarget() {
     return {
         hover(props, monitor, component) {
 
+            // debugger;
+
             const dragIndex = monitor.getItem().index;
             const hoverIndex = props.index;
 
@@ -49,7 +51,7 @@ function getTarget() {
             }
 
             // Time to actually perform the action
-            props.moveListItem(dragIndex, hoverIndex);
+            props.onMove(dragIndex, hoverIndex);
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,

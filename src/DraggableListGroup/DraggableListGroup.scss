@@ -1,5 +1,20 @@
 @import '../_common.scss';
 
 .draggable-list-group {
+    cursor: move;
 
+    .draggable-list-group-name {
+        height: 30px;
+        line-height: 30px;
+        padding-left: 15px !important;
+
+        .draggable-flag {
+            height: 30px;
+            line-height: 30px;
+        }
+    }
+
+    &.dragging {
+        opacity: .1;
+    }
 }

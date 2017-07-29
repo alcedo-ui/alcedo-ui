@@ -9,12 +9,12 @@ import DragDrop from '../_vendors/DragDrop';
 
 import './DraggableListItem.css';
 
-const DRAG_TYPE_SYMBOL = Symbol('DRAG_TYPE');
+const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 
-@DropTarget(DRAG_TYPE_SYMBOL, DragDrop.getTarget(), connect => ({
+@DropTarget(DRAG_LIST_ITEM_SYMBOL, DragDrop.getTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
 }))
-@DragSource(DRAG_TYPE_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+@DragSource(DRAG_LIST_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
@@ -68,22 +68,21 @@ export default class DraggableListItem extends Component {
         const {
                 connectDragSource, connectDropTarget, isDragging,
                 className, style, theme, text, desc, iconCls, rightIconCls,
-                disabled, isLoading, renderer, readOnly
+                disabled, isLoading, renderer, readOnly, draggable
             } = this.props,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
                 + (className ? ' ' + className : ''),
 
-            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
+            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
-        return connectDragSource(connectDropTarget(
-            <div className={'draggable-list-item' + listItemClassName}
-                 style={style}
-                 disabled={disabled || isLoading}
-                 readOnly={readOnly}
-                 onClick={this.clickHandle}
-                 onMouseEnter={this.mouseEnterHandle}
-                 onMouseLeave={this.mouseLeaveHandle}>
+            el = <div className={'draggable-list-item' + listItemClassName}
+                      style={style}
+                      disabled={disabled || isLoading}
+                      readOnly={readOnly}
+                      onClick={this.clickHandle}
+                      onMouseEnter={this.mouseEnterHandle}
+                      onMouseLeave={this.mouseLeaveHandle}>
 
                 {
                     isLoading && loadingIconPosition === 'left' ?
@@ -132,11 +131,15 @@ export default class DraggableListItem extends Component {
                         )
                 }
 
-                <i className="fa fa-bars button-icon button-icon-right draggable-flag"
+                <i className="fa fa-bars draggable-flag"
                    aria-hidden="true"></i>
 
-            </div>
-        ));
+            </div>;
+
+        return draggable ?
+            connectDragSource(connectDropTarget(el))
+            :
+            el;
 
     }
 };
@@ -208,6 +211,11 @@ DraggableListItem.propTypes = {
     readOnly: PropTypes.bool,
 
     /**
+     *
+     */
+    draggable: PropTypes.bool,
+
+    /**
      * Callback function fired when a list item touch-tapped.
      */
     onTouchTap: PropTypes.func,
@@ -251,6 +259,7 @@ DraggableListItem.defaultProps = {
     iconCls: '',
     rightIconCls: '',
 
-    readOnly: false
+    readOnly: false,
+    draggable: true
 
 };

@@ -18,15 +18,12 @@ export default class ListExamples extends Component {
         super(props);
 
         this.listData = [{
-            id: 0,
             iconCls: 'fa fa-facebook',
             text: 'Facebook'
         }, {
-            id: 1,
             iconCls: 'fa fa-twitter',
             text: 'Twitter'
         }, {
-            id: 2,
             iconCls: 'fa fa-google-plus',
             text: 'Google+'
         }];
@@ -293,6 +290,34 @@ export default class ListExamples extends Component {
                                 <Paper style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
                                                    items={this.listData}
+                                                   onChange={this.changeHandle}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Draggable Group"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A <code>Draggable List</code>.
+                                </p>
+
+                                <Paper style={{width: 240}}>
+                                    <DraggableList style={{width: 240}}
+                                                   mode={List.Mode.CHECKBOX}
+                                                   isGrouped={true}
+                                                   items={this.groupedListData}
                                                    onChange={this.changeHandle}/>
                                 </Paper>
 

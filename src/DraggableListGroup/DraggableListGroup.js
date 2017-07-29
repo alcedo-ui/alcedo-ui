@@ -1,14 +1,26 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {DragSource, DropTarget} from 'react-dnd';
 
 import TipContainer from '../TipContainer';
 import DraggableListItem from '../DraggableListItem';
+import DragDropWrapper from '../_DragDropWrapper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import DragDrop from '../_vendors/DragDrop';
 
 import './DraggableListGroup.css';
 
+const DRAG_LIST_GROUP_SYMBOL = Symbol('DRAG_LIST_GROUP');
+
+@DropTarget(DRAG_LIST_GROUP_SYMBOL, DragDrop.getTarget(), connect => ({
+    connectDropTarget: connect.dropTarget()
+}))
+@DragSource(DRAG_LIST_GROUP_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+}))
 export default class DraggableListGroup extends Component {
 
     constructor(props) {
@@ -39,44 +51,46 @@ export default class DraggableListGroup extends Component {
     render() {
 
         const {
+                connectDragSource, connectDropTarget, isDragging,
                 children, className, style, theme, text, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading
             } = this.props,
 
-            listGroupClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
+            listGroupClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
+                + (className ? ' ' + className : '');
 
-        return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+        return connectDragSource(connectDropTarget(
+            <div className={'draggable-list-group' + listGroupClassName}
+                 style={style}
+                 disabled={disabled || isLoading}
+                 onClick={this.clickHandler}
+                 onMouseEnter={this.mouseEnterHandler}
+                 onMouseLeave={this.mouseLeaveHandler}>
 
-                <div className={'draggable-list-group' + listGroupClassName}
-                     style={style}
-                     disabled={disabled || isLoading}
-                     onClick={this.clickHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                <DraggableListItem className="draggable-list-group-name"
+                                   text={text}
+                                   iconCls={iconCls}
+                                   rightIconCls={rightIconCls}
+                                   disabled={disabled}
+                                   isLoading={isLoading}
+                                   readOnly={true}
+                                   draggable={false}/>
 
-                    <DraggableListItem className="draggable-list-group-name"
-                                       text={text}
-                                       iconCls={iconCls}
-                                       rightIconCls={rightIconCls}
-                                       disabled={disabled}
-                                       isLoading={isLoading}
-                                       readOnly={true}/>
-
-                    <div className="draggable-list-group-item-wrapper">
-                        {children}
-                    </div>
-
+                <div className="draggable-list-group-item-wrapper">
+                    {children}
                 </div>
-            </TipContainer>
-        );
+
+            </div>
+        ));
 
     }
 };
 
 DraggableListGroup.propTypes = {
+
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool,
 
     /**
      * The CSS class name of the list button.
