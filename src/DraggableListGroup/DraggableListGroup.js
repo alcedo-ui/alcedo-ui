@@ -13,7 +13,7 @@ import './DraggableListGroup.css';
 
 const DRAG_LIST_GROUP_SYMBOL = Symbol('DRAG_LIST_GROUP');
 
-@DropTarget(DRAG_LIST_GROUP_SYMBOL, DragDrop.getTarget(), connect => ({
+@DropTarget(DRAG_LIST_GROUP_SYMBOL, DragDrop.getListTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_LIST_GROUP_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({

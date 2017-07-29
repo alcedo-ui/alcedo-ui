@@ -44,7 +44,7 @@ export default class DraggableList extends Component {
                                             onMove={this.listGroupMoveHandler}>
                             {
                                 group.children && group.children.length > 0 ?
-                                    this.listItemsRenderer(group.children)
+                                    this.listItemsRenderer(group.children, groupIndex)
                                     :
                                     null
                             }
@@ -59,7 +59,7 @@ export default class DraggableList extends Component {
             null;
     }
 
-    listItemsRenderer(items = this.state.items) {
+    listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {valueField, displayField, descriptionField, disabled, isLoading} = this.props;
 
@@ -86,6 +86,7 @@ export default class DraggableList extends Component {
                                                desc={item[descriptionField] || null}
                                                disabled={disabled || item.disabled}
                                                isLoading={isLoading || item.isLoading}
+                                               groupIndex={groupIndex}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
@@ -100,6 +101,7 @@ export default class DraggableList extends Component {
                                                text={item}
                                                disabled={disabled}
                                                isLoading={isLoading}
+                                               groupIndex={groupIndex}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
@@ -136,19 +138,40 @@ export default class DraggableList extends Component {
 
     }
 
-    listItemMoveHandler(dragIndex, hoverIndex) {
+    listItemMoveHandler(dragIndex, hoverIndex, props) {
 
-        // const {items} = this.state,
-        //     dragCard = items.splice(dragIndex, 1);
-        //
-        // items.splice(hoverIndex, 0, ...dragCard);
-        //
-        // this.setState({
-        //     items
-        // }, () => {
-        //     const {onChange} = this.props;
-        //     onChange && onChange(items);
-        // });
+        const {isGrouped} = this.props;
+
+        if (isGrouped && isNaN(props.groupIndex)) {
+            return;
+        }
+
+        const {items} = this.state;
+
+        if (isGrouped) {
+
+            const list = items[props.groupIndex].children;
+
+            if (!list || list.length < 1) {
+                return;
+            }
+
+            const dragItem = list.splice(dragIndex, 1);
+            list.splice(hoverIndex, 0, ...dragItem);
+
+        } else {
+
+            const dragItem = items.splice(dragIndex, 1);
+            items.splice(hoverIndex, 0, ...dragItem);
+
+        }
+
+        this.setState({
+            items
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(items);
+        });
 
     }
 

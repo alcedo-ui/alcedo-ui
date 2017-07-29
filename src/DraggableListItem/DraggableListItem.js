@@ -11,7 +11,7 @@ import './DraggableListItem.css';
 
 const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 
-@DropTarget(DRAG_LIST_ITEM_SYMBOL, DragDrop.getTarget(), connect => ({
+@DropTarget(DRAG_LIST_ITEM_SYMBOL, DragDrop.getListTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_LIST_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
@@ -204,6 +204,11 @@ DraggableListItem.propTypes = {
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
+
+    /**
+     *
+     */
+    groupIndex: PropTypes.number,
 
     /**
      *
