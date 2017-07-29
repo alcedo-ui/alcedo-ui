@@ -4,7 +4,6 @@ import {DragSource, DropTarget} from 'react-dnd';
 
 import TipContainer from '../TipContainer';
 import DraggableListItem from '../DraggableListItem';
-import DragDropWrapper from '../_DragDropWrapper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
