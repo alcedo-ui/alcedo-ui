@@ -16,19 +16,72 @@ import './DraggableList.css';
 @DragDropContext(HTML5Backend)
 export default class DraggableList extends Component {
 
+    static Mode = DraggableListItem.Mode;
+
     constructor(props) {
 
         super(props);
 
         this.state = {
-            items: props.items
+            items: props.items,
+            value: this.initValue(props)
         };
 
+        this.initValue = this::this.initValue;
+        this.isItemChecked = this::this.isItemChecked;
         this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
         this.listItemsRenderer = this::this.listItemsRenderer;
         this.listGroupMoveHandler = this::this.listGroupMoveHandler;
         this.listItemMoveHandler = this::this.listItemMoveHandler;
         this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
+        this.listItemSelectHandle = this::this.listItemSelectHandle;
+        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+
+    }
+
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, mode} = props;
+
+        if (!mode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (mode) {
+            case DraggableList.Mode.CHECKBOX:
+                return [];
+            case DraggableList.Mode.RADIO:
+                return null;
+            default:
+                return value;
+        }
+
+    }
+
+    isItemChecked(item) {
+
+        const {mode, valueField, displayField} = this.props,
+            {value} = this.state;
+
+        if (!item || !value) {
+            return false;
+        }
+
+        if (mode === DraggableList.Mode.CHECKBOX) {
+            return _.isArray(value) && value.filter(valueItem => {
+                return Util.isValueEqual(valueItem, item, valueField, displayField);
+            }).length > 0;
+        } else if (mode === DraggableList.Mode.RADIO) {
+            return Util.isValueEqual(value, item, valueField, displayField);
+        }
 
     }
 
@@ -61,7 +114,7 @@ export default class DraggableList extends Component {
 
     listItemsRenderer(items = this.state.items, groupIndex) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -82,29 +135,45 @@ export default class DraggableList extends Component {
                                                {...item}
                                                index={index}
                                                value={value}
+                                               checked={this.isItemChecked(item)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                desc={item[descriptionField] || null}
                                                disabled={disabled || item.disabled}
                                                isLoading={isLoading || item.isLoading}
                                                groupIndex={groupIndex}
+                                               mode={mode}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
                                                    item.onTouchTap && item.onTouchTap();
+                                               }}
+                                               onSelect={() => {
+                                                   this.listItemSelectHandle(item, index);
+                                               }}
+                                               onDeselect={() => {
+                                                   this.listItemDeselectHandle(item, index);
                                                }}/>
                         )
                         :
                         (
                             <DraggableListItem key={item.id || value}
                                                index={index}
+                                               checked={this.isItemChecked(item)}
                                                value={value}
                                                text={item}
                                                disabled={disabled}
                                                isLoading={isLoading}
                                                groupIndex={groupIndex}
+                                               mode={mode}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
+                                               }}
+                                               onSelect={() => {
+                                                   this.listItemSelectHandle(item, index);
+                                               }}
+                                               onDeselect={() => {
+                                                   this.listItemDeselectHandle(item, index);
                                                }}/>
                         );
 
@@ -175,12 +244,83 @@ export default class DraggableList extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.items !== this.state.items) {
-            this.setState({
-                items: nextProps.items
+    listItemSelectHandle(item, index) {
+
+        const {mode} = this.props;
+
+        if (mode === DraggableList.Mode.NORMAL) {
+            return;
+        }
+
+        let {value} = this.state;
+
+        if (mode === DraggableList.Mode.CHECKBOX) {
+
+            if (!value || !_.isArray(value)) {
+                value = [];
+            }
+
+            value.push(item);
+
+        } else if (mode === DraggableList.Mode.RADIO) {
+            value = item;
+        }
+
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value, index);
+        });
+
+    }
+
+    listItemDeselectHandle(item, index) {
+
+        const {mode} = this.props;
+
+        if (mode !== DraggableList.Mode.CHECKBOX) {
+            return;
+        }
+
+        const {valueField, displayField} = this.props;
+        let {value} = this.state;
+
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => {
+                return Util.getValueByValueField(valueItem, valueField, displayField)
+                    != Util.getValueByValueField(item, valueField, displayField);
             });
         }
+
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value, index);
+        });
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        let state;
+
+        if (nextProps.items !== this.state.items) {
+            state = state ? state : {};
+            state.items = nextProps.items;
+        }
+        if (nextProps.value !== this.state.value) {
+            state = state ? state : {};
+            state.value = this.initValue(nextProps);
+        }
+
+        if (state) {
+            this.setState(state);
+        }
+
     }
 
     render() {
@@ -208,8 +348,6 @@ export default class DraggableList extends Component {
         );
     }
 };
-
-DraggableList.Mode = DraggableListItem.Mode;
 
 DraggableList.propTypes = {
 

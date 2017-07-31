@@ -13,6 +13,12 @@ import './ListItem.css';
 
 export default class ListItem extends Component {
 
+    static Mode = {
+        NORMAL: 'normal',
+        CHECKBOX: 'checkbox',
+        RADIO: 'radio'
+    };
+
     constructor(props) {
 
         super(props);
@@ -21,16 +27,17 @@ export default class ListItem extends Component {
             checked: props.checked
         };
 
-        this.checkboxChangeHandle = this::this.checkboxChangeHandle;
-        this.clickHandle = this::this.clickHandle;
+        this.checkboxChangeHandler = this::this.checkboxChangeHandler;
+        this.radioChangeHandler = this::this.radioChangeHandler;
+        this.clickHandler = this::this.clickHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.mouseEnterHandle = this::this.mouseEnterHandle;
-        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
+        this.mouseEnterHandler = this::this.mouseEnterHandler;
+        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
 
     }
 
-    checkboxChangeHandle(checked, callback) {
+    checkboxChangeHandler(checked, callback) {
         this.setState({
             checked
         }, () => {
@@ -48,7 +55,7 @@ export default class ListItem extends Component {
         });
     }
 
-    radioChangeHandle(callback) {
+    radioChangeHandler(callback) {
 
         const {checked} = this.state;
 
@@ -66,7 +73,7 @@ export default class ListItem extends Component {
 
     }
 
-    clickHandle(e) {
+    clickHandler(e) {
 
         const {disabled, isLoading, readOnly} = this.props;
 
@@ -82,10 +89,10 @@ export default class ListItem extends Component {
 
         switch (mode) {
             case ListItem.Mode.CHECKBOX:
-                this.checkboxChangeHandle(!this.state.checked, callback);
+                this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
             case ListItem.Mode.RADIO:
-                this.radioChangeHandle(callback);
+                this.radioChangeHandler(callback);
                 return;
             case ListItem.Mode.NORMAL:
                 callback();
@@ -102,12 +109,12 @@ export default class ListItem extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
-    mouseEnterHandle(e) {
+    mouseEnterHandler(e) {
         const {onMouseEnter} = this.props;
         onMouseEnter && onMouseEnter(e);
     }
 
-    mouseLeaveHandle(e) {
+    mouseLeaveHandler(e) {
         const {onMouseLeave} = this.props;
         onMouseLeave && onMouseLeave(e);
     }
@@ -127,6 +134,7 @@ export default class ListItem extends Component {
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, readOnly
             } = this.props,
             {checked} = this.state,
+
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
                 + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
@@ -140,9 +148,9 @@ export default class ListItem extends Component {
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
-                     onClick={this.clickHandle}
-                     onMouseEnter={this.mouseEnterHandle}
-                     onMouseLeave={this.mouseLeaveHandle}>
+                     onClick={this.clickHandler}
+                     onMouseEnter={this.mouseEnterHandler}
+                     onMouseLeave={this.mouseLeaveHandler}>
 
                     {
                         mode === ListItem.Mode.CHECKBOX ?
@@ -221,12 +229,6 @@ export default class ListItem extends Component {
         );
 
     }
-};
-
-ListItem.Mode = {
-    NORMAL: 'normal',
-    CHECKBOX: 'checkbox',
-    RADIO: 'radio'
 };
 
 ListItem.propTypes = {

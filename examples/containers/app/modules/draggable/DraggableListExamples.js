@@ -110,6 +110,7 @@ export default class DraggableListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
+                                                   mode={DraggableList.Mode.CHECKBOX}
                                                    items={this.listData}
                                                    onChange={this.changeHandle}/>
                                 </Paper>
