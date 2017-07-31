@@ -13,6 +13,8 @@ import './List.css';
 
 export default class List extends Component {
 
+    static Mode = ListItem.Mode;
+
     constructor(props) {
 
         super(props);
@@ -275,8 +277,6 @@ export default class List extends Component {
     }
 };
 
-List.Mode = ListItem.Mode;
-
 List.propTypes = {
 
     /**
@@ -326,11 +326,6 @@ List.propTypes = {
              * The desc value of the list button. Type can be string or number.
              */
             desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * If true,the item will be in the selected state.
-             */
-            checked: PropTypes.bool,
 
             /**
              * If true,the list item will be disabled.
@@ -431,7 +426,7 @@ List.propTypes = {
 
     /**
      * Callback function fired when the list changed.
-     **/
+     */
     onChange: PropTypes.func
 
 };

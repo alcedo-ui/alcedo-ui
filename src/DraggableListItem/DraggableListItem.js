@@ -2,37 +2,87 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 
+import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
 import Theme from '../Theme';
 
+import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
 
 import './DraggableListItem.css';
 
-const DRAG_TYPE_SYMBOL = Symbol('DRAG_TYPE');
+const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 
-@DropTarget(DRAG_TYPE_SYMBOL, DragDrop.getTarget(), connect => ({
+@DropTarget(DRAG_LIST_ITEM_SYMBOL, DragDrop.getListTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
 }))
-@DragSource(DRAG_TYPE_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+@DragSource(DRAG_LIST_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
 export default class DraggableListItem extends Component {
 
+    static Mode = {
+        NORMAL: 'normal',
+        CHECKBOX: 'checkbox',
+        RADIO: 'radio'
+    };
+
     constructor(props) {
 
         super(props);
 
-        this.clickHandle = this::this.clickHandle;
+        this.state = {
+            checked: props.checked
+        };
+
+        this.checkboxChangeHandler = this::this.checkboxChangeHandler;
+        this.radioChangeHandler = this::this.radioChangeHandler;
+        this.clickHandler = this::this.clickHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.mouseEnterHandle = this::this.mouseEnterHandle;
-        this.mouseLeaveHandle = this::this.mouseLeaveHandle;
+        this.mouseEnterHandler = this::this.mouseEnterHandler;
+        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
 
     }
 
-    clickHandle(e) {
+    checkboxChangeHandler(checked, callback) {
+        this.setState({
+            checked
+        }, () => {
+
+            const {onSelect, onDeselect} = this.props;
+
+            if (checked) {
+                onSelect && onSelect();
+            } else {
+                onDeselect && onDeselect();
+            }
+
+            callback && typeof callback === 'function' && callback();
+
+        });
+    }
+
+    radioChangeHandler(callback) {
+
+        const {checked} = this.state;
+
+        if (!checked) {
+            this.setState({
+                checked: true
+            }, () => {
+                const {onSelect} = this.props;
+                onSelect && onSelect();
+                callback && typeof callback === 'function' && callback();
+            });
+        } else {
+            callback && typeof callback === 'function' && callback();
+        }
+
+    }
+
+    clickHandler(e) {
 
         const {disabled, isLoading, readOnly} = this.props;
 
@@ -40,8 +90,23 @@ export default class DraggableListItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {mode} = this.props,
+            callback = () => {
+                const {onTouchTap} = this.props;
+                onTouchTap && onTouchTap(e);
+            };
+
+        switch (mode) {
+            case DraggableListItem.Mode.CHECKBOX:
+                this.checkboxChangeHandler(!this.state.checked, callback);
+                return;
+            case DraggableListItem.Mode.RADIO:
+                this.radioChangeHandler(callback);
+                return;
+            case DraggableListItem.Mode.NORMAL:
+                callback();
+                return;
+        }
 
     }
 
@@ -53,14 +118,22 @@ export default class DraggableListItem extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
-    mouseEnterHandle(e) {
+    mouseEnterHandler(e) {
         const {onMouseEnter} = this.props;
         onMouseEnter && onMouseEnter(e);
     }
 
-    mouseLeaveHandle(e) {
+    mouseLeaveHandler(e) {
         const {onMouseLeave} = this.props;
         onMouseLeave && onMouseLeave(e);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.checked !== this.state.checked) {
+            this.setState({
+                checked: nextProps.checked
+            });
+        }
     }
 
     render() {
@@ -68,22 +141,38 @@ export default class DraggableListItem extends Component {
         const {
                 connectDragSource, connectDropTarget, isDragging,
                 className, style, theme, text, desc, iconCls, rightIconCls,
-                disabled, isLoading, renderer, readOnly
+                mode, disabled, isLoading, renderer, readOnly, draggable
             } = this.props,
+            {checked} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
+                + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
 
-            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
+            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
-        return connectDragSource(connectDropTarget(
-            <div className={'draggable-list-item' + listItemClassName}
-                 style={style}
-                 disabled={disabled || isLoading}
-                 readOnly={readOnly}
-                 onClick={this.clickHandle}
-                 onMouseEnter={this.mouseEnterHandle}
-                 onMouseLeave={this.mouseLeaveHandle}>
+            el = <div className={'draggable-list-item' + listItemClassName}
+                      style={style}
+                      disabled={disabled || isLoading}
+                      readOnly={readOnly}
+                      onClick={this.clickHandler}
+                      onMouseEnter={this.mouseEnterHandler}
+                      onMouseLeave={this.mouseLeaveHandler}>
+
+                {
+                    mode === DraggableListItem.Mode.CHECKBOX ?
+                        <Checkbox className="draggable-list-item-checkbox"
+                                  value={checked}/>
+                        :
+                        null
+                }
+
+                {
+                    mode === DraggableListItem.Mode.RADIO ?
+                        <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
+                           aria-hidden="true"></i>
+                        :
+                        null
+                }
 
                 {
                     isLoading && loadingIconPosition === 'left' ?
@@ -132,11 +221,15 @@ export default class DraggableListItem extends Component {
                         )
                 }
 
-                <i className="fa fa-bars button-icon button-icon-right draggable-flag"
+                <i className="fa fa-bars draggable-flag"
                    aria-hidden="true"></i>
 
-            </div>
-        ));
+            </div>;
+
+        return draggable ?
+            connectDragSource(connectDropTarget(el))
+            :
+            el;
 
     }
 };
@@ -205,7 +298,27 @@ DraggableListItem.propTypes = {
     /**
      *
      */
+    checked: PropTypes.bool,
+
+    /**
+     *
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(DraggableListItem.Mode)),
+
+    /**
+     *
+     */
+    groupIndex: PropTypes.number,
+
+    /**
+     *
+     */
     readOnly: PropTypes.bool,
+
+    /**
+     *
+     */
+    draggable: PropTypes.bool,
 
     /**
      * Callback function fired when a list item touch-tapped.
@@ -251,6 +364,11 @@ DraggableListItem.defaultProps = {
     iconCls: '',
     rightIconCls: '',
 
-    readOnly: false
+    checked: false,
+
+    mode: DraggableListItem.Mode.NORMAL,
+
+    readOnly: false,
+    draggable: true
 
 };

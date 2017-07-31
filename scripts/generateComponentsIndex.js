@@ -1,6 +1,7 @@
 'use strict';
 
-var fs = require('fs'),
+var os = require('os'),
+    fs = require('fs'),
     path = require('path');
 
 fs.readdir('./src', function (err, files) {
@@ -24,7 +25,7 @@ fs.readdir('./src', function (err, files) {
             });
             indexArray.push('', 'export const COMPONENTS_TOTAL_COUNT = ' + totalCount + ';');
 
-            fs.writeFile(path.join(__dirname, '../src/index.js'), indexArray.join('\n'), function (error) {
+            fs.writeFile(path.join(__dirname, '../src/index.js'), indexArray.join(os.EOL), function (error) {
                 if (error) {
                     throw error;
                 }

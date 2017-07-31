@@ -38,14 +38,15 @@
         padding: 5px 20px;
         border-bottom: 1px solid $theme-title-bg;
         text-align: left;
+        color: inherit;
 
         .dialog-title-close-button {
             position: absolute;
             right: 5px;
             top: 5px;
-            font-size: 16px;
+            font-size: 18px;
             vertical-align: middle;
-            color: $theme-title;
+            color: inherit;
 
             &:hover {
                 color: $error;

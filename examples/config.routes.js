@@ -359,6 +359,16 @@ export default function configureRoute(store) {
                        }, 'WaterfallExamples');
                    }}/>
 
+            {/* draggable */}
+            <Route path="DraggableList"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/draggable/DraggableListExamples').default);
+                           loadCompleteCallback();
+                       }, 'DraggableListExamples');
+                   }}/>
+
             {/* steppers */}
             <Route path="ArrowStep"
                    getComponent={(nextState, cb) => {

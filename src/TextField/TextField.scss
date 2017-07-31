@@ -26,7 +26,7 @@ input:focus {
         cursor: pointer;
         margin: 5px 0;
         top: 0;
-        color: lighten($theme-text, 20%);
+        color: inherit;
 
         &.text-field-icon {
             width: 50px;

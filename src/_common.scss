@@ -137,7 +137,7 @@ $transition-duration: 250ms;
 
     &[disabled] {
         color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
+        background: transparent !important;
     }
 }
 

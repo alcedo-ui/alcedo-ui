@@ -4,15 +4,21 @@ function getSource() {
     return {
         beginDrag(props) {
             return {
-                index: props.index
+                index: props.index,
+                groupIndex: props.groupIndex
             };
         }
     };
 }
 
-function getTarget() {
+function getListTarget() {
     return {
         hover(props, monitor, component) {
+
+            // if in different group
+            if (monitor.getItem().groupIndex !== props.groupIndex) {
+                return;
+            }
 
             const dragIndex = monitor.getItem().index;
             const hoverIndex = props.index;
@@ -49,7 +55,7 @@ function getTarget() {
             }
 
             // Time to actually perform the action
-            props.moveListItem(dragIndex, hoverIndex);
+            props.onMove(dragIndex, hoverIndex, props);
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -63,5 +69,5 @@ function getTarget() {
 
 export default {
     getSource,
-    getTarget
+    getListTarget
 };
