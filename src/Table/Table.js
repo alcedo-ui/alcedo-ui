@@ -251,7 +251,6 @@ export default class Table extends Component {
             });
         }
 
-
         if (hasLineNumber) {
             finalColumns.unshift({
                 headerClassName: 'table-line-number-th',

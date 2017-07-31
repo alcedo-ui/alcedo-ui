@@ -5,7 +5,7 @@
     height: 30px;
     line-height: 30px;
     text-align: left;
-    padding: 15px 15px 14px;
+    padding: 15px 10px 14px;
     font-weight: normal;
     user-select: none;
     color: $theme-title;
@@ -23,6 +23,7 @@
     }
 
     &.sortable {
+        position: relative;
         cursor: pointer;
         padding-right: 30px;
 

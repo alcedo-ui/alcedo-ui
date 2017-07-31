@@ -1,25 +1,19 @@
 @import '../_common.scss';
 
 .table-header-sort-icon-wrapper {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    padding: 3px;
 
     .table-header-sort-icon {
-        position: absolute;
-        right: 30px;
         display: block;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
+        width: 24px;
+        height: 12px;
+        line-height: 12px;
         text-align: center;
         color: lighten($theme-text, 45%);
         transition: all $transition-duration ease-in-out;
-
-        &.up {
-            top: 10px;
-        }
-
-        &.down {
-            top: 20px;
-        }
     }
 
     &.asc {
