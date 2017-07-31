@@ -1,7 +1,7 @@
 @import '../_common.scss';
 
-.table-wrapper {
-    position: relative;
+//.table-wrapper {
+//    position: relative;
 
     .table {
         width: 100%;
@@ -48,21 +48,21 @@
 
     }
 
-    .head-table {
-        width: 100%;
-        height: 60px;
-        overflow: hidden;
-    }
-
-    .body-table {
-        height: calc(100% - 60px);
-        overflow: auto;
-
-        .body-table-scroller {
-            .table {
-                height: 100%;
-            }
-        }
-
-    }
-}
+    //.head-table {
+    //    width: 100%;
+    //    height: 60px;
+    //    overflow: hidden;
+    //}
+    //
+    //.body-table {
+    //    height: calc(100% - 60px);
+    //    overflow: auto;
+    //
+    //    .body-table-scroller {
+    //        .table {
+    //            height: 100%;
+    //        }
+    //    }
+    //
+    //}
+//}

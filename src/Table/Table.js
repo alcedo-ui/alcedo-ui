@@ -45,11 +45,8 @@ export default class Table extends Component {
 
         this.sortHandle = this::this.sortHandle;
         this.sortData = this::this.sortData;
-        this.tableScrollHandle = this::this.tableScrollHandle;
-        this.scrollIndex = this::this.scrollIndex;
         this.paggingData = this::this.paggingData;
         this.pageChangedHandle = this::this.pageChangedHandle;
-        this.resizeHandle = this::this.resizeHandle;
         this.resetPage = this::this.resetPage;
         // this.wdithHandle = this::this.wdithHandle;
 
@@ -98,39 +95,6 @@ export default class Table extends Component {
 
     }
 
-    tableScrollHandle(e) {
-        !this.props.isPagging && this.setState({
-            scrollTop: e.target.scrollTop,
-            scrollLeft: e.target.scrollLeft
-        });
-    }
-
-    scrollIndex(data) {
-
-        const {rowHeight, isAdaptiveHeight} = this.props,
-            {scrollTop, bodyHeight, pagging} = this.state,
-            len = data.length;
-
-        let startIndex = Math.floor(scrollTop / rowHeight), // 下取整
-            stopIndex = isAdaptiveHeight
-                ? startIndex + Math.ceil(bodyHeight / rowHeight) // 上取整
-                : startIndex + pagging.pageSize; // 默认显示的条数
-
-        // 缓冲
-        startIndex -= 6;
-        stopIndex += 6;
-
-        // 验证有效性
-        startIndex = startIndex < 0 ? 0 : startIndex;
-        stopIndex = stopIndex > len ? len : stopIndex;
-
-        return {
-            startIndex,
-            stopIndex
-        };
-
-    }
-
     paggingData(data) {
 
         const {pagging} = this.state,
@@ -171,30 +135,14 @@ export default class Table extends Component {
 
     }
 
-    resizeHandle() {
-        this.setState({
-            bodyHeight: this.refs.bodyTable.offsetHeight
-        });
-    }
-
     componentDidMount() {
-
-        this.resizeHandle();
-
-        Event.addEvent(window, 'resize', this.resizeHandle);
-
         // this.wdithHandle();
-
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.length !== this.props.data.length) {
             this.resetPage(nextProps.data);
         }
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandle);
     }
 
     // wdithHandle() {
@@ -226,14 +174,10 @@ export default class Table extends Component {
     render() {
 
         const {
-                className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect,
+                className, style, data, columns, hasLineNumber, isMultiSelect,
                 idProp, useBriefPagging
             } = this.props,
-            {scrollLeft, sort, pagging} = this.state,
-
-            headTableStyle = {
-                transform: `translateX(-${scrollLeft}px)`
-            };
+            {sort, pagging} = this.state;
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
@@ -262,106 +206,44 @@ export default class Table extends Component {
         }
 
         // 处理 data
-        const sortedData = this.sortData(_.cloneDeep(data));
-
-        let totalPage, finalData,
-            startIndex = 0, stopIndex, scrollerStyle, tableStyle;
-
-        if (isPagging) { // 分页
-
-            totalPage = Math.ceil(sortedData.length / pagging.pageSize);
-            finalData = this.paggingData(sortedData);
-
-        } else { // 非分页
-
-            scrollerStyle = {
-                height: sortedData.length * rowHeight
-            };
-
-            ({startIndex, stopIndex} = this.scrollIndex(sortedData));
-            finalData = sortedData.slice(startIndex, stopIndex);
-
-            tableStyle = {
-                height: finalData.length * rowHeight,
-                transform: `translate3d(0,${startIndex * rowHeight}px,0)`
-            };
-
-        }
-
-        const finalDataCount = finalData.length;
+        const sortedData = this.sortData(_.cloneDeep(data)),
+            totalPage = Math.ceil(sortedData.length / pagging.pageSize),
+            finalData = this.paggingData(sortedData),
+            finalDataCount = finalData.length;
 
         return (
-            <div className={`table-wrapper ${className}`}
-                 style={style}>
+            <table className={'table' + (className ? ' ' + className : '')}
+                   style={style}>
 
-                <div className="head-table">
-                    <table className="table">
+                <Thead columns={finalColumns}
+                       sort={sort}
+                       onSort={this.sortHandle}/>
 
-                        <Thead style={headTableStyle}
-                               columns={finalColumns}
-                               sort={sort}
-                               onSort={this.sortHandle}/>
+                {
+                    finalData && finalDataCount > 0
+                        ? <Tbody columns={finalColumns}
+                                 data={finalData}
+                                 idProp={idProp}/>
+                        : null
+                }
 
-                        {
-                            finalData && finalDataCount > 0
-                                ? <Tbody columns={finalColumns}
-                                         data={finalData}
-                                         startIndex={startIndex}
-                                         idProp={idProp}/>
-                                : null
-                        }
+                <Tfoot columns={finalColumns}>
+                    {
+                        useBriefPagging ?
+                            <BriefPagging page={pagging.page}
+                                          count={data.length}
+                                          total={totalPage}
+                                          pageSize={pagging.pageSize}
+                                          onChange={this.pageChangedHandle}/>
+                            :
+                            <Pagging page={pagging.page}
+                                     total={totalPage}
+                                     pageSize={pagging.pageSize}
+                                     onChange={this.pageChangedHandle}/>
+                    }
+                </Tfoot>
 
-                    </table>
-                </div>
-                <div ref="bodyTable"
-                     className="body-table"
-                     onScroll={this.tableScrollHandle}>
-                    <div className="body-table-scroller"
-                         style={isPagging ? null : scrollerStyle}>
-                        <table className="table"
-                               style={isPagging ? null : tableStyle}>
-
-                            <Thead columns={finalColumns}
-                                   sort={sort}
-                                   onSort={this.sortHandle}
-                                   hidden={true}/>
-
-                            {
-                                finalData && finalDataCount > 0
-                                    ? <Tbody columns={finalColumns}
-                                             data={finalData}
-                                             startIndex={startIndex}
-                                             idProp={idProp}/>
-                                    : null
-                            }
-
-                            {
-                                isPagging ?
-                                    (
-                                        <Tfoot columns={finalColumns}>
-                                            {
-                                                useBriefPagging ?
-                                                    <BriefPagging page={pagging.page}
-                                                                  count={data.length}
-                                                                  total={totalPage}
-                                                                  pageSize={pagging.pageSize}
-                                                                  onChange={this.pageChangedHandle}/>
-                                                    :
-                                                    <Pagging page={pagging.page}
-                                                             total={totalPage}
-                                                             pageSize={pagging.pageSize}
-                                                             onChange={this.pageChangedHandle}/>
-                                            }
-                                        </Tfoot>
-                                    )
-                                    : null
-                            }
-
-                        </table>
-                    </div>
-                </div>
-
-            </div>
+            </table>
         );
 
     }
@@ -385,19 +267,9 @@ Table.propTypes = {
     data: PropTypes.array.isRequired,
 
     /**
-     * If true,the paging will display.
-     */
-    isPagging: PropTypes.bool,
-
-    /**
      * Sorting method.
      */
     sortFunc: PropTypes.func,
-
-    /**
-     * The table row height.
-     */
-    rowHeight: PropTypes.number,
 
     /**
      * The function that trigger when step changes.
@@ -514,8 +386,6 @@ Table.defaultProps = {
 
     columns: [],
     data: [],
-    isPagging: false,
-    rowHeight: 90,
     isAdaptiveHeight: false,
     hasLineNumber: false,
     isMultiSelect: false,
