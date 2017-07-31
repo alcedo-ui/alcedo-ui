@@ -74,12 +74,17 @@ export default class DraggableListExamples extends Component {
             }]
         }];
 
-        this.changeHandle = this::this.changeHandle;
+        this.sequenceChangeHandler = this::this.sequenceChangeHandler;
+        this.valueChangeHandler = this::this.valueChangeHandler;
 
     }
 
-    changeHandle(value) {
-        console.log(value);
+    sequenceChangeHandler(value) {
+        console.log('Sequence Changed:', value);
+    }
+
+    valueChangeHandler(value) {
+        console.log('Value Changed:', value);
     }
 
     render() {
@@ -112,7 +117,8 @@ export default class DraggableListExamples extends Component {
                                     <DraggableList style={{width: 240}}
                                                    mode={DraggableList.Mode.CHECKBOX}
                                                    items={this.listData}
-                                                   onChange={this.changeHandle}/>
+                                                   onSequenceChange={this.sequenceChangeHandler}
+                                                   onValueChange={this.valueChangeHandler}/>
                                 </Paper>
 
                             </div>
@@ -140,7 +146,8 @@ export default class DraggableListExamples extends Component {
                                                    mode={DraggableList.Mode.CHECKBOX}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
-                                                   onChange={this.changeHandle}/>
+                                                   onSequenceChange={this.sequenceChangeHandler}
+                                                   onValueChange={this.valueChangeHandler}/>
                                 </Paper>
 
                             </div>

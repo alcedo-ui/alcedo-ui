@@ -201,8 +201,8 @@ export default class DraggableList extends Component {
         this.setState({
             items
         }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(items);
+            const {onSequenceChange} = this.props;
+            onSequenceChange && onSequenceChange(items);
         });
 
     }
@@ -238,8 +238,8 @@ export default class DraggableList extends Component {
         this.setState({
             items
         }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(items);
+            const {onSequenceChange} = this.props;
+            onSequenceChange && onSequenceChange(items);
         });
 
     }
@@ -269,8 +269,8 @@ export default class DraggableList extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value, index);
+            const {onValueChange} = this.props;
+            onValueChange && onValueChange(value, index);
         });
 
     }
@@ -298,8 +298,8 @@ export default class DraggableList extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value, index);
+            const {onValueChange} = this.props;
+            onValueChange && onValueChange(value, index);
         });
 
     }
@@ -492,9 +492,14 @@ DraggableList.propTypes = {
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when the list changed.
-     **/
-    onChange: PropTypes.func
+     *
+     */
+    onSequenceChange: PropTypes.func,
+
+    /**
+     *
+     */
+    onValueChange: PropTypes.func
 
 };
 

@@ -426,7 +426,7 @@ List.propTypes = {
 
     /**
      * Callback function fired when the list changed.
-     **/
+     */
     onChange: PropTypes.func
 
 };
