@@ -3,79 +3,81 @@ import PropTypes from 'prop-types';
 
 import TableCell from '../_TableCell';
 
-export default class Tbody extends Component {
+import './TableRow.css';
 
-	constructor(props) {
+export default class TableRow extends Component {
 
-		super(props);
+    constructor(props) {
 
-		this.contentRenderer = this::this.contentRenderer;
+        super(props);
 
-	}
+        this.contentRenderer = this::this.contentRenderer;
 
-	stringContentRenderer(data, template) {
+    }
 
-		if (!data) {
-			return template;
-		}
+    stringContentRenderer(data, template) {
 
-		if (/\$\{.+\}/.test(template)) { // 配置的 renderer 中包含 ${...}，用数据替换
-			let result = template;
-			for (let key in data) {
-				result = result.replace(new RegExp('\\$\\{' + key + '\\}', 'g'), data[key]);
-			}
-			return result;
-		} else { // 直接显示字段
-			return data[template];
-		}
+        if (!data) {
+            return template;
+        }
 
-	}
+        if (/\$\{.+\}/.test(template)) { // 配置的 renderer 中包含 ${...}，用数据替换
+            let result = template;
+            for (let key in data) {
+                result = result.replace(new RegExp('\\$\\{' + key + '\\}', 'g'), data[key]);
+            }
+            return result;
+        } else { // 直接显示字段
+            return data[template];
+        }
 
-	contentRenderer(renderer, colIndex) {
+    }
 
-		const {rowIndex, data} = this.props;
+    contentRenderer(renderer, colIndex) {
 
-		switch (typeof renderer) {
-			case 'string':
-				return this.stringContentRenderer(data, renderer);
-			case 'function':
-				return renderer(data, rowIndex, colIndex);
-			default:
-				return renderer;
-		}
+        const {rowIndex, data} = this.props;
 
-	}
+        switch (typeof renderer) {
+            case 'string':
+                return this.stringContentRenderer(data, renderer);
+            case 'function':
+                return renderer(data, rowIndex, colIndex);
+            default:
+                return renderer;
+        }
 
-	render() {
+    }
 
-		const {columns} = this.props;
+    render() {
 
-		return (
-			<tr>
+        const {columns} = this.props;
 
-				{
-					columns.map((col, colIndex) => {
-						return <TableCell key={colIndex}
-						                  className={col.cellClassName}
-						                  style={col.cellStyle}
-						                  data={this.contentRenderer(col.renderer, colIndex)}/>
-					})
-				}
+        return (
+            <tr className="table-row">
 
-			</tr>
-		);
+                {
+                    columns.map((col, colIndex) => {
+                        return <TableCell key={colIndex}
+                                          className={col.cellClassName}
+                                          style={col.cellStyle}
+                                          data={this.contentRenderer(col.renderer, colIndex)}/>;
+                    })
+                }
 
-	}
+            </tr>
+        );
+
+    }
 };
 
-Tbody.propTypes = {
-	rowIndex: PropTypes.number,
-	columns: PropTypes.array,
-	data: PropTypes.object
+TableRow.propTypes = {
+    rowIndex: PropTypes.number,
+    columns: PropTypes.array,
+    data: PropTypes.object
 };
 
-Tbody.defaultProps = {
-	rowIndex: 0,
-	columns: [],
-	data: {}
+TableRow.defaultProps = {
+    rowIndex: 0,
+    columns: [],
+    data: {}
 };

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import TableRow from '../_TableRow';
 
+import './Tbody.css';
+
 export default class Tbody extends Component {
 
     constructor(props) {
@@ -14,7 +16,7 @@ export default class Tbody extends Component {
         const {columns, data, startIndex, idProp} = this.props;
 
         return (
-            <tbody>
+            <tbody className="tbody">
 
                 {
                     data.map((row, rowIndex) => {
