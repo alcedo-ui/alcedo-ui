@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
-import Theme from '../Theme';
 
 import './Pagging.css';
 
@@ -48,7 +47,6 @@ export default class Pagging extends Component {
             <div className="pagging">
 
                 <PaggingSize pageSize={pageSize}
-                             triggerTheme={Theme.PRIMARY}
                              onPageSizeChange={this.pageSizeChangedHandle}/>
 
                 <PaggingPage page={page}

@@ -10,5 +10,13 @@
         margin-left: 10px;
         width: 80px;
         height: 40px;
+
+        .dropdown-select-trigger {
+            box-shadow: none;
+
+            &.activated {
+                @include shadow(4);
+            }
+        }
     }
 }

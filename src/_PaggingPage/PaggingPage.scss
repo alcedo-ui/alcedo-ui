@@ -3,32 +3,9 @@
 .pagging-page {
     float: right;
 
-    .raised-button {
-        background: $theme-menu;
-        color: transparentize(#fff, .1);
-        padding: 0;
-
-        &:hover {
-            background: lighten($theme-menu, 4%);
-            color: #fff;
-        }
-
-        &:active {
-            background: darken($theme-menu, 4%);
-            color: #fff;
-        }
-
-        &[disabled] {
-            background: lighten($theme-menu, 20%);
-
-            &.page {
-                color: $theme-highlight;
-                background: $theme-bg;
-            }
-        }
-    }
-
-    & > * {
+    .ctrl,
+    .page,
+    .apostrophe {
         float: left;
         margin-left: 10px;
 
@@ -39,7 +16,9 @@
 
     .ctrl {
         float: left;
-        width: 40px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
 
         .button-icon-left {
             margin: 0;
@@ -48,7 +27,7 @@
 
     .page {
         float: left;
-        width: 40px;
+        width: 30px;
         margin-left: 10px;
 
         &:first-child {
@@ -61,8 +40,8 @@
     }
 
     .apostrophe {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         line-height: 30px;
         text-align: center;
         float: left;
