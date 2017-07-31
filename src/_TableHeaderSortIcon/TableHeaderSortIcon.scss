@@ -21,4 +21,16 @@
             top: 20px;
         }
     }
+
+    &.asc {
+        .table-header-sort-icon.up {
+            color: $theme-text;
+        }
+    }
+
+    &.desc {
+        .table-header-sort-icon.down {
+            color: $theme-text;
+        }
+    }
 }

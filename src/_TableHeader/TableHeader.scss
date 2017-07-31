@@ -32,18 +32,10 @@
 
         &.asc {
             color: $theme-text;
-
-            .table-header-sort-icon.up {
-                color: $theme-text;
-            }
         }
 
         &.desc {
             color: $theme-text;
-
-            .table-header-sort-icon.down {
-                color: $theme-text;
-            }
         }
     }
 

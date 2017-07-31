@@ -11,14 +11,13 @@ export default class TableHeaderSortIcon extends Component {
 
     render() {
 
-        const {className, style, sort} = this.props;
+        const {sort} = this.props;
 
         return (
-            <div className={'table-header-sort-icon-wrapper'}
-                 style={style}>
-                <i className={`table-header-sort-icon fa fa-angle-up up ${sort ? (className ? className : '') : ''}`}
+            <div className={'table-header-sort-icon-wrapper' + (sort ? (sort.type > 0 ? ' asc' : ' desc') : '')}>
+                <i className={`table-header-sort-icon fa fa-angle-up up`}
                    aria-hidden="true"></i>
-                <i className={`table-header-sort-icon fa fa-angle-down down ${sort ? (className ? className : '') : ''}`}
+                <i className={`table-header-sort-icon fa fa-angle-down down`}
                    aria-hidden="true"></i>
             </div>
         );
@@ -27,19 +26,9 @@ export default class TableHeaderSortIcon extends Component {
 };
 
 TableHeaderSortIcon.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-
     sort: PropTypes.object
-
 };
 
 TableHeaderSortIcon.defaultProps = {
-
-    className: '',
-    style: null,
-
     sort: null
-
 };
