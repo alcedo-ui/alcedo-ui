@@ -2,4 +2,8 @@
 
 .tfoot {
     border-top: 1px solid $theme-bg;
+
+    td {
+        padding: 0;
+    }
 }
