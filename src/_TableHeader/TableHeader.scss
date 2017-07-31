@@ -5,7 +5,7 @@
     height: 30px;
     line-height: 30px;
     text-align: left;
-    padding: 15px 10px 14px;
+    padding: 15px 15px 14px;
     font-weight: normal;
     user-select: none;
     color: $theme-title;
@@ -13,13 +13,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border-left: 1px solid transparentize($theme-title-bg, .8);
 
     &:first-child {
-        padding-left: 30px;
-    }
-
-    &:last-child {
-        padding-right: 30px;
+        border-left: none;
     }
 
     &.sortable {

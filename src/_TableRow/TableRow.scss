@@ -8,19 +8,11 @@
         height: 29px;
         line-height: 29px;
         text-align: left;
-        padding: 15px 10px;
+        padding: 15px;
         transition: none;
         user-select: none;
         cursor: default;
         white-space: nowrap;
-
-        &:first-child {
-            padding-left: 30px;
-        }
-
-        &:last-child {
-            padding-right: 30px;
-        }
 
         &.actions {
             i {
