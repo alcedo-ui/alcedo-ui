@@ -244,7 +244,7 @@ export default class Table extends Component {
                 header() {
                     return <Checkbox className="table-checkbox"/>;
                 },
-                className: 'table-checkbox-td',
+                cellClassName: 'table-checkbox-td',
                 renderer() {
                     return <Checkbox className="table-checkbox"/>;
                 }
@@ -255,7 +255,7 @@ export default class Table extends Component {
         if (hasLineNumber) {
             finalColumns.unshift({
                 headerClassName: 'table-line-number-th',
-                className: 'table-line-number-td',
+                cellClassName: 'table-line-number-td',
                 renderer(rowData, rowIndex) {
                     return rowIndex + 1;
                 }
