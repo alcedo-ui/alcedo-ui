@@ -9,7 +9,6 @@ import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
-import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 
 import './Table.css';

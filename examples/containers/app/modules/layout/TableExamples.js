@@ -81,8 +81,7 @@ export default class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple <code>Table</code> example.Set <code>isPagging</code> property to true for
-                                pagination.</p>
+                            <p>A simple <code>Table</code> example.</p>
 
                             <Table columns={this.columns}
                                    isPagging={true}
@@ -100,8 +99,7 @@ export default class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple <code>Table</code> example.Set <code>isPagging</code> property to true for
-                                pagination.</p>
+                            <p>A simple <code>Table</code> example.</p>
 
                             <Table columns={this.columns}
                                    isPagging={true}
