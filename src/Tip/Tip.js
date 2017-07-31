@@ -7,6 +7,8 @@ import './Tip.css';
 
 export default class Tip extends Component {
 
+    static Position = TipBody.Position;
+
     constructor(props) {
 
         super(props);
@@ -54,6 +56,5 @@ export default class Tip extends Component {
 
 }
 
-Tip.Position = TipBody.Position;
 Tip.propTypes = TipBody.propTypes;
 Tip.defaultProps = TipBody.defaultProps;

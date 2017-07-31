@@ -7,6 +7,12 @@ import './CircularLoading.css';
 
 export default class CircularLoading extends Component {
 
+    static Size = {
+        DEFAULT: '',
+        SMALL: 'small',
+        LARGE: 'large'
+    };
+
     constructor(props) {
         super(props);
     }
@@ -47,12 +53,6 @@ export default class CircularLoading extends Component {
         );
 
     }
-};
-
-CircularLoading.Size = {
-    DEFAULT: '',
-    SMALL: 'small',
-    LARGE: 'large'
 };
 
 CircularLoading.propTypes = {

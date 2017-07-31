@@ -14,6 +14,31 @@ import './MenuBody.css';
 
 export default class MenuBody extends Component {
 
+    static Position = {
+
+        TOP_LEFT: 'top-left',
+        TOP: 'top',
+        TOP_RIGHT: 'top-right',
+
+        BOTTOM_LEFT: 'bottom-left',
+        BOTTOM: 'bottom',
+        BOTTOM_RIGHT: 'bottom-right',
+
+        LEFT_TOP: 'left-top',
+        LEFT: 'left',
+        LEFT_BOTTOM: 'left-bottom',
+
+        RIGHT_TOP: 'right-top',
+        RIGHT: 'right',
+        RIGHT_BOTTOM: 'right-bottom'
+
+    };
+
+    static TriggerMode = {
+        TOGGLE: 'toggle',
+        OPEN: 'open'
+    };
+
     constructor(props) {
 
         super(props);
@@ -268,31 +293,6 @@ export default class MenuBody extends Component {
         );
 
     }
-};
-
-MenuBody.Position = {
-
-    TOP_LEFT: 'top-left',
-    TOP: 'top',
-    TOP_RIGHT: 'top-right',
-
-    BOTTOM_LEFT: 'bottom-left',
-    BOTTOM: 'bottom',
-    BOTTOM_RIGHT: 'bottom-right',
-
-    LEFT_TOP: 'left-top',
-    LEFT: 'left',
-    LEFT_BOTTOM: 'left-bottom',
-
-    RIGHT_TOP: 'right-top',
-    RIGHT: 'right',
-    RIGHT_BOTTOM: 'right-bottom'
-
-};
-
-MenuBody.TriggerMode = {
-    TOGGLE: 'toggle',
-    OPEN: 'open'
 };
 
 MenuBody.propTypes = {

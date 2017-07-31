@@ -5,6 +5,9 @@ import PopupBody from '../_PopupBody';
 
 export default class Popup extends Component {
 
+    static Position = PopupBody.Position;
+    static TriggerMode = PopupBody.TriggerMode;
+
     constructor(props) {
 
         super(props);
@@ -52,7 +55,5 @@ export default class Popup extends Component {
 
 };
 
-Popup.Position = PopupBody.Position;
-Popup.TriggerMode = PopupBody.TriggerMode;
 Popup.propTypes = PopupBody.propTypes;
 Popup.defaultProps = PopupBody.defaultProps;

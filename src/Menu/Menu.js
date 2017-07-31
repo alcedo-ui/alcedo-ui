@@ -5,6 +5,9 @@ import MenuBody from '../_MenuBody';
 
 export default class Menu extends Component {
 
+    static Position = MenuBody.Position;
+    static TriggerMode = MenuBody.TriggerMode;
+
     constructor(props) {
 
         super(props);
@@ -52,7 +55,5 @@ export default class Menu extends Component {
 
 };
 
-Menu.Position = MenuBody.Position;
-Menu.TriggerMode = MenuBody.TriggerMode;
 Menu.propTypes = MenuBody.propTypes;
 Menu.defaultProps = MenuBody.defaultProps;

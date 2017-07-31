@@ -14,6 +14,8 @@ import './LocalAutoComplete.css';
 
 export default class LocalAutoComplete extends Component {
 
+    static Mode = List.Mode;
+
     constructor(props) {
 
         super(props);
@@ -303,8 +305,6 @@ export default class LocalAutoComplete extends Component {
     }
 
 };
-
-LocalAutoComplete.Mode = List.Mode;
 
 LocalAutoComplete.propTypes = {
 

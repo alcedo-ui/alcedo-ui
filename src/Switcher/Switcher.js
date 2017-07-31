@@ -9,6 +9,11 @@ import './Switcher.css';
 
 export default class Switcher extends Component {
 
+    static Size = {
+        DEFAULT: '',
+        SMALL: 'small'
+    };
+
     constructor(props) {
 
         super(props);
@@ -82,11 +87,6 @@ export default class Switcher extends Component {
         );
 
     }
-};
-
-Switcher.Size = {
-    DEFAULT: '',
-    SMALL: 'small'
 };
 
 Switcher.propTypes = {
