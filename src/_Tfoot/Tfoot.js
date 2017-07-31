@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import './Tfoot.css';
+
 export default class Tfoot extends Component {
 
     constructor(props) {
@@ -12,7 +14,7 @@ export default class Tfoot extends Component {
         const {className, style, columns, children} = this.props;
 
         return (
-            <tfoot className={className ? className : null}
+            <tfoot className={'tfoot' + (className ? ' ' + className : '')}
                    style={style}>
                 <tr>
                     <td colSpan={columns.length}>
