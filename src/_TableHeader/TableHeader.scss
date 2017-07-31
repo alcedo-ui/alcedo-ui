@@ -26,26 +26,6 @@
         cursor: pointer;
         padding-right: 30px;
 
-        .table-header-sort-icon {
-            position: absolute;
-            right: 30px;
-            display: block;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            color: lighten($theme-text, 45%);
-            transition: all $transition-duration ease-in-out;
-
-            &.up {
-                top: 10px;
-            }
-
-            &.down {
-                top: 20px;
-            }
-        }
-
         &:hover {
             color: $theme-text;
         }
