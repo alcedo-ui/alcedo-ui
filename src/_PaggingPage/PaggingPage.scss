@@ -7,17 +7,11 @@
     .page,
     .apostrophe {
         float: left;
-        margin-left: 10px;
-
-        &:first-child {
-            margin-left: 0;
-        }
+        padding: 0;
+        width: 40px;
     }
 
     .ctrl {
-        float: left;
-        width: 30px;
-        height: 30px;
         line-height: 30px;
 
         .button-icon-left {
@@ -25,23 +19,24 @@
         }
     }
 
-    .page {
+    .pages {
         float: left;
-        width: 30px;
-        margin-left: 10px;
 
-        &:first-child {
-            margin-left: 0;
-        }
+        .page {
+            margin-left: 10px;
+            border-radius: 20px;
 
-        &[disabled] {
-            cursor: default;
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &[disabled] {
+                cursor: default;
+            }
         }
     }
 
     .apostrophe {
-        width: 30px;
-        height: 30px;
         line-height: 30px;
         text-align: center;
         float: left;
