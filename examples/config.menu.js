@@ -134,6 +134,12 @@ export default [{
         route: '/components/Waterfall'
     }]
 }, {
+    text: 'Draggable',
+    children: [{
+        text: 'DraggableList',
+        route: '/components/DraggableList'
+    }]
+}, {
     text: 'Stepper',
     children: [{
         text: 'ArrowStep',

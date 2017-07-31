@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import Paper from 'dist/Paper';
 import List from 'dist/List';
-import DraggableList from 'dist/DraggableList';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 
@@ -265,60 +264,6 @@ export default class ListExamples extends Component {
                                           isGrouped={true}
                                           items={this.groupedListData}
                                           onChange={this.changeHandle}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Draggable"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>Draggable List</code>.
-                                </p>
-
-                                <Paper style={{width: 240}}>
-                                    <DraggableList style={{width: 240}}
-                                                   items={this.listData}
-                                                   onChange={this.changeHandle}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Draggable Group"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>Draggable List</code>.
-                                </p>
-
-                                <Paper style={{width: 240}}>
-                                    <DraggableList style={{width: 240}}
-                                                   mode={List.Mode.CHECKBOX}
-                                                   isGrouped={true}
-                                                   items={this.groupedListData}
-                                                   onChange={this.changeHandle}/>
                                 </Paper>
 
                             </div>

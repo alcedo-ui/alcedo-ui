@@ -144,6 +144,12 @@ export default class DraggableListItem extends Component {
     }
 };
 
+DraggableListItem.Mode = {
+    NORMAL: 'normal',
+    CHECKBOX: 'checkbox',
+    RADIO: 'radio'
+};
+
 DraggableListItem.propTypes = {
 
     connectDragSource: PropTypes.func,
