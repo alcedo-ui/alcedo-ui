@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TableCell from '../_TableCell';
-
 import './TableRow.css';
 
 export default class TableRow extends Component {
@@ -56,12 +54,13 @@ export default class TableRow extends Component {
             <tr className="table-row">
 
                 {
-                    columns.map((col, colIndex) => {
-                        return <TableCell key={colIndex}
-                                          className={col.cellClassName}
-                                          style={col.cellStyle}
-                                          data={this.contentRenderer(col.renderer, colIndex)}/>;
-                    })
+                    columns.map((col, colIndex) =>
+                        <td key={colIndex}
+                            className={col.cellClassName}
+                            style={col.cellStyle}>
+                            {this.contentRenderer(col.renderer, colIndex)}
+                        </td>
+                    )
                 }
 
             </tr>
