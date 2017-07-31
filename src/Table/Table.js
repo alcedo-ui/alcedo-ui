@@ -46,7 +46,6 @@ export default class Table extends Component {
         this.sortHandle = this::this.sortHandle;
         this.sortData = this::this.sortData;
         this.tableScrollHandle = this::this.tableScrollHandle;
-        // this.debounceTableScrollHandle = _.debounce(this::this.debounceTableScrollHandle, 150);
         this.scrollIndex = this::this.scrollIndex;
         this.paggingData = this::this.paggingData;
         this.pageChangedHandle = this::this.pageChangedHandle;
@@ -100,22 +99,11 @@ export default class Table extends Component {
     }
 
     tableScrollHandle(e) {
-        // e.persist();
-        // this.debounceTableScrollHandle(e);
         !this.props.isPagging && this.setState({
             scrollTop: e.target.scrollTop,
             scrollLeft: e.target.scrollLeft
         });
     }
-
-    /**
-     * 滚动去抖
-     */
-    // debounceTableScrollHandle(e) {
-    //     !this.props.isPagging && this.setState({
-    //         scrollTop: e.target.scrollTop
-    //     });
-    // }
 
     scrollIndex(data) {
 
@@ -235,7 +223,6 @@ export default class Table extends Component {
     //
     // }
 
-
     render() {
 
         const {
@@ -250,7 +237,6 @@ export default class Table extends Component {
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
-
 
         if (isMultiSelect) {
             finalColumns.unshift({
@@ -338,7 +324,8 @@ export default class Table extends Component {
 
                             <Thead columns={finalColumns}
                                    sort={sort}
-                                   onSort={this.sortHandle}/>
+                                   onSort={this.sortHandle}
+                                   hidden={true}/>
 
                             {
                                 finalData && finalDataCount > 0

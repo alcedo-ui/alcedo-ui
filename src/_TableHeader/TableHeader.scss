@@ -1,0 +1,85 @@
+@import '../_common.scss';
+
+.table-header {
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    padding: 15px 15px 14px;
+    font-weight: normal;
+    user-select: none;
+    color: $theme-title;
+    cursor: default;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:first-child {
+        padding-left: 30px;
+    }
+
+    &:last-child {
+        padding-right: 30px;
+    }
+
+    &.sortable {
+        cursor: pointer;
+        padding-right: 30px;
+
+        .table-header-sort-icon {
+            position: absolute;
+            right: 30px;
+            display: block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: lighten($theme-text, 45%);
+            transition: all $transition-duration ease-in-out;
+
+            &.up {
+                top: 10px;
+            }
+
+            &.down {
+                top: 20px;
+            }
+        }
+
+        &:hover {
+            color: $theme-text;
+        }
+
+        &.asc {
+            color: $theme-text;
+
+            .table-header-sort-icon.up {
+                color: $theme-text;
+            }
+        }
+
+        &.desc {
+            color: $theme-text;
+
+            .table-header-sort-icon.down {
+                color: $theme-text;
+            }
+        }
+    }
+
+    &.hidden {
+        height: 0;
+        line-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: hidden;
+
+        .sort-icon {
+            display: none;
+        }
+
+        & > * {
+            display: none;
+        }
+    }
+}

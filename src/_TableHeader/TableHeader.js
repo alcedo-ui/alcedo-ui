@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
+import './TableHeader.css';
+
 export default class TableHeader extends Component {
 
     constructor(props) {
@@ -34,11 +36,11 @@ export default class TableHeader extends Component {
 
     render() {
 
-        const {className, style, header, sortable, sort} = this.props,
+        const {className, style, header, sortable, sort, hidden} = this.props,
             finalHeader = this.headerRenderer();
 
         return (
-            <th className={className}
+            <th className={'table-header' + (hidden ? ' hidden' : '') + (className ? ' ' + className : '')}
                 style={style}
                 title={typeof header === 'string' ? header : null}
                 onClick={this.clickHandle}>
@@ -67,6 +69,7 @@ TableHeader.propTypes = {
     colIndex: PropTypes.number,
     sortable: PropTypes.bool,
     sort: PropTypes.object,
+    hidden: PropTypes.bool,
 
     onSort: PropTypes.func
 
@@ -80,6 +83,7 @@ TableHeader.defaultProps = {
     header: '',
     colIndex: 0,
     sortable: false,
-    sort: null
+    sort: null,
+    hidden: false
 
 };
