@@ -9,6 +9,8 @@
         float: left;
         padding: 0;
         width: 40px;
+        margin-left: -5px;
+        margin-right: -5px;
     }
 
     .ctrl {
@@ -23,8 +25,11 @@
         float: left;
 
         .page {
-            margin-left: 10px;
             border-radius: 20px;
+
+            &:hover {
+                background: transparent;
+            }
 
             &:first-child {
                 margin-left: 0;
@@ -37,7 +42,6 @@
     }
 
     .apostrophe {
-        line-height: 30px;
         text-align: center;
         float: left;
         margin-right: -10px;

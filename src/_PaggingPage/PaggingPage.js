@@ -43,7 +43,7 @@ export default class PaggingPage extends Component {
                     {
                         this.getArray(total).map((value, index) => {
                             return (
-                                <FlatButton key={index}
+                                <IconButton key={index}
                                             className="page"
                                             value={value}
                                             disabled={index == page}
@@ -58,32 +58,32 @@ export default class PaggingPage extends Component {
             if (page < 3) {
                 pages =
                     <div className="pages">
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value="1"
                                     disabled={page == 0}
                                     onTouchTap={() => {
                                         this.jump(0);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value="2"
                                     disabled={page == 1}
                                     onTouchTap={() => {
                                         this.jump(1);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value="3"
                                     disabled={page == 2}
                                     onTouchTap={() => {
                                         this.jump(2);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value="4"
                                     disabled={page == 3}
                                     onTouchTap={() => {
                                         this.jump(3);
                                     }}/>
                         <div className="apostrophe">...</div>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={total}
                                     onTouchTap={() => {
                                         this.jump(total - 1);
@@ -92,31 +92,31 @@ export default class PaggingPage extends Component {
             } else if (page > total - 3) {
                 pages =
                     <div className="pages">
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value="1"
                                     onTouchTap={() => {
                                         this.jump(0);
                                     }}/>
                         <div className="apostrophe">...</div>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={total - 3}
                                     disabled={page == total - 4}
                                     onTouchTap={() => {
                                         this.jump(total - 4);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={total - 2}
                                     disabled={page == total - 3}
                                     onTouchTap={() => {
                                         this.jump(total - 3);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={total - 1}
                                     disabled={page == total - 2}
                                     onTouchTap={() => {
                                         this.jump(total - 2);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={total}
                                     disabled={page == total - 1}
                                     onTouchTap={() => {
@@ -126,28 +126,28 @@ export default class PaggingPage extends Component {
             } else {
                 pages =
                     <div className="pages">
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value="1"
                                     onTouchTap={this.jump.bind(this, 0)}/>
                         <div className="apostrophe">...</div>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={page}
                                     onTouchTap={() => {
                                         this.jump(page - 1);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={page + 1}
                                     disabled={true}
                                     onTouchTap={() => {
                                         this.jump(page);
                                     }}/>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={page + 2}
                                     onTouchTap={() => {
                                         this.jump(page + 1);
                                     }}/>
                         <div className="apostrophe">...</div>
-                        <FlatButton className="page"
+                        <IconButton className="page"
                                     value={total}
                                     onTouchTap={() => {
                                         this.jump(total - 1);
