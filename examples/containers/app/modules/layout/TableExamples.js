@@ -126,7 +126,7 @@ export default class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    isPagging={true}
-                                   isMultiSelect={true}
+                                   mode={Table.Mode.CHECKBOX}
                                    data={data}
                                    useBriefPagging={false}/>
 

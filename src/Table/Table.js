@@ -51,7 +51,10 @@ export default class Table extends Component {
 
         };
 
-        this.isChecked = this::this.isChecked;
+        this.isHeadChecked = this::this.isHeadChecked;
+        this.isItemChecked = this::this.isItemChecked;
+        this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
+        this.itemCheckBoxChangeHandler = this::this.itemCheckBoxChangeHandler;
         this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
         this.paggingData = this::this.paggingData;
@@ -61,8 +64,55 @@ export default class Table extends Component {
 
     }
 
-    isChecked(rowData) {
-        return false;
+    isHeadChecked() {
+
+        const {data} = this.props,
+            {value} = this.state;
+
+        if (!value || !data) {
+            return false;
+        }
+
+        return value.length === data.length;
+
+    }
+
+    isItemChecked(rowData) {
+
+        const {value} = this.state;
+
+        if (!rowData || !value || value.length < 1) {
+            return false;
+        }
+
+        return value.indexOf(rowData) !== -1;
+
+    }
+
+    headCheckBoxChangeHandler(checked) {
+        this.setState({
+            value: checked ? this.props.data.slice() : []
+        });
+    }
+
+    itemCheckBoxChangeHandler(checked, rowData) {
+
+        const {value} = this.state;
+
+        if (!rowData || !value || value.length < 1) {
+            return;
+        }
+
+        if (checked) {
+            value.push(rowData);
+        } else {
+            value.splice(value.indexOf(rowData), 1);
+        }
+
+        this.setState({
+            value
+        });
+
     }
 
     sortHandler(prop) {
@@ -198,7 +248,8 @@ export default class Table extends Component {
                 className, style, data, columns, hasLineNumber, mode,
                 idProp, useBriefPagging
             } = this.props,
-            {sort, pagging} = this.state;
+            {sort, pagging} = this.state,
+            self = this;
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
@@ -207,12 +258,17 @@ export default class Table extends Component {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
                 header() {
-                    return <Checkbox className="table-checkbox"/>;
+                    return <Checkbox className="table-checkbox"
+                                     value={self.isHeadChecked()}
+                                     onChange={self.headCheckBoxChangeHandler}/>;
                 },
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={this.isChecked(rowData)}/>;
+                                     value={self.isItemChecked(rowData)}
+                                     onChange={(checked) => {
+                                         self.itemCheckBoxChangeHandler(checked, rowData);
+                                     }}/>;
                 }
             });
         } else if (mode === Table.Mode.RADIO) {
