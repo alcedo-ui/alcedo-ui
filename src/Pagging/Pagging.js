@@ -57,21 +57,21 @@ export default class Pagging extends Component {
                             null
                     }
 
-                    {
-                        pageSizeVisible ?
-                            <div className="brief-pagging-totle">
-                                {`Total: ${count}`}
-                            </div>
-                            :
-                            null
-                    }
+                    <div className="brief-pagging-totle">
+                        {`Total: ${count}`}
+                    </div>
 
                 </div>
 
                 <div className="pagging-right">
 
-                    <PaggingSize pageSize={pageSize}
-                                 onPageSizeChange={this.pageSizeChangedHandle}/>
+                    {
+                        pageSizeVisible ?
+                            <PaggingSize pageSize={pageSize}
+                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                            :
+                            null
+                    }
 
                     <PaggingPage page={page}
                                  total={total}

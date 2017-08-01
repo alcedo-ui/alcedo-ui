@@ -61,21 +61,21 @@ export default class BriefPagging extends Component {
                             null
                     }
 
-                    {
-                        pageSizeVisible ?
-                            <div className="brief-pagging-totle">
-                                {`Total: ${count}`}
-                            </div>
-                            :
-                            null
-                    }
+                    <div className="brief-pagging-totle">
+                        {`Total: ${count}`}
+                    </div>
 
                 </div>
 
                 <div className="brief-pagging-right">
 
-                    <PaggingSize pageSize={pageSize}
-                                 onPageSizeChange={this.pageSizeChangedHandle}/>
+                    {
+                        pageSizeVisible ?
+                            <PaggingSize pageSize={pageSize}
+                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                            :
+                            null
+                    }
 
                     <div className="brief-pagging-info">
                         {`${startNumber}-${stopNumber} of ${count}`}

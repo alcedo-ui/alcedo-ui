@@ -127,7 +127,8 @@ export default class TableExamples extends Component {
                             <Table columns={this.columns}
                                    isPagging={true}
                                    mode={Table.Mode.CHECKBOX}
-                                   data={data}/>
+                                   data={data}
+                                   paggingSelectedCountVisible={true}/>
 
                         </div>
                     </div>
