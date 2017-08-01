@@ -309,7 +309,6 @@ Table.propTypes = {
         // 表头显示
         // (1) 字符串，例如： 'id'
         // (2) 回调函数，例如：function (colIndex) {return colIndex;}
-
         /**
          * The render content in header.
          */
