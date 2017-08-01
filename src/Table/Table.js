@@ -9,11 +9,18 @@ import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
+import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
 import './Table.css';
 
 export default class Table extends Component {
+
+    static Mode = {
+        NORMAL: 'normal',
+        CHECKBOX: 'checkbox',
+        RADIO: 'radio'
+    };
 
     constructor(props) {
 
@@ -38,20 +45,27 @@ export default class Table extends Component {
             pagging: {
                 pageSize: 10,
                 page: 0
-            }
+            },
+
+            value: props.value
 
         };
 
-        this.sortHandle = this::this.sortHandle;
+        this.isChecked = this::this.isChecked;
+        this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
         this.paggingData = this::this.paggingData;
-        this.pageChangedHandle = this::this.pageChangedHandle;
+        this.pageChangedHandler = this::this.pageChangedHandler;
         this.resetPage = this::this.resetPage;
         // this.wdithHandle = this::this.wdithHandle;
 
     }
 
-    sortHandle(prop) {
+    isChecked(rowData) {
+        return false;
+    }
+
+    sortHandler(prop) {
 
         const {sort} = this.state;
         let type = 1;
@@ -110,7 +124,7 @@ export default class Table extends Component {
 
     }
 
-    pageChangedHandle(pagging) {
+    pageChangedHandler(pagging) {
         this.setState({
             pagging
         }, () => {
@@ -139,9 +153,17 @@ export default class Table extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.data.length !== this.props.data.length) {
             this.resetPage(nextProps.data);
         }
+
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
+
     }
 
     // wdithHandle() {
@@ -173,7 +195,7 @@ export default class Table extends Component {
     render() {
 
         const {
-                className, style, data, columns, hasLineNumber, isMultiSelect,
+                className, style, data, columns, hasLineNumber, mode,
                 idProp, useBriefPagging
             } = this.props,
             {sort, pagging} = this.state;
@@ -181,13 +203,21 @@ export default class Table extends Component {
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
 
-        if (isMultiSelect) {
+        if (mode === Table.Mode.CHECKBOX) {
             finalColumns.unshift({
-                headerClassName: 'table-checkbox-th',
+                headerClassName: 'table-select-th',
                 header() {
                     return <Checkbox className="table-checkbox"/>;
                 },
-                cellClassName: 'table-checkbox-td',
+                cellClassName: 'table-select-td',
+                renderer(rowData) {
+                    return <Checkbox className="table-checkbox"
+                                     value={this.isChecked(rowData)}/>;
+                }
+            });
+        } else if (mode === Table.Mode.RADIO) {
+            finalColumns.unshift({
+                cellClassName: 'table-select-td',
                 renderer() {
                     return <Checkbox className="table-checkbox"/>;
                 }
@@ -216,7 +246,7 @@ export default class Table extends Component {
 
                 <Thead columns={finalColumns}
                        sort={sort}
-                       onSort={this.sortHandle}/>
+                       onSort={this.sortHandler}/>
 
                 {
                     finalData && finalDataCount > 0
@@ -233,12 +263,12 @@ export default class Table extends Component {
                                           count={data.length}
                                           total={totalPage}
                                           pageSize={pagging.pageSize}
-                                          onChange={this.pageChangedHandle}/>
+                                          onChange={this.pageChangedHandler}/>
                             :
                             <Pagging page={pagging.page}
                                      total={totalPage}
                                      pageSize={pagging.pageSize}
-                                     onChange={this.pageChangedHandle}/>
+                                     onChange={this.pageChangedHandler}/>
                     }
                 </Tfoot>
 
@@ -279,11 +309,6 @@ Table.propTypes = {
      *  Whether need line number.
      */
     hasLineNumber: PropTypes.bool,
-
-    /**
-     * Whether have multiple choose.
-     */
-    isMultiSelect: PropTypes.bool,
 
     /**
      * The function that trigger when show rows changes.
@@ -351,6 +376,11 @@ Table.propTypes = {
     /**
      *
      */
+    mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
+
+    /**
+     *
+     */
     idProp: PropTypes.string,
 
     /**
@@ -386,7 +416,8 @@ Table.defaultProps = {
     data: [],
     isAdaptiveHeight: false,
     hasLineNumber: false,
-    isMultiSelect: false,
+
+    mode: Table.Mode.NORMAL,
     idProp: 'id',
     useBriefPagging: true,
     sortInitConfig: null

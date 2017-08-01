@@ -1,68 +1,46 @@
 @import '../_common.scss';
 
-//.table-wrapper {
-//    position: relative;
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: $theme-field;
 
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        background: $theme-field;
+    .table-line-number-th,
+    .table-line-number-td {
+        width: 1px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        background: #fbfbfb;
+        text-align: right;
+    }
 
-        .table-line-number-th,
-        .table-line-number-td {
-            width: 1px;
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-            background: #fbfbfb;
-            text-align: right;
-        }
+    .table-select-th,
+    .table-select-td {
+        width: 30px;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
 
-        .table-checkbox-th,
-        .table-checkbox-td {
+        .table-checkbox {
             width: 30px;
-            padding-left: 5px !important;
-            padding-right: 5px !important;
+            height: 30px;
 
-            .table-checkbox {
+            .checkbox-icon-wrapper {
                 width: 30px;
                 height: 30px;
 
-                .checkbox-icon-wrapper {
+                .checkbox-bg-icon,
+                .checkbox-icon {
                     width: 30px;
                     height: 30px;
-
-                    .checkbox-bg-icon,
-                    .checkbox-icon {
-                        width: 30px;
-                        height: 30px;
-                        line-height: 30px;
-                    }
-                }
-
-                .checkbox-label {
-                    display: none;
+                    line-height: 30px;
                 }
             }
-        }
 
+            .checkbox-label {
+                display: none;
+            }
+        }
     }
 
-    //.head-table {
-    //    width: 100%;
-    //    height: 60px;
-    //    overflow: hidden;
-    //}
-    //
-    //.body-table {
-    //    height: calc(100% - 60px);
-    //    overflow: auto;
-    //
-    //    .body-table-scroller {
-    //        .table {
-    //            height: 100%;
-    //        }
-    //    }
-    //
-    //}
-//}
+}
