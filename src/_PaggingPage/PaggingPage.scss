@@ -1,7 +1,8 @@
 @import '../_common.scss';
 
 .pagging-page {
-    float: right;
+    @include float-fix;
+    float: left;
 
     .ctrl,
     .page,

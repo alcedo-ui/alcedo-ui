@@ -1,6 +1,8 @@
 @import '../_common.scss';
 
 .pagging-size {
+    @include float-fix;
+    float: left;
 
     & > * {
         float: left;

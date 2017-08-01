@@ -10,6 +10,11 @@
     .brief-pagging-left {
         float: left;
         line-height: 40px;
+
+        .brief-pagging-selected,
+        .brief-pagging-totle {
+            float: left;
+        }
     }
 
     .brief-pagging-right {

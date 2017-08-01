@@ -256,9 +256,9 @@ export default class Table extends Component {
 
         const {
                 className, style, data, columns, hasLineNumber, mode,
-                idProp, useBriefPagging
+                idProp, paggingVisible, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
             } = this.props,
-            {sort, pagging} = this.state,
+            {value, sort, pagging} = this.state,
             self = this;
 
         // 处理 columns
@@ -322,21 +322,33 @@ export default class Table extends Component {
                         : null
                 }
 
-                <Tfoot columns={finalColumns}>
-                    {
-                        useBriefPagging ?
-                            <BriefPagging page={pagging.page}
-                                          count={data.length}
-                                          total={totalPage}
-                                          pageSize={pagging.pageSize}
-                                          onChange={this.pageChangedHandler}/>
-                            :
-                            <Pagging page={pagging.page}
-                                     total={totalPage}
-                                     pageSize={pagging.pageSize}
-                                     onChange={this.pageChangedHandler}/>
-                    }
-                </Tfoot>
+                {
+                    paggingVisible ?
+                        <Tfoot columns={finalColumns}>
+                            {
+                                useFullPagging ?
+                                    <Pagging page={pagging.page}
+                                             count={data.length}
+                                             selectedCount={value.length}
+                                             total={totalPage}
+                                             pageSize={pagging.pageSize}
+                                             selectedCountVisible={paggingSelectedCountVisible}
+                                             pageSizeVisible={paggingPageSizeVisible}
+                                             onChange={this.pageChangedHandler}/>
+                                    :
+                                    <BriefPagging page={pagging.page}
+                                                  count={data.length}
+                                                  selectedCount={value.length}
+                                                  total={totalPage}
+                                                  pageSize={pagging.pageSize}
+                                                  selectedCountVisible={paggingSelectedCountVisible}
+                                                  pageSizeVisible={paggingPageSizeVisible}
+                                                  onChange={this.pageChangedHandler}/>
+                            }
+                        </Tfoot>
+                        :
+                        null
+                }
 
             </table>
         );
@@ -457,7 +469,22 @@ Table.propTypes = {
     /**
      * If true,the table will use BriefPagging component.
      */
-    useBriefPagging: PropTypes.bool,
+    useFullPagging: PropTypes.bool,
+
+    /**
+     *
+     */
+    paggingVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    paggingSelectedCountVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    paggingPageSizeVisible: PropTypes.bool,
 
     /**
      * Sort init config.
@@ -496,7 +523,11 @@ Table.defaultProps = {
 
     mode: Table.Mode.NORMAL,
     idProp: 'id',
-    useBriefPagging: true,
+    paggingVisible: true,
+    useFullPagging: false,
+    paggingSelectedCountVisible: false,
+    paggingPageSizeVisible: true,
+
     sortInitConfig: null
 
 };
