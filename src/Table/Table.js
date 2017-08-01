@@ -85,32 +85,42 @@ export default class Table extends Component {
             return false;
         }
 
-        return value.indexOf(rowData) !== -1;
+        return value.findIndex(item => item == rowData) !== -1;
 
     }
 
     headCheckBoxChangeHandler(checked) {
+
+        const value = checked ? this.props.data.slice() : [];
+
         this.setState({
-            value: checked ? this.props.data.slice() : []
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
         });
+
     }
 
     itemCheckBoxChangeHandler(checked, rowData) {
 
         const {value} = this.state;
 
-        if (!rowData || !value || value.length < 1) {
+        if (!rowData) {
             return;
         }
 
         if (checked) {
             value.push(rowData);
-        } else {
+        } else if (value.length > 0) {
             value.splice(value.indexOf(rowData), 1);
         }
 
         this.setState({
             value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
         });
 
     }
@@ -291,7 +301,7 @@ export default class Table extends Component {
         }
 
         // 处理 data
-        const sortedData = this.sortData(_.cloneDeep(data)),
+        const sortedData = this.sortData(data),
             totalPage = Math.ceil(sortedData.length / pagging.pageSize),
             finalData = this.paggingData(sortedData),
             finalDataCount = finalData.length;
@@ -350,6 +360,11 @@ Table.propTypes = {
      * The table list data.
      */
     data: PropTypes.array.isRequired,
+
+    /**
+     *
+     */
+    value: PropTypes.array,
 
     /**
      * Sorting method.
@@ -459,7 +474,12 @@ Table.propTypes = {
          */
         type: PropTypes.oneOf([1, -1])
 
-    })
+    }),
+
+    /**
+     *
+     */
+    onChange: PropTypes.func
 
 };
 
@@ -470,6 +490,7 @@ Table.defaultProps = {
 
     columns: [],
     data: [],
+    value: [],
     isAdaptiveHeight: false,
     hasLineNumber: false,
 
