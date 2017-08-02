@@ -55,8 +55,8 @@ export default class Table extends Component {
         this.initValue = this::this.initValue;
         this.isHeadChecked = this::this.isHeadChecked;
         this.isItemChecked = this::this.isItemChecked;
-        this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
-        this.itemCheckBoxChangeHandler = this::this.itemCheckBoxChangeHandler;
+        this.itemCheckboxChangeHandler = this::this.itemCheckboxChangeHandler;
+        this.itemRadioChangeHandler = this::this.itemRadioChangeHandler;
         this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
         this.rowTouchTapHandler = this::this.rowTouchTapHandler;
@@ -109,13 +109,19 @@ export default class Table extends Component {
 
     isItemChecked(rowData) {
 
-        const {value} = this.state;
+        const {mode} = this.props,
+            {value} = this.state;
 
-        if (!rowData || !value || value.length < 1) {
+        if (mode === Table.Mode.NORMAL || !rowData || !value) {
             return false;
         }
 
-        return value.findIndex(item => item == rowData) !== -1;
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                return value.findIndex(item => item == rowData) !== -1;
+            case Table.Mode.RADIO:
+                return value == rowData;
+        }
 
     }
 
@@ -128,30 +134,6 @@ export default class Table extends Component {
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
-        });
-
-    }
-
-    itemCheckBoxChangeHandler(checked, rowData, callback) {
-
-        const {value} = this.state;
-
-        if (!rowData) {
-            return;
-        }
-
-        if (checked) {
-            value.push(rowData);
-        } else if (value.length > 0) {
-            value.splice(value.indexOf(rowData), 1);
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-            callback && callback();
         });
 
     }
@@ -199,20 +181,85 @@ export default class Table extends Component {
 
     }
 
-    rowTouchTapHandler(rowData, rowIndex) {
+    itemCheckboxChangeHandler(rowData, rowIndex) {
 
-        const {mode} = this.props,
-            callback = () => {
-                const {onRowTouchTap} = this.props;
-                onRowTouchTap && onRowTouchTap(rowData, rowIndex);
-            };
-
-        if (mode === Table.Mode.NORMAL) {
-            callback();
+        if (!rowData) {
             return;
         }
 
-        this.itemCheckBoxChangeHandler(!this.isItemChecked(rowData), rowData, callback);
+        const {value} = this.state,
+            checked = !this.isItemChecked(rowData);
+
+        if (checked) {
+            value.push(rowData);
+        } else if (value.length > 0) {
+            value.splice(value.indexOf(rowData), 1);
+        }
+
+        this.setState({
+            value
+        }, () => {
+
+            const {onChange, onSelect, onDeselect} = this.props;
+
+            if (checked) {
+                onSelect && onSelect([rowData]);
+            } else {
+                onDeselect && onDeselect([rowData]);
+            }
+
+            onChange && onChange(value, rowIndex);
+
+        });
+
+    }
+
+    itemRadioChangeHandler(rowData, rowIndex) {
+
+        if (!rowData) {
+            return;
+        }
+
+        const checked = !this.isItemChecked(rowData),
+            value = checked ? rowData : null;
+
+        this.setState({
+            value
+        }, () => {
+
+            const {onChange, onSelect, onDeselect} = this.props;
+
+            if (checked) {
+                onSelect && onSelect(rowData);
+            } else {
+                onDeselect && onDeselect(rowData);
+            }
+
+            onChange && onChange(value, rowIndex);
+
+        });
+
+    }
+
+    rowTouchTapHandler(rowData, rowIndex) {
+
+        if (!rowData) {
+            return;
+        }
+
+        const {onRowTouchTap} = this.props;
+        onRowTouchTap && onRowTouchTap(rowData, rowIndex);
+
+        const {mode} = this.props;
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                this.itemCheckboxChangeHandler(rowData, rowIndex);
+                return;
+            case Table.Mode.RADIO:
+                this.itemRadioChangeHandler(rowData, rowIndex);
+                return;
+        }
 
     }
 
@@ -552,6 +599,16 @@ Table.propTypes = {
         type: PropTypes.oneOf([1, -1])
 
     }),
+
+    /**
+     *
+     */
+    onSelect: PropTypes.func,
+
+    /**
+     *
+     */
+    onDeselect: PropTypes.func,
 
     /**
      *
