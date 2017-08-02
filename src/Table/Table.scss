@@ -20,6 +20,7 @@
         width: 30px;
         padding-left: 5px !important;
         padding-right: 5px !important;
+        text-align: center;
 
         .table-checkbox {
             width: 30px;
@@ -31,6 +32,14 @@
 
             .checkbox-label {
                 display: none;
+            }
+        }
+
+        .table-radio {
+            color: lighten($theme-text, 45%);
+
+            &.activated {
+                color: $theme-highlight;
             }
         }
     }

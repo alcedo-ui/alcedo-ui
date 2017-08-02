@@ -13,7 +13,10 @@ export default class Tbody extends Component {
 
     render() {
 
-        const {columns, data, startIndex, idProp} = this.props;
+        const {
+            columns, data, startIndex, idProp,
+            onRowTouchTap, onCellTouchTap
+        } = this.props;
 
         return (
             <tbody className="tbody">
@@ -24,7 +27,9 @@ export default class Tbody extends Component {
                             <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
                                       rowIndex={startIndex + rowIndex}
                                       columns={columns}
-                                      data={row}/>
+                                      data={row}
+                                      onRowTouchTap={onRowTouchTap}
+                                      onCellTouchTap={onCellTouchTap}/>
                         );
                     })
                 }
@@ -36,10 +41,15 @@ export default class Tbody extends Component {
 };
 
 Tbody.propTypes = {
+
     columns: PropTypes.array,
     data: PropTypes.array,
     startIndex: PropTypes.number,
-    idProp: PropTypes.string
+    idProp: PropTypes.string,
+
+    onRowTouchTap: PropTypes.func,
+    onCellTouchTap: PropTypes.func
+
 };
 
 Tbody.defaultProps = {

@@ -32,7 +32,10 @@ export default class TableExamples extends Component {
             header: 'Status',
             renderer(rowDate) {
                 return <Switcher value={!rowDate.disabled}
-                                 size="small"/>;
+                                 size="small"
+                                 onTouchTap={(e) => {
+                                     e.stopPropagation();
+                                 }}/>;
             },
             flex: 2
         }];
@@ -50,8 +53,7 @@ export default class TableExamples extends Component {
             data.push({
                 id: i,
                 firstName: `firstName${i}`,
-                lastName: `lastName${i}`,
-                disabled: true
+                lastName: `lastName${i}`
             });
         }
 
@@ -104,6 +106,7 @@ export default class TableExamples extends Component {
                             <Table columns={this.columns}
                                    isPagging={true}
                                    data={data}
+                                   mode={Table.Mode.RADIO}
                                    sortInitConfig={{
                                        prop: 'id',
                                        type: -1

@@ -57,6 +57,7 @@ export default class Table extends Component {
         this.itemCheckBoxChangeHandler = this::this.itemCheckBoxChangeHandler;
         this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
+        this.rowTouchTapHandler = this::this.rowTouchTapHandler;
         this.paggingData = this::this.paggingData;
         this.pageChangedHandler = this::this.pageChangedHandler;
         this.resetPage = this::this.resetPage;
@@ -102,7 +103,7 @@ export default class Table extends Component {
 
     }
 
-    itemCheckBoxChangeHandler(checked, rowData) {
+    itemCheckBoxChangeHandler(checked, rowData, callback) {
 
         const {value} = this.state;
 
@@ -121,6 +122,7 @@ export default class Table extends Component {
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
+            callback && callback();
         });
 
     }
@@ -165,6 +167,23 @@ export default class Table extends Component {
         }
 
         return data;
+
+    }
+
+    rowTouchTapHandler(rowData, rowIndex) {
+
+        const {mode} = this.props,
+            callback = () => {
+                const {onRowTouchTap} = this.props;
+                onRowTouchTap && onRowTouchTap(rowData, rowIndex);
+            };
+
+        if (mode === Table.Mode.NORMAL) {
+            callback();
+            return;
+        }
+
+        this.itemCheckBoxChangeHandler(!this.isItemChecked(rowData), rowData, callback);
 
     }
 
@@ -256,7 +275,8 @@ export default class Table extends Component {
 
         const {
                 className, style, data, columns, hasLineNumber, mode,
-                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
+                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
+                onCellTouchTap
             } = this.props,
             {value, sort, pagging} = this.state,
             self = this;
@@ -284,8 +304,11 @@ export default class Table extends Component {
         } else if (mode === Table.Mode.RADIO) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
-                renderer() {
-                    return <Checkbox className="table-checkbox"/>;
+                renderer(rowData) {
+                    return (
+                        <i className={'fa fa-check table-radio' + (self.isItemChecked(rowData) ? ' activated' : '')}
+                           aria-hidden="true"></i>
+                    );
                 }
             });
         }
@@ -318,7 +341,10 @@ export default class Table extends Component {
                     finalData && finalDataCount > 0
                         ? <Tbody columns={finalColumns}
                                  data={finalData}
-                                 idProp={idProp}/>
+                                 idProp={idProp}
+                                 mode={mode}
+                                 onRowTouchTap={this.rowTouchTapHandler}
+                                 onCellTouchTap={onCellTouchTap}/>
                         : null
                 }
 
@@ -497,6 +523,16 @@ Table.propTypes = {
         type: PropTypes.oneOf([1, -1])
 
     }),
+
+    /**
+     *
+     */
+    onRowTouchTap: PropTypes.func,
+
+    /**
+     *
+     */
+    onCellTouchTap: PropTypes.func,
 
     /**
      *

@@ -48,16 +48,22 @@ export default class TableRow extends Component {
 
     render() {
 
-        const {columns} = this.props;
+        const {rowIndex, columns, data, onRowTouchTap, onCellTouchTap} = this.props;
 
         return (
-            <tr className="table-row">
+            <tr className="table-row"
+                onClick={() => {
+                    onRowTouchTap && onRowTouchTap(data, rowIndex);
+                }}>
 
                 {
                     columns.map((col, colIndex) =>
                         <td key={colIndex}
                             className={col.cellClassName}
-                            style={col.cellStyle}>
+                            style={col.cellStyle}
+                            onClick={() => {
+                                onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
+                            }}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
@@ -70,9 +76,14 @@ export default class TableRow extends Component {
 };
 
 TableRow.propTypes = {
+
     rowIndex: PropTypes.number,
     columns: PropTypes.array,
-    data: PropTypes.object
+    data: PropTypes.object,
+
+    onRowTouchTap: PropTypes.func,
+    onCellTouchTap: PropTypes.func
+
 };
 
 TableRow.defaultProps = {
