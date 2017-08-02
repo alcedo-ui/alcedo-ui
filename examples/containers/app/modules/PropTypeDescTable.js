@@ -50,10 +50,12 @@ export default class PropTypeDescTable extends Component {
 
     render() {
         return (
-            <Table className="prop-type-desc-table"
-                   columns={this.columns}
-                   data={this.generateData()}
-                   isAdaptiveHeight={true}/>
+            <div className="prop-type-desc-table-wrapper">
+                <Table className="prop-type-desc-table"
+                       columns={this.columns}
+                       data={this.generateData()}
+                       isPagging={false}/>
+            </div>
         );
     }
 };

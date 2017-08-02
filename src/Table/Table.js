@@ -256,7 +256,7 @@ export default class Table extends Component {
 
         const {
                 className, style, data, columns, hasLineNumber, mode,
-                idProp, paggingVisible, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
+                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
             } = this.props,
             {value, sort, pagging} = this.state,
             self = this;
@@ -303,7 +303,7 @@ export default class Table extends Component {
         // 处理 data
         const sortedData = this.sortData(data),
             totalPage = Math.ceil(sortedData.length / pagging.pageSize),
-            finalData = this.paggingData(sortedData),
+            finalData = isPagging ? this.paggingData(sortedData) : sortedData,
             finalDataCount = finalData.length;
 
         return (
@@ -323,7 +323,7 @@ export default class Table extends Component {
                 }
 
                 {
-                    paggingVisible ?
+                    isPagging ?
                         <Tfoot columns={finalColumns}>
                             {
                                 useFullPagging ?
@@ -382,11 +382,6 @@ Table.propTypes = {
      * Sorting method.
      */
     sortFunc: PropTypes.func,
-
-    /**
-     * The function that trigger when step changes.
-     */
-    isAdaptiveHeight: PropTypes.bool,
 
     /**
      *  Whether need line number.
@@ -474,7 +469,7 @@ Table.propTypes = {
     /**
      *
      */
-    paggingVisible: PropTypes.bool,
+    isPagging: PropTypes.bool,
 
     /**
      *
@@ -518,12 +513,11 @@ Table.defaultProps = {
     columns: [],
     data: [],
     value: [],
-    isAdaptiveHeight: false,
     hasLineNumber: false,
 
     mode: Table.Mode.NORMAL,
     idProp: 'id',
-    paggingVisible: true,
+    isPagging: true,
     useFullPagging: false,
     paggingSelectedCountVisible: false,
     paggingPageSizeVisible: true,
