@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
+import IconButton from '../IconButton';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Tfoot from '../_Tfoot';
@@ -47,10 +48,11 @@ export default class Table extends Component {
                 page: 0
             },
 
-            value: props.value
+            value: this.initValue(props)
 
         };
 
+        this.initValue = this::this.initValue;
         this.isHeadChecked = this::this.isHeadChecked;
         this.isItemChecked = this::this.isItemChecked;
         this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
@@ -62,6 +64,33 @@ export default class Table extends Component {
         this.pageChangedHandler = this::this.pageChangedHandler;
         this.resetPage = this::this.resetPage;
         // this.wdithHandle = this::this.wdithHandle;
+
+    }
+
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, mode} = props;
+
+        if (!mode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                return [];
+            case Table.Mode.RADIO:
+                return null;
+            default:
+                return value;
+        }
 
     }
 
@@ -239,7 +268,7 @@ export default class Table extends Component {
 
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: nextProps.value
+                value: this.initValue(nextProps)
             });
         }
 
@@ -306,8 +335,8 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return (
-                        <i className={'fa fa-check table-radio' + (self.isItemChecked(rowData) ? ' activated' : '')}
-                           aria-hidden="true"></i>
+                        <IconButton className={'table-radio' + (self.isItemChecked(rowData) ? ' activated' : '')}
+                                    iconCls="fa fa-check"/>
                     );
                 }
             });

@@ -110,6 +110,9 @@ export default class TableExamples extends Component {
                                    sortInitConfig={{
                                        prop: 'id',
                                        type: -1
+                                   }}
+                                   onChange={(value) => {
+                                       console.log('1::', value);
                                    }}/>
 
                         </div>
@@ -131,7 +134,10 @@ export default class TableExamples extends Component {
                                    isPagging={true}
                                    mode={Table.Mode.CHECKBOX}
                                    data={data}
-                                   paggingSelectedCountVisible={true}/>
+                                   paggingSelectedCountVisible={true}
+                                   onChange={(value) => {
+                                       console.log('2::', value);
+                                   }}/>
 
                         </div>
                     </div>
