@@ -37,7 +37,7 @@ export default class ListItem extends Component {
 
     }
 
-    checkboxChangeHandler(checked, callback) {
+    checkboxChangeHandler(checked) {
         this.setState({
             checked
         }, () => {
@@ -50,12 +50,10 @@ export default class ListItem extends Component {
                 onDeselect && onDeselect();
             }
 
-            callback && typeof callback === 'function' && callback();
-
         });
     }
 
-    radioChangeHandler(callback) {
+    radioChangeHandler() {
 
         const {checked} = this.state;
 
@@ -65,10 +63,7 @@ export default class ListItem extends Component {
             }, () => {
                 const {onSelect} = this.props;
                 onSelect && onSelect();
-                callback && typeof callback === 'function' && callback();
             });
-        } else {
-            callback && typeof callback === 'function' && callback();
         }
 
     }
@@ -81,18 +76,17 @@ export default class ListItem extends Component {
             return;
         }
 
-        const {mode} = this.props,
-            callback = () => {
-                const {onTouchTap} = this.props;
-                onTouchTap && onTouchTap(e);
-            };
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
+
+        const {mode} = this.props;
 
         switch (mode) {
             case ListItem.Mode.CHECKBOX:
-                this.checkboxChangeHandler(!this.state.checked, callback);
+                this.checkboxChangeHandler(!this.state.checked);
                 return;
             case ListItem.Mode.RADIO:
-                this.radioChangeHandler(callback);
+                this.radioChangeHandler();
                 return;
             case ListItem.Mode.NORMAL:
                 callback();
