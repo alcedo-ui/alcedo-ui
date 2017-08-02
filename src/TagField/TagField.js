@@ -32,7 +32,7 @@ export default class TagField extends Component {
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
-        this.inputBlurHandler = this::this.inputBlurHandler;
+        this.insertInputValue = this::this.insertInputValue;
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
@@ -106,7 +106,7 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
-        if (this.props.disabled) {
+        if (this.props.disabled || e.target == this.refs.input) {
             return;
         }
 
@@ -114,7 +114,10 @@ export default class TagField extends Component {
 
             return () => {
 
-                if (e.target != this.refs.wrapper || this.state.itemEditing) {
+                if (Dom.findParent(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
+                    this.setState({
+                        inputIndex: this.state.data.length
+                    });
                     return;
                 }
 
@@ -149,7 +152,7 @@ export default class TagField extends Component {
         }.bind(this))(e);
 
         if (this.state.inputValue) {
-            this.inputBlurHandler(callback);
+            this.insertInputValue(callback);
         } else {
             callback();
         }
@@ -180,12 +183,12 @@ export default class TagField extends Component {
         }
 
         if (e.keyCode === 13) {
-            this.inputBlurHandler();
+            this.insertInputValue();
         }
 
     }
 
-    inputBlurHandler(callback) {
+    insertInputValue(callback) {
 
         if (this.props.disabled) {
             return;
