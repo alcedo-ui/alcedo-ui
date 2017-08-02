@@ -56,7 +56,7 @@ export default class Table extends Component {
         this.isHeadChecked = this::this.isHeadChecked;
         this.isItemChecked = this::this.isItemChecked;
         this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
-        this.itemCheckboxChangeHandler = this::this.itemCheckboxChangeHandler;
+        this.itemCheckBoxChangeHandler = this::this.itemCheckBoxChangeHandler;
         this.itemRadioChangeHandler = this::this.itemRadioChangeHandler;
         this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
@@ -183,7 +183,7 @@ export default class Table extends Component {
 
     }
 
-    itemCheckboxChangeHandler(rowData, rowIndex) {
+    itemCheckBoxChangeHandler(rowData, rowIndex) {
 
         if (!rowData) {
             return;
@@ -256,7 +256,7 @@ export default class Table extends Component {
 
         switch (mode) {
             case Table.Mode.CHECKBOX:
-                this.itemCheckboxChangeHandler(rowData, rowIndex);
+                this.itemCheckBoxChangeHandler(rowData, rowIndex);
                 return;
             case Table.Mode.RADIO:
                 this.itemRadioChangeHandler(rowData, rowIndex);
@@ -439,7 +439,7 @@ export default class Table extends Component {
                         ? <Tbody columns={finalColumns}
                                  data={finalData}
                                  idProp={idProp}
-                                 mode={mode}
+                                 isItemChecked={this.isItemChecked}
                                  onRowTouchTap={this.rowTouchTapHandler}
                                  onCellTouchTap={onCellTouchTap}/>
                         : null

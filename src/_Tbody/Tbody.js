@@ -14,7 +14,7 @@ export default class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp,
+            columns, data, startIndex, idProp, isItemChecked,
             onRowTouchTap, onCellTouchTap
         } = this.props;
 
@@ -28,6 +28,7 @@ export default class Tbody extends Component {
                                       rowIndex={startIndex + rowIndex}
                                       columns={columns}
                                       data={row}
+                                      isChecked={isItemChecked(row)}
                                       onRowTouchTap={onRowTouchTap}
                                       onCellTouchTap={onCellTouchTap}/>
                         );
@@ -46,6 +47,8 @@ Tbody.propTypes = {
     data: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
+
+    isItemChecked: PropTypes.func,
 
     onRowTouchTap: PropTypes.func,
     onCellTouchTap: PropTypes.func

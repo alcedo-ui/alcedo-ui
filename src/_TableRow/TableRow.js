@@ -48,10 +48,10 @@ export default class TableRow extends Component {
 
     render() {
 
-        const {rowIndex, columns, data, onRowTouchTap, onCellTouchTap} = this.props;
+        const {rowIndex, columns, data, isChecked, onRowTouchTap, onCellTouchTap} = this.props;
 
         return (
-            <tr className="table-row"
+            <tr className={'table-row' + (isChecked ? ' activated' : '')}
                 onClick={() => {
                     onRowTouchTap && onRowTouchTap(data, rowIndex);
                 }}>
@@ -80,6 +80,7 @@ TableRow.propTypes = {
     rowIndex: PropTypes.number,
     columns: PropTypes.array,
     data: PropTypes.object,
+    isChecked: PropTypes.bool,
 
     onRowTouchTap: PropTypes.func,
     onCellTouchTap: PropTypes.func
@@ -89,5 +90,6 @@ TableRow.propTypes = {
 TableRow.defaultProps = {
     rowIndex: 0,
     columns: [],
-    data: {}
+    data: {},
+    isChecked: false
 };
