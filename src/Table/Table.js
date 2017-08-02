@@ -60,6 +60,7 @@ export default class Table extends Component {
         this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
         this.rowTouchTapHandler = this::this.rowTouchTapHandler;
+        this.calSelectedCount = this::this.calSelectedCount;
         this.paggingData = this::this.paggingData;
         this.pageChangedHandler = this::this.pageChangedHandler;
         this.resetPage = this::this.resetPage;
@@ -263,6 +264,22 @@ export default class Table extends Component {
 
     }
 
+    calSelectedCount() {
+
+        const {mode} = this.props,
+            {value} = this.state;
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                return value.length;
+            case Table.Mode.RADIO:
+                return value ? 1 : 0;
+        }
+
+        return 0;
+
+    }
+
     paggingData(data) {
 
         const {pagging} = this.state,
@@ -431,7 +448,7 @@ export default class Table extends Component {
                                 useFullPagging ?
                                     <Pagging page={pagging.page}
                                              count={data.length}
-                                             selectedCount={value.length}
+                                             selectedCount={this.calSelectedCount()}
                                              total={totalPage}
                                              pageSize={pagging.pageSize}
                                              selectedCountVisible={paggingSelectedCountVisible}
@@ -440,7 +457,7 @@ export default class Table extends Component {
                                     :
                                     <BriefPagging page={pagging.page}
                                                   count={data.length}
-                                                  selectedCount={value.length}
+                                                  selectedCount={this.calSelectedCount()}
                                                   total={totalPage}
                                                   pageSize={pagging.pageSize}
                                                   selectedCountVisible={paggingSelectedCountVisible}
