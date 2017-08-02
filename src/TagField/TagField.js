@@ -27,6 +27,7 @@ export default class TagField extends Component {
         };
 
         this.removeItem = this::this.removeItem;
+        this.calInputIndex = this::this.calInputIndex;
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
@@ -56,6 +57,52 @@ export default class TagField extends Component {
 
     }
 
+    calInputIndex(e) {
+
+        const wrapperEl = this.refs.wrapper,
+            offset = Dom.getOffset(wrapperEl),
+            {left: minX} = offset,
+            wrapperWidth = wrapperEl.getBoundingClientRect().width,
+            maxX = minX + wrapperWidth;
+
+        let x = e.clientX,
+            y = e.clientY,
+            inputIndex = -1;
+
+        while (x >= minX) {
+
+            const item = document.elementFromPoint(x, y),
+                wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+
+            if (wrapperEl) {
+                inputIndex = +wrapperEl.dataset.index + 1;
+                break;
+            }
+
+            x--;
+
+        }
+
+        if (inputIndex < 0) {
+            while (x <= maxX) {
+
+                const item = document.elementFromPoint(x, y),
+                    wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+
+                if (wrapperEl) {
+                    inputIndex = +wrapperEl.dataset.index;
+                    break;
+                }
+
+                x++;
+
+            }
+        }
+
+        return inputIndex < 0 ? this.state.data.length : inputIndex;
+
+    }
+
     mouseDownHandler(e) {
 
         if (this.props.disabled) {
@@ -82,46 +129,15 @@ export default class TagField extends Component {
                 return;
             }
 
-            const {left: minX} = offset,
-                wrapperWidth = wrapperEl.getBoundingClientRect().width,
-                maxX = minX + wrapperWidth;
-
-            let inputIndex = -1;
-            while (x >= minX) {
-
-                const item = document.elementFromPoint(x, y),
-                    wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
-
-                if (wrapperEl) {
-                    inputIndex = +wrapperEl.dataset.index + 1;
-                    break;
-                }
-
-                x--;
-
-            }
-
-            if (inputIndex < 0) {
-                while (x <= maxX) {
-
-                    const item = document.elementFromPoint(x, y),
-                        wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
-
-                    if (wrapperEl) {
-                        inputIndex = +wrapperEl.dataset.index;
-                        break;
-                    }
-
-                    x++;
-
-                }
-            }
+            const inputIndex = this.calInputIndex(e);
 
             this.setState({
-                inputIndex: inputIndex < 0 ? this.state.data.length : inputIndex
+                inputIndex
             }, () => {
                 setTimeout(() => {
                     this.refs.input.focus();
+                    wrapperEl.scrollLeft = 0;
+                    wrapperEl.scrollTop = 0;
                 }, 0);
             });
 
@@ -140,7 +156,7 @@ export default class TagField extends Component {
             inputValue
         }, () => {
             const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
-            this.refs.inputWrapper.style.width = `${width + 1}px`;
+            this.refs.inputWrapper.style.width = `${width + 9}px`;
         });
 
     }
@@ -181,7 +197,7 @@ export default class TagField extends Component {
             inputIndex: inputIndex + splitedValue.length
         }, () => {
 
-            this.refs.inputWrapper.style.width = '1px';
+            this.refs.inputWrapper.style.width = '9px';
 
             const {onChange} = this.props;
             onChange && onChange(data);
