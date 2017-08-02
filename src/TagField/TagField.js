@@ -7,6 +7,7 @@ import IconButton from '../IconButton';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
+import Event from '../_vendors/Event';
 
 import './TagField.css';
 
@@ -109,39 +110,50 @@ export default class TagField extends Component {
             return;
         }
 
-        if (e.target == this.refs.wrapper) {
+        const callback = (function (e) {
 
-            if (this.state.itemEditing) {
-                return;
-            }
+            return () => {
 
-            let x = e.clientX,
-                y = e.clientY;
+                if (e.target != this.refs.wrapper || this.state.itemEditing) {
+                    return;
+                }
 
-            if (!x || !y) {
-                return;
-            }
+                let x = e.clientX,
+                    y = e.clientY;
 
-            const wrapperEl = this.refs.wrapper,
-                offset = Dom.getOffset(wrapperEl);
+                if (!x || !y) {
+                    return;
+                }
 
-            if (!offset) {
-                return;
-            }
+                const wrapperEl = this.refs.wrapper,
+                    offset = Dom.getOffset(wrapperEl);
 
-            const inputIndex = this.calInputIndex(e);
+                if (!offset) {
+                    return;
+                }
 
-            this.setState({
-                inputIndex
-            }, () => {
-                setTimeout(() => {
-                    this.refs.input.focus();
-                    wrapperEl.scrollLeft = 0;
-                    wrapperEl.scrollTop = 0;
-                }, 0);
-            });
+                const inputIndex = this.calInputIndex(e);
 
+                this.setState({
+                    inputIndex
+                }, () => {
+                    setTimeout(() => {
+                        this.refs.input.focus();
+                        wrapperEl.scrollLeft = 0;
+                        wrapperEl.scrollTop = 0;
+                    }, 0);
+                });
+
+            };
+
+        }.bind(this))(e);
+
+        if (this.state.inputValue) {
+            this.inputBlurHandler(callback);
+        } else {
+            callback();
         }
+
     }
 
     inputChangeHandler(e) {
@@ -173,7 +185,7 @@ export default class TagField extends Component {
 
     }
 
-    inputBlurHandler() {
+    inputBlurHandler(callback) {
 
         if (this.props.disabled) {
             return;
@@ -201,6 +213,8 @@ export default class TagField extends Component {
 
             const {onChange} = this.props;
             onChange && onChange(data);
+
+            callback && callback();
 
         });
 
@@ -254,12 +268,20 @@ export default class TagField extends Component {
 
     }
 
+    componentDidMount() {
+        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state.data) {
             this.setState({
                 data: nextProps.data
             });
         }
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     render() {
@@ -276,7 +298,6 @@ export default class TagField extends Component {
             <div ref="wrapper"
                  className={'tag-field' + tagFieldClassName}
                  style={style}
-                 onMouseDown={this.mouseDownHandler}
                  disabled={disabled}>
 
                 {
@@ -292,8 +313,7 @@ export default class TagField extends Component {
                                                autoFocus="true"
                                                value={inputValue}
                                                onChange={this.inputChangeHandler}
-                                               onKeyDown={this.inputKeyDownHandler}
-                                               onBlur={this.inputBlurHandler}/>
+                                               onKeyDown={this.inputKeyDownHandler}/>
                                     </div>
                                     :
                                     null
