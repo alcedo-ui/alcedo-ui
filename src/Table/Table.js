@@ -439,7 +439,7 @@ export default class Table extends Component {
                         ? <Tbody columns={finalColumns}
                                  data={finalData}
                                  idProp={idProp}
-                                 mode={mode}
+                                 isItemChecked={this.isItemChecked}
                                  onRowTouchTap={this.rowTouchTapHandler}
                                  onCellTouchTap={onCellTouchTap}/>
                         : null
