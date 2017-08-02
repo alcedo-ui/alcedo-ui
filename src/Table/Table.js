@@ -372,7 +372,10 @@ export default class Table extends Component {
                 onCellTouchTap
             } = this.props,
             {value, sort, pagging} = this.state,
-            self = this;
+            self = this,
+
+            tableClassName = (mode === Table.Mode.CHECKBOX || mode === Table.Mode.RADIO ? ' selectable' : '')
+                + (className ? ' ' + className : '');
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
@@ -423,7 +426,7 @@ export default class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <table className={'table' + (className ? ' ' + className : '')}
+            <table className={'table' + tableClassName}
                    style={style}>
 
                 <Thead columns={finalColumns}

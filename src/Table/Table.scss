@@ -44,4 +44,15 @@
         }
     }
 
+    &.selectable {
+
+        .table-row {
+            cursor: pointer;
+
+            td {
+                cursor: pointer;
+            }
+        }
+    }
+
 }
