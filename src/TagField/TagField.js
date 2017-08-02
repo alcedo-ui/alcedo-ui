@@ -140,7 +140,7 @@ export default class TagField extends Component {
             inputValue
         }, () => {
             const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
-            this.refs.input.style.width = `${width + 1}px`;
+            this.refs.inputWrapper.style.width = `${width + 1}px`;
         });
 
     }
@@ -181,7 +181,7 @@ export default class TagField extends Component {
             inputIndex: inputIndex + splitedValue.length
         }, () => {
 
-            this.refs.input.style.width = '1px';
+            this.refs.inputWrapper.style.width = '1px';
 
             const {onChange} = this.props;
             onChange && onChange(data);
@@ -268,14 +268,17 @@ export default class TagField extends Component {
                         return index === this.inputSymbol ?
                             (
                                 !disabled ?
-                                    <input key="input"
-                                           ref="input"
-                                           className="tag-field-input"
-                                           autoFocus="true"
-                                           value={inputValue}
-                                           onChange={this.inputChangeHandler}
-                                           onKeyDown={this.inputKeyDownHandler}
-                                           onBlur={this.inputBlurHandler}/>
+                                    <div key="input"
+                                         ref="inputWrapper"
+                                         className="tag-field-input-wrapper">
+                                        <input ref="input"
+                                               className="tag-field-input"
+                                               autoFocus="true"
+                                               value={inputValue}
+                                               onChange={this.inputChangeHandler}
+                                               onKeyDown={this.inputKeyDownHandler}
+                                               onBlur={this.inputBlurHandler}/>
+                                    </div>
                                     :
                                     null
                             )

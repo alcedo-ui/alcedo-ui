@@ -15,28 +15,36 @@ input:focus {
     border: 1px solid $theme-title-bg;
     cursor: text;
     padding: 0 8px 8px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
 
-    .tag-field-input,
+    .tag-field-input-wrapper,
     .tag-field-item-wrapper {
         margin: 8px 0 0 8px;
         box-sizing: border-box;
         height: 24px;
         line-height: 24px;
         padding: 0;
+        float: left;
     }
 
-    .tag-field-input {
-        display: inline-block;
-        width: 1px;
-        border: 0;
-        overflow-x: visible;
-        overflow-y: visible;
+    .tag-field-input-wrapper {
+        position: relative;
+
+        .tag-field-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 24px;
+            line-height: 24px;
+            padding: 0;
+            border: 0;
+            overflow-x: visible;
+            overflow-y: visible;
+        }
     }
 
     .tag-field-item-wrapper {
-        display: inline-block;
-        height: 24px;
-        line-height: 24px;
 
         .tag-field-item-field {
             height: 24px;
