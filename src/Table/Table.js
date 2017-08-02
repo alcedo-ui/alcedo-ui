@@ -55,6 +55,7 @@ export default class Table extends Component {
         this.initValue = this::this.initValue;
         this.isHeadChecked = this::this.isHeadChecked;
         this.isItemChecked = this::this.isItemChecked;
+        this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
         this.itemCheckboxChangeHandler = this::this.itemCheckboxChangeHandler;
         this.itemRadioChangeHandler = this::this.itemRadioChangeHandler;
         this.sortHandler = this::this.sortHandler;

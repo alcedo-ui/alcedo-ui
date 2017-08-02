@@ -7,6 +7,7 @@ import IconButton from '../IconButton';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
+import Event from '../_vendors/Event';
 
 import './TagField.css';
 
@@ -27,10 +28,11 @@ export default class TagField extends Component {
         };
 
         this.removeItem = this::this.removeItem;
+        this.calInputIndex = this::this.calInputIndex;
         this.mouseDownHandler = this::this.mouseDownHandler;
         this.inputChangeHandler = this::this.inputChangeHandler;
         this.inputKeyDownHandler = this::this.inputKeyDownHandler;
-        this.inputBlurHandler = this::this.inputBlurHandler;
+        this.insertInputValue = this::this.insertInputValue;
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
@@ -56,76 +58,105 @@ export default class TagField extends Component {
 
     }
 
-    mouseDownHandler(e) {
+    calInputIndex(e) {
 
-        if (this.props.disabled) {
-            return;
+        const wrapperEl = this.refs.wrapper,
+            offset = Dom.getOffset(wrapperEl),
+            {left: minX} = offset,
+            wrapperWidth = wrapperEl.getBoundingClientRect().width,
+            maxX = minX + wrapperWidth;
+
+        let x = e.clientX,
+            y = e.clientY,
+            inputIndex = -1;
+
+        while (x >= minX) {
+
+            const item = document.elementFromPoint(x, y),
+                wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+
+            if (wrapperEl) {
+                inputIndex = +wrapperEl.dataset.index + 1;
+                break;
+            }
+
+            x--;
+
         }
 
-        if (e.target == this.refs.wrapper) {
-
-            if (this.state.itemEditing) {
-                return;
-            }
-
-            let x = e.clientX,
-                y = e.clientY;
-
-            if (!x || !y) {
-                return;
-            }
-
-            const wrapperEl = this.refs.wrapper,
-                offset = Dom.getOffset(wrapperEl);
-
-            if (!offset) {
-                return;
-            }
-
-            const {left: minX} = offset,
-                wrapperWidth = wrapperEl.getBoundingClientRect().width,
-                maxX = minX + wrapperWidth;
-
-            let inputIndex = -1;
-            while (x >= minX) {
+        if (inputIndex < 0) {
+            while (x <= maxX) {
 
                 const item = document.elementFromPoint(x, y),
                     wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
 
                 if (wrapperEl) {
-                    inputIndex = +wrapperEl.dataset.index + 1;
+                    inputIndex = +wrapperEl.dataset.index;
                     break;
                 }
 
-                x--;
+                x++;
 
             }
-
-            if (inputIndex < 0) {
-                while (x <= maxX) {
-
-                    const item = document.elementFromPoint(x, y),
-                        wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
-
-                    if (wrapperEl) {
-                        inputIndex = +wrapperEl.dataset.index;
-                        break;
-                    }
-
-                    x++;
-
-                }
-            }
-
-            this.setState({
-                inputIndex: inputIndex < 0 ? this.state.data.length : inputIndex
-            }, () => {
-                setTimeout(() => {
-                    this.refs.input.focus();
-                }, 0);
-            });
-
         }
+
+        return inputIndex < 0 ? this.state.data.length : inputIndex;
+
+    }
+
+    mouseDownHandler(e) {
+
+        if (this.props.disabled || e.target == this.refs.input) {
+            return;
+        }
+
+        const callback = (function (e) {
+
+            return () => {
+
+                if (Dom.findParent(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
+                    this.setState({
+                        inputIndex: this.state.data.length
+                    });
+                    return;
+                }
+
+                let x = e.clientX,
+                    y = e.clientY;
+
+                if (!x || !y) {
+                    return;
+                }
+
+                const wrapperEl = this.refs.wrapper,
+                    offset = Dom.getOffset(wrapperEl);
+
+                if (!offset) {
+                    return;
+                }
+
+                const inputIndex = this.calInputIndex(e);
+
+                this.setState({
+                    inputIndex
+                }, () => {
+                    setTimeout(() => {
+                        this.refs.input.focus();
+                        wrapperEl.scrollLeft = 0;
+                        wrapperEl.scrollTop = 0;
+                    }, 0);
+                });
+
+            };
+
+        }.bind(this))(e);
+
+        if (this.state.inputValue) {
+            this.insertInputValue(callback);
+        } else {
+            callback();
+        }
+
     }
 
     inputChangeHandler(e) {
@@ -140,7 +171,7 @@ export default class TagField extends Component {
             inputValue
         }, () => {
             const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
-            this.refs.input.style.width = `${width + 1}px`;
+            this.refs.inputWrapper.style.width = `${width + 9}px`;
         });
 
     }
@@ -152,12 +183,12 @@ export default class TagField extends Component {
         }
 
         if (e.keyCode === 13) {
-            this.inputBlurHandler();
+            this.insertInputValue();
         }
 
     }
 
-    inputBlurHandler() {
+    insertInputValue(callback) {
 
         if (this.props.disabled) {
             return;
@@ -181,10 +212,12 @@ export default class TagField extends Component {
             inputIndex: inputIndex + splitedValue.length
         }, () => {
 
-            this.refs.input.style.width = '1px';
+            this.refs.inputWrapper.style.width = '9px';
 
             const {onChange} = this.props;
             onChange && onChange(data);
+
+            callback && callback();
 
         });
 
@@ -238,12 +271,20 @@ export default class TagField extends Component {
 
     }
 
+    componentDidMount() {
+        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.data !== this.state.data) {
             this.setState({
                 data: nextProps.data
             });
         }
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     render() {
@@ -260,7 +301,6 @@ export default class TagField extends Component {
             <div ref="wrapper"
                  className={'tag-field' + tagFieldClassName}
                  style={style}
-                 onMouseDown={this.mouseDownHandler}
                  disabled={disabled}>
 
                 {
@@ -268,14 +308,16 @@ export default class TagField extends Component {
                         return index === this.inputSymbol ?
                             (
                                 !disabled ?
-                                    <input key="input"
-                                           ref="input"
-                                           className="tag-field-input"
-                                           autoFocus="true"
-                                           value={inputValue}
-                                           onChange={this.inputChangeHandler}
-                                           onKeyDown={this.inputKeyDownHandler}
-                                           onBlur={this.inputBlurHandler}/>
+                                    <div key="input"
+                                         ref="inputWrapper"
+                                         className="tag-field-input-wrapper">
+                                        <input ref="input"
+                                               className="tag-field-input"
+                                               autoFocus="true"
+                                               value={inputValue}
+                                               onChange={this.inputChangeHandler}
+                                               onKeyDown={this.inputKeyDownHandler}/>
+                                    </div>
                                     :
                                     null
                             )
