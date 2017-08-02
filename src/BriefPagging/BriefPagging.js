@@ -43,7 +43,7 @@ export default class BriefPagging extends Component {
 
     render() {
 
-        const {count, page, total, pageSize} = this.props,
+        const {count, page, total, pageSize, selectedCount, selectedCountVisible, pageSizeVisible} = this.props,
             startNumber = Valid.range(page * pageSize + 1, 0, count),
             stopNumber = Valid.range((page + 1) * pageSize, 0, count);
 
@@ -51,6 +51,15 @@ export default class BriefPagging extends Component {
             <div className="brief-pagging">
 
                 <div className="brief-pagging-left">
+
+                    {
+                        selectedCountVisible ?
+                            <div className="brief-pagging-selected">
+                                {`Selected: ${selectedCount}`}
+                            </div>
+                            :
+                            null
+                    }
 
                     <div className="brief-pagging-totle">
                         {`Total: ${count}`}
@@ -60,8 +69,13 @@ export default class BriefPagging extends Component {
 
                 <div className="brief-pagging-right">
 
-                    <PaggingSize pageSize={pageSize}
-                                 onPageSizeChange={this.pageSizeChangedHandle}/>
+                    {
+                        pageSizeVisible ?
+                            <PaggingSize pageSize={pageSize}
+                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                            :
+                            null
+                    }
 
                     <div className="brief-pagging-info">
                         {`${startNumber}-${stopNumber} of ${count}`}
@@ -120,6 +134,21 @@ BriefPagging.propTypes = {
     pageSize: PropTypes.number,
 
     /**
+     *
+     */
+    selectedCount: PropTypes.number,
+
+    /**
+     *
+     */
+    selectedCountVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    pageSizeVisible: PropTypes.bool,
+
+    /**
      * Callback function fired when the number of pages varies.
      */
     onChange: PropTypes.func
@@ -134,6 +163,10 @@ BriefPagging.defaultProps = {
     count: 0,
     page: 0,
     total: 0,
-    pageSize: 10
+    pageSize: 10,
+    selectedCount: 0,
+
+    selectedCountVisible: false,
+    pageSizeVisible: true
 
 };

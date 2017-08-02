@@ -11,6 +11,8 @@ import './Toaster.css';
 
 export default class Toaster extends Component {
 
+    static ToastType = Toast.Type;
+
     constructor(props) {
 
         super(props);
@@ -130,8 +132,6 @@ export default class Toaster extends Component {
     }
 
 };
-
-Toaster.ToastType = Toast.Type;
 
 Toaster.propTypes = {
 

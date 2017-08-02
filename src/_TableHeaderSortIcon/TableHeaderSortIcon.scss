@@ -1,0 +1,30 @@
+@import '../_common.scss';
+
+.table-header-sort-icon-wrapper {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    padding: 3px;
+
+    .table-header-sort-icon {
+        display: block;
+        width: 24px;
+        height: 12px;
+        line-height: 12px;
+        text-align: center;
+        color: lighten($theme-text, 45%);
+        transition: all $transition-duration ease-in-out;
+    }
+
+    &.asc {
+        .table-header-sort-icon.up {
+            color: $theme-text;
+        }
+    }
+
+    &.desc {
+        .table-header-sort-icon.down {
+            color: $theme-text;
+        }
+    }
+}

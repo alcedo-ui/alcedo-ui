@@ -1,0 +1,13 @@
+@import '../_common.scss';
+
+.thead {
+    tr {
+        border-bottom: 1px solid transparentize($theme-title-bg, .6);
+    }
+
+    &.hidden {
+        tr {
+            border-bottom: none;
+        }
+    }
+}

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
-import Theme from '../Theme';
 
 import './Pagging.css';
 
@@ -42,18 +41,43 @@ export default class Pagging extends Component {
 
     render() {
 
-        const {page, total, pageSize} = this.props;
+        const {count, page, total, pageSize, selectedCount, selectedCountVisible, pageSizeVisible} = this.props;
 
         return (
             <div className="pagging">
 
-                <PaggingSize pageSize={pageSize}
-                             triggerTheme={Theme.PRIMARY}
-                             onPageSizeChange={this.pageSizeChangedHandle}/>
+                <div className="pagging-left">
 
-                <PaggingPage page={page}
-                             total={total}
-                             onPageChange={this.pageChangedHandle}/>
+                    {
+                        selectedCountVisible ?
+                            <div className="brief-pagging-selected">
+                                {`Selected: ${selectedCount}`}
+                            </div>
+                            :
+                            null
+                    }
+
+                    <div className="brief-pagging-totle">
+                        {`Total: ${count}`}
+                    </div>
+
+                </div>
+
+                <div className="pagging-right">
+
+                    {
+                        pageSizeVisible ?
+                            <PaggingSize pageSize={pageSize}
+                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                            :
+                            null
+                    }
+
+                    <PaggingPage page={page}
+                                 total={total}
+                                 onPageChange={this.pageChangedHandle}/>
+
+                </div>
 
             </div>
         );
@@ -63,13 +87,54 @@ export default class Pagging extends Component {
 
 Pagging.propTypes = {
 
+    /**
+     *
+     */
     className: PropTypes.string,
+
+    /**
+     *
+     */
     style: PropTypes.object,
 
+    /**
+     * The total of data.
+     */
+    count: PropTypes.number,
+
+    /**
+     *
+     */
     page: PropTypes.number,
+
+    /**
+     *
+     */
     total: PropTypes.number,
+
+    /**
+     *
+     */
     pageSize: PropTypes.number,
 
+    /**
+     *
+     */
+    selectedCount: PropTypes.number,
+
+    /**
+     *
+     */
+    selectedCountVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    pageSizeVisible: PropTypes.bool,
+
+    /**
+     *
+     */
     onChange: PropTypes.func
 
 };
@@ -79,8 +144,13 @@ Pagging.defaultProps = {
     className: '',
     style: null,
 
+    count: 0,
     page: 0,
     total: 0,
-    pageSize: 10
+    pageSize: 10,
+    selectedCount: 0,
+
+    selectedCountVisible: false,
+    pageSizeVisible: true
 
 };

@@ -9,6 +9,11 @@ import './Switcher.css';
 
 export default class Switcher extends Component {
 
+    static Size = {
+        DEFAULT: '',
+        SMALL: 'small'
+    };
+
     constructor(props) {
 
         super(props);
@@ -21,20 +26,23 @@ export default class Switcher extends Component {
 
     }
 
-    toggle() {
+    toggle(e) {
 
-        const {disabled, isLoading, beforeChange, onChange} = this.props;
+        const {disabled, isLoading, beforeChange, onTouchTap} = this.props;
 
         if (disabled || isLoading) {
             return;
         }
+
+        onTouchTap && onTouchTap(e);
 
         const value = !this.state.value,
             callback = () => {
                 this.setState({
                     value
                 }, () => {
-                    onChange && onChange(value);
+                    const {onChange} = this.props;
+                    onChange && onChange(value, e);
                 });
             };
 
@@ -84,11 +92,6 @@ export default class Switcher extends Component {
     }
 };
 
-Switcher.Size = {
-    DEFAULT: '',
-    SMALL: 'small'
-};
-
 Switcher.propTypes = {
 
     /**
@@ -120,6 +123,11 @@ Switcher.propTypes = {
      * The size of switcher.The value can be small or default.
      */
     size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
+
+    /**
+     *
+     */
+    onTouchTap: PropTypes.func,
 
     /**
      * Callback function fired before the switcher is touch-tapped.

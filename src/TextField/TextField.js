@@ -11,6 +11,14 @@ import './TextField.css';
 
 export default class TextField extends Component {
 
+    static Type = {
+        EMAIL: 'email',
+        NUMBER: 'number',
+        PASSWORD: 'password',
+        TEXT: 'text',
+        URL: 'url'
+    };
+
     constructor(props) {
 
         super(props);
@@ -287,14 +295,6 @@ export default class TextField extends Component {
         );
 
     }
-};
-
-TextField.Type = {
-    EMAIL: 'email',
-    NUMBER: 'number',
-    PASSWORD: 'password',
-    TEXT: 'text',
-    URL: 'url'
 };
 
 TextField.propTypes = {

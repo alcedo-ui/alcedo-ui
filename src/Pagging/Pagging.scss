@@ -1,12 +1,25 @@
 @import '../_common.scss';
 
 .pagging {
+    @include float-fix;
     height: 40px;
-    line-height: 40px;
+    padding: 5px 5px 5px 15px;
     user-select: none;
-    padding: 20px 30px;
+    cursor: default;
 
-    .pagging-size {
+    .pagging-left {
         float: left;
+        line-height: 40px;
+
+        .pagging-selected,
+        .pagging-totle {
+            float: left;
+            margin-right: 20px;
+        }
+    }
+
+    .pagging-right {
+        float: right;
+        line-height: 40px;
     }
 }

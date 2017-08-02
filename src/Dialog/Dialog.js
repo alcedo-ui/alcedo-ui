@@ -5,6 +5,8 @@ import DialogBody from '../_DialogBody/DialogBody';
 
 export default class Dialog extends Component {
 
+    static ButtonUITypes = DialogBody.ButtonUITypes;
+
     constructor(props) {
 
         super(props);
@@ -52,6 +54,5 @@ export default class Dialog extends Component {
 
 };
 
-Dialog.ButtonUITypes = DialogBody.ButtonUITypes;
 Dialog.propTypes = DialogBody.propTypes;
 Dialog.defaultProps = DialogBody.defaultProps;

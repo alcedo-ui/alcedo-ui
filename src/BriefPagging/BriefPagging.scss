@@ -3,13 +3,19 @@
 .brief-pagging {
     @include float-fix;
     height: 40px;
-    padding: 5px 5px 5px 20px;
+    padding: 5px 5px 5px 15px;
     user-select: none;
     cursor: default;
 
     .brief-pagging-left {
         float: left;
         line-height: 40px;
+
+        .brief-pagging-selected,
+        .brief-pagging-totle {
+            float: left;
+            margin-right: 20px;
+        }
     }
 
     .brief-pagging-right {
@@ -18,14 +24,6 @@
 
         .pagging-size {
             float: left;
-
-            .dropdown-select-trigger {
-                box-shadow: none;
-
-                &.activated {
-                    @include shadow(4);
-                }
-            }
         }
 
         .brief-pagging-info {

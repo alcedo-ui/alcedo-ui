@@ -9,6 +9,8 @@ import './TipContainer.css';
 
 export default class TipContainer extends Component {
 
+    static Position = Tip.Position;
+
     constructor(props) {
 
         super(props);
@@ -69,8 +71,6 @@ export default class TipContainer extends Component {
     }
 
 }
-
-TipContainer.Position = Tip.Position;
 
 TipContainer.propTypes = {
 

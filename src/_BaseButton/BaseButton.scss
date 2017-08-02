@@ -10,7 +10,6 @@ button:focus {
     width: 100px;
     height: 40px;
     position: relative;
-    line-height: 40px;
     border: none;
     border-radius: $border-radius;
     transition: all $transition-duration ease-in-out;
@@ -24,8 +23,11 @@ button:focus {
     white-space: nowrap;
     text-overflow: ellipsis;
 
+    & > * {
+        vertical-align: middle;
+    }
+
     .button-icon {
-        line-height: 40px;
         text-align: center;
         font-size: inherit;
 

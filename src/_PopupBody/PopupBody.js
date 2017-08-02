@@ -14,6 +14,31 @@ import './PopupBody.css';
 
 export default class PopupBody extends Component {
 
+    static Position = {
+
+        TOP_LEFT: 'top-left',
+        TOP: 'top',
+        TOP_RIGHT: 'top-right',
+
+        BOTTOM_LEFT: 'bottom-left',
+        BOTTOM: 'bottom',
+        BOTTOM_RIGHT: 'bottom-right',
+
+        LEFT_TOP: 'left-top',
+        LEFT: 'left',
+        LEFT_BOTTOM: 'left-bottom',
+
+        RIGHT_TOP: 'right-top',
+        RIGHT: 'right',
+        RIGHT_BOTTOM: 'right-bottom'
+
+    };
+
+    static TriggerMode = {
+        TOGGLE: 'toggle',
+        OPEN: 'open'
+    };
+
     constructor(props) {
 
         super(props);
@@ -291,31 +316,6 @@ export default class PopupBody extends Component {
         );
 
     }
-};
-
-PopupBody.Position = {
-
-    TOP_LEFT: 'top-left',
-    TOP: 'top',
-    TOP_RIGHT: 'top-right',
-
-    BOTTOM_LEFT: 'bottom-left',
-    BOTTOM: 'bottom',
-    BOTTOM_RIGHT: 'bottom-right',
-
-    LEFT_TOP: 'left-top',
-    LEFT: 'left',
-    LEFT_BOTTOM: 'left-bottom',
-
-    RIGHT_TOP: 'right-top',
-    RIGHT: 'right',
-    RIGHT_BOTTOM: 'right-bottom'
-
-};
-
-PopupBody.TriggerMode = {
-    TOGGLE: 'toggle',
-    OPEN: 'open'
 };
 
 PopupBody.propTypes = {

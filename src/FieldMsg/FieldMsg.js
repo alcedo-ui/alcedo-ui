@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import CharSize from '../_vendors/CharSize';
 import Util from '../_vendors/Util';
 
 import './FieldMsg.css';
 
 export default class FieldMsg extends Component {
+
+    static Type = {
+        DEFAULT: '',
+        INFO: 'info',
+        SUCCESS: 'success',
+        WARNING: 'warning',
+        ERROR: 'error'
+    };
 
     constructor(props) {
 
@@ -129,14 +136,6 @@ export default class FieldMsg extends Component {
 
     }
 
-};
-
-FieldMsg.Type = {
-    DEFAULT: '',
-    INFO: 'info',
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    ERROR: 'error'
 };
 
 FieldMsg.propTypes = {

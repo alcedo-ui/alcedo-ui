@@ -9,6 +9,13 @@ import './Toast.css';
 
 export default class Toast extends Component {
 
+    static Type = {
+        INFO: 'info',
+        SUCCESS: 'success',
+        WARNING: 'warning',
+        ERROR: 'error'
+    };
+
     constructor(props) {
 
         super(props);
@@ -131,13 +138,6 @@ export default class Toast extends Component {
         );
 
     }
-};
-
-Toast.Type = {
-    INFO: 'info',
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    ERROR: 'error'
 };
 
 Toast.propTypes = {

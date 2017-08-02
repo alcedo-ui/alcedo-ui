@@ -1,6 +1,8 @@
 @import '../_common.scss';
 
 .pagging-size {
+    @include float-fix;
+    float: left;
 
     & > * {
         float: left;
@@ -10,5 +12,13 @@
         margin-left: 10px;
         width: 80px;
         height: 40px;
+
+        .dropdown-select-trigger {
+            box-shadow: none;
+
+            &.activated {
+                @include shadow(4);
+            }
+        }
     }
 }

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import TableHeader from '../_TableHeader';
 
+import './Thead.css';
+
 export default class Thead extends Component {
 
     constructor(props) {
@@ -11,10 +13,10 @@ export default class Thead extends Component {
 
     render() {
 
-        const {className, style, columns, sort, onSort} = this.props;
+        const {className, style, columns, sort, hidden, onSort} = this.props;
 
         return (
-            <thead className={className}
+            <thead className={'thead' + (hidden ? ' hidden' : '') + (className ? ' ' + className : '')}
                    style={style}>
                 <tr>
                     {
@@ -32,6 +34,7 @@ export default class Thead extends Component {
                                              colIndex={index}
                                              sortable={item.sortable}
                                              sort={sort}
+                                             hidden={hidden}
                                              onSort={() => {
                                                  onSort(item.sortProp);
                                              }}/>
@@ -53,6 +56,7 @@ Thead.propTypes = {
 
     columns: PropTypes.array,
     sort: PropTypes.object,
+    hidden: PropTypes.bool,
 
     onSort: PropTypes.func
 
@@ -64,6 +68,7 @@ Thead.defaultProps = {
     style: null,
 
     columns: [],
-    sort: null
+    sort: null,
+    hidden: false
 
 };

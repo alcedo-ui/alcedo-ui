@@ -1,5 +1,6 @@
 @import '../../../common.scss';
 
-.prop-type-desc-table {
-
+.prop-type-desc-table-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
 }

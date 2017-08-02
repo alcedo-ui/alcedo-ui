@@ -256,7 +256,7 @@ export default class DropdownSelect extends Component {
                     }
 
                     <List className="dropdown-select-list"
-                          mode={multi ? List.Mode.CHECKBOX : List.Mode.RADIO}
+                          mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}

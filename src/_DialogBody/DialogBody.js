@@ -16,6 +16,13 @@ import './DialogBody.css';
 
 export default class DialogBody extends Component {
 
+    static ButtonUITypes = {
+        RAISED: 'raised',
+        FLAT: 'flat',
+        GHOST: 'ghost',
+        ICON: 'icon'
+    };
+
     constructor(props) {
 
         super(props);
@@ -263,13 +270,6 @@ export default class DialogBody extends Component {
         );
 
     }
-};
-
-DialogBody.ButtonUITypes = {
-    RAISED: 'raised',
-    FLAT: 'flat',
-    GHOST: 'ghost',
-    ICON: 'icon'
 };
 
 DialogBody.propTypes = {

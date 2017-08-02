@@ -1,240 +1,58 @@
 @import '../_common.scss';
 
-.table-wrapper {
-    position: relative;
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: $theme-field;
 
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        background: $theme-field;
+    .table-line-number-th,
+    .table-line-number-td {
+        width: 1px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        background: #fbfbfb;
+        text-align: right;
+    }
 
-        .table-line-number-th,
-        .table-line-number-td {
-            width: 1px;
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-            background: #fbfbfb;
-            text-align: right;
-        }
+    .table-select-th,
+    .table-select-td {
+        width: 30px;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        text-align: center;
 
-        .table-checkbox-th,
-        .table-checkbox-td {
+        .table-checkbox {
             width: 30px;
-            padding-left: 5px !important;
-            padding-right: 5px !important;
+            height: 30px;
 
-            .table-checkbox {
+            .checkbox-icon-wrapper {
                 width: 30px;
-                height: 30px;
+            }
 
-                .checkbox-icon-wrapper {
-                    width: 30px;
-                    height: 30px;
-
-                    .checkbox-bg-icon,
-                    .checkbox-icon {
-                        width: 30px;
-                        height: 30px;
-                        line-height: 30px;
-                    }
-                }
-
-                .checkbox-label {
-                    display: none;
-                }
+            .checkbox-label {
+                display: none;
             }
         }
 
-        thead {
-            tr {
-                border-bottom: 1px solid transparentize($theme-title-bg, .6);
+        .table-radio {
+            color: lighten($theme-text, 45%);
 
-                th {
-                    position: relative;
-                    height: 30px;
-                    line-height: 30px;
-                    text-align: left;
-                    padding: 15px 15px 14px;
-                    font-weight: normal;
-                    user-select: none;
-                    color: $theme-title;
-                    cursor: default;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-
-                    &:first-child {
-                        padding-left: 30px;
-                    }
-
-                    &:last-child {
-                        padding-right: 30px;
-                    }
-
-                    &.sortable {
-                        cursor: pointer;
-                        padding-right: 30px;
-
-                        .table-header-sort-icon {
-                            position: absolute;
-                            right: 30px;
-                            display: block;
-                            width: 30px;
-                            height: 30px;
-                            line-height: 30px;
-                            text-align: center;
-                            color: lighten($theme-text, 45%);
-                            transition: all $transition-duration ease-in-out;
-
-                            &.up {
-                                top: 10px;
-                            }
-
-                            &.down {
-                                top: 20px;
-                            }
-                        }
-
-                        &:hover {
-                            color: $theme-text;
-                        }
-
-                        &.asc {
-                            color: $theme-text;
-
-                            .table-header-sort-icon.up {
-                                color: $theme-text;
-                            }
-                        }
-
-                        &.desc {
-                            color: $theme-text;
-
-                            .table-header-sort-icon.down {
-                                color: $theme-text;
-                            }
-                        }
-                    }
-                }
+            &.activated {
+                color: $theme-highlight;
             }
         }
-
-        tbody {
-            tr {
-                box-sizing: border-box;
-                border-top: 1px solid $theme-bg;
-
-                td {
-                    height: 29px;
-                    line-height: 29px;
-                    text-align: left;
-                    padding: 15px;
-                    transition: none;
-                    user-select: none;
-                    cursor: default;
-                    white-space: nowrap;
-
-                    &:first-child {
-                        padding-left: 30px;
-                    }
-
-                    &:last-child {
-                        padding-right: 30px;
-                    }
-
-                    &.actions {
-                        i {
-                            width: 12px;
-                            margin-left: 24px;
-
-                            &:first-child {
-                                margin-left: 0;
-                            }
-                        }
-                    }
-                }
-
-                &:first-child {
-                    border-top: 1px solid transparent;
-                }
-
-                &:last-child {
-                    td {
-                        &:first-child {
-                            border-bottom-left-radius: $border-radius;
-                        }
-
-                        &:last-child {
-                            border-bottom-right-radius: $border-radius;
-                        }
-                    }
-
-                }
-
-                &:hover {
-                    td {
-                        background: transparentize($theme-title-bg, .8);
-
-                        &.actions {
-
-                            .delete-icon {
-                                color: $error !important;
-                            }
-                        }
-
-                        a {
-                            text-decoration: underline;
-                        }
-                    }
-                }
-            }
-        }
-
-        tfoot {
-            border-top: 1px solid $theme-bg;
-        }
-
     }
 
-    .head-table {
-        width: 100%;
-        height: 60px;
-        overflow: hidden;
-    }
+    &.selectable {
 
-    .body-table {
-        height: calc(100% - 60px);
-        overflow: auto;
+        .table-row {
+            cursor: pointer;
 
-        .body-table-scroller {
-
-            .table {
-                height: 100%;
-
-                thead {
-                    tr {
-                        border-bottom: none;
-
-                        th {
-                            height: 0;
-                            line-height: 0;
-                            padding-top: 0;
-                            padding-bottom: 0;
-                            overflow: hidden;
-
-                            .sort-icon {
-                                display: none;
-                            }
-
-                            & > * {
-                                display: none;
-                            }
-                        }
-                    }
-                }
+            td {
+                cursor: pointer;
             }
         }
-
     }
+
 }

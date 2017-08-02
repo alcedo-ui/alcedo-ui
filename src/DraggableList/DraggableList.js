@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import _ from 'lodash';
 
 import DraggableListGroup from '../DraggableListGroup';
@@ -13,7 +11,6 @@ import Util from '../_vendors/Util';
 
 import './DraggableList.css';
 
-@DragDropContext(HTML5Backend)
 export default class DraggableList extends Component {
 
     static Mode = DraggableListItem.Mode;

@@ -3,18 +3,25 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
+import IconButton from '../IconButton';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
-import Event from '../_vendors/Event';
+import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
 import './Table.css';
 
 export default class Table extends Component {
+
+    static Mode = {
+        NORMAL: 'normal',
+        CHECKBOX: 'checkbox',
+        RADIO: 'radio'
+    };
 
     constructor(props) {
 
@@ -39,24 +46,100 @@ export default class Table extends Component {
             pagging: {
                 pageSize: 10,
                 page: 0
-            }
+            },
+
+            value: this.initValue(props)
 
         };
 
-        this.sortHandle = this::this.sortHandle;
+        this.initValue = this::this.initValue;
+        this.isHeadChecked = this::this.isHeadChecked;
+        this.isItemChecked = this::this.isItemChecked;
+        this.itemCheckboxChangeHandler = this::this.itemCheckboxChangeHandler;
+        this.itemRadioChangeHandler = this::this.itemRadioChangeHandler;
+        this.sortHandler = this::this.sortHandler;
         this.sortData = this::this.sortData;
-        this.tableScrollHandle = this::this.tableScrollHandle;
-        // this.debounceTableScrollHandle = _.debounce(this::this.debounceTableScrollHandle, 150);
-        this.scrollIndex = this::this.scrollIndex;
+        this.rowTouchTapHandler = this::this.rowTouchTapHandler;
+        this.calSelectedCount = this::this.calSelectedCount;
         this.paggingData = this::this.paggingData;
-        this.pageChangedHandle = this::this.pageChangedHandle;
-        this.resizeHandle = this::this.resizeHandle;
+        this.pageChangedHandler = this::this.pageChangedHandler;
         this.resetPage = this::this.resetPage;
         // this.wdithHandle = this::this.wdithHandle;
 
     }
 
-    sortHandle(prop) {
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, mode} = props;
+
+        if (!mode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                return [];
+            case Table.Mode.RADIO:
+                return null;
+            default:
+                return value;
+        }
+
+    }
+
+    isHeadChecked() {
+
+        const {data} = this.props,
+            {value} = this.state;
+
+        if (!value || !data) {
+            return false;
+        }
+
+        return value.length === data.length;
+
+    }
+
+    isItemChecked(rowData) {
+
+        const {mode} = this.props,
+            {value} = this.state;
+
+        if (mode === Table.Mode.NORMAL || !rowData || !value) {
+            return false;
+        }
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                return value.findIndex(item => item == rowData) !== -1;
+            case Table.Mode.RADIO:
+                return value == rowData;
+        }
+
+    }
+
+    headCheckBoxChangeHandler(checked) {
+
+        const value = checked ? this.props.data.slice() : [];
+
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+
+    }
+
+    sortHandler(prop) {
 
         const {sort} = this.state;
         let type = 1;
@@ -99,47 +182,101 @@ export default class Table extends Component {
 
     }
 
-    tableScrollHandle(e) {
-        // e.persist();
-        // this.debounceTableScrollHandle(e);
-        !this.props.isPagging && this.setState({
-            scrollTop: e.target.scrollTop,
-            scrollLeft: e.target.scrollLeft
+    itemCheckboxChangeHandler(rowData, rowIndex) {
+
+        if (!rowData) {
+            return;
+        }
+
+        const {value} = this.state,
+            checked = !this.isItemChecked(rowData);
+
+        if (checked) {
+            value.push(rowData);
+        } else if (value.length > 0) {
+            value.splice(value.indexOf(rowData), 1);
+        }
+
+        this.setState({
+            value
+        }, () => {
+
+            const {onChange, onSelect, onDeselect} = this.props;
+
+            if (checked) {
+                onSelect && onSelect([rowData]);
+            } else {
+                onDeselect && onDeselect([rowData]);
+            }
+
+            onChange && onChange(value, rowIndex);
+
         });
+
     }
 
-    /**
-     * 滚动去抖
-     */
-    // debounceTableScrollHandle(e) {
-    //     !this.props.isPagging && this.setState({
-    //         scrollTop: e.target.scrollTop
-    //     });
-    // }
+    itemRadioChangeHandler(rowData, rowIndex) {
 
-    scrollIndex(data) {
+        if (!rowData) {
+            return;
+        }
 
-        const {rowHeight, isAdaptiveHeight} = this.props,
-            {scrollTop, bodyHeight, pagging} = this.state,
-            len = data.length;
+        const checked = !this.isItemChecked(rowData),
+            value = checked ? rowData : null;
 
-        let startIndex = Math.floor(scrollTop / rowHeight), // 下取整
-            stopIndex = isAdaptiveHeight
-                ? startIndex + Math.ceil(bodyHeight / rowHeight) // 上取整
-                : startIndex + pagging.pageSize; // 默认显示的条数
+        this.setState({
+            value
+        }, () => {
 
-        // 缓冲
-        startIndex -= 6;
-        stopIndex += 6;
+            const {onChange, onSelect, onDeselect} = this.props;
 
-        // 验证有效性
-        startIndex = startIndex < 0 ? 0 : startIndex;
-        stopIndex = stopIndex > len ? len : stopIndex;
+            if (checked) {
+                onSelect && onSelect(rowData);
+            } else {
+                onDeselect && onDeselect(rowData);
+            }
 
-        return {
-            startIndex,
-            stopIndex
-        };
+            onChange && onChange(value, rowIndex);
+
+        });
+
+    }
+
+    rowTouchTapHandler(rowData, rowIndex) {
+
+        if (!rowData) {
+            return;
+        }
+
+        const {onRowTouchTap} = this.props;
+        onRowTouchTap && onRowTouchTap(rowData, rowIndex);
+
+        const {mode} = this.props;
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                this.itemCheckboxChangeHandler(rowData, rowIndex);
+                return;
+            case Table.Mode.RADIO:
+                this.itemRadioChangeHandler(rowData, rowIndex);
+                return;
+        }
+
+    }
+
+    calSelectedCount() {
+
+        const {mode} = this.props,
+            {value} = this.state;
+
+        switch (mode) {
+            case Table.Mode.CHECKBOX:
+                return value.length;
+            case Table.Mode.RADIO:
+                return value ? 1 : 0;
+        }
+
+        return 0;
 
     }
 
@@ -159,7 +296,7 @@ export default class Table extends Component {
 
     }
 
-    pageChangedHandle(pagging) {
+    pageChangedHandler(pagging) {
         this.setState({
             pagging
         }, () => {
@@ -183,30 +320,22 @@ export default class Table extends Component {
 
     }
 
-    resizeHandle() {
-        this.setState({
-            bodyHeight: this.refs.bodyTable.offsetHeight
-        });
-    }
-
     componentDidMount() {
-
-        this.resizeHandle();
-
-        Event.addEvent(window, 'resize', this.resizeHandle);
-
         // this.wdithHandle();
-
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.data.length !== this.props.data.length) {
             this.resetPage(nextProps.data);
         }
-    }
 
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandle);
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: this.initValue(nextProps)
+            });
+        }
+
     }
 
     // wdithHandle() {
@@ -235,41 +364,55 @@ export default class Table extends Component {
     //
     // }
 
-
     render() {
 
         const {
-                className, style, data, columns, isPagging, rowHeight, hasLineNumber, isMultiSelect,
-                idProp, useBriefPagging
+                className, style, data, columns, hasLineNumber, mode,
+                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
+                onCellTouchTap
             } = this.props,
-            {scrollLeft, sort, pagging} = this.state,
+            {value, sort, pagging} = this.state,
+            self = this,
 
-            headTableStyle = {
-                transform: `translateX(-${scrollLeft}px)`
-            };
+            tableClassName = (mode === Table.Mode.CHECKBOX || mode === Table.Mode.RADIO ? ' selectable' : '')
+                + (className ? ' ' + className : '');
 
         // 处理 columns
         let finalColumns = _.cloneDeep(columns);
 
-
-        if (isMultiSelect) {
+        if (mode === Table.Mode.CHECKBOX) {
             finalColumns.unshift({
-                headerClassName: 'table-checkbox-th',
+                headerClassName: 'table-select-th',
                 header() {
-                    return <Checkbox className="table-checkbox"/>;
+                    return <Checkbox className="table-checkbox"
+                                     value={self.isHeadChecked()}
+                                     onChange={self.headCheckBoxChangeHandler}/>;
                 },
-                className: 'table-checkbox-td',
-                renderer() {
-                    return <Checkbox className="table-checkbox"/>;
+                cellClassName: 'table-select-td',
+                renderer(rowData) {
+                    return <Checkbox className="table-checkbox"
+                                     value={self.isItemChecked(rowData)}
+                                     onChange={(checked) => {
+                                         self.itemCheckBoxChangeHandler(checked, rowData);
+                                     }}/>;
+                }
+            });
+        } else if (mode === Table.Mode.RADIO) {
+            finalColumns.unshift({
+                cellClassName: 'table-select-td',
+                renderer(rowData) {
+                    return (
+                        <IconButton className={'table-radio' + (self.isItemChecked(rowData) ? ' activated' : '')}
+                                    iconCls="fa fa-check"/>
+                    );
                 }
             });
         }
 
-
         if (hasLineNumber) {
             finalColumns.unshift({
                 headerClassName: 'table-line-number-th',
-                className: 'table-line-number-td',
+                cellClassName: 'table-line-number-td',
                 renderer(rowData, rowIndex) {
                     return rowIndex + 1;
                 }
@@ -277,105 +420,59 @@ export default class Table extends Component {
         }
 
         // 处理 data
-        const sortedData = this.sortData(_.cloneDeep(data));
-
-        let totalPage, finalData,
-            startIndex = 0, stopIndex, scrollerStyle, tableStyle;
-
-        if (isPagging) { // 分页
-
-            totalPage = Math.ceil(sortedData.length / pagging.pageSize);
-            finalData = this.paggingData(sortedData);
-
-        } else { // 非分页
-
-            scrollerStyle = {
-                height: sortedData.length * rowHeight
-            };
-
-            ({startIndex, stopIndex} = this.scrollIndex(sortedData));
-            finalData = sortedData.slice(startIndex, stopIndex);
-
-            tableStyle = {
-                height: finalData.length * rowHeight,
-                transform: `translate3d(0,${startIndex * rowHeight}px,0)`
-            };
-
-        }
-
-        const finalDataCount = finalData.length;
+        const sortedData = this.sortData(data),
+            totalPage = Math.ceil(sortedData.length / pagging.pageSize),
+            finalData = isPagging ? this.paggingData(sortedData) : sortedData,
+            finalDataCount = finalData.length;
 
         return (
-            <div className={`table-wrapper ${className}`}
-                 style={style}>
+            <table className={'table' + tableClassName}
+                   style={style}>
 
-                <div className="head-table">
-                    <table className="table">
+                <Thead columns={finalColumns}
+                       sort={sort}
+                       onSort={this.sortHandler}/>
 
-                        <Thead style={headTableStyle}
-                               columns={finalColumns}
-                               sort={sort}
-                               onSort={this.sortHandle}/>
+                {
+                    finalData && finalDataCount > 0
+                        ? <Tbody columns={finalColumns}
+                                 data={finalData}
+                                 idProp={idProp}
+                                 mode={mode}
+                                 onRowTouchTap={this.rowTouchTapHandler}
+                                 onCellTouchTap={onCellTouchTap}/>
+                        : null
+                }
 
-                        {
-                            finalData && finalDataCount > 0
-                                ? <Tbody columns={finalColumns}
-                                         data={finalData}
-                                         startIndex={startIndex}
-                                         idProp={idProp}/>
-                                : null
-                        }
-
-                    </table>
-                </div>
-                <div ref="bodyTable"
-                     className="body-table"
-                     onScroll={this.tableScrollHandle}>
-                    <div className="body-table-scroller"
-                         style={isPagging ? null : scrollerStyle}>
-                        <table className="table"
-                               style={isPagging ? null : tableStyle}>
-
-                            <Thead columns={finalColumns}
-                                   sort={sort}
-                                   onSort={this.sortHandle}/>
-
+                {
+                    isPagging ?
+                        <Tfoot columns={finalColumns}>
                             {
-                                finalData && finalDataCount > 0
-                                    ? <Tbody columns={finalColumns}
-                                             data={finalData}
-                                             startIndex={startIndex}
-                                             idProp={idProp}/>
-                                    : null
+                                useFullPagging ?
+                                    <Pagging page={pagging.page}
+                                             count={data.length}
+                                             selectedCount={this.calSelectedCount()}
+                                             total={totalPage}
+                                             pageSize={pagging.pageSize}
+                                             selectedCountVisible={paggingSelectedCountVisible}
+                                             pageSizeVisible={paggingPageSizeVisible}
+                                             onChange={this.pageChangedHandler}/>
+                                    :
+                                    <BriefPagging page={pagging.page}
+                                                  count={data.length}
+                                                  selectedCount={this.calSelectedCount()}
+                                                  total={totalPage}
+                                                  pageSize={pagging.pageSize}
+                                                  selectedCountVisible={paggingSelectedCountVisible}
+                                                  pageSizeVisible={paggingPageSizeVisible}
+                                                  onChange={this.pageChangedHandler}/>
                             }
+                        </Tfoot>
+                        :
+                        null
+                }
 
-                            {
-                                isPagging ?
-                                    (
-                                        <Tfoot columns={finalColumns}>
-                                            {
-                                                useBriefPagging ?
-                                                    <BriefPagging page={pagging.page}
-                                                                  count={data.length}
-                                                                  total={totalPage}
-                                                                  pageSize={pagging.pageSize}
-                                                                  onChange={this.pageChangedHandle}/>
-                                                    :
-                                                    <Pagging page={pagging.page}
-                                                             total={totalPage}
-                                                             pageSize={pagging.pageSize}
-                                                             onChange={this.pageChangedHandle}/>
-                                            }
-                                        </Tfoot>
-                                    )
-                                    : null
-                            }
-
-                        </table>
-                    </div>
-                </div>
-
-            </div>
+            </table>
         );
 
     }
@@ -399,9 +496,9 @@ Table.propTypes = {
     data: PropTypes.array.isRequired,
 
     /**
-     * If true,the paging will display.
+     *
      */
-    isPagging: PropTypes.bool,
+    value: PropTypes.array,
 
     /**
      * Sorting method.
@@ -409,24 +506,9 @@ Table.propTypes = {
     sortFunc: PropTypes.func,
 
     /**
-     * The table row height.
-     */
-    rowHeight: PropTypes.number,
-
-    /**
-     * The function that trigger when step changes.
-     */
-    isAdaptiveHeight: PropTypes.bool,
-
-    /**
      *  Whether need line number.
      */
     hasLineNumber: PropTypes.bool,
-
-    /**
-     * Whether have multiple choose.
-     */
-    isMultiSelect: PropTypes.bool,
 
     /**
      * The function that trigger when show rows changes.
@@ -452,7 +534,6 @@ Table.propTypes = {
         // 表头显示
         // (1) 字符串，例如： 'id'
         // (2) 回调函数，例如：function (colIndex) {return colIndex;}
-
         /**
          * The render content in header.
          */
@@ -495,12 +576,32 @@ Table.propTypes = {
     /**
      *
      */
+    mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
+
+    /**
+     *
+     */
     idProp: PropTypes.string,
 
     /**
      * If true,the table will use BriefPagging component.
      */
-    useBriefPagging: PropTypes.bool,
+    useFullPagging: PropTypes.bool,
+
+    /**
+     *
+     */
+    isPagging: PropTypes.bool,
+
+    /**
+     *
+     */
+    paggingSelectedCountVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    paggingPageSizeVisible: PropTypes.bool,
 
     /**
      * Sort init config.
@@ -517,7 +618,32 @@ Table.propTypes = {
          */
         type: PropTypes.oneOf([1, -1])
 
-    })
+    }),
+
+    /**
+     *
+     */
+    onSelect: PropTypes.func,
+
+    /**
+     *
+     */
+    onDeselect: PropTypes.func,
+
+    /**
+     *
+     */
+    onRowTouchTap: PropTypes.func,
+
+    /**
+     *
+     */
+    onCellTouchTap: PropTypes.func,
+
+    /**
+     *
+     */
+    onChange: PropTypes.func
 
 };
 
@@ -528,13 +654,16 @@ Table.defaultProps = {
 
     columns: [],
     data: [],
-    isPagging: false,
-    rowHeight: 90,
-    isAdaptiveHeight: false,
+    value: [],
     hasLineNumber: false,
-    isMultiSelect: false,
+
+    mode: Table.Mode.NORMAL,
     idProp: 'id',
-    useBriefPagging: true,
+    isPagging: true,
+    useFullPagging: false,
+    paggingSelectedCountVisible: false,
+    paggingPageSizeVisible: true,
+
     sortInitConfig: null
 
 };
