@@ -140,8 +140,8 @@ export default class DraggableListItem extends Component {
 
         const {
                 connectDragSource, connectDropTarget, isDragging,
-                className, style, theme, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, renderer, readOnly, draggable
+                index, className, style, theme, data, text, desc, iconCls, rightIconCls,
+                mode, disabled, isLoading, itemRenderer, renderer, readOnly, draggable
             } = this.props,
             {checked} = this.state,
 
@@ -189,21 +189,26 @@ export default class DraggableListItem extends Component {
                 }
 
                 {
-                    renderer && typeof renderer === 'function' ?
-                        renderer(this.props)
+                    itemRenderer && typeof itemRenderer === 'function' ?
+                        itemRenderer(data, index)
                         :
                         (
-                            desc ?
-                                <div className="draggable-list-item-content">
-                                    <div className="draggable-list-item-content-value">
-                                        {text}
-                                    </div>
-                                    <div className="draggable-list-item-content-desc">
-                                        {desc}
-                                    </div>
-                                </div>
+                            renderer && typeof renderer === 'function' ?
+                                renderer(data, index)
                                 :
-                                text
+                                (
+                                    desc ?
+                                        <div className="list-item-content">
+                                            <div className="list-item-content-value">
+                                                {text}
+                                            </div>
+                                            <div className="list-item-content-desc">
+                                                {desc}
+                                            </div>
+                                        </div>
+                                        :
+                                        text
+                                )
                         )
                 }
 
@@ -240,6 +245,8 @@ DraggableListItem.propTypes = {
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool,
 
+    index: PropTypes.number,
+
     /**
      * The CSS class name of the list button.
      */
@@ -254,6 +261,11 @@ DraggableListItem.propTypes = {
      * The theme of the list button.
      */
     theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    /**
+     *
+     */
+    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
 
     /**
      * The text value of the list button. Type can be string or number.
@@ -289,6 +301,11 @@ DraggableListItem.propTypes = {
      * Use this property to display an icon. It will display on the right.
      */
     rightIconCls: PropTypes.string,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    itemRenderer: PropTypes.func,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -349,11 +366,14 @@ DraggableListItem.propTypes = {
 
 DraggableListItem.defaultProps = {
 
+    index: 0,
+
     className: '',
     style: null,
 
     theme: Theme.DEFAULT,
 
+    data: '',
     value: '',
     text: '',
     desc: '',
