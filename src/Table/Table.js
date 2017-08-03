@@ -386,7 +386,8 @@ export default class Table extends Component {
                 headerClassName: 'table-select-th',
                 header() {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isHeadChecked()}/>;
+                                     value={self.isHeadChecked()}
+                                     onChange={self.headCheckBoxChangeHandler}/>;
                 },
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
