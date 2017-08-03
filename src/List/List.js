@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ListGroup from '../ListGroup';
-import ListItem from '../ListItem';
+import ListGroup from '../_ListGroup';
+import ListItem from '../_ListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -106,7 +106,7 @@ export default class List extends Component {
 
     listItemsRenderer(items = this.props.items) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -120,6 +120,8 @@ export default class List extends Component {
                         (
                             <ListItem key={index}
                                       {...item}
+                                      index={index}
+                                      data={item}
                                       checked={this.isItemChecked(item)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
                                       text={Util.getTextByDisplayField(item, displayField, valueField)}
@@ -127,6 +129,7 @@ export default class List extends Component {
                                       disabled={disabled || item.disabled}
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
+                                      renderer={renderer}
                                       onTouchTap={() => {
                                           this.listItemTouchTapHandle(item, index);
                                           item.onTouchTap && item.onTouchTap();
@@ -141,12 +144,15 @@ export default class List extends Component {
                         :
                         (
                             <ListItem key={index}
+                                      index={index}
+                                      data={item}
                                       checked={this.isItemChecked(item)}
                                       value={item}
                                       text={item}
                                       disabled={disabled}
                                       isLoading={isLoading}
                                       mode={mode}
+                                      renderer={renderer}
                                       onTouchTap={() => {
                                           this.listItemTouchTapHandle(item, index);
                                       }}
@@ -290,7 +296,7 @@ List.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the ListItem.
+     * Children passed into the _ListItem.
      */
     items: PropTypes.oneOfType([
 
@@ -370,7 +376,7 @@ List.propTypes = {
             /**
              * You can create a complicated renderer callback instead of value and desc prop.
              */
-            renderer: PropTypes.func,
+            itemRenderer: PropTypes.func,
 
             /**
              * Callback function fired when a list item touch-tapped.
@@ -418,6 +424,11 @@ List.propTypes = {
      * If true,the listData will be grouped.
      */
     isGrouped: PropTypes.bool,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

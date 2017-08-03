@@ -124,8 +124,8 @@ export default class ListItem extends Component {
     render() {
 
         const {
-                className, style, theme, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, readOnly
+                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly
             } = this.props,
             {checked} = this.state,
 
@@ -177,21 +177,26 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        renderer && typeof renderer === 'function' ?
-                            renderer(this.props)
+                        itemRenderer && typeof itemRenderer === 'function' ?
+                            itemRenderer(data, index)
                             :
                             (
-                                desc ?
-                                    <div className="list-item-content">
-                                        <div className="list-item-content-value">
-                                            {text}
-                                        </div>
-                                        <div className="list-item-content-desc">
-                                            {desc}
-                                        </div>
-                                    </div>
+                                renderer && typeof renderer === 'function' ?
+                                    renderer(data, index)
                                     :
-                                    text
+                                    (
+                                        desc ?
+                                            <div className="list-item-content">
+                                                <div className="list-item-content-value">
+                                                    {text}
+                                                </div>
+                                                <div className="list-item-content-desc">
+                                                    {desc}
+                                                </div>
+                                            </div>
+                                            :
+                                            text
+                                    )
                             )
                     }
 
@@ -227,6 +232,8 @@ export default class ListItem extends Component {
 
 ListItem.propTypes = {
 
+    index: PropTypes.number,
+
     /**
      * The CSS class name of the list button.
      */
@@ -241,6 +248,11 @@ ListItem.propTypes = {
      * The theme of the list button.
      */
     theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    /**
+     *
+     */
+    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
 
     /**
      * The text value of the list button. Type can be string or number.
@@ -300,6 +312,11 @@ ListItem.propTypes = {
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
+    itemRenderer: PropTypes.func,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
     renderer: PropTypes.func,
 
     /**
@@ -346,11 +363,14 @@ ListItem.propTypes = {
 
 ListItem.defaultProps = {
 
+    index: 0,
+
     className: '',
     style: null,
 
     theme: Theme.DEFAULT,
 
+    data: '',
     value: '',
     text: '',
     desc: '',

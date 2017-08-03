@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import DraggableListGroup from '../DraggableListGroup';
-import DraggableListItem from '../DraggableListItem';
+import DraggableListGroup from '../_DraggableListGroup';
+import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -359,7 +359,7 @@ DraggableList.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the DraggableListItem.
+     * Children passed into the _DraggableListItem.
      */
     items: PropTypes.oneOfType([
 
