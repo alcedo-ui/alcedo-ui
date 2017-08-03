@@ -111,7 +111,7 @@ export default class DraggableList extends Component {
 
     listItemsRenderer(items = this.state.items, groupIndex) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -131,6 +131,7 @@ export default class DraggableList extends Component {
                             <DraggableListItem key={item.id || value}
                                                {...item}
                                                index={index}
+                                               data={item}
                                                value={value}
                                                checked={this.isItemChecked(item)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
@@ -139,6 +140,7 @@ export default class DraggableList extends Component {
                                                isLoading={isLoading || item.isLoading}
                                                groupIndex={groupIndex}
                                                mode={mode}
+                                               renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
@@ -155,6 +157,7 @@ export default class DraggableList extends Component {
                         (
                             <DraggableListItem key={item.id || value}
                                                index={index}
+                                               data={item}
                                                checked={this.isItemChecked(item)}
                                                value={value}
                                                text={item}
@@ -162,6 +165,7 @@ export default class DraggableList extends Component {
                                                isLoading={isLoading}
                                                groupIndex={groupIndex}
                                                mode={mode}
+                                               renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
@@ -439,7 +443,7 @@ DraggableList.propTypes = {
             /**
              * You can create a complicated renderer callback instead of value and desc prop.
              */
-            renderer: PropTypes.func,
+            itemRenderer: PropTypes.func,
 
             /**
              * Callback function fired when a list item touch-tapped.
@@ -482,6 +486,11 @@ DraggableList.propTypes = {
      * If true,the listData will be grouped.
      */
     isGrouped: PropTypes.bool,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

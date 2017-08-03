@@ -296,7 +296,7 @@ List.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the _ListItem.
+     * Children passed into the ListItem.
      */
     items: PropTypes.oneOfType([
 
