@@ -386,16 +386,12 @@ export default class Table extends Component {
                 headerClassName: 'table-select-th',
                 header() {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isHeadChecked()}
-                                     onChange={self.headCheckBoxChangeHandler}/>;
+                                     value={self.isHeadChecked()}/>;
                 },
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isItemChecked(rowData)}
-                                     onChange={(checked) => {
-                                         self.itemCheckBoxChangeHandler(checked, rowData);
-                                     }}/>;
+                                     value={self.isItemChecked(rowData)}/>;
                 }
             });
         } else if (mode === Table.Mode.RADIO) {
