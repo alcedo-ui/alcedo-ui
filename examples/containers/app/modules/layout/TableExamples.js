@@ -131,7 +131,10 @@ export default class TableExamples extends Component {
                                    isPagging={true}
                                    mode={Table.Mode.CHECKBOX}
                                    data={data}
-                                   paggingSelectedCountVisible={true}/>
+                                   paggingSelectedCountVisible={true}
+                                   onChange={(value) => {
+                                       console.log(value);
+                                   }}/>
 
                         </div>
                     </div>
