@@ -30,20 +30,6 @@ export default class DraggableListExamples extends Component {
             text: 'Google+'
         }];
 
-        this.descListData = [{
-            iconCls: 'fa fa-facebook',
-            text: 'Facebook',
-            desc: 'Here is a Facebook Desc.'
-        }, {
-            iconCls: 'fa fa-twitter',
-            text: 'Twitter',
-            desc: 'Here is a Twitter Desc.'
-        }, {
-            iconCls: 'fa fa-google-plus',
-            text: 'Google+',
-            desc: 'Here is a Google+ Desc.'
-        }];
-
         this.groupedListData = [{
             name: 'socialNetwork',
             children: [{
@@ -76,6 +62,8 @@ export default class DraggableListExamples extends Component {
                 desc: 'Here is a Windows Desc.'
             }]
         }];
+
+        this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
         this.sequenceChangeHandler = this::this.sequenceChangeHandler;
         this.valueChangeHandler = this::this.valueChangeHandler;
@@ -149,6 +137,33 @@ export default class DraggableListExamples extends Component {
                                                    mode={DraggableList.Mode.CHECKBOX}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
+                                                   onSequenceChange={this.sequenceChangeHandler}
+                                                   onValueChange={this.valueChangeHandler}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Draggable Group"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A <code>Draggable List</code>.
+                                </p>
+
+                                <Paper style={{width: 240, height: 160, overflow: 'auto'}}>
+                                    <DraggableList style={{width: 240}}
+                                                   items={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
                                 </Paper>
