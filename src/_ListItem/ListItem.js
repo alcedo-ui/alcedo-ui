@@ -88,9 +88,6 @@ export default class ListItem extends Component {
             case ListItem.Mode.RADIO:
                 this.radioChangeHandler();
                 return;
-            case ListItem.Mode.NORMAL:
-                callback();
-                return;
         }
 
     }
