@@ -6,7 +6,6 @@ import Checkbox from '../Checkbox';
 import IconButton from '../IconButton';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
-import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
@@ -424,53 +423,57 @@ export default class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <table className={'table' + tableClassName}
-                   style={style}>
+            <div>
 
-                <Thead columns={finalColumns}
-                       sort={sort}
-                       onSort={this.sortHandler}/>
+                <div className="table-wrapper">
+                    <table className={'table' + tableClassName}
+                           style={style}>
 
-                {
-                    finalData && finalDataCount > 0
-                        ? <Tbody columns={finalColumns}
-                                 data={finalData}
-                                 idProp={idProp}
-                                 isItemChecked={this.isItemChecked}
-                                 onRowTouchTap={this.rowTouchTapHandler}
-                                 onCellTouchTap={onCellTouchTap}/>
-                        : null
-                }
+                        <Thead columns={finalColumns}
+                               sort={sort}
+                               onSort={this.sortHandler}/>
+
+                        {
+                            finalData && finalDataCount > 0
+                                ? <Tbody columns={finalColumns}
+                                         data={finalData}
+                                         idProp={idProp}
+                                         isItemChecked={this.isItemChecked}
+                                         onRowTouchTap={this.rowTouchTapHandler}
+                                         onCellTouchTap={onCellTouchTap}/>
+                                : null
+                        }
+
+                    </table>
+                </div>
 
                 {
                     isPagging ?
-                        <Tfoot columns={finalColumns}>
-                            {
-                                useFullPagging ?
-                                    <Pagging page={pagging.page}
-                                             count={data.length}
-                                             selectedCount={this.calSelectedCount()}
-                                             total={totalPage}
-                                             pageSize={pagging.pageSize}
-                                             selectedCountVisible={paggingSelectedCountVisible}
-                                             pageSizeVisible={paggingPageSizeVisible}
-                                             onChange={this.pageChangedHandler}/>
-                                    :
-                                    <BriefPagging page={pagging.page}
-                                                  count={data.length}
-                                                  selectedCount={this.calSelectedCount()}
-                                                  total={totalPage}
-                                                  pageSize={pagging.pageSize}
-                                                  selectedCountVisible={paggingSelectedCountVisible}
-                                                  pageSizeVisible={paggingPageSizeVisible}
-                                                  onChange={this.pageChangedHandler}/>
-                            }
-                        </Tfoot>
+                        (
+                            useFullPagging ?
+                                <Pagging page={pagging.page}
+                                         count={data.length}
+                                         selectedCount={this.calSelectedCount()}
+                                         total={totalPage}
+                                         pageSize={pagging.pageSize}
+                                         selectedCountVisible={paggingSelectedCountVisible}
+                                         pageSizeVisible={paggingPageSizeVisible}
+                                         onChange={this.pageChangedHandler}/>
+                                :
+                                <BriefPagging page={pagging.page}
+                                              count={data.length}
+                                              selectedCount={this.calSelectedCount()}
+                                              total={totalPage}
+                                              pageSize={pagging.pageSize}
+                                              selectedCountVisible={paggingSelectedCountVisible}
+                                              pageSizeVisible={paggingPageSizeVisible}
+                                              onChange={this.pageChangedHandler}/>
+                        )
                         :
                         null
                 }
 
-            </table>
+            </div>
         );
 
     }

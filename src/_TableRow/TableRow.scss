@@ -2,7 +2,7 @@
 
 .table-row {
     box-sizing: border-box;
-    border-top: 1px solid $theme-bg;
+    border-bottom: 1px solid $theme-bg;
 
     td {
         height: 29px;
@@ -24,23 +24,6 @@
                 }
             }
         }
-    }
-
-    &:first-child {
-        border-top: 1px solid transparent;
-    }
-
-    &:last-child {
-        td {
-            &:first-child {
-                border-bottom-left-radius: $border-radius;
-            }
-
-            &:last-child {
-                border-bottom-right-radius: $border-radius;
-            }
-        }
-
     }
 
     &:hover {
