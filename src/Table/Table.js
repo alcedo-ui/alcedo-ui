@@ -42,7 +42,7 @@ export default class Table extends Component {
             bodyHeight: 0,
 
             pagging: {
-                pageSize: 5,
+                pageSize: 10,
                 page: 0
             },
 
