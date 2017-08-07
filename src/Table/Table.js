@@ -29,7 +29,7 @@ export default class Table extends Component {
         this.state = {
 
             /**
-             * 排序控制
+             * sort construct
              *  {
 			 *	    prop: '', // 排序的列属性名称
 			 *	    type: 1 | -1 // 正序 | 倒序
@@ -41,9 +41,8 @@ export default class Table extends Component {
             scrollLeft: 0,
             bodyHeight: 0,
 
-            // 排序
             pagging: {
-                pageSize: 10,
+                pageSize: 5,
                 page: 0
             },
 
@@ -108,10 +107,9 @@ export default class Table extends Component {
 
     }
 
-    isItemChecked(rowData) {
+    isItemChecked(rowData, value = this.state.value) {
 
-        const {mode} = this.props,
-            {value} = this.state;
+        const {mode, idProp} = this.props;
 
         if (mode === Table.Mode.NORMAL || !rowData || !value) {
             return false;
@@ -119,9 +117,9 @@ export default class Table extends Component {
 
         switch (mode) {
             case Table.Mode.CHECKBOX:
-                return value.findIndex(item => item == rowData) !== -1;
+                return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
             case Table.Mode.RADIO:
-                return value == rowData;
+                return value[idProp] === rowData[idProp];
         }
 
     }
@@ -189,12 +187,12 @@ export default class Table extends Component {
         }
 
         const {value} = this.state,
-            checked = !this.isItemChecked(rowData);
+            checked = this.isItemChecked(rowData, value);
 
         if (checked) {
-            value.push(rowData);
-        } else if (value.length > 0) {
             value.splice(value.indexOf(rowData), 1);
+        } else {
+            value.push(rowData);
         }
 
         this.setState({
@@ -221,7 +219,7 @@ export default class Table extends Component {
             return;
         }
 
-        const checked = !this.isItemChecked(rowData),
+        const checked = this.isItemChecked(rowData, this.state.value),
             value = checked ? rowData : null;
 
         this.setState({
@@ -391,7 +389,7 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isItemChecked(rowData)}/>;
+                                     value={self.isItemChecked(rowData, value)}/>;
                 }
             });
         } else if (mode === Table.Mode.RADIO) {
@@ -399,7 +397,7 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return (
-                        <IconButton className={'table-radio' + (self.isItemChecked(rowData) ? ' activated' : '')}
+                        <IconButton className={'table-radio' + (self.isItemChecked(rowData, value) ? ' activated' : '')}
                                     iconCls="fa fa-check"/>
                     );
                 }
@@ -438,7 +436,8 @@ export default class Table extends Component {
                                 ? <Tbody columns={finalColumns}
                                          data={finalData}
                                          idProp={idProp}
-                                         isItemChecked={this.isItemChecked}
+                                         value={value}
+                                         mode={mode}
                                          onRowTouchTap={this.rowTouchTapHandler}
                                          onCellTouchTap={onCellTouchTap}/>
                                 : null
@@ -499,7 +498,7 @@ Table.propTypes = {
     /**
      *
      */
-    value: PropTypes.array,
+    value: PropTypes.any,
 
     /**
      * Sorting method.
@@ -655,7 +654,7 @@ Table.defaultProps = {
 
     columns: [],
     data: [],
-    value: [],
+    value: null,
     hasLineNumber: false,
 
     mode: Table.Mode.NORMAL,
