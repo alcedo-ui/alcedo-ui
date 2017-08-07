@@ -162,7 +162,7 @@ export default class DraggableListExamples extends Component {
                                 </p>
 
                                 <Paper style={{width: 240}}>
-                                    <DraggableList style={{width: 240, height: 240, overflow: 'auto'}}
+                                    <DraggableList style={{width: 240, height: 240}}
                                                    items={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
