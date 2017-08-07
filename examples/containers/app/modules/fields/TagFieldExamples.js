@@ -61,7 +61,10 @@ export default class TagFieldExamples extends Component {
 
                                 <p><code>TagField</code></p>
 
-                                <TagField data={this.data}/>
+                                <TagField data={this.data}
+                                          onChange={(value) => {
+                                              console.log(value);
+                                          }}/>
 
                             </div>
 
