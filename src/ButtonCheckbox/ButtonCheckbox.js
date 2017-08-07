@@ -68,7 +68,7 @@ ButtonCheckbox.propTypes = {
     /**
      * The name of the toggleButton.
      */
-    name: PropTypes.string,
+    // name: PropTypes.string,
 
     /**
      * The text of the button.
@@ -92,7 +92,7 @@ ButtonCheckbox.propTypes = {
 
 };
 
-ToggleButton.defaultProps = {
+ButtonCheckbox.defaultProps = {
 
     className: '',
     style: null,

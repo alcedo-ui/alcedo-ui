@@ -370,7 +370,7 @@ TagField.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The data of TagField items.
+     *
      */
     data: PropTypes.array,
 
@@ -385,12 +385,12 @@ TagField.propTypes = {
     displayField: PropTypes.string,
 
     /**
-     * If true,the TagField will be disabled.
+     *
      */
     disabled: PropTypes.bool,
 
     /**
-     * Callback function that will be fired when the filed change.
+     *
      */
     onChange: PropTypes.func
 
