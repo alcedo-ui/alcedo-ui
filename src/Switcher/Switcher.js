@@ -125,17 +125,17 @@ Switcher.propTypes = {
     size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
 
     /**
-     *
+     * Callback function fired when the switcher touch-tapped.
      */
     onTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired before the switcher is touch-tapped.
+     * Callback function fired before the switcher touch-tapped.
      */
     beforeChange: PropTypes.func,
 
     /**
-     * Callback function fired when the switcher is touch-tapped.
+     * Callback function fired when the switcher touch-tapped.
      */
     onChange: PropTypes.func
 
