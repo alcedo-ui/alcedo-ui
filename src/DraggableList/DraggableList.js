@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import withScrolling from 'react-dnd-scrollzone';
 import _ from 'lodash';
 
 import DraggableListGroup from '../_DraggableListGroup';
 import DraggableListItem from '../_DraggableListItem';
-import DraggableListItemLayer from '../_DraggableListItemLayer';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 import './DraggableList.css';
+
+const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
@@ -338,17 +340,15 @@ export default class DraggableList extends Component {
         }
 
         return (
-            <div className={'draggable-list' + listClassName}
-                 disabled={disabled}
-                 style={style}>
+            <ScrollingComponent className={'draggable-list' + listClassName}
+                                disabled={disabled}
+                                style={style}>
 
                 {renderEl}
 
-                <DraggableListItemLayer/>
-
                 {children}
 
-            </div>
+            </ScrollingComponent>
         );
     }
 };
