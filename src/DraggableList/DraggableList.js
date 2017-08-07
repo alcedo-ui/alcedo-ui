@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import DraggableListGroup from '../_DraggableListGroup';
 import DraggableListItem from '../_DraggableListItem';
+import DraggableListItemLayer from '../_DraggableListItemLayer';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -342,6 +343,8 @@ export default class DraggableList extends Component {
                  style={style}>
 
                 {renderEl}
+
+                <DraggableListItemLayer/>
 
                 {children}
 

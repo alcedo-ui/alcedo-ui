@@ -3,18 +3,47 @@ import PropTypes from 'prop-types';
 
 import TableRow from '../_TableRow';
 
+import Util from '../_vendors/Util';
+
 import './Tbody.css';
 
 export default class Tbody extends Component {
 
+    static Mode = {
+        NORMAL: 'normal',
+        CHECKBOX: 'checkbox',
+        RADIO: 'radio'
+    };
+
     constructor(props) {
+
         super(props);
+
+        this.isItemChecked = this::this.isItemChecked;
+
+    }
+
+    isItemChecked(rowData) {
+
+        const {mode, idProp, value} = this.props;
+
+        if (mode === Tbody.Mode.NORMAL || !rowData || !value) {
+            return false;
+        }
+
+        switch (mode) {
+            case Tbody.Mode.CHECKBOX:
+                return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
+            case Tbody.Mode.RADIO:
+                return value[idProp] === rowData[idProp];
+        }
+
     }
 
     render() {
 
         const {
-            columns, data, startIndex, idProp, isItemChecked,
+            columns, data, startIndex, idProp,
             onRowTouchTap, onCellTouchTap
         } = this.props;
 
@@ -28,7 +57,7 @@ export default class Tbody extends Component {
                                       rowIndex={startIndex + rowIndex}
                                       columns={columns}
                                       data={row}
-                                      isChecked={isItemChecked(row)}
+                                      isChecked={this.isItemChecked(row)}
                                       onRowTouchTap={onRowTouchTap}
                                       onCellTouchTap={onCellTouchTap}/>
                         );
@@ -47,6 +76,7 @@ Tbody.propTypes = {
     data: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
+    mode: PropTypes.oneOf(Util.enumerateValue(Tbody.Mode)),
 
     isItemChecked: PropTypes.func,
 
@@ -59,5 +89,6 @@ Tbody.defaultProps = {
     data: [],
     columns: [],
     startIndex: 0,
-    idProp: 'id'
+    idProp: 'id',
+    mode: Tbody.Mode.NORMAL
 };
