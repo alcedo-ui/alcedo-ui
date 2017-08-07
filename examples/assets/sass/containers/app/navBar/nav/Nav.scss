@@ -1,6 +1,6 @@
 @import '../../../../common.scss';
 
-.nav {
+.app-nav {
     height: 60px;
     position: fixed;
     left: 0;
@@ -33,7 +33,7 @@
 }
 
 @media (max-width: 767px) {
-    .nav {
+    .app-nav {
         .nav-collapse {
             width: 0 !important;
             margin-left: 0 !important;

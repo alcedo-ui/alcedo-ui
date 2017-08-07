@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
 import _ from 'lodash';
 
 import DraggableListGroup from '../_DraggableListGroup';
 import DraggableListItem from '../_DraggableListItem';
-import DraggableListItemLayer from '../_DraggableListItemLayer';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 import './DraggableList.css';
+
+const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
@@ -327,7 +329,7 @@ export default class DraggableList extends Component {
 
     render() {
 
-        const {children, className, style, disabled, isGrouped} = this.props,
+        const {children, className, style, disabled, isGrouped, scrollSpeed, scrollBuffer} = this.props,
             listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
 
         let renderEl;
@@ -338,17 +340,17 @@ export default class DraggableList extends Component {
         }
 
         return (
-            <div className={'draggable-list' + listClassName}
-                 disabled={disabled}
-                 style={style}>
+            <ScrollingComponent className={'draggable-list' + listClassName}
+                                disabled={disabled}
+                                style={style}
+                                strengthMultiplier={scrollSpeed}
+                                verticalStrength={createVerticalStrength(scrollBuffer)}>
 
                 {renderEl}
 
-                <DraggableListItemLayer/>
-
                 {children}
 
-            </div>
+            </ScrollingComponent>
         );
     }
 };
@@ -491,6 +493,16 @@ DraggableList.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
+     *
+     */
+    scrollSpeed: PropTypes.number,
+
+    /**
+     *
+     */
+    scrollBuffer: PropTypes.number,
+
+    /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
@@ -523,6 +535,9 @@ DraggableList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    isGrouped: false
+    isGrouped: false,
+
+    scrollSpeed: 20,
+    scrollBuffer: 40
 
 };
