@@ -200,9 +200,7 @@ export default class TagField extends Component {
             return;
         }
 
-        const splitedValue = inputValue.split(',').map(value => ({
-            value
-        }));
+        const splitedValue = inputValue.split(/\s*,\s*/);
 
         data.splice(inputIndex, 0, ...splitedValue);
 
