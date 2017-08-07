@@ -496,7 +496,7 @@ Table.propTypes = {
     data: PropTypes.array.isRequired,
 
     /**
-     *
+     * The value of tr.
      */
     value: PropTypes.any,
 
@@ -579,7 +579,7 @@ Table.propTypes = {
     mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
 
     /**
-     *
+     * The fields as ID.
      */
     idProp: PropTypes.string,
 

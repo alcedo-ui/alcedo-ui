@@ -493,12 +493,12 @@ DraggableList.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
-     *
+     * The speed of scroll bar.
      */
     scrollSpeed: PropTypes.number,
 
     /**
-     *
+     * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
 
