@@ -584,22 +584,22 @@ Table.propTypes = {
     idProp: PropTypes.string,
 
     /**
-     * If true,the table will use BriefPagging component.
+     * If true,the table will use Pagging component.
      */
     useFullPagging: PropTypes.bool,
 
     /**
-     *
+     * If true,the table will have padding.
      */
     isPagging: PropTypes.bool,
 
     /**
-     *
+     * If true,the total of selected will display.
      */
     paggingSelectedCountVisible: PropTypes.bool,
 
     /**
-     *
+     * If true,the total of selected will display.
      */
     paggingPageSizeVisible: PropTypes.bool,
 
