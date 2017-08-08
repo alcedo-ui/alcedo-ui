@@ -8,6 +8,7 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 
 import './Grid.css';
 
@@ -20,16 +21,20 @@ export default class Grid extends Component {
         super(props);
 
         this.state = {
-            value: this.initValue(props)
+            value: this.initValue(props),
+            itemColWidth: 50
         };
 
         this.initValue = this::this.initValue;
+        this.calItemColStyle = this::this.calItemColStyle;
         this.isItemChecked = this::this.isItemChecked;
         this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
         this.listItemsRenderer = this::this.listItemsRenderer;
         this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
         this.listItemSelectHandle = this::this.listItemSelectHandle;
         this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+        this.resizeHandle = this::this.resizeHandle;
+        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
 
     }
 
@@ -57,6 +62,17 @@ export default class Grid extends Component {
             default:
                 return value;
         }
+
+    }
+
+    calItemColStyle(props = this.props) {
+
+        const gridWidth = this.refs.grid.getBoundingClientRect().width,
+            {col} = props;
+
+        console.log(gridWidth);
+
+        return 50;
 
     }
 
@@ -106,7 +122,8 @@ export default class Grid extends Component {
 
     listItemsRenderer(items = this.props.items) {
 
-        const {col, valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props,
+            {itemColWidth} = this.state;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -121,6 +138,7 @@ export default class Grid extends Component {
                             <GridItem key={index}
                                       {...item}
                                       index={index}
+                                      itemColWidth={itemColWidth}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
@@ -145,6 +163,7 @@ export default class Grid extends Component {
                         (
                             <GridItem key={index}
                                       index={index}
+                                      itemColWidth={itemColWidth}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={item}
@@ -249,12 +268,48 @@ export default class Grid extends Component {
 
     }
 
+    resizeHandle() {
+        this.debounceResizeHandle();
+    }
+
+    debounceResizeHandle() {
+        this.setState({
+            itemColWidth: this.calItemColStyle()
+        });
+    }
+
+    componentDidMount() {
+
+        Event.addEvent(window, 'resize', this.resizeHandle);
+
+        this.debounceResizeHandle();
+
+    }
+
     componentWillReceiveProps(nextProps) {
+
+        let state;
+
         if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: this.initValue(nextProps)
-            });
+            if (!state) {
+                state = {};
+            }
+            state.value = this.initValue(nextProps);
         }
+
+        if (nextProps.col !== this.props.col) {
+            if (!state) {
+                state = {};
+            }
+            state.itemColWidth = this.calItemColStyle(nextProps);
+        }
+
+        this.setState(state);
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.resizeHandle);
     }
 
     render() {
@@ -270,7 +325,8 @@ export default class Grid extends Component {
         }
 
         return (
-            <div className={'grid' + listClassName}
+            <div ref="grid"
+                 className={'grid' + listClassName}
                  disabled={disabled}
                  style={style}>
 
@@ -393,7 +449,7 @@ Grid.propTypes = {
     /**
      *
      */
-    col: PropTypes.number,
+    col: PropTypes.array,
 
     /**
      * The value field name in data. (default: "value")
@@ -454,7 +510,7 @@ Grid.defaultProps = {
 
     items: [],
 
-    col: 0,
+    col: [1, 100, 2, 200, 3, 300, 4, 400, 6],
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',

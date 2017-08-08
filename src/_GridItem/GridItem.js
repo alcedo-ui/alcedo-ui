@@ -121,7 +121,7 @@ export default class GridItem extends Component {
     render() {
 
         const {
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly
             } = this.props,
             {checked} = this.state,
@@ -135,7 +135,9 @@ export default class GridItem extends Component {
                           text={tip}
                           tipPosition={tipPosition}>
 
-                <div className={'grid-item-wrapper'}>
+                <div className={'grid-item-wrapper'}
+                     style={{width: `${itemColWidth}%`}}>
+
                     <div className={'grid-item' + listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
@@ -247,6 +249,11 @@ GridItem.propTypes = {
      * The theme of the grid button.
      */
     theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    /**
+     *
+     */
+    itemColWidth: PropTypes.number,
 
     /**
      *
@@ -368,6 +375,8 @@ GridItem.defaultProps = {
     style: null,
 
     theme: Theme.DEFAULT,
+
+    itemColWidth: 100,
 
     data: '',
     value: '',
