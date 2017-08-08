@@ -2,8 +2,8 @@
 
 .grid {
     @include float-fix;
-    padding: 20px 20px 10px 20px;
-    margin: 0 -15px;
+    padding-top: 10px;
+    background: $theme-content-bg;
 
     &.grouped {
         .grid-item {
