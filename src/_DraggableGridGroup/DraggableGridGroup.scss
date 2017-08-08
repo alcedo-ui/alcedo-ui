@@ -3,6 +3,10 @@
 .draggable-grid-group {
     cursor: move;
 
+    & > .draggable-grid-item-wrapper {
+        float: none;
+    }
+
     .draggable-grid-group-name {
         background: transparent;
         height: 30px;
