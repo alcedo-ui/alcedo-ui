@@ -28,35 +28,11 @@ export default class GridExamples extends Component {
             iconCls: 'fa fa-google-plus',
             text: 'Google+',
             desc: 'Here is a Google+ Desc.'
-        }, {
-            iconCls: 'fa fa-facebook',
-            text: 'Facebook',
-            desc: 'Here is a Facebook Desc.'
-        }, {
-            iconCls: 'fa fa-twitter',
-            text: 'Twitter',
-            desc: 'Here is a Twitter Desc.'
-        }, {
-            iconCls: 'fa fa-google-plus',
-            text: 'Google+',
-            desc: 'Here is a Google+ Desc.'
         }];
 
         this.groupedListData = [{
             name: 'socialNetwork',
             children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }, {
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
@@ -83,18 +59,6 @@ export default class GridExamples extends Component {
                 iconCls: 'fa fa-windows',
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
-            }, {
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
             }]
         }];
 
