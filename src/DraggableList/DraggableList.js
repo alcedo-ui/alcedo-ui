@@ -77,8 +77,8 @@ export default class DraggableList extends Component {
 
         if (mode === DraggableList.Mode.CHECKBOX) {
             return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
         } else if (mode === DraggableList.Mode.RADIO) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
@@ -493,12 +493,12 @@ DraggableList.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
-     *
+     * The speed of scroll bar.
      */
     scrollSpeed: PropTypes.number,
 
     /**
-     *
+     * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
 
@@ -513,12 +513,12 @@ DraggableList.propTypes = {
     onItemTouchTap: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when select item sequence changed.
      */
     onSequenceChange: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when select item changed.
      */
     onValueChange: PropTypes.func
 

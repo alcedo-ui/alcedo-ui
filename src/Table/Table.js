@@ -496,7 +496,7 @@ Table.propTypes = {
     data: PropTypes.array.isRequired,
 
     /**
-     *
+     * The value of tr.
      */
     value: PropTypes.any,
 
@@ -506,28 +506,28 @@ Table.propTypes = {
     sortFunc: PropTypes.func,
 
     /**
-     *  Whether need line number.
+     * If true,the table will have line number.
      */
     hasLineNumber: PropTypes.bool,
 
     /**
-     * The function that trigger when show rows changes.
+     * The function that trigger when select changes.
      */
     onSelectChange: PropTypes.func,
 
     /**
-     * Children passed into the TableList.
+     * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         // TableHeader （th） 的样式
         /**
-         * The CSS class name of th.
+         * The class name of header.
          */
         headerClassName: PropTypes.string,
 
         /**
-         * Override the styles of th.
+         * Override the styles of header.
          */
         headerStyle: PropTypes.object,
 
@@ -541,7 +541,7 @@ Table.propTypes = {
 
         // TableCell （td） 的样式
         /**
-         * The CSS class name of td.
+         * The class name of td.
          */
         cellClassName: PropTypes.string,
 
@@ -574,12 +574,12 @@ Table.propTypes = {
     })).isRequired,
 
     /**
-     *
+     * The type of table list.Can be checkbox,radio,normal.
      */
     mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
 
     /**
-     *
+     * The fields as ID.
      */
     idProp: PropTypes.string,
 
@@ -599,7 +599,7 @@ Table.propTypes = {
     paggingSelectedCountVisible: PropTypes.bool,
 
     /**
-     * If true,the total of selected will display.
+     * If true,the pageSize will display.
      */
     paggingPageSizeVisible: PropTypes.bool,
 
@@ -621,22 +621,22 @@ Table.propTypes = {
     }),
 
     /**
-     *
+     * The function that trigger when select one item.
      */
     onSelect: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when unSelect one item.
      */
     onDeselect: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when the row is touch-tapped.
      */
     onRowTouchTap: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when the td is touch-tapped.
      */
     onCellTouchTap: PropTypes.func,
 

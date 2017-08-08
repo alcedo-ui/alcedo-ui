@@ -30,6 +30,9 @@ export default class TagFieldExamples extends Component {
         }, {
             className: 'unfound',
             text: 'Hotelcode6'
+        }, {
+            className: 'unfound',
+            value: 'Hotelcode7'
         }];
 
     }

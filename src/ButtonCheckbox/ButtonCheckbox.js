@@ -5,7 +5,7 @@ import RaisedButton from '../RaisedButton';
 
 import './ButtonCheckbox.css';
 
-export default class ToggleButton extends Component {
+export default class ButtonCheckbox extends Component {
 
     constructor(props) {
 
@@ -53,7 +53,7 @@ export default class ToggleButton extends Component {
     }
 };
 
-ToggleButton.propTypes = {
+ButtonCheckbox.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -68,7 +68,7 @@ ToggleButton.propTypes = {
     /**
      * The name of the toggleButton.
      */
-    name: PropTypes.string,
+    // name: PropTypes.string,
 
     /**
      * The text of the button.
@@ -92,7 +92,7 @@ ToggleButton.propTypes = {
 
 };
 
-ToggleButton.defaultProps = {
+ButtonCheckbox.defaultProps = {
 
     className: '',
     style: null,
