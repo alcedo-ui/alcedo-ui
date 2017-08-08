@@ -141,6 +141,9 @@ export default [{
     children: [{
         text: 'DraggableList',
         route: '/components/DraggableList'
+    }, {
+        text: 'DraggableGrid',
+        route: '/components/DraggableGrid'
     }]
 }, {
     text: 'Stepper',

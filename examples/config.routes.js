@@ -376,6 +376,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'DraggableListExamples');
                    }}/>
+            <Route path="DraggableGrid"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/draggable/DraggableGridExamples').default);
+                           loadCompleteCallback();
+                       }, 'DraggableGridExamples');
+                   }}/>
 
             {/* steppers */}
             <Route path="ArrowStep"

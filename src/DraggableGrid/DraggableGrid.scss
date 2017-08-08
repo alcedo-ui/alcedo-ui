@@ -1,0 +1,8 @@
+@import '../_common.scss';
+
+.draggable-grid {
+    @include float-fix;
+    padding-top: 10px;
+    background: $theme-content-bg;
+    overflow: auto;
+}
