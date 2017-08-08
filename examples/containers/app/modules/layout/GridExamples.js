@@ -97,10 +97,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with desc.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <Grid style={{width: 240}}
-                                          items={this.descListData}/>
-                                </Paper>
+                                <Grid items={this.descListData}/>
 
                             </div>
 
@@ -122,12 +119,9 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with mode.Can be normal,radio,checkbox.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <Grid style={{width: 240}}
-                                          mode={Grid.Mode.RADIO}
-                                          items={this.descListData}
-                                          onChange={this.changeHandle}/>
-                                </Paper>
+                                <Grid mode={Grid.Mode.RADIO}
+                                      items={this.descListData}
+                                      onChange={this.changeHandle}/>
 
                             </div>
 
@@ -149,13 +143,10 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with isGrouped.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <Grid style={{width: 240}}
-                                          mode={Grid.Mode.CHECKBOX}
-                                          isGrouped={true}
-                                          items={this.groupedListData}
-                                          onChange={this.changeHandle}/>
-                                </Paper>
+                                <Grid mode={Grid.Mode.CHECKBOX}
+                                      isGrouped={true}
+                                      items={this.groupedListData}
+                                      onChange={this.changeHandle}/>
 
                             </div>
 

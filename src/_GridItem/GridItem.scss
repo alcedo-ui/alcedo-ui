@@ -1,8 +1,9 @@
 @import '../_common.scss';
 
 .grid-item {
+    float: left;
     display: block;
-    width: 100%;
+    width: auto;
     height: 40px;
     position: relative;
     line-height: 40px;

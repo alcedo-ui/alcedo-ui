@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ListGroup from '../_ListGroup';
-import ListItem from '../_ListItem';
+import GridGroup from '../_GridGroup';
+import GridItem from '../_GridItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -13,7 +13,7 @@ import './Grid.css';
 
 export default class Grid extends Component {
 
-    static Mode = ListItem.Mode;
+    static Mode = GridItem.Mode;
 
     constructor(props) {
 
@@ -85,7 +85,7 @@ export default class Grid extends Component {
 
                 if (group && group.name) {
                     return (
-                        <ListGroup key={`group${groupIndex}`}
+                        <GridGroup key={`group${groupIndex}`}
                                    text={group.name}>
                             {
                                 group.children && group.children.length > 0 ?
@@ -93,7 +93,7 @@ export default class Grid extends Component {
                                     :
                                     null
                             }
-                        </ListGroup>
+                        </GridGroup>
                     );
                 }
 
@@ -106,7 +106,7 @@ export default class Grid extends Component {
 
     listItemsRenderer(items = this.props.items) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
+        const {col, valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -116,11 +116,20 @@ export default class Grid extends Component {
                         return null;
                     }
 
+                    const style = {
+                        ...item.style
+                    };
+
+                    if (!isNaN(col) && col > 0) {
+                        style.width = `${100 / col}%`;
+                    }
+
                     return typeof item === 'object' ?
                         (
-                            <ListItem key={index}
+                            <GridItem key={index}
                                       {...item}
                                       index={index}
+                                      style={style}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
@@ -143,8 +152,9 @@ export default class Grid extends Component {
                         )
                         :
                         (
-                            <ListItem key={index}
+                            <GridItem key={index}
                                       index={index}
+                                      style={style}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={item}
@@ -296,7 +306,7 @@ Grid.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the ListItem.
+     * Children passed into the GridItem.
      */
     items: PropTypes.oneOfType([
 
@@ -391,6 +401,11 @@ Grid.propTypes = {
     ]).isRequired,
 
     /**
+     *
+     */
+    col: PropTypes.number,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -418,7 +433,7 @@ Grid.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    mode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
 
     /**
      * If true,the listData will be grouped.
@@ -449,11 +464,12 @@ Grid.defaultProps = {
 
     items: [],
 
+    col: 0,
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: ListItem.Mode.NORMAL,
+    mode: GridItem.Mode.NORMAL,
     isGrouped: false
 
 };

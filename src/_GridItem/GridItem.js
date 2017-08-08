@@ -82,10 +82,10 @@ export default class GridItem extends Component {
         const {mode} = this.props;
 
         switch (mode) {
-            case ListItem.Mode.CHECKBOX:
+            case GridItem.Mode.CHECKBOX:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case ListItem.Mode.RADIO:
+            case GridItem.Mode.RADIO:
                 this.radioChangeHandler();
                 return;
         }
@@ -144,7 +144,7 @@ export default class GridItem extends Component {
                      onMouseLeave={this.mouseLeaveHandler}>
 
                     {
-                        mode === ListItem.Mode.CHECKBOX ?
+                        mode === GridItem.Mode.CHECKBOX ?
                             <Checkbox className="grid-item-checkbox"
                                       value={checked}/>
                             :
@@ -152,7 +152,7 @@ export default class GridItem extends Component {
                     }
 
                     {
-                        mode === ListItem.Mode.RADIO ?
+                        mode === GridItem.Mode.RADIO ?
                             <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -324,7 +324,7 @@ GridItem.propTypes = {
     /**
      *
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    mode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
 
     /**
      *
@@ -387,7 +387,7 @@ GridItem.defaultProps = {
 
     checked: false,
 
-    mode: ListItem.Mode.NORMAL,
+    mode: GridItem.Mode.NORMAL,
 
     readOnly: false
 

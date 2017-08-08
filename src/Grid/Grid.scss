@@ -1,8 +1,11 @@
 @import '../_common.scss';
 
 .grid {
-    width: 200px;
-    background: $theme-field;
+    @include float-fix;
+    box-sizing: border-box;
+    width: 100%;
+    background: $theme-bg;
+    padding: 20px;
 
     &.grouped {
         .grid-item {
