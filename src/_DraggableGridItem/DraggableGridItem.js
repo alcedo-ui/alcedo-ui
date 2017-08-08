@@ -13,7 +13,7 @@ import './DraggableGridItem.css';
 
 const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 
-@DropTarget(DRAG_GRID_ITEM_SYMBOL, DragDrop.getListTarget(), connect => ({
+@DropTarget(DRAG_GRID_ITEM_SYMBOL, DragDrop.getHorizontalTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_GRID_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
