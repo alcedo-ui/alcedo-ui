@@ -1,0 +1,7 @@
+@import '../_common.scss';
+
+.grid {
+    @include float-fix;
+    padding-top: 10px;
+    background: $theme-content-bg;
+}

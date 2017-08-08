@@ -30,6 +30,9 @@ export default class TagFieldExamples extends Component {
         }, {
             className: 'unfound',
             text: 'Hotelcode6'
+        }, {
+            className: 'unfound',
+            value: 'Hotelcode7'
         }];
 
     }
@@ -58,7 +61,11 @@ export default class TagFieldExamples extends Component {
 
                                 <p><code>TagField</code></p>
 
-                                <TagField data={this.data}/>
+                                <TagField data={[]}
+                                          placeholder="Please input ..."
+                                          onChange={(value) => {
+                                              console.log(value);
+                                          }}/>
 
                             </div>
 

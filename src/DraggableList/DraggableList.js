@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
 import _ from 'lodash';
 
-import DraggableListGroup from '../DraggableListGroup';
-import DraggableListItem from '../DraggableListItem';
+import DraggableListGroup from '../_DraggableListGroup';
+import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 import './DraggableList.css';
+
+const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
@@ -74,8 +77,8 @@ export default class DraggableList extends Component {
 
         if (mode === DraggableList.Mode.CHECKBOX) {
             return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
         } else if (mode === DraggableList.Mode.RADIO) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
@@ -111,7 +114,7 @@ export default class DraggableList extends Component {
 
     listItemsRenderer(items = this.state.items, groupIndex) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -131,6 +134,7 @@ export default class DraggableList extends Component {
                             <DraggableListItem key={item.id || value}
                                                {...item}
                                                index={index}
+                                               data={item}
                                                value={value}
                                                checked={this.isItemChecked(item)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
@@ -139,6 +143,7 @@ export default class DraggableList extends Component {
                                                isLoading={isLoading || item.isLoading}
                                                groupIndex={groupIndex}
                                                mode={mode}
+                                               renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
@@ -155,6 +160,7 @@ export default class DraggableList extends Component {
                         (
                             <DraggableListItem key={item.id || value}
                                                index={index}
+                                               data={item}
                                                checked={this.isItemChecked(item)}
                                                value={value}
                                                text={item}
@@ -162,6 +168,7 @@ export default class DraggableList extends Component {
                                                isLoading={isLoading}
                                                groupIndex={groupIndex}
                                                mode={mode}
+                                               renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
                                                    this.listItemTouchTapHandler(item, index);
@@ -322,7 +329,7 @@ export default class DraggableList extends Component {
 
     render() {
 
-        const {children, className, style, disabled, isGrouped} = this.props,
+        const {children, className, style, disabled, isGrouped, scrollSpeed, scrollBuffer} = this.props,
             listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
 
         let renderEl;
@@ -333,15 +340,17 @@ export default class DraggableList extends Component {
         }
 
         return (
-            <div className={'draggable-list' + listClassName}
-                 disabled={disabled}
-                 style={style}>
+            <ScrollingComponent className={'draggable-list' + listClassName}
+                                disabled={disabled}
+                                style={style}
+                                strengthMultiplier={scrollSpeed}
+                                verticalStrength={createVerticalStrength(scrollBuffer)}>
 
                 {renderEl}
 
                 {children}
 
-            </div>
+            </ScrollingComponent>
         );
     }
 };
@@ -359,7 +368,7 @@ DraggableList.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the DraggableListItem.
+     * Children passed into the _DraggableListItem.
      */
     items: PropTypes.oneOfType([
 
@@ -439,7 +448,7 @@ DraggableList.propTypes = {
             /**
              * You can create a complicated renderer callback instead of value and desc prop.
              */
-            renderer: PropTypes.func,
+            itemRenderer: PropTypes.func,
 
             /**
              * Callback function fired when a list item touch-tapped.
@@ -484,17 +493,32 @@ DraggableList.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
+     * The speed of scroll bar.
+     */
+    scrollSpeed: PropTypes.number,
+
+    /**
+     * The number of overflows.
+     */
+    scrollBuffer: PropTypes.number,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
      * Callback function fired when the list-item select.
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when select item sequence changed.
      */
     onSequenceChange: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when select item changed.
      */
     onValueChange: PropTypes.func
 
@@ -511,6 +535,9 @@ DraggableList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    isGrouped: false
+    isGrouped: false,
+
+    scrollSpeed: 20,
+    scrollBuffer: 40
 
 };

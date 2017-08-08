@@ -504,27 +504,27 @@ MultipleSelect.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
-     *
+     * The message of no value matched.
      */
     noMatchedMsg: PropTypes.string,
 
     /**
-     *
+     * If true,the multipleSelect will be grouped.
      */
     isGrouped: PropTypes.bool,
 
     /**
-     * select callback.
+     * Callback function fired when MultipleSelect changed.
      */
     onChange: PropTypes.func,
 
     /**
-     * focus callback.
+     * Callback function fired when the text field focused.
      */
     onFocus: PropTypes.func,
 
     /**
-     * blur callback.
+     * Callback function fired when the text field Defocused.
      */
     onBlur: PropTypes.func
 

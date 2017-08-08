@@ -6,7 +6,6 @@ import Checkbox from '../Checkbox';
 import IconButton from '../IconButton';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
-import Tfoot from '../_Tfoot';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 
@@ -30,7 +29,7 @@ export default class Table extends Component {
         this.state = {
 
             /**
-             * 排序控制
+             * sort construct
              *  {
 			 *	    prop: '', // 排序的列属性名称
 			 *	    type: 1 | -1 // 正序 | 倒序
@@ -42,7 +41,6 @@ export default class Table extends Component {
             scrollLeft: 0,
             bodyHeight: 0,
 
-            // 排序
             pagging: {
                 pageSize: 10,
                 page: 0
@@ -109,10 +107,9 @@ export default class Table extends Component {
 
     }
 
-    isItemChecked(rowData) {
+    isItemChecked(rowData, value = this.state.value) {
 
-        const {mode} = this.props,
-            {value} = this.state;
+        const {mode, idProp} = this.props;
 
         if (mode === Table.Mode.NORMAL || !rowData || !value) {
             return false;
@@ -120,9 +117,9 @@ export default class Table extends Component {
 
         switch (mode) {
             case Table.Mode.CHECKBOX:
-                return value.findIndex(item => item == rowData) !== -1;
+                return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
             case Table.Mode.RADIO:
-                return value == rowData;
+                return value[idProp] === rowData[idProp];
         }
 
     }
@@ -190,12 +187,12 @@ export default class Table extends Component {
         }
 
         const {value} = this.state,
-            checked = !this.isItemChecked(rowData);
+            checked = this.isItemChecked(rowData, value);
 
         if (checked) {
-            value.push(rowData);
-        } else if (value.length > 0) {
             value.splice(value.indexOf(rowData), 1);
+        } else {
+            value.push(rowData);
         }
 
         this.setState({
@@ -222,7 +219,7 @@ export default class Table extends Component {
             return;
         }
 
-        const checked = !this.isItemChecked(rowData),
+        const checked = this.isItemChecked(rowData, this.state.value),
             value = checked ? rowData : null;
 
         this.setState({
@@ -392,7 +389,7 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isItemChecked(rowData)}/>;
+                                     value={self.isItemChecked(rowData, value)}/>;
                 }
             });
         } else if (mode === Table.Mode.RADIO) {
@@ -400,7 +397,7 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return (
-                        <IconButton className={'table-radio' + (self.isItemChecked(rowData) ? ' activated' : '')}
+                        <IconButton className={'table-radio' + (self.isItemChecked(rowData, value) ? ' activated' : '')}
                                     iconCls="fa fa-check"/>
                     );
                 }
@@ -424,53 +421,58 @@ export default class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <table className={'table' + tableClassName}
-                   style={style}>
+            <div>
 
-                <Thead columns={finalColumns}
-                       sort={sort}
-                       onSort={this.sortHandler}/>
+                <div className="table-wrapper">
+                    <table className={'table' + tableClassName}
+                           style={style}>
 
-                {
-                    finalData && finalDataCount > 0
-                        ? <Tbody columns={finalColumns}
-                                 data={finalData}
-                                 idProp={idProp}
-                                 isItemChecked={this.isItemChecked}
-                                 onRowTouchTap={this.rowTouchTapHandler}
-                                 onCellTouchTap={onCellTouchTap}/>
-                        : null
-                }
+                        <Thead columns={finalColumns}
+                               sort={sort}
+                               onSort={this.sortHandler}/>
+
+                        {
+                            finalData && finalDataCount > 0
+                                ? <Tbody columns={finalColumns}
+                                         data={finalData}
+                                         idProp={idProp}
+                                         value={value}
+                                         mode={mode}
+                                         onRowTouchTap={this.rowTouchTapHandler}
+                                         onCellTouchTap={onCellTouchTap}/>
+                                : null
+                        }
+
+                    </table>
+                </div>
 
                 {
                     isPagging ?
-                        <Tfoot columns={finalColumns}>
-                            {
-                                useFullPagging ?
-                                    <Pagging page={pagging.page}
-                                             count={data.length}
-                                             selectedCount={this.calSelectedCount()}
-                                             total={totalPage}
-                                             pageSize={pagging.pageSize}
-                                             selectedCountVisible={paggingSelectedCountVisible}
-                                             pageSizeVisible={paggingPageSizeVisible}
-                                             onChange={this.pageChangedHandler}/>
-                                    :
-                                    <BriefPagging page={pagging.page}
-                                                  count={data.length}
-                                                  selectedCount={this.calSelectedCount()}
-                                                  total={totalPage}
-                                                  pageSize={pagging.pageSize}
-                                                  selectedCountVisible={paggingSelectedCountVisible}
-                                                  pageSizeVisible={paggingPageSizeVisible}
-                                                  onChange={this.pageChangedHandler}/>
-                            }
-                        </Tfoot>
+                        (
+                            useFullPagging ?
+                                <Pagging page={pagging.page}
+                                         count={data.length}
+                                         selectedCount={this.calSelectedCount()}
+                                         total={totalPage}
+                                         pageSize={pagging.pageSize}
+                                         selectedCountVisible={paggingSelectedCountVisible}
+                                         pageSizeVisible={paggingPageSizeVisible}
+                                         onChange={this.pageChangedHandler}/>
+                                :
+                                <BriefPagging page={pagging.page}
+                                              count={data.length}
+                                              selectedCount={this.calSelectedCount()}
+                                              total={totalPage}
+                                              pageSize={pagging.pageSize}
+                                              selectedCountVisible={paggingSelectedCountVisible}
+                                              pageSizeVisible={paggingPageSizeVisible}
+                                              onChange={this.pageChangedHandler}/>
+                        )
                         :
                         null
                 }
 
-            </table>
+            </div>
         );
 
     }
@@ -494,9 +496,9 @@ Table.propTypes = {
     data: PropTypes.array.isRequired,
 
     /**
-     *
+     * The value of tr.
      */
-    value: PropTypes.array,
+    value: PropTypes.any,
 
     /**
      * Sorting method.
@@ -504,28 +506,28 @@ Table.propTypes = {
     sortFunc: PropTypes.func,
 
     /**
-     *  Whether need line number.
+     * If true,the table will have line number.
      */
     hasLineNumber: PropTypes.bool,
 
     /**
-     * The function that trigger when show rows changes.
+     * The function that trigger when select changes.
      */
     onSelectChange: PropTypes.func,
 
     /**
-     * Children passed into the TableList.
+     * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         // TableHeader （th） 的样式
         /**
-         * The CSS class name of th.
+         * The class name of header.
          */
         headerClassName: PropTypes.string,
 
         /**
-         * Override the styles of th.
+         * Override the styles of header.
          */
         headerStyle: PropTypes.object,
 
@@ -539,7 +541,7 @@ Table.propTypes = {
 
         // TableCell （td） 的样式
         /**
-         * The CSS class name of td.
+         * The class name of td.
          */
         cellClassName: PropTypes.string,
 
@@ -572,32 +574,32 @@ Table.propTypes = {
     })).isRequired,
 
     /**
-     *
+     * The type of table list.Can be checkbox,radio,normal.
      */
     mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
 
     /**
-     *
+     * The fields as ID.
      */
     idProp: PropTypes.string,
 
     /**
-     * If true,the table will use BriefPagging component.
+     * If true,the table will use Pagging component.
      */
     useFullPagging: PropTypes.bool,
 
     /**
-     *
+     * If true,the table will have padding.
      */
     isPagging: PropTypes.bool,
 
     /**
-     *
+     * If true,the total of selected will display.
      */
     paggingSelectedCountVisible: PropTypes.bool,
 
     /**
-     *
+     * If true,the pageSize will display.
      */
     paggingPageSizeVisible: PropTypes.bool,
 
@@ -619,22 +621,22 @@ Table.propTypes = {
     }),
 
     /**
-     *
+     * The function that trigger when select one item.
      */
     onSelect: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when unSelect one item.
      */
     onDeselect: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when the row is touch-tapped.
      */
     onRowTouchTap: PropTypes.func,
 
     /**
-     *
+     * The function that trigger when the td is touch-tapped.
      */
     onCellTouchTap: PropTypes.func,
 
@@ -652,7 +654,7 @@ Table.defaultProps = {
 
     columns: [],
     data: [],
-    value: [],
+    value: null,
     hasLineNumber: false,
 
     mode: Table.Mode.NORMAL,

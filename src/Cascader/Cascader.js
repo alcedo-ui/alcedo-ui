@@ -284,32 +284,32 @@ Cascader.propTypes = {
     style: PropTypes.object,
 
     /**
-     *
+     * The className of popup container.
      */
     popupClassName: PropTypes.string,
 
     /**
-     *
+     * Override the styles of the popup container.
      */
     popupStyle: PropTypes.object,
 
     /**
-     *
+     * The width of cascader list-item.
      */
     listWidth: PropTypes.number,
 
     /**
-     *
+     * The theme of button.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     *
+     * The name of the hidden input.
      */
     name: PropTypes.string,
 
     /**
-     *
+     * The cascader list data.
      */
     data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
@@ -369,7 +369,7 @@ Cascader.propTypes = {
         renderer: PropTypes.func,
 
         /**
-         *
+         * The children of list-item.
          */
         children: PropTypes.array,
 
@@ -381,12 +381,12 @@ Cascader.propTypes = {
     }), PropTypes.string, PropTypes.number])),
 
     /**
-     *
+     * The placeholder of Cascader field.
      */
     placeholder: PropTypes.string,
 
     /**
-     *
+     * If true,the cascader will be disabled.
      */
     disabled: PropTypes.bool,
 
@@ -401,7 +401,7 @@ Cascader.propTypes = {
     displayField: PropTypes.string,
 
     /**
-     *
+     * The connector of cascader value.
      */
     separator: PropTypes.string
 

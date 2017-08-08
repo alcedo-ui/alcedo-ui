@@ -358,6 +358,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'WaterfallExamples');
                    }}/>
+            <Route path="Grid"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/layout/GridExamples').default);
+                           loadCompleteCallback();
+                       }, 'GridExamples');
+                   }}/>
 
             {/* draggable */}
             <Route path="DraggableList"
@@ -367,6 +375,14 @@ export default function configureRoute(store) {
                            cb(null, require('containers/app/modules/draggable/DraggableListExamples').default);
                            loadCompleteCallback();
                        }, 'DraggableListExamples');
+                   }}/>
+            <Route path="DraggableGrid"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/draggable/DraggableGridExamples').default);
+                           loadCompleteCallback();
+                       }, 'DraggableGridExamples');
                    }}/>
 
             {/* steppers */}

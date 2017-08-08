@@ -6,6 +6,9 @@
     padding: 5px 5px 5px 15px;
     user-select: none;
     cursor: default;
+    background: $theme-field;
+    border-top: 1px solid transparentize($theme-title-bg, .6);
+    margin-top: -1px;
 
     .brief-pagging-left {
         float: left;

@@ -132,12 +132,18 @@ export default [{
     }, {
         text: 'Waterfall',
         route: '/components/Waterfall'
+    }, {
+        text: 'Grid',
+        route: '/components/Grid'
     }]
 }, {
     text: 'Draggable',
     children: [{
         text: 'DraggableList',
         route: '/components/DraggableList'
+    }, {
+        text: 'DraggableGrid',
+        route: '/components/DraggableGrid'
     }]
 }, {
     text: 'Stepper',

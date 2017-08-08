@@ -3,6 +3,7 @@
 .draggable-list {
     width: 200px;
     background: $theme-field;
+    overflow: auto;
 
     &.grouped {
         .draggable-list-item {

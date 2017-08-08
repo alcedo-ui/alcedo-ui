@@ -80,6 +80,14 @@ input:focus {
                 }
             }
 
+            .editable-field-input {
+                &.empty {
+                    .text-field-input {
+                        padding: 0 30px 0 10px;
+                    }
+                }
+            }
+
             .tag-field-item-field-delete-button {
                 position: absolute;
                 right: 0;

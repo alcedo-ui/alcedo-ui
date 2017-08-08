@@ -1,0 +1,20 @@
+@import '../_common.scss';
+
+.grid-group {
+
+    .grid-group-name {
+        background: transparent;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 15px !important;
+        box-shadow: none;
+
+        &:hover {
+            background: transparent !important;
+        }
+    }
+
+    .grid-group-item-wrapper {
+        @include float-fix;
+    }
+}

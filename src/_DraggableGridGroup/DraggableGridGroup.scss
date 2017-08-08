@@ -1,0 +1,34 @@
+@import '../_common.scss';
+
+.draggable-grid-group {
+    cursor: move;
+
+    & > .draggable-grid-item-wrapper {
+        float: none;
+    }
+
+    .draggable-grid-group-name {
+        background: transparent;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 15px !important;
+        box-shadow: none;
+
+        .draggable-flag {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        &:hover {
+            background: transparent !important;
+        }
+    }
+
+    .draggable-grid-group-item-wrapper {
+        @include float-fix;
+    }
+
+    &.dragging {
+        opacity: .1;
+    }
+}

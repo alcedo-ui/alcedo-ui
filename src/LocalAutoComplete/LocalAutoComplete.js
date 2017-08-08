@@ -217,7 +217,7 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                onFilterPressEnter, onItemTouchTap, onFilterClear
+                renderer, onFilterPressEnter, onItemTouchTap, onFilterClear
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -295,6 +295,7 @@ export default class LocalAutoComplete extends Component {
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
+                          renderer={renderer}
                           onItemTouchTap={onItemTouchTap}
                           onChange={this.changeHandler}/>
 
@@ -399,7 +400,7 @@ LocalAutoComplete.propTypes = {
             /**
              * You can create a complicated renderer callback instead of value and desc prop.
              */
-            renderer: PropTypes.func,
+            itemRenderer: PropTypes.func,
 
             /**
              * Callback function fired when a list item touch-tapped.
@@ -467,6 +468,11 @@ LocalAutoComplete.propTypes = {
      * If true,the list data will be grouped.
      */
     isGrouped: PropTypes.bool,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
 
     /**
      * The function that trigger when filter changes.

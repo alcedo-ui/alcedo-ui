@@ -45,7 +45,12 @@ export default class EditableField extends Component {
     /**
      * 显示input并获得焦点
      */
-    showInput() {
+    showInput(e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+        } else {
+            window.event.cancelBubble = true;
+        }
         this.setState({
             hide: false
         }, () => {

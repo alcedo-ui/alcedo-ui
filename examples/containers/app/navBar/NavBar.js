@@ -13,7 +13,7 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <div className="nav">
+            <div className="app-nav">
 
                 <Brand/>
 
