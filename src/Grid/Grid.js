@@ -8,6 +8,7 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
 
 import './Grid.css';
@@ -22,7 +23,7 @@ export default class Grid extends Component {
 
         this.state = {
             value: this.initValue(props),
-            itemColWidth: 50
+            itemColWidth: null
         };
 
         this.initValue = this::this.initValue;
@@ -67,12 +68,26 @@ export default class Grid extends Component {
 
     calItemColStyle(props = this.props) {
 
-        const gridWidth = this.refs.grid.getBoundingClientRect().width,
+        const gridEl = this.refs.grid,
             {col} = props;
 
-        console.log(gridWidth);
 
-        return 50;
+        if (!gridEl || !col) {
+            return null;
+        }
+
+        const gridWidth = gridEl.getBoundingClientRect().width,
+            colLen = col.length,
+            {items} = props,
+            itemsLen = items.length;
+
+        for (let i = 1; i < colLen - 1; i += 2) {
+            if (gridWidth < col[i] && !isNaN(col[i - 1])) {
+                return 100 / Valid.range(col[i - 1], 1, itemsLen);
+            }
+        }
+
+        return !isNaN(col[colLen - 1]) ? 100 / Valid.range(col[colLen - 1], 1, itemsLen) : null;
 
     }
 
@@ -304,7 +319,7 @@ export default class Grid extends Component {
             state.itemColWidth = this.calItemColStyle(nextProps);
         }
 
-        this.setState(state);
+        state && this.setState(state);
 
     }
 
@@ -510,7 +525,7 @@ Grid.defaultProps = {
 
     items: [],
 
-    col: [1, 100, 2, 200, 3, 300, 4, 400, 6],
+    col: [1, 300, 2, 600, 3, 900, 4, 1200, 6],
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',

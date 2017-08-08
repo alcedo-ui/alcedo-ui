@@ -7,9 +7,14 @@
         height: 30px;
         line-height: 30px;
         padding-left: 15px !important;
+        box-shadow: none;
 
         &:hover {
             background: transparent;
         }
+    }
+
+    .grid-group-item-wrapper {
+        @include float-fix;
     }
 }

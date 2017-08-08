@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TipContainer from '../TipContainer';
-import ListItem from '../_ListItem';
+import GridItem from '../_GridItem';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -57,7 +57,7 @@ export default class GridGroup extends Component {
                      onMouseEnter={this.mouseEnterHandler}
                      onMouseLeave={this.mouseLeaveHandler}>
 
-                    <ListItem className="grid-group-name"
+                    <GridItem className="grid-group-name"
                               text={text}
                               iconCls={iconCls}
                               rightIconCls={rightIconCls}

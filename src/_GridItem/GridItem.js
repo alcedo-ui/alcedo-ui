@@ -136,7 +136,7 @@ export default class GridItem extends Component {
                           tipPosition={tipPosition}>
 
                 <div className={'grid-item-wrapper'}
-                     style={{width: `${itemColWidth}%`}}>
+                     style={itemColWidth ? {width: `${itemColWidth}%`} : null}>
 
                     <div className={'grid-item' + listItemClassName}
                          style={style}
