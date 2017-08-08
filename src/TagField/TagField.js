@@ -287,7 +287,7 @@ export default class TagField extends Component {
 
     render() {
 
-        const {className, style, valueField, displayField, disabled} = this.props,
+        const {className, style, valueField, displayField, disabled, placeholder} = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
             tagFieldClassName = (className ? ' ' + className : '');
@@ -313,6 +313,7 @@ export default class TagField extends Component {
                                                className="tag-field-input"
                                                autoFocus="true"
                                                value={inputValue}
+                                               placeholder={data.length < 1 && placeholder ? placeholder : ''}
                                                onChange={this.inputChangeHandler}
                                                onKeyDown={this.inputKeyDownHandler}/>
                                     </div>
@@ -392,6 +393,11 @@ TagField.propTypes = {
     /**
      *
      */
+    placeholder: PropTypes.string,
+
+    /**
+     *
+     */
     onChange: PropTypes.func
 
 };
@@ -406,6 +412,8 @@ TagField.defaultProps = {
     valueField: 'value',
     displayField: 'text',
 
-    disabled: false
+    disabled: false,
+
+    placeholder: ''
 
 };
