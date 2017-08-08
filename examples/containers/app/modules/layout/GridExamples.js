@@ -28,6 +28,18 @@ export default class GridExamples extends Component {
             iconCls: 'fa fa-google-plus',
             text: 'Google+',
             desc: 'Here is a Google+ Desc.'
+        }, {
+            iconCls: 'fa fa-facebook',
+            text: 'Facebook',
+            desc: 'Here is a Facebook Desc.'
+        }, {
+            iconCls: 'fa fa-twitter',
+            text: 'Twitter',
+            desc: 'Here is a Twitter Desc.'
+        }, {
+            iconCls: 'fa fa-google-plus',
+            text: 'Google+',
+            desc: 'Here is a Google+ Desc.'
         }];
 
         this.groupedListData = [{
@@ -35,8 +47,19 @@ export default class GridExamples extends Component {
             children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
-                desc: 'Here is a Facebook Desc.',
-                checked: 'true'
+                desc: 'Here is a Facebook Desc.'
+            }, {
+                iconCls: 'fa fa-twitter',
+                text: 'Twitter',
+                desc: 'Here is a Twitter Desc.'
+            }, {
+                iconCls: 'fa fa-google-plus',
+                text: 'Google+',
+                desc: 'Here is a Google+ Desc.'
+            }, {
+                iconCls: 'fa fa-facebook',
+                text: 'Facebook',
+                desc: 'Here is a Facebook Desc.'
             }, {
                 iconCls: 'fa fa-twitter',
                 text: 'Twitter',
@@ -60,6 +83,18 @@ export default class GridExamples extends Component {
                 iconCls: 'fa fa-windows',
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
+            }, {
+                iconCls: 'fa fa-facebook',
+                text: 'Facebook',
+                desc: 'Here is a Facebook Desc.'
+            }, {
+                iconCls: 'fa fa-twitter',
+                text: 'Twitter',
+                desc: 'Here is a Twitter Desc.'
+            }, {
+                iconCls: 'fa fa-google-plus',
+                text: 'Google+',
+                desc: 'Here is a Google+ Desc.'
             }]
         }];
 

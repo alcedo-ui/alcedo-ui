@@ -4,10 +4,4 @@
     @include float-fix;
     padding-top: 10px;
     background: $theme-content-bg;
-
-    &.grouped {
-        .grid-item {
-            padding-left: 30px;
-        }
-    }
 }

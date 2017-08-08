@@ -22,8 +22,7 @@ export default class Grid extends Component {
         super(props);
 
         this.state = {
-            value: this.initValue(props),
-            itemColWidth: null
+            value: this.initValue(props)
         };
 
         this.initValue = this::this.initValue;
@@ -66,19 +65,16 @@ export default class Grid extends Component {
 
     }
 
-    calItemColStyle(props = this.props) {
+    calItemColStyle(props = this.props, items = props.items) {
 
-        const gridEl = this.refs.grid,
-            {col} = props;
+        const {col} = props;
 
-
-        if (!gridEl || !col) {
+        if (!this.gridEl || !col) {
             return null;
         }
 
-        const gridWidth = gridEl.getBoundingClientRect().width,
+        const gridWidth = this.gridEl.getBoundingClientRect().width,
             colLen = col.length,
-            {items} = props,
             itemsLen = items.length;
 
         for (let i = 1; i < colLen - 1; i += 2) {
@@ -138,7 +134,7 @@ export default class Grid extends Component {
     listItemsRenderer(items = this.props.items) {
 
         const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props,
-            {itemColWidth} = this.state;
+            itemColWidth = this.calItemColStyle(this.props, items);
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -288,39 +284,23 @@ export default class Grid extends Component {
     }
 
     debounceResizeHandle() {
-        this.setState({
-            itemColWidth: this.calItemColStyle()
-        });
+        this.forceUpdate();
     }
 
     componentDidMount() {
 
-        Event.addEvent(window, 'resize', this.resizeHandle);
+        this.gridEl = this.refs.grid;
 
-        this.debounceResizeHandle();
+        Event.addEvent(window, 'resize', this.resizeHandle);
 
     }
 
     componentWillReceiveProps(nextProps) {
-
-        let state;
-
         if (nextProps.value !== this.state.value) {
-            if (!state) {
-                state = {};
-            }
-            state.value = this.initValue(nextProps);
+            this.setState({
+                value: this.initValue(nextProps)
+            });
         }
-
-        if (nextProps.col !== this.props.col) {
-            if (!state) {
-                state = {};
-            }
-            state.itemColWidth = this.calItemColStyle(nextProps);
-        }
-
-        state && this.setState(state);
-
     }
 
     componentWillUnmount() {
@@ -525,7 +505,7 @@ Grid.defaultProps = {
 
     items: [],
 
-    col: [1, 450, 2, 720, 3, 1000, 4, 1200, 6],
+    col: [1, 480, 2, 720, 3, 960, 4, 1360, 6],
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
