@@ -525,7 +525,7 @@ Grid.defaultProps = {
 
     items: [],
 
-    col: [1, 300, 2, 600, 3, 900, 4, 1200, 6],
+    col: [1, 450, 2, 720, 3, 1000, 4, 1200, 6],
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
