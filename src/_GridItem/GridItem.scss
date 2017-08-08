@@ -6,6 +6,7 @@
     margin-bottom: 10px;
 
     .grid-item {
+        @include shadow(1);
         display: block;
         width: auto;
         height: 40px;

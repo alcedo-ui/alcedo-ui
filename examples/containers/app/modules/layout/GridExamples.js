@@ -97,7 +97,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with desc.
                                 </p>
 
-                                <Paper className="grid-wrapper">
+                                <Paper>
                                     <Grid items={this.descListData}/>
                                 </Paper>
 
@@ -121,7 +121,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with mode.Can be normal,radio,checkbox.
                                 </p>
 
-                                <Paper className="grid-wrapper">
+                                <Paper>
                                     <Grid mode={Grid.Mode.RADIO}
                                           items={this.descListData}
                                           onChange={this.changeHandle}/>
@@ -147,7 +147,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with isGrouped.
                                 </p>
 
-                                <Paper className="grid-wrapper">
+                                <Paper>
                                     <Grid mode={Grid.Mode.CHECKBOX}
                                           isGrouped={true}
                                           items={this.groupedListData}
