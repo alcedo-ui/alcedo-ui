@@ -104,9 +104,8 @@ export default class DraggableGridExamples extends Component {
                                     A <code>Draggable List</code>.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <DraggableGrid style={{width: 240}}
-                                                   mode={DraggableGrid.Mode.CHECKBOX}
+                                <Paper>
+                                    <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
                                                    items={this.listData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
@@ -132,9 +131,8 @@ export default class DraggableGridExamples extends Component {
                                     A <code>Draggable List</code>.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <DraggableGrid style={{width: 240}}
-                                                   mode={DraggableGrid.Mode.CHECKBOX}
+                                <Paper>
+                                    <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
@@ -161,8 +159,8 @@ export default class DraggableGridExamples extends Component {
                                     A <code>Draggable List</code>.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <DraggableGrid style={{width: 240, height: 240}}
+                                <Paper>
+                                    <DraggableGrid style={{height: 120}}
                                                    items={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>

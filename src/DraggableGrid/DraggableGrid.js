@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
 import _ from 'lodash';
 
@@ -9,6 +10,8 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
+import Event from '../_vendors/Event';
 
 import './DraggableGrid.css';
 
@@ -28,6 +31,7 @@ export default class DraggableGrid extends Component {
         };
 
         this.initValue = this::this.initValue;
+        this.calItemColStyle = this::this.calItemColStyle;
         this.isItemChecked = this::this.isItemChecked;
         this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
         this.listItemsRenderer = this::this.listItemsRenderer;
@@ -36,6 +40,8 @@ export default class DraggableGrid extends Component {
         this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
         this.listItemSelectHandle = this::this.listItemSelectHandle;
         this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+        this.resizeHandle = this::this.resizeHandle;
+        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
 
     }
 
@@ -63,6 +69,28 @@ export default class DraggableGrid extends Component {
             default:
                 return value;
         }
+
+    }
+
+    calItemColStyle(props = this.props, items = props.items) {
+
+        const {col} = props;
+
+        if (!this.gridEl || !col) {
+            return null;
+        }
+
+        const gridWidth = this.gridEl.getBoundingClientRect().width,
+            colLen = col.length,
+            itemsLen = items.length;
+
+        for (let i = 1; i < colLen - 1; i += 2) {
+            if (gridWidth < col[i] && !isNaN(col[i - 1])) {
+                return 100 / Valid.range(col[i - 1], 1, itemsLen);
+            }
+        }
+
+        return !isNaN(col[colLen - 1]) ? 100 / Valid.range(col[colLen - 1], 1, itemsLen) : null;
 
     }
 
@@ -114,7 +142,8 @@ export default class DraggableGrid extends Component {
 
     listItemsRenderer(items = this.state.items, groupIndex) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
+        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props,
+            itemColWidth = this.calItemColStyle(this.props, items);
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -134,6 +163,7 @@ export default class DraggableGrid extends Component {
                             <DraggableGridItem key={item.id || value}
                                                {...item}
                                                index={index}
+                                               itemColWidth={itemColWidth}
                                                data={item}
                                                value={value}
                                                checked={this.isItemChecked(item)}
@@ -160,6 +190,7 @@ export default class DraggableGrid extends Component {
                         (
                             <DraggableGridItem key={item.id || value}
                                                index={index}
+                                               itemColWidth={itemColWidth}
                                                data={item}
                                                checked={this.isItemChecked(item)}
                                                value={value}
@@ -308,6 +339,22 @@ export default class DraggableGrid extends Component {
 
     }
 
+    resizeHandle() {
+        this.debounceResizeHandle();
+    }
+
+    debounceResizeHandle() {
+        this.forceUpdate();
+    }
+
+    componentDidMount() {
+
+        this.gridEl = findDOMNode(this);
+
+        Event.addEvent(window, 'resize', this.resizeHandle);
+
+    }
+
     componentWillReceiveProps(nextProps) {
 
         let state;
@@ -325,6 +372,10 @@ export default class DraggableGrid extends Component {
             this.setState(state);
         }
 
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.resizeHandle);
     }
 
     render() {
@@ -464,6 +515,11 @@ DraggableGrid.propTypes = {
     ]).isRequired,
 
     /**
+     *
+     */
+    col: PropTypes.array,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -531,6 +587,8 @@ DraggableGrid.defaultProps = {
     style: null,
 
     items: [],
+
+    col: [1, 480, 2, 720, 3, 960, 4, 1360, 6],
 
     valueField: 'value',
     displayField: 'text',
