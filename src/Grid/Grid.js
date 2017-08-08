@@ -116,20 +116,11 @@ export default class Grid extends Component {
                         return null;
                     }
 
-                    const style = {
-                        ...item.style
-                    };
-
-                    if (!isNaN(col) && col > 0) {
-                        style.width = `${100 / col}%`;
-                    }
-
                     return typeof item === 'object' ?
                         (
                             <GridItem key={index}
                                       {...item}
                                       index={index}
-                                      style={style}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
@@ -154,7 +145,6 @@ export default class Grid extends Component {
                         (
                             <GridItem key={index}
                                       index={index}
-                                      style={style}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={item}

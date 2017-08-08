@@ -73,13 +73,13 @@ export default class GridExamples extends Component {
 
     render() {
         return (
-            <div className="example list-examples">
+            <div className="example grid-examples">
 
                 <h2 className="example-title">Grid</h2>
 
                 <p>
                     <span>Grid</span> are used to present multiple items vertically as a single continuous
-                    element. They can be configured for many uses such as a contacts list, nested lists, etc.
+                    element. They can be configured for many uses such as a contacts grid, nested lists, etc.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -97,7 +97,9 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with desc.
                                 </p>
 
-                                <Grid items={this.descListData}/>
+                                <Paper className="grid-wrapper">
+                                    <Grid items={this.descListData}/>
+                                </Paper>
 
                             </div>
 
@@ -119,9 +121,11 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with mode.Can be normal,radio,checkbox.
                                 </p>
 
-                                <Grid mode={Grid.Mode.RADIO}
-                                      items={this.descListData}
-                                      onChange={this.changeHandle}/>
+                                <Paper className="grid-wrapper">
+                                    <Grid mode={Grid.Mode.RADIO}
+                                          items={this.descListData}
+                                          onChange={this.changeHandle}/>
+                                </Paper>
 
                             </div>
 
@@ -143,10 +147,12 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with isGrouped.
                                 </p>
 
-                                <Grid mode={Grid.Mode.CHECKBOX}
-                                      isGrouped={true}
-                                      items={this.groupedListData}
-                                      onChange={this.changeHandle}/>
+                                <Paper className="grid-wrapper">
+                                    <Grid mode={Grid.Mode.CHECKBOX}
+                                          isGrouped={true}
+                                          items={this.groupedListData}
+                                          onChange={this.changeHandle}/>
+                                </Paper>
 
                             </div>
 

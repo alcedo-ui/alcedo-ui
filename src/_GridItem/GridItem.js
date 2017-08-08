@@ -135,91 +135,93 @@ export default class GridItem extends Component {
                           text={tip}
                           tipPosition={tipPosition}>
 
-                <div className={'grid-item' + listItemClassName}
-                     style={style}
-                     disabled={disabled || isLoading}
-                     readOnly={readOnly}
-                     onClick={this.clickHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                <div className={'grid-item-wrapper'}>
+                    <div className={'grid-item' + listItemClassName}
+                         style={style}
+                         disabled={disabled || isLoading}
+                         readOnly={readOnly}
+                         onClick={this.clickHandler}
+                         onMouseEnter={this.mouseEnterHandler}
+                         onMouseLeave={this.mouseLeaveHandler}>
 
-                    {
-                        mode === GridItem.Mode.CHECKBOX ?
-                            <Checkbox className="grid-item-checkbox"
-                                      value={checked}/>
-                            :
-                            null
-                    }
+                        {
+                            mode === GridItem.Mode.CHECKBOX ?
+                                <Checkbox className="grid-item-checkbox"
+                                          value={checked}/>
+                                :
+                                null
+                        }
 
-                    {
-                        mode === GridItem.Mode.RADIO ?
-                            <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
-                               aria-hidden="true"></i>
-                            :
-                            null
-                    }
+                        {
+                            mode === GridItem.Mode.RADIO ?
+                                <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
+                                   aria-hidden="true"></i>
+                                :
+                                null
+                        }
 
-                    {
-                        isLoading && loadingIconPosition === 'left' ?
-                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                iconCls ?
-                                    <i className={`button-icon button-icon-left ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
+                        {
+                            isLoading && loadingIconPosition === 'left' ?
+                                <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                                 size="small"/>
+                                :
+                                (
+                                    iconCls ?
+                                        <i className={`button-icon button-icon-left ${iconCls}`}
+                                           aria-hidden="true"></i>
+                                        :
+                                        null
+                                )
+                        }
 
-                    {
-                        itemRenderer && typeof itemRenderer === 'function' ?
-                            itemRenderer(data, index)
-                            :
-                            (
-                                renderer && typeof renderer === 'function' ?
-                                    renderer(data, index)
-                                    :
-                                    (
-                                        desc ?
-                                            <div className="grid-item-content">
-                                                <div className="grid-item-content-value">
-                                                    {text}
+                        {
+                            itemRenderer && typeof itemRenderer === 'function' ?
+                                itemRenderer(data, index)
+                                :
+                                (
+                                    renderer && typeof renderer === 'function' ?
+                                        renderer(data, index)
+                                        :
+                                        (
+                                            desc ?
+                                                <div className="grid-item-content">
+                                                    <div className="grid-item-content-value">
+                                                        {text}
+                                                    </div>
+                                                    <div className="grid-item-content-desc">
+                                                        {desc}
+                                                    </div>
                                                 </div>
-                                                <div className="grid-item-content-desc">
-                                                    {desc}
-                                                </div>
-                                            </div>
-                                            :
-                                            text
-                                    )
-                            )
-                    }
+                                                :
+                                                text
+                                        )
+                                )
+                        }
 
-                    {
-                        isLoading && loadingIconPosition === 'right' ?
-                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                rightIconCls ?
-                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
+                        {
+                            isLoading && loadingIconPosition === 'right' ?
+                                <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                                 size="small"/>
+                                :
+                                (
+                                    rightIconCls ?
+                                        <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                           aria-hidden="true"></i>
+                                        :
+                                        null
+                                )
+                        }
 
-                    {
-                        disableTouchRipple || readOnly ?
-                            null
-                            :
-                            <TouchRipple ref="touchRipple"
-                                         className={disabled || isLoading ? 'hidden' : ''}
-                                         displayCenter={rippleDisplayCenter}/>
-                    }
+                        {
+                            disableTouchRipple || readOnly ?
+                                null
+                                :
+                                <TouchRipple ref="touchRipple"
+                                             className={disabled || isLoading ? 'hidden' : ''}
+                                             displayCenter={rippleDisplayCenter}/>
+                        }
 
+                    </div>
                 </div>
             </TipContainer>
         );

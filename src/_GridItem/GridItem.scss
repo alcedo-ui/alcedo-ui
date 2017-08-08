@@ -1,121 +1,125 @@
 @import '../_common.scss';
 
-.grid-item {
+.grid-item-wrapper {
     float: left;
-    display: block;
-    width: auto;
-    height: 40px;
-    position: relative;
-    line-height: 40px;
-    border: none;
-    transition: all $transition-duration ease-in-out;
-    cursor: pointer;
-    box-sizing: border-box;
     padding: 0 15px;
-    font-size: 12px;
-    text-align: left;
-    user-select: none;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
-    .grid-item-checkbox {
-        display: inline-block;
-        width: 16px;
-        margin-right: 10px;
-        float: left;
+    .grid-item {
+        display: block;
+        width: auto;
+        height: 40px;
+        position: relative;
+        line-height: 40px;
+        border: none;
+        transition: all $transition-duration ease-in-out;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding: 0 15px;
+        font-size: 12px;
+        text-align: left;
+        user-select: none;
         overflow: hidden;
-    }
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
-    .grid-item-checked {
-        display: inline-block;
-        float: left;
-        width: 16px;
-        line-height: 40px;
-        margin-right: 10px;
-        color: lighten($theme-text, 45%);
-        text-align: center;
-
-        &.activated {
-            color: $theme-highlight;
-        }
-    }
-
-    .button-icon {
-        width: 16px;
-        line-height: 40px;
-        text-align: center;
-        font-size: inherit;
-        color: inherit;
-
-        &.button-icon-left {
+        .grid-item-checkbox {
+            display: inline-block;
+            width: 16px;
+            margin-right: 10px;
             float: left;
-            margin-right: 15px;
+            overflow: hidden;
         }
 
-        &.button-icon-right {
-            float: right;
-            margin-left: 15px;
-        }
-    }
+        .grid-item-checked {
+            display: inline-block;
+            float: left;
+            width: 16px;
+            line-height: 40px;
+            margin-right: 10px;
+            color: lighten($theme-text, 45%);
+            text-align: center;
 
-    .circular-loading {
-        margin-right: 10px;
-    }
-
-    .grid-item-content {
-        display: inline-block;
-        vertical-align: middle;
-        padding: 6px 0;
-
-        .grid-item-content-value {
-            line-height: 14px;
+            &.activated {
+                color: $theme-highlight;
+            }
         }
 
-        .grid-item-content-desc {
-            line-height: 14px;
-            opacity: .5;
+        .button-icon {
+            width: 16px;
+            line-height: 40px;
+            text-align: center;
+            font-size: inherit;
+            color: inherit;
+
+            &.button-icon-left {
+                float: left;
+                margin-right: 15px;
+            }
+
+            &.button-icon-right {
+                float: right;
+                margin-left: 15px;
+            }
         }
-    }
 
-    .touch-ripple {
-        border-radius: $border-radius;
-
-        &.hidden {
-            display: none;
+        .circular-loading {
+            margin-right: 10px;
         }
-    }
 
-    &[disabled] {
-        cursor: not-allowed;
-    }
+        .grid-item-content {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 6px 0;
 
-    // default theme
-    @include grid-item-theme($theme-text, $theme-field);
+            .grid-item-content-value {
+                line-height: 14px;
+            }
 
-    // other themes
-    &.theme-primary {
-        @include grid-item-theme(#fff, $theme-menu);
-    }
-    &.theme-highlight {
-        @include grid-item-theme(#fff, $theme-highlight);
-    }
-    &.theme-success {
-        @include grid-item-theme(#fff, $success);
-    }
-    &.theme-warning {
-        @include grid-item-theme(#fff, $warning);
-    }
-    &.theme-error {
-        @include grid-item-theme(#fff, $error);
-    }
+            .grid-item-content-desc {
+                line-height: 14px;
+                opacity: .5;
+            }
+        }
 
-    &[readonly] {
-        cursor: default;
+        .touch-ripple {
+            border-radius: $border-radius;
 
-        &:hover,
-        &:active {
-            background: $theme-field;
+            &.hidden {
+                display: none;
+            }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+        }
+
+        // default theme
+        @include grid-item-theme($theme-text, $theme-field);
+
+        // other themes
+        &.theme-primary {
+            @include grid-item-theme(#fff, $theme-menu);
+        }
+        &.theme-highlight {
+            @include grid-item-theme(#fff, $theme-highlight);
+        }
+        &.theme-success {
+            @include grid-item-theme(#fff, $success);
+        }
+        &.theme-warning {
+            @include grid-item-theme(#fff, $warning);
+        }
+        &.theme-error {
+            @include grid-item-theme(#fff, $error);
+        }
+
+        &[readonly] {
+            cursor: default;
+
+            &:hover,
+            &:active {
+                background: $theme-field;
+            }
         }
     }
 }
