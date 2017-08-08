@@ -132,6 +132,9 @@ export default [{
     }, {
         text: 'Waterfall',
         route: '/components/Waterfall'
+    }, {
+        text: 'Grid',
+        route: '/components/Grid'
     }]
 }, {
     text: 'Draggable',

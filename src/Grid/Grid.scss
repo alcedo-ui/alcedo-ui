@@ -1,0 +1,12 @@
+@import '../_common.scss';
+
+.grid {
+    width: 200px;
+    background: $theme-field;
+
+    &.grouped {
+        .grid-item {
+            padding-left: 30px;
+        }
+    }
+}

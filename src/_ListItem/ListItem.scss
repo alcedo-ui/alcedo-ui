@@ -90,23 +90,23 @@
     }
 
     // default theme
-    @include list-theme($theme-text, $theme-field);
+    @include list-item-theme($theme-text, $theme-field);
 
     // other themes
     &.theme-primary {
-        @include list-theme(#fff, $theme-menu);
+        @include list-item-theme(#fff, $theme-menu);
     }
     &.theme-highlight {
-        @include list-theme(#fff, $theme-highlight);
+        @include list-item-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include list-theme(#fff, $success);
+        @include list-item-theme(#fff, $success);
     }
     &.theme-warning {
-        @include list-theme(#fff, $warning);
+        @include list-item-theme(#fff, $warning);
     }
     &.theme-error {
-        @include list-theme(#fff, $error);
+        @include list-item-theme(#fff, $error);
     }
 
     &[readonly] {

@@ -1,6 +1,6 @@
 @import '../_common.scss';
 
-.draggable-list-item {
+.grid-item {
     display: block;
     width: 100%;
     height: 40px;
@@ -8,18 +8,17 @@
     line-height: 40px;
     border: none;
     transition: all $transition-duration ease-in-out;
-    cursor: move;
+    cursor: pointer;
     box-sizing: border-box;
-    padding: 0 40px 0 15px;
+    padding: 0 15px;
     font-size: 12px;
     text-align: left;
     user-select: none;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    -webkit-user-drag: element;
 
-    .draggable-list-item-checkbox {
+    .grid-item-checkbox {
         display: inline-block;
         width: 16px;
         margin-right: 10px;
@@ -27,7 +26,7 @@
         overflow: hidden;
     }
 
-    .draggable-list-item-checked {
+    .grid-item-checked {
         display: inline-block;
         float: left;
         width: 16px;
@@ -37,7 +36,7 @@
         text-align: center;
 
         &.activated {
-            color: $success;
+            color: $theme-highlight;
         }
     }
 
@@ -63,16 +62,16 @@
         margin-right: 10px;
     }
 
-    .draggable-list-item-content {
+    .grid-item-content {
         display: inline-block;
         vertical-align: middle;
         padding: 6px 0;
 
-        .draggable-list-item-content-value {
+        .grid-item-content-value {
             line-height: 14px;
         }
 
-        .draggable-list-item-content-desc {
+        .grid-item-content-desc {
             line-height: 14px;
             opacity: .5;
         }
@@ -86,54 +85,36 @@
         }
     }
 
-    &.dragging {
-        opacity: .1;
-    }
-
-    .draggable-flag {
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        line-height: 40px;
-        color: lighten($theme-title, 32%) !important;
-    }
-
     &[disabled] {
         cursor: not-allowed;
     }
 
+    // default theme
+    @include grid-item-theme($theme-text, $theme-field);
+
+    // other themes
+    &.theme-primary {
+        @include grid-item-theme(#fff, $theme-menu);
+    }
+    &.theme-highlight {
+        @include grid-item-theme(#fff, $theme-highlight);
+    }
+    &.theme-success {
+        @include grid-item-theme(#fff, $success);
+    }
+    &.theme-warning {
+        @include grid-item-theme(#fff, $warning);
+    }
+    &.theme-error {
+        @include grid-item-theme(#fff, $error);
+    }
+
     &[readonly] {
-        height: 30px;
-        line-height: 30px;
-        padding-left: 15px !important;
         cursor: default;
 
         &:hover,
         &:active {
             background: $theme-field;
         }
-    }
-
-    // default theme
-    @include draggable-list-item-theme($theme-text, $theme-field);
-
-    // other themes
-    &.theme-primary {
-        @include draggable-list-item-theme(#fff, $theme-menu);
-    }
-    &.theme-highlight {
-        @include draggable-list-item-theme(#fff, $theme-highlight);
-    }
-    &.theme-success {
-        @include draggable-list-item-theme(#fff, $success);
-    }
-    &.theme-warning {
-        @include draggable-list-item-theme(#fff, $warning);
-    }
-    &.theme-error {
-        @include draggable-list-item-theme(#fff, $error);
     }
 }
