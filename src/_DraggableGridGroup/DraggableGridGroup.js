@@ -57,7 +57,7 @@ export default class DraggableGridGroup extends Component {
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
                 + (className ? ' ' + className : ''),
 
-            anchorEl = <i className={'draggable-list-group-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+            anchorEl = <i className={'draggable-grid-group-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
                           aria-hidden="true"></i>,
 
             el = connectDropTarget(
