@@ -1,16 +1,12 @@
 @import '../_common.scss';
 
 .checkbox {
-
-    @include float-fix;
-
-    width: 200px;
     color: $theme-text;
     height: 40px;
     cursor: pointer;
 
     .checkbox-icon-wrapper {
-        float: left;
+        display: inline-block;
         width: 40px;
         height: 100%;
         position: relative;
@@ -47,8 +43,7 @@
     }
 
     .checkbox-label {
-        float: left;
-        height: 40px;
+        display: inline-block;
         cursor: inherit;
         user-select: none;
         vertical-align: middle;

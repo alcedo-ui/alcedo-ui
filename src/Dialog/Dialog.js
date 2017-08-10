@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import SubtreeContainer from '../_SubtreeContainer';
 import DialogBody from '../_DialogBody/DialogBody';
 
+import Dom from '../_vendors/Dom';
+
+import './Dialog.css';
+
 export default class Dialog extends Component {
 
     static ButtonUITypes = DialogBody.ButtonUITypes;
@@ -19,24 +23,46 @@ export default class Dialog extends Component {
 
     }
 
-    requestCloseHandle() {
+    setBodyLock(bool) {
+        Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', bool);
+    }
 
-        const {onRequestClose} = this.props;
+    requestCloseHandle() {
 
         this.setState({
             visible: false
         }, () => {
+
+            const {showModal, onRequestClose} = this.props;
+
+            showModal && this.setBodyLock(false);
             onRequestClose && onRequestClose();
+
         });
 
     }
 
+    componentDidMount() {
+        this.props.showModal && this.setBodyLock(this.state.visible);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.visible !== this.state.visible) {
+
+            const visible = !!nextProps.visible;
+
             this.setState({
-                visible: !!nextProps.visible
+                visible
+            }, () => {
+                const {showModal} = nextProps;
+                showModal && this.setBodyLock(visible);
             });
+
         }
+    }
+
+    componentWillUnmount() {
+        this.setBodyLock(false);
     }
 
     render() {
