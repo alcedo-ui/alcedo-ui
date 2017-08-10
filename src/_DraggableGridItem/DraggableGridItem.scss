@@ -93,11 +93,7 @@
             }
         }
 
-        &.dragging {
-            opacity: .1;
-        }
-
-        .draggable-flag {
+        .draggable-grid-item-anchor {
             position: absolute;
             right: 0;
             top: 0;
@@ -106,6 +102,14 @@
             text-align: center;
             line-height: 40px;
             color: lighten($theme-title, 32%) !important;
+        }
+
+        &.dragging {
+            opacity: .1;
+        }
+
+        &.draggable {
+            cursor: move;
         }
 
         &[disabled] {
