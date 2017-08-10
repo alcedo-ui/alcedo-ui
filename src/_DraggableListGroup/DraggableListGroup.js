@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 
-import TipContainer from '../TipContainer';
 import DraggableListItem from '../_DraggableListItem';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
 
 import './DraggableListGroup.css';
