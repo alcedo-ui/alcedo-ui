@@ -226,8 +226,6 @@ export default class DraggableGrid extends Component {
 
     listGroupMoveHandler(dragIndex, hoverIndex) {
 
-        console.log(dragIndex, hoverIndex);
-
         const {items} = this.state,
             dragGroup = items.splice(dragIndex, 1);
 

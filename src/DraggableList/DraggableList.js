@@ -77,8 +77,8 @@ export default class DraggableList extends Component {
 
         if (mode === DraggableList.Mode.CHECKBOX) {
             return _.isArray(value) && value.filter(valueItem => {
-                    return Util.isValueEqual(valueItem, item, valueField, displayField);
-                }).length > 0;
+                return Util.isValueEqual(valueItem, item, valueField, displayField);
+            }).length > 0;
         } else if (mode === DraggableList.Mode.RADIO) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
@@ -194,8 +194,6 @@ export default class DraggableList extends Component {
     }
 
     listGroupMoveHandler(dragIndex, hoverIndex) {
-
-        console.log(dragIndex, hoverIndex);
 
         const {items} = this.state,
             dragGroup = items.splice(dragIndex, 1);

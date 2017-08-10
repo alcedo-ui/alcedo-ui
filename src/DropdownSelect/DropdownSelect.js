@@ -125,7 +125,6 @@ export default class DropdownSelect extends Component {
     itemTouchTapHandle(value) {
         const {onItemTouchTap} = this.props;
         onItemTouchTap && onItemTouchTap(value);
-        console.log(value);
     }
 
     changeHandle(value) {

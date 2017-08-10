@@ -42,8 +42,6 @@ export default class FlashNumber extends Component {
      */
     step(timeStamp) {
 
-        // console.log(timeStamp);
-
         // 第一次request，记录起始时间戳
         if (!this.startTime) {
             this.startTime = timeStamp;

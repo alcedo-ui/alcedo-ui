@@ -341,8 +341,6 @@ export default class Table extends Component {
     //
     //     let finalColumns = _.cloneDeep(columns);
     //
-    //     console.log("finalColumns:"+JSON.stringify(finalColumns));
-    //
     //     let flagFlex = finalColumns.every(function (item) {
     //         return item.flex && typeof item.flex == "number"
     //     });
@@ -352,13 +350,11 @@ export default class Table extends Component {
     //         finalColumns.forEach(function (item) {
     //             sum += item.flex;
     //         });
-    //         console.log(sum);
     //
     //         for (let i = 0; i < finalColumns.length; i++) {
     //             finalColumns[i].width = (100 / sum) * finalColumns[i].flex
     //         }
     //     }
-    //     console.log(finalColumns)
     //
     // }
 
