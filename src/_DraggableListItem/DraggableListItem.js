@@ -17,6 +17,7 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_LIST_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+    connectDragPreview: connect.dragPreview(),
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
@@ -84,9 +85,9 @@ export default class DraggableListItem extends Component {
 
     clickHandler(e) {
 
-        const {disabled, isLoading, readOnly} = this.props;
+        const {disabled, isLoading, isGroupTitle} = this.props;
 
-        if (disabled || isLoading || readOnly) {
+        if (disabled || isLoading || isGroupTitle) {
             return;
         }
 
@@ -139,21 +140,25 @@ export default class DraggableListItem extends Component {
     render() {
 
         const {
-                connectDragSource, connectDropTarget, isDragging,
+                connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, readOnly, draggable
+                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere
             } = this.props,
             {checked} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
+                + (isDragging ? ' dragging' : '') + (isDraggableAnyWhere ? ' draggable' : '')
+                + (className ? ' ' + className : ''),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
+            anchorEl = <i className={'draggable-list-item-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+                          aria-hidden="true"></i>,
+
             el = <div className={'draggable-list-item' + listItemClassName}
                       style={style}
+                      readOnly={isDraggableAnyWhere}
                       disabled={disabled || isLoading}
-                      readOnly={readOnly}
                       onClick={this.clickHandler}
                       onMouseEnter={this.mouseEnterHandler}
                       onMouseLeave={this.mouseLeaveHandler}>
@@ -226,21 +231,36 @@ export default class DraggableListItem extends Component {
                         )
                 }
 
-                <i className="fa fa-bars draggable-flag"
-                   aria-hidden="true"></i>
+                {
+                    isGroupTitle ?
+                        null
+                        :
+                        (
+                            isDraggableAnyWhere ?
+                                anchorEl
+                                :
+                                connectDragSource(anchorEl)
+                        )
+                }
 
             </div>;
 
-        return draggable ?
-            connectDragSource(connectDropTarget(el))
+        return isGroupTitle ?
+            el
             :
-            el;
+            (
+                isDraggableAnyWhere ?
+                    connectDragSource(connectDropTarget(el))
+                    :
+                    connectDragPreview(connectDropTarget(el))
+            );
 
     }
 };
 
 DraggableListItem.propTypes = {
 
+    connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool,
@@ -330,12 +350,17 @@ DraggableListItem.propTypes = {
     /**
      *
      */
-    readOnly: PropTypes.bool,
+    isGroupTitle: PropTypes.bool,
 
     /**
      *
      */
-    draggable: PropTypes.bool,
+    anchorIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    isDraggableAnyWhere: PropTypes.bool,
 
     /**
      * Callback function fired when a list item touch-tapped.
@@ -388,7 +413,9 @@ DraggableListItem.defaultProps = {
 
     mode: DraggableListItem.Mode.NORMAL,
 
-    readOnly: false,
-    draggable: true
+    isGroupTitle: false,
+
+    anchorIconCls: 'fa fa-bars',
+    isDraggableAnyWhere: false
 
 };

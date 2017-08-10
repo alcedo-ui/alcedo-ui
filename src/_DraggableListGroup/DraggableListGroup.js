@@ -17,6 +17,7 @@ const DRAG_LIST_GROUP_SYMBOL = Symbol('DRAG_LIST_GROUP');
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_LIST_GROUP_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+    connectDragPreview: connect.dragPreview(),
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
@@ -50,43 +51,60 @@ export default class DraggableListGroup extends Component {
     render() {
 
         const {
-                connectDragSource, connectDropTarget, isDragging,
-                children, className, style, theme, text, iconCls, rightIconCls, tip, tipPosition,
+                connectDragPreview, connectDragSource, connectDropTarget, isDragging,
+                children, className, style, theme, text, iconCls, rightIconCls, anchorIconCls, isDraggableAnyWhere,
                 disabled, isLoading
             } = this.props,
 
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
-                + (className ? ' ' + className : '');
+                + (isDraggableAnyWhere ? ' draggable' : '') + (className ? ' ' + className : ''),
 
-        return connectDragSource(connectDropTarget(
-            <div className={'draggable-list-group' + listGroupClassName}
-                 style={style}
-                 disabled={disabled || isLoading}
-                 onClick={this.clickHandler}
-                 onMouseEnter={this.mouseEnterHandler}
-                 onMouseLeave={this.mouseLeaveHandler}>
+            anchorEl = <i className={'draggable-list-group-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+                          aria-hidden="true"></i>,
 
-                <DraggableListItem className="draggable-list-group-name"
-                                   text={text}
-                                   iconCls={iconCls}
-                                   rightIconCls={rightIconCls}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   readOnly={true}
-                                   draggable={false}/>
+            el = connectDropTarget(
+                <div className={'draggable-list-group' + listGroupClassName}
+                     style={style}
+                     disabled={disabled || isLoading}
+                     onClick={this.clickHandler}
+                     onMouseEnter={this.mouseEnterHandler}
+                     onMouseLeave={this.mouseLeaveHandler}>
 
-                <div className="draggable-list-group-item-wrapper">
-                    {children}
+                    <DraggableListItem className="draggable-list-group-name"
+                                       text={text}
+                                       iconCls={iconCls}
+                                       rightIconCls={rightIconCls}
+                                       disabled={disabled}
+                                       isLoading={isLoading}
+                                       isGroupTitle={true}
+                                       anchorIconCls={anchorIconCls}
+                                       isDraggableAnyWhere={isDraggableAnyWhere}/>
+
+                    <div className="draggable-list-group-item-wrapper">
+                        {children}
+                    </div>
+
+                    {
+                        isDraggableAnyWhere ?
+                            anchorEl
+                            :
+                            connectDragSource(anchorEl)
+                    }
+
                 </div>
+            );
 
-            </div>
-        ));
+        return isDraggableAnyWhere ?
+            connectDragSource(el)
+            :
+            connectDragPreview(el);
 
     }
 };
 
 DraggableListGroup.propTypes = {
 
+    connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool,
@@ -139,12 +157,12 @@ DraggableListGroup.propTypes = {
     /**
      *
      */
-    tip: PropTypes.string,
+    anchorIconCls: PropTypes.string,
 
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    isDraggableAnyWhere: PropTypes.bool,
 
     /**
      * Callback function fired when a list item touch-tapped.
@@ -179,7 +197,7 @@ DraggableListGroup.defaultProps = {
     iconCls: '',
     rightIconCls: '',
 
-    tip: '',
-    tipPosition: TipContainer.Position.BOTTOM
+    anchorIconCls: 'fa fa-bars',
+    isDraggableAnyWhere: false
 
 };
