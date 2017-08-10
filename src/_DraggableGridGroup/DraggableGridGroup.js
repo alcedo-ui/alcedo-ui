@@ -55,7 +55,7 @@ export default class DraggableGridGroup extends Component {
             } = this.props,
 
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
-                + (className ? ' ' + className : ''),
+                + (isDraggableAnyWhere ? ' draggable' : '') + (className ? ' ' + className : ''),
 
             anchorEl = <i className={'draggable-grid-group-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
                           aria-hidden="true"></i>,
@@ -102,6 +102,7 @@ export default class DraggableGridGroup extends Component {
 
 DraggableGridGroup.propTypes = {
 
+    connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool,

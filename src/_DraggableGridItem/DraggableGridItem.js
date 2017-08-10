@@ -140,16 +140,20 @@ export default class DraggableGridItem extends Component {
     render() {
 
         const {
-                connectDragSource, connectDropTarget, isDragging,
+                connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, draggable
+                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere
             } = this.props,
             {checked} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
+                + (isDragging ? ' dragging' : '') + (isDraggableAnyWhere ? ' draggable' : '')
+                + (className ? ' ' + className : ''),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
+
+            anchorEl = <i className={'draggable-grid-item-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+                          aria-hidden="true"></i>,
 
             el = (
                 <div className={'draggable-grid-item-wrapper'}
@@ -231,23 +235,38 @@ export default class DraggableGridItem extends Component {
                                 )
                         }
 
-                        <i className="fa fa-bars draggable-flag"
-                           aria-hidden="true"></i>
+                        {
+                            isGroupTitle ?
+                                null
+                                :
+                                (
+                                    isDraggableAnyWhere ?
+                                        anchorEl
+                                        :
+                                        connectDragSource(anchorEl)
+                                )
+                        }
 
                     </div>
                 </div>
             );
 
-        return draggable ?
-            connectDragSource(connectDropTarget(el))
+        return isGroupTitle ?
+            el
             :
-            el;
+            (
+                isDraggableAnyWhere ?
+                    connectDragSource(connectDropTarget(el))
+                    :
+                    connectDragPreview(connectDropTarget(el))
+            );
 
     }
 };
 
 DraggableGridItem.propTypes = {
 
+    connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool,

@@ -155,95 +155,97 @@ export default class DraggableListItem extends Component {
             anchorEl = <i className={'draggable-list-item-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
                           aria-hidden="true"></i>,
 
-            el = <div className={'draggable-list-item' + listItemClassName}
-                      style={style}
-                      readOnly={isDraggableAnyWhere}
-                      disabled={disabled || isLoading}
-                      onClick={this.clickHandler}
-                      onMouseEnter={this.mouseEnterHandler}
-                      onMouseLeave={this.mouseLeaveHandler}>
+            el = (
+                <div className={'draggable-list-item' + listItemClassName}
+                     style={style}
+                     readOnly={isDraggableAnyWhere}
+                     disabled={disabled || isLoading}
+                     onClick={this.clickHandler}
+                     onMouseEnter={this.mouseEnterHandler}
+                     onMouseLeave={this.mouseLeaveHandler}>
 
-                {
-                    mode === DraggableListItem.Mode.CHECKBOX ?
-                        <Checkbox className="draggable-list-item-checkbox"
-                                  value={checked}/>
-                        :
-                        null
-                }
+                    {
+                        mode === DraggableListItem.Mode.CHECKBOX ?
+                            <Checkbox className="draggable-list-item-checkbox"
+                                      value={checked}/>
+                            :
+                            null
+                    }
 
-                {
-                    mode === DraggableListItem.Mode.RADIO ?
-                        <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
-                           aria-hidden="true"></i>
-                        :
-                        null
-                }
+                    {
+                        mode === DraggableListItem.Mode.RADIO ?
+                            <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
+                               aria-hidden="true"></i>
+                            :
+                            null
+                    }
 
-                {
-                    isLoading && loadingIconPosition === 'left' ?
-                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                         size="small"/>
-                        :
-                        (
-                            iconCls ?
-                                <i className={`button-icon button-icon-left ${iconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                    {
+                        isLoading && loadingIconPosition === 'left' ?
+                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                iconCls ?
+                                    <i className={`button-icon button-icon-left ${iconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
-                {
-                    itemRenderer && typeof itemRenderer === 'function' ?
-                        itemRenderer(data, index)
-                        :
-                        (
-                            renderer && typeof renderer === 'function' ?
-                                renderer(data, index)
-                                :
-                                (
-                                    desc ?
-                                        <div className="list-item-content">
-                                            <div className="list-item-content-value">
-                                                {text}
+                    {
+                        itemRenderer && typeof itemRenderer === 'function' ?
+                            itemRenderer(data, index)
+                            :
+                            (
+                                renderer && typeof renderer === 'function' ?
+                                    renderer(data, index)
+                                    :
+                                    (
+                                        desc ?
+                                            <div className="list-item-content">
+                                                <div className="list-item-content-value">
+                                                    {text}
+                                                </div>
+                                                <div className="list-item-content-desc">
+                                                    {desc}
+                                                </div>
                                             </div>
-                                            <div className="list-item-content-desc">
-                                                {desc}
-                                            </div>
-                                        </div>
-                                        :
-                                        text
-                                )
-                        )
-                }
+                                            :
+                                            text
+                                    )
+                            )
+                    }
 
-                {
-                    isLoading && loadingIconPosition === 'right' ?
-                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                         size="small"/>
-                        :
-                        (
-                            rightIconCls ?
-                                <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                    {
+                        isLoading && loadingIconPosition === 'right' ?
+                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                rightIconCls ?
+                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
-                {
-                    isGroupTitle ?
-                        null
-                        :
-                        (
-                            isDraggableAnyWhere ?
-                                anchorEl
-                                :
-                                connectDragSource(anchorEl)
-                        )
-                }
+                    {
+                        isGroupTitle ?
+                            null
+                            :
+                            (
+                                isDraggableAnyWhere ?
+                                    anchorEl
+                                    :
+                                    connectDragSource(anchorEl)
+                            )
+                    }
 
-            </div>;
+                </div>
+            );
 
         return isGroupTitle ?
             el
