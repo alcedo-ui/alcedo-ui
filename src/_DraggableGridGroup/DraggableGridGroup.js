@@ -152,6 +152,16 @@ DraggableGridGroup.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
+     *
+     */
+    anchorIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    isDraggableAnyWhere: PropTypes.bool,
+
+    /**
      * Callback function fired when a grid item touch-tapped.
      */
     onTouchTap: PropTypes.func,

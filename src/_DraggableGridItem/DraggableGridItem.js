@@ -17,6 +17,7 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_GRID_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+    connectDragPreview: connect.dragPreview(),
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
@@ -84,9 +85,9 @@ export default class DraggableGridItem extends Component {
 
     clickHandler(e) {
 
-        const {disabled, isLoading, readOnly} = this.props;
+        const {disabled, isLoading, isGroupTitle} = this.props;
 
-        if (disabled || isLoading || readOnly) {
+        if (disabled || isLoading || isGroupTitle) {
             return;
         }
 
@@ -141,7 +142,7 @@ export default class DraggableGridItem extends Component {
         const {
                 connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, readOnly, draggable
+                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, draggable
             } = this.props,
             {checked} = this.state,
 
@@ -157,7 +158,7 @@ export default class DraggableGridItem extends Component {
                     <div className={'draggable-grid-item' + listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
-                         readOnly={readOnly}
+                         readOnly={isGroupTitle}
                          onClick={this.clickHandler}
                          onMouseEnter={this.mouseEnterHandler}
                          onMouseLeave={this.mouseLeaveHandler}>
@@ -336,12 +337,17 @@ DraggableGridItem.propTypes = {
     /**
      *
      */
-    readOnly: PropTypes.bool,
+    isGroupTitle: PropTypes.bool,
 
     /**
      *
      */
-    draggable: PropTypes.bool,
+    anchorIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    isDraggableAnyWhere: PropTypes.bool,
 
     /**
      * Callback function fired when a grid item touch-tapped.
@@ -394,7 +400,9 @@ DraggableGridItem.defaultProps = {
 
     mode: DraggableGridItem.Mode.NORMAL,
 
-    readOnly: false,
-    draggable: true
+    isGroupTitle: false,
+
+    anchorIconCls: 'fa fa-bars',
+    isDraggableAnyWhere: false
 
 };
