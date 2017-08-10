@@ -1,7 +1,7 @@
 @import '../_common.scss';
 
 .draggable-grid-group {
-    cursor: move;
+    position: relative;
 
     & > .draggable-grid-item-wrapper {
         float: none;
@@ -11,12 +11,12 @@
         background: transparent;
         height: 30px;
         line-height: 30px;
-        padding-left: 15px !important;
+        padding-left: 5px;
         box-shadow: none;
 
         &:hover,
         &:active {
-            background: transparent;
+            background: transparent !important;
         }
     }
 

@@ -15,7 +15,6 @@
         line-height: 40px;
         border: none;
         transition: all $transition-duration ease-in-out;
-        cursor: move;
         box-sizing: border-box;
         padding: 0 40px 0 15px;
         font-size: 12px;
@@ -114,18 +113,6 @@
 
         &[disabled] {
             cursor: not-allowed;
-        }
-
-        &[readonly] {
-            height: 30px;
-            line-height: 30px;
-            padding-left: 15px !important;
-            cursor: default;
-
-            &:hover,
-            &:active {
-                background: $theme-field;
-            }
         }
 
         // default theme
