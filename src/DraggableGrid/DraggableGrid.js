@@ -343,6 +343,7 @@ export default class DraggableGrid extends Component {
         this.debounceResizeHandle();
     }
 
+    //If you want to make a component rerender without changing its state or props, you should call forceUpdate.
     debounceResizeHandle() {
         this.forceUpdate();
     }
@@ -550,12 +551,12 @@ DraggableGrid.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
-     *
+     * The speed of scroll bar.
      */
     scrollSpeed: PropTypes.number,
 
     /**
-     *
+     * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
 
@@ -565,17 +566,17 @@ DraggableGrid.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the grid-item select.
+     * Callback function fired when the grid-item touch-tapped.
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when item sequence changed.
      */
     onSequenceChange: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when select item changed.
      */
     onValueChange: PropTypes.func
 

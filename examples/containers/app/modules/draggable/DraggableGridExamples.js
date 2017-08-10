@@ -85,15 +85,15 @@ export default class DraggableGridExamples extends Component {
                 <h2 className="example-title">DraggableGrid</h2>
 
                 <p>
-                    <span>DraggableGrid</span> are used to present multiple items vertically as a single continuous
-                    element. They can be configured for many uses such as a contacts list, nested lists, etc.
+                    <span>DraggableGrid</span> used to move the draggable object by clicking the mouse and dragging it
+                    in the viewport.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Draggable"/>
+                    <WidgetHeader className="example-header" title="DraggableGrid"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -101,7 +101,7 @@ export default class DraggableGridExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Draggable List</code>.
+                                    A multiple-choice<code> DraggableGrid</code> example.
                                 </p>
 
                                 <Paper>
@@ -128,7 +128,7 @@ export default class DraggableGridExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Draggable List</code>.
+                                    A group <code>DraggableGrid </code>list example.
                                 </p>
 
                                 <Paper>
@@ -156,7 +156,7 @@ export default class DraggableGridExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Draggable List</code>.
+                                    A <code>DraggableGrid</code> simple example.
                                 </p>
 
                                 <Paper>
