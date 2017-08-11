@@ -33,12 +33,13 @@ module.exports = function () {
                 peerDependencies: {
                     'lodash': data.dependencies['lodash'],
                     'moment': data.dependencies['moment'],
-                    'react': data.dependencies['react'],
                     'prop-types': data.dependencies['prop-types'],
+                    'react': data.dependencies['react'],
                     'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
-                    'react-dom': data.dependencies['react-dom'],
                     'react-dnd': data.dependencies['react-dnd'],
-                    'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend']
+                    'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend'],
+                    'react-dnd-scrollzone': data.dependencies['react-dnd-scrollzone'],
+                    'react-dom': data.dependencies['react-dom']
                 }
             };
 
