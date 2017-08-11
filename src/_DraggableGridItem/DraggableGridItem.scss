@@ -15,7 +15,6 @@
         line-height: 40px;
         border: none;
         transition: all $transition-duration ease-in-out;
-        cursor: move;
         box-sizing: border-box;
         padding: 0 40px 0 15px;
         font-size: 12px;
@@ -93,11 +92,7 @@
             }
         }
 
-        &.dragging {
-            opacity: .1;
-        }
-
-        .draggable-flag {
+        .draggable-grid-item-anchor {
             position: absolute;
             right: 0;
             top: 0;
@@ -106,22 +101,19 @@
             text-align: center;
             line-height: 40px;
             color: lighten($theme-title, 32%) !important;
+            cursor: move;
+        }
+
+        &.dragging {
+            opacity: .1;
+        }
+
+        &.draggable {
+            cursor: move;
         }
 
         &[disabled] {
             cursor: not-allowed;
-        }
-
-        &[readonly] {
-            height: 30px;
-            line-height: 30px;
-            padding-left: 15px !important;
-            cursor: default;
-
-            &:hover,
-            &:active {
-                background: $theme-field;
-            }
         }
 
         // default theme

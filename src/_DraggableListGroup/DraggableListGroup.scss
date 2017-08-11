@@ -1,20 +1,36 @@
 @import '../_common.scss';
 
 .draggable-list-group {
-    cursor: move;
+    position: relative;
 
     .draggable-list-group-name {
         height: 30px;
         line-height: 30px;
         padding-left: 15px !important;
 
-        .draggable-flag {
-            height: 30px;
-            line-height: 30px;
+        &:hover,
+        &:active {
+            background: $theme-field;
         }
+    }
+
+    .draggable-list-group-anchor {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: lighten($theme-title, 32%) !important;
+        cursor: move;
     }
 
     &.dragging {
         opacity: .1;
+    }
+
+    &.draggable {
+        cursor: move;
     }
 }

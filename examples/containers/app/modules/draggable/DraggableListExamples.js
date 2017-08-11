@@ -85,8 +85,7 @@ export default class DraggableListExamples extends Component {
                 <h2 className="example-title">DraggableList</h2>
 
                 <p>
-                    <span>DraggableList</span> are used to present multiple items vertically as a single continuous
-                    element. They can be configured for many uses such as a contacts list, nested lists, etc.
+                    <span>DraggableList</span> is a list of elements that allow you to move elements with the mouse.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -101,7 +100,7 @@ export default class DraggableListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Draggable List</code>.
+                                    A multiple-choice <code>DraggableList</code> example.
                                 </p>
 
                                 <Paper style={{width: 240}}>
@@ -129,7 +128,7 @@ export default class DraggableListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Draggable List</code>.
+                                    A group <code>DraggableList</code>example.
                                 </p>
 
                                 <Paper style={{width: 240}}>
@@ -137,6 +136,7 @@ export default class DraggableListExamples extends Component {
                                                    mode={DraggableList.Mode.CHECKBOX}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
+                                                   isDraggableAnyWhere={true}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
                                 </Paper>
@@ -158,7 +158,7 @@ export default class DraggableListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Draggable List</code>.
+                                    A radio <code>DraggableList</code> example.
                                 </p>
 
                                 <Paper style={{width: 240}}>

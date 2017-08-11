@@ -77,8 +77,7 @@ export default class GridExamples extends Component {
                 <h2 className="example-title">Grid</h2>
 
                 <p>
-                    <span>Grid</span> are used to present multiple items vertically as a single continuous
-                    element. They can be configured for many uses such as a contacts grid, nested lists, etc.
+                    <span>Grid</span> system.
                 </p>
 
                 <h2 className="example-title">Examples</h2>

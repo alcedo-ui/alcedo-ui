@@ -74,7 +74,7 @@ export default class DraggableGrid extends Component {
 
     calItemColStyle(props = this.props, items = props.items) {
 
-        const {col} = props;
+        const {col, isItemsFullWidth} = props;
 
         if (!this.gridEl || !col) {
             return null;
@@ -82,15 +82,21 @@ export default class DraggableGrid extends Component {
 
         const gridWidth = this.gridEl.getBoundingClientRect().width,
             colLen = col.length,
-            itemsLen = items.length;
+            itemsLen = items.length,
+            validValue = (value) => {
+                return isItemsFullWidth ?
+                    Valid.range(value, 1, itemsLen)
+                    :
+                    Valid.range(value, 1);
+            };
 
         for (let i = 1; i < colLen - 1; i += 2) {
             if (gridWidth < col[i] && !isNaN(col[i - 1])) {
-                return 100 / Valid.range(col[i - 1], 1, itemsLen);
+                return 100 / validValue(col[i - 1]);
             }
         }
 
-        return !isNaN(col[colLen - 1]) ? 100 / Valid.range(col[colLen - 1], 1, itemsLen) : null;
+        return !isNaN(col[colLen - 1]) ? 100 / validValue(col[colLen - 1]) : null;
 
     }
 
@@ -114,6 +120,9 @@ export default class DraggableGrid extends Component {
     }
 
     listGroupedItemsRenderer(items = this.props.items) {
+
+        const {anchorIconCls, isDraggableAnyWhere} = this.props;
+
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
@@ -122,6 +131,8 @@ export default class DraggableGrid extends Component {
                         <DraggableGridGroup key={group.id || group.name}
                                             index={groupIndex}
                                             text={group.name}
+                                            anchorIconCls={anchorIconCls}
+                                            isDraggableAnyWhere={isDraggableAnyWhere}
                                             onMove={this.listGroupMoveHandler}>
                             {
                                 group.children && group.children.length > 0 ?
@@ -138,11 +149,16 @@ export default class DraggableGrid extends Component {
             })
             :
             null;
+
     }
 
     listItemsRenderer(items = this.state.items, groupIndex) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props,
+        const {
+                valueField, displayField, descriptionField, disabled, isLoading,
+                mode, anchorIconCls, isDraggableAnyWhere,
+                renderer
+            } = this.props,
             itemColWidth = this.calItemColStyle(this.props, items);
 
         return _.isArray(items) && items.length > 0 ?
@@ -172,6 +188,8 @@ export default class DraggableGrid extends Component {
                                                disabled={disabled || item.disabled}
                                                isLoading={isLoading || item.isLoading}
                                                groupIndex={groupIndex}
+                                               anchorIconCls={anchorIconCls}
+                                               isDraggableAnyWhere={isDraggableAnyWhere}
                                                mode={mode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
@@ -198,6 +216,8 @@ export default class DraggableGrid extends Component {
                                                disabled={disabled}
                                                isLoading={isLoading}
                                                groupIndex={groupIndex}
+                                               anchorIconCls={anchorIconCls}
+                                               isDraggableAnyWhere={isDraggableAnyWhere}
                                                mode={mode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
@@ -341,6 +361,7 @@ export default class DraggableGrid extends Component {
         this.debounceResizeHandle();
     }
 
+    //If you want to make a component rerender without changing its state or props, you should call forceUpdate.
     debounceResizeHandle() {
         this.forceUpdate();
     }
@@ -548,12 +569,27 @@ DraggableGrid.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
+     * The speed of scroll bar.
+     */
+    anchorIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    isDraggableAnyWhere: PropTypes.bool,
+
+    /**
+     *
+     */
+    isItemsFullWidth: PropTypes.bool,
+
+    /**
      *
      */
     scrollSpeed: PropTypes.number,
 
     /**
-     *
+     * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
 
@@ -563,17 +599,17 @@ DraggableGrid.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the grid-item select.
+     * Callback function fired when the grid-item touch-tapped.
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when item sequence changed.
      */
     onSequenceChange: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when select item changed.
      */
     onValueChange: PropTypes.func
 
@@ -593,6 +629,11 @@ DraggableGrid.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     isGrouped: false,
+
+    anchorIconCls: 'fa fa-bars',
+    isDraggableAnyWhere: false,
+
+    isItemsFullWidth: false,
 
     scrollSpeed: 20,
     scrollBuffer: 40
