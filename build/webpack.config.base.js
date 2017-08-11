@@ -25,6 +25,7 @@ module.exports = {
             'sass': resolve('examples/assets/sass'),
             'stylesheets': resolve('examples/assets/stylesheets'),
             'containers': resolve('examples/containers'),
+            'modules': resolve('examples/containers/app/modules'),
             'dist': resolve('dist'),
             'vendors': resolve('examples/vendors'),
             'reduxes': resolve('examples/reduxes'),

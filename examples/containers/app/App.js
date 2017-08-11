@@ -8,6 +8,7 @@ import Event from 'vendors/Event';
 
 import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
+import Modules from './modules/Modules';
 
 import PageLoading from 'dist/PageLoading';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
@@ -67,7 +68,7 @@ class App extends Component {
 
     render() {
 
-        const {children, $navMenuCollapsed, $componentLoading} = this.props;
+        const {$navMenuCollapsed, $componentLoading} = this.props;
         const {loading} = this.state;
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
@@ -90,7 +91,7 @@ class App extends Component {
                     <NavBar/>
 
                     <div className="content">
-                        {children}
+                        <Modules/>
                     </div>
 
                 </div>

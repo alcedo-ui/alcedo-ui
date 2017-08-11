@@ -72,7 +72,8 @@ export default class NavMenuItem extends Component {
                                      to={options.route}
                                      disabled={options.disabled}
                                      activeClassName="router-link-active"
-                                     onClick={this.menuMousedownHandle}>
+                                     onClick={this.menuMousedownHandle}
+                                     exact>
 
                                 <div className="nav-menu-item-name"
                                      style={{marginLeft: depth * subMenuIndent}}>
