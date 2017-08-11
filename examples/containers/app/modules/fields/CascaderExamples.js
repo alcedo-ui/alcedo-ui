@@ -8,9 +8,9 @@ import WidgetHeader from 'dist/WidgetHeader';
 import Cascader from 'dist/Cascader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import CascaderDoc from 'assets/propTypes/Cascader.json';
+import CascaderDoc from '../../../../assets/propTypes/Cascader.json';
 
-import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
+import '../../../../assets/sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
 export default class CascaderExamples extends Component {
 

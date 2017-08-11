@@ -72,6 +72,15 @@ export default function configureRoute(store) {
                    }}/>
 
             {/* fields */}
+
+            <Route path="Cascader"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/CascaderExamples.js').default);
+                           loadCompleteCallback();
+                       }, 'CascaderExamples');
+                   }}/>
             <Route path="TextField"
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
@@ -467,15 +476,6 @@ export default function configureRoute(store) {
                        }, 'RateExamples');
                    }}/>
 
-            {/* cascader */}
-            <Route path="Cascader"
-                   getComponent={(nextState, cb) => {
-                       loadStartCallback();
-                       require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/cascader/CascaderExamples').default);
-                           loadCompleteCallback();
-                       }, 'CascaderExamples');
-                   }}/>
 
         </Route>
 
