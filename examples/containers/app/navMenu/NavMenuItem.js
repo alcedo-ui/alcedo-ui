@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router';
+import {NavLink} from 'react-router-dom';
 
 import TouchRipple from 'dist/TouchRipple';
 
@@ -68,11 +68,11 @@ export default class NavMenuItem extends Component {
                         )
                         :
                         (
-                            <Link className="nav-menu-item-link"
-                                  to={options.route}
-                                  disabled={options.disabled}
-                                  activeClassName="router-link-active"
-                                  onClick={this.menuMousedownHandle}>
+                            <NavLink className="nav-menu-item-link"
+                                     to={options.route}
+                                     disabled={options.disabled}
+                                     activeClassName="router-link-active"
+                                     onClick={this.menuMousedownHandle}>
 
                                 <div className="nav-menu-item-name"
                                      style={{marginLeft: depth * subMenuIndent}}>
@@ -81,7 +81,7 @@ export default class NavMenuItem extends Component {
 
                                 <TouchRipple/>
 
-                            </Link>
+                            </NavLink>
                         )
                 }
 
@@ -89,21 +89,21 @@ export default class NavMenuItem extends Component {
                 {
                     hasChildren
                         ? (
-                        <div className="nav-menu-children"
-                             style={{height: options.children.length * menuHeight}}>
-                            {
-                                options.children.map((item, index) => {
-                                    return (
-                                        <NavMenuItem key={index}
-                                                     expandMenuName={expandMenuName}
-                                                     options={item}
-                                                     depth={depth + 1}
-                                                     expandMenu={expandMenu}/>
-                                    );
-                                })
-                            }
-                        </div>
-                    )
+                            <div className="nav-menu-children"
+                                 style={{height: options.children.length * menuHeight}}>
+                                {
+                                    options.children.map((item, index) => {
+                                        return (
+                                            <NavMenuItem key={index}
+                                                         expandMenuName={expandMenuName}
+                                                         options={item}
+                                                         depth={depth + 1}
+                                                         expandMenu={expandMenu}/>
+                                        );
+                                    })
+                                }
+                            </div>
+                        )
                         : null
                 }
 

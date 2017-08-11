@@ -57,11 +57,7 @@ class App extends Component {
 
         window.SCROLL_EL = this.refs.contentWrap;
 
-        this.props.expandActivatedMenu(this.context.router.location.pathname);
-
-        // this.context.router.listen((location) => {
-        //     console.log(location);
-        // });
+        this.props.expandActivatedMenu(this.context.router.route.location.pathname);
 
     }
 

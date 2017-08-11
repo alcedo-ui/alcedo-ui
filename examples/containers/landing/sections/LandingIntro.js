@@ -16,7 +16,7 @@ export default class LandingIntro extends Component {
     }
 
     goToDemo() {
-        this.context.router.push('/components');
+        this.context.router.history.push('/components');
     }
 
     render() {
