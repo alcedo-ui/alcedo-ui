@@ -74,7 +74,7 @@ export default class DraggableGrid extends Component {
 
     calItemColStyle(props = this.props, items = props.items) {
 
-        const {col} = props;
+        const {col, isItemsFullWidth} = props;
 
         if (!this.gridEl || !col) {
             return null;
@@ -82,15 +82,21 @@ export default class DraggableGrid extends Component {
 
         const gridWidth = this.gridEl.getBoundingClientRect().width,
             colLen = col.length,
-            itemsLen = items.length;
+            itemsLen = items.length,
+            validValue = (value) => {
+                return isItemsFullWidth ?
+                    Valid.range(value, 1, itemsLen)
+                    :
+                    Valid.range(value, 1);
+            };
 
         for (let i = 1; i < colLen - 1; i += 2) {
             if (gridWidth < col[i] && !isNaN(col[i - 1])) {
-                return 100 / Valid.range(col[i - 1], 1, itemsLen);
+                return 100 / validValue(col[i - 1]);
             }
         }
 
-        return !isNaN(col[colLen - 1]) ? 100 / Valid.range(col[colLen - 1], 1, itemsLen) : null;
+        return !isNaN(col[colLen - 1]) ? 100 / validValue(col[colLen - 1]) : null;
 
     }
 
@@ -575,6 +581,11 @@ DraggableGrid.propTypes = {
     /**
      *
      */
+    isItemsFullWidth: PropTypes.bool,
+
+    /**
+     *
+     */
     scrollSpeed: PropTypes.number,
 
     /**
@@ -621,6 +632,8 @@ DraggableGrid.defaultProps = {
 
     anchorIconCls: 'fa fa-bars',
     isDraggableAnyWhere: false,
+
+    isItemsFullWidth: false,
 
     scrollSpeed: 20,
     scrollBuffer: 40
