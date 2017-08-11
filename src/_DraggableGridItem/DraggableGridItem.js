@@ -17,6 +17,7 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
     connectDropTarget: connect.dropTarget()
 }))
 @DragSource(DRAG_GRID_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
+    connectDragPreview: connect.dragPreview(),
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
@@ -84,9 +85,9 @@ export default class DraggableGridItem extends Component {
 
     clickHandler(e) {
 
-        const {disabled, isLoading, readOnly} = this.props;
+        const {disabled, isLoading, isGroupTitle} = this.props;
 
-        if (disabled || isLoading || readOnly) {
+        if (disabled || isLoading || isGroupTitle) {
             return;
         }
 
@@ -139,16 +140,20 @@ export default class DraggableGridItem extends Component {
     render() {
 
         const {
-                connectDragSource, connectDropTarget, isDragging,
+                connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, readOnly, draggable
+                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere
             } = this.props,
             {checked} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
+                + (isDragging ? ' dragging' : '') + (isDraggableAnyWhere ? ' draggable' : '')
+                + (className ? ' ' + className : ''),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
+
+            anchorEl = <i className={'draggable-grid-item-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+                          aria-hidden="true"></i>,
 
             el = (
                 <div className={'draggable-grid-item-wrapper'}
@@ -157,7 +162,7 @@ export default class DraggableGridItem extends Component {
                     <div className={'draggable-grid-item' + listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
-                         readOnly={readOnly}
+                         readOnly={isGroupTitle}
                          onClick={this.clickHandler}
                          onMouseEnter={this.mouseEnterHandler}
                          onMouseLeave={this.mouseLeaveHandler}>
@@ -230,23 +235,38 @@ export default class DraggableGridItem extends Component {
                                 )
                         }
 
-                        <i className="fa fa-bars draggable-flag"
-                           aria-hidden="true"></i>
+                        {
+                            isGroupTitle ?
+                                null
+                                :
+                                (
+                                    isDraggableAnyWhere ?
+                                        anchorEl
+                                        :
+                                        connectDragSource(anchorEl)
+                                )
+                        }
 
                     </div>
                 </div>
             );
 
-        return draggable ?
-            connectDragSource(connectDropTarget(el))
+        return isGroupTitle ?
+            el
             :
-            el;
+            (
+                isDraggableAnyWhere ?
+                    connectDragSource(connectDropTarget(el))
+                    :
+                    connectDragPreview(connectDropTarget(el))
+            );
 
     }
 };
 
 DraggableGridItem.propTypes = {
 
+    connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
     isDragging: PropTypes.bool,
@@ -336,12 +356,17 @@ DraggableGridItem.propTypes = {
     /**
      *
      */
-    readOnly: PropTypes.bool,
+    isGroupTitle: PropTypes.bool,
 
     /**
      *
      */
-    draggable: PropTypes.bool,
+    anchorIconCls: PropTypes.string,
+
+    /**
+     *
+     */
+    isDraggableAnyWhere: PropTypes.bool,
 
     /**
      * Callback function fired when a grid item touch-tapped.
@@ -394,7 +419,9 @@ DraggableGridItem.defaultProps = {
 
     mode: DraggableGridItem.Mode.NORMAL,
 
-    readOnly: false,
-    draggable: true
+    isGroupTitle: false,
+
+    anchorIconCls: 'fa fa-bars',
+    isDraggableAnyWhere: false
 
 };

@@ -135,6 +135,7 @@ export default class DraggableGridExamples extends Component {
                                     <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
+                                                   isDraggableAnyWhere={true}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
                                 </Paper>
