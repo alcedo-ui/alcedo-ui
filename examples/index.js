@@ -3,13 +3,14 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-import {hashHistory, Router} from 'react-router';
-import {syncHistoryWithStore} from 'react-router-redux';
+import createHashHistory from 'history/createHashHistory';
+import {ConnectedRouter} from 'react-router-redux';
+
 import configureRoute from './config.routes';
 import configureStore from 'reduxes/store';
 
-const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
+const history = createHashHistory();
+const store = configureStore(history);
 
 /**
  * IE polyfill
@@ -28,7 +29,9 @@ if (!(Object.setPrototypeOf || {}.__proto__)) {
 
 render(
     <Provider store={store}>
-        <Router history={history} routes={configureRoute(store)}/>
+        <ConnectedRouter history={history}>
+            {configureRoute(store)}
+        </ConnectedRouter>
     </Provider>,
     document.getElementById('app-container')
 );
