@@ -8,7 +8,6 @@ import createHashHistory from 'history/createHashHistory';
 import {ConnectedRouter} from 'react-router-redux';
 
 import configureStore from 'reduxes/store';
-
 import Root from 'containers/Root';
 
 const history = createHashHistory();
