@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Route, Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 import Event from 'vendors/Event';
 import Config from 'examples/config';
+
+import Landing from 'containers/landing/Landing';
+import App from 'containers/app/App';
 
 import 'assets/font-awesome/css/font-awesome.min.css';
 import 'sass/global.scss';
@@ -41,15 +45,16 @@ class Root extends Component {
     }
 
     render() {
-
-        const {children} = this.props;
-
         return (
             <div className="root">
-                {children}
+
+                <Route exact path="/"
+                       render={() => <Redirect to="/landing" component={Landing}/>}/>
+                <Route path="/landing" component={Landing}/>
+                <Route path="/components" component={App}/>
+
             </div>
         );
-
     }
 
 }
