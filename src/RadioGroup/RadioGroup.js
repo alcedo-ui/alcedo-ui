@@ -41,7 +41,7 @@ export default class RadioGroup extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`radio-group ${className}`}
+            <div className={'radio-group' + (className ? ' ' + className : '')}
                  style={style}
                  disabled={disabled}>
 
