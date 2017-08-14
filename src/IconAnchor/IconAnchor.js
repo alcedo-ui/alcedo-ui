@@ -13,15 +13,18 @@ export default class IconAnchor extends Component {
 
         super(props);
 
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
 
     }
 
-    clickHandle(e) {
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+    touchTapHandler(e) {
+        e.preventDefault();
+        setTimeout(() => {
+            const {disabled, isLoading, onTouchTap} = this.props;
+            !disabled && !isLoading && onTouchTap && onTouchTap(e);
+        }, 0);
     }
 
     startRipple(e) {
@@ -42,7 +45,7 @@ export default class IconAnchor extends Component {
                href={href ? href : 'javascript:void(0)'}
                target={target}
                disabled={disabled || isLoading}
-               onClick={this.clickHandle}>
+               onTouchTap={this.touchTapHandler}>
 
                 {
                     isLoading ?
