@@ -12,29 +12,14 @@ import './ListGroup.css';
 export default class ListGroup extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
-
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
     }
 
     render() {
 
         const {
                 children, className, style, theme, text, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading
+                disabled, isLoading, onMouseEnter, onMouseLeave
             } = this.props,
 
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
@@ -47,8 +32,8 @@ export default class ListGroup extends Component {
                 <div className={'list-group' + listGroupClassName}
                      style={style}
                      disabled={disabled || isLoading}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
                     <ListItem className="list-group-name"
                               text={text}
