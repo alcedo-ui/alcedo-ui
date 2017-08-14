@@ -32,8 +32,6 @@ export default class ListItem extends Component {
         this.touchTapHandler = this::this.touchTapHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
 
     }
 
@@ -106,16 +104,6 @@ export default class ListItem extends Component {
         this.refs.touchRipple.removeRipple();
     }
 
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
             this.setState({
@@ -128,7 +116,8 @@ export default class ListItem extends Component {
 
         const {
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
 
@@ -146,8 +135,8 @@ export default class ListItem extends Component {
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
                      onTouchTap={this.touchTapHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
                     {
                         mode === ListItem.Mode.CHECKBOX ?
