@@ -37,12 +37,12 @@
         padding: 30px;
         background: $theme-widget-bg;
 
-        code{
+        code {
             padding: 5px;
             margin: 0;
-            background-color: rgba(0,0,0,.04);
+            background-color: rgba(0, 0, 0, .04);
             border-radius: 3px;
-            font-family: Consolas,Liberation Mono,Menlo,Courier,monospace;
+            font-family: Consolas, Liberation Mono, Menlo, Courier, monospace;
         }
 
     }
@@ -64,4 +64,14 @@
 
     }
 
+}
+
+@media (max-width: 767px) {
+    .example {
+        padding: 16px;
+
+        .example-content {
+            padding: 16px;
+        }
+    }
 }
