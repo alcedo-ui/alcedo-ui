@@ -15,15 +15,9 @@ export default class ListGroup extends Component {
 
         super(props);
 
-        this.clickHandler = this::this.clickHandler;
         this.mouseEnterHandler = this::this.mouseEnterHandler;
         this.mouseLeaveHandler = this::this.mouseLeaveHandler;
 
-    }
-
-    clickHandler() {
-        const {disabled, onTouchTap} = this.props;
-        !disabled && onTouchTap && onTouchTap();
     }
 
     mouseEnterHandler(e) {
@@ -53,7 +47,6 @@ export default class ListGroup extends Component {
                 <div className={'list-group' + listGroupClassName}
                      style={style}
                      disabled={disabled || isLoading}
-                     onClick={this.clickHandler}
                      onMouseEnter={this.mouseEnterHandler}
                      onMouseLeave={this.mouseLeaveHandler}>
 
@@ -132,11 +125,6 @@ ListGroup.propTypes = {
      *
      */
     tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
-
-    /**
-     * Callback function fired when a list item touch-tapped.
-     */
-    onTouchTap: PropTypes.func,
 
     /**
      *
