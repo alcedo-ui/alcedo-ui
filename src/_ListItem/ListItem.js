@@ -29,7 +29,7 @@ export default class ListItem extends Component {
 
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
-        this.clickHandler = this::this.clickHandler;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
         this.mouseEnterHandler = this::this.mouseEnterHandler;
@@ -68,27 +68,33 @@ export default class ListItem extends Component {
 
     }
 
-    clickHandler(e) {
+    touchTapHandler(e) {
 
-        const {disabled, isLoading, readOnly} = this.props;
+        e.preventDefault();
 
-        if (disabled || isLoading || readOnly) {
-            return;
-        }
+        setTimeout(() => {
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+            const {disabled, isLoading, readOnly} = this.props;
 
-        const {mode} = this.props;
-
-        switch (mode) {
-            case ListItem.Mode.CHECKBOX:
-                this.checkboxChangeHandler(!this.state.checked);
+            if (disabled || isLoading || readOnly) {
                 return;
-            case ListItem.Mode.RADIO:
-                this.radioChangeHandler();
-                return;
-        }
+            }
+
+            const {onTouchTap} = this.props;
+            onTouchTap && onTouchTap(e);
+
+            const {mode} = this.props;
+
+            switch (mode) {
+                case ListItem.Mode.CHECKBOX:
+                    this.checkboxChangeHandler(!this.state.checked);
+                    return;
+                case ListItem.Mode.RADIO:
+                    this.radioChangeHandler();
+                    return;
+            }
+
+        }, 0);
 
     }
 
@@ -139,7 +145,7 @@ export default class ListItem extends Component {
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
-                     onClick={this.clickHandler}
+                     onTouchTap={this.touchTapHandler}
                      onMouseEnter={this.mouseEnterHandler}
                      onMouseLeave={this.mouseLeaveHandler}>
 
