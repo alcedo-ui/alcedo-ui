@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Radio from '../Radio';
 
+import './RadioGroup.css';
+
 export default class RadioGroup extends Component {
 
     constructor(props) {
@@ -39,7 +41,7 @@ export default class RadioGroup extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`radio-group ${className}`}
+            <div className={'radio-group' + (className ? ' ' + className : '')}
                  style={style}
                  disabled={disabled}>
 

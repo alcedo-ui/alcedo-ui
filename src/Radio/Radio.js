@@ -69,10 +69,12 @@ export default class Radio extends Component {
     render() {
 
         const {className, style, name, label, disabled} = this.props,
-            {value} = this.state;
+            {value} = this.state,
+
+            radioClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={`radio ${value ? 'activated' : ''} ${className}`}
+            <div className={'radio' + radioClassName}
                  style={style}
                  disabled={disabled}>
 
