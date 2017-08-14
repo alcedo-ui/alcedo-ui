@@ -1,31 +1,33 @@
 @import '../_common.scss';
 
 .radio {
-
     @include float-fix;
-
-    width: 200px;
-    height: 50px;
+    display: inline-block;
+    height: 40px;
     color: $theme-text;
     cursor: pointer;
 
     .radio-icon-wrapper {
-        float: left;
-        width: 45px;
-        height: 50px;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
         position: relative;
+        vertical-align: middle;
 
         .radio-bg-icon,
         .radio-icon {
             position: absolute;
             top: 0;
             left: 0;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            font-size: 16px;
             cursor: inherit;
+
+            .button-icon {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                font-size: 16px;
+            }
         }
 
         .radio-bg-icon {
@@ -47,12 +49,10 @@
     }
 
     .radio-label {
-        float: left;
-        height: 50px;
-        line-height: 50px;
+        display: inline-block;
         cursor: inherit;
         user-select: none;
-
+        vertical-align: middle;
     }
 
     &.activated {
