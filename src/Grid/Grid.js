@@ -159,9 +159,9 @@ export default class Grid extends Component {
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
                                       renderer={renderer}
-                                      onTouchTap={() => {
+                                      onTouchTap={(e) => {
                                           this.listItemTouchTapHandle(item, index);
-                                          item.onTouchTap && item.onTouchTap();
+                                          item.onTouchTap && item.onTouchTap(e);
                                       }}
                                       onSelect={() => {
                                           this.listItemSelectHandle(item, index);
