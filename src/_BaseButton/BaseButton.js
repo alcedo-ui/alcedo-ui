@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import CircularLoading from '../CircularLoading';
 import TipContainer from '../TipContainer';
@@ -10,8 +9,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 
 import './BaseButton.css';
-
-injectTapEventPlugin();
 
 export default class BaseButton extends Component {
 
