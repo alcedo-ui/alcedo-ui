@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import CircularLoading from '../CircularLoading';
 import TipContainer from '../TipContainer';
@@ -10,21 +11,26 @@ import Util from '../_vendors/Util';
 
 import './BaseButton.css';
 
+injectTapEventPlugin();
+
 export default class BaseButton extends Component {
 
     constructor(props) {
 
         super(props);
 
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
 
     }
 
-    clickHandle(e) {
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+    touchTapHandler(e) {
+        e.preventDefault();
+        setTimeout(() => {
+            const {disabled, isLoading, onTouchTap} = this.props;
+            !disabled && !isLoading && onTouchTap && onTouchTap(e);
+        }, 0);
     }
 
     startRipple(e) {
@@ -57,7 +63,7 @@ export default class BaseButton extends Component {
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
-                        onClick={this.clickHandle}
+                        onTouchTap={this.touchTapHandler}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}>
 
