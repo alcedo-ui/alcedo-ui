@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -126,9 +126,9 @@ export default class GridItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'grid-item-wrapper'}
                      style={itemColWidth ? {width: `${itemColWidth}%`} : null}>
@@ -220,7 +220,7 @@ export default class GridItem extends Component {
 
                     </div>
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -303,7 +303,7 @@ GridItem.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -387,7 +387,7 @@ GridItem.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM,
+    tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 

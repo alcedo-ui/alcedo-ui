@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -126,9 +126,9 @@ export default class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'list-item' + listItemClassName}
                      style={style}
@@ -216,7 +216,7 @@ export default class ListItem extends Component {
                     }
 
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -294,7 +294,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -376,7 +376,7 @@ ListItem.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM,
+    tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 
