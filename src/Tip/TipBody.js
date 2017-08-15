@@ -9,6 +9,20 @@ import Dom from '../_vendors/Dom';
 
 export default class TipBody extends Component {
 
+    static Position = {
+
+        TOP: 'top',
+        LEFT: 'left',
+        RIGHT: 'right',
+        BOTTOM: 'bottom',
+
+        TOP_LEFT: 'top-left',
+        TOP_RIGHT: 'top-right',
+        BOTTOM_LEFT: 'bottom-left',
+        BOTTOM_RIGHT: 'bottom-right'
+
+    };
+
     constructor(props) {
 
         super(props);
@@ -237,20 +251,6 @@ export default class TipBody extends Component {
     }
 
 }
-
-TipBody.Position = {
-
-    TOP: 'top',
-    LEFT: 'left',
-    RIGHT: 'right',
-    BOTTOM: 'bottom',
-
-    TOP_LEFT: 'top-left',
-    TOP_RIGHT: 'top-right',
-    BOTTOM_LEFT: 'bottom-left',
-    BOTTOM_RIGHT: 'bottom-right'
-
-};
 
 TipBody.propTypes = {
 
