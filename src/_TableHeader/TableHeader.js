@@ -12,7 +12,7 @@ export default class TableHeader extends Component {
         super(props);
 
         this.headerRenderer = this::this.headerRenderer;
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
@@ -29,9 +29,12 @@ export default class TableHeader extends Component {
 
     }
 
-    clickHandle() {
-        const {sortable, onSort} = this.props;
-        sortable && onSort && onSort();
+    touchTapHandler(e) {
+        e.preventDefault();
+        setTimeout(() => {
+            const {sortable, onSort} = this.props;
+            sortable && onSort && onSort();
+        }, 0);
     }
 
     render() {
@@ -43,7 +46,7 @@ export default class TableHeader extends Component {
             <th className={'table-header' + (hidden ? ' hidden' : '') + (className ? ' ' + className : '')}
                 style={style}
                 title={typeof header === 'string' ? header : null}
-                onClick={this.clickHandle}>
+                onTouchTap={this.touchTapHandler}>
 
                 {finalHeader}
 
