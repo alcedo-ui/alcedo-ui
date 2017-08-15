@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Percent from './Percent';
+import Percent from '../_Percent';
 
 import './CircularProgress.css';
 

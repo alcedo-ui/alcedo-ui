@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Theme from '../Theme';
 
-import Percent from '../CircularProgress/Percent';
+import Percent from '../_Percent';
 
 import './LinearProgress.css';
 
@@ -38,11 +38,11 @@ export default class LinearProgress extends Component {
                 {
                     word
                         ? (
-                        wordStyle === LinearProgress.WordStyle.FOLLOW
-                            ? <Percent endNum={parseInt(highlightWidth)}
-                                       move={true}/>
-                            : <Percent endNum={parseInt(highlightWidth)}/>
-                    )
+                            wordStyle === LinearProgress.WordStyle.FOLLOW
+                                ? <Percent endNum={parseInt(highlightWidth)}
+                                           move={true}/>
+                                : <Percent endNum={parseInt(highlightWidth)}/>
+                        )
                         : null
                 }
                 <div className="linear-progress-background">
