@@ -31,10 +31,8 @@ export default class TableHeader extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        setTimeout(() => {
-            const {sortable, onSort} = this.props;
-            sortable && onSort && onSort();
-        }, 0);
+        const {sortable, onSort} = this.props;
+        sortable && onSort && onSort();
     }
 
     render() {
