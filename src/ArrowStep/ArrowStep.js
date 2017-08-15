@@ -16,11 +16,11 @@ export default class ArrowStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.tapHandle = this::this.tapHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
-    tapHandle(activatedStep) {
+    touchTapHandler(activatedStep) {
 
         const {onChange} = this.props;
 
@@ -32,6 +32,7 @@ export default class ArrowStep extends Component {
                 finishedStep: this.state.finishedStep
             });
         });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -69,7 +70,7 @@ export default class ArrowStep extends Component {
                                            value={item}
                                            isFirst={index === 0}
                                            isLast={index === steps.length - 1}
-                                           onTouchTap={this.tapHandle}/>
+                                           onTouchTap={this.touchTapHandler}/>
                         );
                     })
                 }

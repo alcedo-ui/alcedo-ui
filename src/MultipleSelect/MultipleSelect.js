@@ -102,22 +102,28 @@ export default class MultipleSelect extends Component {
 
     }
 
-    removeSelected(index) {
+    removeSelected(index, e) {
 
-        const {value} = this.state;
+        e.preventDefault();
 
-        if (!value || value.length < 1) {
-            return;
-        }
+        setTimeout(() => {
 
-        value.splice(index, 1);
+            const {value} = this.state;
 
-        this.setState({
-            value
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+            if (!value || value.length < 1) {
+                return;
+            }
+
+            value.splice(index, 1);
+
+            this.setState({
+                value
+            }, () => {
+                const {onChange} = this.props;
+                onChange && onChange(value);
+            });
+
+        }, 0);
 
     }
 
@@ -296,8 +302,8 @@ export default class MultipleSelect extends Component {
                                                  title={text}>
                                                 {text}
                                                 <div className="multiple-select-selected-remove-button"
-                                                     onClick={() => {
-                                                         this.removeSelected(index);
+                                                     onTouchTap={(e) => {
+                                                         this.removeSelected(index, e);
                                                      }}>
                                                     ×
                                                 </div>

@@ -5,9 +5,9 @@ import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 
-import './TipContainer.css';
+import './TipProvider.css';
 
-export default class TipContainer extends Component {
+export default class TipProvider extends Component {
 
     static Position = Tip.Position;
 
@@ -50,7 +50,7 @@ export default class TipContainer extends Component {
             {tipVisible, triggerEl} = this.state;
 
         return (
-            <div className={'tip-container' + (className ? ' ' + className : '')}
+            <div className={'tip-provider' + (className ? ' ' + className : '')}
                  style={style}>
 
                 <div className="children-wrapper"
@@ -72,7 +72,7 @@ export default class TipContainer extends Component {
 
 }
 
-TipContainer.propTypes = {
+TipProvider.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -89,17 +89,17 @@ TipContainer.propTypes = {
     /**
      * The position of Tip.Can be top,left,right,bottom,top-left,top-right,bottom-left,bottom-right.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position))
+    position: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position))
 
 };
 
-TipContainer.defaultProps = {
+TipProvider.defaultProps = {
 
     className: '',
     style: null,
 
     text: '',
 
-    position: TipContainer.Position.BOTTOM
+    position: TipProvider.Position.BOTTOM
 
 };

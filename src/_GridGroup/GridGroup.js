@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import GridItem from '../_GridItem';
 import Theme from '../Theme';
 
@@ -25,9 +25,9 @@ export default class GridGroup extends Component {
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'grid-group' + listGroupClassName}
                      style={style}
@@ -48,7 +48,7 @@ export default class GridGroup extends Component {
                     </div>
 
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -109,7 +109,7 @@ GridGroup.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -140,6 +140,6 @@ GridGroup.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM
+    tipPosition: TipProvider.Position.BOTTOM
 
 };

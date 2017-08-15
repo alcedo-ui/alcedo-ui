@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -53,8 +53,8 @@ export default class BaseButton extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer text={tip}
-                          position={tipPosition}>
+            <TipProvider text={tip}
+                         position={tipPosition}>
 
                 <button className={'base-button' + buttonClassName}
                         style={style}
@@ -112,7 +112,7 @@ export default class BaseButton extends Component {
 
                 </button>
 
-            </TipContainer>
+            </TipProvider>
         );
 
     }
