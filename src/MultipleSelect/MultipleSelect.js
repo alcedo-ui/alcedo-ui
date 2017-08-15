@@ -303,6 +303,7 @@ export default class MultipleSelect extends Component {
                                                 {text}
                                                 <div className="multiple-select-selected-remove-button"
                                                      onTouchTap={(e) => {
+                                                         e.preventDefault();
                                                          this.removeSelected(index, e);
                                                      }}>
                                                     ×
