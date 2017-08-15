@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
-import TipContainer from 'dist/TipContainer';
 
 import './Radio.css';
 
@@ -69,16 +68,15 @@ export default class Radio extends Component {
 
     render() {
 
-        const {className, style, name, label, disabled, tip, tipPosition} = this.props,
-            {value} = this.state;
+        const {className, style, name, label, disabled} = this.props,
+            {value} = this.state,
+
+            radioClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
-                <div className={`radio ${value ? 'activated' : ''} ${className}`}
-                     style={style}
-                     disabled={disabled}>
+            <div className={'radio' + radioClassName}
+                 style={style}
+                 disabled={disabled}>
 
                     <input type="hidden"
                            name={name}
@@ -103,8 +101,7 @@ export default class Radio extends Component {
                         {label}
                     </div>
 
-                </div>
-            </TipContainer>
+            </div>
         );
 
     }

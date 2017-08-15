@@ -29,13 +29,12 @@ export default class RaisedButton extends Component {
 
     render() {
 
-        const {children, className, onTouchTap} = this.props;
+        const {children, className} = this.props;
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`raised-button ${className}`}
-                        onTouchTap={onTouchTap}>
+                        className={`raised-button ${className}`}>
                 {children}
             </BaseButton>
         );

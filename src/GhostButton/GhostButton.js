@@ -29,13 +29,12 @@ export default class GhostButton extends Component {
 
     render() {
 
-        const {children, className, onTouchTap} = this.props;
+        const {children, className} = this.props;
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`ghost-button ${className}`}
-                        onTouchTap={onTouchTap}>
+                        className={`ghost-button ${className}`}>
                 {children}
             </BaseButton>
         );

@@ -29,11 +29,9 @@ export default class GridItem extends Component {
 
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
-        this.clickHandler = this::this.clickHandler;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
 
     }
 
@@ -68,27 +66,33 @@ export default class GridItem extends Component {
 
     }
 
-    clickHandler(e) {
+    touchTapHandler(e) {
 
-        const {disabled, isLoading, readOnly} = this.props;
+        e.preventDefault();
 
-        if (disabled || isLoading || readOnly) {
-            return;
-        }
+        setTimeout(() => {
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+            const {disabled, isLoading, readOnly} = this.props;
 
-        const {mode} = this.props;
-
-        switch (mode) {
-            case GridItem.Mode.CHECKBOX:
-                this.checkboxChangeHandler(!this.state.checked);
+            if (disabled || isLoading || readOnly) {
                 return;
-            case GridItem.Mode.RADIO:
-                this.radioChangeHandler();
-                return;
-        }
+            }
+
+            const {onTouchTap} = this.props;
+            onTouchTap && onTouchTap(e);
+
+            const {mode} = this.props;
+
+            switch (mode) {
+                case GridItem.Mode.CHECKBOX:
+                    this.checkboxChangeHandler(!this.state.checked);
+                    return;
+                case GridItem.Mode.RADIO:
+                    this.radioChangeHandler();
+                    return;
+            }
+
+        }, 0);
 
     }
 
@@ -98,16 +102,6 @@ export default class GridItem extends Component {
 
     endRipple() {
         this.refs.touchRipple.removeRipple();
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -122,7 +116,8 @@ export default class GridItem extends Component {
 
         const {
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
 
@@ -142,9 +137,9 @@ export default class GridItem extends Component {
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
-                         onClick={this.clickHandler}
-                         onMouseEnter={this.mouseEnterHandler}
-                         onMouseLeave={this.mouseLeaveHandler}>
+                         onTouchTap={this.touchTapHandler}
+                         onMouseEnter={onMouseEnter}
+                         onMouseLeave={onMouseLeave}>
 
                         {
                             mode === GridItem.Mode.CHECKBOX ?
