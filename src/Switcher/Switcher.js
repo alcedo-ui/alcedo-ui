@@ -30,33 +30,29 @@ export default class Switcher extends Component {
 
         e.preventDefault();
 
-        setTimeout(() => {
+        const {disabled, isLoading, beforeChange, onTouchTap} = this.props;
 
-            const {disabled, isLoading, beforeChange, onTouchTap} = this.props;
+        if (disabled || isLoading) {
+            return;
+        }
 
-            if (disabled || isLoading) {
-                return;
-            }
+        onTouchTap && onTouchTap(e);
 
-            onTouchTap && onTouchTap(e);
+        const value = !this.state.value,
+            callback = () => {
+                this.setState({
+                    value
+                }, () => {
+                    const {onChange} = this.props;
+                    onChange && onChange(value, e);
+                });
+            };
 
-            const value = !this.state.value,
-                callback = () => {
-                    this.setState({
-                        value
-                    }, () => {
-                        const {onChange} = this.props;
-                        onChange && onChange(value, e);
-                    });
-                };
-
-            if (beforeChange) {
-                beforeChange(value) !== false && callback();
-            } else {
-                callback();
-            }
-
-        }, 0);
+        if (beforeChange) {
+            beforeChange(value) !== false && callback();
+        } else {
+            callback();
+        }
 
     }
 
