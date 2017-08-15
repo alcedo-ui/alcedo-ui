@@ -52,7 +52,7 @@ export default class TableRow extends Component {
 
         return (
             <tr className={'table-row' + (isChecked ? ' activated' : '')}
-                onClick={() => {
+                onTouchTap={() => {
                     onRowTouchTap && onRowTouchTap(data, rowIndex);
                 }}>
 
@@ -61,7 +61,7 @@ export default class TableRow extends Component {
                         <td key={colIndex}
                             className={col.cellClassName}
                             style={col.cellStyle}
-                            onClick={() => {
+                            onTouchTap={() => {
                                 onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
                             }}>
                             {this.contentRenderer(col.renderer, colIndex)}
