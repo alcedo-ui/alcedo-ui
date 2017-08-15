@@ -24,10 +24,8 @@ export default class BaseButton extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        setTimeout(() => {
-            const {disabled, isLoading, onTouchTap} = this.props;
-            !disabled && !isLoading && onTouchTap && onTouchTap(e);
-        }, 0);
+        const {disabled, isLoading, onTouchTap} = this.props;
+        !disabled && !isLoading && onTouchTap && onTouchTap(e);
     }
 
     startRipple(e) {
