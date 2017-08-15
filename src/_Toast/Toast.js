@@ -50,10 +50,8 @@ export default class Toast extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        setTimeout(() => {
-            const {onRequestClose, toastsId} = this.props;
-            onRequestClose && onRequestClose(toastsId);
-        }, 0);
+        const {onRequestClose, toastsId} = this.props;
+        onRequestClose && onRequestClose(toastsId);
     }
 
     initializeAnimation(callback) {
