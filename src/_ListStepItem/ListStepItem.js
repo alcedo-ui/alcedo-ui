@@ -8,34 +8,35 @@ import RaisedButton from '../RaisedButton';
 
 import './ListStepItem.css';
 
-export default class ListStepItem extends Component{
+export default class ListStepItem extends Component {
 
     constructor(props) {
 
         super(props);
 
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
-    clickHandle() {
-
+    touchTapHandler() {
         const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-
         activatedStep !== index && finishedStep >= index && onTouchTap(index);
-
     }
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, data} = this.props;
+        const {className, style, activatedStep, finishedStep, index, data} = this.props,
+
+            itemClassName = (activatedStep === index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
+                + (className ? ' ' + className : '');
 
 
         return (
             <RaisedButton {...data}
-                          className={`list-step-item ${activatedStep === index ? ' activated' : (finishedStep >= index ? ' finished' : '')} ${className ? className : ''}`}
+                          className={'list-step-item' + itemClassName}
                           value={data.value}
-                          onTouchTap={this.clickHandle}/>
+                          onTouchTap={this.touchTapHandler}/>
         );
+
     }
 }

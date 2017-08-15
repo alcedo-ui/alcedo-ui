@@ -9,25 +9,28 @@ export default class RoundStepItem extends Component {
 
         super(props);
 
-        this.clickHandle = this.clickHandle.bind(this);
+        this.touchTapHandler = this.touchTapHandler.bind(this);
 
     }
 
-    clickHandle() {
-
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-
-        activatedStep !== index && finishedStep >= index && onTouchTap(index);
-
+    touchTapHandler(e) {
+        e.preventDefault();
+        setTimeout(() => {
+            const {activatedStep, finishedStep, index, onTouchTap} = this.props;
+            activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        }, 0);
     }
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props;
+        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
+
+            itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
+                + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
+                + (className ? ' ' + className : '');
 
         return (
-            <div className={`round-step-item ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}
-                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')} ${className}`}
+            <div className={'round-step-item' + itemClassName}
                  style={style}>
 
                 <div className="bg-bar"></div>
@@ -48,7 +51,7 @@ export default class RoundStepItem extends Component {
                 }
 
                 <div className="round"
-                     onClick={this.clickHandle}>
+                     onTouchTap={this.touchTapHandler}>
                     {
                         finishedStep > index ?
                             <i className="fa fa-check"

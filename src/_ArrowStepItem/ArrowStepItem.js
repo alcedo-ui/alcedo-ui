@@ -9,28 +9,30 @@ export default class ArrowStepItem extends Component {
 
         super(props);
 
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
-    clickHandle() {
-
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-
-        activatedStep !== index && finishedStep >= index && onTouchTap(index);
-
+    touchTapHandler(e) {
+        e.preventDefault();
+        setTimeout(() => {
+            const {activatedStep, finishedStep, index, onTouchTap} = this.props;
+            activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        }, 0);
     }
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props;
+        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
+
+            itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
+                + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
+                + (className ? ' ' + className : '');
 
         return (
-            <div className={`arrow-step-item ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}
-                ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}
-                ${className ? className : ''}`}
+            <div className={'arrow-step-item' + itemClassName}
                  style={style}
-                 onClick={this.clickHandle}>
+                 onTouchTap={this.touchTapHandler}>
 
                 <div className="arrow-step-item-content">
                     <div className="number">
@@ -42,30 +44,32 @@ export default class ArrowStepItem extends Component {
                 </div>
 
                 {
-                    isFirst
-                        ? null
-                        : (
-                        <div className="triangle-wrapper triangle-wrapper-left">
-                            <div className={`triangle-top
+                    isFirst ?
+                        null
+                        :
+                        (
+                            <div className="triangle-wrapper triangle-wrapper-left">
+                                <div className={`triangle-top
                                     ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
-                            </div>
-                            <div className={`triangle-bottom
+                                </div>
+                                <div className={`triangle-bottom
                                     ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
                 }
 
                 {
-                    isLast
-                        ? null
-                        : (
-                        <div className="triangle-wrapper triangle-wrapper-right">
-                            <div className={`triangle-middle
+                    isLast ?
+                        null
+                        :
+                        (
+                            <div className="triangle-wrapper triangle-wrapper-right">
+                                <div className={`triangle-middle
                                     ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
                 }
 
             </div>

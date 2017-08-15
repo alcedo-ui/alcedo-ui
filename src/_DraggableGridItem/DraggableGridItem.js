@@ -39,11 +39,9 @@ export default class DraggableGridItem extends Component {
 
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
-        this.clickHandler = this::this.clickHandler;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
 
     }
 
@@ -83,31 +81,37 @@ export default class DraggableGridItem extends Component {
 
     }
 
-    clickHandler(e) {
+    touchTapHandler(e) {
 
-        const {disabled, isLoading, isGroupTitle} = this.props;
+        e.preventDefault();
 
-        if (disabled || isLoading || isGroupTitle) {
-            return;
-        }
+        setTimeout(() => {
 
-        const {mode} = this.props,
-            callback = () => {
-                const {onTouchTap} = this.props;
-                onTouchTap && onTouchTap(e);
-            };
+            const {disabled, isLoading, isGroupTitle} = this.props;
 
-        switch (mode) {
-            case DraggableGridItem.Mode.CHECKBOX:
-                this.checkboxChangeHandler(!this.state.checked, callback);
+            if (disabled || isLoading || isGroupTitle) {
                 return;
-            case DraggableGridItem.Mode.RADIO:
-                this.radioChangeHandler(callback);
-                return;
-            case DraggableGridItem.Mode.NORMAL:
-                callback();
-                return;
-        }
+            }
+
+            const {mode} = this.props,
+                callback = () => {
+                    const {onTouchTap} = this.props;
+                    onTouchTap && onTouchTap(e);
+                };
+
+            switch (mode) {
+                case DraggableGridItem.Mode.CHECKBOX:
+                    this.checkboxChangeHandler(!this.state.checked, callback);
+                    return;
+                case DraggableGridItem.Mode.RADIO:
+                    this.radioChangeHandler(callback);
+                    return;
+                case DraggableGridItem.Mode.NORMAL:
+                    callback();
+                    return;
+            }
+
+        }, 0);
 
     }
 
@@ -117,16 +121,6 @@ export default class DraggableGridItem extends Component {
 
     endRipple() {
         this.refs.touchRipple.removeRipple();
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -142,7 +136,8 @@ export default class DraggableGridItem extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere
+                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
 
@@ -163,9 +158,9 @@ export default class DraggableGridItem extends Component {
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={isGroupTitle}
-                         onClick={this.clickHandler}
-                         onMouseEnter={this.mouseEnterHandler}
-                         onMouseLeave={this.mouseLeaveHandler}>
+                         onTouchTap={this.touchTapHandler}
+                         onMouseEnter={onMouseEnter}
+                         onMouseLeave={onMouseLeave}>
 
                         {
                             mode === DraggableGridItem.Mode.CHECKBOX ?
