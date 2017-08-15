@@ -70,29 +70,25 @@ export default class GridItem extends Component {
 
         e.preventDefault();
 
-        setTimeout(() => {
+        const {disabled, isLoading, readOnly} = this.props;
 
-            const {disabled, isLoading, readOnly} = this.props;
+        if (disabled || isLoading || readOnly) {
+            return;
+        }
 
-            if (disabled || isLoading || readOnly) {
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
+
+        const {mode} = this.props;
+
+        switch (mode) {
+            case GridItem.Mode.CHECKBOX:
+                this.checkboxChangeHandler(!this.state.checked);
                 return;
-            }
-
-            const {onTouchTap} = this.props;
-            onTouchTap && onTouchTap(e);
-
-            const {mode} = this.props;
-
-            switch (mode) {
-                case GridItem.Mode.CHECKBOX:
-                    this.checkboxChangeHandler(!this.state.checked);
-                    return;
-                case GridItem.Mode.RADIO:
-                    this.radioChangeHandler();
-                    return;
-            }
-
-        }, 0);
+            case GridItem.Mode.RADIO:
+                this.radioChangeHandler();
+                return;
+        }
 
     }
 
