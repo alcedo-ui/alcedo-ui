@@ -37,7 +37,7 @@ export default class RadioGroup extends Component {
 
     render() {
 
-        const {className, style, name, disabled, data} = this.props;
+        const {className, style, name, disabled, data, tip, tipPosition} = this.props;
         const {value} = this.state;
 
         return (
@@ -58,6 +58,8 @@ export default class RadioGroup extends Component {
                                    label={item.label}
                                    value={isChecked}
                                    disabled={disabled}
+                                   tip={tip ? tip : item.label}
+                                   tipPosition={tipPosition}
                                    onChange={() => {
                                        this.changeHandle(item);
                                    }}/>
