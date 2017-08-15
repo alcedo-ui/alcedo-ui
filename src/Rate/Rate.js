@@ -59,21 +59,17 @@ export default class Rate extends Component {
 
         e.preventDefault();
 
-        setTimeout(() => {
+        const {disabled} = this.props;
 
-            const {disabled} = this.props;
+        if (disabled) {
+            return;
+        }
 
-            if (disabled) {
-                return;
-            }
-
-            this.setState({
-                value
-            }, () => {
-                this.props.onChange && this.props.onChange(value);
-            });
-
-        }, 0);
+        this.setState({
+            value
+        }, () => {
+            this.props.onChange && this.props.onChange(value);
+        });
 
     }
 
