@@ -102,6 +102,9 @@ export default [{
     }, {
         text: 'TagField',
         route: '/components/TagField'
+    }, {
+        text: 'Rate',
+        route: '/components/Rate'
     }]
 }, {
     text: 'Progress',
@@ -172,9 +175,6 @@ export default [{
 }, {
     text: 'TimeLine',
     route: '/components/TimeLine'
-}, {
-    text: 'Rate',
-    route: '/components/Rate'
 }, {
     text: 'Loading',
     children: [{
