@@ -7,6 +7,8 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 
+import './TipBody.css';
+
 export default class TipBody extends Component {
 
     static Position = {
