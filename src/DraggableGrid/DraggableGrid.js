@@ -193,9 +193,9 @@ export default class DraggableGrid extends Component {
                                                mode={mode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
-                                               onTouchTap={() => {
+                                               onTouchTap={(e) => {
                                                    this.listItemTouchTapHandler(item, index);
-                                                   item.onTouchTap && item.onTouchTap();
+                                                   item.onTouchTap && item.onTouchTap(e);
                                                }}
                                                onSelect={() => {
                                                    this.listItemSelectHandle(item, index);
