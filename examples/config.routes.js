@@ -266,6 +266,15 @@ export default function configureRoute(store) {
                        }, 'TagFieldExamples');
                    }}/>
 
+            <Route path="Rate"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/RateExamples').default);
+                           loadCompleteCallback();
+                       }, 'RateExamples');
+                   }}/>
+
             {/* popups */}
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
@@ -466,15 +475,6 @@ export default function configureRoute(store) {
                        }, 'CircularLoadingExamples');
                    }}/>
 
-            {/* rate */}
-            <Route path="Rate"
-                   getComponent={(nextState, cb) => {
-                       loadStartCallback();
-                       require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/Rate/RateExamples').default);
-                           loadCompleteCallback();
-                       }, 'RateExamples');
-                   }}/>
 
 
         </Route>
