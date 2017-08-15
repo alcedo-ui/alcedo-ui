@@ -60,25 +60,25 @@ export default class PopupBody extends Component {
     }
 
     calTopVerticalBottom(triggerEl, triggerOffset) {
-        return triggerOffset.top + triggerEl.offsetHeight + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight;
     }
 
     calTopVerticalTop(triggerOffset, popupEl) {
-        return triggerOffset.top - popupEl.offsetHeight + Dom.getScrollTop()
+        return triggerOffset.top - popupEl.offsetHeight
             - parseInt(getComputedStyle(popupEl).marginTop)
             - parseInt(getComputedStyle(popupEl).marginBottom);
     }
 
     calTopHorizontalTop(triggerOffset) {
-        return triggerOffset.top + Dom.getScrollTop();
+        return triggerOffset.top;
     }
 
     calTopHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2 + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
     }
 
     calTopHorizontalBottom(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
     }
 
     calLeftVerticalLeft(triggerOffset) {

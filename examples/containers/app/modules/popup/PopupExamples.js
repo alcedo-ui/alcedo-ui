@@ -59,7 +59,7 @@ export default class PopupExamples extends Component {
     togglePopup(e, id) {
         this.setState({
             [`popupVisible${id}`]: !this.state[`popupVisible${id}`],
-            [`triggerEl${id}`]: e.currentTarget
+            [`triggerEl${id}`]: e.target
         });
     }
 
