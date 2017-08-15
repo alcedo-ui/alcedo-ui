@@ -65,7 +65,6 @@ export default class ListStep extends Component {
                                           className={item.className}
                                           style={{
                                               ...item.style,
-                                              width: `${100 / steps.length}%`,
                                               zIndex: steps.length - index
                                           }}
                                           activatedStep={activatedStep}
