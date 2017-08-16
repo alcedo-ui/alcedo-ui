@@ -74,13 +74,7 @@ export default class DraggableGrid extends Component {
 
     calItemColStyle(props = this.props, items = props.items) {
 
-        const {col, isItemsFullWidth} = props;
-
-        if (!this.gridEl || !col) {
-            return null;
-        }
-
-        const gridWidth = this.gridEl.getBoundingClientRect().width,
+        const {col, isItemsFullWidth} = props,
             colLen = col.length,
             itemsLen = items.length,
             validValue = (value) => {
@@ -89,6 +83,12 @@ export default class DraggableGrid extends Component {
                     :
                     Valid.range(value, 1);
             };
+
+        if (!this.gridEl || !col) {
+            return col && colLen > 0 ? 100 / validValue(col[0]) : null;
+        }
+
+        const gridWidth = this.gridEl.getBoundingClientRect().width;
 
         for (let i = 1; i < colLen - 1; i += 2) {
             if (gridWidth < col[i] && !isNaN(col[i - 1])) {

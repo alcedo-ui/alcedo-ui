@@ -163,6 +163,7 @@ export default class DraggableGridExamples extends Component {
                                 <Paper>
                                     <DraggableGrid style={{height: 120}}
                                                    items={this.largeListData}
+                                                   col={[5]}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
                                 </Paper>
