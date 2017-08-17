@@ -158,7 +158,8 @@ export default class DraggableListItem extends Component {
                     {
                         mode === DraggableListItem.Mode.CHECKBOX ?
                             <Checkbox className="draggable-list-item-checkbox"
-                                      value={checked}/>
+                                      value={checked}
+                                      disabled={disabled || isLoading}/>
                             :
                             null
                     }
