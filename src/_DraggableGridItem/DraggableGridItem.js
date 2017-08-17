@@ -161,7 +161,8 @@ export default class DraggableGridItem extends Component {
                         {
                             mode === DraggableGridItem.Mode.CHECKBOX ?
                                 <Checkbox className="draggable-grid-item-checkbox"
-                                          value={checked}/>
+                                          value={checked}
+                                          disabled={disabled || isLoading}/>
                                 :
                                 null
                         }
