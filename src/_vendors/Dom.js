@@ -4,16 +4,16 @@ function getOffset(el) {
         return null;
     }
 
-    // if (el.getBoundingClientRect) {
-    //
-    //     const result = el.getBoundingClientRect();
-    //
-    //     return {
-    //         top: result.top + getScrollTop(),
-    //         left: result.left + getScrollLeft()
-    //     };
-    //
-    // }
+    if (el.getBoundingClientRect) {
+
+        const result = el.getBoundingClientRect();
+
+        return {
+            top: result.top + getScrollTop(),
+            left: result.left + getScrollLeft()
+        };
+
+    }
 
     let offset = {
         top: el.offsetTop,
