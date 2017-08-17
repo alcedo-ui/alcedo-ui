@@ -137,7 +137,8 @@ export default class ListItem extends Component {
                     {
                         mode === ListItem.Mode.CHECKBOX ?
                             <Checkbox className="list-item-checkbox"
-                                      value={checked}/>
+                                      value={checked}
+                                      disabled={disabled || isLoading}/>
                             :
                             null
                     }
