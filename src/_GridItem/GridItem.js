@@ -140,7 +140,8 @@ export default class GridItem extends Component {
                         {
                             mode === GridItem.Mode.CHECKBOX ?
                                 <Checkbox className="grid-item-checkbox"
-                                          value={checked}/>
+                                          value={checked}
+                                          disabled={disabled || isLoading}/>
                                 :
                                 null
                         }
