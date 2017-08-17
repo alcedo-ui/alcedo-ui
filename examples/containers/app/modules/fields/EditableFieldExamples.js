@@ -24,12 +24,13 @@ export default class EditableFieldExamples extends Component {
         this.onChange = this :: this.onChange;
         this.onEditEnd = this :: this.onEditEnd;
         this.onEditStart = this :: this.onEditStart;
+        this.beforeChange = this :: this.beforeChange;
 
     }
 
     onChange(text) {
         console.log(text);
-        if(text === '123') {
+        if (text === '123') {
             this.setState({
                 disabled: true,
                 value: 'text111'
@@ -43,6 +44,13 @@ export default class EditableFieldExamples extends Component {
 
     onEditStart() {
         console.log('start');
+    }
+
+    beforeChange(text) {
+        if (text == '123') {
+            return false;
+        }
+        return true;
     }
 
     render() {
@@ -68,31 +76,32 @@ export default class EditableFieldExamples extends Component {
 
                                 <p><code>Editable Field</code> simple example.</p>
 
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}
-                                                   disabled={true}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}
-                                                   disabled={this.state.disabled}
-                                                   onChange={this.onChange}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}
-                                                   onEditStart={this.onEditStart}
-                                                   onEditEnd={this.onEditEnd}/>
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               disabled={true}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               disabled={this.state.disabled}
+                                               onChange={this.onChange}
+                                               beforeChange={this.beforeChange}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               onEditStart={this.onEditStart}
+                                               onEditEnd={this.onEditEnd}/>
 
                             </div>
 

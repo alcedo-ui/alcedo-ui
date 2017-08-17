@@ -67,6 +67,10 @@ export default class EditableField extends Component {
         if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
             const change = this.state.text !== this.state.changeText;
 
+            if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
+                return;
+            }
+
             this.setState({
                 hide: true,
                 text: this.state.changeText
@@ -201,7 +205,12 @@ EditableField.propTypes = {
     /**
      * Callback function fired when end editableField change.
      */
-    onEditEnd: PropTypes.func
+    onEditEnd: PropTypes.func,
+
+    /**
+     * Callback function fired when before editableField change.
+     */
+    beforeChange: PropTypes.func
 };
 
 EditableField.defaultProps = {
