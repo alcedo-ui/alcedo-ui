@@ -85,33 +85,29 @@ export default class DraggableListItem extends Component {
 
         e.preventDefault();
 
-        setTimeout(() => {
+        const {disabled, isLoading, isGroupTitle} = this.props;
 
-            const {disabled, isLoading, isGroupTitle} = this.props;
+        if (disabled || isLoading || isGroupTitle) {
+            return;
+        }
 
-            if (disabled || isLoading || isGroupTitle) {
+        const {mode} = this.props,
+            callback = () => {
+                const {onTouchTap} = this.props;
+                onTouchTap && onTouchTap(e);
+            };
+
+        switch (mode) {
+            case DraggableListItem.Mode.CHECKBOX:
+                this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            }
-
-            const {mode} = this.props,
-                callback = () => {
-                    const {onTouchTap} = this.props;
-                    onTouchTap && onTouchTap(e);
-                };
-
-            switch (mode) {
-                case DraggableListItem.Mode.CHECKBOX:
-                    this.checkboxChangeHandler(!this.state.checked, callback);
-                    return;
-                case DraggableListItem.Mode.RADIO:
-                    this.radioChangeHandler(callback);
-                    return;
-                case DraggableListItem.Mode.NORMAL:
-                    callback();
-                    return;
-            }
-
-        }, 0);
+            case DraggableListItem.Mode.RADIO:
+                this.radioChangeHandler(callback);
+                return;
+            case DraggableListItem.Mode.NORMAL:
+                callback();
+                return;
+        }
 
     }
 
@@ -162,7 +158,8 @@ export default class DraggableListItem extends Component {
                     {
                         mode === DraggableListItem.Mode.CHECKBOX ?
                             <Checkbox className="draggable-list-item-checkbox"
-                                      value={checked}/>
+                                      value={checked}
+                                      disabled={disabled || isLoading}/>
                             :
                             null
                     }

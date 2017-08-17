@@ -1,0 +1,13 @@
+@import '../_common.scss';
+
+.tip-provider {
+    display: inline-block;
+
+    &.block {
+        display: block;
+    }
+
+    .children-wrapper {
+        display: inherit;
+    }
+}

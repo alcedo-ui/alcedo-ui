@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 
 import SubtreeContainer from '../_SubtreeContainer';
-import TipBody from './TipBody';
-
-import './Tip.css';
+import TipBody from '../_TipBody';
 
 export default class Tip extends Component {
 

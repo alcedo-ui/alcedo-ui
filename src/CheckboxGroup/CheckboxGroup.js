@@ -36,6 +36,7 @@ export default class CheckboxGroup extends Component {
         }, () => {
             !this.props.disabled && this.props.onChange && this.props.onChange(newValue);
         });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -52,7 +53,7 @@ export default class CheckboxGroup extends Component {
         const {value} = this.state;
 
         return (
-            <div className={`checkbox-group ${className}`}
+            <div className={'checkbox-group' + (className ? ' ' + className : '')}
                  style={style}
                  disabled={disabled}>
 

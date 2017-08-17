@@ -15,10 +15,8 @@ export default class ArrowStepItem extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        setTimeout(() => {
-            const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-            activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
-        }, 0);
+        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
+        activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
     }
 
     render() {

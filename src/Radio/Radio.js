@@ -78,28 +78,28 @@ export default class Radio extends Component {
                  style={style}
                  disabled={disabled}>
 
-                    <input type="hidden"
-                           name={name}
-                           value={value}/>
+                <input type="hidden"
+                       name={name}
+                       value={value}/>
 
-                    <div className="radio-icon-wrapper">
-                        <IconButton ref="radioIcon"
-                                    className="radio-bg-icon"
-                                    iconCls="fa fa-circle-o"
-                                    onTouchTap={this.clickHandle}
-                                    disabled={disabled}/>
+                <div className="radio-icon-wrapper">
+                    <IconButton ref="radioIcon"
+                                className="radio-bg-icon"
+                                iconCls="fa fa-circle-o"
+                                onTouchTap={this.clickHandle}
+                                disabled={disabled}/>
 
-                        <IconButton className="radio-icon"
-                                    iconCls="fa fa-dot-circle-o"
-                                    onTouchTap={this.clickHandle}
-                                    disabled={disabled}/>
-                    </div>
+                    <IconButton className="radio-icon"
+                                iconCls="fa fa-dot-circle-o"
+                                onTouchTap={this.clickHandle}
+                                disabled={disabled}/>
+                </div>
 
-                    <div className="radio-label"
-                         onMouseDown={this.mouseDownHandle}
-                         onMouseUp={this.mouseUpHandle}>
-                        {label}
-                    </div>
+                <div className="radio-label"
+                     onMouseDown={this.mouseDownHandle}
+                     onMouseUp={this.mouseUpHandle}>
+                    {label}
+                </div>
 
             </div>
         );

@@ -35,8 +35,7 @@ export default class DraggableListExamples extends Component {
             children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
-                desc: 'Here is a Facebook Desc.',
-                checked: 'true'
+                desc: 'Here is a Facebook Desc.'
             }, {
                 iconCls: 'fa fa-twitter',
                 text: 'Twitter',

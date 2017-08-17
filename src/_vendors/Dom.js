@@ -4,9 +4,16 @@ function getOffset(el) {
         return null;
     }
 
-    if (el.getBoundingClientRect) {
-        return el.getBoundingClientRect();
-    }
+    // if (el.getBoundingClientRect) {
+    //
+    //     const result = el.getBoundingClientRect();
+    //
+    //     return {
+    //         top: result.top + getScrollTop(),
+    //         left: result.left + getScrollLeft()
+    //     };
+    //
+    // }
 
     let offset = {
         top: el.offsetTop,
@@ -24,6 +31,16 @@ function getOffset(el) {
 
 function getScrollHeight() {
     return document.body.scrollHeight || document.documentElement.scrollHeight;
+}
+
+function getScrollLeft() {
+
+    if (window.SCROLL_EL && window.SCROLL_EL.scrollLeft) {
+        return SCROLL_EL.scrollLeft;
+    }
+
+    return document.body.scrollLeft || document.documentElement.scrollLeft;
+
 }
 
 function getScrollTop() {
@@ -130,6 +147,7 @@ function findParent(el, className) {
 export default {
     getOffset,
     getScrollHeight,
+    getScrollLeft,
     getScrollTop,
     hasClass,
     addClass,

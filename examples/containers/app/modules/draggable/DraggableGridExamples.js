@@ -35,8 +35,7 @@ export default class DraggableGridExamples extends Component {
             children: [{
                 iconCls: 'fa fa-facebook',
                 text: 'Facebook',
-                desc: 'Here is a Facebook Desc.',
-                checked: 'true'
+                desc: 'Here is a Facebook Desc.'
             }, {
                 iconCls: 'fa fa-twitter',
                 text: 'Twitter',
@@ -163,6 +162,7 @@ export default class DraggableGridExamples extends Component {
                                 <Paper>
                                     <DraggableGrid style={{height: 120}}
                                                    items={this.largeListData}
+                                                   col={[5]}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
                                 </Paper>

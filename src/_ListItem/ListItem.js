@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -70,29 +70,25 @@ export default class ListItem extends Component {
 
         e.preventDefault();
 
-        setTimeout(() => {
+        const {disabled, isLoading, readOnly} = this.props;
 
-            const {disabled, isLoading, readOnly} = this.props;
+        if (disabled || isLoading || readOnly) {
+            return;
+        }
 
-            if (disabled || isLoading || readOnly) {
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
+
+        const {mode} = this.props;
+
+        switch (mode) {
+            case ListItem.Mode.CHECKBOX:
+                this.checkboxChangeHandler(!this.state.checked);
                 return;
-            }
-
-            const {onTouchTap} = this.props;
-            onTouchTap && onTouchTap(e);
-
-            const {mode} = this.props;
-
-            switch (mode) {
-                case ListItem.Mode.CHECKBOX:
-                    this.checkboxChangeHandler(!this.state.checked);
-                    return;
-                case ListItem.Mode.RADIO:
-                    this.radioChangeHandler();
-                    return;
-            }
-
-        }, 0);
+            case ListItem.Mode.RADIO:
+                this.radioChangeHandler();
+                return;
+        }
 
     }
 
@@ -126,9 +122,9 @@ export default class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'list-item' + listItemClassName}
                      style={style}
@@ -141,7 +137,8 @@ export default class ListItem extends Component {
                     {
                         mode === ListItem.Mode.CHECKBOX ?
                             <Checkbox className="list-item-checkbox"
-                                      value={checked}/>
+                                      value={checked}
+                                      disabled={disabled || isLoading}/>
                             :
                             null
                     }
@@ -216,7 +213,7 @@ export default class ListItem extends Component {
                     }
 
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -294,7 +291,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -376,7 +373,7 @@ ListItem.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM,
+    tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 

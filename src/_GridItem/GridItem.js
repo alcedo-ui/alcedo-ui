@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -70,29 +70,25 @@ export default class GridItem extends Component {
 
         e.preventDefault();
 
-        setTimeout(() => {
+        const {disabled, isLoading, readOnly} = this.props;
 
-            const {disabled, isLoading, readOnly} = this.props;
+        if (disabled || isLoading || readOnly) {
+            return;
+        }
 
-            if (disabled || isLoading || readOnly) {
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
+
+        const {mode} = this.props;
+
+        switch (mode) {
+            case GridItem.Mode.CHECKBOX:
+                this.checkboxChangeHandler(!this.state.checked);
                 return;
-            }
-
-            const {onTouchTap} = this.props;
-            onTouchTap && onTouchTap(e);
-
-            const {mode} = this.props;
-
-            switch (mode) {
-                case GridItem.Mode.CHECKBOX:
-                    this.checkboxChangeHandler(!this.state.checked);
-                    return;
-                case GridItem.Mode.RADIO:
-                    this.radioChangeHandler();
-                    return;
-            }
-
-        }, 0);
+            case GridItem.Mode.RADIO:
+                this.radioChangeHandler();
+                return;
+        }
 
     }
 
@@ -126,9 +122,9 @@ export default class GridItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'grid-item-wrapper'}
                      style={itemColWidth ? {width: `${itemColWidth}%`} : null}>
@@ -144,7 +140,8 @@ export default class GridItem extends Component {
                         {
                             mode === GridItem.Mode.CHECKBOX ?
                                 <Checkbox className="grid-item-checkbox"
-                                          value={checked}/>
+                                          value={checked}
+                                          disabled={disabled || isLoading}/>
                                 :
                                 null
                         }
@@ -220,7 +217,7 @@ export default class GridItem extends Component {
 
                     </div>
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -303,7 +300,7 @@ GridItem.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -387,7 +384,7 @@ GridItem.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM,
+    tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 
