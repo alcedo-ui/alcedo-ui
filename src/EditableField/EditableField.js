@@ -68,6 +68,7 @@ export default class EditableField extends Component {
             const change = this.state.text !== this.state.changeText;
 
             if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
+                ev.preventDefault();
                 return;
             }
 
