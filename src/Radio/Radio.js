@@ -97,7 +97,8 @@ export default class Radio extends Component {
 
                 <div className="radio-label"
                      onMouseDown={this.mouseDownHandle}
-                     onMouseUp={this.mouseUpHandle}>
+                     onMouseUp={this.mouseUpHandle}
+                     onMouseLeave={this.mouseUpHandle}>
                     {label}
                 </div>
 

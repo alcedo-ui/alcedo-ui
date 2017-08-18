@@ -24,7 +24,6 @@ export default class TouchRipple extends Component {
         this.getRippleStyle = this::this.getRippleStyle;
         this.clearRippleTimeout = this::this.clearRippleTimeout;
         this.mouseDownHandle = this::this.mouseDownHandle;
-        this.mouseUpHandle = this::this.mouseUpHandle;
 
     }
 
@@ -135,10 +134,6 @@ export default class TouchRipple extends Component {
 
     }
 
-    mouseUpHandle() {
-        this.removeRipple();
-    }
-
     componentWillUnmount() {
         this.clearRippleTimeout();
     }
@@ -153,7 +148,8 @@ export default class TouchRipple extends Component {
                                      className={`touch-ripple ${className}`}
                                      style={style}
                                      onMouseDown={this.mouseDownHandle}
-                                     onMouseUp={this.mouseUpHandle}>
+                                     onMouseUp={this.removeRipple}
+                                     onMouseLeave={this.removeRipple}>
                 {
                     ripples && ripples.length > 0 ?
                         ripples
