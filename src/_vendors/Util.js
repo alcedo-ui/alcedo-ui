@@ -123,6 +123,10 @@ function genIndexArray(len) {
 
 }
 
+function getDiag(a, b) {
+    return Math.sqrt((a * a) + (b * b));
+}
+
 export default {
     isEnableLocalStorage,
     isEnableSessionStorage,
@@ -135,5 +139,6 @@ export default {
     getValueByValueField,
     getTextByDisplayField,
     isValueEqual,
-    genIndexArray
+    genIndexArray,
+    getDiag
 };
