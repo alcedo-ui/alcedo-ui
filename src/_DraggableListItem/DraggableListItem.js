@@ -40,8 +40,6 @@ export default class DraggableListItem extends Component {
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
         this.touchTapHandler = this::this.touchTapHandler;
-        this.startRipple = this::this.startRipple;
-        this.endRipple = this::this.endRipple;
 
     }
 
@@ -109,14 +107,6 @@ export default class DraggableListItem extends Component {
                 return;
         }
 
-    }
-
-    startRipple(e) {
-        this.refs.touchRipple.addRipple(e);
-    }
-
-    endRipple() {
-        this.refs.touchRipple.removeRipple();
     }
 
     componentWillReceiveProps(nextProps) {
