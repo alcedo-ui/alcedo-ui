@@ -50,9 +50,9 @@ export default class TouchRipple extends Component {
             pointerX = elWidth / 2;
             pointerY = elHeight / 2;
         } else {
-            const {offsetTop, offsetLeft} = Dom.getOffset(el);
-            pointerX = e.pageX - offsetLeft;
-            pointerY = e.pageY - offsetTop;
+            const {top, left} = Dom.getOffset(el);
+            pointerX = e.pageX - left;
+            pointerY = e.pageY - top;
         }
 
         // 涟漪半径为4个距离的最大值
