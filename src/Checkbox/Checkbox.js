@@ -97,7 +97,8 @@ export default class Checkbox extends Component {
 
                 <div className="checkbox-label"
                      onMouseDown={this.mouseDownHandle}
-                     onMouseUp={this.mouseUpHandle}>
+                     onMouseUp={this.mouseUpHandle}
+                     onMouseLeave={this.mouseUpHandle}>
                     {label}
                 </div>
 
