@@ -274,7 +274,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'RateExamples');
                    }}/>
-
+            <Route path="MaterialTextField"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MaterialTextFieldExamples').default);
+                           loadCompleteCallback();
+                       }, 'MaterialTextFieldExamples');
+                   }}/>
             {/* popups */}
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {

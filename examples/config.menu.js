@@ -105,6 +105,9 @@ export default [{
     }, {
         text: 'Rate',
         route: '/components/Rate'
+    }, {
+        text: 'MaterialTextField',
+        route: '/components/MaterialTextField'
     }]
 }, {
     text: 'Progress',

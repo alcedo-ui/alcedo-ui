@@ -1,0 +1,13 @@
+@import '../_common.scss';
+
+.material-text-field {
+    .text-field {
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        border-bottom: 1px solid #e3eaf3;
+        &.focused {
+            border-bottom-color: lighten($theme-title, 20%);
+        }
+    }
+}

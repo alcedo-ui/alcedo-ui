@@ -27,6 +27,7 @@ export LinearProgress from './LinearProgress';
 export List from './List';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
+export MaterialTextField from './MaterialTextField';
 export Menu from './Menu';
 export MultipleSelect from './MultipleSelect';
 export PageLoading from './PageLoading';
@@ -62,4 +63,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 63;
+export const COMPONENTS_TOTAL_COUNT = 64;
