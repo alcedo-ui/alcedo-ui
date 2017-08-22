@@ -228,8 +228,9 @@ export default class TextField extends Component {
 
                 {
                     iconCls ?
-                        <i className={'text-field-icon ' + iconCls}
-                           aria-hidden="true"></i>
+                        <IconButton className="text-field-icon"
+                                    iconCls={iconCls}
+                                    readOnly={true}/>
                         :
                         null
                 }
@@ -250,7 +251,7 @@ export default class TextField extends Component {
                        autoCorrect={autoCorrect}
                        autoCapitalize={autoCapitalize}
                        spellCheck={spellCheck}
-                       onChange={this.changeHandle}
+                       onInput={this.changeHandle}
                        onKeyDown={this.keydownHandle}
                        onMouseOver={this.mouseoverHandle}
                        onMouseOut={this.mouseoutHandle}

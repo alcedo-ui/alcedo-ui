@@ -21,7 +21,7 @@ export default class TagField extends Component {
 
         this.state = {
             data: props.data,
-            inputValue: '',
+            inputValue: props.inputValue,
             inputIndex: props.data.length,
             itemEditing: false,
             editingItemIndex: -1
@@ -106,7 +106,8 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
-        if (this.props.disabled || e.target != this.refs.wrapper) {
+        if (this.props.disabled || Dom.findParent(e.target, 'tag-field-item-wrapper')
+            || Dom.hasClass(e.target, 'tag-field-input')) {
             return;
         }
 
@@ -170,8 +171,13 @@ export default class TagField extends Component {
         this.setState({
             inputValue
         }, () => {
+
             const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
             this.refs.inputWrapper.style.width = `${width + 9}px`;
+
+            const {onInputChange} = this.props;
+            onInputChange && onInputChange(inputValue);
+
         });
 
     }
@@ -274,11 +280,25 @@ export default class TagField extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
+        let state;
+
         if (nextProps.data !== this.state.data) {
-            this.setState({
-                data: nextProps.data
-            });
+            if (!state) {
+                state = {};
+            }
+            state.data = nextProps.data;
         }
+
+        if (nextProps.inputValue !== this.state.inputValue) {
+            if (!state) {
+                state = {};
+            }
+            state.inputValue = nextProps.inputValue;
+        }
+
+        this.setState(state);
+
     }
 
     componentWillUnmount() {
@@ -314,7 +334,7 @@ export default class TagField extends Component {
                                                autoFocus="true"
                                                value={inputValue}
                                                placeholder={data.length < 1 && placeholder ? placeholder : ''}
-                                               onChange={this.inputChangeHandler}
+                                               onInput={this.inputChangeHandler}
                                                onKeyDown={this.inputKeyDownHandler}/>
                                     </div>
                                     :
@@ -378,6 +398,11 @@ TagField.propTypes = {
     /**
      *
      */
+    inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     *
+     */
     valueField: PropTypes.string,
 
     /**
@@ -398,7 +423,12 @@ TagField.propTypes = {
     /**
      *
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     *
+     */
+    onInputChange: PropTypes.func
 
 };
 
@@ -408,6 +438,7 @@ TagField.defaultProps = {
     style: null,
 
     data: [],
+    inputValue: '',
 
     valueField: 'value',
     displayField: 'text',

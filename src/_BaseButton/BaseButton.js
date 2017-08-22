@@ -40,7 +40,7 @@ export default class BaseButton extends Component {
 
         const {
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
-                iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
+                iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
                 tip, tipPosition, renderer, onMouseEnter, onMouseLeave
             } = this.props,
 
@@ -58,6 +58,7 @@ export default class BaseButton extends Component {
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
+                        readOnly={readOnly}
                         onTouchTap={this.touchTapHandler}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}>
@@ -128,6 +129,7 @@ BaseButton.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     type: PropTypes.string,
     disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
     isLoading: PropTypes.bool,
     disableTouchRipple: PropTypes.bool,
 
@@ -157,6 +159,7 @@ BaseButton.defaultProps = {
 
     value: '',
     disabled: false,
+    readOnly: false,
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
