@@ -106,7 +106,8 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
-        if (this.props.disabled || e.target != this.refs.wrapper) {
+        if (this.props.disabled || Dom.findParent(e.target, 'tag-field-item-wrapper')
+            || Dom.hasClass(e.target, 'tag-field-input')) {
             return;
         }
 
