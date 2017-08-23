@@ -251,6 +251,7 @@ export default class TextField extends Component {
                        autoCorrect={autoCorrect}
                        autoCapitalize={autoCapitalize}
                        spellCheck={spellCheck}
+                       onChange={this.changeHandle}
                        onInput={this.changeHandle}
                        onKeyDown={this.keydownHandle}
                        onMouseOver={this.mouseoverHandle}
