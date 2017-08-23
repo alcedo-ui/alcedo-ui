@@ -89,6 +89,11 @@ MaterialTextField.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The label of the text field.
+     */
+    label: PropTypes.string,
+
+    /**
      * The placeholder of the text field.
      */
     placeholder: PropTypes.string,
