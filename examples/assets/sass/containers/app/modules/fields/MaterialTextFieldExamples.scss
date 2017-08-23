@@ -10,20 +10,10 @@
 
             float: none;
 
-            .tree-select-label,
-            .tree-select {
-                float: left;
-            }
-
-            .tree-select-label {
-                font-size: 14px;
-                line-height: 50px;
-                margin-right: 20px;
-                width: 60px;
-            }
-            .tree-select{
+            .material-text-field{
                 width: 300px;
             }
+
         }
     }
 }

@@ -46,7 +46,8 @@ export default class MaterialTextFieldExamples extends Component {
 
                                 <p><code>MaterialTextField</code> simple example.</p>
                                 <div className="field-group">
-                                    <MaterialTextField placeholder="password"/>
+                                    <MaterialTextField placeholder="password field"
+                                                        label="label"/>
                                 </div>
                             </div>
 
