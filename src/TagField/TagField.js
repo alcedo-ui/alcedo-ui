@@ -36,6 +36,7 @@ export default class TagField extends Component {
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
+        this.clearHandler = this::this.clearHandler;
 
     }
 
@@ -275,6 +276,25 @@ export default class TagField extends Component {
 
     }
 
+    clearHandler() {
+
+        this.setState({
+            data: [],
+            inputValue: '',
+            inputIndex: 0,
+            itemEditing: false,
+            editingItemIndex: -1
+        }, () => {
+
+            const {onChange, onInputChange} = this.props;
+
+            onChange && onChange([]);
+            onInputChange && onInputChange('');
+
+        });
+
+    }
+
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
@@ -307,10 +327,10 @@ export default class TagField extends Component {
 
     render() {
 
-        const {className, style, valueField, displayField, disabled, placeholder} = this.props,
+        const {className, style, valueField, displayField, disabled, placeholder, clearButtonVisible} = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
-            tagFieldClassName = (className ? ' ' + className : '');
+            tagFieldClassName = (clearButtonVisible ? ' with-clear' : '') + (className ? ' ' + className : '');
 
         const indexData = Util.genIndexArray(data.length);
         indexData.splice(inputIndex, 0, this.inputSymbol);
@@ -369,6 +389,15 @@ export default class TagField extends Component {
                     })
                 }
 
+                {
+                    clearButtonVisible ?
+                        <IconButton className="tag-field-clear-button"
+                                    iconCls="fa fa-trash"
+                                    onTouchTap={this.clearHandler}/>
+                        :
+                        null
+                }
+
                 <div ref="test"
                      className="tag-field-test-container"></div>
 
@@ -423,6 +452,11 @@ TagField.propTypes = {
     /**
      *
      */
+    clearButtonVisible: PropTypes.bool,
+
+    /**
+     *
+     */
     onChange: PropTypes.func,
 
     /**
@@ -445,6 +479,7 @@ TagField.defaultProps = {
 
     disabled: false,
 
-    placeholder: ''
+    placeholder: '',
+    clearButtonVisible: true
 
 };
