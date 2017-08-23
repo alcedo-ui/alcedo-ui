@@ -354,6 +354,7 @@ export default class TagField extends Component {
                                                autoFocus="true"
                                                value={inputValue}
                                                placeholder={data.length < 1 && placeholder ? placeholder : ''}
+                                               onChange={this.inputChangeHandler}
                                                onInput={this.inputChangeHandler}
                                                onKeyDown={this.inputKeyDownHandler}/>
                                     </div>
