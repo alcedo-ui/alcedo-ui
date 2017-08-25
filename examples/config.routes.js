@@ -435,6 +435,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'ListStepExamples');
                    }}/>
+            <Route path="DotStep"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/stepper/DotStepExamples').default);
+                           loadCompleteCallback();
+                       }, 'ListStepExamples');
+                   }}/>
 
             {/* messages */}
             <Route path="Toaster"

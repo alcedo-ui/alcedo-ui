@@ -12,6 +12,7 @@ export DatePicker from './DatePicker';
 export DateRangePicker from './DateRangePicker';
 export DateTimePicker from './DateTimePicker';
 export Dialog from './Dialog';
+export DotStep from './DotStep';
 export DraggableGrid from './DraggableGrid';
 export DraggableList from './DraggableList';
 export DropdownSelect from './DropdownSelect';
@@ -63,4 +64,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 64;
+export const COMPONENTS_TOTAL_COUNT = 65;

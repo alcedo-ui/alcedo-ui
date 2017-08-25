@@ -165,6 +165,9 @@ export default [{
     }, {
         text: 'ListStep',
         route: '/components/ListStep'
+    }, {
+        text: 'DotStep',
+        route: '/components/DotStep'
     }]
 }, {
     text: 'Message',
