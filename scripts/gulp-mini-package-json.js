@@ -25,7 +25,6 @@ module.exports = function () {
                 author: data.author,
                 version: data.version,
                 description: data.description,
-                main: './index.js',
                 keywords: data.keywords,
                 repository: data.repository,
                 license: data.license,
