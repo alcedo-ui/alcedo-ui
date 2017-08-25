@@ -11,6 +11,7 @@ import BriefPagging from '../BriefPagging';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import Calculation from '../_vendors/Calculation';
 
 import './Table.css';
 
@@ -42,7 +43,7 @@ export default class Table extends Component {
             bodyHeight: 0,
 
             pagging: {
-                pageSize: 10,
+                pageSize: Calculation.pageSize(props.defaultPageSize, props.pageSizes, 10),
                 page: 0
             },
 
@@ -361,7 +362,7 @@ export default class Table extends Component {
     render() {
 
         const {
-                className, style, data, columns, hasLineNumber, mode,
+                className, style, data, columns, hasLineNumber, mode, pageSizes,
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
                 onCellTouchTap
             } = this.props,
@@ -451,6 +452,7 @@ export default class Table extends Component {
                                          selectedCount={this.calSelectedCount()}
                                          total={totalPage}
                                          pageSize={pagging.pageSize}
+                                         pageSizes={pageSizes}
                                          selectedCountVisible={paggingSelectedCountVisible}
                                          pageSizeVisible={paggingPageSizeVisible}
                                          onChange={this.pageChangedHandler}/>
@@ -460,6 +462,7 @@ export default class Table extends Component {
                                               selectedCount={this.calSelectedCount()}
                                               total={totalPage}
                                               pageSize={pagging.pageSize}
+                                              pageSizes={pageSizes}
                                               selectedCountVisible={paggingSelectedCountVisible}
                                               pageSizeVisible={paggingPageSizeVisible}
                                               onChange={this.pageChangedHandler}/>
@@ -600,6 +603,16 @@ Table.propTypes = {
     paggingPageSizeVisible: PropTypes.bool,
 
     /**
+     *
+     */
+    defaultPageSize: PropTypes.number,
+
+    /**
+     *
+     */
+    pageSizes: PropTypes.arrayOf(PropTypes.number),
+
+    /**
      * Sort init config.
      */
     sortInitConfig: PropTypes.shape({
@@ -659,6 +672,8 @@ Table.defaultProps = {
     useFullPagging: false,
     paggingSelectedCountVisible: false,
     paggingPageSizeVisible: true,
+    defaultPageSize: 10,
+    pageSizes: [5, 10, 15, 20],
 
     sortInitConfig: null
 
