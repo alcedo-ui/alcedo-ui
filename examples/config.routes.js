@@ -282,6 +282,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'MaterialTextFieldExamples');
                    }}/>
+            <Route path="MaterialDropdownSelect"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MaterialDropdownSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'MaterialDropdownSelectExamples');
+                   }}/>
             {/* popups */}
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
