@@ -122,7 +122,7 @@ export default class EditableField extends Component {
 
     render() {
 
-        const {children, className, style, name, disabled, tip, tipPosition} = this.props;
+        const {children, className, style, name, disabled, tip, tipPosition, title} = this.props;
 
         return (
             <TipProvider text={tip}
@@ -130,7 +130,7 @@ export default class EditableField extends Component {
                 <div ref="editableField"
                      className={`editable-field ${className}`}
                      style={style}
-                     title={`${disabled ? '' : 'Click to edit'}`}>
+                     title={`${disabled ? '' : title}`}>
 
                     <span className={`editable-field-text`}
                           disabled={disabled}>{this.state.text}</span>
@@ -183,6 +183,11 @@ EditableField.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The title of the editableField.
+     */
+    title: PropTypes.string,
+
+    /**
      * The tip of the editableField.
      */
     tip: PropTypes.string,
@@ -231,7 +236,7 @@ EditableField.propTypes = {
 EditableField.defaultProps = {
     className: '',
     style: {},
-
+    title: '',
     value: 'text',
     name: '',
     disabled: false

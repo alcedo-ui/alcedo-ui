@@ -78,13 +78,15 @@ export default class EditableFieldExamples extends Component {
 
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}
-                                               disabled={true}/>
+                                               disabled={true}
+                                               title={'Click to edit'}/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}
                                                disabled={this.state.disabled}
                                                onChange={this.onChange}
-                                               beforeChange={this.beforeChange}/>
+                                               beforeChange={this.beforeChange}
+                                               title={'Click to edit'}/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}/>
