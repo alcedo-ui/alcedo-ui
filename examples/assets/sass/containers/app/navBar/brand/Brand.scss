@@ -33,6 +33,7 @@
         line-height: 60px;
         text-decoration: none;
         color: $theme-light-text;
+        transition: color $transition-duration ease-in-out;
 
         .brand-logo {
             display: inline-block;
