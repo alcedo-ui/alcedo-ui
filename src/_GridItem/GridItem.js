@@ -146,8 +146,10 @@ export default class GridItem extends Component {
 
                         {
                             isLoading && loadingIconPosition === 'left' ?
-                                <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                                 size="small"/>
+                                <div className="button-icon button-icon-left">
+                                    <CircularLoading className="button-loading-icon"
+                                                     size="small"/>
+                                </div>
                                 :
                                 (
                                     iconCls ?
