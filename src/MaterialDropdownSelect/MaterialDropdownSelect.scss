@@ -4,10 +4,19 @@
     position: relative;
 
     .material-text-field-label {
-        transform: translate(0, 0);
-        color: $theme-highlight;
-    }
+        //position: absolute;
+        height: 20px;
+        line-height: 20px;
+        transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1), color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+        transform: translate(0, 30px);
+        color: #999;
+        transform-origin: top left;
 
+        &.hasValue {
+            transform: translate(0, 0);
+            color: $theme-highlight;
+        }
+    }
 
     .text-field {
         width: 100%;
@@ -18,9 +27,11 @@
         input{
             padding-left: 0;
         }
+
+
         &.empty {
             input{
-                opacity: 1;
+                opacity: 0;
                 transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
             }
 
@@ -31,36 +42,6 @@
         }
 
     }
-
-    &.animation{
-
-        .material-text-field-label {
-            //position: absolute;
-            height: 20px;
-            line-height: 20px;
-            transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1), color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-            transform: translate(0, 30px);
-            color: #999;
-            transform-origin: top left;
-
-            &.hasValue {
-                transform: translate(0, 0);
-                color: $theme-highlight;
-            }
-        }
-
-        .text-field {
-
-            &.empty {
-                input{
-                    opacity: 0;
-                    transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-                }
-            }
-        }
-    }
-
-
 
     &::after {
         content: '';
@@ -93,6 +74,4 @@
             transform: scale(1);
         }
     }
-
-
 }

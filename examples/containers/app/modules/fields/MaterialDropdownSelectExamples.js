@@ -4,12 +4,12 @@ import React, {Component} from 'react';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialTextField from 'dist/MaterialTextField';
-import MaterialTextFieldDoc from 'assets/propTypes/MaterialTextField.json';
+import MaterialDropdownSelect from 'dist/MaterialDropdownSelect';
+import MaterialDropdownSelectDoc from 'assets/propTypes/MaterialDropdownSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialTextFieldExamples.scss';
 
-export default class MaterialTextFieldExamples extends Component {
+export default class MaterialDropdownSelectExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -26,10 +26,10 @@ export default class MaterialTextFieldExamples extends Component {
         return (
             <div className="example tree-select-examples">
 
-                <h2 className="examples-title">MaterialTextField</h2>
+                <h2 className="examples-title">MaterialDropdownSelect</h2>
 
                 <p>
-                    <span>MaterialTextField</span> is a Tree component withe select field.
+                    <span>MaterialDropdownSelect</span> is a Tree component withe select field.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -44,11 +44,9 @@ export default class MaterialTextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>MaterialTextField</code> simple example.</p>
+                                <p><code>MaterialDropdownSelect</code> simple example.</p>
                                 <div className="field-group">
-                                    <MaterialTextField placeholder="password field"
-                                                       isLabelAnimate={false}
-                                                        label="label"/>
+                                    <MaterialDropdownSelect />
                                 </div>
                             </div>
 
@@ -59,7 +57,7 @@ export default class MaterialTextFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialTextFieldDoc}/>
+                <PropTypeDescTable data={MaterialDropdownSelectDoc}/>
 
             </div>
 

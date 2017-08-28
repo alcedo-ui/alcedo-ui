@@ -48,12 +48,13 @@ export default class MaterialTextField extends Component {
 
     render() {
 
-        const {className, label, style} = this.props;
+        const {className, label, style, isLabelAnimate} = this.props;
         const {isFocus, value} = this.state;
 
         return (
-            <div className={`material-text-field ${className ? className : ''}  ${isFocus ? 'focused' : ''}`}
-                 style={style}>
+            <div
+                className={`material-text-field ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
+                style={style}>
                 <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
                 <TextField {...this.props}
                            value={value}
@@ -92,6 +93,12 @@ MaterialTextField.propTypes = {
      * The label of the text field.
      */
     label: PropTypes.string,
+
+    /**
+     * The animate of the text field.
+     */
+
+    isLabelAnimate: PropTypes.bool,
 
     /**
      * The placeholder of the text field.
@@ -243,5 +250,7 @@ MaterialTextField.propTypes = {
 
 };
 
-MaterialTextField.defaultProps = {};
+MaterialTextField.defaultProps = {
+    isLabelAnimate: true
+};
 
