@@ -110,6 +110,28 @@ export default class EditableFieldExamples extends Component {
 
                 </Widget>
 
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Tip"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Editable Field</code> simple example.</p>
+
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               tip="this is a tip"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={EditableFieldDoc}/>

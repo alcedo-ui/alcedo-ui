@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from '../TextField/TextField';
+import TipProvider from '../TipProvider';
 import Event from '../_vendors/Event';
 
 import './EditableField.css';
@@ -121,37 +122,40 @@ export default class EditableField extends Component {
 
     render() {
 
-        const {children, className, style, name, disabled} = this.props;
+        const {children, className, style, name, disabled, tip, tipPosition} = this.props;
 
         return (
-            <div ref="editableField"
-                 className={`editable-field ${className}`}
-                 style={style}
-                 title={`${disabled ? '' : 'Click to edit'}`}>
+            <TipProvider text={tip}
+                         position={tipPosition}>
+                <div ref="editableField"
+                     className={`editable-field ${className}`}
+                     style={style}
+                     title={`${disabled ? '' : 'Click to edit'}`}>
 
-                <span className={`editable-field-text`}
-                      disabled={disabled}>{this.state.text}</span>
+                    <span className={`editable-field-text`}
+                          disabled={disabled}>{this.state.text}</span>
 
-                {
-                    this.state.hide === true
-                        ?
-                        <span className="editable-field-span"
-                              onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
-                                                                           aria-hidden="true"></i></span>
-                        : <TextField ref="textField"
-                                     className={'editable-field-input'}
-                                     value={this.state.changeText}
-                                     onChange={this.onInputChange}/>
-                }
+                    {
+                        this.state.hide === true
+                            ?
+                            <span className="editable-field-span"
+                                  onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
+                                                                               aria-hidden="true"></i></span>
+                            : <TextField ref="textField"
+                                         className={'editable-field-input'}
+                                         value={this.state.changeText}
+                                         onChange={this.onInputChange}/>
+                    }
 
-                <input type="hidden"
-                       value={this.state.text}
-                       readOnly
-                       name={name}/>
+                    <input type="hidden"
+                           value={this.state.text}
+                           readOnly
+                           name={name}/>
 
-                {children}
+                    {children}
 
-            </div>
+                </div>
+            </TipProvider>
         );
     }
 };
@@ -177,6 +181,16 @@ EditableField.propTypes = {
      * The name of the editableField.
      */
     name: PropTypes.string,
+
+    /**
+     * The tip of the editableField.
+     */
+    tip: PropTypes.string,
+
+    /**
+     * The tipPosition of the editableField.
+     */
+    tipPosition: PropTypes.string,
 
     /**
      * The regular expression of the input.
