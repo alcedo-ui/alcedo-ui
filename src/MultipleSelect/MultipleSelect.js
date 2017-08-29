@@ -39,7 +39,7 @@ export default class MultipleSelect extends Component {
         this.closePopup = this::this.closePopup;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.changeHandle = this::this.changeHandle;
-        this.triggerHandle = this::this.triggerHandle;
+        this.triggerHandler = this::this.triggerHandler;
 
     }
 
@@ -198,7 +198,7 @@ export default class MultipleSelect extends Component {
 
     }
 
-    triggerHandle(el, triggerEl, popupEl, triggerMode, currentVisible) {
+    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible) {
 
         if (!triggerEl) {
             return true;
@@ -341,7 +341,7 @@ export default class MultipleSelect extends Component {
                        hasTriangle={false}
                        triggerMode={Popup.TriggerMode.OPEN}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       triggerHandle={this.triggerHandle}
+                       triggerHandler={this.triggerHandler}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
