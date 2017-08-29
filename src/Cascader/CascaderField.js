@@ -6,16 +6,17 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Popup from '../Popup';
-import CascaderList from './CascaderList';
+import CascaderList from './CascaderListItem';
+import CascaderListItem from './CascaderListItem';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 
-import './Cascader.css';
+import './CascaderField.css';
 
-export default class Cascader extends Component {
+export default class CascaderField extends Component {
 
     constructor(props) {
 
@@ -256,7 +257,7 @@ export default class Cascader extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <CascaderList listData={data}
+                    <CascaderListItem listData={data}
                                   listWidth={listWidth}
                                   path={path}
                                   valueField={valueField}
@@ -271,7 +272,7 @@ export default class Cascader extends Component {
     }
 }
 
-Cascader.propTypes = {
+CascaderField.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -407,7 +408,7 @@ Cascader.propTypes = {
 
 };
 
-Cascader.defaultProps = {
+CascaderField.defaultProps = {
 
     className: '',
     style: null,

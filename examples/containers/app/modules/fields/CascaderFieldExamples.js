@@ -5,14 +5,14 @@ import React, {Component} from 'react';
 
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
-import Cascader from 'dist/Cascader';
+import CascaderField from 'dist/CascaderField';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import CascaderDoc from '../../../../assets/propTypes/Cascader.json';
+import CascaderFieldDoc from '../../../../assets/propTypes/CascaderField.json';
 
 import '../../../../assets/sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
-export default class CascaderExamples extends Component {
+export default class CascaderFieldExamples extends Component {
 
     constructor(props) {
 
@@ -155,7 +155,7 @@ export default class CascaderExamples extends Component {
 
                                 <p>CascaderList simple example.</p>
 
-                                <Cascader data={this.data}
+                                <CascaderField data={this.data}
                                           value={'田子坊'}
                                           onChange={this.changeHandler}/>
 
@@ -168,7 +168,7 @@ export default class CascaderExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CascaderDoc}/>
+                <PropTypeDescTable data={CascaderFieldDoc}/>
 
             </div>
         );
