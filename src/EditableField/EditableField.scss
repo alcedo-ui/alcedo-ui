@@ -10,6 +10,15 @@
     font-size: 12px;
     text-align: left;
 
+    .editable-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+    }
+
     .editable-field-span {
         position: absolute;
         left: -10px;
@@ -72,7 +81,7 @@
         height: 100%;
         top: 0;
         left: -11px;
-        z-index: 3;
+        z-index: 101;
         line-height: 38px;
 
         input {

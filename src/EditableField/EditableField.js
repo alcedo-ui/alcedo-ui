@@ -47,16 +47,11 @@ export default class EditableField extends Component {
      * 显示input并获得焦点
      */
     showInput(e) {
-        if (e && e.stopPropagation) {
-            e.stopPropagation();
-        } else {
-            window.event.cancelBubble = true;
-        }
         this.setState({
             hide: false
         }, () => {
             this.refs.textField.refs.input.focus();
-            this.props.onEditStart && this.props.onEditStart();
+            this.props.onEditStart && this.props.onEditStart(e);
         });
     }
 
@@ -65,7 +60,9 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
+        if (this.state.hide === false && (!this.triggerElement(oEvent.srcElement, this.refs.editableField) ||
+            this.triggerElement(oEvent.srcElement, this.refs.editableModal))) {
+
             const change = this.state.text !== this.state.changeText;
 
             if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
@@ -122,7 +119,7 @@ export default class EditableField extends Component {
 
     render() {
 
-        const {children, className, style, name, disabled, tip, tipPosition, title} = this.props;
+        const {children, className, style, name, disabled, tip, tipPosition, title, onTouchTap, showModal} = this.props;
 
         return (
             <TipProvider text={tip}
@@ -130,7 +127,8 @@ export default class EditableField extends Component {
                 <div ref="editableField"
                      className={`editable-field ${className}`}
                      style={style}
-                     title={`${disabled ? '' : title}`}>
+                     title={`${disabled ? '' : title}`}
+                     onTouchTap={onTouchTap}>
 
                     <span className={`editable-field-text`}
                           disabled={disabled}>{this.state.text}</span>
@@ -139,8 +137,8 @@ export default class EditableField extends Component {
                         this.state.hide === true
                             ?
                             <span className="editable-field-span"
-                                  onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
-                                                                               aria-hidden="true"></i></span>
+                                  onTouchTap={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
+                                                                                  aria-hidden="true"></i></span>
                             : <TextField ref="textField"
                                          className={'editable-field-input'}
                                          value={this.state.changeText}
@@ -151,6 +149,17 @@ export default class EditableField extends Component {
                            value={this.state.text}
                            readOnly
                            name={name}/>
+
+                    {
+                        showModal && !this.state.hide
+                            ?
+                            <div className="editable-modal"
+                                 ref="editableModal">
+
+                            </div>
+                            :
+                            null
+                    }
 
                     {children}
 
@@ -208,6 +217,16 @@ EditableField.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * If true, the shadow is under the input.
+     */
+    showModal: PropTypes.bool,
+
+    /**
+     * Callback function when touch the editableField.
+     */
+    onTouchTap: PropTypes.func,
+
+    /**
      * Callback function fired when the editableField blur.
      */
     onBlur: PropTypes.func,
@@ -239,5 +258,6 @@ EditableField.defaultProps = {
     title: '',
     value: 'text',
     name: '',
-    disabled: false
+    disabled: false,
+    showModal: false
 };
