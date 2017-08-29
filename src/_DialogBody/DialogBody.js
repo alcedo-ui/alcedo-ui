@@ -11,6 +11,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import PopupManagement from '../_vendors/PopupManagement';
 
 import './DialogBody.css';
 
@@ -65,18 +66,18 @@ export default class DialogBody extends Component {
             return;
         }
 
-        const {onRequestClose} = this.props,
-            currVisible = this.triggerDialogEventHandle(
-                e.target,
-                this.dialogEl,
-                visible
-            );
+        const currVisible = this.triggerDialogEventHandle(
+            e.target,
+            this.dialogEl,
+            visible
+        );
 
         this.setState({
-            currVisible
+            visible: currVisible
         }, () => {
             if (!currVisible) {
                 setTimeout(() => {
+                    const {onRequestClose} = this.props;
                     onRequestClose && onRequestClose();
                 }, 250);
             }
@@ -174,6 +175,7 @@ export default class DialogBody extends Component {
         this.dialogEl = findDOMNode(this.refs.dialog);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
+        this.props.isEscClose && PopupManagement.push(this);
 
     }
 
@@ -384,6 +386,8 @@ DialogBody.propTypes = {
      */
     buttons: PropTypes.any,
 
+    isEscClose: PropTypes.bool,
+
     /**
      * The function that trigger when click submit.
      */
@@ -433,6 +437,8 @@ DialogBody.defaultProps = {
     cancelButtonText: 'Cancel',
     cancelButtonIconCls: '',
     cancelButtonTheme: Theme.DEFAULT,
-    cancelButtonUIType: DialogBody.ButtonUITypes.FLAT
+    cancelButtonUIType: DialogBody.ButtonUITypes.FLAT,
+
+    isEscClose: true
 
 };
