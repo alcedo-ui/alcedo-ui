@@ -175,6 +175,7 @@ export default class DialogBody extends Component {
         this.dialogEl = findDOMNode(this.refs.dialog);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
+
         this.props.isEscClose && PopupManagement.push(this);
 
     }
