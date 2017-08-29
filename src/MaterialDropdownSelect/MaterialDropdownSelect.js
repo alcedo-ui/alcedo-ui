@@ -15,26 +15,31 @@ export default class MaterialDropdownSelect extends Component {
             isFocus: false
         };
 
-        this.onFocusHandle = this::this.onFocusHandle;
-        this.onBlurHandle = this::this.onBlurHandle;
+        this.data = ['test0', 'test1', {
+            text: 'test2',
+            value: 2,
+            desc: 'Here is test2.',
+            onTouchTap() {
+                console.log('test2 selected!');
+            }
+        }, 'test3', 'test4', 'test5', {
+            text: 'test6',
+            value: 6,
+            desc: 'Here is test6.',
+            onTouchTap() {
+                console.log('test6 selected!');
+            }
+        }, 'test7', 'test8', 'test9'];
+
+        this.onTapHandle = this::this.onTapHandle;
         this.onChangeHandle = this::this.onChangeHandle;
 
     }
 
 
-    onFocusHandle(e) {
+    onTapHandle(bool) {
         this.setState({
-            isFocus: true
-        }, () => {
-            this.props.onFocus && this.props.onFocus(this.state.value, e);
-        })
-    }
-
-    onBlurHandle(e) {
-        this.setState({
-            isFocus: false
-        }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.value, e);
+            isFocus: bool
         })
     }
 
@@ -54,7 +59,10 @@ export default class MaterialDropdownSelect extends Component {
         return (
             <div className={`material-drop-down-select ${className ? className : ''}  ${isFocus ? 'focused' : ''}`}
                  style={style}>
-                <DropdownSelect {...this.props}/>
+                <DropdownSelect {...this.props}
+                                data={this.data}
+                                disableTouchRipple={true}
+                                onTriggerTouchTap={this.onTapHandle}/>
             </div>
         );
 

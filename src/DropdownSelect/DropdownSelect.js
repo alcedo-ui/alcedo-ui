@@ -65,12 +65,16 @@ export default class DropdownSelect extends Component {
     togglePopup() {
         this.setState({
             popupVisible: !this.state.popupVisible
+        },()=>{
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
         });
     }
 
     closePopup() {
         this.setState({
             popupVisible: false
+        },()=>{
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
         });
     }
 
@@ -163,7 +167,7 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped
+                triggerTheme, isGrouped, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
@@ -232,6 +236,7 @@ export default class DropdownSelect extends Component {
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
                               theme={triggerTheme}
+                              disableTouchRipple={disableTouchRipple}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
