@@ -25,6 +25,7 @@ export default class EditableField extends Component {
         this.downHandle = this :: this.downHandle;
         this.triggerElement = this :: this.triggerElement;
         this.keyDownHandle = this :: this.keyDownHandle;
+        this.finishEdit = this :: this.finishEdit;
     }
 
     triggerElement(el, targetEl) {
@@ -60,24 +61,26 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        if (this.state.hide === false && (!this.triggerElement(oEvent.srcElement, this.refs.editableField) ||
-            this.triggerElement(oEvent.srcElement, this.refs.editableModal))) {
-
-            const change = this.state.text !== this.state.changeText;
-
-            if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
-                ev.preventDefault();
-                return;
-            }
-
-            this.setState({
-                hide: true,
-                text: this.state.changeText
-            }, () => {
-                this.props.onEditEnd && this.props.onEditEnd();
-                change && this.props.onChange && this.props.onChange(this.state.text);
-            });
+        if (this.state.hide === false && (!this.triggerElement(oEvent.srcElement, this.refs.editableField))) {
+            this.finishEdit(ev);
         }
+    }
+
+    finishEdit(ev) {
+        const change = this.state.text !== this.state.changeText;
+
+        if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
+            ev.preventDefault();
+            return;
+        }
+
+        this.setState({
+            hide: true,
+            text: this.state.changeText
+        }, () => {
+            this.props.onEditEnd && this.props.onEditEnd(ev);
+            change && this.props.onChange && this.props.onChange(this.state.text);
+        });
     }
 
     keyDownHandle(ev) {
@@ -119,7 +122,7 @@ export default class EditableField extends Component {
 
     render() {
 
-        const {children, className, style, name, disabled, tip, tipPosition, title, onTouchTap, showModal} = this.props;
+        const {children, className, style, name, disabled, tip, tipPosition, title, onMouseDown, onTouchTap, showModal} = this.props;
 
         return (
             <TipProvider text={tip}
@@ -128,6 +131,7 @@ export default class EditableField extends Component {
                      className={`editable-field ${className}`}
                      style={style}
                      title={`${disabled ? '' : title}`}
+                     onMouseDown={onMouseDown}
                      onTouchTap={onTouchTap}>
 
                     <span className={`editable-field-text`}
@@ -154,7 +158,8 @@ export default class EditableField extends Component {
                         showModal && !this.state.hide
                             ?
                             <div className="editable-modal"
-                                 ref="editableModal">
+                                 ref="editableModal"
+                                 onTouchTap={this.finishEdit}>
 
                             </div>
                             :
@@ -220,6 +225,8 @@ EditableField.propTypes = {
      * If true, the shadow is under the input.
      */
     showModal: PropTypes.bool,
+
+    onMouseDown: PropTypes.func,
 
     /**
      * Callback function when touch the editableField.

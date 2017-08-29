@@ -16,7 +16,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        z-index: 100;
+        z-index: 90;
     }
 
     .editable-field-span {
@@ -81,7 +81,7 @@
         height: 100%;
         top: 0;
         left: -11px;
-        z-index: 101;
+        z-index: 91;
         line-height: 38px;
 
         input {
