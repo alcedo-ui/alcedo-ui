@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Popup from '../Popup';
-import CascaderList from './CascaderListItem';
+// import CascaderList from './CascaderListItem';
 import CascaderListItem from './CascaderListItem';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
@@ -382,7 +382,7 @@ CascaderField.propTypes = {
     }), PropTypes.string, PropTypes.number])),
 
     /**
-     * The placeholder of Cascader field.
+     * The placeholder of CascaderField field.
      */
     placeholder: PropTypes.string,
 

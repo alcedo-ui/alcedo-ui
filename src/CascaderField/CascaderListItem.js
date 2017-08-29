@@ -86,7 +86,7 @@ export default class CascaderListItem extends Component {
 
                 {
                     hasChildren ?
-                        <CascaderList {...this.props}
+                        <CascaderListItem {...this.props}
                                       listData={activatedNode.children}
                                       currDepth={currDepth + 1}/>
                         :

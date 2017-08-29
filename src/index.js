@@ -3,7 +3,7 @@ export ArrowStep from './ArrowStep';
 export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
-export Cascader from './Cascader';
+export CascaderField from './CascaderField';
 export Checkbox from './Checkbox';
 export CheckboxGroup from './CheckboxGroup';
 export CircularLoading from './CircularLoading';
