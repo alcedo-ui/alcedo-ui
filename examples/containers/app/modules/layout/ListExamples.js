@@ -88,7 +88,7 @@ export default class ListExamples extends Component {
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
-        }, {
+        }, List.SEPARATOR, {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',
