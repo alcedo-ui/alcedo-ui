@@ -14,6 +14,7 @@ import './List.css';
 export default class List extends Component {
 
     static Mode = ListItem.Mode;
+    static SEPARATOR = Symbol('SEPARATOR');
 
     constructor(props) {
 
@@ -83,6 +84,11 @@ export default class List extends Component {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
+                if (group === List.SEPARATOR) {
+                    return <div key={`group${groupIndex}`}
+                                className="list-separator"></div>;
+                }
+
                 if (group && group.name) {
                     return (
                         <ListGroup key={`group${groupIndex}`}
@@ -114,6 +120,11 @@ export default class List extends Component {
 
                     if (!item) {
                         return null;
+                    }
+
+                    if (item === List.SEPARATOR) {
+                        return <div key={index}
+                                    className="list-separator"></div>;
                     }
 
                     return typeof item === 'object' ?

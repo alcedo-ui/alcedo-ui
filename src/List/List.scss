@@ -4,6 +4,10 @@
     width: 200px;
     background: $theme-field;
 
+    .list-separator {
+        border-top: 1px solid $theme-title-bg;
+    }
+
     &.grouped {
         .list-item {
             padding-left: 30px;
