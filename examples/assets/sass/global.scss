@@ -21,17 +21,19 @@
     user-select: none;
 }
 
-* {
-    font-family: 'helvetica neue', 'hiragino sans gb', 'stheiti',
-    'microsoft yahei', \5FAE\8F6F\96C5\9ED1, tahoma, sans-serif;
-    //font-weight: 300;
-    transition: color $transition-duration ease-in-out,
-    background $transition-duration ease-in-out,
-    background-color $transition-duration ease-in-out,
-    border-color $transition-duration ease-in-out;
-}
+//* {
+//font-family: 'helvetica neue', 'hiragino sans gb', 'stheiti',
+//'microsoft yahei', \5FAE\8F6F\96C5\9ED1, tahoma, sans-serif;
+//font-weight: 300;
+//transition: color $transition-duration ease-in-out,
+//background $transition-duration ease-in-out,
+//background-color $transition-duration ease-in-out,
+//border-color $transition-duration ease-in-out;
+//}
 
 body {
+    font-family: 'helvetica neue', 'hiragino sans gb', 'stheiti',
+    'microsoft yahei', \5FAE\8F6F\96C5\9ED1, tahoma, sans-serif;
     margin: 0;
     padding: 0;
     font-size: 12px;

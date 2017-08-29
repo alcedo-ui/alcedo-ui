@@ -74,10 +74,15 @@
                     color: transparentize(#fff, .5);
                     font-weight: 300;
                     cursor: pointer;
+                    transition: color $transition-duration ease-in-out;
 
                     &.activated {
                         color: transparentize(#fff, .2);
                         font-weight: 400;
+                    }
+
+                    &:hover {
+                        color: transparentize(#fff, .2);
                     }
                 }
             }

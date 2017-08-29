@@ -6,6 +6,7 @@ input:focus {
 }
 
 .tag-field {
+    position: relative;
     width: 400px;
     min-height: 100px;
     border-radius: $border-radius;
@@ -26,6 +27,7 @@ input:focus {
         line-height: 24px;
         padding: 0;
         float: left;
+        color: inherit;
 
         .tag-field-input {
             position: absolute;
@@ -35,6 +37,7 @@ input:focus {
             line-height: 24px;
             padding: 0 8px;
             border: 0;
+            color: inherit;
             overflow-x: visible;
             overflow-y: visible;
         }
@@ -99,6 +102,12 @@ input:focus {
         }
     }
 
+    .tag-field-clear-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
     .tag-field-test-container {
         position: absolute;
         top: 0px;
@@ -110,6 +119,10 @@ input:focus {
         font: inherit;
         line-height: inherit;
         overflow: visible;
+    }
+
+    &.with-clear {
+        padding: 0 40px 8px 0;
     }
 
     &[disabled] {

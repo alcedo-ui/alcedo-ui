@@ -16,6 +16,7 @@
     .licence {
         text-decoration: none;
         color: lighten($theme-text, 20%);
+        transition: color $transition-duration ease-in-out;
 
         &:hover {
             color: transparentize(#fff, .2);

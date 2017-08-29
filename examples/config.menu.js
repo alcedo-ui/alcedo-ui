@@ -105,6 +105,9 @@ export default [{
     }, {
         text: 'Rate',
         route: '/components/Rate'
+    }, {
+        text: 'MaterialTextField',
+        route: '/components/MaterialTextField'
     }]
 }, {
     text: 'Progress',
@@ -162,6 +165,9 @@ export default [{
     }, {
         text: 'ListStep',
         route: '/components/ListStep'
+    }, {
+        text: 'DotStep',
+        route: '/components/DotStep'
     }]
 }, {
     text: 'Message',

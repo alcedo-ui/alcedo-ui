@@ -274,7 +274,22 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'RateExamples');
                    }}/>
-
+            <Route path="MaterialTextField"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MaterialTextFieldExamples').default);
+                           loadCompleteCallback();
+                       }, 'MaterialTextFieldExamples');
+                   }}/>
+            <Route path="MaterialDropdownSelect"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MaterialDropdownSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'MaterialDropdownSelectExamples');
+                   }}/>
             {/* popups */}
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
@@ -425,6 +440,14 @@ export default function configureRoute(store) {
                        loadStartCallback();
                        require.ensure([], (require) => {
                            cb(null, require('containers/app/modules/stepper/ListStepExamples').default);
+                           loadCompleteCallback();
+                       }, 'ListStepExamples');
+                   }}/>
+            <Route path="DotStep"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/stepper/DotStepExamples').default);
                            loadCompleteCallback();
                        }, 'ListStepExamples');
                    }}/>

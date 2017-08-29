@@ -5,6 +5,10 @@
     background: $theme-field;
     overflow: auto;
 
+    .draggable-list-separator {
+        border-top: 1px solid $theme-title-bg;
+    }
+
     &.grouped {
         .draggable-list-item {
             padding-left: 30px;

@@ -25,7 +25,16 @@ export default class EditableFieldExamples extends Component {
         this.onEditEnd = this :: this.onEditEnd;
         this.onEditStart = this :: this.onEditStart;
         this.beforeChange = this :: this.beforeChange;
+        this.onTouchTap = this :: this.onTouchTap;
 
+    }
+
+    onTouchTap(e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+        } else {
+            window.event.cancelBubble = true;
+        }
     }
 
     onChange(text) {
@@ -42,7 +51,7 @@ export default class EditableFieldExamples extends Component {
         console.log('end');
     }
 
-    onEditStart() {
+    onEditStart(e) {
         console.log('start');
     }
 
@@ -78,16 +87,21 @@ export default class EditableFieldExamples extends Component {
 
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}
-                                               disabled={true}/>
+                                               disabled={true}
+                                               title={'Click to edit'}/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}
                                                disabled={this.state.disabled}
                                                onChange={this.onChange}
-                                               beforeChange={this.beforeChange}/>
+                                               onEditStart={this.onEditStart}
+                                               beforeChange={this.beforeChange}
+                                               onTouchTap={this.onTouchTap}
+                                               showModal={true}/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}
-                                               onBlur={this.onBlur}/>
+                                               onBlur={this.onBlur}
+                                               title={'Click to edit'}/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}/>
@@ -103,6 +117,28 @@ export default class EditableFieldExamples extends Component {
                                                onEditStart={this.onEditStart}
                                                onEditEnd={this.onEditEnd}/>
 
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Tip"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Editable Field</code> simple example.</p>
+
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               tip="this is a tip"/>
                             </div>
 
                         </div>

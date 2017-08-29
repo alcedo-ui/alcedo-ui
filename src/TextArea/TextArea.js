@@ -150,7 +150,8 @@ export default class TextArea extends Component {
                       spellCheck="false"
                       onFocus={this.onFocus}
                       onBlur={this.onBlur}
-                      onChange={this.onChange}>
+                      onChange={this.onChange}
+                      onInput={this.onChange}>
             </textarea>
         );
     }

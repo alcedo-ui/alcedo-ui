@@ -43,7 +43,10 @@ export default class BriefPagging extends Component {
 
     render() {
 
-        const {count, page, total, pageSize, selectedCount, selectedCountVisible, pageSizeVisible} = this.props,
+        const {
+                count, page, total, pageSize, pageSizes,
+                selectedCount, selectedCountVisible, pageSizeVisible
+            } = this.props,
             startNumber = Valid.range(page * pageSize + 1, 0, count),
             stopNumber = Valid.range((page + 1) * pageSize, 0, count);
 
@@ -72,6 +75,7 @@ export default class BriefPagging extends Component {
                     {
                         pageSizeVisible ?
                             <PaggingSize pageSize={pageSize}
+                                         pageSizes={pageSizes}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
                             null
@@ -136,6 +140,11 @@ BriefPagging.propTypes = {
     /**
      *
      */
+    pageSizes: PropTypes.arrayOf(PropTypes.number),
+
+    /**
+     *
+     */
     selectedCount: PropTypes.number,
 
     /**
@@ -164,6 +173,7 @@ BriefPagging.defaultProps = {
     page: 0,
     total: 0,
     pageSize: 10,
+    pageSizes: [5, 10, 15, 20],
     selectedCount: 0,
 
     selectedCountVisible: false,

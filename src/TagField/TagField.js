@@ -21,7 +21,7 @@ export default class TagField extends Component {
 
         this.state = {
             data: props.data,
-            inputValue: '',
+            inputValue: props.inputValue,
             inputIndex: props.data.length,
             itemEditing: false,
             editingItemIndex: -1
@@ -36,6 +36,7 @@ export default class TagField extends Component {
         this.itemChangeHandler = this::this.itemChangeHandler;
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
+        this.clearHandler = this::this.clearHandler;
 
     }
 
@@ -106,7 +107,8 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
-        if (this.props.disabled || e.target != this.refs.wrapper) {
+        if (this.props.disabled || Dom.findParent(e.target, 'tag-field-item-wrapper')
+            || Dom.hasClass(e.target, 'tag-field-input')) {
             return;
         }
 
@@ -170,8 +172,13 @@ export default class TagField extends Component {
         this.setState({
             inputValue
         }, () => {
+
             const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
             this.refs.inputWrapper.style.width = `${width + 9}px`;
+
+            const {onInputChange} = this.props;
+            onInputChange && onInputChange(inputValue);
+
         });
 
     }
@@ -269,16 +276,49 @@ export default class TagField extends Component {
 
     }
 
+    clearHandler() {
+
+        this.setState({
+            data: [],
+            inputValue: '',
+            inputIndex: 0,
+            itemEditing: false,
+            editingItemIndex: -1
+        }, () => {
+
+            const {onChange, onInputChange} = this.props;
+
+            onChange && onChange([]);
+            onInputChange && onInputChange('');
+
+        });
+
+    }
+
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     componentWillReceiveProps(nextProps) {
+
+        let state;
+
         if (nextProps.data !== this.state.data) {
-            this.setState({
-                data: nextProps.data
-            });
+            if (!state) {
+                state = {};
+            }
+            state.data = nextProps.data;
         }
+
+        if (nextProps.inputValue !== this.state.inputValue) {
+            if (!state) {
+                state = {};
+            }
+            state.inputValue = nextProps.inputValue;
+        }
+
+        this.setState(state);
+
     }
 
     componentWillUnmount() {
@@ -287,10 +327,10 @@ export default class TagField extends Component {
 
     render() {
 
-        const {className, style, valueField, displayField, disabled, placeholder} = this.props,
+        const {className, style, valueField, displayField, disabled, placeholder, clearButtonVisible} = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
-            tagFieldClassName = (className ? ' ' + className : '');
+            tagFieldClassName = (clearButtonVisible ? ' with-clear' : '') + (className ? ' ' + className : '');
 
         const indexData = Util.genIndexArray(data.length);
         indexData.splice(inputIndex, 0, this.inputSymbol);
@@ -315,6 +355,7 @@ export default class TagField extends Component {
                                                value={inputValue}
                                                placeholder={data.length < 1 && placeholder ? placeholder : ''}
                                                onChange={this.inputChangeHandler}
+                                               onInput={this.inputChangeHandler}
                                                onKeyDown={this.inputKeyDownHandler}/>
                                     </div>
                                     :
@@ -349,6 +390,15 @@ export default class TagField extends Component {
                     })
                 }
 
+                {
+                    clearButtonVisible ?
+                        <IconButton className="tag-field-clear-button"
+                                    iconCls="fa fa-trash"
+                                    onTouchTap={this.clearHandler}/>
+                        :
+                        null
+                }
+
                 <div ref="test"
                      className="tag-field-test-container"></div>
 
@@ -378,6 +428,11 @@ TagField.propTypes = {
     /**
      *
      */
+    inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+    /**
+     *
+     */
     valueField: PropTypes.string,
 
     /**
@@ -398,7 +453,17 @@ TagField.propTypes = {
     /**
      *
      */
-    onChange: PropTypes.func
+    clearButtonVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    onChange: PropTypes.func,
+
+    /**
+     *
+     */
+    onInputChange: PropTypes.func
 
 };
 
@@ -408,12 +473,14 @@ TagField.defaultProps = {
     style: null,
 
     data: [],
+    inputValue: '',
 
     valueField: 'value',
     displayField: 'text',
 
     disabled: false,
 
-    placeholder: ''
+    placeholder: '',
+    clearButtonVisible: true
 
 };

@@ -25,13 +25,18 @@
     }
 
     .brand-name {
+        display: block;
         padding: 0 18px;
         box-sizing: border-box;
         overflow: hidden;
         height: 60px;
         line-height: 60px;
+        text-decoration: none;
+        color: $theme-light-text;
+        transition: color $transition-duration ease-in-out;
 
         .brand-logo {
+            display: inline-block;
             vertical-align: middle;
             border-radius: 0;
             width: 30px;
@@ -39,6 +44,10 @@
             margin: 15px 15px 15px 0;
             background-image: url("../../../../../../../assets/alcedo-logo.png");
             background-size: 30px 30px;
+        }
+
+        &:hover {
+            color: #fff;
         }
     }
 
