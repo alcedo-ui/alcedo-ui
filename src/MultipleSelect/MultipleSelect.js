@@ -198,7 +198,7 @@ export default class MultipleSelect extends Component {
 
     }
 
-    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible) {
+    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
