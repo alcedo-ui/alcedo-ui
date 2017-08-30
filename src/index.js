@@ -17,6 +17,7 @@ export DraggableGrid from './DraggableGrid';
 export DraggableList from './DraggableList';
 export DropdownSelect from './DropdownSelect';
 export EditableField from './EditableField';
+export EditableSelect from './EditableSelect';
 export FieldMsg from './FieldMsg';
 export FlashNumber from './FlashNumber';
 export FlatButton from './FlatButton';
@@ -65,4 +66,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 66;
+export const COMPONENTS_TOTAL_COUNT = 67;

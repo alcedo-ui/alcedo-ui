@@ -111,6 +111,9 @@ export default [{
     }, {
         text: 'MaterialDropdownSelect',
         route: '/components/MaterialDropdownSelect'
+    }, {
+        text: 'EditableSelect',
+        route: '/components/EditableSelect'
     }]
 }, {
     text: 'Progress',
