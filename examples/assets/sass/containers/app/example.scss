@@ -1,7 +1,7 @@
 @import '../../common.scss';
 
 .example {
-    padding: 40px;
+    padding: 20px 30px 30px;
 
     p {
         padding: 0 0 10px 0;
@@ -68,7 +68,7 @@
 
 @media (max-width: 767px) {
     .example {
-        padding: 16px;
+        padding: 8px 16px 16px;
 
         .example-content {
             padding: 16px;
