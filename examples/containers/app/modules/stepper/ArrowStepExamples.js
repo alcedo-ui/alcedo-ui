@@ -78,9 +78,9 @@ export default class ArrowStepExamples extends Component {
                 <h2 className="example-title">ArrowStep</h2>
 
                 <p>
-                    A <span>stepper</span> is an interface for users to show numbered steps or for navigation. It just provides
-                    views, not handling logic (when the step is active, or when the step is completed, or how to move to
-                    the next step).
+                    A <span>ArrowStep</span> is an interface for users to show numbered steps or for navigation. It just
+                    provides views, not handling logic (when the step is active, or when the step is completed, or how
+                    to move to the next step).
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -92,7 +92,7 @@ export default class ArrowStepExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple ArrowStep example.</p>
+                            <p>A simple <code>ArrowStep</code> example.</p>
 
                             <ArrowStep steps={steps}
                                        activatedStep={activatedStep}

@@ -73,7 +73,7 @@ CascaderList.propTypes = {
     listWidth: PropTypes.number,
 
     /**
-     * The data of popup-list.
+     * The item data of CascaderList.
      */
     items: PropTypes.array,
 
@@ -107,11 +107,6 @@ CascaderList.propTypes = {
     /**
      *
      */
-    currDepth: PropTypes.number,
-
-    /**
-     *
-     */
     depth: PropTypes.number
 
 };
@@ -122,7 +117,7 @@ CascaderList.defaultProps = {
     style: null,
     listWidth: 200,
 
-    items:[],
+    items: [],
 
     valueField: 'value',
     displayField: 'text',

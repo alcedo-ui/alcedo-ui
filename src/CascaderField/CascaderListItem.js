@@ -102,12 +102,12 @@ export default class CascaderListItem extends Component {
 CascaderListItem.propTypes = {
 
     /**
-     *
+     * The width of CascaderListItem.
      */
     listWidth: PropTypes.number,
 
     /**
-     * The data of popup-list.
+     * The data of cascader-list.
      */
     listData: PropTypes.array,
 
