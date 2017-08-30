@@ -29,11 +29,11 @@ export default class EditableSelect extends Component {
         this.isAbove = this::this.isAbove;
         this.filterChangeHandle = this::this.filterChangeHandle;
         this.showPopup = this::this.showPopup;
-        this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.changeHandle = this::this.changeHandle;
+        this.onChangeValue = this::this.onChangeValue;
 
     }
 
@@ -62,21 +62,40 @@ export default class EditableSelect extends Component {
         });
     }
 
+    onChangeValue(value) {
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+    }
+
     showPopup() {
-        debugger
         this.setState({
             popupVisible: true
-        },()=>{
+        }, ()=> {
             this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
         });
     }
 
-    closePopup() {
-        this.setState({
-            popupVisible: false
-        },()=>{
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
-        });
+    triggerHandle(el, triggerEl, popupEl, currentVisible, isAutoClose) {
+
+        if (!triggerEl) {
+            return true;
+        }
+
+        while (el) {
+            if (el == popupEl) {
+                return currentVisible;
+            } else if (el == triggerEl) {
+                return true;
+            }
+            el = el.parentNode;
+        }
+
+        return isAutoClose ? false : currentVisible;
+
     }
 
     filterData(filter = this.state.filter, data = this.props.data) {
@@ -194,16 +213,16 @@ export default class EditableSelect extends Component {
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
-            triggerValue =  multi ?
-                        (
-                            value.length > 0 ?
-                                value.length + ' selected'
-                                :
-                                ''
-                        )
+            triggerValue = multi ?
+                (
+                    value.length > 0 ?
+                    value.length + ' selected'
                         :
-                        Util.getTextByDisplayField(value, displayField, valueField)
-                ,
+                        ''
+                )
+                :
+                Util.getTextByDisplayField(value, displayField, valueField)
+            ,
 
             editableSelectPopupClassName = (isAbove ? ' above' : ' blow')
                 + (popupClassName ? ' ' + popupClassName : ''),
@@ -228,14 +247,14 @@ export default class EditableSelect extends Component {
                 }
 
                 <TextField ref="trigger"
-                              className={'dropdown-select-trigger' + triggerClassName}
-                              value={triggerValue}
-                              rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
-                              disabled={disabled}
-                              theme={triggerTheme}
-                              disableTouchRipple={disableTouchRipple}
-                              onFocus={this.showPopup}/>
-
+                           className={'editable-select-trigger' + triggerClassName}
+                           value={triggerValue}
+                           rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
+                           disabled={disabled}
+                           theme={triggerTheme}
+                           disableTouchRipple={disableTouchRipple}
+                           onChange={this.onChangeValue}
+                           onFocus={this.showPopup}/>
 
 
                 <Popup ref="popup"
@@ -243,6 +262,7 @@ export default class EditableSelect extends Component {
                        style={editablePopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       triggerHandler={this.triggerHandle}
                        hasTriangle={false}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                        onRender={this.popupRenderHandle}
