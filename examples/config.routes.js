@@ -73,13 +73,13 @@ export default function configureRoute(store) {
 
             {/* fields */}
 
-            <Route path="Cascader"
+            <Route path="CascaderField"
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/CascaderExamples.js').default);
+                           cb(null, require('containers/app/modules/fields/CascaderFieldExamples.js').default);
                            loadCompleteCallback();
-                       }, 'CascaderExamples');
+                       }, 'CascaderFieldExamples');
                    }}/>
             <Route path="TextField"
                    getComponent={(nextState, cb) => {

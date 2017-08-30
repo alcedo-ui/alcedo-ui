@@ -5,9 +5,9 @@ import List from '../List';
 
 import Valid from '../_vendors/Valid';
 
-import './Cascader.css';
+import './CascaderField.css';
 
-export default class CascaderList extends Component {
+export default class CascaderListItem extends Component {
 
     constructor(props) {
 
@@ -61,7 +61,7 @@ export default class CascaderList extends Component {
             hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
 
             listStyle = currDepth === 0 ?
-                {width: listWidth * Valid.range(depth, 1)}
+            {width: listWidth * Valid.range(depth, 1)}
                 :
                 null,
 
@@ -72,7 +72,7 @@ export default class CascaderList extends Component {
             };
 
         return (
-            <div className="cascader-list"
+            <div className="cascader-list-item"
                  style={listStyle}>
 
                 <List className={'cascader-popup-list' + popupListClassName}
@@ -86,9 +86,9 @@ export default class CascaderList extends Component {
 
                 {
                     hasChildren ?
-                        <CascaderList {...this.props}
-                                      listData={activatedNode.children}
-                                      currDepth={currDepth + 1}/>
+                        <CascaderListItem {...this.props}
+                                          listData={activatedNode.children}
+                                          currDepth={currDepth + 1}/>
                         :
                         null
                 }
@@ -99,7 +99,7 @@ export default class CascaderList extends Component {
     }
 }
 
-CascaderList.propTypes = {
+CascaderListItem.propTypes = {
 
     /**
      *
@@ -150,7 +150,7 @@ CascaderList.propTypes = {
 
 };
 
-CascaderList.defaultProps = {
+CascaderListItem.defaultProps = {
 
     listWidth: 200,
 
