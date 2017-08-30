@@ -33,7 +33,7 @@ export default class DropdownSelect extends Component {
         this.filterData = this::this.filterData;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.itemTouchTapHandle = this::this.itemTouchTapHandle;
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -127,7 +127,7 @@ export default class DropdownSelect extends Component {
         onItemTouchTap && onItemTouchTap(value);
     }
 
-    changeHandle(value) {
+    changeHandler(value) {
 
         const {autoClose} = this.props,
             state = {
@@ -262,7 +262,7 @@ export default class DropdownSelect extends Component {
                           displayField={displayField}
                           descriptionField={descriptionField}
                           onItemTouchTap={this.itemTouchTapHandle}
-                          onChange={this.changeHandle}/>
+                          onChange={this.changeHandler}/>
 
                 </Popup>
 
