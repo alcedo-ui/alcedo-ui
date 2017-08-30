@@ -125,20 +125,17 @@
 @media (max-width: 767px) {
     .app {
         .nav-menu {
-            width: 100% !important;
             top: 0 !important;
-            padding: 10% 0 !important;
+            bottom: 0;
+            width: 70%;
+            height: 100%;
+            padding-top: 60px;
             z-index: $menu-mobile-z-index;
-
-            .nav-menu-filter,
-            .nav-menu-list {
-                width: 300px !important;
-            }
         }
 
         &.collapsed {
             .nav-menu {
-                transform: translate3d(-75%, 0, 0) scale(.9);
+                transform: translate3d(-100%, 0, 0);
                 opacity: 0;
             }
         }
