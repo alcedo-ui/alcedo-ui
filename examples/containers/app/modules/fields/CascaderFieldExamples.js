@@ -136,10 +136,10 @@ export default class CascaderFieldExamples extends Component {
 
         return (
             <div className="example cascader-examples">
-                <h2 className="example-title">Cascader</h2>
+                <h2 className="example-title">CascaderField</h2>
 
                 <p>
-                    <span>Cascader</span> is a selection box.
+                    <span>CascaderField</span> is a selection box.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -153,7 +153,7 @@ export default class CascaderFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>CascaderList simple example.</p>
+                                <p>CascaderField simple example.</p>
 
                                 <CascaderField data={this.data}
                                           value={'田子坊'}

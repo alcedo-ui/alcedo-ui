@@ -72,7 +72,7 @@ export default class CascaderListItem extends Component {
             };
 
         return (
-            <div className="cascader-list"
+            <div className="cascader-list-item"
                  style={listStyle}>
 
                 <List className={'cascader-popup-list' + popupListClassName}
@@ -87,8 +87,8 @@ export default class CascaderListItem extends Component {
                 {
                     hasChildren ?
                         <CascaderListItem {...this.props}
-                                      listData={activatedNode.children}
-                                      currDepth={currDepth + 1}/>
+                                          listData={activatedNode.children}
+                                          currDepth={currDepth + 1}/>
                         :
                         null
                 }

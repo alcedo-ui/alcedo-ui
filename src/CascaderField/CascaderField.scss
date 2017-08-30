@@ -55,7 +55,7 @@
         overflow: visible;
         background: transparent;
 
-        .cascader-list {
+        .cascader-list-item {
             float: left;
         }
 
@@ -77,7 +77,7 @@
 
     &.above {
 
-        .popup-content > .cascader-list {
+        .popup-content > .cascader-list-item {
             border-bottom: 1px solid $theme-title-bg;
         }
 
@@ -95,7 +95,7 @@
 
     &.blow {
 
-        .popup-content > .cascader-list {
+        .popup-content > .cascader-list-item {
             border-top: 1px solid $theme-title-bg;
         }
 
