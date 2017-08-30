@@ -185,8 +185,6 @@ export default class CascaderField extends Component {
 
     changeHandler(value, path) {
 
-        console.log(path)
-
         this.setState({
             value,
             displayValue: this.calDisplayValue(path)
@@ -259,7 +257,7 @@ export default class CascaderField extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <CascaderList fieldData={data}
+                    <CascaderList items={data}
                                   value={value}
                                   listWidth={listWidth}
                                   valueField={valueField}

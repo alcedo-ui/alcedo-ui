@@ -21,7 +21,10 @@ export default class CascaderList extends Component {
 
         this.state = {
             value: props.value,
-            path: CascaderCalculation.calPath(props.value, props)
+            path: CascaderCalculation.calPath(props.value, {
+                ...props,
+                data: props.items
+            })
         };
 
         this.changeHandler = this::this.changeHandler;
@@ -44,18 +47,18 @@ export default class CascaderList extends Component {
     }
 
     render() {
-        const {listWidth, fieldData, valueField, displayField}=this.props;
+        const {listWidth, items, valueField, displayField}=this.props;
         const {path, value}=this.state;
 
         return (
             <div className="cascader-list">
-                <CascaderListItem listData={fieldData}
+                <CascaderListItem listData={items}
                                   value={value}
                                   path={path}
                                   listWidth={listWidth}
                                   valueField={valueField}
                                   displayField={displayField}
-                                  depth={CascaderCalculation.calDepth(fieldData, path)}
+                                  depth={CascaderCalculation.calDepth(items, path)}
                                   onChange={this.changeHandler}/>
             </div>
         )
@@ -72,7 +75,7 @@ CascaderList.propTypes = {
     /**
      * The data of popup-list.
      */
-    listData: PropTypes.array,
+    items: PropTypes.array,
 
     /**
      *
@@ -118,6 +121,8 @@ CascaderList.defaultProps = {
     className: '',
     style: null,
     listWidth: 200,
+
+    items:[],
 
     valueField: 'value',
     displayField: 'text',
