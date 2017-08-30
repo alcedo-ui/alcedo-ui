@@ -25,6 +25,7 @@ export default class EditableField extends Component {
         this.downHandle = this :: this.downHandle;
         this.triggerElement = this :: this.triggerElement;
         this.keyDownHandle = this :: this.keyDownHandle;
+        this.finishEdit = this :: this.finishEdit;
     }
 
     triggerElement(el, targetEl) {
@@ -47,16 +48,11 @@ export default class EditableField extends Component {
      * 显示input并获得焦点
      */
     showInput(e) {
-        if (e && e.stopPropagation) {
-            e.stopPropagation();
-        } else {
-            window.event.cancelBubble = true;
-        }
         this.setState({
             hide: false
         }, () => {
             this.refs.textField.refs.input.focus();
-            this.props.onEditStart && this.props.onEditStart();
+            this.props.onEditStart && this.props.onEditStart(e);
         });
     }
 
@@ -65,22 +61,26 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        if (this.state.hide === false && !this.triggerElement(oEvent.srcElement, this.refs.editableField)) {
-            const change = this.state.text !== this.state.changeText;
-
-            if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
-                ev.preventDefault();
-                return;
-            }
-
-            this.setState({
-                hide: true,
-                text: this.state.changeText
-            }, () => {
-                this.props.onEditEnd && this.props.onEditEnd();
-                change && this.props.onChange && this.props.onChange(this.state.text);
-            });
+        if (this.state.hide === false && (!this.triggerElement(oEvent.srcElement, this.refs.editableField))) {
+            this.finishEdit(ev);
         }
+    }
+
+    finishEdit(ev) {
+        const change = this.state.text !== this.state.changeText;
+
+        if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
+            ev.preventDefault();
+            return;
+        }
+
+        this.setState({
+            hide: true,
+            text: this.state.changeText
+        }, () => {
+            this.props.onEditEnd && this.props.onEditEnd(ev);
+            change && this.props.onChange && this.props.onChange(this.state.text);
+        });
     }
 
     keyDownHandle(ev) {
@@ -122,7 +122,7 @@ export default class EditableField extends Component {
 
     render() {
 
-        const {children, className, style, name, disabled, tip, tipPosition} = this.props;
+        const {children, className, style, name, disabled, tip, tipPosition, title, onMouseDown, onTouchTap, showModal} = this.props;
 
         return (
             <TipProvider text={tip}
@@ -130,7 +130,9 @@ export default class EditableField extends Component {
                 <div ref="editableField"
                      className={`editable-field ${className}`}
                      style={style}
-                     title={`${disabled ? '' : 'Click to edit'}`}>
+                     title={`${disabled ? '' : title}`}
+                     onMouseDown={onMouseDown}
+                     onTouchTap={onTouchTap}>
 
                     <span className={`editable-field-text`}
                           disabled={disabled}>{this.state.text}</span>
@@ -139,8 +141,8 @@ export default class EditableField extends Component {
                         this.state.hide === true
                             ?
                             <span className="editable-field-span"
-                                  onClick={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
-                                                                               aria-hidden="true"></i></span>
+                                  onTouchTap={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
+                                                                                  aria-hidden="true"></i></span>
                             : <TextField ref="textField"
                                          className={'editable-field-input'}
                                          value={this.state.changeText}
@@ -151,6 +153,18 @@ export default class EditableField extends Component {
                            value={this.state.text}
                            readOnly
                            name={name}/>
+
+                    {
+                        showModal && !this.state.hide
+                            ?
+                            <div className="editable-modal"
+                                 ref="editableModal"
+                                 onTouchTap={this.finishEdit}>
+
+                            </div>
+                            :
+                            null
+                    }
 
                     {children}
 
@@ -183,6 +197,11 @@ EditableField.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The title of the editableField.
+     */
+    title: PropTypes.string,
+
+    /**
      * The tip of the editableField.
      */
     tip: PropTypes.string,
@@ -201,6 +220,18 @@ EditableField.propTypes = {
      * If true, the input is disabled.
      */
     disabled: PropTypes.bool,
+
+    /**
+     * If true, the shadow is under the input.
+     */
+    showModal: PropTypes.bool,
+
+    onMouseDown: PropTypes.func,
+
+    /**
+     * Callback function when touch the editableField.
+     */
+    onTouchTap: PropTypes.func,
 
     /**
      * Callback function fired when the editableField blur.
@@ -231,8 +262,9 @@ EditableField.propTypes = {
 EditableField.defaultProps = {
     className: '',
     style: {},
-
+    title: '',
     value: 'text',
     name: '',
-    disabled: false
+    disabled: false,
+    showModal: false
 };

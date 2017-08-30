@@ -17,6 +17,7 @@ const ScrollingComponent = withScrolling('div');
 export default class DraggableList extends Component {
 
     static Mode = DraggableListItem.Mode;
+    static SEPARATOR = Symbol('SEPARATOR');
 
     constructor(props) {
 
@@ -92,6 +93,11 @@ export default class DraggableList extends Component {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
+                if (group === DraggableList.SEPARATOR) {
+                    return <div key={`group${groupIndex}`}
+                                className="draggable-list-separator"></div>;
+                }
+
                 if (group && group.name) {
                     return (
                         <DraggableListGroup key={group.id || group.name}
@@ -131,6 +137,11 @@ export default class DraggableList extends Component {
 
                     if (!item) {
                         return null;
+                    }
+
+                    if (item === DraggableList.SEPARATOR) {
+                        return <div key={index}
+                                    className="draggable-list-separator"></div>;
                     }
 
                     const value = typeof item === 'object' ?
