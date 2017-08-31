@@ -52,6 +52,9 @@ export default [{
         text: 'CascaderField',
         route: '/components/CascaderField'
     }, {
+        text: 'CascaderList',
+        route: '/components/CascaderList'
+    }, {
         text: 'TextArea',
         route: '/components/TextArea'
     }, {

@@ -5,7 +5,8 @@ import List from '../List';
 
 import Valid from '../_vendors/Valid';
 
-import './CascaderField.css';
+// import '../CascaderField/CascaderField.css';
+import './CascaderListItem.css';
 
 export default class CascaderListItem extends Component {
 
@@ -102,12 +103,12 @@ export default class CascaderListItem extends Component {
 CascaderListItem.propTypes = {
 
     /**
-     *
+     * The width of CascaderListItem.
      */
     listWidth: PropTypes.number,
 
     /**
-     * The data of popup-list.
+     * The data of cascader-list.
      */
     listData: PropTypes.array,
 
@@ -139,7 +140,7 @@ CascaderListItem.propTypes = {
     displayField: PropTypes.string,
 
     /**
-     *
+     * The current depth.
      */
     currDepth: PropTypes.number,
 

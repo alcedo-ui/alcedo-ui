@@ -99,13 +99,12 @@ export default class DotStepExamples extends Component {
         return (
             <div className="example dot-step-examples">
 
-                <h2 className="example-title">ListStep</h2>
+                <h2 className="example-title">DotStep</h2>
 
                 <p>
-                    A <span>stepper</span> is an interface for users to show numbered steps or for navigation. It just
-                    provides
-                    views, not handling logic (when the step is active, or when the step is completed, or how to move to
-                    the next step).
+                    A <span>DotStep</span> is an interface for users to show dot steps or for navigation. It just
+                    provides views, not handling logic (when the step is active, or when the step is completed, or
+                    how to move to the next step).
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -118,7 +117,7 @@ export default class DotStepExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple DotStep example.</p>
+                            <p>A simple <code>DotStep</code> example.</p>
 
                             <DotStep steps={steps}
                                      displayField={'value'}

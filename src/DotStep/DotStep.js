@@ -117,6 +117,9 @@ DotStep.propTypes = {
 
     })).isRequired,
 
+    /**
+     * The text of finished.
+     */
     finishedText: PropTypes.any,
 
     /**

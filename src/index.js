@@ -4,6 +4,7 @@ export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
 export CascaderField from './CascaderField';
+export CascaderList from './CascaderList';
 export Checkbox from './Checkbox';
 export CheckboxGroup from './CheckboxGroup';
 export CircularLoading from './CircularLoading';
@@ -66,4 +67,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 67;
+export const COMPONENTS_TOTAL_COUNT = 68;

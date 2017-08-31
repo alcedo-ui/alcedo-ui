@@ -1,23 +1,21 @@
 /**
- * Created by Wendy on 2017/5/16.
+ * Created by Wendy on 2017/8/31.
  */
 import React, {Component} from 'react';
 
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
-import CascaderField from 'dist/CascaderField';
+import CascaderList from 'dist/CascaderList';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import CascaderFieldDoc from '../../../../assets/propTypes/CascaderField.json';
+import CascaderListDoc from '../../../../assets/propTypes/CascaderList.json';
 
-import '../../../../assets/sass/containers/app/modules/buttons/FlatButtonExamples.scss';
+import '../../../../assets/sass/containers/app/modules/fields/CascaderListExamples.scss';
 
-export default class CascaderFieldExamples extends Component {
+export default class CascaderListExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
         this.data = [{
             text: 'Asia',
             value: 'Asia',
@@ -87,18 +85,18 @@ export default class CascaderFieldExamples extends Component {
 
     }
 
+
     changeHandler(value, path) {
         console.log(value);
     }
 
     render() {
-
         return (
-            <div className="example cascader-examples">
-                <h2 className="example-title">CascaderField</h2>
+            <div className="example cascader-list-examples">
+                <h2 className="example-title">CascaderList</h2>
 
                 <p>
-                    <span>CascaderField</span> is a selection box.
+                    <span>CascaderList</span> is a selection box.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -112,11 +110,32 @@ export default class CascaderFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>CascaderField simple example.</p>
+                                <p>CascaderList simple example.</p>
 
-                                <CascaderField data={this.data}
-                                               value={'Shanghai'}
-                                               onChange={this.changeHandler}/>
+                                <CascaderList items={this.data}
+                                              onChange={this.changeHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>CascaderList with default value example.</p>
+
+                                <CascaderList items={this.data}
+                                              value={'Shanghai'}
+                                              onChange={this.changeHandler}/>
 
                             </div>
 
@@ -127,9 +146,13 @@ export default class CascaderFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CascaderFieldDoc}/>
+                <PropTypeDescTable data={CascaderListDoc}/>
 
             </div>
-        );
+        )
     }
+
 }
+
+
+
