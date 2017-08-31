@@ -10,7 +10,7 @@ import CascaderList from 'dist/CascaderList';
 import PropTypeDescTable from '../PropTypeDescTable';
 import CascaderListDoc from '../../../../assets/propTypes/CascaderList.json';
 
-import '../../../../assets/sass/containers/app/modules/buttons/FlatButtonExamples.scss';
+import '../../../../assets/sass/containers/app/modules/fields/CascaderListExamples.scss';
 
 export default class CascaderListExamples extends Component {
     constructor(props) {

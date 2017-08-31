@@ -55,13 +55,13 @@ export default class CascaderField extends Component {
 
     isAbove() {
 
-        const cascader = this.refs.cascader;
+        const cascaderField = this.refs.cascaderField;
 
-        if (!this.popupHeight || !cascader) {
+        if (!this.popupHeight || !cascaderField) {
             return false;
         }
 
-        const {top} = Dom.getOffset(cascader),
+        const {top} = Dom.getOffset(cascaderField),
             scrollTop = Dom.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
@@ -142,8 +142,8 @@ export default class CascaderField extends Component {
 
         return (
 
-            <div ref="cascader"
-                 className={`cascader ${className}`}
+            <div ref="cascaderField"
+                 className={`cascader-field ${className}`}
                  style={style}>
 
                 {
