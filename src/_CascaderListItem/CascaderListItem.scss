@@ -1,19 +1,20 @@
 @import '../_common.scss';
 
-//.cascader-list-items {
-//
-//    .cascader-list-item {
-//        @include shadow(4);
-//        position: relative;
-//        float: left;
-//        //border: 1px solid $theme-title-bg;
-//        box-sizing: border-box;
-//        height: 300px;
-//        overflow-y: auto;
-//        overflow-x: hidden;
-//
-//        .list-item-checked {
-//            display: none;
-//        }
-//    }
-//}
+.cascader-list-item {
+    float: left;
+
+    .cascader-popup-list {
+        @include shadow(4);
+        position: relative;
+        float: left;
+        box-sizing: border-box;
+        height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .list-item-checked {
+            display: none;
+        }
+    }
+}
+

@@ -9,7 +9,7 @@ import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 
-import '../CascaderField/CascaderField.css';
+import './CascaderList.css';
 
 export default class CascaderList extends Component {
 

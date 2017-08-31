@@ -154,6 +154,27 @@ export default class CascaderListExamples extends Component {
                                 <p>CascaderList simple example.</p>
 
                                 <CascaderList items={this.data}
+                                              onChange={this.changeHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>CascaderList with default value example.</p>
+
+                                <CascaderList items={this.data}
                                               value={'田子坊'}
                                               onChange={this.changeHandler}/>
 
