@@ -31,7 +31,7 @@ export default class MaterialDropdownSelect extends Component {
     onChangeHandle(value) {
         this.setState({
             value,
-            isFocus:false
+            isFocus: false
         }, ()=> {
             this.props.onChange && this.props.onChange(value);
         })
@@ -43,8 +43,9 @@ export default class MaterialDropdownSelect extends Component {
         const {isFocus, value} = this.state;
 
         return (
-            <div className={`material-drop-down-select ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
-                 style={style}>
+            <div
+                className={`material-drop-down-select ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
+                style={style}>
                 <div className={`material-drop-down-select-label ${value ? 'hasValue' : ''}`}>{label}</div>
                 <DropdownSelect {...this.props}
                                 disableTouchRipple={true}
@@ -92,12 +93,12 @@ MaterialDropdownSelect.propTypes = {
     /**
      * The label of the materialDropDownSelect.
      */
-    label:PropTypes.string,
+    label: PropTypes.string,
 
     /**
      * If true, the trigger button has animation when focused.
      */
-    isLabelAnimate:PropTypes.bool,
+    isLabelAnimate: PropTypes.bool,
 
     /**
      * The placeholder of the materialDropDownSelect.
@@ -262,8 +263,32 @@ MaterialDropdownSelect.propTypes = {
 };
 
 MaterialDropdownSelect.defaultProps = {
-    value:'',
-    label:'label',
-    isLabelAnimate:true
+
+    className: '',
+    popupClassName: '',
+    style: null,
+    popupStyle: null,
+
+    name: '',
+    value: '',
+    placeholder: 'Please select ...',
+    data: [],
+    invalidMsg: '',
+    disabled: false,
+    multi: false,
+
+    valueField: 'value',
+    displayField: 'text',
+    descriptionField: 'desc',
+
+    infoMsg: '',
+    autoClose: true,
+    useFilter: false,
+    noMatchedMsg: '',
+    triggerTheme: Theme.DEFAULT,
+    isGrouped: false,
+
+    label: 'label',
+    isLabelAnimate: true
 };
 
