@@ -45,7 +45,8 @@ export default class MaterialDropdownSelect extends Component {
 
     onChangeHandle(value) {
         this.setState({
-            value
+            value,
+            isFocus:false
         }, ()=> {
             this.props.onChange && this.props.onChange(value);
         })
@@ -62,6 +63,8 @@ export default class MaterialDropdownSelect extends Component {
                 <DropdownSelect {...this.props}
                                 data={this.data}
                                 disableTouchRipple={true}
+                                onChange={this.onChangeHandle}
+                                onClosePopup={this.onTapHandle}
                                 onTriggerTouchTap={this.onTapHandle}/>
             </div>
         );

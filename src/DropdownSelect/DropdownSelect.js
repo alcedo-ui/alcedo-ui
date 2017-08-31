@@ -73,7 +73,7 @@ export default class DropdownSelect extends Component {
         this.setState({
             popupVisible: false
         },()=>{
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
+            this.props.onClosePopup && this.props.onClosePopup()
         });
     }
 
@@ -453,6 +453,11 @@ DropdownSelect.propTypes = {
      * Callback function fired when the button is touch-tapped.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is closed.
+     */
+    onClosePopup: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.
