@@ -19,112 +19,71 @@ export default class CascaderFieldExamples extends Component {
         super(props);
 
         this.data = [{
-            text: '河南省',
-            value: '河南省',
+            text: 'Asia',
+            value: 'Asia',
             children: [{
-                text: '郑州市',
-                value: '郑州市',
+                text: 'Korea',
+                value: 'Korea',
+            }, {
+                text: 'Japan',
+                value: 'Japan',
                 children: [{
-                    text: '二七纪念塔',
-                    value: '二七纪念塔'
+                    text: 'Tokyo',
+                    value: 'Tokyo'
                 }, {
-                    text: '海洋馆',
-                    value: '海洋馆'
+                    text: 'Yokohama',
+                    value: 'Yokohama'
                 }, {
-                    text: '动物园',
-                    value: '动物园'
+                    text: 'Osaka',
+                    value: 'Osaka'
                 }]
             }, {
-                text: '平顶山市',
-                value: '平顶山市',
+                text: 'China',
+                value: 'China',
                 children: [{
-                    text: '白龟山水库',
-                    value: '白龟山水库'
+                    text: 'Shanghai',
+                    value: 'Shanghai',
                 }, {
-                    text: '香山寺',
-                    value: '香山寺'
-                }]
-            }, {
-                text: '洛阳市',
-                value: '洛阳市',
-                children: [{
-                    text: '龙门石窟',
-                    value: '龙门石窟'
+                    text: 'Beijing',
+                    value: 'Beijing',
                 }, {
-                    text: '白马寺',
-                    value: '白马寺'
+                    text: 'Shenzhen',
+                    value: 'Shenzhen',
                 }]
             }]
         }, {
-            text: '湖北省',
-            value: '湖北省',
+            text: 'Europe',
+            value: 'Europe',
             children: [{
-                text: '武汉市',
-                value: '武汉市'
+                text: 'Germany',
+                value: 'Germany'
             }, {
-                text: '黄石市',
-                value: '黄石市'
+                text: 'France',
+                value: 'France'
+            }]
+        }, {
+            text: 'North America',
+            value: 'North America',
+            children: [{
+                text: 'Canada',
+                value: 'Canada'
             }, {
-                text: '襄樊市',
-                value: '襄樊市'
+                text: 'America',
+                value: 'America'
             }]
         }, {
-            text: '四川省',
-            value: '四川省',
-            children: [{
-                text: '成都市',
-                value: '成都市'
-            }, {
-                text: '重庆市',
-                value: '重庆市'
-            }]
+            text: 'South America',
+            value: 'South America'
         }, {
-            text: '辽宁省',
-            value: '辽宁省'
+            text: 'Africa',
+            value: 'Africa'
         }, {
-            text: '上海市',
-            value: '上海市',
-            children: [{
-                text: '上海市',
-                value: '上海市',
-                children: [{
-                    text: '东方明珠塔',
-                    value: '东方明珠塔'
-                }, {
-                    text: '野生动物园',
-                    value: '野生动物园'
-                }, {
-                    text: '城隍庙',
-                    value: '城隍庙'
-                }, {
-                    text: '田子坊',
-                    value: '田子坊'
-                }]
-            }]
+            text: 'Oceania',
+            value: 'Oceania',
         }, {
-            text: '北京市',
-            value: '北京市'
-        }, {
-            text: '安徽省',
-            value: '安徽省'
-        }, {
-            text: '山西省',
-            value: '山西省'
-        }, {
-            text: '江苏省',
-            value: '江苏省'
-        }, {
-            text: '浙江省',
-            value: '浙江省',
-            children: [{
-                text: '杭州市',
-                value: '杭州市',
-                children: [{
-                    text: '西湖',
-                    value: '西湖'
-                }]
-            }]
-        }];
+            text: 'Antarctica',
+            value: 'Antarctica'
+        }]
 
     }
 
@@ -156,7 +115,7 @@ export default class CascaderFieldExamples extends Component {
                                 <p>CascaderField simple example.</p>
 
                                 <CascaderField data={this.data}
-                                               value={'田子坊'}
+                                               value={'Shanghai'}
                                                onChange={this.changeHandler}/>
 
                             </div>
