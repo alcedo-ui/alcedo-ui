@@ -1,48 +1,22 @@
 @import '../_common.scss';
 
-.material-text-field {
+.material-drop-down-select {
     position: relative;
-
-    .material-text-field-label {
-        //position: absolute;
-        height: 20px;
-        line-height: 20px;
-        transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1), color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-        transform: translate(0, 30px);
-        color: #999;
-        transform-origin: top left;
-
-        &.hasValue {
-            transform: translate(0, 0);
-            color: $theme-highlight;
-        }
-    }
-
-    .text-field {
+    .dropdown-select {
         width: 100%;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        border-bottom: 1px solid #e3eaf3;
-        input{
-            padding-left: 0;
-        }
-
-
-        &.empty {
-            input{
-                opacity: 0;
-                transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+        .dropdown-select-trigger{
+            background: transparent;
+            box-shadow: none;
+            border-bottom: 1px solid #dfdfdf;
+            border-radius: 0;
+            &:hover,
+            &:active{
+                box-shadow: none;
+                background: transparent;
+                border-bottom: 2px solid #dfdfdf;
             }
-
         }
-
-        &:hover {
-            border-bottom-width: 2px;
-        }
-
     }
-
     &::after {
         content: '';
         position: absolute;
@@ -51,25 +25,12 @@
         width: 100%;
         height: 2px;
         transform: scaleX(0);
-        transition: transform 400ms;
+        transition: transform 200ms;
         z-index: 999;
         background: lighten($theme-highlight, 15%);
     }
 
-    &.focused {
-        .material-text-field-label {
-            transform: translate(0, 0);
-            color: $theme-highlight;
-        }
-        .text-field {
-            border-bottom-width: 2px;
-
-            &.empty {
-                input{
-                    opacity: 1;
-                }
-            }
-        }
+    &.focused{
         &::after {
             transform: scale(1);
         }

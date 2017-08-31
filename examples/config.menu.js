@@ -108,6 +108,12 @@ export default [{
     }, {
         text: 'MaterialTextField',
         route: '/components/MaterialTextField'
+    }, {
+        text: 'MaterialDropdownSelect',
+        route: '/components/MaterialDropdownSelect'
+    }, {
+        text: 'EditableSelect',
+        route: '/components/EditableSelect'
     }]
 }, {
     text: 'Progress',

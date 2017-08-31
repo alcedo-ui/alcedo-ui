@@ -290,6 +290,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'MaterialDropdownSelectExamples');
                    }}/>
+            <Route path="EditableSelect"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/EditableSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'EditableSelectExamples');
+                   }}/>
             {/* popups */}
             <Route path="Dialog"
                    getComponent={(nextState, cb) => {
