@@ -21,6 +21,7 @@ export default class EditableSelect extends Component {
 
         this.state = {
             value: props.value,
+            listValue:props.value,
             filter: '',
             popupVisible: false,
             isAbove: false
@@ -29,9 +30,9 @@ export default class EditableSelect extends Component {
         this.isAbove = this::this.isAbove;
         this.filterChangeHandle = this::this.filterChangeHandle;
         this.showPopup = this::this.showPopup;
+        this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
         this.popupRenderHandle = this::this.popupRenderHandle;
-        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
         this.changeHandle = this::this.changeHandle;
         this.onChangeValue = this::this.onChangeValue;
 
@@ -64,16 +65,28 @@ export default class EditableSelect extends Component {
 
     onChangeValue(value) {
         this.setState({
-            value
+            value,
+            listValue:''
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange({
+                [this.props.valueField]:value,
+                [this.props.displayField]:value
+            });
         });
     }
 
     showPopup() {
         this.setState({
             popupVisible: true
+        }, ()=> {
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
+        });
+    }
+
+    closePopup(){
+        this.setState({
+            popupVisible: false
         }, ()=> {
             this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
         });
@@ -146,16 +159,12 @@ export default class EditableSelect extends Component {
 
     }
 
-    itemTouchTapHandle(value) {
-        const {onItemTouchTap} = this.props;
-        onItemTouchTap && onItemTouchTap(value);
-    }
-
     changeHandle(value) {
 
         const {autoClose} = this.props,
             state = {
-                value
+                value,
+                listValue:value
             };
 
         if (autoClose) {
@@ -186,10 +195,10 @@ export default class EditableSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, disableTouchRipple
+                disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
+                triggerTheme, isGrouped, disableTouchRipple,onItemTouchTap
             } = this.props,
-            {value, filter, popupVisible, isAbove} = this.state,
+            {value, listValue, filter, popupVisible, isAbove} = this.state,
 
             emptyEl = [{
                 renderer() {
@@ -213,15 +222,7 @@ export default class EditableSelect extends Component {
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
-            triggerValue = multi ?
-                (
-                    value.length > 0 ?
-                    value.length + ' selected'
-                        :
-                        ''
-                )
-                :
-                Util.getTextByDisplayField(value, displayField, valueField)
+            triggerValue = Util.getTextByDisplayField(value, displayField, valueField)
             ,
 
             editableSelectPopupClassName = (isAbove ? ' above' : ' blow')
@@ -279,13 +280,14 @@ export default class EditableSelect extends Component {
                     }
 
                     <List className="editable-select-list"
-                          mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
+                          value={listValue}
+                          mode={List.Mode.RADIO}
                           displayField={displayField}
                           descriptionField={descriptionField}
-                          onItemTouchTap={this.itemTouchTapHandle}
+                          onItemTouchTap={onItemTouchTap}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -419,11 +421,6 @@ EditableSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * If true,the editableSelect will be multiply select.
-     */
-    multi: PropTypes.bool,
-
-    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -498,7 +495,6 @@ EditableSelect.defaultProps = {
     data: [],
     invalidMsg: '',
     disabled: false,
-    multi: false,
 
     valueField: 'value',
     displayField: 'text',
