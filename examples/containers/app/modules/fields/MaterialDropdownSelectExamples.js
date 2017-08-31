@@ -45,7 +45,8 @@ export default class MaterialDropdownSelectExamples extends Component {
                 <h2 className="examples-title">MaterialDropdownSelect</h2>
 
                 <p>
-                    <span>MaterialDropdownSelect</span> is a Tree component withe select field.
+                    <span>MaterialDropdownSelect</span> use to store operating elements. Click on the contact and a
+                    drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
