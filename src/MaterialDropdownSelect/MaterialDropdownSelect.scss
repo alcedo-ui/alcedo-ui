@@ -2,21 +2,61 @@
 
 .material-drop-down-select {
     position: relative;
+
+    .material-drop-down-select-label {
+        transform: translate(0, 0);
+        color: $theme-highlight;
+    }
+
     .dropdown-select {
         width: 100%;
-        .dropdown-select-trigger{
+        border-bottom: 1px solid #dfdfdf;
+        .dropdown-select-trigger {
             background: transparent;
             box-shadow: none;
-            border-bottom: 1px solid #dfdfdf;
             border-radius: 0;
             &:hover,
-            &:active{
+            &:active {
                 box-shadow: none;
                 background: transparent;
-                border-bottom: 2px solid #dfdfdf;
+            }
+        }
+        &:hover,
+        &:active {
+            border-bottom: 2px solid #dfdfdf;
+        }
+    }
+
+    &.animation {
+
+        .material-drop-down-select-label {
+            //position: absolute;
+            height: 20px;
+            line-height: 20px;
+            transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1), color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+            transform: translate(6px, 32px);
+            color: #999;
+            transform-origin: top left;
+
+            &.hasValue {
+                transform: translate(0, 0);
+                color: $theme-highlight;
+            }
+        }
+
+        .dropdown-select {
+            .base-button {
+                &.empty {
+                    .base-button-value{
+                        opacity:0;
+                        transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+                    }
+
+                }
             }
         }
     }
+
     &::after {
         content: '';
         position: absolute;
@@ -30,7 +70,24 @@
         background: lighten($theme-highlight, 15%);
     }
 
-    &.focused{
+    &.focused {
+
+        .material-drop-down-select-label {
+            transform: translate(0, 0);
+            color: $theme-highlight;
+        }
+
+        .dropdown-select {
+            .base-button {
+                &.empty {
+                    .base-button-value{
+                        opacity:1;
+                    }
+
+                }
+            }
+        }
+
         &::after {
             transform: scale(1);
         }

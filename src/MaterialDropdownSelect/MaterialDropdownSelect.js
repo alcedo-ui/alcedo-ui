@@ -11,7 +11,7 @@ export default class MaterialDropdownSelect extends Component {
         super(props);
 
         this.state = {
-            value: '',
+            value: props.value,
             isFocus: false
         };
 
@@ -54,14 +54,17 @@ export default class MaterialDropdownSelect extends Component {
 
     render() {
 
-        const {className, style} = this.props;
+        const {className, label, style, placeholder, isLabelAnimate} = this.props;
         const {isFocus, value} = this.state;
 
         return (
-            <div className={`material-drop-down-select ${className ? className : ''}  ${isFocus ? 'focused' : ''}`}
+            <div className={`material-drop-down-select ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
                  style={style}>
+                <div className={`material-drop-down-select-label ${value ? 'hasValue' : ''}`}>{label}</div>
                 <DropdownSelect {...this.props}
                                 data={this.data}
+                                value={value}
+                                placeholder={placeholder}
                                 disableTouchRipple={true}
                                 onChange={this.onChangeHandle}
                                 onClosePopup={this.onTapHandle}
@@ -86,5 +89,9 @@ MaterialDropdownSelect.propTypes = {
 
 };
 
-MaterialDropdownSelect.defaultProps = {};
+MaterialDropdownSelect.defaultProps = {
+    value:'',
+    label:'label',
+    isLabelAnimate:true
+};
 

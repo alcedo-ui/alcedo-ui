@@ -46,7 +46,32 @@ export default class MaterialDropdownSelectExamples extends Component {
 
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
                                 <div className="field-group">
-                                    <MaterialDropdownSelect />
+                                    <MaterialDropdownSelect label="label"
+                                                            placeholder="placeholder"
+                                                            isLabelAnimate={true}/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialDropdownSelect</code> simple example.</p>
+                                <div className="field-group">
+                                    <MaterialDropdownSelect label="label"
+                                                            placeholder="placeholder"
+                                                            isLabelAnimate={false}/>
                                 </div>
                             </div>
 
