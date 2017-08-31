@@ -247,10 +247,36 @@ MaterialTextField.propTypes = {
      */
     onPasswordInvisible: PropTypes.func
 
-
 };
 
 MaterialTextField.defaultProps = {
+    className: '',
+    style: null,
+
+    type: 'text',
+    name: '',
+    placeholder: '',
+    value: '',
+    iconCls: '',
+    disabled: false,
+    readOnly: false,
+    autoFocus: false,
+    infoMsg: '',
+
+    clearButtonVisible: true,
+    searchButtonVisible: false,
+    passwordButtonVisible: true,
+
+    // valid
+    required: false,
+    patternInvalidMsg: '',
+
+    autoComplete: 'off',
+    autoCorrect: 'off',
+    autoCapitalize: 'off',
+    spellCheck: 'false',
+
+    label: '',
     isLabelAnimate: true
 };
 

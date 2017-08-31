@@ -288,7 +288,7 @@ MaterialDropdownSelect.defaultProps = {
     triggerTheme: Theme.DEFAULT,
     isGrouped: false,
 
-    label: 'label',
+    label: '',
     isLabelAnimate: true
 };
 
