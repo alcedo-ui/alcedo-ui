@@ -81,6 +81,14 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'CascaderFieldExamples');
                    }}/>
+            <Route path="CascaderList"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/CascaderListExamples.js').default);
+                           loadCompleteCallback();
+                       }, 'CascaderListExamples');
+                   }}/>
             <Route path="TextField"
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
@@ -497,7 +505,6 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'CircularLoadingExamples');
                    }}/>
-
 
 
         </Route>

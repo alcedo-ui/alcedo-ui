@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Popup from '../Popup';
-import CascaderList from './CascaderList';
+import CascaderList from '../CascaderList/CascaderList';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
@@ -29,7 +29,6 @@ export default class CascaderField extends Component {
             isAbove: false,
             value: props.value,
             displayValue: this.calDisplayValue(CascaderCalculation.calPath(props.value, props))
-            // path: this.calPath(props.value)
         };
 
         this.togglePopup = this::this.togglePopup;
@@ -84,89 +83,6 @@ export default class CascaderField extends Component {
             .join(` ${separator} `);
 
     }
-
-    // traverseData(node, value, props, index = 0) {
-    //
-    //     if (!node || node.length < 1 || !value) {
-    //         return;
-    //     }
-    //
-    //     const {valueField, displayField} = props;
-    //
-    //     // find in children
-    //     if (node.children && node.children.length > 0) {
-    //
-    //         for (let i = 0, len = node.children.length; i < len; i++) {
-    //
-    //             // traverse child node
-    //             const path = this.traverseData(node.children[i], value, props, i);
-    //
-    //             // if finded in child node
-    //             if (path) {
-    //
-    //                 if (node[this.rootSymbol]) {
-    //                     return path;
-    //                 }
-    //
-    //                 path.unshift({
-    //                     value: node,
-    //                     index: index
-    //                 });
-    //                 return path;
-    //
-    //             }
-    //
-    //         }
-    //     }
-    //
-    //     if (Util.getValueByValueField(node, valueField, displayField)
-    //         === Util.getValueByValueField(value, valueField, displayField)) {
-    //         return [{
-    //             value: node,
-    //             index
-    //         }];
-    //     }
-    //
-    //     return;
-    //
-    // }
-
-    // calPath(value, props = this.props) {
-    //
-    //     const {data} = props;
-    //
-    //     if (!value || !data) {
-    //         return;
-    //     }
-    //
-    //     return this.traverseData({
-    //         [this.rootSymbol]: true,
-    //         children: data
-    //     }, value, props);
-    //
-    // }
-
-    // calDepth(data, path) {
-    //
-    //     let list = data,
-    //         depth = 0;
-    //
-    //     for (let item of path) {
-    //         if (item.index in list) {
-    //             list = list[item.index].children;
-    //             depth++;
-    //         } else {
-    //             return depth;
-    //         }
-    //     }
-    //
-    //     if (list && list.length > 0) {
-    //         return depth + 1;
-    //     }
-    //
-    //     return depth;
-    //
-    // }
 
     popupRenderHandle(popupEl) {
 
@@ -263,15 +179,6 @@ export default class CascaderField extends Component {
                                   valueField={valueField}
                                   displayField={displayField}
                                   onChange={this.changeHandler}/>
-
-                    {/*<CascaderListItem listData={data}*/}
-                    {/*listWidth={listWidth}*/}
-                    {/*path={path}*/}
-                    {/*valueField={valueField}*/}
-                    {/*displayField={displayField}*/}
-                    {/*depth={this.calDepth(data, path)}*/}
-                    {/*onChange={this.changeHandler}/>*/}
-
                 </Popup>
 
             </div>
