@@ -140,7 +140,7 @@ CascaderListItem.propTypes = {
     displayField: PropTypes.string,
 
     /**
-     *
+     * The current depth.
      */
     currDepth: PropTypes.number,
 

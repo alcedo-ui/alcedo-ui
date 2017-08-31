@@ -44,11 +44,12 @@ export default class CascaderList extends Component {
     }
 
     render() {
-        const {listWidth, items, valueField, displayField}=this.props;
+        const {className, style, listWidth, items, valueField, displayField}=this.props;
         const {path, value}=this.state;
 
         return (
-            <div className="cascader-list">
+            <div className={`cascader-list ${className}`}
+                 style={style}>
                 <CascaderListItem listData={items}
                                   value={value}
                                   path={path}
@@ -65,31 +66,29 @@ export default class CascaderList extends Component {
 CascaderList.propTypes = {
 
     /**
-     *
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The value of CascaderList.
+     */
+    value: PropTypes.String,
+
+    /**
+     * The width of CascaderList.
      */
     listWidth: PropTypes.number,
 
     /**
-     * The item data of CascaderList.
+     * The item-data of CascaderList.
      */
-    items: PropTypes.array,
-
-    /**
-     *
-     */
-    path: PropTypes.arrayOf(PropTypes.shape({
-
-        /**
-         *
-         */
-        value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-
-        /**
-         *
-         */
-        index: PropTypes.number
-
-    })),
+    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
 
     /**
      * The value field name in data. (default: "value")
@@ -102,7 +101,7 @@ CascaderList.propTypes = {
     displayField: PropTypes.string,
 
     /**
-     *
+     * The depth of CascaderList.
      */
     depth: PropTypes.number
 
@@ -118,7 +117,5 @@ CascaderList.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
-
-    separator: '/'
 
 };

@@ -35,7 +35,6 @@ export default class CascaderField extends Component {
         this.closePopup = this::this.closePopup;
         this.isAbove = this::this.isAbove;
         this.calDisplayValue = this::this.calDisplayValue;
-        // this.calPath = this::this.calPath;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.changeHandler = this::this.changeHandler;
 
