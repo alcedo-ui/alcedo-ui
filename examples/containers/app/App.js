@@ -30,7 +30,7 @@ class App extends Component {
             }
         };
 
-        this.contentMousedownHandle = this::this.contentMousedownHandle;
+        // this.contentMousedownHandle = this::this.contentMousedownHandle;
         this.finishLoading = this::this.finishLoading;
 
     }
@@ -45,17 +45,17 @@ class App extends Component {
         }, 250);
     }
 
-    contentMousedownHandle() {
-        if (!this.props.$isDesktop && !this.props.$navMenuCollapsed) {
-            this.props.collapseNavMenu();
-        }
-    }
+    // contentMousedownHandle() {
+    //     if (!this.props.$isDesktop && !this.props.$navMenuCollapsed) {
+    //         this.props.collapseNavMenu();
+    //     }
+    // }
 
     componentDidMount() {
 
-        Event.addEvent(this.refs.contentWrap, 'mousedown', this.contentMousedownHandle);
+        // Event.addEvent(this.refs.appContent, 'mousedown', this.contentMousedownHandle);
 
-        window.SCROLL_EL = this.refs.contentWrap;
+        // window.SCROLL_EL = this.refs.contentWrap;
 
         this.props.expandActivatedMenu(this.context.router.location.pathname);
 
@@ -65,13 +65,13 @@ class App extends Component {
 
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(this.refs.contentWrap, 'mousedown', this.contentMousedownHandle);
-    }
+    // componentWillUnmount() {
+    //     Event.removeEvent(this.refs.appContent, 'mousedown', this.contentMousedownHandle);
+    // }
 
     render() {
 
-        const {children, $navMenuCollapsed, $componentLoading} = this.props;
+        const {children, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props;
         const {loading} = this.state;
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
@@ -88,14 +88,20 @@ class App extends Component {
 
                 <NavMenu/>
 
-                <div ref="contentWrap"
-                     className="content-wrap">
+                <NavBar/>
 
-                    <NavBar/>
+                <div ref="appContent"
+                     className="app-content">
 
-                    <div className="content">
-                        {children}
-                    </div>
+                    {children}
+
+                    {
+                        !$isDesktop && !$navMenuCollapsed ?
+                            <div className="app-content-modal"
+                                 onTouchTap={collapseNavMenu}></div>
+                            :
+                            null
+                    }
 
                 </div>
 

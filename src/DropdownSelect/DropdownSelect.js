@@ -32,8 +32,7 @@ export default class DropdownSelect extends Component {
         this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
         this.popupRenderHandle = this::this.popupRenderHandle;
-        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -126,12 +125,7 @@ export default class DropdownSelect extends Component {
 
     }
 
-    itemTouchTapHandle(value) {
-        const {onItemTouchTap} = this.props;
-        onItemTouchTap && onItemTouchTap(value);
-    }
-
-    changeHandle(value) {
+    changeHandler(value) {
 
         const {autoClose} = this.props,
             state = {
@@ -167,7 +161,7 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, disableTouchRipple
+                triggerTheme, isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
@@ -263,11 +257,12 @@ export default class DropdownSelect extends Component {
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
+                          value={value}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
-                          onItemTouchTap={this.itemTouchTapHandle}
-                          onChange={this.changeHandle}/>
+                          onItemTouchTap={itemTouchTapHandle}
+                          onChange={this.changeHandler}/>
 
                 </Popup>
 
