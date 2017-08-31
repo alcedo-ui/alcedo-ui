@@ -34,27 +34,15 @@ function filterMenu(menu, filter) {
 }
 
 function sortMenu(arrays) {
+    arrays.sort(function (a, b) {
+        return a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1
+    });
 
-    let len = arrays.length;
-
-    for (let i = 0; i < len - 1; i++) {
-
-        if (i < arrays.length - 1) {
-            for (let j = i + 1; j < len; j++) {
-                if (arrays[i].text.charAt(0).toUpperCase() > arrays[j].text.charAt(0).toUpperCase()) {
-                    let obj = arrays[i];
-                    arrays[i] = arrays[j];
-                    arrays[j] = obj;
-                }
-            }
-        }
-
+    for (let i = 0; i < arrays.length; i++) {
         if (arrays[i].hasOwnProperty('children')) {
             sortMenu(arrays[i].children);
         }
-
     }
-
 }
 
 function getMenu(filter) {
