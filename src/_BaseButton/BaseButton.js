@@ -16,7 +16,13 @@ export default class BaseButton extends Component {
 
         super(props);
 
+        this.state = {
+            focused: false
+        };
+
         this.touchTapHandler = this::this.touchTapHandler;
+        this.focusHandler = this::this.focusHandler;
+        this.blurHandler = this::this.blurHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
 
@@ -26,6 +32,24 @@ export default class BaseButton extends Component {
         e.preventDefault();
         const {disabled, isLoading, onTouchTap} = this.props;
         !disabled && !isLoading && onTouchTap && onTouchTap(e);
+    }
+
+    focusHandler(e) {
+        this.setState({
+            focused: true
+        }, () => {
+            const {onFocus} = this.props;
+            onFocus && onFocus(e);
+        });
+    }
+
+    blurHandler(e) {
+        this.setState({
+            focused: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(e);
+        });
     }
 
     startRipple(e) {
@@ -43,8 +67,9 @@ export default class BaseButton extends Component {
                 iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
                 tip, tipPosition, renderer, onMouseEnter, onMouseLeave
             } = this.props,
+            {focused} = this.state,
 
-            buttonClassName = (theme ? ` theme-${theme}` : '')
+            buttonClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
                 + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
                 + (className ? ' ' + className : ''),
 
@@ -60,6 +85,8 @@ export default class BaseButton extends Component {
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
                         onTouchTap={this.touchTapHandler}
+                        onFocus={this.focusHandler}
+                        onBlur={this.blurHandler}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}>
 
@@ -143,6 +170,8 @@ BaseButton.propTypes = {
 
     renderer: PropTypes.func,
     onTouchTap: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
