@@ -27,7 +27,7 @@ export default class LazyImageExamples extends Component {
                 <h2 className="example-title">Lazy Image</h2>
 
                 <p>
-                    <span>Lazy Image</span>
+                    <span>Lazy Image</span>use for delayed loading of images.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
