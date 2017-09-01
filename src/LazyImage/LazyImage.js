@@ -32,21 +32,29 @@ export default class LazyImage extends Component {
 
         if (this.wrapperEl.getBoundingClientRect().top < window.innerHeight) {
 
+            const {onImageLoadStart} = this.props;
+            let result;
+
+            if (onImageLoadStart) {
+                result = onImageLoadStart();
+            }
+
+            if (result === false) {
+                return;
+            }
+
             this.setState({
                 imageState: 1
             }, () => {
 
                 const image = new Image();
 
-                // image.onload = () => {
-                //     this.setState({
-                //         imageState: 2
-                //     });
-                // };
-
-                Event.addEvent(image, 'load', () => {
+                Event.addEvent(image, 'load', e => {
                     this.setState({
                         imageState: 2
+                    }, () => {
+                        const {onImageLoaded} = this.props;
+                        onImageLoaded && onImageLoaded(e);
                     });
                 });
 
@@ -63,8 +71,6 @@ export default class LazyImage extends Component {
         if (this.state.imageState > 0) {
             return;
         }
-
-        console.log(0);
 
         this.debounceScrollHandle(e);
 
@@ -165,7 +171,17 @@ LazyImage.propTypes = {
     /**
      * Image placeholder.
      */
-    placeholder: PropTypes.any
+    placeholder: PropTypes.any,
+
+    /**
+     * Image load start callback.
+     */
+    onImageLoadStart: PropTypes.func,
+
+    /**
+     * Image load end callback.
+     */
+    onImageLoaded: PropTypes.func
 
 };
 
