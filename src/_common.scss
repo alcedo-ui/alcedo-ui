@@ -63,6 +63,17 @@ $transition-duration: 250ms;
     }
 }
 
+@mixin align-center {
+    text-align: center;
+
+    &:before {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+}
+
 @mixin shadow($depth) {
     @if $depth == 0 {
         box-shadow: transparent 0px 0px 0px;

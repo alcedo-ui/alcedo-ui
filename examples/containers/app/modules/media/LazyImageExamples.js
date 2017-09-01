@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
-import RaisedButton from 'dist/RaisedButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+
+import LazyImage from 'dist/LazyImage';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import LazyImageDoc from 'assets/propTypes/LazyImage.json';
@@ -16,6 +17,8 @@ export default class LazyImageExamples extends Component {
     }
 
     render() {
+
+        const src = 'https://github.com/alcedo-ui/alcedo-ui/blob/master/assets/alcedo-logo.png?raw=true';
 
         return (
             <div className="example lazy-image-examples">
@@ -36,8 +39,7 @@ export default class LazyImageExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-
-
+                                <LazyImage src={src}/>
                             </div>
 
                         </div>

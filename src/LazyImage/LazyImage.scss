@@ -1,5 +1,13 @@
 @import '../_common.scss';
 
 .lazy-image {
+    display: inline-block;
 
+    .lazy-image-placeholder {
+        @include align-center;
+
+        .lazy-image-loading {
+            vertical-align: middle;
+        }
+    }
 }

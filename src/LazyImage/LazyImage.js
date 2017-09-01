@@ -25,31 +25,42 @@ export default class LazyImage extends Component {
 
     render() {
 
-        const {className, style, alt, placeholder} = this.props,
+        const {className, style, alt, placeholder, placeholderWidth, placeholderHeight} = this.props,
             {isLoading} = this.state,
 
-            lazyImageClassName = (className ? ' ' + className : '');
+            lazyImageClassName = (className ? ' ' + className : ''),
+            lazyImageStyle = {
+                ...style,
+                width: placeholderWidth,
+                height: placeholderHeight
+            },
+
+            placeholderStyle = {
+                width: placeholderWidth,
+                height: placeholderHeight
+            };
 
         return (
-            <div className="lazy-image-wrapper">
+            <div className={'lazy-image' + lazyImageClassName}
+                 style={lazyImageStyle}>
 
-                <img className={'lazy-image' + lazyImageClassName}
-                     style={style}
+                <img className="lazy-image-img"
                      alt={alt}/>
 
-                {
-                    isLoading ?
-                        (
-                            placeholder ?
-                                <div className="lazy-image-placeholder">
-                                    {placeholder}
-                                </div>
-                                :
-                                <CircularLoading className="lazy-image-loading"/>
-                        )
-                        :
-                        null
-                }
+                <div className="lazy-image-placeholder"
+                     style={placeholderStyle}>
+                    {
+                        isLoading ?
+                            (
+                                placeholder ?
+                                    placeholder
+                                    :
+                                    <CircularLoading className="lazy-image-loading"/>
+                            )
+                            :
+                            null
+                    }
+                </div>
 
             </div>
         );
@@ -80,9 +91,29 @@ LazyImage.propTypes = {
     alt: PropTypes.string,
 
     /**
+     * Image width.
+     */
+    width: PropTypes.number,
+
+    /**
+     * Image height.
+     */
+    height: PropTypes.number,
+
+    /**
      * Image placeholder.
      */
-    placeholder: PropTypes.any
+    placeholder: PropTypes.any,
+
+    /**
+     * Image placeholder width.
+     */
+    placeholderWidth: PropTypes.number,
+
+    /**
+     * Image placeholder height.
+     */
+    placeholderHeight: PropTypes.number
 
 };
 
@@ -92,6 +123,8 @@ LazyImage.defaultProps = {
     style: null,
 
     alt: '',
-    placeholder: ''
+    placeholder: '',
+    placeholderWidth: 100,
+    placeholderHeight: 100
 
 };
