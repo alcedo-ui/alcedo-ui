@@ -18,7 +18,8 @@ export default class LazyImageExamples extends Component {
 
     render() {
 
-        const src = 'https://github.com/alcedo-ui/alcedo-ui/blob/master/assets/alcedo-logo.png?raw=true';
+        const src1 = 'https://github.com/alcedo-ui/alcedo-ui/blob/master/assets/alcedo-logo.png?raw=true',
+            src2 = 'https://github.com/alcedo-ui/alcedo-ui/blob/master/examples/assets/images/intro-bg.jpg?raw=true';
 
         return (
             <div className="example lazy-image-examples">
@@ -39,76 +40,41 @@ export default class LazyImageExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
+
                                 <p>
-                                    long
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    ...
-                                    <br/>
-                                    article
+                                    Long<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    Article
                                 </p>
-                                <LazyImage src={src}/>
+
+                                <LazyImage src={src1}/>
+
+                                <p>
+                                    Specified<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    Size
+                                </p>
+
+                                <LazyImage src={src2}
+                                           width={400}/>
+
+                                <p>
+                                    Never<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
+                                    Load
+                                </p>
+
+                                <LazyImage src={src2}
+                                           onImageLoadStart={() => {
+                                               return false;
+                                           }}/>
+
                             </div>
 
                         </div>
