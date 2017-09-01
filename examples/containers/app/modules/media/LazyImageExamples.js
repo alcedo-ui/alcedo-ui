@@ -51,23 +51,55 @@ export default class LazyImageExamples extends Component {
 
                                 <LazyImage src={src1}/>
 
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Specified Size"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
                                 <p>
-                                    Specified<br/>
+                                    Long<br/>
                                     ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
                                     ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
                                     ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
-                                    Size
+                                    Article
                                 </p>
 
                                 <LazyImage src={src2}
                                            width={400}/>
 
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Prevent Load"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
                                 <p>
-                                    Never<br/>
+                                    Long<br/>
                                     ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
                                     ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
                                     ...<br/>...<br/>...<br/>...<br/>...<br/>...<br/>
-                                    Load
+                                    Article
                                 </p>
 
                                 <LazyImage src={src2}
