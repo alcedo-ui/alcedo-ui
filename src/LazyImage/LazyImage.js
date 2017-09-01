@@ -84,15 +84,20 @@ export default class LazyImage extends Component {
 
     render() {
 
-        const {className, style, src, alt, width, height, placeholder} = this.props,
+        const {className, style, src, alt, loadingWidth, loadingHeight, width, height, placeholder} = this.props,
             {imageState} = this.state,
 
-            lazyImageClassName = (className ? ' ' + className : '');
+            lazyImageClassName = (className ? ' ' + className : ''),
+            lazyImageStyle = {
+                ...style,
+                width: imageState === 2 ? width : loadingWidth,
+                height: imageState === 2 ? height : loadingHeight
+            };
 
         return (
             <div ref="wrapper"
                  className={'lazy-image' + lazyImageClassName}
-                 style={style}>
+                 style={lazyImageStyle}>
 
                 <img className="lazy-image-img"
                      src={imageState === 2 ? src : ''}
@@ -138,6 +143,16 @@ LazyImage.propTypes = {
     alt: PropTypes.string,
 
     /**
+     * Loading width.
+     */
+    loadingWidth: PropTypes.number,
+
+    /**
+     * Loading height.
+     */
+    loadingHeight: PropTypes.number,
+
+    /**
      * Image width.
      */
     width: PropTypes.number,
@@ -161,8 +176,8 @@ LazyImage.defaultProps = {
 
     alt: '',
 
-    width: 100,
-    height: 100,
+    loadingWidth: 100,
+    loadingHeight: 100,
 
     placeholder: ''
 
