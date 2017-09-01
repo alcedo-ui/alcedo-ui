@@ -503,7 +503,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/MaterialTextFieldExamples').default);
+                           cb(null, require('containers/app/modules/MaterialDesign/MaterialTextFieldExamples').default);
                            loadCompleteCallback();
                        }, 'MaterialTextFieldExamples');
                    }}/>
@@ -511,7 +511,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/MaterialDropdownSelectExamples').default);
+                           cb(null, require('containers/app/modules/MaterialDesign/MaterialDropdownSelectExamples').default);
                            loadCompleteCallback();
                        }, 'MaterialDropdownSelectExamples');
                    }}/>
