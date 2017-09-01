@@ -193,4 +193,10 @@ export default [{
         text: 'MaterialDropdownSelect',
         route: '/components/MaterialDropdownSelect'
     }]
+}, {
+    text: 'Media',
+    children: [{
+        text: 'LazyImageExamples',
+        route: '/components/LazyImage'
+    }]
 }];

@@ -516,6 +516,16 @@ export default function configureRoute(store) {
                        }, 'MaterialDropdownSelectExamples');
                    }}/>
 
+            {/* media */}
+            <Route path="LazyImage"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/media/LazyImageExamples').default);
+                           loadCompleteCallback();
+                       }, 'LazyImageExamples');
+                   }}/>
+
 
         </Route>
 

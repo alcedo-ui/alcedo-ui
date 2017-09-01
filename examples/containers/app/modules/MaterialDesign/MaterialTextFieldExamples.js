@@ -29,7 +29,7 @@ export default class MaterialTextFieldExamples extends Component {
                 <h2 className="examples-title">MaterialTextField</h2>
 
                 <p>
-                    <span>MaterialTextField</span> is a Tree component withe select field.
+                    <span>MaterialTextField</span> allow users to input text.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -47,7 +47,7 @@ export default class MaterialTextFieldExamples extends Component {
                                 <p><code>MaterialTextField</code> simple example.</p>
                                 <div className="field-group">
                                     <MaterialTextField placeholder="password field"
-                                                        label="label"/>
+                                                       label="label"/>
                                 </div>
                             </div>
 
@@ -59,14 +59,14 @@ export default class MaterialTextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Basic"/>
+                                  title="With isLabelAnimate"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p><code>MaterialTextField</code> simple example.</p>
+                                <p><code>MaterialTextField</code> without labelAnimate.</p>
                                 <div className="field-group">
                                     <MaterialTextField placeholder="password field"
                                                        isLabelAnimate={false}
