@@ -199,4 +199,10 @@ export default [{
         text: 'CircularLoading',
         route: '/components/CircularLoading'
     }]
+}, {
+    text: 'Media',
+    children: [{
+        text: 'LazyImageExamples',
+        route: '/components/LazyImage'
+    }]
 }];

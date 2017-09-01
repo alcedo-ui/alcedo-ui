@@ -26,6 +26,7 @@ export GhostButton from './GhostButton';
 export Grid from './Grid';
 export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';
+export LazyImage from './LazyImage';
 export LinearProgress from './LinearProgress';
 export List from './List';
 export ListStep from './ListStep';
@@ -67,4 +68,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 68;
+export const COMPONENTS_TOTAL_COUNT = 69;
