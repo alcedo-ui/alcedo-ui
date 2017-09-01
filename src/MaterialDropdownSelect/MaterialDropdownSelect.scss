@@ -11,6 +11,7 @@
     .dropdown-select {
         width: 100%;
         border-bottom: 1px solid #dfdfdf;
+        box-sizing: border-box;
         .dropdown-select-trigger {
             background: transparent;
             box-shadow: none;
