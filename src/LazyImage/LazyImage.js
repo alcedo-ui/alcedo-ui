@@ -5,7 +5,6 @@ import _ from 'lodash';
 import CircularLoading from '../CircularLoading';
 
 import Event from '../_vendors/Event';
-import Dom from '../_vendors/Dom';
 
 import './LazyImage.css';
 
