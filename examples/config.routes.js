@@ -282,22 +282,6 @@ export default function configureRoute(store) {
                            loadCompleteCallback();
                        }, 'RateExamples');
                    }}/>
-            <Route path="MaterialTextField"
-                   getComponent={(nextState, cb) => {
-                       loadStartCallback();
-                       require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/MaterialTextFieldExamples').default);
-                           loadCompleteCallback();
-                       }, 'MaterialTextFieldExamples');
-                   }}/>
-            <Route path="MaterialDropdownSelect"
-                   getComponent={(nextState, cb) => {
-                       loadStartCallback();
-                       require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/MaterialDropdownSelectExamples').default);
-                           loadCompleteCallback();
-                       }, 'MaterialDropdownSelectExamples');
-                   }}/>
             <Route path="EditableSelect"
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
@@ -512,6 +496,24 @@ export default function configureRoute(store) {
                            cb(null, require('containers/app/modules/loading/CircularLoadingExamples').default);
                            loadCompleteCallback();
                        }, 'CircularLoadingExamples');
+                   }}/>
+
+            {/* MaterialDesign */}
+            <Route path="MaterialTextField"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MaterialTextFieldExamples').default);
+                           loadCompleteCallback();
+                       }, 'MaterialTextFieldExamples');
+                   }}/>
+            <Route path="MaterialDropdownSelect"
+                   getComponent={(nextState, cb) => {
+                       loadStartCallback();
+                       require.ensure([], (require) => {
+                           cb(null, require('containers/app/modules/fields/MaterialDropdownSelectExamples').default);
+                           loadCompleteCallback();
+                       }, 'MaterialDropdownSelectExamples');
                    }}/>
 
 

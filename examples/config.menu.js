@@ -109,12 +109,6 @@ export default [{
         text: 'Rate',
         route: '/components/Rate'
     }, {
-        text: 'MaterialTextField',
-        route: '/components/MaterialTextField'
-    }, {
-        text: 'MaterialDropdownSelect',
-        route: '/components/MaterialDropdownSelect'
-    }, {
         text: 'EditableSelect',
         route: '/components/EditableSelect'
     }]
@@ -191,12 +185,12 @@ export default [{
     text: 'TimeLine',
     route: '/components/TimeLine'
 }, {
-    text: 'Loading',
+    text: 'MaterialDesign',
     children: [{
-        text: 'SpanLoading',
-        route: '/components/SpanLoading'
+        text: 'MaterialTextField',
+        route: '/components/MaterialTextField'
     }, {
-        text: 'CircularLoading',
-        route: '/components/CircularLoading'
+        text: 'MaterialDropdownSelect',
+        route: '/components/MaterialDropdownSelect'
     }]
 }];
