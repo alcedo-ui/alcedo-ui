@@ -11,7 +11,6 @@ import NavBar from './navBar/NavBar';
 import PageLoading from 'dist/PageLoading';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
-import Event from 'vendors/Event';
 import {asyncComponent} from 'vendors/AsyncComponent';
 
 import 'sass/containers/app/App.scss';
@@ -52,8 +51,9 @@ class App extends Component {
 
     render() {
 
-        const {children, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props;
-        const {loading} = this.state;
+        const {$isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props,
+            {loading} = this.state;
+
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
 
@@ -74,10 +74,18 @@ class App extends Component {
                 <div ref="appContent"
                      className="app-content">
 
+                    <Route exact path="/components"
+                           render={() => (
+                               <Redirect to="/components/RaisedButton"
+                                         component={asyncComponent(() =>
+                                             import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
+                           )}/>
                     <Route path="/components/RaisedButton"
-                           component={asyncComponent(() => import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
+                           component={asyncComponent(() =>
+                               import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
                     <Route path="/components/FlatButton"
-                           component={asyncComponent(() => import('containers/app/modules/buttons/FlatButtonExamples'))}/>
+                           component={asyncComponent(() =>
+                               import('containers/app/modules/buttons/FlatButtonExamples'))}/>
 
                     {
                         !$isDesktop && !$navMenuCollapsed ?

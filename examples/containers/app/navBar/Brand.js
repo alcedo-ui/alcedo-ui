@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
@@ -34,11 +34,11 @@ class Brand extends Component {
                             iconCls="fa fa-bars"
                             onTouchTap={this.menuToggleButtonMousedownHandle}/>
 
-                <Link className="brand-name"
-                      to="/">
+                <NavLink className="brand-name"
+                         to="/">
                     <i className="brand-logo"></i>
                     Alcedo-UI Examples
-                </Link>
+                </NavLink>
 
                 <IconAnchor className="github-icon"
                             iconCls="fa fa-github"
