@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Route, Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {renderRoutes} from 'react-router-config';
 
 import * as actions from 'reduxes/actions';
 import Event from 'vendors/Event';
 import Config from 'examples/config';
-
-import Landing from 'containers/landing/Landing';
-import App from 'containers/app/App';
 
 import 'assets/font-awesome/css/font-awesome.min.css';
 import 'sass/global.scss';
@@ -47,12 +44,7 @@ class AppRoot extends Component {
     render() {
         return (
             <div className="app-root">
-
-                <Route exact path="/"
-                       render={() => <Redirect to="/landing" component={Landing}/>}/>
-                <Route path="/landing" component={Landing}/>
-                <Route path="/components" component={App}/>
-
+                {renderRoutes(this.props.route.routes)}
             </div>
         );
     }
