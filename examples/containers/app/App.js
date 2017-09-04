@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {Route, Redirect} from 'react-router';
 
 import * as actions from 'reduxes/actions';
-import Event from 'vendors/Event';
 
 import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
-
 import PageLoading from 'dist/PageLoading';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
+
+import Event from 'vendors/Event';
+import {asyncComponent} from 'vendors/AsyncComponent';
 
 import 'sass/containers/app/App.scss';
 import 'sass/containers/app/example.scss';
@@ -72,7 +74,10 @@ class App extends Component {
                 <div ref="appContent"
                      className="app-content">
 
-                    {children}
+                    <Route path="/components/RaisedButton"
+                           component={asyncComponent(() => import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
+                    <Route path="/components/FlatButton"
+                           component={asyncComponent(() => import('containers/app/modules/buttons/FlatButtonExamples'))}/>
 
                     {
                         !$isDesktop && !$navMenuCollapsed ?
