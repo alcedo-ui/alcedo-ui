@@ -30,7 +30,6 @@ class App extends Component {
             }
         };
 
-        // this.contentMousedownHandle = this::this.contentMousedownHandle;
         this.finishLoading = this::this.finishLoading;
 
     }
@@ -45,29 +44,9 @@ class App extends Component {
         }, 250);
     }
 
-    // contentMousedownHandle() {
-    //     if (!this.props.$isDesktop && !this.props.$navMenuCollapsed) {
-    //         this.props.collapseNavMenu();
-    //     }
-    // }
-
     componentDidMount() {
-
-        // Event.addEvent(this.refs.appContent, 'mousedown', this.contentMousedownHandle);
-
-        // window.SCROLL_EL = this.refs.contentWrap;
-
-        this.props.expandActivatedMenu(this.context.router.location.pathname);
-
-        // this.context.router.listen((location) => {
-        //     console.log(location);
-        // });
-
+        this.props.expandActivatedMenu(location.hash.slice(1));
     }
-
-    // componentWillUnmount() {
-    //     Event.removeEvent(this.refs.appContent, 'mousedown', this.contentMousedownHandle);
-    // }
 
     render() {
 
@@ -110,10 +89,6 @@ class App extends Component {
 
     }
 }
-
-App.contextTypes = {
-    router: PropTypes.object.isRequired
-};
 
 App.propTypes = {
 
