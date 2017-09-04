@@ -522,6 +522,16 @@ DraggableGrid.propTypes = {
             itemRenderer: PropTypes.func,
 
             /**
+             * Tip text.
+             */
+            tip: PropTypes.string,
+
+            /**
+             * The position of Tip.Can be top,left,right,bottom,top-left,top-right,bottom-left,bottom-right.
+             */
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+            /**
              * Callback function fired when a grid item touch-tapped.
              */
             onTouchTap: PropTypes.func
