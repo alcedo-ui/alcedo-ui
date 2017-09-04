@@ -13,9 +13,9 @@ import App from 'containers/app/App';
 
 import 'assets/font-awesome/css/font-awesome.min.css';
 import 'sass/global.scss';
-import 'sass/containers/Root.scss';
+import 'sass/containers/AppRoot.scss';
 
-class Root extends Component {
+class AppRoot extends Component {
 
     constructor(props) {
 
@@ -46,7 +46,7 @@ class Root extends Component {
 
     render() {
         return (
-            <div className="root">
+            <div className="app-root">
 
                 <Route exact path="/"
                        render={() => <Redirect to="/landing" component={Landing}/>}/>
@@ -59,7 +59,7 @@ class Root extends Component {
 
 }
 
-Root.propTypes = {
+AppRoot.propTypes = {
     $isDesktop: PropTypes.bool
 };
 
@@ -73,4 +73,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Root);
+export default connect(mapStateToProps, mapDispatchToProps)(AppRoot);

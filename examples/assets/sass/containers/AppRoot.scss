@@ -1,6 +1,6 @@
 @import '../common';
 
-.root {
+.app-root {
     min-width: $minWidth;
     overflow-x: hidden;
     transition: none;
@@ -32,7 +32,7 @@
 }
 
 @media (max-width: 767px) {
-    .root {
+    .app-root {
         color: $theme-text;
         background: $theme-menu;
     }
