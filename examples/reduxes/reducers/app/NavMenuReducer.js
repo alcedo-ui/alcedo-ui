@@ -35,7 +35,7 @@ function filterMenu(menu, filter) {
 
 function sortMenu(arrays) {
     arrays.sort(function (a, b) {
-        return a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1
+        return a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1;
     });
 
     for (let i = 0; i < arrays.length; i++) {
@@ -85,6 +85,8 @@ const initialMenu = getMenu(),
         filter: '',
 
         menu: initialMenu,
+
+        activatedMenu: null,
 
         navMenuCollapsed: true,
 
@@ -166,6 +168,13 @@ function navMenu(state = initialState, action) {
                 expandMenuName
             };
 
+        }
+
+        case types.UPDATE_ACTIVATED_MENU: {
+            return {
+                ...state,
+                activatedMenu: action.activatedMenu
+            };
         }
 
         default:

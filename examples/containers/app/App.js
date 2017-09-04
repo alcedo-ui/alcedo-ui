@@ -10,6 +10,7 @@ import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 import PageLoading from 'dist/PageLoading';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
+import DEFAULT_MENU from 'examples/config.menu';
 
 import {asyncComponent} from 'vendors/AsyncComponent';
 
@@ -51,7 +52,7 @@ class App extends Component {
 
     render() {
 
-        const {$isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props,
+        const {$isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu, updateActivatedMenu} = this.props,
             {loading} = this.state;
 
         return (
@@ -75,11 +76,17 @@ class App extends Component {
                      className="app-content">
 
                     <Route exact path="/components"
-                           render={() => (
-                               <Redirect to="/components/RaisedButton"
-                                         component={asyncComponent(() =>
-                                             import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
-                           )}/>
+                           render={() => {
+
+                               updateActivatedMenu(DEFAULT_MENU[0].children[0]);
+
+                               return (
+                                   <Redirect to="/components/RaisedButton"
+                                             component={asyncComponent(() =>
+                                                 import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
+                               );
+
+                           }}/>
                     <Route path="/components/RaisedButton"
                            component={asyncComponent(() =>
                                import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
@@ -109,7 +116,8 @@ App.propTypes = {
     $navMenuCollapsed: PropTypes.bool,
     $componentLoading: PropTypes.bool,
 
-    expandActivatedMenu: PropTypes.func
+    expandActivatedMenu: PropTypes.func,
+    updateActivatedMenu: PropTypes.func
 
 };
 

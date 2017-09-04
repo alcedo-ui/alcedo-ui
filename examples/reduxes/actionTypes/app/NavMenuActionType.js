@@ -6,3 +6,5 @@ export const EXPAND_MENU = Symbol('EXPAND_MENU');
 export const EXPAND_ACTIVATED_MENU = Symbol('EXPAND_ACTIVATED_MENU');
 
 export const UPDATE_FILTER = Symbol('UPDATE_FILTER');
+
+export const UPDATE_ACTIVATED_MENU = Symbol('UPDATE_ACTIVATED_MENU');

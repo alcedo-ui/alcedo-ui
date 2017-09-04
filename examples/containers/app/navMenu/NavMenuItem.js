@@ -31,13 +31,14 @@ export default class NavMenuItem extends Component {
     }
 
     menuMousedownHandle() {
-        const {depth, expandMenu} = this.props;
+        const {options, depth, expandMenu, updateActivatedMenu} = this.props;
         depth === 0 && expandMenu('');
+        updateActivatedMenu(options);
     }
 
     render() {
 
-        const {expandMenuName, options, depth, expandMenu} = this.props;
+        const {expandMenuName, activatedMenu, options, depth, expandMenu, updateActivatedMenu} = this.props;
         const {menuHeight, subMenuIndent} = this;
 
         const collapsed = expandMenuName !== options.text,
@@ -68,13 +69,12 @@ export default class NavMenuItem extends Component {
                         )
                         :
                         (
-                            <NavLink className="nav-menu-item-link"
-                                     to={options.route}
-                                     disabled={options.disabled}
-                                     activeClassName="router-link-active"
-                                     onClick={this.menuMousedownHandle}
-                                     replace
-                                     exact>
+                            <NavLink
+                                className={'nav-menu-item-link' + (activatedMenu && activatedMenu.route === options.route ? ' router-link-active' : '')}
+                                to={options.route}
+                                disabled={options.disabled}
+                                onClick={this.menuMousedownHandle}
+                                replace>
 
                                 <div className="nav-menu-item-name"
                                      style={{marginLeft: depth * subMenuIndent}}>
@@ -98,9 +98,11 @@ export default class NavMenuItem extends Component {
                                         return (
                                             <NavMenuItem key={index}
                                                          expandMenuName={expandMenuName}
+                                                         activatedMenu={activatedMenu}
                                                          options={item}
                                                          depth={depth + 1}
-                                                         expandMenu={expandMenu}/>
+                                                         expandMenu={expandMenu}
+                                                         updateActivatedMenu={updateActivatedMenu}/>
                                         );
                                     })
                                 }
@@ -118,17 +120,20 @@ export default class NavMenuItem extends Component {
 NavMenuItem.propTypes = {
 
     expandMenuName: PropTypes.string,
+    activatedMenu: PropTypes.object,
 
     options: PropTypes.object,
     depth: PropTypes.number,
 
-    expandMenu: PropTypes.func
+    expandMenu: PropTypes.func,
+    updateActivatedMenu: PropTypes.func
 
 };
 
 NavMenuItem.defaultProps = {
 
     expandMenuName: '',
+    activatedMenu: null,
 
     options: null,
     depth: 0

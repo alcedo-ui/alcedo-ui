@@ -26,3 +26,8 @@ export const updateFilter = (filter) => ({
     type: types.UPDATE_FILTER,
     filter
 });
+
+export const updateActivatedMenu = (activatedMenu) => ({
+    type: types.UPDATE_ACTIVATED_MENU,
+    activatedMenu
+});
