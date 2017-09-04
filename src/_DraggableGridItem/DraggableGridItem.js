@@ -4,6 +4,7 @@ import {DragSource, DropTarget} from 'react-dnd';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
+import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -34,13 +35,34 @@ export default class DraggableGridItem extends Component {
         super(props);
 
         this.state = {
-            checked: props.checked
+            checked: props.checked,
+            tipVisible: false,
+            tipTriggerEl: null
         };
 
+        this.showTip = this::this.showTip;
+        this.hideTip = this::this.hideTip;
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
         this.touchTapHandler = this::this.touchTapHandler;
+        this.mouseEnterHandler = this::this.mouseEnterHandler;
+        this.mouseOverHandler = this::this.mouseOverHandler;
 
+    }
+
+    showTip(e) {
+        if (!this.state.tipVisible) {
+            this.setState({
+                tipVisible: true,
+                tipTriggerEl: e.target
+            });
+        }
+    }
+
+    hideTip() {
+        this.setState({
+            tipVisible: false
+        });
     }
 
     checkboxChangeHandler(checked, callback) {
@@ -109,6 +131,24 @@ export default class DraggableGridItem extends Component {
 
     }
 
+    mouseEnterHandler(e) {
+
+        this.showTip(e);
+
+        const {onMouseEnter} = this.props;
+        onMouseEnter && onMouseEnter(e);
+
+    }
+
+    mouseOverHandler(e) {
+
+        this.showTip(e);
+
+        const {onMouseOver} = this.props;
+        onMouseOver && onMouseOver(e);
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
             this.setState({
@@ -123,9 +163,9 @@ export default class DraggableGridItem extends Component {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
                 mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
-                onMouseEnter, onMouseLeave
+                tip, tipPosition, onMouseLeave
             } = this.props,
-            {checked} = this.state,
+            {checked, tipVisible, tipTriggerEl} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
                 + (isDragging ? ' dragging' : '') + (isDraggableAnyWhere ? ' draggable' : '')
@@ -145,7 +185,8 @@ export default class DraggableGridItem extends Component {
                          disabled={disabled || isLoading}
                          readOnly={isGroupTitle}
                          onTouchTap={this.touchTapHandler}
-                         onMouseEnter={onMouseEnter}
+                         onMouseEnter={this.mouseEnterHandler}
+                         onMouseOver={this.mouseOverHandler}
                          onMouseLeave={onMouseLeave}>
 
                         {
@@ -232,6 +273,18 @@ export default class DraggableGridItem extends Component {
                         }
 
                     </div>
+
+                    {
+                        tip ?
+                            <Tip text={tip}
+                                 visible={tipVisible}
+                                 triggerEl={tipTriggerEl}
+                                 position={tipPosition}
+                                 onRequestClose={this.hideTip}/>
+                            :
+                            null
+                    }
+
                 </div>
             );
 
@@ -257,125 +310,36 @@ DraggableGridItem.propTypes = {
 
     index: PropTypes.number,
 
-    /**
-     * The CSS class name of the grid button.
-     */
     className: PropTypes.string,
-
-    /**
-     * Override the styles of the grid button.
-     */
     style: PropTypes.object,
-
-    /**
-     * The theme of the grid button.
-     */
     theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
-    /**
-     *
-     */
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-
-    /**
-     * The text value of the grid button. Type can be string or number.
-     */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /**
-     * The grid item's display text. Type can be string, number or bool.
-     */
     text: PropTypes.any,
-
-    /**
-     * The desc value of the grid button. Type can be string or number.
-     */
     desc: PropTypes.string,
-
-    /**
-     * If true, the grid button will be disabled.
-     */
     disabled: PropTypes.bool,
-
-    /**
-     * If true,the button will be have loading effect.
-     */
     isLoading: PropTypes.bool,
-
-    /**
-     * Use this property to display an icon. It will display on the left.
-     */
     iconCls: PropTypes.string,
-
-    /**
-     * Use this property to display an icon. It will display on the right.
-     */
     rightIconCls: PropTypes.string,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
     itemRenderer: PropTypes.func,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
     renderer: PropTypes.func,
-
-    /**
-     *
-     */
     checked: PropTypes.bool,
-
-    /**
-     *
-     */
     mode: PropTypes.oneOf(Util.enumerateValue(DraggableGridItem.Mode)),
-
-    /**
-     *
-     */
     groupIndex: PropTypes.number,
-
-    /**
-     *
-     */
     isGroupTitle: PropTypes.bool,
-
-    /**
-     *
-     */
     anchorIconCls: PropTypes.string,
-
-    /**
-     *
-     */
     isDraggableAnyWhere: PropTypes.bool,
 
-    /**
-     * Callback function fired when a grid item touch-tapped.
-     */
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
     onTouchTap: PropTypes.func,
-
-    /**
-     *
-     */
     onSelect: PropTypes.func,
-
-    /**
-     *
-     */
     onDeselect: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseEnter: PropTypes.func,
-
-    /**
-     *
-     */
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
+    onMouseOver: PropTypes.func
 
 };
 
@@ -406,6 +370,8 @@ DraggableGridItem.defaultProps = {
     isGroupTitle: false,
 
     anchorIconCls: 'fa fa-bars',
-    isDraggableAnyWhere: false
+    isDraggableAnyWhere: false,
+
+    tip: ''
 
 };
