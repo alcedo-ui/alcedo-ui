@@ -15,26 +15,40 @@ export default class RadioGroupExamples extends Component {
 
         super(props);
 
+        this.state = {
+            radioValue: 'label1'
+        };
+
         this.data = [{
             label: 'label1',
-            value: 1
+            value: 'label1'
         }, {
             label: 'label2',
-            value: 2
+            value: 'label2'
         }, {
             label: 'label3',
-            value: 3
+            value: 'label3'
         }, {
             label: 'label4',
-            value: 4
+            value: 'label4'
         }, {
             label: 'label5',
-            value: 5
+            value: 'label5'
         }];
+
+        this.changeHandler = this::this.changeHandler;
 
     }
 
+    changeHandler(value) {
+        this.setState=({
+            radioValue:value
+        })
+    }
+
+
     render() {
+        const {radioValue}=this.state;
         return (
             <div className="example radio-examples">
 
@@ -58,7 +72,9 @@ export default class RadioGroupExamples extends Component {
 
                                 <p><code>RadioGroup</code> simple example.</p>
 
-                                <RadioGroup data={this.data}/>
+                                <RadioGroup data={this.data}
+                                            value={radioValue}
+                                            onChange={this.changeHandler}/>
 
                             </div>
 
