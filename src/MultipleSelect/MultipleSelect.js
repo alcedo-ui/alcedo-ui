@@ -39,7 +39,7 @@ export default class MultipleSelect extends Component {
         this.closePopup = this::this.closePopup;
         this.popupRenderHandle = this::this.popupRenderHandle;
         this.changeHandle = this::this.changeHandle;
-        this.triggerHandle = this::this.triggerHandle;
+        this.triggerHandler = this::this.triggerHandler;
 
     }
 
@@ -102,22 +102,28 @@ export default class MultipleSelect extends Component {
 
     }
 
-    removeSelected(index) {
+    removeSelected(index, e) {
 
-        const {value} = this.state;
+        e.preventDefault();
 
-        if (!value || value.length < 1) {
-            return;
-        }
+        setTimeout(() => {
 
-        value.splice(index, 1);
+            const {value} = this.state;
 
-        this.setState({
-            value
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+            if (!value || value.length < 1) {
+                return;
+            }
+
+            value.splice(index, 1);
+
+            this.setState({
+                value
+            }, () => {
+                const {onChange} = this.props;
+                onChange && onChange(value);
+            });
+
+        }, 0);
 
     }
 
@@ -192,7 +198,7 @@ export default class MultipleSelect extends Component {
 
     }
 
-    triggerHandle(el, triggerEl, popupEl, triggerMode, currentVisible) {
+    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
@@ -296,8 +302,9 @@ export default class MultipleSelect extends Component {
                                                  title={text}>
                                                 {text}
                                                 <div className="multiple-select-selected-remove-button"
-                                                     onClick={() => {
-                                                         this.removeSelected(index);
+                                                     onTouchTap={(e) => {
+                                                         e.preventDefault();
+                                                         this.removeSelected(index, e);
                                                      }}>
                                                     ×
                                                 </div>
@@ -334,7 +341,7 @@ export default class MultipleSelect extends Component {
                        hasTriangle={false}
                        triggerMode={Popup.TriggerMode.OPEN}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       triggerHandle={this.triggerHandle}
+                       triggerHandler={this.triggerHandler}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 

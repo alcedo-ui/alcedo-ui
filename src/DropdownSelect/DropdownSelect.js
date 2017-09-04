@@ -32,8 +32,7 @@ export default class DropdownSelect extends Component {
         this.closePopup = this::this.closePopup;
         this.filterData = this::this.filterData;
         this.popupRenderHandle = this::this.popupRenderHandle;
-        this.itemTouchTapHandle = this::this.itemTouchTapHandle;
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -65,12 +64,16 @@ export default class DropdownSelect extends Component {
     togglePopup() {
         this.setState({
             popupVisible: !this.state.popupVisible
+        },()=>{
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
         });
     }
 
     closePopup() {
         this.setState({
             popupVisible: false
+        },()=>{
+            this.props.onClosePopup && this.props.onClosePopup()
         });
     }
 
@@ -122,12 +125,7 @@ export default class DropdownSelect extends Component {
 
     }
 
-    itemTouchTapHandle(value) {
-        const {onItemTouchTap} = this.props;
-        onItemTouchTap && onItemTouchTap(value);
-    }
-
-    changeHandle(value) {
+    changeHandler(value) {
 
         const {autoClose} = this.props,
             state = {
@@ -163,7 +161,7 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped
+                triggerTheme, isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
@@ -232,6 +230,7 @@ export default class DropdownSelect extends Component {
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
                               theme={triggerTheme}
+                              disableTouchRipple={disableTouchRipple}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
@@ -258,11 +257,12 @@ export default class DropdownSelect extends Component {
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
+                          value={value}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
-                          onItemTouchTap={this.itemTouchTapHandle}
-                          onChange={this.changeHandle}/>
+                          onItemTouchTap={itemTouchTapHandle}
+                          onChange={this.changeHandler}/>
 
                 </Popup>
 
@@ -453,6 +453,11 @@ DropdownSelect.propTypes = {
      * Callback function fired when the button is touch-tapped.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is closed.
+     */
+    onClosePopup: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.

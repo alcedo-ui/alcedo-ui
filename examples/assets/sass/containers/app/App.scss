@@ -1,60 +1,36 @@
 @import '../../common.scss';
 
 .app {
-    overflow: hidden;
     background: $theme-menu;
 
-    & > .content-wrap {
-        width: calc(100% - 250px);
-        overflow: auto;
+    .app-content {
+        @include shadow(1);
+        position: relative;
+        background: $theme-bg;
         box-sizing: border-box;
-        margin-left: 250px;
-        overflow-scrolling: touch;
-        -webkit-overflow-scrolling: touch;
-        z-index: $content-wrap-z-index;
+        min-height: 100vh;
+        padding: 60px 0 0 250px;
         transition: all $transition-duration ease-in-out;
+        overflow: auto;
 
-        & > .content {
+        .content-router-view {
+            @include float-fix;
+            min-height: 100%;
+        }
 
-            @include shadow(1);
+        .module-loading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -24px;
+        }
 
-            position: relative;
-            background: $theme-bg;
-            box-sizing: border-box;
-            min-height: 100vh;
-            padding: 60px 0 0;
-            transition: all $transition-duration ease-in-out;
-            overflow: auto;
-
-            .content-router-view {
-
-                @include float-fix;
-
-                min-height: 100%;
-
-            }
-
-            //.copyright {
-            //    position: absolute;
-            //    bottom: 0;
-            //    width: 100%;
-            //    height: 60px;
-            //    line-height: 20px;
-            //    text-align: center;
-            //    font-size: 12px;
-            //    padding: 20px 0;
-            //    user-select: none;
-            //    box-sizing: border-box;
-            //    color: lighten($theme-text, 50%);
-            //    z-index: $copyright-z-index;
-            //}
-
-            .module-loading {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                margin: -24px;
-            }
+        .app-content-modal {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
         }
     }
 
@@ -62,29 +38,15 @@
 
 @media (max-width: 767px) {
     .app {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
 
-        & > .content-wrap {
-            position: absolute;
-            transform: translate3d(calc(300px - 5%), 0, 0) scale(.9);
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            z-index: $content-wrap-mobile-z-index;
+        .app-content {
+            padding-left: 0;
+            transform: translate3d(70%, 0, 0);
         }
 
         &.collapsed {
-            position: static;
-
-            & > .content-wrap {
-                transform: none;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                overflow: auto;
+            .app-content {
+                transform: translate3d(0, 0, 0);
             }
         }
     }

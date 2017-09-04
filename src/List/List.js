@@ -14,6 +14,7 @@ import './List.css';
 export default class List extends Component {
 
     static Mode = ListItem.Mode;
+    static SEPARATOR = Symbol('SEPARATOR');
 
     constructor(props) {
 
@@ -83,6 +84,11 @@ export default class List extends Component {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
+                if (group === List.SEPARATOR) {
+                    return <div key={`group${groupIndex}`}
+                                className="list-separator"></div>;
+                }
+
                 if (group && group.name) {
                     return (
                         <ListGroup key={`group${groupIndex}`}
@@ -116,6 +122,11 @@ export default class List extends Component {
                         return null;
                     }
 
+                    if (item === List.SEPARATOR) {
+                        return <div key={index}
+                                    className="list-separator"></div>;
+                    }
+
                     return typeof item === 'object' ?
                         (
                             <ListItem key={index}
@@ -130,9 +141,9 @@ export default class List extends Component {
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
                                       renderer={renderer}
-                                      onTouchTap={() => {
+                                      onTouchTap={(e) => {
                                           this.listItemTouchTapHandle(item, index);
-                                          item.onTouchTap && item.onTouchTap();
+                                          item.onTouchTap && item.onTouchTap(e);
                                       }}
                                       onSelect={() => {
                                           this.listItemSelectHandle(item, index);

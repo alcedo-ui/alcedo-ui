@@ -15,49 +15,27 @@ export default class Dialog extends Component {
 
         super(props);
 
-        this.state = {
-            visible: !!props.visible
-        };
-
-        this.requestCloseHandle = this::this.requestCloseHandle;
+        this.setBodyLock = this::this.setBodyLock;
 
     }
 
-    setBodyLock(bool) {
-        Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', bool);
-    }
+    setBodyLock(props = this.props) {
 
-    requestCloseHandle() {
+        if (!props) {
+            return;
+        }
 
-        this.setState({
-            visible: false
-        }, () => {
-
-            const {showModal, onRequestClose} = this.props;
-
-            showModal && this.setBodyLock(false);
-            onRequestClose && onRequestClose();
-
-        });
+        props.showModal && Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', props.visible);
 
     }
 
     componentDidMount() {
-        this.props.showModal && this.setBodyLock(this.state.visible);
+        this.setBodyLock();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-
-            const visible = !!nextProps.visible;
-
-            this.setState({
-                visible
-            }, () => {
-                const {showModal} = nextProps;
-                showModal && this.setBodyLock(visible);
-            });
-
+        if (nextProps.visible !== this.props.visible) {
+            this.setBodyLock(nextProps);
         }
     }
 
@@ -67,12 +45,11 @@ export default class Dialog extends Component {
 
     render() {
 
-        const {visible} = this.state;
+        const {visible} = this.props;
 
         return (
             <SubtreeContainer visible={visible}>
-                <DialogBody {...this.props}
-                            onRequestClose={this.requestCloseHandle}/>
+                <DialogBody {...this.props}/>
             </SubtreeContainer>
         );
 

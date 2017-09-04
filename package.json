@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "1.0.92",
+    "version": "1.2.1",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -58,6 +58,8 @@
         "babel-runtime": "^6.23.0",
         "browserify": "^14.3.0",
         "bundle-loader": "^0.5.5",
+        "compression": "^1.7.0",
+        "compression-webpack-plugin": "^1.0.0",
         "connect-history-api-fallback": "^1.3.0",
         "copy-webpack-plugin": "^4.0.1",
         "cross-env": "^4.0.0",

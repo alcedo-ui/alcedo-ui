@@ -2,7 +2,6 @@ process.env.NODE_ENV = '"release"';
 
 var gulp = require('gulp'),
     rename = require('gulp-rename'),
-    browserify = require('browserify'),
     sass = require('gulp-sass'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence'),

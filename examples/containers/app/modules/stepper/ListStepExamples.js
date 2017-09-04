@@ -98,10 +98,9 @@ export default class ListStepExamples extends Component {
                 <h2 className="example-title">ListStep</h2>
 
                 <p>
-                    A <span>stepper</span> is an interface for users to show numbered steps or for navigation. It just
-                    provides
-                    views, not handling logic (when the step is active, or when the step is completed, or how to move to
-                    the next step).
+                    A <span>ListStep</span> is an interface for users to show list numbered steps or for navigation. It
+                    just provides views, not handling logic (when the step is active, or when the step is completed, or
+                    how to move to the next step).
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -114,7 +113,7 @@ export default class ListStepExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple ListStep example.</p>
+                            <p>A simple <code>ListStep</code> example.</p>
 
                             <ListStep steps={steps}
                                       activatedStep={activatedStep}

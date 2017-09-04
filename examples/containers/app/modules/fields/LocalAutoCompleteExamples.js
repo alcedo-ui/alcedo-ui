@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import LocalAutoComplete from 'dist/LocalAutoComplete';
 
+import LocalAutoComplete from 'dist/LocalAutoComplete';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
 

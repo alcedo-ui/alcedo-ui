@@ -8,7 +8,7 @@ import ListStepItem from '../_ListStepItem';
 
 import './ListStep.css';
 
-export default class ListStep extends Component{
+export default class ListStep extends Component {
 
     constructor(props) {
 
@@ -19,11 +19,11 @@ export default class ListStep extends Component{
             finishedStep: props.finishedStep
         };
 
-        this.tapHandle = this::this.tapHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
-    tapHandle(activatedStep) {
+    touchTapHandler(activatedStep) {
 
         const {onChange} = this.props;
 
@@ -35,6 +35,7 @@ export default class ListStep extends Component{
                 finishedStep: this.state.finishedStep
             });
         });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,18 +60,17 @@ export default class ListStep extends Component{
                 {
                     steps.map((item, index) => {
                         return (
-                            <ListStepItem  key={index}
-                                           index={index}
-                                           className={item.className}
-                                           style={{
-                                               ...item.style,
-                                               width: `${100 / steps.length}%`,
-                                               zIndex: steps.length - index
-                                           }}
-                                           activatedStep={activatedStep}
-                                           finishedStep={finishedStep}
-                                           data={item}
-                                           onTouchTap={this.tapHandle}/>
+                            <ListStepItem key={index}
+                                          index={index}
+                                          className={item.className}
+                                          style={{
+                                              ...item.style,
+                                              zIndex: steps.length - index
+                                          }}
+                                          activatedStep={activatedStep}
+                                          finishedStep={finishedStep}
+                                          data={item}
+                                          onTouchTap={this.touchTapHandler}/>
                         );
                     })
                 }

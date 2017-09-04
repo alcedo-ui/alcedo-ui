@@ -24,12 +24,22 @@ export default class EditableFieldExamples extends Component {
         this.onChange = this :: this.onChange;
         this.onEditEnd = this :: this.onEditEnd;
         this.onEditStart = this :: this.onEditStart;
+        this.beforeChange = this :: this.beforeChange;
+        this.onTouchTap = this :: this.onTouchTap;
 
+    }
+
+    onTouchTap(e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+        } else {
+            window.event.cancelBubble = true;
+        }
     }
 
     onChange(text) {
         console.log(text);
-        if(text === '123') {
+        if (text === '123') {
             this.setState({
                 disabled: true,
                 value: 'text111'
@@ -41,8 +51,15 @@ export default class EditableFieldExamples extends Component {
         console.log('end');
     }
 
-    onEditStart() {
+    onEditStart(e) {
         console.log('start');
+    }
+
+    beforeChange(text) {
+        if (text == '123') {
+            return false;
+        }
+        return true;
     }
 
     render() {
@@ -68,32 +85,60 @@ export default class EditableFieldExamples extends Component {
 
                                 <p><code>Editable Field</code> simple example.</p>
 
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}
-                                                   disabled={true}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}
-                                                   disabled={this.state.disabled}
-                                                   onChange={this.onChange}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}/>
-                                    ,&nbsp;
-                                    <EditableField value={this.state.value}
-                                                   onBlur={this.onBlur}
-                                                   onEditStart={this.onEditStart}
-                                                   onEditEnd={this.onEditEnd}/>
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               disabled={true}
+                                               title={'Click to edit'}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               disabled={this.state.disabled}
+                                               onChange={this.onChange}
+                                               onEditStart={this.onEditStart}
+                                               beforeChange={this.beforeChange}
+                                               onTouchTap={this.onTouchTap}
+                                               showModal={true}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               title={'Click to edit'}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}/>
+                                ,&nbsp;
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               onEditStart={this.onEditStart}
+                                               onEditEnd={this.onEditEnd}/>
 
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Tip"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Editable Field</code> simple example.</p>
+
+                                <EditableField value={this.state.value}
+                                               onBlur={this.onBlur}
+                                               tip="this is a tip"/>
                             </div>
 
                         </div>

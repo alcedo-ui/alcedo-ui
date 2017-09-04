@@ -125,7 +125,7 @@ export default class TransferList extends Component {
                  style={listStyle}>
                 <div className="transfer-header">
                     <Checkbox
-                        label={value && value.length > 0 ? value.length + '/' + this.filterList.length + 'items' : this.filterList.length + 'items'}
+                        label={value && value.length > 0 ? value.length + '/' + this.filterList.length + ' items' : this.filterList.length + ' items'}
                         value={selectAll}
                         onChange={selectAllHandle}/>
                 </div>

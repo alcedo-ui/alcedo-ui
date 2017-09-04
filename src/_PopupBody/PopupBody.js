@@ -9,6 +9,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
+import PopupManagement from '../_vendors/PopupManagement';
 
 import './PopupBody.css';
 
@@ -60,25 +61,25 @@ export default class PopupBody extends Component {
     }
 
     calTopVerticalBottom(triggerEl, triggerOffset) {
-        return triggerOffset.top + triggerEl.offsetHeight + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight;
     }
 
     calTopVerticalTop(triggerOffset, popupEl) {
-        return triggerOffset.top - popupEl.offsetHeight + Dom.getScrollTop()
+        return triggerOffset.top - popupEl.offsetHeight
             - parseInt(getComputedStyle(popupEl).marginTop)
             - parseInt(getComputedStyle(popupEl).marginBottom);
     }
 
     calTopHorizontalTop(triggerOffset) {
-        return triggerOffset.top + Dom.getScrollTop();
+        return triggerOffset.top;
     }
 
     calTopHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2 + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
     }
 
     calTopHorizontalBottom(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
     }
 
     calLeftVerticalLeft(triggerOffset) {
@@ -181,7 +182,7 @@ export default class PopupBody extends Component {
 
     }
 
-    triggerPopupEventHandle(el, triggerEl, popupEl, triggerMode, currentVisible) {
+    triggerPopupEventHandle(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
@@ -196,28 +197,30 @@ export default class PopupBody extends Component {
             el = el.parentNode;
         }
 
-        return false;
+        return isAutoClose ? false : currentVisible;
 
     }
 
     mousedownHandle(e) {
 
-        const {triggerEl, triggerHandle, onRequestClose} = this.props,
-            visible = triggerHandle ?
-                triggerHandle(
+        const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
+            visible = triggerHandler ?
+                triggerHandler(
                     e.target,
                     triggerEl,
                     this.popupEl,
-                    this.props.triggerMode,
-                    this.state.visible
+                    triggerMode,
+                    this.state.visible,
+                    isAutoClose
                 )
                 :
                 this.triggerPopupEventHandle(
                     e.target,
                     triggerEl,
                     this.popupEl,
-                    this.props.triggerMode,
-                    this.state.visible
+                    triggerMode,
+                    this.state.visible,
+                    isAutoClose
                 );
 
         this.setState({
@@ -260,6 +263,8 @@ export default class PopupBody extends Component {
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
         Event.addEvent(window, 'resize', this.resizeHandle);
+
+        this.props.isEscClose && PopupManagement.push(this);
 
     }
 
@@ -370,10 +375,14 @@ PopupBody.propTypes = {
      */
     depth: PropTypes.number,
 
+    isAutoClose: PropTypes.bool,
+
+    isEscClose: PropTypes.bool,
+
     /**
      * The function of popup event handler.
      */
-    triggerHandle: PropTypes.func,
+    triggerHandler: PropTypes.func,
 
     /**
      * The function of popup render.
@@ -399,6 +408,9 @@ PopupBody.defaultProps = {
     position: PopupBody.Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: PopupBody.TriggerMode.TOGGLE,
-    depth: 4
+    depth: 4,
+
+    isAutoClose: true,
+    isEscClose: true
 
 };

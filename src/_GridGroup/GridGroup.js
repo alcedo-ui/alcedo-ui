@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import GridItem from '../_GridItem';
 import Theme from '../Theme';
 
@@ -12,50 +12,28 @@ import './GridGroup.css';
 export default class GridGroup extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.clickHandler = this::this.clickHandler;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
-
-    }
-
-    clickHandler() {
-        const {disabled, onTouchTap} = this.props;
-        !disabled && onTouchTap && onTouchTap();
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
     }
 
     render() {
 
         const {
                 children, className, style, theme, text, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading
+                disabled, isLoading, onMouseEnter, onMouseLeave
             } = this.props,
 
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'grid-group' + listGroupClassName}
                      style={style}
                      disabled={disabled || isLoading}
-                     onClick={this.clickHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
                     <GridItem className="grid-group-name"
                               text={text}
@@ -70,7 +48,7 @@ export default class GridGroup extends Component {
                     </div>
 
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -131,12 +109,7 @@ GridGroup.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
-
-    /**
-     * Callback function fired when a grid item touch-tapped.
-     */
-    onTouchTap: PropTypes.func,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -167,6 +140,6 @@ GridGroup.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM
+    tipPosition: TipProvider.Position.BOTTOM
 
 };

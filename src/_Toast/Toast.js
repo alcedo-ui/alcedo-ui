@@ -29,7 +29,7 @@ export default class Toast extends Component {
         };
 
         this.getIconCls = this::this.getIconCls;
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
 
@@ -48,7 +48,8 @@ export default class Toast extends Component {
         }
     }
 
-    clickHandle() {
+    touchTapHandler(e) {
+        e.preventDefault();
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
     }
@@ -120,7 +121,7 @@ export default class Toast extends Component {
             <div ref="toast"
                  className={'toast' + toastClassName}
                  style={style}
-                 onClick={this.clickHandle}>
+                 onTouchTap={this.touchTapHandler}>
 
                 <i className={`${this.getIconCls()} toast-icon`}
                    aria-hidden="true"></i>

@@ -132,6 +132,8 @@ export default class TableExamples extends Component {
                                    mode={Table.Mode.CHECKBOX}
                                    data={data}
                                    paggingSelectedCountVisible={true}
+                                   defaultPageSize={20}
+                                   pageSizes={[10, 20, 30, 40]}
                                    onChange={(value) => {
                                        console.log(value);
                                    }}/>

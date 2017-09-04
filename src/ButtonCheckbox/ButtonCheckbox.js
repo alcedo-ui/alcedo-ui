@@ -15,11 +15,11 @@ export default class ButtonCheckbox extends Component {
             value: !!props.value
         };
 
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
-    clickHandle() {
+    touchTapHandler() {
         const value = !this.state.value;
         this.setState({
             value
@@ -47,7 +47,7 @@ export default class ButtonCheckbox extends Component {
                           value={text}
                           disabled={disabled}
                           isRounded={true}
-                          onTouchTap={this.clickHandle}/>
+                          onTouchTap={this.touchTapHandler}/>
         );
 
     }

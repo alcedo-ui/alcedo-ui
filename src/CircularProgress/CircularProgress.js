@@ -4,36 +4,40 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Theme from '../Theme';
-import Percent from './Percent';
-
+import Percent from '../_Percent';
 
 import './CircularProgress.css';
 
 export default class CircularProgress extends Component {
+
     constructor(props) {
-        super();
+
+        super(props);
 
         this.state = {
             percent: [0, 0]
         };
+
     }
 
     render() {
-        const {r, width, rgba, word, percent, style, percentStyle, className} = this.props;
 
-        const l = 2 * this.props.r * Math.PI;
-        const circleStyle = {
-            strokeDasharray: this.props.percent / 100 * l + ',' + l
-        }, svgStyle = {
-            width: (r + width) * 2,
-            height: (r + width) * 2,
-            ...style
-        };
+        const {children, className, style, r, width, rgba, word, percent, percentStyle} = this.props,
+
+            l = 2 * r * Math.PI,
+            svgStyle = {
+                width: (r + width) * 2,
+                height: (r + width) * 2,
+                ...style
+            },
+            circleStyle = {
+                strokeDasharray: percent / 100 * l + ',' + l
+            };
 
         return (
-            <div className={`circular-progress ${className}`}
+            <div className={'circular-progress' + (className ? ' ' + className : '')}
                  style={svgStyle}>
+
                 <svg className="circular-progress-svg">
                     <circle className="circular-progress-circle"
                             cx={r + width}
@@ -45,12 +49,17 @@ export default class CircularProgress extends Component {
                             style={circleStyle}>
                     </circle>
                 </svg>
+
                 {
-                    word
-                        ? <Percent endNum={percent}
-                                   style={percentStyle}>{this.props.children}</Percent>
-                        : null
+                    word ?
+                        <Percent endNum={percent}
+                                 style={percentStyle}>
+                            {children}
+                        </Percent>
+                        :
+                        null
                 }
+
             </div>
         );
     }

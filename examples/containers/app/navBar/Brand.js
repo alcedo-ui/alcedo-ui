@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
@@ -33,12 +34,11 @@ class Brand extends Component {
                             iconCls="fa fa-bars"
                             onTouchTap={this.menuToggleButtonMousedownHandle}/>
 
-                <div className="brand-name">
-                    <IconAnchor className="brand-logo"
-                                href="#/"
-                                target="_self"/>
+                <Link className="brand-name"
+                      to="/">
+                    <i className="brand-logo"></i>
                     Alcedo-UI Examples
-                </div>
+                </Link>
 
                 <IconAnchor className="github-icon"
                             iconCls="fa fa-github"

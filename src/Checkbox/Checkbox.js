@@ -15,19 +15,22 @@ export default class Checkbox extends Component {
             value: !!props.value
         };
 
-        this.clickHandle = this::this.clickHandle;
+        this.touchTapHandler = this::this.touchTapHandler;
         this.mouseDownHandle = this::this.mouseDownHandle;
         this.mouseUpHandle = this::this.mouseUpHandle;
 
     }
 
-    clickHandle() {
+    touchTapHandler() {
+
         const value = !this.state.value;
+
         this.setState({
             value
         }, () => {
             this.props.onChange && this.props.onChange(value);
         });
+
     }
 
     mouseDownHandle(e) {
@@ -35,15 +38,20 @@ export default class Checkbox extends Component {
         if (this.props.disabled) {
             return;
         }
+
         this.refs.checkboxIcon.startRipple(e);
-        this.clickHandle();
+        this.touchTapHandler();
+
     }
 
     mouseUpHandle() {
+
         if (this.props.disabled) {
             return;
         }
+
         this.refs.checkboxIcon.endRipple();
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -58,6 +66,7 @@ export default class Checkbox extends Component {
 
         const {className, style, name, label, disabled} = this.props,
             {value} = this.state,
+
             checkboxClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
 
         return (
@@ -77,18 +86,19 @@ export default class Checkbox extends Component {
                     <IconButton ref="checkboxIcon"
                                 className="checkbox-bg-icon"
                                 iconCls="fa fa-square-o"
-                                onTouchTap={this.clickHandle}
+                                onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
 
                     <IconButton className="checkbox-icon"
                                 iconCls="fa fa-check-square"
-                                onTouchTap={this.clickHandle}
+                                onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
                 </div>
 
                 <div className="checkbox-label"
                      onMouseDown={this.mouseDownHandle}
-                     onMouseUp={this.mouseUpHandle}>
+                     onMouseUp={this.mouseUpHandle}
+                     onMouseLeave={this.mouseUpHandle}>
                     {label}
                 </div>
 

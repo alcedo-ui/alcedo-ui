@@ -205,7 +205,8 @@ export default class TextField extends Component {
 
         const {
             children, className, style, type, name, placeholder, iconCls, disabled, infoMsg,
-            required, maxLength, max, min, readOnly, clearButtonVisible, rightIconCls, passwordButtonVisible
+            required, maxLength, max, min, readOnly, clearButtonVisible, rightIconCls, passwordButtonVisible,
+            autoComplete, autoCorrect, autoCapitalize, spellCheck
         } = this.props;
         const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
@@ -227,8 +228,9 @@ export default class TextField extends Component {
 
                 {
                     iconCls ?
-                        <i className={'text-field-icon ' + iconCls}
-                           aria-hidden="true"></i>
+                        <IconButton className="text-field-icon"
+                                    iconCls={iconCls}
+                                    readOnly={true}/>
                         :
                         null
                 }
@@ -245,11 +247,12 @@ export default class TextField extends Component {
                        readOnly={readOnly}
                        max={max}
                        min={min}
-                       autoComplete="off"
-                       autoCorrect="off"
-                       autoCapitalize="off"
-                       spellCheck="false"
+                       autoComplete={autoComplete}
+                       autoCorrect={autoCorrect}
+                       autoCapitalize={autoCapitalize}
+                       spellCheck={spellCheck}
                        onChange={this.changeHandle}
+                       onInput={this.changeHandle}
                        onKeyDown={this.keydownHandle}
                        onMouseOver={this.mouseoverHandle}
                        onMouseOut={this.mouseoutHandle}
@@ -401,7 +404,26 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
-    // callback
+    /**
+     *
+     */
+    autoComplete: PropTypes.string,
+
+    /**
+     *
+     */
+    autoCorrect: PropTypes.string,
+
+    /**
+     *
+     */
+    autoCapitalize: PropTypes.string,
+
+    /**
+     *
+     */
+    spellCheck: PropTypes.string,
+
     /**
      * Callback function fired when the textField is changed.
      */
@@ -470,6 +492,11 @@ TextField.defaultProps = {
 
     // valid
     required: false,
-    patternInvalidMsg: ''
+    patternInvalidMsg: '',
+
+    autoComplete: 'off',
+    autoCorrect: 'off',
+    autoCapitalize: 'off',
+    spellCheck: 'false'
 
 };

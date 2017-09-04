@@ -28,6 +28,8 @@ export default class Switcher extends Component {
 
     toggle(e) {
 
+        e.preventDefault();
+
         const {disabled, isLoading, beforeChange, onTouchTap} = this.props;
 
         if (disabled || isLoading) {
@@ -47,7 +49,7 @@ export default class Switcher extends Component {
             };
 
         if (beforeChange) {
-            beforeChange(value) && callback();
+            beforeChange(value) !== false && callback();
         } else {
             callback();
         }
@@ -71,7 +73,7 @@ export default class Switcher extends Component {
             <div className={`switcher ${value == true ? 'active' : 'inactive'}
                     ${size === 'small' ? 'small' : ''} ${className}`}
                  style={style}
-                 onClick={this.toggle}
+                 onTouchTap={this.toggle}
                  disabled={disabled || isLoading}>
 
                 <IconButton className="switcher-slider-wrapper"

@@ -67,23 +67,29 @@ export default class Grid extends Component {
 
     calItemColStyle(props = this.props, items = props.items) {
 
-        const {col} = props;
+        const {col, isItemsFullWidth} = props,
+            colLen = col.length,
+            itemsLen = items.length,
+            validValue = (value) => {
+                return isItemsFullWidth ?
+                    Valid.range(value, 1, itemsLen)
+                    :
+                    Valid.range(value, 1);
+            };
 
         if (!this.gridEl || !col) {
-            return null;
+            return col && colLen > 0 ? 100 / validValue(col[0]) : null;
         }
 
-        const gridWidth = this.gridEl.getBoundingClientRect().width,
-            colLen = col.length,
-            itemsLen = items.length;
+        const gridWidth = this.gridEl.getBoundingClientRect().width;
 
         for (let i = 1; i < colLen - 1; i += 2) {
             if (gridWidth < col[i] && !isNaN(col[i - 1])) {
-                return 100 / Valid.range(col[i - 1], 1, itemsLen);
+                return 100 / validValue(col[i - 1]);
             }
         }
 
-        return !isNaN(col[colLen - 1]) ? 100 / Valid.range(col[colLen - 1], 1, itemsLen) : null;
+        return !isNaN(col[colLen - 1]) ? 100 / validValue(col[colLen - 1]) : null;
 
     }
 
@@ -159,9 +165,9 @@ export default class Grid extends Component {
                                       isLoading={isLoading || item.isLoading}
                                       mode={mode}
                                       renderer={renderer}
-                                      onTouchTap={() => {
+                                      onTouchTap={(e) => {
                                           this.listItemTouchTapHandle(item, index);
-                                          item.onTouchTap && item.onTouchTap();
+                                          item.onTouchTap && item.onTouchTap(e);
                                       }}
                                       onSelect={() => {
                                           this.listItemSelectHandle(item, index);
@@ -482,6 +488,11 @@ Grid.propTypes = {
     isGrouped: PropTypes.bool,
 
     /**
+     *
+     */
+    isItemsFullWidth: PropTypes.bool,
+
+    /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
@@ -511,6 +522,8 @@ Grid.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     mode: GridItem.Mode.NORMAL,
-    isGrouped: false
+    isGrouped: false,
+
+    isItemsFullWidth: false
 
 };

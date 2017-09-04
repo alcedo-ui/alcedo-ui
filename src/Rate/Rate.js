@@ -15,7 +15,7 @@ export default class Rate extends Component {
         };
 
         this.mouseMoveHandle = this::this.mouseMoveHandle;
-        this.selectHandle = this::this.selectHandle;
+        this.selectHandler = this::this.selectHandler;
         this.createItems = this::this.createItems;
     }
 
@@ -37,7 +37,7 @@ export default class Rate extends Component {
             return;
         }
         const mouseEnterFalg = this.triggerEventHandle(e.target, require('react-dom').findDOMNode(this.refs.rate));
-        let {value}= this.props;
+        let {value} = this.props;
         if (mouseEnterFalg) {
             if (e.target.nodeName === 'I') {
                 value = e.target.getAttribute('data-key');
@@ -55,45 +55,51 @@ export default class Rate extends Component {
         // }
     }
 
-    selectHandle(value) {
+    selectHandler(value, e) {
+
+        e.preventDefault();
+
         const {disabled} = this.props;
+
         if (disabled) {
             return;
         }
+
         this.setState({
             value
-        }, ()=> {
-            this.props.onChange && this.props.onChange(value)
-        })
+        }, () => {
+            this.props.onChange && this.props.onChange(value);
+        });
+
     }
 
     createItems(value) {
-        const {allowHalf, count} =this.props;
+        const {allowHalf, count} = this.props;
         let items = [];
         if (allowHalf) {
             for (let i = 0; i < count; i++) {
                 if (i <= value - 1) {
-                    items.push('full')
+                    items.push('full');
                 } else if (i < value && i > value - 1) {
-                    items.push('full-zero')
+                    items.push('full-zero');
                 } else if (i > value) {
-                    items.push('zero')
+                    items.push('zero');
                 } else {
-                    items.push('zero')
+                    items.push('zero');
                 }
             }
         } else {
             for (let i = 0; i < count; i++) {
                 if (i < value) {
-                    items.push('full')
+                    items.push('full');
                 } else if (i > value) {
-                    items.push('zero')
+                    items.push('zero');
                 } else {
-                    items.push('zero')
+                    items.push('zero');
                 }
             }
         }
-        return items
+        return items;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -108,12 +114,12 @@ export default class Rate extends Component {
     }
 
     componentDidMount() {
-        const {value} =this.props;
+        const {value} = this.props;
         const items = this.createItems(value);
         this.setState({
             value,
             items
-        })
+        });
         Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
     }
 
@@ -125,50 +131,50 @@ export default class Rate extends Component {
         const {className, style, allowHalf, disabled, count} = this.props;
         const {items} = this.state;
         const warpStyle = {
-            width:count * 30
+            width: count * 30
         };
         return (
             <div className={`rate ${className ? className : ''}`}
-                 style={{...warpStyle , ...style}}
+                 style={{...warpStyle, ...style}}
                  ref="rate">
                 {
-                    items.map((item, index)=> {
+                    items.map((item, index) => {
                         if (allowHalf) {
                             return (
                                 <div key={index}
-                                    className={`half-star ${disabled ? 'disabled' : ''}`}
+                                     className={`half-star ${disabled ? 'disabled' : ''}`}
                                      data-key={index + 1}>
-                                <div className="half-star-left">
-                                    <i className={`fa fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
-                                       data-key={index + 0.5}
-                                       onClick={()=> {
-                                           this.selectHandle(index + 0.5)
-                                       }}
-                                    ></i>
+                                    <div className="half-star-left">
+                                        <i className={`fa fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
+                                           data-key={index + 0.5}
+                                           onTouchTap={(e) => {
+                                               this.selectHandler(index + 0.5, e);
+                                           }}
+                                        ></i>
+                                    </div>
+                                    <div className="half-star-right">
+                                        <i className={`fa fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                           data-key={index + 1}
+                                           onTouchTap={(e) => {
+                                               this.selectHandler(index + 1, e);
+                                           }}
+                                        ></i>
+                                    </div>
                                 </div>
-                                <div className="half-star-right">
-                                    <i className={`fa fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
-                                       data-key={index + 1}
-                                       onClick={()=> {
-                                           this.selectHandle(index + 1)
-                                       }}
-                                    ></i>
-                                </div>
-                            </div>
-                            )
+                            );
                         } else {
                             return (
                                 <div key={index}
-                                    className={`star ${disabled ? 'disabled' : ''}`}
+                                     className={`star ${disabled ? 'disabled' : ''}`}
                                      data-key={index + 1}>
-                                <i className={`fa fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
-                                   data-key={index + 1}
-                                   onClick={()=> {
-                                       this.selectHandle(index + 1)
-                                   }}
-                                ></i>
-                            </div>
-                            )
+                                    <i className={`fa fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                       data-key={index + 1}
+                                       onTouchTap={(e) => {
+                                           this.selectHandler(index + 1, e);
+                                       }}
+                                    ></i>
+                                </div>
+                            );
                         }
                     })
                 }

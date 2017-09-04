@@ -62,25 +62,25 @@ export default class MenuBody extends Component {
     }
 
     calTopVerticalBottom(triggerEl, triggerOffset) {
-        return triggerOffset.top + triggerEl.offsetHeight + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight;
     }
 
     calTopVerticalTop(triggerOffset, menuEl) {
-        return triggerOffset.top - menuEl.offsetHeight + Dom.getScrollTop()
+        return triggerOffset.top - menuEl.offsetHeight
             - parseInt(getComputedStyle(menuEl).marginTop)
             - parseInt(getComputedStyle(menuEl).marginBottom);
     }
 
     calTopHorizontalTop(triggerOffset) {
-        return triggerOffset.top + Dom.getScrollTop();
+        return triggerOffset.top;
     }
 
     calTopHorizontalMiddle(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - menuEl.offsetHeight / 2 + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight / 2 - menuEl.offsetHeight / 2;
     }
 
     calTopHorizontalBottom(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - menuEl.offsetHeight + Dom.getScrollTop();
+        return triggerOffset.top + triggerEl.offsetHeight - menuEl.offsetHeight;
     }
 
     calLeftVerticalLeft(triggerOffset) {

@@ -49,6 +49,12 @@ export default [{
         text: 'TextField',
         route: '/components/TextField'
     }, {
+        text: 'CascaderField',
+        route: '/components/CascaderField'
+    }, {
+        text: 'CascaderList',
+        route: '/components/CascaderList'
+    }, {
         text: 'TextArea',
         route: '/components/TextArea'
     }, {
@@ -99,6 +105,12 @@ export default [{
     }, {
         text: 'TagField',
         route: '/components/TagField'
+    }, {
+        text: 'Rate',
+        route: '/components/Rate'
+    }, {
+        text: 'EditableSelect',
+        route: '/components/EditableSelect'
     }]
 }, {
     text: 'Progress',
@@ -156,6 +168,9 @@ export default [{
     }, {
         text: 'ListStep',
         route: '/components/ListStep'
+    }, {
+        text: 'DotStep',
+        route: '/components/DotStep'
     }]
 }, {
     text: 'Message',
@@ -170,18 +185,18 @@ export default [{
     text: 'TimeLine',
     route: '/components/TimeLine'
 }, {
-    text: 'Rate',
-    route: '/components/Rate'
-}, {
-    text: 'Loading',
+    text: 'MaterialDesign',
     children: [{
-        text: 'SpanLoading',
-        route: '/components/SpanLoading'
+        text: 'MaterialTextField',
+        route: '/components/MaterialTextField'
     }, {
-        text: 'CircularLoading',
-        route: '/components/CircularLoading'
+        text: 'MaterialDropdownSelect',
+        route: '/components/MaterialDropdownSelect'
     }]
 }, {
-    text: 'Cascader',
-    route: '/components/Cascader'
+    text: 'Media',
+    children: [{
+        text: 'LazyImageExamples',
+        route: '/components/LazyImage'
+    }]
 }];

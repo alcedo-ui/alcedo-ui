@@ -22,28 +22,7 @@ const DRAG_LIST_GROUP_SYMBOL = Symbol('DRAG_LIST_GROUP');
 export default class DraggableListGroup extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.clickHandler = this::this.clickHandler;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
-
-    }
-
-    clickHandler() {
-        const {disabled, onTouchTap} = this.props;
-        !disabled && onTouchTap && onTouchTap();
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
     }
 
     render() {
@@ -51,7 +30,7 @@ export default class DraggableListGroup extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 children, className, style, theme, text, iconCls, rightIconCls, anchorIconCls, isDraggableAnyWhere,
-                disabled, isLoading
+                disabled, isLoading, onMouseEnter, onMouseLeave
             } = this.props,
 
             listGroupClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
@@ -64,9 +43,8 @@ export default class DraggableListGroup extends Component {
                 <div className={'draggable-list-group' + listGroupClassName}
                      style={style}
                      disabled={disabled || isLoading}
-                     onClick={this.clickHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
                     <DraggableListItem className="draggable-list-group-name"
                                        text={text}
@@ -161,11 +139,6 @@ DraggableListGroup.propTypes = {
      *
      */
     isDraggableAnyWhere: PropTypes.bool,
-
-    /**
-     * Callback function fired when a list item touch-tapped.
-     */
-    onTouchTap: PropTypes.func,
 
     /**
      *

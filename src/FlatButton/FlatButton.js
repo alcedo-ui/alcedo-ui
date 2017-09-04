@@ -29,13 +29,12 @@ export default class FlatButton extends Component {
 
     render() {
 
-        const {children, className, onTouchTap} = this.props;
+        const {children, className} = this.props;
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`flat-button ${className}`}
-                        onTouchTap={onTouchTap}>
+                        className={`flat-button ${className}`}>
                 {children}
             </BaseButton>
         );

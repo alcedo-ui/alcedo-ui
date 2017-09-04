@@ -23,7 +23,7 @@ class NavMenuList extends Component {
                     {
                         $navMenu.map((menu, index) => {
                             return (
-                                <NavMenuItem key={index}
+                                <NavMenuItem key={(menu && menu.text) || index}
                                              expandMenuName={$expandMenuName}
                                              options={menu}
                                              expandMenu={expandMenu}/>

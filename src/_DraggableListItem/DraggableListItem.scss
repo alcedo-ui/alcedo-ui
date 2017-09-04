@@ -30,7 +30,7 @@
         display: inline-block;
         float: left;
         width: 16px;
-        line-height: 40px;
+        line-height: inherit;
         margin-right: 10px;
         color: lighten($theme-text, 45%);
         text-align: center;
@@ -42,7 +42,7 @@
 
     .button-icon {
         width: 16px;
-        line-height: 40px;
+        line-height: inherit;
         text-align: center;
         font-size: inherit;
         color: inherit;
@@ -56,10 +56,10 @@
             float: right;
             margin-left: 15px;
         }
-    }
 
-    .circular-loading {
-        margin-right: 10px;
+        .circular-loading {
+            margin-right: 10px;
+        }
     }
 
     .draggable-list-item-content {

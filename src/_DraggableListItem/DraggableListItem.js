@@ -39,11 +39,7 @@ export default class DraggableListItem extends Component {
 
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
-        this.clickHandler = this::this.clickHandler;
-        this.startRipple = this::this.startRipple;
-        this.endRipple = this::this.endRipple;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
@@ -83,7 +79,9 @@ export default class DraggableListItem extends Component {
 
     }
 
-    clickHandler(e) {
+    touchTapHandler(e) {
+
+        e.preventDefault();
 
         const {disabled, isLoading, isGroupTitle} = this.props;
 
@@ -111,24 +109,6 @@ export default class DraggableListItem extends Component {
 
     }
 
-    startRipple(e) {
-        this.refs.touchRipple.addRipple(e);
-    }
-
-    endRipple() {
-        this.refs.touchRipple.removeRipple();
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
             this.setState({
@@ -142,7 +122,8 @@ export default class DraggableListItem extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere
+                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
 
@@ -160,14 +141,15 @@ export default class DraggableListItem extends Component {
                      style={style}
                      readOnly={isDraggableAnyWhere}
                      disabled={disabled || isLoading}
-                     onClick={this.clickHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                     onTouchTap={this.touchTapHandler}
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
                     {
                         mode === DraggableListItem.Mode.CHECKBOX ?
                             <Checkbox className="draggable-list-item-checkbox"
-                                      value={checked}/>
+                                      value={checked}
+                                      disabled={disabled || isLoading}/>
                             :
                             null
                     }
@@ -182,8 +164,10 @@ export default class DraggableListItem extends Component {
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
-                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                             size="small"/>
+                            <div className="button-icon button-icon-left">
+                                <CircularLoading className="button-loading-icon"
+                                                 size="small"/>
+                            </div>
                             :
                             (
                                 iconCls ?

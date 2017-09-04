@@ -11,24 +11,18 @@ export default class PaggingSize extends Component {
 
         super(props);
 
-        this.pageSizes = [5, 10, 15, 20];
-
         this.pageSizeChangeHandle = this::this.pageSizeChangeHandle;
 
     }
 
     pageSizeChangeHandle(pageSize) {
-
         const {onPageSizeChange} = this.props;
-
         this.props.pageSize != pageSize && onPageSizeChange && onPageSizeChange(pageSize);
-
     }
 
     render() {
 
-        const {className, style, pageSize, triggerTheme} = this.props,
-            {pageSizes} = this;
+        const {className, style, pageSize, pageSizes} = this.props;
 
         return (
             <div className={`pagging-size ${className}`}
@@ -54,6 +48,7 @@ PaggingSize.propTypes = {
     style: PropTypes.object,
 
     pageSize: PropTypes.number,
+    pageSizes: PropTypes.arrayOf(PropTypes.number),
 
     onPageSizeChange: PropTypes.func
 
@@ -64,6 +59,7 @@ PaggingSize.defaultProps = {
     className: '',
     style: null,
 
-    pageSize: 10
+    pageSize: 10,
+    pageSizes: [5, 10, 15, 20]
 
 };

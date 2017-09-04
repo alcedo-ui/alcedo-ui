@@ -217,12 +217,12 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                renderer, onFilterPressEnter, onItemTouchTap, onFilterClear
+                renderer, onItemTouchTap, onFilterClear
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
             emptyEl = [{
-                renderer() {
+                itemRenderer() {
                     return (
                         <div className="no-matched-list-item">
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -29,11 +29,7 @@ export default class ListItem extends Component {
 
         this.checkboxChangeHandler = this::this.checkboxChangeHandler;
         this.radioChangeHandler = this::this.radioChangeHandler;
-        this.clickHandler = this::this.clickHandler;
-        this.startRipple = this::this.startRipple;
-        this.endRipple = this::this.endRipple;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseLeaveHandler = this::this.mouseLeaveHandler;
+        this.touchTapHandler = this::this.touchTapHandler;
 
     }
 
@@ -68,7 +64,9 @@ export default class ListItem extends Component {
 
     }
 
-    clickHandler(e) {
+    touchTapHandler(e) {
+
+        e.preventDefault();
 
         const {disabled, isLoading, readOnly} = this.props;
 
@@ -92,24 +90,6 @@ export default class ListItem extends Component {
 
     }
 
-    startRipple(e) {
-        this.refs.touchRipple.addRipple(e);
-    }
-
-    endRipple() {
-        this.refs.touchRipple.removeRipple();
-    }
-
-    mouseEnterHandler(e) {
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
-    mouseLeaveHandler(e) {
-        const {onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
             this.setState({
@@ -122,7 +102,8 @@ export default class ListItem extends Component {
 
         const {
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
 
@@ -131,22 +112,23 @@ export default class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer className='block'
-                          text={tip}
-                          tipPosition={tipPosition}>
+            <TipProvider className='block'
+                         text={tip}
+                         tipPosition={tipPosition}>
 
                 <div className={'list-item' + listItemClassName}
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
-                     onClick={this.clickHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseLeave={this.mouseLeaveHandler}>
+                     onTouchTap={this.touchTapHandler}
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
                     {
                         mode === ListItem.Mode.CHECKBOX ?
                             <Checkbox className="list-item-checkbox"
-                                      value={checked}/>
+                                      value={checked}
+                                      disabled={disabled || isLoading}/>
                             :
                             null
                     }
@@ -161,8 +143,10 @@ export default class ListItem extends Component {
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
-                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                             size="small"/>
+                            <div className="button-icon button-icon-left">
+                                <CircularLoading className="button-loading-icon"
+                                                 size="small"/>
+                            </div>
                             :
                             (
                                 iconCls ?
@@ -221,7 +205,7 @@ export default class ListItem extends Component {
                     }
 
                 </div>
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -299,7 +283,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipContainer.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      *
@@ -381,7 +365,7 @@ ListItem.defaultProps = {
     rightIconCls: '',
 
     tip: '',
-    tipPosition: TipContainer.Position.BOTTOM,
+    tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 

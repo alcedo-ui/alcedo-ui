@@ -5,6 +5,9 @@ import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
 import Ripple from '../_Ripple';
 
+import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
+
 import './TouchRipple.css';
 
 export default class TouchRipple extends Component {
@@ -22,22 +25,11 @@ export default class TouchRipple extends Component {
         };
 
         this.getRippleStyle = this::this.getRippleStyle;
+        this.addRipple = this::this.addRipple;
+        this.removeRipple = this::this.removeRipple;
         this.clearRippleTimeout = this::this.clearRippleTimeout;
         this.mouseDownHandle = this::this.mouseDownHandle;
-        this.mouseUpHandle = this::this.mouseUpHandle;
 
-    }
-
-    getDiag(a, b) {
-        return Math.sqrt((a * a) + (b * b));
-    }
-
-    getOffset(el) {
-        let rect = el.getBoundingClientRect();
-        return {
-            offsetTop: rect.top + document.body.scrollTop,
-            offsetLeft: rect.left + document.body.scrollLeft
-        };
     }
 
     getRippleStyle(e) {
@@ -58,17 +50,17 @@ export default class TouchRipple extends Component {
             pointerX = elWidth / 2;
             pointerY = elHeight / 2;
         } else {
-            const {offsetTop, offsetLeft} = this.getOffset(el);
-            pointerX = e.pageX - offsetLeft;
-            pointerY = e.pageY - offsetTop;
+            const {top, left} = Dom.getOffset(el);
+            pointerX = e.pageX - left;
+            pointerY = e.pageY - top;
         }
 
         // 涟漪半径为4个距离的最大值
         const rippleRadius = Math.max(
-            this.getDiag(pointerX, pointerY),
-            this.getDiag(elWidth - pointerX, pointerY),
-            this.getDiag(elWidth - pointerX, elHeight - pointerY),
-            this.getDiag(pointerX, elHeight - pointerY)
+            Util.getDiag(pointerX, pointerY),
+            Util.getDiag(elWidth - pointerX, pointerY),
+            Util.getDiag(elWidth - pointerX, elHeight - pointerY),
+            Util.getDiag(pointerX, elHeight - pointerY)
         );
         const rippleSize = rippleRadius * 2;
 
@@ -135,10 +127,6 @@ export default class TouchRipple extends Component {
 
     }
 
-    mouseUpHandle() {
-        this.removeRipple();
-    }
-
     componentWillUnmount() {
         this.clearRippleTimeout();
     }
@@ -153,7 +141,8 @@ export default class TouchRipple extends Component {
                                      className={`touch-ripple ${className}`}
                                      style={style}
                                      onMouseDown={this.mouseDownHandle}
-                                     onMouseUp={this.mouseUpHandle}>
+                                     onMouseUp={this.removeRipple}
+                                     onMouseLeave={this.removeRipple}>
                 {
                     ripples && ripples.length > 0 ?
                         ripples

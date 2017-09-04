@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading';
-import TipContainer from '../TipContainer';
+import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
@@ -16,15 +16,40 @@ export default class BaseButton extends Component {
 
         super(props);
 
-        this.clickHandle = this::this.clickHandle;
+        this.state = {
+            focused: false
+        };
+
+        this.touchTapHandler = this::this.touchTapHandler;
+        this.focusHandler = this::this.focusHandler;
+        this.blurHandler = this::this.blurHandler;
         this.startRipple = this::this.startRipple;
         this.endRipple = this::this.endRipple;
 
     }
 
-    clickHandle(e) {
+    touchTapHandler(e) {
+        e.preventDefault();
         const {disabled, isLoading, onTouchTap} = this.props;
         !disabled && !isLoading && onTouchTap && onTouchTap(e);
+    }
+
+    focusHandler(e) {
+        this.setState({
+            focused: true
+        }, () => {
+            const {onFocus} = this.props;
+            onFocus && onFocus(e);
+        });
+    }
+
+    blurHandler(e) {
+        this.setState({
+            focused: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(e);
+        });
     }
 
     startRipple(e) {
@@ -39,25 +64,29 @@ export default class BaseButton extends Component {
 
         const {
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
-                iconCls, rightIconCls, type, value, disabled, isLoading, rippleDisplayCenter,
+                iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
                 tip, tipPosition, renderer, onMouseEnter, onMouseLeave
             } = this.props,
+            {focused} = this.state,
 
-            buttonClassName = (theme ? ` theme-${theme}` : '')
+            buttonClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
                 + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
                 + (className ? ' ' + className : ''),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipContainer text={tip}
-                          position={tipPosition}>
+            <TipProvider text={tip}
+                         position={tipPosition}>
 
                 <button className={'base-button' + buttonClassName}
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
-                        onClick={this.clickHandle}
+                        readOnly={readOnly}
+                        onTouchTap={this.touchTapHandler}
+                        onFocus={this.focusHandler}
+                        onBlur={this.blurHandler}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}>
 
@@ -79,7 +108,7 @@ export default class BaseButton extends Component {
                         renderer && typeof renderer === 'function' ?
                             renderer(this.props)
                             :
-                            value
+                            <span className="base-button-value">{value}</span>
                     }
 
                     {
@@ -109,7 +138,7 @@ export default class BaseButton extends Component {
 
                 </button>
 
-            </TipContainer>
+            </TipProvider>
         );
 
     }
@@ -127,6 +156,7 @@ BaseButton.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     type: PropTypes.string,
     disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
     isLoading: PropTypes.bool,
     disableTouchRipple: PropTypes.bool,
 
@@ -140,6 +170,8 @@ BaseButton.propTypes = {
 
     renderer: PropTypes.func,
     onTouchTap: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
@@ -156,6 +188,7 @@ BaseButton.defaultProps = {
 
     value: '',
     disabled: false,
+    readOnly: false,
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
