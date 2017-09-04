@@ -79,6 +79,16 @@ function calExpandMenuName(menu, lastValue) {
 
 }
 
+function getActivatedMenu() {
+
+    if (!location.hash || !location.hash.slice(1)) {
+        return;
+    }
+
+
+
+}
+
 const initialMenu = getMenu(),
     initialState = {
 
@@ -86,7 +96,7 @@ const initialMenu = getMenu(),
 
         menu: initialMenu,
 
-        activatedMenu: null,
+        activatedMenu: getActivatedMenu(),
 
         navMenuCollapsed: true,
 
