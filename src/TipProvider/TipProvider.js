@@ -29,7 +29,7 @@ export default class TipProvider extends Component {
         if (!this.state.tipVisible) {
             this.setState({
                 tipVisible: true,
-                triggerEl: e.currentTarget
+                triggerEl: e.target
             });
         }
     }
