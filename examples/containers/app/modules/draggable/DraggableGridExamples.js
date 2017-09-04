@@ -21,7 +21,8 @@ export default class DraggableGridExamples extends Component {
 
         this.listData = [{
             iconCls: 'fa fa-facebook',
-            text: 'Facebook'
+            text: 'Facebook',
+            tip: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
             text: 'Twitter'
