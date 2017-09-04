@@ -93,6 +93,15 @@ class App extends Component {
                     <Route path="/components/FlatButton"
                            component={asyncComponent(() =>
                                import('containers/app/modules/buttons/FlatButtonExamples'))}/>
+                    <Route path="/components/GhostButton"
+                           component={asyncComponent(() =>
+                               import('containers/app/modules/buttons/GhostButtonExamples'))}/>
+                    <Route path="/components/IconButton"
+                           component={asyncComponent(() =>
+                               import('containers/app/modules/buttons/IconButtonExamples'))}/>
+                    <Route path="/components/IconAnchor"
+                           component={asyncComponent(() =>
+                               import('containers/app/modules/buttons/IconAnchorExamples'))}/>
 
                     {
                         !$isDesktop && !$navMenuCollapsed ?
