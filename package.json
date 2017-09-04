@@ -7,8 +7,8 @@
     "scripts": {
         "build:propType": "rimraf examples/assets/propTypes && gulp propType",
         "build:index": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
-        "build:components": "rimraf dist && npm run build:index && gulp build",
-        "watch:components": "npm run build:components && npm run build:propType && gulp watch",
+        "build:components": "rimraf dist && npm run build:index && gulp build && npm run build:propType",
+        "watch:components": "npm run build:components && gulp watch",
         "dev:example": "node build/dev/dev-server.js",
         "build:example": "rimraf docs && npm run build:components && npm run build:propType && node build/prod/prod.js",
         "run:demo": "node build/demo/demo-server.js",
@@ -43,6 +43,7 @@
         "react-router": "^4.1.2",
         "react-router-dom": "^4.1.2",
         "react-router-redux": "^5.0.0-alpha.6",
+        "react-tap-event-plugin": "^2.0.1",
         "redux": "^3.7.2",
         "redux-thunk": "^2.2.0"
     },

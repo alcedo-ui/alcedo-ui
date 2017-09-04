@@ -1,6 +1,7 @@
 export Accordion from './Accordion';
 export ArrowStep from './ArrowStep';
 export BriefPagging from './BriefPagging';
+export Bundle from './Bundle';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
 export CascaderField from './CascaderField';
@@ -68,4 +69,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 69;
+export const COMPONENTS_TOTAL_COUNT = 70;
