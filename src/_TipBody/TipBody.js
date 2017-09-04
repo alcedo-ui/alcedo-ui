@@ -267,7 +267,7 @@ TipBody.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Override the styles of the root element.
+     * Tip text.
      */
     text: PropTypes.string,
 
