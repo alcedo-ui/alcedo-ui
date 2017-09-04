@@ -26,10 +26,12 @@ export default class TipProvider extends Component {
     }
 
     showTip(e) {
-        this.setState({
-            tipVisible: true,
-            triggerEl: e.currentTarget
-        });
+        if (!this.state.tipVisible) {
+            this.setState({
+                tipVisible: true,
+                triggerEl: e.currentTarget
+            });
+        }
     }
 
     hideTip() {
@@ -54,6 +56,9 @@ export default class TipProvider extends Component {
                  style={style}>
 
                 <div className="children-wrapper"
+                     onMouseOver={e => {
+                         this.showTip(e);
+                     }}
                      onMouseEnter={e => {
                          this.showTip(e);
                      }}>
