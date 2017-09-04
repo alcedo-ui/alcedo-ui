@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import * as types from 'reduxes/actionTypes';
 import DEFAULT_MENU from 'examples/config.menu';
+import Util from 'vendors/Util';
 
 function filterMenu(menu, filter) {
 
@@ -85,7 +86,18 @@ function getActivatedMenu() {
         return;
     }
 
+    let result;
 
+    Util.preOrderTraverse({
+        children: DEFAULT_MENU
+    }, node => {
+        if (node && node.route && node.route === location.hash.slice(1)) {
+            result = node;
+            return false;
+        }
+    });
+
+    return result;
 
 }
 

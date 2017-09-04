@@ -120,13 +120,13 @@ function value2Moment(value, format) {
 
 function preOrderTraverse(node, callback, deep = 0) {
 
-    if (!callback.call(this, node, deep)) {
+    if (callback(node, deep) === false) {
         return;
     }
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            preOrderTraverse.call(this, node.children[i], callback, deep + 1);
+            preOrderTraverse(node.children[i], callback, deep + 1);
         }
     }
 
