@@ -404,6 +404,25 @@ export default [{
                     })
                 },
 
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/DraggableList',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "DraggableListExamples" */
+                            'modules/draggable/DraggableListExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/DraggableGrid',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "DraggableGridExamples" */
+                            'modules/draggable/DraggableGridExamples'
+                            );
+                    })
+                },
+
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/ArrowStep',
