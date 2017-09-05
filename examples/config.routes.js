@@ -10,10 +10,61 @@ export default [{
         component: AppRoot,
         routes: [{
             path: '/landing',
-            component: asyncComponent(() => import(/* webpackChunkName: "Landing" */ 'containers/landing/Landing'))
+            component: asyncComponent(() => {
+                return import(
+                    /* webpackChunkName: "Landing" */
+                    'containers/landing/Landing'
+                    );
+            })
         }, {
             path: '/components',
-            component: asyncComponent(() => import(/* webpackChunkName: "App" */ 'containers/app/App'))
+            component: asyncComponent(() => {
+                return import(
+                    /* webpackChunkName: "App" */
+                    'containers/app/App'
+                    );
+            }),
+            routes: [{
+                path: '/components/RaisedButton',
+                component: asyncComponent(() => {
+                    return import(
+                        /* webpackChunkName: "RaisedButtonExamples" */
+                        'containers/app/modules/buttons/RaisedButtonExamples'
+                        );
+                })
+            }, {
+                path: '/components/FlatButton',
+                component: asyncComponent(() => {
+                    return import(
+                        /* webpackChunkName: "FlatButtonExamples" */
+                        'containers/app/modules/buttons/FlatButtonExamples'
+                        );
+                })
+            }, {
+                path: '/components/GhostButton',
+                component: asyncComponent(() => {
+                    return import(
+                        /* webpackChunkName: "GhostButtonExamples" */
+                        'containers/app/modules/buttons/GhostButtonExamples'
+                        );
+                })
+            }, {
+                path: '/components/IconButton',
+                component: asyncComponent(() => {
+                    return import(
+                        /* webpackChunkName: "IconButtonExamples" */
+                        'containers/app/modules/buttons/IconButtonExamples'
+                        );
+                })
+            }, {
+                path: '/components/IconAnchor',
+                component: asyncComponent(() => {
+                    return import(
+                        /* webpackChunkName: "IconAnchorExamples" */
+                        'containers/app/modules/buttons/IconAnchorExamples'
+                        );
+                })
+            }]
         }]
     }]
 }];

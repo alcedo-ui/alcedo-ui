@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Route, Redirect} from 'react-router';
+import {renderRoutes} from 'react-router-config';
 
 import * as actions from 'reduxes/actions';
 
@@ -52,7 +53,10 @@ class App extends Component {
 
     render() {
 
-        const {$isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu, updateActivatedMenu} = this.props,
+        const {
+                route, location,
+                $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu, updateActivatedMenu
+            } = this.props,
             {loading} = this.state;
 
         return (
@@ -75,33 +79,14 @@ class App extends Component {
                 <div ref="appContent"
                      className="app-content">
 
-                    <Route exact path="/components"
-                           render={() => {
+                    {renderRoutes(route.routes)}
 
-                               updateActivatedMenu(DEFAULT_MENU[0].children[0]);
-
-                               return (
-                                   <Redirect to="/components/RaisedButton"
-                                             component={asyncComponent(() =>
-                                                 import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
-                               );
-
-                           }}/>
-                    <Route path="/components/RaisedButton"
-                           component={asyncComponent(() =>
-                               import('containers/app/modules/buttons/RaisedButtonExamples'))}/>
-                    <Route path="/components/FlatButton"
-                           component={asyncComponent(() =>
-                               import('containers/app/modules/buttons/FlatButtonExamples'))}/>
-                    <Route path="/components/GhostButton"
-                           component={asyncComponent(() =>
-                               import('containers/app/modules/buttons/GhostButtonExamples'))}/>
-                    <Route path="/components/IconButton"
-                           component={asyncComponent(() =>
-                               import('containers/app/modules/buttons/IconButtonExamples'))}/>
-                    <Route path="/components/IconAnchor"
-                           component={asyncComponent(() =>
-                               import('containers/app/modules/buttons/IconAnchorExamples'))}/>
+                    {
+                        location.pathname === '/components' ?
+                            <Redirect from="/components" to="/components/RaisedButton"/>
+                            :
+                            null
+                    }
 
                     {
                         !$isDesktop && !$navMenuCollapsed ?
