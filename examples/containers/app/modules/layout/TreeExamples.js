@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'dist/Widget/index';
+import WidgetHeader from 'dist/WidgetHeader/index';
 import PropTypeDescTable from '../PropTypeDescTable';
-import Tree from 'dist/Tree';
-import TreeDoc from 'assets/propTypes/Tree.json';
+import Tree from 'dist/Tree/index';
+import TreeDoc from 'examples/assets/propTypes/Tree.json';
 
-import 'sass/containers/app/modules/fields/TreeExamples.scss';
+import 'sass/containers/app/modules/layout/TreeExamples.scss';
 
 export default class TreeExamples extends Component {
 

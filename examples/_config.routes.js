@@ -181,7 +181,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/TreeExamples').default);
+                           cb(null, require('containers/app/modules/layout/TreeExamples').default);
                            loadCompleteCallback();
                        }, 'TreeExamples');
                    }}/>

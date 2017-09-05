@@ -135,14 +135,6 @@ export default [{
                             );
                     })
                 }, {
-                    path: '/components/Tree',
-                    component: asyncComponent(() => {
-                        return import(
-                            /* webpackChunkName: "TreeExamples" */
-                            'modules/fields/TreeExamples'
-                            );
-                    })
-                }, {
                     path: '/components/Checkbox',
                     component: asyncComponent(() => {
                         return import(
@@ -400,6 +392,14 @@ export default [{
                         return import(
                             /* webpackChunkName: "GridExamples" */
                             'modules/layout/GridExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Tree',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "TreeExamples" */
+                            'modules/layout/TreeExamples'
                             );
                     })
                 },
