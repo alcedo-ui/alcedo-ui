@@ -111,38 +111,6 @@ export default [{
                             );
                     })
                 }, {
-                    path: '/components/DatePicker',
-                    component: asyncComponent(() => {
-                        return import(
-                            /* webpackChunkName: "DatePickerExamples" */
-                            'modules/fields/DatePickerExamples'
-                            );
-                    })
-                }, {
-                    path: '/components/DateRangePicker',
-                    component: asyncComponent(() => {
-                        return import(
-                            /* webpackChunkName: "DateRangePickerExamples" */
-                            'modules/fields/DateRangePickerExamples'
-                            );
-                    })
-                }, {
-                    path: '/components/TimePicker',
-                    component: asyncComponent(() => {
-                        return import(
-                            /* webpackChunkName: "TimePickerExamples" */
-                            'modules/fields/TimePickerExamples'
-                            );
-                    })
-                }, {
-                    path: '/components/DateTimePicker',
-                    component: asyncComponent(() => {
-                        return import(
-                            /* webpackChunkName: "DateTimePickerExamples" */
-                            'modules/fields/DateTimePickerExamples'
-                            );
-                    })
-                }, {
                     path: '/components/DropdownSelect',
                     component: asyncComponent(() => {
                         return import(
@@ -276,6 +244,41 @@ export default [{
                         return import(
                             /* webpackChunkName: "EditableSelectExamples" */
                             'modules/fields/EditableSelectExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/DatePicker',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "DatePickerExamples" */
+                            'modules/date/DatePickerExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/DateRangePicker',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "DateRangePickerExamples" */
+                            'modules/date/DateRangePickerExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/TimePicker',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "TimePickerExamples" */
+                            'modules/date/TimePickerExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/DateTimePicker',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "DateTimePickerExamples" */
+                            'modules/date/DateTimePickerExamples'
                             );
                     })
                 },
