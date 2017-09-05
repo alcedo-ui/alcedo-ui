@@ -67,6 +67,17 @@ export default [{
                             'modules/buttons/IconAnchorExamples'
                             );
                     })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/CascaderField',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "CascaderFieldExamples" */
+                            'modules/fields/CascaderFieldExamples'
+                            );
+                    })
                 }
             ]
         }]
