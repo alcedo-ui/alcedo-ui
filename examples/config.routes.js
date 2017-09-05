@@ -289,6 +289,116 @@ export default [{
                             'modules/popup/DialogExamples'
                             );
                     })
+                }, {
+                    path: '/components/Popup',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "PopupExamples" */
+                            'modules/popup/PopupExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Menu',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "MenuExamples" */
+                            'modules/popup/MenuExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/CircularProgress',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "CircularProgressExample" */
+                            'modules/progress/CircularProgressExample'
+                            );
+                    })
+                }, {
+                    path: '/components/LinearProgress',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "LinearProgressExample" */
+                            'modules/progress/LinearProgressExample'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/Paper',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "PaperExamples" */
+                            'modules/layout/PaperExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Widget',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "WidgetExamples" */
+                            'modules/layout/WidgetExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/List',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "ListExamples" */
+                            'modules/layout/ListExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/CascaderList',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "CascaderListExamples" */
+                            'modules/layout/CascaderListExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Tab',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "TabExamples" */
+                            'modules/layout/TabExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Accordion',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "AccordionExamples" */
+                            'modules/layout/AccordionExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Table',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "TableExamples" */
+                            'modules/layout/TableExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Waterfall',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "WaterfallExamples" */
+                            'modules/layout/WaterfallExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Grid',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "GridExamples" */
+                            'modules/layout/GridExamples'
+                            );
+                    })
                 }
             ]
         }]
