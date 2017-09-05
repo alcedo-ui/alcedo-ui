@@ -97,9 +97,6 @@ export default [{
         text: 'TreeSelect',
         route: '/components/TreeSelect'
     }, {
-        text: 'Tree',
-        route: '/components/Tree'
-    }, {
         text: 'TagField',
         route: '/components/TagField'
     }, {
@@ -147,6 +144,9 @@ export default [{
     }, {
         text: 'Grid',
         route: '/components/Grid'
+    }, {
+        text: 'Tree',
+        route: '/components/Tree'
     }]
 }, {
     text: 'Draggable',
