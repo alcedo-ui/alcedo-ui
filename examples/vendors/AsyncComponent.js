@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
-export function asyncComponent(getComponent) {
+import * as types from 'reduxes/actionTypes';
+
+export function asyncComponent(store, getComponent) {
 
     return class AsyncComponent extends Component {
 
@@ -17,12 +19,22 @@ export function asyncComponent(getComponent) {
         }
 
         componentWillMount() {
+
             if (!this.state.Component) {
+
+                store.dispatch({type: types.LOAD_COMPONENT_START});
+
                 getComponent().then(({default: Component}) => {
                     AsyncComponent.Component = Component;
-                    this.setState({Component});
+                    this.setState({
+                        Component
+                    }, () => {
+                        store.dispatch({type: types.LOAD_COMPONENT_COMPLETE});
+                    });
                 });
+
             }
+
         }
 
         render() {
