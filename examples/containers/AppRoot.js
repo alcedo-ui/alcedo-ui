@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {renderRoutes} from 'react-router-config';
-import {Redirect, withRouter} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import * as actions from 'reduxes/actions';
 import Event from 'vendors/Event';
@@ -43,13 +43,16 @@ class AppRoot extends Component {
     }
 
     render() {
+
+        const {route, location} = this.props;
+
         return (
             <div className="app-root">
 
-                {renderRoutes(this.props.route.routes)}
+                {renderRoutes(route.routes)}
 
                 {
-                    location.hash.slice(1) === '/' ?
+                    location.pathname === '/' ?
                         <Redirect from="/" to="/landing"/>
                         :
                         null
@@ -75,4 +78,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppRoot));
+export default connect(mapStateToProps, mapDispatchToProps)(AppRoot);
