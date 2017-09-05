@@ -3,14 +3,14 @@
  */
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import CascaderList from 'dist/CascaderList';
+import Widget from 'dist/Widget/index';
+import WidgetHeader from 'dist/WidgetHeader/index';
+import CascaderList from 'dist/CascaderList/index';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import CascaderListDoc from '../../../../assets/propTypes/CascaderList.json';
+import CascaderListDoc from 'assets/propTypes/CascaderList.json';
 
-import '../../../../assets/sass/containers/app/modules/fields/CascaderListExamples.scss';
+import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
 
 export default class CascaderListExamples extends Component {
 
@@ -21,7 +21,7 @@ export default class CascaderListExamples extends Component {
             value: 'Asia',
             children: [{
                 text: 'Korea',
-                value: 'Korea',
+                value: 'Korea'
             }, {
                 text: 'Japan',
                 value: 'Japan',
@@ -40,13 +40,13 @@ export default class CascaderListExamples extends Component {
                 value: 'China',
                 children: [{
                     text: 'Shanghai',
-                    value: 'Shanghai',
+                    value: 'Shanghai'
                 }, {
                     text: 'Beijing',
-                    value: 'Beijing',
+                    value: 'Beijing'
                 }, {
                     text: 'Shenzhen',
-                    value: 'Shenzhen',
+                    value: 'Shenzhen'
                 }]
             }]
         }, {
@@ -77,11 +77,11 @@ export default class CascaderListExamples extends Component {
             value: 'Africa'
         }, {
             text: 'Oceania',
-            value: 'Oceania',
+            value: 'Oceania'
         }, {
             text: 'Antarctica',
             value: 'Antarctica'
-        }]
+        }];
 
     }
 
@@ -149,7 +149,7 @@ export default class CascaderListExamples extends Component {
                 <PropTypeDescTable data={CascaderListDoc}/>
 
             </div>
-        )
+        );
     }
 
 }

@@ -85,7 +85,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/fields/CascaderListExamples.js').default);
+                           cb(null, require('containers/app/modules/layout/CascaderListExamples.js').default);
                            loadCompleteCallback();
                        }, 'CascaderListExamples');
                    }}/>
