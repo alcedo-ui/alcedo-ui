@@ -26,7 +26,7 @@ export default [{
             }),
             routes: [
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- buttons -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- buttons -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/RaisedButton',
                     component: asyncComponent(() => {
@@ -69,7 +69,7 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/CascaderField',
                     component: asyncComponent(() => {
@@ -280,7 +280,7 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Dialog',
                     component: asyncComponent(() => {
@@ -307,7 +307,7 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/CircularProgress',
                     component: asyncComponent(() => {
@@ -326,7 +326,7 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Paper',
                     component: asyncComponent(() => {
@@ -401,7 +401,7 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/ArrowStep',
                     component: asyncComponent(() => {
@@ -436,7 +436,7 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Toaster',
                     component: asyncComponent(() => {
@@ -455,13 +455,62 @@ export default [{
                     })
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/TimeLine',
                     component: asyncComponent(() => {
                         return import(
                             /* webpackChunkName: "TimeLineExamples" */
-                            'modules/timeLine/TipExampTimeLineExamplesles'
+                            'modules/timeLine/TimeLineExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/SpanLoading',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "SpanLoadingExamples" */
+                            'modules/loading/SpanLoadingExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/CircularLoading',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "CircularLoadingExamples" */
+                            'modules/loading/CircularLoadingExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- material design -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/MaterialTextField',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "MaterialTextFieldExamples" */
+                            'modules/materialDesign/MaterialTextFieldExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/MaterialDropdownSelect',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "MaterialDropdownSelectExamples" */
+                            'modules/materialDesign/MaterialDropdownSelectExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/LazyImage',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "LazyImageExamples" */
+                            'modules/media/LazyImageExamples'
                             );
                     })
                 }
