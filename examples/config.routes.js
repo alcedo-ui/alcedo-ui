@@ -28,7 +28,7 @@ export default function configureRoutes(store) {
                 }),
                 routes: [
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- buttons -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- buttons -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/RaisedButton',
                         component: asyncComponent(store, () => {
@@ -71,7 +71,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/CascaderField',
                         component: asyncComponent(store, () => {
@@ -242,7 +242,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/DatePicker',
                         component: asyncComponent(store, () => {
@@ -277,7 +277,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/Dialog',
                         component: asyncComponent(store, () => {
@@ -304,7 +304,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/CircularProgress',
                         component: asyncComponent(store, () => {
@@ -323,7 +323,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/Paper',
                         component: asyncComponent(store, () => {
@@ -406,7 +406,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/DraggableList',
                         component: asyncComponent(store, () => {
@@ -425,7 +425,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/ArrowStep',
                         component: asyncComponent(store, () => {
@@ -460,7 +460,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/Toaster',
                         component: asyncComponent(store, () => {
@@ -479,7 +479,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/TimeLine',
                         component: asyncComponent(store, () => {
@@ -490,7 +490,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/SpanLoading',
                         component: asyncComponent(store, () => {
@@ -509,7 +509,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- material design -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- material design -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/MaterialTextField',
                         component: asyncComponent(store, () => {
@@ -528,7 +528,7 @@ export default function configureRoutes(store) {
                         })
                     },
 
-                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                    /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                     {
                         path: '/components/LazyImage',
                         component: asyncComponent(store, () => {
