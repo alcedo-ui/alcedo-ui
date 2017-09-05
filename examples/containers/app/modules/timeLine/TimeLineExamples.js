@@ -12,7 +12,7 @@ import Theme from 'dist/Theme';
 import PropTypeDescTable from '../PropTypeDescTable';
 import TimeLineDoc from 'assets/propTypes/TimeLine.json';
 
-import 'sass/containers/app/modules/TimeLine/TimeLineExamples.scss';
+import 'sass/containers/app/modules/timeLine/TimeLineExamples.scss';
 
 export default class TimeLineExamples extends Component {
 

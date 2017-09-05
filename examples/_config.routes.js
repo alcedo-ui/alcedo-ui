@@ -475,7 +475,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/TimeLine/TimeLineExamples').default);
+                           cb(null, require('containers/app/modules/timeLine/TimeLineExamples').default);
                            loadCompleteCallback();
                        }, 'TimeLineExamples');
                    }}/>
@@ -503,7 +503,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/MaterialDesign/MaterialTextFieldExamples').default);
+                           cb(null, require('containers/app/modules/materialDesign/MaterialTextFieldExamples').default);
                            loadCompleteCallback();
                        }, 'MaterialTextFieldExamples');
                    }}/>
@@ -511,7 +511,7 @@ export default function configureRoute(store) {
                    getComponent={(nextState, cb) => {
                        loadStartCallback();
                        require.ensure([], (require) => {
-                           cb(null, require('containers/app/modules/MaterialDesign/MaterialDropdownSelectExamples').default);
+                           cb(null, require('containers/app/modules/materialDesign/MaterialDropdownSelectExamples').default);
                            loadCompleteCallback();
                        }, 'MaterialDropdownSelectExamples');
                    }}/>

@@ -7,7 +7,7 @@ import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import RateDoc from 'assets/propTypes/Rate.json';
 
-import 'sass/containers/app/modules/Rate/RateExamples.scss';
+import 'sass/containers/app/modules/fields/RateExamples.scss';
 
 export default class RateExamples extends Component {
 

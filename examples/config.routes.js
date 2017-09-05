@@ -399,6 +399,71 @@ export default [{
                             'modules/layout/GridExamples'
                             );
                     })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/ArrowStep',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "ArrowStepExamples" */
+                            'modules/stepper/ArrowStepExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/RoundStep',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "RoundStepExamples" */
+                            'modules/stepper/RoundStepExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/ListStep',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "ListStepExamples" */
+                            'modules/stepper/ListStepExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/DotStep',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "DotStepExamples" */
+                            'modules/stepper/DotStepExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/Toaster',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "ToasterExamples" */
+                            'modules/message/ToasterExamples'
+                            );
+                    })
+                }, {
+                    path: '/components/Tip',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "TipExamples" */
+                            'modules/message/TipExamples'
+                            );
+                    })
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/TimeLine',
+                    component: asyncComponent(() => {
+                        return import(
+                            /* webpackChunkName: "TimeLineExamples" */
+                            'modules/timeLine/TipExampTimeLineExamplesles'
+                            );
+                    })
                 }
             ]
         }]

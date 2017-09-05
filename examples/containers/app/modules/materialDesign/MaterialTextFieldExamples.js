@@ -7,7 +7,7 @@ import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialTextField from 'dist/MaterialTextField';
 import MaterialTextFieldDoc from 'assets/propTypes/MaterialTextField.json';
 
-import 'sass/containers/app/modules/MaterialDesign/MaterialTextFieldExamples.scss';
+import 'sass/containers/app/modules/materialDesign/MaterialTextFieldExamples.scss';
 
 export default class MaterialTextFieldExamples extends Component {
 
