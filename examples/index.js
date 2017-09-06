@@ -11,8 +11,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import configureStore from 'reduxes/store';
 import configureRoutes from './config.routes';
 
-const history = createHashHistory();
-const store = configureStore(history);
+const history = createHashHistory(),
+    store = configureStore(history);
+
 injectTapEventPlugin();
 
 render(
