@@ -18,18 +18,30 @@ export function asyncComponent(store, getComponent) {
 
         }
 
+        loadStartCallback() {
+            setTimeout(() => {
+                store.dispatch({type: types.LOAD_COMPONENT_START});
+            }, 0);
+        }
+
+        loadCompleteCallback() {
+            setTimeout(() => {
+                store.dispatch({type: types.LOAD_COMPONENT_COMPLETE});
+            }, 0);
+        }
+
         componentWillMount() {
 
             if (!this.state.Component) {
 
-                store.dispatch({type: types.LOAD_COMPONENT_START});
+                this.loadStartCallback();
 
                 getComponent().then(({default: Component}) => {
                     AsyncComponent.Component = Component;
                     this.setState({
                         Component
                     }, () => {
-                        store.dispatch({type: types.LOAD_COMPONENT_COMPLETE});
+                        this.loadCompleteCallback();
                     });
                 });
 
