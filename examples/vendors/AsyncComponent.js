@@ -60,3 +60,5 @@ export function asyncComponent(store, getComponent) {
     };
 
 }
+
+export const ac = asyncComponent;
