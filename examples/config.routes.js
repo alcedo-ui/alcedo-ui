@@ -1,4 +1,4 @@
-import {ac} from 'vendors/ac';
+import {ac} from 'vendors/AsyncComponent';
 
 import AppRoot from 'examples/containers/AppRoot';
 
