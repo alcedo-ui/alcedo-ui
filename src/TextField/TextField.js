@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -180,17 +181,27 @@ export default class TextField extends Component {
     }
 
     blurHandle(e) {
+
+        if (e.relatedTarget == this.clearButtonEl) {
+            return;
+        }
+
         this.setState({
             isFocused: false
         }, () => {
             this.props.onBlur && this.props.onBlur(this.state.value, e);
         });
+
     }
 
     componentDidMount() {
+
         if (this.props.autoFocus === true) {
             this.refs.input.focus();
         }
+
+        this.clearButtonEl = findDOMNode(this.refs.clearButton);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -259,7 +270,8 @@ export default class TextField extends Component {
                        onFocus={this.focusHandle}
                        onBlur={this.blurHandle}/>
 
-                <IconButton className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
+                <IconButton ref="clearButton"
+                            className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
                             iconCls="fa fa-times-circle"
                             onTouchTap={this.clearValue}/>
 
