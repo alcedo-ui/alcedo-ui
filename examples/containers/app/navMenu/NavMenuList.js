@@ -5,27 +5,13 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
+import PreventOuterScroller from 'dist/PreventOuterScroller';
 import NavMenuItem from './NavMenuItem';
 
 class NavMenuList extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.wheelHandler = this::this.wheelHandler;
-
-    }
-
-    wheelHandler(e) {
-
-        const {currentTarget, deltaY} = e,
-            {clientHeight, scrollHeight, scrollTop} = currentTarget;
-
-        if ((deltaY < 0 && scrollTop <= 0)
-            || (deltaY > 0 && scrollTop >= scrollHeight - clientHeight)) {
-            e.preventDefault();
-        }
     }
 
     render() {
@@ -33,8 +19,7 @@ class NavMenuList extends Component {
         const {$navMenu, $expandMenuName, $activatedMenu, expandMenu, updateActivatedMenu} = this.props;
 
         return (
-            <div className="nav-menu-list"
-                 onWheel={this.wheelHandler}>
+            <PreventOuterScroller className="nav-menu-list">
                 <div className="nav-menu-scroller">
                     {
                         $navMenu.map((menu, index) => {
@@ -49,7 +34,7 @@ class NavMenuList extends Component {
                         })
                     }
                 </div>
-            </div>
+            </PreventOuterScroller>
         );
 
     }
