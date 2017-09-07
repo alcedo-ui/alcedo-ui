@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Route, Redirect} from 'react-router';
+import {Redirect} from 'react-router';
 import {renderRoutes} from 'react-router-config';
 
 import * as actions from 'reduxes/actions';
@@ -11,9 +11,6 @@ import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 import PageLoading from 'dist/PageLoading';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
-import DEFAULT_MENU from 'examples/config.menu';
-
-import {asyncComponent} from 'vendors/AsyncComponent';
 
 import 'sass/containers/app/App.scss';
 import 'sass/containers/app/example.scss';
