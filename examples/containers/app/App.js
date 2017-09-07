@@ -52,7 +52,7 @@ class App extends Component {
 
         const {
                 route, location,
-                $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu, updateActivatedMenu
+                $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu
             } = this.props,
             {loading} = this.state;
 
@@ -107,8 +107,7 @@ App.propTypes = {
     $navMenuCollapsed: PropTypes.bool,
     $componentLoading: PropTypes.bool,
 
-    expandActivatedMenu: PropTypes.func,
-    updateActivatedMenu: PropTypes.func
+    expandActivatedMenu: PropTypes.func
 
 };
 
