@@ -16,6 +16,10 @@ export default class TextAreaExamples extends Component{
         super();
     }
 
+    onChangeHandle(value){
+        console.log(value)
+    }
+
     render() {
         return (
             <div className="example">
@@ -42,7 +46,7 @@ export default class TextAreaExamples extends Component{
                     <div className="widget-content">
                         <div className="example-content">
                             <p>TextArea with regular size.</p>
-                            <TextArea autoSize={false} initialHeight={100}/>
+                            <TextArea autoSize={false} initialHeight={100} onChange={this.onChangeHandle}/>
                         </div>
                     </div>
                 </Widget>
