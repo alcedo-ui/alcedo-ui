@@ -64,6 +64,7 @@ export default class TextArea extends Component {
     /**
      * input变化时，如果为autoSize，则控制高度，使之随内容变化而变化
      */
+
     onChange(ev) {
         const {initialHeight, maxHeight, autoSize} = this.props;
         const oEvent = ev || event;
@@ -87,8 +88,9 @@ export default class TextArea extends Component {
 
         this.setState({
             value: target.value
-        }, () => this.props.onChange && this.props.onChange());
-
+        }, ()=>{
+            this.props.onChange && this.props.onChange(target.value)
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -150,8 +152,7 @@ export default class TextArea extends Component {
                       spellCheck="false"
                       onFocus={this.onFocus}
                       onBlur={this.onBlur}
-                      onChange={this.onChange}
-                      onInput={this.onChange}>
+                      onChange={this.onChange}>
             </textarea>
         );
     }
