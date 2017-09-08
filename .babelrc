@@ -1,6 +1,18 @@
 {
     "presets": [
-        "es2015",
+        [
+            "env",
+            {
+                "modules": false,
+                "targets": {
+                    "browsers": [
+                        "> 1%",
+                        "last 2 versions",
+                        "not ie <= 8"
+                    ]
+                }
+            }
+        ],
         "stage-0",
         "react"
     ],
@@ -9,9 +21,19 @@
             "presets": [
                 "react-hmre"
             ]
+        },
+        "test": {
+            "presets": [
+                "env",
+                "stage-2"
+            ],
+            "plugins": [
+                "istanbul"
+            ]
         }
     },
     "plugins": [
+        "transform-runtime",
         "transform-decorators-legacy"
     ]
 }
