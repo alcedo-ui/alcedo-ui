@@ -333,8 +333,8 @@ export default class DraggableList extends Component {
     }
 
     wheelHandler(e) {
-        Event.preventContainerScroll(e);
-        const {onWheel} = this.props;
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
     }
 
@@ -523,14 +523,7 @@ DraggableList.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
-    /**
-     *
-     */
     anchorIconCls: PropTypes.string,
-
-    /**
-     *
-     */
     isDraggableAnyWhere: PropTypes.bool,
 
     /**
@@ -542,6 +535,8 @@ DraggableList.propTypes = {
      * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
+
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -587,6 +582,7 @@ DraggableList.defaultProps = {
     isDraggableAnyWhere: false,
 
     scrollSpeed: 20,
-    scrollBuffer: 40
+    scrollBuffer: 40,
+    shouldPreventContainerScroll: true
 
 };
