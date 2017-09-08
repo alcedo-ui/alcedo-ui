@@ -39,7 +39,6 @@ export PageLoading from './PageLoading';
 export Pagging from './Pagging';
 export Paper from './Paper';
 export Popup from './Popup';
-export PreventOuterScroller from './PreventOuterScroller';
 export Radio from './Radio';
 export RadioGroup from './RadioGroup';
 export RaisedButton from './RaisedButton';
@@ -69,4 +68,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 70;
+export const COMPONENTS_TOTAL_COUNT = 69;

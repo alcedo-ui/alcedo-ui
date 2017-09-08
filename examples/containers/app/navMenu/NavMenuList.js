@@ -5,8 +5,9 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
-import PreventOuterScroller from 'dist/PreventOuterScroller';
 import NavMenuItem from './NavMenuItem';
+
+import Event from 'vendors/Event';
 
 class NavMenuList extends Component {
 
@@ -19,7 +20,8 @@ class NavMenuList extends Component {
         const {$navMenu, $expandMenuName, $activatedMenu, expandMenu, updateActivatedMenu} = this.props;
 
         return (
-            <PreventOuterScroller className="nav-menu-list">
+            <div className="nav-menu-list"
+                 onWheel={Event.preventContainerScroll}>
                 <div className="nav-menu-scroller">
                     {
                         $navMenu.map((menu, index) => {
@@ -34,7 +36,7 @@ class NavMenuList extends Component {
                         })
                     }
                 </div>
-            </PreventOuterScroller>
+            </div>
         );
 
     }
