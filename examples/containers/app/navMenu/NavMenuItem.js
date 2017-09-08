@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import TouchRipple from 'dist/TouchRipple';
 
@@ -69,7 +69,7 @@ export default class NavMenuItem extends Component {
                         )
                         :
                         (
-                            <NavLink
+                            <Link
                                 className={'nav-menu-item-link' + (activatedMenu && activatedMenu.route === options.route ? ' router-link-active' : '')}
                                 to={options.route}
                                 disabled={options.disabled}
@@ -83,7 +83,7 @@ export default class NavMenuItem extends Component {
 
                                 <TouchRipple/>
 
-                            </NavLink>
+                            </Link>
                         )
                 }
 

@@ -5,6 +5,7 @@
     width: 200px;
     border-radius: $border-radius;
     z-index: $popup-z-index;
+    overflow: auto;
 
     .popup-triangle {
         display: block;

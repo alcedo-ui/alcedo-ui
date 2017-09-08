@@ -8,6 +8,7 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 
 import './List.css';
 
@@ -28,9 +29,10 @@ export default class List extends Component {
         this.isItemChecked = this::this.isItemChecked;
         this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
         this.listItemsRenderer = this::this.listItemsRenderer;
-        this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
-        this.listItemSelectHandle = this::this.listItemSelectHandle;
-        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+        this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
+        this.listItemSelectHandler = this::this.listItemSelectHandler;
+        this.listItemDeselectHandler = this::this.listItemDeselectHandler;
+        this.wheelHandler = this::this.wheelHandler;
 
     }
 
@@ -142,14 +144,14 @@ export default class List extends Component {
                                       mode={mode}
                                       renderer={renderer}
                                       onTouchTap={(e) => {
-                                          this.listItemTouchTapHandle(item, index);
+                                          this.listItemTouchTapHandler(item, index);
                                           item.onTouchTap && item.onTouchTap(e);
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item, index);
+                                          this.listItemSelectHandler(item, index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item, index);
+                                          this.listItemDeselectHandler(item, index);
                                       }}/>
                         )
                         :
@@ -165,13 +167,13 @@ export default class List extends Component {
                                       mode={mode}
                                       renderer={renderer}
                                       onTouchTap={() => {
-                                          this.listItemTouchTapHandle(item, index);
+                                          this.listItemTouchTapHandler(item, index);
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item, index);
+                                          this.listItemSelectHandler(item, index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item, index);
+                                          this.listItemDeselectHandler(item, index);
                                       }}/>
                         );
 
@@ -182,7 +184,7 @@ export default class List extends Component {
 
     }
 
-    listItemTouchTapHandle(value, index) {
+    listItemTouchTapHandler(value, index) {
 
         const {mode} = this.props;
 
@@ -200,7 +202,7 @@ export default class List extends Component {
 
     }
 
-    listItemSelectHandle(item, index) {
+    listItemSelectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -231,7 +233,7 @@ export default class List extends Component {
 
     }
 
-    listItemDeselectHandle(item, index) {
+    listItemDeselectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -260,6 +262,12 @@ export default class List extends Component {
 
     }
 
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -283,7 +291,8 @@ export default class List extends Component {
         return (
             <div className={'list' + listClassName}
                  disabled={disabled}
-                 style={style}>
+                 style={style}
+                 onWheel={this.wheelHandler}>
 
                 {renderEl}
 
@@ -436,6 +445,8 @@ List.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    shouldPreventContainerScroll: PropTypes.bool,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -449,7 +460,12 @@ List.propTypes = {
     /**
      * Callback function fired when the list changed.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -465,6 +481,7 @@ List.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     mode: ListItem.Mode.NORMAL,
-    isGrouped: false
+    isGrouped: false,
+    shouldPreventContainerScroll: true
 
 };

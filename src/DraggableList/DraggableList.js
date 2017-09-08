@@ -9,6 +9,7 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 
 import './DraggableList.css';
 
@@ -35,8 +36,9 @@ export default class DraggableList extends Component {
         this.listGroupMoveHandler = this::this.listGroupMoveHandler;
         this.listItemMoveHandler = this::this.listItemMoveHandler;
         this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
-        this.listItemSelectHandle = this::this.listItemSelectHandle;
-        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
+        this.listItemSelectHandler = this::this.listItemSelectHandler;
+        this.listItemDeselectHandler = this::this.listItemDeselectHandler;
+        this.wheelHandler = this::this.wheelHandler;
 
     }
 
@@ -172,10 +174,10 @@ export default class DraggableList extends Component {
                                                    item.onTouchTap && item.onTouchTap(e);
                                                }}
                                                onSelect={() => {
-                                                   this.listItemSelectHandle(item, index);
+                                                   this.listItemSelectHandler(item, index);
                                                }}
                                                onDeselect={() => {
-                                                   this.listItemDeselectHandle(item, index);
+                                                   this.listItemDeselectHandler(item, index);
                                                }}/>
                         )
                         :
@@ -198,10 +200,10 @@ export default class DraggableList extends Component {
                                                    this.listItemTouchTapHandler(item, index);
                                                }}
                                                onSelect={() => {
-                                                   this.listItemSelectHandle(item, index);
+                                                   this.listItemSelectHandler(item, index);
                                                }}
                                                onDeselect={() => {
-                                                   this.listItemDeselectHandle(item, index);
+                                                   this.listItemDeselectHandler(item, index);
                                                }}/>
                         );
 
@@ -270,7 +272,7 @@ export default class DraggableList extends Component {
 
     }
 
-    listItemSelectHandle(item, index) {
+    listItemSelectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -301,7 +303,7 @@ export default class DraggableList extends Component {
 
     }
 
-    listItemDeselectHandle(item, index) {
+    listItemDeselectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -328,6 +330,12 @@ export default class DraggableList extends Component {
             onValueChange && onValueChange(value, index);
         });
 
+    }
+
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -366,7 +374,8 @@ export default class DraggableList extends Component {
                                 disabled={disabled}
                                 style={style}
                                 strengthMultiplier={scrollSpeed}
-                                verticalStrength={createVerticalStrength(scrollBuffer)}>
+                                verticalStrength={createVerticalStrength(scrollBuffer)}
+                                onWheel={this.wheelHandler}>
 
                 {renderEl}
 
@@ -514,14 +523,7 @@ DraggableList.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
-    /**
-     *
-     */
     anchorIconCls: PropTypes.string,
-
-    /**
-     *
-     */
     isDraggableAnyWhere: PropTypes.bool,
 
     /**
@@ -533,6 +535,8 @@ DraggableList.propTypes = {
      * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
+
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -552,7 +556,12 @@ DraggableList.propTypes = {
     /**
      * Callback function fired when select item changed.
      */
-    onValueChange: PropTypes.func
+    onValueChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -573,6 +582,7 @@ DraggableList.defaultProps = {
     isDraggableAnyWhere: false,
 
     scrollSpeed: 20,
-    scrollBuffer: 40
+    scrollBuffer: 40,
+    shouldPreventContainerScroll: true
 
 };

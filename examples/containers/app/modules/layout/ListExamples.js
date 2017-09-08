@@ -258,8 +258,8 @@ export default class ListExamples extends Component {
                                     A <code>List</code> with isGrouped.
                                 </p>
 
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
+                                <Paper style={{width: 240, height: 240}}>
+                                    <List style={{width: 240, height: 240}}
                                           mode={List.Mode.CHECKBOX}
                                           isGrouped={true}
                                           items={this.groupedListData}

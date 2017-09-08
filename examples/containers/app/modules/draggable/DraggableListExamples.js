@@ -160,7 +160,7 @@ export default class DraggableListExamples extends Component {
                                     A radio <code>DraggableList</code> example.
                                 </p>
 
-                                <Paper style={{width: 240}}>
+                                <Paper style={{width: 240, height: 240}}>
                                     <DraggableList style={{width: 240, height: 240}}
                                                    items={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}

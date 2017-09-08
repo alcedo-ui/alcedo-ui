@@ -3,6 +3,8 @@
 .list {
     width: 200px;
     background: $theme-field;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     .list-separator {
         border-top: 1px solid $theme-title-bg;

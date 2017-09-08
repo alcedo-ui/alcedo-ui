@@ -6,9 +6,7 @@ if (!process.env.NODE_ENV) {
 }
 
 var opn = require('opn'),
-    path = require('path'),
     webpack = require('webpack'),
-    history = require('connect-history-api-fallback'),
 
     port = process.env.PORT || config.dev.port,
     uri = 'http://localhost:' + port,

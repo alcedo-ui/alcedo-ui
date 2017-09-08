@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -180,17 +181,27 @@ export default class TextField extends Component {
     }
 
     blurHandle(e) {
+
+        if (e.relatedTarget == this.clearButtonEl) {
+            return;
+        }
+
         this.setState({
             isFocused: false
         }, () => {
             this.props.onBlur && this.props.onBlur(this.state.value, e);
         });
+
     }
 
     componentDidMount() {
+
         if (this.props.autoFocus === true) {
             this.refs.input.focus();
         }
+
+        this.clearButtonEl = findDOMNode(this.refs.clearButton);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -204,9 +215,10 @@ export default class TextField extends Component {
     render() {
 
         const {
-            children, className, style, type, name, placeholder, iconCls, disabled, infoMsg,
-            required, maxLength, max, min, readOnly, clearButtonVisible, rightIconCls, passwordButtonVisible,
-            autoComplete, autoCorrect, autoCapitalize, spellCheck
+            children, className, style, type, value: v, iconCls, disabled, infoMsg, autoFocus, searchButtonVisible,
+            clearButtonVisible, rightIconCls, passwordButtonVisible, pattern, patternInvalidMsg,
+            onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
+            ...rest
         } = this.props;
         const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
@@ -220,7 +232,6 @@ export default class TextField extends Component {
         }
 
         return (
-
             <div className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''}
                     ${iconCls ? 'has-icon' : ''} ${invalidMsgs.length > 0 ? 'error' : ''} ${disabled ? 'disabled' : ''}
                     ${isFocused ? 'focused' : ''} ${className}`}
@@ -235,22 +246,11 @@ export default class TextField extends Component {
                         null
                 }
 
-                <input ref="input"
+                <input {...rest}
+                       ref="input"
                        className="text-field-input"
                        type={inputType}
-                       name={name}
-                       placeholder={placeholder}
                        value={value}
-                       disabled={disabled}
-                       required={required}
-                       maxLength={maxLength}
-                       readOnly={readOnly}
-                       max={max}
-                       min={min}
-                       autoComplete={autoComplete}
-                       autoCorrect={autoCorrect}
-                       autoCapitalize={autoCapitalize}
-                       spellCheck={spellCheck}
                        onChange={this.changeHandle}
                        onInput={this.changeHandle}
                        onKeyDown={this.keydownHandle}
@@ -259,7 +259,8 @@ export default class TextField extends Component {
                        onFocus={this.focusHandle}
                        onBlur={this.blurHandle}/>
 
-                <IconButton className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
+                <IconButton ref="clearButton"
+                            className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
                             iconCls="fa fa-times-circle"
                             onTouchTap={this.clearValue}/>
 
@@ -362,6 +363,8 @@ TextField.propTypes = {
      */
     clearButtonVisible: PropTypes.bool,
 
+    searchButtonVisible: PropTypes.bool,
+
     /**
      * Use this property to display an icon.
      */
@@ -404,24 +407,9 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
-    /**
-     *
-     */
     autoComplete: PropTypes.string,
-
-    /**
-     *
-     */
     autoCorrect: PropTypes.string,
-
-    /**
-     *
-     */
     autoCapitalize: PropTypes.string,
-
-    /**
-     *
-     */
     spellCheck: PropTypes.string,
 
     /**
