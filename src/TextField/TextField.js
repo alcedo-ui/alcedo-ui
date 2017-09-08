@@ -252,7 +252,6 @@ export default class TextField extends Component {
                        type={inputType}
                        value={value}
                        onChange={this.changeHandle}
-                       onInput={this.changeHandle}
                        onKeyDown={this.keydownHandle}
                        onMouseOver={this.mouseoverHandle}
                        onMouseOut={this.mouseoutHandle}
