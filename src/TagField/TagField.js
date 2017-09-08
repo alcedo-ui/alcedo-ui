@@ -363,7 +363,6 @@ export default class TagField extends Component {
                                                value={inputValue}
                                                placeholder={data.length < 1 && placeholder ? placeholder : ''}
                                                onChange={this.inputChangeHandler}
-                                               onInput={this.inputChangeHandler}
                                                onKeyDown={this.inputKeyDownHandler}/>
                                     </div>
                                     :
