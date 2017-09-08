@@ -52,11 +52,12 @@ export default class PopupBody extends Component {
         };
 
         this.getPopupStyle = this::this.getPopupStyle;
-        this.mousedownHandle = this::this.mousedownHandle;
-        this.resizeHandle = this::this.resizeHandle;
-        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
+        this.mousedownHandler = this::this.mousedownHandler;
+        this.resizeHandler = this::this.resizeHandler;
+        this.debounceResizeHandler = _.debounce(this::this.debounceResizeHandler, 150);
         this.initializeAnimation = this::this.initializeAnimation;
         this.animate = this::this.animate;
+        this.wheelHandler = this::this.wheelHandler;
 
     }
 
@@ -201,7 +202,7 @@ export default class PopupBody extends Component {
 
     }
 
-    mousedownHandle(e) {
+    mousedownHandler(e) {
 
         const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
             visible = triggerHandler ?
@@ -236,12 +237,18 @@ export default class PopupBody extends Component {
 
     }
 
-    resizeHandle() {
-        this.debounceResizeHandle();
+    resizeHandler() {
+        this.debounceResizeHandler();
     }
 
-    debounceResizeHandle() {
+    debounceResizeHandler() {
         this.forceUpdate();
+    }
+
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
     }
 
     initializeAnimation(callback) {
@@ -261,8 +268,8 @@ export default class PopupBody extends Component {
         this.hasMounted = true;
         this.popupEl = findDOMNode(this.refs.popup);
 
-        Event.addEvent(document, 'mousedown', this.mousedownHandle);
-        Event.addEvent(window, 'resize', this.resizeHandle);
+        Event.addEvent(document, 'mousedown', this.mousedownHandler);
+        Event.addEvent(window, 'resize', this.resizeHandler);
 
         this.props.isEscClose && PopupManagement.push(this);
 
@@ -287,8 +294,8 @@ export default class PopupBody extends Component {
         this.hasMounted = false;
         this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
 
-        Event.removeEvent(document, 'mousedown', this.mousedownHandle);
-        Event.removeEvent(window, 'resize', this.resizeHandle);
+        Event.removeEvent(document, 'mousedown', this.mousedownHandler);
+        Event.removeEvent(window, 'resize', this.resizeHandler);
 
     }
 
@@ -304,7 +311,8 @@ export default class PopupBody extends Component {
             <Paper ref="popup"
                    className={'popup' + popupClassName}
                    style={{...this.getPopupStyle(), ...style}}
-                   depth={depth}>
+                   depth={depth}
+                   onWheel={this.wheelHandler}>
 
                 {
                     hasTriangle ?
@@ -376,8 +384,8 @@ PopupBody.propTypes = {
     depth: PropTypes.number,
 
     isAutoClose: PropTypes.bool,
-
     isEscClose: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * The function of popup event handler.
@@ -392,7 +400,12 @@ PopupBody.propTypes = {
     /**
      * Callback function fired when the popover is requested to be closed.
      */
-    onRequestClose: PropTypes.func
+    onRequestClose: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -411,6 +424,7 @@ PopupBody.defaultProps = {
     depth: 4,
 
     isAutoClose: true,
-    isEscClose: true
+    isEscClose: true,
+    shouldPreventContainerScroll: true
 
 };

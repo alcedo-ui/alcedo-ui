@@ -16,7 +16,8 @@ input:focus {
     border: 1px solid $theme-title-bg;
     cursor: text;
     padding: 0 8px 8px 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     .tag-field-input-wrapper {
         position: relative;

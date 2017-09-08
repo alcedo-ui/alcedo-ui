@@ -37,6 +37,7 @@ export default class TagField extends Component {
         this.itemEditStartHandler = this::this.itemEditStartHandler;
         this.itemEditEndHandler = this::this.itemEditEndHandler;
         this.clearHandler = this::this.clearHandler;
+        this.wheelHandler = this::this.wheelHandler;
 
     }
 
@@ -144,8 +145,8 @@ export default class TagField extends Component {
                 }, () => {
                     setTimeout(() => {
                         this.refs.input.focus();
-                        wrapperEl.scrollLeft = 0;
-                        wrapperEl.scrollTop = 0;
+                        // wrapperEl.scrollLeft = 0;
+                        // wrapperEl.scrollTop = 0;
                     }, 0);
                 });
 
@@ -295,6 +296,12 @@ export default class TagField extends Component {
 
     }
 
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
+    }
+
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
@@ -339,7 +346,8 @@ export default class TagField extends Component {
             <div ref="wrapper"
                  className={'tag-field' + tagFieldClassName}
                  style={style}
-                 disabled={disabled}>
+                 disabled={disabled}
+                 onWheel={this.wheelHandler}>
 
                 {
                     indexData.map(index => {
@@ -420,50 +428,22 @@ TagField.propTypes = {
      */
     style: PropTypes.object,
 
-    /**
-     *
-     */
     data: PropTypes.array,
-
-    /**
-     *
-     */
     inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /**
-     *
-     */
     valueField: PropTypes.string,
-
-    /**
-     *
-     */
     displayField: PropTypes.string,
-
-    /**
-     *
-     */
     disabled: PropTypes.bool,
-
-    /**
-     *
-     */
     placeholder: PropTypes.string,
-
-    /**
-     *
-     */
     clearButtonVisible: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
 
-    /**
-     *
-     */
     onChange: PropTypes.func,
+    onInputChange: PropTypes.func,
 
     /**
-     *
+     * Callback function fired when wrapper wheeled.
      */
-    onInputChange: PropTypes.func
+    onWheel: PropTypes.func
 
 };
 
@@ -481,6 +461,7 @@ TagField.defaultProps = {
     disabled: false,
 
     placeholder: '',
-    clearButtonVisible: true
+    clearButtonVisible: true,
+    shouldPreventContainerScroll: true
 
 };

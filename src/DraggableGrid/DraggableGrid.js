@@ -38,10 +38,11 @@ export default class DraggableGrid extends Component {
         this.listGroupMoveHandler = this::this.listGroupMoveHandler;
         this.listItemMoveHandler = this::this.listItemMoveHandler;
         this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
-        this.listItemSelectHandle = this::this.listItemSelectHandle;
-        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
-        this.resizeHandle = this::this.resizeHandle;
-        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
+        this.listItemSelectHandler = this::this.listItemSelectHandler;
+        this.listItemDeselectHandler = this::this.listItemDeselectHandler;
+        this.resizeHandler = this::this.resizeHandler;
+        this.debounceResizeHandler = _.debounce(this::this.debounceResizeHandler, 150);
+        this.wheelHandler = this::this.wheelHandler;
 
     }
 
@@ -198,10 +199,10 @@ export default class DraggableGrid extends Component {
                                                    item.onTouchTap && item.onTouchTap(e);
                                                }}
                                                onSelect={() => {
-                                                   this.listItemSelectHandle(item, index);
+                                                   this.listItemSelectHandler(item, index);
                                                }}
                                                onDeselect={() => {
-                                                   this.listItemDeselectHandle(item, index);
+                                                   this.listItemDeselectHandler(item, index);
                                                }}/>
                         )
                         :
@@ -225,10 +226,10 @@ export default class DraggableGrid extends Component {
                                                    this.listItemTouchTapHandler(item, index);
                                                }}
                                                onSelect={() => {
-                                                   this.listItemSelectHandle(item, index);
+                                                   this.listItemSelectHandler(item, index);
                                                }}
                                                onDeselect={() => {
-                                                   this.listItemDeselectHandle(item, index);
+                                                   this.listItemDeselectHandler(item, index);
                                                }}/>
                         );
 
@@ -297,7 +298,7 @@ export default class DraggableGrid extends Component {
 
     }
 
-    listItemSelectHandle(item, index) {
+    listItemSelectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -328,7 +329,7 @@ export default class DraggableGrid extends Component {
 
     }
 
-    listItemDeselectHandle(item, index) {
+    listItemDeselectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -357,20 +358,26 @@ export default class DraggableGrid extends Component {
 
     }
 
-    resizeHandle() {
-        this.debounceResizeHandle();
+    resizeHandler() {
+        this.debounceResizeHandler();
     }
 
     //If you want to make a component rerender without changing its state or props, you should call forceUpdate.
-    debounceResizeHandle() {
+    debounceResizeHandler() {
         this.forceUpdate();
+    }
+
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
     }
 
     componentDidMount() {
 
         this.gridEl = findDOMNode(this);
 
-        Event.addEvent(window, 'resize', this.resizeHandle);
+        Event.addEvent(window, 'resize', this.resizeHandler);
 
     }
 
@@ -394,7 +401,7 @@ export default class DraggableGrid extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandle);
+        Event.removeEvent(window, 'resize', this.resizeHandler);
     }
 
     render() {
@@ -415,7 +422,8 @@ export default class DraggableGrid extends Component {
                                 style={style}
                                 strengthMultiplier={scrollSpeed}
                                 verticalStrength={createVerticalStrength(scrollBuffer)}
-                                horizontalStrength={createHorizontalStrength(scrollBuffer)}>
+                                horizontalStrength={createHorizontalStrength(scrollBuffer)}
+                                onWheel={this.wheelHandler}>
 
                 {renderEl}
 
@@ -583,25 +591,11 @@ DraggableGrid.propTypes = {
      */
     anchorIconCls: PropTypes.string,
 
-    /**
-     *
-     */
     isDraggableAnyWhere: PropTypes.bool,
-
-    /**
-     *
-     */
     isItemsFullWidth: PropTypes.bool,
-
-    /**
-     *
-     */
     scrollSpeed: PropTypes.number,
-
-    /**
-     * The number of overflows.
-     */
     scrollBuffer: PropTypes.number,
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -621,7 +615,12 @@ DraggableGrid.propTypes = {
     /**
      * Callback function fired when select item changed.
      */
-    onValueChange: PropTypes.func
+    onValueChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -646,6 +645,7 @@ DraggableGrid.defaultProps = {
     isItemsFullWidth: false,
 
     scrollSpeed: 20,
-    scrollBuffer: 40
+    scrollBuffer: 40,
+    shouldPreventContainerScroll: true
 
 };

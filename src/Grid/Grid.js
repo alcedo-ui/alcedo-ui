@@ -30,11 +30,12 @@ export default class Grid extends Component {
         this.isItemChecked = this::this.isItemChecked;
         this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
         this.listItemsRenderer = this::this.listItemsRenderer;
-        this.listItemTouchTapHandle = this::this.listItemTouchTapHandle;
-        this.listItemSelectHandle = this::this.listItemSelectHandle;
-        this.listItemDeselectHandle = this::this.listItemDeselectHandle;
-        this.resizeHandle = this::this.resizeHandle;
-        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
+        this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
+        this.listItemSelectHandler = this::this.listItemSelectHandler;
+        this.listItemDeselectHandler = this::this.listItemDeselectHandler;
+        this.resizeHandler = this::this.resizeHandler;
+        this.debounceResizeHandler = _.debounce(this::this.debounceResizeHandler, 150);
+        this.wheelHandler = this::this.wheelHandler;
 
     }
 
@@ -166,14 +167,14 @@ export default class Grid extends Component {
                                       mode={mode}
                                       renderer={renderer}
                                       onTouchTap={(e) => {
-                                          this.listItemTouchTapHandle(item, index);
+                                          this.listItemTouchTapHandler(item, index);
                                           item.onTouchTap && item.onTouchTap(e);
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item, index);
+                                          this.listItemSelectHandler(item, index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item, index);
+                                          this.listItemDeselectHandler(item, index);
                                       }}/>
                         )
                         :
@@ -190,13 +191,13 @@ export default class Grid extends Component {
                                       mode={mode}
                                       renderer={renderer}
                                       onTouchTap={() => {
-                                          this.listItemTouchTapHandle(item, index);
+                                          this.listItemTouchTapHandler(item, index);
                                       }}
                                       onSelect={() => {
-                                          this.listItemSelectHandle(item, index);
+                                          this.listItemSelectHandler(item, index);
                                       }}
                                       onDeselect={() => {
-                                          this.listItemDeselectHandle(item, index);
+                                          this.listItemDeselectHandler(item, index);
                                       }}/>
                         );
 
@@ -207,7 +208,7 @@ export default class Grid extends Component {
 
     }
 
-    listItemTouchTapHandle(value, index) {
+    listItemTouchTapHandler(value, index) {
 
         const {mode} = this.props;
 
@@ -225,7 +226,7 @@ export default class Grid extends Component {
 
     }
 
-    listItemSelectHandle(item, index) {
+    listItemSelectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -256,7 +257,7 @@ export default class Grid extends Component {
 
     }
 
-    listItemDeselectHandle(item, index) {
+    listItemDeselectHandler(item, index) {
 
         const {mode} = this.props;
 
@@ -285,19 +286,25 @@ export default class Grid extends Component {
 
     }
 
-    resizeHandle() {
-        this.debounceResizeHandle();
+    resizeHandler() {
+        this.debounceResizeHandler();
     }
 
-    debounceResizeHandle() {
+    debounceResizeHandler() {
         this.forceUpdate();
+    }
+
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
     }
 
     componentDidMount() {
 
         this.gridEl = this.refs.grid;
 
-        Event.addEvent(window, 'resize', this.resizeHandle);
+        Event.addEvent(window, 'resize', this.resizeHandler);
 
     }
 
@@ -310,7 +317,7 @@ export default class Grid extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandle);
+        Event.removeEvent(window, 'resize', this.resizeHandler);
     }
 
     render() {
@@ -329,7 +336,8 @@ export default class Grid extends Component {
             <div ref="grid"
                  className={'grid' + listClassName}
                  disabled={disabled}
-                 style={style}>
+                 style={style}
+                 onWheel={this.wheelHandler}>
 
                 {renderEl}
 
@@ -487,10 +495,8 @@ Grid.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
-    /**
-     *
-     */
     isItemsFullWidth: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -524,6 +530,7 @@ Grid.defaultProps = {
     mode: GridItem.Mode.NORMAL,
     isGrouped: false,
 
-    isItemsFullWidth: false
+    isItemsFullWidth: false,
+    shouldPreventContainerScroll: true
 
 };
