@@ -263,8 +263,8 @@ export default class List extends Component {
     }
 
     wheelHandler(e) {
-        Event.preventContainerScroll(e);
-        const {onWheel} = this.props;
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
     }
 
@@ -445,6 +445,8 @@ List.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    shouldPreventContainerScroll: PropTypes.bool,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -479,6 +481,7 @@ List.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     mode: ListItem.Mode.NORMAL,
-    isGrouped: false
+    isGrouped: false,
+    shouldPreventContainerScroll: true
 
 };
