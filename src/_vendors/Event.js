@@ -37,8 +37,21 @@ function triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
 
 }
 
+function preventContainerScroll(e) {
+
+    const {currentTarget, deltaY} = e,
+        {clientHeight, scrollHeight, scrollTop} = currentTarget;
+
+    if ((deltaY < 0 && scrollTop <= 0)
+        || (deltaY > 0 && scrollTop >= scrollHeight - clientHeight)) {
+        e.preventDefault();
+    }
+
+}
+
 export default {
     addEvent,
     removeEvent,
-    triggerPopupEventHandle
+    triggerPopupEventHandle,
+    preventContainerScroll
 };
