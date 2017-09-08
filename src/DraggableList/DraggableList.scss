@@ -3,7 +3,8 @@
 .draggable-list {
     width: 200px;
     background: $theme-field;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     .draggable-list-separator {
         border-top: 1px solid $theme-title-bg;
