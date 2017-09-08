@@ -368,8 +368,8 @@ export default class DraggableGrid extends Component {
     }
 
     wheelHandler(e) {
-        Event.preventContainerScroll(e);
-        const {onWheel} = this.props;
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
     }
 
@@ -591,25 +591,11 @@ DraggableGrid.propTypes = {
      */
     anchorIconCls: PropTypes.string,
 
-    /**
-     *
-     */
     isDraggableAnyWhere: PropTypes.bool,
-
-    /**
-     *
-     */
     isItemsFullWidth: PropTypes.bool,
-
-    /**
-     *
-     */
     scrollSpeed: PropTypes.number,
-
-    /**
-     * The number of overflows.
-     */
     scrollBuffer: PropTypes.number,
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -659,6 +645,7 @@ DraggableGrid.defaultProps = {
     isItemsFullWidth: false,
 
     scrollSpeed: 20,
-    scrollBuffer: 40
+    scrollBuffer: 40,
+    shouldPreventContainerScroll: true
 
 };
