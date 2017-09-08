@@ -23,7 +23,6 @@ export default class TextArea extends Component {
         this.onChange = this :: this.onChange;
         this.resizeHandle = this :: this.resizeHandle;
         this.mouseUpHandle = this :: this.mouseUpHandle;
-        this.onInput = this :: this.onInput;
 
     }
 
@@ -62,19 +61,11 @@ export default class TextArea extends Component {
         }
     }
 
-
-    onChange(ev) {
-        const oEvent = ev || event;
-        const {target} = oEvent;
-
-        this.props.onChange && this.props.onChange(target.value)
-    }
-
     /**
      * input变化时，如果为autoSize，则控制高度，使之随内容变化而变化
      */
 
-    onInput(ev) {
+    onChange(ev) {
         const {initialHeight, maxHeight, autoSize} = this.props;
         const oEvent = ev || event;
         const {target} = oEvent;
@@ -97,6 +88,8 @@ export default class TextArea extends Component {
 
         this.setState({
             value: target.value
+        }, ()=>{
+            this.props.onChange && this.props.onChange(target.value)
         });
     }
 
@@ -159,8 +152,7 @@ export default class TextArea extends Component {
                       spellCheck="false"
                       onFocus={this.onFocus}
                       onBlur={this.onBlur}
-                      onChange={this.onChange}
-                      onInput={this.onInput}>
+                      onChange={this.onChange}>
             </textarea>
         );
     }
