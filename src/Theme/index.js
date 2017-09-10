@@ -8,6 +8,7 @@ export default {
     WARNING: 'warning',
     ERROR: 'error',
 
-    DERBY_CLICK: 'derby-click'
+    DERBY_CLICK: 'derby-click',
+    DERBY_CLICK_CONSOLE: 'derby-click-console'
 
 };
