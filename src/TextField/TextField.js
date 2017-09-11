@@ -258,7 +258,7 @@ export default class TextField extends Component {
         const {
 
                 children, className, style, type, iconCls, disabled, infoMsg,
-                clearButtonVisible, rightIconCls, passwordButtonVisible,
+                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
 
                 // not passing down these props
                 value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg, preventInvalidInput,
@@ -325,7 +325,7 @@ export default class TextField extends Component {
                             onTouchTap={this.togglePasswordVisible}/>
 
                 {
-                    infoVisible && infoMsg ?
+                    fieldMsgVisible && infoVisible && infoMsg ?
                         <FieldMsg type="info"
                                   msg={infoMsg}/>
                         :
@@ -333,7 +333,7 @@ export default class TextField extends Component {
                 }
 
                 {
-                    errorVisible && invalidMsgs.length > 0 ?
+                    fieldMsgVisible && errorVisible && invalidMsgs.length > 0 ?
                         <FieldMsg type="error"
                                   msg={invalidMsgs.join(', ')}/>
                         :
@@ -459,6 +459,7 @@ TextField.propTypes = {
     autoCorrect: PropTypes.string,
     autoCapitalize: PropTypes.string,
     spellCheck: PropTypes.string,
+    fieldMsgVisible: PropTypes.bool,
 
     /**
      * Callback function fired when the textField is changed.
@@ -534,6 +535,8 @@ TextField.defaultProps = {
     autoComplete: 'off',
     autoCorrect: 'off',
     autoCapitalize: 'off',
-    spellCheck: 'false'
+    spellCheck: 'false',
+
+    fieldMsgVisible: true
 
 };
