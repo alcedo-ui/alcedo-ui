@@ -128,14 +128,10 @@ export default class TextField extends Component {
 
     changeHandler(e) {
 
-        const {type, onValid, onInvalid} = this.props,
+        const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
             invalidMsgs = this.valid(value);
-
-        if (this.valid(value).length > 0) {
-            return;
-        }
 
         this.setState({
             value,
