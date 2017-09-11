@@ -13,11 +13,15 @@ import './TextField.css';
 export default class TextField extends Component {
 
     static Type = {
-        EMAIL: 'email',
+        TEXT: 'text',
+        PASSWORD: 'password',
         NUMBER: 'number',
         INTEGER: 'integer',
-        PASSWORD: 'password',
-        TEXT: 'text',
+        POSITIVE_INTEGER: 'positiveInteger',
+        NONNEGATIVE_INTEGER: 'nonnegativeInteger',
+        NEGATIVE_INTEGER: 'negativeInteger',
+        NONPOSITIVE_INTEGER: 'nonpositiveInteger',
+        EMAIL: 'email',
         URL: 'url'
     };
 
@@ -46,6 +50,17 @@ export default class TextField extends Component {
 
     }
 
+    isNumberType(type) {
+
+        const {
+            NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
+        } = TextField.Type;
+
+        return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
+            || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
+
+    }
+
     valid(value) {
 
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
@@ -67,12 +82,40 @@ export default class TextField extends Component {
             invalidMsgs.push(`Max length is ${maxLength}`);
         }
 
-        if (type === TextField.Type.NUMBER && max !== undefined && +value > max) {
-            invalidMsgs.push(`Maximum value is ${max}`);
-        }
+        if (this.isNumberType(type)) {
 
-        if (type === TextField.Type.NUMBER && min !== undefined && +value < min) {
-            invalidMsgs.push(`Minimum value is ${min}`);
+            if (isNaN(value)) {
+                invalidMsgs.push('Not a valid number');
+            }
+
+            if (type === TextField.Type.INTEGER && ~~value !== value) {
+                invalidMsgs.push('Not a valid integer');
+            }
+
+            if (type === TextField.Type.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+                invalidMsgs.push('Not a valid positive integer');
+            }
+
+            if (type === TextField.Type.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+                invalidMsgs.push('Not a valid nonnegative integer');
+            }
+
+            if (type === TextField.Type.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+                invalidMsgs.push('Not a valid negative integer');
+            }
+
+            if (type === TextField.Type.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+                invalidMsgs.push('Not a valid nonpositive integer');
+            }
+
+            if (max !== undefined && +value > max) {
+                invalidMsgs.push(`Maximum value is ${max}`);
+            }
+
+            if (min !== undefined && +value < min) {
+                invalidMsgs.push(`Minimum value is ${min}`);
+            }
+
         }
 
         if (pattern !== undefined && !pattern.test(value)) {
@@ -85,16 +128,12 @@ export default class TextField extends Component {
 
     changeHandler(e) {
 
-        const {type, onValid, onInvalid} = this.props;
+        const {type, onValid, onInvalid} = this.props,
 
-        const value = e.target.value;
-        const invalidMsgs = this.valid(value);
+            value = e.target.value,
+            invalidMsgs = this.valid(value);
 
-        if (type === TextField.Type.NUMBER && isNaN(value)) {
-            return;
-        }
-
-        if (type === TextField.Type.INTEGER && (isNaN(value) || ~~value !== value)) {
+        if (this.valid(value).length > 0) {
             return;
         }
 
@@ -239,8 +278,8 @@ export default class TextField extends Component {
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
             inputType = passwordVisible ? TextField.Type.TEXT : TextField.Type.PASSWORD;
-        } else if (inputType === TextField.Type.NUMBER || inputType === TextField.Type.INTEGER) {
-            inputType = TextField.Type.TEXT;
+        } else if (this.isNumberType(type)) {
+            inputType = 'text';
         }
 
         return (

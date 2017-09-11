@@ -16,6 +16,30 @@ function isWindows() {
     return /windows|win32/i.test(navigator.userAgent);
 };
 
+function isNumber(value) {
+    return !Number.isNaN(value);
+}
+
+function isInteger(value) {
+    return !Number.isInteger(value);
+}
+
+function isPositiveInteger(value) {
+    return isInteger(value) && value > 0;
+}
+
+function isNonnegativeInteger(value) {
+    return isInteger(value) && value >= 0;
+}
+
+function isNegativeInteger(value) {
+    return isInteger(value) && value < 0;
+}
+
+function isNonpositiveInteger(value) {
+    return isInteger(value) && value <= 0;
+}
+
 function isEmail(value) {
     return /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/.test(value);
 }
@@ -29,6 +53,12 @@ export default {
     isChrome,
     isMac,
     isWindows,
+    isNumber,
+    isInteger,
+    isPositiveInteger,
+    isNonnegativeInteger,
+    isNegativeInteger,
+    isNonpositiveInteger,
     isEmail,
     isUrl
 };
