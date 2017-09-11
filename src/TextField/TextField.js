@@ -215,14 +215,21 @@ export default class TextField extends Component {
     render() {
 
         const {
-            children, className, style, type, value: v, iconCls, disabled, infoMsg, autoFocus, searchButtonVisible,
-            clearButtonVisible, rightIconCls, passwordButtonVisible, pattern, patternInvalidMsg,
-            onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
-            ...rest
-        } = this.props;
-        const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
-        const isPassword = type === TextField.Type.PASSWORD;
+                children, className, style, type, iconCls, disabled, infoMsg,
+                clearButtonVisible, rightIconCls, passwordButtonVisible,
+
+                // not passing down these props
+                value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg,
+                onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
+
+                ...rest
+
+            } = this.props,
+
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+
+            isPassword = type === TextField.Type.PASSWORD;
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
