@@ -15,6 +15,7 @@ export default class TextField extends Component {
     static Type = {
         EMAIL: 'email',
         NUMBER: 'number',
+        INTEGER: 'integer',
         PASSWORD: 'password',
         TEXT: 'text',
         URL: 'url'
@@ -84,10 +85,18 @@ export default class TextField extends Component {
 
     changeHandler(e) {
 
-        const {onValid, onInvalid} = this.props;
+        const {type, onValid, onInvalid} = this.props;
 
         const value = e.target.value;
         const invalidMsgs = this.valid(value);
+
+        if (type === TextField.Type.NUMBER && isNaN(value)) {
+            return;
+        }
+
+        if (type === TextField.Type.INTEGER && (isNaN(value) || ~~value !== value)) {
+            return;
+        }
 
         this.setState({
             value,
@@ -104,15 +113,11 @@ export default class TextField extends Component {
 
     keyDownHandler(e) {
 
-        const {type, onPressEnter} = this.props,
+        const {onPressEnter} = this.props,
             {value} = this.state;
 
         if (e.keyCode === 13) {
             onPressEnter && onPressEnter(value);
-        }
-
-        if (type === 'number' && isNaN(e.key) && e.key !== '-' && e.keyCode !== 8) {
-            e.preventDefault();
         }
 
     }
@@ -234,7 +239,7 @@ export default class TextField extends Component {
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
             inputType = passwordVisible ? TextField.Type.TEXT : TextField.Type.PASSWORD;
-        } else if (inputType === TextField.Type.NUMBER) {
+        } else if (inputType === TextField.Type.NUMBER || inputType === TextField.Type.INTEGER) {
             inputType = TextField.Type.TEXT;
         }
 
