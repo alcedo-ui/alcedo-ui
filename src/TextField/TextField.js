@@ -128,20 +128,21 @@ export default class TextField extends Component {
 
     changeHandler(e) {
 
-        const {onValid, onInvalid} = this.props,
+        const {preventInvalidInput, onValid, onInvalid} = this.props,
 
             value = e.target.value,
             invalidMsgs = this.valid(value);
+
+        if (preventInvalidInput && invalidMsgs.length > 0) {
+            return;
+        }
 
         this.setState({
             value,
             invalidMsgs
         }, () => {
-
             this.props.onChange && this.props.onChange(value, e);
-
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
-
         });
 
     }
@@ -260,7 +261,7 @@ export default class TextField extends Component {
                 clearButtonVisible, rightIconCls, passwordButtonVisible,
 
                 // not passing down these props
-                value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg,
+                value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg, preventInvalidInput,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...rest
@@ -453,6 +454,7 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
+    preventInvalidInput: PropTypes.bool,
     autoComplete: PropTypes.string,
     autoCorrect: PropTypes.string,
     autoCapitalize: PropTypes.string,
@@ -527,6 +529,7 @@ TextField.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
+    preventInvalidInput: false,
 
     autoComplete: 'off',
     autoCorrect: 'off',
