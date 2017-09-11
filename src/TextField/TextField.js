@@ -34,14 +34,14 @@ export default class TextField extends Component {
         };
 
         this.valid = this::this.valid;
-        this.changeHandle = this::this.changeHandle;
-        this.keydownHandle = this::this.keydownHandle;
+        this.changeHandler = this::this.changeHandler;
+        this.keyDownHandler = this::this.keyDownHandler;
         this.clearValue = this::this.clearValue;
         this.togglePasswordVisible = this::this.togglePasswordVisible;
-        this.mouseoverHandle = this::this.mouseoverHandle;
-        this.mouseoutHandle = this::this.mouseoutHandle;
-        this.focusHandle = this::this.focusHandle;
-        this.blurHandle = this::this.blurHandle;
+        this.mouseoverHandler = this::this.mouseoverHandler;
+        this.mouseoutHandler = this::this.mouseoutHandler;
+        this.focusHandler = this::this.focusHandler;
+        this.blurHandler = this::this.blurHandler;
 
     }
 
@@ -82,7 +82,7 @@ export default class TextField extends Component {
 
     }
 
-    changeHandle(e) {
+    changeHandler(e) {
 
         const {onValid, onInvalid} = this.props;
 
@@ -102,7 +102,7 @@ export default class TextField extends Component {
 
     }
 
-    keydownHandle(e) {
+    keyDownHandler(e) {
 
         const {type, onPressEnter} = this.props,
             {value} = this.state;
@@ -158,21 +158,21 @@ export default class TextField extends Component {
 
     }
 
-    mouseoverHandle() {
+    mouseoverHandler() {
         this.setState({
             infoVisible: true,
             errorVisible: true
         });
     }
 
-    mouseoutHandle() {
+    mouseoutHandler() {
         this.setState({
             infoVisible: false,
             errorVisible: false
         });
     }
 
-    focusHandle(e) {
+    focusHandler(e) {
         this.setState({
             isFocused: true
         }, () => {
@@ -180,7 +180,7 @@ export default class TextField extends Component {
         });
     }
 
-    blurHandle(e) {
+    blurHandler(e) {
 
         if (e.relatedTarget == this.clearButtonEl) {
             return;
@@ -258,12 +258,12 @@ export default class TextField extends Component {
                        className="text-field-input"
                        type={inputType}
                        value={value}
-                       onChange={this.changeHandle}
-                       onKeyDown={this.keydownHandle}
-                       onMouseOver={this.mouseoverHandle}
-                       onMouseOut={this.mouseoutHandle}
-                       onFocus={this.focusHandle}
-                       onBlur={this.blurHandle}/>
+                       onChange={this.changeHandler}
+                       onKeyDown={this.keyDownHandler}
+                       onMouseOver={this.mouseoverHandler}
+                       onMouseOut={this.mouseoutHandler}
+                       onFocus={this.focusHandler}
+                       onBlur={this.blurHandler}/>
 
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
