@@ -13,10 +13,15 @@ import './TextField.css';
 export default class TextField extends Component {
 
     static Type = {
-        EMAIL: 'email',
-        NUMBER: 'number',
-        PASSWORD: 'password',
         TEXT: 'text',
+        PASSWORD: 'password',
+        NUMBER: 'number',
+        INTEGER: 'integer',
+        POSITIVE_INTEGER: 'positiveInteger',
+        NONNEGATIVE_INTEGER: 'nonnegativeInteger',
+        NEGATIVE_INTEGER: 'negativeInteger',
+        NONPOSITIVE_INTEGER: 'nonpositiveInteger',
+        EMAIL: 'email',
         URL: 'url'
     };
 
@@ -34,14 +39,25 @@ export default class TextField extends Component {
         };
 
         this.valid = this::this.valid;
-        this.changeHandle = this::this.changeHandle;
-        this.keydownHandle = this::this.keydownHandle;
+        this.changeHandler = this::this.changeHandler;
+        this.keyDownHandler = this::this.keyDownHandler;
         this.clearValue = this::this.clearValue;
         this.togglePasswordVisible = this::this.togglePasswordVisible;
-        this.mouseoverHandle = this::this.mouseoverHandle;
-        this.mouseoutHandle = this::this.mouseoutHandle;
-        this.focusHandle = this::this.focusHandle;
-        this.blurHandle = this::this.blurHandle;
+        this.mouseoverHandler = this::this.mouseoverHandler;
+        this.mouseoutHandler = this::this.mouseoutHandler;
+        this.focusHandler = this::this.focusHandler;
+        this.blurHandler = this::this.blurHandler;
+
+    }
+
+    isNumberType(type) {
+
+        const {
+            NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
+        } = TextField.Type;
+
+        return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
+            || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
 
     }
 
@@ -66,12 +82,40 @@ export default class TextField extends Component {
             invalidMsgs.push(`Max length is ${maxLength}`);
         }
 
-        if (type === TextField.Type.NUMBER && max !== undefined && +value > max) {
-            invalidMsgs.push(`Maximum value is ${max}`);
-        }
+        if (this.isNumberType(type)) {
 
-        if (type === TextField.Type.NUMBER && min !== undefined && +value < min) {
-            invalidMsgs.push(`Minimum value is ${min}`);
+            if (isNaN(value)) {
+                invalidMsgs.push('Not a valid number');
+            }
+
+            if (type === TextField.Type.INTEGER && ~~value !== value) {
+                invalidMsgs.push('Not a valid integer');
+            }
+
+            if (type === TextField.Type.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+                invalidMsgs.push('Not a valid positive integer');
+            }
+
+            if (type === TextField.Type.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+                invalidMsgs.push('Not a valid nonnegative integer');
+            }
+
+            if (type === TextField.Type.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+                invalidMsgs.push('Not a valid negative integer');
+            }
+
+            if (type === TextField.Type.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+                invalidMsgs.push('Not a valid nonpositive integer');
+            }
+
+            if (max !== undefined && +value > max) {
+                invalidMsgs.push(`Maximum value is ${max}`);
+            }
+
+            if (min !== undefined && +value < min) {
+                invalidMsgs.push(`Minimum value is ${min}`);
+            }
+
         }
 
         if (pattern !== undefined && !pattern.test(value)) {
@@ -82,37 +126,34 @@ export default class TextField extends Component {
 
     }
 
-    changeHandle(e) {
+    changeHandler(e) {
 
-        const {onValid, onInvalid} = this.props;
+        const {preventInvalidInput, onValid, onInvalid} = this.props,
 
-        const value = e.target.value;
-        const invalidMsgs = this.valid(value);
+            value = e.target.value,
+            invalidMsgs = this.valid(value);
+
+        if (preventInvalidInput && invalidMsgs.length > 0) {
+            return;
+        }
 
         this.setState({
             value,
             invalidMsgs
         }, () => {
-
             this.props.onChange && this.props.onChange(value, e);
-
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
-
         });
 
     }
 
-    keydownHandle(e) {
+    keyDownHandler(e) {
 
-        const {type, onPressEnter} = this.props,
+        const {onPressEnter} = this.props,
             {value} = this.state;
 
         if (e.keyCode === 13) {
             onPressEnter && onPressEnter(value);
-        }
-
-        if (type === 'number' && isNaN(e.key) && e.key !== '-' && e.keyCode !== 8) {
-            e.preventDefault();
         }
 
     }
@@ -158,21 +199,21 @@ export default class TextField extends Component {
 
     }
 
-    mouseoverHandle() {
+    mouseoverHandler() {
         this.setState({
             infoVisible: true,
             errorVisible: true
         });
     }
 
-    mouseoutHandle() {
+    mouseoutHandler() {
         this.setState({
             infoVisible: false,
             errorVisible: false
         });
     }
 
-    focusHandle(e) {
+    focusHandler(e) {
         this.setState({
             isFocused: true
         }, () => {
@@ -180,7 +221,7 @@ export default class TextField extends Component {
         });
     }
 
-    blurHandle(e) {
+    blurHandler(e) {
 
         if (e.relatedTarget == this.clearButtonEl) {
             return;
@@ -215,20 +256,27 @@ export default class TextField extends Component {
     render() {
 
         const {
-            children, className, style, type, value: v, iconCls, disabled, infoMsg, autoFocus, searchButtonVisible,
-            clearButtonVisible, rightIconCls, passwordButtonVisible, pattern, patternInvalidMsg,
-            onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
-            ...rest
-        } = this.props;
-        const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
-        const isPassword = type === TextField.Type.PASSWORD;
+                children, className, style, type, iconCls, disabled, infoMsg,
+                clearButtonVisible, rightIconCls, passwordButtonVisible,
+
+                // not passing down these props
+                value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg, preventInvalidInput,
+                onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
+
+                ...rest
+
+            } = this.props,
+
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+
+            isPassword = type === TextField.Type.PASSWORD;
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
             inputType = passwordVisible ? TextField.Type.TEXT : TextField.Type.PASSWORD;
-        } else if (inputType === TextField.Type.NUMBER) {
-            inputType = TextField.Type.TEXT;
+        } else if (this.isNumberType(type)) {
+            inputType = 'text';
         }
 
         return (
@@ -251,13 +299,12 @@ export default class TextField extends Component {
                        className="text-field-input"
                        type={inputType}
                        value={value}
-                       onChange={this.changeHandle}
-                       onInput={this.changeHandle}
-                       onKeyDown={this.keydownHandle}
-                       onMouseOver={this.mouseoverHandle}
-                       onMouseOut={this.mouseoutHandle}
-                       onFocus={this.focusHandle}
-                       onBlur={this.blurHandle}/>
+                       onChange={this.changeHandler}
+                       onKeyDown={this.keyDownHandler}
+                       onMouseOver={this.mouseoverHandler}
+                       onMouseOut={this.mouseoutHandler}
+                       onFocus={this.focusHandler}
+                       onBlur={this.blurHandler}/>
 
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
@@ -407,6 +454,7 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
+    preventInvalidInput: PropTypes.bool,
     autoComplete: PropTypes.string,
     autoCorrect: PropTypes.string,
     autoCapitalize: PropTypes.string,
@@ -481,6 +529,7 @@ TextField.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
+    preventInvalidInput: false,
 
     autoComplete: 'off',
     autoCorrect: 'off',
