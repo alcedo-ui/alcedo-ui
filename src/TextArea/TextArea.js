@@ -8,8 +8,10 @@ import Event from '../_vendors/Event';
 import './TextArea.css';
 
 export default class TextArea extends Component {
-    constructor(props) {
-        super();
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             focus: false,
@@ -18,11 +20,11 @@ export default class TextArea extends Component {
             value: props.value
         };
 
-        this.onFocus = this :: this.onFocus;
-        this.onBlur = this :: this.onBlur;
-        this.onChange = this :: this.onChange;
-        this.resizeHandle = this :: this.resizeHandle;
-        this.mouseUpHandle = this :: this.mouseUpHandle;
+        this.onFocus = ::this.onFocus;
+        this.onBlur = ::this.onBlur;
+        this.onChange = ::this.onChange;
+        this.resizeHandle = ::this.resizeHandle;
+        this.mouseUpHandle = ::this.mouseUpHandle;
 
     }
 
@@ -88,8 +90,8 @@ export default class TextArea extends Component {
 
         this.setState({
             value: target.value
-        }, ()=>{
-            this.props.onChange && this.props.onChange(target.value)
+        }, () => {
+            this.props.onChange && this.props.onChange(target.value);
         });
     }
 
@@ -126,17 +128,18 @@ export default class TextArea extends Component {
     }
 
     render() {
-        const {className, style, cols, rows, autoSize, placeholder, maxWidth} = this.props;
-        const {focus, width, height, value} = this.state;
 
-        let textStyle = {
-            height: height,
-            width: width,
-            overflow: autoSize ? 'hidden' : 'auto',
-            resize: autoSize ? 'none' : 'both',
-            maxWidth: maxWidth,
-            ...style
-        };
+        const {className, style, cols, rows, autoSize, placeholder, maxWidth} = this.props,
+            {focus, width, height, value} = this.state,
+
+            textStyle = {
+                height: height,
+                width: width,
+                overflow: autoSize ? 'hidden' : 'auto',
+                resize: autoSize ? 'none' : 'both',
+                maxWidth: maxWidth,
+                ...style
+            };
 
         return (
             <textarea ref="textarea"
@@ -152,9 +155,9 @@ export default class TextArea extends Component {
                       spellCheck="false"
                       onFocus={this.onFocus}
                       onBlur={this.onBlur}
-                      onChange={this.onChange}>
-            </textarea>
+                      onChange={this.onChange}></textarea>
         );
+
     }
 };
 
