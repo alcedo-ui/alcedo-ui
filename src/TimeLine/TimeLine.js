@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import TimeLineItem from './TimelineItem';
 import Theme from '../Theme';
@@ -14,16 +13,14 @@ import './TimeLine.css';
 
 export default class TimeLine extends Component {
 
-    constructor(props) {
-        super(props);
+    static Type = TimeLineItem.Type;
 
-    }
-
-    componentDidMount(){
-
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
+
         const {data, style, className} = this.props;
 
         return (
@@ -32,10 +29,6 @@ export default class TimeLine extends Component {
 
                 {
                     data.map((item, index) => {
-
-                        {/*const isArray = _.isArray(item.description);*/
-                        }
-
                         return (
                             <TimeLineItem key={index}
                                           theme={item.theme}
@@ -44,35 +37,16 @@ export default class TimeLine extends Component {
                                           date={item.date}
                                           hasBorder={item.hasBorder}
                                           contentText={item.contentText}
-                                          headerText={item.headerText}>
-
-                                {/*{*/}
-                                {/*item.description && isArray ?*/}
-                                {/*item.description.map((ele, i)=> {*/}
-                                {/*return (*/}
-                                {/*<div className="text-content-list"*/}
-                                {/*key={i}>*/}
-                                {/*{ele}*/}
-                                {/*</div>*/}
-                                {/*)*/}
-
-                                {/*})*/}
-                                {/*:*/}
-                                {/*item.description*/}
-                                {/*}*/}
-
-
-                            </TimeLineItem>
+                                          headerText={item.headerText}/>
                         );
                     })
                 }
 
-
             </ul>
-        )
+        );
+
     }
 }
-TimeLine.Type = TimeLineItem.Type;
 
 TimeLine.propTypes = {
 
@@ -129,6 +103,7 @@ TimeLine.defaultProps = {
 
     className: '',
     style: null,
+
     hasBorder: true,
     title: '',
     type: ''
