@@ -7,16 +7,18 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-export default class _DayPicker extends Component {
+export default class DayPicker extends Component {
 
     constructor(props) {
 
         super(props);
+
         this.defaultTable = {
             row_number: 6,
             col_number: 7
         };
         const value = this.props.value;
+
         this.state = {
             selectYear: this.props.year,
             selectMonth: this.props.month,
@@ -31,13 +33,14 @@ export default class _DayPicker extends Component {
             first_day: this.weekday(this.props.year, this.props.month)
         };
 
-        this.previousLevel = this::this.previousLevel;
-        this.selectDate = this::this.selectDate;
-        this.previousMonth = this::this.previousMonth;
-        this.nextMonth = this::this.nextMonth;
-        this.previousYear = this::this.previousYear;
-        this.nextYear = this::this.nextYear;
-        this.hoverDateHandle = this::this.hoverDateHandle;
+        this.previousLevel = ::this.previousLevel;
+        this.selectDate = ::this.selectDate;
+        this.previousMonth = ::this.previousMonth;
+        this.nextMonth = ::this.nextMonth;
+        this.previousYear = ::this.previousYear;
+        this.nextYear = ::this.nextYear;
+        this.hoverDateHandle = ::this.hoverDateHandle;
+
     }
 
     MonthDays(year) {
@@ -471,9 +474,11 @@ export default class _DayPicker extends Component {
     }
 };
 
-_DayPicker.propTypes = {
+DayPicker.propTypes = {
+
     className: PropTypes.string,
     style: PropTypes.object,
+
     value: PropTypes.string,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -483,9 +488,12 @@ _DayPicker.propTypes = {
     dateFormat: PropTypes.string,
     isRange: PropTypes.bool,
     isFooter: PropTypes.bool,
+
     onChange: PropTypes.func,
     previousClick: PropTypes.func
+
 };
-_DayPicker.defaultProps = {
+
+DayPicker.defaultProps = {
     isFooter: false
 };
