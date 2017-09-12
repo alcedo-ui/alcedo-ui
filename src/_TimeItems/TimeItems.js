@@ -24,11 +24,11 @@ export default class TimeItems extends Component {
         this.props.onChange && this.props.onChange(value);
     }
 
-    mousemoveHandle(e) {
+    mousemoveHandle() {
         this.refs.timeItems.style.overflowY = 'scroll';
     }
 
-    mouseoutHandle(e) {
+    mouseoutHandle() {
         this.refs.timeItems.style.overflowY = 'hidden';
     }
 
