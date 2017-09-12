@@ -1,6 +1,8 @@
 @import '../_common.scss';
 
 .table-wrapper {
+    display: table;
+    width: 100%;
     background: $theme-field;
 
     .table {
