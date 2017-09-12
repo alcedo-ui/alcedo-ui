@@ -39,9 +39,9 @@ export default class MenuBody extends Component {
         OPEN: 'open'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.prepareCloseTimeout = null;
@@ -51,13 +51,13 @@ export default class MenuBody extends Component {
             visible: false
         };
 
-        this.getMenuStyle = this::this.getMenuStyle;
-        this.triggerMouseEnterHandler = this::this.triggerMouseEnterHandler;
-        this.triggerMouseLeaveHandler = this::this.triggerMouseLeaveHandler;
-        this.resizeHandler = this::this.resizeHandler;
-        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
+        this.getMenuStyle = ::this.getMenuStyle;
+        this.triggerMouseEnterHandler = ::this.triggerMouseEnterHandler;
+        this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
+        this.resizeHandler = ::this.resizeHandler;
+        this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
 
     }
 
