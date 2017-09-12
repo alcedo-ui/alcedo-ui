@@ -15,9 +15,9 @@ import './DropdownSelect.css';
 
 export default class DropdownSelect extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value,
@@ -26,13 +26,13 @@ export default class DropdownSelect extends Component {
             isAbove: false
         };
 
-        this.isAbove = this::this.isAbove;
-        this.filterChangeHandle = this::this.filterChangeHandle;
-        this.togglePopup = this::this.togglePopup;
-        this.closePopup = this::this.closePopup;
-        this.filterData = this::this.filterData;
-        this.popupRenderHandle = this::this.popupRenderHandle;
-        this.changeHandler = this::this.changeHandler;
+        this.isAbove = ::this.isAbove;
+        this.filterChangeHandle = ::this.filterChangeHandle;
+        this.togglePopup = ::this.togglePopup;
+        this.closePopup = ::this.closePopup;
+        this.filterData = ::this.filterData;
+        this.popupRenderHandle = ::this.popupRenderHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
@@ -64,16 +64,16 @@ export default class DropdownSelect extends Component {
     togglePopup() {
         this.setState({
             popupVisible: !this.state.popupVisible
-        },()=>{
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
+        }, () => {
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
         });
     }
 
     closePopup() {
         this.setState({
             popupVisible: false
-        },()=>{
-            this.props.onClosePopup && this.props.onClosePopup()
+        }, () => {
+            this.props.onClosePopup && this.props.onClosePopup();
         });
     }
 
