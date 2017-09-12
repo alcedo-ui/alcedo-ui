@@ -7,12 +7,12 @@ import './TableHeader.css';
 
 export default class TableHeader extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.headerRenderer = this::this.headerRenderer;
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.headerRenderer = ::this.headerRenderer;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
