@@ -10,12 +10,12 @@ import './BriefPagging.css';
 
 export default class BriefPagging extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.pageChangedHandle = this.pageChangedHandle.bind(this);
-        this.pageSizeChangedHandle = this.pageSizeChangedHandle.bind(this);
+        this.pageChangedHandle = ::this.pageChangedHandle;
+        this.pageSizeChangedHandle = ::this.pageSizeChangedHandle;
 
     }
 
