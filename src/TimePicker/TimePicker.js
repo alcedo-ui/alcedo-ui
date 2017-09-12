@@ -1,35 +1,33 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+
+import TextField from '../TextField';
+import TimeList from '../_TimeList';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import moment from 'moment';
-
-
-import TextField from '../TextField/TextField';
-import TimeList from '../_TimeList/TimeList';
-
 
 import './TimePicker.css';
 
 export default class TimePicker extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
-        const value = this.props.value;
+        super(props, ...restArgs);
+
         this.state = {
-            textFieldValue: value,
+            textFieldValue: props.value,
             popupVisible: false,
             hour: moment().format('HH'),
             minute: moment().format('mm'),
             second: moment().format('ss')
         };
 
-        this.textFieldChangeHandle = this::this.textFieldChangeHandle;
-        this.mousedownHandle = this::this.mousedownHandle;
-        this.wrapperHeight = this::this.wrapperHeight;
-        this.timePickerChangeHandle = this::this.timePickerChangeHandle;
+        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
+        this.mousedownHandle = ::this.mousedownHandle;
+        this.wrapperHeight = ::this.wrapperHeight;
+        this.timePickerChangeHandle = ::this.timePickerChangeHandle;
 
     }
 
@@ -37,17 +35,17 @@ export default class TimePicker extends Component {
         let arr = [];
         for (let i = 0; i < range; i++) {
             if (i < 10) {
-                i = '0' + i
+                i = '0' + i;
             }
-            arr.push({text: i, value: true})
+            arr.push({text: i, value: true});
         }
         return arr;
     }
 
     wrapperHeight() {
-        const {popupVisible}=this.state;
+        const {popupVisible} = this.state;
         if (this.refs.trigger) {
-            return popupVisible ? (this.refs.trigger.offsetHeight + 300) : this.refs.trigger.offsetHeight
+            return popupVisible ? (this.refs.trigger.offsetHeight + 300) : this.refs.trigger.offsetHeight;
         }
     }
 
@@ -59,18 +57,18 @@ export default class TimePicker extends Component {
             if (flag) {
                 const hour = moment(validDate).format('HH'),
                     minute = moment(validDate).format('mm'),
-                    second = moment(validDate).format('ss')
+                    second = moment(validDate).format('ss');
                 this.setState({
                     textFieldValue: text,
                     hour: hour,
                     minute: minute,
                     second: second
-                })
+                });
             }
         } else {
             this.setState({
                 textFieldValue: text
-            })
+            });
         }
     }
 
@@ -83,7 +81,7 @@ export default class TimePicker extends Component {
             minute: obj.minute,
             second: obj.second,
             textFieldValue: timer
-        })
+        });
     }
 
     mousedownHandle(e) {
@@ -108,14 +106,14 @@ export default class TimePicker extends Component {
     }
 
     componentDidMount() {
-        const {value}=this.props;
-        let dateFormatValue = '2000-02-01 ' + value
+        const {value} = this.props;
+        let dateFormatValue = '2000-02-01 ' + value;
         this.setState({
             textFieldValue: value,
             hour: moment(dateFormatValue).format('HH'),
             minute: moment(dateFormatValue).format('mm'),
             second: moment(dateFormatValue).format('ss')
-        })
+        });
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
     }
 
@@ -124,13 +122,16 @@ export default class TimePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, maxValue, minValue,dateFormat} = this.props;
-        const {popupVisible, textFieldValue, hour, minute, second} = this.state;
-        const wrapperHeight = this.wrapperHeight();
-        const wrapperStyle = {
-            height: wrapperHeight + 'px'
-        };
-        const popupTextField =moment('2001-01-01 '+hour + ':' + minute + ':' + second).format(dateFormat);
+
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat} = this.props,
+            {popupVisible, textFieldValue, hour, minute, second} = this.state,
+
+            wrapperHeight = this.wrapperHeight(),
+            wrapperStyle = {
+                height: wrapperHeight + 'px'
+            },
+            popupTextField = moment('2001-01-01 ' + hour + ':' + minute + ':' + second).format(dateFormat);
+
         return (
             <div className={`time-picker ${className}`}
                  style={style}>
@@ -156,7 +157,7 @@ export default class TimePicker extends Component {
                                   maxValue={maxValue}
                                   minValue={minValue}
                                   isRequired={true}
-                                  dateFormat = {dateFormat}
+                                  dateFormat={dateFormat}
                                   popupVisible={popupVisible}
                                   onChange={this.timePickerChangeHandle}/>
                     </div>
@@ -207,11 +208,14 @@ TimePicker.propTypes = {
      * Time format.
      */
     dateFormat: PropTypes.string
+
 };
 
 TimePicker.defaultProps = {
+
     className: '',
     style: null,
+
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
