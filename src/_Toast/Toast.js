@@ -16,9 +16,9 @@ export default class Toast extends Component {
         ERROR: 'error'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.unrenderTimeout = null;
@@ -28,10 +28,10 @@ export default class Toast extends Component {
             leave: false
         };
 
-        this.getIconCls = this::this.getIconCls;
-        this.touchTapHandler = this::this.touchTapHandler;
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
+        this.getIconCls = ::this.getIconCls;
+        this.touchTapHandler = ::this.touchTapHandler;
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
 
     }
 
