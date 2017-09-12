@@ -9,9 +9,9 @@ import TouchRipple from '../TouchRipple';
 
 export default class DayPicker extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.defaultTable = {
             row_number: 6,
