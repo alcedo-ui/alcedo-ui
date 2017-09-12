@@ -11,8 +11,8 @@ import './GridGroup.css';
 
 export default class GridGroup extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
