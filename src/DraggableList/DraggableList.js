@@ -20,25 +20,25 @@ export default class DraggableList extends Component {
     static Mode = DraggableListItem.Mode;
     static SEPARATOR = Symbol('SEPARATOR');
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             items: props.items,
             value: this.initValue(props)
         };
 
-        this.initValue = this::this.initValue;
-        this.isItemChecked = this::this.isItemChecked;
-        this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
-        this.listItemsRenderer = this::this.listItemsRenderer;
-        this.listGroupMoveHandler = this::this.listGroupMoveHandler;
-        this.listItemMoveHandler = this::this.listItemMoveHandler;
-        this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
-        this.listItemSelectHandler = this::this.listItemSelectHandler;
-        this.listItemDeselectHandler = this::this.listItemDeselectHandler;
-        this.wheelHandler = this::this.wheelHandler;
+        this.initValue = ::this.initValue;
+        this.isItemChecked = ::this.isItemChecked;
+        this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
+        this.listItemsRenderer = ::this.listItemsRenderer;
+        this.listGroupMoveHandler = ::this.listGroupMoveHandler;
+        this.listItemMoveHandler = ::this.listItemMoveHandler;
+        this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
+        this.listItemSelectHandler = ::this.listItemSelectHandler;
+        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
