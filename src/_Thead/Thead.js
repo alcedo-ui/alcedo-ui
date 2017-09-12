@@ -7,8 +7,8 @@ import './Thead.css';
 
 export default class Thead extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
