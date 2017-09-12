@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TimeLineItem from './TimelineItem';
+import TimeLineItem from '../_TimelineItem';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';

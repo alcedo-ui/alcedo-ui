@@ -8,8 +8,13 @@ import './TimeLine.css';
 
 export default class TimeLineItem extends Component {
 
-    constructor(props) {
-        super(props);
+    static Type = {
+        HEADER: 'header',
+        TITLE: 'title'
+    };
+
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
@@ -22,11 +27,11 @@ export default class TimeLineItem extends Component {
                 style={style}>
 
                 {
-                    type && type == "header" ?
+                    type && type == 'header' ?
                         <div className={`time-line-item-header`}>{headerText}</div>
                         :
                         (
-                            type && type == "title" ?
+                            type && type == 'title' ?
                                 <div className={`time-line-item-title time-line-item-title-${theme}`}>
                                     <span className="tl-date">{date}</span>
                                     {
@@ -48,14 +53,9 @@ export default class TimeLineItem extends Component {
 
             </li>
 
-        )
+        );
     }
 }
-
-TimeLineItem.Type = {
-    HEADER: 'header',
-    TITLE: 'title'
-};
 
 TimeLineItem.propTypes = {
 
@@ -72,7 +72,6 @@ TimeLineItem.propTypes = {
 };
 
 TimeLineItem.defaultProps = {
-
-    className: ''
-
+    className: '',
+    style: null
 };
