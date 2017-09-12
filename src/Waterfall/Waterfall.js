@@ -6,9 +6,9 @@ import './Waterfall.css';
 
 export default class Waterfall extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.shouldRender = false;
         this.renderTimeout = null;
@@ -17,8 +17,8 @@ export default class Waterfall extends Component {
             dom: null
         };
 
-        this.generateTempColumns = this::this.generateTempColumns;
-        this.renderChildren = this::this.renderChildren;
+        this.generateTempColumns = ::this.generateTempColumns;
+        this.renderChildren = ::this.renderChildren;
 
     }
 
