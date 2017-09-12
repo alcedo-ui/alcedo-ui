@@ -13,8 +13,8 @@ export default class CircularLoading extends Component {
         LARGE: 'large'
     };
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
