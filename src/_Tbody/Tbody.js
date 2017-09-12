@@ -15,11 +15,11 @@ export default class Tbody extends Component {
         RADIO: 'radio'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.isItemChecked = this::this.isItemChecked;
+        this.isItemChecked = ::this.isItemChecked;
 
     }
 
