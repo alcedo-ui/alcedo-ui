@@ -29,17 +29,17 @@ export default class DraggableListItem extends Component {
         RADIO: 'radio'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             checked: props.checked
         };
 
-        this.checkboxChangeHandler = this::this.checkboxChangeHandler;
-        this.radioChangeHandler = this::this.radioChangeHandler;
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
+        this.radioChangeHandler = ::this.radioChangeHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 

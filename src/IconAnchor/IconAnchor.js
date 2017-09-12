@@ -9,13 +9,13 @@ import './IconAnchor.css';
 
 export default class IconAnchor extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.touchTapHandler = this::this.touchTapHandler;
-        this.startRipple = this::this.startRipple;
-        this.endRipple = this::this.endRipple;
+        this.touchTapHandler = ::this.touchTapHandler;
+        this.startRipple = ::this.startRipple;
+        this.endRipple = ::this.endRipple;
 
     }
 

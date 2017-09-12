@@ -11,17 +11,17 @@ export default class TipProvider extends Component {
 
     static Position = Tip.Position;
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             tipVisible: false,
             triggerEl: null
         };
 
-        this.showTip = this::this.showTip;
-        this.hideTip = this::this.hideTip;
+        this.showTip = ::this.showTip;
+        this.hideTip = ::this.hideTip;
 
     }
 

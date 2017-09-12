@@ -5,17 +5,16 @@ import List from '../List';
 
 import Valid from '../_vendors/Valid';
 
-// import '../CascaderField/CascaderField.css';
 import './CascaderListItem.css';
 
 export default class CascaderListItem extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.formatData = this::this.formatData;
-        this.changeHandle = this::this.changeHandle;
+        this.formatData = ::this.formatData;
+        this.changeHandle = ::this.changeHandle;
 
     }
 
@@ -62,7 +61,7 @@ export default class CascaderListItem extends Component {
             hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
 
             listStyle = currDepth === 0 ?
-            {width: listWidth * Valid.range(depth, 1)}
+                {width: listWidth * Valid.range(depth, 1)}
                 :
                 null,
 

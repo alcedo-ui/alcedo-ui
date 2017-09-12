@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -39,9 +38,9 @@ export default class MenuBody extends Component {
         OPEN: 'open'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.prepareCloseTimeout = null;
@@ -51,13 +50,14 @@ export default class MenuBody extends Component {
             visible: false
         };
 
-        this.getMenuStyle = this::this.getMenuStyle;
-        this.triggerMouseEnterHandler = this::this.triggerMouseEnterHandler;
-        this.triggerMouseLeaveHandler = this::this.triggerMouseLeaveHandler;
-        this.resizeHandler = this::this.resizeHandler;
-        this.debounceResizeHandle = _.debounce(this::this.debounceResizeHandle, 150);
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
+        this.getMenuStyle = ::this.getMenuStyle;
+        this.triggerMouseEnterHandler = ::this.triggerMouseEnterHandler;
+        this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
+        this.resizeHandler = ::this.resizeHandler;
+        this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
@@ -210,6 +210,12 @@ export default class MenuBody extends Component {
         this.forceUpdate();
     }
 
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
+    }
+
     initializeAnimation(callback) {
         setTimeout(() => {
             this.hasMounted && callback();
@@ -225,7 +231,7 @@ export default class MenuBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.menuEl = findDOMNode(this.refs.menu);
+        this.menuEl = this.refs.menu;
 
         Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
@@ -273,10 +279,9 @@ export default class MenuBody extends Component {
                 + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <Paper ref="menu"
-                   className={'menu' + menuClassName}
-                   style={{...this.getMenuStyle(), ...style}}
-                   depth={depth}>
+            <div ref="menu"
+                 className={'menu' + menuClassName}
+                 style={{...this.getMenuStyle(), ...style}}>
 
                 {
                     hasTriangle ?
@@ -285,11 +290,13 @@ export default class MenuBody extends Component {
                         null
                 }
 
-                <div className="menu-content">
+                <Paper className="menu-content"
+                       onWheel={this.wheelHandler}
+                       depth={depth}>
                     {children}
-                </div>
+                </Paper>
 
-            </Paper>
+            </div>
         );
 
     }
@@ -337,6 +344,8 @@ MenuBody.propTypes = {
      */
     isAnimated: PropTypes.bool,
 
+    shouldPreventContainerScroll: PropTypes.bool,
+
     /**
      * The status of menu-triangle.Can be open or toggle.
      */
@@ -355,7 +364,12 @@ MenuBody.propTypes = {
     /**
      * Callback function fired when the popover is requested to be closed.
      */
-    onRequestClose: PropTypes.func
+    onRequestClose: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -371,6 +385,7 @@ MenuBody.defaultProps = {
     position: MenuBody.Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: MenuBody.TriggerMode.TOGGLE,
-    depth: 4
+    depth: 4,
+    shouldPreventContainerScroll: true
 
 };

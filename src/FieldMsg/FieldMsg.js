@@ -15,9 +15,9 @@ export default class FieldMsg extends Component {
         ERROR: 'error'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.MAX_WIDTH = 460;
 
@@ -30,8 +30,8 @@ export default class FieldMsg extends Component {
             width: 0
         };
 
-        this.getCharSize = this.getCharSize.bind(this);
-        this.getStringSize = this.getStringSize.bind(this);
+        this.getCharSize = ::this.getCharSize;
+        this.getStringSize = ::this.getStringSize;
 
     }
 

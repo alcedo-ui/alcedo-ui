@@ -10,11 +10,11 @@ import './ListStepItem.css';
 
 export default class ListStepItem extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 

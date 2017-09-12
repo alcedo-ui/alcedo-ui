@@ -10,15 +10,17 @@ import './DotStep.css';
 
 export default class DotStep extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             activatedStep: props.activatedStep,
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
+
     }
 
     touchTapHandler(activatedStep) {
@@ -47,8 +49,9 @@ export default class DotStep extends Component {
     }
 
     render() {
-        const {className, style, steps, displayField, finishedText} = this.props;
-        const {activatedStep, finishedStep} = this.state;
+
+        const {className, style, steps, displayField, finishedText} = this.props,
+            {activatedStep, finishedStep} = this.state;
 
         return (
             <div className={`dot-step ${className}`}
@@ -80,6 +83,7 @@ export default class DotStep extends Component {
 };
 
 DotStep.propTypes = {
+
     /**
      * The CSS class name of the root element.
      */
@@ -136,9 +140,11 @@ DotStep.propTypes = {
      * Callback function fired when step change.
      */
     onChange: PropTypes.func
+
 };
 
 DotStep.defaultProps = {
+
     className: '',
     style: null,
 
@@ -148,4 +154,5 @@ DotStep.defaultProps = {
     finishedStep: 0,
     displayField: 'text',
     finishedText: ''
+
 };

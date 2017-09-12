@@ -6,13 +6,16 @@ import PropTypes from 'prop-types';
 
 import TextField from '../TextField/TextField';
 import TipProvider from '../TipProvider';
+
 import Event from '../_vendors/Event';
 
 import './EditableField.css';
 
 export default class EditableField extends Component {
-    constructor(props) {
-        super();
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             hide: true,
@@ -20,12 +23,13 @@ export default class EditableField extends Component {
             changeText: props.value
         };
 
-        this.onInputChange = this :: this.onInputChange;
-        this.showInput = this :: this.showInput;
-        this.downHandle = this :: this.downHandle;
-        this.triggerElement = this :: this.triggerElement;
-        this.keyDownHandle = this :: this.keyDownHandle;
-        this.finishEdit = this :: this.finishEdit;
+        this.onInputChange = ::this.onInputChange;
+        this.showInput = ::this.showInput;
+        this.downHandle = ::this.downHandle;
+        this.triggerElement = ::this.triggerElement;
+        this.keyDownHandle = ::this.keyDownHandle;
+        this.finishEdit = ::this.finishEdit;
+
     }
 
     triggerElement(el, targetEl) {
@@ -122,7 +126,10 @@ export default class EditableField extends Component {
 
     render() {
 
-        const {children, className, style, name, disabled, tip, tipPosition, title, onMouseDown, onTouchTap, showModal} = this.props;
+        const {
+            children, className, style, name, disabled, tip, tipPosition, title,
+            onMouseDown, onTouchTap, showModal
+        } = this.props;
 
         return (
             <TipProvider text={tip}
@@ -141,8 +148,9 @@ export default class EditableField extends Component {
                         this.state.hide === true
                             ?
                             <span className="editable-field-span"
-                                  onTouchTap={this.showInput}>{this.state.text}<i className="fa fa-pencil editable-field-icon"
-                                                                                  aria-hidden="true"></i></span>
+                                  onTouchTap={this.showInput}>{this.state.text}<i
+                                className="fa fa-pencil editable-field-icon"
+                                aria-hidden="true"></i></span>
                             : <TextField ref="textField"
                                          className={'editable-field-input'}
                                          value={this.state.changeText}
@@ -257,14 +265,18 @@ EditableField.propTypes = {
      * Callback function fired when before editableField change.
      */
     beforeChange: PropTypes.func
+
 };
 
 EditableField.defaultProps = {
+
     className: '',
-    style: {},
+    style: null,
+
     title: '',
     value: 'text',
     name: '',
     disabled: false,
     showModal: false
+
 };

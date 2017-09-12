@@ -11,9 +11,9 @@ export default class Dialog extends Component {
 
     static ButtonUITypes = DialogBody.ButtonUITypes;
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.setBodyLock = this::this.setBodyLock;
 

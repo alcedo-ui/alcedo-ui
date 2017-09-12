@@ -5,8 +5,8 @@ import './TableHeaderSortIcon.css';
 
 export default class TableHeaderSortIcon extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

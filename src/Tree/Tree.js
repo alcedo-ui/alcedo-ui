@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TreeNode from './TreeNode';
+import TreeNode from '../_TreeNode';
 
 import './Tree.css';
 
 export default class Tree extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
-            filter: this.props.filter,
-            value: this.props.value
+            filter: props.filter,
+            value: props.value
         };
 
-        this.onChangeHandle = this::this.onChangeHandle;
-        this.filterChangeHandle = this::this.filterChangeHandle;
+        this.onChangeHandle = ::this.onChangeHandle;
+        this.filterChangeHandle = ::this.filterChangeHandle;
 
     }
 
@@ -33,8 +33,8 @@ export default class Tree extends Component {
         const filter = e.target.value;
         this.setState({
             filter: filter
-        }, ()=> {
-            this.props.filterChangeHandle && this.props.filterChangeHandle(filter)
+        }, () => {
+            this.props.filterChangeHandle && this.props.filterChangeHandle(filter);
         });
     }
 
@@ -74,9 +74,10 @@ export default class Tree extends Component {
 
     render() {
 
-        const {data, className, style, multiple, placeholder, iconCls} = this.props;
-        const {filter, value} = this.state;
-        const {getFilterList, filterChangeHandle} = this;
+        const {data, className, style, multiple, placeholder, iconCls} = this.props,
+            {filter, value} = this.state,
+            {getFilterList, filterChangeHandle} = this;
+
         this.filterList = getFilterList(data, filter);
 
         return (
@@ -128,6 +129,7 @@ export default class Tree extends Component {
 };
 
 Tree.propTypes = {
+
     /**
      * The CSS class name of the root element.
      */
@@ -167,11 +169,17 @@ Tree.propTypes = {
      * The placeholder of the text field.
      */
     placeholder: PropTypes.string
+
 };
 
 Tree.defaultProps = {
+
+    className: '',
+    style: null,
+
     value: [],
     placeholder: 'Search',
     filter: '',
     iconCls: ''
+
 };

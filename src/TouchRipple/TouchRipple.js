@@ -12,9 +12,9 @@ import './TouchRipple.css';
 
 export default class TouchRipple extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.ignoreNextMouseDown = false;
         this.nextKey = 0;
@@ -24,27 +24,25 @@ export default class TouchRipple extends Component {
             ripples: []
         };
 
-        this.getRippleStyle = this::this.getRippleStyle;
-        this.addRipple = this::this.addRipple;
-        this.removeRipple = this::this.removeRipple;
-        this.clearRippleTimeout = this::this.clearRippleTimeout;
-        this.mouseDownHandle = this::this.mouseDownHandle;
+        this.getRippleStyle = ::this.getRippleStyle;
+        this.addRipple = ::this.addRipple;
+        this.removeRipple = ::this.removeRipple;
+        this.clearRippleTimeout = ::this.clearRippleTimeout;
+        this.mouseDownHandle = ::this.mouseDownHandle;
 
     }
 
     getRippleStyle(e) {
 
-        const {displayCenter} = this.props;
+        const {displayCenter} = this.props,
 
-        // 获取div
-        const el = ReactDOM.findDOMNode(this);
+            el = ReactDOM.findDOMNode(this),
 
-        // 获取div 宽度、高度 和 偏移
-        const elWidth = el.offsetWidth;
-        const elHeight = el.offsetHeight;
+            elWidth = el.offsetWidth,
+            elHeight = el.offsetHeight;
 
 
-        // 获取相对于div的点击位置偏移
+        // get pointer offset of el
         let pointerX, pointerY;
         if (displayCenter) {
             pointerX = elWidth / 2;
@@ -55,7 +53,7 @@ export default class TouchRipple extends Component {
             pointerY = e.pageY - top;
         }
 
-        // 涟漪半径为4个距离的最大值
+        // radius is the max distence
         const rippleRadius = Math.max(
             Util.getDiag(pointerX, pointerY),
             Util.getDiag(elWidth - pointerX, pointerY),
@@ -64,7 +62,7 @@ export default class TouchRipple extends Component {
         );
         const rippleSize = rippleRadius * 2;
 
-        // 最终偏移量
+        // calculate offset
         const left = pointerX - rippleRadius;
         const top = pointerY - rippleRadius;
 

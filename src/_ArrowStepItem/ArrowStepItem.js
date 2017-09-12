@@ -5,11 +5,11 @@ import './ArrowStepItem.css';
 
 export default class ArrowStepItem extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 

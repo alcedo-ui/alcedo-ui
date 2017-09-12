@@ -10,16 +10,16 @@ import './LazyImage.css';
 
 export default class LazyImage extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             imageState: 0
         };
 
-        this.scrollHandle = this::this.scrollHandle;
-        this.debounceScrollHandle = _.debounce(this::this.debounceScrollHandle, 150);
+        this.scrollHandle = ::this.scrollHandle;
+        this.debounceScrollHandle = _.debounce(::this.debounceScrollHandle, 150);
 
     }
 

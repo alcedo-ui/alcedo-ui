@@ -1,1 +1,1 @@
-export default from './_YearPicker';
+export default from './YearPicker';

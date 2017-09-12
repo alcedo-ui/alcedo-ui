@@ -25,9 +25,9 @@ export default class TextField extends Component {
         URL: 'url'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value,
@@ -38,15 +38,15 @@ export default class TextField extends Component {
             invalidMsgs: ''
         };
 
-        this.valid = this::this.valid;
-        this.changeHandler = this::this.changeHandler;
-        this.keyDownHandler = this::this.keyDownHandler;
-        this.clearValue = this::this.clearValue;
-        this.togglePasswordVisible = this::this.togglePasswordVisible;
-        this.mouseoverHandler = this::this.mouseoverHandler;
-        this.mouseoutHandler = this::this.mouseoutHandler;
-        this.focusHandler = this::this.focusHandler;
-        this.blurHandler = this::this.blurHandler;
+        this.valid = ::this.valid;
+        this.changeHandler = ::this.changeHandler;
+        this.keyDownHandler = ::this.keyDownHandler;
+        this.clearValue = ::this.clearValue;
+        this.togglePasswordVisible = ::this.togglePasswordVisible;
+        this.mouseoverHandler = ::this.mouseoverHandler;
+        this.mouseoutHandler = ::this.mouseoutHandler;
+        this.focusHandler = ::this.focusHandler;
+        this.blurHandler = ::this.blurHandler;
 
     }
 

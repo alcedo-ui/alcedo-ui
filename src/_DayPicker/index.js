@@ -1,1 +1,1 @@
-export default from './_DayPicker';
+export default from './DayPicker';

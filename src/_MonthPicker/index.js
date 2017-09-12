@@ -1,1 +1,1 @@
-export default from './_MonthPicker';
+export default from './MonthPicker';

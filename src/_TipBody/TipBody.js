@@ -25,9 +25,9 @@ export default class TipBody extends Component {
 
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.unrenderTimeout = null;
@@ -36,11 +36,11 @@ export default class TipBody extends Component {
             visible: false
         };
 
-        this.getWrapperStyle = this::this.getWrapperStyle;
-        this.getRippleStyle = this::this.getRippleStyle;
-        this.mouseMoveHandle = this::this.mouseMoveHandle;
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
+        this.getWrapperStyle = ::this.getWrapperStyle;
+        this.getRippleStyle = ::this.getRippleStyle;
+        this.mouseMoveHandle = ::this.mouseMoveHandle;
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
 
     }
 

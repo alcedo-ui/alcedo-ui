@@ -13,9 +13,9 @@ import './TagField.css';
 
 export default class TagField extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.inputSymbol = Symbol('input');
 
@@ -27,17 +27,17 @@ export default class TagField extends Component {
             editingItemIndex: -1
         };
 
-        this.removeItem = this::this.removeItem;
-        this.calInputIndex = this::this.calInputIndex;
-        this.mouseDownHandler = this::this.mouseDownHandler;
-        this.inputChangeHandler = this::this.inputChangeHandler;
-        this.inputKeyDownHandler = this::this.inputKeyDownHandler;
-        this.insertInputValue = this::this.insertInputValue;
-        this.itemChangeHandler = this::this.itemChangeHandler;
-        this.itemEditStartHandler = this::this.itemEditStartHandler;
-        this.itemEditEndHandler = this::this.itemEditEndHandler;
-        this.clearHandler = this::this.clearHandler;
-        this.wheelHandler = this::this.wheelHandler;
+        this.removeItem = ::this.removeItem;
+        this.calInputIndex = ::this.calInputIndex;
+        this.mouseDownHandler = ::this.mouseDownHandler;
+        this.inputChangeHandler = ::this.inputChangeHandler;
+        this.inputKeyDownHandler = ::this.inputKeyDownHandler;
+        this.insertInputValue = ::this.insertInputValue;
+        this.itemChangeHandler = ::this.itemChangeHandler;
+        this.itemEditStartHandler = ::this.itemEditStartHandler;
+        this.itemEditEndHandler = ::this.itemEditEndHandler;
+        this.clearHandler = ::this.clearHandler;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 

@@ -7,10 +7,13 @@ import PropTypes from 'prop-types';
 import './DotStepItem.css';
 
 export default class DotStepItem extends Component {
-    constructor(props) {
-        super(props);
 
-        this.touchTapHandler = this::this.touchTapHandler;
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
+
+        this.touchTapHandler = ::this.touchTapHandler;
+
     }
 
     touchTapHandler() {
@@ -19,6 +22,7 @@ export default class DotStepItem extends Component {
     }
 
     render() {
+
         const {className, style, activatedStep, finishedStep, index} = this.props,
 
             itemClassName = (activatedStep === index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
@@ -27,14 +31,14 @@ export default class DotStepItem extends Component {
         return (
             <div className={'dot-step-item' + itemClassName}
                  onClick={this.touchTapHandler}
-                 style={style}>
-
-            </div>
+                 style={style}></div>
         );
+
     }
 };
 
 DotStepItem.propTypes = {
+
     /**
      * The CSS class name of the root element.
      */
@@ -64,12 +68,16 @@ DotStepItem.propTypes = {
      * Callback function fired when step change.
      */
     onTouchTap: PropTypes.func
+
 };
 
 DotStepItem.defaultProps = {
+
     className: '',
     style: null,
+
     index: 0,
     activatedStep: 0,
     finishedStep: 0
+
 };

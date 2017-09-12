@@ -7,17 +7,19 @@ import Util from '../_vendors/Util';
 import './MaterialTextField.css';
 
 export default class MaterialTextField extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             value: '',
             isFocus: false
         };
 
-        this.onFocusHandle = this::this.onFocusHandle;
-        this.onBlurHandle = this::this.onBlurHandle;
-        this.onChangeHandle = this::this.onChangeHandle;
+        this.onFocusHandle = ::this.onFocusHandle;
+        this.onBlurHandle = ::this.onBlurHandle;
+        this.onChangeHandle = ::this.onChangeHandle;
 
     }
 
@@ -27,7 +29,7 @@ export default class MaterialTextField extends Component {
             isFocus: true
         }, () => {
             this.props.onFocus && this.props.onFocus(this.state.value, e);
-        })
+        });
     }
 
     onBlurHandle(e) {
@@ -35,21 +37,21 @@ export default class MaterialTextField extends Component {
             isFocus: false
         }, () => {
             this.props.onBlur && this.props.onBlur(this.state.value, e);
-        })
+        });
     }
 
     onChangeHandle(value) {
         this.setState({
             value
-        }, ()=> {
+        }, () => {
             this.props.onChange && this.props.onChange(value);
-        })
+        });
     }
 
     render() {
 
-        const {className, label, style, isLabelAnimate} = this.props;
-        const {isFocus, value} = this.state;
+        const {className, label, style, isLabelAnimate} = this.props,
+            {isFocus, value} = this.state;
 
         return (
             <div
@@ -250,6 +252,7 @@ MaterialTextField.propTypes = {
 };
 
 MaterialTextField.defaultProps = {
+
     className: '',
     style: null,
 
@@ -278,5 +281,6 @@ MaterialTextField.defaultProps = {
 
     label: '',
     isLabelAnimate: true
+
 };
 

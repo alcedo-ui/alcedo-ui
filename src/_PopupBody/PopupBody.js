@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -40,9 +39,9 @@ export default class PopupBody extends Component {
         OPEN: 'open'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.requestCloseTimeout = null;
@@ -51,13 +50,13 @@ export default class PopupBody extends Component {
             visible: false
         };
 
-        this.getPopupStyle = this::this.getPopupStyle;
-        this.mousedownHandler = this::this.mousedownHandler;
-        this.resizeHandler = this::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(this::this.debounceResizeHandler, 150);
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
-        this.wheelHandler = this::this.wheelHandler;
+        this.getPopupStyle = ::this.getPopupStyle;
+        this.mousedownHandler = ::this.mousedownHandler;
+        this.resizeHandler = ::this.resizeHandler;
+        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
@@ -266,7 +265,7 @@ export default class PopupBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.popupEl = findDOMNode(this.refs.popup);
+        this.popupEl = this.refs.popup;
 
         Event.addEvent(document, 'mousedown', this.mousedownHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
@@ -308,11 +307,9 @@ export default class PopupBody extends Component {
                 + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <Paper ref="popup"
-                   className={'popup' + popupClassName}
-                   style={{...this.getPopupStyle(), ...style}}
-                   depth={depth}
-                   onWheel={this.wheelHandler}>
+            <div ref="popup"
+                 className={'popup' + popupClassName}
+                 style={{...this.getPopupStyle(), ...style}}>
 
                 {
                     hasTriangle ?
@@ -321,11 +318,13 @@ export default class PopupBody extends Component {
                         null
                 }
 
-                <div className="popup-content">
+                <Paper className="popup-content"
+                       onWheel={this.wheelHandler}
+                       depth={depth}>
                     {children}
-                </div>
+                </Paper>
 
-            </Paper>
+            </div>
         );
 
     }

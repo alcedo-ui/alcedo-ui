@@ -5,8 +5,8 @@ import './TextFieldGroup.css';
 
 export default class TextFieldGroup extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

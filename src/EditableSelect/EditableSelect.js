@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
-import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
@@ -15,26 +14,26 @@ import './EditableSelect.css';
 
 export default class EditableSelect extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value,
-            listValue:props.value,
+            listValue: props.value,
             filter: '',
             popupVisible: false,
             isAbove: false
         };
 
-        this.isAbove = this::this.isAbove;
-        this.filterChangeHandle = this::this.filterChangeHandle;
-        this.showPopup = this::this.showPopup;
-        this.closePopup = this::this.closePopup;
-        this.filterData = this::this.filterData;
-        this.popupRenderHandle = this::this.popupRenderHandle;
-        this.changeHandle = this::this.changeHandle;
-        this.onChangeValue = this::this.onChangeValue;
+        this.isAbove = ::this.isAbove;
+        this.filterChangeHandle = ::this.filterChangeHandle;
+        this.showPopup = ::this.showPopup;
+        this.closePopup = ::this.closePopup;
+        this.filterData = ::this.filterData;
+        this.popupRenderHandle = ::this.popupRenderHandle;
+        this.changeHandle = ::this.changeHandle;
+        this.onChangeValue = ::this.onChangeValue;
 
     }
 
@@ -66,12 +65,12 @@ export default class EditableSelect extends Component {
     onChangeValue(value) {
         this.setState({
             value,
-            listValue:''
+            listValue: ''
         }, () => {
             const {onChange} = this.props;
             onChange && onChange({
-                [this.props.valueField]:value,
-                [this.props.displayField]:value
+                [this.props.valueField]: value,
+                [this.props.displayField]: value
             });
         });
     }
@@ -79,16 +78,16 @@ export default class EditableSelect extends Component {
     showPopup() {
         this.setState({
             popupVisible: true
-        }, ()=> {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
+        }, () => {
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
         });
     }
 
-    closePopup(){
+    closePopup() {
         this.setState({
             popupVisible: false
-        }, ()=> {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible)
+        }, () => {
+            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
         });
     }
 
@@ -164,7 +163,7 @@ export default class EditableSelect extends Component {
         const {autoClose} = this.props,
             state = {
                 value,
-                listValue:value
+                listValue: value
             };
 
         if (autoClose) {
@@ -196,7 +195,7 @@ export default class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, disableTouchRipple,onItemTouchTap
+                triggerTheme, isGrouped, disableTouchRipple, onItemTouchTap
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 

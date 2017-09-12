@@ -8,8 +8,8 @@ export default class Popup extends Component {
     static Position = PopupBody.Position;
     static TriggerMode = PopupBody.TriggerMode;
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

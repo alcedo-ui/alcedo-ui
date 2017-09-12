@@ -21,8 +21,8 @@ const DRAG_LIST_GROUP_SYMBOL = Symbol('DRAG_LIST_GROUP');
 }))
 export default class DraggableListGroup extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

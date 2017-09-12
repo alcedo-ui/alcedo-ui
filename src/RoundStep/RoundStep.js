@@ -7,16 +7,16 @@ import './RoundStep.css';
 
 export default class RoundStep extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             activatedStep: props.activatedStep,
             finishedStep: props.finishedStep
         };
 
-        this.tapHandle = this::this.tapHandle;
+        this.tapHandle = ::this.tapHandle;
 
     }
 

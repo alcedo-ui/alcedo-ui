@@ -17,25 +17,25 @@ export default class Grid extends Component {
 
     static Mode = GridItem.Mode;
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: this.initValue(props)
         };
 
-        this.initValue = this::this.initValue;
-        this.calItemColStyle = this::this.calItemColStyle;
-        this.isItemChecked = this::this.isItemChecked;
-        this.listGroupedItemsRenderer = this::this.listGroupedItemsRenderer;
-        this.listItemsRenderer = this::this.listItemsRenderer;
-        this.listItemTouchTapHandler = this::this.listItemTouchTapHandler;
-        this.listItemSelectHandler = this::this.listItemSelectHandler;
-        this.listItemDeselectHandler = this::this.listItemDeselectHandler;
-        this.resizeHandler = this::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(this::this.debounceResizeHandler, 150);
-        this.wheelHandler = this::this.wheelHandler;
+        this.initValue = ::this.initValue;
+        this.calItemColStyle = ::this.calItemColStyle;
+        this.isItemChecked = ::this.isItemChecked;
+        this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
+        this.listItemsRenderer = ::this.listItemsRenderer;
+        this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
+        this.listItemSelectHandler = ::this.listItemSelectHandler;
+        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
+        this.resizeHandler = ::this.resizeHandler;
+        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 

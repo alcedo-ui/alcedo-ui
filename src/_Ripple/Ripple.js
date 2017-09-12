@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 
 export default class Ripple extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
 

@@ -2,22 +2,25 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
-import Util from '../_vendors/Util';
 import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 import './MaterialDropdownSelect.css';
 
 export default class MaterialDropdownSelect extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value,
             isFocus: false
         };
 
-        this.onTapHandle = this::this.onTapHandle;
-        this.onChangeHandle = this::this.onChangeHandle;
+        this.onTapHandle = ::this.onTapHandle;
+        this.onChangeHandle = ::this.onChangeHandle;
 
     }
 
@@ -25,16 +28,16 @@ export default class MaterialDropdownSelect extends Component {
     onTapHandle(bool) {
         this.setState({
             isFocus: bool
-        })
+        });
     }
 
     onChangeHandle(value) {
         this.setState({
             value,
             isFocus: false
-        }, ()=> {
+        }, () => {
             this.props.onChange && this.props.onChange(value);
-        })
+        });
     }
 
     render() {

@@ -10,10 +10,13 @@ import Percent from '../_Percent';
 import './LinearProgress.css';
 
 export default class LinearProgress extends Component {
-    constructor(props) {
-        super();
 
-        this.getProgressWidth = this :: this.getProgressWidth;
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
+
+        this.getProgressWidth = ::this.getProgressWidth;
+
     }
 
     getProgressWidth() {
@@ -108,6 +111,7 @@ LinearProgress.propTypes = {
 };
 
 LinearProgress.defaultProps = {
+
     className: '',
     style: {
         width: '200px',
@@ -118,4 +122,5 @@ LinearProgress.defaultProps = {
     word: false,
     wordStyle: LinearProgress.WordStyle.FRONT,
     animation: false
+
 };

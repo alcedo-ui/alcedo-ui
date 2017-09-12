@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import FlatButton from '../FlatButton';
 import IconButton from '../IconButton';
 
 import './PaggingPage.css';
 
 export default class PaggingPage extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.jump = this::this.jump;
+        this.jump = ::this.jump;
 
     }
 

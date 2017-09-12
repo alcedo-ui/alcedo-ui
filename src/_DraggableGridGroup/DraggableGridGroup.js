@@ -21,8 +21,8 @@ const DRAG_GRID_GROUP_SYMBOL = Symbol('DRAG_GRID_GROUP');
 }))
 export default class DraggableGridGroup extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

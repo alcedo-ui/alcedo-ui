@@ -23,17 +23,17 @@ export default class Table extends Component {
         RADIO: 'radio'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
 
             /**
              * sort construct
              *  {
-			 *	    prop: '', // 排序的列属性名称
-			 *	    type: 1 | -1 // 正序 | 倒序
+			 *	    prop: '', // col name
+			 *	    type: 1: 'asc' | -1: 'desc'
 			 *  }
              */
             sort: props.sortInitConfig,
@@ -51,20 +51,20 @@ export default class Table extends Component {
 
         };
 
-        this.initValue = this::this.initValue;
-        this.isHeadChecked = this::this.isHeadChecked;
-        this.isItemChecked = this::this.isItemChecked;
-        this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
-        this.itemCheckBoxChangeHandler = this::this.itemCheckBoxChangeHandler;
-        this.itemRadioChangeHandler = this::this.itemRadioChangeHandler;
-        this.sortHandler = this::this.sortHandler;
-        this.sortData = this::this.sortData;
-        this.rowTouchTapHandler = this::this.rowTouchTapHandler;
-        this.calSelectedCount = this::this.calSelectedCount;
-        this.paggingData = this::this.paggingData;
-        this.pageChangedHandler = this::this.pageChangedHandler;
-        this.resetPage = this::this.resetPage;
-        // this.wdithHandle = this::this.wdithHandle;
+        this.initValue = ::this.initValue;
+        this.isHeadChecked = ::this.isHeadChecked;
+        this.isItemChecked = ::this.isItemChecked;
+        this.headCheckBoxChangeHandler = ::this.headCheckBoxChangeHandler;
+        this.itemCheckBoxChangeHandler = ::this.itemCheckBoxChangeHandler;
+        this.itemRadioChangeHandler = ::this.itemRadioChangeHandler;
+        this.sortHandler = ::this.sortHandler;
+        this.sortData = ::this.sortData;
+        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
+        this.calSelectedCount = ::this.calSelectedCount;
+        this.paggingData = ::this.paggingData;
+        this.pageChangedHandler = ::this.pageChangedHandler;
+        this.resetPage = ::this.resetPage;
+        // this.wdithHandle = ::this.wdithHandle;
 
     }
 
@@ -372,7 +372,7 @@ export default class Table extends Component {
             tableClassName = (mode === Table.Mode.CHECKBOX || mode === Table.Mode.RADIO ? ' selectable' : '')
                 + (className ? ' ' + className : '');
 
-        // 处理 columns
+        // handle columns
         let finalColumns = _.cloneDeep(columns);
 
         if (mode === Table.Mode.CHECKBOX) {
@@ -411,7 +411,7 @@ export default class Table extends Component {
             });
         }
 
-        // 处理 data
+        // handle data
         const sortedData = this.sortData(data),
             totalPage = Math.ceil(sortedData.length / pagging.pageSize),
             finalData = isPagging ? this.paggingData(sortedData) : sortedData,
@@ -421,6 +421,7 @@ export default class Table extends Component {
             <div>
 
                 <div className="table-wrapper">
+
                     <table className={'table' + tableClassName}
                            style={style}>
 
@@ -441,35 +442,36 @@ export default class Table extends Component {
                         }
 
                     </table>
-                </div>
 
-                {
-                    isPagging ?
-                        (
-                            useFullPagging ?
-                                <Pagging page={pagging.page}
-                                         count={data.length}
-                                         selectedCount={this.calSelectedCount()}
-                                         total={totalPage}
-                                         pageSize={pagging.pageSize}
-                                         pageSizes={pageSizes}
-                                         selectedCountVisible={paggingSelectedCountVisible}
-                                         pageSizeVisible={paggingPageSizeVisible}
-                                         onChange={this.pageChangedHandler}/>
-                                :
-                                <BriefPagging page={pagging.page}
-                                              count={data.length}
-                                              selectedCount={this.calSelectedCount()}
-                                              total={totalPage}
-                                              pageSize={pagging.pageSize}
-                                              pageSizes={pageSizes}
-                                              selectedCountVisible={paggingSelectedCountVisible}
-                                              pageSizeVisible={paggingPageSizeVisible}
-                                              onChange={this.pageChangedHandler}/>
-                        )
-                        :
-                        null
-                }
+                    {
+                        isPagging ?
+                            (
+                                useFullPagging ?
+                                    <Pagging page={pagging.page}
+                                             count={data.length}
+                                             selectedCount={this.calSelectedCount()}
+                                             total={totalPage}
+                                             pageSize={pagging.pageSize}
+                                             pageSizes={pageSizes}
+                                             selectedCountVisible={paggingSelectedCountVisible}
+                                             pageSizeVisible={paggingPageSizeVisible}
+                                             onChange={this.pageChangedHandler}/>
+                                    :
+                                    <BriefPagging page={pagging.page}
+                                                  count={data.length}
+                                                  selectedCount={this.calSelectedCount()}
+                                                  total={totalPage}
+                                                  pageSize={pagging.pageSize}
+                                                  pageSizes={pageSizes}
+                                                  selectedCountVisible={paggingSelectedCountVisible}
+                                                  pageSizeVisible={paggingPageSizeVisible}
+                                                  onChange={this.pageChangedHandler}/>
+                            )
+                            :
+                            null
+                    }
+
+                </div>
 
             </div>
         );
@@ -519,7 +521,6 @@ Table.propTypes = {
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
 
-        // TableHeader （th） 的样式
         /**
          * The class name of header.
          */
@@ -530,15 +531,14 @@ Table.propTypes = {
          */
         headerStyle: PropTypes.object,
 
-        // 表头显示
-        // (1) 字符串，例如： 'id'
-        // (2) 回调函数，例如：function (colIndex) {return colIndex;}
+        // header renderer
+        // (1) string，example： 'id'
+        // (2) callback，example：function (colIndex) {return colIndex;}
         /**
          * The render content in header.
          */
         header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
-        // TableCell （td） 的样式
         /**
          * The class name of td.
          */
@@ -549,22 +549,20 @@ Table.propTypes = {
          */
         cellStyle: PropTypes.object,
 
-        // 表格列元素渲染
-        // (1) 数据的key，例如： 'id'
-        // (2) 数据key的模板，例如：'${id} - ${name}'
-        // (3) 回调函数，例如：function (rowData, rowIndex, colIndex) {return rowData.id;}
+        // cell renderer
+        // (1) data key，example： 'id'
+        // (2) data key tamplate，example：'${id} - ${name}'
+        // (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
         /**
          * The render content in table.
          */
         renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
-        // 是否排序
         /**
          * If true,this column can be sorted.
          */
         sortable: PropTypes.bool,
 
-        // 排序字段
         /**
          * Sort field.
          */

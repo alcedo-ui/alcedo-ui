@@ -12,19 +12,19 @@ import './BaseButton.css';
 
 export default class BaseButton extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             focused: false
         };
 
-        this.touchTapHandler = this::this.touchTapHandler;
-        this.focusHandler = this::this.focusHandler;
-        this.blurHandler = this::this.blurHandler;
-        this.startRipple = this::this.startRipple;
-        this.endRipple = this::this.endRipple;
+        this.touchTapHandler = ::this.touchTapHandler;
+        this.focusHandler = ::this.focusHandler;
+        this.blurHandler = ::this.blurHandler;
+        this.startRipple = ::this.startRipple;
+        this.endRipple = ::this.endRipple;
 
     }
 

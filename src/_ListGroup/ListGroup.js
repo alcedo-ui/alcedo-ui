@@ -11,8 +11,8 @@ import './ListGroup.css';
 
 export default class ListGroup extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

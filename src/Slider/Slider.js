@@ -9,8 +9,10 @@ import Event from '../_vendors/Event';
 import './Slider.css';
 
 export default class Slider extends Component {
-    constructor(props) {
-        super();
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             left: 0,
@@ -19,16 +21,16 @@ export default class Slider extends Component {
             tip: ''
         };
 
-        this.getPosition = this :: this.getPosition;
-        this.downHandle = this :: this.downHandle;
-        this.getElementLeft = this :: this.getElementLeft;
-        this.clickHandle = this :: this.clickHandle;
-        this.getNearest = this :: this.getNearest;
-        this.overHandle = this :: this.overHandle;
-        this.outHandle = this :: this.outHandle;
-        this.moveHandle = this :: this.moveHandle;
-        this.upHandle = this :: this.upHandle;
-        this.changeHandle = this :: this.changeHandle;
+        this.getPosition = ::this.getPosition;
+        this.downHandle = ::this.downHandle;
+        this.getElementLeft = ::this.getElementLeft;
+        this.clickHandle = ::this.clickHandle;
+        this.getNearest = ::this.getNearest;
+        this.overHandle = ::this.overHandle;
+        this.outHandle = ::this.outHandle;
+        this.moveHandle = ::this.moveHandle;
+        this.upHandle = ::this.upHandle;
+        this.changeHandle = ::this.changeHandle;
 
     }
 
@@ -257,15 +259,15 @@ export default class Slider extends Component {
                     {
                         showScale
                             ? <ul>
-                            {
-                                scale.map((number, index) => {
-                                    let left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100;
-                                    const style = {left: left + '%'};
-                                    return <li style={style}
-                                               key={index}>{number}</li>;
-                                })
-                            }
-                        </ul>
+                                {
+                                    scale.map((number, index) => {
+                                        let left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100;
+                                        const style = {left: left + '%'};
+                                        return <li style={style}
+                                                   key={index}>{number}</li>;
+                                    })
+                                }
+                            </ul>
                             : null
                     }
 
@@ -330,8 +332,9 @@ Slider.propTypes = {
 };
 
 Slider.defaultProps = {
+
     className: '',
-    style: {},
+    style: null,
 
     leftPoint: false,
     width: 300,
@@ -339,5 +342,6 @@ Slider.defaultProps = {
     showScale: false,
     tipShow: true,
     decimalPlaces: 0
+
 };
 

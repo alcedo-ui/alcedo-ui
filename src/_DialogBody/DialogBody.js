@@ -24,9 +24,9 @@ export default class DialogBody extends Component {
         ICON: 'icon'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.unrenderTimeout = null;
@@ -35,13 +35,13 @@ export default class DialogBody extends Component {
             visible: false
         };
 
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
-        this.mousedownHandle = this::this.mousedownHandle;
-        this.getButton = this::this.getButton;
-        this.okButtonTouchTapHandle = this::this.okButtonTouchTapHandle;
-        this.cancelButtonTouchTapHandle = this::this.cancelButtonTouchTapHandle;
-        this.closeButtonTouchTapHandle = this::this.closeButtonTouchTapHandle;
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
+        this.mousedownHandle = ::this.mousedownHandle;
+        this.getButton = ::this.getButton;
+        this.okButtonTouchTapHandle = ::this.okButtonTouchTapHandle;
+        this.cancelButtonTouchTapHandle = ::this.cancelButtonTouchTapHandle;
+        this.closeButtonTouchTapHandle = ::this.closeButtonTouchTapHandle;
 
     }
 

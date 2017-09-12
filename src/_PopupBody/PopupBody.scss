@@ -5,7 +5,8 @@
     width: 200px;
     border-radius: $border-radius;
     z-index: $popup-z-index;
-    overflow: auto;
+    background: transparent;
+    box-shadow: none !important;
 
     .popup-triangle {
         display: block;
@@ -17,7 +18,8 @@
 
     .popup-content {
         width: 100%;
-        overflow: hidden;
+        height: 100%;
+        overflow: auto;
         border-radius: $border-radius;
         transform: rotate(0deg);
     }

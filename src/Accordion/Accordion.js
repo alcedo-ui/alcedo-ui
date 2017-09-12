@@ -7,17 +7,17 @@ import './Accordion.css';
 
 export default class Accordion extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             collapsed: false,
             contentHeight: null
         };
 
-        this.titleMouseDownHandle = this::this.titleMouseDownHandle;
-        this.resetHeight = this::this.resetHeight;
+        this.titleMouseDownHandle = ::this.titleMouseDownHandle;
+        this.resetHeight = ::this.resetHeight;
 
     }
 

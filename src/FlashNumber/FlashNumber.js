@@ -5,64 +5,53 @@ import './FlashNumber.css';
 
 export default class FlashNumber extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.flashTime = props.flashTime; // 动画时长
-        this.startTime; // 每次animationFrame 开始的时间戳
-        this.initValue = props.initValue; // 每次动画的起始数值
-        this.animationFrameId; // animationFrame 的 request id
-        this.currentValue = 0; // 当前显示的值
+        this.flashDuration = props.flashDuration; // flash animate duration
+        this.startTime; // animationFrame start timestamp
+        this.initValue = props.initValue; // value when animate start
+        this.animationFrameId; // animationFrame id
+        this.currentValue = 0; // current display value
 
-        this.init = this.init.bind(this);
-        this.step = this.step.bind(this);
+        this.init = ::this.init;
+        this.step = ::this.step;
 
     }
 
-    /**
-     * 初始化动画
-     */
     init() {
-
-        // 如果正在动画中，结束动画
         this.animationFrameId && cancelAnimationFrame(this.animationFrameId);
-
-        // 初始化动画的开始时间戳
         this.startTime = undefined;
-
-        // 将当前值作为动画的起始值
         this.initValue = this.currentValue;
-
     }
 
     /**
-     * 每次 animationFrame 的回调
-     * @param timeStamp
+     * animationFrame callback
      */
     step(timeStamp) {
 
-        // 第一次request，记录起始时间戳
+        // first request
         if (!this.startTime) {
             this.startTime = timeStamp;
         }
 
-        // 非第一次
+        // non first
         else {
 
-            // 计算显示的值
-            let v = this.initValue + Math.round((this.props.value - this.initValue) * (timeStamp - this.startTime) / this.flashTime);
+            // calculate value
+            let v = this.initValue + Math.round((this.props.value - this.initValue) * (timeStamp - this.startTime) / this.flashDuration);
 
-            // 校验显示的值
-            if (this.props.value < this.initValue) { // 当目标值小于起始值
+            // valid value
+            if (this.props.value < this.initValue) { // target value < init value
                 this.refs.el.innerHTML = this.currentValue = v > this.props.value ? v : this.props.value;
-            } else if (this.props.value > this.initValue) { // 当目标值大于起始值
+            } else if (this.props.value > this.initValue) { // target value > init value
                 this.refs.el.innerHTML = this.currentValue = v < this.props.value ? v : this.props.value;
             }
 
         }
 
-        // 如果当前值与目标值不同，请求下一次 animationFrame，不然结束
+        // request next animationFrame if not finish
         if (this.currentValue != this.props.value) {
             this.animationFrameId = requestAnimationFrame(this.step);
         } else {
@@ -73,26 +62,21 @@ export default class FlashNumber extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-        // 当目标值和当前值不同时，开始动画
+        // start flash animate when value change
         if (nextProps.value !== this.props.value) {
-
-            // 初始化
             this.init();
-
-            // 开始动画
             this.animationFrameId = requestAnimationFrame(this.step);
-
         }
 
-        if (nextProps.flashTime !== this.flashTime) {
-            this.flashTime = nextProps.flashTime;
+        if (nextProps.flashDuration !== this.flashDuration) {
+            this.flashDuration = nextProps.flashDuration;
         }
 
     }
 
     componentDidMount() {
 
-        // 当目标值和当前值不同时，开始动画
+        // start flash animate when value is not equal init value
         if (this.props.value != this.initValue) {
             this.animationFrameId = requestAnimationFrame(this.step);
         }
@@ -141,7 +125,7 @@ FlashNumber.propTypes = {
     /**
      * Animation execution time.
      */
-    flashTime: PropTypes.number
+    flashDuration: PropTypes.number
 
 };
 
@@ -152,6 +136,6 @@ FlashNumber.defaultProps = {
 
     initValue: 0,
     value: 0,
-    flashTime: 450
+    flashDuration: 450
 
 };

@@ -10,12 +10,12 @@ import './FlatButton.css';
 
 export default class FlatButton extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.startRipple = this::this.startRipple;
-        this.endRipple = this::this.endRipple;
+        this.startRipple = ::this.startRipple;
+        this.endRipple = ::this.endRipple;
 
     }
 

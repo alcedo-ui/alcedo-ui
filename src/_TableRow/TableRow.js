@@ -5,11 +5,11 @@ import './TableRow.css';
 
 export default class TableRow extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.contentRenderer = this::this.contentRenderer;
+        this.contentRenderer = ::this.contentRenderer;
 
     }
 

@@ -7,17 +7,17 @@ import './SubtreeContainer.css';
 
 export default class SubtreeContainer extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.wrapper = null;
         this.element = null;
 
-        this.renderWrapper = this::this.renderWrapper;
-        this.renderer = this::this.renderer;
-        this.dorender = this::this.dorender;
-        this.unrender = this::this.unrender;
+        this.renderWrapper = ::this.renderWrapper;
+        this.renderer = ::this.renderer;
+        this.dorender = ::this.dorender;
+        this.unrender = ::this.unrender;
 
     }
 

@@ -5,8 +5,8 @@ import './Paper.css';
 
 export default class Paper extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     formatDepth(depth) {

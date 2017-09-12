@@ -7,8 +7,8 @@ import './Widget.css';
 
 export default class Widget extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {

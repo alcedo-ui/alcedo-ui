@@ -7,15 +7,15 @@ import './ButtonCheckbox.css';
 
 export default class ButtonCheckbox extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: !!props.value
         };
 
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
