@@ -3,22 +3,21 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
-
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 
 import './CascaderList.css';
 
 export default class CascaderList extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value,
@@ -28,7 +27,7 @@ export default class CascaderList extends Component {
             })
         };
 
-        this.changeHandler = this::this.changeHandler;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
@@ -48,8 +47,8 @@ export default class CascaderList extends Component {
     }
 
     render() {
-        const {className, style, listWidth, items, valueField, displayField}=this.props;
-        const {path, value}=this.state;
+        const {className, style, listWidth, items, valueField, displayField} = this.props;
+        const {path, value} = this.state;
 
         return (
             <div className={`cascader-list ${className}`}
@@ -63,7 +62,7 @@ export default class CascaderList extends Component {
                                   depth={CascaderCalculation.calDepth(items, path)}
                                   onChange={this.changeHandler}/>
             </div>
-        )
+        );
     }
 }
 
@@ -213,6 +212,6 @@ CascaderList.defaultProps = {
     items: [],
 
     valueField: 'value',
-    displayField: 'text',
+    displayField: 'text'
 
 };
