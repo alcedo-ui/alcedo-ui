@@ -7,11 +7,11 @@ import './PaggingSize.css';
 
 export default class PaggingSize extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.pageSizeChangeHandle = this::this.pageSizeChangeHandle;
+        this.pageSizeChangeHandle = ::this.pageSizeChangeHandle;
 
     }
 
