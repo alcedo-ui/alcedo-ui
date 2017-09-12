@@ -10,9 +10,9 @@ import './CircularProgress.css';
 
 export default class CircularProgress extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             percent: [0, 0]
