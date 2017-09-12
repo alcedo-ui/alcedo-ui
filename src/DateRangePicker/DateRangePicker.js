@@ -16,12 +16,15 @@ import './DateRangePicker.css';
 
 export default class DateRangePicker extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
+
         const initValue = moment();
+
         let startTime = '',
             endTime = '';
+
         this.state = {
             value: initValue, // Moment object
             popupVisible: false,
@@ -47,15 +50,15 @@ export default class DateRangePicker extends Component {
             marginLeft: 0
         };
 
-        this.textFieldChangeHandle = this::this.textFieldChangeHandle;
-        this.mousedownHandle = this::this.mousedownHandle;
-        this.resizeHandle = this::this.resizeHandle;
-        this.datePickerChangeHandle = this::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = this::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = this::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = this::this.dayPickerChangeHandle;
-        this.dayPickerHoverHandle = this::this.dayPickerHoverHandle;
-        this.monthAndYearChangeHandle = this::this.monthAndYearChangeHandle;
+        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
+        this.mousedownHandle = ::this.mousedownHandle;
+        this.resizeHandle = ::this.resizeHandle;
+        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
+        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
+        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
+        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
+        this.dayPickerHoverHandle = ::this.dayPickerHoverHandle;
+        this.monthAndYearChangeHandle = ::this.monthAndYearChangeHandle;
     }
 
     datePickerChangeHandle(select) {
