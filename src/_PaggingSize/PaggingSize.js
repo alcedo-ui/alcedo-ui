@@ -15,9 +15,9 @@ export default class PaggingSize extends Component {
 
     }
 
-    pageSizeChangeHandle(pageSize) {
-        const {onPageSizeChange} = this.props;
-        this.props.pageSize != pageSize && onPageSizeChange && onPageSizeChange(pageSize);
+    pageSizeChangeHandle(newPageSize) {
+        const {pageSize, onPageSizeChange} = this.props;
+        pageSize != newPageSize && onPageSizeChange && onPageSizeChange(newPageSize);
     }
 
     render() {
