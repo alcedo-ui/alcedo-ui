@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -58,6 +57,7 @@ export default class MenuBody extends Component {
         this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
@@ -210,6 +210,12 @@ export default class MenuBody extends Component {
         this.forceUpdate();
     }
 
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
+    }
+
     initializeAnimation(callback) {
         setTimeout(() => {
             this.hasMounted && callback();
@@ -225,7 +231,7 @@ export default class MenuBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.menuEl = findDOMNode(this.refs.menu);
+        this.menuEl = this.refs.menu;
 
         Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
@@ -285,6 +291,7 @@ export default class MenuBody extends Component {
                 }
 
                 <Paper className="menu-content"
+                       onWheel={this.wheelHandler}
                        depth={depth}>
                     {children}
                 </Paper>
@@ -337,6 +344,8 @@ MenuBody.propTypes = {
      */
     isAnimated: PropTypes.bool,
 
+    shouldPreventContainerScroll: PropTypes.bool,
+
     /**
      * The status of menu-triangle.Can be open or toggle.
      */
@@ -355,7 +364,12 @@ MenuBody.propTypes = {
     /**
      * Callback function fired when the popover is requested to be closed.
      */
-    onRequestClose: PropTypes.func
+    onRequestClose: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -371,6 +385,7 @@ MenuBody.defaultProps = {
     position: MenuBody.Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: MenuBody.TriggerMode.TOGGLE,
-    depth: 4
+    depth: 4,
+    shouldPreventContainerScroll: true
 
 };
