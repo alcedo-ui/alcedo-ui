@@ -24,9 +24,9 @@ export default class DialogBody extends Component {
         ICON: 'icon'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.unrenderTimeout = null;
