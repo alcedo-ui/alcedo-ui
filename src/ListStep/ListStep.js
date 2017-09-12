@@ -10,16 +10,16 @@ import './ListStep.css';
 
 export default class ListStep extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             activatedStep: props.activatedStep,
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
