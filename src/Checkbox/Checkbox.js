@@ -7,17 +7,17 @@ import './Checkbox.css';
 
 export default class Checkbox extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: !!props.value
         };
 
-        this.touchTapHandler = this::this.touchTapHandler;
-        this.mouseDownHandle = this::this.mouseDownHandle;
-        this.mouseUpHandle = this::this.mouseUpHandle;
+        this.touchTapHandler = ::this.touchTapHandler;
+        this.mouseDownHandle = ::this.mouseDownHandle;
+        this.mouseUpHandle = ::this.mouseUpHandle;
 
     }
 
