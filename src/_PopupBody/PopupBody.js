@@ -40,9 +40,9 @@ export default class PopupBody extends Component {
         OPEN: 'open'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.hasMounted = false;
         this.requestCloseTimeout = null;
@@ -51,13 +51,13 @@ export default class PopupBody extends Component {
             visible: false
         };
 
-        this.getPopupStyle = this::this.getPopupStyle;
-        this.mousedownHandler = this::this.mousedownHandler;
-        this.resizeHandler = this::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(this::this.debounceResizeHandler, 150);
-        this.initializeAnimation = this::this.initializeAnimation;
-        this.animate = this::this.animate;
-        this.wheelHandler = this::this.wheelHandler;
+        this.getPopupStyle = ::this.getPopupStyle;
+        this.mousedownHandler = ::this.mousedownHandler;
+        this.resizeHandler = ::this.resizeHandler;
+        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
+        this.initializeAnimation = ::this.initializeAnimation;
+        this.animate = ::this.animate;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
