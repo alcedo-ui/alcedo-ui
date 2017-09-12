@@ -5,12 +5,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 export default class Percent extends Component {
-    constructor(props) {
-        super();
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             percent: 0
         };
+
     }
 
     /**
@@ -39,8 +42,9 @@ export default class Percent extends Component {
     }
 
     render() {
-        const {move, endNum, style, className} = this.props;
-        const {percent} = this.state;
+
+        const {move, endNum, style, className} = this.props,
+            {percent} = this.state;
 
         const widthStyle = move === true ? {
             width: endNum + '%',
@@ -55,12 +59,13 @@ export default class Percent extends Component {
                 <div className={`circular-progress-percent ${className}`}
                      style={widthStyle}>
                     {React.Children.map(this.props.children, function (child) {
-                        return <span>{ child }</span>;
+                        return <span>{child}</span>;
                     })}
-                    <span>{ percent }%</span>
+                    <span>{percent}%</span>
                 </div>
             </div>
         );
+
     }
 };
 
