@@ -7,8 +7,10 @@ import PropTypes from 'prop-types';
 import './PageLoading.css';
 
 export default class PageLoading extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.unrenderTimeout = null;
         this.loadingArray = [{
@@ -32,7 +34,8 @@ export default class PageLoading extends Component {
             timeout: 250
         }];
 
-        this.setLoading = this::this.setLoading;
+        this.setLoading = ::this.setLoading;
+
     }
 
     setLoading(array, index = 0) {
@@ -95,10 +98,12 @@ export default class PageLoading extends Component {
 };
 
 PageLoading.propTypes = {
+
     className: PropTypes.string,
     style: PropTypes.object,
 
     onRequestClose: PropTypes.func
+
 };
 
 PageLoading.defaultProps = {
