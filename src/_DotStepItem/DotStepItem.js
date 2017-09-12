@@ -8,9 +8,9 @@ import './DotStepItem.css';
 
 export default class DotStepItem extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.touchTapHandler = ::this.touchTapHandler;
 
