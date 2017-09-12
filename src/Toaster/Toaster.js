@@ -13,9 +13,9 @@ export default class Toaster extends Component {
 
     static ToastType = Toast.Type;
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.nextKey = 0;
         this.unrenderTimeout = null;
@@ -25,9 +25,9 @@ export default class Toaster extends Component {
             toasts: []
         };
 
-        this.clearUnrenderTimeout = this::this.clearUnrenderTimeout;
-        this.addToast = this::this.addToast;
-        this.removeToast = this::this.removeToast;
+        this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
+        this.addToast = ::this.addToast;
+        this.removeToast = ::this.removeToast;
 
     }
 
