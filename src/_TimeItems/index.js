@@ -1,1 +1,1 @@
-export default from './TimeList';
+export default from './TimeItems';
