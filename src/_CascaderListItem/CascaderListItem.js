@@ -9,9 +9,9 @@ import './CascaderListItem.css';
 
 export default class CascaderListItem extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.formatData = ::this.formatData;
         this.changeHandle = ::this.changeHandle;
