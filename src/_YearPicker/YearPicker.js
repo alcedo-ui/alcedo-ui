@@ -7,29 +7,30 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-export default class _YearPicker extends Component {
+export default class YearPicker extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
+
         this.defaultTable = {
             row_number: 4,
             col_number: 3
         };
-        const value = this.props.value;
+
         this.state = {
-            YearArr: this.getYearArr(this.props.year),
-            selectYear: this.props.year,
-            currentYear: moment(value).format('YYYY'),
-            selectMonth: this.props.month,
-            selectDay: this.props.day,
-            maxValue: this.props.maxValue,
-            minValue: this.props.minValue
+            YearArr: this.getYearArr(props.year),
+            selectYear: props.year,
+            currentYear: moment(props.value).format('YYYY'),
+            selectMonth: props.month,
+            selectDay: props.day,
+            maxValue: props.maxValue,
+            minValue: props.minValue
         };
 
-        this.selectDate = this::this.selectDate;
-        this.previousYear = this::this.previousYear;
-        this.nextYear = this::this.nextYear;
+        this.selectDate = ::this.selectDate;
+        this.previousYear = ::this.previousYear;
+        this.nextYear = ::this.nextYear;
 
     }
 
@@ -190,15 +191,18 @@ export default class _YearPicker extends Component {
     }
 };
 
-_YearPicker.propTypes = {
+YearPicker.propTypes = {
 
     className: PropTypes.string,
+    style: PropTypes.object,
+
     value: PropTypes.string,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     maxValue: PropTypes.string,
     minValue: PropTypes.string,
+
     onChange: PropTypes.func
 
 };
