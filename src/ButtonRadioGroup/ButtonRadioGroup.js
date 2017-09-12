@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Radio from '../Radio';
 import RaisedButton from '../RaisedButton';
 
 import './ButtonRadioGroup.css';
 
 export default class ButtonRadioGroup extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value
         };
 
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandle = ::this.changeHandle;
 
     }
 
