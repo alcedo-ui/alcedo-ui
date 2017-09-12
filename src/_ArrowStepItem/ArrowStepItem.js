@@ -9,7 +9,7 @@ export default class ArrowStepItem extends Component {
 
         super(props);
 
-        this.touchTapHandler = this::this.touchTapHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
