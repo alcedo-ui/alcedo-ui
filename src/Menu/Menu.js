@@ -8,8 +8,8 @@ export default class Menu extends Component {
     static Position = MenuBody.Position;
     static TriggerMode = MenuBody.TriggerMode;
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
