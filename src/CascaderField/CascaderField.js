@@ -18,11 +18,9 @@ import './CascaderField.css';
 
 export default class CascaderField extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
-
-        this.rootSymbol = Symbol('root');
+        super(props, ...restArgs);
 
         this.state = {
             popupVisible: false,
@@ -31,12 +29,12 @@ export default class CascaderField extends Component {
             displayValue: this.calDisplayValue(CascaderCalculation.calPath(props.value, props))
         };
 
-        this.togglePopup = this::this.togglePopup;
-        this.closePopup = this::this.closePopup;
-        this.isAbove = this::this.isAbove;
-        this.calDisplayValue = this::this.calDisplayValue;
-        this.popupRenderHandle = this::this.popupRenderHandle;
-        this.changeHandler = this::this.changeHandler;
+        this.togglePopup = ::this.togglePopup;
+        this.closePopup = ::this.closePopup;
+        this.isAbove = ::this.isAbove;
+        this.calDisplayValue = ::this.calDisplayValue;
+        this.popupRenderHandle = ::this.popupRenderHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
