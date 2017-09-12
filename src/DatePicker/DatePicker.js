@@ -8,7 +8,6 @@ import _ from 'lodash';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
-
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 
@@ -19,30 +18,30 @@ import './DatePicker.css';
 
 export default class DatePicker extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        const value = this.props.value;
         this.state = {
-            value: value,
+            value: props.value,
             popupVisible: false,
-            year: moment(value).format('YYYY'),
-            month: moment(value).format('MM'),
-            day: moment(value).format('DD'),
+            year: moment(props.value).format('YYYY'),
+            month: moment(props.value).format('MM'),
+            day: moment(props.value).format('DD'),
             datePickerLevel: 0,
             marginLeft: 0,
             isFooter: true
         };
 
-        this.textFieldChangeHandle = this::this.textFieldChangeHandle;
-        this.mousedownHandle = this::this.mousedownHandle;
-        this.resizeHandle = this::this.resizeHandle;
-        this.datePickerChangeHandle = this::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = this::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = this::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = this::this.dayPickerChangeHandle;
-        this.todayHandle = this::this.todayHandle;
+        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
+        this.mousedownHandle = ::this.mousedownHandle;
+        this.resizeHandle = ::this.resizeHandle;
+        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
+        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
+        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
+        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
+        this.todayHandle = ::this.todayHandle;
+
     }
 
     datePickerChangeHandle(select) {
@@ -199,11 +198,13 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
-        const {value, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state;
-        const popStyle = {
-            left: '-' + marginLeft + 'px'
-        };
+
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state,
+
+            popStyle = {
+                left: '-' + marginLeft + 'px'
+            };
 
         return (
             <div className={`date-picker ${className}`}
@@ -217,8 +218,7 @@ export default class DatePicker extends Component {
                            value={value}
                            iconCls="fa fa-calendar"
                            readOnly={true}
-                           isClearIcon={false}
-                />
+                           isClearIcon={false}/>
 
                 <div ref="popup"
                      className={`date-picker-popup ${popupVisible ? '' : 'hidden'}`}
@@ -242,8 +242,7 @@ export default class DatePicker extends Component {
                                 minValue={minValue}
                                 isFooter={isFooter}
                                 onChange={this.dayPickerChangeHandle}
-                                previousClick={this.datePickerChangeHandle}
-                            />
+                                previousClick={this.datePickerChangeHandle}/>
                             : (
                                 datePickerLevel == 1 ?
                                     <MonthPicker
@@ -254,8 +253,7 @@ export default class DatePicker extends Component {
                                         maxValue={maxValue}
                                         minValue={minValue}
                                         onChange={this.monthPickerChangeHandle}
-                                        previousClick={this.datePickerChangeHandle}
-                                    />
+                                        previousClick={this.datePickerChangeHandle}/>
                                     :
                                     <YearPicker
                                         value={value}
@@ -264,8 +262,7 @@ export default class DatePicker extends Component {
                                         day={day}
                                         maxValue={maxValue}
                                         minValue={minValue}
-                                        onChange={this.yearPickerChangeHandle}
-                                    />
+                                        onChange={this.yearPickerChangeHandle}/>
                             )
                     }
                     {
@@ -344,11 +341,14 @@ DatePicker.propTypes = {
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
+
 };
 
 DatePicker.defaultProps = {
+
     className: '',
     style: null,
+
     name: '',
     value: moment().format('YYYY-MM-DD'),
     maxValue: '',
@@ -356,4 +356,5 @@ DatePicker.defaultProps = {
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     autoClose: true
+
 };
