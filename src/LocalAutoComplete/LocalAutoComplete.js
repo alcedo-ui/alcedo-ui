@@ -16,9 +16,9 @@ export default class LocalAutoComplete extends Component {
 
     static Mode = List.Mode;
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.triggerEl = null;
 
@@ -29,15 +29,15 @@ export default class LocalAutoComplete extends Component {
             isAbove: false
         };
 
-        this.isAbove = this::this.isAbove;
-        this.filterData = this::this.filterData;
-        this.focusHandler = this::this.focusHandler;
-        this.blurHandler = this::this.blurHandler;
-        this.filterChangeHandler = this::this.filterChangeHandler;
-        this.filterPressEnterHandler = this::this.filterPressEnterHandler;
-        this.closePopup = this::this.closePopup;
-        this.popupRenderHandler = this::this.popupRenderHandler;
-        this.changeHandler = this::this.changeHandler;
+        this.isAbove = ::this.isAbove;
+        this.filterData = ::this.filterData;
+        this.focusHandler = ::this.focusHandler;
+        this.blurHandler = ::this.blurHandler;
+        this.filterChangeHandler = ::this.filterChangeHandler;
+        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
+        this.closePopup = ::this.closePopup;
+        this.popupRenderHandler = ::this.popupRenderHandler;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
