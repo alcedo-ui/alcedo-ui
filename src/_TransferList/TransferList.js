@@ -5,22 +5,20 @@ import _ from 'lodash';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 
-import './Transfer.css';
-
 export default class TransferList extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             filter: ''
         };
 
-        this.select = this::this.select;
-        this.selectAllHandle = this::this.selectAllHandle;
-        this.filterChangeHandle = this::this.filterChangeHandle;
-        this.getItemValue = this::this.getItemValue;
+        this.select = ::this.select;
+        this.selectAllHandle = ::this.selectAllHandle;
+        this.filterChangeHandle = ::this.filterChangeHandle;
+        this.getItemValue = ::this.getItemValue;
 
     }
 
@@ -38,7 +36,7 @@ export default class TransferList extends Component {
             if (flag) {
                 let index = data.findIndex(function (value, index, arr) {
                     return value.id == item.id;
-                })
+                });
                 data.splice(index, 1);
                 selectAll = false;
             } else {
@@ -49,35 +47,35 @@ export default class TransferList extends Component {
             }
             this.setState({
                 selectAll
-            }, ()=> {
+            }, () => {
                 this.props.onChange && this.props.onChange(data);
-            })
+            });
         }
     }
 
     selectAllHandle() {
-        const {selectAll, filter}=this.state;
-        const {data}=this.props;
+        const {selectAll, filter} = this.state;
+        const {data} = this.props;
         const filterList = this.getFilterList(data, filter);
         let newData = [];
         for (let i = 0; i < filterList.length; i++) {
             if (!filterList[i]['disabled']) {
-                newData.push(filterList[i])
+                newData.push(filterList[i]);
             }
         }
         let value = selectAll ? [] : newData;
         this.setState({
             selectAll: !selectAll
-        }, ()=> {
+        }, () => {
             this.props.onChange && this.props.onChange(value);
-        })
+        });
     }
 
     filterChangeHandle(value) {
         this.setState({
             filter: value,
             selectAll: false
-        }, ()=> {
+        }, () => {
             this.props.onChange && this.props.onChange([]);
         });
     }
@@ -88,7 +86,7 @@ export default class TransferList extends Component {
         for (let i = 0; i < data.length; i++) {
             if (data[i].id === id) {
                 flag = true;
-                break
+                break;
             } else {
                 flag = false;
             }
@@ -110,14 +108,16 @@ export default class TransferList extends Component {
         if (nextProps.data.length !== this.props.data.length) {
             this.setState({
                 selectAll: false
-            })
+            });
         }
     }
 
     render() {
-        const {className, listStyle, data, value}=this.props;
-        const {filter, selectAll}=this.state;
-        const {filterChangeHandle, getItemValue, getFilterList, select, selectAllHandle}=this;
+
+        const {className, listStyle, data, value} = this.props,
+            {filter, selectAll} = this.state,
+            {filterChangeHandle, getItemValue, getFilterList, select, selectAllHandle} = this;
+
         this.filterList = getFilterList(data, filter);
 
         return (
@@ -148,8 +148,8 @@ export default class TransferList extends Component {
                                     <Checkbox label={item.text}
                                               value={itemValue}
                                               disabled={item.disabled ? item.disabled : false}
-                                              onChange={()=> {
-                                                  select(item)
+                                              onChange={() => {
+                                                  select(item);
                                               }}/>
                                 </div>
                             );

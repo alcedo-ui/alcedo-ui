@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
-import TransferList from './TransferList';
+import TransferList from '../_TransferList';
 
 import './Transfer.css';
 
