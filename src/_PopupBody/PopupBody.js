@@ -266,7 +266,7 @@ export default class PopupBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.popupEl = findDOMNode(this.refs.popup);
+        this.popupEl = this.refs.popup;
 
         Event.addEvent(document, 'mousedown', this.mousedownHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
@@ -308,11 +308,9 @@ export default class PopupBody extends Component {
                 + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <Paper ref="popup"
-                   className={'popup' + popupClassName}
-                   style={{...this.getPopupStyle(), ...style}}
-                   depth={depth}
-                   onWheel={this.wheelHandler}>
+            <div ref="popup"
+                 className={'popup' + popupClassName}
+                 style={{...this.getPopupStyle(), ...style}}>
 
                 {
                     hasTriangle ?
@@ -321,11 +319,13 @@ export default class PopupBody extends Component {
                         null
                 }
 
-                <div className="popup-content">
+                <Paper className="popup-content"
+                       onWheel={this.wheelHandler}
+                       depth={depth}>
                     {children}
-                </div>
+                </Paper>
 
-            </Paper>
+            </div>
         );
 
     }

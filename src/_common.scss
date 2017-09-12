@@ -200,7 +200,6 @@ $transition-duration: 250ms;
 }
 
 @mixin popup-theme($bg-color) {
-    background: $bg-color;
 
     .popup-triangle {
         border-color: $bg-color;
