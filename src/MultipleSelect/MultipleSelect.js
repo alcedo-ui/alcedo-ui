@@ -15,9 +15,9 @@ import './MultipleSelect.css';
 
 export default class MultipleSelect extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.triggerEl = null;
 
@@ -29,17 +29,17 @@ export default class MultipleSelect extends Component {
             isAbove: false
         };
 
-        this.isAbove = this::this.isAbove;
-        this.filterData = this::this.filterData;
-        this.removeSelected = this::this.removeSelected;
-        this.toggleSelectedCollapse = this::this.toggleSelectedCollapse;
-        this.focusHandle = this::this.focusHandle;
-        this.blurHandle = this::this.blurHandle;
-        this.filterChangeHandle = this::this.filterChangeHandle;
-        this.closePopup = this::this.closePopup;
-        this.popupRenderHandle = this::this.popupRenderHandle;
-        this.changeHandle = this::this.changeHandle;
-        this.triggerHandler = this::this.triggerHandler;
+        this.isAbove = ::this.isAbove;
+        this.filterData = ::this.filterData;
+        this.removeSelected = ::this.removeSelected;
+        this.toggleSelectedCollapse = ::this.toggleSelectedCollapse;
+        this.focusHandle = ::this.focusHandle;
+        this.blurHandle = ::this.blurHandle;
+        this.filterChangeHandle = ::this.filterChangeHandle;
+        this.closePopup = ::this.closePopup;
+        this.popupRenderHandle = ::this.popupRenderHandle;
+        this.changeHandle = ::this.changeHandle;
+        this.triggerHandler = ::this.triggerHandler;
 
     }
 
