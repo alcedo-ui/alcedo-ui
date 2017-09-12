@@ -6,15 +6,15 @@ import Checkbox from '../Checkbox';
 
 export default class CheckboxGroup extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value
         };
 
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandle = ::this.changeHandle;
 
     }
 
