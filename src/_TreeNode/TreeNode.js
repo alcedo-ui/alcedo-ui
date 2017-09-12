@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+import Checkbox from '../Checkbox/index';
+
 import Util from '../_vendors/Util';
 
-import Checkbox from '../Checkbox';
 export default class TreeNode extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
+
         this.state = {
             expaned: true
         };
 
-        this.selectedHandle = this::this.selectedHandle;
-        this.treeSwitcherHandle = this::this.treeSwitcherHandle;
-        this.checkboxSelected = this::this.checkboxSelected;
+        this.selectedHandle = ::this.selectedHandle;
+        this.treeSwitcherHandle = ::this.treeSwitcherHandle;
+        this.checkboxSelected = ::this.checkboxSelected;
+
     }
 
     selectedHandle(node) {
@@ -52,7 +56,7 @@ export default class TreeNode extends Component {
         for (let i = 0; i < value.length; i++) {
             if (value[i].id === node.id) {
                 flag = true;
-                break
+                break;
             } else {
                 flag = false;
             }
@@ -63,13 +67,13 @@ export default class TreeNode extends Component {
                 for (let i = 0; i < selectedNodes.length; i++) {
                     let index = value.findIndex(function (item, index, arr) {
                         return item.id == selectedNodes[i].id;
-                    })
+                    });
                     value.splice(index, 1);
                 }
             } else {
                 let index = value.findIndex(function (item, index, arr) {
                     return item.id == node.id;
-                })
+                });
                 value.splice(index, 1);
             }
             for (let i = node.deep; i > 0; i--) {
@@ -79,7 +83,7 @@ export default class TreeNode extends Component {
                 let parentNode, parentNodeArr = [];
                 Util.tree(data, function (item, index, pos) {
                     if (pos.indexOf(parentPos) === 0 && parentPos !== pos) {
-                        parentNodeArr.push(item)
+                        parentNodeArr.push(item);
                     }
                     if (parentPos == pos) {
                         parentNode = item;
@@ -87,7 +91,7 @@ export default class TreeNode extends Component {
                 });
                 let index = value.findIndex(function (item, index, arr) {
                     return item.id == parentNode.id;
-                })
+                });
                 if (index !== -1) {
                     value.splice(index, 1);
                 }
@@ -119,7 +123,7 @@ export default class TreeNode extends Component {
                 //debugger
                 Util.tree(data, function (item, index, pos) {
                     if (pos.indexOf(parentPos) === 0 && parentPos !== pos) {
-                        parentNodeArr.push(item)
+                        parentNodeArr.push(item);
                     }
                     if (parentPos == pos) {
                         parentNode = item;
@@ -128,15 +132,15 @@ export default class TreeNode extends Component {
                 for (let i = 0; i < parentNodeArr.length; i++) {
                     let index = value.findIndex(function (item, index, arr) {
                         return item.id == parentNodeArr[i].id;
-                    })
+                    });
                     if (index == -1) {
-                        nodeFlag = false
+                        nodeFlag = false;
                     }
                 }
                 if (!nodeFlag) {
                     let index = value.findIndex(function (item, index, arr) {
                         return item.id == parentNode.id;
-                    })
+                    });
                     if (index !== -1) {
                         value.splice(index, 1);
                     }
@@ -156,7 +160,7 @@ export default class TreeNode extends Component {
                 }
             }
         }
-        this.props.onChangeHandle && this.props.onChangeHandle(value)
+        this.props.onChangeHandle && this.props.onChangeHandle(value);
     }
 
     renderIcon(icon, text) {
@@ -168,7 +172,7 @@ export default class TreeNode extends Component {
                 </span>
                 :
                 text
-        )
+        );
 
     }
 
@@ -179,7 +183,7 @@ export default class TreeNode extends Component {
         for (let i = 0; i < data.length; i++) {
             if (data[i].id === node.id) {
                 flag = true;
-                break
+                break;
             } else {
                 flag = false;
             }
@@ -195,9 +199,10 @@ export default class TreeNode extends Component {
         let checkboxValue = this.getItemValue(node);
         return (
             <div className="parentNode">
-                { node && node.children ?
-                    <span className={`tree-switcher ${expaned ? '' : 'down'} ${multiple ? 'multiple-tree-switcher':''}`}
-                          onClick={this.treeSwitcherHandle}
+                {node && node.children ?
+                    <span
+                        className={`tree-switcher ${expaned ? '' : 'down'} ${multiple ? 'multiple-tree-switcher' : ''}`}
+                        onClick={this.treeSwitcherHandle}
                     >
                         <i className={`fa fa-caret-right`} aria-hidden="true"></i>
                     </span>
@@ -208,8 +213,8 @@ export default class TreeNode extends Component {
                     multiple ?
                         <Checkbox label={this.renderIcon(iconCls, node.text)}
                                   value={checkboxValue}
-                                  onChange={()=> {
-                                      this.checkboxSelected(node)
+                                  onChange={() => {
+                                      this.checkboxSelected(node);
                                   }}/>
                         :
                         <span className={`node-text ${ id == node.id ? 'active' : ''}`}
@@ -260,7 +265,9 @@ export default class TreeNode extends Component {
     }
 
     render() {
+
         const {node} = this.props;
+
         return (
             <div ref="option"
                  className="option">
@@ -273,8 +280,12 @@ export default class TreeNode extends Component {
 };
 
 TreeNode.propTypes = {
+
     className: PropTypes.string,
     value: PropTypes.array,
+
     data: PropTypes.array,
+
     onChange: PropTypes.func
+
 };

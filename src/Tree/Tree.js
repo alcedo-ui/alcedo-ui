@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TreeNode from './TreeNode';
+import TreeNode from '../_TreeNode';
 
 import './Tree.css';
 
