@@ -211,7 +211,6 @@ $transition-duration: 250ms;
 }
 
 @mixin menu-theme($bg-color) {
-    background: $bg-color;
 
     .menu-triangle {
         border-color: $bg-color;

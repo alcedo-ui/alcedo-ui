@@ -5,6 +5,8 @@
     width: 200px;
     border-radius: $border-radius;
     z-index: $menu-z-index;
+    background: transparent;
+    box-shadow: none !important;
 
     .menu-triangle {
         display: block;
@@ -16,7 +18,8 @@
 
     .menu-content {
         width: 100%;
-        overflow: hidden;
+        height: 100%;
+        overflow: auto;
         border-radius: $border-radius;
         transform: rotate(0deg);
     }

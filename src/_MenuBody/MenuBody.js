@@ -273,10 +273,9 @@ export default class MenuBody extends Component {
                 + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <Paper ref="menu"
-                   className={'menu' + menuClassName}
-                   style={{...this.getMenuStyle(), ...style}}
-                   depth={depth}>
+            <div ref="menu"
+                 className={'menu' + menuClassName}
+                 style={{...this.getMenuStyle(), ...style}}>
 
                 {
                     hasTriangle ?
@@ -285,11 +284,12 @@ export default class MenuBody extends Component {
                         null
                 }
 
-                <div className="menu-content">
+                <Paper className="menu-content"
+                       depth={depth}>
                     {children}
-                </div>
+                </Paper>
 
-            </Paper>
+            </div>
         );
 
     }
