@@ -30,9 +30,9 @@ export default class DraggableGridItem extends Component {
         RADIO: 'radio'
     };
 
-    constructor(props) {
+    constructor(props, ...rest) {
 
-        super(props);
+        super(props, ...rest);
 
         this.state = {
             checked: props.checked,
@@ -40,13 +40,13 @@ export default class DraggableGridItem extends Component {
             tipTriggerEl: null
         };
 
-        this.showTip = this::this.showTip;
-        this.hideTip = this::this.hideTip;
-        this.checkboxChangeHandler = this::this.checkboxChangeHandler;
-        this.radioChangeHandler = this::this.radioChangeHandler;
-        this.touchTapHandler = this::this.touchTapHandler;
-        this.mouseEnterHandler = this::this.mouseEnterHandler;
-        this.mouseOverHandler = this::this.mouseOverHandler;
+        this.showTip = ::this.showTip;
+        this.hideTip = ::this.hideTip;
+        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
+        this.radioChangeHandler = ::this.radioChangeHandler;
+        this.touchTapHandler = ::this.touchTapHandler;
+        this.mouseEnterHandler = ::this.mouseEnterHandler;
+        this.mouseOverHandler = ::this.mouseOverHandler;
 
     }
 
