@@ -14,15 +14,15 @@ export default class Switcher extends Component {
         SMALL: 'small'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: !!props.value
         };
 
-        this.toggle = this::this.toggle;
+        this.toggle = ::this.toggle;
 
     }
 
