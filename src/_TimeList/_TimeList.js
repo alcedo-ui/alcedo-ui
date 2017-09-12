@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 
-import TimeItems from '../_TimeItems/_TimeItems';
+import TimeItems from '../_TimeItems/TimeItems';
 
 export default class _TimeList extends Component {
 

@@ -5,14 +5,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
 
-export default class _TimeItems extends Component {
-    constructor(props) {
+export default class TimeItems extends Component {
 
-        super(props);
+    constructor(props, ...restArgs) {
 
-        this.clickHandle = this::this.clickHandle;
-        this.mousemoveHandle = this::this.mousemoveHandle;
-        this.mouseoutHandle = this::this.mouseoutHandle;
+        super(props, ...restArgs);
+
+        this.clickHandle = ::this.clickHandle;
+        this.mousemoveHandle = ::this.mousemoveHandle;
+        this.mouseoutHandle = ::this.mouseoutHandle;
 
     }
 
@@ -56,16 +57,19 @@ export default class _TimeItems extends Component {
     }
 
     render() {
-        const {className, style, data, value}=this.props;
-        const width = style.width;
-        let liStyle={};
-        if(width == '100%'){
-            liStyle.paddingLeft = '140px'
-        }else if(width == '50%'){
-            liStyle.paddingLeft = '60px'
-        }else{
-            liStyle.paddingLeft = '36px'
+
+        const {className, style, data, value} = this.props,
+            {width} = style;
+
+        let liStyle = {};
+        if (width == '100%') {
+            liStyle.paddingLeft = '140px';
+        } else if (width == '50%') {
+            liStyle.paddingLeft = '60px';
+        } else {
+            liStyle.paddingLeft = '36px';
         }
+
         return (
             <div className={`timeItems ${className ? className : ''}`}
                  style={style}
@@ -97,8 +101,12 @@ export default class _TimeItems extends Component {
 
     }
 }
-_TimeItems.PropTypes = {
+
+TimeItems.PropTypes = {
 
     className: PropTypes.string,
+    style: PropTypes.object,
+
     data: PropTypes.array
+
 };
