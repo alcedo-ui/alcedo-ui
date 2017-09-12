@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 
-import TimeItems from '../_TimeItems/TimeItems';
+import TimeItems from '../_TimeItems';
 
-export default class _TimeList extends Component {
+export default class TimeList extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
-            hour: this.props.hour,
-            minute: this.props.minute,
-            second: this.props.second,
+            hour: props.hour,
+            minute: props.minute,
+            second: props.second,
             hoursData: [],
             minutesData: [],
             secondsData: []
         };
 
-        this.hourChangeHandle = this::this.hourChangeHandle;
-        this.minuteChangeHandle = this::this.minuteChangeHandle;
-        this.secondChangeHandle = this::this.secondChangeHandle;
+        this.hourChangeHandle = ::this.hourChangeHandle;
+        this.minuteChangeHandle = ::this.minuteChangeHandle;
+        this.secondChangeHandle = ::this.secondChangeHandle;
 
     }
 
@@ -93,17 +93,17 @@ export default class _TimeList extends Component {
                 state.minute = moment('2000-01-01 ' + maxValue).format('mm');
                 state.second = moment('2000-01-01 ' + maxValue).format('ss');
             }
-            this.setState(state, ()=> {
+            this.setState(state, () => {
                 this.props.onChange && this.props.onChange({
                     hour: state.hour,
                     minute: state.minute,
                     second: state.second
-                })
-            })
+                });
+            });
         } else {
-            this.setState(state, ()=> {
-                this.props.onChange && this.props.onChange({hour: value, minute: state.minute, second: state.second})
-            })
+            this.setState(state, () => {
+                this.props.onChange && this.props.onChange({hour: value, minute: state.minute, second: state.second});
+            });
         }
     }
 
@@ -142,17 +142,17 @@ export default class _TimeList extends Component {
                 state.minute = moment('2000-01-01 ' + maxValue).format('mm');
                 state.second = moment('2000-01-01 ' + maxValue).format('ss');
             }
-            this.setState(state, ()=> {
+            this.setState(state, () => {
                 this.props.onChange && this.props.onChange({
                     hour: state.hour,
                     minute: state.minute,
                     second: state.second
-                })
-            })
+                });
+            });
         } else {
-            this.setState(state, ()=> {
-                this.props.onChange && this.props.onChange({hour: state.hour, minute: value, second: state.second})
-            })
+            this.setState(state, () => {
+                this.props.onChange && this.props.onChange({hour: state.hour, minute: value, second: state.second});
+            });
         }
 
     }
@@ -170,19 +170,19 @@ export default class _TimeList extends Component {
                 state.minute = moment('2000-01-01 ' + maxValue).format('mm');
                 state.second = moment('2000-01-01 ' + maxValue).format('ss');
             }
-            this.setState(state, ()=> {
+            this.setState(state, () => {
                 this.props.onChange && this.props.onChange({
                     hour: state.hour,
                     minute: state.minute,
                     second: state.second
-                })
-            })
+                });
+            });
         } else {
             this.setState({
                 second: value
-            }, ()=> {
-                this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: value})
-            })
+            }, () => {
+                this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: value});
+            });
         }
 
     }
@@ -284,7 +284,7 @@ export default class _TimeList extends Component {
         const {hour, minute, second, hoursData, minutesData, secondsData} = this.state;
         const TimeItemsStyle = {
             width: 100 / (dateFormat.split(':').length) + '%'
-        }
+        };
         return (
             <div className={`calendar ${className ? className : ''}`}>
                 <TimeItems className="hours"
@@ -325,15 +325,17 @@ export default class _TimeList extends Component {
     }
 };
 
-_TimeList.propTypes = {
+TimeList.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
     popupVisible: PropTypes.bool,
     hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isRequired: PropTypes.bool,
-    maxValue: PropTypes.string,//'11:20:39'
+    maxValue: PropTypes.string, // '11:20:39'
     minValue: PropTypes.string
+
 };

@@ -7,7 +7,7 @@ import moment from 'moment';
 
 
 import TextField from '../TextField/TextField';
-import TimeList from '../_TimeList/_TimeList';
+import TimeList from '../_TimeList/TimeList';
 
 
 import './TimePicker.css';
