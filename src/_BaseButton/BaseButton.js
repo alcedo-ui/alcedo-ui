@@ -12,9 +12,9 @@ import './BaseButton.css';
 
 export default class BaseButton extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             focused: false
