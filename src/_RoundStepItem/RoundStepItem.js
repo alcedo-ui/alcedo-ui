@@ -5,11 +5,11 @@ import './RoundStepItem.css';
 
 export default class RoundStepItem extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
-        this.touchTapHandler = this.touchTapHandler.bind(this);
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
