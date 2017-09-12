@@ -107,11 +107,13 @@ CircularProgress.propTypes = {
      * If true,there will have a text description.
      */
     word: PropTypes.bool
+
 };
 
 CircularProgress.defaultProps = {
+
     className: '',
-    style: {},
+    style: null,
 
     percentStyle: {},
     r: 48,
@@ -119,5 +121,6 @@ CircularProgress.defaultProps = {
     rgba: 'rgb(0, 188, 212)',
     percent: 0,
     word: true
+
 };
 
