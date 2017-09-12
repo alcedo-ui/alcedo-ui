@@ -7,15 +7,15 @@ export default class Tip extends Component {
 
     static Position = TipBody.Position;
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             visible: !!props.visible
         };
 
-        this.requestCloseHandle = this::this.requestCloseHandle;
+        this.requestCloseHandle = ::this.requestCloseHandle;
 
     }
 
