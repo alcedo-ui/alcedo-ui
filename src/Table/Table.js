@@ -23,17 +23,17 @@ export default class Table extends Component {
         RADIO: 'radio'
     };
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
 
             /**
              * sort construct
              *  {
-			 *	    prop: '', // 排序的列属性名称
-			 *	    type: 1 | -1 // 正序 | 倒序
+			 *	    prop: '', // col name
+			 *	    type: 1: 'asc' | -1: 'desc'
 			 *  }
              */
             sort: props.sortInitConfig,
@@ -51,20 +51,20 @@ export default class Table extends Component {
 
         };
 
-        this.initValue = this::this.initValue;
-        this.isHeadChecked = this::this.isHeadChecked;
-        this.isItemChecked = this::this.isItemChecked;
-        this.headCheckBoxChangeHandler = this::this.headCheckBoxChangeHandler;
-        this.itemCheckBoxChangeHandler = this::this.itemCheckBoxChangeHandler;
-        this.itemRadioChangeHandler = this::this.itemRadioChangeHandler;
-        this.sortHandler = this::this.sortHandler;
-        this.sortData = this::this.sortData;
-        this.rowTouchTapHandler = this::this.rowTouchTapHandler;
-        this.calSelectedCount = this::this.calSelectedCount;
-        this.paggingData = this::this.paggingData;
-        this.pageChangedHandler = this::this.pageChangedHandler;
-        this.resetPage = this::this.resetPage;
-        // this.wdithHandle = this::this.wdithHandle;
+        this.initValue = ::this.initValue;
+        this.isHeadChecked = ::this.isHeadChecked;
+        this.isItemChecked = ::this.isItemChecked;
+        this.headCheckBoxChangeHandler = ::this.headCheckBoxChangeHandler;
+        this.itemCheckBoxChangeHandler = ::this.itemCheckBoxChangeHandler;
+        this.itemRadioChangeHandler = ::this.itemRadioChangeHandler;
+        this.sortHandler = ::this.sortHandler;
+        this.sortData = ::this.sortData;
+        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
+        this.calSelectedCount = ::this.calSelectedCount;
+        this.paggingData = ::this.paggingData;
+        this.pageChangedHandler = ::this.pageChangedHandler;
+        this.resetPage = ::this.resetPage;
+        // this.wdithHandle = ::this.wdithHandle;
 
     }
 
