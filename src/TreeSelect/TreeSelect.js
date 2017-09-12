@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Event from '../_vendors/Event';
-
 import RaisedButton from '../RaisedButton';
 import Tree from '../Tree';
+
+import Event from '../_vendors/Event';
 
 import './TreeSelect.css';
 
 export default class TreeSelect extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             optionsVisible: false,
@@ -20,23 +20,23 @@ export default class TreeSelect extends Component {
             expaned: true
         };
 
-        this.toggle = this::this.toggle;
-        this.onChangeHandle = this::this.onChangeHandle;
-        this.filterChangeHandle = this::this.filterChangeHandle;
+        this.toggle = ::this.toggle;
+        this.onChangeHandle = ::this.onChangeHandle;
+        this.filterChangeHandle = ::this.filterChangeHandle;
 
     }
 
     toggle(e) {
-        let {expaned, optionsVisible}=this.state;
+        let {expaned, optionsVisible} = this.state;
         let newOptionsVisible = Event.triggerPopupEventHandle(
             e.target,
             require('react-dom').findDOMNode(this.refs.trigger),
             this.refs.popup,
             optionsVisible
-        )
+        );
         if (e.target.className.indexOf('tree-switcher') !== -1 && e.target.parentNode.className == 'parentNode' ||
             e.target.className.indexOf('fa-caret-right') !== -1 && e.target.parentNode.className.indexOf('tree-switcher') !== -1) {
-            expaned = !expaned
+            expaned = !expaned;
             this.popupHeight = require('react-dom').findDOMNode(this.refs.popup).offsetHeight;
             this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
         }
@@ -55,7 +55,7 @@ export default class TreeSelect extends Component {
     }
 
     filterChangeHandle(filter) {
-        this.setState({filter})
+        this.setState({filter});
         this.popupHeight = require('react-dom').findDOMNode(this.refs.popup).offsetHeight;
         this.triggerHeight = require('react-dom').findDOMNode(this.refs.trigger).offsetHeight;
     }
@@ -104,10 +104,10 @@ export default class TreeSelect extends Component {
         let valueStr = '';
         if (value instanceof Array && value.length <= 2) {
             value.map((item, index) => {
-                index == 0 ? valueStr += item.text : valueStr += ' , ' + item.text
-            })
+                index == 0 ? valueStr += item.text : valueStr += ' , ' + item.text;
+            });
         } else {
-            valueStr = value[0].text + ' and ' + (value.length - 1) + ' selected'
+            valueStr = value[0].text + ' and ' + (value.length - 1) + ' selected';
         }
         return (
             <div ref="TreeSelect"
@@ -140,8 +140,8 @@ export default class TreeSelect extends Component {
                               multiple={multiple}
                               iconCls={iconCls}
                               filterChangeHandle={this.filterChangeHandle}
-                              onChange={(value)=> {
-                                  this.onChangeHandle(value)
+                              onChange={(value) => {
+                                  this.onChangeHandle(value);
                               }}/>
                     </div>
                 </div>
@@ -151,20 +151,21 @@ export default class TreeSelect extends Component {
 };
 
 TreeSelect.propTypes = {
+
     /**
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
 
     /**
-     * The name of input field.
-     */
-    name: PropTypes.string,
-
-    /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The name of input field.
+     */
+    name: PropTypes.string,
 
     /**
      * The value of default selected item.
@@ -200,10 +201,15 @@ TreeSelect.propTypes = {
      * If true,the tree-node will be disabled.
      */
     disabled: PropTypes.bool
+
 };
 
 TreeSelect.defaultProps = {
+
     className: '',
+    style: null,
+
     name: '',
     iconCls: ''
-}
+
+};
