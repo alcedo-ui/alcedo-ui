@@ -5,8 +5,8 @@ import './WidgetHeader.css';
 
 export default class WidgetHeader extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+        super(props, ...restArgs);
     }
 
     render() {
