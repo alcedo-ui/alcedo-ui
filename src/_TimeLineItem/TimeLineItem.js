@@ -4,8 +4,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import './TimeLine.css';
-
 export default class TimeLineItem extends Component {
 
     static Type = {
