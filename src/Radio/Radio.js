@@ -7,17 +7,17 @@ import './Radio.css';
 
 export default class Radio extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
+        super(props, ...restArgs);
 
         this.state = {
             value: !!props.value
         };
 
-        this.clickHandle = this::this.clickHandle;
-        this.mouseDownHandle = this::this.mouseDownHandle;
-        this.mouseUpHandle = this::this.mouseUpHandle;
+        this.clickHandle = ::this.clickHandle;
+        this.mouseDownHandle = ::this.mouseDownHandle;
+        this.mouseUpHandle = ::this.mouseUpHandle;
 
     }
 
