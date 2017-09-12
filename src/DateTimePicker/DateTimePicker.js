@@ -21,35 +21,35 @@ import './DateTimePicker.css';
 
 export default class DateTimePicker extends Component {
 
-    constructor(props) {
+    constructor(props, ...restArgs) {
 
-        super(props);
-        const value = this.props.value;
+        super(props, ...restArgs);
+
         this.state = {
-            value: value,
+            value: props.value,
             popupVisible: false,
-            year: moment(value).format('YYYY'),
-            month: moment(value).format('MM'),
-            day: moment(value).format('DD'),
-            hour: moment(value).format('HH'),
-            minute: moment(value).format('mm'),
-            second: moment(value).format('ss'),
+            year: moment(props.value).format('YYYY'),
+            month: moment(props.value).format('MM'),
+            day: moment(props.value).format('DD'),
+            hour: moment(props.value).format('HH'),
+            minute: moment(props.value).format('mm'),
+            second: moment(props.value).format('ss'),
             datePickerLevel: 0,
             marginLeft: 0,
             isFooter: true
         };
 
-        this.textFieldChangeHandle = this::this.textFieldChangeHandle;
-        this.mousedownHandle = this::this.mousedownHandle;
-        this.resizeHandle = this::this.resizeHandle;
-        this.datePickerChangeHandle = this::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = this::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = this::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = this::this.dayPickerChangeHandle;
-        this.timePickerChangeHandle = this::this.timePickerChangeHandle;
-        this.chooseDateAndTimeHandle = this::this.chooseDateAndTimeHandle;
-        this.nowHandle = this::this.nowHandle;
-        this.selectDateTimeHandle = this::this.selectDateTimeHandle;
+        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
+        this.mousedownHandle = ::this.mousedownHandle;
+        this.resizeHandle = ::this.resizeHandle;
+        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
+        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
+        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
+        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
+        this.timePickerChangeHandle = ::this.timePickerChangeHandle;
+        this.chooseDateAndTimeHandle = ::this.chooseDateAndTimeHandle;
+        this.nowHandle = ::this.nowHandle;
+        this.selectDateTimeHandle = ::this.selectDateTimeHandle;
     }
 
     datePickerChangeHandle(select) {
@@ -432,12 +432,14 @@ DateTimePicker.propTypes = {
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
+
 };
 
 DateTimePicker.defaultProps = {
 
     className: '',
     style: null,
+
     name: '',
     value: moment().format('YYYY-MM-DD HH:mm:ss'),
     maxValue: '',
