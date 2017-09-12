@@ -8,14 +8,14 @@ import Event from '../_vendors/Event';
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
-import List from '../List';
 
 import './RemoteAutoComplete.css';
 
 export default class RemoteAutoComplete extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             value: props.value,
@@ -28,10 +28,10 @@ export default class RemoteAutoComplete extends Component {
         this.inputHeight = 50;
         this.borderWidth = 1;
 
-        this.onChange = this :: this.onChange;
-        this.onClick = this :: this.onClick;
-        this.getClassName = this :: this.getClassName;
-        this.onFocus = this :: this.onFocus;
+        this.onChange = ::this.onChange;
+        this.onClick = ::this.onClick;
+        this.getClassName = ::this.getClassName;
+        this.onFocus = ::this.onFocus;
 
     }
 
