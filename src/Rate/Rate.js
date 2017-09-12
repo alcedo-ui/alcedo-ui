@@ -6,20 +6,24 @@ import Event from '../_vendors/Event';
 import './Rate.css';
 
 export default class Rate extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
 
         this.state = {
             value: 0,
             items: []
         };
 
-        this.mouseMoveHandle = this::this.mouseMoveHandle;
-        this.selectHandler = this::this.selectHandler;
-        this.createItems = this::this.createItems;
+        this.mouseMoveHandle = ::this.mouseMoveHandle;
+        this.selectHandler = ::this.selectHandler;
+        this.createItems = ::this.createItems;
+
     }
 
     triggerEventHandle(el, triggerEl) {
+
         while (el) {
             if (el == triggerEl) {
                 return true;
@@ -128,11 +132,14 @@ export default class Rate extends Component {
     }
 
     render() {
-        const {className, style, allowHalf, disabled, count} = this.props;
-        const {items} = this.state;
-        const warpStyle = {
-            width: count * 30
-        };
+
+        const {className, style, allowHalf, disabled, count} = this.props,
+            {items} = this.state,
+
+            warpStyle = {
+                width: count * 30
+            };
+
         return (
             <div className={`rate ${className ? className : ''}`}
                  style={{...warpStyle, ...style}}
@@ -218,10 +225,13 @@ Rate.propTypes = {
 };
 
 Rate.defaultProps = {
+
     className: '',
     style: null,
+
     count: 5,
     defaultValue: 0,
     disabled: false
+
 };
 
