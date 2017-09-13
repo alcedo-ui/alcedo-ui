@@ -1,4 +1,5 @@
 /**
- * Created by DT314 on 2017/8/23.
+ * @file DotStep
+ * @author chao(chao.zhang@derbysoft.com)
  */
 export default from './DotStep';
