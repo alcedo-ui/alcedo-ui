@@ -1,3 +1,8 @@
+/**
+ * @file DragDrop vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import {findDOMNode} from 'react-dom';
 
 function getSource() {

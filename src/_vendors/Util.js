@@ -1,3 +1,8 @@
+/**
+ * @file Utils vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import moment from 'moment';
 
 function isEnableLocalStorage() {

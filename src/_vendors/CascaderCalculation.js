@@ -1,3 +1,8 @@
+/**
+ * @file CascaderCalculation vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import Util from './Util';
 
 const rootSymbol = Symbol('root');
@@ -89,7 +94,7 @@ function traverseData(node, value, props, index = 0) {
 
 }
 
-export default{
+export default {
     calDepth,
     calPath
-}
+};

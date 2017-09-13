@@ -1,3 +1,8 @@
+/**
+ * @file CharSize vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 let charCount = 100,
     charSize = {};
 
