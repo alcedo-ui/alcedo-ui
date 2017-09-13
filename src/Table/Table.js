@@ -370,7 +370,7 @@ export default class Table extends Component {
             self = this,
 
             tableClassName = (mode === Table.Mode.CHECKBOX || mode === Table.Mode.RADIO ? ' selectable' : '')
-                + (className ? ' ' + className : '');
+                + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
