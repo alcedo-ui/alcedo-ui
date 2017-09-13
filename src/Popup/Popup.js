@@ -1,3 +1,7 @@
+/**
+ * @file Popup component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 import React, {Component} from 'react';
 
 import SubtreeContainer from '../_SubtreeContainer';
