@@ -1,5 +1,6 @@
 /**
- * Created by Wendy on 2017/8/29.
+ * @file CascaderList component
+ * @author wendy(wendy.wei@derbysoft.com)
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
@@ -10,8 +11,6 @@ import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
-
-import './CascaderList.css';
 
 export default class CascaderList extends Component {
 
