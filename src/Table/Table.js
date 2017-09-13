@@ -418,12 +418,12 @@ export default class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <div>
+            <div className={'table' + tableClassName}
+                 style={style}>
 
-                <div className="table-wrapper">
+                <div className="inner-table-wrapper">
 
-                    <table className={'table' + tableClassName}
-                           style={style}>
+                    <table className="inner-table">
 
                         <Thead columns={finalColumns}
                                sort={sort}
@@ -443,35 +443,35 @@ export default class Table extends Component {
 
                     </table>
 
-                    {
-                        isPagging ?
-                            (
-                                useFullPagging ?
-                                    <Pagging page={pagging.page}
-                                             count={data.length}
-                                             selectedCount={this.calSelectedCount()}
-                                             total={totalPage}
-                                             pageSize={pagging.pageSize}
-                                             pageSizes={pageSizes}
-                                             selectedCountVisible={paggingSelectedCountVisible}
-                                             pageSizeVisible={paggingPageSizeVisible}
-                                             onChange={this.pageChangedHandler}/>
-                                    :
-                                    <BriefPagging page={pagging.page}
-                                                  count={data.length}
-                                                  selectedCount={this.calSelectedCount()}
-                                                  total={totalPage}
-                                                  pageSize={pagging.pageSize}
-                                                  pageSizes={pageSizes}
-                                                  selectedCountVisible={paggingSelectedCountVisible}
-                                                  pageSizeVisible={paggingPageSizeVisible}
-                                                  onChange={this.pageChangedHandler}/>
-                            )
-                            :
-                            null
-                    }
-
                 </div>
+
+                {
+                    isPagging ?
+                        (
+                            useFullPagging ?
+                                <Pagging page={pagging.page}
+                                         count={data.length}
+                                         selectedCount={this.calSelectedCount()}
+                                         total={totalPage}
+                                         pageSize={pagging.pageSize}
+                                         pageSizes={pageSizes}
+                                         selectedCountVisible={paggingSelectedCountVisible}
+                                         pageSizeVisible={paggingPageSizeVisible}
+                                         onChange={this.pageChangedHandler}/>
+                                :
+                                <BriefPagging page={pagging.page}
+                                              count={data.length}
+                                              selectedCount={this.calSelectedCount()}
+                                              total={totalPage}
+                                              pageSize={pagging.pageSize}
+                                              pageSizes={pageSizes}
+                                              selectedCountVisible={paggingSelectedCountVisible}
+                                              pageSizeVisible={paggingPageSizeVisible}
+                                              onChange={this.pageChangedHandler}/>
+                        )
+                        :
+                        null
+                }
 
             </div>
         );

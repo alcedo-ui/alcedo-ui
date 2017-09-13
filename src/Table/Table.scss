@@ -1,64 +1,81 @@
 @import '../_common.scss';
 
-.table-wrapper {
+.table {
+    position: relative;
+    box-sizing: border-box;
     display: table;
     width: 100%;
+    padding-bottom: 49px;
     background: $theme-field;
 
-    .table {
+    .inner-table-wrapper {
+        display: table;
         width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
         background: $theme-field;
 
-        .table-line-number-th,
-        .table-line-number-td {
-            width: 1px;
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-            background: #fbfbfb;
-            text-align: right;
-        }
+        .inner-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            background: $theme-field;
 
-        .table-select-th,
-        .table-select-td {
-            width: 30px;
-            padding-left: 5px !important;
-            padding-right: 5px !important;
-            text-align: center;
+            .table-line-number-th,
+            .table-line-number-td {
+                width: 1px;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                background: #fbfbfb;
+                text-align: right;
+            }
 
-            .table-checkbox {
+            .table-select-th,
+            .table-select-td {
                 width: 30px;
-                height: 30px;
+                padding-left: 5px !important;
+                padding-right: 5px !important;
+                text-align: center;
 
-                .checkbox-icon-wrapper {
+                .table-checkbox {
                     width: 30px;
+                    height: 30px;
+
+                    .checkbox-icon-wrapper {
+                        width: 30px;
+                    }
+
+                    .checkbox-label {
+                        display: none;
+                    }
                 }
 
-                .checkbox-label {
-                    display: none;
+                .table-radio {
+                    color: lighten($theme-text, 45%);
+
+                    &.activated {
+                        color: $theme-highlight;
+                    }
                 }
             }
 
-            .table-radio {
-                color: lighten($theme-text, 45%);
+            &.selectable {
 
-                &.activated {
-                    color: $theme-highlight;
-                }
-            }
-        }
-
-        &.selectable {
-
-            .table-row {
-                cursor: pointer;
-
-                td {
+                .table-row {
                     cursor: pointer;
+
+                    td {
+                        cursor: pointer;
+                    }
                 }
             }
-        }
 
+        }
+    }
+
+    .pagging,
+    .brief-pagging {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
     }
 }
