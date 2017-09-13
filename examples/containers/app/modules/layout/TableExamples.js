@@ -98,8 +98,7 @@ export default class TableExamples extends Component {
                             <p>A simple <code>Table</code> example.</p>
 
                             <div style={{width: 400, height: 600, overflow: 'auto'}}>
-                                <Table style={{width: 400, height: 600}}
-                                       columns={this.columns}
+                                <Table columns={this.columns}
                                        isPagging={true}
                                        data={this.generateData(5)}
                                        mode={Table.Mode.RADIO}
