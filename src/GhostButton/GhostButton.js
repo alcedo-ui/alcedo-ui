@@ -1,3 +1,7 @@
+/**
+ * @file GhostButton component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
