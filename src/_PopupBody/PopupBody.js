@@ -311,7 +311,8 @@ export default class PopupBody extends Component {
             <Paper ref="popup"
                    className={'popup' + popupClassName}
                    style={{...this.getPopupStyle(), ...style}}
-                   depth={depth}>
+                   depth={depth}
+                   onWheel={this.wheelHandler}>
 
                 {
                     hasTriangle ?
