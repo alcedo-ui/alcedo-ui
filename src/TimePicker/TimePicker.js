@@ -1,3 +1,7 @@
+/**
+ * @file TimePicker component
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
