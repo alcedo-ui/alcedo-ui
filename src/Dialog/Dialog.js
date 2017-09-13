@@ -1,3 +1,7 @@
+/**
+ * @file Dialog component
+ * @author chao(chao.zhang@derbysoft.com)
+ */
 import React, {Component} from 'react';
 
 import SubtreeContainer from '../_SubtreeContainer';
