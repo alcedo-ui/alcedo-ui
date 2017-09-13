@@ -1,3 +1,7 @@
+/**
+ * @file Tip component
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
 import React, {Component} from 'react';
 
 import SubtreeContainer from '../_SubtreeContainer';
