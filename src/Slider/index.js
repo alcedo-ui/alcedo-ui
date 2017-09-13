@@ -1,4 +1,5 @@
 /**
- * Created by DT314 on 2017/4/12.
+ * @file Slider
+ * @author chao(chao.zhang@derbysoft.com)
  */
 export default from './Slider';
