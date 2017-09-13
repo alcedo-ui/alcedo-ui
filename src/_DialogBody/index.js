@@ -1,5 +1,5 @@
 /**
  * @file DialogBody
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ * @author chao(chao.zhang@derbysoft.com)
  */
 export default from './DialogBody';
