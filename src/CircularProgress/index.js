@@ -1,5 +1,5 @@
 /**
- * Created by DT314 on 2017/4/7.
+ * @file CircularProgress
+ * @author chao(chao.zhang@derbysoft.com)
  */
-
 export default from './CircularProgress'
