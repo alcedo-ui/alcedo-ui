@@ -1,4 +1,5 @@
 /**
- * Created by Wendy on 2017/5/3.
+ * @file TimeLineItem
+ * @author wendy(wendy.wei@derbysoft.com)
  */
 export default from './TimeLineItem';

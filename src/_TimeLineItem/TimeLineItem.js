@@ -1,5 +1,6 @@
 /**
- * Created by Wendy on 2017/5/3.
+ * @file TimeLineItem component
+ * @author wendy(wendy.wei@derbysoft.com)
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
