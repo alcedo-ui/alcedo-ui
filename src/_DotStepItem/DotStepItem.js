@@ -5,8 +5,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import './DotStepItem.css';
-
 export default class DotStepItem extends Component {
 
     constructor(props, ...restArgs) {
