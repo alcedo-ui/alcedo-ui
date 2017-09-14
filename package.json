@@ -6,7 +6,9 @@
     "main": "./src/index.js",
     "scripts": {
         "build:propType": "rimraf examples/assets/propTypes && gulp propType",
-        "build:index": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
+        "build:componentsIndex": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
+        "build:componentsStyle": "rimraf src/style.scss && node scripts/generateComponentsStyle.js",
+        "build:index": "npm run build:componentsIndex && npm run build:componentsStyle",
         "build:components": "rimraf dist && npm run build:index && gulp build && npm run build:propType",
         "watch:components": "npm run build:components && gulp watch",
         "dev:example": "node build/dev/dev-server.js",
