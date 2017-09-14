@@ -10,8 +10,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-import './GhostButton.css';
-
 export default class GhostButton extends Component {
 
     constructor(props, ...restArgs) {
