@@ -11,8 +11,6 @@ import Theme from '../Theme';
 
 import DragDrop from '../_vendors/DragDrop';
 
-import './DraggableGridGroup.css';
-
 const DRAG_GRID_GROUP_SYMBOL = Symbol('DRAG_GRID_GROUP');
 
 @DropTarget(DRAG_GRID_GROUP_SYMBOL, DragDrop.getVerticalTarget(), connect => ({
