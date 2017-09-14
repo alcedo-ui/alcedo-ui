@@ -5,8 +5,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import './TableRow.css';
-
 export default class TableRow extends Component {
 
     constructor(props, ...restArgs) {
