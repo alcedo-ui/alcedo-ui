@@ -2,6 +2,7 @@
  * @file Table component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -16,8 +17,6 @@ import BriefPagging from '../BriefPagging';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
-
-import './Table.css';
 
 export default class Table extends Component {
 
