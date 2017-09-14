@@ -12,8 +12,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-import './BaseButton.css';
-
 export default class BaseButton extends Component {
 
     constructor(props, ...restArgs) {
