@@ -11,8 +11,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-import './ListGroup.css';
-
 export default class ListGroup extends Component {
 
     constructor(props, ...restArgs) {
