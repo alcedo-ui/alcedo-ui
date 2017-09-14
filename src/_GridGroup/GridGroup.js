@@ -11,8 +11,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-import './GridGroup.css';
-
 export default class GridGroup extends Component {
 
     constructor(props, ...restArgs) {
