@@ -2,6 +2,7 @@
  * @file CascaderListItem component
  * @author wendy(wendy.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
