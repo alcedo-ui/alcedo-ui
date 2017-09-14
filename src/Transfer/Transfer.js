@@ -2,13 +2,12 @@
  * @file Transfer component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
 import TransferList from '../_TransferList';
-
-import './Transfer.css';
 
 export default class Transfer extends Component {
 
