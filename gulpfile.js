@@ -12,6 +12,14 @@ function printError(e) {
 }
 
 /**
+ * sass copy
+ */
+gulp.task('sass', function () {
+    return gulp.src('./src/**/*.scss')
+        .pipe(gulp.dest('./dist'));
+});
+
+/**
  * es compile
  */
 gulp.task('es', function () {
@@ -57,11 +65,12 @@ gulp.task('propType', function () {
 /**
  * build components for npm publish
  */
-gulp.task('build', gulpSequence('es', 'copyFiles'));
+gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
 
 /**
  * watch components src files
  */
 gulp.task('watch', function () {
+    gulp.watch('./src/**/*.scss', ['sass']);
     gulp.watch('./src/**/*.js', ['es']);
 });
