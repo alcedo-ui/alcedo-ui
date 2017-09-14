@@ -9,8 +9,6 @@ import List from '../List';
 
 import Valid from '../_vendors/Valid';
 
-import './CascaderListItem.css';
-
 export default class CascaderListItem extends Component {
 
     constructor(props, ...restArgs) {
