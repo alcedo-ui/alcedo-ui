@@ -2,12 +2,11 @@
  * @file CircularProgress component
  * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Percent from '../_Percent';
-
-import './CircularProgress.css';
 
 export default class CircularProgress extends Component {
 
