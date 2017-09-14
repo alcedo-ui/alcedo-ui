@@ -3,6 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin menu-theme($bg-color) {
+
+    .menu-triangle {
+        border-color: $bg-color;
+    }
+
+    .menu-content {
+        background: $bg-color;
+    }
+}
+
 .menu {
     position: absolute;
     width: 200px;

@@ -3,6 +3,36 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin ghost-button-theme($color, $activated-color) {
+    background: transparent;
+    color: $color;
+    border: 1px solid $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:hover {
+        color: $activated-color;
+        background: $color;
+    }
+
+    &:active {
+        background: $color;
+        color: $activated-color;
+    }
+
+    &[disabled] {
+        color: darken($color, 8%);
+        border-color: darken($color, 8%);
+        background: transparent;
+    }
+}
+
 .ghost-button {
 
     // default theme

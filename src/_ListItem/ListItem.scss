@@ -3,6 +3,36 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin list-item-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &.activated {
+        background: darken($bg-color, 4%);
+    }
+
+    &:hover {
+        background: darken($bg-color, 6%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+}
+
 .list-item {
     display: block;
     width: 100%;

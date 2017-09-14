@@ -3,6 +3,23 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin icon-anchor-theme($color) {
+    background: transparent;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+    }
+}
+
 .icon-anchor {
     display: inline-block;
     width: 40px;
@@ -22,23 +39,23 @@
     }
 
     // default theme
-    @include icon-button-theme($theme-text);
+    @include icon-anchor-theme($theme-text);
 
     // themes
     &.theme-primary {
-        @include icon-button-theme($theme-menu);
+        @include icon-anchor-theme($theme-menu);
     }
     &.theme-highlight {
-        @include icon-button-theme($theme-highlight);
+        @include icon-anchor-theme($theme-highlight);
     }
     &.theme-success {
-        @include icon-button-theme($success);
+        @include icon-anchor-theme($success);
     }
     &.theme-warning {
-        @include icon-button-theme($warning);
+        @include icon-anchor-theme($warning);
     }
     &.theme-error {
-        @include icon-button-theme($error);
+        @include icon-anchor-theme($error);
     }
 
 }

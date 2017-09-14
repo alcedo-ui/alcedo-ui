@@ -3,6 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin popup-theme($bg-color) {
+
+    .popup-triangle {
+        border-color: $bg-color;
+    }
+
+    .popup-content {
+        background: $bg-color;
+    }
+}
+
 .popup {
     position: absolute;
     width: 200px;

@@ -3,6 +3,18 @@
  * @author chao(chao.zhang@derbysoft.com)
  */
 
+@mixin progress-theme($color1,$color2, $bg-color) {
+    .linear-progress-highlight {
+        background-color: $bg-color;
+    }
+    .circular-progress-percent {
+        color: $color1;
+    }
+    .linear-progress-word {
+        color: $color2
+    }
+}
+
 .linear-progress {
     position: relative;
     .linear-progress-background {

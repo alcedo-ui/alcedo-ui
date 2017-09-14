@@ -3,6 +3,23 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin icon-button-theme($color) {
+    background: transparent;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+    }
+}
+
 .icon-button {
     padding: 0;
 

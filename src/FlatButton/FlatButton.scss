@@ -3,6 +3,36 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin flat-button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:hover {
+        background: transparentize($theme-menu, .9);
+
+        &[disabled] {
+            background: transparentize(#eee, .3);
+        }
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: transparent !important;
+    }
+}
+
 .flat-button {
 
     // default theme
