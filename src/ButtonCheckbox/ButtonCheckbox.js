@@ -2,12 +2,11 @@
  * @file ButtonCheckbox component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
-
-import './ButtonCheckbox.css';
 
 export default class ButtonCheckbox extends Component {
 
