@@ -165,6 +165,7 @@ export default class TextFieldExamples extends Component {
                                 <div>Min / Max</div>
                                 <div className="field-group">
                                     <TextField type="number"
+                                               fieldMsgVisible={false}
                                                min={0}
                                                max={100}/>
                                 </div>
