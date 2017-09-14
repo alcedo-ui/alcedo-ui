@@ -6,7 +6,7 @@ var os = require('os'),
 
 function fsExistsSync(path) {
     try {
-        fs.accessSync(path, fs.constants.F_OK);
+        fs.accessSync(path, (fs.constants && fs.constants.F_OK) || fs.F_OK);
     } catch (e) {
         return false;
     }
