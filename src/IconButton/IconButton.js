@@ -2,6 +2,7 @@
  * @file IconButton component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,8 +10,6 @@ import BaseButton from '../_BaseButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './IconButton.css';
 
 export default class IconButton extends Component {
 
