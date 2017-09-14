@@ -19,10 +19,10 @@
 
     &.activated {
         color: #fff;
-        background: $theme-menu;
+        background: $theme-primary;
 
         &:hover {
-            background: darken($theme-menu, 4%);
+            background: darken($theme-primary, 4%);
         }
     }
 }

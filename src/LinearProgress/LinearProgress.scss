@@ -37,10 +37,10 @@
         }
     }
 
-    @include progress-theme(#000, #fff, $theme-menu);
+    @include progress-theme(#000, #fff, $theme-primary);
 
     &.theme-primary {
-        @include progress-theme(#000, #fff, $theme-menu);
+        @include progress-theme(#000, #fff, $theme-primary);
     }
     &.theme-highlight {
         @include progress-theme(#000, #fff, $theme-highlight);

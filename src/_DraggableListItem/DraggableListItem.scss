@@ -143,7 +143,7 @@
 
     // other themes
     &.theme-primary {
-        @include draggable-list-item-theme(#fff, $theme-menu);
+        @include draggable-list-item-theme(#fff, $theme-primary);
     }
     &.theme-highlight {
         @include draggable-list-item-theme(#fff, $theme-highlight);

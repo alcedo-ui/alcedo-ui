@@ -61,7 +61,7 @@
         overflow: hidden;
         z-index: 1;
         cursor: auto;
-        color: $theme-menu;
+        color: $theme-primary;
 
         &:hover + .editable-field-span {
             display: block;

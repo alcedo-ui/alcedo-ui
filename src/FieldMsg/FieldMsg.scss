@@ -75,11 +75,8 @@
     @include field-msg-theme($theme-field, $theme-title-bg);
 
     &.theme-info {
-
-        @include field-msg-theme(#fff, $theme-menu);
-
+        @include field-msg-theme(#fff, $theme-primary);
         top: -36px;
-
     }
 
     &.theme-success {

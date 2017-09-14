@@ -40,7 +40,7 @@
 
     // themes
     &.theme-primary {
-        @include ghost-button-theme($theme-menu, #fff);
+        @include ghost-button-theme($theme-primary, #fff);
     }
     &.theme-highlight {
         @include ghost-button-theme($theme-highlight, #fff);

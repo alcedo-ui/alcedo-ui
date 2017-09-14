@@ -16,7 +16,7 @@
     }
 
     &:hover {
-        background: transparentize($theme-menu, .9);
+        background: transparentize($theme-primary, .9);
 
         &[disabled] {
             background: transparentize(#eee, .3);
@@ -40,7 +40,7 @@
 
     // themes
     &.theme-primary {
-        @include flat-button-theme($theme-menu, transparent);
+        @include flat-button-theme($theme-primary, transparent);
     }
     &.theme-highlight {
         @include flat-button-theme($theme-highlight, transparent);

@@ -312,7 +312,7 @@
 
     // other themes
     &.theme-primary {
-        @include popup-theme($theme-menu);
+        @include popup-theme($theme-primary);
     }
     &.theme-highlight {
         @include popup-theme($theme-highlight);

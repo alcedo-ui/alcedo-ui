@@ -50,7 +50,7 @@
 
     // other themes
     &.theme-primary {
-        @include raised-button-theme(#fff, $theme-menu);
+        @include raised-button-theme(#fff, $theme-primary);
     }
     &.theme-highlight {
         @include raised-button-theme(#fff, $theme-highlight);

@@ -43,7 +43,7 @@
 
     // themes
     &.theme-primary {
-        @include icon-anchor-theme($theme-menu);
+        @include icon-anchor-theme($theme-primary);
     }
     &.theme-highlight {
         @include icon-anchor-theme($theme-highlight);

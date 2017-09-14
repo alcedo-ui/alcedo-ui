@@ -312,7 +312,7 @@
 
     // other themes
     &.theme-primary {
-        @include menu-theme($theme-menu);
+        @include menu-theme($theme-primary);
     }
     &.theme-highlight {
         @include menu-theme($theme-highlight);

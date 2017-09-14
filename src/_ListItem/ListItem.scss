@@ -127,7 +127,7 @@
 
     // other themes
     &.theme-primary {
-        @include list-item-theme(#fff, $theme-menu);
+        @include list-item-theme(#fff, $theme-primary);
     }
     &.theme-highlight {
         @include list-item-theme(#fff, $theme-highlight);

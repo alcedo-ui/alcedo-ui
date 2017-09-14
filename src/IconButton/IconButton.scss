@@ -33,7 +33,7 @@
 
     // themes
     &.theme-primary {
-        @include icon-button-theme($theme-menu);
+        @include icon-button-theme($theme-primary);
     }
     &.theme-highlight {
         @include icon-button-theme($theme-highlight);

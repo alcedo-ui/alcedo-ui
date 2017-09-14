@@ -35,7 +35,7 @@
         left: 0;
         width: 50%;
         height: 12px;
-        background: $theme-menu;
+        background: $theme-primary;
     }
 
     .right-bar {
@@ -44,7 +44,7 @@
         left: 50%;
         width: 50%;
         height: 12px;
-        background: $theme-menu;
+        background: $theme-primary;
     }
 
     .round {
@@ -109,7 +109,7 @@
     &.finished {
         .round {
             cursor: pointer;
-            background: $theme-menu;
+            background: $theme-primary;
             color: #fff;
         }
     }
