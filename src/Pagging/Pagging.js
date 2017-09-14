@@ -2,13 +2,12 @@
  * @file Pagging component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
-
-import './Pagging.css';
 
 export default class Pagging extends Component {
 
