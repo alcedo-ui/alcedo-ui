@@ -14,8 +14,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
 
-import './DraggableGridItem.css';
-
 const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 
 @DropTarget(DRAG_GRID_ITEM_SYMBOL, DragDrop.getHorizontalTarget(), connect => ({
