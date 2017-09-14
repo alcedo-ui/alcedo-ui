@@ -179,7 +179,7 @@
                         }
                         li.item-gray {
                             a {
-                                color: $grey;
+                                color: $theme-text-disabled;
                                 cursor: not-allowed;
                             }
                         }
@@ -259,11 +259,11 @@
                         }
                         &.active {
                             background: $theme-content-bg;
-                            color: $blue-grey;
+                            color: $theme-text;
                             font-weight: 600;
                         }
                         &.disabled {
-                            color: $grey;
+                            color: $theme-text-disabled;
                             cursor: not-allowed;
                         }
                     }
@@ -294,7 +294,7 @@
                     position: relative;
                     overflow: hidden;
                     .item-gray {
-                        color: $grey;
+                        color: $theme-text-disabled;
                         cursor: not-allowed;
                     }
                     &.fl {

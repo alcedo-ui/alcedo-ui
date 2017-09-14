@@ -115,11 +115,11 @@
                         }
                         &.active {
                             background: $theme-content-bg;
-                            color: $blue-grey;
+                            color: $theme-text;
                             font-weight: 600;
                         }
                         &.disabled {
-                            color: $grey;
+                            color: $theme-text-disabled;
                             cursor: not-allowed;
                         }
                     }
