@@ -5,8 +5,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import './ArrowStepItem.css';
-
 export default class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
