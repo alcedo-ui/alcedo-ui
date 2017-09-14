@@ -2,12 +2,11 @@
  * @file Rate component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
-
-import './Rate.css';
 
 export default class Rate extends Component {
 
