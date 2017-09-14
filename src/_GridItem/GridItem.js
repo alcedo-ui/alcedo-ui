@@ -13,8 +13,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-import './GridItem.css';
-
 export default class GridItem extends Component {
 
     static Mode = {
