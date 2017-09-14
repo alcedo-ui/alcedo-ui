@@ -2,6 +2,7 @@
  * @file LocalAutoComplete component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
@@ -13,8 +14,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
-
-import './LocalAutoComplete.css';
 
 export default class LocalAutoComplete extends Component {
 
