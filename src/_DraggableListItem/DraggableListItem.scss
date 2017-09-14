@@ -139,7 +139,7 @@
     }
 
     // default theme
-    @include draggable-list-item-theme($theme-text, $theme-field);
+    @include draggable-list-item-theme($theme-text, $theme-field-bg);
 
     // other themes
     &.theme-primary {

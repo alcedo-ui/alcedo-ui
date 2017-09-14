@@ -14,7 +14,7 @@
         height: 300px;
         border: 1px solid #dfdfdf;
         border-radius: $border-radius;
-        background: $theme-field;
+        background: $theme-field-bg;
         .transfer-header {
             height: 40px;
             line-height: 40px;
@@ -87,7 +87,7 @@
                     background: $theme-bg;
                 }
                 &.disabled:hover {
-                    background: $theme-field;
+                    background: $theme-field-bg;
                 }
             }
         }

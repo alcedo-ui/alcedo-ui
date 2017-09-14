@@ -146,7 +146,7 @@
         }
 
         // default theme
-        @include draggable-grid-item-theme($theme-text, $theme-field);
+        @include draggable-grid-item-theme($theme-text, $theme-field-bg);
 
         // other themes
         &.theme-primary {

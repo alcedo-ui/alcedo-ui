@@ -12,7 +12,7 @@
         box-sizing: border-box;
 
         .tab-button {
-            background: $theme-field;
+            background: $theme-field-bg;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             vertical-align: bottom;
@@ -20,7 +20,7 @@
             padding: 0 20px;
 
             &:hover {
-                background: darken($theme-field, 4%);
+                background: darken($theme-field-bg, 4%);
             }
 
             &.activated {
@@ -49,10 +49,10 @@
 
                 &.activated {
                     color: $theme-text;
-                    background: $theme-field;
+                    background: $theme-field-bg;
 
                     &:hover {
-                        background: darken($theme-field, 4%);
+                        background: darken($theme-field-bg, 4%);
                     }
                 }
             }

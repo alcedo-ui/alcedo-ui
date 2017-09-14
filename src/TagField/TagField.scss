@@ -15,7 +15,7 @@ input:focus {
     border-radius: $border-radius;
     box-sizing: border-box;
     color: $theme-text;
-    background: $theme-field;
+    background: $theme-field-bg;
     border: 1px solid $theme-title-bg;
     cursor: text;
     padding: 0 8px 8px 0;
@@ -130,7 +130,7 @@ input:focus {
     }
 
     &[disabled] {
-        background: darken($theme-field, 4%);
+        background: darken($theme-field-bg, 4%);
         cursor: not-allowed;
     }
 

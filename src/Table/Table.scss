@@ -9,18 +9,18 @@
     display: table;
     width: 100%;
     height: 100%;
-    background: $theme-field;
+    background: $theme-field-bg;
 
     .inner-table-wrapper {
         display: table;
         width: 100%;
-        background: $theme-field;
+        background: $theme-field-bg;
 
         .inner-table {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
-            background: $theme-field;
+            background: $theme-field-bg;
 
             .table-line-number-th,
             .table-line-number-td {

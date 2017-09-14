@@ -41,7 +41,7 @@
             border-radius: 0;
             text-align: left;
             color: $theme-text;
-            background: $theme-field;
+            background: $theme-field-bg;
 
             .tree-select-trigger-right-icon {
                 position: absolute;
@@ -58,7 +58,7 @@
 
             &:hover {
                 color: $theme-text;
-                background: darken($theme-field, 2%);
+                background: darken($theme-field-bg, 2%);
             }
 
             &.activated {

@@ -126,7 +126,7 @@
         }
 
         // default theme
-        @include grid-item-theme($theme-text, $theme-field);
+        @include grid-item-theme($theme-text, $theme-field-bg);
 
         // other themes
         &.theme-primary {
@@ -150,7 +150,7 @@
 
             &:hover,
             &:active {
-                background: $theme-field;
+                background: $theme-field-bg;
             }
         }
     }

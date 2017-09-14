@@ -10,11 +10,11 @@
     width: 100px;
     border-radius: 20px;
     color: $theme-light-text;
-    background: $theme-field;
+    background: $theme-field-bg;
 
     &:hover {
         color: $theme-text;
-        background: $theme-field;
+        background: $theme-field-bg;
     }
 
     &.activated {
