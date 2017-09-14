@@ -2,12 +2,11 @@
  * @file ListStep component
  * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import ListStepItem from '../_ListStepItem';
-
-import './ListStep.css';
 
 export default class ListStep extends Component {
 
