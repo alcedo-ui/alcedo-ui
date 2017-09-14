@@ -9,7 +9,7 @@
         line-height: 24px;
 
         span {
-            color: $light-blue;
+            color: $theme-highlight;
         }
     }
 
@@ -50,7 +50,7 @@
     .prop-type-desc-table {
 
         tbody tr td:first-child {
-            color: $light-blue;
+            color: $theme-highlight;
         }
 
         tbody tr td:nth-child(2) {
@@ -58,7 +58,7 @@
         }
 
         thead tr th {
-            color: $grey;
+            color: $theme-text-disabled;
             font-size: 15px;
         }
 
