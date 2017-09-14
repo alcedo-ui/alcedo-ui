@@ -69,7 +69,7 @@
 
         &[disabled] {
             cursor: not-allowed;
-            color: $grey;
+            color: $theme-text-disabled;
 
             &:hover + .editable-field-span {
                 display: none;
