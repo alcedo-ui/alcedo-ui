@@ -13,8 +13,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-import './ListItem.css';
-
 export default class ListItem extends Component {
 
     static Mode = {
