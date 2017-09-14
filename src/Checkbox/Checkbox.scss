@@ -4,7 +4,7 @@
  */
 
 .checkbox {
-    color: $theme-text;
+    color: $theme-field;
     height: 40px;
     cursor: pointer;
 
@@ -28,7 +28,7 @@
         }
 
         .checkbox-bg-icon {
-            color: lighten($theme-text, 45%);
+            color: lighten($theme-field, 45%);
 
             .button-icon {
                 transition: all $transition-duration ease-in-out;
@@ -68,11 +68,11 @@
     }
 
     &[disabled] {
-        color: lighten($theme-text, 30%);
+        color: lighten($theme-field, 30%);
         cursor: not-allowed;
 
         &.activated {
-            color: lighten($theme-brand, 30%);
+            color: lighten($theme-highlight, 30%);
         }
     }
 

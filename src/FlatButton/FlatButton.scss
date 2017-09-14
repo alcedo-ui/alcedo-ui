@@ -36,7 +36,7 @@
 .flat-button {
 
     // default theme
-    @include flat-button-theme($theme-text, transparent);
+    @include flat-button-theme($theme-field, transparent);
 
     // themes
     &.theme-primary {

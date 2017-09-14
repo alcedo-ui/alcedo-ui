@@ -39,7 +39,7 @@
     }
 
     // default theme
-    @include icon-anchor-theme($theme-text);
+    @include icon-anchor-theme($theme-field);
 
     // themes
     &.theme-primary {

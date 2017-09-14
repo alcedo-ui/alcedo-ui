@@ -26,7 +26,7 @@
             margin: 8px 4px 0 4px;
             float: left;
             line-height: 24px;
-            color: $theme-text;
+            color: $theme-field;
         }
 
         .multiple-select-selected {
@@ -147,7 +147,7 @@
 
             .no-matched-list-item {
                 line-height: 40px;
-                color: $theme-text;
+                color: $theme-field;
 
                 .no-matched-list-item-icon {
                     color: $warning;

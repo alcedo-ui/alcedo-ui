@@ -28,7 +28,7 @@
             line-height: 30px;
             font-size: 20px;
             background: transparentize(#fff, .05);
-            color: $theme-text;
+            color: $theme-field;
 
             i {
                 width: 40px;
@@ -46,7 +46,7 @@
             height: 30px;
             line-height: 30px;
             padding: 15px 0;
-            color: $theme-text;
+            color: $theme-field;
             white-space: nowrap;
             overflow: hidden;
             z-index: 2;

@@ -40,7 +40,7 @@
             padding: 10px 30px 10px 20px;
             border-radius: 0;
             text-align: left;
-            color: $theme-text;
+            color: $theme-field;
             background: $theme-field-bg;
 
             .tree-select-trigger-right-icon {
@@ -57,7 +57,7 @@
             }
 
             &:hover {
-                color: $theme-text;
+                color: $theme-field;
                 background: darken($theme-field-bg, 2%);
             }
 

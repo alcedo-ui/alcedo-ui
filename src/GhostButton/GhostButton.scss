@@ -36,7 +36,7 @@
 .ghost-button {
 
     // default theme
-    @include ghost-button-theme(#fff, $theme-text);
+    @include ghost-button-theme(#fff, $theme-field);
 
     // themes
     &.theme-primary {

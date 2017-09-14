@@ -4,7 +4,7 @@
     min-width: $minWidth;
     overflow-x: hidden;
     transition: none;
-    color: $theme-text;
+    color: $theme-field;
     background: $theme-bg;
 
     .root-loading {
@@ -33,7 +33,7 @@
 
 @media (max-width: 767px) {
     .app-root {
-        color: $theme-text;
+        color: $theme-field;
         background: $theme-menu;
     }
 }

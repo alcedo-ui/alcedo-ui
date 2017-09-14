@@ -29,7 +29,7 @@
     }
 
     // default theme
-    @include icon-button-theme($theme-text);
+    @include icon-button-theme($theme-field);
 
     // themes
     &.theme-primary {

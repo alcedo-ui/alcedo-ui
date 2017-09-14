@@ -33,7 +33,7 @@
             .option {
                 box-sizing: border-box;
                 width: 100%;
-                color: $theme-text;
+                color: $theme-field;
                 padding: 0;
                 margin: 8px 0;
                 border-top: none;
@@ -104,7 +104,7 @@
                 &.disabled {
                     font-size: 12px;
                     background: #F8F8F8;
-                    color: lighten($theme-text, 30%);
+                    color: lighten($theme-field, 30%);
 
                     &:hover {
                         background: #F8F8F8;

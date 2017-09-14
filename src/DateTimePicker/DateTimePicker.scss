@@ -179,7 +179,7 @@
                         }
                         li.item-gray {
                             a {
-                                color: $theme-text-disabled;
+                                color: $theme-field-disabled;
                                 cursor: not-allowed;
                             }
                         }
@@ -259,11 +259,11 @@
                         }
                         &.active {
                             background: $theme-content-bg;
-                            color: $theme-text;
+                            color: $theme-field;
                             font-weight: 600;
                         }
                         &.disabled {
-                            color: $theme-text-disabled;
+                            color: $theme-field-disabled;
                             cursor: not-allowed;
                         }
                     }
@@ -294,7 +294,7 @@
                     position: relative;
                     overflow: hidden;
                     .item-gray {
-                        color: $theme-text-disabled;
+                        color: $theme-field-disabled;
                         cursor: not-allowed;
                     }
                     &.fl {

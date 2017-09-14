@@ -68,7 +68,7 @@
             width: 16px;
             line-height: inherit;
             margin-right: 10px;
-            color: lighten($theme-text, 45%);
+            color: lighten($theme-field, 45%);
             text-align: center;
 
             &.activated {
@@ -146,7 +146,7 @@
         }
 
         // default theme
-        @include draggable-grid-item-theme($theme-text, $theme-field-bg);
+        @include draggable-grid-item-theme($theme-field, $theme-field-bg);
 
         // other themes
         &.theme-primary {

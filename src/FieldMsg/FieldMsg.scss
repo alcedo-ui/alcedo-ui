@@ -72,7 +72,7 @@
         overflow: visible;
     }
 
-    @include field-msg-theme($theme-text, $theme-title-bg);
+    @include field-msg-theme($theme-field, $theme-title-bg);
 
     &.theme-info {
 
