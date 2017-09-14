@@ -36,7 +36,7 @@ fs.readdir('./src', function (err, files) {
 
             });
 
-            fs.writeFile(path.join(__dirname, '../src/style.scss'), indexArray.join(os.EOL), function (error) {
+            fs.writeFile(path.join(__dirname, '../src/components.scss'), indexArray.join(os.EOL), function (error) {
                 if (error) {
                     throw error;
                 }

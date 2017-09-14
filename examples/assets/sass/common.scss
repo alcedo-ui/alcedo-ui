@@ -1,14 +1,14 @@
-@import 'dist/_common.scss';
-@import 'dist/style.scss';
+@import 'dist/Theme/default.scss';
+@import 'dist/components.scss';
 
 $theme-brand: #344c67;
-$theme-nav: #fff; // #E3EAF3
+$theme-nav: #fff;
 $theme-menu: #4c637b;
-$theme-bg: #f3f6fa; // #FFF
+$theme-bg: #f3f6fa;
 $theme-title-bg: #e3eaf3;
 $theme-widget-bg: #f0f3f4;
 $theme-content-bg: #f2f6fa;
-$theme-field: #fff; // #F2F6FA
+$theme-field: #fff;
 $theme-title: #758697;
 $theme-text: #4c637b;
 $theme-light-text: #b8c6d6;
