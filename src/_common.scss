@@ -349,3 +349,15 @@ $transition-duration: 250ms;
         background: darken($bg-color, 8%);
     }
 }
+
+@mixin progress-theme($color1,$color2, $bg-color) {
+    .linear-progress-highlight {
+        background-color: $bg-color;
+    }
+    .circular-progress-percent {
+        color: $color1;
+    }
+    .linear-progress-word {
+        color: $color2
+    }
+}

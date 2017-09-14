@@ -2,13 +2,12 @@
  * @file LinearProgress component
  * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Theme from '../Theme';
 
 import Percent from '../_Percent';
-
-import './LinearProgress.css';
 
 export default class LinearProgress extends Component {
 
