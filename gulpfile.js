@@ -2,7 +2,6 @@ process.env.NODE_ENV = '"release"';
 
 var gulp = require('gulp'),
     rename = require('gulp-rename'),
-    sass = require('gulp-sass'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence'),
     miniPackageJson = require('./scripts/gulp-mini-package-json'),
@@ -11,16 +10,6 @@ var gulp = require('gulp'),
 function printError(e) {
     console.error(e.toString());
 }
-
-/**
- * sass compile
- */
-gulp.task('sass', function () {
-    return gulp.src('./src/**/*.scss')
-        .pipe(sass())
-        .on('error', printError)
-        .pipe(gulp.dest('./dist'));
-});
 
 /**
  * es compile
@@ -68,12 +57,11 @@ gulp.task('propType', function () {
 /**
  * build components for npm publish
  */
-gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
+gulp.task('build', gulpSequence('es', 'copyFiles'));
 
 /**
  * watch components src files
  */
 gulp.task('watch', function () {
-    gulp.watch('./src/**/*.scss', ['sass']);
     gulp.watch('./src/**/*.js', ['es']);
 });
