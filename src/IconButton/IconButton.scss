@@ -39,13 +39,13 @@
         @include icon-button-theme($theme-highlight);
     }
     &.theme-success {
-        @include icon-button-theme($success);
+        @include icon-button-theme($theme-success);
     }
     &.theme-warning {
-        @include icon-button-theme($warning);
+        @include icon-button-theme($theme-warning);
     }
     &.theme-error {
-        @include icon-button-theme($error);
+        @include icon-button-theme($theme-error);
     }
 
 }

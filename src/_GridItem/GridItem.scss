@@ -136,13 +136,13 @@
             @include grid-item-theme(#fff, $theme-highlight);
         }
         &.theme-success {
-            @include grid-item-theme(#fff, $success);
+            @include grid-item-theme(#fff, $theme-success);
         }
         &.theme-warning {
-            @include grid-item-theme(#fff, $warning);
+            @include grid-item-theme(#fff, $theme-warning);
         }
         &.theme-error {
-            @include grid-item-theme(#fff, $error);
+            @include grid-item-theme(#fff, $theme-error);
         }
 
         &[readonly] {

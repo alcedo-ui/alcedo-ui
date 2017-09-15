@@ -317,13 +317,13 @@
         @include popup-theme($theme-highlight);
     }
     &.theme-success {
-        @include popup-theme($success);
+        @include popup-theme($theme-success);
     }
     &.theme-warning {
-        @include popup-theme($warning);
+        @include popup-theme($theme-warning);
     }
     &.theme-error {
-        @include popup-theme($error);
+        @include popup-theme($theme-error);
     }
 
 }

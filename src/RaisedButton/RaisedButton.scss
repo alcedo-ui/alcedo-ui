@@ -56,13 +56,13 @@
         @include raised-button-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include raised-button-theme(#fff, $success);
+        @include raised-button-theme(#fff, $theme-success);
     }
     &.theme-warning {
-        @include raised-button-theme(#fff, $warning);
+        @include raised-button-theme(#fff, $theme-warning);
     }
     &.theme-error {
-        @include raised-button-theme(#fff, $error);
+        @include raised-button-theme(#fff, $theme-error);
     }
 
 }

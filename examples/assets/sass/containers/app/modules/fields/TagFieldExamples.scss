@@ -14,7 +14,7 @@
 
             &.unfound {
                 .editable-field-text {
-                    color: $error;
+                    color: $theme-error;
                 }
             }
         }

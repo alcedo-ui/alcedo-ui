@@ -80,14 +80,14 @@
     }
 
     &.theme-success {
-        @include field-msg-theme(#fff, $success);
+        @include field-msg-theme(#fff, $theme-success);
     }
 
     &.theme-warning {
-        @include field-msg-theme(#fff, $warning);
+        @include field-msg-theme(#fff, $theme-warning);
     }
 
     &.theme-error {
-        @include field-msg-theme(#fff, $error);
+        @include field-msg-theme(#fff, $theme-error);
     }
 }

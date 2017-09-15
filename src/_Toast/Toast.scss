@@ -56,15 +56,15 @@
     }
 
     &.toast-success {
-        background: $success;
+        background: $theme-success;
     }
 
     &.toast-warning {
-        background: $warning;
+        background: $theme-warning;
     }
 
     &.toast-error {
-        background: $error;
+        background: $theme-error;
     }
 
     &.hidden {

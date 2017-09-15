@@ -133,13 +133,13 @@
         @include list-item-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include list-item-theme(#fff, $success);
+        @include list-item-theme(#fff, $theme-success);
     }
     &.theme-warning {
-        @include list-item-theme(#fff, $warning);
+        @include list-item-theme(#fff, $theme-warning);
     }
     &.theme-error {
-        @include list-item-theme(#fff, $error);
+        @include list-item-theme(#fff, $theme-error);
     }
 
     &[readonly] {

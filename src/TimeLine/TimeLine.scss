@@ -16,29 +16,29 @@
         &:hover {
             .time-line-item-title {
                 &-success {
-                    border-color: $success;
+                    border-color: $theme-success;
 
                     &:before {
-                        background: $success;
+                        background: $theme-success;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
                     }
                 }
                 &-error {
-                    border-color: $error;
+                    border-color: $theme-error;
                     &:before {
-                        background: $error;
+                        background: $theme-error;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
                     }
                 }
                 &-warning {
-                    border-color: $warning;
+                    border-color: $theme-warning;
 
                     &:before {
-                        background: $warning;
+                        background: $theme-warning;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
@@ -140,15 +140,15 @@
             box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 
             &-success {
-                background: $success;
+                background: $theme-success;
                 color: $theme-field-bg;
             }
             &-error {
-                background: $error;
+                background: $theme-error;
                 color: $theme-field-bg;
             }
             &-warning {
-                background: $warning;
+                background: $theme-warning;
                 color: $theme-field-bg;
             }
             &-highlight {
@@ -171,13 +171,13 @@
             border-color: transparent #dee5e7 transparent transparent;
 
             &-success {
-                border-color: transparent $success transparent transparent;
+                border-color: transparent $theme-success transparent transparent;
             }
             &-error {
-                border-color: transparent $error transparent transparent;
+                border-color: transparent $theme-error transparent transparent;
             }
             &-warning {
-                border-color: transparent $warning transparent transparent;
+                border-color: transparent $theme-warning transparent transparent;
             }
             &-highlight {
                 border-color: transparent $theme-highlight transparent transparent;
@@ -197,13 +197,13 @@
             border-color: transparent $theme-field-bg transparent transparent;
 
             &-success {
-                border-color: transparent $success transparent transparent;
+                border-color: transparent $theme-success transparent transparent;
             }
             &-error {
-                border-color: transparent $error transparent transparent;
+                border-color: transparent $theme-error transparent transparent;
             }
             &-warning {
-                border-color: transparent $warning transparent transparent;
+                border-color: transparent $theme-warning transparent transparent;
             }
             &-highlight {
                 border-color: transparent $theme-highlight transparent transparent;

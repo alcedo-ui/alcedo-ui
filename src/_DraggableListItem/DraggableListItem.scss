@@ -65,7 +65,7 @@
         text-align: center;
 
         &.activated {
-            color: $success;
+            color: $theme-success;
         }
     }
 
@@ -149,12 +149,12 @@
         @include draggable-list-item-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include draggable-list-item-theme(#fff, $success);
+        @include draggable-list-item-theme(#fff, $theme-success);
     }
     &.theme-warning {
-        @include draggable-list-item-theme(#fff, $warning);
+        @include draggable-list-item-theme(#fff, $theme-warning);
     }
     &.theme-error {
-        @include draggable-list-item-theme(#fff, $error);
+        @include draggable-list-item-theme(#fff, $theme-error);
     }
 }

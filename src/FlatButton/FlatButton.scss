@@ -46,13 +46,13 @@
         @include flat-button-theme($theme-highlight, transparent);
     }
     &.theme-success {
-        @include flat-button-theme($success, transparent);
+        @include flat-button-theme($theme-success, transparent);
     }
     &.theme-warning {
-        @include flat-button-theme($warning, transparent);
+        @include flat-button-theme($theme-warning, transparent);
     }
     &.theme-error {
-        @include flat-button-theme($error, transparent);
+        @include flat-button-theme($theme-error, transparent);
     }
 
 }

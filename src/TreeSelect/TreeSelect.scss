@@ -82,7 +82,7 @@
 
         &.error {
             .trigger {
-                border: 1px solid $error !important;
+                border: 1px solid $theme-error !important;
             }
         }
         &.above {

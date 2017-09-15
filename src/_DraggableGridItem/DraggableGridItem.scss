@@ -72,7 +72,7 @@
             text-align: center;
 
             &.activated {
-                color: $success;
+                color: $theme-success;
             }
         }
 
@@ -156,13 +156,13 @@
             @include draggable-grid-item-theme(#fff, $theme-highlight);
         }
         &.theme-success {
-            @include draggable-grid-item-theme(#fff, $success);
+            @include draggable-grid-item-theme(#fff, $theme-success);
         }
         &.theme-warning {
-            @include draggable-grid-item-theme(#fff, $warning);
+            @include draggable-grid-item-theme(#fff, $theme-warning);
         }
         &.theme-error {
-            @include draggable-grid-item-theme(#fff, $error);
+            @include draggable-grid-item-theme(#fff, $theme-error);
         }
     }
 }

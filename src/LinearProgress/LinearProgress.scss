@@ -46,13 +46,13 @@
         @include progress-theme(#000, #fff, $theme-highlight);
     }
     &.theme-success {
-        @include progress-theme(#000, #fff, $success);
+        @include progress-theme(#000, #fff, $theme-success);
     }
     &.theme-warning {
-        @include progress-theme(#000, #fff, $warning);
+        @include progress-theme(#000, #fff, $theme-warning);
     }
     &.theme-error {
-        @include progress-theme(#000, #fff, $error);
+        @include progress-theme(#000, #fff, $theme-error);
     }
 
     &.linear-progress-one {

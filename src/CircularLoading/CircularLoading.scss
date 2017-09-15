@@ -52,15 +52,15 @@
             }
 
             &.success {
-                border-color: $success;
+                border-color: $theme-success;
             }
 
             &.error {
-                border-color: $error;
+                border-color: $theme-error;
             }
 
             &.warning {
-                border-color: $warning;
+                border-color: $theme-warning;
             }
             &.highlight {
                 border-color: $theme-highlight;

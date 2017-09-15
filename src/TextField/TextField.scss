@@ -101,7 +101,7 @@ input:focus {
     }
 
     &.error {
-        border-color: transparentize($error, .3);
+        border-color: transparentize($theme-error, .3);
     }
 
     &.disabled {

@@ -49,13 +49,13 @@
         @include icon-anchor-theme($theme-highlight);
     }
     &.theme-success {
-        @include icon-anchor-theme($success);
+        @include icon-anchor-theme($theme-success);
     }
     &.theme-warning {
-        @include icon-anchor-theme($warning);
+        @include icon-anchor-theme($theme-warning);
     }
     &.theme-error {
-        @include icon-anchor-theme($error);
+        @include icon-anchor-theme($theme-error);
     }
 
 }

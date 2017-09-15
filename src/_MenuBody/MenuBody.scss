@@ -318,13 +318,13 @@
         @include menu-theme($theme-highlight);
     }
     &.theme-success {
-        @include menu-theme($success);
+        @include menu-theme($theme-success);
     }
     &.theme-warning {
-        @include menu-theme($warning);
+        @include menu-theme($theme-warning);
     }
     &.theme-error {
-        @include menu-theme($error);
+        @include menu-theme($theme-error);
     }
 
 }
