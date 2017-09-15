@@ -10,8 +10,8 @@
     border-radius: 15px;
     position: relative;
     cursor: pointer;
-    border: 1px solid darken($theme-bg, 2%);
-    background: $theme-bg;
+    border: 1px solid darken($theme-border, 2%);
+    background: $theme-field-bg;
 
     .switcher-slider-wrapper {
         width: 50px;
@@ -54,12 +54,12 @@
     }
 
     &[disabled] {
-        background: grayscale($theme-bg);
-        border: 1px solid grayscale(darken($theme-bg, 2%));
+        background: grayscale($theme-field-bg);
+        border: 1px solid grayscale(darken($theme-border, 2%));
         cursor: not-allowed;
 
         &.active {
-            background: grayscale($theme-bg);
+            background: grayscale($theme-field-bg);
         }
 
         .switcher-slider-wrapper {

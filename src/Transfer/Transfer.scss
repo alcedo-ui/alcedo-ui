@@ -80,11 +80,11 @@
                         line-height: 40px;
                     }
                     &.activated {
-                        background: $theme-bg;
+                        background: $theme-field-bg;
                     }
                 }
                 &:hover {
-                    background: $theme-bg;
+                    background: $theme-field-bg;
                 }
                 &.disabled:hover {
                     background: $theme-field-bg;
