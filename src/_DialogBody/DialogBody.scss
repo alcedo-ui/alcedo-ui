@@ -61,7 +61,7 @@
         width: 100%;
         height: 200px;
         box-sizing: border-box;
-        background: $theme-bg;
+        background: $theme-container-bg;
         padding: 30px;
     }
 
@@ -71,7 +71,7 @@
 
         box-sizing: border-box;
         padding: 15px 25px;
-        background: $theme-bg;
+        background: $theme-container-bg;
         border-top: 1px solid $theme-border;
 
         & > .base-button {

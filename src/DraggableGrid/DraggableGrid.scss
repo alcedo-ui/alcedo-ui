@@ -6,6 +6,6 @@
 .draggable-grid {
     @include float-fix;
     padding-top: 10px;
-    background: $theme-bg;
+    background: $theme-container-bg;
     overflow: auto;
 }

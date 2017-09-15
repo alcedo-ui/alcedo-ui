@@ -5,7 +5,7 @@
 
 .paper {
     border-radius: $border-radius;
-    background: $theme-bg;
+    background: $theme-container-bg;
 
     @for $i from 0 through 7 {
         &.depth-#{$i} {
