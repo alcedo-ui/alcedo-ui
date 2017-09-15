@@ -29,7 +29,7 @@
         }
 
         &.focused {
-            border-color: $theme-title-bg;
+            border-color: $theme-border;
         }
     }
 }
@@ -37,7 +37,7 @@
 .local-auto-complete-popup {
     box-sizing: border-box;
     max-height: 240px;
-    border: 1px solid $theme-title-bg;
+    border: 1px solid $theme-border;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     overflow-y: auto;

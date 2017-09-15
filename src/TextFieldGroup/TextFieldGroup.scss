@@ -17,7 +17,7 @@
         &:last-child {
             border-bottom-left-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
-            border-bottom: 1px solid $theme-title-bg;
+            border-bottom: 1px solid $theme-border;
 
             &.focused {
                 border-color: $theme-title;

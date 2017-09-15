@@ -31,7 +31,7 @@
 
     &:hover {
         td {
-            background: transparentize($theme-title-bg, .8);
+            background: transparentize($theme-border, .8);
 
             &.actions {
 

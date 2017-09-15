@@ -62,7 +62,7 @@
     &.above {
 
         .popup-content > .cascader-list-item {
-            border-bottom: 1px solid $theme-title-bg;
+            border-bottom: 1px solid $theme-border;
         }
 
         .cascader-popup-list {
@@ -80,7 +80,7 @@
     &.blow {
 
         .popup-content > .cascader-list-item {
-            border-top: 1px solid $theme-title-bg;
+            border-top: 1px solid $theme-border;
         }
 
         .cascader-popup-list {

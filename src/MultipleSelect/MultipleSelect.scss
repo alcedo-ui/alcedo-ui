@@ -13,7 +13,7 @@
         height: auto;
         padding: 0 40px 8px 4px;
         background: $theme-field-bg;
-        border: 1px solid $theme-title-bg;
+        border: 1px solid $theme-border;
         border-bottom: none;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
@@ -59,7 +59,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    background: $theme-title-bg;
+                    background: $theme-border;
                 }
             }
         }
@@ -86,7 +86,7 @@
         transition: all $transition-duration ease-in-out;
 
         &.focused {
-            border-color: $theme-title-bg;
+            border-color: $theme-border;
         }
     }
 
@@ -134,7 +134,7 @@
 .multiple-select-popup {
     max-height: 300px;
     box-sizing: border-box;
-    border: 1px solid $theme-title-bg;
+    border: 1px solid $theme-border;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     overflow-y: auto;

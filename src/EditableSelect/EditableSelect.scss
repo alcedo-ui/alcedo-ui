@@ -78,12 +78,12 @@
     &.above {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        border-bottom: 1px solid $theme-title-bg;
+        border-bottom: 1px solid $theme-border;
     }
 
     &.blow {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        border-top: 1px solid $theme-title-bg;
+        border-top: 1px solid $theme-border;
     }
 }
