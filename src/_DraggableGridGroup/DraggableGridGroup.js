@@ -1,3 +1,8 @@
+/**
+ * @file DraggableGridGroup component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
@@ -6,8 +11,6 @@ import DraggableGridItem from '../_DraggableGridItem';
 import Theme from '../Theme';
 
 import DragDrop from '../_vendors/DragDrop';
-
-import './DraggableGridGroup.css';
 
 const DRAG_GRID_GROUP_SYMBOL = Symbol('DRAG_GRID_GROUP');
 

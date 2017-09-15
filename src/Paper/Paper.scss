@@ -1,8 +1,11 @@
-@import '../_common.scss';
+/**
+ * @file Paper style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .paper {
-    border-radius: $border-radius;
-    background: #fff;
+    border-radius: $theme-border-radius;
+    background: $theme-container-bg;
 
     @for $i from 0 through 7 {
         &.depth-#{$i} {

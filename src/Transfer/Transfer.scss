@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file Transfer style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
 
 .transfer {
     overflow: hidden;
@@ -10,8 +13,8 @@
         width: 200px;
         height: 300px;
         border: 1px solid #dfdfdf;
-        border-radius: $border-radius;
-        background: $theme-field;
+        border-radius: $theme-border-radius;
+        background: $theme-field-bg;
         .transfer-header {
             height: 40px;
             line-height: 40px;
@@ -77,14 +80,14 @@
                         line-height: 40px;
                     }
                     &.activated {
-                        background: $theme-bg;
+                        background: $theme-field-bg;
                     }
                 }
                 &:hover {
-                    background: $theme-bg;
+                    background: $theme-field-bg;
                 }
                 &.disabled:hover {
-                    background: $theme-field;
+                    background: $theme-field-bg;
                 }
             }
         }

@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file ButtonCheckbox style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .toggle-button {
 
@@ -6,20 +9,20 @@
 
     width: 100px;
     border-radius: 20px;
-    color: $theme-light-text;
-    background: $theme-field;
+    color: $theme-field;
+    background: $theme-field-bg;
 
     &:hover {
-        color: $theme-text;
-        background: $theme-field;
+        color: $theme-field;
+        background: $theme-field-bg;
     }
 
     &.activated {
         color: #fff;
-        background: $theme-menu;
+        background: $theme-primary;
 
         &:hover {
-            background: darken($theme-menu, 4%);
+            background: darken($theme-primary, 4%);
         }
     }
 }

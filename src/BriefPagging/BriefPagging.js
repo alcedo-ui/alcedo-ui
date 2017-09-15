@@ -1,3 +1,8 @@
+/**
+ * @file BriefPagging component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,8 +10,6 @@ import PaggingSize from '../_PaggingSize';
 import IconButton from '../IconButton';
 
 import Valid from '../_vendors/Valid';
-
-import './BriefPagging.css';
 
 export default class BriefPagging extends Component {
 

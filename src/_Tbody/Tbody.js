@@ -1,11 +1,14 @@
+/**
+ * @file Tbody component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TableRow from '../_TableRow';
 
 import Util from '../_vendors/Util';
-
-import './Tbody.css';
 
 export default class Tbody extends Component {
 

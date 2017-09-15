@@ -1,3 +1,8 @@
+/**
+ * @file MultipleSelect component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
@@ -10,8 +15,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
-
-import './MultipleSelect.css';
 
 export default class MultipleSelect extends Component {
 

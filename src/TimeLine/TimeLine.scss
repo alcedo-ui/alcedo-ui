@@ -1,7 +1,10 @@
-@import '../_common.scss';
+/**
+ * @file TimeLine style
+ * @author wendy(wendy.wei@derbysoft.com)
+ */
 
 .time-line {
-    background: $theme-content-bg;
+    background: $theme-container-bg;
     padding: 10px;
     list-style: none;
 
@@ -13,29 +16,29 @@
         &:hover {
             .time-line-item-title {
                 &-success {
-                    border-color: $success;
+                    border-color: $theme-success;
 
                     &:before {
-                        background: $success;
+                        background: $theme-success;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
                     }
                 }
                 &-error {
-                    border-color: $error;
+                    border-color: $theme-error;
                     &:before {
-                        background: $error;
+                        background: $theme-error;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
                     }
                 }
                 &-warning {
-                    border-color: $warning;
+                    border-color: $theme-warning;
 
                     &:before {
-                        background: $warning;
+                        background: $theme-warning;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
@@ -72,7 +75,7 @@
         height: 30px;
         line-height: 30px;
         text-align: center;
-        color: $theme-nav !important;
+        color: #fff !important;
         background-color: $theme-highlight;
         border-color: #23b7e5;
         border-radius: 2px;
@@ -132,25 +135,25 @@
 
         .panel {
             border: 1px solid #dee5e7;
-            border-radius: $border-radius;
-            background-color: $theme-field;
+            border-radius: $theme-border-radius;
+            background-color: $theme-field-bg;
             box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 
             &-success {
-                background: $success;
-                color: $theme-field;
+                background: $theme-success;
+                color: $theme-field-bg;
             }
             &-error {
-                background: $error;
-                color: $theme-field;
+                background: $theme-error;
+                color: $theme-field-bg;
             }
             &-warning {
-                background: $warning;
-                color: $theme-field;
+                background: $theme-warning;
+                color: $theme-field-bg;
             }
             &-highlight {
                 background: $theme-highlight;
-                color: $theme-field;
+                color: $theme-field-bg;
             }
 
         }
@@ -168,13 +171,13 @@
             border-color: transparent #dee5e7 transparent transparent;
 
             &-success {
-                border-color: transparent $success transparent transparent;
+                border-color: transparent $theme-success transparent transparent;
             }
             &-error {
-                border-color: transparent $error transparent transparent;
+                border-color: transparent $theme-error transparent transparent;
             }
             &-warning {
-                border-color: transparent $warning transparent transparent;
+                border-color: transparent $theme-warning transparent transparent;
             }
             &-highlight {
                 border-color: transparent $theme-highlight transparent transparent;
@@ -191,16 +194,16 @@
             border-style: dashed solid dashed dashed;
             z-index: 10;
             border-width: 10px;
-            border-color: transparent $theme-field transparent transparent;
+            border-color: transparent $theme-field-bg transparent transparent;
 
             &-success {
-                border-color: transparent $success transparent transparent;
+                border-color: transparent $theme-success transparent transparent;
             }
             &-error {
-                border-color: transparent $error transparent transparent;
+                border-color: transparent $theme-error transparent transparent;
             }
             &-warning {
-                border-color: transparent $warning transparent transparent;
+                border-color: transparent $theme-warning transparent transparent;
             }
             &-highlight {
                 border-color: transparent $theme-highlight transparent transparent;

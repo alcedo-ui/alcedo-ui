@@ -1,3 +1,8 @@
+/**
+ * @file DialogBody component
+ * @author chao(chao.zhang@derbysoft.com)
+ */
+
 import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
@@ -12,8 +17,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
-
-import './DialogBody.css';
 
 export default class DialogBody extends Component {
 

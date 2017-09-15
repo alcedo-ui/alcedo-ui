@@ -1,14 +1,18 @@
-@import '../_common.scss';
+/**
+ * @file Pagging style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .pagging {
     @include float-fix;
-    height: 40px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
     padding: 5px 5px 5px 15px;
     user-select: none;
     cursor: default;
-    background: $theme-field;
-    border-top: 1px solid transparentize($theme-title-bg, .6);
-    margin-top: -1px;
+    background: $theme-field-bg;
+    border-top: 1px solid transparentize($theme-border, .6);
 
     .pagging-left {
         float: left;

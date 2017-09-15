@@ -1,10 +1,10 @@
 /**
- * Created by Wendy on 2017/5/9.
+ * @file SpanLoading component
+ * @author wendy(wendy.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-import './SpanLoading.css';
 
 export default class SpanLoading extends Component {
 

@@ -1,4 +1,10 @@
+/**
+ * @file MenuBody component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -8,8 +14,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
-
-import './MenuBody.css';
 
 export default class MenuBody extends Component {
 
@@ -231,7 +235,7 @@ export default class MenuBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.menuEl = this.refs.menu;
+        this.menuEl = findDOMNode(this.refs.menu);
 
         Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
@@ -252,7 +256,7 @@ export default class MenuBody extends Component {
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
-        visible && onRender && onRender(this.refs.menu);
+        visible && onRender && onRender(this.menuEl);
     }
 
     componentWillUnmount() {
@@ -279,9 +283,11 @@ export default class MenuBody extends Component {
                 + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <div ref="menu"
-                 className={'menu' + menuClassName}
-                 style={{...this.getMenuStyle(), ...style}}>
+            <Paper ref="menu"
+                   className={'menu' + menuClassName}
+                   style={{...this.getMenuStyle(), ...style}}
+                   depth={depth}
+                   onWheel={this.wheelHandler}>
 
                 {
                     hasTriangle ?
@@ -290,13 +296,12 @@ export default class MenuBody extends Component {
                         null
                 }
 
-                <Paper className="menu-content"
-                       onWheel={this.wheelHandler}
-                       depth={depth}>
+                <div className="menu-content"
+                     onWheel={this.wheelHandler}>
                     {children}
-                </Paper>
+                </div>
 
-            </div>
+            </Paper>
         );
 
     }

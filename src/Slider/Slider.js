@@ -1,12 +1,12 @@
 /**
- * Created by DT314 on 2017/4/12.
+ * @file Slider component
+ * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
-
-import './Slider.css';
 
 export default class Slider extends Component {
 

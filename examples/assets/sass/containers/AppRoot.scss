@@ -1,10 +1,10 @@
-@import '../common';
+@import '../my-theme';
 
 .app-root {
     min-width: $minWidth;
     overflow-x: hidden;
     transition: none;
-    color: $theme-text;
+    color: $theme-field;
     background: $theme-bg;
 
     .root-loading {
@@ -14,7 +14,7 @@
         right: 0;
         bottom: 0;
         z-index: $root-loading-z-index;
-        background: $theme-title-bg;
+        background: $theme-border;
 
         i {
             width: 48px;
@@ -33,7 +33,7 @@
 
 @media (max-width: 767px) {
     .app-root {
-        color: $theme-text;
+        color: $theme-field;
         background: $theme-menu;
     }
 }

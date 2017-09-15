@@ -1,11 +1,14 @@
+/**
+ * @file Dialog component
+ * @author chao(chao.zhang@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
 import SubtreeContainer from '../_SubtreeContainer';
 import DialogBody from '../_DialogBody/DialogBody';
 
 import Dom from '../_vendors/Dom';
-
-import './Dialog.css';
 
 export default class Dialog extends Component {
 

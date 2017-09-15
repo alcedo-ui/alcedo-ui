@@ -1,10 +1,10 @@
 /**
- * Created by DT314 on 2017/7/13.
+ * @file PageLoading component
+ * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-import './PageLoading.css';
 
 export default class PageLoading extends Component {
 

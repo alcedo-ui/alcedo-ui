@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file EditableField style
+ * @author chao(chao.zhang@derbysoft.com)
+ */
 
 .editable-field {
     position: relative;
@@ -58,7 +61,7 @@
         overflow: hidden;
         z-index: 1;
         cursor: auto;
-        color: $theme-menu;
+        color: $theme-primary;
 
         &:hover + .editable-field-span {
             display: block;
@@ -66,7 +69,7 @@
 
         &[disabled] {
             cursor: not-allowed;
-            color: $grey;
+            color: $theme-field-disabled;
 
             &:hover + .editable-field-span {
                 display: none;

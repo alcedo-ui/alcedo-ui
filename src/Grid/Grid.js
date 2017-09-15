@@ -1,3 +1,8 @@
+/**
+ * @file Grid component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -10,8 +15,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
-
-import './Grid.css';
 
 export default class Grid extends Component {
 

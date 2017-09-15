@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file LinearProgress style
+ * @author chao(chao.zhang@derbysoft.com)
+ */
 
 @mixin progress-theme($color1,$color2, $bg-color) {
     .linear-progress-highlight {
@@ -34,22 +37,22 @@
         }
     }
 
-    @include progress-theme(#000, #fff, $theme-menu);
+    @include progress-theme(#000, #fff, $theme-primary);
 
     &.theme-primary {
-        @include progress-theme(#000, #fff, $theme-menu);
+        @include progress-theme(#000, #fff, $theme-primary);
     }
     &.theme-highlight {
         @include progress-theme(#000, #fff, $theme-highlight);
     }
     &.theme-success {
-        @include progress-theme(#000, #fff, $success);
+        @include progress-theme(#000, #fff, $theme-success);
     }
     &.theme-warning {
-        @include progress-theme(#000, #fff, $warning);
+        @include progress-theme(#000, #fff, $theme-warning);
     }
     &.theme-error {
-        @include progress-theme(#000, #fff, $error);
+        @include progress-theme(#000, #fff, $theme-error);
     }
 
     &.linear-progress-one {

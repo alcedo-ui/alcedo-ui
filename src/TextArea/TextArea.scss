@@ -1,7 +1,14 @@
-@import '../_common.scss';
+/**
+ * @file TextArea style
+ * @author chao(chao.zhang@derbysoft.com)
+ */
 
+textarea,
+textarea:focus {
+    outline: none;
+}
 
-.text-area{
+.text-area {
     border-radius: 4px;
     max-width: 100%;
     //transition: border-color .3s;
@@ -13,9 +20,9 @@
     box-sizing: border-box;
     outline: none;
     border: 1px solid #e3eaf3;
-    &:hover{
+    &:hover {
     }
-    &.area-focus{
+    &.area-focus {
         border: solid 1px #758697;
     }
 }

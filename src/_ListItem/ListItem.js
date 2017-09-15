@@ -1,3 +1,8 @@
+/**
+ * @file ListItem component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,8 +13,6 @@ import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './ListItem.css';
 
 export default class ListItem extends Component {
 

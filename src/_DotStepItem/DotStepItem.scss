@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file DotStepItem style
+ * @author chao(chao.zhang@derbysoft.com)
+ */
 
 .dot-step-item {
     float: left;
@@ -6,12 +9,12 @@
     width: 8px;
     border-radius: 50%;
     margin: 0 2px;
-    background: $theme-title-bg;
+    background: $theme-border;
     cursor: not-allowed;
 
     &.finished {
         cursor: pointer;
-        background: $theme-text;
+        background: $theme-field;
     }
 
     &.activated {

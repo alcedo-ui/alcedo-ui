@@ -1,0 +1,48 @@
+@import 'dist/Theme/default.scss';
+
+$minWidth: 320px;
+$appMenuPortableWidth: .8;
+
+$theme-bg: #f3f6fa;
+$theme-brand: #344c67;
+$theme-nav: #fff;
+$theme-menu: #4c637b;
+$theme-widget-bg: #f0f3f4;
+$theme-light-text: #b8c6d6;
+
+$root-loading-z-index: 99;
+$nav-bar-z-index: 90;
+$field-msg-z-index: 81;
+$popup-z-index: 80;
+$content-wrap-z-index: 60;
+$content-wrap-mobile-z-index: 70;
+$menu-z-index: 70;
+$menu-mobile-z-index: 60;
+$copyright-z-index: 50;
+
+@mixin shadow-inset($depth) {
+    @if $depth == 1 {
+        box-shadow: inset rgba(0, 0, 0, 0.05) 0px 3px 1px, inset rgba(0, 0, 0, 0.10) 0px 1px 1px,
+        inset rgba(0, 0, 0, 0.05) 0px -3px 1px, inset rgba(0, 0, 0, 0.10) 0px -1px 1px;
+    } @else if $depth == 2 {
+        box-shadow: inset rgba(0, 0, 0, 0.1) 0px 4px 3px, inset rgba(0, 0, 0, 0.12) 0px 1px 3px,
+        inset rgba(0, 0, 0, 0.1) 0px -4px 3px, inset rgba(0, 0, 0, 0.12) 0px -1px 3px;
+    } @else if $depth == 3 {
+        box-shadow: inset rgba(0, 0, 0, 0.12) 0px 5px 6px, inset rgba(0, 0, 0, 0.12) 0px 2px 6px,
+        inset rgba(0, 0, 0, 0.12) 0px -5px 6px, inset rgba(0, 0, 0, 0.12) 0px -2px 6px;
+    } @else if $depth == 4 {
+        box-shadow: inset rgba(0, 0, 0, 0.15) 0px 7px 10px, inset rgba(0, 0, 0, 0.20) 0px 3px 9px,
+        inset rgba(0, 0, 0, 0.15) 0px -7px 10px, inset rgba(0, 0, 0, 0.20) 0px -3px 9px;
+    } @else if $depth == 5 {
+        box-shadow: inset rgba(0, 0, 0, 0.2) 0px 10px 30px, inset rgba(0, 0, 0, 0.20) 0px 6px 12px,
+        inset rgba(0, 0, 0, 0.2) 0px -10px 30px, inset rgba(0, 0, 0, 0.20) 0px -6px 12px;
+    } @else if $depth == 6 {
+        box-shadow: inset rgba(0, 0, 0, 0.25) 0px 14px 45px, inset rgba(0, 0, 0, 0.22) 0px 10px 15px,
+        inset rgba(0, 0, 0, 0.25) 0px -14px 45px, inset rgba(0, 0, 0, 0.22) 0px -10px 15px;
+    } @else if $depth == 7 {
+        box-shadow: inset rgba(0, 0, 0, 0.3) 0px 19px 60px, inset rgba(0, 0, 0, 0.22) 0px 15px 20px,
+        inset rgba(0, 0, 0, 0.3) 0px -19px 60px, inset rgba(0, 0, 0, 0.22) 0px -15px 20px;
+    } @else {
+        box-shadow: none;
+    }
+}

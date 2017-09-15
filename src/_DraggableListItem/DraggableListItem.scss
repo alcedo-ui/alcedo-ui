@@ -1,4 +1,33 @@
-@import '../_common.scss';
+/**
+ * @file DraggableListItem style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin draggable-list-item-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &.activated {
+        background: darken($bg-color, 4%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+}
 
 .draggable-list-item {
     display: block;
@@ -32,11 +61,11 @@
         width: 16px;
         line-height: inherit;
         margin-right: 10px;
-        color: lighten($theme-text, 45%);
+        color: lighten($theme-field, 45%);
         text-align: center;
 
         &.activated {
-            color: $success;
+            color: $theme-success;
         }
     }
 
@@ -78,7 +107,7 @@
     }
 
     .touch-ripple {
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
 
         &.hidden {
             display: none;
@@ -110,22 +139,22 @@
     }
 
     // default theme
-    @include draggable-list-item-theme($theme-text, $theme-field);
+    @include draggable-list-item-theme($theme-field, $theme-field-bg);
 
     // other themes
     &.theme-primary {
-        @include draggable-list-item-theme(#fff, $theme-menu);
+        @include draggable-list-item-theme(#fff, $theme-primary);
     }
     &.theme-highlight {
         @include draggable-list-item-theme(#fff, $theme-highlight);
     }
     &.theme-success {
-        @include draggable-list-item-theme(#fff, $success);
+        @include draggable-list-item-theme(#fff, $theme-success);
     }
     &.theme-warning {
-        @include draggable-list-item-theme(#fff, $warning);
+        @include draggable-list-item-theme(#fff, $theme-warning);
     }
     &.theme-error {
-        @include draggable-list-item-theme(#fff, $error);
+        @include draggable-list-item-theme(#fff, $theme-error);
     }
 }

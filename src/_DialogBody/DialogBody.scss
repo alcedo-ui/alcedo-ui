@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file DialogBody style
+ * @author chao(chao.zhang@derbysoft.com)
+ */
 
 .dialog-modal {
     position: fixed;
@@ -28,7 +31,7 @@
     z-index: $dialog-z-index;
     box-sizing: border-box;
     overflow: hidden;
-    color: $theme-text;
+    color: $theme-field;
 
     .dialog-title {
         position: relative;
@@ -36,7 +39,7 @@
         height: 40px;
         line-height: 40px;
         padding: 5px 20px;
-        border-bottom: 1px solid $theme-title-bg;
+        border-bottom: 1px solid $theme-border;
         text-align: left;
         color: inherit;
 
@@ -49,7 +52,7 @@
             color: inherit;
 
             &:hover {
-                color: $error;
+                color: $theme-error;
             }
         }
     }
@@ -58,7 +61,7 @@
         width: 100%;
         height: 200px;
         box-sizing: border-box;
-        background: $theme-bg;
+        background: $theme-container-bg;
         padding: 30px;
     }
 
@@ -68,8 +71,8 @@
 
         box-sizing: border-box;
         padding: 15px 25px;
-        background: $theme-bg;
-        border-top: 1px solid $theme-title-bg;
+        background: $theme-container-bg;
+        border-top: 1px solid $theme-border;
 
         & > .base-button {
             float: right;

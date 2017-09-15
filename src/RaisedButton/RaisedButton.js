@@ -1,3 +1,8 @@
+/**
+ * @file RaisedButton component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,8 +10,6 @@ import BaseButton from '../_BaseButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './RaisedButton.css';
 
 export default class RaisedButton extends Component {
 

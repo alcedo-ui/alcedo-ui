@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file DraggableListGroup style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .draggable-list-group {
     position: relative;
@@ -10,7 +13,7 @@
 
         &:hover,
         &:active {
-            background: $theme-field;
+            background: $theme-field-bg;
         }
     }
 

@@ -1,11 +1,14 @@
+/**
+ * @file CascaderListItem component
+ * @author wendy(wendy.wei@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import List from '../List';
 
 import Valid from '../_vendors/Valid';
-
-import './CascaderListItem.css';
 
 export default class CascaderListItem extends Component {
 

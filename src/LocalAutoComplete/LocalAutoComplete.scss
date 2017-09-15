@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file LocalAutoComplete style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .local-auto-complete {
 
@@ -26,7 +29,7 @@
         }
 
         &.focused {
-            border-color: $theme-title-bg;
+            border-color: $theme-border;
         }
     }
 }
@@ -34,23 +37,23 @@
 .local-auto-complete-popup {
     box-sizing: border-box;
     max-height: 240px;
-    border: 1px solid $theme-title-bg;
+    border: 1px solid $theme-border;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     overflow-y: auto;
 
     .popup-content {
-        border-radius: 0;
+        border-radius: 0 !important;
 
         .local-auto-complete-list {
             width: 100%;
 
             .no-matched-list-item {
                 line-height: 40px;
-                color: $theme-text;
+                color: $theme-field;
 
                 .no-matched-list-item-icon {
-                    color: $warning;
+                    color: $theme-warning;
                     margin-right: 10px;
                 }
             }

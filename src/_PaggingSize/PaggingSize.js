@@ -1,9 +1,12 @@
+/**
+ * @file PaggingSize component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
-
-import './PaggingSize.css';
 
 export default class PaggingSize extends Component {
 

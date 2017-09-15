@@ -40,10 +40,6 @@ export default class TableExamples extends Component {
             flex: 2
         }];
 
-        this.state = {
-            data: this.generateData()
-        };
-
     }
 
     generateData(size = 100) {
@@ -52,7 +48,7 @@ export default class TableExamples extends Component {
         for (let i = 0; i < size; i++) {
             data.push({
                 id: i,
-                firstName: `firstName${i}`,
+                firstName: `firstNameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${i}`,
                 lastName: `lastName${i}`
             });
         }
@@ -62,8 +58,6 @@ export default class TableExamples extends Component {
     }
 
     render() {
-
-        const {data} = this.state;
 
         return (
             <div className="example table-examples">
@@ -87,7 +81,7 @@ export default class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    isPagging={true}
-                                   data={data}/>
+                                   data={this.generateData()}/>
 
                         </div>
                     </div>
@@ -103,14 +97,16 @@ export default class TableExamples extends Component {
 
                             <p>A simple <code>Table</code> example.</p>
 
-                            <Table columns={this.columns}
-                                   isPagging={true}
-                                   data={data}
-                                   mode={Table.Mode.RADIO}
-                                   sortInitConfig={{
-                                       prop: 'id',
-                                       type: -1
-                                   }}/>
+                            <div style={{width: 400, height: 600, overflow: 'auto'}}>
+                                <Table columns={this.columns}
+                                       isPagging={true}
+                                       data={this.generateData(5)}
+                                       mode={Table.Mode.RADIO}
+                                       sortInitConfig={{
+                                           prop: 'id',
+                                           type: -1
+                                       }}/>
+                            </div>
 
                         </div>
                     </div>
@@ -130,7 +126,7 @@ export default class TableExamples extends Component {
                             <Table columns={this.columns}
                                    isPagging={true}
                                    mode={Table.Mode.CHECKBOX}
-                                   data={data}
+                                   data={this.generateData()}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}
                                    pageSizes={[10, 20, 30, 40]}

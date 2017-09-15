@@ -1,6 +1,8 @@
 /**
- * Created by Wendy on 2017/5/16.
+ * @file CascaderField component
+ * @author wendy(wendy.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
@@ -13,8 +15,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
-
-import './CascaderField.css';
 
 export default class CascaderField extends Component {
 

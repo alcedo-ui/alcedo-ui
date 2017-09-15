@@ -1,4 +1,10 @@
+/**
+ * @file PopupBody component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -9,8 +15,6 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
-
-import './PopupBody.css';
 
 export default class PopupBody extends Component {
 
@@ -265,7 +269,7 @@ export default class PopupBody extends Component {
     componentDidMount() {
 
         this.hasMounted = true;
-        this.popupEl = this.refs.popup;
+        this.popupEl = findDOMNode(this.refs.popup);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
@@ -285,7 +289,7 @@ export default class PopupBody extends Component {
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
-        visible && onRender && onRender(this.refs.popup);
+        visible && onRender && onRender(this.popupEl);
     }
 
     componentWillUnmount() {
@@ -307,9 +311,11 @@ export default class PopupBody extends Component {
                 + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <div ref="popup"
-                 className={'popup' + popupClassName}
-                 style={{...this.getPopupStyle(), ...style}}>
+            <Paper ref="popup"
+                   className={'popup' + popupClassName}
+                   style={{...this.getPopupStyle(), ...style}}
+                   depth={depth}
+                   onWheel={this.wheelHandler}>
 
                 {
                     hasTriangle ?
@@ -318,13 +324,12 @@ export default class PopupBody extends Component {
                         null
                 }
 
-                <Paper className="popup-content"
-                       onWheel={this.wheelHandler}
-                       depth={depth}>
+                <div className="popup-content"
+                     onWheel={this.wheelHandler}>
                     {children}
-                </Paper>
+                </div>
 
-            </div>
+            </Paper>
         );
 
     }

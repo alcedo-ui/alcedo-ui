@@ -1,4 +1,24 @@
-@import '../_common.scss';
+/**
+ * @file IconAnchor style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin icon-anchor-theme($color) {
+    background: transparent;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+    }
+}
 
 .icon-anchor {
     display: inline-block;
@@ -19,23 +39,23 @@
     }
 
     // default theme
-    @include icon-button-theme($theme-text);
+    @include icon-anchor-theme($theme-field);
 
     // themes
     &.theme-primary {
-        @include icon-button-theme($theme-menu);
+        @include icon-anchor-theme($theme-primary);
     }
     &.theme-highlight {
-        @include icon-button-theme($theme-highlight);
+        @include icon-anchor-theme($theme-highlight);
     }
     &.theme-success {
-        @include icon-button-theme($success);
+        @include icon-anchor-theme($theme-success);
     }
     &.theme-warning {
-        @include icon-button-theme($warning);
+        @include icon-anchor-theme($theme-warning);
     }
     &.theme-error {
-        @include icon-button-theme($error);
+        @include icon-anchor-theme($theme-error);
     }
 
 }

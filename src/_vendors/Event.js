@@ -1,3 +1,8 @@
+/**
+ * @file Event vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 function addEvent(el, type, cb) {
     if (typeof window.addEventListener === 'function') {
         el.addEventListener(type, cb, false);

@@ -1,3 +1,8 @@
+/**
+ * @file DraggableListItem component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
@@ -8,8 +13,6 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
-
-import './DraggableListItem.css';
 
 const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 

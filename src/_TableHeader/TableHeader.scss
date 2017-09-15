@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file TableHeader style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .table-header {
     position: relative;
@@ -13,7 +16,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    border-left: 1px solid transparentize($theme-title-bg, .8);
+    border-left: 1px solid transparentize($theme-border, .8);
 
     &:first-child {
         border-left: none;
@@ -25,15 +28,15 @@
         padding-right: 30px;
 
         &:hover {
-            color: $theme-text;
+            color: $theme-field;
         }
 
         &.asc {
-            color: $theme-text;
+            color: $theme-field;
         }
 
         &.desc {
-            color: $theme-text;
+            color: $theme-field;
         }
     }
 

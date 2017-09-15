@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file DateTimePicker style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
 
 .date-picker {
     position: relative;
@@ -11,7 +14,7 @@
 
         width: 100%;
         height: 100%;
-        border-radius: $border-radius !important;
+        border-radius: $theme-border-radius !important;
 
         input {
             line-height: 20px;
@@ -51,7 +54,7 @@
         height: 344px;
         overflow: hidden;
         background: #FFF;
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
         z-index: $popup-z-index;
         transition: all $transition-duration ease-in-out;
 
@@ -176,7 +179,7 @@
                         }
                         li.item-gray {
                             a {
-                                color: $grey;
+                                color: $theme-field-disabled;
                                 cursor: not-allowed;
                             }
                         }
@@ -252,15 +255,15 @@
                         line-height: 30px;
                         cursor: pointer;
                         &:hover {
-                            background: $theme-content-bg;
+                            background: $theme-container-bg;
                         }
                         &.active {
-                            background: $theme-content-bg;
-                            color: $blue-grey;
+                            background: $theme-container-bg;
+                            color: $theme-field;
                             font-weight: 600;
                         }
                         &.disabled {
-                            color: $grey;
+                            color: $theme-field-disabled;
                             cursor: not-allowed;
                         }
                     }
@@ -291,7 +294,7 @@
                     position: relative;
                     overflow: hidden;
                     .item-gray {
-                        color: $grey;
+                        color: $theme-field-disabled;
                         cursor: not-allowed;
                     }
                     &.fl {

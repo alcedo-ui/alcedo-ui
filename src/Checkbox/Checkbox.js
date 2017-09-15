@@ -1,9 +1,12 @@
+/**
+ * @file Checkbox component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
-
-import './Checkbox.css';
 
 export default class Checkbox extends Component {
 

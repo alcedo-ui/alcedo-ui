@@ -1,7 +1,9 @@
+/**
+ * @file TableRow component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-import './TableRow.css';
 
 export default class TableRow extends Component {
 

@@ -1,11 +1,11 @@
 /**
- * Created by DT314 on 2017/5/5.
+ * @file TextArea component
+ * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
-
-import './TextArea.css';
 
 export default class TextArea extends Component {
 

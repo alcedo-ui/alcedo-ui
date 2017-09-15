@@ -1,4 +1,6 @@
 /**
- * Created by DT314 on 2017/7/19.
+ * @file PageLoading
+ * @author chao(chao.zhang@derbysoft.com)
  */
+
 export default from './PageLoading';

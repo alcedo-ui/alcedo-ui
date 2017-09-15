@@ -1,9 +1,12 @@
+/**
+ * @file Thead component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TableHeader from '../_TableHeader';
-
-import './Thead.css';
 
 export default class Thead extends Component {
 

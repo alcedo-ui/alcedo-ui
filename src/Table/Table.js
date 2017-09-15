@@ -1,3 +1,8 @@
+/**
+ * @file Table component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -12,8 +17,6 @@ import BriefPagging from '../BriefPagging';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
-
-import './Table.css';
 
 export default class Table extends Component {
 
@@ -370,7 +373,7 @@ export default class Table extends Component {
             self = this,
 
             tableClassName = (mode === Table.Mode.CHECKBOX || mode === Table.Mode.RADIO ? ' selectable' : '')
-                + (className ? ' ' + className : '');
+                + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
@@ -418,12 +421,12 @@ export default class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <div>
+            <div className={'table' + tableClassName}
+                 style={style}>
 
-                <div className="table-wrapper">
+                <div className="inner-table-wrapper">
 
-                    <table className={'table' + tableClassName}
-                           style={style}>
+                    <table className="inner-table">
 
                         <Thead columns={finalColumns}
                                sort={sort}
@@ -443,35 +446,35 @@ export default class Table extends Component {
 
                     </table>
 
-                    {
-                        isPagging ?
-                            (
-                                useFullPagging ?
-                                    <Pagging page={pagging.page}
-                                             count={data.length}
-                                             selectedCount={this.calSelectedCount()}
-                                             total={totalPage}
-                                             pageSize={pagging.pageSize}
-                                             pageSizes={pageSizes}
-                                             selectedCountVisible={paggingSelectedCountVisible}
-                                             pageSizeVisible={paggingPageSizeVisible}
-                                             onChange={this.pageChangedHandler}/>
-                                    :
-                                    <BriefPagging page={pagging.page}
-                                                  count={data.length}
-                                                  selectedCount={this.calSelectedCount()}
-                                                  total={totalPage}
-                                                  pageSize={pagging.pageSize}
-                                                  pageSizes={pageSizes}
-                                                  selectedCountVisible={paggingSelectedCountVisible}
-                                                  pageSizeVisible={paggingPageSizeVisible}
-                                                  onChange={this.pageChangedHandler}/>
-                            )
-                            :
-                            null
-                    }
-
                 </div>
+
+                {
+                    isPagging ?
+                        (
+                            useFullPagging ?
+                                <Pagging page={pagging.page}
+                                         count={data.length}
+                                         selectedCount={this.calSelectedCount()}
+                                         total={totalPage}
+                                         pageSize={pagging.pageSize}
+                                         pageSizes={pageSizes}
+                                         selectedCountVisible={paggingSelectedCountVisible}
+                                         pageSizeVisible={paggingPageSizeVisible}
+                                         onChange={this.pageChangedHandler}/>
+                                :
+                                <BriefPagging page={pagging.page}
+                                              count={data.length}
+                                              selectedCount={this.calSelectedCount()}
+                                              total={totalPage}
+                                              pageSize={pagging.pageSize}
+                                              pageSizes={pageSizes}
+                                              selectedCountVisible={paggingSelectedCountVisible}
+                                              pageSizeVisible={paggingPageSizeVisible}
+                                              onChange={this.pageChangedHandler}/>
+                        )
+                        :
+                        null
+                }
 
             </div>
         );

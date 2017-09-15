@@ -1,9 +1,12 @@
-@import '../_common.scss';
+/**
+ * @file Radio style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .radio {
     @include float-fix;
     display: inline-block;
-    color: $theme-text;
+    color: $theme-field;
     cursor: pointer;
 
     .radio-icon-wrapper {
@@ -29,7 +32,7 @@
         }
 
         .radio-bg-icon {
-            color: lighten($theme-text, 45%);
+            color: lighten($theme-field, 45%);
 
             .button-icon {
                 transition: all $transition-duration ease-in-out;
@@ -69,7 +72,7 @@
     }
 
     &[disabled] {
-        color: lighten($theme-text, 30%);
+        color: lighten($theme-field, 30%);
         cursor: not-allowed;
 
         &.active {

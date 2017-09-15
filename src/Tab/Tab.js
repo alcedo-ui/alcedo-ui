@@ -1,9 +1,12 @@
+/**
+ * @file Tab component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import FlatButton from '../FlatButton';
-
-import './Tab.css';
 
 export default class Tab extends Component {
 

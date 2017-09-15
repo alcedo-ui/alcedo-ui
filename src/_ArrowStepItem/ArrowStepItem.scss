@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file ArrowStepItem style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .arrow-step-item {
     float: left;
@@ -13,7 +16,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        background: $theme-title-bg;
+        background: $theme-border;
 
         .number {
             float: left;
@@ -25,7 +28,7 @@
             line-height: 30px;
             font-size: 20px;
             background: transparentize(#fff, .05);
-            color: $theme-text;
+            color: $theme-field;
 
             i {
                 width: 40px;
@@ -43,7 +46,7 @@
             height: 30px;
             line-height: 30px;
             padding: 15px 0;
-            color: $theme-text;
+            color: $theme-field;
             white-space: nowrap;
             overflow: hidden;
             z-index: 2;
@@ -61,11 +64,11 @@
             width: 0;
             height: 0;
             border: 30px solid transparent;
-            border-left-color: $theme-title-bg;
+            border-left-color: $theme-border;
             border-right: none;
 
             &.finished {
-                border-left-color: $theme-menu;
+                border-left-color: $theme-primary;
             }
 
             &.activated {
@@ -78,12 +81,12 @@
             width: 0;
             height: 0;
             border: 15px solid transparent;
-            border-top-color: $theme-title-bg;
-            border-right-color: $theme-title-bg;
+            border-top-color: $theme-border;
+            border-right-color: $theme-border;
 
             &.finished {
-                border-top-color: $theme-menu;
-                border-right-color: $theme-menu;
+                border-top-color: $theme-primary;
+                border-right-color: $theme-primary;
             }
 
             &.activated {
@@ -97,12 +100,12 @@
             width: 0;
             height: 0;
             border: 15px solid transparent;
-            border-right-color: $theme-title-bg;
-            border-bottom-color: $theme-title-bg;
+            border-right-color: $theme-border;
+            border-bottom-color: $theme-border;
 
             &.finished {
-                border-right-color: $theme-menu;
-                border-bottom-color: $theme-menu;
+                border-right-color: $theme-primary;
+                border-bottom-color: $theme-primary;
             }
 
             &.activated {
@@ -184,10 +187,10 @@
         cursor: pointer;
 
         .arrow-step-item-content {
-            background: $theme-menu;
+            background: $theme-primary;
 
             .number {
-                color: $theme-menu;
+                color: $theme-primary;
             }
 
             .title {
@@ -198,23 +201,23 @@
         &:hover {
 
             .arrow-step-item-content {
-                background: darken($theme-menu, 4%);
+                background: darken($theme-primary, 4%);
             }
 
             .triangle-wrapper.triangle-wrapper-left {
                 .triangle-top {
-                    border-top-color: darken($theme-menu, 4%);
-                    border-right-color: darken($theme-menu, 4%);
+                    border-top-color: darken($theme-primary, 4%);
+                    border-right-color: darken($theme-primary, 4%);
                 }
                 .triangle-bottom {
-                    border-right-color: darken($theme-menu, 4%);
-                    border-bottom-color: darken($theme-menu, 4%);
+                    border-right-color: darken($theme-primary, 4%);
+                    border-bottom-color: darken($theme-primary, 4%);
                 }
             }
 
             .triangle-wrapper.triangle-wrapper-right {
                 .triangle-middle {
-                    border-left-color: darken($theme-menu, 4%);
+                    border-left-color: darken($theme-primary, 4%);
                 }
             }
         }

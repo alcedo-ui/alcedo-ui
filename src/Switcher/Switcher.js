@@ -1,11 +1,14 @@
+/**
+ * @file Switcher component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
 import Util from '../_vendors/Util';
-
-import './Switcher.css';
 
 export default class Switcher extends Component {
 

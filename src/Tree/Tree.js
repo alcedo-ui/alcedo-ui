@@ -1,8 +1,11 @@
+/**
+ * @file Tree component
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TreeNode from '../_TreeNode';
-
-import './Tree.css';
 
 export default class Tree extends Component {
 

@@ -1,4 +1,7 @@
-@import '../_common';
+/**
+ * @file TreeSelect style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
 
 .tree-select {
     position: relative;
@@ -7,7 +10,7 @@
         width: 100%;
         overflow: hidden;
         transition: all $transition-duration ease-in-out;
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
         border: 1px solid #dfdfdf;
         position: absolute;
         top: 0;
@@ -37,8 +40,8 @@
             padding: 10px 30px 10px 20px;
             border-radius: 0;
             text-align: left;
-            color: $theme-text;
-            background: $theme-field;
+            color: $theme-field;
+            background: $theme-field-bg;
 
             .tree-select-trigger-right-icon {
                 position: absolute;
@@ -54,8 +57,8 @@
             }
 
             &:hover {
-                color: $theme-text;
-                background: darken($theme-field, 2%);
+                color: $theme-field;
+                background: darken($theme-field-bg, 2%);
             }
 
             &.activated {
@@ -69,8 +72,8 @@
             margin: 0;
             border-top: 1px solid #dfdfdf;
             z-index: 1;
-            border-bottom-left-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
+            border-bottom-left-radius: $theme-border-radius;
+            border-bottom-right-radius: $theme-border-radius;
             transition: all $transition-duration ease-in-out;
             .tree-inner {
                 border: none;
@@ -79,7 +82,7 @@
 
         &.error {
             .trigger {
-                border: 1px solid $error !important;
+                border: 1px solid $theme-error !important;
             }
         }
         &.above {

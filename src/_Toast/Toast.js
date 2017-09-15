@@ -1,11 +1,13 @@
+/**
+ * @file Toast component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TouchRipple from '../TouchRipple';
 
 import Util from '../_vendors/Util';
-
-import './Toast.css';
 
 export default class Toast extends Component {
 

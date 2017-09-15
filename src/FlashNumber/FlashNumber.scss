@@ -1,6 +1,9 @@
-@import '../_common.scss';
+/**
+ * @file FlashNumber style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .flash-number {
-    color: $theme-text;
+    color: $theme-field;
     font-size: 12px;
 }

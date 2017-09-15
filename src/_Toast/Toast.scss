@@ -1,12 +1,13 @@
-@import '../_common.scss';
+/**
+ * @file Toast style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .toast {
-
     @include shadow(3);
-
     position: relative;
     width: 240px;
-    border-radius: $border-radius;
+    border-radius: $theme-border-radius;
     padding: 15px 15px 15px 50px;
     color: #fff;
     margin-top: 10px;
@@ -15,6 +16,7 @@
     opacity: .9;
     overflow: hidden;
     box-sizing: border-box;
+    background: $theme-primary;
     transition: opacity $transition-duration ease-in-out;
 
     .toast-icon {
@@ -50,19 +52,19 @@
     }
 
     &.toast-info {
-        background: $theme-menu;
+        background: $theme-info;
     }
 
     &.toast-success {
-        background: $success;
+        background: $theme-success;
     }
 
     &.toast-warning {
-        background: $warning;
+        background: $theme-warning;
     }
 
     &.toast-error {
-        background: $error;
+        background: $theme-error;
     }
 
     &.hidden {

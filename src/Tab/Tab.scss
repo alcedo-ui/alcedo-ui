@@ -1,15 +1,18 @@
-@import '../_common.scss';
+/**
+ * @file Tab style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .tab {
 
     .tabs {
         position: relative;
         overflow: hidden;
-        border-bottom: 1px solid $theme-bg;
+        border-bottom: 1px solid $theme-border;
         box-sizing: border-box;
 
         .tab-button {
-            background: $theme-field;
+            background: $theme-field-bg;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             vertical-align: bottom;
@@ -17,15 +20,15 @@
             padding: 0 20px;
 
             &:hover {
-                background: darken($theme-field, 4%);
+                background: darken($theme-field-bg, 4%);
             }
 
             &.activated {
                 color: #fff;
-                background: $theme-menu;
+                background: $theme-primary;
 
                 &:hover {
-                    background: darken($theme-menu, 4%);
+                    background: darken($theme-primary, 4%);
                 }
             }
         }
@@ -45,11 +48,11 @@
                 margin: 0;
 
                 &.activated {
-                    color: $theme-text;
-                    background: $theme-field;
+                    color: $theme-field;
+                    background: $theme-field-bg;
 
                     &:hover {
-                        background: darken($theme-field, 4%);
+                        background: darken($theme-field-bg, 4%);
                     }
                 }
             }

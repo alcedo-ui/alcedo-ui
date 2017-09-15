@@ -1,7 +1,10 @@
+/**
+ * @file Paper component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-import './Paper.css';
 
 export default class Paper extends Component {
 

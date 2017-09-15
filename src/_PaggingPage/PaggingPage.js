@@ -1,9 +1,12 @@
+/**
+ * @file PaggingPage component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
-
-import './PaggingPage.css';
 
 export default class PaggingPage extends Component {
 

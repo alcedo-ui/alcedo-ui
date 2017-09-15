@@ -1,13 +1,16 @@
-@import '../_common.scss';
+/**
+ * @file List style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .list {
     width: 200px;
-    background: $theme-field;
+    background: $theme-field-bg;
     overflow-x: hidden;
     overflow-y: auto;
 
     .list-separator {
-        border-top: 1px solid $theme-title-bg;
+        border-top: 1px solid $theme-border;
     }
 
     &.grouped {

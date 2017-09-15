@@ -1,3 +1,8 @@
+/**
+ * @file GridItem component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,8 +13,6 @@ import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './GridItem.css';
 
 export default class GridItem extends Component {
 

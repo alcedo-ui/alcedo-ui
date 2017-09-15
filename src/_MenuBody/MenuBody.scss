@@ -1,12 +1,25 @@
-@import '../common';
+/**
+ * @file MenuBody style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin menu-theme($bg-color) {
+
+    .menu-triangle {
+        border-color: $bg-color;
+    }
+
+    .menu-content {
+        background: $bg-color;
+    }
+}
 
 .menu {
     position: absolute;
     width: 200px;
-    border-radius: $border-radius;
+    border-radius: $theme-border-radius;
     z-index: $menu-z-index;
     background: transparent;
-    box-shadow: none !important;
 
     .menu-triangle {
         display: block;
@@ -20,7 +33,7 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
         transform: rotate(0deg);
     }
 
@@ -299,19 +312,19 @@
 
     // other themes
     &.theme-primary {
-        @include menu-theme($theme-menu);
+        @include menu-theme($theme-primary);
     }
     &.theme-highlight {
         @include menu-theme($theme-highlight);
     }
     &.theme-success {
-        @include menu-theme($success);
+        @include menu-theme($theme-success);
     }
     &.theme-warning {
-        @include menu-theme($warning);
+        @include menu-theme($theme-warning);
     }
     &.theme-error {
-        @include menu-theme($error);
+        @include menu-theme($theme-error);
     }
 
 }

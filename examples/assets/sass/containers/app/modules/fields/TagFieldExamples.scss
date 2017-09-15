@@ -1,4 +1,4 @@
-@import '../../../../common.scss';
+@import '../../../../my-theme';
 
 .tag-field-examples {
 
@@ -8,13 +8,13 @@
 
             &.duplicate {
                 .editable-field-text {
-                    color: $blue;
+                    color: $theme-info;
                 }
             }
 
             &.unfound {
                 .editable-field-text {
-                    color: $error;
+                    color: $theme-error;
                 }
             }
         }

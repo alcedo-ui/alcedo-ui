@@ -1,7 +1,10 @@
+/**
+ * @file FlashNumber component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-import './FlashNumber.css';
 
 export default class FlashNumber extends Component {
 

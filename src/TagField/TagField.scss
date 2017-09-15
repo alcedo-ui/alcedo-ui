@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file TagField style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 input,
 input:focus {
@@ -9,11 +12,11 @@ input:focus {
     position: relative;
     width: 400px;
     min-height: 100px;
-    border-radius: $border-radius;
+    border-radius: $theme-border-radius;
     box-sizing: border-box;
-    color: $theme-text;
-    background: $theme-field;
-    border: 1px solid $theme-title-bg;
+    color: $theme-field;
+    background: $theme-field-bg;
+    border: 1px solid $theme-border;
     cursor: text;
     padding: 0 8px 8px 0;
     overflow-x: hidden;
@@ -55,7 +58,7 @@ input:focus {
         .tag-field-item-field {
             height: 24px;
             line-height: 24px;
-            background: $theme-content-bg;
+            background: $theme-container-bg;
             padding: 0 20px 0 8px;
             border-radius: 12px;
 
@@ -69,7 +72,7 @@ input:focus {
                 width: 100%;
                 top: 0;
                 left: 0;
-                background: $theme-content-bg;
+                background: $theme-container-bg;
                 padding-left: 7px;
                 border-radius: 12px;
 
@@ -127,7 +130,7 @@ input:focus {
     }
 
     &[disabled] {
-        background: darken($theme-field, 4%);
+        background: darken($theme-field-bg, 4%);
         cursor: not-allowed;
     }
 

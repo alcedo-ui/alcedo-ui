@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file DropdownSelect style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .dropdown-select {
     position: relative;
@@ -47,7 +50,7 @@
 
     .dropdown-select-filter {
         border: none;
-        border-bottom: 1px solid $theme-content-bg;
+        border-bottom: 1px solid $theme-container-bg;
         border-radius: 0;
         width: 100%;
         height: 40px;
@@ -58,17 +61,17 @@
     }
 
     .popup-content {
-        border-radius: 0;
+        border-radius: 0 !important;
 
         .dropdown-select-list {
             width: 100%;
 
             .no-matched-list-item {
                 line-height: 40px;
-                color: $theme-text;
+                color: $theme-field;
 
                 .no-matched-list-item-icon {
-                    color: $warning;
+                    color: $theme-warning;
                     margin-right: 10px;
                 }
             }
@@ -78,12 +81,12 @@
     &.above {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        border-bottom: 1px solid $theme-title-bg;
+        border-bottom: 1px solid $theme-border;
     }
 
     &.blow {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        border-top: 1px solid $theme-title-bg;
+        border-top: 1px solid $theme-border;
     }
 }

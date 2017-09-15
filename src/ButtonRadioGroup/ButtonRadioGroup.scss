@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file ButtonRadioGroup style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .button-radio-group {
     & > .button-radio-group-item {
@@ -6,21 +9,21 @@
 
         &.activated {
             color: #fff;
-            background: $theme-menu;
+            background: $theme-primary;
 
             &:hover {
-                background: darken($theme-menu, 4%);
+                background: darken($theme-primary, 4%);
             }
         }
 
         &:first-child {
-            border-top-left-radius: $border-radius;
-            border-bottom-left-radius: $border-radius;
+            border-top-left-radius: $theme-border-radius;
+            border-bottom-left-radius: $theme-border-radius;
         }
 
         &:last-child {
-            border-top-right-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
+            border-top-right-radius: $theme-border-radius;
+            border-bottom-right-radius: $theme-border-radius;
         }
     }
 }

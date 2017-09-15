@@ -2,7 +2,6 @@ process.env.NODE_ENV = '"release"';
 
 var gulp = require('gulp'),
     rename = require('gulp-rename'),
-    sass = require('gulp-sass'),
     babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence'),
     miniPackageJson = require('./scripts/gulp-mini-package-json'),
@@ -13,12 +12,10 @@ function printError(e) {
 }
 
 /**
- * sass compile
+ * sass copy
  */
 gulp.task('sass', function () {
     return gulp.src('./src/**/*.scss')
-        .pipe(sass())
-        .on('error', printError)
         .pipe(gulp.dest('./dist'));
 });
 

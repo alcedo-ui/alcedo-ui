@@ -1,8 +1,11 @@
-@import '../_common.scss';
+/**
+ * @file Thead style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .thead {
     tr {
-        border-bottom: 1px solid transparentize($theme-title-bg, .6);
+        border-bottom: 1px solid transparentize($theme-border, .6);
     }
 
     &.hidden {

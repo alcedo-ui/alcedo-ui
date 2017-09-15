@@ -1,6 +1,8 @@
 /**
- * Created by Administrator on 2017/3/7.
+ * @file MonthPicker component
+ * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';

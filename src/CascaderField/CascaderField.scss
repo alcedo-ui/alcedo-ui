@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file CascaderField style
+ * @author wendy(wendy.wei@derbysoft.com)
+ */
 
 .cascader-field {
     position: relative;
@@ -59,17 +62,17 @@
     &.above {
 
         .popup-content > .cascader-list-item {
-            border-bottom: 1px solid $theme-title-bg;
+            border-bottom: 1px solid $theme-border;
         }
 
         .cascader-popup-list {
 
             &.first {
-                border-top-left-radius: $border-radius;
+                border-top-left-radius: $theme-border-radius;
             }
 
             &.last {
-                border-top-right-radius: $border-radius;
+                border-top-right-radius: $theme-border-radius;
             }
         }
     }
@@ -77,17 +80,17 @@
     &.blow {
 
         .popup-content > .cascader-list-item {
-            border-top: 1px solid $theme-title-bg;
+            border-top: 1px solid $theme-border;
         }
 
         .cascader-popup-list {
 
             &.first {
-                border-bottom-left-radius: $border-radius;
+                border-bottom-left-radius: $theme-border-radius;
             }
 
             &.last {
-                border-bottom-right-radius: $border-radius;
+                border-bottom-right-radius: $theme-border-radius;
             }
         }
     }

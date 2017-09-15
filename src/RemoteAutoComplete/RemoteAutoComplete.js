@@ -1,6 +1,8 @@
 /**
- * Created by DT314 on 2017/5/15.
+ * @file RemoteAutoComplete component
+ * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
@@ -8,8 +10,6 @@ import Event from '../_vendors/Event';
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
-
-import './RemoteAutoComplete.css';
 
 export default class RemoteAutoComplete extends Component {
 

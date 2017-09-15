@@ -1,3 +1,8 @@
+/**
+ * @file PopupManagement vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import Event from './Event';
 
 const list = [];

@@ -1,6 +1,8 @@
 /**
- * Created by Administrator on 2017/3/13.
+ * @file DatePicker component
+ * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -13,8 +15,6 @@ import YearPicker from '../_YearPicker';
 
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
-
-import './DatePicker.css';
 
 export default class DatePicker extends Component {
 

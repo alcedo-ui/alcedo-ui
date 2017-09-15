@@ -1,9 +1,12 @@
+/**
+ * @file ArrowStep component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import ArrowStepItem from '../_ArrowStepItem';
-
-import './ArrowStep.css';
 
 export default class ArrowStep extends Component {
 

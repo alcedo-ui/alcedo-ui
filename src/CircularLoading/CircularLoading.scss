@@ -1,4 +1,7 @@
-@import '../_common.scss';
+/**
+ * @file CircularLoading style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
 .circular-loading {
     display: inline-block;
@@ -14,7 +17,7 @@
         height: 100%;
         opacity: 1;
         box-sizing: border-box;
-        border-color: $theme-menu;
+        border-color: $theme-primary;
         animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
 
         .circle {
@@ -49,15 +52,15 @@
             }
 
             &.success {
-                border-color: $success;
+                border-color: $theme-success;
             }
 
             &.error {
-                border-color: $error;
+                border-color: $theme-error;
             }
 
             &.warning {
-                border-color: $warning;
+                border-color: $theme-warning;
             }
             &.highlight {
                 border-color: $theme-highlight;

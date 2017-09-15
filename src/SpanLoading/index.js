@@ -1,4 +1,6 @@
 /**
- * Created by Wendy on 2017/5/9.
+ * @file SpanLoading
+ * @author wendy(wendy.wei@derbysoft.com)
  */
+
 export default from './SpanLoading';

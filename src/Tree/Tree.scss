@@ -1,4 +1,7 @@
-@import '../_common';
+/**
+ * @file Tree style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
 
 .tree {
     max-width: 300px;
@@ -6,8 +9,8 @@
         border: 1px solid #dfdfdf;
         width: 100%;
         height: auto;
-        border-bottom-left-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
+        border-bottom-left-radius: $theme-border-radius;
+        border-bottom-right-radius: $theme-border-radius;
         transition: all $transition-duration ease-in-out;
 
         .filter {
@@ -30,7 +33,7 @@
             .option {
                 box-sizing: border-box;
                 width: 100%;
-                color: $theme-text;
+                color: $theme-field;
                 padding: 0;
                 margin: 8px 0;
                 border-top: none;
@@ -86,7 +89,7 @@
                 .node-text {
                     line-height: 20px;
                     padding: 2px;
-                    border-radius: $border-radius;
+                    border-radius: $theme-border-radius;
                     margin-left: 6px;
                     i {
                         margin-right: 8px;
@@ -101,7 +104,7 @@
                 &.disabled {
                     font-size: 12px;
                     background: #F8F8F8;
-                    color: lighten($theme-text, 30%);
+                    color: lighten($theme-field, 30%);
 
                     &:hover {
                         background: #F8F8F8;

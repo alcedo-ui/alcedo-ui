@@ -1,3 +1,8 @@
+/**
+ * @file Calculation vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 function pageSize(pageSize, pageSizes, defaultValue) {
 
     if (pageSize) {

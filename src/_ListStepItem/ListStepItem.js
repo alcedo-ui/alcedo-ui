@@ -1,12 +1,12 @@
 /**
- * Created by DT314 on 2017/7/4.
+ * @file ListStepItem component
+ * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
-
-import './ListStepItem.css';
 
 export default class ListStepItem extends Component {
 

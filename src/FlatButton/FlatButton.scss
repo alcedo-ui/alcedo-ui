@@ -1,25 +1,58 @@
-@import '../_common.scss';
+/**
+ * @file FlatButton style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin flat-button-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &:hover {
+        background: transparentize($theme-primary, .9);
+
+        &[disabled] {
+            background: transparentize(#eee, .3);
+        }
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: transparent !important;
+    }
+}
 
 .flat-button {
 
     // default theme
-    @include flat-button-theme($theme-text, transparent);
+    @include flat-button-theme($theme-field, transparent);
 
     // themes
     &.theme-primary {
-        @include flat-button-theme($theme-menu, transparent);
+        @include flat-button-theme($theme-primary, transparent);
     }
     &.theme-highlight {
         @include flat-button-theme($theme-highlight, transparent);
     }
     &.theme-success {
-        @include flat-button-theme($success, transparent);
+        @include flat-button-theme($theme-success, transparent);
     }
     &.theme-warning {
-        @include flat-button-theme($warning, transparent);
+        @include flat-button-theme($theme-warning, transparent);
     }
     &.theme-error {
-        @include flat-button-theme($error, transparent);
+        @include flat-button-theme($theme-error, transparent);
     }
 
 }
