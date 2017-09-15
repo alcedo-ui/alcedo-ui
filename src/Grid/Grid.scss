@@ -2,11 +2,10 @@
  * @file Grid style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .grid {
     @include float-fix;
     padding-top: 10px;
-    background: $theme-content-bg;
+    background: $theme-bg;
     overflow: auto;
 }

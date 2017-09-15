@@ -2,6 +2,7 @@
  * @file TextField component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
@@ -11,8 +12,6 @@ import FieldMsg from '../FieldMsg';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
-
-import './TextField.css';
 
 export default class TextField extends Component {
 

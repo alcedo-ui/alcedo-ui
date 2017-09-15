@@ -2,7 +2,17 @@
  * @file PopupBody style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../common';
+
+@mixin popup-theme($bg-color) {
+
+    .popup-triangle {
+        border-color: $bg-color;
+    }
+
+    .popup-content {
+        background: $bg-color;
+    }
+}
 
 .popup {
     position: absolute;
@@ -302,7 +312,7 @@
 
     // other themes
     &.theme-primary {
-        @include popup-theme($theme-menu);
+        @include popup-theme($theme-primary);
     }
     &.theme-highlight {
         @include popup-theme($theme-highlight);

@@ -2,7 +2,6 @@
  * @file TextField style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 input,
 input:focus {
@@ -15,8 +14,8 @@ input:focus {
     border-radius: $border-radius;
     position: relative;
     box-sizing: border-box;
-    color: $theme-text;
-    background: $theme-field;
+    color: $theme-field;
+    background: $theme-field-bg;
     border: 1px solid $theme-title-bg;
 
     .text-field-icon,
@@ -106,16 +105,16 @@ input:focus {
     }
 
     &.disabled {
-        background: $theme-bg;
+        background: $theme-field-disabled-bg;
 
         .text-field-icon,
         .icon-button {
-            color: lighten($theme-text, 40%);
+            color: lighten($theme-field, 40%);
         }
 
         .text-field-input {
             cursor: not-allowed;
-            color: lighten($theme-text, 20%);
+            color: lighten($theme-field, 20%);
         }
     }
 }

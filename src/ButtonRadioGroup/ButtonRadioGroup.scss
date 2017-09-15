@@ -2,7 +2,6 @@
  * @file ButtonRadioGroup style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .button-radio-group {
     & > .button-radio-group-item {
@@ -10,10 +9,10 @@
 
         &.activated {
             color: #fff;
-            background: $theme-menu;
+            background: $theme-primary;
 
             &:hover {
-                background: darken($theme-menu, 4%);
+                background: darken($theme-primary, 4%);
             }
         }
 

@@ -2,12 +2,11 @@
  * @file FieldMsg component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
-
-import './FieldMsg.css';
 
 export default class FieldMsg extends Component {
 

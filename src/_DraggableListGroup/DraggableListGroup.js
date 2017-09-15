@@ -2,6 +2,7 @@
  * @file DraggableListGroup component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
@@ -10,8 +11,6 @@ import DraggableListItem from '../_DraggableListItem';
 import Theme from '../Theme';
 
 import DragDrop from '../_vendors/DragDrop';
-
-import './DraggableListGroup.css';
 
 const DRAG_LIST_GROUP_SYMBOL = Symbol('DRAG_LIST_GROUP');
 

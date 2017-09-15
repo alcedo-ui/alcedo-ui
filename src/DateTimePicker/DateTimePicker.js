@@ -2,6 +2,7 @@
  * @file DateTimePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -17,8 +18,6 @@ import RaisedButton from '../RaisedButton';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
-
-import './DateTimePicker.css';
 
 export default class DateTimePicker extends Component {
 

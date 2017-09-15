@@ -2,6 +2,7 @@
  * @file TreeSelect component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,8 +10,6 @@ import RaisedButton from '../RaisedButton';
 import Tree from '../Tree';
 
 import Event from '../_vendors/Event';
-
-import './TreeSelect.css';
 
 export default class TreeSelect extends Component {
 

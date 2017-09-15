@@ -1,8 +1,6 @@
-@import '../../common.scss';
+@import '../../my-theme';
 
 .app {
-    background: $theme-menu;
-
     .app-content {
         @include shadow(1);
         position: relative;
@@ -38,7 +36,6 @@
 
 @media (max-width: 767px) {
     .app {
-
         .app-content {
             padding-left: 0;
             transform: translate3d(70%, 0, 0);

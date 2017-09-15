@@ -2,11 +2,10 @@
  * @file Waterfall component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
-
-import './Waterfall.css';
 
 export default class Waterfall extends Component {
 

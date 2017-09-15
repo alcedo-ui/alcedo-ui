@@ -2,7 +2,6 @@
  * @file TableHeaderSortIcon style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .table-header-sort-icon-wrapper {
     position: absolute;
@@ -16,19 +15,19 @@
         height: 12px;
         line-height: 12px;
         text-align: center;
-        color: lighten($theme-text, 45%);
+        color: lighten($theme-field, 45%);
         transition: all $transition-duration ease-in-out;
     }
 
     &.asc {
         .table-header-sort-icon.up {
-            color: $theme-text;
+            color: $theme-field;
         }
     }
 
     &.desc {
         .table-header-sort-icon.down {
-            color: $theme-text;
+            color: $theme-field;
         }
     }
 }

@@ -2,7 +2,6 @@
  * @file TreeSelect style
  * @author sunday(sunday.wei@derbysoft.com)
  */
-@import '../_common';
 
 .tree-select {
     position: relative;
@@ -41,8 +40,8 @@
             padding: 10px 30px 10px 20px;
             border-radius: 0;
             text-align: left;
-            color: $theme-text;
-            background: $theme-field;
+            color: $theme-field;
+            background: $theme-field-bg;
 
             .tree-select-trigger-right-icon {
                 position: absolute;
@@ -58,8 +57,8 @@
             }
 
             &:hover {
-                color: $theme-text;
-                background: darken($theme-field, 2%);
+                color: $theme-field;
+                background: darken($theme-field-bg, 2%);
             }
 
             &.activated {

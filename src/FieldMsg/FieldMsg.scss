@@ -2,7 +2,22 @@
  * @file FieldMsg style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
+
+@mixin field-msg-theme($color, $bg-color) {
+
+    .triangle {
+        border-top: none;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid transparentize($bg-color, .1);
+    }
+
+    .msg-wrap {
+        top: 6px;
+        background: transparentize($bg-color, .1);
+        color: $color;
+    }
+}
 
 .field-msg {
     position: absolute;
@@ -57,14 +72,11 @@
         overflow: visible;
     }
 
-    @include field-msg-theme($theme-text, $theme-title-bg);
+    @include field-msg-theme($theme-field, $theme-title-bg);
 
     &.theme-info {
-
-        @include field-msg-theme(#fff, $theme-menu);
-
+        @include field-msg-theme(#fff, $theme-primary);
         top: -36px;
-
     }
 
     &.theme-success {

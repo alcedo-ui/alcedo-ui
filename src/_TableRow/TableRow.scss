@@ -2,11 +2,10 @@
  * @file TableRow style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .table-row {
     box-sizing: border-box;
-    border-bottom: 1px solid $theme-bg;
+    border-bottom: 1px solid $theme-border;
 
     td {
         height: 29px;

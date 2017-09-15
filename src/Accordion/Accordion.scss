@@ -2,11 +2,10 @@
  * @file Accordion style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .accordion {
     color: $theme-title;
-    background: $theme-field;
+    background: $theme-bg;
 
     .accordion-title {
         width: 100%;
@@ -14,7 +13,7 @@
         padding: 0 20px;
         user-select: none;
         text-align: left;
-        border-bottom: 1px solid $theme-bg;
+        border-bottom: 1px solid $theme-border;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
 
@@ -35,7 +34,7 @@
     }
 
     &:hover {
-        color: $theme-text;
+        color: $theme-field;
     }
 
 }

@@ -2,7 +2,6 @@
  * @file CircularLoading style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .circular-loading {
     display: inline-block;
@@ -18,7 +17,7 @@
         height: 100%;
         opacity: 1;
         box-sizing: border-box;
-        border-color: $theme-menu;
+        border-color: $theme-primary;
         animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
 
         .circle {

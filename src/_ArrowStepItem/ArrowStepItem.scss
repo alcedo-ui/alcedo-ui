@@ -2,7 +2,6 @@
  * @file ArrowStepItem style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .arrow-step-item {
     float: left;
@@ -29,7 +28,7 @@
             line-height: 30px;
             font-size: 20px;
             background: transparentize(#fff, .05);
-            color: $theme-text;
+            color: $theme-field;
 
             i {
                 width: 40px;
@@ -47,7 +46,7 @@
             height: 30px;
             line-height: 30px;
             padding: 15px 0;
-            color: $theme-text;
+            color: $theme-field;
             white-space: nowrap;
             overflow: hidden;
             z-index: 2;
@@ -69,7 +68,7 @@
             border-right: none;
 
             &.finished {
-                border-left-color: $theme-menu;
+                border-left-color: $theme-primary;
             }
 
             &.activated {
@@ -86,8 +85,8 @@
             border-right-color: $theme-title-bg;
 
             &.finished {
-                border-top-color: $theme-menu;
-                border-right-color: $theme-menu;
+                border-top-color: $theme-primary;
+                border-right-color: $theme-primary;
             }
 
             &.activated {
@@ -105,8 +104,8 @@
             border-bottom-color: $theme-title-bg;
 
             &.finished {
-                border-right-color: $theme-menu;
-                border-bottom-color: $theme-menu;
+                border-right-color: $theme-primary;
+                border-bottom-color: $theme-primary;
             }
 
             &.activated {
@@ -188,10 +187,10 @@
         cursor: pointer;
 
         .arrow-step-item-content {
-            background: $theme-menu;
+            background: $theme-primary;
 
             .number {
-                color: $theme-menu;
+                color: $theme-primary;
             }
 
             .title {
@@ -202,23 +201,23 @@
         &:hover {
 
             .arrow-step-item-content {
-                background: darken($theme-menu, 4%);
+                background: darken($theme-primary, 4%);
             }
 
             .triangle-wrapper.triangle-wrapper-left {
                 .triangle-top {
-                    border-top-color: darken($theme-menu, 4%);
-                    border-right-color: darken($theme-menu, 4%);
+                    border-top-color: darken($theme-primary, 4%);
+                    border-right-color: darken($theme-primary, 4%);
                 }
                 .triangle-bottom {
-                    border-right-color: darken($theme-menu, 4%);
-                    border-bottom-color: darken($theme-menu, 4%);
+                    border-right-color: darken($theme-primary, 4%);
+                    border-bottom-color: darken($theme-primary, 4%);
                 }
             }
 
             .triangle-wrapper.triangle-wrapper-right {
                 .triangle-middle {
-                    border-left-color: darken($theme-menu, 4%);
+                    border-left-color: darken($theme-primary, 4%);
                 }
             }
         }

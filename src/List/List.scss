@@ -2,11 +2,10 @@
  * @file List style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .list {
     width: 200px;
-    background: $theme-field;
+    background: $theme-field-bg;
     overflow-x: hidden;
     overflow-y: auto;
 

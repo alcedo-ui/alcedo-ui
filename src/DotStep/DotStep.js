@@ -2,12 +2,11 @@
  * @file DotStep component
  * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import DotStepItem from '../_DotStepItem';
-
-import './DotStep.css';
 
 export default class DotStep extends Component {
 

@@ -2,6 +2,7 @@
  * @file TimeLine component
  * @author wendy(wendy.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,8 +10,6 @@ import TimeLineItem from '../_TimelineItem';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './TimeLine.css';
 
 export default class TimeLine extends Component {
 

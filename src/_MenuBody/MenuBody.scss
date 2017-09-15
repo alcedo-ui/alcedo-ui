@@ -2,7 +2,17 @@
  * @file MenuBody style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../common';
+
+@mixin menu-theme($bg-color) {
+
+    .menu-triangle {
+        border-color: $bg-color;
+    }
+
+    .menu-content {
+        background: $bg-color;
+    }
+}
 
 .menu {
     position: absolute;
@@ -302,7 +312,7 @@
 
     // other themes
     &.theme-primary {
-        @include menu-theme($theme-menu);
+        @include menu-theme($theme-primary);
     }
     &.theme-highlight {
         @include menu-theme($theme-highlight);

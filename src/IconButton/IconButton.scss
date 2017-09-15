@@ -2,7 +2,23 @@
  * @file IconButton style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
+
+@mixin icon-button-theme($color) {
+    background: transparent;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+    }
+}
 
 .icon-button {
     padding: 0;
@@ -13,11 +29,11 @@
     }
 
     // default theme
-    @include icon-button-theme($theme-text);
+    @include icon-button-theme($theme-field);
 
     // themes
     &.theme-primary {
-        @include icon-button-theme($theme-menu);
+        @include icon-button-theme($theme-primary);
     }
     &.theme-highlight {
         @include icon-button-theme($theme-highlight);

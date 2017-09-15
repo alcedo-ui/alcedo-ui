@@ -2,10 +2,9 @@
  * @file TimeLine style
  * @author wendy(wendy.wei@derbysoft.com)
  */
-@import '../_common.scss';
 
 .time-line {
-    background: $theme-content-bg;
+    background: $theme-bg;
     padding: 10px;
     list-style: none;
 
@@ -76,7 +75,7 @@
         height: 30px;
         line-height: 30px;
         text-align: center;
-        color: $theme-nav !important;
+        color: #fff !important;
         background-color: $theme-highlight;
         border-color: #23b7e5;
         border-radius: 2px;
@@ -137,24 +136,24 @@
         .panel {
             border: 1px solid #dee5e7;
             border-radius: $border-radius;
-            background-color: $theme-field;
+            background-color: $theme-field-bg;
             box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 
             &-success {
                 background: $success;
-                color: $theme-field;
+                color: $theme-field-bg;
             }
             &-error {
                 background: $error;
-                color: $theme-field;
+                color: $theme-field-bg;
             }
             &-warning {
                 background: $warning;
-                color: $theme-field;
+                color: $theme-field-bg;
             }
             &-highlight {
                 background: $theme-highlight;
-                color: $theme-field;
+                color: $theme-field-bg;
             }
 
         }
@@ -195,7 +194,7 @@
             border-style: dashed solid dashed dashed;
             z-index: 10;
             border-width: 10px;
-            border-color: transparent $theme-field transparent transparent;
+            border-color: transparent $theme-field-bg transparent transparent;
 
             &-success {
                 border-color: transparent $success transparent transparent;

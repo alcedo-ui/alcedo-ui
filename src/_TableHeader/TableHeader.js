@@ -2,12 +2,11 @@
  * @file TableHeader component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
-
-import './TableHeader.css';
 
 export default class TableHeader extends Component {
 

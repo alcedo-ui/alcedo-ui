@@ -2,6 +2,7 @@
  * @file EditableField component
  * @author chao(chao.zhang@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,8 +10,6 @@ import TextField from '../TextField/TextField';
 import TipProvider from '../TipProvider';
 
 import Event from '../_vendors/Event';
-
-import './EditableField.css';
 
 export default class EditableField extends Component {
 

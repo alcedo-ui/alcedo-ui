@@ -2,7 +2,6 @@
  * @file MultipleSelect style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .multiple-select {
 
@@ -13,7 +12,7 @@
         width: 100%;
         height: auto;
         padding: 0 40px 8px 4px;
-        background: $theme-field;
+        background: $theme-field-bg;
         border: 1px solid $theme-title-bg;
         border-bottom: none;
         border-top-left-radius: 4px;
@@ -27,7 +26,7 @@
             margin: 8px 4px 0 4px;
             float: left;
             line-height: 24px;
-            color: $theme-text;
+            color: $theme-field;
         }
 
         .multiple-select-selected {
@@ -148,7 +147,7 @@
 
             .no-matched-list-item {
                 line-height: 40px;
-                color: $theme-text;
+                color: $theme-field;
 
                 .no-matched-list-item-icon {
                     color: $warning;

@@ -2,6 +2,7 @@
  * @file ListGroup component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,8 +11,6 @@ import ListItem from '../_ListItem';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './ListGroup.css';
 
 export default class ListGroup extends Component {
 

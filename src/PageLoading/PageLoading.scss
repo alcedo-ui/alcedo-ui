@@ -2,7 +2,6 @@
  * @file PageLoading style
  * @author chao(chao.zhang@derbysoft.com)
  */
-@import '../common';
 
 .page-loading {
     &.page-loading-one {
@@ -20,7 +19,7 @@
             .page-loading-highlight {
                 width: 1px;
                 height: 100%;
-                background: $light-blue linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background: $theme-highlight linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
                 background-size: 10px 10px;
                 animation: progress-bar-stripes 2s linear infinite;
                 transition: width 1s linear 0ms;

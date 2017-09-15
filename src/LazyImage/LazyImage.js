@@ -2,6 +2,7 @@
  * @file LazyImage component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -9,8 +10,6 @@ import _ from 'lodash';
 import CircularLoading from '../CircularLoading';
 
 import Event from '../_vendors/Event';
-
-import './LazyImage.css';
 
 export default class LazyImage extends Component {
 

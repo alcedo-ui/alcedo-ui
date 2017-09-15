@@ -2,12 +2,11 @@
  * @file Accordion component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import FlatButton from '../FlatButton';
-
-import './Accordion.css';
 
 export default class Accordion extends Component {
 

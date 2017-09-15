@@ -2,7 +2,6 @@
  * @file DateTimePicker style
  * @author sunday(sunday.wei@derbysoft.com)
  */
-@import '../_common.scss';
 
 .date-picker {
     position: relative;
@@ -180,7 +179,7 @@
                         }
                         li.item-gray {
                             a {
-                                color: $grey;
+                                color: $theme-field-disabled;
                                 cursor: not-allowed;
                             }
                         }
@@ -256,15 +255,15 @@
                         line-height: 30px;
                         cursor: pointer;
                         &:hover {
-                            background: $theme-content-bg;
+                            background: $theme-bg;
                         }
                         &.active {
-                            background: $theme-content-bg;
-                            color: $blue-grey;
+                            background: $theme-bg;
+                            color: $theme-field;
                             font-weight: 600;
                         }
                         &.disabled {
-                            color: $grey;
+                            color: $theme-field-disabled;
                             cursor: not-allowed;
                         }
                     }
@@ -295,7 +294,7 @@
                     position: relative;
                     overflow: hidden;
                     .item-gray {
-                        color: $grey;
+                        color: $theme-field-disabled;
                         cursor: not-allowed;
                     }
                     &.fl {

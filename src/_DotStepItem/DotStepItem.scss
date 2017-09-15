@@ -2,7 +2,6 @@
  * @file DotStepItem style
  * @author chao(chao.zhang@derbysoft.com)
  */
-@import '../_common.scss';
 
 .dot-step-item {
     float: left;
@@ -15,7 +14,7 @@
 
     &.finished {
         cursor: pointer;
-        background: $theme-text;
+        background: $theme-field;
     }
 
     &.activated {

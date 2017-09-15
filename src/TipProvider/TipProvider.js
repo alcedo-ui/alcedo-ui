@@ -2,14 +2,13 @@
  * @file TipProvider component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
-
-import './TipProvider.css';
 
 export default class TipProvider extends Component {
 

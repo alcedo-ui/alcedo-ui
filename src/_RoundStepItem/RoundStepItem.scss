@@ -2,7 +2,6 @@
  * @file RoundStepItem style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .round-step-item {
     float: left;
@@ -36,7 +35,7 @@
         left: 0;
         width: 50%;
         height: 12px;
-        background: $theme-menu;
+        background: $theme-primary;
     }
 
     .right-bar {
@@ -45,7 +44,7 @@
         left: 50%;
         width: 50%;
         height: 12px;
-        background: $theme-menu;
+        background: $theme-primary;
     }
 
     .round {
@@ -59,7 +58,7 @@
         text-align: center;
         line-height: 32px;
         font-weight: bold;
-        background: $theme-bg;
+        background: $theme-field-bg;
         color: $theme-title-bg;
 
         i {
@@ -76,7 +75,7 @@
         position: absolute;
         top: 55px;
         left: 0;
-        color: $theme-text;
+        color: $theme-field;
     }
 
     &.first {
@@ -110,7 +109,7 @@
     &.finished {
         .round {
             cursor: pointer;
-            background: $theme-menu;
+            background: $theme-primary;
             color: #fff;
         }
     }

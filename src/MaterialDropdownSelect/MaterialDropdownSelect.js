@@ -2,6 +2,7 @@
  * @file MaterialDropdownSelect component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,8 +10,6 @@ import DropdownSelect from '../DropdownSelect';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-
-import './MaterialDropdownSelect.css';
 
 export default class MaterialDropdownSelect extends Component {
 

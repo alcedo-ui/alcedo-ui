@@ -4,6 +4,14 @@ var os = require('os'),
     fs = require('fs'),
     path = require('path');
 
+function isDirectory(path) {
+    try {
+        return fs.lstatSync(path).isDirectory();
+    } catch (e) {
+        return false;
+    }
+}
+
 fs.readdir('./src', function (err, files) {
 
     if (err) {
@@ -16,12 +24,10 @@ fs.readdir('./src', function (err, files) {
                 totalCount = 0;
 
             files.forEach(function (item) {
-
-                if (item.slice(0, 1) !== '_') {
+                if (item.slice(0, 1) !== '_' && isDirectory('./src/' + item)) {
                     indexArray.push('export ' + item + ' from \'./' + item + '\';');
                     totalCount++;
                 }
-
             });
             indexArray.push('', 'export const COMPONENTS_TOTAL_COUNT = ' + totalCount + ';');
 

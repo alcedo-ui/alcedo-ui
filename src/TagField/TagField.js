@@ -2,6 +2,7 @@
  * @file TagField component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -12,8 +13,6 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
-
-import './TagField.css';
 
 export default class TagField extends Component {
 

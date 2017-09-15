@@ -2,6 +2,7 @@
  * @file CheckboxGroup component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';

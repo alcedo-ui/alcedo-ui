@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@import '../../my-theme';
 
 .landing-foot {
     background: darken($theme-menu, 20%);
@@ -15,7 +15,7 @@
 
     .licence {
         text-decoration: none;
-        color: lighten($theme-text, 20%);
+        color: lighten($theme-field, 20%);
         transition: color $transition-duration ease-in-out;
 
         &:hover {
@@ -25,7 +25,7 @@
 
     .github-icon {
         display: block;
-        color: $theme-text;
+        color: $theme-field;
         font-size: 24px;
         margin: 20px auto 0;
 

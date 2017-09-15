@@ -2,6 +2,7 @@
  * @file TimePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -11,8 +12,6 @@ import TimeList from '../_TimeList';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-
-import './TimePicker.css';
 
 export default class TimePicker extends Component {
 

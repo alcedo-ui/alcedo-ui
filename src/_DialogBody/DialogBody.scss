@@ -2,7 +2,6 @@
  * @file DialogBody style
  * @author chao(chao.zhang@derbysoft.com)
  */
-@import '../_common.scss';
 
 .dialog-modal {
     position: fixed;
@@ -32,7 +31,7 @@
     z-index: $dialog-z-index;
     box-sizing: border-box;
     overflow: hidden;
-    color: $theme-text;
+    color: $theme-field;
 
     .dialog-title {
         position: relative;

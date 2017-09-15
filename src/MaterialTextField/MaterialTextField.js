@@ -2,13 +2,12 @@
  * @file MaterialTextField component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import TextField from '../TextField';
 import Util from '../_vendors/Util';
-
-import './MaterialTextField.css';
 
 export default class MaterialTextField extends Component {
 

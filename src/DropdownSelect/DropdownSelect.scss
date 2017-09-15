@@ -2,7 +2,6 @@
  * @file DropdownSelect style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
 
 .dropdown-select {
     position: relative;
@@ -51,7 +50,7 @@
 
     .dropdown-select-filter {
         border: none;
-        border-bottom: 1px solid $theme-content-bg;
+        border-bottom: 1px solid $theme-bg;
         border-radius: 0;
         width: 100%;
         height: 40px;
@@ -69,7 +68,7 @@
 
             .no-matched-list-item {
                 line-height: 40px;
-                color: $theme-text;
+                color: $theme-field;
 
                 .no-matched-list-item-icon {
                     color: $warning;

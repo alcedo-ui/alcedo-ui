@@ -2,6 +2,7 @@
  * @file PopupBody component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
@@ -14,8 +15,6 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
-
-import './PopupBody.css';
 
 export default class PopupBody extends Component {
 

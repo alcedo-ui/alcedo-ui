@@ -2,7 +2,32 @@
  * @file DraggableListItem style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../_common.scss';
+
+@mixin draggable-list-item-theme($color, $bg-color) {
+    background: $bg-color;
+    color: $color;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &.activated {
+        background: darken($bg-color, 4%);
+    }
+
+    &:active {
+        background: darken($bg-color, 8%);
+    }
+
+    &[disabled] {
+        color: transparentize($color, .5);
+        background: darken($bg-color, 8%);
+    }
+}
 
 .draggable-list-item {
     display: block;
@@ -36,7 +61,7 @@
         width: 16px;
         line-height: inherit;
         margin-right: 10px;
-        color: lighten($theme-text, 45%);
+        color: lighten($theme-field, 45%);
         text-align: center;
 
         &.activated {
@@ -114,11 +139,11 @@
     }
 
     // default theme
-    @include draggable-list-item-theme($theme-text, $theme-field);
+    @include draggable-list-item-theme($theme-field, $theme-field-bg);
 
     // other themes
     &.theme-primary {
-        @include draggable-list-item-theme(#fff, $theme-menu);
+        @include draggable-list-item-theme(#fff, $theme-primary);
     }
     &.theme-highlight {
         @include draggable-list-item-theme(#fff, $theme-highlight);

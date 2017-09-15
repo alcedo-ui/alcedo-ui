@@ -9,8 +9,6 @@ import TouchRipple from '../TouchRipple';
 
 import Util from '../_vendors/Util';
 
-import './Toast.css';
-
 export default class Toast extends Component {
 
     static Type = {

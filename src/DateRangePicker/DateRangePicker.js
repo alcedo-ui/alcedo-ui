@@ -2,6 +2,7 @@
  * @file DateRangePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -15,8 +16,6 @@ import YearPicker from '../_YearPicker';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
-
-import './DateRangePicker.css';
 
 export default class DateRangePicker extends Component {
 
