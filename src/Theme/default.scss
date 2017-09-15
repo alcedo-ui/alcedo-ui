@@ -1,14 +1,17 @@
 @import './_common.scss';
 
+$theme-primary: #4c637b;
+$theme-secondary: #4c637b;
+$theme-description: #eee;
 $theme-info: #2196f3;
 $theme-success: #67ba31;
 $theme-warning: #f1ad09;
 $theme-error: #d8534e;
-
-$theme-primary: #4c637b;
-$theme-secondary: #4c637b;
-$theme-description: #eee;
 $theme-highlight: #38b1eb;
+
+$theme-title: #758697;
+$theme-title-bg: #758697;
+$theme-container-bg: #f3f6fa;
 
 $theme-field: #4c637b;
 $theme-field-focus: #4c637b;
@@ -29,8 +32,10 @@ $theme-border-active: #f3f6fa;
 $theme-border-disabled: #f3f6fa;
 $theme-border-radius: 4px;
 
-$theme-title: #758697;
-$theme-title-bg: #758697;
-$theme-container-bg: #f3f6fa;
+$theme-label: #fff;
+$theme-label-disabled: #fff;
+
+$theme-shadow: #000;
+$theme-ripple-bg: #000;
 
 $transition-duration: 250ms;
