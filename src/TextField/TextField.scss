@@ -11,7 +11,7 @@ input:focus {
 .text-field {
     width: 300px;
     height: 40px;
-    border-radius: $border-radius;
+    border-radius: $theme-border-radius;
     position: relative;
     box-sizing: border-box;
     color: $theme-field;
@@ -59,7 +59,7 @@ input:focus {
         border: none;
         box-sizing: border-box;
         padding: 9px 38px 9px 15px;
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
         font-size: 12px;
         background: transparent;
         white-space: nowrap;

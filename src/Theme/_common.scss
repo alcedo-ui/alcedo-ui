@@ -7,14 +7,6 @@ $field-msg-z-index: 81;
 $popup-z-index: 80;
 $menu-z-index: 80;
 
-// size
-$minWidth: 320px;
-$appMenuPortableWidth: .8;
-$border-radius: 4px;
-
-// animate
-$transition-duration: 250ms;
-
 @mixin float-fix {
     &::before, &::after {
         display: table;

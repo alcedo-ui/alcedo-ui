@@ -14,7 +14,7 @@
 
         width: 100%;
         height: 100%;
-        border-radius: $border-radius !important;
+        border-radius: $theme-border-radius !important;
 
         input {
             line-height: 20px;
@@ -56,7 +56,7 @@
         height: 342px;
         overflow: hidden;
         background: #FFF;
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
         z-index: $popup-z-index;
         transition: all $transition-duration ease-in-out;
 

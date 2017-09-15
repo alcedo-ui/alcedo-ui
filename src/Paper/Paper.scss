@@ -4,7 +4,7 @@
  */
 
 .paper {
-    border-radius: $border-radius;
+    border-radius: $theme-border-radius;
     background: $theme-container-bg;
 
     @for $i from 0 through 7 {

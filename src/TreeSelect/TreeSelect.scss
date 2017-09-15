@@ -10,7 +10,7 @@
         width: 100%;
         overflow: hidden;
         transition: all $transition-duration ease-in-out;
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
         border: 1px solid #dfdfdf;
         position: absolute;
         top: 0;
@@ -72,8 +72,8 @@
             margin: 0;
             border-top: 1px solid #dfdfdf;
             z-index: 1;
-            border-bottom-left-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
+            border-bottom-left-radius: $theme-border-radius;
+            border-bottom-right-radius: $theme-border-radius;
             transition: all $transition-duration ease-in-out;
             .tree-inner {
                 border: none;

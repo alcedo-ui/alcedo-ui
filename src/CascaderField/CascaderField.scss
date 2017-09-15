@@ -68,11 +68,11 @@
         .cascader-popup-list {
 
             &.first {
-                border-top-left-radius: $border-radius;
+                border-top-left-radius: $theme-border-radius;
             }
 
             &.last {
-                border-top-right-radius: $border-radius;
+                border-top-right-radius: $theme-border-radius;
             }
         }
     }
@@ -86,11 +86,11 @@
         .cascader-popup-list {
 
             &.first {
-                border-bottom-left-radius: $border-radius;
+                border-bottom-left-radius: $theme-border-radius;
             }
 
             &.last {
-                border-bottom-right-radius: $border-radius;
+                border-bottom-right-radius: $theme-border-radius;
             }
         }
     }

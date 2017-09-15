@@ -107,7 +107,7 @@
     }
 
     .touch-ripple {
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
 
         &.hidden {
             display: none;

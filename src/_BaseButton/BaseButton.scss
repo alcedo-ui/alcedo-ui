@@ -14,7 +14,7 @@ button:focus {
     height: 40px;
     position: relative;
     border: none;
-    border-radius: $border-radius;
+    border-radius: $theme-border-radius;
     transition: all $transition-duration ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
@@ -44,7 +44,7 @@ button:focus {
     }
 
     .touch-ripple {
-        border-radius: $border-radius;
+        border-radius: $theme-border-radius;
 
         &.hidden {
             display: none;
