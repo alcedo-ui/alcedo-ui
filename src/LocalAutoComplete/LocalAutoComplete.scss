@@ -43,7 +43,7 @@
     overflow-y: auto;
 
     .popup-content {
-        border-radius: 0;
+        border-radius: 0 !important;
 
         .local-auto-complete-list {
             width: 100%;
