@@ -22,11 +22,6 @@
     &:active {
         background: darken($bg-color, 8%);
     }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
-    }
 }
 
 .raised-button {
@@ -43,6 +38,8 @@
 
     &[disabled] {
         box-shadow: none !important;
+        color: $theme-field-disabled;
+        background: $theme-field-bg-disabled;
     }
 
     // default theme
