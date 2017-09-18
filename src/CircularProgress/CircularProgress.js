@@ -22,7 +22,7 @@ export default class CircularProgress extends Component {
 
     render() {
 
-        const {children, className, style, r, width, rgba, word, percent, percentStyle} = this.props,
+        const {children, className, style, r, width, word, percent, percentStyle} = this.props,
 
             l = 2 * r * Math.PI,
             svgStyle = {
@@ -44,7 +44,6 @@ export default class CircularProgress extends Component {
                             cy={r + width}
                             r={r}
                             strokeWidth={width}
-                            stroke={rgba}
                             fill="none"
                             style={circleStyle}>
                     </circle>
@@ -96,7 +95,7 @@ CircularProgress.propTypes = {
     /**
      * Override the progress's color.
      */
-    rgba: PropTypes.string,
+    // rgba: PropTypes.string,
 
     /**
      * The value of progress.
@@ -118,7 +117,7 @@ CircularProgress.defaultProps = {
     percentStyle: {},
     r: 48,
     width: 2,
-    rgba: 'rgb(0, 188, 212)',
+    // rgba: 'rgb(0, 188, 212)',
     percent: 0,
     word: true
 

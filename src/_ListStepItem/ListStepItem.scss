@@ -46,7 +46,7 @@
 
     &.activated {
         cursor: default;
-        background: #38b1eb;
+        background: $theme-highlight;
         color: #fff;
         i {
             color: #fff;
@@ -55,7 +55,7 @@
 
     &.finished {
         cursor: pointer;
-        background: #4c637b;
+        background: $theme-primary;
         color: #fff;
         i {
             color: #fff;
