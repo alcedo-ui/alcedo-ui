@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import FlatButton from 'dist/FlatButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import FlatButtonDoc from 'assets/propTypes/FlatButton.json';
@@ -44,19 +45,27 @@ export default class FlatButtonExamples extends Component {
                                 <FlatButton value="Default"/>
 
                                 <FlatButton value="Primary"
-                                            theme="primary"/>
+                                            theme={Theme.PRIMARY}/>
+
+                                <FlatButton value="Secondary"
+                                            theme={Theme.SECONDARY}/>
+
+                                <FlatButton value="Highlight"
+                                            theme={Theme.HIGHLIGHT}/>
+
+                                <FlatButton value="Info"
+                                            theme={Theme.INFO}/>
 
                                 <FlatButton value="Success"
-                                            theme="success"/>
+                                            theme={Theme.SUCCESS}/>
 
                                 <FlatButton value="Warning"
-                                            theme="warning"/>
+                                            theme={Theme.WARNING}/>
 
                                 <FlatButton value="Error"
-                                            theme="error"/>
+                                            theme={Theme.ERROR}/>
 
                                 <FlatButton value="Disabled"
-
                                             disabled={true}/>
 
                             </div>
@@ -81,19 +90,31 @@ export default class FlatButtonExamples extends Component {
                                             isRounded={true}/>
 
                                 <FlatButton value="Primary"
-                                            theme="primary"
+                                            theme={Theme.PRIMARY}
+                                            isRounded={true}/>
+
+                                <FlatButton value="Secondary"
+                                            theme={Theme.SECONDARY}
+                                            isRounded={true}/>
+
+                                <FlatButton value="Highlight"
+                                            theme={Theme.HIGHLIGHT}
+                                            isRounded={true}/>
+
+                                <FlatButton value="Info"
+                                            theme={Theme.INFO}
                                             isRounded={true}/>
 
                                 <FlatButton value="Success"
-                                            theme="success"
+                                            theme={Theme.SUCCESS}
                                             isRounded={true}/>
 
                                 <FlatButton value="Warning"
-                                            theme="warning"
+                                            theme={Theme.WARNING}
                                             isRounded={true}/>
 
                                 <FlatButton value="Error"
-                                            theme="error"
+                                            theme={Theme.ERROR}
                                             isRounded={true}/>
 
                                 <FlatButton value="Disabled"
@@ -123,15 +144,15 @@ export default class FlatButtonExamples extends Component {
                                             iconCls="fa fa-undo"/>
 
                                 <FlatButton value="Add"
-                                            theme="success"
+                                            theme={Theme.SUCCESS}
                                             iconCls="fa fa-plus"/>
 
                                 <FlatButton value="Delete"
-                                            theme="error"
+                                            theme={Theme.ERROR}
                                             iconCls="fa fa-trash"/>
 
                                 <FlatButton value="Next"
-                                            theme="primary"
+                                            theme={Theme.PRIMARY}
                                             rightIconCls="fa fa-chevron-right"/>
 
                             </div>
@@ -156,15 +177,15 @@ export default class FlatButtonExamples extends Component {
                                             isCircular={true}/>
 
                                 <FlatButton value="Success"
-                                            theme="success"
+                                            theme={Theme.SUCCESS}
                                             isCircular={true}/>
 
                                 <FlatButton value="Error"
-                                            theme="error"
+                                            theme={Theme.ERROR}
                                             isCircular={true}/>
 
                                 <FlatButton value="Warning"
-                                            theme="warning"
+                                            theme={Theme.WARNING}
                                             isCircular={true}/>
 
                             </div>
