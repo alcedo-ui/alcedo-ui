@@ -49,8 +49,14 @@
     &.theme-primary {
         @include raised-button-theme(#fff, $theme-primary);
     }
+    &.theme-secondary {
+        @include raised-button-theme($theme-primary, $theme-secondary);
+    }
     &.theme-highlight {
         @include raised-button-theme(#fff, $theme-highlight);
+    }
+    &.theme-info {
+        @include raised-button-theme(#fff, $theme-info);
     }
     &.theme-success {
         @include raised-button-theme(#fff, $theme-success);
