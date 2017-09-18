@@ -29,8 +29,14 @@
     &.theme-primary {
         @include flat-button-theme($theme-primary);
     }
+    &.theme-secondary {
+        @include flat-button-theme($theme-secondary);
+    }
     &.theme-highlight {
         @include flat-button-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include flat-button-theme($theme-info);
     }
     &.theme-success {
         @include flat-button-theme($theme-success);
