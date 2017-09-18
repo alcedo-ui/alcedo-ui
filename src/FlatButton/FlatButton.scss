@@ -9,6 +9,7 @@
 
 .flat-button {
     background: transparent;
+    border: none;
 
     &:hover {
         background: $theme-secondary;
