@@ -49,8 +49,8 @@ export default class TextArea extends Component {
      */
     resizeHandle(e) {
         this.setState({
-            width: e.target.clientWidth + 2,
-            height: e.target.clientHeight + 2
+            width: e.target.offsetWidth,
+            height: e.target.offsetHeight
         });
     }
 
@@ -58,7 +58,7 @@ export default class TextArea extends Component {
      * mouseUp时，若textArea的宽高右边，则resizeHandle
      */
     mouseUpHandle(e) {
-        if (e.target.clientWidth + 2 !== this.state.width || e.target.clientHeight + 2 !== this.state.height) {
+        if (e.target.offsetWidth !== this.state.width || e.target.offsetHeight !== this.state.height) {
             this.resizeHandle(e);
         }
     }
