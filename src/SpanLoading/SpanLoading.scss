@@ -7,7 +7,7 @@
     opacity: 1;
     position: relative;
     display: inline-block;
-    color: $theme-highlight;
+    color: $theme-info;
     vertical-align: middle;
     text-align: center;
     margin-right: 25px;
@@ -24,7 +24,7 @@
             width: 9px;
             height: 9px;
             border-radius: 100%;
-            background-color: $theme-highlight;
+            background-color: $theme-info;
             transform: scale(0.75);
             display: block;
             position: absolute;
