@@ -7,6 +7,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
 
+import './TextArea.css';
+
 export default class TextArea extends Component {
 
     constructor(props, ...restArgs) {
