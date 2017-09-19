@@ -7,6 +7,12 @@
     color: $color;
     background: $bg-color;
     border-color: $border-color;
+}
+
+.raised-button {
+    @include shadow(1);
+    border-width: 1px;
+    border-style: solid;
 
     .button-icon {
         color: inherit;
@@ -15,20 +21,6 @@
     .circular-loading .spinner {
         border-color: inherit;
     }
-
-    &:hover {
-        background: darken($bg-color, 4%);
-    }
-
-    &:active {
-        background: darken($bg-color, 8%);
-    }
-}
-
-.raised-button {
-    @include shadow(1);
-    border-width: 1px;
-    border-style: solid;
 
     &:hover {
         @include shadow(3);
