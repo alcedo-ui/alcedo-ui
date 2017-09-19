@@ -67,20 +67,17 @@ export default class TextArea extends Component {
      * input变化时，如果为autoSize，则控制高度，使之随内容变化而变化
      */
 
-    onChange(ev) {
+    onChange() {
         const {initialHeight, maxHeight, autoSize} = this.props;
-        const oEvent = ev || event;
-        const {target} = oEvent;
 
         if (autoSize) {
-
-            const {style} = target;
-
+            const {style} = this.refs.textarea;
             style.height = initialHeight + 'px';
             style.overflow = 'hidden';
-            if (initialHeight < target.scrollHeight + 2) {
-                if (maxHeight && maxHeight > target.scrollHeight + 2) {
-                    style.height = target.scrollHeight + 2 + 'px';
+
+            if (initialHeight < this.refs.textarea.scrollHeight + 2) {
+                if (maxHeight && maxHeight > this.refs.textarea.scrollHeight + 2) {
+                    style.height = this.refs.textarea.scrollHeight + 2 + 'px';
                 } else {
                     style.height = maxHeight + 'px';
                     style.overflow = 'auto';
@@ -89,9 +86,9 @@ export default class TextArea extends Component {
         }
 
         this.setState({
-            value: target.value
+            value: this.refs.textarea.value
         }, () => {
-            this.props.onChange && this.props.onChange(target.value);
+            this.props.onChange && this.props.onChange(this.refs.textarea.value);
         });
     }
 
@@ -103,6 +100,8 @@ export default class TextArea extends Component {
                 width: nextProps.initialWidth,
                 height: nextProps.initialHeight,
                 value: nextProps.value
+            }, () => {
+                this.onChange()
             });
         }
     }
