@@ -8,14 +8,6 @@
     color: $color;
     border: 1px solid $color;
 
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
     &:hover {
         color: $activated-color;
         background: $color;
@@ -25,15 +17,33 @@
         background: $color;
         color: $activated-color;
     }
-
-    &[disabled] {
-        color: darken($color, 8%);
-        border-color: darken($color, 8%);
-        background: transparent;
-    }
 }
 
 .ghost-button {
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
+    &[disabled] {
+        color: $theme-field-disabled;
+        border-color: $theme-field-bg-disabled;
+        background: transparent;
+
+        &:hover {
+            color: $theme-field-disabled;
+            border-color: $theme-field-bg-disabled;
+        }
+
+        &:active {
+            color: $theme-field-disabled;
+            border-color: $theme-field-bg-disabled;
+        }
+    }
 
     // default theme
     @include ghost-button-theme(#fff, $theme-field);
@@ -42,8 +52,14 @@
     &.theme-primary {
         @include ghost-button-theme($theme-primary, #fff);
     }
+    &.theme-secondary {
+        @include ghost-button-theme($theme-secondary, $theme-primary);
+    }
     &.theme-highlight {
         @include ghost-button-theme($theme-highlight, #fff);
+    }
+    &.theme-info {
+        @include ghost-button-theme($theme-info, #fff);
     }
     &.theme-success {
         @include ghost-button-theme($theme-success, #fff);

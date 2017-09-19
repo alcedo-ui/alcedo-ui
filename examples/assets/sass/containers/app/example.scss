@@ -25,17 +25,9 @@
         margin-bottom: 30px;
     }
 
-    .example-header {
-        color: #fff;
-        background: $theme-title;
-    }
-
     .example-content {
-
         @include float-fix;
-
         padding: 30px;
-        background: $theme-widget-bg;
 
         code {
             padding: 5px;

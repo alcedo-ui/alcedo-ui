@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import GhostButton from 'dist/GhostButton';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import GhostButtonDoc from 'assets/propTypes/GhostButton.json';
@@ -44,16 +45,25 @@ export default class GhostButtonExamples extends Component {
                                 <GhostButton value="Default"/>
 
                                 <GhostButton value="Primary"
-                                             theme="primary"/>
+                                             theme={Theme.PRIMARY}/>
+
+                                <GhostButton value="Secondary"
+                                             theme={Theme.SECONDARY}/>
+
+                                <GhostButton value="Highlight"
+                                             theme={Theme.HIGHLIGHT}/>
+
+                                <GhostButton value="Info"
+                                             theme={Theme.INFO}/>
 
                                 <GhostButton value="Success"
-                                             theme="success"/>
+                                             theme={Theme.SUCCESS}/>
 
                                 <GhostButton value="Warning"
-                                             theme="warning"/>
+                                             theme={Theme.WARNING}/>
 
                                 <GhostButton value="Error"
-                                             theme="error"/>
+                                             theme={Theme.ERROR}/>
 
                                 <GhostButton value="Disabled"
                                              disabled={true}/>
@@ -80,19 +90,31 @@ export default class GhostButtonExamples extends Component {
                                              isRounded={true}/>
 
                                 <GhostButton value="Primary"
-                                             theme="primary"
+                                             theme={Theme.PRIMARY}
+                                             isRounded={true}/>
+
+                                <GhostButton value="Secondary"
+                                             theme={Theme.SECONDARY}
+                                             isRounded={true}/>
+
+                                <GhostButton value="Highlight"
+                                             theme={Theme.HIGHLIGHT}
+                                             isRounded={true}/>
+
+                                <GhostButton value="Info"
+                                             theme={Theme.INFO}
                                              isRounded={true}/>
 
                                 <GhostButton value="Success"
-                                             theme="success"
+                                             theme={Theme.SUCCESS}
                                              isRounded={true}/>
 
                                 <GhostButton value="Warning"
-                                             theme="warning"
+                                             theme={Theme.WARNING}
                                              isRounded={true}/>
 
                                 <GhostButton value="Error"
-                                             theme="error"
+                                             theme={Theme.ERROR}
                                              isRounded={true}/>
 
                                 <GhostButton value="Disabled"
@@ -122,15 +144,15 @@ export default class GhostButtonExamples extends Component {
                                              iconCls="fa fa-undo"/>
 
                                 <GhostButton value="Add"
-                                             theme="success"
+                                             theme={Theme.SUCCESS}
                                              iconCls="fa fa-plus"/>
 
                                 <GhostButton value="Delete"
-                                             theme="error"
+                                             theme={Theme.ERROR}
                                              iconCls="fa fa-trash"/>
 
                                 <GhostButton value="Next"
-                                             theme="primary"
+                                             theme={Theme.PRIMARY}
                                              rightIconCls="fa fa-chevron-right"/>
 
                             </div>
@@ -155,15 +177,15 @@ export default class GhostButtonExamples extends Component {
                                              isCircular={true}/>
 
                                 <GhostButton value="Add"
-                                             theme="success"
+                                             theme={Theme.SUCCESS}
                                              isCircular={true}/>
 
                                 <GhostButton value="Delete"
-                                             theme="error"
+                                             theme={Theme.ERROR}
                                              isCircular={true}/>
 
                                 <GhostButton value="Next"
-                                             theme="primary"
+                                             theme={Theme.PRIMARY}
                                              isCircular={true}/>
 
                             </div>
