@@ -9,7 +9,7 @@
     height: 30px;
     line-height: 30px;
     padding: 0 6px;
-    color: #fff;
+    color: $theme-field;
     white-space: nowrap;
     border-radius: $theme-border-radius;
     text-align: center;
@@ -22,7 +22,7 @@
     .tip-ripple {
         position: absolute;
         z-index: -1;
-        background: transparentize(#000, .4);
+        background: $theme-field-bg;
         border-radius: 50%;
         transform: scale(.4);
         transition: transform $transition-duration ease-in-out;

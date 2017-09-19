@@ -152,7 +152,7 @@
                         }
                         li.current-days {
                             a {
-                                color: #4C637B;
+                                color: $theme-field;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
@@ -160,20 +160,20 @@
                         }
                         li.current-days:hover {
                             a {
-                                background: #ecf6fd;
+                                background:$theme-field-bg-hover;
                             }
                         }
                         li.active {
                             a {
                                 border-radius: 50%;
-                                background: $theme-highlight;
+                                background: $theme-field-bg-active;
                                 color: #fff;
                             }
 
                         }
                         li.active:hover {
                             a {
-                                background: $theme-highlight;
+                                background: $theme-field-bg-hover;
                             }
 
                         }
@@ -202,7 +202,7 @@
                                 display: inline-block;
                                 width: 40px;
                                 height: 40px;
-                                color: #4C637B;
+                                color:$theme-field;
                                 line-height: 40px;
                                 margin-top: 5px;
                                 border-radius: 50%;
@@ -212,13 +212,13 @@
                         }
                         li.current-months:hover, li.current-years:hover {
                             a {
-                                background: #ecf6fd;
+                                background: $theme-field-bg-hover;
                             }
 
                         }
                         li.active {
                             a {
-                                background: #108ee9;
+                                background: $theme-field-bg-active;
                                 color: #fff;
                             }
 
@@ -235,7 +235,7 @@
                 overflow: hidden;
                 box-sizing: border-box;
                 transition: all $transition-duration ease-in-out;
-                border-left: 1px solid #dfdfdf;
+                border-left: 1px solid $theme-border;
                 user-select: none;
 
                 &:first-child {
@@ -255,10 +255,10 @@
                         line-height: 30px;
                         cursor: pointer;
                         &:hover {
-                            background: $theme-container-bg;
+                            background: $theme-field-bg-hover;
                         }
                         &.active {
-                            background: $theme-container-bg;
+                            background: $theme-field-bg-active;
                             color: $theme-field;
                             font-weight: 600;
                         }
@@ -271,8 +271,8 @@
             }
             &.time-picker-body {
                 overflow: hidden;
-                border-bottom: 1px solid #dfdfdf;
-                border-top: 1px solid #dfdfdf;
+                border-bottom: 1px solid $theme-border;
+                border-top: 1px solid $theme-border;
                 &.hidden {
                     display: none;
                 }
@@ -290,7 +290,7 @@
                 overflow: hidden;
                 a {
                     text-decoration: none;
-                    color: #108ee9;
+                    color: $theme-field;
                     position: relative;
                     overflow: hidden;
                     .item-gray {
@@ -314,10 +314,10 @@
                     height: 26px;
                     line-height: 20px;
                     text-align: center;
-                    background: #38B1EB;
+                    background: $theme-field-bg-active;
                     color: #fff;
                     &.active {
-                        background: #38B1EB;
+                        background: $theme-field-bg-active;
                     }
                 }
             }
