@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 export default class ButtonCheckbox extends Component {
 
@@ -45,11 +46,12 @@ export default class ButtonCheckbox extends Component {
         const {value} = this.state;
 
         return (
-            <RaisedButton className={`toggle-button ${value ? 'activated' : ''} ${className}`}
+            <RaisedButton className={`button-checkbox ${value ? 'activated' : ''} ${className}`}
                           style={style}
                           value={text}
                           disabled={disabled}
                           isRounded={true}
+                          theme={value ? Theme.PRIMARY : Theme.DEFAULT}
                           onTouchTap={this.touchTapHandler}/>
         );
 
