@@ -4,20 +4,7 @@
  */
 
 @mixin icon-anchor-theme($color) {
-    background: transparent;
     color: $color;
-
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-    }
 }
 
 .icon-anchor {
@@ -33,8 +20,18 @@
     font-size: 12px;
     user-select: none;
     overflow: hidden;
+    background: transparent;
+
+    .button-icon {
+        color: inherit;
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
 
     &[disabled] {
+        color: $theme-field-disabled;
         cursor: not-allowed;
     }
 
@@ -45,8 +42,14 @@
     &.theme-primary {
         @include icon-anchor-theme($theme-primary);
     }
+    &.theme-secondary {
+        @include icon-anchor-theme($theme-secondary);
+    }
     &.theme-highlight {
         @include icon-anchor-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include icon-anchor-theme($theme-info);
     }
     &.theme-success {
         @include icon-anchor-theme($theme-success);
