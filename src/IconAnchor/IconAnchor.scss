@@ -5,6 +5,14 @@
 
 @mixin icon-anchor-theme($color) {
     color: $color;
+
+    &:hover {
+        color: theme-color-hover($color);
+    }
+
+    &:active {
+        color: theme-color-active($color);
+    }
 }
 
 .icon-anchor {
@@ -20,7 +28,7 @@
     font-size: 12px;
     user-select: none;
     overflow: hidden;
-    background: transparent;
+    background-color: transparent;
 
     .button-icon {
         color: inherit;
@@ -31,8 +39,7 @@
     }
 
     &[disabled] {
-        color: $theme-field-disabled;
-        cursor: not-allowed;
+        color: $theme-field-disabled !important;
     }
 
     // default theme
