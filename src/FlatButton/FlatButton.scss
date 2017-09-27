@@ -13,10 +13,6 @@
 
     &:hover {
         background: $theme-secondary;
-
-        &[disabled] {
-            background: transparent;
-        }
     }
 
     &[disabled] {
