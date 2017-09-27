@@ -38,6 +38,7 @@ export default class IconButton extends Component {
             <BaseButton {...this.props}
                         ref="baseButton"
                         className={`icon-button ${className}`}
+                        value={null}
                         isCircular={isCircular}
                         rippleDisplayCenter={true}>
 
@@ -75,11 +76,6 @@ IconButton.propTypes = {
      * If true,the button will be round.
      */
     isCircular: PropTypes.bool,
-
-    /**
-     * The text of the button.Type can be string or number.
-     */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * The type of button.Can be reset,submit or button.
@@ -132,7 +128,6 @@ IconButton.defaultProps = {
     isRounded: false,
     isCircular: true,
 
-    value: '',
     disabled: false,
     type: 'button',
     isLoading: false,
