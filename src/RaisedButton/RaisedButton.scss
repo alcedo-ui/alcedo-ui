@@ -3,16 +3,24 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin raised-button-theme($color, $bg-color, $border-color) {
+@mixin raised-button-theme($color, $bg-color) {
     color: $color;
-    background: $bg-color;
-    border-color: $border-color;
+    background-color: $bg-color;
+
+    &:hover {
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
+    }
+
+    &:active {
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
+    }
 }
 
 .raised-button {
     @include shadow(1);
-    border-width: 1px;
-    border-style: solid;
+    border: none;
 
     .button-icon {
         color: inherit;
@@ -32,42 +40,35 @@
 
     &[disabled] {
         box-shadow: none !important;
-        color: $theme-field-disabled;
-        background: $theme-field-bg-disabled;
-
-        &:hover {
-            background: $theme-field-bg-disabled;
-        }
-
-        &:active {
-            background: $theme-field-bg-disabled;
-        }
+        color: $theme-field-disabled !important;
+        background-color: $theme-field-bg-disabled !important;
+        border-color: $theme-border-disabled !important;
     }
 
     // default theme
-    @include raised-button-theme($theme-field, $theme-field-bg, $theme-border);
+    @include raised-button-theme($theme-field, $theme-field-bg);
 
     // other themes
     &.theme-primary {
-        @include raised-button-theme($theme-secondary, $theme-primary, $theme-primary);
+        @include raised-button-theme($theme-secondary, $theme-primary);
     }
     &.theme-secondary {
-        @include raised-button-theme($theme-primary, $theme-secondary, $theme-secondary);
+        @include raised-button-theme($theme-primary, $theme-secondary);
     }
     &.theme-highlight {
-        @include raised-button-theme(#fff, $theme-highlight, $theme-highlight);
+        @include raised-button-theme(#fff, $theme-highlight);
     }
     &.theme-info {
-        @include raised-button-theme(#fff, $theme-info, $theme-info);
+        @include raised-button-theme(#fff, $theme-info);
     }
     &.theme-success {
-        @include raised-button-theme(#fff, $theme-success, $theme-success);
+        @include raised-button-theme(#fff, $theme-success);
     }
     &.theme-warning {
-        @include raised-button-theme(#fff, $theme-warning, $theme-warning);
+        @include raised-button-theme(#fff, $theme-warning);
     }
     &.theme-error {
-        @include raised-button-theme(#fff, $theme-error, $theme-error);
+        @include raised-button-theme(#fff, $theme-error);
     }
 
 }
