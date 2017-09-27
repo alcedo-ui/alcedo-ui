@@ -11,11 +11,10 @@
     }
 
     .draggable-grid-group-name {
-        background: transparent;
+        background-color: transparent !important;
         height: 30px;
         line-height: 30px;
         padding-left: 5px;
-        box-shadow: none;
 
         &:hover,
         &:active {
