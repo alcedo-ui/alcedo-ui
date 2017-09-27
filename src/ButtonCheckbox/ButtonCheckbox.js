@@ -51,7 +51,7 @@ export default class ButtonCheckbox extends Component {
                           value={text}
                           disabled={disabled}
                           isRounded={true}
-                          theme={value ? Theme.PRIMARY : Theme.DEFAULT}
+                          theme={value ? Theme.HIGHLIGHT : Theme.DEFAULT}
                           onTouchTap={this.touchTapHandler}/>
         );
 
