@@ -43,6 +43,10 @@ button:focus {
         }
     }
 
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
+
     .touch-ripple {
         border-radius: $theme-border-radius;
 
