@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Paper from 'dist/Paper';
 import DraggableGrid from 'dist/DraggableGrid';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
