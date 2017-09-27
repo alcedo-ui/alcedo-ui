@@ -1,19 +1,17 @@
 @import './_common.scss';
 
+$theme-color-transition-percent: 4%;
+
 @function theme-color-focus($color) {
-    @return lighten($color, 8%);
+    @return lighten($color, $theme-color-transition-percent);
 }
 
 @function theme-color-hover($color) {
-    @return lighten($color, 8%);
+    @return lighten($color, $theme-color-transition-percent);
 }
 
 @function theme-color-active($color) {
-    @return darken($color, 8%);
-}
-
-@function theme-color-disabled($color) {
-    @return grayscale(lighten($color, 8%));
+    @return darken($color, $theme-color-transition-percent);
 }
 
 $theme-primary: #4c637b;
@@ -33,19 +31,19 @@ $theme-field: #4c637b;
 $theme-field-focus: theme-color-focus($theme-field);
 $theme-field-hover: theme-color-hover($theme-field);
 $theme-field-active: theme-color-active($theme-field);
-$theme-field-disabled: theme-color-disabled($theme-field);
+$theme-field-disabled: #d9d9d9;
 
 $theme-field-bg: #fff;
 $theme-field-bg-focus: theme-color-focus($theme-field-bg);
 $theme-field-bg-hover: theme-color-hover($theme-field-bg);
 $theme-field-bg-active: theme-color-active($theme-field-bg);
-$theme-field-bg-disabled: theme-color-disabled($theme-field-bg);
+$theme-field-bg-disabled: #f7f7f7;
 
 $theme-border: #f3f6fa;
 $theme-border-focus: theme-color-focus($theme-border);
 $theme-border-hover: theme-color-hover($theme-border);
 $theme-border-active: theme-color-active($theme-border);
-$theme-border-disabled: theme-color-disabled($theme-border);
+$theme-border-disabled: #d9d9d9;
 $theme-border-radius: 4px;
 
 $theme-label: #4c637b;
