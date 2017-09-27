@@ -30,14 +30,6 @@
     overflow: hidden;
     background-color: transparent;
 
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
     &[disabled] {
         color: $theme-field-disabled !important;
     }
