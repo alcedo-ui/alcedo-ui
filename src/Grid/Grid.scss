@@ -7,5 +7,6 @@
     @include float-fix;
     padding-top: 10px;
     background: $theme-container-bg;
+    border: 1px solid $theme-border;
     overflow: auto;
 }
