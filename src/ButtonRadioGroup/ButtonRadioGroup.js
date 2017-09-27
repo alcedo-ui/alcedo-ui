@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 export default class ButtonRadioGroup extends Component {
 
@@ -69,6 +70,7 @@ export default class ButtonRadioGroup extends Component {
                                           style={item.style}
                                           value={item.label}
                                           disabled={disabled || item.disabled}
+                                          theme={isChecked ? Theme.PRIMARY : Theme.DEFAULT}
                                           onTouchTap={() => {
                                               this.changeHandle(item);
                                           }}/>
