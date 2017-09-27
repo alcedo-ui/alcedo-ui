@@ -22,14 +22,6 @@
     @include shadow(1);
     border: none;
 
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
     &:hover {
         @include shadow(3);
     }
