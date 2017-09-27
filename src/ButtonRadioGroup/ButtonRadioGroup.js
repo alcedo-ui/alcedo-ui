@@ -70,7 +70,7 @@ export default class ButtonRadioGroup extends Component {
                                           style={item.style}
                                           value={item.label}
                                           disabled={disabled || item.disabled}
-                                          theme={isChecked ? Theme.PRIMARY : Theme.DEFAULT}
+                                          theme={isChecked ? Theme.HIGHLIGHT : Theme.DEFAULT}
                                           onTouchTap={() => {
                                               this.changeHandle(item);
                                           }}/>
