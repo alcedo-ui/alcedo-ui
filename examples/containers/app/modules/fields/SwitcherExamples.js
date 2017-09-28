@@ -38,7 +38,8 @@ export default class SwitcherExamples extends Component {
 
                                 <p>Switcher simple example.Set the value property to true for active status.</p>
 
-                                <Switcher value={true}/>
+                                <Switcher value={true}
+                                          labelVisible={true}/>
 
                             </div>
 
