@@ -22,23 +22,23 @@ export default class CheckboxExamples extends Component {
 
         this.data = [{
             id: 1,
-            label: 1,
+            label: 'checkbox1',
             value: 1
         }, {
             id: 2,
-            label: 2,
+            label: 'checkbox2',
             value: 2
         }, {
             id: 3,
-            label: 3,
+            label: 'checkbox3',
             value: 3
         }, {
             id: 4,
-            label: 4,
+            label: 'checkbox4',
             value: 4
         }, {
             id: 5,
-            label: 5,
+            label: 'checkbox5',
             value: 5
         }];
 
@@ -49,7 +49,7 @@ export default class CheckboxExamples extends Component {
 
     checkboxChangeHandler(value) {
         this.setState({
-            checkboxGroupValue: value ? this.data : []
+            checkboxGroupValue: value ? [...this.data] : []
         });
     }
 
