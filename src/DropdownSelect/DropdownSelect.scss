@@ -47,6 +47,7 @@
     max-height: 240px;
     overflow-y: auto;
     margin: 0;
+    border: 1px solid $theme-border;
 
     .dropdown-select-filter {
         border: none;
@@ -81,12 +82,12 @@
     &.above {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        border-bottom: 1px solid $theme-border;
+        border-bottom: none;
     }
 
     &.blow {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        border-top: 1px solid $theme-border;
+        border-top: none;
     }
 }
