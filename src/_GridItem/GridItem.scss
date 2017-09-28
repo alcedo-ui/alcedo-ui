@@ -15,7 +15,7 @@
         height: 40px;
         position: relative;
         line-height: 40px;
-        border: none;
+        border: 1px solid $theme-border;
         color: $theme-field;
         background-color: $theme-field-bg;
         transition: all $transition-duration ease-in-out;
