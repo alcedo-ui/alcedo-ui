@@ -54,7 +54,7 @@ export default class CheckboxGroup extends Component {
 
     render() {
 
-        const {className, style, name, disabled, data} = this.props;
+        const {className, style, name, disabled, data, idProp} = this.props;
         const {value} = this.state;
 
         return (
@@ -68,7 +68,7 @@ export default class CheckboxGroup extends Component {
                         const isChecked = value && value.findIndex(v => v.value === item.value) > -1;
 
                         return (
-                            <Checkbox key={index}
+                            <Checkbox key={idProp in item ? item[idProp] : index}
                                       className={item.className ? item.className : ''}
                                       style={item.style}
                                       name={name}
@@ -107,6 +107,8 @@ CheckboxGroup.propTypes = {
     value: PropTypes.array,
     disabled: PropTypes.bool,
 
+    idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
     onChange: PropTypes.func
 
 };
@@ -119,6 +121,7 @@ CheckboxGroup.defaultProps = {
     name: '',
     data: [],
     value: [],
-    disabled: false
+    disabled: false,
+    idProp: 'id'
 
 };
