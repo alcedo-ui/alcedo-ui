@@ -58,10 +58,7 @@ export default class SwitcherExamples extends Component {
 
                                 <p>Set the size property to small for small size switcher.</p>
 
-                                <Switcher size="small"
-                                          beforeChange={() => {
-                                              return false;
-                                          }}/>
+                                <Switcher size={Switcher.Size.SMALL}/>
 
                             </div>
 
