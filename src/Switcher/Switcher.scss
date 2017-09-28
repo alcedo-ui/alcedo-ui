@@ -80,14 +80,12 @@
         .switcher-slider-wrapper {
             width: 40px;
             height: 40px;
-            padding: 10px;
-            top: -9px;
-            left: -9px;
+            padding: 9px;
+            transform: translate(-12px, -15px);
 
             .switcher-slider {
-                width: 20px;
-                height: 20px;
-                border-radius: 10px;
+                width: 22px;
+                height: 22px;
 
                 .switcher-loading {
                     width: 20px;
@@ -99,7 +97,7 @@
 
         &.activated {
             .switcher-slider-wrapper {
-                left: 7px;
+                transform: translate(4px, -15px);
             }
         }
     }

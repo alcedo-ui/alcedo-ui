@@ -72,7 +72,7 @@ export default class Switcher extends Component {
         const {className, style, disabled, isLoading, size} = this.props,
             {value} = this.state,
 
-            switcherClassName = (value == true ? ' activated' : '') + (size === ' small' ? ' small' : '')
+            switcherClassName = (value === true ? ' activated' : '') + (size === Switcher.Size.SMALL ? ' small' : '')
                 + (className ? ' ' + className : '');
 
         return (
