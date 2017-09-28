@@ -50,8 +50,9 @@
         }
 
         thead tr th {
-            color: $theme-field-disabled;
+            color: $theme-title;
             font-size: 15px;
+            border: none;
         }
 
     }
