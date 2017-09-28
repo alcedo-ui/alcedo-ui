@@ -7,7 +7,7 @@
     .landing-section-intro-bg {
         width: 100%;
         height: 100%;
-        background-color: transparentize($theme-menu, .5);
+        background-color: transparentize($theme-primary, .5);
         background-image: url("../../../../images/intro-bg.jpg");
         background-size: auto 100%;
         background-position: 50% 50%;
@@ -21,7 +21,7 @@
         display: table;
         width: 100%;
         height: 100%;
-        background: transparentize($theme-menu, .3);
+        background: transparentize($theme-primary, .3);
 
         .landing-section-inner {
             display: table-cell;
@@ -67,7 +67,7 @@
                 &:hover {
                     border-color: #fff;
                     background: #fff;
-                    color: $theme-menu;
+                    color: $theme-primary;
                 }
             }
         }

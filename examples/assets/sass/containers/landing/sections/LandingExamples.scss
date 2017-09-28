@@ -8,9 +8,9 @@
 
         .ghost-button {
             display: block;
-            border: 1px solid transparentize($theme-menu, .3);
+            border: 1px solid transparentize($theme-primary, .3);
             border-radius: 25px;
-            color: transparentize($theme-menu, .3);
+            color: transparentize($theme-primary, .3);
             width: 140px;
             font-size: 14px;
             margin: 20px auto 0;
@@ -21,8 +21,8 @@
             }
 
             &:hover {
-                border-color: $theme-menu;
-                background: $theme-menu;
+                border-color: $theme-primary;
+                background: $theme-primary;
                 color: #fff;
             }
         }
