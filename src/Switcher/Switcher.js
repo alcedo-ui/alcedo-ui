@@ -69,7 +69,7 @@ export default class Switcher extends Component {
 
     render() {
 
-        const {className, style, disabled, isLoading, size} = this.props,
+        const {className, style, disabled, isLoading, size, labelVisible} = this.props,
             {value} = this.state,
 
             switcherClassName = (value === true ? ' activated' : '') + (size === Switcher.Size.SMALL ? ' small' : '')
@@ -81,8 +81,12 @@ export default class Switcher extends Component {
                  onTouchTap={this.touchTapHandler}
                  disabled={disabled || isLoading}>
 
-                <div className="switcher-on-icon"></div>
-                <div className="switcher-off-icon"></div>
+                {
+                    labelVisible ?
+                        <div className="switcher-label"></div>
+                        :
+                        null
+                }
 
                 <IconButton className="switcher-slider-wrapper"
                             disableTouchRipple={disabled || isLoading}>
@@ -129,6 +133,8 @@ Switcher.propTypes = {
      */
     isLoading: PropTypes.bool,
 
+    labelVisible: PropTypes.bool,
+
     /**
      * The size of switcher.The value can be small or default.
      */
@@ -159,6 +165,7 @@ Switcher.defaultProps = {
     value: false,
     disabled: false,
     isLoading: false,
+    labelVisible: false,
     size: Switcher.Size.DEFAULT
 
 };
