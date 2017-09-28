@@ -3,6 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin text-field-theme($color, $border-color) {
+
+    .text-field-icon,
+    .icon-button {
+        color: $color;
+    }
+
+    &.focused {
+        border-color: $border-color;
+    }
+}
+
 input,
 input:focus {
     outline: none;
@@ -17,6 +29,7 @@ input:focus {
     color: $theme-field;
     background: $theme-field-bg;
     border: 1px solid $theme-border;
+    transition: border-color $transition-duration ease-in-out;
 
     .text-field-icon,
     .icon-button {
@@ -96,14 +109,6 @@ input:focus {
         }
     }
 
-    &.focused {
-        border-color: lighten($theme-title, 20%);
-    }
-
-    &.error {
-        border-color: transparentize($theme-error, .3);
-    }
-
     &.disabled {
         background: $theme-field-bg-disabled;
 
@@ -116,5 +121,31 @@ input:focus {
             cursor: not-allowed;
             color: lighten($theme-field, 20%);
         }
+    }
+
+    // default theme
+    @include text-field-theme($theme-primary, $theme-primary);
+
+    // other themes
+    &.theme-primary {
+        @include text-field-theme($theme-primary, $theme-primary);
+    }
+    &.theme-secondary {
+        @include text-field-theme($theme-secondary, $theme-secondary);
+    }
+    &.theme-highlight {
+        @include text-field-theme($theme-highlight, $theme-highlight);
+    }
+    &.theme-info {
+        @include text-field-theme($theme-info, $theme-info);
+    }
+    &.theme-success {
+        @include text-field-theme($theme-success, $theme-success);
+    }
+    &.theme-warning {
+        @include text-field-theme($theme-warning, $theme-warning);
+    }
+    &.theme-error {
+        @include text-field-theme($theme-error, $theme-error);
     }
 }
