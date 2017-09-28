@@ -218,7 +218,7 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
+                className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
                 renderer, onItemTouchTap, onFilterClear
             } = this.props,
@@ -269,6 +269,7 @@ export default class LocalAutoComplete extends Component {
 
                 <TextField ref="trigger"
                            className={'local-auto-complete-trigger' + triggerClassName}
+                           theme={theme}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
@@ -282,6 +283,7 @@ export default class LocalAutoComplete extends Component {
 
                 <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
                        style={autoCompletePopupStyle}
+                       theme={theme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -291,6 +293,7 @@ export default class LocalAutoComplete extends Component {
                        onRequestClose={this.closePopup}>
 
                     <List className="local-auto-complete-list"
+                          theme={theme}
                           value={value}
                           mode={isEmpty ? List.Mode.NORMAL : (mode || List.Mode.NORMAL)}
                           isGrouped={isEmpty ? false : isGrouped}
@@ -331,6 +334,11 @@ LocalAutoComplete.propTypes = {
      * Override the styles of the popup element.
      */
     popupStyle: PropTypes.object,
+
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the auto complete.
@@ -520,6 +528,7 @@ LocalAutoComplete.defaultProps = {
     popupClassName: '',
     style: null,
     popupStyle: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     placeholder: '',
