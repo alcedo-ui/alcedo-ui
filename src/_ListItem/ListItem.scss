@@ -35,6 +35,8 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: $theme-field;
+    background-color: $theme-field-bg;
 
     .list-item-checkbox {
         display: inline-block;
@@ -115,8 +117,16 @@
         background-color: $theme-field-bg-disabled !important;
     }
 
+    &:hover {
+        background-color: $theme-secondary;
+    }
+
+    &:active {
+        background-color: theme-color-active($theme-field-bg);
+    }
+
     // default theme
-    @include list-item-theme($theme-field, $theme-field-bg);
+    //@include list-item-theme($theme-field, $theme-field-bg);
 
     // other themes
     &.theme-primary {
