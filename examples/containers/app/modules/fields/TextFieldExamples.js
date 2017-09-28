@@ -85,7 +85,6 @@ export default class TextFieldExamples extends Component {
 
                 </Widget>
 
-
                 <Widget>
 
                     <WidgetHeader className="example-header"
@@ -178,6 +177,30 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <TextField pattern={/^[abc]*$/}
                                                patternInvalidMsg="Only a, b, c is allowed."/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Disabled"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+                                    <TextField rightIconCls={'fa fa-search'}
+                                               value="Disabled"
+                                               theme={Theme.PRIMARY}
+                                               disabled={true}/>
                                 </div>
 
                             </div>
