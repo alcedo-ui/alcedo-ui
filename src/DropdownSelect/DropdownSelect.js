@@ -164,12 +164,12 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, itemTouchTapHandle, disableTouchRipple
+                theme, isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
             emptyEl = [{
-                renderer() {
+                itemRenderer() {
                     return (
                         <div className="no-matched-list-item">
 
@@ -232,7 +232,7 @@ export default class DropdownSelect extends Component {
                               value={triggerValue}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
-                              theme={triggerTheme}
+                              theme={theme}
                               disableTouchRipple={disableTouchRipple}
                               onTouchTap={this.togglePopup}/>
 
@@ -242,6 +242,7 @@ export default class DropdownSelect extends Component {
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
+                       theme={theme}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
@@ -264,6 +265,7 @@ export default class DropdownSelect extends Component {
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
+                          theme={theme}
                           onItemTouchTap={itemTouchTapHandle}
                           onChange={this.changeHandler}/>
 
@@ -296,6 +298,11 @@ DropdownSelect.propTypes = {
      * Override the styles of the popup element.
      */
     popupStyle: PropTypes.object,
+
+    /**
+     * The theme of DropdownSelect.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the dropDownSelect.
@@ -443,11 +450,6 @@ DropdownSelect.propTypes = {
     noMatchedMsg: PropTypes.string,
 
     /**
-     * The theme of DropdownSelect.Can be primary,highlight,success,warning,error.
-     */
-    triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * If true,the drop-down box will be have group selection.
      */
     isGrouped: PropTypes.bool,
@@ -475,6 +477,7 @@ DropdownSelect.defaultProps = {
     popupClassName: '',
     style: null,
     popupStyle: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     value: null,
@@ -492,7 +495,6 @@ DropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     noMatchedMsg: '',
-    triggerTheme: Theme.DEFAULT,
     isGrouped: false
 
 };
