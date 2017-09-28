@@ -81,6 +81,9 @@ export default class Switcher extends Component {
                  onTouchTap={this.touchTapHandler}
                  disabled={disabled || isLoading}>
 
+                <div className="switcher-on-icon"></div>
+                <div className="switcher-off-icon"></div>
+
                 <IconButton className="switcher-slider-wrapper"
                             disableTouchRipple={disabled || isLoading}>
                     <div className="switcher-slider">

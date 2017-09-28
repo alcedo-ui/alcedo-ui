@@ -15,6 +15,27 @@
     transition: background-color $transition-duration ease-in-out,
     background-color $transition-duration ease-in-out;
 
+    .switcher-on-icon {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        width: 0;
+        height: 10px;
+        border: none;
+        border-right: 1px solid #fff;
+    }
+
+    .switcher-off-icon {
+        position: absolute;
+        right: 5px;
+        top: 8px;
+        box-sizing: border-box;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1px solid $theme-border;
+    }
+
     .switcher-slider-wrapper {
         width: 50px !important;
         height: 50px !important;
@@ -78,6 +99,19 @@
         width: 40px;
         height: 24px;
         border-radius: 12px;
+
+        .switcher-on-icon {
+            left: 8px;
+            top: 6px;
+            height: 8px;
+        }
+
+        .switcher-off-icon {
+            right: 4px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+        }
 
         .switcher-slider-wrapper {
             width: 40px;
