@@ -229,20 +229,20 @@ export default class DropdownSelect extends Component {
 
                 <RaisedButton ref="trigger"
                               className={'dropdown-select-trigger' + triggerClassName}
+                              theme={theme}
                               value={triggerValue}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
-                              theme={theme}
                               disableTouchRipple={disableTouchRipple}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={'dropdown-select-popup' + dropdownSelectPopupClassName}
                        style={dropdownPopupStyle}
+                       theme={theme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       theme={theme}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
@@ -258,6 +258,7 @@ export default class DropdownSelect extends Component {
                     }
 
                     <List className="dropdown-select-list"
+                          theme={theme}
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
@@ -265,7 +266,6 @@ export default class DropdownSelect extends Component {
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
-                          theme={theme}
                           onItemTouchTap={itemTouchTapHandle}
                           onChange={this.changeHandler}/>
 
@@ -300,7 +300,7 @@ DropdownSelect.propTypes = {
     popupStyle: PropTypes.object,
 
     /**
-     * The theme of DropdownSelect.Can be primary,highlight,success,warning,error.
+     * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
