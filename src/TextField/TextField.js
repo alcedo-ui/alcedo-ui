@@ -312,7 +312,8 @@ export default class TextField extends Component {
                        onMouseOver={this.mouseoverHandler}
                        onMouseOut={this.mouseoutHandler}
                        onFocus={this.focusHandler}
-                       onBlur={this.blurHandler}/>
+                       onBlur={this.blurHandler}
+                       disabled={disabled}/>
 
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
