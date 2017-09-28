@@ -42,7 +42,7 @@
     }
 
     // default theme
-    @include raised-button-theme($theme-field, $theme-field-bg, $theme-secondary);
+    @include raised-button-theme($theme-field, $theme-field-bg, $theme-border);
 
     // other themes
     &.theme-primary {
