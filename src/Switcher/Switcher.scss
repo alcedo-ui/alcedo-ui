@@ -12,6 +12,8 @@
     cursor: pointer;
     border: 2px solid $theme-border;
     background-color: $theme-field-bg;
+    transition: background-color $transition-duration ease-in-out,
+    background-color $transition-duration ease-in-out;
 
     .switcher-slider-wrapper {
         width: 50px !important;
