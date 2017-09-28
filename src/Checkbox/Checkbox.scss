@@ -28,7 +28,7 @@
         }
 
         .checkbox-bg-icon {
-            color: lighten($theme-field, 45%);
+            color: $theme-secondary;
 
             .button-icon {
                 transition: all $transition-duration ease-in-out;
@@ -69,11 +69,11 @@
     }
 
     &[disabled] {
-        color: lighten($theme-field, 30%);
-        cursor: not-allowed;
+        color: $theme-field-disabled;
 
-        &.activated {
-            color: lighten($theme-highlight, 30%);
+        .checkbox-icon-wrapper,
+        .checkbox-label {
+            cursor: not-allowed;
         }
     }
 
