@@ -12,9 +12,10 @@
 
     .draggable-grid-group-name {
         background-color: transparent !important;
-        height: 30px;
-        line-height: 30px;
-        padding-left: 5px;
+        height: 20px !important;
+        line-height: 20px !important;
+        padding: 0 !important;
+        border: none !important;
     }
 
     .draggable-grid-group-item-wrapper {
@@ -26,8 +27,8 @@
         right: 0;
         top: 0;
         width: 40px;
-        height: 30px;
-        line-height: 30px;
+        height: 20px;
+        line-height: 20px;
         text-align: center;
         color: lighten($theme-title, 32%) !important;
         cursor: move;
