@@ -25,11 +25,11 @@ export default class Switcher extends Component {
             value: !!props.value
         };
 
-        this.toggle = ::this.toggle;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
-    toggle(e) {
+    touchTapHandler(e) {
 
         e.preventDefault();
 
@@ -69,24 +69,26 @@ export default class Switcher extends Component {
 
     render() {
 
-        const {className, style, disabled, isLoading, size} = this.props;
-        const {value} = this.state;
+        const {className, style, disabled, isLoading, size} = this.props,
+            {value} = this.state,
+
+            switcherClassName = (value == true ? ' activated' : '') + (size === ' small' ? ' small' : '')
+                + (className ? ' ' + className : '');
 
         return (
-            <div className={`switcher ${value == true ? 'active' : 'inactive'}
-                    ${size === 'small' ? 'small' : ''} ${className}`}
+            <div className={'switcher' + switcherClassName}
                  style={style}
-                 onTouchTap={this.toggle}
+                 onTouchTap={this.touchTapHandler}
                  disabled={disabled || isLoading}>
 
                 <IconButton className="switcher-slider-wrapper"
                             disableTouchRipple={disabled || isLoading}>
-
                     <div className="switcher-slider">
                         {
                             isLoading ?
                                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw switcher-loading"></i>
-                                : null
+                                :
+                                null
                         }
                     </div>
                 </IconButton>
