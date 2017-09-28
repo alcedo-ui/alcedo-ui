@@ -10,18 +10,28 @@
     border-radius: 15px;
     position: relative;
     cursor: pointer;
-    border: 2px solid $theme-border;
-    background-color: $theme-field-bg;
-    transition: background-color $transition-duration ease-in-out,
-    background-color $transition-duration ease-in-out;
+    background-color: $theme-highlight;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
+        background-color: $theme-field-bg;
+        border: 2px solid $theme-border;
+        border-radius: 30px;
+        transition: all $transition-duration ease-in-out;
+    }
 
     .switcher-label {
 
         &::before {
             content: '';
             position: absolute;
-            left: 10px;
-            top: 8px;
+            left: 12px;
+            top: 10px;
             width: 0;
             height: 10px;
             border: none;
@@ -31,8 +41,8 @@
         &::after {
             content: '';
             position: absolute;
-            right: 5px;
-            top: 8px;
+            right: 7px;
+            top: 10px;
             box-sizing: border-box;
             width: 10px;
             height: 10px;
@@ -41,27 +51,6 @@
         }
     }
 
-    //.switcher-on-icon {
-    //    position: absolute;
-    //    left: 10px;
-    //    top: 8px;
-    //    width: 0;
-    //    height: 10px;
-    //    border: none;
-    //    border-right: 1px solid #fff;
-    //}
-
-    //.switcher-off-icon {
-    //    position: absolute;
-    //    right: 5px;
-    //    top: 8px;
-    //    box-sizing: border-box;
-    //    width: 10px;
-    //    height: 10px;
-    //    border-radius: 50%;
-    //    border: 1px solid $theme-border;
-    //}
-
     .switcher-slider-wrapper {
         width: 50px !important;
         height: 50px !important;
@@ -69,7 +58,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        transform: translate(-12px, -12px);
+        transform: translate(-10px, -10px);
         transition: transform $transition-duration ease-in-out;
 
         .switcher-slider {
@@ -80,7 +69,7 @@
             border-radius: 50%;
             background: $theme-field-bg;
             border: 1px solid $theme-border;
-            line-height: 30px;
+            line-height: 26px;
 
             .switcher-loading {
                 width: 20px;
@@ -96,10 +85,18 @@
 
     &.activated {
         border-color: $theme-highlight;
-        background-color: $theme-highlight;
+
+        &::before {
+            top: 50%;
+            right: 5px;
+            bottom: 50%;
+            left: 50%;
+            border-width: 0;
+            border-radius: 5px;
+        }
 
         .switcher-slider-wrapper {
-            transform: translate(8px, -12px);
+            transform: translate(10px, -10px);
 
             .switcher-slider {
                 border-color: transparent;
@@ -108,11 +105,17 @@
     }
 
     &[disabled] {
-        background-color: $theme-field-bg-disabled;
-        border-color: $theme-border-disabled;
         cursor: not-allowed;
 
+        &::before {
+            cursor: not-allowed;
+            border-color: $theme-border-disabled;
+            background-color: $theme-field-bg-disabled;
+        }
+
         .switcher-slider-wrapper {
+            cursor: not-allowed;
+
             .switcher-slider {
                 box-shadow: none;
                 background-color: $theme-field-bg-disabled;
@@ -129,14 +132,14 @@
         .switcher-label {
 
             &::before {
-                left: 8px;
-                top: 6px;
+                left: 10px;
+                top: 8px;
                 height: 8px;
             }
 
             &::after {
-                right: 4px;
-                top: 6px;
+                right: 6px;
+                top: 8px;
                 width: 8px;
                 height: 8px;
             }
@@ -146,7 +149,7 @@
             width: 40px;
             height: 40px;
             padding: 9px;
-            transform: translate(-12px, -15px);
+            transform: translate(-11px, -13px);
 
             .switcher-slider {
                 width: 22px;
@@ -162,7 +165,7 @@
 
         &.activated {
             .switcher-slider-wrapper {
-                transform: translate(4px, -15px);
+                transform: translate(6px, -13px);
             }
         }
     }
