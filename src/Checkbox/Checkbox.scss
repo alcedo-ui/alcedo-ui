@@ -6,7 +6,6 @@
 .checkbox {
     color: $theme-field;
     height: 40px;
-    cursor: pointer;
 
     .checkbox-icon-wrapper {
         display: inline-block;
@@ -14,6 +13,7 @@
         height: 100%;
         position: relative;
         vertical-align: middle;
+        cursor: pointer;
 
         .checkbox-bg-icon,
         .checkbox-icon {
@@ -50,6 +50,7 @@
         cursor: inherit;
         user-select: none;
         vertical-align: middle;
+        cursor: pointer;
     }
 
     &.activated {
