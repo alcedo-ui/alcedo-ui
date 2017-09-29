@@ -308,14 +308,20 @@
     }
 
     // default theme
-    @include menu-theme(#fff);
+    @include menu-theme($theme-field-bg);
 
     // other themes
     &.theme-primary {
         @include menu-theme($theme-primary);
     }
+    &.theme-secondary {
+        @include menu-theme($theme-secondary);
+    }
     &.theme-highlight {
         @include menu-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include menu-theme($theme-info);
     }
     &.theme-success {
         @include menu-theme($theme-success);

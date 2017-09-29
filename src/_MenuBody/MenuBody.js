@@ -382,15 +382,15 @@ MenuBody.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    theme: Theme.DEFAULT,
     position: MenuBody.Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: MenuBody.TriggerMode.TOGGLE,
-    depth: 4,
+    depth: 6,
     shouldPreventContainerScroll: true
 
 };
