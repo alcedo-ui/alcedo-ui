@@ -125,11 +125,12 @@ export default class MenuExamples extends Component {
 
                                 <Menu visible={menuVisible1}
                                       triggerEl={triggerEl1}
-                                      theme={Theme.PRIMARY}
                                       onRequestClose={() => {
                                           this.hideMenu(1);
                                       }}>
-                                    <List items={items}/>
+                                    <div style={{padding: 20}}>
+                                        Menu
+                                    </div>
                                 </Menu>
 
                             </div>
