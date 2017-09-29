@@ -31,7 +31,7 @@
 
     &:hover {
         td {
-            background: $theme-secondary;
+            background: theme-color-hover($theme-secondary);
 
             &.actions {
 
