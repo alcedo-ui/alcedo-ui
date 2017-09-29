@@ -7,8 +7,6 @@ import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import TabDoc from 'assets/propTypes/Tab.json';
 
-import 'sass/containers/app/modules/layout/TabExamples.scss';
-
 export default class TabExamples extends Component {
 
     constructor(props) {
