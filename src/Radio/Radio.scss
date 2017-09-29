@@ -5,9 +5,7 @@
 
 .radio {
     @include float-fix;
-    display: inline-block;
     color: $theme-field;
-    cursor: pointer;
 
     .radio-icon-wrapper {
         display: inline-block;
@@ -15,6 +13,7 @@
         height: 40px;
         position: relative;
         vertical-align: middle;
+        cursor: pointer;
 
         .radio-bg-icon,
         .radio-icon {
@@ -32,7 +31,7 @@
         }
 
         .radio-bg-icon {
-            color: lighten($theme-field, 45%);
+            color: $theme-secondary;
 
             .button-icon {
                 transition: all $transition-duration ease-in-out;
@@ -54,6 +53,7 @@
         cursor: inherit;
         user-select: none;
         vertical-align: middle;
+        cursor: pointer;
     }
 
     &.activated {
@@ -72,13 +72,12 @@
     }
 
     &[disabled] {
-        color: lighten($theme-field, 30%);
-        cursor: not-allowed;
+        color: $theme-field-disabled;
 
-        &.active {
-            color: lighten($theme-highlight, 30%);
+        .radio-icon-wrapper,
+        .radio-label {
+            cursor: not-allowed;
         }
-
     }
 
 }

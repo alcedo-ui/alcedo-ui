@@ -164,12 +164,12 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, itemTouchTapHandle, disableTouchRipple
+                theme, isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
             emptyEl = [{
-                renderer() {
+                itemRenderer() {
                     return (
                         <div className="no-matched-list-item">
 
@@ -229,16 +229,17 @@ export default class DropdownSelect extends Component {
 
                 <RaisedButton ref="trigger"
                               className={'dropdown-select-trigger' + triggerClassName}
+                              theme={theme}
                               value={triggerValue}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
                               disabled={disabled}
-                              theme={triggerTheme}
                               disableTouchRipple={disableTouchRipple}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={'dropdown-select-popup' + dropdownSelectPopupClassName}
                        style={dropdownPopupStyle}
+                       theme={theme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -257,6 +258,7 @@ export default class DropdownSelect extends Component {
                     }
 
                     <List className="dropdown-select-list"
+                          theme={theme}
                           mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
@@ -296,6 +298,11 @@ DropdownSelect.propTypes = {
      * Override the styles of the popup element.
      */
     popupStyle: PropTypes.object,
+
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the dropDownSelect.
@@ -443,11 +450,6 @@ DropdownSelect.propTypes = {
     noMatchedMsg: PropTypes.string,
 
     /**
-     * The theme of DropdownSelect.Can be primary,highlight,success,warning,error.
-     */
-    triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * If true,the drop-down box will be have group selection.
      */
     isGrouped: PropTypes.bool,
@@ -475,6 +477,7 @@ DropdownSelect.defaultProps = {
     popupClassName: '',
     style: null,
     popupStyle: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     value: null,
@@ -492,7 +495,6 @@ DropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     noMatchedMsg: '',
-    triggerTheme: Theme.DEFAULT,
     isGrouped: false
 
 };

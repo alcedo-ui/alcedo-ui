@@ -67,7 +67,7 @@ export default class Checkbox extends Component {
 
     render() {
 
-        const {className, style, name, label, disabled} = this.props,
+        const {className, style, name, label, disabled, indeterminate} = this.props,
             {value} = this.state,
 
             checkboxClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
@@ -78,14 +78,16 @@ export default class Checkbox extends Component {
                  disabled={disabled}>
 
                 {
-                    name
-                        ? <input type="hidden"
-                                 name={name}
-                                 value={value}/>
-                        : null
+                    name ?
+                        <input type="hidden"
+                               name={name}
+                               value={value}/>
+                        :
+                        null
                 }
 
                 <div className="checkbox-icon-wrapper">
+
                     <IconButton ref="checkboxIcon"
                                 className="checkbox-bg-icon"
                                 iconCls="fa fa-square-o"
@@ -93,9 +95,10 @@ export default class Checkbox extends Component {
                                 disabled={disabled}/>
 
                     <IconButton className="checkbox-icon"
-                                iconCls="fa fa-check-square"
+                                iconCls={`fa ${indeterminate ? 'fa fa-minus-square' : 'fa-check-square'}`}
                                 onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
+
                 </div>
 
                 <div className="checkbox-label"
@@ -138,6 +141,8 @@ Checkbox.propTypes = {
      */
     value: PropTypes.bool,
 
+    indeterminate: PropTypes.bool,
+
     /**
      * If true, the checkbox will be disabled.
      */
@@ -158,6 +163,7 @@ Checkbox.defaultProps = {
     name: '',
     label: '',
     value: false,
+    indeterminate: false,
     disabled: false
 
 };

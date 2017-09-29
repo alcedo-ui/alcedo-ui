@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Paper from 'dist/Paper';
 import DraggableList from 'dist/DraggableList';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
@@ -79,7 +78,7 @@ export default class DraggableListExamples extends Component {
 
     render() {
         return (
-            <div className="example list-examples">
+            <div className="example draggable-list-examples">
 
                 <h2 className="example-title">DraggableList</h2>
 
@@ -102,13 +101,13 @@ export default class DraggableListExamples extends Component {
                                     A multiple-choice <code>DraggableList</code> example.
                                 </p>
 
-                                <Paper style={{width: 240}}>
+                                <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
                                                    mode={DraggableList.Mode.CHECKBOX}
                                                    items={this.listData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
-                                </Paper>
+                                </div>
 
                             </div>
 
@@ -130,7 +129,7 @@ export default class DraggableListExamples extends Component {
                                     A group <code>DraggableList</code>example.
                                 </p>
 
-                                <Paper style={{width: 240}}>
+                                <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
                                                    mode={DraggableList.Mode.CHECKBOX}
                                                    isGrouped={true}
@@ -138,7 +137,7 @@ export default class DraggableListExamples extends Component {
                                                    isDraggableAnyWhere={true}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
-                                </Paper>
+                                </div>
 
                             </div>
 
@@ -160,12 +159,12 @@ export default class DraggableListExamples extends Component {
                                     A radio <code>DraggableList</code> example.
                                 </p>
 
-                                <Paper style={{width: 240, height: 240}}>
+                                <div style={{width: 240, height: 240}}>
                                     <DraggableList style={{width: 240, height: 240}}
                                                    items={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
-                                </Paper>
+                                </div>
 
                             </div>
 

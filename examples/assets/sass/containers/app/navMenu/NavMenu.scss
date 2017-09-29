@@ -3,7 +3,7 @@
 .nav-menu {
     position: fixed;
     left: 0;
-    background: $theme-menu;
+    background: $theme-primary;
     top: 60px;
     width: 250px;
     height: calc(100% - 60px);
@@ -21,7 +21,7 @@
         border: none;
         margin-bottom: 10px;
         color: transparentize(#fff, .3);
-        background: darken($theme-menu, 6%);
+        background: darken($theme-primary, 6%);
 
         .icon-button {
             margin: 0;
@@ -40,7 +40,7 @@
             .nav-menu-item {
                 position: relative;
                 box-sizing: border-box;
-                background: darken($theme-menu, 4%);
+                background: darken($theme-primary, 4%);
 
                 .nav-menu-item-title {
                     position: relative;

@@ -25,17 +25,9 @@
         margin-bottom: 30px;
     }
 
-    .example-header {
-        color: #fff;
-        background: $theme-title;
-    }
-
     .example-content {
-
         @include float-fix;
-
         padding: 30px;
-        background: $theme-widget-bg;
 
         code {
             padding: 5px;
@@ -58,8 +50,9 @@
         }
 
         thead tr th {
-            color: $theme-field-disabled;
+            color: $theme-field;
             font-size: 15px;
+            border: none;
         }
 
     }

@@ -417,6 +417,7 @@ PopupBody.defaultProps = {
 
     className: '',
     style: null,
+    depth: 6,
 
     triggerEl: null,
     visible: false,
@@ -425,7 +426,6 @@ PopupBody.defaultProps = {
     position: PopupBody.Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: PopupBody.TriggerMode.TOGGLE,
-    depth: 4,
 
     isAutoClose: true,
     isEscClose: true,

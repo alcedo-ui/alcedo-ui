@@ -28,8 +28,8 @@
         top: 0;
         width: calc(100% + 40px);
         height: 100%;
-        background: white;
-        border: 1px solid #b8c6d6;
+        background: $theme-field-bg;
+        border: 1px solid $theme-border-hover;
         box-sizing: border-box;
         border-radius: 3px;
         display: none;
@@ -61,7 +61,7 @@
         overflow: hidden;
         z-index: 1;
         cursor: auto;
-        color: $theme-primary;
+        color: $theme-field;
 
         &:hover + .editable-field-span {
             display: block;
@@ -79,7 +79,7 @@
 
     .editable-field-input {
         position: absolute;
-        background: white;
+        background: $theme-field-bg;
         width: calc(100% + 42px);
         height: 100%;
         top: 0;
@@ -97,7 +97,8 @@
             line-height: 0;
             margin: 0;
             top: 50%;
-            padding: 5px 0;
+            padding: 5px 0!important;
+            overflow: inherit;
             transform: translate(0, -50%);
             i {
                 line-height: 0;

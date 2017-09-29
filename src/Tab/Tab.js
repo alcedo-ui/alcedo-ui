@@ -56,7 +56,7 @@ export default class Tab extends Component {
                 <div className={`tab ${className}`}
                      style={style}>
 
-                    <div className={`tabs ${isTabFullWidth ? 'full-width' : ''}`}>
+                    <div className={`tabs ${isTabFullWidth ? '' : 'auto-width'}`}>
 
                         {
                             tabs.map((item, index) => {

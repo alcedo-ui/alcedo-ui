@@ -6,11 +6,12 @@
 .grid-group {
 
     .grid-group-name {
-        background: transparent;
-        height: 30px;
-        line-height: 30px;
-        padding-left: 15px !important;
+        background-color: transparent !important;
+        height: 20px !important;
+        line-height: 20px !important;
         box-shadow: none;
+        padding: 0 !important;
+        border: none !important;
 
         &:hover {
             background: transparent !important;

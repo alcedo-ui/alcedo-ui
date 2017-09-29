@@ -4,28 +4,17 @@
  */
 
 @mixin draggable-list-item-theme($color, $bg-color) {
-    background: $bg-color;
     color: $color;
+    background-color: $bg-color;
 
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
-    &.activated {
-        background: darken($bg-color, 4%);
+    &:hover {
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
     }
 
     &:active {
-        background: darken($bg-color, 8%);
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
     }
 }
 
@@ -122,7 +111,7 @@
         height: 40px;
         text-align: center;
         line-height: 40px;
-        color: lighten($theme-title, 32%) !important;
+        color: $theme-secondary !important;
         cursor: move;
     }
 
@@ -136,6 +125,8 @@
 
     &[disabled] {
         cursor: not-allowed;
+        color: $theme-field-disabled !important;
+        background-color: $theme-field-bg-disabled !important;
     }
 
     // default theme
@@ -143,10 +134,16 @@
 
     // other themes
     &.theme-primary {
-        @include draggable-list-item-theme(#fff, $theme-primary);
+        @include draggable-list-item-theme($theme-secondary, $theme-primary);
+    }
+    &.theme-secondary {
+        @include draggable-list-item-theme($theme-primary, $theme-secondary);
     }
     &.theme-highlight {
         @include draggable-list-item-theme(#fff, $theme-highlight);
+    }
+    &.theme-info {
+        @include draggable-list-item-theme(#fff, $theme-info);
     }
     &.theme-success {
         @include draggable-list-item-theme(#fff, $theme-success);

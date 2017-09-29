@@ -9,6 +9,7 @@ import {findDOMNode} from 'react-dom';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
@@ -260,7 +261,7 @@ export default class TextField extends Component {
 
         const {
 
-                children, className, style, type, iconCls, disabled, infoMsg,
+                children, className, style, theme, type, iconCls, disabled, infoMsg,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
 
                 // not passing down these props
@@ -273,7 +274,12 @@ export default class TextField extends Component {
 
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
-            isPassword = type === TextField.Type.PASSWORD;
+            isPassword = type === TextField.Type.PASSWORD,
+
+            wrapperClassName = (!value || value.length <= 0 ? ' empty' : '') + (isPassword ? ' password' : '')
+                + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
+                + (iconCls ? ' has-icon' : '') + (isFocused ? ' focused' : '')
+                + (className ? ' ' + className : '');
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
@@ -283,10 +289,9 @@ export default class TextField extends Component {
         }
 
         return (
-            <div className={`text-field ${!value || value.length <= 0 ? 'empty' : ''} ${isPassword ? 'password' : ''}
-                    ${iconCls ? 'has-icon' : ''} ${invalidMsgs.length > 0 ? 'error' : ''} ${disabled ? 'disabled' : ''}
-                    ${isFocused ? 'focused' : ''} ${className}`}
-                 style={style}>
+            <div className={'text-field' + wrapperClassName}
+                 style={style}
+                 disabled={disabled}>
 
                 {
                     iconCls ?
@@ -307,7 +312,8 @@ export default class TextField extends Component {
                        onMouseOver={this.mouseoverHandler}
                        onMouseOut={this.mouseoutHandler}
                        onFocus={this.focusHandler}
-                       onBlur={this.blurHandler}/>
+                       onBlur={this.blurHandler}
+                       disabled={disabled}/>
 
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
@@ -362,6 +368,11 @@ TextField.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The TextField theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Specifies the type of input to display such as "password" or "text".
@@ -515,6 +526,7 @@ TextField.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     type: 'text',
     name: '',

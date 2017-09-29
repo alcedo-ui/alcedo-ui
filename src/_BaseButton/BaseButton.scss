@@ -13,7 +13,6 @@ button:focus {
     width: 100px;
     height: 40px;
     position: relative;
-    border: none;
     border-radius: $theme-border-radius;
     transition: all $transition-duration ease-in-out;
     cursor: pointer;
@@ -33,6 +32,7 @@ button:focus {
     .button-icon {
         text-align: center;
         font-size: inherit;
+        color: inherit;
 
         &.button-icon-left {
             margin-right: 10px;
@@ -41,6 +41,10 @@ button:focus {
         &.button-icon-right {
             margin-left: 10px;
         }
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
     }
 
     .touch-ripple {

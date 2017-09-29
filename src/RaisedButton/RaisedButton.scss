@@ -3,35 +3,28 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin raised-button-theme($color, $bg-color) {
-    background: $bg-color;
+@mixin raised-button-theme($color, $bg-color, $border-color) {
     color: $color;
-
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
+    background-color: $bg-color;
+    border-color: $border-color;
 
     &:hover {
-        background: darken($bg-color, 4%);
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
+        border-color: theme-color-hover($border-color);
     }
 
     &:active {
-        background: darken($bg-color, 8%);
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
+        border-color: theme-color-active($border-color);
     }
 }
 
 .raised-button {
-
     @include shadow(1);
+    border-style: solid;
+    border-width: 1px;
 
     &:hover {
         @include shadow(3);
@@ -43,26 +36,35 @@
 
     &[disabled] {
         box-shadow: none !important;
+        color: $theme-field-disabled !important;
+        background-color: $theme-field-bg-disabled !important;
+        border-color: $theme-border-disabled !important;
     }
 
     // default theme
-    @include raised-button-theme($theme-field, $theme-field-bg);
+    @include raised-button-theme($theme-field, $theme-field-bg, $theme-border);
 
     // other themes
     &.theme-primary {
-        @include raised-button-theme(#fff, $theme-primary);
+        @include raised-button-theme($theme-secondary, $theme-primary, $theme-primary);
+    }
+    &.theme-secondary {
+        @include raised-button-theme($theme-primary, $theme-secondary, $theme-secondary);
     }
     &.theme-highlight {
-        @include raised-button-theme(#fff, $theme-highlight);
+        @include raised-button-theme(#fff, $theme-highlight, $theme-highlight);
+    }
+    &.theme-info {
+        @include raised-button-theme(#fff, $theme-info, $theme-info);
     }
     &.theme-success {
-        @include raised-button-theme(#fff, $theme-success);
+        @include raised-button-theme(#fff, $theme-success, $theme-success);
     }
     &.theme-warning {
-        @include raised-button-theme(#fff, $theme-warning);
+        @include raised-button-theme(#fff, $theme-warning, $theme-warning);
     }
     &.theme-error {
-        @include raised-button-theme(#fff, $theme-error);
+        @include raised-button-theme(#fff, $theme-error, $theme-error);
     }
 
 }

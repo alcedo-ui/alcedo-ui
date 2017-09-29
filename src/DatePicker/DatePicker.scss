@@ -154,7 +154,7 @@
                         }
                         li.current-days {
                             a {
-                                color: #4C637B;
+                                color: $theme-field;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
@@ -162,20 +162,20 @@
                         }
                         li.current-days:hover {
                             a {
-                                background: #ecf6fd;
+                                background:$theme-field-bg-hover;
                             }
                         }
                         li.active {
                             a {
                                 border-radius: 50%;
-                                background: $theme-highlight;
+                                background: $theme-field-bg-active;
                                 color: #fff;
                             }
 
                         }
                         li.active:hover {
                             a {
-                                background: $theme-highlight;
+                                background: $theme-field-bg-active;
                             }
 
                         }
@@ -204,7 +204,7 @@
                                 display: inline-block;
                                 width: 40px;
                                 height: 40px;
-                                color: #4C637B;
+                                color: $theme-field;
                                 line-height: 40px;
                                 margin-top: 5px;
                                 border-radius: 50%;
@@ -214,18 +214,18 @@
                         }
                         li.current-months:hover, li.current-years:hover {
                             a {
-                                background: #ecf6fd;
+                                background: $theme-field-bg-hover;
                             }
 
                         }
                         li.active {
                             a {
-                                background: #108ee9;
+                                background:$theme-field-bg-active;
                                 color: #fff;
                             }
                             &:hover {
                                 a {
-                                    background: #108ee9;
+                                    background: $theme-field-bg-hover;
                                     color: #fff;
                                 }
                             }
@@ -240,7 +240,7 @@
             text-align: center;
             a {
                 text-decoration: none;
-                color: #108ee9;
+                color: $theme-field;
                 position: relative;
                 overflow: hidden;
                 .item-gray {

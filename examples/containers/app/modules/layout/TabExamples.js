@@ -7,8 +7,6 @@ import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import TabDoc from 'assets/propTypes/Tab.json';
 
-import 'sass/containers/app/modules/layout/TabExamples.scss';
-
 export default class TabExamples extends Component {
 
     constructor(props) {
@@ -150,12 +148,13 @@ export default class TabExamples extends Component {
                                     iconCls: 'fa fa-plane',
                                     renderer: <div>
                                         <h1>Plane</h1>
-                                    </div>,
-                                    onActive: this.activeHandle
+                                    </div>
                                 }, {
                                     value: 'Rocket',
                                     iconCls: 'fa fa-rocket',
-                                    disabled: true
+                                    renderer: <div>
+                                        <h1>Rocket</h1>
+                                    </div>
                                 }]}
                                      isTabFullWidth={false}/>
 

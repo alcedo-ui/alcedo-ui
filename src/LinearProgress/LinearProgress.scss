@@ -18,7 +18,7 @@
 .linear-progress {
     position: relative;
     .linear-progress-background {
-        background-color: #f3f6fa;
+        background-color: $theme-field-bg-disabled;
         border-radius: 2px;
         height: 100%;
         .linear-progress-highlight {

@@ -111,10 +111,10 @@
                         line-height: 30px;
                         cursor: pointer;
                         &:hover {
-                            background: $theme-container-bg;
+                            background: $theme-field-bg-hover;
                         }
                         &.active {
-                            background: $theme-container-bg;
+                            background: $theme-field-bg-active;
                             color: $theme-field;
                             font-weight: 600;
                         }

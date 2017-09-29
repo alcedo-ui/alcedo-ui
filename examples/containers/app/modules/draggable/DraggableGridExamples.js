@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Paper from 'dist/Paper';
 import DraggableGrid from 'dist/DraggableGrid';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
@@ -104,12 +103,10 @@ export default class DraggableGridExamples extends Component {
                                     A multiple-choice<code> DraggableGrid</code> example.
                                 </p>
 
-                                <Paper>
-                                    <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
-                                                   items={this.listData}
-                                                   onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
-                                </Paper>
+                                <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
+                                               items={this.listData}
+                                               onSequenceChange={this.sequenceChangeHandler}
+                                               onValueChange={this.valueChangeHandler}/>
 
                             </div>
 
@@ -131,14 +128,12 @@ export default class DraggableGridExamples extends Component {
                                     A group <code>DraggableGrid </code>list example.
                                 </p>
 
-                                <Paper>
-                                    <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
-                                                   isGrouped={true}
-                                                   items={this.groupedListData}
-                                                   isDraggableAnyWhere={true}
-                                                   onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
-                                </Paper>
+                                <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
+                                               isGrouped={true}
+                                               items={this.groupedListData}
+                                               isDraggableAnyWhere={true}
+                                               onSequenceChange={this.sequenceChangeHandler}
+                                               onValueChange={this.valueChangeHandler}/>
 
                             </div>
 
@@ -160,13 +155,11 @@ export default class DraggableGridExamples extends Component {
                                     A <code>DraggableGrid</code> simple example.
                                 </p>
 
-                                <Paper>
-                                    <DraggableGrid style={{height: 120}}
-                                                   items={this.largeListData}
-                                                   col={[5]}
-                                                   onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
-                                </Paper>
+                                <DraggableGrid style={{height: 120}}
+                                               items={this.largeListData}
+                                               col={[5]}
+                                               onSequenceChange={this.sequenceChangeHandler}
+                                               onValueChange={this.valueChangeHandler}/>
 
                             </div>
 

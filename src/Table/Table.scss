@@ -52,7 +52,7 @@
                 }
 
                 .table-radio {
-                    color: lighten($theme-field, 45%);
+                    color: $theme-secondary;
 
                     &.activated {
                         color: $theme-highlight;

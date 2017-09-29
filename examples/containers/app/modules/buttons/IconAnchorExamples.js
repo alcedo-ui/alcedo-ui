@@ -12,7 +12,7 @@ import IconAnchorDoc from 'assets/propTypes/IconAnchor.json';
 
 import 'sass/containers/app/modules/buttons/IconAnchorExamples.scss';
 
-export default class FlatButtonExamples extends Component {
+export default class IconAnchorExamples extends Component {
 
     constructor(props) {
         super(props);

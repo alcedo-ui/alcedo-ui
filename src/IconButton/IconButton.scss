@@ -4,28 +4,29 @@
  */
 
 @mixin icon-button-theme($color) {
-    background: transparent;
     color: $color;
 
-    .button-icon {
-        color: inherit;
+    &:hover {
+        color: theme-color-hover($color);
     }
 
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
+    &:active {
+        color: theme-color-active($color);
     }
 }
 
 .icon-button {
+    border: none;
     padding: 0 !important;
+    background-color: transparent;
 
     .button-icon {
         margin: 0 !important;
         vertical-align: middle;
+    }
+
+    &[disabled] {
+        color: $theme-field-disabled !important;
     }
 
     // default theme

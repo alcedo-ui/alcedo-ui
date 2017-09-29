@@ -11,7 +11,7 @@ input:focus {
 .tag-field {
     position: relative;
     width: 400px;
-    min-height: 100px;
+    min-height: 106px;
     border-radius: $theme-border-radius;
     box-sizing: border-box;
     color: $theme-field;
@@ -58,26 +58,26 @@ input:focus {
         .tag-field-item-field {
             height: 24px;
             line-height: 24px;
-            background: $theme-container-bg;
-            padding: 0 20px 0 8px;
-            border-radius: 12px;
+            background: $theme-field-bg;
+            padding: 0 24px 0 7px;
+            border-radius: 13px;
+            border: 1px solid $theme-border;
 
             .editable-field-span,
             .editable-field-input,
             .editable-field-input .text-field-input {
-                line-height: 22px;
+                line-height: 24px;
             }
 
             .editable-field-span {
                 width: 100%;
                 top: 0;
                 left: 0;
-                background: $theme-container-bg;
                 padding-left: 7px;
                 border-radius: 12px;
+                border: none;
 
                 .editable-field-icon {
-                    //display: none;
                     font-size: 12px;
                     width: 24px;
                     height: 24px;

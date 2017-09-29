@@ -4,6 +4,7 @@ import TextField from 'dist/TextField';
 import TextFieldGroup from 'dist/TextFieldGroup';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TextFieldDoc from 'assets/propTypes/TextField.json';
@@ -72,8 +73,9 @@ export default class TextFieldExamples extends Component {
                                     display at right.</p>
 
                                 <div className="field-group">
-                                    <label className="text-field-label">Default</label>
-                                    <TextField rightIconCls={'fa fa-search'}/>
+                                    <label className="text-field-label">Search</label>
+                                    <TextField rightIconCls={'fa fa-search'}
+                                               theme={Theme.PRIMARY}/>
                                 </div>
 
                             </div>
@@ -82,7 +84,6 @@ export default class TextFieldExamples extends Component {
                     </div>
 
                 </Widget>
-
 
                 <Widget>
 
@@ -99,13 +100,15 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
-                                    <TextField iconCls="fa fa-user"/>
+                                    <TextField iconCls="fa fa-user"
+                                               theme={Theme.HIGHLIGHT}/>
                                 </div>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
                                     <TextField iconCls="fa fa-lock"
-                                               type="password"/>
+                                               type="password"
+                                               theme={Theme.HIGHLIGHT}/>
                                 </div>
 
                             </div>
@@ -173,6 +176,30 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <TextField pattern={/^[abc]*$/}
                                                patternInvalidMsg="Only a, b, c is allowed."/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Disabled"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="field-group">
+                                    <TextField rightIconCls={'fa fa-search'}
+                                               value="Disabled"
+                                               theme={Theme.PRIMARY}
+                                               disabled={true}/>
                                 </div>
 
                             </div>

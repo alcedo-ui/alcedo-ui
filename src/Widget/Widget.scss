@@ -7,6 +7,7 @@
 
     .widget-content {
         border-radius: $theme-border-radius;
+        background: $theme-field-bg;
     }
 
     .widget-header + .widget-content {

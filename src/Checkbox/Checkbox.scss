@@ -6,7 +6,6 @@
 .checkbox {
     color: $theme-field;
     height: 40px;
-    cursor: pointer;
 
     .checkbox-icon-wrapper {
         display: inline-block;
@@ -14,6 +13,7 @@
         height: 100%;
         position: relative;
         vertical-align: middle;
+        cursor: pointer;
 
         .checkbox-bg-icon,
         .checkbox-icon {
@@ -28,7 +28,7 @@
         }
 
         .checkbox-bg-icon {
-            color: lighten($theme-field, 45%);
+            color: $theme-secondary;
 
             .button-icon {
                 transition: all $transition-duration ease-in-out;
@@ -50,6 +50,7 @@
         cursor: inherit;
         user-select: none;
         vertical-align: middle;
+        cursor: pointer;
     }
 
     &.activated {
@@ -68,11 +69,11 @@
     }
 
     &[disabled] {
-        color: lighten($theme-field, 30%);
-        cursor: not-allowed;
+        color: $theme-field-disabled;
 
-        &.activated {
-            color: lighten($theme-highlight, 30%);
+        .checkbox-icon-wrapper,
+        .checkbox-label {
+            cursor: not-allowed;
         }
     }
 
