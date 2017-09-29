@@ -30,7 +30,7 @@
         height: 20px;
         line-height: 20px;
         text-align: center;
-        color: lighten($theme-title, 32%) !important;
+        color: $theme-secondary !important;
         cursor: move;
     }
 
