@@ -54,7 +54,7 @@
     .switcher-slider-wrapper {
         width: 50px !important;
         height: 50px !important;
-        padding: 11px !important;
+        padding: 10px !important;
         position: absolute;
         top: 0;
         left: 0;
@@ -64,8 +64,8 @@
         .switcher-slider {
             @include shadow(2);
             box-sizing: border-box;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: $theme-field-bg;
             border: 1px solid $theme-border;
@@ -96,9 +96,12 @@
         }
 
         .switcher-slider-wrapper {
+            padding: 11px !important;
             transform: translate(10px, -10px);
 
             .switcher-slider {
+                width: 28px;
+                height: 28px;
                 border-color: transparent;
             }
         }
@@ -148,12 +151,12 @@
         .switcher-slider-wrapper {
             width: 40px;
             height: 40px;
-            padding: 9px;
+            padding: 8px;
             transform: translate(-11px, -13px);
 
             .switcher-slider {
-                width: 22px;
-                height: 22px;
+                width: 24px;
+                height: 24px;
 
                 .switcher-loading {
                     width: 20px;
@@ -165,7 +168,13 @@
 
         &.activated {
             .switcher-slider-wrapper {
+                padding: 9px;
                 transform: translate(6px, -13px);
+
+                .switcher-slider {
+                    width: 22px;
+                    height: 22px;
+                }
             }
         }
     }
