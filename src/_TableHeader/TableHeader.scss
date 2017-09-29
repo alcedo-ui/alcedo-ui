@@ -16,7 +16,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    border-left: 1px solid transparentize($theme-border, .8);
+    border-left: 1px solid $theme-border;
 
     &:first-child {
         border-left: none;
