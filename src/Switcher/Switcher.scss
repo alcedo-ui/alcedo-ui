@@ -109,6 +109,7 @@
 
     &[disabled] {
         cursor: not-allowed;
+        background-color: grayscale($theme-highlight);
 
         &::before {
             cursor: not-allowed;
