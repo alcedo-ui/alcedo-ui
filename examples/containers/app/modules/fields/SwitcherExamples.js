@@ -81,6 +81,11 @@ export default class SwitcherExamples extends Component {
 
                                 <Switcher disabled={true}/>
 
+                                <br/>
+
+                                <Switcher value={true}
+                                          disabled={true}/>
+
                             </div>
 
                         </div>
