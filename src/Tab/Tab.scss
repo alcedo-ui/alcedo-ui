@@ -12,25 +12,9 @@
         box-sizing: border-box;
 
         .tab-button {
-            background: $theme-field-bg;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            vertical-align: bottom;
-            margin-left: 6px;
             padding: 0 20px;
-
-            &:hover {
-                background: darken($theme-field-bg, 4%);
-            }
-
-            &.activated {
-                color: #fff;
-                background: $theme-primary;
-
-                &:hover {
-                    background: darken($theme-primary, 4%);
-                }
-            }
+            border-radius: 0;
+            margin: 0;
         }
 
         .ink-bar {
@@ -38,22 +22,18 @@
             bottom: 0;
             height: 2px;
             background: $theme-highlight;
-            transition: all $transition-duration ease-in-out;
+            transition: transform $transition-duration ease-in-out;
         }
 
-        &.full-width {
-
+        &.auto-width {
             .tab-button {
-                border-radius: 0;
-                margin: 0;
+                border-radius: $theme-border-radius;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                margin-left: 6px;
 
                 &.activated {
-                    color: $theme-field;
-                    background: $theme-field-bg;
-
-                    &:hover {
-                        background: darken($theme-field-bg, 4%);
-                    }
+                    background: $theme-secondary;
                 }
             }
         }
@@ -64,12 +44,10 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         overflow: hidden;
-        background: #fff;
+        background: $theme-field-bg;
 
         .tab-content-scroller {
-
             @include float-fix;
-
             transition: all $transition-duration ease-in-out;
 
             .tab-content {
