@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Theme from '../Theme';
 
 import TextField from '../TextField';
 import Util from '../_vendors/Util';
@@ -51,17 +52,39 @@ export default class MaterialTextField extends Component {
         });
     }
 
+
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        });
+    }
+
     render() {
 
-        const {className, label, style, isLabelAnimate} = this.props,
+        const {className, label, style, isLabelAnimate, ...rest} = this.props,
             {isFocus, value} = this.state;
 
         return (
             <div
                 className={`material-text-field ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
                 style={style}>
-                <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
-                <TextField {...this.props}
+                {
+                    label ?
+                        <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
+                        :
+                        null
+                }
+
+                <TextField {...rest}
                            value={value}
                            onFocus={this.onFocusHandle}
                            onBlur={this.onBlurHandle}
@@ -258,6 +281,7 @@ MaterialTextField.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     type: 'text',
     name: '',
@@ -276,14 +300,17 @@ MaterialTextField.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
+    preventInvalidInput: false,
 
     autoComplete: 'off',
     autoCorrect: 'off',
     autoCapitalize: 'off',
     spellCheck: 'false',
 
+    fieldMsgVisible: true,
     label: '',
     isLabelAnimate: true
+
 
 };
 

@@ -1,0 +1,78 @@
+/**
+ * @file MaterialLocalAutoComplete style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
+
+
+.material-local-auto-complete {
+
+    .material-local-auto-complete-trigger {
+        @include shadow(0);
+        transition: all $transition-duration ease-in-out;
+
+        &.activated {
+            @include shadow(4);
+        }
+
+        &.above {
+            &.activated {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                z-index: $popup-z-index + 1;
+            }
+        }
+
+        &.blow {
+            &.activated {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        &.focused {
+            border-color: $theme-border;
+        }
+        .text-field{
+            padding-left: 10px;
+        }
+    }
+}
+
+.material-local-auto-complete-popup {
+    box-sizing: border-box;
+    max-height: 240px;
+    border: 1px solid $theme-border;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    overflow-y: auto;
+
+    .popup-content {
+        border-radius: 0 !important;
+
+        .local-auto-complete-list {
+            width: 100%;
+
+            .no-matched-list-item {
+                line-height: 40px;
+                color: $theme-field;
+
+                .no-matched-list-item-icon {
+                    color: $theme-warning;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    &.above {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: none;
+    }
+
+    &.blow {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-top: none;
+    }
+}
