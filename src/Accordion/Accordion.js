@@ -6,7 +6,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import FlatButton from '../FlatButton';
+import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 export default class Accordion extends Component {
 
@@ -19,12 +20,12 @@ export default class Accordion extends Component {
             contentHeight: null
         };
 
-        this.titleMouseDownHandle = ::this.titleMouseDownHandle;
+        this.touchTapHandler = ::this.touchTapHandler;
         this.resetHeight = ::this.resetHeight;
 
     }
 
-    titleMouseDownHandle() {
+    touchTapHandler() {
 
         const {onCollpase, onExpand, onChange} = this.props;
 
@@ -62,20 +63,23 @@ export default class Accordion extends Component {
 
     render() {
 
-        const {className, style, children, title, collapseIcon, expandIcon} = this.props;
-        const {collapsed, contentHeight} = this.state;
+        const {className, style, children, title, collapseIcon, expandIcon} = this.props,
+            {collapsed, contentHeight} = this.state,
+
+            wrapperClassName = (collapsed ? ' collapsed' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={`accordion ${className}`}
+            <div className={'accordion' + wrapperClassName}
                  style={style}>
 
-                <FlatButton className="accordion-title"
-                            value={title}
-                            rightIconCls={collapsed ? expandIcon : collapseIcon}
-                            onTouchTap={this.titleMouseDownHandle}/>
+                <RaisedButton className="accordion-title"
+                              theme={Theme.SECONDARY}
+                              value={title}
+                              rightIconCls={collapsed ? expandIcon : collapseIcon}
+                              onTouchTap={this.touchTapHandler}/>
 
                 <div ref="accordionContent"
-                     className={`accordion-content ${collapsed ? 'collapsed' : ''}`}
+                     className="accordion-content"
                      style={{height: contentHeight}}>
                     {children}
                 </div>

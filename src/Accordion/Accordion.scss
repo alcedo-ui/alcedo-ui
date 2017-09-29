@@ -4,8 +4,6 @@
  */
 
 .accordion {
-    color: $theme-title;
-    background: $theme-field-bg;
 
     .accordion-title {
         width: 100%;
@@ -13,9 +11,11 @@
         padding: 0 20px;
         user-select: none;
         text-align: left;
+        border: none;
         border-bottom: 1px solid $theme-border;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        box-shadow: none !important;
 
         .button-icon {
             float: right;
@@ -26,15 +26,19 @@
         box-sizing: border-box;
         padding: 0 20px;
         overflow: auto;
+        color: $theme-field;
+        background: $theme-field-bg;
         transition: all $transition-duration ease-in-out;
+    }
 
-        &.collapsed {
+    &.collapsed {
+
+        .accordion-title {
+            border-color: transparent;
+        }
+
+        .accordion-content {
             height: 0 !important;
         }
     }
-
-    &:hover {
-        color: $theme-field;
-    }
-
 }
