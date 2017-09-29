@@ -226,7 +226,7 @@ export default class DialogBody extends Component {
                 <Paper ref="dialog"
                        className={'dialog-wrapper' + dialogClassName}
                        style={style}
-                       depth={4}>
+                       depth={6}>
 
                     <div className="dialog-title">
                         {title}

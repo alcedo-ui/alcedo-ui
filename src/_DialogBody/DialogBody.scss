@@ -39,6 +39,7 @@
         height: 40px;
         line-height: 40px;
         padding: 5px 20px;
+        background-color: $theme-secondary;
         border-bottom: 1px solid $theme-border;
         text-align: left;
         color: inherit;
@@ -66,9 +67,7 @@
     }
 
     .dialog-buttons {
-
         @include float-fix;
-
         box-sizing: border-box;
         padding: 15px 25px;
         background: $theme-field-bg;
