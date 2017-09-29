@@ -51,19 +51,40 @@ export default class MaterialTextField extends Component {
         });
     }
 
+
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        });
+    }
+
     render() {
 
-        const {className, label, style, isLabelAnimate} = this.props,
+        const {className, label, style, isLabelAnimate, ...rest} = this.props,
             {isFocus, value} = this.state;
 
         return (
             <div
                 className={`material-text-field ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
                 style={style}>
-                <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
-                <TextField {...this.props}
+                {
+                    label ?
+                        <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
+                        :
+                        null
+                }
+
+                <TextField {...rest}
                            value={value}
-                           className=''
                            onFocus={this.onFocusHandle}
                            onBlur={this.onBlurHandle}
                            onChange={this.onChangeHandle}/>
