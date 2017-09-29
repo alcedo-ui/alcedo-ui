@@ -108,6 +108,9 @@ export default class TableExamples extends Component {
                                        sortInitConfig={{
                                            prop: 'id',
                                            type: -1
+                                       }}
+                                       onChange={value => {
+                                           console.log(value);
                                        }}/>
                             </Paper>
 
@@ -134,7 +137,7 @@ export default class TableExamples extends Component {
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}
                                        pageSizes={[10, 20, 30, 40]}
-                                       onChange={(value) => {
+                                       onChange={value => {
                                            console.log(value);
                                        }}/>
                             </Paper>
