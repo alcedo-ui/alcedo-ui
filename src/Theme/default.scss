@@ -1,7 +1,17 @@
 @import './_common.scss';
 
-$theme-primary: #4c637b;
-$theme-secondary: #f3f6fa;
+$theme-color-transition-percent: 4%;
+
+@function theme-color-hover($color) {
+    @return lighten($color, $theme-color-transition-percent);
+}
+
+@function theme-color-active($color) {
+    @return darken($color, $theme-color-transition-percent);
+}
+
+$theme-primary: #506379;
+$theme-secondary: #edf0f3;
 $theme-description: #abb5c1;
 $theme-info: #2196f3;
 $theme-success: #67ba31;
@@ -9,27 +19,20 @@ $theme-warning: #f1ad09;
 $theme-error: #d8534e;
 $theme-highlight: #38b1eb;
 
-$theme-title: #4c637b;
-$theme-title-bg: #f3f6fa;
-$theme-container-bg: #fff;
-
 $theme-field: #4c637b;
-$theme-field-focus: #4c637b;
-$theme-field-hover: #4c637b;
-$theme-field-active: #4c637b;
-$theme-field-disabled: #9e9e9e;
+$theme-field-hover: theme-color-hover($theme-field);
+$theme-field-active: theme-color-active($theme-field);
+$theme-field-disabled: #d9d9d9;
 
 $theme-field-bg: #fff;
-$theme-field-bg-focus: #fff;
-$theme-field-bg-hover: #f3f6fa;
-$theme-field-bg-active: #f3f6fa;
-$theme-field-bg-disabled: #f8f9fa;
+$theme-field-bg-hover: theme-color-hover($theme-field-bg);
+$theme-field-bg-active: theme-color-active($theme-field-bg);
+$theme-field-bg-disabled: #f7f7f7;
 
-$theme-border: #f3f6fa;
-$theme-border-focus: #f3f6fa;
-$theme-border-hover: #f3f6fa;
-$theme-border-active: #f3f6fa;
-$theme-border-disabled: #f3f6fa;
+$theme-border: #e4eaf2;
+$theme-border-hover: theme-color-hover($theme-border);
+$theme-border-active: theme-color-active($theme-border);
+$theme-border-disabled: #e9e9e9;
 $theme-border-radius: 4px;
 
 $theme-label: #4c637b;

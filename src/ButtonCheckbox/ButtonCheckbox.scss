@@ -3,26 +3,6 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.toggle-button {
-
-    @include shadow(1);
-
+.button-checkbox {
     width: 100px;
-    border-radius: 20px;
-    color: $theme-field;
-    background: $theme-field-bg;
-
-    &:hover {
-        color: $theme-field;
-        background: $theme-field-bg;
-    }
-
-    &.activated {
-        color: #fff;
-        background: $theme-primary;
-
-        &:hover {
-            background: darken($theme-primary, 4%);
-        }
-    }
 }

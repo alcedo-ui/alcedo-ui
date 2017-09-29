@@ -128,8 +128,8 @@ RaisedButton.defaultProps = {
 
     className: '',
     style: null,
-
     theme: Theme.DEFAULT,
+
     isRounded: false,
     isCircular: false,
 

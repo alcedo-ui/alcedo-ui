@@ -15,8 +15,8 @@
         height: 12px;
         line-height: 12px;
         text-align: center;
-        color: lighten($theme-field, 45%);
-        transition: all $transition-duration ease-in-out;
+        color: $theme-secondary;
+        transition: color $transition-duration ease-in-out;
     }
 
     &.asc {

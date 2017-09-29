@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import MultipleSelect from 'dist/MultipleSelect';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Theme from 'dist/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import MultipleSelectDoc from 'assets/propTypes/MultipleSelect.json';
@@ -159,7 +160,8 @@ export default class MultipleSelectExamples extends Component {
                                 <div className="field-group">
                                     <label className="multiple-select-label">Number</label>
                                     <MultipleSelect isGrouped={true}
-                                                    data={this.groupedData}/>
+                                                    data={this.groupedData}
+                                                    theme={Theme.PRIMARY}/>
                                 </div>
 
                             </div>

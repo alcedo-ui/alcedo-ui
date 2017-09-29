@@ -81,40 +81,6 @@ export default class IconButtonExamples extends Component {
 
                 </Widget>
 
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Without circle shape"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>Set the <code>isCircular</code> property to false for not circular shape and use the
-                                    <code>value</code> property for text description.</p>
-
-                                <IconButton iconCls="fa fa-plus"
-                                            value="add"
-                                            isCircular={false}
-                                            theme="success"/>
-
-                                <IconButton iconCls="fa fa-trash"
-                                            value="delete"
-                                            isCircular={false}
-                                            theme="error"/>
-
-                                <IconButton iconCls="fa fa-wrench"
-                                            value="tools"
-                                            isCircular={false}
-                                            disabled={true}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={IconButtonDoc}/>

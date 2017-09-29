@@ -307,14 +307,20 @@
     }
 
     // default theme
-    @include popup-theme(#fff);
+    @include popup-theme($theme-field-bg);
 
     // other themes
     &.theme-primary {
         @include popup-theme($theme-primary);
     }
+    &.theme-secondary {
+        @include popup-theme($theme-secondary);
+    }
     &.theme-highlight {
         @include popup-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include popup-theme($theme-info);
     }
     &.theme-success {
         @include popup-theme($theme-success);

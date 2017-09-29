@@ -5,32 +5,71 @@
 
 .switcher {
     box-sizing: border-box;
-    width: 54px;
+    width: 50px;
     height: 30px;
     border-radius: 15px;
     position: relative;
     cursor: pointer;
-    border: 1px solid darken($theme-border, 2%);
-    background: $theme-field-bg;
+    background-color: $theme-highlight;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
+        background-color: $theme-field-bg;
+        border: 2px solid $theme-border;
+        border-radius: 30px;
+        transition: all $transition-duration ease-in-out;
+    }
+
+    .switcher-label {
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            width: 0;
+            height: 10px;
+            border: none;
+            border-right: 1px solid #fff;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 7px;
+            top: 10px;
+            box-sizing: border-box;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid $theme-border;
+        }
+    }
 
     .switcher-slider-wrapper {
-        width: 50px;
-        height: 50px;
-        padding: 12px;
+        width: 50px !important;
+        height: 50px !important;
+        padding: 10px !important;
         position: absolute;
-        top: -11px;
-        left: -11px;
+        top: 0;
+        left: 0;
+        transform: translate(-10px, -10px);
+        transition: transform $transition-duration ease-in-out;
 
         .switcher-slider {
-
             @include shadow(2);
-
-            width: 26px;
-            height: 26px;
-            border-radius: 13px;
-            background: #fff;
+            box-sizing: border-box;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: $theme-field-bg;
+            border: 1px solid $theme-border;
             line-height: 26px;
-            transition: all 200ms ease-in-out;
 
             .switcher-loading {
                 width: 20px;
@@ -44,22 +83,37 @@
         }
     }
 
-    &.active {
-        background: $theme-title;
-        border: 1px solid $theme-title;
+    &.activated {
+        border-color: $theme-highlight;
+
+        &::before {
+            top: 50%;
+            right: 5px;
+            bottom: 50%;
+            left: 50%;
+            border-width: 0;
+            border-radius: 5px;
+        }
 
         .switcher-slider-wrapper {
-            left: 13px;
+            padding: 11px !important;
+            transform: translate(10px, -10px);
+
+            .switcher-slider {
+                width: 28px;
+                height: 28px;
+                border-color: transparent;
+            }
         }
     }
 
     &[disabled] {
-        background: grayscale($theme-field-bg);
-        border: 1px solid grayscale(darken($theme-border, 2%));
         cursor: not-allowed;
 
-        &.active {
-            background: grayscale($theme-field-bg);
+        &::before {
+            cursor: not-allowed;
+            border-color: $theme-border-disabled;
+            background-color: $theme-field-bg-disabled;
         }
 
         .switcher-slider-wrapper {
@@ -67,6 +121,8 @@
 
             .switcher-slider {
                 box-shadow: none;
+                background-color: $theme-field-bg-disabled;
+                border-color: $theme-border-disabled;
             }
         }
     }
@@ -76,17 +132,31 @@
         height: 24px;
         border-radius: 12px;
 
+        .switcher-label {
+
+            &::before {
+                left: 10px;
+                top: 8px;
+                height: 8px;
+            }
+
+            &::after {
+                right: 6px;
+                top: 8px;
+                width: 8px;
+                height: 8px;
+            }
+        }
+
         .switcher-slider-wrapper {
             width: 40px;
             height: 40px;
-            padding: 10px;
-            top: -9px;
-            left: -9px;
+            padding: 8px;
+            transform: translate(-11px, -13px);
 
             .switcher-slider {
-                width: 20px;
-                height: 20px;
-                border-radius: 10px;
+                width: 24px;
+                height: 24px;
 
                 .switcher-loading {
                     width: 20px;
@@ -96,9 +166,15 @@
             }
         }
 
-        &.active {
+        &.activated {
             .switcher-slider-wrapper {
-                left: 7px;
+                padding: 9px;
+                transform: translate(6px, -13px);
+
+                .switcher-slider {
+                    width: 22px;
+                    height: 22px;
+                }
             }
         }
     }

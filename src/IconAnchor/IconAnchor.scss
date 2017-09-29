@@ -4,19 +4,14 @@
  */
 
 @mixin icon-anchor-theme($color) {
-    background: transparent;
     color: $color;
 
-    .button-icon {
-        color: inherit;
+    &:hover {
+        color: theme-color-hover($color);
     }
 
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
+    &:active {
+        color: theme-color-active($color);
     }
 }
 
@@ -33,9 +28,10 @@
     font-size: 12px;
     user-select: none;
     overflow: hidden;
+    background-color: transparent;
 
     &[disabled] {
-        cursor: not-allowed;
+        color: $theme-field-disabled !important;
     }
 
     // default theme
@@ -45,8 +41,14 @@
     &.theme-primary {
         @include icon-anchor-theme($theme-primary);
     }
+    &.theme-secondary {
+        @include icon-anchor-theme($theme-secondary);
+    }
     &.theme-highlight {
         @include icon-anchor-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include icon-anchor-theme($theme-info);
     }
     &.theme-success {
         @include icon-anchor-theme($theme-success);

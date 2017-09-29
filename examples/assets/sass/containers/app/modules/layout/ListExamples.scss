@@ -3,8 +3,9 @@
 .list-examples {
 
     .examples-wrapper {
-        .paper {
+        .list {
             width: 200px;
+            border: 1px solid $theme-border;
         }
     }
 }

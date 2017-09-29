@@ -81,16 +81,13 @@ export default class PopupExamples extends Component {
             } = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                theme: Theme.PRIMARY
+                text: 'Facebook'
             }, {
                 iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                theme: Theme.PRIMARY
+                text: 'Twitter'
             }, {
                 iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                theme: Theme.PRIMARY
+                text: 'Google+'
             }];
 
         return (
@@ -123,14 +120,16 @@ export default class PopupExamples extends Component {
                                                   this.togglePopup(e, 1);
                                               }}/>
 
-                                <Popup visible={popupVisible1}
+                                <Popup theme={Theme.PRIMARY}
+                                       visible={popupVisible1}
                                        triggerEl={triggerEl1}
                                        isAutoClose={false}
-                                       theme={Theme.PRIMARY}
                                        onRequestClose={() => {
                                            this.closePopup(1);
                                        }}>
-                                    <List items={items}/>
+                                    <div style={{padding: 20, color: '#fff'}}>
+                                        Menu
+                                    </div>
                                 </Popup>
 
                             </div>
@@ -267,7 +266,6 @@ export default class PopupExamples extends Component {
 
                                 <Popup visible={popupVisible4}
                                        triggerEl={triggerEl4}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.BOTTOM_LEFT}
                                        onRequestClose={() => {
                                            this.closePopup(4);
@@ -276,7 +274,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible5}
                                        triggerEl={triggerEl5}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.BOTTOM}
                                        onRequestClose={() => {
                                            this.closePopup(5);
@@ -285,7 +282,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible6}
                                        triggerEl={triggerEl6}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.BOTTOM_RIGHT}
                                        onRequestClose={() => {
                                            this.closePopup(6);
@@ -295,7 +291,6 @@ export default class PopupExamples extends Component {
 
                                 <Popup visible={popupVisible7}
                                        triggerEl={triggerEl7}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.TOP_LEFT}
                                        onRequestClose={() => {
                                            this.closePopup(7);
@@ -304,7 +299,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible8}
                                        triggerEl={triggerEl8}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.TOP}
                                        onRequestClose={() => {
                                            this.closePopup(8);
@@ -313,7 +307,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible9}
                                        triggerEl={triggerEl9}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.TOP_RIGHT}
                                        onRequestClose={() => {
                                            this.closePopup(9);
@@ -323,7 +316,6 @@ export default class PopupExamples extends Component {
 
                                 <Popup visible={popupVisible10}
                                        triggerEl={triggerEl10}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.LEFT_TOP}
                                        onRequestClose={() => {
                                            this.closePopup(10);
@@ -332,7 +324,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible11}
                                        triggerEl={triggerEl11}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.LEFT}
                                        onRequestClose={() => {
                                            this.closePopup(11);
@@ -341,7 +332,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible12}
                                        triggerEl={triggerEl12}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.LEFT_BOTTOM}
                                        onRequestClose={() => {
                                            this.closePopup(12);
@@ -351,7 +341,6 @@ export default class PopupExamples extends Component {
 
                                 <Popup visible={popupVisible13}
                                        triggerEl={triggerEl13}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.RIGHT_TOP}
                                        onRequestClose={() => {
                                            this.closePopup(13);
@@ -360,7 +349,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible14}
                                        triggerEl={triggerEl14}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.RIGHT}
                                        onRequestClose={() => {
                                            this.closePopup(14);
@@ -369,7 +357,6 @@ export default class PopupExamples extends Component {
                                 </Popup>
                                 <Popup visible={popupVisible15}
                                        triggerEl={triggerEl15}
-                                       theme={Theme.PRIMARY}
                                        position={Popup.Position.RIGHT_BOTTOM}
                                        onRequestClose={() => {
                                            this.closePopup(15);

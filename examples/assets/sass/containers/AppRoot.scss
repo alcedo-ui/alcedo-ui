@@ -25,7 +25,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            color: $theme-menu;
+            color: $theme-primary;
             margin: -24px 0 0 -24px;
         }
     }
@@ -34,6 +34,6 @@
 @media (max-width: 767px) {
     .app-root {
         color: $theme-field;
-        background: $theme-menu;
+        background: $theme-primary;
     }
 }

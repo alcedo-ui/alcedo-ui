@@ -7,8 +7,6 @@ import WidgetHeader from 'dist/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import RadioGroupDoc from 'assets/propTypes/RadioGroup.json';
 
-import 'sass/containers/app/modules/fields/RadioExamples.scss';
-
 export default class RadioGroupExamples extends Component {
 
     constructor(props) {
@@ -41,14 +39,14 @@ export default class RadioGroupExamples extends Component {
     }
 
     changeHandler(value) {
-        this.setState=({
-            radioValue:value
-        })
+        this.setState = ({
+            radioValue: value
+        });
     }
 
 
     render() {
-        const {radioValue}=this.state;
+        const {radioValue} = this.state;
         return (
             <div className="example radio-examples">
 
@@ -95,6 +93,7 @@ export default class RadioGroupExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true to disable the radio group button.</p>
 
                                 <RadioGroup data={this.data}
+                                            value={'label2'}
                                             disabled={true}/>
 
                             </div>

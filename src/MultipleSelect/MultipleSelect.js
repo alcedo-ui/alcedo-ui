@@ -234,13 +234,13 @@ export default class MultipleSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder, isGrouped,
+                className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
             emptyEl = [{
-                renderer() {
+                itemRenderer() {
                     return (
                         <div className="no-matched-list-item">
 
@@ -261,15 +261,18 @@ export default class MultipleSelect extends Component {
 
             valueLen = (value ? value.length : 0),
 
-            multipleSelectClassName = (valueLen > 0 ? ' not-empty' : '') + (popupVisible ? ' activated' : '')
-                + (isAbove ? ' above' : ' blow') + (className ? ' ' + className : ''),
+            multipleSelectClassName = (theme ? ` theme-${theme}` : '') + (valueLen > 0 ? ' not-empty' : '')
+                + (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
+                + (className ? ' ' + className : ''),
+
             selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
             selectPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
             selectPopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle),
 
-            listData = this.filterData();
+            listData = this.filterData(),
+            isEmpty = listData.length < 1;
 
         return (
             <div ref="multipleSelect"
@@ -328,6 +331,7 @@ export default class MultipleSelect extends Component {
 
                 <TextField ref="trigger"
                            className="multiple-select-trigger"
+                           theme={theme}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
@@ -339,6 +343,7 @@ export default class MultipleSelect extends Component {
 
                 <Popup className={'multiple-select-popup' + selectPopupClassName}
                        style={selectPopupStyle}
+                       theme={theme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -349,10 +354,11 @@ export default class MultipleSelect extends Component {
                        onRequestClose={this.closePopup}>
 
                     <List className="multiple-select-list"
+                          theme={theme}
                           value={value}
-                          mode={List.Mode.CHECKBOX}
-                          isGrouped={isGrouped}
-                          items={listData.length < 1 ? emptyEl : listData}
+                          mode={isEmpty ? List.Mode.DEFAULT : List.Mode.CHECKBOX}
+                          isGrouped={isEmpty ? false : isGrouped}
+                          items={isEmpty ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
@@ -387,6 +393,11 @@ MultipleSelect.propTypes = {
      * Override the styles of the popup element.
      */
     popupStyle: PropTypes.object,
+
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the auto complete.
@@ -546,6 +557,7 @@ MultipleSelect.defaultProps = {
     popupClassName: '',
     style: null,
     popupStyle: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     placeholder: '',

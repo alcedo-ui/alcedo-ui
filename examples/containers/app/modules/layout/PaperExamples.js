@@ -9,7 +9,7 @@ import PaperDoc from 'assets/propTypes/Paper.json';
 
 import 'sass/containers/app/modules/layout/PaperExamples.scss';
 
-export default class CheckboxExamples extends Component {
+export default class PaperExamples extends Component {
 
     constructor(props) {
         super(props);

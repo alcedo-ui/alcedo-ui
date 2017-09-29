@@ -4,6 +4,7 @@ import Table from 'dist/Table';
 import Switcher from 'dist/Switcher';
 import Widget from 'dist/Widget';
 import WidgetHeader from 'dist/WidgetHeader';
+import Paper from 'dist/Paper';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TableDoc from 'assets/propTypes/Table.json';
@@ -79,9 +80,11 @@ export default class TableExamples extends Component {
 
                             <p>A simple <code>Table</code> example.</p>
 
-                            <Table columns={this.columns}
-                                   isPagging={true}
-                                   data={this.generateData()}/>
+                            <Paper>
+                                <Table columns={this.columns}
+                                       isPagging={true}
+                                       data={this.generateData()}/>
+                            </Paper>
 
                         </div>
                     </div>
@@ -97,7 +100,7 @@ export default class TableExamples extends Component {
 
                             <p>A simple <code>Table</code> example.</p>
 
-                            <div style={{width: 400, height: 600, overflow: 'auto'}}>
+                            <Paper style={{width: 400, height: 600, overflow: 'auto'}}>
                                 <Table columns={this.columns}
                                        isPagging={true}
                                        data={this.generateData(5)}
@@ -105,8 +108,11 @@ export default class TableExamples extends Component {
                                        sortInitConfig={{
                                            prop: 'id',
                                            type: -1
+                                       }}
+                                       onChange={value => {
+                                           console.log(value);
                                        }}/>
-                            </div>
+                            </Paper>
 
                         </div>
                     </div>
@@ -123,16 +129,18 @@ export default class TableExamples extends Component {
                             <p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>
                                 to true for showLineNumber and checkbox.</p>
 
-                            <Table columns={this.columns}
-                                   isPagging={true}
-                                   mode={Table.Mode.CHECKBOX}
-                                   data={this.generateData()}
-                                   paggingSelectedCountVisible={true}
-                                   defaultPageSize={20}
-                                   pageSizes={[10, 20, 30, 40]}
-                                   onChange={(value) => {
-                                       console.log(value);
-                                   }}/>
+                            <Paper>
+                                <Table columns={this.columns}
+                                       isPagging={true}
+                                       mode={Table.Mode.CHECKBOX}
+                                       data={this.generateData()}
+                                       paggingSelectedCountVisible={true}
+                                       defaultPageSize={20}
+                                       pageSizes={[10, 20, 30, 40]}
+                                       onChange={value => {
+                                           console.log(value);
+                                       }}/>
+                            </Paper>
 
                         </div>
                     </div>

@@ -4,45 +4,29 @@
  */
 
 @mixin ghost-button-theme($color, $activated-color) {
-    background: transparent;
     color: $color;
-    border: 1px solid $color;
+    border-color: $color;
 
     &:hover {
         color: $activated-color;
-        background: $color;
+        background-color: $color;
     }
 
     &:active {
-        background: $color;
+        background-color: $color;
         color: $activated-color;
     }
 }
 
 .ghost-button {
-
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
 
     &[disabled] {
-        color: $theme-field-disabled;
-        border-color: $theme-field-bg-disabled;
-        background: transparent;
-
-        &:hover {
-            color: $theme-field-disabled;
-            border-color: $theme-field-bg-disabled;
-        }
-
-        &:active {
-            color: $theme-field-disabled;
-            border-color: $theme-field-bg-disabled;
-        }
+        color: $theme-field-disabled !important;
+        background-color: $theme-field-bg-disabled !important;
+        border-color: $theme-border-disabled !important;
     }
 
     // default theme

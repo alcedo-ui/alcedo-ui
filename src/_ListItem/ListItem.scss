@@ -4,32 +4,17 @@
  */
 
 @mixin list-item-theme($color, $bg-color) {
-    background: $bg-color;
     color: $color;
-
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
-
-    &.activated {
-        background: darken($bg-color, 4%);
-    }
+    background-color: $bg-color;
 
     &:hover {
-        background: darken($bg-color, 6%);
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
     }
 
     &:active {
-        background: darken($bg-color, 8%);
-    }
-
-    &[disabled] {
-        color: transparentize($color, .5);
-        background: darken($bg-color, 8%);
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
     }
 }
 
@@ -50,6 +35,8 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: $theme-field;
+    background-color: $theme-field-bg;
 
     .list-item-checkbox {
         display: inline-block;
@@ -118,19 +105,41 @@
         }
     }
 
+    &[readonly] {
+        cursor: default;
+        color: $theme-field !important;
+        background: $theme-field-bg !important;
+    }
+
     &[disabled] {
         cursor: not-allowed;
+        color: $theme-field-disabled !important;
+        background-color: $theme-field-bg-disabled !important;
+    }
+
+    &:hover {
+        background-color: $theme-secondary;
+    }
+
+    &:active {
+        background-color: theme-color-active($theme-field-bg);
     }
 
     // default theme
-    @include list-item-theme($theme-field, $theme-field-bg);
+    //@include list-item-theme($theme-field, $theme-field-bg);
 
     // other themes
     &.theme-primary {
-        @include list-item-theme(#fff, $theme-primary);
+        @include list-item-theme($theme-secondary, $theme-primary);
+    }
+    &.theme-secondary {
+        @include list-item-theme($theme-primary, $theme-secondary);
     }
     &.theme-highlight {
         @include list-item-theme(#fff, $theme-highlight);
+    }
+    &.theme-info {
+        @include list-item-theme(#fff, $theme-info);
     }
     &.theme-success {
         @include list-item-theme(#fff, $theme-success);
@@ -140,14 +149,5 @@
     }
     &.theme-error {
         @include list-item-theme(#fff, $theme-error);
-    }
-
-    &[readonly] {
-        cursor: default;
-
-        &:hover,
-        &:active {
-            background: $theme-field-bg;
-        }
     }
 }

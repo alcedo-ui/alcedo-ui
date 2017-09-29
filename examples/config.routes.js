@@ -61,9 +61,6 @@ export default function configureRoutes(store) {
                     path: '/components/Checkbox',
                     component: ac(store, () => import('modules/fields/CheckboxExamples'))
                 }, {
-                    path: '/components/Radio',
-                    component: ac(store, () => import('modules/fields/RadioExamples'))
-                }, {
                     path: '/components/RadioGroup',
                     component: ac(store, () => import('modules/fields/RadioGroupExamples'))
                 }, {

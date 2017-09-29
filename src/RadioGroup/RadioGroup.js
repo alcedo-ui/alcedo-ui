@@ -18,11 +18,11 @@ export default class RadioGroup extends Component {
             value: props.value
         };
 
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
-    changeHandle(item) {
+    changeHandler(item) {
         this.setState({
             value: item.value
         }, () => {
@@ -33,15 +33,15 @@ export default class RadioGroup extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: !!nextProps.value
+                value: nextProps.value
             });
         }
     }
 
     render() {
 
-        const {className, style, name, disabled, data, tip, tipPosition} = this.props;
-        const {value} = this.state;
+        const {className, style, name, disabled, data, tip, tipPosition} = this.props,
+            {value} = this.state;
 
         return (
             <div className={'radio-group' + (className ? ' ' + className : '')}
@@ -64,7 +64,7 @@ export default class RadioGroup extends Component {
                                    tip={tip ? tip : item.label}
                                    tipPosition={tipPosition}
                                    onChange={() => {
-                                       this.changeHandle(item);
+                                       this.changeHandler(item);
                                    }}/>
                         );
 

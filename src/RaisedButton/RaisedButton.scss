@@ -5,22 +5,26 @@
 
 @mixin raised-button-theme($color, $bg-color, $border-color) {
     color: $color;
-    background: $bg-color;
+    background-color: $bg-color;
     border-color: $border-color;
+
+    &:hover {
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
+        border-color: theme-color-hover($border-color);
+    }
+
+    &:active {
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
+        border-color: theme-color-active($border-color);
+    }
 }
 
 .raised-button {
     @include shadow(1);
-    border-width: 1px;
     border-style: solid;
-
-    .button-icon {
-        color: inherit;
-    }
-
-    .circular-loading .spinner {
-        border-color: inherit;
-    }
+    border-width: 1px;
 
     &:hover {
         @include shadow(3);
@@ -32,16 +36,9 @@
 
     &[disabled] {
         box-shadow: none !important;
-        color: $theme-field-disabled;
-        background: $theme-field-bg-disabled;
-
-        &:hover {
-            background: $theme-field-bg-disabled;
-        }
-
-        &:active {
-            background: $theme-field-bg-disabled;
-        }
+        color: $theme-field-disabled !important;
+        background-color: $theme-field-bg-disabled !important;
+        border-color: $theme-border-disabled !important;
     }
 
     // default theme
