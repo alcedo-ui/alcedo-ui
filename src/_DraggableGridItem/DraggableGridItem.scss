@@ -108,7 +108,7 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            color: lighten($theme-title, 32%) !important;
+            color: $theme-secondary !important;
             cursor: move;
         }
 
