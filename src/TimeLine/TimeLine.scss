@@ -55,10 +55,10 @@
                     }
                 }
                 &-primary {
-                    border-color: lighten($theme-title, 20%);
+                    border-color: $theme-border;
 
                     &:before {
-                        background: $theme-title;
+                        background: $theme-secondary;
                         width: 8px;
                         height: 8px;
                         margin-left: -29px;
