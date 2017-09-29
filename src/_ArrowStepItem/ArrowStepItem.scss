@@ -16,7 +16,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        background: $theme-border;
+        background: $theme-field-bg-disabled;
 
         .number {
             float: left;
@@ -27,8 +27,8 @@
             text-align: center;
             line-height: 30px;
             font-size: 20px;
-            background: transparentize(#fff, .05);
-            color: $theme-field;
+            background: $theme-field-bg;
+            color: $theme-field-disabled;
 
             i {
                 width: 40px;
@@ -46,7 +46,7 @@
             height: 30px;
             line-height: 30px;
             padding: 15px 0;
-            color: $theme-field;
+            color: $theme-field-disabled;
             white-space: nowrap;
             overflow: hidden;
             z-index: 2;
@@ -64,7 +64,7 @@
             width: 0;
             height: 0;
             border: 30px solid transparent;
-            border-left-color: $theme-border;
+            border-left-color: $theme-field-bg-disabled;
             border-right: none;
 
             &.finished {
@@ -81,8 +81,8 @@
             width: 0;
             height: 0;
             border: 15px solid transparent;
-            border-top-color: $theme-border;
-            border-right-color: $theme-border;
+            border-top-color: $theme-field-bg-disabled;
+            border-right-color: $theme-field-bg-disabled;
 
             &.finished {
                 border-top-color: $theme-primary;
@@ -100,8 +100,8 @@
             width: 0;
             height: 0;
             border: 15px solid transparent;
-            border-right-color: $theme-border;
-            border-bottom-color: $theme-border;
+            border-right-color: $theme-field-bg-disabled;
+            border-bottom-color: $theme-field-bg-disabled;
 
             &.finished {
                 border-right-color: $theme-primary;
@@ -161,23 +161,23 @@
         &:hover {
 
             .arrow-step-item-content {
-                background: darken($theme-highlight, 4%);
+                background: theme-color-hover($theme-highlight);
             }
 
             .triangle-wrapper.triangle-wrapper-left {
                 .triangle-top {
-                    border-top-color: darken($theme-highlight, 4%);
-                    border-right-color: darken($theme-highlight, 4%);
+                    border-top-color: theme-color-hover($theme-highlight);
+                    border-right-color: theme-color-hover($theme-highlight);
                 }
                 .triangle-bottom {
-                    border-right-color: darken($theme-highlight, 4%);
-                    border-bottom-color: darken($theme-highlight, 4%);
+                    border-right-color: theme-color-hover($theme-highlight);
+                    border-bottom-color: theme-color-hover($theme-highlight);
                 }
             }
 
             .triangle-wrapper.triangle-wrapper-right {
                 .triangle-middle {
-                    border-left-color: darken($theme-highlight, 4%);
+                    border-left-color: theme-color-hover($theme-highlight);
                 }
             }
         }
@@ -201,23 +201,23 @@
         &:hover {
 
             .arrow-step-item-content {
-                background: darken($theme-primary, 4%);
+                background: theme-color-hover($theme-primary);
             }
 
             .triangle-wrapper.triangle-wrapper-left {
                 .triangle-top {
-                    border-top-color: darken($theme-primary, 4%);
-                    border-right-color: darken($theme-primary, 4%);
+                    border-top-color: theme-color-hover($theme-primary);
+                    border-right-color: theme-color-hover($theme-primary);
                 }
                 .triangle-bottom {
-                    border-right-color: darken($theme-primary, 4%);
-                    border-bottom-color: darken($theme-primary, 4%);
+                    border-right-color: theme-color-hover($theme-primary);
+                    border-bottom-color: theme-color-hover($theme-primary);
                 }
             }
 
             .triangle-wrapper.triangle-wrapper-right {
                 .triangle-middle {
-                    border-left-color: darken($theme-primary, 4%);
+                    border-left-color: theme-color-hover($theme-primary);
                 }
             }
         }
