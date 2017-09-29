@@ -53,7 +53,8 @@
         cursor: pointer;
     }
 
-    &.activated {
+    &.activated,
+    &.indeterminated {
 
         .checkbox-bg-icon {
             .button-icon {

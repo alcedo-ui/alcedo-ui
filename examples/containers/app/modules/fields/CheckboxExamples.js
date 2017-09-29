@@ -129,8 +129,9 @@ export default class CheckboxExamples extends Component {
                                 <p>CheckboxGroup simple example.</p>
 
                                 <Checkbox label="All"
-                                          value={checkboxGroupValue.length > 0}
-                                          indeterminate={checkboxGroupValue.length != this.data.length}
+                                          value={checkboxGroupValue.length === this.data.length}
+                                          indeterminate={checkboxGroupValue.length > 0
+                                          && checkboxGroupValue.length < this.data.length}
                                           onChange={this.checkboxChangeHandler}/>
 
                                 <CheckboxGroup data={this.data}
