@@ -81,16 +81,13 @@ export default class MenuExamples extends Component {
             } = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                theme: Theme.PRIMARY
+                text: 'Facebook'
             }, {
                 iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                theme: Theme.PRIMARY
+                text: 'Twitter'
             }, {
                 iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                theme: Theme.PRIMARY
+                text: 'Google+'
             }];
 
         return (
@@ -123,12 +120,13 @@ export default class MenuExamples extends Component {
                                                   this.showMenu(e, 1);
                                               }}/>
 
-                                <Menu visible={menuVisible1}
+                                <Menu theme={Theme.PRIMARY}
+                                      visible={menuVisible1}
                                       triggerEl={triggerEl1}
                                       onRequestClose={() => {
                                           this.hideMenu(1);
                                       }}>
-                                    <div style={{padding: 20}}>
+                                    <div style={{padding: 20, color: '#fff'}}>
                                         Menu
                                     </div>
                                 </Menu>
@@ -267,7 +265,6 @@ export default class MenuExamples extends Component {
 
                                 <Menu visible={menuVisible4}
                                       triggerEl={triggerEl4}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.BOTTOM_LEFT}
                                       onRequestClose={() => {
                                           this.hideMenu(4);
@@ -276,7 +273,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible5}
                                       triggerEl={triggerEl5}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.BOTTOM}
                                       onRequestClose={() => {
                                           this.hideMenu(5);
@@ -285,7 +281,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible6}
                                       triggerEl={triggerEl6}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.BOTTOM_RIGHT}
                                       onRequestClose={() => {
                                           this.hideMenu(6);
@@ -295,7 +290,6 @@ export default class MenuExamples extends Component {
 
                                 <Menu visible={menuVisible7}
                                       triggerEl={triggerEl7}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.TOP_LEFT}
                                       onRequestClose={() => {
                                           this.hideMenu(7);
@@ -304,7 +298,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible8}
                                       triggerEl={triggerEl8}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.TOP}
                                       onRequestClose={() => {
                                           this.hideMenu(8);
@@ -313,7 +306,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible9}
                                       triggerEl={triggerEl9}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.TOP_RIGHT}
                                       onRequestClose={() => {
                                           this.hideMenu(9);
@@ -323,7 +315,6 @@ export default class MenuExamples extends Component {
 
                                 <Menu visible={menuVisible10}
                                       triggerEl={triggerEl10}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.LEFT_TOP}
                                       onRequestClose={() => {
                                           this.hideMenu(10);
@@ -332,7 +323,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible11}
                                       triggerEl={triggerEl11}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.LEFT}
                                       onRequestClose={() => {
                                           this.hideMenu(11);
@@ -341,7 +331,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible12}
                                       triggerEl={triggerEl12}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.LEFT_BOTTOM}
                                       onRequestClose={() => {
                                           this.hideMenu(12);
@@ -351,7 +340,6 @@ export default class MenuExamples extends Component {
 
                                 <Menu visible={menuVisible13}
                                       triggerEl={triggerEl13}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.RIGHT_TOP}
                                       onRequestClose={() => {
                                           this.hideMenu(13);
@@ -360,7 +348,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible14}
                                       triggerEl={triggerEl14}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.RIGHT}
                                       onRequestClose={() => {
                                           this.hideMenu(14);
@@ -369,7 +356,6 @@ export default class MenuExamples extends Component {
                                 </Menu>
                                 <Menu visible={menuVisible15}
                                       triggerEl={triggerEl15}
-                                      theme={Theme.PRIMARY}
                                       position={Menu.Position.RIGHT_BOTTOM}
                                       onRequestClose={() => {
                                           this.hideMenu(15);
