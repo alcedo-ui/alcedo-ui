@@ -63,6 +63,7 @@ export default class MaterialTextField extends Component {
                 <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
                 <TextField {...this.props}
                            value={value}
+                           className=''
                            onFocus={this.onFocusHandle}
                            onBlur={this.onBlurHandle}
                            onChange={this.onChangeHandle}/>
@@ -257,33 +258,22 @@ MaterialTextField.propTypes = {
 MaterialTextField.defaultProps = {
 
     className: '',
+    popupClassName: '',
     style: null,
+    popupStyle: null,
 
-    type: 'text',
     name: '',
     placeholder: '',
-    value: '',
-    iconCls: '',
+    data: [],
     disabled: false,
-    readOnly: false,
-    autoFocus: false,
-    infoMsg: '',
-
-    clearButtonVisible: true,
-    searchButtonVisible: false,
-    passwordButtonVisible: true,
-
-    // valid
-    required: false,
-    patternInvalidMsg: '',
-
-    autoComplete: 'off',
-    autoCorrect: 'off',
-    autoCapitalize: 'off',
-    spellCheck: 'false',
-
-    label: '',
-    isLabelAnimate: true
+    valueField: 'value',
+    displayField: 'text',
+    descriptionField: 'desc',
+    autoClose: false,
+    iconCls: '',
+    rightIconCls: '',
+    noMatchedMsg: '',
+    isGrouped: false
 
 };
 

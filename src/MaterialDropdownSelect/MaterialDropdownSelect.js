@@ -54,6 +54,7 @@ export default class MaterialDropdownSelect extends Component {
                 style={style}>
                 <div className={`material-drop-down-select-label ${value ? 'hasValue' : ''}`}>{label}</div>
                 <DropdownSelect {...this.props}
+                                className=''
                                 disableTouchRipple={true}
                                 onChange={this.onChangeHandle}
                                 onClosePopup={this.onTapHandle}

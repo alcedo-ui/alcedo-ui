@@ -192,6 +192,9 @@ export default [{
     }, {
         text: 'MaterialDropdownSelect',
         route: '/components/MaterialDropdownSelect'
+    }, {
+        text: 'MaterialLocalAutoComplete',
+        route: '/components/MaterialLocalAutoComplete'
     }]
 }, {
     text: 'Media',

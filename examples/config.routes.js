@@ -222,7 +222,11 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialDropdownSelect',
                     component: ac(store, () => import('modules/materialDesign/MaterialDropdownSelectExamples'))
+                },{
+                    path: '/components/MaterialLocalAutoComplete',
+                    component: ac(store, () => import('modules/materialDesign/MaterialLocalAutoCompleteExamples'))
                 },
+
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
