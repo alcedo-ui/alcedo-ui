@@ -56,6 +56,7 @@ export default class Table extends Component {
 
         this.initValue = ::this.initValue;
         this.isHeadChecked = ::this.isHeadChecked;
+        this.isHeadIndeterminate = ::this.isHeadIndeterminate;
         this.isItemChecked = ::this.isItemChecked;
         this.headCheckBoxChangeHandler = ::this.headCheckBoxChangeHandler;
         this.itemCheckBoxChangeHandler = ::this.itemCheckBoxChangeHandler;
@@ -103,11 +104,24 @@ export default class Table extends Component {
         const {data} = this.props,
             {value} = this.state;
 
-        if (!value || !data) {
+        if (!value || !data || data.length < 1) {
             return false;
         }
 
         return value.length === data.length;
+
+    }
+
+    isHeadIndeterminate() {
+
+        const {data} = this.props,
+            {value} = this.state;
+
+        if (data.length > 0 && value.length > 0 && value.length < data.length) {
+            return true;
+        }
+
+        return false;
 
     }
 
@@ -384,6 +398,7 @@ export default class Table extends Component {
                 header() {
                     return <Checkbox className="table-checkbox"
                                      value={self.isHeadChecked()}
+                                     indeterminate={self.isHeadIndeterminate()}
                                      onChange={self.headCheckBoxChangeHandler}/>;
                 },
                 cellClassName: 'table-select-td',
