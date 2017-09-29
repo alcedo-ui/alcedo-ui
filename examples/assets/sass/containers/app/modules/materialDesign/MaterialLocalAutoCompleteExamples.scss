@@ -1,19 +1,6 @@
 @import '../../../../my-theme';
 
-.tree-select-examples {
-
-    .examples-wrapper {
-
-        .field-group {
-
-            @include float-fix;
-
-            float: none;
-
-            .material-text-field{
-                width: 300px;
-            }
-
-        }
-    }
+.material-local-auto-complete {
+    width: 300px;
 }
+

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Theme from '../Theme';
 
 import TextField from '../TextField';
 import Util from '../_vendors/Util';
@@ -279,22 +280,37 @@ MaterialTextField.propTypes = {
 MaterialTextField.defaultProps = {
 
     className: '',
-    popupClassName: '',
     style: null,
-    popupStyle: null,
+    theme: Theme.DEFAULT,
 
+    type: 'text',
     name: '',
     placeholder: '',
-    data: [],
-    disabled: false,
-    valueField: 'value',
-    displayField: 'text',
-    descriptionField: 'desc',
-    autoClose: false,
+    value: '',
     iconCls: '',
-    rightIconCls: '',
-    noMatchedMsg: '',
-    isGrouped: false
+    disabled: false,
+    readOnly: false,
+    autoFocus: false,
+    infoMsg: '',
+
+    clearButtonVisible: true,
+    searchButtonVisible: false,
+    passwordButtonVisible: true,
+
+    // valid
+    required: false,
+    patternInvalidMsg: '',
+    preventInvalidInput: false,
+
+    autoComplete: 'off',
+    autoCorrect: 'off',
+    autoCapitalize: 'off',
+    spellCheck: 'false',
+
+    fieldMsgVisible: true,
+    label: '',
+    isLabelAnimate: true
+
 
 };
 
