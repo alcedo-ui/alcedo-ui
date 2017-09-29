@@ -70,7 +70,8 @@ export default class Checkbox extends Component {
         const {className, style, name, label, disabled, indeterminate} = this.props,
             {value} = this.state,
 
-            checkboxClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
+            checkboxClassName = (value ? ' activated' : '') + (indeterminate ? ' indeterminated' : '')
+                + (className ? ' ' + className : '');
 
         return (
             <div className={'checkbox' + checkboxClassName}
