@@ -58,7 +58,7 @@ input:focus {
         .tag-field-item-field {
             height: 24px;
             line-height: 24px;
-            background: $theme-container-bg;
+            background: $theme-field-bg;
             padding: 0 20px 0 8px;
             border-radius: 12px;
 
@@ -72,7 +72,7 @@ input:focus {
                 width: 100%;
                 top: 0;
                 left: 0;
-                background: $theme-container-bg;
+                background: $theme-field-bg;
                 padding-left: 7px;
                 border-radius: 12px;
 
