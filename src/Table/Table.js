@@ -224,7 +224,7 @@ export default class Table extends Component {
         }
 
         const checked = this.isItemChecked(rowData, this.state.value),
-            value = checked ? rowData : null;
+            value = checked ? null : rowData;
 
         this.setState({
             value
