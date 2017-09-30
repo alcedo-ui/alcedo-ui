@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
+import Util from '../_vendors/Util';
+
 export default class ButtonRadioGroup extends Component {
 
     constructor(props, ...restArgs) {
@@ -41,7 +43,7 @@ export default class ButtonRadioGroup extends Component {
 
     render() {
 
-        const {className, style, name, disabled, data} = this.props;
+        const {className, style, theme, activatedTheme, name, disabled, data} = this.props;
         const {value} = this.state;
 
         return (
@@ -70,7 +72,7 @@ export default class ButtonRadioGroup extends Component {
                                           style={item.style}
                                           value={item.label}
                                           disabled={disabled || item.disabled}
-                                          theme={isChecked ? Theme.HIGHLIGHT : Theme.DEFAULT}
+                                          theme={isChecked ? activatedTheme : theme}
                                           onTouchTap={() => {
                                               this.changeHandle(item);
                                           }}/>
@@ -96,6 +98,16 @@ ButtonRadioGroup.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The ButtonCheckbox theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The ButtonCheckbox activated theme.
+     */
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The hidden input name for form submit.
@@ -155,6 +167,8 @@ ButtonRadioGroup.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
+    activatedTheme: Theme.PRIMARY,
 
     name: '',
     data: [],
