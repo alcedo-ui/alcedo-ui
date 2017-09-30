@@ -71,7 +71,7 @@ export default class RadioGroupExamples extends Component {
 
                                 <p><code>RadioGroup</code> simple example.</p>
 
-                                <RadioGroup Theme={Theme.HIGHLIGHT}
+                                <RadioGroup theme={Theme.HIGHLIGHT}
                                             data={this.data}
                                             value={radioValue}
                                             onChange={this.changeHandler}/>
