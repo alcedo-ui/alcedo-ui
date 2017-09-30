@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Switcher from 'src/Switcher';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import SwitcherDoc from 'assets/propTypes/Switcher.json';
@@ -58,7 +59,8 @@ export default class SwitcherExamples extends Component {
 
                                 <p>Set the size property to small for small size switcher.</p>
 
-                                <Switcher size={Switcher.Size.SMALL}
+                                <Switcher theme={Theme.HIGHLIGHT}
+                                          size={Switcher.Size.SMALL}
                                           labelVisible={true}/>
 
                             </div>
