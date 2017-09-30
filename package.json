@@ -1,20 +1,18 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
-        "build:propType": "rimraf examples/assets/propTypes && gulp propType",
-        "build:componentsIndex": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
-        "build:componentsStyle": "rimraf src/components.scss && node scripts/generateComponentsStyle.js",
-        "build:index": "npm run build:componentsIndex && npm run build:componentsStyle",
-        "build:components": "rimraf dist && npm run build:index && gulp build && npm run build:propType",
-        "watch:components": "npm run build:components && gulp watch",
-        "dev:example": "node build/dev/dev-server.js",
-        "build:example": "rimraf docs && npm run build:components && node build/prod/prod.js",
-        "run:demo": "node build/demo/demo-server.js",
-        "demo": "npm run build:example && npm run run:demo"
+        "compile:propType": "rimraf examples/assets/propTypes && gulp propType",
+        "compile:componentsIndex": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
+        "compile:componentsStyle": "rimraf src/components.scss && node scripts/generateComponentsStyle.js",
+        "compile": "npm run compile:propType && npm run compile:componentsIndex && npm run compile:componentsStyle",
+        "publish": "rimraf dist && npm run compile && gulp copy",
+        "dev": "npm run compile && node build/dev/dev-server.js",
+        "build": "rimraf docs && npm run compile && node build/prod/prod.js",
+        "run": "npm run build && node build/demo/demo-server.js"
     },
     "repository": {
         "type": "git",

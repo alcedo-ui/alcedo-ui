@@ -2,52 +2,9 @@ process.env.NODE_ENV = '"release"';
 
 var gulp = require('gulp'),
     rename = require('gulp-rename'),
-    babel = require('gulp-babel'),
     gulpSequence = require('gulp-sequence'),
     miniPackageJson = require('./scripts/gulp-mini-package-json'),
     componentPropTypeJson = require('./scripts/gulp-component-prop-type-json');
-
-function printError(e) {
-    console.error(e.toString());
-}
-
-/**
- * sass copy
- */
-gulp.task('sass', function () {
-    return gulp.src('./src/**/*.scss')
-        .pipe(gulp.dest('./dist'));
-});
-
-/**
- * es compile
- */
-gulp.task('es', function () {
-    return gulp.src('./src/**/*.js')
-        .pipe(babel({
-            plugins: ['transform-runtime']
-        }))
-        .on('error', printError)
-        .pipe(gulp.dest('./dist'));
-});
-
-/**
- * copy extra files to dist
- */
-gulp.task('copyAssets', function () {
-    return gulp.src('./assets/**')
-        .pipe(gulp.dest('./dist/assets'));
-});
-gulp.task('copyNpmFiles', function () {
-    return gulp.src(['README.md', './LICENSE'])
-        .pipe(gulp.dest('./dist'));
-});
-gulp.task('copyPackageJson', function () {
-    return gulp.src('./package.json')
-        .pipe(miniPackageJson())
-        .pipe(gulp.dest('./dist'));
-});
-gulp.task('copyFiles', gulpSequence('copyAssets', 'copyNpmFiles', 'copyPackageJson'));
 
 /**
  * generate props type json include name, type, default and desc of components
@@ -63,14 +20,27 @@ gulp.task('propType', function () {
 });
 
 /**
- * build components for npm publish
+ * copy files to dist
  */
-gulp.task('build', gulpSequence('sass', 'es', 'copyFiles'));
-
-/**
- * watch components src files
- */
-gulp.task('watch', function () {
-    gulp.watch('./src/**/*.scss', ['sass']);
-    gulp.watch('./src/**/*.js', ['es']);
+gulp.task('copyES', function () {
+    return gulp.src('./src/**/*.js')
+        .pipe(gulp.dest('./dist'));
 });
+gulp.task('copySASS', function () {
+    return gulp.src('./src/**/*.scss')
+        .pipe(gulp.dest('./dist'));
+});
+gulp.task('copyAssets', function () {
+    return gulp.src('./assets/**')
+        .pipe(gulp.dest('./dist/assets'));
+});
+gulp.task('copyNpmFiles', function () {
+    return gulp.src(['README.md', './LICENSE'])
+        .pipe(gulp.dest('./dist'));
+});
+gulp.task('copyPackageJson', function () {
+    return gulp.src('./package.json')
+        .pipe(miniPackageJson())
+        .pipe(gulp.dest('./dist'));
+});
+gulp.task('copy', gulpSequence('copyES', 'copySASS', 'copyAssets', 'copyNpmFiles', 'copyPackageJson'));
