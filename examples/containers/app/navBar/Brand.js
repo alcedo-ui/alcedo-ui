@@ -6,8 +6,8 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
-import IconButton from 'dist/IconButton';
-import IconAnchor from 'dist/IconAnchor';
+import IconButton from 'src/IconButton';
+import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/app/navBar/brand/Brand.scss';
 

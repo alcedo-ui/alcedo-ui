@@ -3,10 +3,10 @@
  */
 import React, {Component} from 'react';
 
-import SpanLoading from 'dist/SpanLoading';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Switcher from 'dist/Switcher';
+import SpanLoading from 'src/SpanLoading';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Switcher from 'src/Switcher';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import SpanLoadingDoc from 'assets/propTypes/SpanLoading.json';

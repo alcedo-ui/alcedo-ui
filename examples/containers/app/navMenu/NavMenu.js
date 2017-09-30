@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
-import TextField from 'dist/TextField';
+import TextField from 'src/TextField';
 import NavMenuList from './NavMenuList';
 
 import 'sass/containers/app/navMenu/NavMenu.scss';

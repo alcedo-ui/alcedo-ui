@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import FlatButton from 'dist/FlatButton';
+import FlatButton from 'src/FlatButton';
 
 import 'sass/containers/landing/sections/LandingIntro.scss';
 

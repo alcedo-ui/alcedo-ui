@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import GhostButton from 'dist/GhostButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Theme from 'dist/Theme';
+import GhostButton from 'src/GhostButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import GhostButtonDoc from 'assets/propTypes/GhostButton.json';

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
-import RaisedButton from 'dist/RaisedButton';
-import Popup from 'dist/Popup';
-import List from 'dist/List';
-import Theme from 'dist/Theme';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Popup from 'src/Popup';
+import List from 'src/List';
+import Theme from 'src/Theme';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import PopupDoc from 'assets/propTypes/PopupBody.json';

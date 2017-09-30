@@ -3,9 +3,9 @@
  */
 import React, {Component, PropTypes} from 'react'
 
-import CircularProgress from '../../../../../dist/CircularProgress'
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import CircularProgress from '../../../../../src/CircularProgress'
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import CircularProgressDoc from 'assets/propTypes/CircularProgress.json';

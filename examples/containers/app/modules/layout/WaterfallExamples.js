@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Waterfall from 'dist/Waterfall';
-import Paper from 'dist/Paper';
-import ButtonRadioGroup from 'dist/ButtonRadioGroup';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Waterfall from 'src/Waterfall';
+import Paper from 'src/Paper';
+import ButtonRadioGroup from 'src/ButtonRadioGroup';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import WaterfallDoc from 'assets/propTypes/Waterfall.json';

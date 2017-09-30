@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import RoundStep from 'dist/RoundStep';
-import RaisedButton from 'dist/RaisedButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import RoundStep from 'src/RoundStep';
+import RaisedButton from 'src/RaisedButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import RoundStepDoc from 'assets/propTypes/RoundStep.json';

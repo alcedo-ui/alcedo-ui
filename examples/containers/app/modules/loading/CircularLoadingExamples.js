@@ -3,9 +3,9 @@
  */
 import React, {Component} from 'react';
 
-import CircularLoading from 'dist/CircularLoading';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import CircularLoading from 'src/CircularLoading';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import CircularLoadingDoc from 'assets/propTypes/CircularLoading.json';

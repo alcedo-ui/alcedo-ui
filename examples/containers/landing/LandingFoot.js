@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import IconAnchor from 'dist/IconAnchor';
+import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/landing/LandingFoot.scss';
 

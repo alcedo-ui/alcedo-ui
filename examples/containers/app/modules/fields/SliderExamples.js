@@ -2,10 +2,10 @@
  * Created by DT314 on 2017/4/12.
  */
 import React, {Component, PropTypes} from 'react';
-import Slider from 'dist/Slider';
+import Slider from 'src/Slider';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import SliderDoc from 'assets/propTypes/Slider.json';

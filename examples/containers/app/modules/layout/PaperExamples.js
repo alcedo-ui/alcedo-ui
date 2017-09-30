@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import Paper from 'dist/Paper';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Paper from 'src/Paper';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import PaperDoc from 'assets/propTypes/Paper.json';

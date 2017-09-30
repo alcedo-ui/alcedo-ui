@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import Paper from 'dist/Paper';
-import Accordion from 'dist/Accordion';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Paper from 'src/Paper';
+import Accordion from 'src/Accordion';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import AccordionDoc from 'assets/propTypes/Accordion.json';

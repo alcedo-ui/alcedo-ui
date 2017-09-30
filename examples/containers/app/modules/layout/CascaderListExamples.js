@@ -3,9 +3,9 @@
  */
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget/index';
-import WidgetHeader from 'dist/WidgetHeader/index';
-import CascaderList from 'dist/CascaderList/index';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
+import CascaderList from 'src/CascaderList/index';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import CascaderListDoc from 'assets/propTypes/CascaderList.json';

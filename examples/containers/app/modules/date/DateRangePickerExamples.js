@@ -3,9 +3,9 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import DateRangePicker from 'dist/DateRangePicker';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import DateRangePicker from 'src/DateRangePicker';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import DateRangePickerDoc from 'assets/propTypes/DateRangePicker.json';

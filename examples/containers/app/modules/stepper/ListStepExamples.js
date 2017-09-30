@@ -3,10 +3,10 @@
  */
 import React, {Component} from 'react';
 
-import ListStep from 'dist/ListStep';
-import RaisedButton from 'dist/RaisedButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import ListStep from 'src/ListStep';
+import RaisedButton from 'src/RaisedButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ListStepDoc from 'assets/propTypes/ListStep.json';

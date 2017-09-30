@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import Tab from 'dist/Tab';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Tab from 'src/Tab';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TabDoc from 'assets/propTypes/Tab.json';

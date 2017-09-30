@@ -4,10 +4,10 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 
-import TimeLine from 'dist/TimeLine';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Theme from 'dist/Theme';
+import TimeLine from 'src/TimeLine';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TimeLineDoc from 'assets/propTypes/TimeLine.json';

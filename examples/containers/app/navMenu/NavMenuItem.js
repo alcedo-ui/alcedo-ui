@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-import TouchRipple from 'dist/TouchRipple';
+import TouchRipple from 'src/TouchRipple';
 
 export default class NavMenuItem extends Component {
 

@@ -2,10 +2,10 @@
  * Created by DT314 on 2017/5/5.
  */
 import React, {Component} from 'react';
-import TextArea from 'dist/TextArea';
+import TextArea from 'src/TextArea';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TextAreaDoc from 'assets/propTypes/TextArea.json';

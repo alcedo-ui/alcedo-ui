@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import IconButton from 'dist/IconButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import IconButton from 'src/IconButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import WidgetDoc from 'assets/propTypes/Widget.json';

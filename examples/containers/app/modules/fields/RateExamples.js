@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import Rate from 'dist/Rate';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Rate from 'src/Rate';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import RateDoc from 'assets/propTypes/Rate.json';

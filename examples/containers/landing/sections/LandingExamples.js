@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Paper from 'dist/Paper';
-import FlatButton from 'dist/FlatButton';
+import Paper from 'src/Paper';
+import FlatButton from 'src/FlatButton';
 
 import 'sass/containers/landing/sections/LandingExamples.scss';
 

@@ -2,10 +2,10 @@
  * Created by DT314 on 2017/5/15.
  */
 import React, {Component} from 'react';
-import RemoteAutoComplete from 'dist/RemoteAutoComplete';
+import RemoteAutoComplete from 'src/RemoteAutoComplete';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import RemoteAutoCompleteDoc from 'assets/propTypes/RemoteAutoComplete.json';

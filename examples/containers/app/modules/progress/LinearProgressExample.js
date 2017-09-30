@@ -3,9 +3,9 @@
  */
 import React, {Component} from 'react';
 
-import LinearProgress from '../../../../../dist/LinearProgress';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import LinearProgress from '../../../../../src/LinearProgress';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import LinearProgressDoc from 'assets/propTypes/LinearProgress.json';

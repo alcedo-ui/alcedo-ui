@@ -3,9 +3,9 @@
  */
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import CascaderField from 'dist/CascaderField';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import CascaderField from 'src/CascaderField';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import CascaderFieldDoc from '../../../../assets/propTypes/CascaderField.json';

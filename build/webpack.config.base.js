@@ -20,6 +20,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
+            'src': resolve('src'),
             'examples': resolve('examples'),
             'assets': resolve('examples/assets'),
             'sass': resolve('examples/assets/sass'),
@@ -36,7 +37,7 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             loader: 'babel-loader',
-            include: resolve('examples')
+            include: [resolve('examples'), resolve('src')]
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             loader: 'url-loader',

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import Table from 'dist/Table';
-import Switcher from 'dist/Switcher';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Paper from 'dist/Paper';
+import Table from 'src/Table';
+import Switcher from 'src/Switcher';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Paper from 'src/Paper';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TableDoc from 'assets/propTypes/Table.json';

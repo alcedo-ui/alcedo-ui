@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import TextField from 'dist/TextField';
-import TextFieldGroup from 'dist/TextFieldGroup';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Theme from 'dist/Theme';
+import TextField from 'src/TextField';
+import TextFieldGroup from 'src/TextFieldGroup';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TextFieldDoc from 'assets/propTypes/TextField.json';

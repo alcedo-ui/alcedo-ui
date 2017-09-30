@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import IconButton from 'dist/IconButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Tip from 'dist/Tip';
+import IconButton from 'src/IconButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Tip from 'src/Tip';
 
-import TipProvider from 'dist/TipProvider';
-import RaisedButton from 'dist/RaisedButton';
+import TipProvider from 'src/TipProvider';
+import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from '../PropTypeDescTable';
 import TipDoc from 'assets/propTypes/TipBody.json';
 

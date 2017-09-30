@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Table from 'dist/Table';
+import Table from 'src/Table';
 
 import 'sass/containers/app/modules/PropTypeDescTable.scss';
 

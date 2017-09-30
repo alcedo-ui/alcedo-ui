@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import List from 'dist/List';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import List from 'src/List';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ListDoc from 'assets/propTypes/List.json';

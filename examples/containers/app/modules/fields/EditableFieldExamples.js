@@ -2,10 +2,10 @@
  * Created by DT314 on 2017/4/18.
  */
 import React, {Component, PropTypes} from 'react';
-import EditableField from 'dist/EditableField/EditableField';
+import EditableField from 'src/EditableField/EditableField';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import EditableFieldDoc from 'assets/propTypes/EditableField.json';

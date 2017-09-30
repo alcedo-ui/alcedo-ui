@@ -3,10 +3,10 @@
  */
 import React, {Component} from 'react';
 
-import DotStep from 'dist/DotStep';
-import RaisedButton from 'dist/RaisedButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import DotStep from 'src/DotStep';
+import RaisedButton from 'src/RaisedButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import DotStepDoc from 'assets/propTypes/DotStep.json';

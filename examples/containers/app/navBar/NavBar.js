@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import Brand from './Brand';
-import IconAnchor from 'dist/IconAnchor';
+import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/app/navBar/nav/Nav.scss';
 

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-import RadioGroup from 'dist/RadioGroup';
-import TextField from 'dist/TextField';
-import RaisedButton from 'dist/RaisedButton';
-import Toaster from 'dist/Toaster';
-import Theme from 'dist/Theme';
+import RadioGroup from 'src/RadioGroup';
+import TextField from 'src/TextField';
+import RaisedButton from 'src/RaisedButton';
+import Toaster from 'src/Toaster';
+import Theme from 'src/Theme';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ToasterDoc from 'assets/propTypes/Toaster.json';

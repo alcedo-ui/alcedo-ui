@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import DraggableGrid from 'dist/DraggableGrid';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import DraggableGrid from 'src/DraggableGrid';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import DraggableGridDoc from 'assets/propTypes/DraggableGrid.json';

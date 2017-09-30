@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import ButtonCheckbox from 'dist/ButtonCheckbox';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import ButtonCheckbox from 'src/ButtonCheckbox';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ButtonCheckboxDoc from 'assets/propTypes/ButtonCheckbox.json';

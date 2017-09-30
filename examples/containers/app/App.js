@@ -9,7 +9,7 @@ import * as actions from 'reduxes/actions';
 
 import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
-import PageLoading from 'dist/PageLoading';
+import PageLoading from 'src/PageLoading';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
 import 'sass/containers/app/App.scss';

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import TagField from 'dist/TagField';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import TagField from 'src/TagField';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import TagFieldDoc from 'assets/propTypes/TagField.json';

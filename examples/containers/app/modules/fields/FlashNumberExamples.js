@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import TextField from 'dist/TextField';
-import FlashNumber from 'dist/FlashNumber';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import TextField from 'src/TextField';
+import FlashNumber from 'src/FlashNumber';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import FlashNumberDoc from 'assets/propTypes/FlashNumber.json';

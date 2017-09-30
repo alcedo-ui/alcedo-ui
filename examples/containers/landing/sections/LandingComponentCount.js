@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {COMPONENTS_TOTAL_COUNT} from 'dist';
+import {COMPONENTS_TOTAL_COUNT} from 'src';
 
 import 'sass/containers/landing/sections/LandingComponentCount.scss';
 

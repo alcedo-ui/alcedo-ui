@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialTextField from 'dist/MaterialTextField';
+import MaterialTextField from 'src/MaterialTextField';
 import MaterialTextFieldDoc from 'assets/propTypes/MaterialTextField.json';
 
 import 'sass/containers/app/modules/materialDesign/MaterialTextFieldExamples.scss';

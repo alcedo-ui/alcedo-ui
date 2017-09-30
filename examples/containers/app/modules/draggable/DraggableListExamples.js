@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import DraggableList from 'dist/DraggableList';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import DraggableList from 'src/DraggableList';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import DraggableListDoc from 'assets/propTypes/DraggableList.json';

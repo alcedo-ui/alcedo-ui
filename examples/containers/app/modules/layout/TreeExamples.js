@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget/index';
-import WidgetHeader from 'dist/WidgetHeader/index';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
 import PropTypeDescTable from '../PropTypeDescTable';
-import Tree from 'dist/Tree/index';
+import Tree from 'src/Tree/index';
 import TreeDoc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';

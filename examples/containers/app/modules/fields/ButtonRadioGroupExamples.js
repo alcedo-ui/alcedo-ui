@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import ButtonRadioGroup from 'dist/ButtonRadioGroup';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import ButtonRadioGroup from 'src/ButtonRadioGroup';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ButtonRadioGroupDoc from 'assets/propTypes/ButtonRadioGroup.json';

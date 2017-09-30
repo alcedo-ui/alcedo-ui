@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import ArrowStep from 'dist/ArrowStep';
-import RaisedButton from 'dist/RaisedButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import ArrowStep from 'src/ArrowStep';
+import RaisedButton from 'src/RaisedButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ArrowStepDoc from 'assets/propTypes/ArrowStep.json';

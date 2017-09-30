@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import FlatButton from 'dist/FlatButton';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
-import Theme from 'dist/Theme';
+import FlatButton from 'src/FlatButton';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import FlatButtonDoc from 'assets/propTypes/FlatButton.json';

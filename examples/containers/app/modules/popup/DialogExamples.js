@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import RaisedButton from 'dist/RaisedButton';
-import Dialog from 'dist/Dialog';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import DialogDoc from 'assets/propTypes/DialogBody.json';

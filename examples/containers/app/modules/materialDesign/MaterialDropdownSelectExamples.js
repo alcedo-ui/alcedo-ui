@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialDropdownSelect from 'dist/MaterialDropdownSelect';
+import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
 import MaterialDropdownSelectDoc from 'assets/propTypes/MaterialDropdownSelect.json';
 
 import 'sass/containers/app/modules/materialDesign/MaterialDropdownSelectExamples.scss';

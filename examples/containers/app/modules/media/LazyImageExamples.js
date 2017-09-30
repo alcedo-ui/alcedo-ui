@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
-import LazyImage from 'dist/LazyImage';
+import LazyImage from 'src/LazyImage';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import LazyImageDoc from 'assets/propTypes/LazyImage.json';

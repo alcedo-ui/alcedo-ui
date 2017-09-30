@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import LocalAutoComplete from 'dist/LocalAutoComplete';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import LocalAutoComplete from 'src/LocalAutoComplete';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import LocalAutoCompleteDoc from 'assets/propTypes/LocalAutoComplete.json';

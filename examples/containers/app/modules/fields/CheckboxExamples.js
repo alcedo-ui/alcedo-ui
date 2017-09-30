@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import Checkbox from 'dist/Checkbox';
-import CheckboxGroup from 'dist/CheckboxGroup';
-import Widget from 'dist/Widget';
-import WidgetHeader from 'dist/WidgetHeader';
+import Checkbox from 'src/Checkbox';
+import CheckboxGroup from 'src/CheckboxGroup';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import CheckboxDoc from 'assets/propTypes/Checkbox.json';

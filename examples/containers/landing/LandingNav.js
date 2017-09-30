@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import IconAnchor from 'dist/IconAnchor';
+import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/landing/LandingNav.scss';
 
