@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 export default class Radio extends Component {
 
@@ -71,10 +74,11 @@ export default class Radio extends Component {
 
     render() {
 
-        const {className, style, name, label, disabled} = this.props,
+        const {className, style, theme, name, label, disabled} = this.props,
             {value} = this.state,
 
-            radioClassName = (value ? ' activated' : '') + (className ? ' ' + className : '');
+            radioClassName = (value ? ' activated' : '') + (theme ? ` theme-${theme}` : '')
+                + (className ? ' ' + className : '');
 
         return (
             <div className={'radio' + radioClassName}
@@ -124,6 +128,11 @@ Radio.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The Radio theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The name of the radio.
      */
     name: PropTypes.string,
@@ -154,6 +163,7 @@ Radio.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     label: '',

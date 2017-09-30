@@ -3,6 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin radio-theme($color) {
+    .radio-icon {
+        color: $color;
+    }
+}
+
 .radio {
     @include float-fix;
     color: $theme-field;
@@ -39,7 +45,6 @@
         }
 
         .radio-icon {
-            color: $theme-highlight;
 
             .button-icon {
                 transform: scale(0);
@@ -78,6 +83,32 @@
         .radio-label {
             cursor: not-allowed;
         }
+    }
+
+    // default theme
+    @include radio-theme($theme-primary);
+
+    // other themes
+    &.theme-primary {
+        @include radio-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include radio-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include radio-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include radio-theme($theme-info);
+    }
+    &.theme-success {
+        @include radio-theme($theme-success);
+    }
+    &.theme-warning {
+        @include radio-theme($theme-warning);
+    }
+    &.theme-error {
+        @include radio-theme($theme-error);
     }
 
 }
