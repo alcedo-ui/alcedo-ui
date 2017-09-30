@@ -1,6 +1,7 @@
 process.env.NODE_ENV = '"release"';
 
 var gulp = require('gulp'),
+    babel = require('gulp-babel'),
     rename = require('gulp-rename'),
     gulpSequence = require('gulp-sequence'),
     miniPackageJson = require('./scripts/gulp-mini-package-json'),
@@ -24,6 +25,9 @@ gulp.task('propType', function () {
  */
 gulp.task('copyES', function () {
     return gulp.src('./src/**/*.js')
+        .pipe(babel({
+            plugins: ['transform-runtime']
+        }))
         .pipe(gulp.dest('./dist'));
 });
 gulp.task('copySASS', function () {
