@@ -18,9 +18,11 @@
 
         .dropdown-select-trigger {
             box-shadow: none;
+            border-color: transparent;
 
             &.activated {
                 @include shadow(4);
+                border-color: $theme-border;
             }
         }
     }
