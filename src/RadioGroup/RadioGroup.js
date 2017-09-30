@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Radio from '../Radio';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 export default class RadioGroup extends Component {
 
@@ -90,6 +93,11 @@ RadioGroup.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The RadioGroup theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The name of Radio.
      */
     name: PropTypes.string,
@@ -142,6 +150,7 @@ RadioGroup.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     data: [],
