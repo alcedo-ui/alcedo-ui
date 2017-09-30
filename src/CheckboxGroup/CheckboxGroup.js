@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 export default class CheckboxGroup extends Component {
 
@@ -54,8 +57,8 @@ export default class CheckboxGroup extends Component {
 
     render() {
 
-        const {className, style, name, disabled, data, idProp} = this.props;
-        const {value} = this.state;
+        const {className, style, theme, name, disabled, data, idProp} = this.props,
+            {value} = this.state;
 
         return (
             <div className={'checkbox-group' + (className ? ' ' + className : '')}
@@ -71,6 +74,7 @@ export default class CheckboxGroup extends Component {
                             <Checkbox key={idProp in item ? item[idProp] : index}
                                       className={item.className ? item.className : ''}
                                       style={item.style}
+                                      theme={item.theme || theme}
                                       name={name}
                                       label={item.label}
                                       disabled={disabled}
@@ -94,11 +98,17 @@ CheckboxGroup.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    /**
+     * The button theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     name: PropTypes.string,
     data: PropTypes.arrayOf(PropTypes.shape({
 
         className: PropTypes.string,
         style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         label: PropTypes.any,
         value: PropTypes.any
@@ -117,6 +127,7 @@ CheckboxGroup.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     data: [],
