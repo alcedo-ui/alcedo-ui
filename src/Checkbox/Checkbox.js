@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 export default class Checkbox extends Component {
 
@@ -67,11 +70,11 @@ export default class Checkbox extends Component {
 
     render() {
 
-        const {className, style, name, label, disabled, indeterminate} = this.props,
+        const {className, style, theme, name, label, disabled, indeterminate} = this.props,
             {value} = this.state,
 
             checkboxClassName = (value ? ' activated' : '') + (indeterminate ? ' indeterminated' : '')
-                + (className ? ' ' + className : '');
+                + (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'checkbox' + checkboxClassName}
@@ -128,6 +131,11 @@ Checkbox.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The button theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The name of the checkbox.
      */
     name: PropTypes.string,
@@ -160,6 +168,7 @@ Checkbox.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     label: '',

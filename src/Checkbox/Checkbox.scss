@@ -3,6 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin checkbox-theme($color) {
+    .checkbox-icon {
+        color: $color;
+    }
+}
+
 .checkbox {
     color: $theme-field;
     height: 40px;
@@ -36,8 +42,6 @@
         }
 
         .checkbox-icon {
-            color: $theme-highlight;
-
             .button-icon {
                 transform: scale(0);
                 transition: all $transition-duration ease-in-out;
@@ -76,6 +80,32 @@
         .checkbox-label {
             cursor: not-allowed;
         }
+    }
+
+    // default theme
+    @include checkbox-theme($theme-primary);
+
+    // other themes
+    &.theme-primary {
+        @include checkbox-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include checkbox-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include checkbox-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include checkbox-theme($theme-info);
+    }
+    &.theme-success {
+        @include checkbox-theme($theme-success);
+    }
+    &.theme-warning {
+        @include checkbox-theme($theme-warning);
+    }
+    &.theme-error {
+        @include checkbox-theme($theme-error);
     }
 
 }
