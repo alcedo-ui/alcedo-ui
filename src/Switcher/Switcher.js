@@ -120,7 +120,7 @@ Switcher.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The Checkbox theme.
+     * The Switcher theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
