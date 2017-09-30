@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
+import Util from '../_vendors/Util';
+
 export default class ButtonCheckbox extends Component {
 
     constructor(props, ...restArgs) {
@@ -42,7 +44,7 @@ export default class ButtonCheckbox extends Component {
 
     render() {
 
-        const {className, style, text, disabled} = this.props;
+        const {className, style, theme, activatedTheme, text, disabled} = this.props;
         const {value} = this.state;
 
         return (
@@ -51,7 +53,7 @@ export default class ButtonCheckbox extends Component {
                           value={text}
                           disabled={disabled}
                           isRounded={true}
-                          theme={value ? Theme.HIGHLIGHT : Theme.DEFAULT}
+                          theme={value ? activatedTheme : theme}
                           onTouchTap={this.touchTapHandler}/>
         );
 
@@ -69,6 +71,16 @@ ButtonCheckbox.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The ButtonCheckbox theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The ButtonCheckbox activated theme.
+     */
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the toggleButton.
@@ -101,6 +113,8 @@ ButtonCheckbox.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
+    activatedTheme: Theme.PRIMARY,
 
     name: '',
     text: '',
