@@ -131,7 +131,7 @@ Checkbox.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The button theme.Can be primary,highlight,success,warning,error.
+     * The Checkbox theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
