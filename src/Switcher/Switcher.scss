@@ -3,6 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin switcher-theme($color) {
+    background-color: $color;
+
+    &.activated {
+        border-color: $color;
+    }
+
+    &[disabled] {
+        background-color: grayscale($color);
+    }
+}
+
 .switcher {
     box-sizing: border-box;
     width: 50px;
@@ -10,7 +22,6 @@
     border-radius: 15px;
     position: relative;
     cursor: pointer;
-    background-color: $theme-highlight;
 
     &::before {
         content: "";
@@ -84,7 +95,6 @@
     }
 
     &.activated {
-        border-color: $theme-highlight;
 
         &::before {
             top: 50%;
@@ -109,7 +119,6 @@
 
     &[disabled] {
         cursor: not-allowed;
-        background-color: grayscale($theme-highlight);
 
         &::before {
             cursor: not-allowed;
@@ -178,6 +187,32 @@
                 }
             }
         }
+    }
+
+    // default theme
+    @include switcher-theme($theme-primary);
+
+    // other themes
+    &.theme-primary {
+        @include switcher-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include switcher-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include switcher-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include switcher-theme($theme-info);
+    }
+    &.theme-success {
+        @include switcher-theme($theme-success);
+    }
+    &.theme-warning {
+        @include switcher-theme($theme-warning);
+    }
+    &.theme-error {
+        @include switcher-theme($theme-error);
     }
 
 }

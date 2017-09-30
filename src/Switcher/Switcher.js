@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
@@ -69,11 +70,11 @@ export default class Switcher extends Component {
 
     render() {
 
-        const {className, style, disabled, isLoading, size, labelVisible} = this.props,
+        const {className, style, theme, disabled, isLoading, size, labelVisible} = this.props,
             {value} = this.state,
 
             switcherClassName = (value === true ? ' activated' : '') + (size === Switcher.Size.SMALL ? ' small' : '')
-                + (className ? ' ' + className : '');
+                + (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'switcher' + switcherClassName}
@@ -119,6 +120,11 @@ Switcher.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The Checkbox theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * If true,the switcher will be in active status.
      */
     value: PropTypes.bool,
@@ -161,6 +167,7 @@ Switcher.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     value: false,
     disabled: false,
