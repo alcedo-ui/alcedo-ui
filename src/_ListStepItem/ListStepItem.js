@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 export default class ListStepItem extends Component {
 
@@ -27,14 +28,14 @@ export default class ListStepItem extends Component {
 
         const {className, style, activatedStep, finishedStep, index, data} = this.props,
 
-            itemClassName = (activatedStep === index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (className ? ' ' + className : '');
-
+            state = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''),
+            itemClassName = (state ? ' ' + state : '') + (className ? ' ' + className : '');
 
         return (
             <RaisedButton {...data}
                           className={'list-step-item' + itemClassName}
                           style={style}
+                          theme={state === 'activated' ? Theme.HIGHLIGHT : (state === 'finished' ? Theme.PRIMARY : '')}
                           value={data.value}
                           onTouchTap={this.touchTapHandler}/>
         );

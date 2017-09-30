@@ -12,6 +12,8 @@
     padding: 0 20px;
     cursor: not-allowed;
     transition: none;
+    box-shadow: none;
+    border: none;
 
     .button-icon {
         vertical-align: middle;
@@ -46,18 +48,18 @@
 
     &.activated {
         cursor: default;
-        background: $theme-highlight;
         color: #fff;
-        i {
+
+        .button-icon {
             color: #fff;
         }
     }
 
     &.finished {
         cursor: pointer;
-        background: $theme-primary;
         color: #fff;
-        i {
+
+        .button-icon {
             color: #fff;
         }
     }
