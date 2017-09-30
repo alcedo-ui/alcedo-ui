@@ -43,7 +43,7 @@ export default class RadioGroup extends Component {
 
     render() {
 
-        const {className, style, name, disabled, data, tip, tipPosition} = this.props,
+        const {className, style, theme, name, disabled, data, tip, tipPosition} = this.props,
             {value} = this.state;
 
         return (
@@ -60,6 +60,7 @@ export default class RadioGroup extends Component {
                             <Radio key={index}
                                    className={item.className ? item.className : ''}
                                    style={item.style}
+                                   theme={item.theme || theme}
                                    name={name}
                                    label={item.label}
                                    value={isChecked}
@@ -116,6 +117,11 @@ RadioGroup.propTypes = {
          * Override the styles of Radio component.
          */
         style: PropTypes.object,
+
+        /**
+         * The RadioGroup theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
          * The label text of Radio component.
