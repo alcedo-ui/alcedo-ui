@@ -4,6 +4,7 @@ import Checkbox from 'src/Checkbox';
 import CheckboxGroup from 'src/CheckboxGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import CheckboxDoc from 'assets/propTypes/Checkbox.json';
@@ -128,13 +129,15 @@ export default class CheckboxExamples extends Component {
 
                                 <p>CheckboxGroup simple example.</p>
 
-                                <Checkbox label="All"
+                                <Checkbox theme={Theme.HIGHLIGHT}
+                                          label="All"
                                           value={checkboxGroupValue.length === this.data.length}
                                           indeterminate={checkboxGroupValue.length > 0
                                           && checkboxGroupValue.length < this.data.length}
                                           onChange={this.checkboxChangeHandler}/>
 
-                                <CheckboxGroup data={this.data}
+                                <CheckboxGroup theme={Theme.HIGHLIGHT}
+                                               data={this.data}
                                                value={checkboxGroupValue}
                                                onChange={this.checkboxGroupChangeHandler}/>
 
