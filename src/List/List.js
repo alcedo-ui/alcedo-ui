@@ -86,6 +86,9 @@ export default class List extends Component {
     }
 
     listGroupedItemsRenderer(items = this.props.items) {
+
+        const {theme} = this.props;
+
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
@@ -97,6 +100,7 @@ export default class List extends Component {
                 if (group && group.name) {
                     return (
                         <ListGroup key={`group${groupIndex}`}
+                                   theme={theme}
                                    text={group.name}>
                             {
                                 group.children && group.children.length > 0 ?
@@ -117,7 +121,7 @@ export default class List extends Component {
 
     listItemsRenderer(items = this.props.items) {
 
-        const {valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
+        const {theme, valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -137,6 +141,7 @@ export default class List extends Component {
                             <ListItem key={index}
                                       {...item}
                                       index={index}
+                                      theme={item.theme || theme}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
@@ -161,6 +166,7 @@ export default class List extends Component {
                         (
                             <ListItem key={index}
                                       index={index}
+                                      theme={item.theme || theme}
                                       data={item}
                                       checked={this.isItemChecked(item)}
                                       value={item}
@@ -317,6 +323,11 @@ List.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -476,6 +487,7 @@ List.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     items: [],
 
