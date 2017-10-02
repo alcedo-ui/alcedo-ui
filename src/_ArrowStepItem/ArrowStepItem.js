@@ -28,7 +28,9 @@ export default class ArrowStepItem extends Component {
 
             itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
                 + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (className ? ' ' + className : '');
+                + (className ? ' ' + className : ''),
+
+            triangleClassName = activatedStep === index ? ' activated' : (finishedStep >= index ? ' finished' : '');
 
         return (
             <div className={'arrow-step-item' + itemClassName}
@@ -50,12 +52,8 @@ export default class ArrowStepItem extends Component {
                         :
                         (
                             <div className="triangle-wrapper triangle-wrapper-left">
-                                <div className={`triangle-top
-                                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
-                                </div>
-                                <div className={`triangle-bottom
-                                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
-                                </div>
+                                <div className={'triangle-top' + triangleClassName}></div>
+                                <div className={'triangle-bottom' + triangleClassName}></div>
                             </div>
                         )
                 }
@@ -66,9 +64,7 @@ export default class ArrowStepItem extends Component {
                         :
                         (
                             <div className="triangle-wrapper triangle-wrapper-right">
-                                <div className={`triangle-middle
-                                    ${activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : '')}`}>
-                                </div>
+                                <div className={'triangle-middle' + triangleClassName}></div>
                             </div>
                         )
                 }
