@@ -162,9 +162,9 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder,
+                className, popupClassName, style, popupStyle, theme, name, placeholder,
                 disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                theme, isGrouped, itemTouchTapHandle, disableTouchRipple
+                isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
