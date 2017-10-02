@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Paper from 'src/Paper';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ListDoc from 'assets/propTypes/List.json';
@@ -136,7 +137,9 @@ export default class ListExamples extends Component {
 
                                 <p>A <code>List</code> simple example with left icons.</p>
 
-                                <List items={this.listData}/>
+                                <Paper>
+                                    <List items={this.listData}/>
+                                </Paper>
 
                             </div>
 
@@ -156,7 +159,9 @@ export default class ListExamples extends Component {
 
                                 <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
-                                <List items={this.disabledListData}/>
+                                <Paper>
+                                    <List items={this.disabledListData}/>
+                                </Paper>
 
                             </div>
 
@@ -177,7 +182,9 @@ export default class ListExamples extends Component {
                                 <p>Set the <code>theme</code> property to "success","error","warning","primary" and set
                                     the <code>rightIconCls</code> property to get rightIcons.</p>
 
-                                <List items={this.themeListData}/>
+                                <Paper>
+                                    <List items={this.themeListData}/>
+                                </Paper>
 
                             </div>
 
@@ -199,10 +206,10 @@ export default class ListExamples extends Component {
                                     A <code>List</code> with desc.
                                 </p>
 
-                                <div style={{width: 240}}>
+                                <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
                                           items={this.descListData}/>
-                                </div>
+                                </Paper>
 
                             </div>
 
@@ -224,12 +231,12 @@ export default class ListExamples extends Component {
                                     A <code>List</code> with mode.Can be normal,radio,checkbox.
                                 </p>
 
-                                <div style={{width: 240}}>
+                                <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
                                           mode={List.Mode.RADIO}
                                           items={this.descListData}
                                           onChange={this.changeHandle}/>
-                                </div>
+                                </Paper>
 
                             </div>
 
@@ -251,13 +258,13 @@ export default class ListExamples extends Component {
                                     A <code>List</code> with isGrouped.
                                 </p>
 
-                                <div style={{width: 240, height: 240}}>
+                                <Paper style={{width: 240, height: 240}}>
                                     <List style={{width: 240, height: 240}}
                                           mode={List.Mode.CHECKBOX}
                                           isGrouped={true}
                                           items={this.groupedListData}
                                           onChange={this.changeHandle}/>
-                                </div>
+                                </Paper>
 
                             </div>
 
