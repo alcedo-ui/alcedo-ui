@@ -60,8 +60,11 @@ export default class Tab extends Component {
 
                         {
                             tabs.map((item, index) => {
+
+                                const {renderer, ...rest} = item;
+
                                 return (
-                                    <FlatButton {...item}
+                                    <FlatButton {...rest}
                                                 key={index}
                                                 className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
                                                 style={tabButtonStyle}
@@ -69,6 +72,7 @@ export default class Tab extends Component {
                                                     this.tabClickHandle(item, index);
                                                 }}/>
                                 );
+
                             })
                         }
 
