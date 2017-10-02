@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import DropdownSelect from 'src/DropdownSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import DropdownSelectDoc from 'assets/propTypes/DropdownSelect.json';
@@ -124,7 +125,8 @@ export default class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
 
-                                    <DropdownSelect data={this.data}
+                                    <DropdownSelect theme={Theme.PRIMARY}
+                                                    data={this.data}
                                                     autoClose={false}
                                                     onChange={this.onChange}/>
 
