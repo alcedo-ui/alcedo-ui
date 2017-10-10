@@ -109,16 +109,18 @@ export default class Table extends Component {
             return false;
         }
 
-        return value.length === data.length;
+        return value.length === data.filter(item => !item.disabled).length;
 
     }
 
     isHeadIndeterminate() {
 
         const {data} = this.props,
-            {value} = this.state;
+            {value} = this.state,
+            dataLen = data.filter(item => !item.disabled).length,
+            valueLen = value.length;
 
-        if (data.length > 0 && value.length > 0 && value.length < data.length) {
+        if (dataLen > 0 && valueLen > 0 && valueLen < dataLen) {
             return true;
         }
 
