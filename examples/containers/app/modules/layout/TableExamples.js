@@ -136,7 +136,10 @@ export default class TableExamples extends Component {
                                        data={this.generateData()}
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}
-                                       pageSizes={[10, 20, 30, 40]}
+                                       pageSizes={[10, 20, 30, 40, 100]}
+                                       onPageChange={(page, pageSize) => {
+                                           console.log(`page: ${page}, pageSize: ${pageSize}`);
+                                       }}
                                        onChange={value => {
                                            console.log(value);
                                        }}/>

@@ -322,17 +322,24 @@ export default class Table extends Component {
 
     resetPage(data = this.props.data, pagging = this.state.pagging) {
 
-        const {page, pageSize} = pagging,
+        const {onPageChange} = this.props;
+        let {page, pageSize} = pagging,
             total = Math.ceil(data.length / pageSize);
 
         if (page + 1 > total) {
+            page = Valid.range(total - 1, 0);
             this.setState({
                 pagging: {
                     pageSize,
                     page: Valid.range(total - 1, 0)
                 }
+            }, () => {
+                onPageChange && onPageChange(page, pageSize);
             });
+            return;
         }
+
+        onPageChange && onPageChange(page, pageSize);
 
     }
 
@@ -665,9 +672,8 @@ Table.propTypes = {
      */
     onCellTouchTap: PropTypes.func,
 
-    /**
-     *
-     */
+    onPageChange: PropTypes.func,
+
     onChange: PropTypes.func
 
 };
