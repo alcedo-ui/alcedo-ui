@@ -145,7 +145,7 @@ export default class Table extends Component {
 
     headCheckBoxChangeHandler(checked) {
 
-        const value = checked ? this.props.data.slice() : [];
+        const value = checked ? this.props.data.filter(item => !item.disabled) : [];
 
         this.setState({
             value

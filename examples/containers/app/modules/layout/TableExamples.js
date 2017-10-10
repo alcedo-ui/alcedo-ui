@@ -51,7 +51,7 @@ export default class TableExamples extends Component {
                 id: i,
                 firstName: `firstNameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${i}`,
                 lastName: `lastName${i}`,
-                disabled: true//Math.random() < .5
+                disabled: Math.random() < .5
             });
         }
 

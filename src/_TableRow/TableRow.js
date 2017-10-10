@@ -54,17 +54,17 @@ export default class TableRow extends Component {
 
         e.preventDefault();
 
-        const {disabled} = this.props;
+        const {data, rowIndex, disabled, onRowTouchTap} = this.props;
 
         !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex);
 
     }
 
-    cellTouchTapHandler(e) {
+    cellTouchTapHandler(e, colIndex) {
 
         e.preventDefault();
 
-        const {disabled} = this.props;
+        const {data, rowIndex, disabled, onCellTouchTap} = this.props;
 
         !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
 
@@ -84,7 +84,9 @@ export default class TableRow extends Component {
                         <td key={colIndex}
                             className={col.cellClassName}
                             style={col.cellStyle}
-                            onTouchTap={this.cellTouchTapHandler}>
+                            onTouchTap={e => {
+                                this.cellTouchTapHandler(e, colIndex);
+                            }}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
