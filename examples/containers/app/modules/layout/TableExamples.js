@@ -31,8 +31,8 @@ export default class TableExamples extends Component {
             flex: 2
         }, {
             header: 'Status',
-            renderer(rowDate) {
-                return <Switcher value={!rowDate.disabled}
+            renderer(rowData) {
+                return <Switcher value={!rowData.disabled}
                                  size="small"
                                  onTouchTap={(e) => {
                                      e.stopPropagation();
