@@ -5,6 +5,7 @@
 
 .table-row {
     box-sizing: border-box;
+    background: $theme-field-bg;
     border-bottom: 1px solid $theme-border;
 
     td {
@@ -28,8 +29,9 @@
     }
 
     &:hover {
+        background: theme-color-hover($theme-secondary);
+
         td {
-            background: $theme-secondary;
 
             &.actions {
 
@@ -41,6 +43,14 @@
             a {
                 text-decoration: underline;
             }
+        }
+    }
+
+    &[disabled] {
+        background: $theme-field-bg-disabled !important;
+
+        td {
+            cursor: not-allowed;
         }
     }
 }

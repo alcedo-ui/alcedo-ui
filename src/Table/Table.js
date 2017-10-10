@@ -64,6 +64,7 @@ export default class Table extends Component {
         this.sortHandler = ::this.sortHandler;
         this.sortData = ::this.sortData;
         this.rowTouchTapHandler = ::this.rowTouchTapHandler;
+        this.cellTouchTapHandler = ::this.cellTouchTapHandler;
         this.calSelectedCount = ::this.calSelectedCount;
         this.paggingData = ::this.paggingData;
         this.pageChangedHandler = ::this.pageChangedHandler;
@@ -264,6 +265,11 @@ export default class Table extends Component {
             return;
         }
 
+        const {disabled} = this.props;
+        if (disabled) {
+            return;
+        }
+
         const {onRowTouchTap} = this.props;
         onRowTouchTap && onRowTouchTap(rowData, rowIndex);
 
@@ -277,6 +283,18 @@ export default class Table extends Component {
                 this.itemRadioChangeHandler(rowData, rowIndex);
                 return;
         }
+
+    }
+
+    cellTouchTapHandler(data, rowIndex, colIndex) {
+
+        const {disabled} = this.props;
+        if (disabled) {
+            return;
+        }
+
+        const {onCellTouchTap} = this.props;
+        onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
 
     }
 
@@ -386,9 +404,8 @@ export default class Table extends Component {
     render() {
 
         const {
-                className, style, data, columns, hasLineNumber, mode, pageSizes,
-                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
-                onCellTouchTap
+                className, style, data, columns, hasLineNumber, mode, pageSizes, disabled,
+                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
             } = this.props,
             {value, sort, pagging} = this.state,
             self = this,
@@ -405,13 +422,15 @@ export default class Table extends Component {
                 header() {
                     return <Checkbox className="table-checkbox"
                                      value={self.isHeadChecked()}
+                                     disabled={disabled}
                                      indeterminate={self.isHeadIndeterminate()}
                                      onChange={self.headCheckBoxChangeHandler}/>;
                 },
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isItemChecked(rowData, value)}/>;
+                                     value={self.isItemChecked(rowData, value)}
+                                     disabled={disabled || rowData.disabled}/>;
                 }
             });
         } else if (mode === Table.Mode.RADIO) {
@@ -420,7 +439,8 @@ export default class Table extends Component {
                 renderer(rowData) {
                     return (
                         <IconButton className={'table-radio' + (self.isItemChecked(rowData, value) ? ' activated' : '')}
-                                    iconCls="fa fa-check"/>
+                                    iconCls="fa fa-check"
+                                    disabled={disabled || rowData.disabled}/>
                     );
                 }
             });
@@ -448,7 +468,8 @@ export default class Table extends Component {
 
                 <div className="inner-table-wrapper">
 
-                    <table className="inner-table">
+                    <table className="inner-table"
+                           disabled={disabled}>
 
                         <Thead columns={finalColumns}
                                sort={sort}
@@ -461,8 +482,9 @@ export default class Table extends Component {
                                          idProp={idProp}
                                          value={value}
                                          mode={mode}
+                                         disabled={disabled}
                                          onRowTouchTap={this.rowTouchTapHandler}
-                                         onCellTouchTap={onCellTouchTap}/>
+                                         onCellTouchTap={this.cellTouchTapHandler}/>
                                 : null
                         }
 
@@ -600,6 +622,8 @@ Table.propTypes = {
      */
     mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
 
+    disabled: PropTypes.bool,
+
     /**
      * The fields as ID.
      */
@@ -689,6 +713,7 @@ Table.defaultProps = {
     hasLineNumber: false,
 
     mode: Table.Mode.NORMAL,
+    disabled: false,
     idProp: 'id',
     isPagging: true,
     useFullPagging: false,

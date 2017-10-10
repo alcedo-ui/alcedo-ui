@@ -50,7 +50,8 @@ export default class TableExamples extends Component {
             data.push({
                 id: i,
                 firstName: `firstNameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${i}`,
-                lastName: `lastName${i}`
+                lastName: `lastName${i}`,
+                disabled: true//Math.random() < .5
             });
         }
 

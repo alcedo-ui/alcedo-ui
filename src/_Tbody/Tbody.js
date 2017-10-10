@@ -46,7 +46,7 @@ export default class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp,
+            columns, data, startIndex, idProp, disabled,
             onRowTouchTap, onCellTouchTap
         } = this.props;
 
@@ -61,6 +61,7 @@ export default class Tbody extends Component {
                                       columns={columns}
                                       data={row}
                                       isChecked={this.isItemChecked(row)}
+                                      disabled={disabled || row.disabled}
                                       onRowTouchTap={onRowTouchTap}
                                       onCellTouchTap={onCellTouchTap}/>
                         );
@@ -80,6 +81,7 @@ Tbody.propTypes = {
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
     mode: PropTypes.oneOf(Util.enumerateValue(Tbody.Mode)),
+    disabled: PropTypes.bool,
 
     isItemChecked: PropTypes.func,
 
@@ -93,5 +95,6 @@ Tbody.defaultProps = {
     columns: [],
     startIndex: 0,
     idProp: 'id',
-    mode: Tbody.Mode.NORMAL
+    mode: Tbody.Mode.NORMAL,
+    disabled: false
 };

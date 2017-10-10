@@ -12,6 +12,8 @@ export default class TableRow extends Component {
         super(props, ...restArgs);
 
         this.contentRenderer = ::this.contentRenderer;
+        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
+        this.cellTouchTapHandler = ::this.cellTouchTapHandler;
 
     }
 
@@ -48,26 +50,41 @@ export default class TableRow extends Component {
 
     }
 
+    rowTouchTapHandler(e) {
+
+        e.preventDefault();
+
+        const {disabled} = this.props;
+
+        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex);
+
+    }
+
+    cellTouchTapHandler(e) {
+
+        e.preventDefault();
+
+        const {disabled} = this.props;
+
+        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
+
+    }
+
     render() {
 
-        const {rowIndex, columns, data, isChecked, onRowTouchTap, onCellTouchTap} = this.props;
+        const {columns, isChecked, disabled} = this.props;
 
         return (
             <tr className={'table-row' + (isChecked ? ' activated' : '')}
-                onTouchTap={(e) => {
-                    e.preventDefault();
-                    onRowTouchTap && onRowTouchTap(data, rowIndex);
-                }}>
+                disabled={disabled}
+                onTouchTap={this.rowTouchTapHandler}>
 
                 {
                     columns.map((col, colIndex) =>
                         <td key={colIndex}
                             className={col.cellClassName}
                             style={col.cellStyle}
-                            onTouchTap={(e) => {
-                                e.preventDefault();
-                                onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
-                            }}>
+                            onTouchTap={this.cellTouchTapHandler}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
@@ -85,6 +102,7 @@ TableRow.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.object,
     isChecked: PropTypes.bool,
+    disabled: PropTypes.bool,
 
     onRowTouchTap: PropTypes.func,
     onCellTouchTap: PropTypes.func
@@ -95,5 +113,6 @@ TableRow.defaultProps = {
     rowIndex: 0,
     columns: [],
     data: {},
-    isChecked: false
+    isChecked: false,
+    disabled: false
 };
