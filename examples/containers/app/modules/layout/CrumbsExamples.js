@@ -12,7 +12,20 @@ import 'sass/containers/app/modules/layout/CrumbsExamples.scss';
 export default class CrumbsExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.items = [{
+            text: 'Root',
+            route: '/'
+        }, {
+            text: 'Components',
+            route: '/components'
+        }, {
+            text: 'Crumbs',
+            route: '/components/Crumbs'
+        }];
+
     }
 
     render() {
@@ -37,7 +50,7 @@ export default class CrumbsExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Crumbs/>
+                                <Crumbs items={this.items}/>
 
                             </div>
                         </div>

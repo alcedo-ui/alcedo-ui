@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import FlatButton from 'src/FlatButton';
 import Theme from 'src/Theme';
 
 import Util from 'src/_vendors/Util';
@@ -23,10 +24,10 @@ export default class Crumb extends Component {
             crumbClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'crumb' + crumbClassName}
-                 style={style}>
+            <FlatButton {...this.props}
+                        className={'crumb' + crumbClassName}>
 
-            </div>
+            </FlatButton>
         );
 
     }
