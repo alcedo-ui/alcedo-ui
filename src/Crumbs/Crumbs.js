@@ -108,6 +108,11 @@ Crumbs.propTypes = {
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
+         * The url of crumb.
+         */
+        href: PropTypes.string,
+
+        /**
          * The text value of the list button.Type can be string or number.
          */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
