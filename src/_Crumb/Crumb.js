@@ -20,12 +20,12 @@ export default class Crumb extends Component {
 
     render() {
 
-        const {className, route, text, ...restProps} = this.props,
+        const {className, href, text, ...restProps} = this.props,
 
             crumbClassName = (className ? ' ' + className : '');
 
         return (
-            <a href={route}>
+            <a href={href}>
                 <FlatButton {...restProps}
                             className={'crumb' + crumbClassName}
                             value={text}/>
@@ -51,6 +51,11 @@ Crumb.propTypes = {
      * The theme of the list button.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The url of crumb.
+     */
+    href: PropTypes.string,
 
     /**
      * The text value of the list button.Type can be string or number.
