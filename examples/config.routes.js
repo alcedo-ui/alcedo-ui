@@ -133,6 +133,9 @@ export default function configureRoutes(store) {
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
+                    path: '/components/Crumbs',
+                    component: ac(store, () => import('modules/layout/CrumbsExamples'))
+                }, {
                     path: '/components/Paper',
                     component: ac(store, () => import('modules/layout/PaperExamples'))
                 }, {
@@ -219,7 +222,7 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialDropdownSelect',
                     component: ac(store, () => import('modules/materialDesign/MaterialDropdownSelectExamples'))
-                },{
+                }, {
                     path: '/components/MaterialLocalAutoComplete',
                     component: ac(store, () => import('modules/materialDesign/MaterialLocalAutoCompleteExamples'))
                 },

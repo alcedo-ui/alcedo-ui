@@ -118,6 +118,9 @@ export default [{
 }, {
     text: 'Layout',
     children: [{
+        text: 'Crumbs',
+        route: '/components/Crumbs'
+    }, {
         text: 'Paper',
         route: '/components/Paper'
     }, {

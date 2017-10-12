@@ -9,6 +9,7 @@ export Checkbox from './Checkbox';
 export CheckboxGroup from './CheckboxGroup';
 export CircularLoading from './CircularLoading';
 export CircularProgress from './CircularProgress';
+export Crumbs from './Crumbs';
 export DatePicker from './DatePicker';
 export DateRangePicker from './DateRangePicker';
 export DateTimePicker from './DateTimePicker';
@@ -69,4 +70,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 70;
+export const COMPONENTS_TOTAL_COUNT = 71;
