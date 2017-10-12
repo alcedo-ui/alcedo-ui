@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import FlatButton from 'src/FlatButton';
+import Tip from 'src/Tip';
 import Theme from 'src/Theme';
 
 import Util from 'src/_vendors/Util';
@@ -19,15 +20,16 @@ export default class Crumb extends Component {
 
     render() {
 
-        const {className, style} = this.props,
+        const {className, route, text, ...restProps} = this.props,
 
             crumbClassName = (className ? ' ' + className : '');
 
         return (
-            <FlatButton {...this.props}
-                        className={'crumb' + crumbClassName}>
-
-            </FlatButton>
+            <a href={route}>
+                <FlatButton {...restProps}
+                            className={'crumb' + crumbClassName}
+                            value={text}/>
+            </a>
         );
 
     }
