@@ -6,6 +6,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Crumb from 'src/_Crumb';
+import Tip from 'src/Tip';
 import Theme from 'src/Theme';
 
 import Util from 'src/_vendors/Util';
@@ -13,18 +15,54 @@ import Util from 'src/_vendors/Util';
 export default class Crumbs extends Component {
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.itemRender = ::this.itemRender;
+
+    }
+
+    itemRender(item) {
+
+        if (item.renderer) {
+            return item.renderer(item);
+        }
+
+        const {itemRenderer} = this.props;
+        if (itemRenderer) {
+            return itemRenderer(item);
+        }
+
+        return <Crumb {...item}/>;
+
     }
 
     render() {
 
-        const {className, style} = this.props,
+        const {className, style, items, separator} = this.props,
 
             crumbsClassName = (className ? ' ' + className : '');
 
         return (
             <div className={'crumbs' + crumbsClassName}
                  style={style}>
+
+                {
+                    items.map((item, index) => {
+                        return (
+                            <div key={index}
+                                 className="crumbs-item-wrapper">
+
+                                {this.itemRender(item)}
+
+                                <div className="crumbs-separator">
+                                    {separator}
+                                </div>
+
+                            </div>
+                        );
+                    })
+                }
 
             </div>
         );
@@ -127,7 +165,7 @@ Crumbs.propTypes = {
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
 
         /**
          * Callback function fired when a list item touch-tapped.
@@ -149,6 +187,10 @@ Crumbs.defaultProps = {
 
     className: '',
     style: null,
-    theme: Theme.DEFAULT
+    theme: Theme.DEFAULT,
+
+    items: [],
+
+    separator: '>'
 
 };

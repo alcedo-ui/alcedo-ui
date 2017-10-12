@@ -5,4 +5,12 @@
 
 .crumbs {
 
+    .crumbs-item-wrapper {
+        display: inline-block;
+
+        .crumbs-separator {
+            display: inline-block;
+            padding: 0 8px;
+        }
+    }
 }
