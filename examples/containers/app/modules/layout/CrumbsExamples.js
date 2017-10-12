@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -17,20 +18,31 @@ export default class CrumbsExamples extends Component {
 
         this.items = [{
             text: 'Root',
-            route: '/#/'
+            href: '/#/'
         }, {
             text: 'Landing',
-            route: '/#/landing'
+            href: '/#/landing'
         }, {
             text: 'Crumbs',
-            route: '/#/components/Crumbs'
+            href: '/#/components/Crumbs'
+        }];
+
+        this.selfDefineItems = [{
+            text: 'Root',
+            route: '/'
+        }, {
+            text: 'Landing',
+            route: '/landing'
+        }, {
+            text: 'Crumbs',
+            route: '/components/Crumbs'
         }];
 
     }
 
     render() {
         return (
-            <div className="example paper-examples">
+            <div className="example crumbs-examples">
 
                 <h2 className="example-title">Crumbs</h2>
 
@@ -42,7 +54,7 @@ export default class CrumbsExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Crumbs Example"/>
+                    <WidgetHeader className="example-header" title="Basic"/>
 
                     <div className="widget-content">
 
@@ -51,6 +63,30 @@ export default class CrumbsExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <Crumbs items={this.items}/>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Self define item"/>
+
+                    <div className="widget-content">
+
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Crumbs items={this.selfDefineItems}
+                                        itemRenderer={item => (
+                                            <Link className="crumbs-link"
+                                                  to={item.route}>
+                                                {item.text}
+                                            </Link>
+                                        )}/>
 
                             </div>
                         </div>
