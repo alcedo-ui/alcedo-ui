@@ -17,13 +17,13 @@ export default class CrumbsExamples extends Component {
 
         this.items = [{
             text: 'Root',
-            route: '/'
+            route: '/#/'
         }, {
-            text: 'Components',
-            route: '/components'
+            text: 'Landing',
+            route: '/#/landing'
         }, {
             text: 'Crumbs',
-            route: '/components/Crumbs'
+            route: '/#/components/Crumbs'
         }];
 
     }
