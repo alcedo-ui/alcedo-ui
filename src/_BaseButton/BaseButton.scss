@@ -17,7 +17,7 @@ button:focus {
     transition: all $transition-duration ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
-    padding: 0 12px;
+    padding: 0 8px;
     font-size: 12px;
     text-align: center;
     user-select: none;
@@ -32,11 +32,11 @@ button:focus {
         vertical-align: middle;
 
         &.button-icon-left {
-            margin-right: 10px;
+            margin-right: 8px;
         }
 
         &.button-icon-right {
-            margin-left: 10px;
+            margin-left: 8px;
         }
     }
 
