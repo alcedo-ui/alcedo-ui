@@ -6,11 +6,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Crumb from 'src/_Crumb';
-import Tip from 'src/Tip';
-import Theme from 'src/Theme';
+import Crumb from '../_Crumb';
+import Tip from '../Tip';
+import Theme from '../Theme';
 
-import Util from 'src/_vendors/Util';
+import Util from '../_vendors/Util';
 
 export default class Crumbs extends Component {
 
