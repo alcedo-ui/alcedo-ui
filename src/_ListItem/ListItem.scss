@@ -118,7 +118,7 @@
     }
 
     &:hover {
-        background-color: $theme-secondary;
+        background-color: theme-color-hover($theme-secondary);
     }
 
     &:active {
