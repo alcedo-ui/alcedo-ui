@@ -154,6 +154,9 @@ export default class DropdownSelectExamples extends Component {
 
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
+                                                    useSelectAll={true}
+                                                    mode={DropdownSelect.Mode.CHECKBOX}
+                                                    autoClose={false}
                                                     onChange={this.onChange}/>
 
                                 </div>
