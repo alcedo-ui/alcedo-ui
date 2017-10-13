@@ -15,6 +15,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
+import Event from '../_vendors/Event';
 
 export default class DropdownSelect extends Component {
 
@@ -38,6 +39,7 @@ export default class DropdownSelect extends Component {
         this.filterData = ::this.filterData;
         this.popupRenderHandle = ::this.popupRenderHandle;
         this.changeHandler = ::this.changeHandler;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
@@ -148,6 +150,12 @@ export default class DropdownSelect extends Component {
 
     }
 
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
+    }
+
     componentDidMount() {
         this.triggerEl = findDOMNode(this.refs.trigger);
         this.triggerHeight = this.triggerEl.clientHeight;
@@ -246,30 +254,44 @@ export default class DropdownSelect extends Component {
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       shouldPreventContainerScroll={false}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    {
-                        useFilter ?
-                            <TextField className="dropdown-select-filter"
-                                       value={filter}
-                                       rightIconCls="fa fa-search"
-                                       onChange={this.filterChangeHandle}/>
-                            :
-                            null
-                    }
+                    <div className="dropdown-select-popup-fixed">
+                        {
+                            useFilter ?
+                                <TextField className="dropdown-select-filter"
+                                           value={filter}
+                                           rightIconCls="fa fa-search"
+                                           onChange={this.filterChangeHandle}/>
+                                :
+                                null
+                        }
+                    </div>
 
-                    <List className="dropdown-select-list"
-                          theme={theme}
-                          mode={mode}
-                          isGrouped={isGrouped}
-                          items={listData.length < 1 ? emptyEl : listData}
-                          value={value}
-                          valueField={valueField}
-                          displayField={displayField}
-                          descriptionField={descriptionField}
-                          onItemTouchTap={itemTouchTapHandle}
-                          onChange={this.changeHandler}/>
+                    <div className="dropdown-select-list-scroller"
+                         onWheel={this.wheelHandler}>
+
+                        {
+                            useFilter ?
+                                <div className="dropdown-select-filter-placeholder"></div>
+                                :
+                                null
+                        }
+
+                        <List className="dropdown-select-list"
+                              theme={theme}
+                              mode={mode}
+                              isGrouped={isGrouped}
+                              items={listData.length < 1 ? emptyEl : listData}
+                              value={value}
+                              valueField={valueField}
+                              displayField={displayField}
+                              descriptionField={descriptionField}
+                              onItemTouchTap={itemTouchTapHandle}
+                              onChange={this.changeHandler}/>
+                    </div>
 
                 </Popup>
 
@@ -456,6 +478,8 @@ DropdownSelect.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    shouldPreventContainerScroll: PropTypes.bool,
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -469,7 +493,9 @@ DropdownSelect.propTypes = {
     /**
      * Callback function fired when a menu item is selected.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onWheel: PropTypes.func
 
 };
 
@@ -497,6 +523,8 @@ DropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     noMatchedMsg: '',
-    isGrouped: false
+    isGrouped: false,
+
+    shouldPreventContainerScroll: true
 
 };
