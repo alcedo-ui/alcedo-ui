@@ -113,7 +113,7 @@ export default class DropdownSelectExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With autoClose"/>
+                    <WidgetHeader className="example-header" title="Self defined theme"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -127,7 +127,6 @@ export default class DropdownSelectExamples extends Component {
 
                                     <DropdownSelect theme={Theme.PRIMARY}
                                                     data={this.data}
-                                                    autoClose={false}
                                                     onChange={this.onChange}/>
 
                                 </div>
@@ -154,7 +153,6 @@ export default class DropdownSelectExamples extends Component {
                                         search input.</p>
 
                                     <DropdownSelect data={this.data}
-                                                    autoClose={false}
                                                     useFilter={true}
                                                     onChange={this.onChange}/>
 
@@ -178,11 +176,14 @@ export default class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
 
-                                    <p>Set the <code>multi</code> property to true,the DropdownSelect can be
-                                        Multiselect.</p>
+                                    <p>
+                                        Set the <code>mod</code> property to <code>DropdownSelect.Mode.CHECKBOX</code>,
+                                        the DropdownSelect can be Multiselect.
+                                    </p>
 
                                     <DropdownSelect data={this.data}
-                                                    multi={true}
+                                                    autoClose={false}
+                                                    mode={DropdownSelect.Mode.CHECKBOX}
                                                     onChange={this.onChange}/>
 
                                 </div>
