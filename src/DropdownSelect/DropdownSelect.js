@@ -410,6 +410,11 @@ DropdownSelect.propTypes = {
     multi: PropTypes.bool,
 
     /**
+     * The mode of listItem.Can be normal,checkbox.
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -486,6 +491,7 @@ DropdownSelect.defaultProps = {
     invalidMsg: '',
     disabled: false,
     multi: false,
+    mode: List.Mode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
