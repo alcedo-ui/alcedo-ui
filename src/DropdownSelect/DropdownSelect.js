@@ -11,6 +11,7 @@ import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
+import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -173,10 +174,12 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder,
-                disabled, mode, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
+                disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
+
+            isMultiSelect = mode === List.Mode.CHECKBOX,
 
             emptyEl = [{
                 itemRenderer() {
@@ -202,7 +205,7 @@ export default class DropdownSelect extends Component {
                 + (value ? '' : ' empty'),
             triggerValue = value ?
                 (
-                    mode === List.Mode.CHECKBOX ?
+                    isMultiSelect ?
                         (
                             value.length > 0 ?
                                 value.length + ' selected'
@@ -259,6 +262,7 @@ export default class DropdownSelect extends Component {
                        onRequestClose={this.closePopup}>
 
                     <div className="dropdown-select-popup-fixed">
+
                         {
                             useFilter ?
                                 <TextField className="dropdown-select-filter"
@@ -268,6 +272,17 @@ export default class DropdownSelect extends Component {
                                 :
                                 null
                         }
+
+                        {
+                            isMultiSelect && useSelectAll ?
+                                <div className="list-item dropdown-select-all-wrapper">
+                                    <Checkbox className="list-item-checkbox"/>
+                                    Select All
+                                </div>
+                                :
+                                null
+                        }
+
                     </div>
 
                     <div className="dropdown-select-list-scroller"
@@ -276,6 +291,13 @@ export default class DropdownSelect extends Component {
                         {
                             useFilter ?
                                 <div className="dropdown-select-filter-placeholder"></div>
+                                :
+                                null
+                        }
+
+                        {
+                            isMultiSelect && useSelectAll ?
+                                <div className="dropdown-select-all-placeholder"></div>
                                 :
                                 null
                         }
@@ -468,6 +490,8 @@ DropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    useSelectAll: PropTypes.bool,
+
     /**
      * The message of no matching option.
      */
@@ -522,6 +546,7 @@ DropdownSelect.defaultProps = {
     infoMsg: '',
     autoClose: true,
     useFilter: false,
+    useSelectAll: false,
     noMatchedMsg: '',
     isGrouped: false,
 

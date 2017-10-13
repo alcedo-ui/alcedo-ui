@@ -77,9 +77,15 @@
                     margin: 0;
                 }
             }
+
+            .dropdown-select-all-wrapper {
+                box-sizing: border-box;
+                border-bottom: 1px solid $theme-border;
+            }
         }
 
-        .dropdown-select-filter-placeholder {
+        .dropdown-select-filter-placeholder,
+        .dropdown-select-all-placeholder {
             height: 40px;
         }
 
