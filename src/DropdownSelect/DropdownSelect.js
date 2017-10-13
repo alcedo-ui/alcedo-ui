@@ -18,6 +18,8 @@ import Dom from '../_vendors/Dom';
 
 export default class DropdownSelect extends Component {
 
+    static Mode = List.Mode;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -163,7 +165,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder,
-                disabled, multi, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
+                disabled, mode, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
                 isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
@@ -192,7 +194,7 @@ export default class DropdownSelect extends Component {
                 + (value ? '' : ' empty'),
             triggerValue = value ?
                 (
-                    multi ?
+                    mode === List.Mode.CHECKBOX ?
                         (
                             value.length > 0 ?
                                 value.length + ' selected'
@@ -259,7 +261,7 @@ export default class DropdownSelect extends Component {
 
                     <List className="dropdown-select-list"
                           theme={theme}
-                          mode={multi ? List.Mode.CHECKBOX : List.Mode.NORMAL}
+                          mode={mode}
                           isGrouped={isGrouped}
                           items={listData.length < 1 ? emptyEl : listData}
                           value={value}
