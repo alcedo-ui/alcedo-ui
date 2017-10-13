@@ -407,11 +407,6 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * If true,the dropDownSelect will be multiply select.
-     */
-    multi: PropTypes.bool,
-
-    /**
      * The mode of listItem.Can be normal,checkbox.
      */
     mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
@@ -492,7 +487,6 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: '',
     disabled: false,
-    multi: false,
     mode: List.Mode.NORMAL,
 
     valueField: 'value',
