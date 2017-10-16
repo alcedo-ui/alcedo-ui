@@ -39,6 +39,7 @@ export default class DropdownSelect extends Component {
         this.closePopup = ::this.closePopup;
         this.filterData = ::this.filterData;
         this.popupRenderHandle = ::this.popupRenderHandle;
+        this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.wheelHandler = ::this.wheelHandler;
 
@@ -133,6 +134,26 @@ export default class DropdownSelect extends Component {
 
     }
 
+    selectAllTouchTapHandler() {
+
+        const {data} = this.props,
+            {value} = this.state;
+
+        if (!data) {
+            return;
+        }
+
+        const isSelectAll = !value || (value && value.length < data.length),
+            newValue = isSelectAll ? data : [];
+
+        this.setState({
+            value: newValue
+        }, () => {
+            this.changeHandler(newValue);
+        });
+
+    }
+
     changeHandler(value) {
 
         const {autoClose} = this.props,
@@ -173,7 +194,7 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, name, placeholder,
+                className, popupClassName, style, popupStyle, theme, name, placeholder, data,
                 disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
@@ -275,8 +296,11 @@ export default class DropdownSelect extends Component {
 
                         {
                             isMultiSelect && useSelectAll ?
-                                <div className="list-item dropdown-select-all-wrapper">
-                                    <Checkbox className="list-item-checkbox"/>
+                                <div className="list-item dropdown-select-all-wrapper"
+                                     onTouchTap={this.selectAllTouchTapHandler}>
+                                    <Checkbox className="list-item-checkbox"
+                                              value={data && value && value.length === data.length}
+                                              indeterminate={data && value && value.length > 0 && value.length < data.length}/>
                                     Select All
                                 </div>
                                 :
