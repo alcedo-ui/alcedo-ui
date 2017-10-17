@@ -148,6 +148,28 @@ export default class CheckboxExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Self Defined Icon"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Checkbox theme={Theme.HIGHLIGHT}
+                                          label="Self Defined Icon"
+                                          uncheckedIconCls="fa fa-window-close-o"
+                                          checkedIconCls="fa fa-window-close"/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={CheckboxDoc}/>
