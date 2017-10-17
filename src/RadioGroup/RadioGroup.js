@@ -43,7 +43,10 @@ export default class RadioGroup extends Component {
 
     render() {
 
-        const {className, style, theme, name, disabled, data, tip, tipPosition} = this.props,
+        const {
+                className, style, theme, name, uncheckedIconCls, checkedIconCls,
+                disabled, data, tip, tipPosition
+            } = this.props,
             {value} = this.state;
 
         return (
@@ -60,6 +63,8 @@ export default class RadioGroup extends Component {
                             <Radio key={index}
                                    className={item.className ? item.className : ''}
                                    style={item.style}
+                                   uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                                   checkedIconCls={item.checkedIconCls || checkedIconCls}
                                    theme={item.theme || theme}
                                    name={name}
                                    label={item.label}
@@ -140,6 +145,9 @@ RadioGroup.propTypes = {
      */
     value: PropTypes.any,
 
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+
     /**
      * If true,the RadioGroup will be disabled.
      */
@@ -161,6 +169,8 @@ RadioGroup.defaultProps = {
     name: '',
     data: [],
     value: '',
+    uncheckedIconCls: 'fa fa-circle-o',
+    checkedIconCls: 'fa fa-dot-circle-o',
     disabled: false
 
 };
