@@ -56,14 +56,14 @@ export default class Pagging extends Component {
 
                     {
                         selectedCountVisible ?
-                            <div className="brief-pagging-selected">
+                            <div className="pagging-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
                             :
                             null
                     }
 
-                    <div className="brief-pagging-totle">
+                    <div className="pagging-totle">
                         {`Total: ${count}`}
                     </div>
 
