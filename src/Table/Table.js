@@ -413,6 +413,7 @@ export default class Table extends Component {
 
         const {
                 className, style, data, columns, hasLineNumber, mode, pageSizes, disabled,
+                sortAscIconCls, sortDescIconCls,
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
             } = this.props,
             {value, sort, pagging} = this.state,
@@ -481,6 +482,8 @@ export default class Table extends Component {
 
                         <Thead columns={finalColumns}
                                sort={sort}
+                               sortAscIconCls={sortAscIconCls}
+                               sortDescIconCls={sortDescIconCls}
                                onSort={this.sortHandler}/>
 
                         {
@@ -684,6 +687,9 @@ Table.propTypes = {
 
     }),
 
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string,
+
     /**
      * The function that trigger when select one item.
      */
@@ -730,6 +736,8 @@ Table.defaultProps = {
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
 
-    sortInitConfig: null
+    sortInitConfig: null,
+    sortAscIconCls: 'fa fa-angle-up',
+    sortDescIconCls: 'fa fa-angle-down'
 
 };
