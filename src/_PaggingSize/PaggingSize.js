@@ -27,6 +27,9 @@ export default class PaggingSize extends Component {
 
         const {className, style, pageSize, pageSizes} = this.props;
 
+        let temp = pageSizes.find(item => item && item.value === pageSize),
+            value = temp ? temp : pageSize;
+
         return (
             <div className={`pagging-size ${className}`}
                  style={style}>
@@ -34,7 +37,7 @@ export default class PaggingSize extends Component {
                 <label>Show Rows:</label>
 
                 <DropdownSelect className="pagging-size-select"
-                                value={pageSize}
+                                value={value}
                                 data={pageSizes}
                                 autoClose={true}
                                 onChange={this.pageSizeChangeHandle}/>
@@ -51,7 +54,7 @@ PaggingSize.propTypes = {
     style: PropTypes.object,
 
     pageSize: PropTypes.number,
-    pageSizes: PropTypes.arrayOf(PropTypes.number),
+    pageSizes: PropTypes.array,
 
     onPageSizeChange: PropTypes.func
 
