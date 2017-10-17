@@ -219,6 +219,7 @@ export default class DropdownSelectExamples extends Component {
                                                     autoClose={false}
                                                     multi={true}
                                                     isGrouped={true}
+                                                    rightIconCls="fa fa-caret-down"
                                                     onChange={this.onChange}/>
 
                                 </div>
