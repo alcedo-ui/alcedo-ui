@@ -16,7 +16,7 @@ export default class Thead extends Component {
 
     render() {
 
-        const {className, style, columns, sort, hidden, onSort} = this.props;
+        const {className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden, onSort} = this.props;
 
         return (
             <thead className={'thead' + (hidden ? ' hidden' : '') + (className ? ' ' + className : '')}
@@ -37,6 +37,8 @@ export default class Thead extends Component {
                                              colIndex={index}
                                              sortable={item.sortable}
                                              sort={sort}
+                                             sortAscIconCls={sortAscIconCls}
+                                             sortDescIconCls={sortDescIconCls}
                                              hidden={hidden}
                                              onSort={() => {
                                                  onSort(item.sortProp);
@@ -59,6 +61,8 @@ Thead.propTypes = {
 
     columns: PropTypes.array,
     sort: PropTypes.object,
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string,
     hidden: PropTypes.bool,
 
     onSort: PropTypes.func
@@ -72,6 +76,8 @@ Thead.defaultProps = {
 
     columns: [],
     sort: null,
+    sortAscIconCls: 'fa fa-angle-up',
+    sortDescIconCls: 'fa fa-angle-down',
     hidden: false
 
 };
