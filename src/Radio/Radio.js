@@ -74,7 +74,7 @@ export default class Radio extends Component {
 
     render() {
 
-        const {className, style, theme, name, label, disabled} = this.props,
+        const {className, style, theme, name, label, uncheckedIconCls, checkedIconCls, disabled} = this.props,
             {value} = this.state,
 
             radioClassName = (value ? ' activated' : '') + (theme ? ` theme-${theme}` : '')
@@ -92,12 +92,12 @@ export default class Radio extends Component {
                 <div className="radio-icon-wrapper">
                     <IconButton ref="radioIcon"
                                 className="radio-bg-icon"
-                                iconCls="fa fa-circle-o"
+                                iconCls={uncheckedIconCls}
                                 onTouchTap={this.clickHandle}
                                 disabled={disabled}/>
 
                     <IconButton className="radio-icon"
-                                iconCls="fa fa-dot-circle-o"
+                                iconCls={checkedIconCls}
                                 onTouchTap={this.clickHandle}
                                 disabled={disabled}/>
                 </div>
@@ -147,6 +147,9 @@ Radio.propTypes = {
      */
     value: PropTypes.bool,
 
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+
     /**
      * If true, the radio will be disabled.
      */
@@ -168,6 +171,8 @@ Radio.defaultProps = {
     name: '',
     label: '',
     value: false,
+    uncheckedIconCls: 'fa fa-circle-o',
+    checkedIconCls: 'fa fa-dot-circle-o',
     disabled: false
 
 };
