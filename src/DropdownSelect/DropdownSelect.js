@@ -194,7 +194,7 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, name, placeholder, data,
+                className, popupClassName, style, popupStyle, theme, name, placeholder, rightIconCls, data,
                 disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 isGrouped, itemTouchTapHandle, disableTouchRipple
             } = this.props,
@@ -265,7 +265,7 @@ export default class DropdownSelect extends Component {
                               className={'dropdown-select-trigger' + triggerClassName}
                               theme={theme}
                               value={triggerValue}
-                              rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} dropdown-select-trigger-icon`}
+                              rightIconCls={`${rightIconCls} dropdown-select-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
                               onTouchTap={this.togglePopup}/>
@@ -388,6 +388,8 @@ DropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    rightIconCls: PropTypes.string,
 
     /**
      * The options data.
@@ -558,6 +560,7 @@ DropdownSelect.defaultProps = {
     name: '',
     value: null,
     placeholder: 'Please select ...',
+    rightIconCls: 'fa fa-angle-down',
     data: [],
     invalidMsg: '',
     disabled: false,

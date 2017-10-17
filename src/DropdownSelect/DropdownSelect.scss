@@ -24,6 +24,12 @@
             transition: all $transition-duration ease-in-out;
         }
 
+        &.above {
+            .dropdown-select-trigger-icon {
+                transform: rotate(180deg);
+            }
+        }
+
         &.activated {
             @include shadow(4);
 
@@ -35,6 +41,10 @@
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
                 z-index: $popup-z-index + 1;
+
+                .dropdown-select-trigger-icon {
+                    transform: rotate(0deg);
+                }
             }
 
             &.blow {
