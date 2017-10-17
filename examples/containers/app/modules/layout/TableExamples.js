@@ -138,6 +138,7 @@ export default class TableExamples extends Component {
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}
                                        pageSizes={[10, 20, 30, 40, 100]}
+                                       useFullPagging={true}
                                        onPageChange={(page, pageSize) => {
                                            console.log(`page: ${page}, pageSize: ${pageSize}`);
                                        }}
