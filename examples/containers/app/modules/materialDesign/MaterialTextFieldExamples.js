@@ -47,8 +47,8 @@ export default class MaterialTextFieldExamples extends Component {
                                 <p><code>MaterialTextField</code> simple example.</p>
                                 <div className="field-group">
                                     <MaterialTextField placeholder="password field"
-                                                       value={'1111'}
-                                                       label="label"/>
+                                                       rightIconCls={'fa fa-search'}
+                                                       />
                                 </div>
                             </div>
 

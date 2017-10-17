@@ -269,6 +269,7 @@ export default class MaterialLocalAutoComplete extends Component {
 
                 <MaterialTextField ref="trigger"
                                    className={'material-local-auto-complete-trigger' + triggerClassName}
+                                   isLabelAnimate={false}
                                    value={filter}
                                    placeholder={placeholder}
                                    disabled={disabled}
