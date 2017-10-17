@@ -333,11 +333,17 @@ export default class Table extends Component {
     }
 
     pageChangedHandler(pagging) {
+
+        if (typeof pagging.pageSize === 'object') {
+            pagging.pageSize = pagging.pageSize.value;
+        }
+
         this.setState({
             pagging
         }, () => {
             this.resetPage(this.props.data, pagging);
         });
+
     }
 
     resetPage(data = this.props.data, pagging = this.state.pagging) {
@@ -659,7 +665,7 @@ Table.propTypes = {
     /**
      *
      */
-    pageSizes: PropTypes.arrayOf(PropTypes.number),
+    pageSizes: PropTypes.array,
 
     /**
      * Sort init config.
