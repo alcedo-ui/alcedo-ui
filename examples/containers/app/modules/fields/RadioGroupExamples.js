@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import Radio from 'src/Radio';
 import RadioGroup from 'src/RadioGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -17,6 +18,23 @@ export default class RadioGroupExamples extends Component {
         this.state = {
             radioValue: 'label1'
         };
+
+        this.data = [{
+            label: 'label1',
+            value: 'label1'
+        }, {
+            label: 'label2',
+            value: 'label2'
+        }, {
+            label: 'label3',
+            value: 'label3'
+        }, {
+            label: 'label4',
+            value: 'label4'
+        }, {
+            label: 'label5',
+            value: 'label5'
+        }];
 
         this.data = [{
             label: 'label1',
@@ -97,6 +115,28 @@ export default class RadioGroupExamples extends Component {
                                 <RadioGroup data={this.data}
                                             value={'label2'}
                                             disabled={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Self Defined Icon"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <RadioGroup data={this.data}
+                                            value={'label2'}
+                                            uncheckedIconCls="fa fa-times-circle-o"
+                                            checkedIconCls="fa fa-times-circle"/>
 
                             </div>
 
