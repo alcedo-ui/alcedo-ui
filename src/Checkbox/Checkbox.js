@@ -70,7 +70,10 @@ export default class Checkbox extends Component {
 
     render() {
 
-        const {className, style, theme, name, label, disabled, indeterminate} = this.props,
+        const {
+                className, style, theme, name, label, disabled, indeterminate,
+                uncheckedIconCls, checkedIconCls, indeterminateIconCls
+            } = this.props,
             {value} = this.state,
 
             checkboxClassName = (value ? ' activated' : '') + (indeterminate ? ' indeterminated' : '')
@@ -94,12 +97,12 @@ export default class Checkbox extends Component {
 
                     <IconButton ref="checkboxIcon"
                                 className="checkbox-bg-icon"
-                                iconCls="fa fa-square-o"
+                                iconCls={uncheckedIconCls}
                                 onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
 
                     <IconButton className="checkbox-icon"
-                                iconCls={`fa ${indeterminate ? 'fa fa-minus-square' : 'fa-check-square'}`}
+                                iconCls={indeterminate ? indeterminateIconCls : checkedIconCls}
                                 onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
 
@@ -152,6 +155,10 @@ Checkbox.propTypes = {
 
     indeterminate: PropTypes.bool,
 
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+    indeterminateIconCls: PropTypes.string,
+
     /**
      * If true, the checkbox will be disabled.
      */
@@ -174,6 +181,9 @@ Checkbox.defaultProps = {
     label: '',
     value: false,
     indeterminate: false,
+    uncheckedIconCls: 'fa fa-square-o',
+    checkedIconCls: 'fa fa-check-square',
+    indeterminateIconCls: 'fa fa-minus-square',
     disabled: false
 
 };
