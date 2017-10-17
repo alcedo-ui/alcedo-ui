@@ -143,7 +143,7 @@ BriefPagging.propTypes = {
     /**
      *
      */
-    pageSizes: PropTypes.arrayOf(PropTypes.number),
+    pageSizes: PropTypes.array,
 
     /**
      *
