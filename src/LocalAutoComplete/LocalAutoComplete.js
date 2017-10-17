@@ -274,7 +274,7 @@ export default class LocalAutoComplete extends Component {
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
-                           rightIconCls={rightIconCls || 'fa fa-search'}
+                           rightIconCls={rightIconCls}
                            onFocus={this.focusHandler}
                            onBlur={this.blurHandler}
                            onChange={this.filterChangeHandler}
@@ -539,7 +539,7 @@ LocalAutoComplete.defaultProps = {
     descriptionField: 'desc',
     autoClose: false,
     iconCls: '',
-    rightIconCls: '',
+    rightIconCls: 'fa fa-search',
     noMatchedMsg: '',
     isGrouped: false
 
