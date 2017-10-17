@@ -38,7 +38,6 @@ export default class IconButton extends Component {
             <BaseButton {...this.props}
                         ref="baseButton"
                         className={`icon-button ${className}`}
-                        value={null}
                         isCircular={isCircular}
                         rippleDisplayCenter={true}>
 
