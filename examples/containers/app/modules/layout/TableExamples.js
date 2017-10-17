@@ -41,6 +41,23 @@ export default class TableExamples extends Component {
             flex: 2
         }];
 
+        this.pageSizes = [{
+            value: 10,
+            text: '10 / page'
+        }, {
+            value: 20,
+            text: '20 / page'
+        }, {
+            value: 30,
+            text: '30 / page'
+        }, {
+            value: 40,
+            text: '40 / page'
+        }, {
+            value: 50,
+            text: '50 / page'
+        }];
+
     }
 
     generateData(size = 100) {
@@ -137,7 +154,7 @@ export default class TableExamples extends Component {
                                        data={this.generateData()}
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}
-                                       pageSizes={[10, 20, 30, 40, 100]}
+                                       pageSizes={this.pageSizes}
                                        useFullPagging={true}
                                        onPageChange={(page, pageSize) => {
                                            console.log(`page: ${page}, pageSize: ${pageSize}`);
