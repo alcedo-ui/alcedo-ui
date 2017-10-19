@@ -65,7 +65,7 @@ export default class EditableField extends Component {
      */
     downHandle(ev) {
         let oEvent = ev || event;
-        if (this.state.hide === false && (!this.triggerElement(oEvent.srcElement, this.refs.editableField))) {
+        if (this.state.hide === false && (!this.triggerElement(oEvent.target, this.refs.editableField))) {
             this.finishEdit(ev);
         }
     }
