@@ -94,6 +94,9 @@ export default class EditableField extends Component {
             event.preventDefault();
             return false;
         }
+        if (ev.keyCode === 13) {
+            this.finishEdit(ev);
+        }
         return true;
     }
 
