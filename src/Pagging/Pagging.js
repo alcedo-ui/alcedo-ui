@@ -46,7 +46,8 @@ export default class Pagging extends Component {
 
         const {
             count, page, total, pageSize, pageSizes,
-            selectedCount, selectedCountVisible, pageSizeVisible
+            selectedCount, selectedCountVisible, pageSizeVisible,
+            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls
         } = this.props;
 
         return (
@@ -82,6 +83,10 @@ export default class Pagging extends Component {
 
                     <PaggingPage page={page}
                                  total={total}
+                                 paggingPrevIconCls={paggingPrevIconCls}
+                                 paggingNextIconCls={paggingNextIconCls}
+                                 paggingFirstIconCls={paggingFirstIconCls}
+                                 paggingLastIconCls={paggingLastIconCls}
                                  onPageChange={this.pageChangedHandle}/>
 
                 </div>
@@ -94,59 +99,23 @@ export default class Pagging extends Component {
 
 Pagging.propTypes = {
 
-    /**
-     *
-     */
     className: PropTypes.string,
-
-    /**
-     *
-     */
     style: PropTypes.object,
 
-    /**
-     * The total of data.
-     */
     count: PropTypes.number,
-
-    /**
-     *
-     */
     page: PropTypes.number,
-
-    /**
-     *
-     */
     total: PropTypes.number,
-
-    /**
-     *
-     */
     pageSize: PropTypes.number,
-
-    /**
-     *
-     */
     pageSizes: PropTypes.array,
-
-    /**
-     *
-     */
     selectedCount: PropTypes.number,
-
-    /**
-     *
-     */
     selectedCountVisible: PropTypes.bool,
-
-    /**
-     *
-     */
     pageSizeVisible: PropTypes.bool,
 
-    /**
-     *
-     */
+    paggingPrevIconCls: PropTypes.string,
+    paggingNextIconCls: PropTypes.string,
+    paggingFirstIconCls: PropTypes.string,
+    paggingLastIconCls: PropTypes.string,
+
     onChange: PropTypes.func
 
 };
