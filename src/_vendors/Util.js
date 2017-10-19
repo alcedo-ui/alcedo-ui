@@ -97,7 +97,7 @@ function getValueByValueField(data, valueField = 'value', displayField = 'text')
 function getTextByDisplayField(data, displayField = 'text', valueField = 'value') {
 
     if (!data) {
-        return;
+        return '';
     }
 
     if (typeof data === 'object') {
