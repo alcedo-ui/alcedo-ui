@@ -292,18 +292,32 @@ export default class LocalAutoComplete extends Component {
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
 
-                    <List className="local-auto-complete-list"
-                          theme={theme}
-                          value={value}
-                          mode={isEmpty ? List.Mode.NORMAL : (mode || List.Mode.NORMAL)}
-                          isGrouped={isEmpty ? false : isGrouped}
-                          items={isEmpty ? emptyEl : listData}
-                          valueField={valueField}
-                          displayField={displayField}
-                          descriptionField={descriptionField}
-                          renderer={renderer}
-                          onItemTouchTap={onItemTouchTap}
-                          onChange={this.changeHandler}/>
+                    {
+                        isEmpty ?
+                            <List className="local-auto-complete-list"
+                                  theme={theme}
+                                  value={value}
+                                  mode={List.Mode.NORMALssssss}
+                                  isGrouped={false}
+                                  items={emptyEl}
+                                  valueField={valueField}
+                                  displayField={displayField}
+                                  descriptionField={descriptionField}
+                                  renderer={renderer}/>
+                            :
+                            <List className="local-auto-complete-list"
+                                  theme={theme}
+                                  value={value}
+                                  mode={mode || List.Mode.NORMAL}
+                                  isGrouped={isGrouped}
+                                  items={listData}
+                                  valueField={valueField}
+                                  displayField={displayField}
+                                  descriptionField={descriptionField}
+                                  renderer={renderer}
+                                  onItemTouchTap={onItemTouchTap}
+                                  onChange={this.changeHandler}/>
+                    }
 
                 </Popup>
 
