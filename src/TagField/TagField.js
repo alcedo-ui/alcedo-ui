@@ -243,7 +243,7 @@ export default class TagField extends Component {
             {data} = this.state;
 
         if (value) {
-            const splitedValue = value.split(separator);
+            const splitedValue = value.split(separator).filter(item => item);
             data.splice(index, 1, ...splitedValue);
         } else {
             data.splice(index, 1);
