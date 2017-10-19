@@ -128,9 +128,12 @@ export default class TextArea extends Component {
 
     render() {
 
-        const {className, style, cols, rows, autoSize, placeholder, maxWidth} = this.props,
-            {focus, width, height, value} = this.state,
-
+        const {className, style, cols, rows, autoSize, placeholder,
+                maxWidth, initialHeight, initialWidth, value, maxHeight,
+                autoFocus, onChange, onFocus, onBlur,
+                ...rest
+            } = this.props,
+            {focus, width, height} = this.state,
             textStyle = {
                 height: height,
                 width: width,
@@ -139,15 +142,17 @@ export default class TextArea extends Component {
                 maxWidth: maxWidth,
                 ...style
             };
+        let stateValue = this.state.value;
 
         return (
-            <textarea ref="textarea"
+            <textarea {...rest}
+                      ref="textarea"
                       className={`text-area ${focus ? 'area-focus' : ''} ${className}`}
                       style={{...textStyle}}
                       cols={cols}
                       rows={rows}
                       placeholder={placeholder}
-                      value={value}
+                      value={stateValue}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
