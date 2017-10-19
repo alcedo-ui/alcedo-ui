@@ -412,9 +412,19 @@ export default class Table extends Component {
     render() {
 
         const {
+
                 className, style, data, columns, hasLineNumber, mode, pageSizes, disabled,
+
                 sortAscIconCls, sortDescIconCls,
-                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible
+                paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
+
+                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
+
+                // not passing down these props
+                defaultPageSize, sortInitConfig, onPageChange,
+
+                ...restProps
+
             } = this.props,
             {value, sort, pagging} = this.state,
             self = this,
@@ -477,7 +487,8 @@ export default class Table extends Component {
 
                 <div className="inner-table-wrapper">
 
-                    <table className="inner-table"
+                    <table {...restProps}
+                           className="inner-table"
                            disabled={disabled}>
 
                         <Thead columns={finalColumns}
@@ -515,6 +526,10 @@ export default class Table extends Component {
                                          pageSizes={pageSizes}
                                          selectedCountVisible={paggingSelectedCountVisible}
                                          pageSizeVisible={paggingPageSizeVisible}
+                                         paggingPrevIconCls={paggingPrevIconCls}
+                                         paggingNextIconCls={paggingNextIconCls}
+                                         paggingFirstIconCls={paggingFirstIconCls}
+                                         paggingLastIconCls={paggingLastIconCls}
                                          onChange={this.pageChangedHandler}/>
                                 :
                                 <BriefPagging page={pagging.page}
@@ -525,6 +540,10 @@ export default class Table extends Component {
                                               pageSizes={pageSizes}
                                               selectedCountVisible={paggingSelectedCountVisible}
                                               pageSizeVisible={paggingPageSizeVisible}
+                                              paggingPrevIconCls={paggingPrevIconCls}
+                                              paggingNextIconCls={paggingNextIconCls}
+                                              paggingFirstIconCls={paggingFirstIconCls}
+                                              paggingLastIconCls={paggingLastIconCls}
                                               onChange={this.pageChangedHandler}/>
                         )
                         :
@@ -689,6 +708,10 @@ Table.propTypes = {
 
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
+    paggingPrevIconCls: PropTypes.string,
+    paggingNextIconCls: PropTypes.string,
+    paggingFirstIconCls: PropTypes.string,
+    paggingLastIconCls: PropTypes.string,
 
     /**
      * The function that trigger when select one item.
@@ -736,8 +759,6 @@ Table.defaultProps = {
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
 
-    sortInitConfig: null,
-    sortAscIconCls: 'fa fa-angle-up',
-    sortDescIconCls: 'fa fa-angle-down'
+    sortInitConfig: null
 
 };
