@@ -205,13 +205,14 @@ export default class TagField extends Component {
             return;
         }
 
-        const {data, inputValue, inputIndex} = this.state;
+        const {separator} = this.props,
+            {data, inputValue, inputIndex} = this.state;
 
         if (!inputValue) {
             return;
         }
 
-        const splitedValue = inputValue.split(/\s*,\s*/);
+        const splitedValue = inputValue.split(separator);
 
         data.splice(inputIndex, 0, ...splitedValue);
 
@@ -434,6 +435,8 @@ TagField.propTypes = {
     inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     valueField: PropTypes.string,
     displayField: PropTypes.string,
+    separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     clearButtonVisible: PropTypes.bool,
@@ -459,6 +462,7 @@ TagField.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
+    separator: /\s*,\s*/,
 
     disabled: false,
 
