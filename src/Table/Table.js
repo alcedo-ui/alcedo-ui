@@ -542,8 +542,6 @@ export default class Table extends Component {
                                               pageSizeVisible={paggingPageSizeVisible}
                                               paggingPrevIconCls={paggingPrevIconCls}
                                               paggingNextIconCls={paggingNextIconCls}
-                                              paggingFirstIconCls={paggingFirstIconCls}
-                                              paggingLastIconCls={paggingLastIconCls}
                                               onChange={this.pageChangedHandler}/>
                         )
                         :
