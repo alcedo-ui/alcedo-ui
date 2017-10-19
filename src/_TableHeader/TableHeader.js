@@ -92,8 +92,6 @@ TableHeader.defaultProps = {
     colIndex: 0,
     sortable: false,
     sort: null,
-    sortAscIconCls: 'fa fa-angle-up',
-    sortDescIconCls: 'fa fa-angle-down',
     hidden: false
 
 };
