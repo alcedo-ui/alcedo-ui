@@ -268,7 +268,7 @@ export default class TextField extends Component {
                 value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg, preventInvalidInput,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
-                ...rest
+                ...restProps
 
             } = this.props,
 
@@ -302,7 +302,7 @@ export default class TextField extends Component {
                         null
                 }
 
-                <input {...rest}
+                <input {...restProps}
                        ref="input"
                        className="text-field-input"
                        type={inputType}
