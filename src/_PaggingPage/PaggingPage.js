@@ -36,7 +36,7 @@ export default class PaggingPage extends Component {
 
     render() {
 
-        const {page, total} = this.props;
+        const {page, total, paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls} = this.props;
 
         let pages = null;
         if (total <= 7) {
@@ -196,14 +196,14 @@ export default class PaggingPage extends Component {
             <div className="pagging-page">
 
                 <IconButton className="ctrl"
-                            iconCls="fa fa-angle-double-left"
+                            iconCls={paggingFirstIconCls}
                             disabled={page == 0}
                             onTouchTap={() => {
                                 this.jump(0);
                             }}/>
 
                 <IconButton className="ctrl"
-                            iconCls="fa fa-angle-left"
+                            iconCls={paggingPrevIconCls}
                             disabled={page == 0}
                             onTouchTap={() => {
                                 this.jump(page - 1 >= 0 ? page - 1 : 0);
@@ -212,14 +212,14 @@ export default class PaggingPage extends Component {
                 {pages}
 
                 <IconButton className="ctrl"
-                            iconCls="fa fa-angle-right"
+                            iconCls={paggingNextIconCls}
                             disabled={page == total - 1 || total == 0}
                             onTouchTap={() => {
                                 this.jump(page + 1 <= total - 1 ? page + 1 : total - 1);
                             }}/>
 
                 <IconButton className="ctrl"
-                            iconCls="fa fa-angle-double-right"
+                            iconCls={paggingLastIconCls}
                             disabled={page == total - 1 || total == 0}
                             onTouchTap={() => {
                                 this.jump(total - 1);
@@ -239,6 +239,11 @@ PaggingPage.propTypes = {
     page: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
 
+    paggingPrevIconCls: PropTypes.string,
+    paggingNextIconCls: PropTypes.string,
+    paggingFirstIconCls: PropTypes.string,
+    paggingLastIconCls: PropTypes.string,
+
     onPageChange: PropTypes.func
 
 };
@@ -249,6 +254,11 @@ PaggingPage.defaultProps = {
     style: null,
 
     page: 0,
-    total: 0
+    total: 0,
+
+    paggingPrevIconCls: 'fa fa-angle-left',
+    paggingNextIconCls: 'fa fa-angle-right',
+    paggingFirstIconCls: 'fa fa-angle-double-left',
+    paggingLastIconCls: 'fa fa-angle-double-right'
 
 };
