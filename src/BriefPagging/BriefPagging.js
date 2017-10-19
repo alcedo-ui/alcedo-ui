@@ -48,7 +48,7 @@ export default class BriefPagging extends Component {
 
         const {
                 count, page, total, pageSize, pageSizes,
-                selectedCount, selectedCountVisible, pageSizeVisible
+                selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls
             } = this.props,
             startNumber = Valid.range(page * pageSize + 1, 0, count),
             stopNumber = Valid.range((page + 1) * pageSize, 0, count);
@@ -88,13 +88,13 @@ export default class BriefPagging extends Component {
                         {`${startNumber}-${stopNumber} of ${count}`}
                     </div>
 
-                    <IconButton iconCls="fa fa-chevron-left"
+                    <IconButton iconCls={paggingPrevIconCls}
                                 disabled={page <= 0}
                                 onTouchTap={() => {
                                     this.pageChangedHandle(page - 1);
                                 }}/>
 
-                    <IconButton iconCls="fa fa-chevron-right"
+                    <IconButton iconCls={paggingNextIconCls}
                                 disabled={page >= total - 1}
                                 onTouchTap={() => {
                                     this.pageChangedHandle(page + 1);
@@ -140,25 +140,13 @@ BriefPagging.propTypes = {
      */
     pageSize: PropTypes.number,
 
-    /**
-     *
-     */
     pageSizes: PropTypes.array,
-
-    /**
-     *
-     */
     selectedCount: PropTypes.number,
-
-    /**
-     *
-     */
     selectedCountVisible: PropTypes.bool,
-
-    /**
-     *
-     */
     pageSizeVisible: PropTypes.bool,
+
+    paggingPrevIconCls: PropTypes.string,
+    paggingNextIconCls: PropTypes.string,
 
     /**
      * Callback function fired when the number of pages varies.
@@ -180,6 +168,9 @@ BriefPagging.defaultProps = {
     selectedCount: 0,
 
     selectedCountVisible: false,
-    pageSizeVisible: true
+    pageSizeVisible: true,
+
+    paggingPrevIconCls: 'fa fa-chevron-left',
+    paggingNextIconCls: 'fa fa-chevron-right'
 
 };
