@@ -47,8 +47,8 @@ export default class TextField extends Component {
         this.keyDownHandler = ::this.keyDownHandler;
         this.clearValue = ::this.clearValue;
         this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseoverHandler = ::this.mouseoverHandler;
-        this.mouseoutHandler = ::this.mouseoutHandler;
+        this.mouseOverHandler = ::this.mouseOverHandler;
+        this.mouseOutHandler = ::this.mouseOutHandler;
         this.focusHandler = ::this.focusHandler;
         this.blurHandler = ::this.blurHandler;
 
@@ -203,14 +203,14 @@ export default class TextField extends Component {
 
     }
 
-    mouseoverHandler() {
+    mouseOverHandler() {
         this.setState({
             infoVisible: true,
             errorVisible: true
         });
     }
 
-    mouseoutHandler() {
+    mouseOutHandler() {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -309,8 +309,8 @@ export default class TextField extends Component {
                        value={value}
                        onChange={this.changeHandler}
                        onKeyDown={this.keyDownHandler}
-                       onMouseOver={this.mouseoverHandler}
-                       onMouseOut={this.mouseoutHandler}
+                       onMouseOver={this.mouseOverHandler}
+                       onMouseOut={this.mouseOutHandler}
                        onFocus={this.focusHandler}
                        onBlur={this.blurHandler}
                        disabled={disabled}/>
