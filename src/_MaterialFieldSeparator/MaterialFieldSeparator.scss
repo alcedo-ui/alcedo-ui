@@ -8,6 +8,14 @@
 }
 
 .material-field-separator {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: $theme-field;
+    opacity: 0;
+    transition: opacity $transition-duration ease-in-out;
 
     // default theme
     @include material-field-separator-theme($theme-field-bg);
