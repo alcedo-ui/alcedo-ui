@@ -19,7 +19,7 @@ export default class MaterialTextFieldExamples extends Component {
     onChangeHandle(value) {
         this.setState({
             value: value
-        })
+        });
     }
 
     render() {
@@ -45,11 +45,13 @@ export default class MaterialTextFieldExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>MaterialTextField</code> simple example.</p>
+
                                 <div className="field-group">
-                                    <MaterialTextField placeholder="password field"
-                                                       rightIconCls={'fa fa-search'}
-                                                       />
+                                    <MaterialTextField label="label"
+                                                       placeholder="password field"
+                                                       rightIconCls={'fa fa-search'}/>
                                 </div>
+
                             </div>
 
                         </div>
@@ -68,11 +70,13 @@ export default class MaterialTextFieldExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>MaterialTextField</code> without labelAnimate.</p>
+
                                 <div className="field-group">
                                     <MaterialTextField placeholder="password field"
                                                        isLabelAnimate={false}
                                                        label="label"/>
                                 </div>
+
                             </div>
 
                         </div>
