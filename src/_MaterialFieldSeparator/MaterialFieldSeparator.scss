@@ -1,0 +1,38 @@
+/**
+ * @file MaterialFieldSeparator style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin material-field-separator-theme($color) {
+
+}
+
+.material-field-separator {
+
+    // default theme
+    @include material-field-separator-theme($theme-field-bg);
+
+    // other themes
+    &.theme-primary {
+        @include material-field-separator-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include material-field-separator-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include material-field-separator-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include material-field-separator-theme($theme-info);
+    }
+    &.theme-success {
+        @include material-field-separator-theme($theme-success);
+    }
+    &.theme-warning {
+        @include material-field-separator-theme($theme-warning);
+    }
+    &.theme-error {
+        @include material-field-separator-theme($theme-error);
+    }
+
+}
