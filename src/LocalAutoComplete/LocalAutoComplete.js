@@ -241,7 +241,8 @@ export default class LocalAutoComplete extends Component {
 
                         </div>
                     );
-                }
+                },
+                disableTouchRipple: true
             }],
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
@@ -296,14 +297,8 @@ export default class LocalAutoComplete extends Component {
                         isEmpty ?
                             <List className="local-auto-complete-list"
                                   theme={theme}
-                                  value={value}
-                                  mode={List.Mode.NORMALssssss}
-                                  isGrouped={false}
-                                  items={emptyEl}
-                                  valueField={valueField}
-                                  displayField={displayField}
-                                  descriptionField={descriptionField}
-                                  renderer={renderer}/>
+                                  mode={List.Mode.NORMAL}
+                                  items={emptyEl}/>
                             :
                             <List className="local-auto-complete-list"
                                   theme={theme}
