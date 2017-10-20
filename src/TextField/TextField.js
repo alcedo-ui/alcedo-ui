@@ -221,7 +221,7 @@ export default class TextField extends Component {
         this.setState({
             isFocused: true
         }, () => {
-            this.props.onFocus && this.props.onFocus(this.state.value, e);
+            this.props.onFocus && this.props.onFocus(e);
         });
     }
 
@@ -234,7 +234,7 @@ export default class TextField extends Component {
         this.setState({
             isFocused: false
         }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.value, e);
+            this.props.onBlur && this.props.onBlur(e);
         });
 
     }
