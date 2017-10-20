@@ -220,7 +220,7 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                renderer, onItemTouchTap, onFilterClear
+                popupChildren, renderer, onItemTouchTap, onFilterClear
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -313,6 +313,8 @@ export default class LocalAutoComplete extends Component {
                                   onItemTouchTap={onItemTouchTap}
                                   onChange={this.changeHandler}/>
                     }
+
+                    {popupChildren}
 
                 </Popup>
 
@@ -489,6 +491,8 @@ LocalAutoComplete.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    popupChildren: PropTypes.any,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -550,6 +554,8 @@ LocalAutoComplete.defaultProps = {
     iconCls: '',
     rightIconCls: 'fa fa-search',
     noMatchedMsg: '',
-    isGrouped: false
+    isGrouped: false,
+
+    popupChildren: null
 
 };
