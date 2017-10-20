@@ -51,6 +51,7 @@
             .no-matched-list-item {
                 line-height: 40px;
                 color: $theme-field;
+                cursor: default;
 
                 .no-matched-list-item-icon {
                     color: $theme-warning;
