@@ -100,9 +100,9 @@ export default class MaterialDropdownSelect extends Component {
             {isFocus, isHover, value} = this.state,
 
             fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
-                + (className ? ' ' + className : ''),
+                + (value ? '' : ' empty') + (className ? ' ' + className : ''),
 
-            labelClassName = (value ? ' hasValue' : '');
+            labelClassName = (value ? ' has-value' : '');
 
         return (
             <div className={'material-dropdown-select' + fieldClassName}

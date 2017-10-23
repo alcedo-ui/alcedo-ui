@@ -21,7 +21,13 @@
             border-radius: 0;
             border-bottom: 1px solid $theme-border;
             padding-left: 8px;
+            background: transparent;
             box-shadow: none !important;
+
+            .base-button-value {
+                opacity: 1;
+                transition: opacity $transition-duration ease-in-out;
+            }
         }
     }
 
@@ -30,27 +36,26 @@
         .material-dropdown-select-label {
             height: 20px;
             line-height: 20px;
-            transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1),
-            color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+            transition: transform $transition-duration ease-in-out,
+            color $transition-duration ease-in-out;
             transform: translate(8px, 30px);
             color: #999;
             transform-origin: top left;
 
-            &.hasValue {
+            &.has-value {
                 transform: translate(0, 0);
                 color: $theme-highlight;
             }
         }
 
-        .text-field {
-
-            &.empty {
-                base-button-value {
+        &.empty {
+            .dropdown-select-trigger {
+                .base-button-value {
                     opacity: 0;
-                    transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
                 }
             }
         }
+
     }
 
     &.focused {
@@ -60,11 +65,9 @@
             color: $theme-highlight;
         }
 
-        .text-field {
-            &.empty {
-                input {
-                    opacity: 1;
-                }
+        .dropdown-select-trigger {
+            .base-button-value {
+                opacity: 1;
             }
         }
 
