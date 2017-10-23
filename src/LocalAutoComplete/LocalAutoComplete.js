@@ -220,7 +220,8 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
+                onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -280,6 +281,8 @@ export default class LocalAutoComplete extends Component {
                            rightIconCls={rightIconCls}
                            onFocus={this.triggerFocusHandler}
                            onBlur={this.triggerBlurHandler}
+                           onMouseOver={onTriggerMouseOver}
+                           onMouseOut={onTriggerMouseOut}
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
@@ -544,7 +547,10 @@ LocalAutoComplete.propTypes = {
     /**
      * Callback function fired when LocalAutoComplete lose focus.
      */
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+
+    onTriggerMouseOver: PropTypes.func,
+    onTriggerMouseOut: PropTypes.func
 
 };
 
