@@ -108,10 +108,10 @@ export default class LocalAutoComplete extends Component {
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
 
+        onFocus && onFocus(...args);
+
         !disabled && filter && this.setState({
             popupVisible: true
-        }, () => {
-            onFocus && onFocus(...args);
         });
 
     }
@@ -218,7 +218,7 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped, mode,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, isGrouped, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
                 onTriggerMouseOver, onTriggerMouseOut
@@ -294,7 +294,7 @@ export default class LocalAutoComplete extends Component {
                         :
                         <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
                                style={autoCompletePopupStyle}
-                               theme={theme}
+                               theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
@@ -306,12 +306,12 @@ export default class LocalAutoComplete extends Component {
                             {
                                 isEmpty ?
                                     <List className="local-auto-complete-list"
-                                          theme={theme}
+                                          theme={popupTheme}
                                           mode={List.Mode.NORMAL}
                                           items={emptyEl}/>
                                     :
                                     <List className="local-auto-complete-list"
-                                          theme={theme}
+                                          theme={popupTheme}
                                           value={value}
                                           mode={mode || List.Mode.NORMAL}
                                           isGrouped={isGrouped}
@@ -361,6 +361,11 @@ LocalAutoComplete.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme.
+     */
+    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the auto complete.
@@ -561,6 +566,7 @@ LocalAutoComplete.defaultProps = {
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
+    popupTheme: Theme.DEFAULT,
 
     name: '',
     placeholder: '',
