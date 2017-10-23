@@ -93,7 +93,10 @@ export default class MaterialTextField extends Component {
 
     render() {
 
-        const {className, style, theme, label, isLabelAnimate, ...restProps} = this.props,
+        const {
+                className, style, theme, label, isLabelAnimate,
+                ...restProps
+            } = this.props,
             {isFocus, isHover, value} = this.state,
 
             fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
