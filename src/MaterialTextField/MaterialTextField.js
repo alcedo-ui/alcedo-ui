@@ -339,7 +339,6 @@ MaterialTextField.defaultProps = {
     infoMsg: '',
 
     clearButtonVisible: true,
-    searchButtonVisible: false,
     passwordButtonVisible: true,
 
     // valid
