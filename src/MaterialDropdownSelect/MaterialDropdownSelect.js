@@ -118,7 +118,6 @@ export default class MaterialDropdownSelect extends Component {
                 }
 
                 <DropdownSelect {...restProps}
-                                theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
                                 onBlur={this.triggerBlurHandler}
