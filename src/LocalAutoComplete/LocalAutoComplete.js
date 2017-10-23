@@ -186,9 +186,10 @@ export default class LocalAutoComplete extends Component {
     changeHandler(value) {
 
         const {autoClose, valueField, displayField} = this.props,
+            filter = Util.getTextByDisplayField(value, displayField, valueField),
             state = {
                 value,
-                filter: Util.getTextByDisplayField(value, displayField, valueField)
+                filter
             };
 
         if (autoClose) {
@@ -196,8 +197,9 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            const {onChange} = this.props;
+            const {onChange, onFilterChange} = this.props;
             onChange && onChange(value);
+            onFilterChange && onFilterChange(filter);
         });
 
     }
