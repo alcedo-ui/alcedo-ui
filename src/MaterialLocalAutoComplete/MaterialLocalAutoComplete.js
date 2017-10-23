@@ -20,12 +20,14 @@ export default class MaterialLocalAutoComplete extends Component {
 
         this.state = {
             value: '',
+            filter: '',
             isFocus: false,
             isHover: false
         };
 
         this.triggerFocusHandler = ::this.triggerFocusHandler;
         this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
         this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
@@ -47,6 +49,15 @@ export default class MaterialLocalAutoComplete extends Component {
         }, () => {
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
+        });
+    }
+
+    triggerFilterChangeHandler(filter) {
+        this.setState({
+            filter
+        }, () => {
+            const {onFilterChange} = this.props;
+            onFilterChange && onFilterChange(filter);
         });
     }
 
@@ -97,12 +108,12 @@ export default class MaterialLocalAutoComplete extends Component {
                 className, style, theme, label, isLabelAnimate,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value} = this.state,
+            {isFocus, isHover, value, filter} = this.state,
 
             fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
                 + (className ? ' ' + className : ''),
 
-            labelClassName = (value ? ' hasValue' : '');
+            labelClassName = (filter ? ' hasValue' : '');
 
         return (
             <div className={'material-local-auto-complete' + fieldClassName}
@@ -125,6 +136,7 @@ export default class MaterialLocalAutoComplete extends Component {
                                    onBlur={this.triggerBlurHandler}
                                    onTriggerMouseOver={this.triggerMouseOverHandler}
                                    onTriggerMouseOut={this.triggerMouseOutHandler}
+                                   onFilterChange={this.triggerFilterChangeHandler}
                                    onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
