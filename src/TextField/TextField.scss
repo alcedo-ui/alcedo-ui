@@ -58,7 +58,7 @@ input:focus {
         }
 
         &.password-visible-icon {
-            right: 38px;
+            right: 0;
         }
 
         &.hidden {
@@ -71,7 +71,7 @@ input:focus {
         height: 100%;
         border: none;
         box-sizing: border-box;
-        padding: 9px 38px 9px 15px;
+        padding: 9px 12px 9px 12px;
         border-radius: $theme-border-radius;
         font-size: 12px;
         background: transparent;
@@ -80,32 +80,93 @@ input:focus {
         text-overflow: ellipsis;
     }
 
-    &.empty {
+    //&.empty {
+    //
+    //    .text-field-input {
+    //        padding-right: 38px;
+    //    }
+    //
+    //    .password-visible-icon {
+    //        right: 0;
+    //    }
+    //}
+    //
+    //&.password {
+    //    .text-field-input {
+    //        padding-right: 76px;
+    //    }
+    //}
+    //
+    //&.empty.password {
+    //    .text-field-input {
+    //        padding-right: 38px;
+    //    }
+    //}
+
+    &.has-icon {
+        .text-field-input {
+            padding-left: 38px;
+        }
+    }
+
+    &.password {
+        .text-field-input {
+            padding-right: 38px;
+        }
+    }
+
+    &.not-empty {
 
         .text-field-input {
             padding-right: 38px;
         }
 
         .password-visible-icon {
-            right: 0;
+            right: 38px;
+        }
+
+        &.password {
+            .text-field-input {
+                padding-right: 76px;
+            }
         }
     }
 
-    &.password {
-        .text-field-input {
-            padding-right: 76px;
-        }
-    }
+    &.has-right-icon {
 
-    &.empty.password {
         .text-field-input {
             padding-right: 38px;
         }
-    }
 
-    &.has-icon {
-        .text-field-input {
-            padding-left: 38px !important;
+        &.password {
+
+            .text-field-input {
+                padding-right: 76px;
+            }
+
+            .password-visible-icon {
+                right: 38px;
+            }
+        }
+
+        &.not-empty {
+            .text-field-input {
+                padding-right: 76px;
+            }
+
+            .clear-icon {
+                right: 38px;
+            }
+
+            .password-visible-icon {
+                right: 76px;
+            }
+
+            &.password {
+                .text-field-input {
+                    padding-right: 114px;
+                }
+            }
         }
     }
 

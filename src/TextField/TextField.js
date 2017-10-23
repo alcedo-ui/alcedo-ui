@@ -280,10 +280,10 @@ export default class TextField extends Component {
 
             isPassword = type === TextField.Type.PASSWORD,
 
-            wrapperClassName = (!value || value.length <= 0 ? ' empty' : '') + (isPassword ? ' password' : '')
+            wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
-                + (iconCls ? ' has-icon' : '') + (isFocused ? ' focused' : '')
-                + (className ? ' ' + className : '');
+                + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
+                + (isFocused ? ' focused' : '') + (className ? ' ' + className : '');
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
@@ -326,7 +326,7 @@ export default class TextField extends Component {
 
                 {
                     rightIconCls ?
-                        <IconButton className={`right-icon ${!value ? '' : 'hidden'}`}
+                        <IconButton className="right-icon"
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={true}/>
                         :
