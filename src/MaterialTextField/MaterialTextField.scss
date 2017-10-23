@@ -19,30 +19,13 @@
         border-bottom: 1px solid $theme-border;
 
         input {
-            padding-left: 0;
+            padding-left: 8px;
         }
 
         &.empty {
             input {
                 opacity: 1;
                 transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-            }
-        }
-
-    }
-
-    &.focused {
-
-        .material-text-field-label {
-            transform: translate(0, 0);
-            color: $theme-highlight;
-        }
-
-        .text-field {
-            &.empty {
-                input {
-                    opacity: 1;
-                }
             }
         }
 
@@ -55,7 +38,7 @@
             line-height: 20px;
             transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1),
             color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-            transform: translate(0, 30px);
+            transform: translate(8px, 30px);
             color: #999;
             transform-origin: top left;
 
@@ -74,6 +57,23 @@
                 }
             }
         }
+    }
+
+    &.focused {
+
+        .material-text-field-label {
+            transform: translate(0, 0);
+            color: $theme-highlight;
+        }
+
+        .text-field {
+            &.empty {
+                input {
+                    opacity: 1;
+                }
+            }
+        }
+
     }
 
 }

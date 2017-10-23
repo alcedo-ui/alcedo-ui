@@ -123,7 +123,9 @@ export default class MaterialTextField extends Component {
                            onMouseOut={this.textFieldMouseOutHandler}
                            onChange={this.textFieldChangeHandler}/>
 
-                <MaterialFieldSeparator theme={theme}/>
+                <MaterialFieldSeparator theme={theme}
+                                        isHover={isHover}
+                                        isFocus={isFocus}/>
 
             </div>
         );
