@@ -110,7 +110,7 @@ input:focus {
     &.has-right-icon {
 
         .text-field-input {
-            padding-right: 38px;
+            padding-right: 40px;
         }
 
         &.password {
@@ -120,26 +120,26 @@ input:focus {
             }
 
             .password-visible-icon {
-                right: 28px;
+                right: 26px;
             }
         }
 
         &.not-empty {
             .text-field-input {
-                padding-right: 76px;
+                padding-right: 66px;
             }
 
             .clear-icon {
-                right: 38px;
+                right: 26px;
             }
 
             .password-visible-icon {
-                right: 76px;
+                right: 52px;
             }
 
             &.password {
                 .text-field-input {
-                    padding-right: 114px;
+                    padding-right: 92px;
                 }
             }
         }
