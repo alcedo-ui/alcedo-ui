@@ -166,7 +166,6 @@ MaterialTextField.propTypes = {
     /**
      * The animate of the text field.
      */
-
     isLabelAnimate: PropTypes.bool,
 
     /**
