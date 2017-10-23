@@ -24,15 +24,15 @@ export default class MaterialTextField extends Component {
             isHover: false
         };
 
-        this.textFieldFocusHandler = ::this.textFieldFocusHandler;
-        this.textFieldBlurHandler = ::this.textFieldBlurHandler;
-        this.textFieldChangeHandler = ::this.textFieldChangeHandler;
-        this.textFieldMouseOverHandler = ::this.textFieldMouseOverHandler;
-        this.textFieldMouseOutHandler = ::this.textFieldMouseOutHandler;
+        this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.triggerChangeHandler = ::this.triggerChangeHandler;
+        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
+        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
 
     }
 
-    textFieldFocusHandler(...args) {
+    triggerFocusHandler(...args) {
         this.setState({
             isFocus: true
         }, () => {
@@ -41,7 +41,7 @@ export default class MaterialTextField extends Component {
         });
     }
 
-    textFieldBlurHandler(...args) {
+    triggerBlurHandler(...args) {
         this.setState({
             isFocus: false
         }, () => {
@@ -50,7 +50,7 @@ export default class MaterialTextField extends Component {
         });
     }
 
-    textFieldChangeHandler(value) {
+    triggerChangeHandler(value) {
         this.setState({
             value
         }, () => {
@@ -59,7 +59,7 @@ export default class MaterialTextField extends Component {
         });
     }
 
-    textFieldMouseOverHandler(...args) {
+    triggerMouseOverHandler(...args) {
         this.setState({
             isHover: true
         }, () => {
@@ -68,7 +68,7 @@ export default class MaterialTextField extends Component {
         });
     }
 
-    textFieldMouseOutHandler(...args) {
+    triggerMouseOutHandler(...args) {
         this.setState({
             isHover: false
         }, () => {
@@ -120,11 +120,11 @@ export default class MaterialTextField extends Component {
                 <TextField {...restProps}
                            theme={theme}
                            value={value}
-                           onFocus={this.textFieldFocusHandler}
-                           onBlur={this.textFieldBlurHandler}
-                           onMouseOver={this.textFieldMouseOverHandler}
-                           onMouseOut={this.textFieldMouseOutHandler}
-                           onChange={this.textFieldChangeHandler}/>
+                           onFocus={this.triggerFocusHandler}
+                           onBlur={this.triggerBlurHandler}
+                           onMouseOver={this.triggerMouseOverHandler}
+                           onMouseOut={this.triggerMouseOutHandler}
+                           onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
