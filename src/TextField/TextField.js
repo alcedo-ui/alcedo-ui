@@ -269,7 +269,7 @@ export default class TextField extends Component {
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
 
                 // not passing down these props
-                value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg, preventInvalidInput,
+                value: v, autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -429,8 +429,6 @@ TextField.propTypes = {
      */
     clearButtonVisible: PropTypes.bool,
 
-    searchButtonVisible: PropTypes.bool,
-
     /**
      * Use this property to display an icon.
      */
@@ -540,7 +538,6 @@ TextField.defaultProps = {
     infoMsg: '',
 
     clearButtonVisible: true,
-    searchButtonVisible: false,
     passwordButtonVisible: true,
 
     // valid
