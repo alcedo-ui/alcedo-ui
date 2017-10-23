@@ -201,7 +201,7 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, name, placeholder, rightIconCls, data,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, rightIconCls, data,
                 disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 isGrouped, itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
@@ -282,7 +282,7 @@ export default class DropdownSelect extends Component {
                 <Popup ref="popup"
                        className={'dropdown-select-popup' + dropdownSelectPopupClassName}
                        style={dropdownPopupStyle}
-                       theme={theme}
+                       theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -336,7 +336,7 @@ export default class DropdownSelect extends Component {
                         }
 
                         <List className="dropdown-select-list"
-                              theme={theme}
+                              theme={popupTheme}
                               mode={mode}
                               isGrouped={isGrouped}
                               items={listData.length < 1 ? emptyEl : listData}
@@ -382,6 +382,11 @@ DropdownSelect.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme.
+     */
+    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the dropDownSelect.
@@ -569,6 +574,7 @@ DropdownSelect.defaultProps = {
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
+    popupTheme: Theme.DEFAULT,
 
     name: '',
     value: null,
