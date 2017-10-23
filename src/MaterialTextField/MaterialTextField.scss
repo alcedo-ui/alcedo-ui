@@ -26,7 +26,7 @@
         &.empty {
             input {
                 opacity: 1;
-                transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+                transition: opacity $transition-duration ease-in-out;
             }
         }
 
@@ -37,8 +37,8 @@
         .material-text-field-label {
             height: 20px;
             line-height: 20px;
-            transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1),
-            color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+            transition: transform $transition-duration ease-in-out,
+            color $transition-duration ease-in-out;
             transform: translate(8px, 30px);
             color: #999;
             transform-origin: top left;
@@ -54,7 +54,7 @@
             &.empty {
                 input {
                     opacity: 0;
-                    transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
+                    transition: opacity $transition-duration ease-in-out;
                 }
             }
         }
