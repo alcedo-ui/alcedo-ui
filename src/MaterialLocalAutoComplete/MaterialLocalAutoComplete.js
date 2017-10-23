@@ -1,210 +1,80 @@
 /**
- * @file LocalAutoComplete component
+ * @file MaterialLocalAutoComplete component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-
-import MaterialTextField from '../MaterialTextField';
-import Popup from '../Popup';
-import List from '../List';
 import Theme from '../Theme';
 
+import LocalAutoComplete from '../LocalAutoComplete';
+import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 
 export default class MaterialLocalAutoComplete extends Component {
-
-    static Mode = List.Mode;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.triggerEl = null;
-
         this.state = {
-            value: props.value,
-            filter: '',
-            popupVisible: false,
-            isAbove: false
+            value: '',
+            isFocus: false,
+            isHover: false
         };
 
-        this.isAbove = ::this.isAbove;
-        this.filterData = ::this.filterData;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-        this.changeHandler = ::this.changeHandler;
+        this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.triggerChangeHandler = ::this.triggerChangeHandler;
+        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
+        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
 
     }
 
-    isAbove() {
-
-        const autoComplete = this.refs.autoComplete;
-
-        if (!this.popupHeight || !autoComplete) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(autoComplete),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
-
-    }
-
-    filterData(filter = this.state.filter, data = this.props.data) {
-
-        if (!filter) {
-            return data;
-        }
-
-        const {displayField, filterCallback, isGrouped} = this.props;
-
-        if (filterCallback) {
-            return filterCallback(filter, data);
-        }
-
-        const filterFunc = (originData) => {
-            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase()));
-        };
-
-        if (isGrouped) {
-            return data.map(group => {
-
-                const children = filterFunc(group.children);
-
-                if (children.length < 1) {
-                    return;
-                } else {
-                    return {
-                        ...group,
-                        children
-                    };
-                }
-
-            }).filter(item => !!item);
-        }
-
-        return filterFunc(data);
-
-    }
-
-    focusHandler() {
-
-        const {disabled, onFocus} = this.props,
-            {filter} = this.state;
-
-        !disabled && filter && this.setState({
-            popupVisible: true
-        }, () => {
-            onFocus && onFocus();
-        });
-
-    }
-
-    blurHandler() {
-        const {disabled, onBlur} = this.props;
-        !disabled && onBlur && onBlur();
-    }
-
-    filterChangeHandler(filter) {
-
-        const value = this.state.value,
-            state = {
-                filter,
-                popupVisible: !!filter
-            };
-
-        if (!filter) {
-            state.value = undefined;
-        }
-
-        this.setState(state, () => {
-            if (state.value !== value) {
-                const {onFilterChange} = this.props;
-                onFilterChange && onFilterChange(filter);
-            }
-        });
-
-    }
-
-    filterPressEnterHandler(filter) {
-
-        const {autoClose} = this.props,
-            callback = () => {
-                const {onFilterPressEnter} = this.props;
-                onFilterPressEnter && onFilterPressEnter(filter);
-            };
-
-        if (autoClose) {
-            this.setState({
-                popupVisible: false
-            }, () => {
-                callback();
-            });
-        } else {
-            callback();
-        }
-
-    }
-
-    closePopup() {
+    triggerFocusHandler(...args) {
         this.setState({
-            popupVisible: false
+            isFocus: true
+        }, () => {
+            const {onFocus} = this.props;
+            onFocus && onFocus(...args);
         });
     }
 
-    popupRenderHandler(popupEl) {
-
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
-
-        if (isAbove !== this.state.isAbove) {
-            this.setState({
-                isAbove
-            });
-        }
-
+    triggerBlurHandler(...args) {
+        this.setState({
+            isFocus: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
+        });
     }
 
-    changeHandler(value) {
-
-        const {autoClose, valueField, displayField} = this.props,
-            state = {
-                value,
-                filter: Util.getTextByDisplayField(value, displayField, valueField)
-            };
-
-        if (autoClose) {
-            state.popupVisible = false;
-        }
-
-        this.setState(state, () => {
+    triggerChangeHandler(value) {
+        this.setState({
+            value
+        }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-
     }
 
-    componentDidMount() {
-        this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
+    triggerMouseOverHandler(...args) {
+        this.setState({
+            isHover: true
+        }, () => {
+            const {onMouseOver} = this.props;
+            onMouseOver && onMouseOver(...args);
+        });
+    }
+
+    triggerMouseOutHandler(...args) {
+        this.setState({
+            isHover: false
+        }, () => {
+            const {onMouseOut} = this.props;
+            onMouseOut && onMouseOut(...args);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -215,100 +85,55 @@ export default class MaterialLocalAutoComplete extends Component {
         }
     }
 
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        });
+    }
+
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder, isGrouped, mode,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                renderer, onItemTouchTap, onFilterClear
+                className, style, theme, label, isLabelAnimate,
+                ...restProps
             } = this.props,
-            {isAbove, value, filter, popupVisible} = this.state,
+            {isFocus, isHover, value} = this.state,
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
+            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
+                + (className ? ' ' + className : ''),
 
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                }
-            }],
-
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
-            autoCompletePopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle),
-
-            listData = this.filterData(),
-            isEmpty = listData.length < 1;
+            labelClassName = (value ? ' hasValue' : '');
 
         return (
-            <div ref="autoComplete"
-                 className={`material-local-auto-complete ${className}`}
+            <div className={'material-local-auto-complete' + fieldClassName}
                  style={style}>
 
                 {
-                    name ?
-                        <input type="hidden"
-                               name={name}
-                               value={Util.getValueByValueField(value, valueField, displayField)}/>
+                    label ?
+                        <div className={'material-local-auto-complete-label' + labelClassName}>
+                            {label}
+                        </div>
                         :
                         null
                 }
 
-                <MaterialTextField ref="trigger"
-                                   className={'material-local-auto-complete-trigger' + triggerClassName}
-                                   isLabelAnimate={false}
-                                   value={filter}
-                                   placeholder={placeholder}
-                                   disabled={disabled}
-                                   iconCls={iconCls}
-                                   rightIconCls={rightIconCls || 'fa fa-search'}
-                                   onFocus={this.focusHandler}
-                                   onBlur={this.blurHandler}
-                                   onChange={this.filterChangeHandler}
-                                   onPressEnter={this.filterPressEnterHandler}
-                                   onClear={onFilterClear}/>
+                <LocalAutoComplete {...restProps}
+                                   theme={theme}
+                                   value={value}
+                                   onFocus={this.triggerFocusHandler}
+                                   onBlur={this.triggerBlurHandler}
+                                   onTriggerMouseOver={this.triggerMouseOverHandler}
+                                   onTriggerMouseOut={this.triggerMouseOutHandler}
+                                   onChange={this.triggerChangeHandler}/>
 
-                <Popup className={'material-local-auto-complete-popup' + autoCompletePopupClassName}
-                       style={autoCompletePopupStyle}
-                       visible={popupVisible}
-                       triggerEl={this.triggerEl}
-                       hasTriangle={false}
-                       triggerMode={Popup.TriggerMode.OPEN}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       onRender={this.popupRenderHandler}
-                       onRequestClose={this.closePopup}>
-
-                    <List className="material-local-auto-complete-list"
-                          value={value}
-                          mode={isEmpty ? List.Mode.NORMAL : (mode || List.Mode.NORMAL)}
-                          isGrouped={isEmpty ? false : isGrouped}
-                          items={isEmpty ? emptyEl : listData}
-                          valueField={valueField}
-                          displayField={displayField}
-                          descriptionField={descriptionField}
-                          renderer={renderer}
-                          onItemTouchTap={onItemTouchTap}
-                          onChange={this.changeHandler}/>
-
-                </Popup>
+                <MaterialFieldSeparator theme={theme}
+                                        isHover={isHover}
+                                        isFocus={isFocus}/>
 
             </div>
         );
-    }
 
+    }
 };
 
 MaterialLocalAutoComplete.propTypes = {
@@ -334,6 +159,11 @@ MaterialLocalAutoComplete.propTypes = {
     popupStyle: PropTypes.object,
 
     /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The name of the auto complete.
      */
     name: PropTypes.string,
@@ -342,6 +172,8 @@ MaterialLocalAutoComplete.propTypes = {
      * The placeholder of the field.
      */
     placeholder: PropTypes.string,
+
+    label: PropTypes.string,
 
     /**
      * Children passed into the List.
@@ -446,7 +278,7 @@ MaterialLocalAutoComplete.propTypes = {
     /**
      * The type of dropDown list,can be normal,checkbox,radio.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(MaterialLocalAutoComplete.Mode)),
+    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
      * Callback function fired when filter changed.
@@ -464,6 +296,11 @@ MaterialLocalAutoComplete.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
+     * The visiblity of no matched popup.
+     */
+    noMatchedPopupVisible: PropTypes.bool,
+
+    /**
      * The message of no matched value.
      */
     noMatchedMsg: PropTypes.string,
@@ -472,6 +309,10 @@ MaterialLocalAutoComplete.propTypes = {
      * If true,the list data will be grouped.
      */
     isGrouped: PropTypes.bool,
+
+    isLabelAnimate: PropTypes.bool,
+
+    popupChildren: PropTypes.any,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -511,7 +352,10 @@ MaterialLocalAutoComplete.propTypes = {
     /**
      * Callback function fired when LocalAutoComplete lose focus.
      */
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+
+    onTriggerMouseOver: PropTypes.func,
+    onTriggerMouseOut: PropTypes.func
 
 };
 
@@ -521,9 +365,11 @@ MaterialLocalAutoComplete.defaultProps = {
     popupClassName: '',
     style: null,
     popupStyle: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     placeholder: '',
+    label: '',
     data: [],
     disabled: false,
     valueField: 'value',
@@ -531,8 +377,12 @@ MaterialLocalAutoComplete.defaultProps = {
     descriptionField: 'desc',
     autoClose: false,
     iconCls: '',
-    rightIconCls: '',
+    rightIconCls: 'fa fa-search',
+    noMatchedPopupVisible: true,
     noMatchedMsg: '',
-    isGrouped: false
+    isGrouped: false,
+    isLabelAnimate: true,
+
+    popupChildren: null
 
 };
