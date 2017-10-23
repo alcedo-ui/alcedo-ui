@@ -32,21 +32,21 @@ export default class MaterialTextField extends Component {
 
     }
 
-    textFieldFocusHandler(e) {
+    textFieldFocusHandler(...args) {
         this.setState({
             isFocus: true
         }, () => {
             const {onFocus} = this.props;
-            onFocus && onFocus(e);
+            onFocus && onFocus(...args);
         });
     }
 
-    textFieldBlurHandler(e) {
+    textFieldBlurHandler(...args) {
         this.setState({
             isFocus: false
         }, () => {
             const {onBlur} = this.props;
-            onBlur && onBlur(e);
+            onBlur && onBlur(...args);
         });
     }
 
@@ -59,21 +59,21 @@ export default class MaterialTextField extends Component {
         });
     }
 
-    textFieldMouseOverHandler(e) {
+    textFieldMouseOverHandler(...args) {
         this.setState({
             isHover: true
         }, () => {
             const {onMouseOver} = this.props;
-            onMouseOver && onMouseOver(e);
+            onMouseOver && onMouseOver(...args);
         });
     }
 
-    textFieldMouseOutHandler(e) {
+    textFieldMouseOutHandler(...args) {
         this.setState({
             isHover: false
         }, () => {
             const {onMouseOut} = this.props;
-            onMouseOut && onMouseOut(e);
+            onMouseOut && onMouseOut(...args);
         });
     }
 
@@ -311,7 +311,10 @@ MaterialTextField.propTypes = {
     /**
      * Callback function fired when password invisible.
      */
-    onPasswordInvisible: PropTypes.func
+    onPasswordInvisible: PropTypes.func,
+
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
