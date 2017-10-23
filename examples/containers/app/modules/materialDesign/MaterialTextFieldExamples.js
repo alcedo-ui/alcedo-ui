@@ -61,31 +61,6 @@ export default class MaterialTextFieldExamples extends Component {
 
                 </Widget>
 
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="With isLabelAnimate"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p><code>MaterialTextField</code> without labelAnimate.</p>
-
-                                <div className="field-group">
-                                    <MaterialTextField placeholder="password field"
-                                                       isLabelAnimate={false}
-                                                       label="label"/>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={MaterialTextFieldDoc}/>

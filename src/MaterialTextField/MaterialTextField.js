@@ -102,7 +102,7 @@ export default class MaterialTextField extends Component {
             fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
                 + (className ? ' ' + className : ''),
 
-            labelClassName = (value ? ' hasValue' : '');
+            labelClassName = (value ? ' has-value' : '');
 
         return (
             <div className={'material-text-field' + fieldClassName}
@@ -166,7 +166,6 @@ MaterialTextField.propTypes = {
     /**
      * The animate of the text field.
      */
-
     isLabelAnimate: PropTypes.bool,
 
     /**
@@ -329,6 +328,8 @@ MaterialTextField.defaultProps = {
 
     type: 'text',
     name: '',
+    label: '',
+    isLabelAnimate: true,
     placeholder: '',
     value: '',
     iconCls: '',
@@ -351,8 +352,6 @@ MaterialTextField.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true,
-    label: '',
-    isLabelAnimate: true
+    fieldMsgVisible: true
 
 };

@@ -1,101 +1,76 @@
 /**
  * @file MaterialDropdownSelect style
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.material-drop-down-select {
+.material-dropdown-select {
     position: relative;
+    width: 200px;
+    background: $theme-field-bg;
 
-    .material-drop-down-select-label {
+    .material-dropdown-select-label {
         transform: translate(0, 0);
         color: $theme-highlight;
     }
 
     .dropdown-select {
         width: 100%;
-        border-bottom: 1px solid #dfdfdf;
-        box-sizing: border-box;
+
         .dropdown-select-trigger {
-            height: calc(100% - 1px);
-            background: transparent;
-            box-shadow: none;
+            width: 100%;
+            border: none;
             border-radius: 0;
-            border:none;
-            &:hover,
-            &:active {
-                box-shadow: none;
-                background: transparent;
+            border-bottom: 1px solid $theme-border;
+            padding-left: 8px;
+            background: transparent;
+            box-shadow: none !important;
+
+            .base-button-value {
+                opacity: 1;
+                transition: opacity $transition-duration ease-in-out;
             }
-        }
-        &:hover,
-        &:active {
-            border-bottom: 2px solid #dfdfdf;
         }
     }
 
-    &.animation {
+    &.empty {
+        .dropdown-select-trigger{
+            .base-button-value{
+                opacity: 0;
+            }
+        }
+    }
 
-        .material-drop-down-select-label {
-            //position: absolute;
+    &.animated {
+
+        .material-dropdown-select-label {
             height: 20px;
             line-height: 20px;
-            transition: transform $transition-duration cubic-bezier(0.0, 0, 0.2, 1), color $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-            transform: translate(6px, 32px);
+            transition: transform $transition-duration ease-in-out,
+            color $transition-duration ease-in-out;
+            transform: translate(8px, 30px);
             color: #999;
             transform-origin: top left;
 
-            &.hasValue {
+            &.has-value {
                 transform: translate(0, 0);
                 color: $theme-highlight;
             }
         }
-
-        .dropdown-select {
-            .base-button {
-                &.empty {
-                    .base-button-value{
-                        opacity:0;
-                        transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-                    }
-
-                }
-            }
-        }
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        transform: scaleX(0);
-        transition: transform 200ms;
-        z-index: 999;
-        background: lighten($theme-highlight, 15%);
     }
 
     &.focused {
 
-        .material-drop-down-select-label {
+        .material-dropdown-select-label {
             transform: translate(0, 0);
             color: $theme-highlight;
         }
 
-        .dropdown-select {
-            .base-button {
-                &.empty {
-                    .base-button-value{
-                        opacity:1;
-                    }
-
-                }
+        .dropdown-select-trigger {
+            .base-button-value {
+                opacity: 1;
             }
         }
 
-        &::after {
-            transform: scale(1);
-        }
     }
+
 }

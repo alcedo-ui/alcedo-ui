@@ -70,19 +70,26 @@ export default class DropdownSelect extends Component {
         });
     }
 
-    togglePopup() {
+    togglePopup(e) {
+
+        const popupVisible = !this.state.popupVisible;
+
         this.setState({
-            popupVisible: !this.state.popupVisible
+            popupVisible
         }, () => {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
+            const {onTriggerTouchTap, onFocus, onBlur} = this.props;
+            onTriggerTouchTap && onTriggerTouchTap(popupVisible);
+            popupVisible ? (onFocus && onFocus(e)) : (onBlur && onBlur(e));
         });
     }
 
-    closePopup() {
+    closePopup(e) {
         this.setState({
             popupVisible: false
         }, () => {
-            this.props.onClosePopup && this.props.onClosePopup();
+            const {onClosePopup, onBlur} = this.props;
+            onClosePopup && onClosePopup(e);
+            onBlur && onBlur(e);
         });
     }
 
@@ -194,9 +201,9 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, name, placeholder, rightIconCls, data,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, rightIconCls, data,
                 disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                isGrouped, itemTouchTapHandle, disableTouchRipple
+                isGrouped, itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
@@ -268,12 +275,14 @@ export default class DropdownSelect extends Component {
                               rightIconCls={`${rightIconCls} dropdown-select-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
+                              onMouseOver={onTriggerMouseOver}
+                              onMouseOut={onTriggerMouseOut}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={'dropdown-select-popup' + dropdownSelectPopupClassName}
                        style={dropdownPopupStyle}
-                       theme={theme}
+                       theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -327,7 +336,7 @@ export default class DropdownSelect extends Component {
                         }
 
                         <List className="dropdown-select-list"
-                              theme={theme}
+                              theme={popupTheme}
                               mode={mode}
                               isGrouped={isGrouped}
                               items={listData.length < 1 ? emptyEl : listData}
@@ -373,6 +382,11 @@ DropdownSelect.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme.
+     */
+    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The name of the dropDownSelect.
@@ -545,7 +559,11 @@ DropdownSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onTriggerMouseOver: PropTypes.func,
+    onTriggerMouseOut: PropTypes.func
 
 };
 
@@ -556,6 +574,7 @@ DropdownSelect.defaultProps = {
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
+    popupTheme: Theme.DEFAULT,
 
     name: '',
     value: null,

@@ -66,9 +66,13 @@ export default class BaseButton extends Component {
     render() {
 
         const {
+
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
                 iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer, onMouseEnter, onMouseLeave
+                tip, tipPosition, renderer, onMouseEnter, onMouseLeave,
+
+                ...restProps
+
             } = this.props,
             {focused} = this.state,
 
@@ -82,7 +86,8 @@ export default class BaseButton extends Component {
             <TipProvider text={tip}
                          position={tipPosition}>
 
-                <button className={'base-button' + buttonClassName}
+                <button {...restProps}
+                        className={'base-button' + buttonClassName}
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
