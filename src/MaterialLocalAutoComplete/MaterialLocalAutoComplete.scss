@@ -17,6 +17,7 @@
         border-radius: 0;
         background: transparent;
         border-bottom: 1px solid $theme-border !important;
+        box-shadow: none !important;
 
         input {
             padding-left: 8px;
@@ -76,4 +77,8 @@
 
     }
 
+}
+
+.material-local-auto-complete-popup {
+    border: none;
 }

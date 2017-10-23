@@ -118,6 +118,7 @@ export default class MaterialLocalAutoComplete extends Component {
                 }
 
                 <LocalAutoComplete {...restProps}
+                                   popupClassName="material-local-auto-complete-popup"
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
