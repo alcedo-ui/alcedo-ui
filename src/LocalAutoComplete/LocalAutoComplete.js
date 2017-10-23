@@ -142,7 +142,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    filterPressEnterHandler(filter) {
+    filterPressEnterHandler(e, filter) {
 
         const {autoClose} = this.props,
             callback = () => {
@@ -280,7 +280,8 @@ export default class LocalAutoComplete extends Component {
                            onBlur={this.blurHandler}
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
-                           onClear={onFilterClear}/>
+                           onClear={onFilterClear}
+                           onRightIconTouchTap={this.filterPressEnterHandler}/>
 
                 <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
                        style={autoCompletePopupStyle}
