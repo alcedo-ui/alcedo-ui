@@ -43,7 +43,7 @@
             color: #999;
             transform-origin: top left;
 
-            &.hasValue {
+            &.has-value {
                 transform: translate(0, 0);
                 color: $theme-highlight;
             }
