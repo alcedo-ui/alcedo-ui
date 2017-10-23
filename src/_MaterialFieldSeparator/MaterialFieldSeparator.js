@@ -17,28 +17,28 @@ export default class MaterialFieldSeparator extends Component {
     }
 
     render() {
+
+        const {theme, isHover, isFocus} = this.props,
+
+            className = (isHover ? ' hover' : '') + (isFocus ? ' focused' : '') + (theme ? ` theme-${theme}` : '');
+
         return (
-            <div className="material-text-field-separator"></div>
+            <div className={'material-field-separator' + className}>
+                <div className="material-field-separator-hover"></div>
+                <div className="material-field-separator-focus"></div>
+            </div>
         );
     }
 };
 
 MaterialFieldSeparator.propTypes = {
 
-    /**
-     * The CSS class name of the root element.
-     */
     className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
     style: PropTypes.object,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme))
+    isHover: PropTypes.bool,
+    isFocus: PropTypes.bool
 
 };
 
@@ -46,6 +46,9 @@ MaterialFieldSeparator.defaultProps = {
 
     className: '',
     style: null,
-    theme: Theme.DEFAULT
+    theme: Theme.DEFAULT,
+
+    isHover: false,
+    isFocus: false
 
 };
