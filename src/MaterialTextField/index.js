@@ -1,6 +1,6 @@
 /**
  * @file MaterialTextField
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 export default from './MaterialTextField';

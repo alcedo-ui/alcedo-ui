@@ -1,6 +1,6 @@
 /**
  * @file MaterialTextField component
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import Theme from '../Theme';
 
 import TextField from '../TextField';
+import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+
 import Util from '../_vendors/Util';
 
 export default class MaterialTextField extends Component {
@@ -18,41 +20,62 @@ export default class MaterialTextField extends Component {
 
         this.state = {
             value: '',
-            isFocus: false
+            isFocus: false,
+            isHover: false
         };
 
-        this.onFocusHandle = ::this.onFocusHandle;
-        this.onBlurHandle = ::this.onBlurHandle;
-        this.onChangeHandle = ::this.onChangeHandle;
+        this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.triggerChangeHandler = ::this.triggerChangeHandler;
+        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
+        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
 
     }
 
-
-    onFocusHandle(e) {
+    triggerFocusHandler(...args) {
         this.setState({
             isFocus: true
         }, () => {
-            this.props.onFocus && this.props.onFocus(this.state.value, e);
+            const {onFocus} = this.props;
+            onFocus && onFocus(...args);
         });
     }
 
-    onBlurHandle(e) {
+    triggerBlurHandler(...args) {
         this.setState({
             isFocus: false
         }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.value, e);
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
         });
     }
 
-    onChangeHandle(value) {
+    triggerChangeHandler(value) {
         this.setState({
             value
         }, () => {
-            this.props.onChange && this.props.onChange(value);
+            const {onChange} = this.props;
+            onChange && onChange(value);
         });
     }
 
+    triggerMouseOverHandler(...args) {
+        this.setState({
+            isHover: true
+        }, () => {
+            const {onMouseOver} = this.props;
+            onMouseOver && onMouseOver(...args);
+        });
+    }
 
+    triggerMouseOutHandler(...args) {
+        this.setState({
+            isHover: false
+        }, () => {
+            const {onMouseOut} = this.props;
+            onMouseOut && onMouseOut(...args);
+        });
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -70,25 +93,43 @@ export default class MaterialTextField extends Component {
 
     render() {
 
-        const {className, label, style, isLabelAnimate, ...rest} = this.props,
-            {isFocus, value} = this.state;
+        const {
+                className, style, theme, label, isLabelAnimate,
+                ...restProps
+            } = this.props,
+            {isFocus, isHover, value} = this.state,
+
+            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
+                + (className ? ' ' + className : ''),
+
+            labelClassName = (value ? ' has-value' : '');
 
         return (
-            <div
-                className={`material-text-field ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
-                style={style}>
+            <div className={'material-text-field' + fieldClassName}
+                 style={style}>
+
                 {
                     label ?
-                        <div className={`material-text-field-label ${value ? 'hasValue' : ''}`}>{label}</div>
+                        <div className={'material-text-field-label' + labelClassName}>
+                            {label}
+                        </div>
                         :
                         null
                 }
 
-                <TextField {...rest}
+                <TextField {...restProps}
+                           theme={theme}
                            value={value}
-                           onFocus={this.onFocusHandle}
-                           onBlur={this.onBlurHandle}
-                           onChange={this.onChangeHandle}/>
+                           onFocus={this.triggerFocusHandler}
+                           onBlur={this.triggerBlurHandler}
+                           onMouseOver={this.triggerMouseOverHandler}
+                           onMouseOut={this.triggerMouseOutHandler}
+                           onChange={this.triggerChangeHandler}/>
+
+                <MaterialFieldSeparator theme={theme}
+                                        isHover={isHover}
+                                        isFocus={isFocus}/>
+
             </div>
         );
 
@@ -125,7 +166,6 @@ MaterialTextField.propTypes = {
     /**
      * The animate of the text field.
      */
-
     isLabelAnimate: PropTypes.bool,
 
     /**
@@ -273,7 +313,10 @@ MaterialTextField.propTypes = {
     /**
      * Callback function fired when password invisible.
      */
-    onPasswordInvisible: PropTypes.func
+    onPasswordInvisible: PropTypes.func,
+
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
@@ -285,6 +328,8 @@ MaterialTextField.defaultProps = {
 
     type: 'text',
     name: '',
+    label: '',
+    isLabelAnimate: true,
     placeholder: '',
     value: '',
     iconCls: '',
@@ -307,10 +352,6 @@ MaterialTextField.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true,
-    label: '',
-    isLabelAnimate: true
-
+    fieldMsgVisible: true
 
 };
-

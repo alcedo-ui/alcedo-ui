@@ -1,13 +1,14 @@
 /**
  * @file MaterialDropdownSelect component
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Theme from '../Theme';
 
 import DropdownSelect from '../DropdownSelect';
-import Theme from '../Theme';
+import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 
 import Util from '../_vendors/Util';
 
@@ -18,52 +19,116 @@ export default class MaterialDropdownSelect extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: props.value,
-            isFocus: false
+            value: '',
+            isFocus: false,
+            isHover: false
         };
 
-        this.onTapHandle = ::this.onTapHandle;
-        this.onChangeHandle = ::this.onChangeHandle;
+        this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.triggerChangeHandler = ::this.triggerChangeHandler;
+        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
+        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
 
     }
 
-
-    onTapHandle(bool) {
+    triggerFocusHandler(...args) {
         this.setState({
-            isFocus: bool
+            isFocus: true
+        }, () => {
+            const {onFocus} = this.props;
+            onFocus && onFocus(...args);
         });
     }
 
-    onChangeHandle(value) {
+    triggerBlurHandler(...args) {
         this.setState({
-            value,
             isFocus: false
         }, () => {
-            this.props.onChange && this.props.onChange(value);
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
+        });
+    }
+
+    triggerChangeHandler(value) {
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+    }
+
+    triggerMouseOverHandler(...args) {
+        this.setState({
+            isHover: true
+        }, () => {
+            const {onMouseOver} = this.props;
+            onMouseOver && onMouseOver(...args);
+        });
+    }
+
+    triggerMouseOutHandler(...args) {
+        this.setState({
+            isHover: false
+        }, () => {
+            const {onMouseOut} = this.props;
+            onMouseOut && onMouseOut(...args);
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
         });
     }
 
     render() {
 
-        const {className, label, style, isLabelAnimate, ...rest} = this.props;
-        const {isFocus, value} = this.state;
+        const {
+                className, style, theme, label, isLabelAnimate,
+                ...restProps
+            } = this.props,
+            {isFocus, isHover, value} = this.state,
+
+            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
+                + (value ? '' : ' empty') + (className ? ' ' + className : ''),
+
+            labelClassName = (value ? ' has-value' : '');
 
         return (
-            <div
-                className={`material-drop-down-select ${className ? className : ''}  ${isFocus ? 'focused' : ''} ${isLabelAnimate ? 'animation' : ''}`}
-                style={style}>
+            <div className={'material-dropdown-select' + fieldClassName}
+                 style={style}>
 
                 {
                     label ?
-                        <div className={`material-drop-down-select-label ${value ? 'hasValue' : ''}`}>{label}</div>
+                        <div className={'material-dropdown-select-label' + labelClassName}>
+                            {label}
+                        </div>
                         :
                         null
                 }
-                <DropdownSelect {...rest}
-                                disableTouchRipple={true}
-                                onChange={this.onChangeHandle}
-                                onClosePopup={this.onTapHandle}
-                                onTriggerTouchTap={this.onTapHandle}/>
+
+                <DropdownSelect {...restProps}
+                                value={value}
+                                onFocus={this.triggerFocusHandler}
+                                onBlur={this.triggerBlurHandler}
+                                onTriggerMouseOver={this.triggerMouseOverHandler}
+                                onTriggerMouseOut={this.triggerMouseOutHandler}
+                                onChange={this.triggerChangeHandler}/>
+
+                <MaterialFieldSeparator theme={theme}
+                                        isHover={isHover}
+                                        isFocus={isFocus}/>
+
             </div>
         );
 
@@ -93,29 +158,36 @@ MaterialDropdownSelect.propTypes = {
     popupStyle: PropTypes.object,
 
     /**
-     * The name of the materialDropDownSelect.
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The name of the dropDownSelect.
      */
     name: PropTypes.string,
 
     /**
-     * The value of the materialDropDownSelect.
-     */
-    value: PropTypes.any,
-
-    /**
-     * The label of the materialDropDownSelect.
+     * The label of the text field.
      */
     label: PropTypes.string,
 
     /**
-     * If true, the trigger button has animation when focused.
+     * The animate of the text field.
      */
     isLabelAnimate: PropTypes.bool,
 
     /**
-     * The placeholder of the materialDropDownSelect.
+     * The value of the dropDownSelect.
+     */
+    value: PropTypes.any,
+
+    /**
+     * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    rightIconCls: PropTypes.string,
 
     /**
      * The options data.
@@ -193,7 +265,7 @@ MaterialDropdownSelect.propTypes = {
     ]).isRequired,
 
     /**
-     * The invalid message of materialDropDownSelect.
+     * The invalid message of dropDownSelect.
      */
     invalidMsg: PropTypes.string,
 
@@ -203,9 +275,9 @@ MaterialDropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * If true,the dropDownSelect will be multiply select.
+     * The mode of listItem.Can be normal,checkbox.
      */
-    multi: PropTypes.bool,
+    mode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -223,7 +295,7 @@ MaterialDropdownSelect.propTypes = {
     descriptionField: PropTypes.string,
 
     /**
-     * The message of the materialDropDownSelect.
+     * The message of the dropDownSelect.
      */
     infoMsg: PropTypes.string,
 
@@ -242,20 +314,19 @@ MaterialDropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    useSelectAll: PropTypes.bool,
+
     /**
      * The message of no matching option.
      */
     noMatchedMsg: PropTypes.string,
 
     /**
-     * The theme of DropdownSelect.Can be primary,highlight,success,warning,error.
-     */
-    triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * If true,the drop-down box will be have group selection.
      */
     isGrouped: PropTypes.bool,
+
+    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * Callback function fired when the button is touch-tapped.
@@ -270,7 +341,9 @@ MaterialDropdownSelect.propTypes = {
     /**
      * Callback function fired when a menu item is selected.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onWheel: PropTypes.func
 
 };
 
@@ -280,14 +353,18 @@ MaterialDropdownSelect.defaultProps = {
     popupClassName: '',
     style: null,
     popupStyle: null,
+    theme: Theme.DEFAULT,
 
     name: '',
-    value: '',
+    label: '',
+    isLabelAnimate: true,
+    value: null,
     placeholder: 'Please select ...',
+    rightIconCls: 'fa fa-angle-down',
     data: [],
     invalidMsg: '',
     disabled: false,
-    multi: false,
+    mode: DropdownSelect.Mode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
@@ -296,11 +373,10 @@ MaterialDropdownSelect.defaultProps = {
     infoMsg: '',
     autoClose: true,
     useFilter: false,
+    useSelectAll: false,
     noMatchedMsg: '',
-    triggerTheme: Theme.DEFAULT,
     isGrouped: false,
 
-    label: '',
-    isLabelAnimate: true
-};
+    shouldPreventContainerScroll: true
 
+};

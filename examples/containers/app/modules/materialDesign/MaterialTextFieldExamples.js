@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialTextField from 'src/MaterialTextField';
+import Theme from 'src/Theme';
+
+import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialTextFieldDoc from 'assets/propTypes/MaterialTextField.json';
 
 import 'sass/containers/app/modules/materialDesign/MaterialTextFieldExamples.scss';
@@ -19,7 +20,7 @@ export default class MaterialTextFieldExamples extends Component {
     onChangeHandle(value) {
         this.setState({
             value: value
-        })
+        });
     }
 
     render() {
@@ -45,34 +46,14 @@ export default class MaterialTextFieldExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>MaterialTextField</code> simple example.</p>
+
                                 <div className="field-group">
-                                    <MaterialTextField placeholder="password field"
-                                                       rightIconCls={'fa fa-search'}
-                                                       />
+                                    <MaterialTextField theme={Theme.HIGHLIGHT}
+                                                       label="label"
+                                                       placeholder="password field"
+                                                       rightIconCls={'fa fa-search'}/>
                                 </div>
-                            </div>
 
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="With isLabelAnimate"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p><code>MaterialTextField</code> without labelAnimate.</p>
-                                <div className="field-group">
-                                    <MaterialTextField placeholder="password field"
-                                                       isLabelAnimate={false}
-                                                       label="label"/>
-                                </div>
                             </div>
 
                         </div>

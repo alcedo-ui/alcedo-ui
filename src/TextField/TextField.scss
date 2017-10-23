@@ -5,8 +5,7 @@
 
 @mixin text-field-theme($color, $border-color) {
 
-    .text-field-icon,
-    .icon-button {
+    .text-field-icon {
         color: $color;
     }
 
@@ -31,9 +30,7 @@ input:focus {
     border: 1px solid $theme-border;
     transition: border-color $transition-duration ease-in-out;
 
-    .text-field-icon,
     .icon-button {
-        width: 38px;
         height: 100%;
         box-sizing: border-box;
         text-align: center;
@@ -42,23 +39,26 @@ input:focus {
         top: 0;
         color: inherit;
 
-        &.text-field-icon {
+        &.text-field-left-icon {
             left: 0;
             background: transparent;
             border: none;
-            cursor: default;
         }
 
         &.clear-icon {
             right: 0;
         }
 
-        &.right-icon {
+        &.text-field-right-icon {
             right: 0;
         }
 
         &.password-visible-icon {
-            right: 38px;
+            right: 0;
+        }
+
+        &.deactivated {
+            cursor: default;
         }
 
         &.hidden {
@@ -71,7 +71,7 @@ input:focus {
         height: 100%;
         border: none;
         box-sizing: border-box;
-        padding: 9px 38px 9px 15px;
+        padding: 9px 12px 9px 12px;
         border-radius: $theme-border-radius;
         font-size: 12px;
         background: transparent;
@@ -80,32 +80,70 @@ input:focus {
         text-overflow: ellipsis;
     }
 
-    &.empty {
-
+    &.has-icon {
         .text-field-input {
-            padding-right: 20px;
-        }
-
-        .password-visible-icon {
-            right: 0;
+            padding-left: 40px;
         }
     }
 
     &.password {
         .text-field-input {
-            padding-right: 76px;
+            padding-right: 40px;
         }
     }
 
-    &.empty.password {
+    &.not-empty {
+
         .text-field-input {
-            padding-right: 38px;
+            padding-right: 40px;
+        }
+
+        .password-visible-icon {
+            right: 26px;
+        }
+
+        &.password {
+            .text-field-input {
+                padding-right: 66px;
+            }
         }
     }
 
-    &.has-icon {
+    &.has-right-icon {
+
         .text-field-input {
-            padding-left: 38px !important;
+            padding-right: 40px;
+        }
+
+        &.password {
+
+            .text-field-input {
+                padding-right: 66px;
+            }
+
+            .password-visible-icon {
+                right: 26px;
+            }
+        }
+
+        &.not-empty {
+            .text-field-input {
+                padding-right: 66px;
+            }
+
+            .clear-icon {
+                right: 26px;
+            }
+
+            .password-visible-icon {
+                right: 52px;
+            }
+
+            &.password {
+                .text-field-input {
+                    padding-right: 92px;
+                }
+            }
         }
     }
 

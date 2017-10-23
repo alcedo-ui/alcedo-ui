@@ -1,0 +1,76 @@
+/**
+ * @file MaterialFieldSeparator style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin material-field-separator-theme($bg-color) {
+    .material-field-separator-focus {
+        background: $bg-color;
+    }
+}
+
+.material-field-separator {
+
+    .material-field-separator-hover {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: $theme-field;
+        opacity: 0;
+        transition: opacity $transition-duration ease-in-out;
+        z-index: 1;
+    }
+
+    .material-field-separator-focus {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        z-index: 1;
+        transition: left $transition-duration ease-in-out, width $transition-duration ease-in-out;
+    }
+
+    &.hover {
+        .material-field-separator-hover {
+            opacity: 1;
+        }
+    }
+
+    &.focused {
+        .material-field-separator-focus {
+            left: 0;
+            width: 100%;
+        }
+    }
+
+    // default theme
+    @include material-field-separator-theme($theme-primary);
+
+    // other themes
+    &.theme-primary {
+        @include material-field-separator-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include material-field-separator-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include material-field-separator-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include material-field-separator-theme($theme-info);
+    }
+    &.theme-success {
+        @include material-field-separator-theme($theme-success);
+    }
+    &.theme-warning {
+        @include material-field-separator-theme($theme-warning);
+    }
+    &.theme-error {
+        @include material-field-separator-theme($theme-error);
+    }
+
+}

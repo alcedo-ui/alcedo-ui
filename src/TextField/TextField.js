@@ -47,10 +47,11 @@ export default class TextField extends Component {
         this.keyDownHandler = ::this.keyDownHandler;
         this.clearValue = ::this.clearValue;
         this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseoverHandler = ::this.mouseoverHandler;
-        this.mouseoutHandler = ::this.mouseoutHandler;
+        this.mouseOverHandler = ::this.mouseOverHandler;
+        this.mouseOutHandler = ::this.mouseOutHandler;
         this.focusHandler = ::this.focusHandler;
         this.blurHandler = ::this.blurHandler;
+        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
 
     }
 
@@ -152,14 +153,11 @@ export default class TextField extends Component {
     }
 
     keyDownHandler(e) {
-
-        const {onPressEnter} = this.props,
-            {value} = this.state;
-
         if (e.keyCode === 13) {
-            onPressEnter && onPressEnter(value);
+            const {onPressEnter} = this.props,
+                {value} = this.state;
+            onPressEnter && onPressEnter(e, value);
         }
-
     }
 
     clearValue() {
@@ -203,17 +201,25 @@ export default class TextField extends Component {
 
     }
 
-    mouseoverHandler() {
+    mouseOverHandler(e) {
         this.setState({
             infoVisible: true,
             errorVisible: true
+        }, () => {
+            const {onMouseOver} = this.props,
+                {value} = this.state;
+            onMouseOver && onMouseOver(e, value);
         });
     }
 
-    mouseoutHandler() {
+    mouseOutHandler(e) {
         this.setState({
             infoVisible: false,
             errorVisible: false
+        }, () => {
+            const {onMouseOut} = this.props,
+                {value} = this.state;
+            onMouseOut && onMouseOut(e, value);
         });
     }
 
@@ -221,7 +227,9 @@ export default class TextField extends Component {
         this.setState({
             isFocused: true
         }, () => {
-            this.props.onFocus && this.props.onFocus(this.state.value, e);
+            const {onFocus} = this.props,
+                {value} = this.state;
+            onFocus && onFocus(e, value);
         });
     }
 
@@ -234,9 +242,17 @@ export default class TextField extends Component {
         this.setState({
             isFocused: false
         }, () => {
-            this.props.onBlur && this.props.onBlur(this.state.value, e);
+            const {onBlur} = this.props,
+                {value} = this.state;
+            onBlur && onBlur(e, value);
         });
 
+    }
+
+    rightIconTouchTapHandler(e) {
+        const {onRightIconTouchTap} = this.props,
+            {value} = this.state;
+        onRightIconTouchTap && onRightIconTouchTap(e, value);
     }
 
     componentDidMount() {
@@ -263,9 +279,10 @@ export default class TextField extends Component {
 
                 children, className, style, theme, type, iconCls, disabled, infoMsg,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
+                onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                value: v, autoFocus, searchButtonVisible, pattern, patternInvalidMsg, preventInvalidInput,
+                value: v, autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -276,10 +293,10 @@ export default class TextField extends Component {
 
             isPassword = type === TextField.Type.PASSWORD,
 
-            wrapperClassName = (!value || value.length <= 0 ? ' empty' : '') + (isPassword ? ' password' : '')
+            wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
-                + (iconCls ? ' has-icon' : '') + (isFocused ? ' focused' : '')
-                + (className ? ' ' + className : '');
+                + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
+                + (isFocused ? ' focused' : '') + (className ? ' ' + className : '');
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
@@ -295,9 +312,10 @@ export default class TextField extends Component {
 
                 {
                     iconCls ?
-                        <IconButton className="text-field-icon"
+                        <IconButton className={'text-field-left-icon' + (!onIconTouchTap ? ' deactivated' : '')}
                                     iconCls={iconCls}
-                                    readOnly={true}/>
+                                    disableTouchRipple={!onIconTouchTap}
+                                    onTouchTap={onIconTouchTap}/>
                         :
                         null
                 }
@@ -309,11 +327,15 @@ export default class TextField extends Component {
                        value={value}
                        onChange={this.changeHandler}
                        onKeyDown={this.keyDownHandler}
-                       onMouseOver={this.mouseoverHandler}
-                       onMouseOut={this.mouseoutHandler}
+                       onMouseOver={this.mouseOverHandler}
+                       onMouseOut={this.mouseOutHandler}
                        onFocus={this.focusHandler}
                        onBlur={this.blurHandler}
                        disabled={disabled}/>
+
+                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
+                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                            onTouchTap={this.togglePasswordVisible}/>
 
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
@@ -322,16 +344,13 @@ export default class TextField extends Component {
 
                 {
                     rightIconCls ?
-                        <IconButton className={`right-icon ${!value ? '' : 'hidden'}`}
+                        <IconButton className={'text-field-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={true}/>
+                                    disableTouchRipple={!onRightIconTouchTap}
+                                    onTouchTap={this.rightIconTouchTapHandler}/>
                         :
                         null
                 }
-
-                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
-                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                            onTouchTap={this.togglePasswordVisible}/>
 
                 {
                     fieldMsgVisible && infoVisible && infoMsg ?
@@ -424,15 +443,13 @@ TextField.propTypes = {
      */
     clearButtonVisible: PropTypes.bool,
 
-    searchButtonVisible: PropTypes.bool,
-
     /**
      * Use this property to display an icon.
      */
     rightIconCls: PropTypes.string,
 
     /**
-     * If true,passwordButton will display.
+     * If true, passwordButton will display.
      */
     passwordButtonVisible: PropTypes.bool,
 
@@ -468,11 +485,6 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
-    preventInvalidInput: PropTypes.bool,
-    autoComplete: PropTypes.string,
-    autoCorrect: PropTypes.string,
-    autoCapitalize: PropTypes.string,
-    spellCheck: PropTypes.string,
     fieldMsgVisible: PropTypes.bool,
 
     /**
@@ -518,7 +530,13 @@ TextField.propTypes = {
     /**
      * Callback function fired when password invisible.
      */
-    onPasswordInvisible: PropTypes.func
+    onPasswordInvisible: PropTypes.func,
+
+    onIconTouchTap: PropTypes.func,
+    onRightIconTouchTap: PropTypes.func,
+
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
@@ -533,13 +551,13 @@ TextField.defaultProps = {
     placeholder: '',
     value: '',
     iconCls: '',
+    rightIconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
 
     clearButtonVisible: true,
-    searchButtonVisible: false,
     passwordButtonVisible: true,
 
     // valid

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
+import Theme from 'src/Theme';
+
+import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialDropdownSelectDoc from 'assets/propTypes/MaterialDropdownSelect.json';
 
 import 'sass/containers/app/modules/materialDesign/MaterialDropdownSelectExamples.scss';
@@ -35,7 +36,7 @@ export default class MaterialDropdownSelectExamples extends Component {
     onChangeHandle(value) {
         this.setState({
             value: value
-        })
+        });
     }
 
     render() {
@@ -62,35 +63,12 @@ export default class MaterialDropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
+
                                 <div className="field-group">
-                                    <MaterialDropdownSelect label="label"
-                                                            placeholder="placeholder"
-                                                            data={this.data}
-                                                            isLabelAnimate={true}/>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="Basic"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p><code>MaterialDropdownSelect</code> simple example.</p>
-                                <div className="field-group">
-                                    <MaterialDropdownSelect label="label"
-                                                            placeholder="placeholder"
-                                                            data={this.data}
-                                                            isLabelAnimate={false}/>
+                                    <MaterialDropdownSelect theme={Theme.HIGHLIGHT}
+                                                            label="Label"
+                                                            placeholder="Placeholder"
+                                                            data={this.data}/>
                                 </div>
                             </div>
 

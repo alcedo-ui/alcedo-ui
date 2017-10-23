@@ -49,7 +49,8 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
-                                    <TextField type="password"/>
+                                    <TextField type="password"
+                                               rightIconCls={'fa fa-lock'}/>
                                 </div>
 
                             </div>
@@ -75,7 +76,10 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Search</label>
                                     <TextField rightIconCls={'fa fa-search'}
-                                               theme={Theme.PRIMARY}/>
+                                               theme={Theme.PRIMARY}
+                                               onRightIconTouchTap={() => {
+                                                   console.log('Search Icon Clicked.');
+                                               }}/>
                                 </div>
 
                             </div>

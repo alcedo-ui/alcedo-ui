@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import MaterialLocalAutoComplete from 'src/MaterialLocalAutoComplete';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialLocalAutoCompleteDoc from 'assets/propTypes/MaterialLocalAutoComplete.json';
@@ -73,7 +74,9 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
 
                                 <p><code>LocalAutoComplete</code> simple example.</p>
 
-                                <MaterialLocalAutoComplete data={this.data}
+                                <MaterialLocalAutoComplete theme={Theme.HIGHLIGHT}
+                                                           data={this.data}
+                                                           label="Label"
                                                            placeholder="Please select ..."
                                                            onChange={this.onChange}
                                                            onFilterPressEnter={this.filterPressEnterHandle}
