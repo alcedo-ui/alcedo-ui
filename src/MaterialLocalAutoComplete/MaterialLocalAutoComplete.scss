@@ -6,6 +6,7 @@
 
 .material-local-auto-complete {
 
+
     .material-local-auto-complete-trigger {
         @include shadow(0);
         transition: all $transition-duration ease-in-out;
@@ -19,6 +20,7 @@
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
                 z-index: $popup-z-index + 1;
+                box-shadow: none;
             }
         }
 
