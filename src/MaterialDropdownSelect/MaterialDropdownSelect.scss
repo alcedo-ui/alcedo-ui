@@ -5,20 +5,24 @@
 
 .material-dropdown-select {
     position: relative;
-    width: 300px;
+    width: 200px;
 
     .material-dropdown-select-label {
         transform: translate(0, 0);
         color: $theme-highlight;
     }
 
-    .dropdown-select-trigger {
+    .dropdown-select {
         width: 100%;
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid $theme-border;
-        padding-left: 8px;
-        box-shadow: none !important;
+
+        .dropdown-select-trigger {
+            width: 100%;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid $theme-border;
+            padding-left: 8px;
+            box-shadow: none !important;
+        }
     }
 
     &.animated {
@@ -41,7 +45,7 @@
         .text-field {
 
             &.empty {
-                input {
+                base-button-value {
                     opacity: 0;
                     transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
                 }
