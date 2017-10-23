@@ -32,6 +32,14 @@
         }
     }
 
+    &.empty {
+        .dropdown-select-trigger{
+            .base-button-value{
+                opacity: 0;
+            }
+        }
+    }
+
     &.animated {
 
         .material-dropdown-select-label {
@@ -48,15 +56,6 @@
                 color: $theme-highlight;
             }
         }
-
-        &.empty {
-            .dropdown-select-trigger {
-                .base-button-value {
-                    opacity: 0;
-                }
-            }
-        }
-
     }
 
     &.focused {
