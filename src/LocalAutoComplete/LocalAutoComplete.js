@@ -134,10 +134,8 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            if (state.value !== value) {
-                const {onFilterChange} = this.props;
-                onFilterChange && onFilterChange(filter);
-            }
+            const {onFilterChange} = this.props;
+            onFilterChange && onFilterChange(filter);
         });
 
     }
