@@ -1,6 +1,6 @@
 /**
  * @file MaterialTextField component
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
@@ -96,7 +96,7 @@ export default class MaterialTextField extends Component {
         const {className, style, theme, label, isLabelAnimate, ...restProps} = this.props,
             {isFocus, isHover, value} = this.state,
 
-            fieldClassName = (isLabelAnimate ? ' animation' : '') + (isFocus ? ' focused' : '')
+            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
                 + (className ? ' ' + className : ''),
 
             labelClassName = (value ? ' hasValue' : '');
