@@ -34,8 +34,8 @@ export default class LocalAutoComplete extends Component {
 
         this.isAbove = ::this.isAbove;
         this.filterData = ::this.filterData;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
+        this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
         this.filterChangeHandler = ::this.filterChangeHandler;
         this.filterPressEnterHandler = ::this.filterPressEnterHandler;
         this.closePopup = ::this.closePopup;
@@ -103,7 +103,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    focusHandler() {
+    triggerFocusHandler() {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -116,7 +116,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    blurHandler() {
+    triggerBlurHandler() {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur();
     }
@@ -278,8 +278,8 @@ export default class LocalAutoComplete extends Component {
                            disabled={disabled}
                            iconCls={iconCls}
                            rightIconCls={rightIconCls}
-                           onFocus={this.focusHandler}
-                           onBlur={this.blurHandler}
+                           onFocus={this.triggerFocusHandler}
+                           onBlur={this.triggerBlurHandler}
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
