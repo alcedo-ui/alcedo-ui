@@ -169,6 +169,16 @@ MaterialDropdownSelect.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The label of the text field.
+     */
+    label: PropTypes.string,
+
+    /**
+     * The animate of the text field.
+     */
+    isLabelAnimate: PropTypes.bool,
+
+    /**
      * The value of the dropDownSelect.
      */
     value: PropTypes.any,
@@ -347,6 +357,8 @@ MaterialDropdownSelect.defaultProps = {
     theme: Theme.DEFAULT,
 
     name: '',
+    label: '',
+    isLabelAnimate: true,
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',

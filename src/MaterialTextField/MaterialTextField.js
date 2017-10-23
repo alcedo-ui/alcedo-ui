@@ -328,6 +328,8 @@ MaterialTextField.defaultProps = {
 
     type: 'text',
     name: '',
+    label: '',
+    isLabelAnimate: true,
     placeholder: '',
     value: '',
     iconCls: '',
@@ -350,8 +352,6 @@ MaterialTextField.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true,
-    label: '',
-    isLabelAnimate: true
+    fieldMsgVisible: true
 
 };
