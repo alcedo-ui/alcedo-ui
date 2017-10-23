@@ -51,6 +51,7 @@ export default class TextField extends Component {
         this.mouseOutHandler = ::this.mouseOutHandler;
         this.focusHandler = ::this.focusHandler;
         this.blurHandler = ::this.blurHandler;
+        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
 
     }
 
@@ -152,14 +153,11 @@ export default class TextField extends Component {
     }
 
     keyDownHandler(e) {
-
-        const {onPressEnter} = this.props,
-            {value} = this.state;
-
         if (e.keyCode === 13) {
-            onPressEnter && onPressEnter(value);
+            const {onPressEnter} = this.props,
+                {value} = this.state;
+            onPressEnter && onPressEnter(e, value);
         }
-
     }
 
     clearValue() {
@@ -208,7 +206,9 @@ export default class TextField extends Component {
             infoVisible: true,
             errorVisible: true
         }, () => {
-            this.props.onMouseOver && this.props.onMouseOver(e);
+            const {onMouseOver} = this.props,
+                {value} = this.state;
+            onMouseOver && onMouseOver(e, value);
         });
     }
 
@@ -217,7 +217,9 @@ export default class TextField extends Component {
             infoVisible: false,
             errorVisible: false
         }, () => {
-            this.props.onMouseOut && this.props.onMouseOut(e);
+            const {onMouseOut} = this.props,
+                {value} = this.state;
+            onMouseOut && onMouseOut(e, value);
         });
     }
 
@@ -225,7 +227,9 @@ export default class TextField extends Component {
         this.setState({
             isFocused: true
         }, () => {
-            this.props.onFocus && this.props.onFocus(e);
+            const {onFocus} = this.props,
+                {value} = this.state;
+            onFocus && onFocus(e, value);
         });
     }
 
@@ -238,9 +242,17 @@ export default class TextField extends Component {
         this.setState({
             isFocused: false
         }, () => {
-            this.props.onBlur && this.props.onBlur(e);
+            const {onBlur} = this.props,
+                {value} = this.state;
+            onBlur && onBlur(e, value);
         });
 
+    }
+
+    rightIconTouchTapHandler(e) {
+        const {onRightIconTouchTap} = this.props,
+            {value} = this.state;
+        onRightIconTouchTap && onRightIconTouchTap(e, value);
     }
 
     componentDidMount() {
@@ -335,7 +347,7 @@ export default class TextField extends Component {
                         <IconButton className={'text-field-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={onRightIconTouchTap}/>
+                                    onTouchTap={this.rightIconTouchTapHandler}/>
                         :
                         null
                 }
