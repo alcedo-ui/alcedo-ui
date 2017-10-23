@@ -203,17 +203,21 @@ export default class TextField extends Component {
 
     }
 
-    mouseOverHandler() {
+    mouseOverHandler(e) {
         this.setState({
             infoVisible: true,
             errorVisible: true
+        }, () => {
+            this.props.onMouseOver && this.props.onMouseOver(e);
         });
     }
 
-    mouseOutHandler() {
+    mouseOutHandler(e) {
         this.setState({
             infoVisible: false,
             errorVisible: false
+        }, () => {
+            this.props.onMouseOut && this.props.onMouseOut(e);
         });
     }
 
