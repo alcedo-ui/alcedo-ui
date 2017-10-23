@@ -437,7 +437,7 @@ TextField.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
-     * If true,passwordButton will display.
+     * If true, passwordButton will display.
      */
     passwordButtonVisible: PropTypes.bool,
 
@@ -473,11 +473,6 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
-    preventInvalidInput: PropTypes.bool,
-    autoComplete: PropTypes.string,
-    autoCorrect: PropTypes.string,
-    autoCapitalize: PropTypes.string,
-    spellCheck: PropTypes.string,
     fieldMsgVisible: PropTypes.bool,
 
     /**
@@ -538,6 +533,7 @@ TextField.defaultProps = {
     placeholder: '',
     value: '',
     iconCls: '',
+    rightIconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
