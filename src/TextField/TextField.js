@@ -533,8 +533,10 @@ TextField.propTypes = {
     onPasswordInvisible: PropTypes.func,
 
     onIconTouchTap: PropTypes.func,
+    onRightIconTouchTap: PropTypes.func,
 
-    onRightIconTouchTap: PropTypes.func
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
