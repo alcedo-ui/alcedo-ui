@@ -25,4 +25,7 @@ textarea:focus {
     &.area-focus {
         border: solid 1px #758697;
     }
+    &[readOnly] {
+        cursor: not-allowed;
+    }
 }
