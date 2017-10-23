@@ -5,8 +5,7 @@
 
 @mixin text-field-theme($color, $border-color) {
 
-    .text-field-icon,
-    .icon-button {
+    .text-field-icon {
         color: $color;
     }
 
