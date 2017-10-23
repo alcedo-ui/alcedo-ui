@@ -30,9 +30,7 @@ input:focus {
     border: 1px solid $theme-border;
     transition: border-color $transition-duration ease-in-out;
 
-    .text-field-left-icon,
     .icon-button {
-        width: 38px;
         height: 100%;
         box-sizing: border-box;
         text-align: center;
@@ -82,29 +80,29 @@ input:focus {
 
     &.has-icon {
         .text-field-input {
-            padding-left: 38px;
+            padding-left: 40px;
         }
     }
 
     &.password {
         .text-field-input {
-            padding-right: 38px;
+            padding-right: 40px;
         }
     }
 
     &.not-empty {
 
         .text-field-input {
-            padding-right: 38px;
+            padding-right: 40px;
         }
 
         .password-visible-icon {
-            right: 38px;
+            right: 26px;
         }
 
         &.password {
             .text-field-input {
-                padding-right: 76px;
+                padding-right: 66px;
             }
         }
     }
@@ -118,11 +116,11 @@ input:focus {
         &.password {
 
             .text-field-input {
-                padding-right: 76px;
+                padding-right: 66px;
             }
 
             .password-visible-icon {
-                right: 38px;
+                right: 28px;
             }
         }
 
