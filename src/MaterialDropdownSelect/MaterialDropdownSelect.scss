@@ -5,30 +5,20 @@
 
 .material-dropdown-select {
     position: relative;
+    width: 300px;
 
     .material-dropdown-select-label {
         transform: translate(0, 0);
         color: $theme-highlight;
     }
 
-    .text-field {
+    .dropdown-select-trigger {
         width: 100%;
         border: none;
         border-radius: 0;
-        background: transparent;
         border-bottom: 1px solid $theme-border;
-
-        input {
-            padding-left: 8px;
-        }
-
-        &.empty {
-            input {
-                opacity: 1;
-                transition: opacity $transition-duration cubic-bezier(0.0, 0, 0.2, 1);
-            }
-        }
-
+        padding-left: 8px;
+        box-shadow: none !important;
     }
 
     &.animated {

@@ -122,8 +122,8 @@ export default class MaterialDropdownSelect extends Component {
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
                                 onBlur={this.triggerBlurHandler}
-                                onMouseOver={this.triggerMouseOverHandler}
-                                onMouseOut={this.triggerMouseOutHandler}
+                                onTriggerMouseOver={this.triggerMouseOverHandler}
+                                onTriggerMouseOut={this.triggerMouseOutHandler}
                                 onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
