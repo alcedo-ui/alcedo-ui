@@ -49,8 +49,8 @@ export default class MaterialTextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <MaterialTextField theme={Theme.HIGHLIGHT}
-                                                       label="label"
-                                                       placeholder="password field"
+                                                       label="Search"
+                                                       placeholder="keywords"
                                                        rightIconCls={'fa fa-search'}/>
                                 </div>
 
