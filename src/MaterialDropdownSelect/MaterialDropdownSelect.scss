@@ -6,6 +6,7 @@
 .material-dropdown-select {
     position: relative;
     width: 200px;
+    background: $theme-field-bg;
 
     .material-dropdown-select-label {
         transform: translate(0, 0);
