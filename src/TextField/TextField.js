@@ -267,6 +267,7 @@ export default class TextField extends Component {
 
                 children, className, style, theme, type, iconCls, disabled, infoMsg,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
+                onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
                 value: v, autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
@@ -299,10 +300,10 @@ export default class TextField extends Component {
 
                 {
                     iconCls ?
-                        <IconButton className="text-field-left-icon"
+                        <IconButton className={'text-field-left-icon' + (!onIconTouchTap ? ' deactivated' : '')}
                                     iconCls={iconCls}
-                                    readOnly={true}
-                                    disableTouchRipple={true}/>
+                                    disableTouchRipple={!onIconTouchTap}
+                                    onTouchTap={onIconTouchTap}/>
                         :
                         null
                 }
@@ -331,9 +332,10 @@ export default class TextField extends Component {
 
                 {
                     rightIconCls ?
-                        <IconButton className="text-field-right-icon"
+                        <IconButton className={'text-field-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={true}/>
+                                    disableTouchRipple={!onRightIconTouchTap}
+                                    onTouchTap={onRightIconTouchTap}/>
                         :
                         null
                 }
@@ -516,7 +518,11 @@ TextField.propTypes = {
     /**
      * Callback function fired when password invisible.
      */
-    onPasswordInvisible: PropTypes.func
+    onPasswordInvisible: PropTypes.func,
+
+    onIconTouchTap: PropTypes.func,
+
+    onRightIconTouchTap: PropTypes.func
 
 };
 

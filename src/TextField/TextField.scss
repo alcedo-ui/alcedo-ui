@@ -43,7 +43,6 @@ input:focus {
             left: 0;
             background: transparent;
             border: none;
-            cursor: default;
         }
 
         &.clear-icon {
@@ -51,12 +50,15 @@ input:focus {
         }
 
         &.text-field-right-icon {
-            cursor: default;
             right: 0;
         }
 
         &.password-visible-icon {
             right: 0;
+        }
+
+        &.deactivated {
+            cursor: default;
         }
 
         &.hidden {
