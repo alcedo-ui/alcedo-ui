@@ -76,6 +76,7 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
 
                                 <MaterialLocalAutoComplete theme={Theme.HIGHLIGHT}
                                                            data={this.data}
+                                                           label="Label"
                                                            placeholder="Please select ..."
                                                            onChange={this.onChange}
                                                            onFilterPressEnter={this.filterPressEnterHandle}
