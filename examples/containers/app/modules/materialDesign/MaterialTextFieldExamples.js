@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialTextField from 'src/MaterialTextField';
+import Theme from 'src/Theme';
+
+import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialTextFieldDoc from 'assets/propTypes/MaterialTextField.json';
 
 import 'sass/containers/app/modules/materialDesign/MaterialTextFieldExamples.scss';
@@ -47,7 +48,8 @@ export default class MaterialTextFieldExamples extends Component {
                                 <p><code>MaterialTextField</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialTextField label="label"
+                                    <MaterialTextField theme={Theme.HIGHLIGHT}
+                                                       label="label"
                                                        placeholder="password field"
                                                        rightIconCls={'fa fa-search'}/>
                                 </div>
