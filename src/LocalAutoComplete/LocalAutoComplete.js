@@ -103,7 +103,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    triggerFocusHandler() {
+    triggerFocusHandler(...args) {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -111,14 +111,14 @@ export default class LocalAutoComplete extends Component {
         !disabled && filter && this.setState({
             popupVisible: true
         }, () => {
-            onFocus && onFocus();
+            onFocus && onFocus(...args);
         });
 
     }
 
-    triggerBlurHandler() {
+    triggerBlurHandler(...args) {
         const {disabled, onBlur} = this.props;
-        !disabled && onBlur && onBlur();
+        !disabled && onBlur && onBlur(...args);
     }
 
     filterChangeHandler(filter) {
