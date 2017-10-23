@@ -30,7 +30,7 @@ input:focus {
     border: 1px solid $theme-border;
     transition: border-color $transition-duration ease-in-out;
 
-    .text-field-icon,
+    .text-field-left-icon,
     .icon-button {
         width: 38px;
         height: 100%;
@@ -41,7 +41,7 @@ input:focus {
         top: 0;
         color: inherit;
 
-        &.text-field-icon {
+        &.text-field-left-icon {
             left: 0;
             background: transparent;
             border: none;
@@ -52,7 +52,7 @@ input:focus {
             right: 0;
         }
 
-        &.right-icon {
+        &.text-field-right-icon {
             cursor: default;
             right: 0;
         }

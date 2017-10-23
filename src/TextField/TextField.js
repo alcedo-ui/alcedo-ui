@@ -299,9 +299,10 @@ export default class TextField extends Component {
 
                 {
                     iconCls ?
-                        <IconButton className="text-field-icon"
+                        <IconButton className="text-field-left-icon"
                                     iconCls={iconCls}
-                                    readOnly={true}/>
+                                    readOnly={true}
+                                    disableTouchRipple={true}/>
                         :
                         null
                 }
@@ -319,6 +320,10 @@ export default class TextField extends Component {
                        onBlur={this.blurHandler}
                        disabled={disabled}/>
 
+                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
+                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                            onTouchTap={this.togglePasswordVisible}/>
+
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
                             iconCls="fa fa-times-circle"
@@ -326,16 +331,12 @@ export default class TextField extends Component {
 
                 {
                     rightIconCls ?
-                        <IconButton className="right-icon"
+                        <IconButton className="text-field-right-icon"
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={true}/>
                         :
                         null
                 }
-
-                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
-                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                            onTouchTap={this.togglePasswordVisible}/>
 
                 {
                     fieldMsgVisible && infoVisible && infoMsg ?
