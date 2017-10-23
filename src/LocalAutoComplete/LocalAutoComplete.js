@@ -219,8 +219,8 @@ export default class LocalAutoComplete extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped, mode,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                popupChildren, renderer, onItemTouchTap, onFilterClear
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -245,18 +245,20 @@ export default class LocalAutoComplete extends Component {
                 disableTouchRipple: true
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
+            listData = this.filterData(),
+            isEmpty = listData.length < 1,
+
+            wrapperClassName = (className ? ' ' + className : ''),
+            triggerClassName = (isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''))
+                + (isAbove ? ' above' : ' blow'),
             autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
             autoCompletePopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle),
-
-            listData = this.filterData(),
-            isEmpty = listData.length < 1;
+            }, popupStyle);
 
         return (
             <div ref="autoComplete"
-                 className={`local-auto-complete ${className}`}
+                 className={'local-auto-complete' + wrapperClassName}
                  style={style}>
 
                 {
@@ -283,41 +285,46 @@ export default class LocalAutoComplete extends Component {
                            onClear={onFilterClear}
                            onRightIconTouchTap={this.filterPressEnterHandler}/>
 
-                <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
-                       style={autoCompletePopupStyle}
-                       theme={theme}
-                       visible={popupVisible}
-                       triggerEl={this.triggerEl}
-                       hasTriangle={false}
-                       triggerMode={Popup.TriggerMode.OPEN}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       onRender={this.popupRenderHandler}
-                       onRequestClose={this.closePopup}>
+                {
+                    isEmpty && !noMatchedPopupVisible ?
+                        null
+                        :
+                        <Popup className={'local-auto-complete-popup' + autoCompletePopupClassName}
+                               style={autoCompletePopupStyle}
+                               theme={theme}
+                               visible={popupVisible}
+                               triggerEl={this.triggerEl}
+                               hasTriangle={false}
+                               triggerMode={Popup.TriggerMode.OPEN}
+                               position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                               onRender={this.popupRenderHandler}
+                               onRequestClose={this.closePopup}>
 
-                    {
-                        isEmpty ?
-                            <List className="local-auto-complete-list"
-                                  theme={theme}
-                                  mode={List.Mode.NORMAL}
-                                  items={emptyEl}/>
-                            :
-                            <List className="local-auto-complete-list"
-                                  theme={theme}
-                                  value={value}
-                                  mode={mode || List.Mode.NORMAL}
-                                  isGrouped={isGrouped}
-                                  items={listData}
-                                  valueField={valueField}
-                                  displayField={displayField}
-                                  descriptionField={descriptionField}
-                                  renderer={renderer}
-                                  onItemTouchTap={onItemTouchTap}
-                                  onChange={this.changeHandler}/>
-                    }
+                            {
+                                isEmpty ?
+                                    <List className="local-auto-complete-list"
+                                          theme={theme}
+                                          mode={List.Mode.NORMAL}
+                                          items={emptyEl}/>
+                                    :
+                                    <List className="local-auto-complete-list"
+                                          theme={theme}
+                                          value={value}
+                                          mode={mode || List.Mode.NORMAL}
+                                          isGrouped={isGrouped}
+                                          items={listData}
+                                          valueField={valueField}
+                                          displayField={displayField}
+                                          descriptionField={descriptionField}
+                                          renderer={renderer}
+                                          onItemTouchTap={onItemTouchTap}
+                                          onChange={this.changeHandler}/>
+                            }
 
-                    {popupChildren}
+                            {popupChildren}
 
-                </Popup>
+                        </Popup>
+                }
 
             </div>
         );
@@ -483,6 +490,11 @@ LocalAutoComplete.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
+     * The visiblity of no matched popup.
+     */
+    noMatchedPopupVisible: PropTypes.bool,
+
+    /**
      * The message of no matched value.
      */
     noMatchedMsg: PropTypes.string,
@@ -554,6 +566,7 @@ LocalAutoComplete.defaultProps = {
     autoClose: false,
     iconCls: '',
     rightIconCls: 'fa fa-search',
+    noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
 
