@@ -113,7 +113,7 @@ export default class MaterialLocalAutoComplete extends Component {
             fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
                 + (className ? ' ' + className : ''),
 
-            labelClassName = (filter ? ' hasValue' : '');
+            labelClassName = (filter ? ' has-value' : '');
 
         return (
             <div className={'material-local-auto-complete' + fieldClassName}
