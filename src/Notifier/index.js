@@ -1,0 +1,6 @@
+/**
+ * @file Notifier
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+export default from './Notifier';
