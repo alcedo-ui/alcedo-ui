@@ -147,34 +147,34 @@ export default class Toast extends Component {
 Toast.propTypes = {
 
     /**
-     * The CSS class name of toaster.
+     * The CSS class name of toast.
      */
     className: PropTypes.string,
 
     /**
-     * Override the styles of the toaster.
+     * Override the styles of the toast.
      */
     style: PropTypes.object,
 
     toastsId: PropTypes.number,
 
     /**
-     * The type of toaster.
+     * The type of toast.
      */
     type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
 
     /**
-     * The title of toaster.
+     * The title of toast.
      */
     title: PropTypes.any,
 
     /**
-     * The message of toaster.
+     * The message of toast.
      */
     message: PropTypes.any,
 
     /**
-     * The icon class name of toaster.
+     * The icon class name of toast.
      */
     iconCls: PropTypes.string,
 
