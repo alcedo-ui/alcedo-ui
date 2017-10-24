@@ -206,7 +206,12 @@ Notifier.propTypes = {
         /**
          * The message of notifier.
          */
-        message: PropTypes.string
+        message: PropTypes.string,
+
+        /**
+         * The icon class name of notification.
+         */
+        iconCls: PropTypes.string
 
     }), PropTypes.string, PropTypes.number])),
 
