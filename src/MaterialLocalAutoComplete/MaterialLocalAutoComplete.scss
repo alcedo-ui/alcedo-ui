@@ -9,14 +9,12 @@
     background: $theme-field-bg;
 
     .material-local-auto-complete-label {
-        color: $theme-highlight;
-        height: 20px;
-        line-height: 20px;
-        transition: transform $transition-duration ease-in-out,
-        color $transition-duration ease-in-out;
-        transform: translate(8px, 30px);
+        display: inline-block;
+        line-height: 16px;
         color: $theme-field-disabled;
         transform-origin: top left;
+        transition: transform $transition-duration ease-in-out,
+        color $transition-duration ease-in-out;
     }
 
     .text-field {
@@ -34,32 +32,31 @@
 
     }
 
-    //&.animated {
-    //    .material-local-auto-complete-label {
-    //        color: #999;
-    //        transform: translate(8px, 30px);
-    //
-    //        &.has-value {
-    //            transform: translate(0, 0);
-    //            color: $theme-highlight;
-    //        }
-    //    }
-    //}
-
     &.focused {
         .material-local-auto-complete-label {
-            transform: translate(0, 0);
             color: $theme-highlight;
-        }
-
-        .text-field-input {
-            opacity: 1;
         }
     }
 
-    &.has-label {
+    &.has-label.animated {
+
+        .material-local-auto-complete-label {
+            transform: translate(8px, 28px);
+        }
+
         .text-field-input {
             opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .material-local-auto-complete-label {
+                transform: translate(0, 0);
+            }
+
+            .text-field-input {
+                opacity: 1;
+            }
         }
     }
 

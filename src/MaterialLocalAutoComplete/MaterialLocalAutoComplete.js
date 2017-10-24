@@ -111,9 +111,7 @@ export default class MaterialLocalAutoComplete extends Component {
             {isFocus, isHover, value, filter} = this.state,
 
             wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (className ? ' ' + className : ''),
-
-            labelClassName = (filter ? ' has-value' : '');
+                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'material-local-auto-complete' + wrapperClassName}
@@ -121,7 +119,7 @@ export default class MaterialLocalAutoComplete extends Component {
 
                 {
                     label ?
-                        <div className={'material-local-auto-complete-label' + labelClassName}>
+                        <div className="material-local-auto-complete-label">
                             {label}
                         </div>
                         :
