@@ -198,6 +198,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Tip',
                     component: ac(store, () => import('modules/message/TipExamples'))
+                }, {
+                    path: '/components/Notification',
+                    component: ac(store, () => import('modules/message/NotificationExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

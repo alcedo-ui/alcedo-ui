@@ -37,6 +37,7 @@ export MaterialLocalAutoComplete from './MaterialLocalAutoComplete';
 export MaterialTextField from './MaterialTextField';
 export Menu from './Menu';
 export MultipleSelect from './MultipleSelect';
+export Notifier from './Notifier';
 export PageLoading from './PageLoading';
 export Pagging from './Pagging';
 export Paper from './Paper';
@@ -70,4 +71,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 71;
+export const COMPONENTS_TOTAL_COUNT = 72;

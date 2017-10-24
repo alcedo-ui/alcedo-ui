@@ -183,6 +183,9 @@ export default [{
     }, {
         text: 'Tip',
         route: '/components/Tip'
+    }, {
+        text: 'Notification',
+        route: '/components/Notification'
     }]
 }, {
     text: 'TimeLine',
