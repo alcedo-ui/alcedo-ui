@@ -115,7 +115,7 @@ export default class Toast extends Component {
 
     render() {
 
-        const {className, style, type, title, message} = this.props,
+        const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
             toastClassName = (type ? ` toast-${type}` : '') + (hidden ? ' hidden' : '')
                 + (leave ? ' leave' : '') + (className ? ' ' + className : '');
@@ -126,7 +126,7 @@ export default class Toast extends Component {
                  style={style}
                  onTouchTap={this.touchTapHandler}>
 
-                <i className={`${this.getIconCls()} toast-icon`}
+                <i className={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
                    aria-hidden="true"></i>
 
                 <div className="toast-title">{title}</div>
@@ -146,13 +146,37 @@ export default class Toast extends Component {
 
 Toast.propTypes = {
 
+    /**
+     * The CSS class name of toaster.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the toaster.
+     */
     style: PropTypes.object,
 
     toastsId: PropTypes.number,
+
+    /**
+     * The type of toaster.
+     */
     type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
+
+    /**
+     * The title of toaster.
+     */
     title: PropTypes.any,
+
+    /**
+     * The message of toaster.
+     */
     message: PropTypes.any,
+
+    /**
+     * The icon class name of toaster.
+     */
+    iconCls: PropTypes.string,
 
     onRequestClose: PropTypes.func
 
@@ -166,6 +190,7 @@ Toast.defaultProps = {
     toastsId: 0,
     type: Toast.Type.INFO,
     title: 'message',
-    message: ''
+    message: '',
+    iconCls: ''
 
 };

@@ -206,7 +206,12 @@ Toaster.propTypes = {
         /**
          * The message of toaster.
          */
-        message: PropTypes.string
+        message: PropTypes.string,
+
+        /**
+         * The icon class name of toaster.
+         */
+        iconCls: PropTypes.string
 
     }), PropTypes.string, PropTypes.number])),
 
