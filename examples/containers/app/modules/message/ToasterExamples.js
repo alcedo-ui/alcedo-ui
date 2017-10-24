@@ -21,11 +21,16 @@ export default class ToasterExamples extends Component {
         super(props);
 
         this.state = {
-            type: 'info',
+            type: Toaster.ToastType[Object.keys(Toaster.ToastType)[0]],
             title: 'Title',
             message: 'Message',
             toasts: []
         };
+
+        this.ToastType = Object.keys(Toaster.ToastType).map(item => ({
+            label: item,
+            value: Toaster.ToastType[item]
+        }));
 
         this.updateField = this::this.updateField;
         this.addToast = this::this.addToast;
@@ -92,19 +97,7 @@ export default class ToasterExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
-                                    <RadioGroup data={[{
-                                        label: 'Info',
-                                        value: 'info'
-                                    }, {
-                                        label: 'Success',
-                                        value: 'success'
-                                    }, {
-                                        label: 'Warning',
-                                        value: 'warning'
-                                    }, {
-                                        label: 'Error',
-                                        value: 'error'
-                                    }]}
+                                    <RadioGroup data={this.ToastType}
                                                 value={type}
                                                 onChange={(value) => {
                                                     this.updateField('type', value);
@@ -128,12 +121,13 @@ export default class ToasterExamples extends Component {
                                 </div>
 
                                 <RaisedButton className="show-toast-button"
+                                              theme={Theme.PRIMARY}
                                               value="Show Toaster"
                                               style={{width: '120px'}}
-                                              buttonStyle={Theme.PRIMARY}
                                               onTouchTap={this.addToast}/>
 
                                 <Toaster toasts={toasts}
+                                         position={Toaster.Position.TOP}
                                          onToastPop={this.toastPopHandle}/>
 
                             </div>
