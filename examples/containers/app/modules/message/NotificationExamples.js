@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import RadioGroup from 'src/RadioGroup';
 import TextField from 'src/TextField';
 import RaisedButton from 'src/RaisedButton';
-import Toaster from 'src/Toaster';
+import Notifier from 'src/Notifier';
 import Theme from 'src/Theme';
 
 import Widget from 'src/Widget';
@@ -21,21 +21,21 @@ export default class NotificationExamples extends Component {
         super(props);
 
         this.state = {
-            type: Toaster.ToastType.INFO,
-            position: Toaster.Position.BOTTOM_RIGHT,
+            type: Notifier.NotificationType.INFO,
+            position: Notifier.Position.BOTTOM_RIGHT,
             title: 'Title',
             message: 'Message',
-            toasts: []
+            notifications: []
         };
 
-        this.ToastType = Object.keys(Toaster.ToastType).map(item => ({
+        this.notificationType = Object.keys(Notifier.NotificationType).map(item => ({
             label: item,
-            value: Toaster.ToastType[item]
+            value: Notifier.NotificationType[item]
         }));
 
-        this.ToasterPosition = Object.keys(Toaster.Position).map(item => ({
+        this.notificationPosition = Object.keys(Notifier.Position).map(item => ({
             label: item,
-            value: Toaster.Position[item]
+            value: Notifier.Position[item]
         }));
 
         this.updateField = this::this.updateField;
@@ -54,28 +54,28 @@ export default class NotificationExamples extends Component {
 
         const {type, title, message} = this.state;
 
-        let toasts = this.state.toasts;
-        toasts.push({
+        let notifications = this.state.notifications;
+        notifications.push({
             type,
             title,
             message
         });
 
         this.setState({
-            toasts
+            notifications
         });
 
     }
 
     notificationPopHandler() {
         this.setState({
-            toasts: []
+            notifications: []
         });
     }
 
     render() {
 
-        const {type, position, title, message, toasts} = this.state;
+        const {type, position, title, message, notifications} = this.state;
 
         return (
             <div className="example notification-examples">
@@ -99,7 +99,7 @@ export default class NotificationExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
-                                    <RadioGroup data={this.ToastType}
+                                    <RadioGroup data={this.notificationType}
                                                 value={type}
                                                 onChange={(value) => {
                                                     this.updateField('type', value);
@@ -108,7 +108,7 @@ export default class NotificationExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Position</label>
-                                    <RadioGroup data={this.ToasterPosition}
+                                    <RadioGroup data={this.notificationPosition}
                                                 value={position}
                                                 onChange={(value) => {
                                                     this.updateField('position', value);
@@ -136,9 +136,9 @@ export default class NotificationExamples extends Component {
                                               value="Show Notification"
                                               onTouchTap={this.addNotification}/>
 
-                                <Toaster toasts={toasts}
-                                         position={position}
-                                         onToastPop={this.notificationPopHandler}/>
+                                <Notifier notifications={notifications}
+                                          position={position}
+                                          onNotificationPop={this.notificationPopHandler}/>
 
                             </div>
 
