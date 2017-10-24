@@ -1,0 +1,81 @@
+/**
+ * @file Notification style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.toast {
+    @include shadow(3);
+    position: relative;
+    width: 240px;
+    border-radius: $theme-border-radius;
+    padding: 15px 15px 15px 50px;
+    color: #fff;
+    margin-top: 10px;
+    cursor: pointer;
+    user-select: none;
+    opacity: .9;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: $theme-primary;
+    transition: opacity $transition-duration ease-in-out;
+
+    .toast-icon {
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 20px;
+        transform: translate(0, -50%);
+    }
+
+    .toast-title {
+        line-height: 20px;
+        opacity: .6;
+    }
+
+    .toast-message-wrapper {
+        width: 175px;
+
+        .toast-message {
+            width: 175px;
+            font-size: 14px;
+            word-wrap: break-word;
+            vertical-align: middle;
+        }
+    }
+
+    &:hover {
+        opacity: 1 !important;
+    }
+
+    &.toast-info {
+        background: $theme-info;
+    }
+
+    &.toast-success {
+        background: $theme-success;
+    }
+
+    &.toast-warning {
+        background: $theme-warning;
+    }
+
+    &.toast-error {
+        background: $theme-error;
+    }
+
+    &.hidden {
+        opacity: 0 !important;
+    }
+
+    &.leave {
+        margin-top: 0 !important;
+        height: 0 !important;
+        transition: opacity 1s ease-in-out, height $transition-duration ease-in-out 1s,
+        margin-top $transition-duration ease-in-out 1s;
+    }
+
+}
