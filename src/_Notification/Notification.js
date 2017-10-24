@@ -117,12 +117,13 @@ export default class Notification extends Component {
 
         const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
-            toastClassName = (type ? ` notification-${type}` : '') + (hidden ? ' hidden' : '')
+
+            wrapperClassName = (type ? ` notification-${type}` : '') + (hidden ? ' hidden' : '')
                 + (leave ? ' leave' : '') + (className ? ' ' + className : '');
 
         return (
             <div ref="notification"
-                 className={'notification' + toastClassName}
+                 className={'notification' + wrapperClassName}
                  style={style}
                  onTouchTap={this.touchTapHandler}>
 
