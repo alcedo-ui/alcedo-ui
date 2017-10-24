@@ -40,10 +40,17 @@ export default class Toaster extends Component {
             toasts: []
         };
 
+        this.isPositiveSequence = ::this.isPositiveSequence;
         this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
         this.addToast = ::this.addToast;
         this.removeToast = ::this.removeToast;
 
+    }
+
+    isPositiveSequence(position = this.props.position) {
+        return position === Toaster.Position.TOP_LEFT
+            || position === Toaster.Position.TOP
+            || position === Toaster.Position.TOP_RIGHT;
     }
 
     clearUnrenderTimeout() {
@@ -59,7 +66,11 @@ export default class Toaster extends Component {
 
         let toasts = this.state.toasts;
 
-        toasts.unshift({...toast, toastsId: this.nextKey++});
+        if (this.isPositiveSequence()) {
+            toasts.push({...toast, toastsId: this.nextKey++});
+        } else {
+            toasts.unshift({...toast, toastsId: this.nextKey++});
+        }
 
         this.setState({
             toasts,
@@ -108,8 +119,14 @@ export default class Toaster extends Component {
                 toasts[i].toastsId = this.nextKey++;
             }
 
+            if (this.isPositiveSequence()) {
+                toasts = [...this.state.toasts, ...toasts];
+            } else {
+                toasts = [...toasts.reverse(), ...this.state.toasts];
+            }
+
             this.setState({
-                toasts: [...toasts.reverse(), ...this.state.toasts],
+                toasts,
                 visible: true
             }, () => {
                 this.props.onToastPop();
