@@ -120,7 +120,7 @@ export default class Toast extends Component {
 
     render() {
 
-        const {className, style, type, title, message, iconCls} = this.props,
+        const {className, style, type, message, iconCls} = this.props,
             {hidden, leave} = this.state,
 
             wrapperClassName = (hidden ? ' hidden' : '') + (leave ? ' leave' : '') + (className ? ' ' + className : '');
@@ -131,14 +131,8 @@ export default class Toast extends Component {
                           style={style}
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
-                          onTouchTap={this.touchTapHandler}>
-                <div className="toast-title">{title}</div>
-                <div className="toast-message-wrapper">
-                    <div className="toast-message">
-                        {message}
-                    </div>
-                </div>
-            </RaisedButton>
+                          value={message}
+                          onTouchTap={this.touchTapHandler}/>
         );
 
     }
@@ -162,11 +156,6 @@ Toast.propTypes = {
      * The type of toast.
      */
     type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
-
-    /**
-     * The title of toast.
-     */
-    title: PropTypes.any,
 
     /**
      * The message of toast.
@@ -194,7 +183,6 @@ Toast.defaultProps = {
 
     toastsId: 0,
     type: Toast.Type.INFO,
-    title: 'message',
     message: '',
     iconCls: '',
     duration: 2500

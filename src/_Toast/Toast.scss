@@ -13,6 +13,7 @@
     margin-top: 10px;
     opacity: .9;
     box-sizing: border-box;
+    text-align: left;
     transition: opacity $transition-duration ease-in-out;
 
     .toast-icon {
@@ -23,25 +24,8 @@
         height: 40px;
         line-height: 40px;
         font-size: 20px;
+        margin-right: 0;
         transform: translateY(-50%);
-    }
-
-    .toast-title {
-        line-height: 20px;
-        opacity: .6;
-        text-align: left;
-    }
-
-    .toast-message-wrapper {
-        width: 175px;
-
-        .toast-message {
-            width: 175px;
-            text-align: left;
-            font-size: 14px;
-            word-wrap: break-word;
-            white-space: normal;
-        }
     }
 
     &:hover {
