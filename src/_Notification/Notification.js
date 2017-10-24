@@ -146,13 +146,37 @@ export default class Notification extends Component {
 
 Notification.propTypes = {
 
+    /**
+     * The CSS class name of notification.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the notification.
+     */
     style: PropTypes.object,
 
     toastsId: PropTypes.number,
-    type: PropTypes.oneOf(Util.enumerateValue(Notification.Type)),
+
+    /**
+     * The type of notification.
+     */
+    type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
+
+    /**
+     * The title of notification.
+     */
     title: PropTypes.any,
+
+    /**
+     * The message of notification.
+     */
     message: PropTypes.any,
+
+    /**
+     * The icon class name of notification.
+     */
+    iconCls: PropTypes.string,
 
     onRequestClose: PropTypes.func
 
@@ -164,8 +188,9 @@ Notification.defaultProps = {
     style: null,
 
     toastsId: 0,
-    type: Notification.Type.INFO,
+    type: Toast.Type.INFO,
     title: 'message',
-    message: ''
+    message: '',
+    iconCls: ''
 
 };
