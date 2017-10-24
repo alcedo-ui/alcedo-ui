@@ -199,11 +199,6 @@ Toaster.propTypes = {
         type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
 
         /**
-         * The title of toast.
-         */
-        title: PropTypes.string,
-
-        /**
          * The message of toast.
          */
         message: PropTypes.string,
