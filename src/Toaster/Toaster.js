@@ -16,6 +16,18 @@ export default class Toaster extends Component {
 
     static ToastType = Toast.Type;
 
+    static Position = {
+
+        TOP_LEFT: 'top-left',
+        TOP: 'top',
+        TOP_RIGHT: 'top-right',
+
+        BOTTOM_LEFT: 'bottom-left',
+        BOTTOM: 'bottom',
+        BOTTOM_RIGHT: 'bottom-right'
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -113,10 +125,11 @@ export default class Toaster extends Component {
 
     render() {
 
-        const {toasts, visible} = this.state;
+        const {position} = this.props,
+            {toasts, visible} = this.state;
 
         return (
-            <SubtreeContainer className="toaster"
+            <SubtreeContainer className={'toaster' + (position ? ` toaster-position-${position}` : '')}
                               visible={visible}>
                 {
                     toasts.length > 0 ?
@@ -180,6 +193,7 @@ Toaster.propTypes = {
 
     }), PropTypes.string, PropTypes.number])),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Toaster.Position)),
 
     /**
      * Callback function fired when the toaster pop.
@@ -189,6 +203,10 @@ Toaster.propTypes = {
 };
 
 Toaster.defaultProps = {
+
     className: '',
-    style: null
+    style: null,
+
+    position: Toaster.Position.BOTTOM_RIGHT
+
 };
