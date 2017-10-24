@@ -71,14 +71,14 @@ export default class Toast extends Component {
 
     componentDidMount() {
 
-        const {onRequestClose, toastsId} = this.props;
+        const {toastsId, duration, onRequestClose} = this.props;
 
         this.hasMounted = true;
         this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
 
         this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(toastsId);
-        }, 2500);
+        }, duration);
 
     }
 
@@ -179,6 +179,11 @@ Toast.propTypes = {
      */
     iconCls: PropTypes.string,
 
+    /**
+     * The duration of toast.
+     */
+    duration: PropTypes.number,
+
     onRequestClose: PropTypes.func
 
 };
@@ -192,6 +197,7 @@ Toast.defaultProps = {
     type: Toast.Type.INFO,
     title: 'message',
     message: '',
-    iconCls: ''
+    iconCls: '',
+    duration: 2500
 
 };
