@@ -39,8 +39,9 @@
     &.leave {
         margin-top: 0 !important;
         height: 0 !important;
-        transition: opacity 1s ease-in-out, height $transition-duration ease-in-out 1s,
-        margin-top $transition-duration ease-in-out 1s;
+        transition: opacity $transition-duration ease-in-out,
+        height $transition-duration ease-in-out $transition-duration,
+        margin-top $transition-duration ease-in-out $transition-duration;
     }
 
 }

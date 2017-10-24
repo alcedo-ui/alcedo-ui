@@ -110,7 +110,7 @@ export default class Toast extends Component {
         }, () => {
             this.unrenderTimeout = setTimeout(() => {
                 this.hasMounted && callback();
-            }, 1250);
+            }, 500);
         });
     }
 
