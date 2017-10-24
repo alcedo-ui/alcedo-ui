@@ -105,18 +105,18 @@ export default class MaterialLocalAutoComplete extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimated,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value, filter} = this.state,
 
-            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
-                + (className ? ' ' + className : ''),
+            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
+                + (isFocus ? ' focused' : '') + (className ? ' ' + className : ''),
 
             labelClassName = (filter ? ' has-value' : '');
 
         return (
-            <div className={'material-local-auto-complete' + fieldClassName}
+            <div className={'material-local-auto-complete' + wrapperClassName}
                  style={style}>
 
                 {
@@ -323,7 +323,7 @@ MaterialLocalAutoComplete.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
-    isLabelAnimate: PropTypes.bool,
+    isLabelAnimated: PropTypes.bool,
 
     popupChildren: PropTypes.any,
 
@@ -383,6 +383,7 @@ MaterialLocalAutoComplete.defaultProps = {
     name: '',
     placeholder: '',
     label: '',
+    isLabelAnimated: true,
     data: [],
     disabled: false,
     valueField: 'value',
@@ -394,7 +395,6 @@ MaterialLocalAutoComplete.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
-    isLabelAnimate: true,
 
     popupChildren: null
 

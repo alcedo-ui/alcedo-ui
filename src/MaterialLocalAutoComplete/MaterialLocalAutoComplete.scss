@@ -9,8 +9,14 @@
     background: $theme-field-bg;
 
     .material-local-auto-complete-label {
-        transform: translate(0, 0);
         color: $theme-highlight;
+        height: 20px;
+        line-height: 20px;
+        transition: transform $transition-duration ease-in-out,
+        color $transition-duration ease-in-out;
+        transform: translate(8px, 30px);
+        color: $theme-field-disabled;
+        transform-origin: top left;
     }
 
     .text-field {
@@ -21,62 +27,40 @@
         border-bottom: 1px solid $theme-border !important;
         box-shadow: none !important;
 
-        input {
+        .text-field-input {
             padding-left: 8px;
-        }
-
-        &.empty {
-            input {
-                opacity: 1;
-                transition: opacity $transition-duration ease-in-out;
-            }
+            transition: opacity $transition-duration ease-in-out;
         }
 
     }
 
-    &.animated {
-
-        .material-local-auto-complete-label {
-            height: 20px;
-            line-height: 20px;
-            transition: transform $transition-duration ease-in-out,
-            color $transition-duration ease-in-out;
-            transform: translate(8px, 30px);
-            color: #999;
-            transform-origin: top left;
-
-            &.has-value {
-                transform: translate(0, 0);
-                color: $theme-highlight;
-            }
-        }
-
-        .text-field {
-
-            &.empty {
-                input {
-                    opacity: 0;
-                    transition: opacity $transition-duration ease-in-out;
-                }
-            }
-        }
-    }
+    //&.animated {
+    //    .material-local-auto-complete-label {
+    //        color: #999;
+    //        transform: translate(8px, 30px);
+    //
+    //        &.has-value {
+    //            transform: translate(0, 0);
+    //            color: $theme-highlight;
+    //        }
+    //    }
+    //}
 
     &.focused {
-
         .material-local-auto-complete-label {
             transform: translate(0, 0);
             color: $theme-highlight;
         }
 
-        .text-field {
-            &.empty {
-                input {
-                    opacity: 1;
-                }
-            }
+        .text-field-input {
+            opacity: 1;
         }
+    }
 
+    &.has-label {
+        .text-field-input {
+            opacity: 0;
+        }
     }
 
 }
