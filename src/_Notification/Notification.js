@@ -115,7 +115,7 @@ export default class Notification extends Component {
 
     render() {
 
-        const {className, style, type, title, message} = this.props,
+        const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
             toastClassName = (type ? ` notification-${type}` : '') + (hidden ? ' hidden' : '')
                 + (leave ? ' leave' : '') + (className ? ' ' + className : '');
@@ -126,7 +126,7 @@ export default class Notification extends Component {
                  style={style}
                  onTouchTap={this.touchTapHandler}>
 
-                <i className={`${this.getIconCls()} notification-icon`}
+                <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}
                    aria-hidden="true"></i>
 
                 <div className="notification-title">{title}</div>
