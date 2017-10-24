@@ -10,11 +10,11 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ToasterDoc from 'assets/propTypes/Toaster.json';
+import ToastDoc from 'assets/propTypes/Toast.json';
 
-import 'sass/containers/app/modules/message/ToasterExamples.scss';
+import 'sass/containers/app/modules/message/ToastExamples.scss';
 
-export default class ToasterExamples extends Component {
+export default class ToastExamples extends Component {
 
     constructor(props) {
 
@@ -78,12 +78,12 @@ export default class ToasterExamples extends Component {
         const {type, position, title, message, toasts} = this.state;
 
         return (
-            <div className="example toaster-examples">
+            <div className="example toast-examples">
 
-                <h2 className="example-title">Toaster</h2>
+                <h2 className="example-title">Toast</h2>
 
                 <p>
-                    <span>Toaster</span> is a global display notification alert information .
+                    <span>Toast</span> is a global display notification alert information .
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -96,10 +96,6 @@ export default class ToasterExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-
-                                <p><code>Toaster</code> example with RadioGroup and TextField.You can select different
-                                    radio button to show different theme toaster,also input different title and message
-                                    to use this component.</p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
@@ -137,7 +133,7 @@ export default class ToasterExamples extends Component {
 
                                 <RaisedButton className="show-toast-button"
                                               theme={Theme.PRIMARY}
-                                              value="Show Toaster"
+                                              value="Show Toast"
                                               style={{width: '120px'}}
                                               onTouchTap={this.addToast}/>
 
@@ -155,7 +151,7 @@ export default class ToasterExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ToasterDoc}/>
+                <PropTypeDescTable data={ToastDoc}/>
 
             </div>
         );

@@ -193,8 +193,8 @@ export default function configureRoutes(store) {
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
-                    path: '/components/Toaster',
-                    component: ac(store, () => import('modules/message/ToasterExamples'))
+                    path: '/components/Toast',
+                    component: ac(store, () => import('modules/message/ToastExamples'))
                 }, {
                     path: '/components/Tip',
                     component: ac(store, () => import('modules/message/TipExamples'))

@@ -178,8 +178,8 @@ export default [{
 }, {
     text: 'Message',
     children: [{
-        text: 'Toaster',
-        route: '/components/Toaster'
+        text: 'Toast',
+        route: '/components/Toast'
     }, {
         text: 'Tip',
         route: '/components/Tip'
