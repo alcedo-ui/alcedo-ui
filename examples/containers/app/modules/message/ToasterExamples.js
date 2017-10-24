@@ -21,7 +21,8 @@ export default class ToasterExamples extends Component {
         super(props);
 
         this.state = {
-            type: Toaster.ToastType[Object.keys(Toaster.ToastType)[0]],
+            type: Toaster.ToastType.INFO,
+            position: Toaster.Position.BOTTOM_RIGHT,
             title: 'Title',
             message: 'Message',
             toasts: []
@@ -30,6 +31,11 @@ export default class ToasterExamples extends Component {
         this.ToastType = Object.keys(Toaster.ToastType).map(item => ({
             label: item,
             value: Toaster.ToastType[item]
+        }));
+
+        this.ToasterPosition = Object.keys(Toaster.Position).map(item => ({
+            label: item,
+            value: Toaster.Position[item]
         }));
 
         this.updateField = this::this.updateField;
@@ -69,7 +75,7 @@ export default class ToasterExamples extends Component {
 
     render() {
 
-        const {type, title, message, toasts} = this.state;
+        const {type, position, title, message, toasts} = this.state;
 
         return (
             <div className="example toaster-examples">
@@ -105,6 +111,15 @@ export default class ToasterExamples extends Component {
                                 </div>
 
                                 <div className="field-group">
+                                    <label className="text-field-label">Position</label>
+                                    <RadioGroup data={this.ToasterPosition}
+                                                value={position}
+                                                onChange={(value) => {
+                                                    this.updateField('position', value);
+                                                }}/>
+                                </div>
+
+                                <div className="field-group">
                                     <label className="text-field-label">Title</label>
                                     <TextField value={title}
                                                onChange={(value) => {
@@ -127,7 +142,7 @@ export default class ToasterExamples extends Component {
                                               onTouchTap={this.addToast}/>
 
                                 <Toaster toasts={toasts}
-                                         position={Toaster.Position.TOP}
+                                         position={position}
                                          onToastPop={this.toastPopHandle}/>
 
                             </div>
