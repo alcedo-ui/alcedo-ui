@@ -117,12 +117,13 @@ export default class Toast extends Component {
 
         const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
-            toastClassName = (type ? ` toast-${type}` : '') + (hidden ? ' hidden' : '')
+
+            wrapperClassName = (type ? ` toast-${type}` : '') + (hidden ? ' hidden' : '')
                 + (leave ? ' leave' : '') + (className ? ' ' + className : '');
 
         return (
             <div ref="toast"
-                 className={'toast' + toastClassName}
+                 className={'toast' + wrapperClassName}
                  style={style}
                  onTouchTap={this.touchTapHandler}>
 
