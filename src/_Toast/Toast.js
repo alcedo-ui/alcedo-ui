@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import RaisedButton from '../RaisedButton';
-// import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
