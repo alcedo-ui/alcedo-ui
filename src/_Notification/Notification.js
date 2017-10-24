@@ -5,18 +5,21 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
-import TouchRipple from '../TouchRipple';
+import RaisedButton from '../RaisedButton';
+// import TouchRipple from '../TouchRipple';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class Notification extends Component {
 
     static Type = {
-        INFO: 'info',
-        SUCCESS: 'success',
-        WARNING: 'warning',
-        ERROR: 'error'
+        INFO: Theme.HIGHLIGHT,
+        SUCCESS: Theme.SUCCESS,
+        WARNING: Theme.WARNING,
+        ERROR: Theme.ERROR
     };
 
     constructor(props, ...restArgs) {
@@ -53,8 +56,8 @@ export default class Notification extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {onRequestClose, toastsId} = this.props;
-        onRequestClose && onRequestClose(toastsId);
+        const {onRequestClose, notificationId} = this.props;
+        onRequestClose && onRequestClose(notificationId);
     }
 
     initializeAnimation(callback) {
@@ -71,14 +74,16 @@ export default class Notification extends Component {
 
     componentDidMount() {
 
-        const {onRequestClose, toastsId} = this.props;
+        const {notificationId, duration, onRequestClose} = this.props;
 
         this.hasMounted = true;
-        this.refs.notification.style.height = this.refs.notification.clientHeight + 'px';
 
-        this.unrenderTimeout = setTimeout(() => {
-            onRequestClose && onRequestClose(toastsId);
-        }, 2500);
+        const notificationEl = findDOMNode(this.refs.notification);
+        notificationEl.style.height = notificationEl.clientHeight + 'px';
+
+        duration > 0 && (this.unrenderTimeout = setTimeout(() => {
+            onRequestClose && onRequestClose(notificationId);
+        }, duration));
 
     }
 
@@ -118,28 +123,22 @@ export default class Notification extends Component {
         const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
 
-            wrapperClassName = (type ? ` notification-${type}` : '') + (hidden ? ' hidden' : '')
-                + (leave ? ' leave' : '') + (className ? ' ' + className : '');
+            wrapperClassName = (hidden ? ' hidden' : '') + (leave ? ' leave' : '') + (className ? ' ' + className : '');
 
         return (
-            <div ref="notification"
-                 className={'notification' + wrapperClassName}
-                 style={style}
-                 onTouchTap={this.touchTapHandler}>
-
-                <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}
-                   aria-hidden="true"></i>
-
+            <RaisedButton ref="notification"
+                          className={'notification' + wrapperClassName}
+                          style={style}
+                          theme={type}
+                          iconCls={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}
+                          onTouchTap={this.touchTapHandler}>
                 <div className="notification-title">{title}</div>
                 <div className="notification-message-wrapper">
                     <div className="notification-message">
                         {message}
                     </div>
                 </div>
-
-                <TouchRipple/>
-
-            </div>
+            </RaisedButton>
         );
 
     }
@@ -157,12 +156,12 @@ Notification.propTypes = {
      */
     style: PropTypes.object,
 
-    toastsId: PropTypes.number,
+    notificationId: PropTypes.number,
 
     /**
      * The type of notification.
      */
-    type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
+    type: PropTypes.oneOf(Util.enumerateValue(Notification.Type)),
 
     /**
      * The title of notification.
@@ -179,6 +178,11 @@ Notification.propTypes = {
      */
     iconCls: PropTypes.string,
 
+    /**
+     * The duration of notification.
+     */
+    duration: PropTypes.number,
+
     onRequestClose: PropTypes.func
 
 };
@@ -188,10 +192,11 @@ Notification.defaultProps = {
     className: '',
     style: null,
 
-    toastsId: 0,
-    type: Toast.Type.INFO,
+    notificationId: 0,
+    type: Notification.Type.INFO,
     title: 'message',
     message: '',
-    iconCls: ''
+    iconCls: '',
+    duration: 2500
 
 };
