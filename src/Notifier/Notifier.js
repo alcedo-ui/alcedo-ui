@@ -14,7 +14,7 @@ import Util from '../_vendors/Util';
 
 export default class Notifier extends Component {
 
-    static ToastType = Notification.Type;
+    static NotificationType = Notification.Type;
 
     static Position = {
 
@@ -37,13 +37,13 @@ export default class Notifier extends Component {
 
         this.state = {
             visible: false,
-            toasts: []
+            notifications: []
         };
 
         this.isPositiveSequence = ::this.isPositiveSequence;
         this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
-        this.addToast = ::this.addToast;
-        this.removeToast = ::this.removeToast;
+        this.addNotification = ::this.addNotification;
+        this.removeNotification = ::this.removeNotification;
 
     }
 
@@ -60,35 +60,35 @@ export default class Notifier extends Component {
         }
     }
 
-    addToast(notification) {
+    addNotification(notification) {
 
         this.clearUnrenderTimeout();
 
-        let toasts = this.state.toasts;
+        let notifications = this.state.notifications;
 
         if (this.isPositiveSequence()) {
-            toasts.push({...notification, toastsId: this.nextKey++});
+            notifications.push({...notification, notificationId: this.nextKey++});
         } else {
-            toasts.unshift({...notification, toastsId: this.nextKey++});
+            notifications.unshift({...notification, notificationId: this.nextKey++});
         }
 
         this.setState({
-            toasts,
+            notifications,
             visible: true
         });
 
     }
 
-    removeToast(toastsId) {
+    removeNotification(notificationId) {
 
-        let toasts = this.state.toasts;
+        let notifications = this.state.notifications;
 
-        toasts.splice(toasts.findIndex(item => item.toastsId === toastsId), 1);
+        notifications.splice(notifications.findIndex(item => item.notificationId === notificationId), 1);
 
         this.setState({
-            toasts
+            notifications
         }, () => {
-            if (toasts.length < 1) {
+            if (notifications.length < 1) {
 
                 this.clearUnrenderTimeout();
 
@@ -105,31 +105,31 @@ export default class Notifier extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-        if (nextProps.toasts && nextProps.toasts.length > 0) {
+        if (nextProps.notifications && nextProps.notifications.length > 0) {
 
             this.clearUnrenderTimeout();
 
-            let toasts = _.cloneDeep(nextProps.toasts);
-            for (let i = 0, len = toasts.length; i < len; i++) {
-                if (typeof toasts[i] !== 'object') {
-                    toasts[i] = {
-                        message: toasts[i]
+            let notifications = _.cloneDeep(nextProps.notifications);
+            for (let i = 0, len = notifications.length; i < len; i++) {
+                if (typeof notifications[i] !== 'object') {
+                    notifications[i] = {
+                        message: notifications[i]
                     };
                 }
-                toasts[i].toastsId = this.nextKey++;
+                notifications[i].notificationId = this.nextKey++;
             }
 
             if (this.isPositiveSequence()) {
-                toasts = [...this.state.toasts, ...toasts];
+                notifications = [...this.state.notifications, ...notifications];
             } else {
-                toasts = [...toasts.reverse(), ...this.state.toasts];
+                notifications = [...notifications.reverse(), ...this.state.notifications];
             }
 
             this.setState({
-                toasts,
+                notifications,
                 visible: true
             }, () => {
-                this.props.onToastPop();
+                this.props.onNotificationPop();
             });
 
         }
@@ -143,18 +143,18 @@ export default class Notifier extends Component {
     render() {
 
         const {position} = this.props,
-            {toasts, visible} = this.state;
+            {notifications, visible} = this.state;
 
         return (
             <SubtreeContainer className={'notifier' + (position ? ` notifier-position-${position}` : '')}
                               visible={visible}>
                 {
-                    toasts.length > 0 ?
+                    notifications.length > 0 ?
                         (
-                            toasts.map(options =>
+                            notifications.map(options =>
                                 <Notification {...options}
-                                              key={options.toastsId}
-                                              onRequestClose={this.removeToast}/>
+                                              key={options.notificationId}
+                                              onRequestClose={this.removeNotification}/>
                             )
                         )
                         : null
@@ -181,37 +181,42 @@ Notifier.propTypes = {
     /**
      * Children passed into the notifier.
      */
-    toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    notifications: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of notifier.
+         * The CSS class name of toast.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the notifier.
+         * Override the styles of the toast.
          */
         style: PropTypes.object,
 
         /**
-         * The type of notifier.
+         * The type of toast.
          */
         type: PropTypes.oneOf(Util.enumerateValue(Notification.Type)),
 
         /**
-         * The title of notifier.
+         * The title of toast.
          */
         title: PropTypes.string,
 
         /**
-         * The message of notifier.
+         * The message of toast.
          */
         message: PropTypes.string,
 
         /**
-         * The icon class name of notification.
+         * The icon class name of toast.
          */
-        iconCls: PropTypes.string
+        iconCls: PropTypes.string,
+
+        /**
+         * The duration of toast.
+         */
+        duration: PropTypes.number
 
     }), PropTypes.string, PropTypes.number])),
 
@@ -220,7 +225,7 @@ Notifier.propTypes = {
     /**
      * Callback function fired when the notifier pop.
      */
-    onToastPop: PropTypes.func
+    onNotificationPop: PropTypes.func
 
 };
 
