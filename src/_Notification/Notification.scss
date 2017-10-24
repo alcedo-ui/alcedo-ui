@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.toast {
+.notification {
     @include shadow(3);
     position: relative;
     width: 240px;
@@ -19,7 +19,7 @@
     background: $theme-primary;
     transition: opacity $transition-duration ease-in-out;
 
-    .toast-icon {
+    .notification-icon {
         position: absolute;
         left: 5px;
         top: 50%;
@@ -31,15 +31,15 @@
         transform: translate(0, -50%);
     }
 
-    .toast-title {
+    .notification-title {
         line-height: 20px;
         opacity: .6;
     }
 
-    .toast-message-wrapper {
+    .notification-message-wrapper {
         width: 175px;
 
-        .toast-message {
+        .notification-message {
             width: 175px;
             font-size: 14px;
             word-wrap: break-word;
@@ -51,19 +51,19 @@
         opacity: 1 !important;
     }
 
-    &.toast-info {
+    &.notification-info {
         background: $theme-info;
     }
 
-    &.toast-success {
+    &.notification-success {
         background: $theme-success;
     }
 
-    &.toast-warning {
+    &.notification-warning {
         background: $theme-warning;
     }
 
-    &.toast-error {
+    &.notification-error {
         background: $theme-error;
     }
 
