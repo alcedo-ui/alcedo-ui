@@ -134,7 +134,6 @@ export default class NotificationExamples extends Component {
                                 <RaisedButton className="show-notification-button"
                                               theme={Theme.PRIMARY}
                                               value="Show Notification"
-                                              style={{width: '120px'}}
                                               onTouchTap={this.addNotification}/>
 
                                 <Toaster toasts={toasts}
