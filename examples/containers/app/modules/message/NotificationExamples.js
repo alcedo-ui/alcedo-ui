@@ -131,7 +131,7 @@ export default class NotificationExamples extends Component {
                                                }}/>
                                 </div>
 
-                                <RaisedButton className="show-toast-button"
+                                <RaisedButton className="show-notification-button"
                                               theme={Theme.PRIMARY}
                                               value="Show Notification"
                                               style={{width: '120px'}}
