@@ -99,11 +99,11 @@ export default class MaterialTextField extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            fieldClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
+            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
                 + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'material-text-field' + fieldClassName}
+            <div className={'material-text-field' + wrapperClassName}
                  style={style}>
 
                 {
