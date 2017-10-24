@@ -16,7 +16,8 @@ import Util from '../_vendors/Util';
 export default class Toast extends Component {
 
     static Type = {
-        INFO: Theme.HIGHLIGHT,
+        DEFAULT: Theme.DEFAULT,
+        INFO: Theme.INFO,
         SUCCESS: Theme.SUCCESS,
         WARNING: Theme.WARNING,
         ERROR: Theme.ERROR
