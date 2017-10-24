@@ -5,18 +5,21 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
-import TouchRipple from '../TouchRipple';
+import RaisedButton from '../RaisedButton';
+// import TouchRipple from '../TouchRipple';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class Toast extends Component {
 
     static Type = {
-        INFO: 'info',
-        SUCCESS: 'success',
-        WARNING: 'warning',
-        ERROR: 'error'
+        INFO: Theme.HIGHLIGHT,
+        SUCCESS: Theme.SUCCESS,
+        WARNING: Theme.WARNING,
+        ERROR: Theme.ERROR
     };
 
     constructor(props, ...restArgs) {
@@ -74,7 +77,9 @@ export default class Toast extends Component {
         const {toastsId, duration, onRequestClose} = this.props;
 
         this.hasMounted = true;
-        this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
+
+        const toastEl = findDOMNode(this.refs.toast);
+        toastEl.style.height = toastEl.clientHeight + 'px';
 
         duration > 0 && (this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(toastsId);
@@ -118,28 +123,22 @@ export default class Toast extends Component {
         const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
 
-            wrapperClassName = (type ? ` toast-${type}` : '') + (hidden ? ' hidden' : '')
-                + (leave ? ' leave' : '') + (className ? ' ' + className : '');
+            wrapperClassName = (hidden ? ' hidden' : '') + (leave ? ' leave' : '') + (className ? ' ' + className : '');
 
         return (
-            <div ref="toast"
-                 className={'toast' + wrapperClassName}
-                 style={style}
-                 onTouchTap={this.touchTapHandler}>
-
-                <i className={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
-                   aria-hidden="true"></i>
-
+            <RaisedButton ref="toast"
+                          className={'toast' + wrapperClassName}
+                          style={style}
+                          theme={type}
+                          iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
+                          onTouchTap={this.touchTapHandler}>
                 <div className="toast-title">{title}</div>
                 <div className="toast-message-wrapper">
                     <div className="toast-message">
                         {message}
                     </div>
                 </div>
-
-                <TouchRipple/>
-
-            </div>
+            </RaisedButton>
         );
 
     }
