@@ -3,27 +3,47 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin notification-theme($color, $bg-color, $border-color) {
+    color: $color;
+    background-color: $bg-color;
+    border-color: $border-color;
+}
+
 .notification {
     @include shadow(3);
     position: relative;
     display: block;
-    width: 240px;
+    width: 360px;
     height: auto;
     padding: 15px 15px 15px 50px;
     margin-top: 10px;
-    opacity: .9;
     box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: $theme-border-radius;
     transition: opacity $transition-duration ease-in-out;
 
-    .notification-icon {
+    .notification-icon,
+    .notification-close-button {
         position: absolute;
-        left: 5px;
-        top: 50%;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 20px;
-        transform: translateY(-50%);
+        top: 5px;
+        text-align: center;
+        color: inherit;
+
+        &.notification-icon {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            left: 5px;
+            font-size: 20px;
+        }
+
+        &.notification-close-button {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            right: 5px;
+        }
     }
 
     .notification-title {
@@ -32,20 +52,11 @@
         text-align: left;
     }
 
-    .notification-message-wrapper {
-        width: 175px;
-
-        .notification-message {
-            width: 175px;
-            text-align: left;
-            font-size: 14px;
-            word-wrap: break-word;
-            white-space: normal;
-        }
-    }
-
-    &:hover {
-        opacity: 1 !important;
+    .notification-message {
+        text-align: left;
+        font-size: 14px;
+        word-wrap: break-word;
+        white-space: normal;
     }
 
     &.hidden {
@@ -55,8 +66,26 @@
     &.leave {
         margin-top: 0 !important;
         height: 0 !important;
-        transition: opacity 1s ease-in-out, height $transition-duration ease-in-out 1s,
-        margin-top $transition-duration ease-in-out 1s;
+        transition: opacity $transition-duration ease-in-out,
+        height $transition-duration ease-in-out $transition-duration,
+        margin-top $transition-duration ease-in-out $transition-duration;
+    }
+
+    // default theme
+    @include notification-theme($theme-field, $theme-field-bg, $theme-border);
+
+    // other themes
+    &.theme-info {
+        @include notification-theme(#fff, $theme-info, $theme-info);
+    }
+    &.theme-success {
+        @include notification-theme(#fff, $theme-success, $theme-success);
+    }
+    &.theme-warning {
+        @include notification-theme(#fff, $theme-warning, $theme-warning);
+    }
+    &.theme-error {
+        @include notification-theme(#fff, $theme-error, $theme-error);
     }
 
 }

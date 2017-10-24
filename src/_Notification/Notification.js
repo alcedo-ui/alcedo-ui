@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import RaisedButton from '../RaisedButton';
+import IconButton from '../IconButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -110,7 +111,7 @@ export default class Notification extends Component {
         }, () => {
             this.unrenderTimeout = setTimeout(() => {
                 this.hasMounted && callback();
-            }, 1250);
+            }, 500);
         });
     }
 
@@ -123,22 +124,27 @@ export default class Notification extends Component {
         const {className, style, type, title, message, iconCls} = this.props,
             {hidden, leave} = this.state,
 
-            wrapperClassName = (hidden ? ' hidden' : '') + (leave ? ' leave' : '') + (className ? ' ' + className : '');
+            wrapperClassName = ` theme-${type}` + (hidden ? ' hidden' : '') + (leave ? ' leave' : '')
+                + (className ? ' ' + className : '');
 
         return (
-            <RaisedButton ref="notification"
-                          className={'notification' + wrapperClassName}
-                          style={style}
-                          theme={type}
-                          iconCls={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}
-                          onTouchTap={this.touchTapHandler}>
+            <div ref="notification"
+                 className={'notification' + wrapperClassName}
+                 style={style}>
+
+                <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}></i>
+
                 <div className="notification-title">{title}</div>
-                <div className="notification-message-wrapper">
-                    <div className="notification-message">
-                        {message}
-                    </div>
+
+                <div className="notification-message">
+                    {message}
                 </div>
-            </RaisedButton>
+
+                <IconButton className="notification-close-button"
+                            iconCls="fa fa-times"
+                            onTouchTap={this.touchTapHandler}/>
+
+            </div>
         );
 
     }
@@ -197,6 +203,6 @@ Notification.defaultProps = {
     title: 'message',
     message: '',
     iconCls: '',
-    duration: 2500
+    duration: 0
 
 };
