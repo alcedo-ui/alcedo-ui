@@ -184,34 +184,39 @@ Toaster.propTypes = {
     toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of toaster.
+         * The CSS class name of toast.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the toaster.
+         * Override the styles of the toast.
          */
         style: PropTypes.object,
 
         /**
-         * The type of toaster.
+         * The type of toast.
          */
         type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
 
         /**
-         * The title of toaster.
+         * The title of toast.
          */
         title: PropTypes.string,
 
         /**
-         * The message of toaster.
+         * The message of toast.
          */
         message: PropTypes.string,
 
         /**
-         * The icon class name of toaster.
+         * The icon class name of toast.
          */
-        iconCls: PropTypes.string
+        iconCls: PropTypes.string,
+
+        /**
+         * The duration of toast.
+         */
+        duration: PropTypes.number
 
     }), PropTypes.string, PropTypes.number])),
 
