@@ -76,9 +76,9 @@ export default class Toast extends Component {
         this.hasMounted = true;
         this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
 
-        this.unrenderTimeout = setTimeout(() => {
+        duration > 0 && (this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(toastsId);
-        }, duration);
+        }, duration));
 
     }
 
