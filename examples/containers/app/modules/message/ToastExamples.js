@@ -40,7 +40,7 @@ export default class ToastExamples extends Component {
 
         this.updateField = this::this.updateField;
         this.addToast = this::this.addToast;
-        this.toastPopHandle = this::this.toastPopHandle;
+        this.toastPopHandler = this::this.toastPopHandler;
 
     }
 
@@ -67,7 +67,7 @@ export default class ToastExamples extends Component {
 
     }
 
-    toastPopHandle() {
+    toastPopHandler() {
         this.setState({
             toasts: []
         });
@@ -139,7 +139,7 @@ export default class ToastExamples extends Component {
 
                                 <Toaster toasts={toasts}
                                          position={position}
-                                         onToastPop={this.toastPopHandle}/>
+                                         onToastPop={this.toastPopHandler}/>
 
                             </div>
 
