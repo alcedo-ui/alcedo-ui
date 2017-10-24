@@ -23,7 +23,6 @@ export default class ToastExamples extends Component {
         this.state = {
             type: Toaster.ToastType.INFO,
             position: Toaster.Position.BOTTOM_RIGHT,
-            title: 'Title',
             message: 'Message',
             toasts: []
         };
@@ -52,12 +51,11 @@ export default class ToastExamples extends Component {
 
     addToast() {
 
-        const {type, title, message} = this.state;
+        const {type, message} = this.state;
 
         let toasts = this.state.toasts;
         toasts.push({
             type,
-            title,
             message
         });
 
@@ -113,14 +111,6 @@ export default class ToastExamples extends Component {
                                                 onChange={(value) => {
                                                     this.updateField('position', value);
                                                 }}/>
-                                </div>
-
-                                <div className="field-group">
-                                    <label className="text-field-label">Title</label>
-                                    <TextField value={title}
-                                               onChange={(value) => {
-                                                   this.updateField('title', value);
-                                               }}/>
                                 </div>
 
                                 <div className="field-group">
