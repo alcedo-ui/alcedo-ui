@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import RaisedButton from '../RaisedButton';
-// import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -16,7 +15,8 @@ import Util from '../_vendors/Util';
 export default class Notification extends Component {
 
     static Type = {
-        INFO: Theme.HIGHLIGHT,
+        DEFAULT: Theme.DEFAULT,
+        INFO: Theme.INFO,
         SUCCESS: Theme.SUCCESS,
         WARNING: Theme.WARNING,
         ERROR: Theme.ERROR
