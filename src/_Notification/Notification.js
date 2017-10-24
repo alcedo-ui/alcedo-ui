@@ -7,7 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
-import RaisedButton from '../RaisedButton';
 import IconButton from '../IconButton';
 import Theme from '../Theme';
 
