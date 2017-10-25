@@ -27,6 +27,7 @@ textarea:focus {
     color: $theme-field;
     background-color: $theme-field-bg;
     border: 1px solid $theme-border;
+    padding: 9px 12px 9px 12px;
     transition: border-color $transition-duration ease-in-out;
 
     .icon-button {
@@ -71,7 +72,7 @@ textarea:focus {
         height: 100px;
         border: none;
         box-sizing: border-box;
-        padding: 9px 12px 9px 12px;
+        padding: 0;
         border-radius: $theme-border-radius;
         font-size: 12px;
         background: transparent;
@@ -79,25 +80,34 @@ textarea:focus {
     }
 
     .text-area-word-count {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        text-align: right;
+        width: calc(100% - 24px);
+        height: 30px;
+        line-height: 30px;
+        margin: 0 12px;
         color: $theme-field-disabled;
+        border-top: 1px solid $theme-field-disabled;
+        box-sizing: border-box;
+    }
 
+    &.has-word-count {
+        padding-bottom: 30px;
     }
 
     &.has-icon {
-        .text-area-input {
-            padding-left: 40px;
-        }
+        padding-left: 40px;
     }
 
     &.password {
-        .text-area-input {
-            padding-right: 40px;
-        }
+        padding-right: 40px;
     }
 
     &.not-empty {
 
-        .text-area-input {
+        &.has-clear-button {
             padding-right: 40px;
         }
 
@@ -106,33 +116,23 @@ textarea:focus {
         }
 
         &.password {
-            .text-area-input {
-                padding-right: 66px;
-            }
+            padding-right: 66px;
         }
     }
 
     &.has-right-icon {
-
-        .text-area-input {
-            padding-right: 40px;
-        }
+        padding-right: 40px;
 
         &.password {
-
-            .text-area-input {
-                padding-right: 66px;
-            }
+            padding-right: 66px;
 
             .password-visible-icon {
                 right: 26px;
             }
         }
 
-        &.not-empty {
-            .text-area-input {
-                padding-right: 66px;
-            }
+        &.not-empty.has-clear-button {
+            padding-right: 66px;
 
             .clear-icon {
                 right: 26px;
@@ -143,9 +143,7 @@ textarea:focus {
             }
 
             &.password {
-                .text-area-input {
-                    padding-right: 92px;
-                }
+                padding-right: 92px;
             }
         }
     }

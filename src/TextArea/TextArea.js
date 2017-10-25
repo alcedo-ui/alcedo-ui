@@ -305,7 +305,8 @@ export default class TextArea extends Component {
             wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
                 + (iconCls ? ' has-icon' : '') + (autoHeight ? ' auto-height' : '') + (isFocused ? ' focused' : '')
-                + (rightIconCls ? ' has-right-icon' : '') + (className ? ' ' + className : ''),
+                + (rightIconCls ? ' has-right-icon' : '') + (wordCountVisible ? ' has-word-count' : '')
+                + (clearButtonVisible ? ' has-clear-button' : '') + (className ? ' ' + className : ''),
 
             inputStyle = autoHeight && scrollHeight ? {height: scrollHeight} : null;
 
@@ -367,7 +368,7 @@ export default class TextArea extends Component {
                 {
                     wordCountVisible ?
                         <div className="text-area-word-count">
-                            {value}
+                            {value ? value.length : 0}
                             {
                                 maxLength ?
                                     ` / ${maxLength}`
@@ -602,6 +603,6 @@ TextArea.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true
+    fieldMsgVisible: false
 
 };
