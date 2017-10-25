@@ -162,6 +162,16 @@ MaterialTextArea.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The label of the text field.
+     */
+    label: PropTypes.string,
+
+    /**
+     * The animate of the text field.
+     */
+    isLabelAnimate: PropTypes.bool,
+
+    /**
      * The placeholder of the text area.
      */
     placeholder: PropTypes.string,
@@ -307,6 +317,8 @@ MaterialTextArea.defaultProps = {
 
     type: 'text',
     name: '',
+    label: '',
+    isLabelAnimate: true,
     placeholder: '',
     value: '',
     iconCls: '',
