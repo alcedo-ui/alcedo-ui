@@ -5,7 +5,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
@@ -78,7 +77,7 @@ export default class Notification extends Component {
 
         this.hasMounted = true;
 
-        const notificationEl = findDOMNode(this.refs.notification);
+        const notificationEl = this.refs.notification;
         notificationEl.style.height = notificationEl.clientHeight + 'px';
 
         duration > 0 && (this.unrenderTimeout = setTimeout(() => {
