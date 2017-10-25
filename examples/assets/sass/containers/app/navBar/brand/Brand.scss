@@ -27,12 +27,10 @@
     }
 
     .brand-name {
-        display: block;
-        padding: 0 18px;
+        margin-left: 18px;
         box-sizing: border-box;
         overflow: hidden;
         height: 60px;
-        line-height: 60px;
         text-decoration: none;
         color: $theme-light-text;
         transition: color $transition-duration ease-in-out;
@@ -69,6 +67,7 @@
     .brand {
         background: $theme-brand !important;
         width: 100% !important;
+        text-align: center;
 
         .menu-toggle-button {
             display: block;
@@ -76,6 +75,7 @@
 
         .brand-name {
             text-align: center;
+            margin-left: 0;
         }
 
         .github-icon {
