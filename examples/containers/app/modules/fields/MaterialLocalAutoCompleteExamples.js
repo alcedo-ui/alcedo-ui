@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-import MaterialLocalAutoComplete from 'src/MaterialLocalAutoComplete';
-import Widget from 'src/Widget';
-import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
+import MaterialLocalAutoComplete from 'src/MaterialLocalAutoComplete/index';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
+import Theme from 'src/Theme/index';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialLocalAutoCompleteDoc from 'assets/propTypes/MaterialLocalAutoComplete.json';
+import MaterialLocalAutoCompleteDoc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
 
-import 'sass/containers/app/modules/materialDesign/MaterialLocalAutoCompleteExamples.scss';
+import 'sass/containers/app/modules/fields/MaterialLocalAutoCompleteExamples.scss';
 
 export default class MaterialLocalAutoCompleteExamples extends Component {
 

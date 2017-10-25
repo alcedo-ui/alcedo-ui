@@ -105,6 +105,15 @@ export default [{
     }, {
         text: 'EditableSelect',
         route: '/components/EditableSelect'
+    }, {
+        text: 'MaterialTextField',
+        route: '/components/MaterialTextField'
+    }, {
+        text: 'MaterialDropdownSelect',
+        route: '/components/MaterialDropdownSelect'
+    }, {
+        text: 'MaterialLocalAutoComplete',
+        route: '/components/MaterialLocalAutoComplete'
     }]
 }, {
     text: 'Progress',
@@ -190,18 +199,6 @@ export default [{
 }, {
     text: 'TimeLine',
     route: '/components/TimeLine'
-}, {
-    text: 'MaterialDesign',
-    children: [{
-        text: 'MaterialTextField',
-        route: '/components/MaterialTextField'
-    }, {
-        text: 'MaterialDropdownSelect',
-        route: '/components/MaterialDropdownSelect'
-    }, {
-        text: 'MaterialLocalAutoComplete',
-        route: '/components/MaterialLocalAutoComplete'
-    }]
 }, {
     text: 'Media',
     children: [{

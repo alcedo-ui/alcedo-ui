@@ -93,6 +93,15 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/EditableSelect',
                     component: ac(store, () => import('modules/fields/EditableSelectExamples'))
+                }, {
+                    path: '/components/MaterialTextField',
+                    component: ac(store, () => import('modules/fields/MaterialTextFieldExamples'))
+                }, {
+                    path: '/components/MaterialDropdownSelect',
+                    component: ac(store, () => import('modules/fields/MaterialDropdownSelectExamples'))
+                }, {
+                    path: '/components/MaterialLocalAutoComplete',
+                    component: ac(store, () => import('modules/fields/MaterialLocalAutoCompleteExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -217,19 +226,6 @@ export default function configureRoutes(store) {
                     path: '/components/CircularLoading',
                     component: ac(store, () => import('modules/loading/CircularLoadingExamples'))
                 },
-
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- material design -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-                {
-                    path: '/components/MaterialTextField',
-                    component: ac(store, () => import('modules/materialDesign/MaterialTextFieldExamples'))
-                }, {
-                    path: '/components/MaterialDropdownSelect',
-                    component: ac(store, () => import('modules/materialDesign/MaterialDropdownSelectExamples'))
-                }, {
-                    path: '/components/MaterialLocalAutoComplete',
-                    component: ac(store, () => import('modules/materialDesign/MaterialLocalAutoCompleteExamples'))
-                },
-
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {

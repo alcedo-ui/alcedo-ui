@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-import Widget from 'src/Widget';
-import WidgetHeader from 'src/WidgetHeader';
-import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
-import Theme from 'src/Theme';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
+import MaterialDropdownSelect from 'src/MaterialDropdownSelect/index';
+import Theme from 'src/Theme/index';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialDropdownSelectDoc from 'assets/propTypes/MaterialDropdownSelect.json';
+import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdownSelect.json';
 
-import 'sass/containers/app/modules/materialDesign/MaterialDropdownSelectExamples.scss';
+import 'sass/containers/app/modules/fields/MaterialDropdownSelectExamples.scss';
 
 export default class MaterialDropdownSelectExamples extends Component {
 
