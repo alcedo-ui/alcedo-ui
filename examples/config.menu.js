@@ -114,6 +114,9 @@ export default [{
     }, {
         text: 'MaterialLocalAutoComplete',
         route: '/components/MaterialLocalAutoComplete'
+    }, {
+        text: 'MaterialTextArea',
+        route: '/components/MaterialTextArea'
     }]
 }, {
     text: 'Progress',

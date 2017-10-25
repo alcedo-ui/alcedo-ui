@@ -8,7 +8,7 @@ import Theme from 'src/Theme';
 import PropTypeDescTable from '../PropTypeDescTable';
 import MaterialTextAreaDoc from 'examples/assets/propTypes/MaterialTextArea.json';
 
-import 'sass/containers/app/modules/fields/MaterialTextFieldExamples.scss';
+import 'sass/containers/app/modules/fields/MaterialTextAreaExamples.scss';
 
 export default class MaterialTextAreaExamples extends Component {
 

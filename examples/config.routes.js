@@ -102,6 +102,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialLocalAutoComplete',
                     component: ac(store, () => import('modules/fields/MaterialLocalAutoCompleteExamples'))
+                }, {
+                    path: '/components/MaterialTextArea',
+                    component: ac(store, () => import('modules/fields/MaterialTextAreaExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
