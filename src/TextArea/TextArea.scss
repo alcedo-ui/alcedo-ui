@@ -9,9 +9,9 @@ textarea:focus {
 }
 
 .text-area {
+    font: inherit;
     border-radius: 4px;
     max-width: 100%;
-    //transition: border-color .3s;
     cursor: text;
     font-size: 12px;
     line-height: 1.5;
@@ -20,11 +20,11 @@ textarea:focus {
     box-sizing: border-box;
     outline: none;
     border: 1px solid #e3eaf3;
-    &:hover {
-    }
+
     &.area-focus {
         border: solid 1px #758697;
     }
+
     &[readOnly] {
         cursor: not-allowed;
     }
