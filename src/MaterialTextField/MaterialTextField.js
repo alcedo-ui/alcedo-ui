@@ -147,6 +147,11 @@ MaterialTextField.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The TextField theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * Specifies the type of input to display such as "password" or "text".
      */
     type: PropTypes.oneOf(Util.enumerateValue(TextField.Type)),
