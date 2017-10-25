@@ -36,7 +36,7 @@ export default class TextAreaExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <p>TextArea with auto size.</p>
-                            <TextArea autoSize={true}/>
+                            <TextArea autoHeight={true}/>
                         </div>
                     </div>
                 </Widget>
@@ -46,7 +46,7 @@ export default class TextAreaExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <p>TextArea with regular size.</p>
-                            <TextArea autoSize={false}
+                            <TextArea autoHeight={false}
                                       onChange={this.onChangeHandle}/>
                         </div>
                     </div>
