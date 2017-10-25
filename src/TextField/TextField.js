@@ -558,7 +558,7 @@ TextField.defaultProps = {
     autoFocus: false,
     infoMsg: '',
 
-    clearButtonVisible: false,
+    clearButtonVisible: true,
     passwordButtonVisible: true,
 
     // valid
