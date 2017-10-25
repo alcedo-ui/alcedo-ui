@@ -47,6 +47,8 @@ export default class TextAreaExamples extends Component {
                         <div className="example-content">
                             <p>TextArea with regular size.</p>
                             <TextArea autoHeight={false}
+                                      wordCountVisible={true}
+                                      maxLength={100}
                                       onChange={this.onChangeHandle}/>
                         </div>
                     </div>
