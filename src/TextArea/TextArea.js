@@ -39,7 +39,8 @@ export default class TextArea extends Component {
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
-            invalidMsgs: ''
+            invalidMsgs: '',
+            scrollHeight: null
         };
 
         this.valid = ::this.valid;
@@ -137,6 +138,13 @@ export default class TextArea extends Component {
 
             value = e.target.value,
             invalidMsgs = this.valid(value);
+
+        const {autoHeight} = this.props;
+        if (autoHeight) {
+            this.setState({
+                scrollHeight: this.inputEl.scrollHeight
+            });
+        }
 
         if (preventInvalidInput && invalidMsgs.length > 0) {
             return;
@@ -261,6 +269,7 @@ export default class TextArea extends Component {
             this.refs.input.focus();
         }
 
+        this.inputEl = this.refs.input;
         this.clearButtonEl = findDOMNode(this.refs.clearButton);
 
     }
@@ -277,26 +286,28 @@ export default class TextArea extends Component {
 
         const {
 
-                children, className, style, theme, type, iconCls, disabled, infoMsg,
+                children, className, style, theme, type, iconCls, disabled, infoMsg, autoHeight,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                value: v, autoFocus, pattern, patternInvalidMsg, preventInvalidInput, autoSize,
+                value: v, autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
 
             } = this.props,
 
-            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs, scrollHeight} = this.state,
 
             isPassword = type === TextArea.Type.PASSWORD,
 
             wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
-                + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
-                + (isFocused ? ' focused' : '') + (className ? ' ' + className : '');
+                + (iconCls ? ' has-icon' : '') + (autoHeight ? ' auto-height' : '') + (isFocused ? ' focused' : '')
+                + (rightIconCls ? ' has-right-icon' : '') + (className ? ' ' + className : ''),
+
+            inputStyle = autoHeight && scrollHeight ? {height: scrollHeight} : null;
 
         let inputType = type;
         if (inputType === TextArea.Type.PASSWORD) {
@@ -323,6 +334,7 @@ export default class TextArea extends Component {
                 <textarea {...restProps}
                           ref="input"
                           className="text-area-input"
+                          style={inputStyle}
                           type={inputType}
                           value={value}
                           onChange={this.changeHandler}
@@ -453,7 +465,7 @@ TextArea.propTypes = {
      */
     passwordButtonVisible: PropTypes.bool,
 
-    autoSize: PropTypes.bool,
+    autoHeight: PropTypes.bool,
 
     // valid
     /**
@@ -557,7 +569,7 @@ TextArea.defaultProps = {
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
-    autoSize: false,
+    autoHeight: false,
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
