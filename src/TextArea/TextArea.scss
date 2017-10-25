@@ -91,6 +91,10 @@ textarea:focus {
         color: $theme-field-disabled;
         border-top: 1px solid $theme-field-disabled;
         box-sizing: border-box;
+
+        &.error {
+            color: $theme-error;
+        }
     }
 
     &.has-word-count {
