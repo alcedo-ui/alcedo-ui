@@ -147,9 +147,14 @@ MaterialTextArea.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of text area.
+     * The TextArea theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * Specifies the type of input to display such as "password" or "text".
+     */
+    type: PropTypes.oneOf(Util.enumerateValue(TextArea.Type)),
 
     /**
      * The name of the text area.
@@ -157,54 +162,29 @@ MaterialTextArea.propTypes = {
     name: PropTypes.string,
 
     /**
-     * The label of the text area.
+     * The placeholder of the text area.
      */
-    label: PropTypes.string,
+    placeholder: PropTypes.string,
 
     /**
-     * The animate of the text area.
+     * The value of the text area. Type can be string or number.
      */
-    isLabelAnimate: PropTypes.bool,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
-     * The number of cols.
+     * Use this property to display an icon.
      */
-    cols: PropTypes.number,
+    iconCls: PropTypes.string,
 
     /**
-     * The number of rows.
+     * Disables the textField if set to true.
      */
-    rows: PropTypes.number,
+    disabled: PropTypes.bool,
 
     /**
-     * The initial height of textArea.
+     * If true,the textField will can't editable.
      */
-    initialHeight: PropTypes.number,
-
-    /**
-     * The initial height of textArea.
-     */
-    initialWidth: PropTypes.number,
-
-    /**
-     * The value of textArea.
-     */
-    value: PropTypes.string,
-
-    /**
-     * The max height of textArea.
-     */
-    maxHeight: PropTypes.number,
-
-    /**
-     * The max width of textArea.
-     */
-    maxWidth: PropTypes.number,
-
-    /**
-     * If true, the textArea will change its size by words.
-     */
-    autoSize: PropTypes.bool,
+    readOnly: PropTypes.bool,
 
     /**
      * If true,the textField will autoFocus.
@@ -212,24 +192,110 @@ MaterialTextArea.propTypes = {
     autoFocus: PropTypes.bool,
 
     /**
-     * The placeholder of textArea.
+     * The message of the textField.
      */
-    placeholder: PropTypes.string,
+    infoMsg: PropTypes.string,
 
     /**
-     * When the value of textArea change, it will execute.
+     * If true,clearButton will display when the textField is not empty.
+     */
+    clearButtonVisible: PropTypes.bool,
+
+    /**
+     * Use this property to display an icon.
+     */
+    rightIconCls: PropTypes.string,
+
+    /**
+     * If true, passwordButton will display.
+     */
+    passwordButtonVisible: PropTypes.bool,
+
+    autoSize: PropTypes.bool,
+
+    // valid
+    /**
+     * If true,the textField must be required.
+     */
+    required: PropTypes.bool,
+
+    /**
+     * The maximum length of textField to enter.
+     */
+    maxLength: PropTypes.number,
+
+    /**
+     * Maximum number of textField that can be entered.
+     */
+    max: PropTypes.number,
+
+    /**
+     * Minimum number of textField that can be entered.
+     */
+    min: PropTypes.number,
+
+    /**
+     * The matching rule of textField.
+     */
+    pattern: PropTypes.object,
+
+    /**
+     * The invalid message of textField.
+     */
+    patternInvalidMsg: PropTypes.string,
+
+    fieldMsgVisible: PropTypes.bool,
+
+    /**
+     * Callback function fired when the textField is changed.
      */
     onChange: PropTypes.func,
 
     /**
-     * When the textArea onBlur, it will execute.
+     * Callback function fired when the press enter.
+     */
+    onPressEnter: PropTypes.func,
+
+    /**
+     * Callback function fired when textField valid.
+     */
+    onValid: PropTypes.func,
+
+    /**
+     * Callback function fired when textField invalid.
+     */
+    onInvalid: PropTypes.func,
+
+    /**
+     * Callback function fired when textField focus.
+     */
+    onFocus: PropTypes.func,
+
+    /**
+     * Callback function fired when textField blur.
      */
     onBlur: PropTypes.func,
 
     /**
-     * When the textArea onFocus, it will execute.
+     * Callback function fired when textField clear.
      */
-    onFocus: PropTypes.func
+    onClear: PropTypes.func,
+
+    /**
+     * Callback function fired when password visible.
+     */
+    onPasswordVisible: PropTypes.func,
+
+    /**
+     * Callback function fired when password invisible.
+     */
+    onPasswordInvisible: PropTypes.func,
+
+    onIconTouchTap: PropTypes.func,
+    onRightIconTouchTap: PropTypes.func,
+
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
@@ -239,18 +305,31 @@ MaterialTextArea.defaultProps = {
     style: null,
     theme: Theme.DEFAULT,
 
+    type: 'text',
     name: '',
-    label: '',
-    isLabelAnimate: true,
+    placeholder: '',
     value: '',
-    cols: 50,
-    rows: 3,
-    initialHeight: 30,
-    initialWidth: 200,
-    maxHeight: 100,
-    maxWidth: 500,
-    autoSize: true,
+    iconCls: '',
+    rightIconCls: '',
+    disabled: false,
+    readOnly: false,
     autoFocus: false,
-    placeholder: 'Please input something.'
+    infoMsg: '',
+    autoSize: false,
+
+    clearButtonVisible: true,
+    passwordButtonVisible: true,
+
+    // valid
+    required: false,
+    patternInvalidMsg: '',
+    preventInvalidInput: false,
+
+    autoComplete: 'off',
+    autoCorrect: 'off',
+    autoCapitalize: 'off',
+    spellCheck: 'false',
+
+    fieldMsgVisible: true
 
 };
