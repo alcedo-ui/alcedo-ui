@@ -147,6 +147,11 @@ MaterialTextArea.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The theme of text area.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The name of the text area.
      */
     name: PropTypes.string,
@@ -232,6 +237,7 @@ MaterialTextArea.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     name: '',
     label: '',
