@@ -95,8 +95,10 @@ input:focus {
 
     &.not-empty {
 
-        .text-field-input {
-            padding-right: 40px;
+        &.has-clear-button {
+            .text-field-input {
+                padding-right: 40px;
+            }
         }
 
         .password-visible-icon {
@@ -128,21 +130,24 @@ input:focus {
         }
 
         &.not-empty {
-            .text-field-input {
-                padding-right: 66px;
-            }
 
-            .clear-icon {
-                right: 26px;
-            }
-
-            .password-visible-icon {
-                right: 52px;
-            }
-
-            &.password {
+            &.has-clear-button {
                 .text-field-input {
-                    padding-right: 92px;
+                    padding-right: 66px;
+                }
+
+                .clear-icon {
+                    right: 26px;
+                }
+
+                .password-visible-icon {
+                    right: 52px;
+                }
+
+                &.password {
+                    .text-field-input {
+                        padding-right: 92px;
+                    }
                 }
             }
         }

@@ -296,7 +296,8 @@ export default class TextField extends Component {
             wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
                 + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
-                + (isFocused ? ' focused' : '') + (className ? ' ' + className : '');
+                + (isFocused ? ' focused' : '') + (clearButtonVisible ? ' has-clear-button' : '')
+                + (className ? ' ' + className : '');
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
@@ -557,7 +558,7 @@ TextField.defaultProps = {
     autoFocus: false,
     infoMsg: '',
 
-    clearButtonVisible: true,
+    clearButtonVisible: false,
     passwordButtonVisible: true,
 
     // valid
