@@ -25,7 +25,7 @@ export default class MaterialTextFieldExamples extends Component {
 
     render() {
         return (
-            <div className="example tree-select-examples">
+            <div className="example material-text-field-examples">
 
                 <h2 className="examples-title">MaterialTextField</h2>
 
