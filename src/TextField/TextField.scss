@@ -129,25 +129,22 @@ input:focus {
             }
         }
 
-        &.not-empty {
+        &.not-empty.has-clear-button {
+            .text-field-input {
+                padding-right: 66px;
+            }
 
-            &.has-clear-button {
+            .clear-icon {
+                right: 26px;
+            }
+
+            .password-visible-icon {
+                right: 52px;
+            }
+
+            &.password {
                 .text-field-input {
-                    padding-right: 66px;
-                }
-
-                .clear-icon {
-                    right: 26px;
-                }
-
-                .password-visible-icon {
-                    right: 52px;
-                }
-
-                &.password {
-                    .text-field-input {
-                        padding-right: 92px;
-                    }
+                    padding-right: 92px;
                 }
             }
         }
