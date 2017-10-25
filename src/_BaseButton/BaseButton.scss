@@ -15,7 +15,6 @@ button:focus {
     height: 40px;
     position: relative;
     border-radius: $theme-border-radius;
-    transition: all $transition-duration ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
     padding: 0 12px;
@@ -25,6 +24,9 @@ button:focus {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    transition-property: color, background, border, box-shadow;
+    transition-duration: $transition-duration;
+    transition-timing-function: ease-in-out;
 
     .button-icon {
         text-align: center;
