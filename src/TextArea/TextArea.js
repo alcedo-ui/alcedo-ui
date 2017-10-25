@@ -28,19 +28,21 @@ export default class TextArea extends Component {
 
     }
 
-    onFocus() {
+    onFocus(e) {
         this.setState({
             focus: true
         }, () => {
-            this.props.onFocus && this.props.onFocus();
+            const {onFocus} = this.props;
+            onFocus && onFocus(e);
         });
     }
 
-    onBlur() {
+    onBlur(e) {
         this.setState({
             focus: false
         }, () => {
-            this.props.onBlur && this.props.onBlur();
+            const {onBlur} = this.props;
+            onBlur && onBlur(e);
         });
     }
 
@@ -101,7 +103,7 @@ export default class TextArea extends Component {
                 height: nextProps.initialHeight,
                 value: nextProps.value
             }, () => {
-                this.onChange()
+                this.onChange();
             });
         }
     }
@@ -128,7 +130,8 @@ export default class TextArea extends Component {
 
     render() {
 
-        const {className, style, cols, rows, autoSize, placeholder,
+        const {
+                className, style, cols, rows, autoSize, placeholder,
                 maxWidth, initialHeight, initialWidth, value, maxHeight,
                 autoFocus, onChange, onFocus, onBlur,
                 ...rest
