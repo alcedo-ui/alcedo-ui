@@ -78,6 +78,11 @@ textarea:focus {
         color: inherit;
     }
 
+    .text-area-word-count {
+        color: $theme-field-disabled;
+
+    }
+
     &.has-icon {
         .text-area-input {
             padding-left: 40px;

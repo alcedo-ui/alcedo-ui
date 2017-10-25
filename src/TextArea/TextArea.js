@@ -286,8 +286,8 @@ export default class TextArea extends Component {
 
         const {
 
-                children, className, style, theme, type, iconCls, disabled, infoMsg, autoHeight,
-                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
+                children, className, style, theme, type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible,
+                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
@@ -360,6 +360,21 @@ export default class TextArea extends Component {
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
                                     onTouchTap={this.rightIconTouchTapHandler}/>
+                        :
+                        null
+                }
+
+                {
+                    wordCountVisible ?
+                        <div className="text-area-word-count">
+                            {value}
+                            {
+                                maxLength ?
+                                    ` / ${maxLength}`
+                                    :
+                                    null
+                            }
+                        </div>
                         :
                         null
                 }
@@ -467,6 +482,8 @@ TextArea.propTypes = {
 
     autoHeight: PropTypes.bool,
 
+    wordCountVisible: PropTypes.bool,
+
     // valid
     /**
      * If true,the textField must be required.
@@ -570,9 +587,10 @@ TextArea.defaultProps = {
     autoFocus: false,
     infoMsg: '',
     autoHeight: false,
+    wordCountVisible: false,
 
-    clearButtonVisible: true,
-    passwordButtonVisible: true,
+    clearButtonVisible: false,
+    passwordButtonVisible: false,
 
     // valid
     required: false,
