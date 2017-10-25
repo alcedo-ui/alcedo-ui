@@ -67,8 +67,8 @@ export default class Anchor extends Component {
 
         const {
 
-                children, className, style, theme, isRounded, isCircular, disableTouchRipple,
-                iconCls, rightIconCls, disabled, readOnly, isLoading, rippleDisplayCenter,
+                children, className, style, theme,
+                iconCls, rightIconCls, disabled, readOnly, isLoading,
                 tip, tipPosition, onMouseEnter, onMouseLeave,
 
                 ...restProps
@@ -77,7 +77,6 @@ export default class Anchor extends Component {
             {focused} = this.state,
 
             buttonClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
-                + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
                 + (className ? ' ' + className : ''),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
@@ -127,15 +126,6 @@ export default class Anchor extends Component {
 
                     {children}
 
-                    {
-                        disableTouchRipple ?
-                            null
-                            :
-                            <TouchRipple ref="touchRipple"
-                                         className={disabled || isLoading ? 'hidden' : ''}
-                                         displayCenter={rippleDisplayCenter}/>
-                    }
-
                 </a>
 
             </TipProvider>
@@ -148,23 +138,17 @@ Anchor.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    isRounded: PropTypes.bool,
-    isCircular: PropTypes.bool,
 
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
 
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
 
     tip: PropTypes.string,
     tipPosition: PropTypes.string,
-
-    rippleDisplayCenter: PropTypes.bool,
 
     onTouchTap: PropTypes.func,
     onFocus: PropTypes.func,
@@ -178,17 +162,11 @@ Anchor.defaultProps = {
 
     className: '',
     style: null,
-
     theme: Theme.DEFAULT,
-    isRounded: false,
-    isCircular: false,
 
     disabled: false,
     readOnly: false,
     isLoading: false,
-    disableTouchRipple: false,
-
-    rippleDisplayCenter: false,
 
     iconCls: '',
     rightIconCls: ''
