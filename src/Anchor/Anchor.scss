@@ -1,0 +1,63 @@
+/**
+ * @file IconAnchor style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin anchor-theme($color) {
+    color: $color;
+
+    &:hover {
+        color: theme-color-hover($color);
+    }
+
+    &:active {
+        color: theme-color-active($color);
+    }
+}
+
+.anchor {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    position: relative;
+    transition: all $transition-duration ease-in-out;
+    cursor: pointer;
+    font-size: 12px;
+    user-select: none;
+    overflow: hidden;
+    background-color: transparent;
+
+    &[disabled] {
+        color: $theme-field-disabled !important;
+    }
+
+    // default theme
+    @include anchor-theme($theme-field);
+
+    // themes
+    &.theme-primary {
+        @include anchor-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include anchor-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include anchor-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include anchor-theme($theme-info);
+    }
+    &.theme-success {
+        @include anchor-theme($theme-success);
+    }
+    &.theme-warning {
+        @include anchor-theme($theme-warning);
+    }
+    &.theme-error {
+        @include anchor-theme($theme-error);
+    }
+
+}
