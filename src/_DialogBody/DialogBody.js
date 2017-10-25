@@ -244,7 +244,7 @@ export default class DialogBody extends Component {
 
                         {
                             buttons ?
-                                Children.map(buttons, (button) => cloneElement(button, {
+                                Children.map(buttons, button => cloneElement(button, {
                                     isLoading,
                                     disabled
                                 }))
