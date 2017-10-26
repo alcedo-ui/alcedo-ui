@@ -1,6 +1,6 @@
 /**
- * @file IconAnchor
+ * @file Anchor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './IconAnchor';
+export default from './Anchor';

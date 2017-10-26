@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
-import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
