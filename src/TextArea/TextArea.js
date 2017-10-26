@@ -310,8 +310,7 @@ export default class TextArea extends Component {
 
             inputStyle = autoHeight && scrollHeight ? {
                 height: scrollHeight,
-                minHeight: scrollHeight,
-                maxHeight: scrollHeight
+                resize: 'none'
             } : null;
 
         let inputType = type;
