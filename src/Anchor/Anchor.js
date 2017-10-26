@@ -66,7 +66,7 @@ export default class Anchor extends Component {
 
         const {
 
-                children, className, style, theme,
+                children, className, style, theme, href, alt,
                 iconCls, rightIconCls, disabled, readOnly, isLoading,
                 tip, tipPosition, onMouseEnter, onMouseLeave,
 
@@ -75,7 +75,7 @@ export default class Anchor extends Component {
             } = this.props,
             {focused} = this.state,
 
-            buttonClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
+            anchorClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
                 + (className ? ' ' + className : ''),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
@@ -85,7 +85,7 @@ export default class Anchor extends Component {
                          position={tipPosition}>
 
                 <a {...restProps}
-                   className={'base-button' + buttonClassName}
+                   className={'anchor' + anchorClassName}
                    style={style}
                    disabled={disabled || isLoading}
                    readOnly={readOnly}
@@ -139,6 +139,9 @@ Anchor.propTypes = {
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    href: PropTypes.string,
+    alt: PropTypes.string,
+
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -162,6 +165,9 @@ Anchor.defaultProps = {
     className: '',
     style: null,
     theme: Theme.DEFAULT,
+
+    href: 'javascript:void(0)',
+    alt: '',
 
     disabled: false,
     readOnly: false,
