@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
+import AnchorButton from '../AnchorButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -119,11 +120,14 @@ export default class Notification extends Component {
 
     render() {
 
-        const {className, style, type, title, message, iconCls} = this.props,
+        const {
+                className, style, type, title, message, iconCls,
+                closeIconVisible, closeButtonVisible, closeButtonValue
+            } = this.props,
             {hidden, leave} = this.state,
 
             wrapperClassName = ` theme-${type}` + (hidden ? ' hidden' : '') + (leave ? ' leave' : '')
-                + (className ? ' ' + className : '');
+                + (closeButtonVisible ? ' has-close-button' : '') + (className ? ' ' + className : '');
 
         return (
             <div ref="notification"
@@ -138,9 +142,23 @@ export default class Notification extends Component {
                     {message}
                 </div>
 
-                <IconButton className="notification-close-button"
-                            iconCls="fa fa-times"
-                            onTouchTap={this.touchTapHandler}/>
+                {
+                    closeIconVisible ?
+                        <IconButton className="notification-close-icon"
+                                    iconCls="fa fa-times"
+                                    onTouchTap={this.touchTapHandler}/>
+                        :
+                        null
+                }
+
+                {
+                    closeButtonVisible ?
+                        <AnchorButton className="notification-close-Button"
+                                      value={closeButtonValue}
+                                      onTouchTap={this.touchTapHandler}/>
+                        :
+                        null
+                }
 
             </div>
         );
@@ -187,6 +205,10 @@ Notification.propTypes = {
      */
     duration: PropTypes.number,
 
+    closeIconVisible: PropTypes.bool,
+    closeButtonVisible: PropTypes.bool,
+    closeButtonValue: PropTypes.string,
+
     onRequestClose: PropTypes.func
 
 };
@@ -201,6 +223,10 @@ Notification.defaultProps = {
     title: 'message',
     message: '',
     iconCls: '',
-    duration: 0
+    duration: 0,
+
+    closeIconVisible: false,
+    closeButtonVisible: true,
+    closeButtonValue: 'Close'
 
 };

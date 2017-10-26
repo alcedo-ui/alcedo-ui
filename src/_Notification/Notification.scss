@@ -23,26 +23,47 @@
     border-radius: $theme-border-radius;
     transition: opacity $transition-duration ease-in-out;
 
-    .notification-icon,
-    .notification-close-button {
+    .notification-icon {
         position: absolute;
         top: 5px;
-        text-align: center;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        left: 5px;
+        font-size: 20px;
         color: inherit;
+        text-align: center;
+    }
 
-        &.notification-icon {
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            left: 5px;
-            font-size: 20px;
+    .notification-close-icon {
+        position: absolute;
+        top: 5px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        right: 5px;
+        color: #fff;
+        opacity: .5;
+        transition: opacity $transition-duration ease-in-out;
+
+        &:hover {
+            opacity: 1;
         }
+    }
 
-        &.notification-close-button {
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            right: 5px;
+    .notification-close-Button {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        width: auto;
+        height: auto;
+        padding: 0px;
+        color: #fff;
+        opacity: .5;
+        transition: opacity $transition-duration ease-in-out;
+
+        &:hover {
+            opacity: 1;
         }
     }
 
@@ -57,6 +78,10 @@
         font-size: 14px;
         word-wrap: break-word;
         white-space: normal;
+    }
+
+    &.has-close-button {
+        padding-bottom: 45px;
     }
 
     &.hidden {
