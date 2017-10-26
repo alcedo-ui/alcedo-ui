@@ -24,7 +24,7 @@ export default class AnchorExamples extends Component {
                 <h2 className="example-title">Anchor</h2>
 
                 <p>
-                    A <span>Anchor</span> element.
+                    An <span>Anchor</span> element.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
