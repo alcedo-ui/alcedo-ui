@@ -51,7 +51,9 @@ export default class MaterialTextAreaExamples extends Component {
                                     <MaterialTextArea theme={Theme.HIGHLIGHT}
                                                       label="Desciption"
                                                       autoHeight={true}
-                                                      placeholder="Desciption"/>
+                                                      wordCountVisible={true}
+                                                      placeholder="Desciption"
+                                                      maxLength={100}/>
                                 </div>
 
                             </div>
