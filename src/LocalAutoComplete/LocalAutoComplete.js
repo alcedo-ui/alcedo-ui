@@ -561,25 +561,25 @@ LocalAutoComplete.propTypes = {
 
 LocalAutoComplete.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    popupClassName: null,
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: '',
-    placeholder: '',
+    name: null,
+    placeholder: null,
     data: [],
     disabled: false,
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
-    iconCls: '',
+    iconCls: null,
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
-    noMatchedMsg: '',
+    noMatchedMsg: null,
     isGrouped: false,
 
     popupChildren: null
