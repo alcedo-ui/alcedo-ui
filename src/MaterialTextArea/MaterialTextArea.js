@@ -223,7 +223,9 @@ MaterialTextArea.propTypes = {
      */
     passwordButtonVisible: PropTypes.bool,
 
-    autoSize: PropTypes.bool,
+    autoHeight: PropTypes.bool,
+
+    wordCountVisible: PropTypes.bool,
 
     // valid
     /**
@@ -329,10 +331,11 @@ MaterialTextArea.defaultProps = {
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
-    autoSize: false,
+    autoHeight: false,
+    wordCountVisible: false,
 
-    clearButtonVisible: true,
-    passwordButtonVisible: true,
+    clearButtonVisible: false,
+    passwordButtonVisible: false,
 
     // valid
     required: false,
@@ -344,6 +347,6 @@ MaterialTextArea.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true
+    fieldMsgVisible: false
 
 };
