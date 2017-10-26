@@ -39,8 +39,7 @@ export default class TextArea extends Component {
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
-            invalidMsgs: '',
-            scrollHeight: null
+            invalidMsgs: ''
         };
 
         this.valid = ::this.valid;
@@ -139,11 +138,9 @@ export default class TextArea extends Component {
             value = e.target.value,
             invalidMsgs = this.valid(value);
 
-        const {autoHeight} = this.props;
-        if (autoHeight) {
-            this.setState({
-                scrollHeight: this.inputEl.scrollHeight
-            });
+        if (this.props.autoHeight) {
+            this.inputEl.style.height = this.inputElInitHeight + 'px';
+            this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
         }
 
         if (preventInvalidInput && invalidMsgs.length > 0) {
@@ -270,6 +267,8 @@ export default class TextArea extends Component {
         }
 
         this.inputEl = this.refs.input;
+        this.inputElInitHeight = parseInt(window.getComputedStyle(this.inputEl).height);
+
         this.clearButtonEl = findDOMNode(this.refs.clearButton);
 
     }
@@ -298,7 +297,7 @@ export default class TextArea extends Component {
 
             } = this.props,
 
-            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs, scrollHeight} = this.state,
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
             isPassword = type === TextArea.Type.PASSWORD,
 
@@ -306,12 +305,8 @@ export default class TextArea extends Component {
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
                 + (iconCls ? ' has-icon' : '') + (autoHeight ? ' auto-height' : '') + (isFocused ? ' focused' : '')
                 + (rightIconCls ? ' has-right-icon' : '') + (wordCountVisible ? ' has-word-count' : '')
-                + (clearButtonVisible ? ' has-clear-button' : '') + (className ? ' ' + className : ''),
-
-            inputStyle = autoHeight && scrollHeight ? {
-                height: scrollHeight,
-                resize: 'none'
-            } : null;
+                + (clearButtonVisible ? ' has-clear-button' : '') + (autoHeight ? ' auto-height' : '')
+                + (className ? ' ' + className : '');
 
         let inputType = type;
         if (inputType === TextArea.Type.PASSWORD) {
@@ -338,7 +333,6 @@ export default class TextArea extends Component {
                 <textarea {...restProps}
                           ref="input"
                           className="text-area-input"
-                          style={inputStyle}
                           type={inputType}
                           value={value}
                           onChange={this.changeHandler}

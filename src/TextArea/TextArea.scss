@@ -102,6 +102,12 @@ textarea:focus {
         }
     }
 
+    &.auto-height {
+        .text-area-input {
+            resize: none;
+        }
+    }
+
     &.has-word-count {
         .text-area-input {
             padding-bottom: 39px;
