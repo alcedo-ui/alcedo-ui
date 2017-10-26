@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
 
 import DropdownSelect from '../DropdownSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class MaterialDropdownSelect extends Component {
+
+    static Mode = DropdownSelect.Mode;
 
     constructor(props, ...restArgs) {
 
