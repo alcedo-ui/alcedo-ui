@@ -308,7 +308,11 @@ export default class TextArea extends Component {
                 + (rightIconCls ? ' has-right-icon' : '') + (wordCountVisible ? ' has-word-count' : '')
                 + (clearButtonVisible ? ' has-clear-button' : '') + (className ? ' ' + className : ''),
 
-            inputStyle = autoHeight && scrollHeight ? {height: scrollHeight} : null;
+            inputStyle = autoHeight && scrollHeight ? {
+                height: scrollHeight,
+                minHeight: scrollHeight,
+                maxHeight: scrollHeight
+            } : null;
 
         let inputType = type;
         if (inputType === TextArea.Type.PASSWORD) {
