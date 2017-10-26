@@ -27,6 +27,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/IconButton',
                     component: ac(store, () => import('modules/buttons/IconButtonExamples'))
+                }, {
+                    path: '/components/AnchorButton',
+                    component: ac(store, () => import('modules/buttons/AnchorButtonExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Anchor -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

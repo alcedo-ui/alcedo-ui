@@ -12,6 +12,9 @@ export default [{
     }, {
         text: 'IconButton',
         route: '/components/IconButton'
+    }, {
+        text: 'AnchorButton',
+        route: '/components/AnchorButton'
     }]
 }, {
     text: 'Anchor',
