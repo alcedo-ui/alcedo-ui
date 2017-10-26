@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
 import Theme from '../Theme';
+import TipProvider from '../TipProvider';
 
 import Util from '../_vendors/Util';
 
@@ -117,6 +118,9 @@ RaisedButton.propTypes = {
      */
     renderer: PropTypes.func,
 
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -142,6 +146,9 @@ RaisedButton.defaultProps = {
     rippleDisplayCenter: false,
 
     iconCls: '',
-    rightIconCls: ''
+    rightIconCls: '',
+
+    tip: null,
+    tipPosition: TipProvider.Position.BOTTOM
 
 };
