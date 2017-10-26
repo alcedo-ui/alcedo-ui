@@ -19,13 +19,12 @@ export default class AnchorExamples extends Component {
     render() {
 
         return (
-            <div className="example raised-button-examples">
+            <div className="example anchor-examples">
 
-                <h2 className="example-title">Raised Button</h2>
+                <h2 className="example-title">Anchor</h2>
 
                 <p>
-                    <span>Raised Button</span> is used to add dimension to mostly flat layouts and emphasizes important
-                    functions on your page.
+                    A <span>Anchor</span> element.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -38,11 +37,6 @@ export default class AnchorExamples extends Component {
                         <div className="example-content">
 
                             <div className="examples-wrapper">
-
-                                <p>
-                                    <code>Raised Button</code> with default theme,<code>success</code>,
-                                    <code>warning</code>,<code>error</code> and <code>disabled</code> props applied.
-                                </p>
 
                                 <Anchor>
                                     Default
@@ -96,23 +90,24 @@ export default class AnchorExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>Set the <code>iconCls</code> property for button left icon.And set the
-                                    <code>rightIconCls</code> property for button right icon.</p>
+                                <Anchor iconCls="fa fa-undo">
+                                    Reset
+                                </Anchor>
 
-                                <Anchor value="Reset"
-                                        iconCls="fa fa-undo"/>
+                                <Anchor theme={Theme.SUCCESS}
+                                        iconCls="fa fa-plus">
+                                    Add
+                                </Anchor>
 
-                                <Anchor value="Add"
-                                        theme={Theme.SUCCESS}
-                                        iconCls="fa fa-plus"/>
+                                <Anchor theme={Theme.ERROR}
+                                        iconCls="fa fa-trash">
+                                    Delete
+                                </Anchor>
 
-                                <Anchor value="Delete"
-                                        theme={Theme.ERROR}
-                                        iconCls="fa fa-trash"/>
-
-                                <Anchor value="Next"
-                                        theme={Theme.PRIMARY}
-                                        rightIconCls="fa fa-chevron-right"/>
+                                <Anchor theme={Theme.PRIMARY}
+                                        rightIconCls="fa fa-chevron-right">
+                                    Next
+                                </Anchor>
 
                             </div>
 
