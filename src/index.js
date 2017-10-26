@@ -1,5 +1,6 @@
 export Accordion from './Accordion';
 export Anchor from './Anchor';
+export AnchorButton from './AnchorButton';
 export ArrowStep from './ArrowStep';
 export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
@@ -73,4 +74,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 74;
+export const COMPONENTS_TOTAL_COUNT = 75;

@@ -11,13 +11,8 @@
     background: transparent;
     border: none;
 
-    &:hover {
-        background: $theme-secondary;
-    }
-
     &[disabled] {
         color: $theme-field-disabled;
-        background: transparent;
     }
 
     // default theme
