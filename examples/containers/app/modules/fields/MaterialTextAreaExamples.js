@@ -49,9 +49,9 @@ export default class MaterialTextAreaExamples extends Component {
 
                                 <div className="field-group">
                                     <MaterialTextArea theme={Theme.HIGHLIGHT}
-                                                      label="Search"
-                                                      placeholder="keywords"
-                                                      rightIconCls={'fa fa-search'}/>
+                                                      label="Desciption"
+                                                      autoHeight={true}
+                                                      placeholder="Desciption"/>
                                 </div>
 
                             </div>
