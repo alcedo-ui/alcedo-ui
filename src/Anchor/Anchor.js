@@ -127,6 +127,7 @@ Anchor.propTypes = {
 
     href: PropTypes.string,
     alt: PropTypes.string,
+    target: PropTypes.string,
 
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -152,6 +153,7 @@ Anchor.defaultProps = {
 
     href: 'javascript:void(0)',
     alt: null,
+    target: '_blank',
 
     disabled: false,
     readOnly: false,
