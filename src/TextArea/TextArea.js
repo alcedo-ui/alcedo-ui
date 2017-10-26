@@ -603,11 +603,6 @@ TextArea.defaultProps = {
     patternInvalidMsg: '',
     preventInvalidInput: false,
 
-    autoComplete: 'off',
-    autoCorrect: 'off',
-    autoCapitalize: 'off',
-    spellCheck: 'false',
-
     fieldMsgVisible: false
 
 };
