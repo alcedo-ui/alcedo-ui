@@ -1,0 +1,49 @@
+/**
+ * @file AnchorButton style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin anchor-button-theme($color) {
+    color: $color;
+}
+
+.anchor-button {
+    background: transparent;
+    border: none;
+
+    &:hover {
+        background: $theme-secondary;
+    }
+
+    &[disabled] {
+        color: $theme-field-disabled;
+        background: transparent;
+    }
+
+    // default theme
+    @include anchor-button-theme($theme-field);
+
+    // themes
+    &.theme-primary {
+        @include anchor-button-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include anchor-button-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include anchor-button-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include anchor-button-theme($theme-info);
+    }
+    &.theme-success {
+        @include anchor-button-theme($theme-success);
+    }
+    &.theme-warning {
+        @include anchor-button-theme($theme-warning);
+    }
+    &.theme-error {
+        @include anchor-button-theme($theme-error);
+    }
+
+}
