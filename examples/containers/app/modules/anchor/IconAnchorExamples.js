@@ -1,16 +1,13 @@
-/**
- * Created by Wendy on 2017/4/20.
- */
 import React, {Component} from 'react';
 
-import IconAnchor from 'src/IconAnchor';
-import Widget from 'src/Widget';
-import WidgetHeader from 'src/WidgetHeader';
+import IconAnchor from 'src/IconAnchor/index';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import IconAnchorDoc from 'assets/propTypes/IconAnchor.json';
+import IconAnchorDoc from 'examples/assets/propTypes/IconAnchor.json';
 
-import 'sass/containers/app/modules/buttons/IconAnchorExamples.scss';
+import 'sass/containers/app/modules/anchor/IconAnchorExamples.scss';
 
 export default class IconAnchorExamples extends Component {
 
