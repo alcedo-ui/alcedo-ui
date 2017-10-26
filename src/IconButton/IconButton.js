@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
+import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -111,6 +112,9 @@ IconButton.propTypes = {
      */
     rippleDisplayCenter: PropTypes.bool,
 
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -135,6 +139,9 @@ IconButton.defaultProps = {
     rippleDisplayCenter: false,
 
     iconCls: '',
-    rightIconCls: ''
+    rightIconCls: '',
+
+    tip: null,
+    tipPosition: TipProvider.Position.BOTTOM
 
 };
