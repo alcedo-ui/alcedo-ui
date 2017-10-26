@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 
-import IconAnchor from 'src/IconAnchor/index';
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
+import Anchor from 'src/Anchor';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import AnchorDoc from 'examples/assets/propTypes/Anchor.json';
+import AnchorDoc from 'assets/propTypes/Anchor.json';
 
 import 'sass/containers/app/modules/anchor/AnchorExamples.scss';
 
@@ -18,12 +19,13 @@ export default class AnchorExamples extends Component {
     render() {
 
         return (
-            <div className="example icon-anchor-examples">
+            <div className="example raised-button-examples">
 
-                <h2 className="example-title">Anchor</h2>
+                <h2 className="example-title">Raised Button</h2>
 
                 <p>
-                    An <span>Anchor</span> element.
+                    <span>Raised Button</span> is used to add dimension to mostly flat layouts and emphasizes important
+                    functions on your page.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -37,72 +39,46 @@ export default class AnchorExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Icon Anchor</code> using icon specified with the <code>iconCls</code> property
-                                    example.</p>
+                                <p>
+                                    <code>Raised Button</code> with default theme,<code>success</code>,
+                                    <code>warning</code>,<code>error</code> and <code>disabled</code> props applied.
+                                </p>
 
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '14px'}}
-                                            className="github-icon"
-                                            disabled={true}/>
+                                <Anchor>
+                                    Default
+                                </Anchor>
 
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '14px'}}
-                                            className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                <Anchor theme={Theme.PRIMARY}>
+                                    Primary
+                                </Anchor>
 
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '14px'}}
-                                            className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                <Anchor theme={Theme.SECONDARY}>
+                                    Secondary
+                                </Anchor>
 
-                            </div>
+                                <Anchor theme={Theme.HIGHLIGHT}>
+                                    Highlight
+                                </Anchor>
 
-                        </div>
-                    </div>
+                                <Anchor theme={Theme.INFO}>
+                                    Info
+                                </Anchor>
 
-                </Widget>
+                                <Anchor theme={Theme.SUCCESS}>
+                                    Success
+                                </Anchor>
 
-                <Widget>
+                                <Anchor theme={Theme.WARNING}>
+                                    Warning
+                                </Anchor>
 
-                    <WidgetHeader className="example-header" title="With theme and style"/>
+                                <Anchor theme={Theme.ERROR}>
+                                    Error
+                                </Anchor>
 
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p><code>Icon Anchor</code> using the <code>style</code> property to set size and the
-                                    <code>theme</code> property to set different theme.</p>
-
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '14px'}}
-                                            theme="primary"
-                                            className="github-icon"
-                                            disabled={true}/>
-
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '18px'}}
-                                            theme="success"
-                                            className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
-
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '24px'}}
-                                            theme="error"
-                                            className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
-
-                                <IconAnchor iconCls="fa fa-github"
-                                            theme="highlight"
-                                            style={{fontSize: '28px'}}
-                                            className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
-
-                                <IconAnchor iconCls="fa fa-github"
-                                            theme="warning"
-                                            style={{fontSize: '32px'}}
-                                            className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                <Anchor disabled={true}>
+                                    Disabled
+                                </Anchor>
 
                             </div>
 
@@ -113,32 +89,30 @@ export default class AnchorExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With target"/>
+                    <WidgetHeader className="example-header" title="With icon"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p><code>Icon Anchor</code> using the <code>target</code> property to set where to open
-                                    the connection href.</p>
+                                <p>Set the <code>iconCls</code> property for button left icon.And set the
+                                    <code>rightIconCls</code> property for button right icon.</p>
 
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '14px'}}
-                                            className="github-icon"
-                                            disabled={true}/>
+                                <Anchor value="Reset"
+                                        iconCls="fa fa-undo"/>
 
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '18px'}}
-                                            className="github-icon"
-                                            target="_parent"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                <Anchor value="Add"
+                                        theme={Theme.SUCCESS}
+                                        iconCls="fa fa-plus"/>
 
-                                <IconAnchor iconCls="fa fa-github"
-                                            style={{fontSize: '24px'}}
-                                            className="github-icon"
-                                            target="_self"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                <Anchor value="Delete"
+                                        theme={Theme.ERROR}
+                                        iconCls="fa fa-trash"/>
+
+                                <Anchor value="Next"
+                                        theme={Theme.PRIMARY}
+                                        rightIconCls="fa fa-chevron-right"/>
 
                             </div>
 
