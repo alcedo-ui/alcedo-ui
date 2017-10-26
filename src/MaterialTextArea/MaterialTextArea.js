@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
 
 import TextArea from '../TextArea';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class MaterialTextArea extends Component {
+
+    static Type = TextArea.Type;
 
     constructor(props, ...restArgs) {
 
