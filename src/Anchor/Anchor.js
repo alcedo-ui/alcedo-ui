@@ -25,8 +25,6 @@ export default class Anchor extends Component {
         this.touchTapHandler = ::this.touchTapHandler;
         this.focusHandler = ::this.focusHandler;
         this.blurHandler = ::this.blurHandler;
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
 
     }
 
@@ -52,14 +50,6 @@ export default class Anchor extends Component {
             const {onBlur} = this.props;
             onBlur && onBlur(e);
         });
-    }
-
-    startRipple(e) {
-        this.refs.touchRipple.addRipple(e);
-    }
-
-    endRipple() {
-        this.refs.touchRipple.removeRipple();
     }
 
     render() {
