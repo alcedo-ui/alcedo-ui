@@ -66,9 +66,8 @@ export default class Anchor extends Component {
 
         const {
 
-                children, className, style, theme, href, alt,
-                iconCls, rightIconCls, disabled, readOnly, isLoading,
-                tip, tipPosition, onMouseEnter, onMouseLeave,
+                children, className, style, theme,
+                iconCls, rightIconCls, disabled, isLoading, tip, tipPosition,
 
                 ...restProps
 
@@ -88,35 +87,18 @@ export default class Anchor extends Component {
                    className={'anchor' + anchorClassName}
                    style={style}
                    disabled={disabled || isLoading}
-                   readOnly={readOnly}
                    onTouchTap={this.touchTapHandler}
                    onFocus={this.focusHandler}
-                   onBlur={this.blurHandler}
-                   onMouseEnter={onMouseEnter}
-                   onMouseLeave={onMouseLeave}>
+                   onBlur={this.blurHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
-                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                            <CircularLoading className="anchor-icon anchor-icon-left button-loading-icon"
                                              size="small"/>
                             :
                             (
                                 iconCls ?
-                                    <i className={`button-icon button-icon-left ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
-
-                    {
-                        isLoading && loadingIconPosition === 'right' ?
-                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                rightIconCls ?
-                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                    <i className={`anchor-icon anchor-icon-left ${iconCls}`}
                                        aria-hidden="true"></i>
                                     :
                                     null
@@ -124,6 +106,20 @@ export default class Anchor extends Component {
                     }
 
                     {children}
+
+                    {
+                        isLoading && loadingIconPosition === 'right' ?
+                            <CircularLoading className="anchor-icon anchor-icon-right button-loading-icon"
+                                             size="small"/>
+                            :
+                            (
+                                rightIconCls ?
+                                    <i className={`anchor-icon anchor-icon-right ${rightIconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
                 </a>
 
@@ -154,26 +150,24 @@ Anchor.propTypes = {
 
     onTouchTap: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onBlur: PropTypes.func
 
 };
 
 Anchor.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
     href: 'javascript:void(0)',
-    alt: '',
+    alt: null,
 
     disabled: false,
     readOnly: false,
     isLoading: false,
 
-    iconCls: '',
-    rightIconCls: ''
+    iconCls: null,
+    rightIconCls: null
 
 };

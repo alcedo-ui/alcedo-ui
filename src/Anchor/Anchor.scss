@@ -20,10 +20,30 @@
     cursor: pointer;
     font-size: 12px;
     user-select: none;
+    text-decoration: none;
     transition: all $transition-duration ease-in-out;
+
+    .anchor-icon {
+        text-align: center;
+        font-size: inherit;
+        color: inherit;
+
+        &.anchor-icon-left {
+            margin-right: 8px;
+        }
+
+        &.anchor-icon-right {
+            margin-left: 8px;
+        }
+    }
+
+    .circular-loading .spinner {
+        border-color: inherit;
+    }
 
     &[disabled] {
         color: $theme-field-disabled !important;
+        cursor: not-allowed;
     }
 
     // default theme
