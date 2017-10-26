@@ -27,9 +27,15 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/IconButton',
                     component: ac(store, () => import('modules/buttons/IconButtonExamples'))
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Anchor -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/Anchor',
+                    component: ac(store, () => import('modules/anchor/AnchorExamples'))
                 }, {
                     path: '/components/IconAnchor',
-                    component: ac(store, () => import('modules/buttons/IconAnchorExamples'))
+                    component: ac(store, () => import('modules/anchor/IconAnchorExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

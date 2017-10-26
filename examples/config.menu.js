@@ -1,5 +1,5 @@
 export default [{
-    text: 'Buttons',
+    text: 'Button',
     children: [{
         text: 'RaisedButton',
         route: '/components/RaisedButton'
@@ -12,6 +12,12 @@ export default [{
     }, {
         text: 'IconButton',
         route: '/components/IconButton'
+    }]
+}, {
+    text: 'Anchor',
+    children: [{
+        text: 'Anchor',
+        route: '/components/Anchor'
     }, {
         text: 'IconAnchor',
         route: '/components/IconAnchor'
@@ -44,7 +50,7 @@ export default [{
         route: '/components/DateTimePicker'
     }]
 }, {
-    text: 'Fields',
+    text: 'Field',
     children: [{
         text: 'TextField',
         route: '/components/TextField'
