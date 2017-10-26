@@ -14,6 +14,8 @@ import Util from '../_vendors/Util';
 
 export default class MaterialLocalAutoComplete extends Component {
 
+    static Mode = LocalAutoComplete.Mode;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
