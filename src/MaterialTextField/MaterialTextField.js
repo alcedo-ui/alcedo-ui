@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
 
 import TextField from '../TextField';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class MaterialTextField extends Component {
+
+    static Type = TextField.Type;
 
     constructor(props, ...restArgs) {
 
