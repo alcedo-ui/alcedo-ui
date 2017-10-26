@@ -96,13 +96,14 @@ export default class MaterialTextArea extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimate, wordCountVisible,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
             wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
+                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '')
+                + (wordCountVisible ? ' has-word-count' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'material-text-area' + wrapperClassName}
@@ -120,6 +121,7 @@ export default class MaterialTextArea extends Component {
                 <TextArea {...restProps}
                           theme={theme}
                           value={value}
+                          wordCountVisible={wordCountVisible}
                           onFocus={this.triggerFocusHandler}
                           onBlur={this.triggerBlurHandler}
                           onMouseOver={this.triggerMouseOverHandler}

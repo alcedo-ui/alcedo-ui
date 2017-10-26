@@ -24,7 +24,6 @@
         border: none;
         border-radius: 0;
         background: transparent;
-        border-bottom: 1px solid $theme-border !important;
         box-shadow: none !important;
 
         .text-area-input {
@@ -38,6 +37,20 @@
     &.focused {
         .material-text-area-label {
             color: $theme-highlight;
+        }
+    }
+
+    &.has-word-count {
+
+        .text-area-word-count-separator {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+
+        .material-field-separator-hover,
+        .material-field-separator-focus {
+            bottom: 29px;
         }
     }
 
