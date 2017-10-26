@@ -372,6 +372,7 @@ export default class TextArea extends Component {
                 {
                     wordCountVisible ?
                         <div className={'text-area-word-count' + (value.length > maxLength ? ' error' : '')}>
+                            <div className="text-area-word-count-separator"></div>
                             {value ? value.length : 0}
                             {
                                 maxLength ?
