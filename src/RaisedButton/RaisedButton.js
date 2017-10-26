@@ -113,13 +113,13 @@ RaisedButton.propTypes = {
      */
     rippleDisplayCenter: PropTypes.bool,
 
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+
     /**
      * You can create a complicated renderer callback instead of value prop.
      */
     renderer: PropTypes.func,
-
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     /**
      * Callback function fired when the button is touch-tapped.
