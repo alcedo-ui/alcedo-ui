@@ -107,7 +107,7 @@ export default class MaterialLocalAutoComplete extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimated,
+                className, style, theme, label, isLabelAnimated, popupClassName,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value, filter} = this.state,
@@ -129,7 +129,7 @@ export default class MaterialLocalAutoComplete extends Component {
                 }
 
                 <LocalAutoComplete {...restProps}
-                                   popupClassName="material-local-auto-complete-popup"
+                                   popupClassName={'material-local-auto-complete-popup ' + popupClassName}
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
