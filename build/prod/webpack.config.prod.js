@@ -1,15 +1,16 @@
-var path = require('path');
-var utils = require('./../utils');
-var webpack = require('webpack');
-var config = require('../../config/index');
-var merge = require('webpack-merge');
-var baseWebpackConfig = require('./../webpack.config.base.js');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+var path = require('path'),
+    utils = require('./../utils'),
+    webpack = require('webpack'),
+    config = require('../../config/index'),
+    merge = require('webpack-merge'),
+    baseWebpackConfig = require('./../webpack.config.base.js'),
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
+    UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
 
-var env = config.build.env;
+    env = config.build.env;
 
 var webpackConfig = merge(baseWebpackConfig, {
     module: {
@@ -31,12 +32,7 @@ var webpackConfig = merge(baseWebpackConfig, {
             'process.env': env
         }),
 
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            sourceMap: true
-        }),
+        new UglifyJSPlugin(),
 
         new ExtractTextPlugin({
             filename: utils.assetsPath('css/[name].[contenthash].css')
