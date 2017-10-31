@@ -10,7 +10,7 @@ import ListDoc from 'assets/propTypes/List.json';
 
 import 'sass/containers/app/modules/layout/ListExamples.scss';
 
-export default class ListExamples extends Component {
+export default class GroupListExamples extends Component {
 
     constructor(props) {
 
