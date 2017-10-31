@@ -166,6 +166,9 @@ export default function configureRoutes(store) {
                     path: '/components/List',
                     component: ac(store, () => import('modules/layout/ListExamples'))
                 }, {
+                    path: '/components/LongList',
+                    component: ac(store, () => import('modules/layout/LongListExamples'))
+                }, {
                     path: '/components/CascaderList',
                     component: ac(store, () => import('modules/layout/CascaderListExamples'))
                 }, {

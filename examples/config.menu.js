@@ -151,6 +151,9 @@ export default [{
         text: 'List',
         route: '/components/List'
     }, {
+        text: 'LongList',
+        route: '/components/LongList'
+    }, {
         text: 'CascaderList',
         route: '/components/CascaderList'
     }, {
