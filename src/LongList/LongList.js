@@ -19,12 +19,21 @@ export default class LongList extends Component {
     static SEPARATOR = List.SEPARATOR;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.wheelhandler = ::this.wheelhandler;
+
+    }
+
+    wheelhandler() {
+
     }
 
     render() {
         return (
-            <List {...this.props}/>
+            <List {...this.props}
+                  onWheel={this.wheelhandler}/>
         );
     }
 };
@@ -163,6 +172,8 @@ LongList.propTypes = {
      */
     mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
 
+    itemHeight: PropTypes.number,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
@@ -200,6 +211,7 @@ LongList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     mode: List.Mode.NORMAL,
+    itemHeight: 40,
     shouldPreventContainerScroll: true
 
 };
