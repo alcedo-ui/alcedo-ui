@@ -45,8 +45,7 @@ export default class SpanLoading extends Component {
                  style={style}>
 
                 {
-                    spanning
-                        ?
+                    spanning ?
                         <span className={`span-loading-dot ${size ? size : ''}`}>
                             <i/>
                             <i/>
@@ -61,13 +60,11 @@ export default class SpanLoading extends Component {
                 {children}
 
                 {
-                    description
-                        ?
+                    description ?
                         <div className={`span-loading-text`}>{description}</div>
                         :
                         null
                 }
-
 
             </div>
         );
