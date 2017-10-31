@@ -29,7 +29,7 @@ fs.readdir('./src', function (err, files) {
                     totalCount++;
                 }
             });
-            indexArray.push('', 'export const COMPONENTS_TOTAL_COUNT = ' + totalCount + ';');
+            indexArray.push('', `export const COMPONENTS_TOTAL_COUNT = ${totalCount - 1};`);
 
             fs.writeFile(path.join(__dirname, '../src/index.js'), indexArray.join(os.EOL), function (error) {
                 if (error) {
