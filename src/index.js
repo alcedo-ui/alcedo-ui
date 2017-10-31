@@ -27,6 +27,7 @@ export FlashNumber from './FlashNumber';
 export FlatButton from './FlatButton';
 export GhostButton from './GhostButton';
 export Grid from './Grid';
+export GroupList from './GroupList';
 export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';
 export LazyImage from './LazyImage';
@@ -74,4 +75,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 75;
+export const COMPONENTS_TOTAL_COUNT = 76;

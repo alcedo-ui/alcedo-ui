@@ -72,39 +72,6 @@ export default class ListExamples extends Component {
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.',
-                checked: 'true'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, List.SEPARATOR, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
-        }];
-
         this.changeHandle = this::this.changeHandle;
 
     }
@@ -138,7 +105,7 @@ export default class ListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <List items={this.listData}/>
+                                    <List data={this.listData}/>
                                 </Paper>
 
                             </div>
@@ -160,7 +127,7 @@ export default class ListExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
                                 <Paper>
-                                    <List items={this.disabledListData}/>
+                                    <List data={this.disabledListData}/>
                                 </Paper>
 
                             </div>
@@ -183,7 +150,7 @@ export default class ListExamples extends Component {
                                     the <code>rightIconCls</code> property to get rightIcons.</p>
 
                                 <Paper>
-                                    <List items={this.themeListData}/>
+                                    <List data={this.themeListData}/>
                                 </Paper>
 
                             </div>
@@ -208,7 +175,7 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          items={this.descListData}/>
+                                          data={this.descListData}/>
                                 </Paper>
 
                             </div>
@@ -234,35 +201,7 @@ export default class ListExamples extends Component {
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
                                           mode={List.Mode.RADIO}
-                                          items={this.descListData}
-                                          onChange={this.changeHandle}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>List</code> with isGrouped.
-                                </p>
-
-                                <Paper style={{width: 240, height: 240}}>
-                                    <List style={{width: 240, height: 240}}
-                                          mode={List.Mode.CHECKBOX}
-                                          isGrouped={true}
-                                          items={this.groupedListData}
+                                          data={this.descListData}
                                           onChange={this.changeHandle}/>
                                 </Paper>
 

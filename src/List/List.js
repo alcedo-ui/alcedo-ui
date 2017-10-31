@@ -30,8 +30,6 @@ export default class List extends Component {
 
         this.initValue = ::this.initValue;
         this.isItemChecked = ::this.isItemChecked;
-        this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
-        this.listItemsRenderer = ::this.listItemsRenderer;
         this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
@@ -82,114 +80,6 @@ export default class List extends Component {
         } else if (mode === List.Mode.RADIO) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
-
-    }
-
-    listGroupedItemsRenderer(items = this.props.items) {
-
-        const {theme} = this.props;
-
-        return _.isArray(items) ?
-            items.map((group, groupIndex) => {
-
-                if (group === List.SEPARATOR) {
-                    return <div key={`group${groupIndex}`}
-                                className="list-separator"></div>;
-                }
-
-                if (group && group.name) {
-                    return (
-                        <ListGroup key={`group${groupIndex}`}
-                                   theme={theme}
-                                   text={group.name}>
-                            {
-                                group.children && group.children.length > 0 ?
-                                    this.listItemsRenderer(group.children)
-                                    :
-                                    null
-                            }
-                        </ListGroup>
-                    );
-                }
-
-                return;
-
-            })
-            :
-            null;
-    }
-
-    listItemsRenderer(items = this.props.items) {
-
-        const {theme, valueField, displayField, descriptionField, disabled, isLoading, mode, renderer} = this.props;
-
-        return _.isArray(items) && items.length > 0 ?
-            (
-                items.map((item, index) => {
-
-                    if (!item) {
-                        return null;
-                    }
-
-                    if (item === List.SEPARATOR) {
-                        return <div key={index}
-                                    className="list-separator"></div>;
-                    }
-
-                    return typeof item === 'object' ?
-                        (
-                            <ListItem key={index}
-                                      {...item}
-                                      index={index}
-                                      theme={item.theme || theme}
-                                      data={item}
-                                      checked={this.isItemChecked(item)}
-                                      value={Util.getValueByValueField(item, valueField, displayField)}
-                                      text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                      desc={item[descriptionField] || null}
-                                      disabled={disabled || item.disabled}
-                                      isLoading={isLoading || item.isLoading}
-                                      mode={mode}
-                                      renderer={renderer}
-                                      onTouchTap={(e) => {
-                                          this.listItemTouchTapHandler(item, index);
-                                          item.onTouchTap && item.onTouchTap(e);
-                                      }}
-                                      onSelect={() => {
-                                          this.listItemSelectHandler(item, index);
-                                      }}
-                                      onDeselect={() => {
-                                          this.listItemDeselectHandler(item, index);
-                                      }}/>
-                        )
-                        :
-                        (
-                            <ListItem key={index}
-                                      index={index}
-                                      theme={item.theme || theme}
-                                      data={item}
-                                      checked={this.isItemChecked(item)}
-                                      value={item}
-                                      text={item}
-                                      disabled={disabled}
-                                      isLoading={isLoading}
-                                      mode={mode}
-                                      renderer={renderer}
-                                      onTouchTap={() => {
-                                          this.listItemTouchTapHandler(item, index);
-                                      }}
-                                      onSelect={() => {
-                                          this.listItemSelectHandler(item, index);
-                                      }}
-                                      onDeselect={() => {
-                                          this.listItemDeselectHandler(item, index);
-                                      }}/>
-                        );
-
-                })
-            )
-            :
-            null;
 
     }
 
@@ -287,15 +177,11 @@ export default class List extends Component {
 
     render() {
 
-        const {children, className, style, disabled, isGrouped} = this.props,
-            listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
-
-        let renderEl;
-        if (isGrouped) {
-            renderEl = this.listGroupedItemsRenderer();
-        } else {
-            renderEl = this.listItemsRenderer();
-        }
+        const {
+                children, className, style, theme, data,
+                valueField, displayField, descriptionField, disabled, isLoading, mode, renderer
+            } = this.props,
+            listClassName = (className ? ' ' + className : '');
 
         return (
             <div className={'list' + listClassName}
@@ -303,7 +189,75 @@ export default class List extends Component {
                  style={style}
                  onWheel={this.wheelHandler}>
 
-                {renderEl}
+                {
+                    _.isArray(data) && data.length > 0 ?
+                        (
+                            data.map((item, index) => {
+
+                                if (!item) {
+                                    return null;
+                                }
+
+                                if (item === List.SEPARATOR) {
+                                    return <div key={index}
+                                                className="list-separator"></div>;
+                                }
+
+                                return typeof item === 'object' ?
+                                    (
+                                        <ListItem key={index}
+                                                  {...item}
+                                                  index={index}
+                                                  theme={item.theme || theme}
+                                                  data={item}
+                                                  checked={this.isItemChecked(item)}
+                                                  value={Util.getValueByValueField(item, valueField, displayField)}
+                                                  text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                                  desc={item[descriptionField] || null}
+                                                  disabled={disabled || item.disabled}
+                                                  isLoading={isLoading || item.isLoading}
+                                                  mode={mode}
+                                                  renderer={renderer}
+                                                  onTouchTap={(e) => {
+                                                      this.listItemTouchTapHandler(item, index);
+                                                      item.onTouchTap && item.onTouchTap(e);
+                                                  }}
+                                                  onSelect={() => {
+                                                      this.listItemSelectHandler(item, index);
+                                                  }}
+                                                  onDeselect={() => {
+                                                      this.listItemDeselectHandler(item, index);
+                                                  }}/>
+                                    )
+                                    :
+                                    (
+                                        <ListItem key={index}
+                                                  index={index}
+                                                  theme={item.theme || theme}
+                                                  data={item}
+                                                  checked={this.isItemChecked(item)}
+                                                  value={item}
+                                                  text={item}
+                                                  disabled={disabled}
+                                                  isLoading={isLoading}
+                                                  mode={mode}
+                                                  renderer={renderer}
+                                                  onTouchTap={() => {
+                                                      this.listItemTouchTapHandler(item, index);
+                                                  }}
+                                                  onSelect={() => {
+                                                      this.listItemSelectHandler(item, index);
+                                                  }}
+                                                  onDeselect={() => {
+                                                      this.listItemDeselectHandler(item, index);
+                                                  }}/>
+                                    );
+
+                            })
+                        )
+                        :
+                        null
+                }
 
                 {children}
 
@@ -332,97 +286,89 @@ List.propTypes = {
     /**
      * Children passed into the ListItem.
      */
-    items: PropTypes.oneOfType([
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        /**
+         * The CSS class name of the list button.
+         */
+        className: PropTypes.string,
 
-            /**
-             * The CSS class name of the list button.
-             */
-            className: PropTypes.string,
+        /**
+         * Override the styles of the list button.
+         */
+        style: PropTypes.object,
 
-            /**
-             * Override the styles of the list button.
-             */
-            style: PropTypes.object,
+        /**
+         * The theme of the list button.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-            /**
-             * The theme of the list button.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The text value of the list button.Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The text value of the list button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * The list item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The list item's display text. Type can be string, number or bool.
-             */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * The desc value of the list button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The desc value of the list button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * If true,the list item will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-            /**
-             * If true,the list item will be disabled.
-             */
-            disabled: PropTypes.bool,
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
 
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
 
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
 
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
 
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
+        /**
+         * The message of tip.
+         */
+        tip: PropTypes.string,
 
-            /**
-             * The message of tip.
-             */
-            tip: PropTypes.string,
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
-            /**
-             * The position of tip.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        /**
+         * If true,the item will have center displayed ripple effect.
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
-            /**
-             * If true,the item will have center displayed ripple effect.
-             */
-            rippleDisplayCenter: PropTypes.bool,
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        itemRenderer: PropTypes.func,
 
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            itemRenderer: PropTypes.func,
+        /**
+         * Callback function fired when a list item touch-tapped.
+         */
+        onTouchTap: PropTypes.func
 
-            /**
-             * Callback function fired when a list item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
-
-        }), PropTypes.string, PropTypes.number])),
-
-        // grouped
-        PropTypes.array
-
-    ]).isRequired,
+    }), PropTypes.string, PropTypes.number])).isRequired,
 
     /**
      * The value field name in data. (default: "value")
@@ -454,11 +400,6 @@ List.propTypes = {
      */
     mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
 
-    /**
-     * If true,the listData will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
@@ -489,14 +430,13 @@ List.defaultProps = {
     style: null,
     theme: Theme.DEFAULT,
 
-    items: [],
+    data: [],
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
     mode: ListItem.Mode.NORMAL,
-    isGrouped: false,
     shouldPreventContainerScroll: true
 
 };
