@@ -177,7 +177,7 @@ export default class List extends Component {
     render() {
 
         const {
-                children, className, style, theme, data,
+                children, className, style, theme, data, itemHeight,
                 valueField, displayField, descriptionField, disabled, isLoading, mode, renderer
             } = this.props,
             listClassName = (className ? ' ' + className : '');
@@ -203,6 +203,7 @@ export default class List extends Component {
                                         <ListItem key={index}
                                                   {...item}
                                                   index={index}
+                                                  style={{height: itemHeight}}
                                                   theme={item.theme || theme}
                                                   data={item}
                                                   checked={this.isItemChecked(item)}
@@ -228,6 +229,7 @@ export default class List extends Component {
                                     (
                                         <ListItem key={index}
                                                   index={index}
+                                                  style={{height: itemHeight}}
                                                   theme={item.theme || theme}
                                                   data={item}
                                                   checked={this.isItemChecked(item)}
