@@ -54,9 +54,7 @@ export default class LongListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <LongList style={{height: 200}}
-                                              data={this.listData}
-                                              itemHeight={40}/>
+                                    <LongList data={this.listData}/>
                                 </Paper>
 
                             </div>
