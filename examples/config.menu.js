@@ -182,7 +182,7 @@ export default [{
         route: '/components/CircularLoading'
     }, {
         text: 'SpanLoading',
-        route: '/components/SpanLoadingExamples'
+        route: '/components/SpanLoading'
     }]
 }, {
     text: 'Draggable',
