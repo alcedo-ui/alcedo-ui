@@ -283,7 +283,7 @@ export default class EditableSelect extends Component {
 
                     <List className="editable-select-list"
                           isGrouped={isGrouped}
-                          items={listData.length < 1 ? emptyEl : listData}
+                          data={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           value={listValue}
                           mode={List.Mode.RADIO}
