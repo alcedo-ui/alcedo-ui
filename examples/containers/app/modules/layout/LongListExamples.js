@@ -16,16 +16,10 @@ export default class LongListExamples extends Component {
 
         super(props);
 
-        this.listData = [{
-            iconCls: 'fa fa-facebook',
-            text: 'Facebook'
-        }, {
-            iconCls: 'fa fa-twitter',
-            text: 'Twitter'
-        }, {
-            iconCls: 'fa fa-google-plus',
-            text: 'Google+'
-        }];
+        this.listData = [];
+        for (let i = 0; i < 100; i++) {
+            this.listData.push(i);
+        }
 
         this.changeHandle = this::this.changeHandle;
 
@@ -60,7 +54,9 @@ export default class LongListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <LongList data={this.listData}/>
+                                    <LongList style={{height: 200}}
+                                              data={this.listData}
+                                              itemHeight={40}/>
                                 </Paper>
 
                             </div>
