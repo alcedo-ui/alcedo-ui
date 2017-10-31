@@ -421,7 +421,7 @@ List.propTypes = {
 
 List.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
