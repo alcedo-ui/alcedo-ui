@@ -1,5 +1,5 @@
 /**
- * @file LargeList component
+ * @file LongList component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import List from '../List';
 
-export default class LargeList extends Component {
+export default class LongList extends Component {
 
     static Mode = List.Mode;
     static SEPARATOR = List.SEPARATOR;
@@ -25,7 +25,7 @@ export default class LargeList extends Component {
     }
 };
 
-LargeList.propTypes = {
+LongList.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -183,7 +183,7 @@ LargeList.propTypes = {
 
 };
 
-LargeList.defaultProps = {
+LongList.defaultProps = {
 
     className: null,
     style: null,

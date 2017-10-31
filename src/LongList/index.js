@@ -1,6 +1,6 @@
 /**
- * @file LargeList
+ * @file LongList
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './LargeList';
+export default from './LongList';
