@@ -339,7 +339,7 @@ export default class DropdownSelect extends Component {
                               theme={popupTheme}
                               mode={mode}
                               isGrouped={isGrouped}
-                              items={listData.length < 1 ? emptyEl : listData}
+                              data={listData.length < 1 ? emptyEl : listData}
                               value={value}
                               valueField={valueField}
                               displayField={displayField}
