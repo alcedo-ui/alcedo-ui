@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import List from '../List';
+import Tip from '../Tip';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
 
 export default class LongList extends Component {
 
@@ -157,7 +161,7 @@ LongList.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -195,7 +199,7 @@ LongList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: ListItem.Mode.NORMAL,
+    mode: List.Mode.NORMAL,
     shouldPreventContainerScroll: true
 
 };
