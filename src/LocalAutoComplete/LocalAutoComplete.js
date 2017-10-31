@@ -305,14 +305,14 @@ export default class LocalAutoComplete extends Component {
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
                                           mode={List.Mode.NORMAL}
-                                          items={emptyEl}/>
+                                          data={emptyEl}/>
                                     :
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
                                           value={value}
                                           mode={mode || List.Mode.NORMAL}
                                           isGrouped={isGrouped}
-                                          items={listData}
+                                          data={listData}
                                           valueField={valueField}
                                           displayField={displayField}
                                           descriptionField={descriptionField}
