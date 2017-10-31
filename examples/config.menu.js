@@ -176,6 +176,15 @@ export default [{
         route: '/components/Tree'
     }]
 }, {
+    text: 'Loading',
+    children: [{
+        text: 'CircularLoading',
+        route: '/components/CircularLoading'
+    }, {
+        text: 'SpanLoading',
+        route: '/components/SpanLoadingExamples'
+    }]
+}, {
     text: 'Draggable',
     children: [{
         text: 'DraggableList',
