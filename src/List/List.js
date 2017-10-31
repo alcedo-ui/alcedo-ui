@@ -7,7 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ListGroup from '../_ListGroup';
 import ListItem from '../_ListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
