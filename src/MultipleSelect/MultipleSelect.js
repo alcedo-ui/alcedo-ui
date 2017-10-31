@@ -358,7 +358,7 @@ export default class MultipleSelect extends Component {
                           value={value}
                           mode={isEmpty ? List.Mode.DEFAULT : List.Mode.CHECKBOX}
                           isGrouped={isEmpty ? false : isGrouped}
-                          items={isEmpty ? emptyEl : listData}
+                          data={isEmpty ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
