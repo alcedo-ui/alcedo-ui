@@ -194,10 +194,6 @@ export default class List extends Component {
                         (
                             data.map((item, index) => {
 
-                                if (!item) {
-                                    return null;
-                                }
-
                                 if (item === List.SEPARATOR) {
                                     return <div key={index}
                                                 className="list-separator"></div>;
