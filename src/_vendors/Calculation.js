@@ -30,8 +30,8 @@ function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, bu
         return {
             start: 0,
             stop: 0,
-            startWithCache: 0,
-            stopWithCache: 0
+            startWithBuffer: 0,
+            stopWithBuffer: 0
         };
     }
 
@@ -42,8 +42,8 @@ function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, bu
     return {
         start: Valid.range(start, 0, len - 1),
         stop: Valid.range(stop, 0, len - 1),
-        startWithCache: Valid.range(start - buffer, 0, len - 1),
-        stopWithCache: Valid.range(stop + buffer, 0, len - 1)
+        startWithBuffer: Valid.range(start - buffer, 0, len - 1),
+        stopWithBuffer: Valid.range(stop + buffer, 0, len - 1)
     };
 
 }
