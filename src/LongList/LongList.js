@@ -12,6 +12,9 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
+import Valid from '../_vendors/Valid';
+import Calculation from '../_vendors/Calculation';
 
 export default class LongList extends Component {
 
@@ -22,19 +25,73 @@ export default class LongList extends Component {
 
         super(props, ...restArgs);
 
-        this.wheelhandler = ::this.wheelhandler;
+        this.state = {
+            index: this.getIndex()
+        };
+
+        this.getIndex = ::this.getIndex;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
-    wheelhandler() {
+    getIndex(scrollTop = 0) {
+        const {data, listHeight, itemHeight, scrollBuffer} = this.props;
+        return Calculation.longListDisplayIndex(data, listHeight, itemHeight, scrollTop, scrollBuffer);
+    }
 
+    wheelHandler(e) {
+
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+
+        this.setState({
+            index: this.getIndex(this.listEl.scrollTop)
+        }, () => {
+            onWheel && onWheel(e);
+        });
+
+    }
+
+    componentDidMount() {
+        this.listEl = this.refs.list;
     }
 
     render() {
+
+        const {
+
+                className, style, data, listHeight, itemHeight,
+
+                ...restProps
+
+            } = this.props,
+            {index} = this.state,
+
+            scrollerStyle = {
+                height: data.length * itemHeight
+            },
+
+            filteredData = data && index ? data.slice(index.startWithCache, index.stopWithCache + 1) : data;
+
         return (
-            <List {...this.props}
-                  onWheel={this.wheelhandler}/>
+            <div ref="list"
+                 className={'long-list' + (className ? ' ' + className : '')}
+                 style={{...style, height: listHeight}}
+                 onWheel={this.wheelHandler}>
+
+                <div className="long-list-scroller"
+                     style={scrollerStyle}>
+
+                    <List {...restProps}
+                          style={{transform: `translate3d(0, ${index.startWithCache * itemHeight}px, 0)`}}
+                          data={filteredData}/>
+
+                </div>
+
+            </div>
         );
+
     }
 };
 
@@ -172,7 +229,9 @@ LongList.propTypes = {
      */
     mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
 
+    listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -211,7 +270,9 @@ LongList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     mode: List.Mode.NORMAL,
+    listHeight: 200,
     itemHeight: 40,
+    scrollBuffer: 3,
     shouldPreventContainerScroll: true
 
 };

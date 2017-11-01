@@ -2,3 +2,8 @@
  * @file LongList style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
+.long-list {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
