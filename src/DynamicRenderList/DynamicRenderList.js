@@ -27,7 +27,7 @@ export default class DynamicRenderList extends Component {
 
         this.state = {
             value: this.initValue(props),
-            index: this.getIndex()
+            scrollTop: 0
         };
 
         this.initValue = ::this.initValue;
@@ -64,14 +64,15 @@ export default class DynamicRenderList extends Component {
 
     }
 
-    getIndex(scrollTop = 0) {
-        const {data, listHeight, itemHeight, scrollBuffer} = this.props;
+    getIndex() {
+        const {data, listHeight, itemHeight, scrollBuffer} = this.props,
+            {scrollTop} = this.state;
         return Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
     }
 
     scrollHandler(e) {
         this.setState({
-            index: this.getIndex(this.listEl.scrollTop)
+            scrollTop: this.listEl.scrollTop
         }, () => {
             const {onScroll} = this.props;
             onScroll && onScroll(e);
@@ -102,16 +103,21 @@ export default class DynamicRenderList extends Component {
 
                 className, style, data, listHeight, itemHeight,
 
+                // not passing down these props
+                scrollBuffer,
+
                 ...restProps
 
             } = this.props,
-            {value, index} = this.state,
+            {value, scrollTop} = this.state,
 
             scrollerStyle = {
                 height: data.length * itemHeight
             },
 
-            filteredData = data && index ? data.slice(index.startWithCache, index.stopWithCache + 1) : data;
+            index = this.getIndex(),
+
+            filteredData = data && index ? data.slice(index.startWithBuffer, index.stopWithBuffer + 1) : data;
 
         return (
             <div ref="list"
@@ -124,7 +130,7 @@ export default class DynamicRenderList extends Component {
                      style={scrollerStyle}>
 
                     <List {...restProps}
-                          style={{transform: `translate3d(0, ${index.startWithCache * itemHeight}px, 0)`}}
+                          style={{transform: `translate3d(0, ${index.startWithBuffer * itemHeight}px, 0)`}}
                           data={filteredData}
                           value={value}/>
 
@@ -241,6 +247,11 @@ DynamicRenderList.propTypes = {
     }), PropTypes.string, PropTypes.number])).isRequired,
 
     /**
+     * The id field name in data. (default: "id")
+     */
+    idField: PropTypes.string,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -311,6 +322,7 @@ DynamicRenderList.defaultProps = {
 
     data: [],
 
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
