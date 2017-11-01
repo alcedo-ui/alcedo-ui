@@ -32,6 +32,7 @@ export default class LongList extends Component {
 
         this.initValue = ::this.initValue;
         this.getIndex = ::this.getIndex;
+        this.scrollHandler = ::this.scrollHandler;
         this.wheelHandler = ::this.wheelHandler;
 
     }
@@ -68,18 +69,19 @@ export default class LongList extends Component {
         return Calculation.longListDisplayIndex(data, listHeight, itemHeight, scrollTop, scrollBuffer);
     }
 
-    wheelHandler(e) {
-
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-
+    scrollHandler(e) {
         this.setState({
             index: this.getIndex(this.listEl.scrollTop)
         }, () => {
-            onWheel && onWheel(e);
+            const {onScroll} = this.props;
+            onScroll && onScroll(e);
         });
+    }
 
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
     }
 
     componentDidMount() {
@@ -115,6 +117,7 @@ export default class LongList extends Component {
             <div ref="list"
                  className={'long-list' + (className ? ' ' + className : '')}
                  style={{...style, height: listHeight}}
+                 onScroll={this.scrollHandler}
                  onWheel={this.wheelHandler}>
 
                 <div className="long-list-scroller"
@@ -289,6 +292,11 @@ LongList.propTypes = {
     onChange: PropTypes.func,
 
     /**
+     * Callback function fired when wrapper scrolled.
+     */
+    onScroll: PropTypes.func,
+
+    /**
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func
@@ -310,7 +318,7 @@ LongList.defaultProps = {
     mode: List.Mode.NORMAL,
     listHeight: 200,
     itemHeight: 40,
-    scrollBuffer: 3,
+    scrollBuffer: 4,
     shouldPreventContainerScroll: true
 
 };
