@@ -6,8 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Event from '../_vendors/Event';
-
 export default class DownloadField extends Component {
 
     constructor(props, ...restArgs) {
@@ -19,6 +17,7 @@ export default class DownloadField extends Component {
         };
 
         this.download = ::this.download;
+        this.loadedHandler = ::this.loadedHandler;
 
     }
 
@@ -28,20 +27,16 @@ export default class DownloadField extends Component {
         });
     }
 
-    componentDidMount() {
-
-        this.iframeEl = this.refs.iframe;
-
+    loadedHandler(e) {
         const {onLoad} = this.props;
-        Event.addEvent(this.iframeEl, 'load', onLoad);
-        Event.addEvent(this.iframeEl, 'error', onLoad);
-
+        onLoad && onLoad(e, this.iframeEl.contentDocument ?
+            this.iframeEl.contentDocument.body.innerText
+            :
+            undefined);
     }
 
-    componentWillUnmount() {
-        const {onLoad} = this.props;
-        Event.removeEvent(this.iframeEl, 'load', onLoad);
-        Event.removeEvent(this.iframeEl, 'error', onLoad);
+    componentDidMount() {
+        this.iframeEl = this.refs.iframe;
     }
 
     render() {
@@ -53,14 +48,26 @@ export default class DownloadField extends Component {
             <iframe key={key}
                     ref="iframe"
                     className="download-field"
-                    src={url}></iframe>
+                    src={key > 0 ? url : null}
+                    onLoad={this.loadedHandler}
+                    onError={this.loadedHandler}></iframe>
         );
 
     }
 };
 
 DownloadField.propTypes = {
-    url: PropTypes.string
+
+    /**
+     * Download url.
+     */
+    url: PropTypes.string,
+
+    /**
+     * Loaded callback.
+     */
+    onLoad: PropTypes.func
+
 };
 
 DownloadField.defaultProps = {
