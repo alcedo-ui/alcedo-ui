@@ -242,7 +242,7 @@ DynamicRenderList.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number])).isRequired,
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
 
     /**
      * The id field name in data. (default: "id")
