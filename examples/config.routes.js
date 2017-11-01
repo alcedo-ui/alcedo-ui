@@ -114,6 +114,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialTextArea',
                     component: ac(store, () => import('modules/fields/MaterialTextAreaExamples'))
+                }, {
+                    path: '/components/DownloadField',
+                    component: ac(store, () => import('modules/fields/DownloadFieldExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

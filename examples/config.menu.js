@@ -126,6 +126,9 @@ export default [{
     }, {
         text: 'MaterialTextArea',
         route: '/components/MaterialTextArea'
+    }, {
+        text: 'DownloadField',
+        route: '/components/DownloadField'
     }]
 }, {
     text: 'Progress',
