@@ -178,7 +178,7 @@ export default class List extends Component {
 
         const {
                 children, className, style, theme, data, itemHeight,
-                valueField, displayField, descriptionField, disabled, isLoading, mode, renderer
+                idField, valueField, displayField, descriptionField, disabled, isLoading, mode, renderer
             } = this.props,
             listClassName = (className ? ' ' + className : '');
 
@@ -200,7 +200,7 @@ export default class List extends Component {
 
                                 return typeof item === 'object' ?
                                     (
-                                        <ListItem key={index}
+                                        <ListItem key={item[idField] || item[valueField]}
                                                   {...item}
                                                   index={index}
                                                   style={{height: itemHeight}}
@@ -227,7 +227,7 @@ export default class List extends Component {
                                     )
                                     :
                                     (
-                                        <ListItem key={index}
+                                        <ListItem key={item}
                                                   index={index}
                                                   style={{height: itemHeight}}
                                                   theme={item.theme || theme}
@@ -368,6 +368,11 @@ List.propTypes = {
     }), PropTypes.string, PropTypes.number])).isRequired,
 
     /**
+     * The id field name in data. (default: "id")
+     */
+    idField: PropTypes.string,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -429,6 +434,7 @@ List.defaultProps = {
 
     data: [],
 
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
