@@ -24,7 +24,7 @@ function pageSize(pageSize, pageSizes, defaultValue) {
 
 }
 
-function longListDisplayIndex(data, listHeight, itemHeight, scrollTop = 0, buffer = 0) {
+function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, buffer = 0) {
 
     if (!data || !listHeight || !itemHeight) {
         return {
@@ -50,5 +50,5 @@ function longListDisplayIndex(data, listHeight, itemHeight, scrollTop = 0, buffe
 
 export default {
     pageSize,
-    longListDisplayIndex
+    displayIndexByScrollTop
 };
