@@ -6,6 +6,7 @@
 .paper {
     border-radius: $theme-border-radius;
     background: $theme-field-bg;
+    overflow: hidden;
 
     @for $i from 0 through 7 {
         &.depth-#{$i} {
