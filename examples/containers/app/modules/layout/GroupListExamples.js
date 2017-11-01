@@ -86,8 +86,7 @@ export default class GroupListExamples extends Component {
                                 <Paper style={{width: 240, height: 240}}>
                                     <GroupList style={{width: 240, height: 240}}
                                                mode={GroupList.Mode.CHECKBOX}
-                                               isGrouped={true}
-                                               items={this.listData}
+                                               data={this.listData}
                                                onChange={this.changeHandler}/>
                                 </Paper>
 
