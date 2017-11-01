@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 
-import LongList from 'src/LongList';
+import DynamicRenderList from 'src/DynamicRenderList';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import LongListDoc from 'assets/propTypes/LongList.json';
+import DynamicRenderListDoc from 'assets/propTypes/DynamicRenderList.json';
 
-import 'sass/containers/app/modules/layout/LongListExamples.scss';
+import 'sass/containers/app/modules/layout/DynamicRenderListExamples.scss';
 
-export default class LongListExamples extends Component {
+export default class DynamicRenderListExamples extends Component {
 
     constructor(props) {
 
         super(props);
 
         this.listData = [];
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 10000; i++) {
             this.listData.push(i);
         }
 
@@ -31,12 +31,12 @@ export default class LongListExamples extends Component {
 
     render() {
         return (
-            <div className="example list-examples">
+            <div className="example dynamic-render-list-examples">
 
-                <h2 className="example-title">List</h2>
+                <h2 className="example-title">DynamicRenderList</h2>
 
                 <p>
-                    <span>List</span> are used to present multiple items vertically as a single continuous
+                    <span>DynamicRenderList</span> are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>
 
@@ -51,12 +51,12 @@ export default class LongListExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>A <code>List</code> simple example with left icons.</p>
+                                <p>A <code>DynamicRenderList</code> simple example with checkbox.</p>
 
                                 <Paper>
-                                    <LongList data={this.listData}
-                                              mode={LongList.Mode.CHECKBOX}
-                                              onChange={this.changeHandler}/>
+                                    <DynamicRenderList data={this.listData}
+                                                       mode={DynamicRenderList.Mode.CHECKBOX}
+                                                       onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
@@ -68,7 +68,7 @@ export default class LongListExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={LongListDoc}/>
+                <PropTypeDescTable data={DynamicRenderListDoc}/>
 
             </div>
         );
