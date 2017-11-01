@@ -151,6 +151,9 @@ export default [{
         text: 'List',
         route: '/components/List'
     }, {
+        text: 'GroupList',
+        route: '/components/GroupList'
+    }, {
         text: 'DynamicRenderList',
         route: '/components/DynamicRenderList'
     }, {

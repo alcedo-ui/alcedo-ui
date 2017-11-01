@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 
-import List from 'src/List';
+import GroupList from 'src/GroupList';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import ListDoc from 'assets/propTypes/List.json';
+import GroupListDoc from 'assets/propTypes/GroupList.json';
 
-import 'sass/containers/app/modules/layout/ListExamples.scss';
+import 'sass/containers/app/modules/layout/GroupListExamples.scss';
 
 export default class GroupListExamples extends Component {
 
@@ -17,62 +17,6 @@ export default class GroupListExamples extends Component {
         super(props);
 
         this.listData = [{
-            iconCls: 'fa fa-facebook',
-            text: 'Facebook'
-        }, {
-            iconCls: 'fa fa-twitter',
-            text: 'Twitter'
-        }, {
-            iconCls: 'fa fa-google-plus',
-            text: 'Google+'
-        }];
-
-        this.disabledListData = [{
-            iconCls: 'fa fa-firefox',
-            text: 'Firefox',
-            disabled: true
-        }, {
-            iconCls: 'fa fa-chrome',
-            text: 'Chrome'
-        }, {
-            iconCls: 'fa fa-safari',
-            text: 'Safari',
-            disabled: true
-        }];
-
-        this.themeListData = [{
-            text: 'Success',
-            theme: 'success',
-            rightIconCls: 'fa fa-check-circle'
-        }, {
-            text: 'Error',
-            theme: 'error',
-            rightIconCls: 'fa fa-times-circle-o'
-        }, {
-            text: 'Warning',
-            theme: 'warning',
-            rightIconCls: 'fa fa-exclamation-triangle'
-        }, {
-            text: 'Primary',
-            theme: 'primary',
-            rightIconCls: 'fa fa-gratipay'
-        }];
-
-        this.descListData = [{
-            iconCls: 'fa fa-facebook',
-            text: 'Facebook',
-            desc: 'Here is a Facebook Desc.'
-        }, {
-            iconCls: 'fa fa-twitter',
-            text: 'Twitter',
-            desc: 'Here is a Twitter Desc.'
-        }, {
-            iconCls: 'fa fa-google-plus',
-            text: 'Google+',
-            desc: 'Here is a Google+ Desc.'
-        }];
-
-        this.groupedListData = [{
             name: 'socialNetwork',
             children: [{
                 iconCls: 'fa fa-facebook',
@@ -88,7 +32,7 @@ export default class GroupListExamples extends Component {
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
-        }, List.SEPARATOR, {
+        }, GroupList.SEPARATOR, {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',
@@ -105,22 +49,22 @@ export default class GroupListExamples extends Component {
             }]
         }];
 
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
-    changeHandle(value) {
+    changeHandler(value) {
         console.log(value);
     }
 
     render() {
         return (
-            <div className="example list-examples">
+            <div className="example group-list-examples">
 
-                <h2 className="example-title">List</h2>
+                <h2 className="example-title">GroupList</h2>
 
                 <p>
-                    <span>List</span> are used to present multiple items vertically as a single continuous
+                    <span>GroupList</span> are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>
 
@@ -135,135 +79,16 @@ export default class GroupListExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>A <code>List</code> simple example with left icons.</p>
-
-                                <Paper>
-                                    <List items={this.listData}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With disabled"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>Set the <code>disabled</code> property to true for disabled items.</p>
-
-                                <Paper>
-                                    <List items={this.disabledListData}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With theme and rightIconCls"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>Set the <code>theme</code> property to "success","error","warning","primary" and set
-                                    the <code>rightIconCls</code> property to get rightIcons.</p>
-
-                                <Paper>
-                                    <List items={this.themeListData}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With desc"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
                                 <p>
-                                    A <code>List</code> with desc.
-                                </p>
-
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
-                                          items={this.descListData}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With mode"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>List</code> with mode.Can be normal,radio,checkbox.
-                                </p>
-
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
-                                          mode={List.Mode.RADIO}
-                                          items={this.descListData}
-                                          onChange={this.changeHandle}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>List</code> with isGrouped.
+                                    A <code>GroupList</code> with isGrouped.
                                 </p>
 
                                 <Paper style={{width: 240, height: 240}}>
-                                    <List style={{width: 240, height: 240}}
-                                          mode={List.Mode.CHECKBOX}
-                                          isGrouped={true}
-                                          items={this.groupedListData}
-                                          onChange={this.changeHandle}/>
+                                    <GroupList style={{width: 240, height: 240}}
+                                               mode={GroupList.Mode.CHECKBOX}
+                                               isGrouped={true}
+                                               items={this.listData}
+                                               onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
@@ -275,7 +100,7 @@ export default class GroupListExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ListDoc}/>
+                <PropTypeDescTable data={GroupListDoc}/>
 
             </div>
         );
