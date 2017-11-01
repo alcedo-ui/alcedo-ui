@@ -26,11 +26,40 @@ export default class LongList extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            value: this.initValue(props),
             index: this.getIndex()
         };
 
+        this.initValue = ::this.initValue;
         this.getIndex = ::this.getIndex;
         this.wheelHandler = ::this.wheelHandler;
+
+    }
+
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, mode} = props;
+
+        if (!mode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (mode) {
+            case List.Mode.CHECKBOX:
+                return [];
+            case List.Mode.RADIO:
+                return null;
+            default:
+                return value;
+        }
 
     }
 
@@ -57,6 +86,14 @@ export default class LongList extends Component {
         this.listEl = this.refs.list;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: this.initValue(nextProps)
+            });
+        }
+    }
+
     render() {
 
         const {
@@ -66,7 +103,7 @@ export default class LongList extends Component {
                 ...restProps
 
             } = this.props,
-            {index} = this.state,
+            {value, index} = this.state,
 
             scrollerStyle = {
                 height: data.length * itemHeight
@@ -85,7 +122,8 @@ export default class LongList extends Component {
 
                     <List {...restProps}
                           style={{transform: `translate3d(0, ${index.startWithCache * itemHeight}px, 0)`}}
-                          data={filteredData}/>
+                          data={filteredData}
+                          value={value}/>
 
                 </div>
 
