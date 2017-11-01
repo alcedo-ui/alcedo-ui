@@ -21,11 +21,11 @@ export default class LongListExamples extends Component {
             this.listData.push(i);
         }
 
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
-    changeHandle(value) {
+    changeHandler(value) {
         console.log(value);
     }
 
@@ -54,7 +54,9 @@ export default class LongListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <LongList data={this.listData}/>
+                                    <LongList data={this.listData}
+                                              mode={LongList.Mode.CHECKBOX}
+                                              onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
