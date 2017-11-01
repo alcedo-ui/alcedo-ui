@@ -5,7 +5,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import List from '../List';
 import Tip from '../Tip';
@@ -13,13 +12,12 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
 
 export default class DynamicRenderList extends Component {
 
-    static Mode = List.Mode;
-    static SEPARATOR = List.SEPARATOR;
+    static Mode = DynamicRenderList.Mode;
+    static SEPARATOR = DynamicRenderList.SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -54,9 +52,9 @@ export default class DynamicRenderList extends Component {
         }
 
         switch (mode) {
-            case List.Mode.CHECKBOX:
+            case DynamicRenderList.Mode.CHECKBOX:
                 return [];
-            case List.Mode.RADIO:
+            case DynamicRenderList.Mode.RADIO:
                 return null;
             default:
                 return value;
@@ -279,7 +277,7 @@ DynamicRenderList.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
+    mode: PropTypes.oneOf(Util.enumerateValue(DynamicRenderList.Mode)),
 
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
@@ -327,7 +325,7 @@ DynamicRenderList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: List.Mode.NORMAL,
+    mode: DynamicRenderList.Mode.NORMAL,
     listHeight: 200,
     itemHeight: 40,
     scrollBuffer: 4,
