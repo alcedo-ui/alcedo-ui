@@ -283,7 +283,7 @@ List.propTypes = {
     /**
      * Children passed into the ListItem.
      */
-    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the list button.
@@ -365,7 +365,7 @@ List.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number])), PropTypes.symbol]).isRequired,
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
 
     /**
      * The id field name in data. (default: "id")
