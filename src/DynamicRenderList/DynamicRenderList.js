@@ -1,5 +1,5 @@
 /**
- * @file LongList component
+ * @file DynamicRenderList component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -16,7 +16,7 @@ import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
 
-export default class LongList extends Component {
+export default class DynamicRenderList extends Component {
 
     static Mode = List.Mode;
     static SEPARATOR = List.SEPARATOR;
@@ -66,7 +66,7 @@ export default class LongList extends Component {
 
     getIndex(scrollTop = 0) {
         const {data, listHeight, itemHeight, scrollBuffer} = this.props;
-        return Calculation.longListDisplayIndex(data, listHeight, itemHeight, scrollTop, scrollBuffer);
+        return Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
     }
 
     scrollHandler(e) {
@@ -115,12 +115,12 @@ export default class LongList extends Component {
 
         return (
             <div ref="list"
-                 className={'long-list' + (className ? ' ' + className : '')}
+                 className={'dynamic-render-list' + (className ? ' ' + className : '')}
                  style={{...style, height: listHeight}}
                  onScroll={this.scrollHandler}
                  onWheel={this.wheelHandler}>
 
-                <div className="long-list-scroller"
+                <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
 
                     <List {...restProps}
@@ -136,7 +136,7 @@ export default class LongList extends Component {
     }
 };
 
-LongList.propTypes = {
+DynamicRenderList.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -303,7 +303,7 @@ LongList.propTypes = {
 
 };
 
-LongList.defaultProps = {
+DynamicRenderList.defaultProps = {
 
     className: null,
     style: null,
