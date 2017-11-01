@@ -20,15 +20,18 @@ export default class GroupListExamples extends Component {
             name: 'socialNetwork',
             children: [{
                 iconCls: 'fa fa-facebook',
+                value: 'Facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.',
                 checked: 'true'
             }, {
                 iconCls: 'fa fa-twitter',
+                value: 'Twitter',
                 text: 'Twitter',
                 desc: 'Here is a Twitter Desc.'
             }, {
                 iconCls: 'fa fa-google-plus',
+                value: 'Google+',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
@@ -36,14 +39,17 @@ export default class GroupListExamples extends Component {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',
+                value: 'Android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
             }, {
                 iconCls: 'fa fa-apple',
+                value: 'Apple',
                 text: 'Apple',
                 desc: 'Here is a Apple Desc.'
             }, {
                 iconCls: 'fa fa-windows',
+                value: 'Windows',
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
             }]
@@ -83,9 +89,8 @@ export default class GroupListExamples extends Component {
                                     A <code>GroupList</code> with isGrouped.
                                 </p>
 
-                                <Paper style={{width: 240, height: 240}}>
-                                    <GroupList style={{width: 240, height: 240}}
-                                               mode={GroupList.Mode.CHECKBOX}
+                                <Paper>
+                                    <GroupList mode={GroupList.Mode.CHECKBOX}
                                                data={this.listData}
                                                onChange={this.changeHandler}/>
                                 </Paper>
