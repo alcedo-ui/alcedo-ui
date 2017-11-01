@@ -1,21 +1,25 @@
 /**
- * @file List style
+ * @file GroupList style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.list {
-    width: 200px;
-    background: $theme-field-bg;
-    overflow-x: hidden;
-    overflow-y: auto;
+.group-list {
+    color: inherit;
+
+    .group-list-group-title {
+        box-sizing: border-box;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        color: inherit;
+        padding: 0 8px;
+    }
 
     .list-separator {
         border-top: 1px solid $theme-border;
     }
 
-    &.grouped {
-        .list-item {
-            padding-left: 30px;
-        }
+    .list {
+        width: 100%;
     }
 }

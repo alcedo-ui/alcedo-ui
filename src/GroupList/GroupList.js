@@ -74,7 +74,13 @@ export default class GroupList extends Component {
 
     render() {
 
-        const {children, className, style, data, disabled} = this.props,
+        const {
+
+                children, className, style, data, disabled,
+
+                ...restProps
+
+            } = this.props,
             {value} = this.state,
 
             listClassName = (className ? ' ' + className : '');
@@ -95,10 +101,9 @@ export default class GroupList extends Component {
                             }
 
                             return (
-                                <div key={index}
-                                     className="group-list-group">
+                                <div key={index}>
                                     <div className="group-list-group-title">{item.name}</div>
-                                    <List {...this.props}
+                                    <List {...restProps}
                                           data={item.children}/>
                                 </div>
                             );
@@ -136,7 +141,7 @@ GroupList.propTypes = {
     /**
      * Children passed into the ListItem.
      */
-    data: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         // group name
         name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -225,7 +230,7 @@ GroupList.propTypes = {
 
         }), PropTypes.string, PropTypes.number]))
 
-    })), PropTypes.symbol]).isRequired,
+    }), PropTypes.symbol])).isRequired,
 
     /**
      * The id field name in data. (default: "id")
