@@ -68,7 +68,7 @@ export default class List extends Component {
         const {mode, valueField, displayField} = this.props,
             {value} = this.state;
 
-        if (!item || !value) {
+        if (!value) {
             return false;
         }
 
