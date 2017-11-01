@@ -16,8 +16,8 @@ import Calculation from '../_vendors/Calculation';
 
 export default class DynamicRenderList extends Component {
 
-    static Mode = DynamicRenderList.Mode;
-    static SEPARATOR = DynamicRenderList.SEPARATOR;
+    static Mode = List.Mode;
+    static SEPARATOR = List.SEPARATOR;
 
     constructor(props, ...restArgs) {
 
