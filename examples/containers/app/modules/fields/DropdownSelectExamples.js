@@ -32,44 +32,6 @@ export default class DropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.groupedData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                value: 'Facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                value: 'Twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                value: 'Google+',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                value: 'Android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                value: 'Apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                value: 'Windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
-        }];
-
         this.onChange = this::this.onChange;
 
     }
@@ -193,39 +155,6 @@ export default class DropdownSelectExamples extends Component {
                                     <DropdownSelect data={this.data}
                                                     autoClose={false}
                                                     mode={DropdownSelect.Mode.CHECKBOX}
-                                                    onChange={this.onChange}/>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <div className="field-group">
-
-                                    <p>Set the <code>isGrouped</code> property to true,the DropdownSelect will have
-                                        group.
-                                    </p>
-
-                                    <DropdownSelect style={{width: 240}}
-                                                    popupStyle={{maxHeight: 300}}
-                                                    data={this.groupedData}
-                                                    autoClose={false}
-                                                    multi={true}
-                                                    isGrouped={true}
-                                                    rightIconCls="fa fa-caret-down"
                                                     onChange={this.onChange}/>
 
                                 </div>
