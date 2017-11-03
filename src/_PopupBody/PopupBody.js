@@ -233,7 +233,7 @@ export default class PopupBody extends Component {
             if (!visible) {
                 this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
                 this.requestCloseTimeout = setTimeout(() => {
-                    this.hasMounted && onRequestClose && onRequestClose();
+                    this.hasMounted && onRequestClose && onRequestClose(e);
                 }, 250);
             }
         });
