@@ -12,7 +12,7 @@
     width: 200px;
     height: 40px;
 
-    .dropdown-select-trigger {
+    .dropdown-trigger {
         width: 100%;
         height: 100%;
         text-align: left;
@@ -21,7 +21,7 @@
             float: left;
         }
 
-        .dropdown-select-trigger-icon {
+        .dropdown-trigger-icon {
             float: right;
             margin: 0;
             color: inherit;
@@ -29,7 +29,7 @@
         }
 
         &.above {
-            .dropdown-select-trigger-icon {
+            .dropdown-trigger-icon {
                 transform: rotate(180deg);
             }
         }
@@ -37,7 +37,7 @@
         &.activated {
             @include shadow(4);
 
-            .dropdown-select-trigger-icon {
+            .dropdown-trigger-icon {
                 transform: rotate(180deg);
             }
 
@@ -46,7 +46,7 @@
                 border-top-right-radius: 0;
                 z-index: $popup-z-index + 1;
 
-                .dropdown-select-trigger-icon {
+                .dropdown-trigger-icon {
                     transform: rotate(0deg);
                 }
             }

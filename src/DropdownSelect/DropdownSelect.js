@@ -172,8 +172,7 @@ export default class DropdownSelect extends Component {
                 }
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '')
-                + (value ? '' : ' empty'),
+            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
             triggerValue = value ?
                 (
                     isMultiSelect ?
@@ -207,7 +206,7 @@ export default class DropdownSelect extends Component {
 
                 <Dropdown {...restProps}
                           ref="dropdown"
-                          className={'dropdown-select-trigger' + triggerClassName}
+                          triggerClassName={triggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}>
