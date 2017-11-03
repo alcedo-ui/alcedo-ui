@@ -3,78 +3,6 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-//.material-dropdown-select {
-//    position: relative;
-//    width: 200px;
-//    background: $theme-field-bg;
-//
-//    .material-dropdown-select-label {
-//        transform: translate(0, 0);
-//        color: $theme-highlight;
-//    }
-//
-//    .dropdown-select {
-//        width: 100%;
-//
-//        .dropdown-select-trigger {
-//            width: 100%;
-//            border: none;
-//            border-radius: 0;
-//            border-bottom: 1px solid $theme-border;
-//            padding-left: 8px;
-//            background: transparent;
-//            box-shadow: none !important;
-//
-//            .base-button-value {
-//                opacity: 1;
-//                transition: opacity $transition-duration ease-in-out;
-//            }
-//        }
-//    }
-//
-//    &.empty {
-//        .dropdown-select-trigger{
-//            .base-button-value{
-//                opacity: 0;
-//            }
-//        }
-//    }
-//
-//    &.animated {
-//
-//        .material-dropdown-select-label {
-//            height: 20px;
-//            line-height: 20px;
-//            transition: transform $transition-duration ease-in-out,
-//            color $transition-duration ease-in-out;
-//            transform: translate(8px, 30px);
-//            color: #999;
-//            transform-origin: top left;
-//
-//            &.has-value {
-//                transform: translate(0, 0);
-//                color: $theme-highlight;
-//            }
-//        }
-//    }
-//
-//    &.focused {
-//
-//        .material-dropdown-select-label {
-//            transform: translate(0, 0);
-//            color: $theme-highlight;
-//        }
-//
-//        .dropdown-select-trigger {
-//            .base-button-value {
-//                opacity: 1;
-//            }
-//        }
-//
-//    }
-//
-//}
-
 .material-dropdown-select {
     position: relative;
     width: 300px;
@@ -92,7 +20,7 @@
     .dropdown-select {
         width: 100%;
 
-        .dropdown-select-trigger {
+        .dropdown-trigger {
             width: 100%;
             border: none;
             border-radius: 0;
