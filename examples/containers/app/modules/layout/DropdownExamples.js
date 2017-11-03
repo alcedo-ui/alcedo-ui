@@ -37,8 +37,8 @@ export default class DropdownExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Dropdown>
-                                    <div></div>
+                                <Dropdown triggerValue="Toggle Dropdown">
+                                    <div className="dropdown-content">Dropdown content</div>
                                 </Dropdown>
 
                             </div>
