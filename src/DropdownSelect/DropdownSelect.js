@@ -204,7 +204,7 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, rightIconCls, data,
                 disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                isGrouped, itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut
+                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {value, filter, popupVisible, isAbove} = this.state,
 
@@ -336,31 +336,16 @@ export default class DropdownSelect extends Component {
                                 null
                         }
 
-                        {
-                            isGrouped ?
-                                <GroupList className="dropdown-select-list"
-                                           theme={popupTheme}
-                                           mode={mode}
-                                           data={listData.length < 1 ? emptyEl : listData}
-                                           value={value}
-                                           valueField={valueField}
-                                           displayField={displayField}
-                                           descriptionField={descriptionField}
-                                           onItemTouchTap={itemTouchTapHandle}
-                                           onChange={this.changeHandler}/>
-                                :
-                                <List className="dropdown-select-list"
-                                      theme={popupTheme}
-                                      mode={mode}
-                                      isGrouped={isGrouped}
-                                      data={listData.length < 1 ? emptyEl : listData}
-                                      value={value}
-                                      valueField={valueField}
-                                      displayField={displayField}
-                                      descriptionField={descriptionField}
-                                      onItemTouchTap={itemTouchTapHandle}
-                                      onChange={this.changeHandler}/>
-                        }
+                        <List className="dropdown-select-list"
+                              theme={popupTheme}
+                              mode={mode}
+                              data={listData.length < 1 ? emptyEl : listData}
+                              value={value}
+                              valueField={valueField}
+                              displayField={displayField}
+                              descriptionField={descriptionField}
+                              onItemTouchTap={itemTouchTapHandle}
+                              onChange={this.changeHandler}/>
 
                     </div>
 
@@ -553,11 +538,6 @@ DropdownSelect.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    /**
-     * If true,the drop-down box will be have group selection.
-     */
-    isGrouped: PropTypes.bool,
-
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
@@ -610,7 +590,6 @@ DropdownSelect.defaultProps = {
     useFilter: false,
     useSelectAll: false,
     noMatchedMsg: '',
-    isGrouped: false,
 
     shouldPreventContainerScroll: true
 
