@@ -36,14 +36,17 @@ export default class DropdownSelectExamples extends Component {
             name: 'socialNetwork',
             children: [{
                 iconCls: 'fa fa-facebook',
+                value: 'Facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
             }, {
                 iconCls: 'fa fa-twitter',
+                value: 'Twitter',
                 text: 'Twitter',
                 desc: 'Here is a Twitter Desc.'
             }, {
                 iconCls: 'fa fa-google-plus',
+                value: 'Google+',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
@@ -51,14 +54,17 @@ export default class DropdownSelectExamples extends Component {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',
+                value: 'Android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
             }, {
                 iconCls: 'fa fa-apple',
+                value: 'Apple',
                 text: 'Apple',
                 desc: 'Here is a Apple Desc.'
             }, {
                 iconCls: 'fa fa-windows',
+                value: 'Windows',
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
             }]
