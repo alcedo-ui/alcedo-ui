@@ -143,7 +143,7 @@ export default class DropdownSelect extends Component {
         const {
                 className, popupClassName, style, name, placeholder, popupTheme, data,
                 mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
+                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
 
                 ...restProps
 
@@ -268,6 +268,8 @@ export default class DropdownSelect extends Component {
                               onChange={this.changeHandler}/>
 
                     </div>
+
+                    {popupChildren}
 
                 </Dropdown>
 
@@ -460,6 +462,8 @@ DropdownSelect.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
 
+    popupChildren: PropTypes.any,
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -485,19 +489,19 @@ DropdownSelect.propTypes = {
 
 DropdownSelect.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    popupClassName: null,
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: '',
+    name: null,
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
     data: [],
-    invalidMsg: '',
+    invalidMsg: null,
     disabled: false,
     mode: List.Mode.NORMAL,
 
@@ -505,12 +509,14 @@ DropdownSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: '',
+    infoMsg: null,
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
-    noMatchedMsg: '',
+    noMatchedMsg: null,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    popupChildren: null
 
 };
