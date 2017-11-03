@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
+import Dropdown from '../Dropdown';
 import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -30,67 +31,25 @@ export default class DropdownSelect extends Component {
         this.state = {
             value: props.value,
             filter: '',
-            popupVisible: false,
-            isAbove: false
+            popupVisible: false
         };
 
-        this.isAbove = ::this.isAbove;
-        this.filterChangeHandle = ::this.filterChangeHandle;
-        this.togglePopup = ::this.togglePopup;
         this.closePopup = ::this.closePopup;
+        this.filterChangeHandler = ::this.filterChangeHandler;
         this.filterData = ::this.filterData;
-        this.popupRenderHandler = ::this.popupRenderHandler;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.wheelHandler = ::this.wheelHandler;
 
     }
 
-    isAbove() {
-
-        const dropdownSelect = this.refs.dropdownSelect;
-
-        if (!this.popupHeight || !dropdownSelect) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(dropdownSelect),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
-
+    closePopup() {
+        this.refs.dropdown.closePopup();
     }
 
-    filterChangeHandle(filter) {
+    filterChangeHandler(filter) {
         this.setState({
             filter
-        });
-    }
-
-    togglePopup(e) {
-
-        const popupVisible = !this.state.popupVisible;
-
-        this.setState({
-            popupVisible
-        }, () => {
-            const {onTriggerTouchTap, onFocus, onBlur} = this.props;
-            onTriggerTouchTap && onTriggerTouchTap(popupVisible);
-            popupVisible ? (onFocus && onFocus(e)) : (onBlur && onBlur(e));
-        });
-    }
-
-    closePopup(e) {
-        this.setState({
-            popupVisible: false
-        }, () => {
-            const {onClosePopup, onBlur} = this.props;
-            onClosePopup && onClosePopup(e);
-            onBlur && onBlur(e);
         });
     }
 
@@ -124,21 +83,6 @@ export default class DropdownSelect extends Component {
         }
 
         return filterFunc(data);
-
-    }
-
-    popupRenderHandler(popupEl) {
-
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
-
-        if (isAbove !== this.state.isAbove) {
-            this.setState({
-                isAbove
-            });
-        }
 
     }
 
@@ -186,11 +130,6 @@ export default class DropdownSelect extends Component {
         onWheel && onWheel(e);
     }
 
-    componentDidMount() {
-        this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
@@ -202,11 +141,14 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, rightIconCls, data,
-                disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut
+                className, style, name, placeholder, popupTheme, data,
+                mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
+                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
+
+                ...restProps
+
             } = this.props,
-            {value, filter, popupVisible, isAbove} = this.state,
+            {value, filter, popupVisible} = this.state,
 
             isMultiSelect = mode === List.Mode.CHECKBOX,
 
@@ -230,7 +172,7 @@ export default class DropdownSelect extends Component {
                 }
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
+            triggerClassName = (popupVisible ? ' activated' : '')
                 + (value ? '' : ' empty'),
             triggerValue = value ?
                 (
@@ -246,12 +188,6 @@ export default class DropdownSelect extends Component {
                 )
                 :
                 placeholder,
-
-            dropdownSelectPopupClassName = (isAbove ? ' above' : ' blow')
-                + (popupClassName ? ' ' + popupClassName : ''),
-            dropdownPopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle),
 
             listData = this.filterData();
 
@@ -269,28 +205,11 @@ export default class DropdownSelect extends Component {
                         null
                 }
 
-                <RaisedButton ref="trigger"
-                              className={'dropdown-select-trigger' + triggerClassName}
-                              theme={theme}
-                              value={triggerValue}
-                              rightIconCls={`${rightIconCls} dropdown-select-trigger-icon`}
-                              disabled={disabled}
-                              disableTouchRipple={disableTouchRipple}
-                              onMouseOver={onTriggerMouseOver}
-                              onMouseOut={onTriggerMouseOut}
-                              onTouchTap={this.togglePopup}/>
-
-                <Popup ref="popup"
-                       className={'dropdown-select-popup' + dropdownSelectPopupClassName}
-                       style={dropdownPopupStyle}
-                       theme={popupTheme}
-                       visible={popupVisible}
-                       triggerEl={this.triggerEl}
-                       hasTriangle={false}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       shouldPreventContainerScroll={false}
-                       onRender={this.popupRenderHandler}
-                       onRequestClose={this.closePopup}>
+                <Dropdown {...restProps}
+                          ref="dropdown"
+                          className={'dropdown-select-trigger' + triggerClassName}
+                          popupTheme={popupTheme}
+                          triggerValue={triggerValue}>
 
                     <div className="dropdown-select-popup-fixed">
 
@@ -299,7 +218,7 @@ export default class DropdownSelect extends Component {
                                 <TextField className="dropdown-select-filter"
                                            value={filter}
                                            rightIconCls="fa fa-search"
-                                           onChange={this.filterChangeHandle}/>
+                                           onChange={this.filterChangeHandler}/>
                                 :
                                 null
                         }
@@ -349,7 +268,7 @@ export default class DropdownSelect extends Component {
 
                     </div>
 
-                </Popup>
+                </Dropdown>
 
             </div>
         );
