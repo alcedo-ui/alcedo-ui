@@ -8,16 +8,11 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import RaisedButton from '../RaisedButton';
-import TextField from '../TextField';
 import Popup from '../Popup';
-import List from '../List';
-import GroupList from '../GroupList';
-import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
-import Event from '../_vendors/Event';
 
 export default class Dropdown extends Component {
 
@@ -198,7 +193,7 @@ Dropdown.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The theme.
+     * The popup theme.
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
@@ -226,6 +221,8 @@ Dropdown.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    shouldPreventContainerScroll: PropTypes.bool,
+
     /**
      * Callback function fired when the popup is closed.
      */
@@ -252,6 +249,8 @@ Dropdown.defaultProps = {
     rightIconCls: 'fa fa-angle-down',
     disabled: false,
     disableTouchRipple: false,
-    autoClose: true
+    autoClose: true,
+
+    shouldPreventContainerScroll: true
 
 };
