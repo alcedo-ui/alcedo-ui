@@ -3,10 +3,6 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin dropdown-theme($color) {
-    border-color: $color;
-}
-
 .dropdown {
     position: relative;
     width: 200px;
