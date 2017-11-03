@@ -4,14 +4,13 @@
  */
 
 .group-list {
-    color: inherit;
 
     .group-list-group-title {
         box-sizing: border-box;
         width: 100%;
         height: 30px;
         line-height: 30px;
-        color: inherit;
+        color: $theme-field;
         padding: 0 8px;
     }
 
