@@ -195,6 +195,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Tree',
                     component: ac(store, () => import('modules/layout/TreeExamples'))
+                }, {
+                    path: '/components/Dropdown',
+                    component: ac(store, () => import('modules/layout/DropdownExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

@@ -180,6 +180,9 @@ export default [{
     }, {
         text: 'Tree',
         route: '/components/Tree'
+    }, {
+        text: 'Dropdown',
+        route: '/components/Dropdown'
     }]
 }, {
     text: 'Loading',
