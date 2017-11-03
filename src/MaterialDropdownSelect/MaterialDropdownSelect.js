@@ -31,6 +31,7 @@ export default class MaterialDropdownSelect extends Component {
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
         this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
+        this.closePopup = ::this.closePopup;
 
     }
 
@@ -79,6 +80,10 @@ export default class MaterialDropdownSelect extends Component {
         });
     }
 
+    closePopup() {
+        this.refs.dropdownSelect.closePopup();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -118,6 +123,7 @@ export default class MaterialDropdownSelect extends Component {
                 }
 
                 <DropdownSelect {...restProps}
+                                ref="dropdownSelect"
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
                                 onBlur={this.triggerBlurHandler}
