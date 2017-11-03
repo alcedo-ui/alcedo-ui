@@ -34,13 +34,13 @@ export default class Dropdown extends Component {
 
     isAbove() {
 
-        const dropdownSelect = this.refs.dropdownSelect;
+        const dropdown = this.refs.dropdown;
 
-        if (!this.popupHeight || !dropdownSelect) {
+        if (!this.popupHeight || !dropdown) {
             return false;
         }
 
-        const {top} = Dom.getOffset(dropdownSelect),
+        const {top} = Dom.getOffset(dropdown),
             scrollTop = Dom.getScrollTop();
 
         if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
@@ -95,14 +95,6 @@ export default class Dropdown extends Component {
         this.triggerHeight = this.triggerEl.clientHeight;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     render() {
 
         const {
@@ -128,7 +120,7 @@ export default class Dropdown extends Component {
             }, popupStyle);
 
         return (
-            <div ref="dropdownSelect"
+            <div ref="dropdown"
                  className={'dropdown-select' + (className ? ' ' + className : '')}
                  style={style}>
 
