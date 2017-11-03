@@ -123,7 +123,6 @@ export default class PopupExamples extends Component {
                                 <Popup theme={Theme.PRIMARY}
                                        visible={popupVisible1}
                                        triggerEl={triggerEl1}
-                                       isAutoClose={false}
                                        onRequestClose={() => {
                                            this.closePopup(1);
                                        }}>
