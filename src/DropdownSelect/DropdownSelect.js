@@ -141,7 +141,7 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, style, name, placeholder, popupTheme, data,
+                className, popupClassName, style, name, placeholder, popupTheme, data,
                 mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
 
@@ -208,6 +208,7 @@ export default class DropdownSelect extends Component {
                 <Dropdown {...restProps}
                           ref="dropdown"
                           className={'dropdown-select-trigger' + triggerClassName}
+                          popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}>
 
