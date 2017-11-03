@@ -113,9 +113,8 @@ export default class Dropdown extends Component {
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
 
-            popupClassName = (isAbove ? ' above' : ' blow')
-                + (popupClassName ? ' ' + popupClassName : ''),
-            popupStyle = Object.assign({
+            dropdownPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            dropdownPopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle);
 
@@ -136,8 +135,8 @@ export default class Dropdown extends Component {
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
-                       className={'dropdown-select-popup' + popupClassName}
-                       style={popupStyle}
+                       className={'dropdown-select-popup' + dropdownPopupClassName}
+                       style={dropdownPopupStyle}
                        theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
