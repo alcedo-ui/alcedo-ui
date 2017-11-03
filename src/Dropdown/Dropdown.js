@@ -99,8 +99,7 @@ export default class Dropdown extends Component {
 
         const {
 
-                // style
-                className, popupClassName, style, popupStyle, theme, popupTheme,
+                children, className, popupClassName, style, popupStyle, theme, popupTheme,
 
                 // trigger
                 triggerValue, placeholder, rightIconCls, disabled, disableTouchRipple,
