@@ -81,7 +81,7 @@ export default class MaterialDropdownSelect extends Component {
     }
 
     closePopup() {
-        this.refs.dropdownSelect.closePopup();
+        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
     }
 
     componentWillReceiveProps(nextProps) {
