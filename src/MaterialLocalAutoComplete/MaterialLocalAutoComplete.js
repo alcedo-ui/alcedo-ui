@@ -33,6 +33,7 @@ export default class MaterialLocalAutoComplete extends Component {
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
         this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
+        this.closePopup = ::this.closePopup;
 
     }
 
@@ -90,6 +91,10 @@ export default class MaterialLocalAutoComplete extends Component {
         });
     }
 
+    closePopup() {
+        this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -129,6 +134,7 @@ export default class MaterialLocalAutoComplete extends Component {
                 }
 
                 <LocalAutoComplete {...restProps}
+                                   ref="localAutoComplete"
                                    popupClassName={'material-local-auto-complete-popup ' + popupClassName}
                                    theme={theme}
                                    value={value}
