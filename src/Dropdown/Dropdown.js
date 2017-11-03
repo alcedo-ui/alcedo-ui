@@ -99,7 +99,10 @@ export default class Dropdown extends Component {
 
         const {
 
-                children, className, popupClassName, style, popupStyle, theme, popupTheme,
+                children,
+
+                // style
+                className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
 
                 // trigger
                 triggerValue, placeholder, rightIconCls, disabled, disableTouchRipple,
@@ -110,7 +113,8 @@ export default class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow'),
+            selfTriggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
+                + (triggerClassName ? ' ' + triggerClassName : ''),
 
             dropdownPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
             dropdownPopupStyle = Object.assign({
@@ -123,7 +127,8 @@ export default class Dropdown extends Component {
                  style={style}>
 
                 <RaisedButton ref="trigger"
-                              className={'dropdown-trigger' + triggerClassName}
+                              className={'dropdown-trigger' + selfTriggerClassName}
+                              style={triggerStyle}
                               theme={theme}
                               value={triggerValue}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
@@ -163,6 +168,11 @@ Dropdown.propTypes = {
     className: PropTypes.string,
 
     /**
+     * The class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
+
+    /**
      * The class name of the popup element.
      */
     popupClassName: PropTypes.string,
@@ -171,6 +181,11 @@ Dropdown.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * Override the styles of the trigger element.
+     */
+    triggerStyle: PropTypes.object,
 
     /**
      * Override the styles of the popup element.
@@ -227,9 +242,11 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    triggerClassName: null,
+    popupClassName: null,
     style: null,
+    triggerStyle: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
