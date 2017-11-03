@@ -11,6 +11,7 @@ import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
+import GroupList from '../GroupList';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
@@ -38,7 +39,7 @@ export default class DropdownSelect extends Component {
         this.togglePopup = ::this.togglePopup;
         this.closePopup = ::this.closePopup;
         this.filterData = ::this.filterData;
-        this.popupRenderHandle = ::this.popupRenderHandle;
+        this.popupRenderHandler = ::this.popupRenderHandler;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.wheelHandler = ::this.wheelHandler;
@@ -126,7 +127,7 @@ export default class DropdownSelect extends Component {
 
     }
 
-    popupRenderHandle(popupEl) {
+    popupRenderHandler(popupEl) {
 
         this.popupEl = findDOMNode(popupEl);
         this.popupHeight = this.popupEl.offsetHeight;
@@ -288,7 +289,7 @@ export default class DropdownSelect extends Component {
                        hasTriangle={false}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                        shouldPreventContainerScroll={false}
-                       onRender={this.popupRenderHandle}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
 
                     <div className="dropdown-select-popup-fixed">
@@ -335,17 +336,32 @@ export default class DropdownSelect extends Component {
                                 null
                         }
 
-                        <List className="dropdown-select-list"
-                              theme={popupTheme}
-                              mode={mode}
-                              isGrouped={isGrouped}
-                              data={listData.length < 1 ? emptyEl : listData}
-                              value={value}
-                              valueField={valueField}
-                              displayField={displayField}
-                              descriptionField={descriptionField}
-                              onItemTouchTap={itemTouchTapHandle}
-                              onChange={this.changeHandler}/>
+                        {
+                            isGrouped ?
+                                <GroupList className="dropdown-select-list"
+                                           theme={popupTheme}
+                                           mode={mode}
+                                           data={listData.length < 1 ? emptyEl : listData}
+                                           value={value}
+                                           valueField={valueField}
+                                           displayField={displayField}
+                                           descriptionField={descriptionField}
+                                           onItemTouchTap={itemTouchTapHandle}
+                                           onChange={this.changeHandler}/>
+                                :
+                                <List className="dropdown-select-list"
+                                      theme={popupTheme}
+                                      mode={mode}
+                                      isGrouped={isGrouped}
+                                      data={listData.length < 1 ? emptyEl : listData}
+                                      value={value}
+                                      valueField={valueField}
+                                      displayField={displayField}
+                                      descriptionField={descriptionField}
+                                      onItemTouchTap={itemTouchTapHandle}
+                                      onChange={this.changeHandler}/>
+                        }
+
                     </div>
 
                 </Popup>
