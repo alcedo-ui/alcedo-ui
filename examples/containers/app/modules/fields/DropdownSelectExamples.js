@@ -66,10 +66,8 @@ export default class DropdownSelectExamples extends Component {
                                 <p><code>Dropdown Select</code> simple example.</p>
 
                                 <div className="field-group">
-
                                     <DropdownSelect data={this.data}
                                                     onChange={this.onChange}/>
-
                                 </div>
 
                             </div>
@@ -92,11 +90,9 @@ export default class DropdownSelectExamples extends Component {
                                     choose one item.</p>
 
                                 <div className="field-group">
-
                                     <DropdownSelect theme={Theme.PRIMARY}
                                                     data={this.data}
                                                     onChange={this.onChange}/>
-
                                 </div>
 
                             </div>
