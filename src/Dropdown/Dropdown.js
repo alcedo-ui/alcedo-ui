@@ -119,14 +119,14 @@ export default class Dropdown extends Component {
 
         return (
             <div ref="dropdown"
-                 className={'dropdown-select' + (className ? ' ' + className : '')}
+                 className={'dropdown' + (className ? ' ' + className : '')}
                  style={style}>
 
                 <RaisedButton ref="trigger"
-                              className={'dropdown-select-trigger' + triggerClassName}
+                              className={'dropdown-trigger' + triggerClassName}
                               theme={theme}
                               value={triggerValue}
-                              rightIconCls={`${rightIconCls} dropdown-select-trigger-icon`}
+                              rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
                               onMouseOver={onTriggerMouseOver}
@@ -134,7 +134,7 @@ export default class Dropdown extends Component {
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
-                       className={'dropdown-select-popup' + dropdownPopupClassName}
+                       className={'dropdown-popup' + dropdownPopupClassName}
                        style={dropdownPopupStyle}
                        theme={popupTheme}
                        visible={popupVisible}
