@@ -75,7 +75,6 @@ export default class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
-                                                   noMatchedPopupVisible={false}
                                                    onChange={this.onChange}
                                                    onFilterPressEnter={this.filterPressEnterHandle}
                                                    onFilterClear={this.filterClearHandle}/>
