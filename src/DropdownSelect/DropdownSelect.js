@@ -150,7 +150,7 @@ export default class DropdownSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isMultiSelect = mode === List.Mode.CHECKBOX,
+            isMultiSelect = mode === DropdownSelect.Mode.CHECKBOX,
 
             emptyEl = [{
                 itemRenderer() {
@@ -415,7 +415,7 @@ DropdownSelect.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
+    mode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -502,7 +502,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    mode: List.Mode.NORMAL,
+    mode: DropdownSelect.Mode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
