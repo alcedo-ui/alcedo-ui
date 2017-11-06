@@ -21,7 +21,7 @@ export default class MaterialDropdownSelect extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: '',
+            value: props.value,
             isFocus: false,
             isHover: false
         };
@@ -355,20 +355,20 @@ MaterialDropdownSelect.propTypes = {
 
 MaterialDropdownSelect.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    popupClassName: null,
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
 
-    name: '',
-    label: '',
+    name: null,
+    label: null,
     isLabelAnimate: true,
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
     data: [],
-    invalidMsg: '',
+    invalidMsg: null,
     disabled: false,
     mode: MaterialDropdownSelect.Mode.NORMAL,
 
@@ -376,11 +376,11 @@ MaterialDropdownSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: '',
+    infoMsg: null,
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
-    noMatchedMsg: '',
+    noMatchedMsg: null,
     isGrouped: false,
 
     shouldPreventContainerScroll: true
