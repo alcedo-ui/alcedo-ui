@@ -40,6 +40,7 @@ export default class DropdownSelect extends Component {
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.wheelHandler = ::this.wheelHandler;
+        this.popupClosedHandler = ::this.popupClosedHandler;
 
     }
 
@@ -108,16 +109,14 @@ export default class DropdownSelect extends Component {
 
     changeHandler(value) {
 
-        const {autoClose} = this.props,
-            state = {
-                value
-            };
-
+        const {autoClose} = this.props;
         if (autoClose) {
-            state.popupVisible = false;
+            this.closePopup();
         }
 
-        this.setState(state, () => {
+        this.setState({
+            value
+        }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
@@ -128,6 +127,15 @@ export default class DropdownSelect extends Component {
         const {shouldPreventContainerScroll, onWheel} = this.props;
         shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
+    }
+
+    popupClosedHandler(e) {
+        this.setState({
+            popupVisible: false
+        }, () => {
+            const {onClosePopup} = this.props;
+            onClosePopup && onClosePopup(e);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -209,7 +217,8 @@ export default class DropdownSelect extends Component {
                           triggerClassName={triggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
-                          triggerValue={triggerValue}>
+                          triggerValue={triggerValue}
+                          onClosePopup={this.popupClosedHandler}>
 
                     <div className="dropdown-select-popup-fixed">
 
