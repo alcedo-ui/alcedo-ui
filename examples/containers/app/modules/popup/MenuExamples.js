@@ -81,12 +81,15 @@ export default class MenuExamples extends Component {
             } = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
+                value: 'Facebook',
                 text: 'Facebook'
             }, {
                 iconCls: 'fa fa-twitter',
+                value: 'Twitter',
                 text: 'Twitter'
             }, {
                 iconCls: 'fa fa-google-plus',
+                value: 'Google+',
                 text: 'Google+'
             }];
 
@@ -164,7 +167,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(3);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                             </div>
@@ -269,7 +272,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(4);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible5}
                                       triggerEl={triggerEl5}
@@ -277,7 +280,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(5);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible6}
                                       triggerEl={triggerEl6}
@@ -285,7 +288,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(6);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                                 <Menu visible={menuVisible7}
@@ -294,7 +297,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(7);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible8}
                                       triggerEl={triggerEl8}
@@ -302,7 +305,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(8);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible9}
                                       triggerEl={triggerEl9}
@@ -310,7 +313,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(9);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                                 <Menu visible={menuVisible10}
@@ -319,7 +322,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(10);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible11}
                                       triggerEl={triggerEl11}
@@ -327,7 +330,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(11);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible12}
                                       triggerEl={triggerEl12}
@@ -335,7 +338,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(12);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                                 <Menu visible={menuVisible13}
@@ -344,7 +347,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(13);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible14}
                                       triggerEl={triggerEl14}
@@ -352,7 +355,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(14);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible15}
                                       triggerEl={triggerEl15}
@@ -360,7 +363,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(15);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                             </div>
