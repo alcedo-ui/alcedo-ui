@@ -69,7 +69,7 @@ export default class LocalAutoComplete extends Component {
             return data;
         }
 
-        const {displayField, filterCallback, isGrouped} = this.props;
+        const {displayField, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
@@ -81,23 +81,6 @@ export default class LocalAutoComplete extends Component {
                 :
                 item.toString().toUpperCase().includes(filter.toUpperCase()));
         };
-
-        if (isGrouped) {
-            return data.map(group => {
-
-                const children = filterFunc(group.children);
-
-                if (children.length < 1) {
-                    return;
-                } else {
-                    return {
-                        ...group,
-                        children
-                    };
-                }
-
-            }).filter(item => !!item);
-        }
 
         return filterFunc(data);
 
@@ -215,7 +198,7 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, isGrouped, mode,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, mode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
                 onTriggerMouseOver, onTriggerMouseOut
@@ -311,7 +294,6 @@ export default class LocalAutoComplete extends Component {
                                           theme={popupTheme}
                                           value={value}
                                           mode={mode || List.Mode.NORMAL}
-                                          isGrouped={isGrouped}
                                           data={listData}
                                           valueField={valueField}
                                           displayField={displayField}
@@ -504,11 +486,6 @@ LocalAutoComplete.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    /**
-     * If true,the list data will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
     popupChildren: PropTypes.any,
 
     /**
@@ -577,7 +554,6 @@ LocalAutoComplete.defaultProps = {
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: null,
-    isGrouped: false,
 
     popupChildren: null
 
