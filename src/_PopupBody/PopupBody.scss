@@ -298,11 +298,11 @@
     }
 
     &.popup-animated {
-        transition: left 0s, opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out;
+        transition: left 0s, opacity $theme-transition-duration ease-in-out, transform $theme-transition-duration ease-in-out;
 
         &.hidden {
-            transition: left 0s $transition-duration, opacity $transition-duration ease-in-out,
-            transform $transition-duration ease-in-out;
+            transition: left 0s $theme-transition-duration, opacity $theme-transition-duration ease-in-out,
+            transform $theme-transition-duration ease-in-out;
         }
     }
 

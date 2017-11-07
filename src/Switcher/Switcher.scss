@@ -33,7 +33,7 @@
         background-color: $theme-field-bg;
         border: 2px solid $theme-border;
         border-radius: 30px;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
     }
 
     .switcher-label {
@@ -70,7 +70,7 @@
         top: 0;
         left: 0;
         transform: translate(-10px, -10px);
-        transition: transform $transition-duration ease-in-out;
+        transition: transform $theme-transition-duration ease-in-out;
 
         .switcher-slider {
             @include shadow(2);

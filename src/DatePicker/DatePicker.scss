@@ -58,7 +58,7 @@
         background: #FFF;
         border-radius: $theme-border-radius;
         z-index: $popup-z-index;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
 
         &.hidden {
             width: 100%;

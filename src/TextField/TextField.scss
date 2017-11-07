@@ -28,7 +28,7 @@ input:focus {
     color: $theme-field;
     background-color: $theme-field-bg;
     border: 1px solid $theme-border;
-    transition: border-color $transition-duration ease-in-out;
+    transition: border-color $theme-transition-duration ease-in-out;
 
     .icon-button {
         height: 100%;

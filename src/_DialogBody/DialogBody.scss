@@ -15,8 +15,8 @@
     &.hidden {
         opacity: 0 !important;
         left: -99999px !important;
-        transition: left 0s $transition-duration,
-        opacity $transition-duration ease-in-out;
+        transition: left 0s $theme-transition-duration,
+        opacity $theme-transition-duration ease-in-out;
     }
 }
 
@@ -26,8 +26,8 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    transition: left 0s, opacity $transition-duration ease-in-out,
-    transform $transition-duration ease-in-out;
+    transition: left 0s, opacity $theme-transition-duration ease-in-out,
+    transform $theme-transition-duration ease-in-out;
     z-index: $dialog-z-index;
     box-sizing: border-box;
     overflow: hidden;
@@ -83,9 +83,9 @@
         opacity: 0 !important;
         left: -99999px !important;
         transform: translate(-50%, -70%);
-        transition: left 0s $transition-duration,
-        opacity $transition-duration ease-in-out,
-        transform $transition-duration ease-in-out;
+        transition: left 0s $theme-transition-duration,
+        opacity $theme-transition-duration ease-in-out,
+        transform $theme-transition-duration ease-in-out;
     }
 
 }

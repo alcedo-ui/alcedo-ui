@@ -18,7 +18,7 @@
         border: 1px solid $theme-border;
         color: $theme-field;
         background-color: $theme-field-bg;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
         box-sizing: border-box;
         padding: 0 40px 0 15px;
         font-size: 12px;

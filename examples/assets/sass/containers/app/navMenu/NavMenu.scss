@@ -10,7 +10,7 @@
     box-sizing: border-box;
     overflow: hidden;
     transition-property: width, opacity, transform !important;
-    transition-duration: $transition-duration !important;
+    transition-duration: $theme-transition-duration !important;
     transition-timing-function: ease-in-out !important;
     z-index: $menu-z-index;
 
@@ -78,7 +78,7 @@
                         height: 50px;
                         line-height: 50px;
                         text-align: center;
-                        transition: all $transition-duration ease-in-out;
+                        transition: all $theme-transition-duration ease-in-out;
 
                         &.collapsed {
                             transform: rotate(-90deg);
@@ -101,7 +101,7 @@
 
                 .nav-menu-children {
                     overflow: hidden;
-                    transition: all $transition-duration ease-in-out;
+                    transition: all $theme-transition-duration ease-in-out;
                 }
 
                 &.hasChildren {

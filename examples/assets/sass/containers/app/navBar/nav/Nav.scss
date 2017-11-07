@@ -20,7 +20,7 @@
         height: 60px;
         overflow: visible;
         box-sizing: border-box;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
 
         .github-icon {
             position: absolute;

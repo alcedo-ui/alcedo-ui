@@ -16,7 +16,7 @@
         line-height: 12px;
         text-align: center;
         color: $theme-secondary;
-        transition: color $transition-duration ease-in-out;
+        transition: color $theme-transition-duration ease-in-out;
     }
 
     &.asc {

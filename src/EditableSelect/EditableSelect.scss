@@ -16,7 +16,7 @@
         .editable-select-trigger-icon {
             margin: 0;
             color: inherit;
-            transition: all $transition-duration ease-in-out;
+            transition: all $theme-transition-duration ease-in-out;
         }
 
         &.activated {

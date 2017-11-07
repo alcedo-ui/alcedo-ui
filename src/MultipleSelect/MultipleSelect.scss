@@ -19,7 +19,7 @@
         border-top-right-radius: 4px;
         cursor: default;
         user-select: none;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
 
         .multiple-select-selected-count {
             margin: 4px;
@@ -83,7 +83,7 @@
 
     .multiple-select-trigger {
         @include shadow(0);
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
 
         &.focused {
             border-color: $theme-border;
