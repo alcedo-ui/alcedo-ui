@@ -125,7 +125,8 @@ export default class List extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
+            const {onItemSelect, onChange} = this.props;
+            onItemSelect && onItemSelect(item, index);
             onChange && onChange(value, index);
         });
 
@@ -154,7 +155,8 @@ export default class List extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
+            const {onItemDeselect, onChange} = this.props;
+            onItemDeselect && onItemDeselect(item, index);
             onChange && onChange(value, index);
         });
 
@@ -410,9 +412,19 @@ List.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the list-item select.
+     * Callback function fired when the list-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item select.
+     */
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item deselect.
+     */
+    onItemDeselect: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.
