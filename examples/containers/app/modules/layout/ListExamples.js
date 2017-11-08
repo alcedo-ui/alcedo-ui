@@ -85,12 +85,18 @@ export default class ListExamples extends Component {
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.changeHandle = this::this.changeHandle;
-
     }
 
-    changeHandle(value) {
-        console.log(value);
+    changeHandler(value, index) {
+        console.log('change::', value);
+    }
+
+    itemSelectHandler(value, index) {
+        console.log('select::', value);
+    }
+
+    itemDeselectHandler(value, index) {
+        console.log('deselect::', value);
     }
 
     render() {
@@ -213,9 +219,11 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          mode={List.Mode.RADIO}
+                                          mode={List.Mode.CHECKBOX}
                                           data={this.descListData}
-                                          onChange={this.changeHandle}/>
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                             </div>
