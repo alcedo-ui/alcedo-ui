@@ -387,28 +387,6 @@ export default class Table extends Component {
 
     }
 
-    // wdithHandle() {
-    //     const columns = this.props.columns;
-    //
-    //     let finalColumns = _.cloneDeep(columns);
-    //
-    //     let flagFlex = finalColumns.every(function (item) {
-    //         return item.flex && typeof item.flex == "number"
-    //     });
-    //
-    //     if (flagFlex) {
-    //         let sum = 0;
-    //         finalColumns.forEach(function (item) {
-    //             sum += item.flex;
-    //         });
-    //
-    //         for (let i = 0; i < finalColumns.length; i++) {
-    //             finalColumns[i].width = (100 / sum) * finalColumns[i].flex
-    //         }
-    //     }
-    //
-    // }
-
     render() {
 
         const {
@@ -739,7 +717,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
 
     columns: [],
