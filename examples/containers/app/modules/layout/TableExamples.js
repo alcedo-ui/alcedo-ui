@@ -27,6 +27,8 @@ export default class TableExamples extends Component {
             flex: 1
         }, {
             header: 'Name',
+            sortable: true,
+            sortProp: 'firstName',
             renderer: '${firstName} - ${lastName}',
             flex: 2
         }, {
