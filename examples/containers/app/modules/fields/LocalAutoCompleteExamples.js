@@ -50,7 +50,7 @@ export default class LocalAutoCompleteExamples extends Component {
     render() {
 
         return (
-            <div className="example auto-complete-examples">
+            <div className="example">
 
                 <h2 className="example-title">LocalAutoComplete</h2>
 
