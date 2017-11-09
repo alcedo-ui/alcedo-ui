@@ -166,12 +166,9 @@ export default class DropdownFilter extends Component {
 
     changeHandler(value) {
 
-        const {autoClose, valueField, displayField} = this.props,
-            state = {
-                value
-            };
+        const state = {value};
 
-        if (autoClose) {
+        if (this.props.autoClose) {
             state.popupVisible = false;
         }
 
