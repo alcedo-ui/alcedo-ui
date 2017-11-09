@@ -41,7 +41,7 @@ export default class MaterialDropdownSelectExamples extends Component {
 
     render() {
         return (
-            <div className="example tree-select-examples">
+            <div className="example material-dropdown-select-examples">
 
                 <h2 className="examples-title">MaterialDropdownSelect</h2>
 
