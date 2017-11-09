@@ -17,8 +17,6 @@ import Dom from '../_vendors/Dom';
 
 export default class LocalAutoComplete extends Component {
 
-    static Mode = List.Mode;
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -168,7 +166,8 @@ export default class LocalAutoComplete extends Component {
 
         const {autoClose, valueField, displayField} = this.props,
             state = {
-                value
+                value,
+                filter: Util.getTextByDisplayField(value, displayField, valueField)
             };
 
         if (autoClose) {
@@ -198,7 +197,7 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, mode,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
                 onTriggerMouseOver, onTriggerMouseOut
@@ -287,13 +286,11 @@ export default class LocalAutoComplete extends Component {
                                 isEmpty ?
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
-                                          mode={List.Mode.NORMAL}
                                           data={emptyEl}/>
                                     :
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
                                           value={value}
-                                          mode={mode || List.Mode.NORMAL}
                                           data={listData}
                                           valueField={valueField}
                                           displayField={displayField}
@@ -455,11 +452,6 @@ LocalAutoComplete.propTypes = {
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
-
-    /**
-     * The type of dropDown list,can be normal,checkbox,radio.
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
      * Callback function fired when filter changed.
