@@ -39,6 +39,7 @@ export LinearProgress from './LinearProgress';
 export List from './List';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
+export MaterialDropdownFilter from './MaterialDropdownFilter';
 export MaterialDropdownSelect from './MaterialDropdownSelect';
 export MaterialLocalAutoComplete from './MaterialLocalAutoComplete';
 export MaterialTextArea from './MaterialTextArea';
@@ -79,4 +80,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 79;
+export const COMPONENTS_TOTAL_COUNT = 80;

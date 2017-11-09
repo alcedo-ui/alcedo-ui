@@ -135,6 +135,9 @@ export default [{
     children: [{
         text: 'DropdownFilter',
         route: '/components/DropdownFilter'
+    }, {
+        text: 'MaterialDropdownFilter',
+        route: '/components/MaterialDropdownFilter'
     }]
 }, {
     text: 'Progress',
