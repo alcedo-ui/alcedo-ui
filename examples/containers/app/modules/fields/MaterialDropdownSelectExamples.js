@@ -70,6 +70,7 @@ export default class MaterialDropdownSelectExamples extends Component {
                                                             placeholder="Placeholder"
                                                             mode={MaterialDropdownSelect.Mode.CHECKBOX}
                                                             useSelectAll={true}
+                                                            autoClose={false}
                                                             data={this.data}/>
                                 </div>
                             </div>
