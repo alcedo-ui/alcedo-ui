@@ -74,8 +74,8 @@ export default class List extends Component {
 
         if (mode === List.Mode.CHECKBOX) {
             return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
         } else if (mode === List.Mode.RADIO) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
@@ -202,7 +202,7 @@ export default class List extends Component {
 
                                 return typeof item === 'object' ?
                                     (
-                                        <ListItem key={item[idField] || item[valueField]}
+                                        <ListItem key={item[idField] || index}
                                                   {...item}
                                                   index={index}
                                                   style={{height: itemHeight}}
@@ -229,7 +229,7 @@ export default class List extends Component {
                                     )
                                     :
                                     (
-                                        <ListItem key={item}
+                                        <ListItem key={index}
                                                   index={index}
                                                   style={{height: itemHeight}}
                                                   theme={item.theme || theme}
