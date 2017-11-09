@@ -6,13 +6,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import LocalAutoComplete from '../LocalAutoComplete';
+import DropdownFilter from '../DropdownFilter';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class MaterialDropdownFilter extends Component {
+
+    static Mode = DropdownFilter.Mode;
 
     constructor(props, ...restArgs) {
 
@@ -119,29 +121,29 @@ export default class MaterialDropdownFilter extends Component {
                 + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'material-dropdown-filter' + wrapperClassName}
+            <div className={'material-local-auto-complete' + wrapperClassName}
                  style={style}>
 
                 {
                     label ?
-                        <div className="material-dropdown-filter-label">
+                        <div className="material-local-auto-complete-label">
                             {label}
                         </div>
                         :
                         null
                 }
 
-                <LocalAutoComplete {...restProps}
-                                   ref="localAutoComplete"
-                                   popupClassName={'material-dropdown-filter-popup ' + popupClassName}
-                                   theme={theme}
-                                   value={value}
-                                   onFocus={this.triggerFocusHandler}
-                                   onBlur={this.triggerBlurHandler}
-                                   onTriggerMouseOver={this.triggerMouseOverHandler}
-                                   onTriggerMouseOut={this.triggerMouseOutHandler}
-                                   onFilterChange={this.triggerFilterChangeHandler}
-                                   onChange={this.triggerChangeHandler}/>
+                <DropdownFilter {...restProps}
+                                ref="localAutoComplete"
+                                popupClassName={'material-local-auto-complete-popup ' + popupClassName}
+                                theme={theme}
+                                value={value}
+                                onFocus={this.triggerFocusHandler}
+                                onBlur={this.triggerBlurHandler}
+                                onTriggerMouseOver={this.triggerMouseOverHandler}
+                                onTriggerMouseOut={this.triggerMouseOutHandler}
+                                onFilterChange={this.triggerFilterChangeHandler}
+                                onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
@@ -293,6 +295,11 @@ MaterialDropdownFilter.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     * The type of dropDown list,can be normal,checkbox,radio.
+     */
+    mode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
+
+    /**
      * Callback function fired when filter changed.
      */
     filterCallback: PropTypes.func,
@@ -357,12 +364,12 @@ MaterialDropdownFilter.propTypes = {
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when LocalAutoComplete get focus.
+     * Callback function fired when DropdownFilter get focus.
      */
     onFocus: PropTypes.func,
 
     /**
-     * Callback function fired when LocalAutoComplete lose focus.
+     * Callback function fired when DropdownFilter lose focus.
      */
     onBlur: PropTypes.func,
 
