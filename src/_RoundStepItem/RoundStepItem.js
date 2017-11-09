@@ -12,7 +12,24 @@ export default class RoundStepItem extends Component {
 
         super(props, ...restArgs);
 
+        this.getRightBarClassName = ::this.getRightBarClassName;
         this.touchTapHandler = ::this.touchTapHandler;
+
+    }
+
+    getRightBarClassName() {
+
+        const {activatedStep, finishedStep, index} = this.props;
+
+        if (finishedStep > index || activatedStep > index) {
+            return ' full';
+        }
+
+        if (activatedStep === index) {
+            return '';
+        }
+
+        return ' hidden';
 
     }
 
@@ -45,8 +62,8 @@ export default class RoundStepItem extends Component {
                 }
 
                 {
-                    !isLast && (finishedStep > index || activatedStep > index) ?
-                        <div className="right-bar"></div>
+                    !isLast ?
+                        <div className={'right-bar' + this.getRightBarClassName()}></div>
                         :
                         null
                 }
