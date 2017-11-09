@@ -7,8 +7,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import LocalAutoCompleteDoc from 'assets/propTypes/LocalAutoComplete.json';
 
-import 'sass/containers/app/modules/fields/LocalAutoCompleteExamples.scss';
-
 export default class LocalAutoCompleteExamples extends Component {
 
     constructor(props) {
