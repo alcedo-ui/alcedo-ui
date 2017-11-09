@@ -26,7 +26,7 @@ export default class MaterialLocalAutoComplete extends Component {
         };
 
         this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.popupClosedHandler = ::this.popupClosedHandler;
         this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
@@ -44,12 +44,9 @@ export default class MaterialLocalAutoComplete extends Component {
         });
     }
 
-    triggerBlurHandler(...args) {
+    popupClosedHandler() {
         this.setState({
             isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
         });
     }
 
@@ -137,7 +134,7 @@ export default class MaterialLocalAutoComplete extends Component {
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
-                                   onBlur={this.triggerBlurHandler}
+                                   onPopupClosed={this.popupClosedHandler}
                                    onTriggerMouseOver={this.triggerMouseOverHandler}
                                    onTriggerMouseOut={this.triggerMouseOutHandler}
                                    onFilterChange={this.triggerFilterChangeHandler}
