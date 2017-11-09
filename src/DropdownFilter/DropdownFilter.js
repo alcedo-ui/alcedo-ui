@@ -146,6 +146,9 @@ export default class DropdownFilter extends Component {
     closePopup() {
         this.setState({
             popupVisible: false
+        }, () => {
+            const {onPopupClosed} = this.props;
+            onPopupClosed && onPopupClosed();
         });
     }
 
@@ -512,7 +515,8 @@ DropdownFilter.propTypes = {
     onBlur: PropTypes.func,
 
     onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onTriggerMouseOut: PropTypes.func,
+    onPopupClosed: PropTypes.func
 
 };
 
