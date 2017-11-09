@@ -144,6 +144,9 @@ export default class LocalAutoComplete extends Component {
     closePopup() {
         this.setState({
             popupVisible: false
+        }, () => {
+            const {onPopupClosed} = this.props;
+            onPopupClosed && onPopupClosed();
         });
     }
 
@@ -521,7 +524,8 @@ LocalAutoComplete.propTypes = {
     onBlur: PropTypes.func,
 
     onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onTriggerMouseOut: PropTypes.func,
+    onPopupClosed: PropTypes.func
 
 };
 
