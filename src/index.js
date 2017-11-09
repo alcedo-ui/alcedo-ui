@@ -21,6 +21,7 @@ export DownloadField from './DownloadField';
 export DraggableGrid from './DraggableGrid';
 export DraggableList from './DraggableList';
 export Dropdown from './Dropdown';
+export DropdownFilter from './DropdownFilter';
 export DropdownSelect from './DropdownSelect';
 export DynamicRenderList from './DynamicRenderList';
 export EditableField from './EditableField';
@@ -78,4 +79,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 78;
+export const COMPONENTS_TOTAL_COUNT = 79;
