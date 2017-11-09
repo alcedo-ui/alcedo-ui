@@ -73,9 +73,10 @@ export default class MaterialDropdownFilterExamples extends Component {
                                 <p><code>MaterialDropdownFilter</code> simple example.</p>
 
                                 <MaterialDropdownFilter theme={Theme.HIGHLIGHT}
-                                                        data={this.data}
                                                         label="Label"
                                                         placeholder="Please select ..."
+                                                        data={this.data}
+                                                        mode={MaterialDropdownFilter.Mode.CHECKBOX}
                                                         onChange={this.onChange}
                                                         onFilterPressEnter={this.filterPressEnterHandle}
                                                         onFilterClear={this.filterClearHandle}/>
