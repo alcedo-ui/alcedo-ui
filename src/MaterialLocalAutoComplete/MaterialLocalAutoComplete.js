@@ -14,8 +14,6 @@ import Util from '../_vendors/Util';
 
 export default class MaterialLocalAutoComplete extends Component {
 
-    static Mode = LocalAutoComplete.Mode;
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -293,11 +291,6 @@ MaterialLocalAutoComplete.propTypes = {
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
-
-    /**
-     * The type of dropDown list,can be normal,checkbox,radio.
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
 
     /**
      * Callback function fired when filter changed.
