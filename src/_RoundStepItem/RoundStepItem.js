@@ -41,7 +41,10 @@ export default class RoundStepItem extends Component {
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
+        const {
+                className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
+                showFinishedStepIcon, finishedStepIconCls
+            } = this.props,
 
             itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
                 + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
@@ -71,8 +74,8 @@ export default class RoundStepItem extends Component {
                 <div className="round"
                      onTouchTap={this.touchTapHandler}>
                     {
-                        finishedStep > index ?
-                            <i className="fa fa-check"
+                        showFinishedStepIcon && finishedStep > index ?
+                            <i className={finishedStepIconCls}
                                aria-hidden="true"></i>
                             :
                             (index + 1)
@@ -101,6 +104,9 @@ RoundStepItem.propTypes = {
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
 
+    showFinishedStepIcon: PropTypes.bool,
+    finishedStepIconCls: PropTypes.string,
+
     onTouchTap: PropTypes.func
 
 };
@@ -115,6 +121,9 @@ RoundStepItem.defaultProps = {
     index: 0,
     value: {},
     isFirst: true,
-    isLast: false
+    isLast: false,
+
+    showFinishedStepIcon: true,
+    finishedStepIconCls: 'fa fa-check'
 
 };
