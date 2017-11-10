@@ -149,6 +149,7 @@ RoundStep.defaultProps = {
 
     activatedStep: 0,
     finishedStep: 0,
+
     showFinishedStepIcon: true,
     finishedStepIconCls: 'fa fa-check'
 
