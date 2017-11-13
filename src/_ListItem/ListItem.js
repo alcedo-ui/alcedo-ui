@@ -241,12 +241,12 @@ ListItem.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of the list button.
+     * The theme of the list item.
      */
     theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
-     * The theme of the list button.
+     * The theme of the list item select radio or checkbox.
      */
     selectTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
