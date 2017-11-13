@@ -150,7 +150,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder, popupTheme, data,
-                mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
+                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
 
                 ...restProps
@@ -158,7 +158,7 @@ export default class DropdownSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isMultiSelect = mode === DropdownSelect.Mode.MULTI_SELECT,
+            isMultiSelect = selectMode === DropdownSelect.Mode.MULTI_SELECT,
 
             emptyEl = [{
                 itemRenderer() {
@@ -266,7 +266,7 @@ export default class DropdownSelect extends Component {
 
                         <List className="dropdown-select-list"
                               theme={popupTheme}
-                              mode={mode}
+                              selectMode={selectMode}
                               data={listData.length < 1 ? emptyEl : listData}
                               value={value}
                               valueField={valueField}
@@ -422,9 +422,9 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * The mode of listItem.Can be normal,checkbox.
+     * The select mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -511,7 +511,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    mode: DropdownSelect.Mode.NORMAL,
+    selectMode: DropdownSelect.Mode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',

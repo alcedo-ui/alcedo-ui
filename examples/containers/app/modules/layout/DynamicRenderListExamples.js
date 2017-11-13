@@ -55,7 +55,7 @@ export default class DynamicRenderListExamples extends Component {
 
                                 <Paper>
                                     <DynamicRenderList data={this.listData}
-                                                       mode={DynamicRenderList.Mode.MULTI_SELECT}
+                                                       selectMode={DynamicRenderList.SelectMode.MULTI_SELECT}
                                                        onChange={this.changeHandler}/>
                                 </Paper>
 

@@ -214,12 +214,12 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with mode.Can be normal,radio,checkbox.
+                                    A <code>List</code> with select mode.Can be normal,radio,checkbox.
                                 </p>
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          mode={List.Mode.MULTI_SELECT}
+                                          selectMode={List.Mode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
                                           onItemSelect={this.itemSelectHandler}

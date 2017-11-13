@@ -25,13 +25,13 @@ export default class Tbody extends Component {
 
     isItemChecked(rowData) {
 
-        const {mode, idProp, value} = this.props;
+        const {selectMode, idProp, value} = this.props;
 
-        if (mode === Tbody.Mode.NORMAL || !rowData || !value) {
+        if (selectMode === Tbody.Mode.NORMAL || !rowData || !value) {
             return false;
         }
 
-        switch (mode) {
+        switch (selectMode) {
             case Tbody.Mode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
             case Tbody.Mode.SINGLE_SELECT:
@@ -77,7 +77,7 @@ Tbody.propTypes = {
     data: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
-    mode: PropTypes.oneOf(Util.enumerateValue(Tbody.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(Tbody.Mode)),
     disabled: PropTypes.bool,
 
     isItemChecked: PropTypes.func,
@@ -92,6 +92,6 @@ Tbody.defaultProps = {
     columns: [],
     startIndex: 0,
     idProp: 'id',
-    mode: Tbody.Mode.NORMAL,
+    selectMode: Tbody.Mode.NORMAL,
     disabled: false
 };

@@ -51,9 +51,9 @@ export default class DraggableList extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -61,7 +61,7 @@ export default class DraggableList extends Component {
             return value;
         }
 
-        switch (mode) {
+        switch (selectMode) {
             case DraggableList.Mode.MULTI_SELECT:
                 return [];
             case DraggableList.Mode.SINGLE_SELECT:
@@ -74,18 +74,18 @@ export default class DraggableList extends Component {
 
     isItemChecked(item) {
 
-        const {mode, valueField, displayField} = this.props,
+        const {selectMode, valueField, displayField} = this.props,
             {value} = this.state;
 
         if (!item || !value) {
             return false;
         }
 
-        if (mode === DraggableList.Mode.MULTI_SELECT) {
+        if (selectMode === DraggableList.Mode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                 return Util.isValueEqual(valueItem, item, valueField, displayField);
             }).length > 0;
-        } else if (mode === DraggableList.Mode.SINGLE_SELECT) {
+        } else if (selectMode === DraggableList.Mode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -132,7 +132,7 @@ export default class DraggableList extends Component {
     listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {
-            valueField, displayField, descriptionField, disabled, isLoading, mode, anchorIconCls, isDraggableAnyWhere,
+            valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
             renderer
         } = this.props;
 
@@ -169,7 +169,7 @@ export default class DraggableList extends Component {
                                                groupIndex={groupIndex}
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
-                                               mode={mode}
+                                               selectMode={selectMode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={(e) => {
@@ -196,7 +196,7 @@ export default class DraggableList extends Component {
                                                groupIndex={groupIndex}
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
-                                               mode={mode}
+                                               selectMode={selectMode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
@@ -277,15 +277,15 @@ export default class DraggableList extends Component {
 
     listItemSelectHandler(item, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode === DraggableList.Mode.NORMAL) {
+        if (selectMode === DraggableList.Mode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (mode === DraggableList.Mode.MULTI_SELECT) {
+        if (selectMode === DraggableList.Mode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -293,7 +293,7 @@ export default class DraggableList extends Component {
 
             value.push(item);
 
-        } else if (mode === DraggableList.Mode.SINGLE_SELECT) {
+        } else if (selectMode === DraggableList.Mode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -308,9 +308,9 @@ export default class DraggableList extends Component {
 
     listItemDeselectHandler(item, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode !== DraggableList.Mode.MULTI_SELECT) {
+        if (selectMode !== DraggableList.Mode.MULTI_SELECT) {
             return;
         }
 

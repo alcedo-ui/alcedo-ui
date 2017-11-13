@@ -89,13 +89,13 @@ export default class DraggableListItem extends Component {
             return;
         }
 
-        const {mode} = this.props,
+        const {selectMode} = this.props,
             callback = () => {
                 const {onTouchTap} = this.props;
                 onTouchTap && onTouchTap(e);
             };
 
-        switch (mode) {
+        switch (selectMode) {
             case DraggableListItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
@@ -122,7 +122,7 @@ export default class DraggableListItem extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                selectMode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
                 onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
@@ -146,7 +146,7 @@ export default class DraggableListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        mode === DraggableListItem.Mode.MULTI_SELECT ?
+                        selectMode === DraggableListItem.Mode.MULTI_SELECT ?
                             <Checkbox className="draggable-list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -155,7 +155,7 @@ export default class DraggableListItem extends Component {
                     }
 
                     {
-                        mode === DraggableListItem.Mode.SINGLE_SELECT ?
+                        selectMode === DraggableListItem.Mode.SINGLE_SELECT ?
                             <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -326,7 +326,7 @@ DraggableListItem.propTypes = {
     /**
      *
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DraggableListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(DraggableListItem.Mode)),
 
     /**
      *
@@ -397,7 +397,7 @@ DraggableListItem.defaultProps = {
 
     checked: false,
 
-    mode: DraggableListItem.Mode.NORMAL,
+    selectMode: DraggableListItem.Mode.NORMAL,
 
     isGroupTitle: false,
 

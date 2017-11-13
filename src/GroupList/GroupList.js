@@ -37,9 +37,9 @@ export default class GroupList extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -47,7 +47,7 @@ export default class GroupList extends Component {
             return value;
         }
 
-        switch (mode) {
+        switch (selectMode) {
             case GroupList.Mode.MULTI_SELECT:
                 return [];
             case GroupList.Mode.SINGLE_SELECT:
@@ -265,7 +265,7 @@ GroupList.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(GroupList.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(GroupList.Mode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -304,7 +304,7 @@ GroupList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: GroupList.Mode.NORMAL,
+    selectMode: GroupList.Mode.NORMAL,
     shouldPreventContainerScroll: true
 
 };

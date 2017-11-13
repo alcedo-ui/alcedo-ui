@@ -294,7 +294,7 @@ MaterialDropdownFilter.propTypes = {
     /**
      * The type of dropDown list,can be normal,checkbox,radio.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
 
     /**
      * Callback function fired when filter changed.

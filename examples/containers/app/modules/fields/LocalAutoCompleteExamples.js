@@ -94,12 +94,12 @@ export default class LocalAutoCompleteExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>LocalAutoComplete</code> with default mode, <code> normal</code>
+                                    <code>LocalAutoComplete</code> with default select mode, <code> normal</code>
                                     , <code>checkbox</code>, <code>radio</code> applied.
                                 </p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   mode="checkbox"
+                                                   selectMode={LocalAutoComplete.SelectMode.MULTI_SELECT}
                                                    data={this.data}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>

@@ -198,7 +198,7 @@ export default class DropdownFilter extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, mode,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, selectMode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
                 onTriggerMouseOver, onTriggerMouseOut
@@ -278,13 +278,13 @@ export default class DropdownFilter extends Component {
                                 isEmpty ?
                                     <List className="dropdown-filter-list"
                                           theme={popupTheme}
-                                          mode={List.Mode.NORMAL}
+                                          selectMode={List.Mode.NORMAL}
                                           data={emptyEl}/>
                                     :
                                     <List className="dropdown-filter-list"
                                           theme={popupTheme}
                                           value={value}
-                                          mode={mode || List.Mode.NORMAL}
+                                          selectMode={selectMode || List.Mode.NORMAL}
                                           data={listData}
                                           valueField={valueField}
                                           displayField={displayField}
@@ -445,7 +445,7 @@ DropdownFilter.propTypes = {
     /**
      * The type of dropDown list,can be normal,checkbox,radio.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
 
     /**
      * Callback function fired when filter changed.

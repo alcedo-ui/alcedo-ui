@@ -77,9 +77,9 @@ export default class ListItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        switch (mode) {
+        switch (selectMode) {
             case ListItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
@@ -103,7 +103,7 @@ export default class ListItem extends Component {
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, selectMode, renderer, itemRenderer, readOnly,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -131,7 +131,7 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        mode === ListItem.Mode.MULTI_SELECT ?
+                        selectMode === ListItem.Mode.MULTI_SELECT ?
                             <Checkbox className="list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -140,7 +140,7 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        mode === ListItem.Mode.SINGLE_SELECT ?
+                        selectMode === ListItem.Mode.SINGLE_SELECT ?
                             <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -314,7 +314,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
 
     /**
      *
@@ -383,7 +383,7 @@ ListItem.defaultProps = {
 
     checked: false,
 
-    mode: ListItem.Mode.NORMAL,
+    selectMode: ListItem.Mode.NORMAL,
 
     readOnly: false,
 

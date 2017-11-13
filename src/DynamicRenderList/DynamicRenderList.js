@@ -41,9 +41,9 @@ export default class DynamicRenderList extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -51,7 +51,7 @@ export default class DynamicRenderList extends Component {
             return value;
         }
 
-        switch (mode) {
+        switch (selectMode) {
             case DynamicRenderList.Mode.MULTI_SELECT:
                 return [];
             case DynamicRenderList.Mode.SINGLE_SELECT:
@@ -275,9 +275,9 @@ DynamicRenderList.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * The mode of listItem.Can be normal,checkbox.
+     * The select mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DynamicRenderList.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(DynamicRenderList.Mode)),
 
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
@@ -325,7 +325,7 @@ DynamicRenderList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: DynamicRenderList.Mode.NORMAL,
+    selectMode: DynamicRenderList.Mode.NORMAL,
     listHeight: 200,
     itemHeight: 40,
     scrollBuffer: 4,

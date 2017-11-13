@@ -77,9 +77,9 @@ export default class GridItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        switch (mode) {
+        switch (selectMode) {
             case GridItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
@@ -102,7 +102,7 @@ export default class GridItem extends Component {
 
         const {
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, selectMode, renderer, itemRenderer, readOnly,
                 onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
@@ -128,7 +128,7 @@ export default class GridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            mode === GridItem.Mode.MULTI_SELECT ?
+                            selectMode === GridItem.Mode.MULTI_SELECT ?
                                 <Checkbox className="grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -137,7 +137,7 @@ export default class GridItem extends Component {
                         }
 
                         {
-                            mode === GridItem.Mode.SINGLE_SELECT ?
+                            selectMode === GridItem.Mode.SINGLE_SELECT ?
                                 <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :
@@ -317,7 +317,7 @@ GridItem.propTypes = {
     /**
      *
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
 
     /**
      *
@@ -382,7 +382,7 @@ GridItem.defaultProps = {
 
     checked: false,
 
-    mode: GridItem.Mode.NORMAL,
+    selectMode: GridItem.Mode.NORMAL,
 
     readOnly: false
 

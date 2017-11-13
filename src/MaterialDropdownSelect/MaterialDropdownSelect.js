@@ -283,7 +283,7 @@ MaterialDropdownSelect.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(MaterialDropdownSelect.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(MaterialDropdownSelect.Mode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -370,7 +370,7 @@ MaterialDropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    mode: MaterialDropdownSelect.Mode.NORMAL,
+    selectMode: MaterialDropdownSelect.Mode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',

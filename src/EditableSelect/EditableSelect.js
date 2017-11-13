@@ -285,7 +285,7 @@ export default class EditableSelect extends Component {
                           data={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           value={listValue}
-                          mode={List.Mode.SINGLE_SELECT}
+                          selectMode={List.Mode.SINGLE_SELECT}
                           displayField={displayField}
                           descriptionField={descriptionField}
                           onItemTouchTap={onItemTouchTap}

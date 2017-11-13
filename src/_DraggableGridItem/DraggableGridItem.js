@@ -111,13 +111,13 @@ export default class DraggableGridItem extends Component {
             return;
         }
 
-        const {mode} = this.props,
+        const {selectMode} = this.props,
             callback = () => {
                 const {onTouchTap} = this.props;
                 onTouchTap && onTouchTap(e);
             };
 
-        switch (mode) {
+        switch (selectMode) {
             case DraggableGridItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
@@ -162,7 +162,7 @@ export default class DraggableGridItem extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                selectMode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
                 tip, tipPosition, onMouseLeave
             } = this.props,
             {checked, tipVisible, tipTriggerEl} = this.state,
@@ -190,7 +190,7 @@ export default class DraggableGridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            mode === DraggableGridItem.Mode.MULTI_SELECT ?
+                            selectMode === DraggableGridItem.Mode.MULTI_SELECT ?
                                 <Checkbox className="draggable-grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -199,7 +199,7 @@ export default class DraggableGridItem extends Component {
                         }
 
                         {
-                            mode === DraggableGridItem.Mode.SINGLE_SELECT ?
+                            selectMode === DraggableGridItem.Mode.SINGLE_SELECT ?
                                 <i className={'fa fa-check draggable-grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :
@@ -325,7 +325,7 @@ DraggableGridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
     checked: PropTypes.bool,
-    mode: PropTypes.oneOf(Util.enumerateValue(DraggableGridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(DraggableGridItem.Mode)),
     groupIndex: PropTypes.number,
     isGroupTitle: PropTypes.bool,
     anchorIconCls: PropTypes.string,
@@ -365,7 +365,7 @@ DraggableGridItem.defaultProps = {
 
     checked: false,
 
-    mode: DraggableGridItem.Mode.NORMAL,
+    selectMode: DraggableGridItem.Mode.NORMAL,
 
     isGroupTitle: false,
 

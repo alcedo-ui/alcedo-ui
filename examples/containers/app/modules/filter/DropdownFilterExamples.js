@@ -72,7 +72,7 @@ export default class DropdownFilterExamples extends Component {
                                 <p><code>DropdownFilter</code> simple example.</p>
 
                                 <DropdownFilter data={this.data}
-                                                mode={DropdownFilter.Mode.MULTI_SELECT}
+                                                selectMode={DropdownFilter.SelectMode.MULTI_SELECT}
                                                 placeholder="Please select ..."
                                                 onChange={this.onChange}
                                                 onFilterPressEnter={this.filterPressEnterHandle}

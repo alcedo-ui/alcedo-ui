@@ -90,7 +90,7 @@ export default class GroupListExamples extends Component {
                                 </p>
 
                                 <Paper>
-                                    <GroupList mode={GroupList.Mode.MULTI_SELECT}
+                                    <GroupList selectMode={GroupList.Mode.MULTI_SELECT}
                                                data={this.listData}
                                                onChange={this.changeHandler}/>
                                 </Paper>

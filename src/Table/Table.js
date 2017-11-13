@@ -76,9 +76,9 @@ export default class Table extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -86,7 +86,7 @@ export default class Table extends Component {
             return value;
         }
 
-        switch (mode) {
+        switch (selectMode) {
             case Table.Mode.MULTI_SELECT:
                 return [];
             case Table.Mode.SINGLE_SELECT:
@@ -127,13 +127,13 @@ export default class Table extends Component {
 
     isItemChecked(rowData, value = this.state.value) {
 
-        const {mode, idProp} = this.props;
+        const {selectMode, idProp} = this.props;
 
-        if (mode === Table.Mode.NORMAL || !rowData || !value) {
+        if (selectMode === Table.Mode.NORMAL || !rowData || !value) {
             return false;
         }
 
-        switch (mode) {
+        switch (selectMode) {
             case Table.Mode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
             case Table.Mode.SINGLE_SELECT:
@@ -272,9 +272,9 @@ export default class Table extends Component {
         const {onRowTouchTap} = this.props;
         onRowTouchTap && onRowTouchTap(rowData, rowIndex);
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        switch (mode) {
+        switch (selectMode) {
             case Table.Mode.MULTI_SELECT:
                 this.itemCheckBoxChangeHandler(rowData, rowIndex);
                 return;
@@ -299,10 +299,10 @@ export default class Table extends Component {
 
     calSelectedCount() {
 
-        const {mode} = this.props,
+        const {selectMode} = this.props,
             {value} = this.state;
 
-        switch (mode) {
+        switch (selectMode) {
             case Table.Mode.MULTI_SELECT:
                 return value.length;
             case Table.Mode.SINGLE_SELECT:
@@ -388,7 +388,7 @@ export default class Table extends Component {
 
         const {
 
-                className, style, data, columns, hasLineNumber, mode, pageSizes, disabled,
+                className, style, data, columns, hasLineNumber, selectMode, pageSizes, disabled,
 
                 sortAscIconCls, sortDescIconCls,
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
@@ -404,13 +404,14 @@ export default class Table extends Component {
             {value, sort, pagging} = this.state,
             self = this,
 
-            tableClassName = (mode === Table.Mode.MULTI_SELECT || mode === Table.Mode.SINGLE_SELECT ? ' selectable' : '')
+            tableClassName =
+                (selectMode === Table.Mode.MULTI_SELECT || selectMode === Table.Mode.SINGLE_SELECT ? ' selectable' : '')
                 + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
 
-        if (mode === Table.Mode.MULTI_SELECT) {
+        if (selectMode === Table.Mode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
                 header() {
@@ -427,7 +428,7 @@ export default class Table extends Component {
                                      disabled={disabled || rowData.disabled}/>;
                 }
             });
-        } else if (mode === Table.Mode.SINGLE_SELECT) {
+        } else if (selectMode === Table.Mode.SINGLE_SELECT) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
@@ -478,7 +479,7 @@ export default class Table extends Component {
                                          data={finalData}
                                          idProp={idProp}
                                          value={value}
-                                         mode={mode}
+                                         selectMode={selectMode}
                                          disabled={disabled}
                                          onRowTouchTap={this.rowTouchTapHandler}
                                          onCellTouchTap={this.cellTouchTapHandler}/>
@@ -623,7 +624,7 @@ Table.propTypes = {
     /**
      * The type of table list.Can be checkbox,radio,normal.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
 
     disabled: PropTypes.bool,
 
@@ -722,7 +723,7 @@ Table.defaultProps = {
     value: null,
     hasLineNumber: false,
 
-    mode: Table.Mode.NORMAL,
+    selectMode: Table.Mode.NORMAL,
     disabled: false,
     idProp: 'id',
     isPagging: true,
