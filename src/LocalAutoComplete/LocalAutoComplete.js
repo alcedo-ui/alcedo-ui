@@ -25,7 +25,7 @@ export default class LocalAutoComplete extends Component {
 
         this.state = {
             value: props.value,
-            filter: '',
+            filter: props.filterInitValue,
             popupVisible: false,
             isAbove: false
         };
@@ -483,6 +483,8 @@ LocalAutoComplete.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    filterInitValue: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -550,6 +552,7 @@ LocalAutoComplete.defaultProps = {
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: null,
+    filterInitValue: '',
 
     popupChildren: null
 
