@@ -14,10 +14,11 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
+import SelectMode from '../_statics/SelectMode';
 
 export default class DropdownFilter extends Component {
 
-    static Mode = List.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -278,13 +279,13 @@ export default class DropdownFilter extends Component {
                                 isEmpty ?
                                     <List className="dropdown-filter-list"
                                           theme={popupTheme}
-                                          selectMode={List.Mode.NORMAL}
+                                          selectMode={List.SelectMode.NORMAL}
                                           data={emptyEl}/>
                                     :
                                     <List className="dropdown-filter-list"
                                           theme={popupTheme}
                                           value={value}
-                                          selectMode={selectMode || List.Mode.NORMAL}
+                                          selectMode={selectMode || List.SelectMode.NORMAL}
                                           data={listData}
                                           valueField={valueField}
                                           displayField={displayField}
@@ -445,7 +446,7 @@ DropdownFilter.propTypes = {
     /**
      * The type of dropDown list,can be normal,checkbox,radio.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * Callback function fired when filter changed.
@@ -536,6 +537,7 @@ DropdownFilter.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
+    selectMode: SelectMode.NORMAL,
     iconCls: null,
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
