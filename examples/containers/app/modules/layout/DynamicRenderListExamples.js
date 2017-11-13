@@ -18,7 +18,10 @@ export default class DynamicRenderListExamples extends Component {
 
         this.listData = [];
         for (let i = 0; i < 10000; i++) {
-            this.listData.push(i);
+            this.listData.push({
+                id: i,
+                value: i
+            });
         }
 
         this.changeHandler = this::this.changeHandler;
