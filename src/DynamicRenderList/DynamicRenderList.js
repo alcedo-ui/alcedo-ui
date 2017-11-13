@@ -34,6 +34,7 @@ export default class DynamicRenderList extends Component {
         this.getIndex = ::this.getIndex;
         this.scrollHandler = ::this.scrollHandler;
         this.wheelHandler = ::this.wheelHandler;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
@@ -85,6 +86,15 @@ export default class DynamicRenderList extends Component {
         onWheel && onWheel(e);
     }
 
+    changeHandler(value) {
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+    }
+
     componentDidMount() {
         this.listEl = this.refs.list;
     }
@@ -132,7 +142,8 @@ export default class DynamicRenderList extends Component {
                     <List {...restProps}
                           style={{transform: `translate3d(0, ${index.startWithBuffer * itemHeight}px, 0)`}}
                           data={filteredData}
-                          value={value}/>
+                          value={value}
+                          onChange={this.changeHandler}/>
 
                 </div>
 
