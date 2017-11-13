@@ -331,26 +331,26 @@ ListItem.defaultProps = {
 
     index: 0,
 
-    className: '',
+    className: null,
     style: null,
 
     theme: Theme.DEFAULT,
-    selectTheme: Theme.SUCCESS,
+    selectTheme: Theme.DEFAULT,
 
-    data: '',
-    value: '',
-    text: '',
-    desc: '',
+    data: null,
+    value: null,
+    text: null,
+    desc: null,
 
     disabled: false,
     isLoading: false,
 
     disableTouchRipple: false,
 
-    iconCls: '',
-    rightIconCls: '',
+    iconCls: null,
+    rightIconCls: null,
 
-    tip: '',
+    tip: null,
     tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
