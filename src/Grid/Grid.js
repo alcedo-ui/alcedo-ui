@@ -59,9 +59,9 @@ export default class Grid extends Component {
         }
 
         switch (mode) {
-            case Grid.Mode.CHECKBOX:
+            case Grid.Mode.MULTI_SELECT:
                 return [];
-            case Grid.Mode.RADIO:
+            case Grid.Mode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -106,11 +106,11 @@ export default class Grid extends Component {
             return false;
         }
 
-        if (mode === Grid.Mode.CHECKBOX) {
+        if (mode === Grid.Mode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                 return Util.isValueEqual(valueItem, item, valueField, displayField);
             }).length > 0;
-        } else if (mode === Grid.Mode.RADIO) {
+        } else if (mode === Grid.Mode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -239,7 +239,7 @@ export default class Grid extends Component {
 
         let {value} = this.state;
 
-        if (mode === Grid.Mode.CHECKBOX) {
+        if (mode === Grid.Mode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -247,7 +247,7 @@ export default class Grid extends Component {
 
             value.push(item);
 
-        } else if (mode === Grid.Mode.RADIO) {
+        } else if (mode === Grid.Mode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -264,7 +264,7 @@ export default class Grid extends Component {
 
         const {mode} = this.props;
 
-        if (mode !== Grid.Mode.CHECKBOX) {
+        if (mode !== Grid.Mode.MULTI_SELECT) {
             return;
         }
 

@@ -53,9 +53,9 @@ export default class List extends Component {
         }
 
         switch (mode) {
-            case List.Mode.CHECKBOX:
+            case List.Mode.MULTI_SELECT:
                 return [];
-            case List.Mode.RADIO:
+            case List.Mode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -72,11 +72,11 @@ export default class List extends Component {
             return false;
         }
 
-        if (mode === List.Mode.CHECKBOX) {
+        if (mode === List.Mode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                     return Util.isValueEqual(valueItem, item, valueField, displayField);
                 }).length > 0;
-        } else if (mode === List.Mode.RADIO) {
+        } else if (mode === List.Mode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -110,7 +110,7 @@ export default class List extends Component {
 
         let {value} = this.state;
 
-        if (mode === List.Mode.CHECKBOX) {
+        if (mode === List.Mode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -118,7 +118,7 @@ export default class List extends Component {
 
             value.push(item);
 
-        } else if (mode === List.Mode.RADIO) {
+        } else if (mode === List.Mode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -136,7 +136,7 @@ export default class List extends Component {
 
         const {mode} = this.props;
 
-        if (mode !== List.Mode.CHECKBOX) {
+        if (mode !== List.Mode.MULTI_SELECT) {
             return;
         }
 

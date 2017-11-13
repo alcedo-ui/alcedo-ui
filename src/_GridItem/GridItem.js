@@ -17,9 +17,9 @@ import Util from '../_vendors/Util';
 export default class GridItem extends Component {
 
     static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
+        NORMAL: Symbol('NORMAL'),
+        MULTI_SELECT: Symbol('MULTI_SELECT'),
+        SINGLE_SELECT: Symbol('SINGLE_SELECT')
     };
 
     constructor(props, ...restArgs) {
@@ -83,10 +83,10 @@ export default class GridItem extends Component {
         const {mode} = this.props;
 
         switch (mode) {
-            case GridItem.Mode.CHECKBOX:
+            case GridItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case GridItem.Mode.RADIO:
+            case GridItem.Mode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -131,7 +131,7 @@ export default class GridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            mode === GridItem.Mode.CHECKBOX ?
+                            mode === GridItem.Mode.MULTI_SELECT ?
                                 <Checkbox className="grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -140,7 +140,7 @@ export default class GridItem extends Component {
                         }
 
                         {
-                            mode === GridItem.Mode.RADIO ?
+                            mode === GridItem.Mode.SINGLE_SELECT ?
                                 <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :

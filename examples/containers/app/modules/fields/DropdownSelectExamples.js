@@ -119,7 +119,7 @@ export default class DropdownSelectExamples extends Component {
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
                                                     useSelectAll={true}
-                                                    mode={DropdownSelect.Mode.CHECKBOX}
+                                                    mode={DropdownSelect.Mode.MULTI_SELECT}
                                                     autoClose={false}
                                                     onChange={this.onChange}/>
 
@@ -144,13 +144,13 @@ export default class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <p>
-                                        Set the <code>mod</code> property to <code>DropdownSelect.Mode.CHECKBOX</code>,
+                                        Set the <code>mod</code> property to <code>DropdownSelect.Mode.MULTI_SELECT</code>,
                                         the DropdownSelect can be Multiselect.
                                     </p>
 
                                     <DropdownSelect data={this.data}
                                                     autoClose={false}
-                                                    mode={DropdownSelect.Mode.CHECKBOX}
+                                                    mode={DropdownSelect.Mode.MULTI_SELECT}
                                                     onChange={this.onChange}/>
 
                                 </div>

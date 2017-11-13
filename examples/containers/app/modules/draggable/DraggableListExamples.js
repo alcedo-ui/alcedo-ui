@@ -103,7 +103,7 @@ export default class DraggableListExamples extends Component {
 
                                 <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
-                                                   mode={DraggableList.Mode.CHECKBOX}
+                                                   mode={DraggableList.Mode.MULTI_SELECT}
                                                    items={this.listData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
@@ -131,7 +131,7 @@ export default class DraggableListExamples extends Component {
 
                                 <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
-                                                   mode={DraggableList.Mode.CHECKBOX}
+                                                   mode={DraggableList.Mode.MULTI_SELECT}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
                                                    isDraggableAnyWhere={true}

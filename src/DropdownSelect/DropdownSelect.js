@@ -158,7 +158,7 @@ export default class DropdownSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isMultiSelect = mode === DropdownSelect.Mode.CHECKBOX,
+            isMultiSelect = mode === DropdownSelect.Mode.MULTI_SELECT,
 
             emptyEl = [{
                 itemRenderer() {

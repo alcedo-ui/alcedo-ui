@@ -27,9 +27,9 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 export default class DraggableListItem extends Component {
 
     static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
+        NORMAL: Symbol('NORMAL'),
+        MULTI_SELECT: Symbol('MULTI_SELECT'),
+        SINGLE_SELECT: Symbol('SINGLE_SELECT')
     };
 
     constructor(props, ...restArgs) {
@@ -99,10 +99,10 @@ export default class DraggableListItem extends Component {
             };
 
         switch (mode) {
-            case DraggableListItem.Mode.CHECKBOX:
+            case DraggableListItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            case DraggableListItem.Mode.RADIO:
+            case DraggableListItem.Mode.SINGLE_SELECT:
                 this.radioChangeHandler(callback);
                 return;
             case DraggableListItem.Mode.NORMAL:
@@ -149,7 +149,7 @@ export default class DraggableListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        mode === DraggableListItem.Mode.CHECKBOX ?
+                        mode === DraggableListItem.Mode.MULTI_SELECT ?
                             <Checkbox className="draggable-list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -158,7 +158,7 @@ export default class DraggableListItem extends Component {
                     }
 
                     {
-                        mode === DraggableListItem.Mode.RADIO ?
+                        mode === DraggableListItem.Mode.SINGLE_SELECT ?
                             <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :

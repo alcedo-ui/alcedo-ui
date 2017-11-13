@@ -21,9 +21,9 @@ import Calculation from '../_vendors/Calculation';
 export default class Table extends Component {
 
     static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
+        NORMAL: Symbol('NORMAL'),
+        MULTI_SELECT: Symbol('MULTI_SELECT'),
+        SINGLE_SELECT: Symbol('SINGLE_SELECT')
     };
 
     constructor(props, ...restArgs) {
@@ -90,9 +90,9 @@ export default class Table extends Component {
         }
 
         switch (mode) {
-            case Table.Mode.CHECKBOX:
+            case Table.Mode.MULTI_SELECT:
                 return [];
-            case Table.Mode.RADIO:
+            case Table.Mode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -137,9 +137,9 @@ export default class Table extends Component {
         }
 
         switch (mode) {
-            case Table.Mode.CHECKBOX:
+            case Table.Mode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Table.Mode.RADIO:
+            case Table.Mode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -278,10 +278,10 @@ export default class Table extends Component {
         const {mode} = this.props;
 
         switch (mode) {
-            case Table.Mode.CHECKBOX:
+            case Table.Mode.MULTI_SELECT:
                 this.itemCheckBoxChangeHandler(rowData, rowIndex);
                 return;
-            case Table.Mode.RADIO:
+            case Table.Mode.SINGLE_SELECT:
                 this.itemRadioChangeHandler(rowData, rowIndex);
                 return;
         }
@@ -306,9 +306,9 @@ export default class Table extends Component {
             {value} = this.state;
 
         switch (mode) {
-            case Table.Mode.CHECKBOX:
+            case Table.Mode.MULTI_SELECT:
                 return value.length;
-            case Table.Mode.RADIO:
+            case Table.Mode.SINGLE_SELECT:
                 return value ? 1 : 0;
         }
 
@@ -407,13 +407,13 @@ export default class Table extends Component {
             {value, sort, pagging} = this.state,
             self = this,
 
-            tableClassName = (mode === Table.Mode.CHECKBOX || mode === Table.Mode.RADIO ? ' selectable' : '')
+            tableClassName = (mode === Table.Mode.MULTI_SELECT || mode === Table.Mode.SINGLE_SELECT ? ' selectable' : '')
                 + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
 
-        if (mode === Table.Mode.CHECKBOX) {
+        if (mode === Table.Mode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
                 header() {
@@ -430,7 +430,7 @@ export default class Table extends Component {
                                      disabled={disabled || rowData.disabled}/>;
                 }
             });
-        } else if (mode === Table.Mode.RADIO) {
+        } else if (mode === Table.Mode.SINGLE_SELECT) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
                 renderer(rowData) {

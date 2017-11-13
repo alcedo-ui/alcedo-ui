@@ -48,9 +48,9 @@ export default class GroupList extends Component {
         }
 
         switch (mode) {
-            case GroupList.Mode.CHECKBOX:
+            case GroupList.Mode.MULTI_SELECT:
                 return [];
-            case GroupList.Mode.RADIO:
+            case GroupList.Mode.SINGLE_SELECT:
                 return null;
             default:
                 return value;

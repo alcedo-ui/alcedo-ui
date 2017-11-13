@@ -28,9 +28,9 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 export default class DraggableGridItem extends Component {
 
     static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
+        NORMAL: Symbol('NORMAL'),
+        MULTI_SELECT: Symbol('MULTI_SELECT'),
+        SINGLE_SELECT: Symbol('SINGLE_SELECT')
     };
 
     constructor(props, ...rest) {
@@ -121,10 +121,10 @@ export default class DraggableGridItem extends Component {
             };
 
         switch (mode) {
-            case DraggableGridItem.Mode.CHECKBOX:
+            case DraggableGridItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            case DraggableGridItem.Mode.RADIO:
+            case DraggableGridItem.Mode.SINGLE_SELECT:
                 this.radioChangeHandler(callback);
                 return;
             case DraggableGridItem.Mode.NORMAL:
@@ -193,7 +193,7 @@ export default class DraggableGridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            mode === DraggableGridItem.Mode.CHECKBOX ?
+                            mode === DraggableGridItem.Mode.MULTI_SELECT ?
                                 <Checkbox className="draggable-grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -202,7 +202,7 @@ export default class DraggableGridItem extends Component {
                         }
 
                         {
-                            mode === DraggableGridItem.Mode.RADIO ?
+                            mode === DraggableGridItem.Mode.SINGLE_SELECT ?
                                 <i className={'fa fa-check draggable-grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :

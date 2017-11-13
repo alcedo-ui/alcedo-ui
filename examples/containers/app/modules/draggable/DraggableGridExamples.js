@@ -103,7 +103,7 @@ export default class DraggableGridExamples extends Component {
                                     A multiple-choice<code> DraggableGrid</code> example.
                                 </p>
 
-                                <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
+                                <DraggableGrid mode={DraggableGrid.Mode.MULTI_SELECT}
                                                items={this.listData}
                                                onSequenceChange={this.sequenceChangeHandler}
                                                onValueChange={this.valueChangeHandler}/>
@@ -128,7 +128,7 @@ export default class DraggableGridExamples extends Component {
                                     A group <code>DraggableGrid </code>list example.
                                 </p>
 
-                                <DraggableGrid mode={DraggableGrid.Mode.CHECKBOX}
+                                <DraggableGrid mode={DraggableGrid.Mode.MULTI_SELECT}
                                                isGrouped={true}
                                                items={this.groupedListData}
                                                isDraggableAnyWhere={true}

@@ -13,9 +13,9 @@ import Util from '../_vendors/Util';
 export default class Tbody extends Component {
 
     static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
+        NORMAL: Symbol('NORMAL'),
+        MULTI_SELECT: Symbol('MULTI_SELECT'),
+        SINGLE_SELECT: Symbol('SINGLE_SELECT')
     };
 
     constructor(props, ...restArgs) {
@@ -35,9 +35,9 @@ export default class Tbody extends Component {
         }
 
         switch (mode) {
-            case Tbody.Mode.CHECKBOX:
+            case Tbody.Mode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Tbody.Mode.RADIO:
+            case Tbody.Mode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 

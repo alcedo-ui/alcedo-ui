@@ -356,7 +356,7 @@ export default class MultipleSelect extends Component {
                     <List className="multiple-select-list"
                           theme={theme}
                           value={value}
-                          mode={isEmpty ? List.Mode.DEFAULT : List.Mode.CHECKBOX}
+                          mode={isEmpty ? List.Mode.DEFAULT : List.Mode.MULTI_SELECT}
                           isGrouped={isEmpty ? false : isGrouped}
                           data={isEmpty ? emptyEl : listData}
                           valueField={valueField}

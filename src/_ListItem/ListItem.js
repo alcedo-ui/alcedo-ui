@@ -17,9 +17,9 @@ import Util from '../_vendors/Util';
 export default class ListItem extends Component {
 
     static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
+        NORMAL: Symbol('NORMAL'),
+        MULTI_SELECT: Symbol('MULTI_SELECT'),
+        SINGLE_SELECT: Symbol('SINGLE_SELECT')
     };
 
     constructor(props, ...restArgs) {
@@ -83,10 +83,10 @@ export default class ListItem extends Component {
         const {mode} = this.props;
 
         switch (mode) {
-            case ListItem.Mode.CHECKBOX:
+            case ListItem.Mode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case ListItem.Mode.RADIO:
+            case ListItem.Mode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -104,9 +104,15 @@ export default class ListItem extends Component {
     render() {
 
         const {
+
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+
+                radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 onMouseEnter, onMouseLeave
+
             } = this.props,
             {checked} = this.state,
 
@@ -128,7 +134,7 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        mode === ListItem.Mode.CHECKBOX ?
+                        mode === ListItem.Mode.MULTI_SELECT ?
                             <Checkbox className="list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -137,7 +143,7 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        mode === ListItem.Mode.RADIO ?
+                        mode === ListItem.Mode.SINGLE_SELECT ?
                             <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -318,6 +324,12 @@ ListItem.propTypes = {
      */
     readOnly: PropTypes.bool,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * Callback function fired when a list item touch-tapped.
      */
@@ -376,6 +388,12 @@ ListItem.defaultProps = {
 
     mode: ListItem.Mode.NORMAL,
 
-    readOnly: false
+    readOnly: false,
+
+    radioUncheckedIconCls: 'fa fa-circle-o',
+    radioCheckedIconCls: 'fa fa-dot-circle-o',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

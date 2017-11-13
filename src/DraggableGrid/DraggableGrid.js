@@ -66,9 +66,9 @@ export default class DraggableGrid extends Component {
         }
 
         switch (mode) {
-            case DraggableGrid.Mode.CHECKBOX:
+            case DraggableGrid.Mode.MULTI_SELECT:
                 return [];
-            case DraggableGrid.Mode.RADIO:
+            case DraggableGrid.Mode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -113,11 +113,11 @@ export default class DraggableGrid extends Component {
             return false;
         }
 
-        if (mode === DraggableGrid.Mode.CHECKBOX) {
+        if (mode === DraggableGrid.Mode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                 return Util.isValueEqual(valueItem, item, valueField, displayField);
             }).length > 0;
-        } else if (mode === DraggableGrid.Mode.RADIO) {
+        } else if (mode === DraggableGrid.Mode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -311,7 +311,7 @@ export default class DraggableGrid extends Component {
 
         let {value} = this.state;
 
-        if (mode === DraggableGrid.Mode.CHECKBOX) {
+        if (mode === DraggableGrid.Mode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -319,7 +319,7 @@ export default class DraggableGrid extends Component {
 
             value.push(item);
 
-        } else if (mode === DraggableGrid.Mode.RADIO) {
+        } else if (mode === DraggableGrid.Mode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -336,7 +336,7 @@ export default class DraggableGrid extends Component {
 
         const {mode} = this.props;
 
-        if (mode !== DraggableGrid.Mode.CHECKBOX) {
+        if (mode !== DraggableGrid.Mode.MULTI_SELECT) {
             return;
         }
 

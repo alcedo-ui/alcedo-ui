@@ -52,9 +52,9 @@ export default class DynamicRenderList extends Component {
         }
 
         switch (mode) {
-            case DynamicRenderList.Mode.CHECKBOX:
+            case DynamicRenderList.Mode.MULTI_SELECT:
                 return [];
-            case DynamicRenderList.Mode.RADIO:
+            case DynamicRenderList.Mode.SINGLE_SELECT:
                 return null;
             default:
                 return value;

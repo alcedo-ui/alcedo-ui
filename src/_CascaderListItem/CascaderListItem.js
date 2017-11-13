@@ -84,7 +84,7 @@ export default class CascaderListItem extends Component {
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
-                      mode={List.Mode.RADIO}
+                      mode={List.Mode.SINGLE_SELECT}
                       onChange={this.changeHandle}/>
 
                 {

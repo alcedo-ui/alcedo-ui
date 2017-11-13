@@ -68,7 +68,7 @@ export default class MaterialDropdownSelectExamples extends Component {
                                     <MaterialDropdownSelect theme={Theme.HIGHLIGHT}
                                                             label="Label"
                                                             placeholder="Placeholder"
-                                                            mode={MaterialDropdownSelect.Mode.CHECKBOX}
+                                                            mode={MaterialDropdownSelect.Mode.MULTI_SELECT}
                                                             useSelectAll={true}
                                                             autoClose={false}
                                                             data={this.data}/>

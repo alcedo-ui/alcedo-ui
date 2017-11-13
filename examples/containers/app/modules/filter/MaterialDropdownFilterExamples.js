@@ -76,7 +76,7 @@ export default class MaterialDropdownFilterExamples extends Component {
                                                         label="Label"
                                                         placeholder="Please select ..."
                                                         data={this.data}
-                                                        mode={MaterialDropdownFilter.Mode.CHECKBOX}
+                                                        mode={MaterialDropdownFilter.Mode.MULTI_SELECT}
                                                         onChange={this.onChange}
                                                         onFilterPressEnter={this.filterPressEnterHandle}
                                                         onFilterClear={this.filterClearHandle}/>
