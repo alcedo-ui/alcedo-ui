@@ -8,16 +8,12 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Dropdown from '../Dropdown';
-import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
-import Popup from '../Popup';
 import List from '../List';
-import GroupList from '../GroupList';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 
