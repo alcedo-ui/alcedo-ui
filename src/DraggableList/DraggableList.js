@@ -15,12 +15,13 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
-    static Mode = DraggableListItem.Mode;
+    static SelectMode = SelectMode;
     static SEPARATOR = Symbol('SEPARATOR');
 
     constructor(props, ...restArgs) {
@@ -62,9 +63,9 @@ export default class DraggableList extends Component {
         }
 
         switch (selectMode) {
-            case DraggableList.Mode.MULTI_SELECT:
+            case DraggableList.SelectMode.MULTI_SELECT:
                 return [];
-            case DraggableList.Mode.SINGLE_SELECT:
+            case DraggableList.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -81,11 +82,11 @@ export default class DraggableList extends Component {
             return false;
         }
 
-        if (selectMode === DraggableList.Mode.MULTI_SELECT) {
+        if (selectMode === DraggableList.SelectMode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
-        } else if (selectMode === DraggableList.Mode.SINGLE_SELECT) {
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
+        } else if (selectMode === DraggableList.SelectMode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -279,13 +280,13 @@ export default class DraggableList extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === DraggableList.Mode.NORMAL) {
+        if (selectMode === DraggableList.SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (selectMode === DraggableList.Mode.MULTI_SELECT) {
+        if (selectMode === DraggableList.SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -293,7 +294,7 @@ export default class DraggableList extends Component {
 
             value.push(item);
 
-        } else if (selectMode === DraggableList.Mode.SINGLE_SELECT) {
+        } else if (selectMode === DraggableList.SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -310,7 +311,7 @@ export default class DraggableList extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== DraggableList.Mode.MULTI_SELECT) {
+        if (selectMode !== DraggableList.SelectMode.MULTI_SELECT) {
             return;
         }
 
