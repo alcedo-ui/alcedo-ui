@@ -291,7 +291,9 @@ export default class MenuBody extends Component {
 
                 {
                     hasTriangle ?
-                        triangleEl
+                        <div className="menu-triangle-wrapper">
+                            {triangleEl}
+                        </div>
                         :
                         null
                 }

@@ -21,12 +21,14 @@
     z-index: $menu-z-index;
     background: transparent;
 
-    .menu-triangle {
-        display: block;
-        width: 0;
-        height: 0;
+    .menu-triangle-wrapper {
         position: absolute;
         z-index: 1;
+
+        .menu-triangle {
+            width: 0;
+            height: 0;
+        }
     }
 
     .menu-content {
@@ -48,13 +50,16 @@
             margin-top: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 10px;
             top: -6px;
-            border-left: 6px solid transparent !important;
-            border-right: 6px solid transparent !important;
-            border-bottom-width: 6px;
-            border-bottom-style: solid;
+
+            .menu-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-bottom-width: 6px;
+                border-bottom-style: solid;
+            }
         }
 
         &.hidden {
@@ -69,14 +74,17 @@
             margin-top: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 50%;
             top: -6px;
-            border-left: 6px solid transparent !important;
-            border-right: 6px solid transparent !important;
-            border-bottom-width: 6px;
-            border-bottom-style: solid;
             transform: translateX(-50%);
+
+            .menu-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-bottom-width: 6px;
+                border-bottom-style: solid;
+            }
         }
 
         &.hidden {
@@ -91,13 +99,16 @@
             margin-top: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             right: 10px;
             top: -6px;
-            border-left: 6px solid transparent !important;
-            border-right: 6px solid transparent !important;
-            border-bottom-width: 6px;
-            border-bottom-style: solid;
+
+            .menu-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-bottom-width: 6px;
+                border-bottom-style: solid;
+            }
         }
 
         &.hidden {
@@ -112,13 +123,16 @@
             margin-bottom: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 10px;
             top: 100%;
-            border-left: 6px solid transparent !important;
-            border-right: 6px solid transparent !important;
-            border-top-width: 6px;
-            border-top-style: solid;
+
+            .menu-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top-width: 6px;
+                border-top-style: solid;
+            }
         }
 
         &.hidden {
@@ -133,14 +147,17 @@
             margin-bottom: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 50%;
             top: 100%;
-            border-left: 6px solid transparent !important;
-            border-right: 6px solid transparent !important;
-            border-top-width: 6px;
-            border-top-style: solid;
             transform: translateX(-50%);
+
+            .menu-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top-width: 6px;
+                border-top-style: solid;
+            }
         }
 
         &.hidden {
@@ -155,13 +172,16 @@
             margin-bottom: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             right: 10px;
             top: 100%;
-            border-left: 6px solid transparent !important;
-            border-right: 6px solid transparent !important;
-            border-top-width: 6px;
-            border-top-style: solid;
+
+            .menu-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top-width: 6px;
+                border-top-style: solid;
+            }
         }
 
         &.hidden {
@@ -176,13 +196,16 @@
             margin-right: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 100%;
             top: 10px;
-            border-top: 6px solid transparent !important;
-            border-bottom: 6px solid transparent !important;
-            border-left-width: 6px;
-            border-left-style: solid;
+
+            .menu-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-left-width: 6px;
+                border-left-style: solid;
+            }
         }
 
         &.hidden {
@@ -197,14 +220,17 @@
             margin-right: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 100%;
             top: 50%;
-            border-top: 6px solid transparent !important;
-            border-bottom: 6px solid transparent !important;
-            border-left-width: 6px;
-            border-left-style: solid;
             transform: translateY(-50%);
+
+            .menu-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-left-width: 6px;
+                border-left-style: solid;
+            }
         }
 
         &.hidden {
@@ -219,13 +245,16 @@
             margin-right: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: 100%;
             bottom: 10px;
-            border-top: 6px solid transparent !important;
-            border-bottom: 6px solid transparent !important;
-            border-left-width: 6px;
-            border-left-style: solid;
+
+            .menu-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-left-width: 6px;
+                border-left-style: solid;
+            }
         }
 
         &.hidden {
@@ -240,13 +269,16 @@
             margin-left: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: -6px;
             top: 10px;
-            border-top: 6px solid transparent !important;
-            border-bottom: 6px solid transparent !important;
-            border-right-width: 6px;
-            border-right-style: solid;
+
+            .menu-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-right-width: 6px;
+                border-right-style: solid;
+            }
         }
 
         &.hidden {
@@ -261,14 +293,17 @@
             margin-left: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: -6px;
             top: 50%;
-            border-top: 6px solid transparent !important;
-            border-bottom: 6px solid transparent !important;
-            border-right-width: 6px;
-            border-right-style: solid;
             transform: translateY(-50%);
+
+            .menu-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-right-width: 6px;
+                border-right-style: solid;
+            }
         }
 
         &.hidden {
@@ -283,13 +318,16 @@
             margin-left: 10px;
         }
 
-        .menu-triangle {
+        .menu-triangle-wrapper {
             left: -6px;
             bottom: 10px;
-            border-top: 6px solid transparent !important;
-            border-bottom: 6px solid transparent !important;
-            border-right-width: 6px;
-            border-right-style: solid;
+
+            .menu-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-right-width: 6px;
+                border-right-style: solid;
+            }
         }
 
         &.hidden {
