@@ -166,9 +166,14 @@ DynamicRenderList.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme.
+     * The theme of the list item.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -288,15 +293,17 @@ DynamicRenderList.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * The select mode of listItem.Can be normal,checkbox.
+     * The mode of listItem.Can be normal,checkbox.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    listHeight: PropTypes.number,
-    itemHeight: PropTypes.number,
-    scrollBuffer: PropTypes.number,
-
     shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -304,9 +311,19 @@ DynamicRenderList.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the list-item select.
+     * Callback function fired when the list-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item select.
+     */
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item deselect.
+     */
+    onItemDeselect: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.
@@ -314,14 +331,13 @@ DynamicRenderList.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Callback function fired when wrapper scrolled.
-     */
-    onScroll: PropTypes.func,
-
-    /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number
 
 };
 
@@ -330,6 +346,7 @@ DynamicRenderList.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
     data: [],
 
@@ -339,9 +356,16 @@ DynamicRenderList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.NORMAL,
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
     listHeight: 200,
     itemHeight: 40,
-    scrollBuffer: 4,
-    shouldPreventContainerScroll: true
+    scrollBuffer: 4
 
 };
