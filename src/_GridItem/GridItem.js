@@ -17,7 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class GridItem extends Component {
 
-    static Mode = SelectMode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -80,10 +80,10 @@ export default class GridItem extends Component {
         const {selectMode} = this.props;
 
         switch (selectMode) {
-            case GridItem.Mode.MULTI_SELECT:
+            case GridItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case GridItem.Mode.SINGLE_SELECT:
+            case GridItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -128,7 +128,7 @@ export default class GridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            selectMode === GridItem.Mode.MULTI_SELECT ?
+                            selectMode === GridItem.SelectMode.MULTI_SELECT ?
                                 <Checkbox className="grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -137,7 +137,7 @@ export default class GridItem extends Component {
                         }
 
                         {
-                            selectMode === GridItem.Mode.SINGLE_SELECT ?
+                            selectMode === GridItem.SelectMode.SINGLE_SELECT ?
                                 <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :
@@ -317,7 +317,7 @@ GridItem.propTypes = {
     /**
      *
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      *
@@ -382,7 +382,7 @@ GridItem.defaultProps = {
 
     checked: false,
 
-    selectMode: GridItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     readOnly: false
 
