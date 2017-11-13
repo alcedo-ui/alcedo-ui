@@ -15,10 +15,11 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class Grid extends Component {
 
-    static Mode = GridItem.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -59,9 +60,9 @@ export default class Grid extends Component {
         }
 
         switch (selectMode) {
-            case Grid.Mode.MULTI_SELECT:
+            case Grid.SelectMode.MULTI_SELECT:
                 return [];
-            case Grid.Mode.SINGLE_SELECT:
+            case Grid.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -106,11 +107,11 @@ export default class Grid extends Component {
             return false;
         }
 
-        if (selectMode === Grid.Mode.MULTI_SELECT) {
+        if (selectMode === Grid.SelectMode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                     return Util.isValueEqual(valueItem, item, valueField, displayField);
                 }).length > 0;
-        } else if (selectMode === Grid.Mode.SINGLE_SELECT) {
+        } else if (selectMode === Grid.SelectMode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -215,7 +216,7 @@ export default class Grid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== Grid.Mode.NORMAL) {
+        if (selectMode !== Grid.SelectMode.NORMAL) {
             return;
         }
 
@@ -233,13 +234,13 @@ export default class Grid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === Grid.Mode.NORMAL) {
+        if (selectMode === Grid.SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (selectMode === Grid.Mode.MULTI_SELECT) {
+        if (selectMode === Grid.SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -247,7 +248,7 @@ export default class Grid extends Component {
 
             value.push(item);
 
-        } else if (selectMode === Grid.Mode.SINGLE_SELECT) {
+        } else if (selectMode === Grid.SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -264,7 +265,7 @@ export default class Grid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== Grid.Mode.MULTI_SELECT) {
+        if (selectMode !== Grid.SelectMode.MULTI_SELECT) {
             return;
         }
 
@@ -491,7 +492,7 @@ Grid.propTypes = {
     /**
      * The select mode of listItem.Can be normal,checkbox.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * If true,the listData will be grouped.
@@ -530,7 +531,7 @@ Grid.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: GridItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     isGrouped: false,
 
     isItemsFullWidth: false,
