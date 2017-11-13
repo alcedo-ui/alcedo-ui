@@ -141,6 +141,11 @@ GroupList.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * Children passed into the ListItem.
      */
     data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
@@ -271,6 +276,12 @@ GroupList.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -298,6 +309,7 @@ GroupList.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
     data: [],
 
@@ -307,6 +319,12 @@ GroupList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.NORMAL,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
