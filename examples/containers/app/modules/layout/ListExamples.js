@@ -214,7 +214,7 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with select mode.Can be <code>NOMAL</code>
+                                    A <code>List</code> with select mode.Can be <code>NORMAL</code>
                                     , <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
