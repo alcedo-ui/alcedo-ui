@@ -12,10 +12,11 @@ import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class GroupList extends Component {
 
-    static Mode = List.Mode;
+    static SelectMode = SelectMode;
     static SEPARATOR = List.SEPARATOR;
 
     constructor(props, ...restArgs) {
@@ -48,9 +49,9 @@ export default class GroupList extends Component {
         }
 
         switch (selectMode) {
-            case GroupList.Mode.MULTI_SELECT:
+            case GroupList.SelectMode.MULTI_SELECT:
                 return [];
-            case GroupList.Mode.SINGLE_SELECT:
+            case GroupList.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -265,7 +266,7 @@ GroupList.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(GroupList.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -304,7 +305,7 @@ GroupList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: GroupList.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     shouldPreventContainerScroll: true
 
 };
