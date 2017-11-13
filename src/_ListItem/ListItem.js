@@ -17,7 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class ListItem extends Component {
 
-    static Mode = SelectMode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -80,10 +80,10 @@ export default class ListItem extends Component {
         const {selectMode} = this.props;
 
         switch (selectMode) {
-            case ListItem.Mode.MULTI_SELECT:
+            case ListItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case ListItem.Mode.SINGLE_SELECT:
+            case ListItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -131,7 +131,7 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === ListItem.Mode.MULTI_SELECT ?
+                        selectMode === ListItem.SelectMode.MULTI_SELECT ?
                             <Checkbox className="list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -140,7 +140,7 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        selectMode === ListItem.Mode.SINGLE_SELECT ?
+                        selectMode === ListItem.SelectMode.SINGLE_SELECT ?
                             <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -314,7 +314,7 @@ ListItem.propTypes = {
     /**
      *
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      *
@@ -383,7 +383,7 @@ ListItem.defaultProps = {
 
     checked: false,
 
-    selectMode: ListItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     readOnly: false,
 
