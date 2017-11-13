@@ -238,9 +238,9 @@ export default class MenuBody extends Component {
         this.menuEl = findDOMNode(this.refs.menu);
 
         Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
-        // Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
         Event.addEvent(this.menuEl, 'mouseenter', this.triggerMouseEnterHandler);
-        // Event.addEvent(this.menuEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.addEvent(this.menuEl, 'mouseleave', this.triggerMouseLeaveHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
 
     }
