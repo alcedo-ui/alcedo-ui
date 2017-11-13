@@ -75,6 +75,7 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
                                 <p><code>LocalAutoComplete</code> simple example.</p>
 
                                 <MaterialLocalAutoComplete theme={Theme.HIGHLIGHT}
+                                                           filterInitValue={'test'}
                                                            data={this.data}
                                                            label="Label"
                                                            placeholder="Please select ..."
