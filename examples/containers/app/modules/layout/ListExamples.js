@@ -206,7 +206,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="With Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -214,10 +214,20 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with select mode.Can be normal,radio,checkbox.
+                                    A <code>List</code> with select mode.Can be <code>NOMAL</code>
+                                    , <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
                                 <Paper style={{width: 240}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.SINGLE_SELECT}
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
+
+                                <Paper style={{width: 240, marginTop: 20}}>
                                     <List style={{width: 240}}
                                           selectMode={List.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
