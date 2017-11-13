@@ -28,7 +28,7 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 }))
 export default class DraggableGridItem extends Component {
 
-    static Mode = SelectMode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...rest) {
 
@@ -118,13 +118,13 @@ export default class DraggableGridItem extends Component {
             };
 
         switch (selectMode) {
-            case DraggableGridItem.Mode.MULTI_SELECT:
+            case DraggableGridItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            case DraggableGridItem.Mode.SINGLE_SELECT:
+            case DraggableGridItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler(callback);
                 return;
-            case DraggableGridItem.Mode.NORMAL:
+            case DraggableGridItem.SelectMode.NORMAL:
                 callback();
                 return;
         }
@@ -190,7 +190,7 @@ export default class DraggableGridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            selectMode === DraggableGridItem.Mode.MULTI_SELECT ?
+                            selectMode === DraggableGridItem.SelectMode.MULTI_SELECT ?
                                 <Checkbox className="draggable-grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -199,7 +199,7 @@ export default class DraggableGridItem extends Component {
                         }
 
                         {
-                            selectMode === DraggableGridItem.Mode.SINGLE_SELECT ?
+                            selectMode === DraggableGridItem.SelectMode.SINGLE_SELECT ?
                                 <i className={'fa fa-check draggable-grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :
@@ -325,7 +325,7 @@ DraggableGridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
     checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(DraggableGridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     groupIndex: PropTypes.number,
     isGroupTitle: PropTypes.bool,
     anchorIconCls: PropTypes.string,
@@ -365,7 +365,7 @@ DraggableGridItem.defaultProps = {
 
     checked: false,
 
-    selectMode: DraggableGridItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     isGroupTitle: false,
 
