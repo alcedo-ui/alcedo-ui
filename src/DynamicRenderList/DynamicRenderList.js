@@ -13,10 +13,11 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import SelectMode from '../_statics/SelectMode';
 
 export default class DynamicRenderList extends Component {
 
-    static Mode = List.Mode;
+    static SelectMode = SelectMode;
     static SEPARATOR = List.SEPARATOR;
 
     constructor(props, ...restArgs) {
@@ -52,9 +53,9 @@ export default class DynamicRenderList extends Component {
         }
 
         switch (selectMode) {
-            case DynamicRenderList.Mode.MULTI_SELECT:
+            case DynamicRenderList.SelectMode.MULTI_SELECT:
                 return [];
-            case DynamicRenderList.Mode.SINGLE_SELECT:
+            case DynamicRenderList.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -277,7 +278,7 @@ DynamicRenderList.propTypes = {
     /**
      * The select mode of listItem.Can be normal,checkbox.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(DynamicRenderList.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
@@ -325,7 +326,7 @@ DynamicRenderList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: DynamicRenderList.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     listHeight: 200,
     itemHeight: 40,
     scrollBuffer: 4,
