@@ -73,6 +73,7 @@ export default class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
+                                                   filterInitValue="test"
                                                    onChange={this.onChange}
                                                    onFilterPressEnter={this.filterPressEnterHandle}
                                                    onFilterClear={this.filterClearHandle}/>
@@ -99,7 +100,6 @@ export default class LocalAutoCompleteExamples extends Component {
                                 </p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   selectMode={LocalAutoComplete.SelectMode.MULTI_SELECT}
                                                    data={this.data}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>
