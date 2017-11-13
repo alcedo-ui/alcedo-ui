@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
@@ -131,18 +132,24 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === ListItem.SelectMode.MULTI_SELECT ?
-                            <Checkbox className="list-item-checkbox"
-                                      value={checked}
-                                      disabled={disabled || isLoading}/>
+                        selectMode === ListItem.SelectMode.SINGLE_SELECT ?
+                            <Radio className="list-item-checked"
+                                   value={checked}
+                                   disabled={disabled || isLoading}
+                                   uncheckedIconCls={radioUncheckedIconCls}
+                                   checkedIconCls={radioCheckedIconCls}/>
                             :
                             null
                     }
 
                     {
-                        selectMode === ListItem.SelectMode.SINGLE_SELECT ?
-                            <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
-                               aria-hidden="true"></i>
+                        selectMode === ListItem.SelectMode.MULTI_SELECT ?
+                            <Checkbox className="list-item-checkbox"
+                                      value={checked}
+                                      disabled={disabled || isLoading}
+                                      uncheckedIconCls={checkboxUncheckedIconCls}
+                                      checkedIconCls={checkboxCheckedIconCls}
+                                      indeterminateIconCls={checkboxIndeterminateIconCls}/>
                             :
                             null
                     }
@@ -387,8 +394,8 @@ ListItem.defaultProps = {
 
     readOnly: false,
 
-    radioUncheckedIconCls: 'fa fa-circle-o',
-    radioCheckedIconCls: 'fa fa-dot-circle-o',
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
