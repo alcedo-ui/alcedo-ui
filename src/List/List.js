@@ -474,6 +474,7 @@ List.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
     data: [],
 
