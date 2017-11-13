@@ -14,6 +14,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
+import SelectMode from '../_statics/SelectMode';
 
 export default class EditableSelect extends Component {
 
@@ -285,7 +286,7 @@ export default class EditableSelect extends Component {
                           data={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           value={listValue}
-                          selectMode={List.Mode.SINGLE_SELECT}
+                          selectMode={SelectMode.SINGLE_SELECT}
                           displayField={displayField}
                           descriptionField={descriptionField}
                           onItemTouchTap={onItemTouchTap}
