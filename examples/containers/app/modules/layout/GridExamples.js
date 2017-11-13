@@ -116,7 +116,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with select mode.Can be normal,radio,checkbox.
                                 </p>
 
-                                <Grid selectMode={Grid.Mode.SINGLE_SELECT}
+                                <Grid selectMode={Grid.SelectMode.SINGLE_SELECT}
                                       items={this.descListData}
                                       onChange={this.changeHandle}/>
 
@@ -140,7 +140,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with isGrouped.
                                 </p>
 
-                                <Grid selectMode={Grid.Mode.MULTI_SELECT}
+                                <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
                                       isGrouped={true}
                                       items={this.groupedListData}
                                       onChange={this.changeHandle}/>

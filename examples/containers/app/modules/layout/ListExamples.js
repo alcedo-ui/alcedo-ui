@@ -219,7 +219,7 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          selectMode={List.Mode.MULTI_SELECT}
+                                          selectMode={List.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
                                           onItemSelect={this.itemSelectHandler}

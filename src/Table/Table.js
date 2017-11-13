@@ -21,7 +21,7 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class Table extends Component {
 
-    static Mode = SelectMode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -87,9 +87,9 @@ export default class Table extends Component {
         }
 
         switch (selectMode) {
-            case Table.Mode.MULTI_SELECT:
+            case Table.SelectMode.MULTI_SELECT:
                 return [];
-            case Table.Mode.SINGLE_SELECT:
+            case Table.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -129,14 +129,14 @@ export default class Table extends Component {
 
         const {selectMode, idProp} = this.props;
 
-        if (selectMode === Table.Mode.NORMAL || !rowData || !value) {
+        if (selectMode === Table.SelectMode.NORMAL || !rowData || !value) {
             return false;
         }
 
         switch (selectMode) {
-            case Table.Mode.MULTI_SELECT:
+            case Table.SelectMode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Table.Mode.SINGLE_SELECT:
+            case Table.SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -275,10 +275,10 @@ export default class Table extends Component {
         const {selectMode} = this.props;
 
         switch (selectMode) {
-            case Table.Mode.MULTI_SELECT:
+            case Table.SelectMode.MULTI_SELECT:
                 this.itemCheckBoxChangeHandler(rowData, rowIndex);
                 return;
-            case Table.Mode.SINGLE_SELECT:
+            case Table.SelectMode.SINGLE_SELECT:
                 this.itemRadioChangeHandler(rowData, rowIndex);
                 return;
         }
@@ -303,9 +303,9 @@ export default class Table extends Component {
             {value} = this.state;
 
         switch (selectMode) {
-            case Table.Mode.MULTI_SELECT:
+            case Table.SelectMode.MULTI_SELECT:
                 return value.length;
-            case Table.Mode.SINGLE_SELECT:
+            case Table.SelectMode.SINGLE_SELECT:
                 return value ? 1 : 0;
         }
 
@@ -404,14 +404,14 @@ export default class Table extends Component {
             {value, sort, pagging} = this.state,
             self = this,
 
-            tableClassName =
-                (selectMode === Table.Mode.MULTI_SELECT || selectMode === Table.Mode.SINGLE_SELECT ? ' selectable' : '')
+            tableClassName = (selectMode === Table.SelectMode.MULTI_SELECT
+                || selectMode === Table.SelectMode.SINGLE_SELECT ? ' selectable' : '')
                 + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
 
-        if (selectMode === Table.Mode.MULTI_SELECT) {
+        if (selectMode === Table.SelectMode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
                 header() {
@@ -428,7 +428,7 @@ export default class Table extends Component {
                                      disabled={disabled || rowData.disabled}/>;
                 }
             });
-        } else if (selectMode === Table.Mode.SINGLE_SELECT) {
+        } else if (selectMode === Table.SelectMode.SINGLE_SELECT) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
@@ -624,7 +624,7 @@ Table.propTypes = {
     /**
      * The type of table list.Can be checkbox,radio,normal.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(Table.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     disabled: PropTypes.bool,
 
@@ -723,7 +723,7 @@ Table.defaultProps = {
     value: null,
     hasLineNumber: false,
 
-    selectMode: Table.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     disabled: false,
     idProp: 'id',
     isPagging: true,

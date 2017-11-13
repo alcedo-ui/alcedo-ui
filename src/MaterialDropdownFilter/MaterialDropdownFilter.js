@@ -11,10 +11,11 @@ import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class MaterialDropdownFilter extends Component {
 
-    static Mode = DropdownFilter.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -294,7 +295,7 @@ MaterialDropdownFilter.propTypes = {
     /**
      * The type of dropDown list,can be normal,checkbox,radio.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(DropdownFilter.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * Callback function fired when filter changed.

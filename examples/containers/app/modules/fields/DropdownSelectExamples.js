@@ -145,7 +145,7 @@ export default class DropdownSelectExamples extends Component {
 
                                     <p>
                                         Set the <code>mod</code> property to
-                                        <code>DropdownSelect.Mode.MULTI_SELECT</code>,
+                                        <code>DropdownSelect.SelectMode.MULTI_SELECT</code>,
                                         the DropdownSelect can be Multiselect.
                                     </p>
 

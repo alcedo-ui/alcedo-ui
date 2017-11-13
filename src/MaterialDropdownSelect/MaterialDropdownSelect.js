@@ -11,10 +11,11 @@ import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class MaterialDropdownSelect extends Component {
 
-    static Mode = DropdownSelect.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -283,7 +284,7 @@ MaterialDropdownSelect.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(MaterialDropdownSelect.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -370,7 +371,7 @@ MaterialDropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    selectMode: MaterialDropdownSelect.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
