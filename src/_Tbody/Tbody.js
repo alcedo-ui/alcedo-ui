@@ -13,7 +13,7 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class Tbody extends Component {
 
-    static Mode = SelectMode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -27,14 +27,14 @@ export default class Tbody extends Component {
 
         const {selectMode, idProp, value} = this.props;
 
-        if (selectMode === Tbody.Mode.NORMAL || !rowData || !value) {
+        if (selectMode === Tbody.SelectMode.NORMAL || !rowData || !value) {
             return false;
         }
 
         switch (selectMode) {
-            case Tbody.Mode.MULTI_SELECT:
+            case Tbody.SelectMode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Tbody.Mode.SINGLE_SELECT:
+            case Tbody.SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -77,7 +77,7 @@ Tbody.propTypes = {
     data: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(Tbody.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     disabled: PropTypes.bool,
 
     isItemChecked: PropTypes.func,
@@ -92,6 +92,6 @@ Tbody.defaultProps = {
     columns: [],
     startIndex: 0,
     idProp: 'id',
-    selectMode: Tbody.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     disabled: false
 };
