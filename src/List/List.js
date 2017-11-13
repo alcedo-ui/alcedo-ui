@@ -181,8 +181,14 @@ export default class List extends Component {
     render() {
 
         const {
+
                 children, className, style, theme, data, itemHeight,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, selectMode, renderer
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
+
             } = this.props,
             listClassName = (className ? ' ' + className : '');
 
@@ -209,6 +215,12 @@ export default class List extends Component {
                                                   index={index}
                                                   style={{height: itemHeight}}
                                                   theme={item.theme || theme}
+                                                  selectTheme={item.selectTheme || selectTheme}
+                                                  radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                  radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                   data={item}
                                                   checked={this.isItemChecked(item)}
                                                   value={Util.getValueByValueField(item, valueField, displayField)}
@@ -235,6 +247,12 @@ export default class List extends Component {
                                                   index={index}
                                                   style={{height: itemHeight}}
                                                   theme={item.theme || theme}
+                                                  selectTheme={item.selectTheme || selectTheme}
+                                                  radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                  radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                   data={item}
                                                   checked={this.isItemChecked(item)}
                                                   value={item}
@@ -280,9 +298,14 @@ List.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme.
+     * The theme of the list item.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -408,6 +431,12 @@ List.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -454,6 +483,12 @@ List.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.NORMAL,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
