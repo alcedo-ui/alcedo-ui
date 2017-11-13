@@ -250,9 +250,6 @@ ListItem.propTypes = {
      */
     selectTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
-    /**
-     *
-     */
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
 
     /**
@@ -295,19 +292,8 @@ ListItem.propTypes = {
      */
     rightIconCls: PropTypes.string,
 
-    /**
-     *
-     */
     tip: PropTypes.string,
-
-    /**
-     *
-     */
     tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
-
-    /**
-     *
-     */
     rippleDisplayCenter: PropTypes.bool,
 
     /**
@@ -320,21 +306,9 @@ ListItem.propTypes = {
      */
     renderer: PropTypes.func,
 
-    /**
-     *
-     */
     checked: PropTypes.bool,
-
-    /**
-     *
-     */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     *
-     */
     readOnly: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -346,24 +320,9 @@ ListItem.propTypes = {
      */
     onTouchTap: PropTypes.func,
 
-    /**
-     *
-     */
     onSelect: PropTypes.func,
-
-    /**
-     *
-     */
     onDeselect: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseEnter: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseLeave: PropTypes.func
 
 };
