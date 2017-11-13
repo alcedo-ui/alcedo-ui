@@ -104,9 +104,9 @@ export default class ListItem extends Component {
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, selectMode, renderer, itemRenderer, readOnly,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
 
-                radioUncheckedIconCls, radioCheckedIconCls,
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onMouseEnter, onMouseLeave
@@ -134,6 +134,7 @@ export default class ListItem extends Component {
                     {
                         selectMode === ListItem.SelectMode.SINGLE_SELECT ?
                             <Radio className="list-item-checked"
+                                   theme={selectTheme}
                                    value={checked}
                                    disabled={disabled || isLoading}
                                    uncheckedIconCls={radioUncheckedIconCls}
@@ -145,6 +146,7 @@ export default class ListItem extends Component {
                     {
                         selectMode === ListItem.SelectMode.MULTI_SELECT ?
                             <Checkbox className="list-item-checkbox"
+                                      theme={selectTheme}
                                       value={checked}
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
@@ -242,6 +244,11 @@ ListItem.propTypes = {
      * The theme of the list button.
      */
     theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+
+    /**
+     * The theme of the list button.
+     */
+    selectTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
 
     /**
      *
@@ -369,6 +376,7 @@ ListItem.defaultProps = {
     style: null,
 
     theme: Theme.DEFAULT,
+    selectTheme: Theme.SUCCESS,
 
     data: '',
     value: '',
