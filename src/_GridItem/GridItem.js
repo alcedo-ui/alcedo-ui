@@ -13,14 +13,11 @@ import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class GridItem extends Component {
 
-    static Mode = {
-        NORMAL: Symbol('NORMAL'),
-        MULTI_SELECT: Symbol('MULTI_SELECT'),
-        SINGLE_SELECT: Symbol('SINGLE_SELECT')
-    };
+    static Mode = SelectMode;
 
     constructor(props, ...restArgs) {
 

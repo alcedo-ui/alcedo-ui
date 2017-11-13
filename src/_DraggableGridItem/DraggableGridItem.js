@@ -14,6 +14,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
+import SelectMode from '../_statics/SelectMode';
 
 const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 
@@ -27,11 +28,7 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 }))
 export default class DraggableGridItem extends Component {
 
-    static Mode = {
-        NORMAL: Symbol('NORMAL'),
-        MULTI_SELECT: Symbol('MULTI_SELECT'),
-        SINGLE_SELECT: Symbol('SINGLE_SELECT')
-    };
+    static Mode = SelectMode;
 
     constructor(props, ...rest) {
 
