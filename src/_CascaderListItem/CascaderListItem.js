@@ -84,7 +84,7 @@ export default class CascaderListItem extends Component {
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
-                      selectMode={List.Mode.SINGLE_SELECT}
+                      selectMode={List.SelectMode.SINGLE_SELECT}
                       onChange={this.changeHandle}/>
 
                 {

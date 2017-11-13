@@ -124,7 +124,7 @@ export default class TableExamples extends Component {
                                 <Table columns={this.columns}
                                        isPagging={true}
                                        data={this.generateData(5)}
-                                       selectMode={Table.Mode.SINGLE_SELECT}
+                                       selectMode={Table.SelectMode.SINGLE_SELECT}
                                        sortInitConfig={{
                                            prop: 'id',
                                            type: -1
@@ -152,7 +152,7 @@ export default class TableExamples extends Component {
                             <Paper>
                                 <Table columns={this.columns}
                                        isPagging={true}
-                                       selectMode={Table.Mode.MULTI_SELECT}
+                                       selectMode={Table.SelectMode.MULTI_SELECT}
                                        data={this.generateData()}
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}
