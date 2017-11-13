@@ -19,10 +19,11 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class DropdownSelect extends Component {
 
-    static Mode = List.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -158,7 +159,7 @@ export default class DropdownSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isMultiSelect = selectMode === DropdownSelect.Mode.MULTI_SELECT,
+            isMultiSelect = selectMode === DropdownSelect.SelectMode.MULTI_SELECT,
 
             emptyEl = [{
                 itemRenderer() {
@@ -424,7 +425,7 @@ DropdownSelect.propTypes = {
     /**
      * The select mode of listItem.Can be normal,checkbox.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -511,7 +512,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    selectMode: DropdownSelect.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
