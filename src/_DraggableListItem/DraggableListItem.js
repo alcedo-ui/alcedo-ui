@@ -27,7 +27,7 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 }))
 export default class DraggableListItem extends Component {
 
-    static Mode = SelectMode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -96,13 +96,13 @@ export default class DraggableListItem extends Component {
             };
 
         switch (selectMode) {
-            case DraggableListItem.Mode.MULTI_SELECT:
+            case DraggableListItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            case DraggableListItem.Mode.SINGLE_SELECT:
+            case DraggableListItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler(callback);
                 return;
-            case DraggableListItem.Mode.NORMAL:
+            case DraggableListItem.SelectMode.NORMAL:
                 callback();
                 return;
         }
@@ -146,7 +146,7 @@ export default class DraggableListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === DraggableListItem.Mode.MULTI_SELECT ?
+                        selectMode === DraggableListItem.SelectMode.MULTI_SELECT ?
                             <Checkbox className="draggable-list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -155,7 +155,7 @@ export default class DraggableListItem extends Component {
                     }
 
                     {
-                        selectMode === DraggableListItem.Mode.SINGLE_SELECT ?
+                        selectMode === DraggableListItem.SelectMode.SINGLE_SELECT ?
                             <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -326,7 +326,7 @@ DraggableListItem.propTypes = {
     /**
      *
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(DraggableListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      *
@@ -397,7 +397,7 @@ DraggableListItem.defaultProps = {
 
     checked: false,
 
-    selectMode: DraggableListItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     isGroupTitle: false,
 
