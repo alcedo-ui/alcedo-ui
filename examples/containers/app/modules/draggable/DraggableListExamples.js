@@ -44,7 +44,7 @@ export default class DraggableListExamples extends Component {
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
-        }, DraggableList.SEPARATOR, {
+        }, DraggableList.LIST_SEPARATOR, {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',

@@ -13,11 +13,12 @@ import Tip from '../Tip';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 export default class GroupList extends Component {
 
     static SelectMode = SelectMode;
-    static SEPARATOR = List.SEPARATOR;
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -96,7 +97,7 @@ export default class GroupList extends Component {
                     data && data.length > 0 ?
                         data.map((item, index) => {
 
-                            if (item === GroupList.SEPARATOR) {
+                            if (item === LIST_SEPARATOR) {
                                 return <div key={index}
                                             className="list-separator"></div>;
                             }

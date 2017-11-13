@@ -14,11 +14,12 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 export default class DynamicRenderList extends Component {
 
     static SelectMode = SelectMode;
-    static SEPARATOR = List.SEPARATOR;
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 

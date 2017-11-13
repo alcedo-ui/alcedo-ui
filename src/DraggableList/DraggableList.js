@@ -16,13 +16,14 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
     static SelectMode = SelectMode;
-    static SEPARATOR = Symbol('SEPARATOR');
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -99,7 +100,7 @@ export default class DraggableList extends Component {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
-                if (group === DraggableList.SEPARATOR) {
+                if (group === LIST_SEPARATOR) {
                     return <div key={`group${groupIndex}`}
                                 className="draggable-list-separator"></div>;
                 }
@@ -145,7 +146,7 @@ export default class DraggableList extends Component {
                         return null;
                     }
 
-                    if (item === DraggableList.SEPARATOR) {
+                    if (item === LIST_SEPARATOR) {
                         return <div key={index}
                                     className="draggable-list-separator"></div>;
                     }
