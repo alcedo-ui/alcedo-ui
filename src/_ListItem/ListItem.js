@@ -243,12 +243,12 @@ ListItem.propTypes = {
     /**
      * The theme of the list item.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The theme of the list item select radio or checkbox.
      */
-    selectTheme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
 
