@@ -1,0 +1,93 @@
+@import '../../../../my-theme';
+
+.menu-examples {
+
+    .trigger-button {
+        width: 160px;
+        height: 50px;
+        margin: 0;
+    }
+
+    .button-group-wrapper {
+        position: relative;
+        width: 440px;
+        height: 280px;
+
+        .button-group {
+
+            .trigger-position-button {
+                width: 100px;
+            }
+
+            &.top {
+                position: absolute;
+                left: 50px;
+
+                .trigger-position-button {
+                    margin-left: 20px;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
+
+            &.left {
+                position: absolute;
+                top: 60px;
+                left: 0;
+
+                .trigger-position-button {
+                    display: block;
+                    margin-top: 20px;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &.right {
+                position: absolute;
+                top: 60px;
+                right: 0;
+
+                .trigger-position-button {
+                    display: block;
+                    margin-top: 20px;
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &.bottom {
+                position: absolute;
+                left: 50px;
+                bottom: 0;
+
+                .trigger-position-button {
+                    margin-left: 20px;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.customized-menu-triangle-popup {
+
+    .customized-menu-triangle {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .menu-content {
+        border: 1px solid #e7e7e7;
+    }
+}

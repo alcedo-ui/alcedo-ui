@@ -10,7 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import MenuDoc from 'assets/propTypes/MenuBody.json';
 
-import 'sass/containers/app/modules/popup/PopupExamples.scss';
+import 'sass/containers/app/modules/popup/MenuExamples.scss';
 
 export default class MenuExamples extends Component {
 
@@ -72,10 +72,10 @@ export default class MenuExamples extends Component {
     render() {
 
         const {
-                menuVisible1, menuVisible3, menuVisible4, menuVisible5, menuVisible6,
+                menuVisible1, menuVisible2, menuVisible3, menuVisible4, menuVisible5, menuVisible6,
                 menuVisible7, menuVisible8, menuVisible9, menuVisible10, menuVisible11, menuVisible12,
                 menuVisible13, menuVisible14, menuVisible15,
-                triggerEl1, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
+                triggerEl1, triggerEl2, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
                 triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11, triggerEl12
                 , triggerEl13, triggerEl14, triggerEl15
             } = this.state,
@@ -94,7 +94,7 @@ export default class MenuExamples extends Component {
             }];
 
         return (
-            <div className="example popup-examples">
+            <div className="example menu-examples">
 
                 <h2 className="example-title">Menu</h2>
 
@@ -364,6 +364,57 @@ export default class MenuExamples extends Component {
                                           this.hideMenu(15);
                                       }}>
                                     <List data={items}/>
+                                </Menu>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <p><code>Menu</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Menu"
+                                              onMouseEnter={(e) => {
+                                                  this.showMenu(e, 2);
+                                              }}/>
+
+                                <Menu className="customized-menu-triangle-popup"
+                                      visible={menuVisible2}
+                                      triggerEl={triggerEl2}
+                                      triangleEl={
+                                          <svg xmlns="http://www.w3.org/2000/svg"
+                                               version="1.1"
+                                               className="customized-menu-triangle"
+                                               width="17"
+                                               height="7">
+                                              <line x1="0" y1="6"
+                                                    x2="9" y2="0"
+                                                    style={{stroke: '#e7e7e7'}}/>
+                                              <line x1="17" y1="6"
+                                                    x2="9" y2="0"
+                                                    style={{stroke: '#e7e7e7'}}/>
+                                              <polygon points="0,7 9,0 17,7"
+                                                       style={{fill: '#fff'}}/>
+                                          </svg>
+                                      }
+                                      onRequestClose={() => {
+                                          this.hideMenu(2);
+                                      }}>
+                                    <div style={{padding: 20}}>
+                                        Menu
+                                    </div>
                                 </Menu>
 
                             </div>
