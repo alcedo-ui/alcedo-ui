@@ -13,10 +13,11 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class List extends Component {
 
-    static Mode = ListItem.Mode;
+    static SelectMode = SelectMode;
     static SEPARATOR = Symbol('SEPARATOR');
 
     constructor(props, ...restArgs) {
@@ -53,9 +54,9 @@ export default class List extends Component {
         }
 
         switch (selectMode) {
-            case List.Mode.MULTI_SELECT:
+            case List.SelectMode.MULTI_SELECT:
                 return [];
-            case List.Mode.SINGLE_SELECT:
+            case List.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -72,11 +73,11 @@ export default class List extends Component {
             return false;
         }
 
-        if (selectMode === List.Mode.MULTI_SELECT) {
+        if (selectMode === List.SelectMode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                     return Util.isValueEqual(valueItem, item, valueField, displayField);
                 }).length > 0;
-        } else if (selectMode === List.Mode.SINGLE_SELECT) {
+        } else if (selectMode === List.SelectMode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -86,7 +87,7 @@ export default class List extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== List.Mode.NORMAL) {
+        if (selectMode !== List.SelectMode.NORMAL) {
             return;
         }
 
@@ -104,13 +105,13 @@ export default class List extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === List.Mode.NORMAL) {
+        if (selectMode === List.SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (selectMode === List.Mode.MULTI_SELECT) {
+        if (selectMode === List.SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -118,7 +119,7 @@ export default class List extends Component {
 
             value.push(item);
 
-        } else if (selectMode === List.Mode.SINGLE_SELECT) {
+        } else if (selectMode === List.SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -136,7 +137,7 @@ export default class List extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== List.Mode.MULTI_SELECT) {
+        if (selectMode !== List.SelectMode.MULTI_SELECT) {
             return;
         }
 
@@ -402,7 +403,7 @@ List.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -451,7 +452,7 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: ListItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     shouldPreventContainerScroll: true
 
 };
