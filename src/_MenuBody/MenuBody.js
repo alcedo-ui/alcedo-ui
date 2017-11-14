@@ -336,7 +336,7 @@ MenuBody.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
-    triangle: PropTypes.any,
+    triangle: PropTypes.element,
 
     /**
      * The popover theme.Can be primary,highlight,success,warning,error.
