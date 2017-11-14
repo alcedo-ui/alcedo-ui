@@ -100,7 +100,33 @@ export default class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
-                                                    listMode={}
+                                                    />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Editable Select</code> simple example.</p>
+
+                                <div className="field-group">
+
+                                    <EditableSelect data={this.data}
+                                                    onChange={this.onChange}
+                                                    selectMode={EditableSelect.SelectMode.SINGLE_SELECT}
                                                     useFilter={true}/>
 
                                 </div>

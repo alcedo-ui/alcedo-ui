@@ -14,6 +14,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
+import SelectMode from '../_statics/SelectMode';
 
 export default class EditableSelect extends Component {
 
@@ -509,6 +510,8 @@ EditableSelect.defaultProps = {
     useFilter: false,
     noMatchedMsg: '',
     triggerTheme: Theme.DEFAULT,
-    isGrouped: false
+    isGrouped: false,
+
+    selectMode:SelectMode.NORMAL
 
 };
