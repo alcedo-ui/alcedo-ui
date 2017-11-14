@@ -18,6 +18,8 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class EditableSelect extends Component {
 
+    static SelectMode = SelectMode;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -199,7 +201,7 @@ export default class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, onItemTouchTap
+                triggerTheme, isGrouped, disableTouchRipple, onItemTouchTap, selectMode
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 
@@ -256,6 +258,7 @@ export default class EditableSelect extends Component {
                            rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
                            disabled={disabled}
                            theme={triggerTheme}
+                           disableTouchRipple={disableTouchRipple}
                            onChange={this.onChangeValue}
                            onFocus={this.showPopup}/>
 
@@ -286,7 +289,7 @@ export default class EditableSelect extends Component {
                           data={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           value={listValue}
-                          selectMode={SelectMode.SINGLE_SELECT}
+                          selectMode={selectMode}
                           displayField={displayField}
                           descriptionField={descriptionField}
                           onItemTouchTap={onItemTouchTap}
@@ -507,6 +510,8 @@ EditableSelect.defaultProps = {
     useFilter: false,
     noMatchedMsg: '',
     triggerTheme: Theme.DEFAULT,
-    isGrouped: false
+    isGrouped: false,
+
+    selectMode:SelectMode.NORMAL
 
 };
