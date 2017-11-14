@@ -41,6 +41,7 @@ export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
 export MaterialDropdownFilter from './MaterialDropdownFilter';
 export MaterialDropdownSelect from './MaterialDropdownSelect';
+export MaterialEditableSelect from './MaterialEditableSelect';
 export MaterialLocalAutoComplete from './MaterialLocalAutoComplete';
 export MaterialTextArea from './MaterialTextArea';
 export MaterialTextField from './MaterialTextField';
@@ -80,4 +81,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 80;
+export const COMPONENTS_TOTAL_COUNT = 81;

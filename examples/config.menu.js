@@ -127,6 +127,9 @@ export default [{
         text: 'MaterialTextArea',
         route: '/components/MaterialTextArea'
     }, {
+        text: 'MaterialEditableSelect',
+        route: '/components/MaterialEditableSelect'
+    }, {
         text: 'DownloadField',
         route: '/components/DownloadField'
     }]
