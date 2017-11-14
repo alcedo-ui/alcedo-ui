@@ -388,7 +388,7 @@ export default class MenuExamples extends Component {
                                                   this.showMenu(e, 2);
                                               }}/>
 
-                                <Menu className="customized-menu-triangle-popup"
+                                <Menu className="customized-menu"
                                       visible={menuVisible2}
                                       triggerEl={triggerEl2}
                                       triangle={
