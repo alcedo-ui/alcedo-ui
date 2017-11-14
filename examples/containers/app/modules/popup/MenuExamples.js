@@ -375,14 +375,12 @@ export default class MenuExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Basic"/>
+                                  title="Customized Menu Triangle"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="popup-example-wrapper">
-
-                                <p><code>Menu</code> simple example.</p>
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Menu"
@@ -393,7 +391,7 @@ export default class MenuExamples extends Component {
                                 <Menu className="customized-menu-triangle-popup"
                                       visible={menuVisible2}
                                       triggerEl={triggerEl2}
-                                      triangleEl={
+                                      triangle={
                                           <svg xmlns="http://www.w3.org/2000/svg"
                                                version="1.1"
                                                className="customized-menu-triangle"
