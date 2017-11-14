@@ -275,7 +275,7 @@ export default class MenuBody extends Component {
 
     render() {
 
-        const {children, className, style, hasTriangle, triangleEl, theme, position, isAnimated, depth} = this.props,
+        const {children, className, style, hasTriangle, triangle, theme, position, isAnimated, depth} = this.props,
             {visible} = this.state,
 
             menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' menu-has-triangle' : '')
@@ -292,7 +292,7 @@ export default class MenuBody extends Component {
                 {
                     hasTriangle ?
                         <div className="menu-triangle-wrapper">
-                            {triangleEl}
+                            {triangle}
                         </div>
                         :
                         null
@@ -336,7 +336,7 @@ MenuBody.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
-    triangleEl: PropTypes.any,
+    triangle: PropTypes.any,
 
     /**
      * The popover theme.Can be primary,highlight,success,warning,error.
@@ -391,7 +391,7 @@ MenuBody.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    triangleEl: <div className="menu-triangle"></div>,
+    triangle: <div className="menu-triangle"></div>,
     position: MenuBody.Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: MenuBody.TriggerMode.TOGGLE,
