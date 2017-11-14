@@ -399,14 +399,8 @@ export default class MenuExamples extends Component {
                                                className="customized-menu-triangle"
                                                width="17"
                                                height="7">
-                                              <line x1="0" y1="6"
-                                                    x2="9" y2="0"
-                                                    style={{stroke: '#e7e7e7'}}/>
-                                              <line x1="17" y1="6"
-                                                    x2="9" y2="0"
-                                                    style={{stroke: '#e7e7e7'}}/>
-                                              <polygon points="0,7 9,0 17,7"
-                                                       style={{fill: '#fff'}}/>
+                                              <polyline points="0,7 9,0 17,7"
+                                                        style={{stroke: '#e7e7e7', fill: '#fff'}}/>
                                           </svg>
                                       }
                                       onRequestClose={() => {
