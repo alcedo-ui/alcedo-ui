@@ -4,6 +4,7 @@ import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ListDoc from 'assets/propTypes/List.json';
@@ -85,12 +86,35 @@ export default class ListExamples extends Component {
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.changeHandle = this::this.changeHandle;
+        this.customizedListData = [{
+            radioUncheckedIconCls: 'fa fa-facebook',
+            radioCheckedIconCls: 'fa fa-facebook',
+            value: 'Facebook',
+            text: 'Facebook'
+        }, {
+            radioUncheckedIconCls: 'fa fa-twitter',
+            radioCheckedIconCls: 'fa fa-twitter',
+            value: 'Twitter',
+            text: 'Twitter'
+        }, {
+            radioUncheckedIconCls: 'fa fa-google-plus',
+            radioCheckedIconCls: 'fa fa-google-plus',
+            value: 'Google+',
+            text: 'Google+'
+        }];
 
     }
 
-    changeHandle(value) {
-        console.log(value);
+    changeHandler(value, index) {
+        console.log('change::', value);
+    }
+
+    itemSelectHandler(value, index) {
+        console.log('select::', value);
+    }
+
+    itemDeselectHandler(value, index) {
+        console.log('deselect::', value);
     }
 
     render() {
@@ -200,7 +224,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="With Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -208,14 +232,36 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with mode.Can be normal,radio,checkbox.
+                                    A <code>List</code> with select mode.Can be <code>NORMAL</code>
+                                    , <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          mode={List.Mode.RADIO}
+                                          selectMode={List.SelectMode.SINGLE_SELECT}
                                           data={this.descListData}
-                                          onChange={this.changeHandle}/>
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
+
+                                <Paper style={{width: 240, marginTop: 20}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.MULTI_SELECT}
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
+
+                                <Paper style={{width: 240, marginTop: 20}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.SINGLE_SELECT}
+                                          selectTheme={Theme.HIGHLIGHT}
+                                          data={this.customizedListData}
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                             </div>

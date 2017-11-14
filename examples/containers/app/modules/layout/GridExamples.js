@@ -113,10 +113,10 @@ export default class GridExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Grid</code> with mode.Can be normal,radio,checkbox.
+                                    A <code>Grid</code> with select mode.Can be normal,radio,checkbox.
                                 </p>
 
-                                <Grid mode={Grid.Mode.RADIO}
+                                <Grid selectMode={Grid.SelectMode.SINGLE_SELECT}
                                       items={this.descListData}
                                       onChange={this.changeHandle}/>
 
@@ -140,7 +140,7 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with isGrouped.
                                 </p>
 
-                                <Grid mode={Grid.Mode.CHECKBOX}
+                                <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
                                       isGrouped={true}
                                       items={this.groupedListData}
                                       onChange={this.changeHandle}/>

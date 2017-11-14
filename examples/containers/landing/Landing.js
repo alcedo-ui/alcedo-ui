@@ -23,27 +23,27 @@ export default class Landing extends Component {
             bodyScrollTop: 0
         };
 
-        this.scrollHandle = this::this.scrollHandle;
-        this.debounceScrollHandle = _.debounce(this::this.debounceScrollHandle, 150);
+        this.scrollHandler = this::this.scrollHandler;
+        this.debounceScrollHandler = _.debounce(this::this.debounceScrollHandler, 150);
 
     }
 
-    debounceScrollHandle() {
+    debounceScrollHandler() {
         this.setState({
             bodyScrollTop: document.body.scrollTop
         });
     }
 
-    scrollHandle(e) {
-        this.debounceScrollHandle(e);
+    scrollHandler(e) {
+        this.debounceScrollHandler(e);
     }
 
     componentDidMount() {
-        Event.addEvent(document, 'scroll', this.scrollHandle);
+        Event.addEvent(document, 'scroll', this.scrollHandler);
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'scroll', this.scrollHandle);
+        Event.removeEvent(document, 'scroll', this.scrollHandler);
     }
 
     render() {

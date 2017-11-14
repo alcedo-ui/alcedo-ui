@@ -9,7 +9,7 @@
     .tree-select-inner {
         width: 100%;
         overflow: hidden;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
         border-radius: $theme-border-radius;
         border: 1px solid #dfdfdf;
         position: absolute;
@@ -53,7 +53,7 @@
                 text-align: center;
                 margin: 0;
                 color: inherit;
-                transition: all $transition-duration ease-in-out;
+                transition: all $theme-transition-duration ease-in-out;
             }
 
             &:hover {
@@ -74,7 +74,7 @@
             z-index: 1;
             border-bottom-left-radius: $theme-border-radius;
             border-bottom-right-radius: $theme-border-radius;
-            transition: all $transition-duration ease-in-out;
+            transition: all $theme-transition-duration ease-in-out;
             .tree-inner {
                 border: none;
             }

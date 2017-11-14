@@ -14,8 +14,8 @@
         line-height: 16px;
         color: $theme-field-disabled;
         transform-origin: top left;
-        transition: transform $transition-duration ease-in-out,
-        color $transition-duration ease-in-out;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
     }
 
     .text-area {
@@ -29,7 +29,7 @@
         .text-area-input {
             padding-left: 8px;
             padding-right: 8px;
-            transition: opacity $transition-duration ease-in-out;
+            transition: opacity $theme-transition-duration ease-in-out;
         }
 
     }

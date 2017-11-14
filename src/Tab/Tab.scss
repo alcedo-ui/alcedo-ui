@@ -22,7 +22,7 @@
             bottom: 0;
             height: 2px;
             background: $theme-highlight;
-            transition: transform $transition-duration ease-in-out;
+            transition: transform $theme-transition-duration ease-in-out;
         }
 
         &.auto-width {
@@ -48,7 +48,7 @@
 
         .tab-content-scroller {
             @include float-fix;
-            transition: all $transition-duration ease-in-out;
+            transition: all $theme-transition-duration ease-in-out;
 
             .tab-content {
                 float: left;

@@ -35,7 +35,7 @@ export default class GroupListExamples extends Component {
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
-        }, GroupList.SEPARATOR, {
+        }, GroupList.LIST_SEPARATOR, {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',
@@ -90,7 +90,7 @@ export default class GroupListExamples extends Component {
                                 </p>
 
                                 <Paper>
-                                    <GroupList mode={GroupList.Mode.CHECKBOX}
+                                    <GroupList selectMode={GroupList.SelectMode.MULTI_SELECT}
                                                data={this.listData}
                                                onChange={this.changeHandler}/>
                                 </Paper>

@@ -27,6 +27,8 @@ export default class TableExamples extends Component {
             flex: 1
         }, {
             header: 'Name',
+            sortable: true,
+            sortProp: 'firstName',
             renderer: '${firstName} - ${lastName}',
             flex: 2
         }, {
@@ -122,7 +124,7 @@ export default class TableExamples extends Component {
                                 <Table columns={this.columns}
                                        isPagging={true}
                                        data={this.generateData(5)}
-                                       mode={Table.Mode.RADIO}
+                                       selectMode={Table.SelectMode.SINGLE_SELECT}
                                        sortInitConfig={{
                                            prop: 'id',
                                            type: -1
@@ -150,7 +152,7 @@ export default class TableExamples extends Component {
                             <Paper>
                                 <Table columns={this.columns}
                                        isPagging={true}
-                                       mode={Table.Mode.CHECKBOX}
+                                       selectMode={Table.SelectMode.MULTI_SELECT}
                                        data={this.generateData()}
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}

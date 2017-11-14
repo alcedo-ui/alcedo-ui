@@ -14,7 +14,7 @@
     opacity: .9;
     box-sizing: border-box;
     text-align: left;
-    transition: opacity $transition-duration ease-in-out;
+    transition: opacity $theme-transition-duration ease-in-out;
 
     .toast-icon {
         position: absolute;
@@ -39,9 +39,9 @@
     &.leave {
         margin-top: 0 !important;
         height: 0 !important;
-        transition: opacity $transition-duration ease-in-out,
-        height $transition-duration ease-in-out $transition-duration,
-        margin-top $transition-duration ease-in-out $transition-duration;
+        transition: opacity $theme-transition-duration ease-in-out,
+        height $theme-transition-duration ease-in-out $theme-transition-duration,
+        margin-top $theme-transition-duration ease-in-out $theme-transition-duration;
     }
 
 }

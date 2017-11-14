@@ -13,11 +13,13 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 export default class DynamicRenderList extends Component {
 
-    static Mode = List.Mode;
-    static SEPARATOR = List.SEPARATOR;
+    static SelectMode = SelectMode;
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -32,6 +34,7 @@ export default class DynamicRenderList extends Component {
         this.getIndex = ::this.getIndex;
         this.scrollHandler = ::this.scrollHandler;
         this.wheelHandler = ::this.wheelHandler;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
@@ -41,9 +44,9 @@ export default class DynamicRenderList extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -51,10 +54,10 @@ export default class DynamicRenderList extends Component {
             return value;
         }
 
-        switch (mode) {
-            case DynamicRenderList.Mode.CHECKBOX:
+        switch (selectMode) {
+            case DynamicRenderList.SelectMode.MULTI_SELECT:
                 return [];
-            case DynamicRenderList.Mode.RADIO:
+            case DynamicRenderList.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -81,6 +84,15 @@ export default class DynamicRenderList extends Component {
         const {shouldPreventContainerScroll, onWheel} = this.props;
         shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
+    }
+
+    changeHandler(value) {
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
     }
 
     componentDidMount() {
@@ -128,9 +140,10 @@ export default class DynamicRenderList extends Component {
                      style={scrollerStyle}>
 
                     <List {...restProps}
-                          style={{transform: `translate3d(0, ${index.startWithBuffer * itemHeight}px, 0)`}}
+                          style={{transform: `translateY(${index.startWithBuffer * itemHeight}px)`}}
                           data={filteredData}
-                          value={value}/>
+                          value={value}
+                          onChange={this.changeHandler}/>
 
                 </div>
 
@@ -153,9 +166,14 @@ DynamicRenderList.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme.
+     * The theme of the list item.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -277,13 +295,15 @@ DynamicRenderList.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DynamicRenderList.Mode)),
-
-    listHeight: PropTypes.number,
-    itemHeight: PropTypes.number,
-    scrollBuffer: PropTypes.number,
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -291,9 +311,19 @@ DynamicRenderList.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the list-item select.
+     * Callback function fired when the list-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item select.
+     */
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item deselect.
+     */
+    onItemDeselect: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.
@@ -301,14 +331,13 @@ DynamicRenderList.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Callback function fired when wrapper scrolled.
-     */
-    onScroll: PropTypes.func,
-
-    /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number
 
 };
 
@@ -317,6 +346,7 @@ DynamicRenderList.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
     data: [],
 
@@ -325,10 +355,17 @@ DynamicRenderList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: DynamicRenderList.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
     listHeight: 200,
     itemHeight: 40,
-    scrollBuffer: 4,
-    shouldPreventContainerScroll: true
+    scrollBuffer: 6
 
 };

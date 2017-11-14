@@ -7,8 +7,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import LocalAutoCompleteDoc from 'assets/propTypes/LocalAutoComplete.json';
 
-import 'sass/containers/app/modules/fields/LocalAutoCompleteExamples.scss';
-
 export default class LocalAutoCompleteExamples extends Component {
 
     constructor(props) {
@@ -52,7 +50,7 @@ export default class LocalAutoCompleteExamples extends Component {
     render() {
 
         return (
-            <div className="example auto-complete-examples">
+            <div className="example">
 
                 <h2 className="example-title">LocalAutoComplete</h2>
 
@@ -75,6 +73,7 @@ export default class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
+                                                   filterInitValue="test"
                                                    onChange={this.onChange}
                                                    onFilterPressEnter={this.filterPressEnterHandle}
                                                    onFilterClear={this.filterClearHandle}/>
@@ -96,12 +95,11 @@ export default class LocalAutoCompleteExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>LocalAutoComplete</code> with default mode, <code> normal</code>
+                                    <code>LocalAutoComplete</code> with default select mode, <code> normal</code>
                                     , <code>checkbox</code>, <code>radio</code> applied.
                                 </p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   mode="checkbox"
                                                    data={this.data}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>

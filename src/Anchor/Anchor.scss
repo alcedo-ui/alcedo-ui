@@ -21,7 +21,7 @@
     font-size: 12px;
     user-select: none;
     text-decoration: none;
-    transition: all $transition-duration ease-in-out;
+    transition: all $theme-transition-duration ease-in-out;
 
     .anchor-icon {
         text-align: center;

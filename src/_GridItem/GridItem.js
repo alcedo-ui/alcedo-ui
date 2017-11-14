@@ -13,14 +13,11 @@ import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class GridItem extends Component {
 
-    static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
-    };
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -80,13 +77,13 @@ export default class GridItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        switch (mode) {
-            case GridItem.Mode.CHECKBOX:
+        switch (selectMode) {
+            case GridItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case GridItem.Mode.RADIO:
+            case GridItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -105,7 +102,7 @@ export default class GridItem extends Component {
 
         const {
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, selectMode, renderer, itemRenderer, readOnly,
                 onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
@@ -131,7 +128,7 @@ export default class GridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            mode === GridItem.Mode.CHECKBOX ?
+                            selectMode === GridItem.SelectMode.MULTI_SELECT ?
                                 <Checkbox className="grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -140,7 +137,7 @@ export default class GridItem extends Component {
                         }
 
                         {
-                            mode === GridItem.Mode.RADIO ?
+                            selectMode === GridItem.SelectMode.SINGLE_SELECT ?
                                 <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :
@@ -320,7 +317,7 @@ GridItem.propTypes = {
     /**
      *
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(GridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      *
@@ -385,7 +382,7 @@ GridItem.defaultProps = {
 
     checked: false,
 
-    mode: GridItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     readOnly: false
 

@@ -13,6 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
+import SelectMode from '../_statics/SelectMode';
 
 const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 
@@ -26,11 +27,7 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 }))
 export default class DraggableListItem extends Component {
 
-    static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
-    };
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -92,20 +89,20 @@ export default class DraggableListItem extends Component {
             return;
         }
 
-        const {mode} = this.props,
+        const {selectMode} = this.props,
             callback = () => {
                 const {onTouchTap} = this.props;
                 onTouchTap && onTouchTap(e);
             };
 
-        switch (mode) {
-            case DraggableListItem.Mode.CHECKBOX:
+        switch (selectMode) {
+            case DraggableListItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            case DraggableListItem.Mode.RADIO:
+            case DraggableListItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler(callback);
                 return;
-            case DraggableListItem.Mode.NORMAL:
+            case DraggableListItem.SelectMode.NORMAL:
                 callback();
                 return;
         }
@@ -125,7 +122,7 @@ export default class DraggableListItem extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                selectMode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
                 onMouseEnter, onMouseLeave
             } = this.props,
             {checked} = this.state,
@@ -149,7 +146,7 @@ export default class DraggableListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        mode === DraggableListItem.Mode.CHECKBOX ?
+                        selectMode === DraggableListItem.SelectMode.MULTI_SELECT ?
                             <Checkbox className="draggable-list-item-checkbox"
                                       value={checked}
                                       disabled={disabled || isLoading}/>
@@ -158,7 +155,7 @@ export default class DraggableListItem extends Component {
                     }
 
                     {
-                        mode === DraggableListItem.Mode.RADIO ?
+                        selectMode === DraggableListItem.SelectMode.SINGLE_SELECT ?
                             <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
                                aria-hidden="true"></i>
                             :
@@ -329,7 +326,7 @@ DraggableListItem.propTypes = {
     /**
      *
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DraggableListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      *
@@ -400,7 +397,7 @@ DraggableListItem.defaultProps = {
 
     checked: false,
 
-    mode: DraggableListItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     isGroupTitle: false,
 

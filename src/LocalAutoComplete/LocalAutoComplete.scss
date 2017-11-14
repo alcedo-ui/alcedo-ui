@@ -7,7 +7,7 @@
 
     .local-auto-complete-trigger {
         @include shadow(0);
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
 
         &.activated {
             @include shadow(4);

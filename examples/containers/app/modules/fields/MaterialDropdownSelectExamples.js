@@ -41,7 +41,7 @@ export default class MaterialDropdownSelectExamples extends Component {
 
     render() {
         return (
-            <div className="example tree-select-examples">
+            <div className="example material-dropdown-select-examples">
 
                 <h2 className="examples-title">MaterialDropdownSelect</h2>
 
@@ -68,8 +68,9 @@ export default class MaterialDropdownSelectExamples extends Component {
                                     <MaterialDropdownSelect theme={Theme.HIGHLIGHT}
                                                             label="Label"
                                                             placeholder="Placeholder"
-                                                            mode={MaterialDropdownSelect.Mode.CHECKBOX}
+                                                            selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
                                                             useSelectAll={true}
+                                                            autoClose={false}
                                                             data={this.data}/>
                                 </div>
                             </div>

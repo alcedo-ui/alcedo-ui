@@ -67,34 +67,34 @@ export default class CheckboxGroup extends Component {
             {value} = this.state;
 
         return data ? (
-                <div className={'checkbox-group' + (className ? ' ' + className : '')}
-                     style={style}
-                     disabled={disabled}>
+            <div className={'checkbox-group' + (className ? ' ' + className : '')}
+                 style={style}
+                 disabled={disabled}>
 
-                    {
-                        data.map((item, index) => {
+                {
+                    data.map((item, index) => {
 
-                            const isChecked = value && value.findIndex(v => v.value === item.value) > -1;
+                        const isChecked = value && value.findIndex(v => v.value === item.value) > -1;
 
-                            return (
-                                <Checkbox key={idProp in item ? item[idProp] : index}
-                                          className={item.className ? item.className : ''}
-                                          style={item.style}
-                                          theme={item.theme || theme}
-                                          name={name}
-                                          label={item.label}
-                                          disabled={disabled}
-                                          value={isChecked}
-                                          onChange={() => {
-                                              this.changeHandle(item);
-                                          }}/>
-                            );
+                        return (
+                            <Checkbox key={idProp in item ? item[idProp] : index}
+                                      className={item.className ? item.className : ''}
+                                      style={item.style}
+                                      theme={item.theme || theme}
+                                      name={name}
+                                      label={item.label}
+                                      disabled={disabled || item.disabled}
+                                      value={isChecked}
+                                      onChange={() => {
+                                          this.changeHandle(item);
+                                      }}/>
+                        );
 
-                        })
-                    }
+                    })
+                }
 
-                </div>
-            )
+            </div>
+        )
             :
             null;
 

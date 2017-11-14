@@ -10,7 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import MenuDoc from 'assets/propTypes/MenuBody.json';
 
-import 'sass/containers/app/modules/popup/PopupExamples.scss';
+import 'sass/containers/app/modules/popup/MenuExamples.scss';
 
 export default class MenuExamples extends Component {
 
@@ -72,26 +72,29 @@ export default class MenuExamples extends Component {
     render() {
 
         const {
-                menuVisible1, menuVisible3, menuVisible4, menuVisible5, menuVisible6,
+                menuVisible1, menuVisible2, menuVisible3, menuVisible4, menuVisible5, menuVisible6,
                 menuVisible7, menuVisible8, menuVisible9, menuVisible10, menuVisible11, menuVisible12,
                 menuVisible13, menuVisible14, menuVisible15,
-                triggerEl1, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
+                triggerEl1, triggerEl2, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
                 triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11, triggerEl12
                 , triggerEl13, triggerEl14, triggerEl15
             } = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
+                value: 'Facebook',
                 text: 'Facebook'
             }, {
                 iconCls: 'fa fa-twitter',
+                value: 'Twitter',
                 text: 'Twitter'
             }, {
                 iconCls: 'fa fa-google-plus',
+                value: 'Google+',
                 text: 'Google+'
             }];
 
         return (
-            <div className="example popup-examples">
+            <div className="example menu-examples">
 
                 <h2 className="example-title">Menu</h2>
 
@@ -164,7 +167,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(3);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                             </div>
@@ -269,7 +272,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(4);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible5}
                                       triggerEl={triggerEl5}
@@ -277,7 +280,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(5);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible6}
                                       triggerEl={triggerEl6}
@@ -285,7 +288,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(6);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                                 <Menu visible={menuVisible7}
@@ -294,7 +297,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(7);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible8}
                                       triggerEl={triggerEl8}
@@ -302,7 +305,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(8);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible9}
                                       triggerEl={triggerEl9}
@@ -310,7 +313,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(9);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                                 <Menu visible={menuVisible10}
@@ -319,7 +322,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(10);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible11}
                                       triggerEl={triggerEl11}
@@ -327,7 +330,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(11);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible12}
                                       triggerEl={triggerEl12}
@@ -335,7 +338,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(12);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
 
                                 <Menu visible={menuVisible13}
@@ -344,7 +347,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(13);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible14}
                                       triggerEl={triggerEl14}
@@ -352,7 +355,7 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(14);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
                                 </Menu>
                                 <Menu visible={menuVisible15}
                                       triggerEl={triggerEl15}
@@ -360,7 +363,50 @@ export default class MenuExamples extends Component {
                                       onRequestClose={() => {
                                           this.hideMenu(15);
                                       }}>
-                                    <List items={items}/>
+                                    <List data={items}/>
+                                </Menu>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Customized Menu Triangle"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Menu"
+                                              onMouseEnter={(e) => {
+                                                  this.showMenu(e, 2);
+                                              }}/>
+
+                                <Menu className="customized-menu"
+                                      visible={menuVisible2}
+                                      triggerEl={triggerEl2}
+                                      triangle={
+                                          <svg xmlns="http://www.w3.org/2000/svg"
+                                               version="1.1"
+                                               className="customized-menu-triangle"
+                                               width="17"
+                                               height="7">
+                                              <polyline points="0,7 9,0 17,7"
+                                                        style={{stroke: '#e7e7e7', fill: '#fff'}}/>
+                                          </svg>
+                                      }
+                                      onRequestClose={() => {
+                                          this.hideMenu(2);
+                                      }}>
+                                    <div style={{padding: 20}}>
+                                        Menu
+                                    </div>
                                 </Menu>
 
                             </div>

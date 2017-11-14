@@ -44,7 +44,7 @@ export default class DraggableListExamples extends Component {
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]
-        }, DraggableList.SEPARATOR, {
+        }, DraggableList.LIST_SEPARATOR, {
             name: 'device',
             children: [{
                 iconCls: 'fa fa-android',
@@ -103,7 +103,7 @@ export default class DraggableListExamples extends Component {
 
                                 <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
-                                                   mode={DraggableList.Mode.CHECKBOX}
+                                                   selectMode={DraggableList.SelectMode.MULTI_SELECT}
                                                    items={this.listData}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onValueChange={this.valueChangeHandler}/>
@@ -131,7 +131,7 @@ export default class DraggableListExamples extends Component {
 
                                 <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
-                                                   mode={DraggableList.Mode.CHECKBOX}
+                                                   selectMode={DraggableList.SelectMode.MULTI_SELECT}
                                                    isGrouped={true}
                                                    items={this.groupedListData}
                                                    isDraggableAnyWhere={true}

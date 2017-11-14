@@ -8,21 +8,18 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Dropdown from '../Dropdown';
-import RaisedButton from '../RaisedButton';
 import TextField from '../TextField';
-import Popup from '../Popup';
 import List from '../List';
-import GroupList from '../GroupList';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class DropdownSelect extends Component {
 
-    static Mode = List.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -40,6 +37,7 @@ export default class DropdownSelect extends Component {
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.wheelHandler = ::this.wheelHandler;
+        this.popupClosedHandler = ::this.popupClosedHandler;
 
     }
 
@@ -108,16 +106,14 @@ export default class DropdownSelect extends Component {
 
     changeHandler(value) {
 
-        const {autoClose} = this.props,
-            state = {
-                value
-            };
-
+        const {autoClose} = this.props;
         if (autoClose) {
-            state.popupVisible = false;
+            this.closePopup();
         }
 
-        this.setState(state, () => {
+        this.setState({
+            value
+        }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
@@ -128,6 +124,15 @@ export default class DropdownSelect extends Component {
         const {shouldPreventContainerScroll, onWheel} = this.props;
         shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
+    }
+
+    popupClosedHandler(e) {
+        this.setState({
+            popupVisible: false
+        }, () => {
+            const {onClosePopup} = this.props;
+            onClosePopup && onClosePopup(e);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -142,7 +147,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder, popupTheme, data,
-                mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
+                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
 
                 ...restProps
@@ -150,7 +155,7 @@ export default class DropdownSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isMultiSelect = mode === DropdownSelect.Mode.CHECKBOX,
+            isMultiSelect = selectMode === DropdownSelect.SelectMode.MULTI_SELECT,
 
             emptyEl = [{
                 itemRenderer() {
@@ -209,7 +214,8 @@ export default class DropdownSelect extends Component {
                           triggerClassName={triggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
-                          triggerValue={triggerValue}>
+                          triggerValue={triggerValue}
+                          onClosePopup={this.popupClosedHandler}>
 
                     <div className="dropdown-select-popup-fixed">
 
@@ -257,7 +263,7 @@ export default class DropdownSelect extends Component {
 
                         <List className="dropdown-select-list"
                               theme={popupTheme}
-                              mode={mode}
+                              selectMode={selectMode}
                               data={listData.length < 1 ? emptyEl : listData}
                               value={value}
                               valueField={valueField}
@@ -413,9 +419,9 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * The mode of listItem.Can be normal,checkbox.
+     * The select mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -502,7 +508,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    mode: DropdownSelect.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',

@@ -119,6 +119,15 @@ export default function configureRoutes(store) {
                     component: ac(store, () => import('modules/fields/DownloadFieldExamples'))
                 },
 
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- filter -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/DropdownFilter',
+                    component: ac(store, () => import('modules/filter/DropdownFilterExamples'))
+                }, {
+                    path: '/components/MaterialDropdownFilter',
+                    component: ac(store, () => import('modules/filter/MaterialDropdownFilterExamples'))
+                },
+
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/DatePicker',

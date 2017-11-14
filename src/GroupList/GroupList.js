@@ -12,11 +12,13 @@ import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 export default class GroupList extends Component {
 
-    static Mode = List.Mode;
-    static SEPARATOR = List.SEPARATOR;
+    static SelectMode = SelectMode;
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -37,9 +39,9 @@ export default class GroupList extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -47,10 +49,10 @@ export default class GroupList extends Component {
             return value;
         }
 
-        switch (mode) {
-            case GroupList.Mode.CHECKBOX:
+        switch (selectMode) {
+            case GroupList.SelectMode.MULTI_SELECT:
                 return [];
-            case GroupList.Mode.RADIO:
+            case GroupList.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -95,7 +97,7 @@ export default class GroupList extends Component {
                     data && data.length > 0 ?
                         data.map((item, index) => {
 
-                            if (item === GroupList.SEPARATOR) {
+                            if (item === LIST_SEPARATOR) {
                                 return <div key={index}
                                             className="list-separator"></div>;
                             }
@@ -137,6 +139,11 @@ GroupList.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -265,9 +272,15 @@ GroupList.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(GroupList.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -296,6 +309,7 @@ GroupList.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
     data: [],
 
@@ -304,7 +318,13 @@ GroupList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: GroupList.Mode.NORMAL,
-    shouldPreventContainerScroll: true
+    selectMode: SelectMode.NORMAL,
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

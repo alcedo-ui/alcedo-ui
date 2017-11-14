@@ -14,8 +14,8 @@
         top: 0;
         width: 100%;
         height: 100%;
-        transition: opacity $transition-duration linear,
-        z-index 0s $transition-duration;
+        transition: opacity $theme-transition-duration linear,
+        z-index 0s $theme-transition-duration;
 
         .lazy-image-loading {
             vertical-align: middle;

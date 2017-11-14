@@ -72,10 +72,10 @@ export default class PopupExamples extends Component {
     render() {
 
         const {
-                popupVisible1, popupVisible3, popupVisible4, popupVisible5, popupVisible6,
+                popupVisible1, popupVisible2, popupVisible3, popupVisible4, popupVisible5, popupVisible6,
                 popupVisible7, popupVisible8, popupVisible9, popupVisible10, popupVisible11, popupVisible12,
                 popupVisible13, popupVisible14, popupVisible15,
-                triggerEl1, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
+                triggerEl1, triggerEl2, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
                 triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11, triggerEl12
                 , triggerEl13, triggerEl14, triggerEl15
             } = this.state,
@@ -119,7 +119,7 @@ export default class PopupExamples extends Component {
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={(e) => {
+                                              onTouchTap={e => {
                                                   this.togglePopup(e, 1);
                                               }}/>
 
@@ -130,7 +130,7 @@ export default class PopupExamples extends Component {
                                            this.closePopup(1);
                                        }}>
                                     <div style={{padding: 20, color: '#fff'}}>
-                                        Menu
+                                        Popup Content
                                     </div>
                                 </Popup>
 
@@ -157,7 +157,7 @@ export default class PopupExamples extends Component {
 
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={(e) => {
+                                              onTouchTap={e => {
                                                   this.togglePopup(e, 3);
                                               }}/>
 
@@ -195,17 +195,17 @@ export default class PopupExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top Left"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 7);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 8);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top right"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 9);
                                                       }}/>
                                     </div>
@@ -213,17 +213,17 @@ export default class PopupExamples extends Component {
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Top"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 13);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 14);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 15);
                                                       }}/>
                                     </div>
@@ -231,17 +231,17 @@ export default class PopupExamples extends Component {
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 4);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 5);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 6);
                                                       }}/>
                                     </div>
@@ -249,17 +249,17 @@ export default class PopupExamples extends Component {
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Top"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 10);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 11);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onTouchTap={(e) => {
+                                                      onTouchTap={e => {
                                                           this.togglePopup(e, 12);
                                                       }}/>
                                     </div>
@@ -364,6 +364,49 @@ export default class PopupExamples extends Component {
                                            this.closePopup(15);
                                        }}>
                                     <List data={data}/>
+                                </Popup>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Customized Popup Triangle"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Popup"
+                                              onTouchTap={e => {
+                                                  this.togglePopup(e, 2);
+                                              }}/>
+
+                                <Popup className="customized-popup"
+                                       visible={popupVisible2}
+                                       triggerEl={triggerEl2}
+                                       triangle={
+                                           <svg xmlns="http://www.w3.org/2000/svg"
+                                                version="1.1"
+                                                className="customized-popup-triangle"
+                                                width="17"
+                                                height="7">
+                                               <polyline points="0,7 9,0 17,7"
+                                                         style={{stroke: '#e7e7e7', fill: '#fff'}}/>
+                                           </svg>
+                                       }
+                                       onRequestClose={() => {
+                                           this.closePopup(2);
+                                       }}>
+                                    <div style={{padding: 20}}>
+                                        Popup Content
+                                    </div>
                                 </Popup>
 
                             </div>

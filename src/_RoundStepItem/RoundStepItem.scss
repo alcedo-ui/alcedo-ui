@@ -29,22 +29,30 @@
         background: $theme-field-bg-disabled;
     }
 
-    .left-bar {
+    .left-bar,
+    .right-bar {
         position: absolute;
         top: 24px;
-        left: 0;
-        width: 50%;
         height: 12px;
         background: $theme-primary;
     }
 
-    .right-bar {
-        position: absolute;
-        top: 24px;
-        left: 50%;
-        width: 50%;
+    .left-bar {
         height: 12px;
-        background: $theme-primary;
+        width: 50%;
+    }
+
+    .right-bar {
+        left: 50%;
+        width: 20%;
+
+        &.hidden {
+            display: none;
+        }
+
+        &.full {
+            width: 50%;
+        }
     }
 
     .round {

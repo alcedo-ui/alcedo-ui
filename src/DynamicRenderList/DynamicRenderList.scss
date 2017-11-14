@@ -6,4 +6,8 @@
 .dynamic-render-list {
     overflow-x: hidden;
     overflow-y: auto;
+
+    .dynamic-render-list-scroller {
+        overflow: hidden;
+    }
 }

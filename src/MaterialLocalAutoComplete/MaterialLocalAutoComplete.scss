@@ -13,8 +13,8 @@
         line-height: 16px;
         color: $theme-field-disabled;
         transform-origin: top left;
-        transition: transform $transition-duration ease-in-out,
-        color $transition-duration ease-in-out;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
     }
 
     .text-field {
@@ -27,7 +27,7 @@
 
         .text-field-input {
             padding-left: 8px;
-            transition: opacity $transition-duration ease-in-out;
+            transition: opacity $theme-transition-duration ease-in-out;
         }
 
     }

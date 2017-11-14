@@ -19,6 +19,7 @@
 @import './DraggableGrid/DraggableGrid.scss';
 @import './DraggableList/DraggableList.scss';
 @import './Dropdown/Dropdown.scss';
+@import './DropdownFilter/DropdownFilter.scss';
 @import './DropdownSelect/DropdownSelect.scss';
 @import './DynamicRenderList/DynamicRenderList.scss';
 @import './EditableField/EditableField.scss';
@@ -36,6 +37,7 @@
 @import './List/List.scss';
 @import './ListStep/ListStep.scss';
 @import './LocalAutoComplete/LocalAutoComplete.scss';
+@import './MaterialDropdownFilter/MaterialDropdownFilter.scss';
 @import './MaterialDropdownSelect/MaterialDropdownSelect.scss';
 @import './MaterialLocalAutoComplete/MaterialLocalAutoComplete.scss';
 @import './MaterialTextArea/MaterialTextArea.scss';
@@ -83,7 +85,6 @@
 @import './_DraggableListItem/DraggableListItem.scss';
 @import './_GridGroup/GridGroup.scss';
 @import './_GridItem/GridItem.scss';
-@import './_ListGroup/ListGroup.scss';
 @import './_ListItem/ListItem.scss';
 @import './_ListStepItem/ListStepItem.scss';
 @import './_MaterialFieldSeparator/MaterialFieldSeparator.scss';

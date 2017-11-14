@@ -9,14 +9,11 @@ import PropTypes from 'prop-types';
 import TableRow from '../_TableRow';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class Tbody extends Component {
 
-    static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
-    };
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -28,16 +25,16 @@ export default class Tbody extends Component {
 
     isItemChecked(rowData) {
 
-        const {mode, idProp, value} = this.props;
+        const {selectMode, idProp, value} = this.props;
 
-        if (mode === Tbody.Mode.NORMAL || !rowData || !value) {
+        if (selectMode === Tbody.SelectMode.NORMAL || !rowData || !value) {
             return false;
         }
 
-        switch (mode) {
-            case Tbody.Mode.CHECKBOX:
+        switch (selectMode) {
+            case Tbody.SelectMode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Tbody.Mode.RADIO:
+            case Tbody.SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -80,7 +77,7 @@ Tbody.propTypes = {
     data: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
-    mode: PropTypes.oneOf(Util.enumerateValue(Tbody.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     disabled: PropTypes.bool,
 
     isItemChecked: PropTypes.func,
@@ -95,6 +92,6 @@ Tbody.defaultProps = {
     columns: [],
     startIndex: 0,
     idProp: 'id',
-    mode: Tbody.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
     disabled: false
 };

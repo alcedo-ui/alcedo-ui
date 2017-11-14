@@ -131,6 +131,15 @@ export default [{
         route: '/components/DownloadField'
     }]
 }, {
+    text: 'Filter',
+    children: [{
+        text: 'DropdownFilter',
+        route: '/components/DropdownFilter'
+    }, {
+        text: 'MaterialDropdownFilter',
+        route: '/components/MaterialDropdownFilter'
+    }]
+}, {
     text: 'Progress',
     children: [{
         text: 'CircleProgress',

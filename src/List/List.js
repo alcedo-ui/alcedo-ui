@@ -13,11 +13,13 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 export default class List extends Component {
 
-    static Mode = ListItem.Mode;
-    static SEPARATOR = Symbol('SEPARATOR');
+    static SelectMode = SelectMode;
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -42,9 +44,9 @@ export default class List extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -52,10 +54,10 @@ export default class List extends Component {
             return value;
         }
 
-        switch (mode) {
-            case List.Mode.CHECKBOX:
+        switch (selectMode) {
+            case List.SelectMode.MULTI_SELECT:
                 return [];
-            case List.Mode.RADIO:
+            case List.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -65,18 +67,18 @@ export default class List extends Component {
 
     isItemChecked(item) {
 
-        const {mode, valueField, displayField} = this.props,
+        const {selectMode, valueField, displayField} = this.props,
             {value} = this.state;
 
         if (!value) {
             return false;
         }
 
-        if (mode === List.Mode.CHECKBOX) {
+        if (selectMode === List.SelectMode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
-        } else if (mode === List.Mode.RADIO) {
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
+        } else if (selectMode === List.SelectMode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -84,9 +86,9 @@ export default class List extends Component {
 
     listItemTouchTapHandler(value, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode !== List.Mode.NORMAL) {
+        if (selectMode !== List.SelectMode.NORMAL) {
             return;
         }
 
@@ -102,15 +104,15 @@ export default class List extends Component {
 
     listItemSelectHandler(item, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode === List.Mode.NORMAL) {
+        if (selectMode === List.SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (mode === List.Mode.CHECKBOX) {
+        if (selectMode === List.SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -118,14 +120,15 @@ export default class List extends Component {
 
             value.push(item);
 
-        } else if (mode === List.Mode.RADIO) {
+        } else if (selectMode === List.SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
+            const {onItemSelect, onChange} = this.props;
+            onItemSelect && onItemSelect(item, index);
             onChange && onChange(value, index);
         });
 
@@ -133,9 +136,9 @@ export default class List extends Component {
 
     listItemDeselectHandler(item, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode !== List.Mode.CHECKBOX) {
+        if (selectMode !== List.SelectMode.MULTI_SELECT) {
             return;
         }
 
@@ -154,7 +157,8 @@ export default class List extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
+            const {onItemDeselect, onChange} = this.props;
+            onItemDeselect && onItemDeselect(item, index);
             onChange && onChange(value, index);
         });
 
@@ -177,8 +181,14 @@ export default class List extends Component {
     render() {
 
         const {
+
                 children, className, style, theme, data, itemHeight,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, mode, renderer
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
+
             } = this.props,
             listClassName = (className ? ' ' + className : '');
 
@@ -193,18 +203,24 @@ export default class List extends Component {
                         (
                             data.map((item, index) => {
 
-                                if (item === List.SEPARATOR) {
+                                if (item === LIST_SEPARATOR) {
                                     return <div key={index}
                                                 className="list-separator"></div>;
                                 }
 
                                 return typeof item === 'object' ?
                                     (
-                                        <ListItem key={item[idField] || item[valueField]}
+                                        <ListItem key={item[idField] || index}
                                                   {...item}
                                                   index={index}
                                                   style={{height: itemHeight}}
                                                   theme={item.theme || theme}
+                                                  selectTheme={item.selectTheme || selectTheme}
+                                                  radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                  radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                   data={item}
                                                   checked={this.isItemChecked(item)}
                                                   value={Util.getValueByValueField(item, valueField, displayField)}
@@ -212,7 +228,7 @@ export default class List extends Component {
                                                   desc={item[descriptionField] || null}
                                                   disabled={disabled || item.disabled}
                                                   isLoading={isLoading || item.isLoading}
-                                                  mode={mode}
+                                                  selectMode={selectMode}
                                                   renderer={renderer}
                                                   onTouchTap={(e) => {
                                                       this.listItemTouchTapHandler(item, index);
@@ -227,17 +243,23 @@ export default class List extends Component {
                                     )
                                     :
                                     (
-                                        <ListItem key={item}
+                                        <ListItem key={index}
                                                   index={index}
                                                   style={{height: itemHeight}}
                                                   theme={item.theme || theme}
+                                                  selectTheme={item.selectTheme || selectTheme}
+                                                  radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                  radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                   data={item}
                                                   checked={this.isItemChecked(item)}
                                                   value={item}
                                                   text={item}
                                                   disabled={disabled}
                                                   isLoading={isLoading}
-                                                  mode={mode}
+                                                  selectMode={selectMode}
                                                   renderer={renderer}
                                                   onTouchTap={() => {
                                                       this.listItemTouchTapHandler(item, index);
@@ -276,9 +298,14 @@ List.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme.
+     * The theme of the list item.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -400,9 +427,15 @@ List.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -410,9 +443,19 @@ List.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the list-item select.
+     * Callback function fired when the list-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item select.
+     */
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the list-item deselect.
+     */
+    onItemDeselect: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.
@@ -431,6 +474,7 @@ List.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
     data: [],
 
@@ -439,7 +483,13 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    mode: ListItem.Mode.NORMAL,
-    shouldPreventContainerScroll: true
+    selectMode: SelectMode.NORMAL,
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

@@ -14,21 +14,19 @@ import Util from '../_vendors/Util';
 
 export default class MaterialLocalAutoComplete extends Component {
 
-    static Mode = LocalAutoComplete.Mode;
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.state = {
             value: '',
-            filter: '',
+            filter: props.filterInitValue,
             isFocus: false,
             isHover: false
         };
 
         this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.popupClosedHandler = ::this.popupClosedHandler;
         this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
@@ -46,12 +44,9 @@ export default class MaterialLocalAutoComplete extends Component {
         });
     }
 
-    triggerBlurHandler(...args) {
+    popupClosedHandler() {
         this.setState({
             isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
         });
     }
 
@@ -139,7 +134,7 @@ export default class MaterialLocalAutoComplete extends Component {
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
-                                   onBlur={this.triggerBlurHandler}
+                                   onPopupClosed={this.popupClosedHandler}
                                    onTriggerMouseOver={this.triggerMouseOverHandler}
                                    onTriggerMouseOut={this.triggerMouseOutHandler}
                                    onFilterChange={this.triggerFilterChangeHandler}
@@ -295,11 +290,6 @@ MaterialLocalAutoComplete.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     * The type of dropDown list,can be normal,checkbox,radio.
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
-
-    /**
      * Callback function fired when filter changed.
      */
     filterCallback: PropTypes.func,
@@ -330,6 +320,8 @@ MaterialLocalAutoComplete.propTypes = {
     isGrouped: PropTypes.bool,
 
     isLabelAnimated: PropTypes.bool,
+
+    filterInitValue: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -401,6 +393,7 @@ MaterialLocalAutoComplete.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
+    filterInitValue: '',
 
     popupChildren: null
 

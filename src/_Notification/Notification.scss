@@ -21,7 +21,7 @@
     border-width: 1px;
     border-style: solid;
     border-radius: $theme-border-radius;
-    transition: opacity $transition-duration ease-in-out;
+    transition: opacity $theme-transition-duration ease-in-out;
 
     .notification-icon {
         position: absolute;
@@ -44,7 +44,7 @@
         right: 5px;
         color: #fff;
         opacity: .5;
-        transition: opacity $transition-duration ease-in-out;
+        transition: opacity $theme-transition-duration ease-in-out;
 
         &:hover {
             opacity: 1;
@@ -60,7 +60,7 @@
         padding: 0px;
         color: #fff;
         opacity: .5;
-        transition: opacity $transition-duration ease-in-out;
+        transition: opacity $theme-transition-duration ease-in-out;
 
         &:hover {
             opacity: 1;
@@ -91,9 +91,9 @@
     &.leave {
         margin-top: 0 !important;
         height: 0 !important;
-        transition: opacity $transition-duration ease-in-out,
-        height $transition-duration ease-in-out $transition-duration,
-        margin-top $transition-duration ease-in-out $transition-duration;
+        transition: opacity $theme-transition-duration ease-in-out,
+        height $theme-transition-duration ease-in-out $theme-transition-duration,
+        margin-top $theme-transition-duration ease-in-out $theme-transition-duration;
     }
 
     // default theme
