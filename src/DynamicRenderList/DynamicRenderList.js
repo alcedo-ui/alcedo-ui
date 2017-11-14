@@ -140,7 +140,7 @@ export default class DynamicRenderList extends Component {
                      style={scrollerStyle}>
 
                     <List {...restProps}
-                          style={{transform: `translate3d(0, ${index.startWithBuffer * itemHeight}px, 0)`}}
+                          style={{transform: `translateY(${index.startWithBuffer * itemHeight}px)`}}
                           data={filteredData}
                           value={value}
                           onChange={this.changeHandler}/>
@@ -366,6 +366,6 @@ DynamicRenderList.defaultProps = {
 
     listHeight: 200,
     itemHeight: 40,
-    scrollBuffer: 4
+    scrollBuffer: 6
 
 };
