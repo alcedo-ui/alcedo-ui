@@ -17,6 +17,8 @@ import Dom from '../_vendors/Dom';
 
 export default class EditableSelect extends Component {
 
+    static SelectMode = SelectMode;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -198,7 +200,7 @@ export default class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, disableTouchRipple, onItemTouchTap
+                triggerTheme, isGrouped, disableTouchRipple, onItemTouchTap, selectMode
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 
@@ -286,7 +288,7 @@ export default class EditableSelect extends Component {
                           data={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           value={listValue}
-                          mode={List.Mode.RADIO}
+                          selectMode={selectMode}
                           displayField={displayField}
                           descriptionField={descriptionField}
                           onItemTouchTap={onItemTouchTap}

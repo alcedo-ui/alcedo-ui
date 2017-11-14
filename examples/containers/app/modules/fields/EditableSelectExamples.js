@@ -100,6 +100,7 @@ export default class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
+                                                    listMode={}
                                                     useFilter={true}/>
 
                                 </div>
