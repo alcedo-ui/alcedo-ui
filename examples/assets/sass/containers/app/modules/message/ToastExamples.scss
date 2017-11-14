@@ -1,0 +1,41 @@
+@import '../../../../my-theme';
+
+.toast-examples {
+
+    .example-content {
+
+        padding-bottom: 50px;
+
+        .examples-wrapper {
+
+            .field-group {
+
+                @include float-fix;
+
+                float: none;
+
+                .radio {
+                    display: inline-block;
+                }
+
+                .text-field-label,
+                .text-field {
+                    float: left;
+                }
+
+                .text-field-label {
+                    font-size: 14px;
+                    line-height: 40px;
+                    margin-right: 20px;
+                    width: 60px;
+                }
+            }
+
+            .show-toast-button {
+                margin-top: 20px;
+            }
+        }
+
+    }
+
+}

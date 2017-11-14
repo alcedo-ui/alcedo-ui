@@ -28,8 +28,17 @@ export default function configureRoutes(store) {
                     path: '/components/IconButton',
                     component: ac(store, () => import('modules/buttons/IconButtonExamples'))
                 }, {
+                    path: '/components/AnchorButton',
+                    component: ac(store, () => import('modules/buttons/AnchorButtonExamples'))
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Anchor -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/Anchor',
+                    component: ac(store, () => import('modules/anchor/AnchorExamples'))
+                }, {
                     path: '/components/IconAnchor',
-                    component: ac(store, () => import('modules/buttons/IconAnchorExamples'))
+                    component: ac(store, () => import('modules/anchor/IconAnchorExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -93,6 +102,30 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/EditableSelect',
                     component: ac(store, () => import('modules/fields/EditableSelectExamples'))
+                }, {
+                    path: '/components/MaterialTextField',
+                    component: ac(store, () => import('modules/fields/MaterialTextFieldExamples'))
+                }, {
+                    path: '/components/MaterialDropdownSelect',
+                    component: ac(store, () => import('modules/fields/MaterialDropdownSelectExamples'))
+                }, {
+                    path: '/components/MaterialLocalAutoComplete',
+                    component: ac(store, () => import('modules/fields/MaterialLocalAutoCompleteExamples'))
+                }, {
+                    path: '/components/MaterialTextArea',
+                    component: ac(store, () => import('modules/fields/MaterialTextAreaExamples'))
+                }, {
+                    path: '/components/DownloadField',
+                    component: ac(store, () => import('modules/fields/DownloadFieldExamples'))
+                },
+
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- filter -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                {
+                    path: '/components/DropdownFilter',
+                    component: ac(store, () => import('modules/filter/DropdownFilterExamples'))
+                }, {
+                    path: '/components/MaterialDropdownFilter',
+                    component: ac(store, () => import('modules/filter/MaterialDropdownFilterExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -145,6 +178,12 @@ export default function configureRoutes(store) {
                     path: '/components/List',
                     component: ac(store, () => import('modules/layout/ListExamples'))
                 }, {
+                    path: '/components/GroupList',
+                    component: ac(store, () => import('modules/layout/GroupListExamples'))
+                }, {
+                    path: '/components/DynamicRenderList',
+                    component: ac(store, () => import('modules/layout/DynamicRenderListExamples'))
+                }, {
                     path: '/components/CascaderList',
                     component: ac(store, () => import('modules/layout/CascaderListExamples'))
                 }, {
@@ -165,6 +204,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Tree',
                     component: ac(store, () => import('modules/layout/TreeExamples'))
+                }, {
+                    path: '/components/Dropdown',
+                    component: ac(store, () => import('modules/layout/DropdownExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -193,11 +235,14 @@ export default function configureRoutes(store) {
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
-                    path: '/components/Toaster',
-                    component: ac(store, () => import('modules/message/ToasterExamples'))
+                    path: '/components/Toast',
+                    component: ac(store, () => import('modules/message/ToastExamples'))
                 }, {
                     path: '/components/Tip',
                     component: ac(store, () => import('modules/message/TipExamples'))
+                }, {
+                    path: '/components/Notification',
+                    component: ac(store, () => import('modules/message/NotificationExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -214,19 +259,6 @@ export default function configureRoutes(store) {
                     path: '/components/CircularLoading',
                     component: ac(store, () => import('modules/loading/CircularLoadingExamples'))
                 },
-
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- material design -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-                {
-                    path: '/components/MaterialTextField',
-                    component: ac(store, () => import('modules/materialDesign/MaterialTextFieldExamples'))
-                }, {
-                    path: '/components/MaterialDropdownSelect',
-                    component: ac(store, () => import('modules/materialDesign/MaterialDropdownSelectExamples'))
-                }, {
-                    path: '/components/MaterialLocalAutoComplete',
-                    component: ac(store, () => import('modules/materialDesign/MaterialLocalAutoCompleteExamples'))
-                },
-
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {

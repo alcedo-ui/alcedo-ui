@@ -1,6 +1,3 @@
-/**
- * Created by Wendy on 2017/5/12.
- */
 import React, {Component} from 'react';
 
 import CircularLoading from 'src/CircularLoading';
@@ -10,30 +7,31 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import CircularLoadingDoc from 'assets/propTypes/CircularLoading.json';
 
-import '../../../../assets/sass/containers/app/modules/loading/CircularLoadingExamples.scss';
+import 'sass/containers/app/modules/loading/CircularLoadingExamples.scss';
 
 export default class CircularLoadingExamples extends Component {
+
     constructor(props) {
         super(props);
-
     }
 
     render() {
 
         return (
             <div className="example circular-loading-examples">
+
                 <h2 className="example-title">CircularLoading</h2>
 
                 <p>
-                    <spin>CircularLoading</spin>
-                    use to show pages and blocks loading status.
+                    <span>CircularLoading</span> use to show pages and blocks loading status.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="CircularLoading Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="CircularLoading Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -49,7 +47,8 @@ export default class CircularLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="CircularLoading Size Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="CircularLoading Size Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -71,7 +70,8 @@ export default class CircularLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="CircularLoading Theme Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="CircularLoading Theme Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -99,7 +99,8 @@ export default class CircularLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="CircularLoading Type Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="CircularLoading Type Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -117,7 +118,8 @@ export default class CircularLoadingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="CircularLoading Weight Example"/>
+                    <WidgetHeader className="example-header"
+                                  title="CircularLoading Weight Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -140,7 +142,8 @@ export default class CircularLoadingExamples extends Component {
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={CircularLoadingDoc}/>
+
             </div>
-        )
+        );
     }
 }

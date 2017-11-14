@@ -7,8 +7,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import LocalAutoCompleteDoc from 'assets/propTypes/LocalAutoComplete.json';
 
-import 'sass/containers/app/modules/fields/LocalAutoCompleteExamples.scss';
-
 export default class LocalAutoCompleteExamples extends Component {
 
     constructor(props) {
@@ -31,38 +29,6 @@ export default class LocalAutoCompleteExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.groupedData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
-        }];
-
         this.onChange = this::this.onChange;
         this.filterPressEnterHandle = this::this.filterPressEnterHandle;
         this.filterClearHandle = this::this.filterClearHandle;
@@ -84,7 +50,7 @@ export default class LocalAutoCompleteExamples extends Component {
     render() {
 
         return (
-            <div className="example auto-complete-examples">
+            <div className="example">
 
                 <h2 className="example-title">LocalAutoComplete</h2>
 
@@ -107,35 +73,10 @@ export default class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
-                                                   noMatchedPopupVisible={false}
+                                                   filterInitValue="test"
                                                    onChange={this.onChange}
                                                    onFilterPressEnter={this.filterPressEnterHandle}
                                                    onFilterClear={this.filterClearHandle}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>Set the <code>isGrouped</code> property to true,the <code>LocalAutoComplete</code>
-                                    will have groupedData.</p>
-
-                                <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   isGrouped={true}
-                                                   data={this.groupedData}
-                                                   placeholder="Please select ..."
-                                                   onChange={this.onChange}/>
 
                             </div>
 
@@ -153,13 +94,13 @@ export default class LocalAutoCompleteExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>LocalAutoComplete</code> with default mode,<code>normal</code>,
-                                    <code>checkbox</code>,<code>radio</code>applied.</p>
+                                <p>
+                                    <code>LocalAutoComplete</code> with default select mode, <code> normal</code>
+                                    , <code>checkbox</code>, <code>radio</code> applied.
+                                </p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   mode="checkbox"
-                                                   isGrouped={true}
-                                                   data={this.groupedData}
+                                                   data={this.data}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>
 

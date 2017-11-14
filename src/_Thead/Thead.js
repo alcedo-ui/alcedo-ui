@@ -26,7 +26,6 @@ export default class Thead extends Component {
                         columns.map((item, index) => {
 
                             const headerClassName = (item.sortable ? 'sortable ' : '')
-                                + (sort && sort.prop === item.sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '')
                                 + (item.headerClassName ? ' ' + item.headerClassName : '');
 
                             return (
@@ -36,6 +35,7 @@ export default class Thead extends Component {
                                              header={item.header}
                                              colIndex={index}
                                              sortable={item.sortable}
+                                             sortProp={item.sortProp}
                                              sort={sort}
                                              sortAscIconCls={sortAscIconCls}
                                              sortDescIconCls={sortDescIconCls}
@@ -71,7 +71,7 @@ Thead.propTypes = {
 
 Thead.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
 
     columns: [],

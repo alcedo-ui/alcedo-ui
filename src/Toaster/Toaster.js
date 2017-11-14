@@ -16,6 +16,18 @@ export default class Toaster extends Component {
 
     static ToastType = Toast.Type;
 
+    static Position = {
+
+        TOP_LEFT: 'top-left',
+        TOP: 'top',
+        TOP_RIGHT: 'top-right',
+
+        BOTTOM_LEFT: 'bottom-left',
+        BOTTOM: 'bottom',
+        BOTTOM_RIGHT: 'bottom-right'
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -28,10 +40,17 @@ export default class Toaster extends Component {
             toasts: []
         };
 
+        this.isPositiveSequence = ::this.isPositiveSequence;
         this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
         this.addToast = ::this.addToast;
         this.removeToast = ::this.removeToast;
 
+    }
+
+    isPositiveSequence(position = this.props.position) {
+        return position === Toaster.Position.TOP_LEFT
+            || position === Toaster.Position.TOP
+            || position === Toaster.Position.TOP_RIGHT;
     }
 
     clearUnrenderTimeout() {
@@ -47,7 +66,11 @@ export default class Toaster extends Component {
 
         let toasts = this.state.toasts;
 
-        toasts.unshift({...toast, toastsId: this.nextKey++});
+        if (this.isPositiveSequence()) {
+            toasts.push({...toast, toastsId: this.nextKey++});
+        } else {
+            toasts.unshift({...toast, toastsId: this.nextKey++});
+        }
 
         this.setState({
             toasts,
@@ -96,8 +119,14 @@ export default class Toaster extends Component {
                 toasts[i].toastsId = this.nextKey++;
             }
 
+            if (this.isPositiveSequence()) {
+                toasts = [...this.state.toasts, ...toasts];
+            } else {
+                toasts = [...toasts.reverse(), ...this.state.toasts];
+            }
+
             this.setState({
-                toasts: [...toasts.reverse(), ...this.state.toasts],
+                toasts,
                 visible: true
             }, () => {
                 this.props.onToastPop();
@@ -113,10 +142,11 @@ export default class Toaster extends Component {
 
     render() {
 
-        const {toasts, visible} = this.state;
+        const {position} = this.props,
+            {toasts, visible} = this.state;
 
         return (
-            <SubtreeContainer className="toaster"
+            <SubtreeContainer className={'toaster' + (position ? ` toaster-position-${position}` : '')}
                               visible={visible}>
                 {
                     toasts.length > 0 ?
@@ -154,32 +184,38 @@ Toaster.propTypes = {
     toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of toaster.
+         * The CSS class name of toast.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the toaster.
+         * Override the styles of the toast.
          */
         style: PropTypes.object,
 
         /**
-         * The type of toaster.
+         * The type of toast.
          */
         type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
 
         /**
-         * The title of toaster.
+         * The message of toast.
          */
-        title: PropTypes.string,
+        message: PropTypes.string,
 
         /**
-         * The message of toaster.
+         * The icon class name of toast.
          */
-        message: PropTypes.string
+        iconCls: PropTypes.string,
+
+        /**
+         * The duration of toast.
+         */
+        duration: PropTypes.number
 
     }), PropTypes.string, PropTypes.number])),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Toaster.Position)),
 
     /**
      * Callback function fired when the toaster pop.
@@ -189,6 +225,10 @@ Toaster.propTypes = {
 };
 
 Toaster.defaultProps = {
+
     className: '',
-    style: null
+    style: null,
+
+    position: Toaster.Position.BOTTOM_RIGHT
+
 };

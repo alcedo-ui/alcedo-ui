@@ -7,20 +7,19 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
-import RaisedButton from '../RaisedButton';
+import Dropdown from '../Dropdown';
 import TextField from '../TextField';
-import Popup from '../Popup';
 import List from '../List';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class DropdownSelect extends Component {
 
-    static Mode = List.Mode;
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -29,67 +28,26 @@ export default class DropdownSelect extends Component {
         this.state = {
             value: props.value,
             filter: '',
-            popupVisible: false,
-            isAbove: false
+            popupVisible: false
         };
 
-        this.isAbove = ::this.isAbove;
-        this.filterChangeHandle = ::this.filterChangeHandle;
-        this.togglePopup = ::this.togglePopup;
         this.closePopup = ::this.closePopup;
+        this.filterChangeHandler = ::this.filterChangeHandler;
         this.filterData = ::this.filterData;
-        this.popupRenderHandle = ::this.popupRenderHandle;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.wheelHandler = ::this.wheelHandler;
+        this.popupClosedHandler = ::this.popupClosedHandler;
 
     }
 
-    isAbove() {
-
-        const dropdownSelect = this.refs.dropdownSelect;
-
-        if (!this.popupHeight || !dropdownSelect) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(dropdownSelect),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
-
+    closePopup() {
+        this.refs.dropdown.closePopup();
     }
 
-    filterChangeHandle(filter) {
+    filterChangeHandler(filter) {
         this.setState({
             filter
-        });
-    }
-
-    togglePopup(e) {
-
-        const popupVisible = !this.state.popupVisible;
-
-        this.setState({
-            popupVisible
-        }, () => {
-            const {onTriggerTouchTap, onFocus, onBlur} = this.props;
-            onTriggerTouchTap && onTriggerTouchTap(popupVisible);
-            popupVisible ? (onFocus && onFocus(e)) : (onBlur && onBlur(e));
-        });
-    }
-
-    closePopup(e) {
-        this.setState({
-            popupVisible: false
-        }, () => {
-            const {onClosePopup, onBlur} = this.props;
-            onClosePopup && onClosePopup(e);
-            onBlur && onBlur(e);
         });
     }
 
@@ -126,21 +84,6 @@ export default class DropdownSelect extends Component {
 
     }
 
-    popupRenderHandle(popupEl) {
-
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
-
-        if (isAbove !== this.state.isAbove) {
-            this.setState({
-                isAbove
-            });
-        }
-
-    }
-
     selectAllTouchTapHandler() {
 
         const {data} = this.props,
@@ -163,16 +106,14 @@ export default class DropdownSelect extends Component {
 
     changeHandler(value) {
 
-        const {autoClose} = this.props,
-            state = {
-                value
-            };
-
+        const {autoClose} = this.props;
         if (autoClose) {
-            state.popupVisible = false;
+            this.closePopup();
         }
 
-        this.setState(state, () => {
+        this.setState({
+            value
+        }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
@@ -185,9 +126,13 @@ export default class DropdownSelect extends Component {
         onWheel && onWheel(e);
     }
 
-    componentDidMount() {
-        this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
+    popupClosedHandler(e) {
+        this.setState({
+            popupVisible: false
+        }, () => {
+            const {onClosePopup} = this.props;
+            onClosePopup && onClosePopup(e);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -201,13 +146,16 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, rightIconCls, data,
-                disabled, mode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                isGrouped, itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut
-            } = this.props,
-            {value, filter, popupVisible, isAbove} = this.state,
+                className, popupClassName, style, name, placeholder, popupTheme, data,
+                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
+                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
 
-            isMultiSelect = mode === List.Mode.CHECKBOX,
+                ...restProps
+
+            } = this.props,
+            {value, filter, popupVisible} = this.state,
+
+            isMultiSelect = selectMode === DropdownSelect.SelectMode.MULTI_SELECT,
 
             emptyEl = [{
                 itemRenderer() {
@@ -229,8 +177,7 @@ export default class DropdownSelect extends Component {
                 }
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
-                + (value ? '' : ' empty'),
+            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
             triggerValue = value ?
                 (
                     isMultiSelect ?
@@ -245,12 +192,6 @@ export default class DropdownSelect extends Component {
                 )
                 :
                 placeholder,
-
-            dropdownSelectPopupClassName = (isAbove ? ' above' : ' blow')
-                + (popupClassName ? ' ' + popupClassName : ''),
-            dropdownPopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle),
 
             listData = this.filterData();
 
@@ -268,28 +209,13 @@ export default class DropdownSelect extends Component {
                         null
                 }
 
-                <RaisedButton ref="trigger"
-                              className={'dropdown-select-trigger' + triggerClassName}
-                              theme={theme}
-                              value={triggerValue}
-                              rightIconCls={`${rightIconCls} dropdown-select-trigger-icon`}
-                              disabled={disabled}
-                              disableTouchRipple={disableTouchRipple}
-                              onMouseOver={onTriggerMouseOver}
-                              onMouseOut={onTriggerMouseOut}
-                              onTouchTap={this.togglePopup}/>
-
-                <Popup ref="popup"
-                       className={'dropdown-select-popup' + dropdownSelectPopupClassName}
-                       style={dropdownPopupStyle}
-                       theme={popupTheme}
-                       visible={popupVisible}
-                       triggerEl={this.triggerEl}
-                       hasTriangle={false}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
-                       shouldPreventContainerScroll={false}
-                       onRender={this.popupRenderHandle}
-                       onRequestClose={this.closePopup}>
+                <Dropdown {...restProps}
+                          ref="dropdown"
+                          triggerClassName={triggerClassName}
+                          popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
+                          popupTheme={popupTheme}
+                          triggerValue={triggerValue}
+                          onClosePopup={this.popupClosedHandler}>
 
                     <div className="dropdown-select-popup-fixed">
 
@@ -298,7 +224,7 @@ export default class DropdownSelect extends Component {
                                 <TextField className="dropdown-select-filter"
                                            value={filter}
                                            rightIconCls="fa fa-search"
-                                           onChange={this.filterChangeHandle}/>
+                                           onChange={this.filterChangeHandler}/>
                                 :
                                 null
                         }
@@ -337,18 +263,20 @@ export default class DropdownSelect extends Component {
 
                         <List className="dropdown-select-list"
                               theme={popupTheme}
-                              mode={mode}
-                              isGrouped={isGrouped}
-                              items={listData.length < 1 ? emptyEl : listData}
+                              selectMode={selectMode}
+                              data={listData.length < 1 ? emptyEl : listData}
                               value={value}
                               valueField={valueField}
                               displayField={displayField}
                               descriptionField={descriptionField}
                               onItemTouchTap={itemTouchTapHandle}
                               onChange={this.changeHandler}/>
+
                     </div>
 
-                </Popup>
+                    {popupChildren}
+
+                </Dropdown>
 
             </div>
         );
@@ -491,9 +419,9 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * The mode of listItem.Can be normal,checkbox.
+     * The select mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(List.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -537,12 +465,9 @@ DropdownSelect.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    /**
-     * If true,the drop-down box will be have group selection.
-     */
-    isGrouped: PropTypes.bool,
-
     shouldPreventContainerScroll: PropTypes.bool,
+
+    popupChildren: PropTypes.any,
 
     /**
      * Callback function fired when the button is touch-tapped.
@@ -569,33 +494,34 @@ DropdownSelect.propTypes = {
 
 DropdownSelect.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    popupClassName: null,
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: '',
+    name: null,
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
     data: [],
-    invalidMsg: '',
+    invalidMsg: null,
     disabled: false,
-    mode: List.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: '',
+    infoMsg: null,
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
-    noMatchedMsg: '',
-    isGrouped: false,
+    noMatchedMsg: null,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    popupChildren: null
 
 };

@@ -5,18 +5,21 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
-import TouchRipple from '../TouchRipple';
+import RaisedButton from '../RaisedButton';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class Toast extends Component {
 
     static Type = {
-        INFO: 'info',
-        SUCCESS: 'success',
-        WARNING: 'warning',
-        ERROR: 'error'
+        DEFAULT: Theme.DEFAULT,
+        INFO: Theme.INFO,
+        SUCCESS: Theme.SUCCESS,
+        WARNING: Theme.WARNING,
+        ERROR: Theme.ERROR
     };
 
     constructor(props, ...restArgs) {
@@ -71,14 +74,16 @@ export default class Toast extends Component {
 
     componentDidMount() {
 
-        const {onRequestClose, toastsId} = this.props;
+        const {toastsId, duration, onRequestClose} = this.props;
 
         this.hasMounted = true;
-        this.refs.toast.style.height = this.refs.toast.clientHeight + 'px';
 
-        this.unrenderTimeout = setTimeout(() => {
+        const toastEl = findDOMNode(this.refs.toast);
+        toastEl.style.height = toastEl.clientHeight + 'px';
+
+        duration > 0 && (this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(toastsId);
-        }, 2500);
+        }, duration));
 
     }
 
@@ -105,7 +110,7 @@ export default class Toast extends Component {
         }, () => {
             this.unrenderTimeout = setTimeout(() => {
                 this.hasMounted && callback();
-            }, 1250);
+            }, 500);
         });
     }
 
@@ -115,30 +120,19 @@ export default class Toast extends Component {
 
     render() {
 
-        const {className, style, type, title, message} = this.props,
+        const {className, style, type, message, iconCls} = this.props,
             {hidden, leave} = this.state,
-            toastClassName = (type ? ` toast-${type}` : '') + (hidden ? ' hidden' : '')
-                + (leave ? ' leave' : '') + (className ? ' ' + className : '');
+
+            wrapperClassName = (hidden ? ' hidden' : '') + (leave ? ' leave' : '') + (className ? ' ' + className : '');
 
         return (
-            <div ref="toast"
-                 className={'toast' + toastClassName}
-                 style={style}
-                 onTouchTap={this.touchTapHandler}>
-
-                <i className={`${this.getIconCls()} toast-icon`}
-                   aria-hidden="true"></i>
-
-                <div className="toast-title">{title}</div>
-                <div className="toast-message-wrapper">
-                    <div className="toast-message">
-                        {message}
-                    </div>
-                </div>
-
-                <TouchRipple/>
-
-            </div>
+            <RaisedButton ref="toast"
+                          className={'toast' + wrapperClassName}
+                          style={style}
+                          theme={type}
+                          iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
+                          value={message}
+                          onTouchTap={this.touchTapHandler}/>
         );
 
     }
@@ -146,13 +140,37 @@ export default class Toast extends Component {
 
 Toast.propTypes = {
 
+    /**
+     * The CSS class name of toast.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the toast.
+     */
     style: PropTypes.object,
 
     toastsId: PropTypes.number,
+
+    /**
+     * The type of toast.
+     */
     type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
-    title: PropTypes.any,
+
+    /**
+     * The message of toast.
+     */
     message: PropTypes.any,
+
+    /**
+     * The icon class name of toast.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * The duration of toast.
+     */
+    duration: PropTypes.number,
 
     onRequestClose: PropTypes.func
 
@@ -165,7 +183,8 @@ Toast.defaultProps = {
 
     toastsId: 0,
     type: Toast.Type.INFO,
-    title: 'message',
-    message: ''
+    message: '',
+    iconCls: '',
+    duration: 2500
 
 };

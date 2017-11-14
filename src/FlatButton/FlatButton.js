@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import BaseButton from '../_BaseButton';
+import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -112,6 +113,9 @@ FlatButton.propTypes = {
      */
     rippleDisplayCenter: PropTypes.bool,
 
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+
     /**
      * You can create a complicated renderer callback instead of value prop.
      */
@@ -142,6 +146,9 @@ FlatButton.defaultProps = {
     rippleDisplayCenter: false,
 
     iconCls: '',
-    rightIconCls: ''
+    rightIconCls: '',
+
+    tip: null,
+    tipPosition: TipProvider.Position.BOTTOM
 
 };

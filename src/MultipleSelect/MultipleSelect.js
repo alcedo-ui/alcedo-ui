@@ -15,6 +15,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
+import SelectMode from '../_statics/SelectMode';
 
 export default class MultipleSelect extends Component {
 
@@ -356,9 +357,9 @@ export default class MultipleSelect extends Component {
                     <List className="multiple-select-list"
                           theme={theme}
                           value={value}
-                          mode={isEmpty ? List.Mode.DEFAULT : List.Mode.CHECKBOX}
+                          selectMode={isEmpty ? SelectMode.DEFAULT : SelectMode.MULTI_SELECT}
                           isGrouped={isEmpty ? false : isGrouped}
-                          items={isEmpty ? emptyEl : listData}
+                          data={isEmpty ? emptyEl : listData}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}

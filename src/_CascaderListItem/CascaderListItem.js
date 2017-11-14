@@ -80,11 +80,11 @@ export default class CascaderListItem extends Component {
 
                 <List className={'cascader-popup-list' + popupListClassName}
                       style={popupListStyle}
-                      items={this.formatData(listData)}
+                      data={this.formatData(listData)}
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
-                      mode={List.Mode.RADIO}
+                      selectMode={List.SelectMode.SINGLE_SELECT}
                       onChange={this.changeHandle}/>
 
                 {

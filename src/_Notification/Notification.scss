@@ -1,0 +1,116 @@
+/**
+ * @file Notification style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin notification-theme($color, $bg-color, $border-color) {
+    color: $color;
+    background-color: $bg-color;
+    border-color: $border-color;
+}
+
+.notification {
+    @include shadow(3);
+    position: relative;
+    display: block;
+    width: 300px;
+    height: auto;
+    padding: 15px 15px 15px 50px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: $theme-border-radius;
+    transition: opacity $theme-transition-duration ease-in-out;
+
+    .notification-icon {
+        position: absolute;
+        top: 5px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        left: 5px;
+        font-size: 20px;
+        color: inherit;
+        text-align: center;
+    }
+
+    .notification-close-icon {
+        position: absolute;
+        top: 5px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        right: 5px;
+        color: #fff;
+        opacity: .5;
+        transition: opacity $theme-transition-duration ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .notification-close-Button {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        width: auto;
+        height: auto;
+        padding: 0px;
+        color: #fff;
+        opacity: .5;
+        transition: opacity $theme-transition-duration ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .notification-title {
+        line-height: 20px;
+        opacity: .6;
+        text-align: left;
+    }
+
+    .notification-message {
+        text-align: left;
+        font-size: 14px;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    &.has-close-button {
+        padding-bottom: 45px;
+    }
+
+    &.hidden {
+        opacity: 0 !important;
+    }
+
+    &.leave {
+        margin-top: 0 !important;
+        height: 0 !important;
+        transition: opacity $theme-transition-duration ease-in-out,
+        height $theme-transition-duration ease-in-out $theme-transition-duration,
+        margin-top $theme-transition-duration ease-in-out $theme-transition-duration;
+    }
+
+    // default theme
+    @include notification-theme($theme-field, $theme-field-bg, $theme-border);
+
+    // other themes
+    &.theme-info {
+        @include notification-theme(#fff, $theme-info, $theme-info);
+    }
+    &.theme-success {
+        @include notification-theme(#fff, $theme-success, $theme-success);
+    }
+    &.theme-warning {
+        @include notification-theme(#fff, $theme-warning, $theme-warning);
+    }
+    &.theme-error {
+        @include notification-theme(#fff, $theme-error, $theme-error);
+    }
+
+}

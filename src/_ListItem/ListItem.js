@@ -7,20 +7,18 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class ListItem extends Component {
 
-    static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
-    };
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -80,13 +78,13 @@ export default class ListItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        switch (mode) {
-            case ListItem.Mode.CHECKBOX:
+        switch (selectMode) {
+            case ListItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case ListItem.Mode.RADIO:
+            case ListItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -104,9 +102,15 @@ export default class ListItem extends Component {
     render() {
 
         const {
+
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, mode, renderer, itemRenderer, readOnly,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 onMouseEnter, onMouseLeave
+
             } = this.props,
             {checked} = this.state,
 
@@ -128,18 +132,26 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        mode === ListItem.Mode.CHECKBOX ?
-                            <Checkbox className="list-item-checkbox"
-                                      value={checked}
-                                      disabled={disabled || isLoading}/>
+                        selectMode === ListItem.SelectMode.SINGLE_SELECT ?
+                            <Radio className="list-item-checked"
+                                   theme={selectTheme}
+                                   value={checked}
+                                   disabled={disabled || isLoading}
+                                   uncheckedIconCls={radioUncheckedIconCls}
+                                   checkedIconCls={radioCheckedIconCls}/>
                             :
                             null
                     }
 
                     {
-                        mode === ListItem.Mode.RADIO ?
-                            <i className={'fa fa-check list-item-checked' + (checked ? ' activated' : '')}
-                               aria-hidden="true"></i>
+                        selectMode === ListItem.SelectMode.MULTI_SELECT ?
+                            <Checkbox className="list-item-checkbox"
+                                      theme={selectTheme}
+                                      value={checked}
+                                      disabled={disabled || isLoading}
+                                      uncheckedIconCls={checkboxUncheckedIconCls}
+                                      checkedIconCls={checkboxCheckedIconCls}
+                                      indeterminateIconCls={checkboxIndeterminateIconCls}/>
                             :
                             null
                     }
@@ -229,13 +241,15 @@ ListItem.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of the list button.
+     * The theme of the list item.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     *
+     * The theme of the list item select radio or checkbox.
      */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
 
     /**
@@ -278,19 +292,8 @@ ListItem.propTypes = {
      */
     rightIconCls: PropTypes.string,
 
-    /**
-     *
-     */
     tip: PropTypes.string,
-
-    /**
-     *
-     */
     tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
-
-    /**
-     *
-     */
     rippleDisplayCenter: PropTypes.bool,
 
     /**
@@ -303,44 +306,23 @@ ListItem.propTypes = {
      */
     renderer: PropTypes.func,
 
-    /**
-     *
-     */
     checked: PropTypes.bool,
-
-    /**
-     *
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(ListItem.Mode)),
-
-    /**
-     *
-     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     readOnly: PropTypes.bool,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * Callback function fired when a list item touch-tapped.
      */
     onTouchTap: PropTypes.func,
 
-    /**
-     *
-     */
     onSelect: PropTypes.func,
-
-    /**
-     *
-     */
     onDeselect: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseEnter: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseLeave: PropTypes.func
 
 };
@@ -349,33 +331,40 @@ ListItem.defaultProps = {
 
     index: 0,
 
-    className: '',
+    className: null,
     style: null,
 
     theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
 
-    data: '',
-    value: '',
-    text: '',
-    desc: '',
+    data: null,
+    value: null,
+    text: null,
+    desc: null,
 
     disabled: false,
     isLoading: false,
 
     disableTouchRipple: false,
 
-    iconCls: '',
-    rightIconCls: '',
+    iconCls: null,
+    rightIconCls: null,
 
-    tip: '',
+    tip: null,
     tipPosition: TipProvider.Position.BOTTOM,
 
     rippleDisplayCenter: false,
 
     checked: false,
 
-    mode: ListItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
-    readOnly: false
+    readOnly: false,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

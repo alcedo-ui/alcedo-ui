@@ -40,7 +40,10 @@ export default class TableHeader extends Component {
 
     render() {
 
-        const {className, style, header, sortable, sort, sortAscIconCls, sortDescIconCls, hidden} = this.props,
+        const {
+                className, style, header, hidden,
+                sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
+            } = this.props,
             finalHeader = this.headerRenderer();
 
         return (
@@ -54,6 +57,7 @@ export default class TableHeader extends Component {
                 {
                     sortable ?
                         <TableHeaderSortIcon sort={sort}
+                                             sortProp={sortProp}
                                              sortAscIconCls={sortAscIconCls}
                                              sortDescIconCls={sortDescIconCls}/>
                         :
@@ -74,6 +78,7 @@ TableHeader.propTypes = {
     header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colIndex: PropTypes.number,
     sortable: PropTypes.bool,
+    sortProp: PropTypes.string,
     sort: PropTypes.object,
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
@@ -85,12 +90,13 @@ TableHeader.propTypes = {
 
 TableHeader.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
 
-    header: '',
+    header: null,
     colIndex: 0,
     sortable: false,
+    sortProp: null,
     sort: null,
     hidden: false
 

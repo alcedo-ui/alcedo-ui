@@ -28,27 +28,33 @@ export default class CheckboxGroup extends Component {
 
     changeHandle(item) {
 
-        let {value} = this.state,
-            index = value.findIndex(v => v.value === item.value);
+        let value = _.cloneDeep(this.state.value);
 
-        if (index > -1) {
-            value.splice(index, 1);
+        if (!value || !_.isArray(value)) {
+            value = [item];
         } else {
-            value.push(item);
+
+            const index = value.findIndex(v => v.value === item.value);
+
+            if (index > -1) {
+                value.splice(index, 1);
+            } else {
+                value.push(item);
+            }
+
         }
 
-        const newValue = _.cloneDeep(value);
-
         this.setState({
-            value: newValue
+            value
         }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(newValue);
+            const {disabled, onChange} = this.props;
+            !disabled && onChange && onChange(value);
         });
 
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
+        if (nextProps.value && nextProps.value !== this.state.value) {
             this.setState({
                 value: nextProps.value
             });
@@ -60,7 +66,7 @@ export default class CheckboxGroup extends Component {
         const {className, style, theme, name, disabled, data, idProp} = this.props,
             {value} = this.state;
 
-        return (
+        return data ? (
             <div className={'checkbox-group' + (className ? ' ' + className : '')}
                  style={style}
                  disabled={disabled}>
@@ -77,7 +83,7 @@ export default class CheckboxGroup extends Component {
                                       theme={item.theme || theme}
                                       name={name}
                                       label={item.label}
-                                      disabled={disabled}
+                                      disabled={disabled || item.disabled}
                                       value={isChecked}
                                       onChange={() => {
                                           this.changeHandle(item);
@@ -88,7 +94,9 @@ export default class CheckboxGroup extends Component {
                 }
 
             </div>
-        );
+        )
+            :
+            null;
 
     }
 };
@@ -125,13 +133,13 @@ CheckboxGroup.propTypes = {
 
 CheckboxGroup.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
-    name: '',
-    data: [],
-    value: [],
+    name: null,
+    data: null,
+    value: null,
     disabled: false,
     idProp: 'id'
 

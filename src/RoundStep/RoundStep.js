@@ -19,11 +19,11 @@ export default class RoundStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.tapHandle = ::this.tapHandle;
+        this.touchTapHandler = ::this.touchTapHandler;
 
     }
 
-    tapHandle(activatedStep) {
+    touchTapHandler(activatedStep) {
 
         const {onChange} = this.props;
 
@@ -49,15 +49,15 @@ export default class RoundStep extends Component {
 
     render() {
 
-        const {className, style, steps} = this.props;
-        const {activatedStep, finishedStep} = this.state;
+        const {className, style, steps, showFinishedStepIcon, finishedStepIconCls} = this.props,
+            {activatedStep, finishedStep} = this.state;
 
         return (
             <div className={`round-step ${className}`}
                  style={style}>
 
                 {
-                    steps.map((item, index) => {
+                    steps && steps.map((item, index) => {
                         return (
                             <RoundStepItem key={index}
                                            index={index}
@@ -72,7 +72,9 @@ export default class RoundStep extends Component {
                                            value={item}
                                            isFirst={index === 0}
                                            isLast={index === steps.length - 1}
-                                           onTouchTap={this.tapHandle}/>
+                                           showFinishedStepIcon={showFinishedStepIcon}
+                                           finishedStepIconCls={finishedStepIconCls}
+                                           onTouchTap={this.touchTapHandler}/>
                         );
                     })
                 }
@@ -128,6 +130,9 @@ RoundStep.propTypes = {
      */
     finishedStep: PropTypes.number,
 
+    showFinishedStepIcon: PropTypes.bool,
+    finishedStepIconCls: PropTypes.string,
+
     /**
      * Callback function fired when step change.
      */
@@ -137,12 +142,15 @@ RoundStep.propTypes = {
 
 RoundStep.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
 
-    steps: [],
+    steps: null,
 
     activatedStep: 0,
-    finishedStep: 0
+    finishedStep: 0,
+
+    showFinishedStepIcon: true,
+    finishedStepIconCls: 'fa fa-check'
 
 };

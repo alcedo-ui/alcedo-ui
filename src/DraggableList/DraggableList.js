@@ -15,13 +15,15 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
-    static Mode = DraggableListItem.Mode;
-    static SEPARATOR = Symbol('SEPARATOR');
+    static SelectMode = SelectMode;
+    static LIST_SEPARATOR = LIST_SEPARATOR;
 
     constructor(props, ...restArgs) {
 
@@ -51,9 +53,9 @@ export default class DraggableList extends Component {
             return;
         }
 
-        const {value, mode} = props;
+        const {value, selectMode} = props;
 
-        if (!mode) {
+        if (!selectMode) {
             return;
         }
 
@@ -61,10 +63,10 @@ export default class DraggableList extends Component {
             return value;
         }
 
-        switch (mode) {
-            case DraggableList.Mode.CHECKBOX:
+        switch (selectMode) {
+            case DraggableList.SelectMode.MULTI_SELECT:
                 return [];
-            case DraggableList.Mode.RADIO:
+            case DraggableList.SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -74,18 +76,18 @@ export default class DraggableList extends Component {
 
     isItemChecked(item) {
 
-        const {mode, valueField, displayField} = this.props,
+        const {selectMode, valueField, displayField} = this.props,
             {value} = this.state;
 
         if (!item || !value) {
             return false;
         }
 
-        if (mode === DraggableList.Mode.CHECKBOX) {
+        if (selectMode === DraggableList.SelectMode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
-        } else if (mode === DraggableList.Mode.RADIO) {
+                    return Util.isValueEqual(valueItem, item, valueField, displayField);
+                }).length > 0;
+        } else if (selectMode === DraggableList.SelectMode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -98,7 +100,7 @@ export default class DraggableList extends Component {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
 
-                if (group === DraggableList.SEPARATOR) {
+                if (group === LIST_SEPARATOR) {
                     return <div key={`group${groupIndex}`}
                                 className="draggable-list-separator"></div>;
                 }
@@ -132,7 +134,7 @@ export default class DraggableList extends Component {
     listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {
-            valueField, displayField, descriptionField, disabled, isLoading, mode, anchorIconCls, isDraggableAnyWhere,
+            valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
             renderer
         } = this.props;
 
@@ -144,7 +146,7 @@ export default class DraggableList extends Component {
                         return null;
                     }
 
-                    if (item === DraggableList.SEPARATOR) {
+                    if (item === LIST_SEPARATOR) {
                         return <div key={index}
                                     className="draggable-list-separator"></div>;
                     }
@@ -169,7 +171,7 @@ export default class DraggableList extends Component {
                                                groupIndex={groupIndex}
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
-                                               mode={mode}
+                                               selectMode={selectMode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={(e) => {
@@ -196,7 +198,7 @@ export default class DraggableList extends Component {
                                                groupIndex={groupIndex}
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
-                                               mode={mode}
+                                               selectMode={selectMode}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
@@ -277,15 +279,15 @@ export default class DraggableList extends Component {
 
     listItemSelectHandler(item, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode === DraggableList.Mode.NORMAL) {
+        if (selectMode === DraggableList.SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (mode === DraggableList.Mode.CHECKBOX) {
+        if (selectMode === DraggableList.SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -293,7 +295,7 @@ export default class DraggableList extends Component {
 
             value.push(item);
 
-        } else if (mode === DraggableList.Mode.RADIO) {
+        } else if (selectMode === DraggableList.SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -308,9 +310,9 @@ export default class DraggableList extends Component {
 
     listItemDeselectHandler(item, index) {
 
-        const {mode} = this.props;
+        const {selectMode} = this.props;
 
-        if (mode !== DraggableList.Mode.CHECKBOX) {
+        if (selectMode !== DraggableList.SelectMode.MULTI_SELECT) {
             return;
         }
 

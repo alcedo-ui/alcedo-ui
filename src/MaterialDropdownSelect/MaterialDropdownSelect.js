@@ -5,21 +5,24 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
 
 import DropdownSelect from '../DropdownSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import SelectMode from '../_statics/SelectMode';
 
 export default class MaterialDropdownSelect extends Component {
+
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.state = {
-            value: '',
+            value: props.value,
             isFocus: false,
             isHover: false
         };
@@ -29,6 +32,7 @@ export default class MaterialDropdownSelect extends Component {
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
         this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
+        this.closePopup = ::this.closePopup;
 
     }
 
@@ -77,6 +81,10 @@ export default class MaterialDropdownSelect extends Component {
         });
     }
 
+    closePopup() {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -99,18 +107,16 @@ export default class MaterialDropdownSelect extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
-                + (value ? '' : ' empty') + (className ? ' ' + className : ''),
-
-            labelClassName = (value ? ' has-value' : '');
+            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
+                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'material-dropdown-select' + fieldClassName}
+            <div className={'material-dropdown-select' + wrapperClassName}
                  style={style}>
 
                 {
                     label ?
-                        <div className={'material-dropdown-select-label' + labelClassName}>
+                        <div className="material-dropdown-select-label">
                             {label}
                         </div>
                         :
@@ -118,6 +124,7 @@ export default class MaterialDropdownSelect extends Component {
                 }
 
                 <DropdownSelect {...restProps}
+                                ref="dropdownSelect"
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
                                 onBlur={this.triggerBlurHandler}
@@ -277,7 +284,7 @@ MaterialDropdownSelect.propTypes = {
     /**
      * The mode of listItem.Can be normal,checkbox.
      */
-    mode: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The value field name in data. (default: "value")
@@ -349,32 +356,32 @@ MaterialDropdownSelect.propTypes = {
 
 MaterialDropdownSelect.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    popupClassName: null,
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
 
-    name: '',
-    label: '',
+    name: null,
+    label: null,
     isLabelAnimate: true,
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
     data: [],
-    invalidMsg: '',
+    invalidMsg: null,
     disabled: false,
-    mode: DropdownSelect.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: '',
+    infoMsg: null,
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
-    noMatchedMsg: '',
+    noMatchedMsg: null,
     isGrouped: false,
 
     shouldPreventContainerScroll: true

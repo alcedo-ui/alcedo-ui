@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
 
 import TextField from '../TextField';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
 export default class MaterialTextField extends Component {
+
+    static Type = TextField.Type;
 
     constructor(props, ...restArgs) {
 
@@ -99,18 +101,16 @@ export default class MaterialTextField extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
-                + (className ? ' ' + className : ''),
-
-            labelClassName = (value ? ' has-value' : '');
+            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
+                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'material-text-field' + fieldClassName}
+            <div className={'material-text-field' + wrapperClassName}
                  style={style}>
 
                 {
                     label ?
-                        <div className={'material-text-field-label' + labelClassName}>
+                        <div className="material-text-field-label">
                             {label}
                         </div>
                         :
@@ -147,6 +147,11 @@ MaterialTextField.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The TextField theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Specifies the type of input to display such as "password" or "text".
@@ -339,7 +344,6 @@ MaterialTextField.defaultProps = {
     infoMsg: '',
 
     clearButtonVisible: true,
-    searchButtonVisible: false,
     passwordButtonVisible: true,
 
     // valid

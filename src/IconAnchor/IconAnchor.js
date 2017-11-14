@@ -9,6 +9,9 @@ import PropTypes from 'prop-types';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
 import Theme from '../Theme';
+import TipProvider from '../TipProvider';
+
+import Util from '../_vendors/Util';
 
 export default class IconAnchor extends Component {
 
@@ -38,39 +41,51 @@ export default class IconAnchor extends Component {
 
     render() {
 
-        const {className, style, theme, iconCls, disabled, isLoading, href, target} = this.props;
+        const {
+
+                className, theme, iconCls, disabled, isLoading,
+                tip, tipPosition,
+
+                ...restProps
+
+            } = this.props,
+
+            iconAnchorClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
 
         return (
-            <a className={`icon-anchor ${theme ? `theme-${theme}` : ''} ${className}`}
-               style={style}
-               href={href ? href : 'javascript:void(0)'}
-               target={target}
-               disabled={disabled || isLoading}
-               onTouchTap={this.touchTapHandler}>
+            <TipProvider text={tip}
+                         position={tipPosition}>
 
-                {
-                    isLoading ?
-                        <CircularLoading size="small"/>
-                        :
-                        (
-                            iconCls ?
-                                <i className={`icon-anchor-icon ${iconCls}`}
-                                   aria-hidden="true"></i>
-                                :
-                                null
-                        )
-                }
+                <a {...restProps}
+                   className={'icon-anchor' + iconAnchorClassName}
+                   disabled={disabled || isLoading}
+                   onTouchTap={this.touchTapHandler}>
 
-                {
-                    disabled || isLoading ?
-                        null
-                        :
-                        <TouchRipple ref="touchRipple"
-                                     className={disabled || isLoading ? 'hidden' : ''}
-                                     displayCenter={true}/>
-                }
+                    {
+                        isLoading ?
+                            <CircularLoading size="small"/>
+                            :
+                            (
+                                iconCls ?
+                                    <i className={`icon-anchor-icon ${iconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                            )
+                    }
 
-            </a>
+                    {
+                        disabled || isLoading ?
+                            null
+                            :
+                            <TouchRipple ref="touchRipple"
+                                         className={disabled || isLoading ? 'hidden' : ''}
+                                         displayCenter={true}/>
+                    }
+
+                </a>
+
+            </TipProvider>
         );
 
     }
@@ -118,6 +133,11 @@ IconAnchor.propTypes = {
      */
     target: PropTypes.string,
 
+    alt: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -127,14 +147,18 @@ IconAnchor.propTypes = {
 
 IconAnchor.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
     disabled: false,
     isLoading: false,
-    iconCls: '',
-    href: '',
-    target: '_blank'
+    iconCls: null,
+    href: 'javascript:void(0)',
+    target: '_blank',
+    alt: null,
+
+    tip: null,
+    tipPosition: TipProvider.Position.BOTTOM
 
 };

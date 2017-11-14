@@ -1,0 +1,79 @@
+/**
+ * @file MaterialTextArea style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.material-text-area {
+    @include float-fix;
+    position: relative;
+    width: 300px;
+    background: $theme-field-bg;
+
+    .material-text-area-label {
+        display: inline-block;
+        line-height: 16px;
+        color: $theme-field-disabled;
+        transform-origin: top left;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
+    }
+
+    .text-area {
+        float: left;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none !important;
+
+        .text-area-input {
+            padding-left: 8px;
+            padding-right: 8px;
+            transition: opacity $theme-transition-duration ease-in-out;
+        }
+
+    }
+
+    &.focused {
+        .material-text-area-label {
+            color: $theme-highlight;
+        }
+    }
+
+    &.has-word-count {
+
+        .text-area-word-count-separator {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+
+        .material-field-separator-hover,
+        .material-field-separator-focus {
+            bottom: 29px;
+        }
+    }
+
+    &.has-label.animated {
+
+        .material-text-area-label {
+            transform: translate(8px, 28px);
+        }
+
+        .text-area-input {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .material-text-area-label {
+                transform: translate(0, 0);
+            }
+
+            .text-area-input {
+                opacity: 1;
+            }
+        }
+    }
+
+}

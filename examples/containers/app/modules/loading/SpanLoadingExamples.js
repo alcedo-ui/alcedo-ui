@@ -1,6 +1,3 @@
-/**
- * Created by Wendy on 2017/5/9.
- */
 import React, {Component} from 'react';
 
 import SpanLoading from 'src/SpanLoading';
@@ -11,10 +8,12 @@ import Switcher from 'src/Switcher';
 import PropTypeDescTable from '../PropTypeDescTable';
 import SpanLoadingDoc from 'assets/propTypes/SpanLoading.json';
 
-import '../../../../assets/sass/containers/app/modules/loading/SpanLoadingExamples.scss';
+import 'sass/containers/app/modules/loading/SpanLoadingExamples.scss';
 
 export default class SpanLoadingExamples extends Component {
+
     constructor(props) {
+
         super(props);
 
         this.state = {
@@ -23,17 +22,18 @@ export default class SpanLoadingExamples extends Component {
         };
 
         this.toggle = this::this.toggle;
+
     }
 
     toggle(e, id) {
         this.setState({
             [`loading${id}`]: !this.state[`loading${id}`]
-        })
+        });
     }
 
     render() {
 
-        const {loading1, loading2}=this.state;
+        const {loading1, loading2} = this.state;
 
         return (
             <div className="example span-loading-examples">
@@ -146,8 +146,8 @@ export default class SpanLoadingExamples extends Component {
                             <div className="switcher-con">
                                 <span>Loading state：</span>
                                 <Switcher value={loading1}
-                                          onChange={(e)=> {
-                                              this.toggle(e, 1)
+                                          onChange={(e) => {
+                                              this.toggle(e, 1);
                                           }}/>
                             </div>
 
@@ -181,8 +181,8 @@ export default class SpanLoadingExamples extends Component {
                             <div className="switcher-con">
                                 <span>Loading state：</span>
                                 <Switcher value={loading2}
-                                          onChange={(e)=> {
-                                              this.toggle(e, 2)
+                                          onChange={(e) => {
+                                              this.toggle(e, 2);
                                           }}/>
                             </div>
 
@@ -196,6 +196,6 @@ export default class SpanLoadingExamples extends Component {
 
                 <PropTypeDescTable data={SpanLoadingDoc}/>
             </div>
-        )
+        );
     }
 }

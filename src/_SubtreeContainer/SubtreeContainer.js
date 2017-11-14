@@ -69,6 +69,7 @@ export default class SubtreeContainer extends Component {
                 {this.props.children}
             </ReactCSSTransitionGroup>
         );
+
     }
 
     componentDidUpdate() {

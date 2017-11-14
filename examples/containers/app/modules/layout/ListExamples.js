@@ -4,6 +4,7 @@ import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import ListDoc from 'assets/propTypes/List.json';
@@ -18,41 +19,51 @@ export default class ListExamples extends Component {
 
         this.listData = [{
             iconCls: 'fa fa-facebook',
+            value: 'Facebook',
             text: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
+            value: 'Twitter',
             text: 'Twitter'
         }, {
             iconCls: 'fa fa-google-plus',
+            value: 'Google+',
             text: 'Google+'
         }];
 
         this.disabledListData = [{
             iconCls: 'fa fa-firefox',
+            value: 'Firefox',
             text: 'Firefox',
             disabled: true
         }, {
             iconCls: 'fa fa-chrome',
+            value: 'Chrome',
             text: 'Chrome'
         }, {
             iconCls: 'fa fa-safari',
+            value: 'Safari',
             text: 'Safari',
             disabled: true
         }];
 
         this.themeListData = [{
+            value: 'Success',
             text: 'Success',
             theme: 'success',
             rightIconCls: 'fa fa-check-circle'
         }, {
+            value: 'Error',
             text: 'Error',
             theme: 'error',
             rightIconCls: 'fa fa-times-circle-o'
         }, {
+            value: 'Warning',
             text: 'Warning',
             theme: 'warning',
             rightIconCls: 'fa fa-exclamation-triangle'
         }, {
+            value: 'Primary',
             text: 'Primary',
             theme: 'primary',
             rightIconCls: 'fa fa-gratipay'
@@ -60,57 +71,50 @@ export default class ListExamples extends Component {
 
         this.descListData = [{
             iconCls: 'fa fa-facebook',
+            value: 'Facebook',
             text: 'Facebook',
             desc: 'Here is a Facebook Desc.'
         }, {
             iconCls: 'fa fa-twitter',
+            value: 'Twitter',
             text: 'Twitter',
             desc: 'Here is a Twitter Desc.'
         }, {
             iconCls: 'fa fa-google-plus',
+            value: 'Google+',
             text: 'Google+',
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.',
-                checked: 'true'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, List.SEPARATOR, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
+        this.customizedListData = [{
+            radioUncheckedIconCls: 'fa fa-facebook',
+            radioCheckedIconCls: 'fa fa-facebook',
+            value: 'Facebook',
+            text: 'Facebook'
+        }, {
+            radioUncheckedIconCls: 'fa fa-twitter',
+            radioCheckedIconCls: 'fa fa-twitter',
+            value: 'Twitter',
+            text: 'Twitter'
+        }, {
+            radioUncheckedIconCls: 'fa fa-google-plus',
+            radioCheckedIconCls: 'fa fa-google-plus',
+            value: 'Google+',
+            text: 'Google+'
         }];
-
-        this.changeHandle = this::this.changeHandle;
 
     }
 
-    changeHandle(value) {
-        console.log(value);
+    changeHandler(value, index) {
+        console.log('change::', value);
+    }
+
+    itemSelectHandler(value, index) {
+        console.log('select::', value);
+    }
+
+    itemDeselectHandler(value, index) {
+        console.log('deselect::', value);
     }
 
     render() {
@@ -138,7 +142,7 @@ export default class ListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <List items={this.listData}/>
+                                    <List data={this.listData}/>
                                 </Paper>
 
                             </div>
@@ -160,7 +164,7 @@ export default class ListExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
                                 <Paper>
-                                    <List items={this.disabledListData}/>
+                                    <List data={this.disabledListData}/>
                                 </Paper>
 
                             </div>
@@ -183,7 +187,7 @@ export default class ListExamples extends Component {
                                     the <code>rightIconCls</code> property to get rightIcons.</p>
 
                                 <Paper>
-                                    <List items={this.themeListData}/>
+                                    <List data={this.themeListData}/>
                                 </Paper>
 
                             </div>
@@ -208,7 +212,7 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          items={this.descListData}/>
+                                          data={this.descListData}/>
                                 </Paper>
 
                             </div>
@@ -220,7 +224,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="With Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -228,42 +232,36 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with mode.Can be normal,radio,checkbox.
+                                    A <code>List</code> with select mode.Can be <code>NORMAL</code>
+                                    , <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          mode={List.Mode.RADIO}
-                                          items={this.descListData}
-                                          onChange={this.changeHandle}/>
+                                          selectMode={List.SelectMode.SINGLE_SELECT}
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
-                            </div>
+                                <Paper style={{width: 240, marginTop: 20}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.MULTI_SELECT}
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
 
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>List</code> with isGrouped.
-                                </p>
-
-                                <Paper style={{width: 240, height: 240}}>
-                                    <List style={{width: 240, height: 240}}
-                                          mode={List.Mode.CHECKBOX}
-                                          isGrouped={true}
-                                          items={this.groupedListData}
-                                          onChange={this.changeHandle}/>
+                                <Paper style={{width: 240, marginTop: 20}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.SINGLE_SELECT}
+                                          selectTheme={Theme.HIGHLIGHT}
+                                          data={this.customizedListData}
+                                          onChange={this.changeHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                             </div>

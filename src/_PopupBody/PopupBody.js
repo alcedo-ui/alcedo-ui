@@ -233,7 +233,7 @@ export default class PopupBody extends Component {
             if (!visible) {
                 this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
                 this.requestCloseTimeout = setTimeout(() => {
-                    this.hasMounted && onRequestClose && onRequestClose();
+                    this.hasMounted && onRequestClose && onRequestClose(e);
                 }, 250);
             }
         });
@@ -304,7 +304,7 @@ export default class PopupBody extends Component {
 
     render() {
 
-        const {children, className, style, hasTriangle, theme, position, isAnimated, depth} = this.props,
+        const {children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth} = this.props,
             {visible} = this.state,
             popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
                 + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
@@ -319,7 +319,9 @@ export default class PopupBody extends Component {
 
                 {
                     hasTriangle ?
-                        <div className="popup-triangle"></div>
+                        <div className="popup-triangle-wrapper">
+                            {triangle}
+                        </div>
                         :
                         null
                 }
@@ -361,6 +363,8 @@ PopupBody.propTypes = {
      * If true,the popover will have a triangle on the top of the DOM element.
      */
     hasTriangle: PropTypes.bool,
+
+    triangle: PropTypes.element,
 
     /**
      * The popover theme.Can be primary,highlight,success,warning,error.
@@ -422,6 +426,7 @@ PopupBody.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
+    triangle: <div className="popup-triangle"></div>,
     theme: Theme.DEFAULT,
     position: PopupBody.Position.BOTTOM_LEFT,
     isAnimated: true,

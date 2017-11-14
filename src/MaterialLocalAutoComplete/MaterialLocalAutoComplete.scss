@@ -9,8 +9,12 @@
     background: $theme-field-bg;
 
     .material-local-auto-complete-label {
-        transform: translate(0, 0);
-        color: $theme-highlight;
+        display: inline-block;
+        line-height: 16px;
+        color: $theme-field-disabled;
+        transform-origin: top left;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
     }
 
     .text-field {
@@ -21,62 +25,39 @@
         border-bottom: 1px solid $theme-border !important;
         box-shadow: none !important;
 
-        input {
+        .text-field-input {
             padding-left: 8px;
+            transition: opacity $theme-transition-duration ease-in-out;
         }
 
-        &.empty {
-            input {
-                opacity: 1;
-                transition: opacity $transition-duration ease-in-out;
-            }
-        }
-
-    }
-
-    &.animated {
-
-        .material-local-auto-complete-label {
-            height: 20px;
-            line-height: 20px;
-            transition: transform $transition-duration ease-in-out,
-            color $transition-duration ease-in-out;
-            transform: translate(8px, 30px);
-            color: #999;
-            transform-origin: top left;
-
-            &.has-value {
-                transform: translate(0, 0);
-                color: $theme-highlight;
-            }
-        }
-
-        .text-field {
-
-            &.empty {
-                input {
-                    opacity: 0;
-                    transition: opacity $transition-duration ease-in-out;
-                }
-            }
-        }
     }
 
     &.focused {
-
         .material-local-auto-complete-label {
-            transform: translate(0, 0);
             color: $theme-highlight;
         }
+    }
 
-        .text-field {
-            &.empty {
-                input {
-                    opacity: 1;
-                }
-            }
+    &.has-label.animated {
+
+        .material-local-auto-complete-label {
+            transform: translate(8px, 28px);
         }
 
+        .text-field-input {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .material-local-auto-complete-label {
+                transform: translate(0, 0);
+            }
+
+            .text-field-input {
+                opacity: 1;
+            }
+        }
     }
 
 }

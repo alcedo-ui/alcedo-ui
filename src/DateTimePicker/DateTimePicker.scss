@@ -56,7 +56,7 @@
         background: #FFF;
         border-radius: $theme-border-radius;
         z-index: $popup-z-index;
-        transition: all $transition-duration ease-in-out;
+        transition: all $theme-transition-duration ease-in-out;
 
         &.hidden {
             width: 100%;
@@ -234,7 +234,7 @@
                 float: left;
                 overflow: hidden;
                 box-sizing: border-box;
-                transition: all $transition-duration ease-in-out;
+                transition: all $theme-transition-duration ease-in-out;
                 border-left: 1px solid $theme-border;
                 user-select: none;
 
@@ -246,7 +246,7 @@
                     margin: 0;
                     padding: 0;
                     overflow: hidden;
-                    transition: all $transition-duration ease-in-out;
+                    transition: all $theme-transition-duration ease-in-out;
                     li {
                         list-style-type: none;
                         height: 30px;

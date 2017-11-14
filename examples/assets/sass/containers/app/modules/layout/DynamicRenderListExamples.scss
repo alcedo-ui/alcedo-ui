@@ -1,0 +1,12 @@
+@import '../../../../my-theme';
+
+.dynamic-render-list-examples {
+
+    .examples-wrapper {
+        .paper {
+            width: 200px;
+            border: 1px solid $theme-border;
+            overflow: hidden;
+        }
+    }
+}

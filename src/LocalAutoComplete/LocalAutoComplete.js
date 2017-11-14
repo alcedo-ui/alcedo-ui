@@ -17,8 +17,6 @@ import Dom from '../_vendors/Dom';
 
 export default class LocalAutoComplete extends Component {
 
-    static Mode = List.Mode;
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -27,7 +25,7 @@ export default class LocalAutoComplete extends Component {
 
         this.state = {
             value: props.value,
-            filter: '',
+            filter: props.filterInitValue,
             popupVisible: false,
             isAbove: false
         };
@@ -69,7 +67,7 @@ export default class LocalAutoComplete extends Component {
             return data;
         }
 
-        const {displayField, filterCallback, isGrouped} = this.props;
+        const {displayField, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
@@ -81,23 +79,6 @@ export default class LocalAutoComplete extends Component {
                 :
                 item.toString().toUpperCase().includes(filter.toUpperCase()));
         };
-
-        if (isGrouped) {
-            return data.map(group => {
-
-                const children = filterFunc(group.children);
-
-                if (children.length < 1) {
-                    return;
-                } else {
-                    return {
-                        ...group,
-                        children
-                    };
-                }
-
-            }).filter(item => !!item);
-        }
 
         return filterFunc(data);
 
@@ -134,10 +115,8 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            if (state.value !== value) {
-                const {onFilterChange} = this.props;
-                onFilterChange && onFilterChange(filter);
-            }
+            const {onFilterChange} = this.props;
+            onFilterChange && onFilterChange(filter);
         });
 
     }
@@ -165,6 +144,9 @@ export default class LocalAutoComplete extends Component {
     closePopup() {
         this.setState({
             popupVisible: false
+        }, () => {
+            const {onPopupClosed} = this.props;
+            onPopupClosed && onPopupClosed();
         });
     }
 
@@ -186,10 +168,9 @@ export default class LocalAutoComplete extends Component {
     changeHandler(value) {
 
         const {autoClose, valueField, displayField} = this.props,
-            filter = Util.getTextByDisplayField(value, displayField, valueField),
             state = {
                 value,
-                filter
+                filter: Util.getTextByDisplayField(value, displayField, valueField)
             };
 
         if (autoClose) {
@@ -197,9 +178,8 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            const {onChange, onFilterChange} = this.props;
+            const {onChange} = this.props;
             onChange && onChange(value);
-            onFilterChange && onFilterChange(filter);
         });
 
     }
@@ -220,7 +200,7 @@ export default class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, isGrouped, mode,
+                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
                 onTriggerMouseOver, onTriggerMouseOut
@@ -309,15 +289,12 @@ export default class LocalAutoComplete extends Component {
                                 isEmpty ?
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
-                                          mode={List.Mode.NORMAL}
-                                          items={emptyEl}/>
+                                          data={emptyEl}/>
                                     :
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
                                           value={value}
-                                          mode={mode || List.Mode.NORMAL}
-                                          isGrouped={isGrouped}
-                                          items={listData}
+                                          data={listData}
                                           valueField={valueField}
                                           displayField={displayField}
                                           descriptionField={descriptionField}
@@ -480,11 +457,6 @@ LocalAutoComplete.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     * The type of dropDown list,can be normal,checkbox,radio.
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
-
-    /**
      * Callback function fired when filter changed.
      */
     filterCallback: PropTypes.func,
@@ -509,12 +481,9 @@ LocalAutoComplete.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    /**
-     * If true,the list data will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
     popupChildren: PropTypes.any,
+
+    filterInitValue: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -557,32 +526,33 @@ LocalAutoComplete.propTypes = {
     onBlur: PropTypes.func,
 
     onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onTriggerMouseOut: PropTypes.func,
+    onPopupClosed: PropTypes.func
 
 };
 
 LocalAutoComplete.defaultProps = {
 
-    className: '',
-    popupClassName: '',
+    className: null,
+    popupClassName: null,
     style: null,
     popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: '',
-    placeholder: '',
+    name: null,
+    placeholder: null,
     data: [],
     disabled: false,
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
-    iconCls: '',
+    iconCls: null,
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
-    noMatchedMsg: '',
-    isGrouped: false,
+    noMatchedMsg: null,
+    filterInitValue: '',
 
     popupChildren: null
 

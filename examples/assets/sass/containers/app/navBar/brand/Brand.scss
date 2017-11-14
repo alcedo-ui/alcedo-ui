@@ -10,7 +10,7 @@
     line-height: 60px;
     text-align: left;
     cursor: default;
-    transition: all $transition-duration ease-in-out;
+    transition: all $theme-transition-duration ease-in-out;
     overflow: visible;
     background: $theme-primary;
     color: $theme-light-text;
@@ -21,19 +21,19 @@
         top: 10px;
         display: none;
         z-index: 1;
+        line-height: 0;
+        font-size: 16px;
         color: $theme-light-text;
     }
 
     .brand-name {
-        display: block;
-        padding: 0 18px;
+        margin-left: 18px;
         box-sizing: border-box;
         overflow: hidden;
         height: 60px;
-        line-height: 60px;
         text-decoration: none;
         color: $theme-light-text;
-        transition: color $transition-duration ease-in-out;
+        transition: color $theme-transition-duration ease-in-out;
 
         .brand-logo {
             display: inline-block;
@@ -67,6 +67,7 @@
     .brand {
         background: $theme-brand !important;
         width: 100% !important;
+        text-align: center;
 
         .menu-toggle-button {
             display: block;
@@ -74,6 +75,7 @@
 
         .brand-name {
             text-align: center;
+            margin-left: 0;
         }
 
         .github-icon {

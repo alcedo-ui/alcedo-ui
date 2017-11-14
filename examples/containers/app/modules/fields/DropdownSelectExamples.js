@@ -32,38 +32,6 @@ export default class DropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.groupedData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
-        }];
-
         this.onChange = this::this.onChange;
 
     }
@@ -98,10 +66,8 @@ export default class DropdownSelectExamples extends Component {
                                 <p><code>Dropdown Select</code> simple example.</p>
 
                                 <div className="field-group">
-
                                     <DropdownSelect data={this.data}
                                                     onChange={this.onChange}/>
-
                                 </div>
 
                             </div>
@@ -124,11 +90,9 @@ export default class DropdownSelectExamples extends Component {
                                     choose one item.</p>
 
                                 <div className="field-group">
-
                                     <DropdownSelect theme={Theme.PRIMARY}
                                                     data={this.data}
                                                     onChange={this.onChange}/>
-
                                 </div>
 
                             </div>
@@ -155,7 +119,7 @@ export default class DropdownSelectExamples extends Component {
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
                                                     useSelectAll={true}
-                                                    mode={DropdownSelect.Mode.CHECKBOX}
+                                                    selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     autoClose={false}
                                                     onChange={this.onChange}/>
 
@@ -180,46 +144,14 @@ export default class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <p>
-                                        Set the <code>mod</code> property to <code>DropdownSelect.Mode.CHECKBOX</code>,
+                                        Set the <code>mod</code> property to
+                                        <code>DropdownSelect.SelectMode.MULTI_SELECT</code>,
                                         the DropdownSelect can be Multiselect.
                                     </p>
 
                                     <DropdownSelect data={this.data}
                                                     autoClose={false}
-                                                    mode={DropdownSelect.Mode.CHECKBOX}
-                                                    onChange={this.onChange}/>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <div className="field-group">
-
-                                    <p>Set the <code>isGrouped</code> property to true,the DropdownSelect will have
-                                        group.
-                                    </p>
-
-                                    <DropdownSelect style={{width: 240}}
-                                                    popupStyle={{maxHeight: 300}}
-                                                    data={this.groupedData}
-                                                    autoClose={false}
-                                                    multi={true}
-                                                    isGrouped={true}
-                                                    rightIconCls="fa fa-caret-down"
+                                                    selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     onChange={this.onChange}/>
 
                                 </div>

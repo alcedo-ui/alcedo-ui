@@ -282,7 +282,7 @@ export default class TextField extends Component {
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                value: v, autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
+                autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -296,7 +296,8 @@ export default class TextField extends Component {
             wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
                 + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
-                + (isFocused ? ' focused' : '') + (className ? ' ' + className : '');
+                + (isFocused ? ' focused' : '') + (clearButtonVisible ? ' has-clear-button' : '')
+                + (className ? ' ' + className : '');
 
         let inputType = type;
         if (inputType === TextField.Type.PASSWORD) {
@@ -570,6 +571,6 @@ TextField.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true
+    fieldMsgVisible: false
 
 };

@@ -172,7 +172,7 @@ BaseButton.propTypes = {
     rightIconCls: PropTypes.string,
 
     tip: PropTypes.string,
-    tipPosition: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
     rippleDisplayCenter: PropTypes.bool,
 
@@ -187,14 +187,14 @@ BaseButton.propTypes = {
 
 BaseButton.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
 
     theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: false,
 
-    value: '',
+    value: null,
     disabled: false,
     readOnly: false,
     type: 'button',
@@ -203,7 +203,10 @@ BaseButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: '',
-    rightIconCls: ''
+    iconCls: null,
+    rightIconCls: null,
+
+    tip: null,
+    tipPosition: TipProvider.Position.BOTTOM
 
 };

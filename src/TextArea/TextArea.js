@@ -1,165 +1,402 @@
 /**
  * @file TextArea component
- * @author chao(chao.zhang@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Event from '../_vendors/Event';
+import {findDOMNode} from 'react-dom';
+
+import IconButton from '../IconButton';
+import FieldMsg from '../FieldMsg';
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
 
 export default class TextArea extends Component {
+
+    static Type = {
+        TEXT: 'text',
+        PASSWORD: 'password',
+        NUMBER: 'number',
+        INTEGER: 'integer',
+        POSITIVE_INTEGER: 'positiveInteger',
+        NONNEGATIVE_INTEGER: 'nonnegativeInteger',
+        NEGATIVE_INTEGER: 'negativeInteger',
+        NONPOSITIVE_INTEGER: 'nonpositiveInteger',
+        EMAIL: 'email',
+        URL: 'url'
+    };
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.state = {
-            focus: false,
-            width: props.initialWidth,
-            height: props.initialHeight,
-            value: props.value
+            value: props.value,
+            isFocused: props.autoFocus ? true : false,
+            passwordVisible: false,
+            infoVisible: false,
+            errorVisible: false,
+            invalidMsgs: ''
         };
 
-        this.onFocus = ::this.onFocus;
-        this.onBlur = ::this.onBlur;
-        this.onChange = ::this.onChange;
-        this.resizeHandle = ::this.resizeHandle;
-        this.mouseUpHandle = ::this.mouseUpHandle;
+        this.valid = ::this.valid;
+        this.changeHandler = ::this.changeHandler;
+        this.keyDownHandler = ::this.keyDownHandler;
+        this.clearValue = ::this.clearValue;
+        this.togglePasswordVisible = ::this.togglePasswordVisible;
+        this.mouseOverHandler = ::this.mouseOverHandler;
+        this.mouseOutHandler = ::this.mouseOutHandler;
+        this.focusHandler = ::this.focusHandler;
+        this.blurHandler = ::this.blurHandler;
+        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
 
     }
 
-    onFocus() {
-        this.setState({
-            focus: true
-        }, () => {
-            this.props.onFocus && this.props.onFocus();
-        });
+    isNumberType(type) {
+
+        const {
+            NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
+        } = TextArea.Type;
+
+        return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
+            || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
+
     }
 
-    onBlur() {
-        this.setState({
-            focus: false
-        }, () => {
-            this.props.onBlur && this.props.onBlur();
-        });
-    }
+    valid(value) {
 
-    /**
-     * 根据textArea的宽高设置state中宽高
-     */
-    resizeHandle(e) {
-        this.setState({
-            width: e.target.offsetWidth,
-            height: e.target.offsetHeight
-        });
-    }
+        const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
+        let invalidMsgs = [];
 
-    /**
-     * mouseUp时，若textArea的宽高右边，则resizeHandle
-     */
-    mouseUpHandle(e) {
-        if (e.target.offsetWidth !== this.state.width || e.target.offsetHeight !== this.state.height) {
-            this.resizeHandle(e);
+        if (type === TextArea.Type.EMAIL && !Valid.isEmail(value)) {
+            invalidMsgs.push('Invalid E-mail address');
         }
-    }
 
-    /**
-     * input变化时，如果为autoSize，则控制高度，使之随内容变化而变化
-     */
+        if (type === TextArea.Type.URL && !Valid.isUrl(value)) {
+            invalidMsgs.push('Invalid url');
+        }
 
-    onChange() {
-        const {initialHeight, maxHeight, autoSize} = this.props;
+        if (required === true && value === '') {
+            invalidMsgs.push('Required');
+        }
 
-        if (autoSize) {
-            const {style} = this.refs.textarea;
-            style.height = initialHeight + 'px';
-            style.overflow = 'hidden';
+        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value.length > maxLength) {
+            invalidMsgs.push(`Max length is ${maxLength}`);
+        }
 
-            if (initialHeight < this.refs.textarea.scrollHeight + 2) {
-                if (maxHeight && maxHeight > this.refs.textarea.scrollHeight + 2) {
-                    style.height = this.refs.textarea.scrollHeight + 2 + 'px';
-                } else {
-                    style.height = maxHeight + 'px';
-                    style.overflow = 'auto';
-                }
+        if (this.isNumberType(type)) {
+
+            if (isNaN(value)) {
+                invalidMsgs.push('Not a valid number');
             }
+
+            if (type === TextArea.Type.INTEGER && ~~value !== value) {
+                invalidMsgs.push('Not a valid integer');
+            }
+
+            if (type === TextArea.Type.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+                invalidMsgs.push('Not a valid positive integer');
+            }
+
+            if (type === TextArea.Type.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+                invalidMsgs.push('Not a valid nonnegative integer');
+            }
+
+            if (type === TextArea.Type.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+                invalidMsgs.push('Not a valid negative integer');
+            }
+
+            if (type === TextArea.Type.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+                invalidMsgs.push('Not a valid nonpositive integer');
+            }
+
+            if (max !== undefined && +value > max) {
+                invalidMsgs.push(`Maximum value is ${max}`);
+            }
+
+            if (min !== undefined && +value < min) {
+                invalidMsgs.push(`Minimum value is ${min}`);
+            }
+
+        }
+
+        if (pattern !== undefined && !pattern.test(value)) {
+            invalidMsgs.push(patternInvalidMsg);
+        }
+
+        return invalidMsgs;
+
+    }
+
+    changeHandler(e) {
+
+        const {preventInvalidInput, onValid, onInvalid} = this.props,
+
+            value = e.target.value,
+            invalidMsgs = this.valid(value);
+
+        if (this.props.autoHeight) {
+            this.inputEl.style.height = this.inputElInitHeight + 'px';
+            this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
+        }
+
+        if (preventInvalidInput && invalidMsgs.length > 0) {
+            return;
         }
 
         this.setState({
-            value: this.refs.textarea.value
+            value,
+            invalidMsgs
         }, () => {
-            this.props.onChange && this.props.onChange(this.refs.textarea.value);
+            this.props.onChange && this.props.onChange(value, e);
+            invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
+        });
+
+    }
+
+    keyDownHandler(e) {
+        if (e.keyCode === 13) {
+            const {onPressEnter} = this.props,
+                {value} = this.state;
+            onPressEnter && onPressEnter(e, value);
+        }
+    }
+
+    clearValue() {
+
+        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
+
+        const invalidMsgs = this.valid('');
+
+        !disabled && clearButtonVisible && this.setState({
+            value: '',
+            invalidMsgs
+        }, () => {
+
+            this.refs.input.focus();
+
+            onClear && onClear();
+            onChange && onChange('');
+
+            invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
+
+        });
+
+    }
+
+    togglePasswordVisible() {
+
+        const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
+        const passwordVisible = !this.state.passwordVisible;
+
+        !disabled && passwordButtonVisible && this.setState({
+            passwordVisible
+        }, () => {
+
+            this.refs.input.focus();
+
+            passwordVisible
+                ? (onPasswordVisible && onPasswordVisible())
+                : (onPasswordInvisible && onPasswordInvisible());
+
+        });
+
+    }
+
+    mouseOverHandler(e) {
+        this.setState({
+            infoVisible: true,
+            errorVisible: true
+        }, () => {
+            const {onMouseOver} = this.props,
+                {value} = this.state;
+            onMouseOver && onMouseOver(e, value);
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        const {width, height, value} = this.state;
+    mouseOutHandler(e) {
+        this.setState({
+            infoVisible: false,
+            errorVisible: false
+        }, () => {
+            const {onMouseOut} = this.props,
+                {value} = this.state;
+            onMouseOut && onMouseOut(e, value);
+        });
+    }
 
-        if (nextProps.initialWidth !== width || nextProps.initialHeight !== height || nextProps.value !== value) {
-            this.setState({
-                width: nextProps.initialWidth,
-                height: nextProps.initialHeight,
-                value: nextProps.value
-            }, () => {
-                this.onChange()
-            });
+    focusHandler(e) {
+        this.setState({
+            isFocused: true
+        }, () => {
+            const {onFocus} = this.props,
+                {value} = this.state;
+            onFocus && onFocus(e, value);
+        });
+    }
+
+    blurHandler(e) {
+
+        if (e.relatedTarget == this.clearButtonEl) {
+            return;
         }
+
+        this.setState({
+            isFocused: false
+        }, () => {
+            const {onBlur} = this.props,
+                {value} = this.state;
+            onBlur && onBlur(e, value);
+        });
+
+    }
+
+    rightIconTouchTapHandler(e) {
+        const {onRightIconTouchTap} = this.props,
+            {value} = this.state;
+        onRightIconTouchTap && onRightIconTouchTap(e, value);
     }
 
     componentDidMount() {
-        const {autoSize, autoFocus} = this.props;
 
-        if (!autoSize) {
-            Event.addEvent(this.refs.textarea, 'mouseup', this.mouseUpHandle);
+        if (this.props.autoFocus === true) {
+            this.refs.input.focus();
         }
 
-        if (autoFocus === true) {
-            this.refs.textarea.focus();
-        }
+        this.inputEl = this.refs.input;
+        this.inputElInitHeight = parseInt(window.getComputedStyle(this.inputEl).height);
+
+        this.clearButtonEl = findDOMNode(this.refs.clearButton);
+
     }
 
-    componentWillUnmount() {
-        const {autoSize} = this.props;
-
-        if (!autoSize) {
-            Event.removeEvent(this.refs.textarea, 'mouseup', this.mouseUpHandle);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
         }
     }
 
     render() {
 
-        const {className, style, cols, rows, autoSize, placeholder,
-                maxWidth, initialHeight, initialWidth, value, maxHeight,
-                autoFocus, onChange, onFocus, onBlur,
-                ...rest
+        const {
+
+                children, className, style, theme, type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible,
+                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
+                onIconTouchTap, onRightIconTouchTap,
+
+                // not passing down these props
+                autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
+                onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
+
+                ...restProps
+
             } = this.props,
-            {focus, width, height} = this.state,
-            textStyle = {
-                height: height,
-                width: width,
-                overflow: autoSize ? 'hidden' : 'auto',
-                resize: autoSize ? 'none' : 'both',
-                maxWidth: maxWidth,
-                ...style
-            };
-        let stateValue = this.state.value;
+
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+
+            isPassword = type === TextArea.Type.PASSWORD,
+
+            wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
+                + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
+                + (iconCls ? ' has-icon' : '') + (autoHeight ? ' auto-height' : '') + (isFocused ? ' focused' : '')
+                + (rightIconCls ? ' has-right-icon' : '') + (wordCountVisible ? ' has-word-count' : '')
+                + (clearButtonVisible ? ' has-clear-button' : '') + (autoHeight ? ' auto-height' : '')
+                + (className ? ' ' + className : '');
+
+        let inputType = type;
+        if (inputType === TextArea.Type.PASSWORD) {
+            inputType = passwordVisible ? TextArea.Type.TEXT : TextArea.Type.PASSWORD;
+        } else if (this.isNumberType(type)) {
+            inputType = 'text';
+        }
 
         return (
-            <textarea {...rest}
-                      ref="textarea"
-                      className={`text-area ${focus ? 'area-focus' : ''} ${className}`}
-                      style={{...textStyle}}
-                      cols={cols}
-                      rows={rows}
-                      placeholder={placeholder}
-                      value={stateValue}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellCheck="false"
-                      onFocus={this.onFocus}
-                      onBlur={this.onBlur}
-                      onChange={this.onChange}></textarea>
+            <div className={'text-area' + wrapperClassName}
+                 style={style}
+                 disabled={disabled}>
+
+                {
+                    iconCls ?
+                        <IconButton className={'text-area-left-icon' + (!onIconTouchTap ? ' deactivated' : '')}
+                                    iconCls={iconCls}
+                                    disableTouchRipple={!onIconTouchTap}
+                                    onTouchTap={onIconTouchTap}/>
+                        :
+                        null
+                }
+
+                <textarea {...restProps}
+                          ref="input"
+                          className="text-area-input"
+                          type={inputType}
+                          value={value}
+                          onChange={this.changeHandler}
+                          onKeyDown={this.keyDownHandler}
+                          onMouseOver={this.mouseOverHandler}
+                          onMouseOut={this.mouseOutHandler}
+                          onFocus={this.focusHandler}
+                          onBlur={this.blurHandler}
+                          disabled={disabled}/>
+
+                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
+                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                            onTouchTap={this.togglePasswordVisible}/>
+
+                <IconButton ref="clearButton"
+                            className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
+                            iconCls="fa fa-times-circle"
+                            onTouchTap={this.clearValue}/>
+
+                {
+                    rightIconCls ?
+                        <IconButton className={'text-area-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
+                                    rightIconCls={rightIconCls}
+                                    disableTouchRipple={!onRightIconTouchTap}
+                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                        :
+                        null
+                }
+
+                {
+                    wordCountVisible ?
+                        <div className={'text-area-word-count' + (value.length > maxLength ? ' error' : '')}>
+                            <div className="text-area-word-count-separator"></div>
+                            {value ? value.length : 0}
+                            {
+                                maxLength ?
+                                    ` / ${maxLength}`
+                                    :
+                                    null
+                            }
+                        </div>
+                        :
+                        null
+                }
+
+                {
+                    fieldMsgVisible && infoVisible && infoMsg ?
+                        <FieldMsg type="info"
+                                  msg={infoMsg}/>
+                        :
+                        null
+                }
+
+                {
+                    fieldMsgVisible && errorVisible && invalidMsgs.length > 0 ?
+                        <FieldMsg type="error"
+                                  msg={invalidMsgs.join(', ')}/>
+                        :
+                        null
+                }
+
+                {children}
+
+            </div>
         );
 
     }
@@ -178,44 +415,44 @@ TextArea.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The number of cols.
+     * The TextArea theme.
      */
-    cols: PropTypes.number,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The number of rows.
+     * Specifies the type of input to display such as "password" or "text".
      */
-    rows: PropTypes.number,
+    type: PropTypes.oneOf(Util.enumerateValue(TextArea.Type)),
 
     /**
-     * The initial height of textArea.
+     * The name of the text area.
      */
-    initialHeight: PropTypes.number,
+    name: PropTypes.string,
 
     /**
-     * The initial height of textArea.
+     * The placeholder of the text area.
      */
-    initialWidth: PropTypes.number,
+    placeholder: PropTypes.string,
 
     /**
-     * The value of textArea.
+     * The value of the text area. Type can be string or number.
      */
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
-     * The max height of textArea.
+     * Use this property to display an icon.
      */
-    maxHeight: PropTypes.number,
+    iconCls: PropTypes.string,
 
     /**
-     * The max width of textArea.
+     * Disables the textField if set to true.
      */
-    maxWidth: PropTypes.number,
+    disabled: PropTypes.bool,
 
     /**
-     * If true, the textArea will change its size by words.
+     * If true,the textField will can't editable.
      */
-    autoSize: PropTypes.bool,
+    readOnly: PropTypes.bool,
 
     /**
      * If true,the textField will autoFocus.
@@ -223,24 +460,112 @@ TextArea.propTypes = {
     autoFocus: PropTypes.bool,
 
     /**
-     * The placeholder of textArea.
+     * The message of the textField.
      */
-    placeholder: PropTypes.string,
+    infoMsg: PropTypes.string,
 
     /**
-     * When the value of textArea change, it will execute.
+     * If true,clearButton will display when the textField is not empty.
+     */
+    clearButtonVisible: PropTypes.bool,
+
+    /**
+     * Use this property to display an icon.
+     */
+    rightIconCls: PropTypes.string,
+
+    /**
+     * If true, passwordButton will display.
+     */
+    passwordButtonVisible: PropTypes.bool,
+
+    autoHeight: PropTypes.bool,
+
+    wordCountVisible: PropTypes.bool,
+
+    // valid
+    /**
+     * If true,the textField must be required.
+     */
+    required: PropTypes.bool,
+
+    /**
+     * The maximum length of textField to enter.
+     */
+    maxLength: PropTypes.number,
+
+    /**
+     * Maximum number of textField that can be entered.
+     */
+    max: PropTypes.number,
+
+    /**
+     * Minimum number of textField that can be entered.
+     */
+    min: PropTypes.number,
+
+    /**
+     * The matching rule of textField.
+     */
+    pattern: PropTypes.object,
+
+    /**
+     * The invalid message of textField.
+     */
+    patternInvalidMsg: PropTypes.string,
+
+    fieldMsgVisible: PropTypes.bool,
+
+    /**
+     * Callback function fired when the textField is changed.
      */
     onChange: PropTypes.func,
 
     /**
-     * When the textArea onBlur, it will execute.
+     * Callback function fired when the press enter.
+     */
+    onPressEnter: PropTypes.func,
+
+    /**
+     * Callback function fired when textField valid.
+     */
+    onValid: PropTypes.func,
+
+    /**
+     * Callback function fired when textField invalid.
+     */
+    onInvalid: PropTypes.func,
+
+    /**
+     * Callback function fired when textField focus.
+     */
+    onFocus: PropTypes.func,
+
+    /**
+     * Callback function fired when textField blur.
      */
     onBlur: PropTypes.func,
 
     /**
-     * When the textArea onFocus, it will execute.
+     * Callback function fired when textField clear.
      */
-    onFocus: PropTypes.func
+    onClear: PropTypes.func,
+
+    /**
+     * Callback function fired when password visible.
+     */
+    onPasswordVisible: PropTypes.func,
+
+    /**
+     * Callback function fired when password invisible.
+     */
+    onPasswordInvisible: PropTypes.func,
+
+    onIconTouchTap: PropTypes.func,
+    onRightIconTouchTap: PropTypes.func,
+
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
@@ -248,16 +573,29 @@ TextArea.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
-    cols: 50,
-    rows: 3,
-    initialHeight: 30,
-    initialWidth: 200,
-    maxHeight: 100,
-    maxWidth: 500,
-    autoSize: true,
+    type: 'text',
+    name: '',
+    placeholder: '',
+    value: '',
+    iconCls: '',
+    rightIconCls: '',
+    disabled: false,
+    readOnly: false,
     autoFocus: false,
-    placeholder: 'Please input something.',
-    value: ''
+    infoMsg: '',
+    autoHeight: false,
+    wordCountVisible: false,
+
+    clearButtonVisible: false,
+    passwordButtonVisible: false,
+
+    // valid
+    required: false,
+    patternInvalidMsg: '',
+    preventInvalidInput: false,
+
+    fieldMsgVisible: false
 
 };

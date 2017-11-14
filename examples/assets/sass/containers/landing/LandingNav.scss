@@ -74,7 +74,7 @@
                     color: transparentize(#fff, .5);
                     font-weight: 300;
                     cursor: pointer;
-                    transition: color $transition-duration ease-in-out;
+                    transition: color $theme-transition-duration ease-in-out;
 
                     &.activated {
                         color: transparentize(#fff, .2);
@@ -92,7 +92,7 @@
     .landing-nav-bg {
         background: $theme-primary;
         opacity: 0;
-        transition: opacity $transition-duration ease-in-out;
+        transition: opacity $theme-transition-duration ease-in-out;
     }
 
     &.fixed {

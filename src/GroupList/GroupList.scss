@@ -1,0 +1,24 @@
+/**
+ * @file GroupList style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.group-list {
+
+    .group-list-group-title {
+        box-sizing: border-box;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        color: $theme-field;
+        padding: 0 8px;
+    }
+
+    .list-separator {
+        border-top: 1px solid $theme-border;
+    }
+
+    .list {
+        width: 100%;
+    }
+}

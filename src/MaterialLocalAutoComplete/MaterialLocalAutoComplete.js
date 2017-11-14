@@ -5,10 +5,10 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
 
 import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
@@ -20,17 +20,18 @@ export default class MaterialLocalAutoComplete extends Component {
 
         this.state = {
             value: '',
-            filter: '',
+            filter: props.filterInitValue,
             isFocus: false,
             isHover: false
         };
 
         this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
+        this.popupClosedHandler = ::this.popupClosedHandler;
         this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
         this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
+        this.closePopup = ::this.closePopup;
 
     }
 
@@ -43,12 +44,9 @@ export default class MaterialLocalAutoComplete extends Component {
         });
     }
 
-    triggerBlurHandler(...args) {
+    popupClosedHandler() {
         this.setState({
             isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
         });
     }
 
@@ -88,6 +86,10 @@ export default class MaterialLocalAutoComplete extends Component {
         });
     }
 
+    closePopup() {
+        this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -105,23 +107,21 @@ export default class MaterialLocalAutoComplete extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimated, popupClassName,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value, filter} = this.state,
 
-            fieldClassName = (isLabelAnimate ? ' animated' : '') + (isFocus ? ' focused' : '')
-                + (className ? ' ' + className : ''),
-
-            labelClassName = (filter ? ' has-value' : '');
+            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
+                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'material-local-auto-complete' + fieldClassName}
+            <div className={'material-local-auto-complete' + wrapperClassName}
                  style={style}>
 
                 {
                     label ?
-                        <div className={'material-local-auto-complete-label' + labelClassName}>
+                        <div className="material-local-auto-complete-label">
                             {label}
                         </div>
                         :
@@ -129,11 +129,12 @@ export default class MaterialLocalAutoComplete extends Component {
                 }
 
                 <LocalAutoComplete {...restProps}
-                                   popupClassName="material-local-auto-complete-popup"
+                                   ref="localAutoComplete"
+                                   popupClassName={'material-local-auto-complete-popup ' + popupClassName}
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
-                                   onBlur={this.triggerBlurHandler}
+                                   onPopupClosed={this.popupClosedHandler}
                                    onTriggerMouseOver={this.triggerMouseOverHandler}
                                    onTriggerMouseOut={this.triggerMouseOutHandler}
                                    onFilterChange={this.triggerFilterChangeHandler}
@@ -289,11 +290,6 @@ MaterialLocalAutoComplete.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     * The type of dropDown list,can be normal,checkbox,radio.
-     */
-    mode: PropTypes.oneOf(Util.enumerateValue(LocalAutoComplete.Mode)),
-
-    /**
      * Callback function fired when filter changed.
      */
     filterCallback: PropTypes.func,
@@ -323,7 +319,9 @@ MaterialLocalAutoComplete.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
-    isLabelAnimate: PropTypes.bool,
+    isLabelAnimated: PropTypes.bool,
+
+    filterInitValue: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -383,6 +381,7 @@ MaterialLocalAutoComplete.defaultProps = {
     name: '',
     placeholder: '',
     label: '',
+    isLabelAnimated: true,
     data: [],
     disabled: false,
     valueField: 'value',
@@ -394,7 +393,7 @@ MaterialLocalAutoComplete.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
-    isLabelAnimate: true,
+    filterInitValue: '',
 
     popupChildren: null
 

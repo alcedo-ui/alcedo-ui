@@ -19,7 +19,7 @@
         height: 2px;
         background: $theme-field;
         opacity: 0;
-        transition: opacity $transition-duration ease-in-out;
+        transition: opacity $theme-transition-duration ease-in-out;
         z-index: 1;
     }
 
@@ -31,7 +31,7 @@
         width: 0;
         height: 2px;
         z-index: 1;
-        transition: left $transition-duration ease-in-out, width $transition-duration ease-in-out;
+        transition: left $theme-transition-duration ease-in-out, width $theme-transition-duration ease-in-out;
     }
 
     &.hover {

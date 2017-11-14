@@ -11,13 +11,13 @@ import PropTypeDescTable from '../PropTypeDescTable';
 import TextAreaDoc from 'assets/propTypes/TextArea.json';
 
 
-export default class TextAreaExamples extends Component{
-    constructor(props){
+export default class TextAreaExamples extends Component {
+    constructor(props) {
         super();
     }
 
-    onChangeHandle(value){
-        console.log(value)
+    onChangeHandle(value) {
+        console.log(value);
     }
 
     render() {
@@ -36,7 +36,7 @@ export default class TextAreaExamples extends Component{
                     <div className="widget-content">
                         <div className="example-content">
                             <p>TextArea with auto size.</p>
-                            <TextArea autoSize={true}/>
+                            <TextArea autoHeight={true}/>
                         </div>
                     </div>
                 </Widget>
@@ -46,7 +46,10 @@ export default class TextAreaExamples extends Component{
                     <div className="widget-content">
                         <div className="example-content">
                             <p>TextArea with regular size.</p>
-                            <TextArea autoSize={false} initialHeight={100} onChange={this.onChangeHandle}/>
+                            <TextArea autoHeight={false}
+                                      wordCountVisible={true}
+                                      maxLength={100}
+                                      onChange={this.onChangeHandle}/>
                         </div>
                     </div>
                 </Widget>
@@ -55,6 +58,6 @@ export default class TextAreaExamples extends Component{
 
                 <PropTypeDescTable data={TextAreaDoc}/>
             </div>
-        )
+        );
     }
 }

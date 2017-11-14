@@ -14,6 +14,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import DragDrop from '../_vendors/DragDrop';
+import SelectMode from '../_statics/SelectMode';
 
 const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 
@@ -27,11 +28,7 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 }))
 export default class DraggableGridItem extends Component {
 
-    static Mode = {
-        NORMAL: 'normal',
-        CHECKBOX: 'checkbox',
-        RADIO: 'radio'
-    };
+    static SelectMode = SelectMode;
 
     constructor(props, ...rest) {
 
@@ -114,20 +111,20 @@ export default class DraggableGridItem extends Component {
             return;
         }
 
-        const {mode} = this.props,
+        const {selectMode} = this.props,
             callback = () => {
                 const {onTouchTap} = this.props;
                 onTouchTap && onTouchTap(e);
             };
 
-        switch (mode) {
-            case DraggableGridItem.Mode.CHECKBOX:
+        switch (selectMode) {
+            case DraggableGridItem.SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked, callback);
                 return;
-            case DraggableGridItem.Mode.RADIO:
+            case DraggableGridItem.SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler(callback);
                 return;
-            case DraggableGridItem.Mode.NORMAL:
+            case DraggableGridItem.SelectMode.NORMAL:
                 callback();
                 return;
         }
@@ -165,7 +162,7 @@ export default class DraggableGridItem extends Component {
         const {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                mode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                selectMode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
                 tip, tipPosition, onMouseLeave
             } = this.props,
             {checked, tipVisible, tipTriggerEl} = this.state,
@@ -193,7 +190,7 @@ export default class DraggableGridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            mode === DraggableGridItem.Mode.CHECKBOX ?
+                            selectMode === DraggableGridItem.SelectMode.MULTI_SELECT ?
                                 <Checkbox className="draggable-grid-item-checkbox"
                                           value={checked}
                                           disabled={disabled || isLoading}/>
@@ -202,7 +199,7 @@ export default class DraggableGridItem extends Component {
                         }
 
                         {
-                            mode === DraggableGridItem.Mode.RADIO ?
+                            selectMode === DraggableGridItem.SelectMode.SINGLE_SELECT ?
                                 <i className={'fa fa-check draggable-grid-item-checked' + (checked ? ' activated' : '')}
                                    aria-hidden="true"></i>
                                 :
@@ -328,7 +325,7 @@ DraggableGridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
     checked: PropTypes.bool,
-    mode: PropTypes.oneOf(Util.enumerateValue(DraggableGridItem.Mode)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     groupIndex: PropTypes.number,
     isGroupTitle: PropTypes.bool,
     anchorIconCls: PropTypes.string,
@@ -368,7 +365,7 @@ DraggableGridItem.defaultProps = {
 
     checked: false,
 
-    mode: DraggableGridItem.Mode.NORMAL,
+    selectMode: SelectMode.NORMAL,
 
     isGroupTitle: false,
 

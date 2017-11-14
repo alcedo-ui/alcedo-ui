@@ -1,5 +1,5 @@
 export default [{
-    text: 'Buttons',
+    text: 'Button',
     children: [{
         text: 'RaisedButton',
         route: '/components/RaisedButton'
@@ -12,6 +12,15 @@ export default [{
     }, {
         text: 'IconButton',
         route: '/components/IconButton'
+    }, {
+        text: 'AnchorButton',
+        route: '/components/AnchorButton'
+    }]
+}, {
+    text: 'Anchor',
+    children: [{
+        text: 'Anchor',
+        route: '/components/Anchor'
     }, {
         text: 'IconAnchor',
         route: '/components/IconAnchor'
@@ -44,7 +53,7 @@ export default [{
         route: '/components/DateTimePicker'
     }]
 }, {
-    text: 'Fields',
+    text: 'Field',
     children: [{
         text: 'TextField',
         route: '/components/TextField'
@@ -105,6 +114,30 @@ export default [{
     }, {
         text: 'EditableSelect',
         route: '/components/EditableSelect'
+    }, {
+        text: 'MaterialTextField',
+        route: '/components/MaterialTextField'
+    }, {
+        text: 'MaterialDropdownSelect',
+        route: '/components/MaterialDropdownSelect'
+    }, {
+        text: 'MaterialLocalAutoComplete',
+        route: '/components/MaterialLocalAutoComplete'
+    }, {
+        text: 'MaterialTextArea',
+        route: '/components/MaterialTextArea'
+    }, {
+        text: 'DownloadField',
+        route: '/components/DownloadField'
+    }]
+}, {
+    text: 'Filter',
+    children: [{
+        text: 'DropdownFilter',
+        route: '/components/DropdownFilter'
+    }, {
+        text: 'MaterialDropdownFilter',
+        route: '/components/MaterialDropdownFilter'
     }]
 }, {
     text: 'Progress',
@@ -130,6 +163,12 @@ export default [{
         text: 'List',
         route: '/components/List'
     }, {
+        text: 'GroupList',
+        route: '/components/GroupList'
+    }, {
+        text: 'DynamicRenderList',
+        route: '/components/DynamicRenderList'
+    }, {
         text: 'CascaderList',
         route: '/components/CascaderList'
     }, {
@@ -150,6 +189,18 @@ export default [{
     }, {
         text: 'Tree',
         route: '/components/Tree'
+    }, {
+        text: 'Dropdown',
+        route: '/components/Dropdown'
+    }]
+}, {
+    text: 'Loading',
+    children: [{
+        text: 'CircularLoading',
+        route: '/components/CircularLoading'
+    }, {
+        text: 'SpanLoading',
+        route: '/components/SpanLoading'
     }]
 }, {
     text: 'Draggable',
@@ -178,27 +229,18 @@ export default [{
 }, {
     text: 'Message',
     children: [{
-        text: 'Toaster',
-        route: '/components/Toaster'
+        text: 'Toast',
+        route: '/components/Toast'
     }, {
         text: 'Tip',
         route: '/components/Tip'
+    }, {
+        text: 'Notification',
+        route: '/components/Notification'
     }]
 }, {
     text: 'TimeLine',
     route: '/components/TimeLine'
-}, {
-    text: 'MaterialDesign',
-    children: [{
-        text: 'MaterialTextField',
-        route: '/components/MaterialTextField'
-    }, {
-        text: 'MaterialDropdownSelect',
-        route: '/components/MaterialDropdownSelect'
-    }, {
-        text: 'MaterialLocalAutoComplete',
-        route: '/components/MaterialLocalAutoComplete'
-    }]
 }, {
     text: 'Media',
     children: [{

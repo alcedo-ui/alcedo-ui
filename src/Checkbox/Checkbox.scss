@@ -37,14 +37,14 @@
             color: $theme-secondary;
 
             .button-icon {
-                transition: all $transition-duration ease-in-out;
+                transition: all $theme-transition-duration ease-in-out;
             }
         }
 
         .checkbox-icon {
             .button-icon {
                 transform: scale(0);
-                transition: all $transition-duration ease-in-out;
+                transition: all $theme-transition-duration ease-in-out;
             }
         }
     }
