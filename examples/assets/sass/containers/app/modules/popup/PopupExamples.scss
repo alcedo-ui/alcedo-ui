@@ -78,3 +78,16 @@
         }
     }
 }
+
+.customized-popup {
+
+    .customized-popup-triangle {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .popup-content {
+        border: 1px solid #e7e7e7;
+    }
+}
