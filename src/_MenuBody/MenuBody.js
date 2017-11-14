@@ -275,7 +275,7 @@ export default class MenuBody extends Component {
 
     render() {
 
-        const {children, className, style, hasTriangle, triangle, theme, position, isAnimated, depth} = this.props,
+        const {children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth} = this.props,
             {visible} = this.state,
 
             menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' menu-has-triangle' : '')
