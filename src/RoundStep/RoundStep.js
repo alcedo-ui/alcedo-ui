@@ -35,6 +35,7 @@ export default class RoundStep extends Component {
                 finishedStep: this.state.finishedStep
             });
         });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,7 +50,7 @@ export default class RoundStep extends Component {
 
     render() {
 
-        const {className, style, steps, showFinishedStepIcon, finishedStepIconCls} = this.props,
+        const {className, style, steps, showFinishedStepIcon, finishedStepIconCls, disabled} = this.props,
             {activatedStep, finishedStep} = this.state;
 
         return (
@@ -74,6 +75,7 @@ export default class RoundStep extends Component {
                                            isLast={index === steps.length - 1}
                                            showFinishedStepIcon={showFinishedStepIcon}
                                            finishedStepIconCls={finishedStepIconCls}
+                                           disabled={disabled}
                                            onTouchTap={this.touchTapHandler}/>
                         );
                     })
@@ -133,6 +135,8 @@ RoundStep.propTypes = {
     showFinishedStepIcon: PropTypes.bool,
     finishedStepIconCls: PropTypes.string,
 
+    disabled: PropTypes.bool,
+
     /**
      * Callback function fired when step change.
      */
@@ -151,6 +155,7 @@ RoundStep.defaultProps = {
     finishedStep: 0,
 
     showFinishedStepIcon: true,
-    finishedStepIconCls: 'fa fa-check'
+    finishedStepIconCls: 'fa fa-check',
+    disabled: false
 
 };
