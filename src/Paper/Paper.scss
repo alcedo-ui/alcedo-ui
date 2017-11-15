@@ -3,6 +3,10 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin paper-theme($bg-color) {
+    background-color: $bg-color;
+}
+
 .paper {
     border-radius: $theme-border-radius;
     background: $theme-field-bg;
@@ -19,6 +23,32 @@
 
     &.circular {
         border-radius: 50%;
+    }
+
+    // default theme
+    @include paper-theme($theme-field-bg);
+
+    // other themes
+    &.theme-primary {
+        @include paper-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include paper-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include paper-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include paper-theme($theme-info);
+    }
+    &.theme-success {
+        @include paper-theme($theme-success);
+    }
+    &.theme-warning {
+        @include paper-theme($theme-warning);
+    }
+    &.theme-error {
+        @include paper-theme($theme-error);
     }
 
 }
