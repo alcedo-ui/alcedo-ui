@@ -129,6 +129,7 @@ export default class MaterialEditableSelectExamples extends Component {
                                     <MaterialEditableSelect data={this.data}
                                                             onChange={this.onChange}
                                                             selectMode={MaterialEditableSelect.SelectMode.SINGLE_SELECT}
+                                                            autoClose={false}
                                                             useFilter={true}/>
 
                                 </div>
