@@ -122,4 +122,10 @@
         }
     }
 
+    &.disabled {
+        .round {
+            cursor: default;
+        }
+    }
+
 }

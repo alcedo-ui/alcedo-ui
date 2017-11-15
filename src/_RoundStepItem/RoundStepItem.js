@@ -25,7 +25,7 @@ export default class RoundStepItem extends Component {
             return ' full';
         }
 
-        if (activatedStep === index) {
+        if (activatedStep === index || finishedStep === index) {
             return '';
         }
 
@@ -35,20 +35,20 @@ export default class RoundStepItem extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        const {activatedStep, finishedStep, index, disabled, onTouchTap} = this.props;
+        !disabled && activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
     }
 
     render() {
 
         const {
                 className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
-                showFinishedStepIcon, finishedStepIconCls
+                showFinishedStepIcon, finishedStepIconCls, disabled
             } = this.props,
 
             itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
                 + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (className ? ' ' + className : '');
+                + (disabled ? ' disabled' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'round-step-item' + itemClassName}
@@ -107,6 +107,8 @@ RoundStepItem.propTypes = {
     showFinishedStepIcon: PropTypes.bool,
     finishedStepIconCls: PropTypes.string,
 
+    disabled: PropTypes.bool,
+
     onTouchTap: PropTypes.func
 
 };
@@ -124,6 +126,8 @@ RoundStepItem.defaultProps = {
     isLast: false,
 
     showFinishedStepIcon: true,
-    finishedStepIconCls: 'fa fa-check'
+    finishedStepIconCls: 'fa fa-check',
+
+    disabled: false
 
 };
