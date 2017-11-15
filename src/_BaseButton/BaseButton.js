@@ -156,8 +156,8 @@ BaseButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
@@ -189,8 +189,8 @@ BaseButton.defaultProps = {
 
     className: null,
     style: null,
-
     theme: Theme.DEFAULT,
+
     isRounded: false,
     isCircular: false,
 

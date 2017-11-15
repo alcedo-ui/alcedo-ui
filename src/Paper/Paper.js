@@ -6,6 +6,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Theme from '../Theme';
+
+import Util from '../_vendors/Util';
+
 export default class Paper extends Component {
 
     constructor(props, ...restArgs) {
@@ -25,14 +29,14 @@ export default class Paper extends Component {
 
     render() {
 
-        const {children, className, style, depth, nonRounded, isCircular, ...rest} = this.props,
+        const {children, className, style, theme, depth, nonRounded, isCircular, ...rest} = this.props,
 
-            paperClassName = (nonRounded ? ' nonRounded' : (isCircular ? ' circular' : ''))
-                + (className ? ' ' + className : '');
+            paperClassName = (depth ? ` depth-${this.formatDepth(depth)}` : '') + (theme ? ` theme-${theme}` : '')
+                + (nonRounded ? ' nonRounded' : (isCircular ? ' circular' : '')) + (className ? ' ' + className : '');
 
         return (
             <div {...rest}
-                 className={`paper depth-${this.formatDepth(depth)}` + paperClassName}
+                 className={'paper' + paperClassName}
                  style={style}>
                 {children}
             </div>
@@ -52,6 +56,11 @@ Paper.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * Theme of the root element.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * This number represents the zDepth of the paper shadow.
@@ -74,6 +83,7 @@ Paper.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
     depth: 1,
     nonRounded: false,
