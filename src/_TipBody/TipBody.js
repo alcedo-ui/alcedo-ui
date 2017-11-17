@@ -1,29 +1,39 @@
 /**
  * @file TipBody component
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
+import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+
+import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
+import Event from '../_vendors/Event';
 
 export default class TipBody extends Component {
 
     static Position = {
 
-        TOP: 'top',
-        LEFT: 'left',
-        RIGHT: 'right',
-        BOTTOM: 'bottom',
-
         TOP_LEFT: 'top-left',
+        TOP: 'top',
         TOP_RIGHT: 'top-right',
+
         BOTTOM_LEFT: 'bottom-left',
-        BOTTOM_RIGHT: 'bottom-right'
+        BOTTOM: 'bottom',
+        BOTTOM_RIGHT: 'bottom-right',
+
+        LEFT_TOP: 'left-top',
+        LEFT: 'left',
+        LEFT_BOTTOM: 'left-bottom',
+
+        RIGHT_TOP: 'right-top',
+        RIGHT: 'right',
+        RIGHT_BOTTOM: 'right-bottom'
 
     };
 
@@ -32,154 +42,183 @@ export default class TipBody extends Component {
         super(props, ...restArgs);
 
         this.hasMounted = false;
-        this.unrenderTimeout = null;
+        this.prepareCloseTimeout = null;
+        this.requestCloseTimeout = null;
 
         this.state = {
             visible: false
         };
 
-        this.getWrapperStyle = ::this.getWrapperStyle;
-        this.getRippleStyle = ::this.getRippleStyle;
-        this.mouseMoveHandle = ::this.mouseMoveHandle;
+        this.getMenuStyle = ::this.getMenuStyle;
+        this.triggerMouseEnterHandler = ::this.triggerMouseEnterHandler;
+        this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
+        this.resizeHandler = ::this.resizeHandler;
+        this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
+        this.wheelHandler = ::this.wheelHandler;
 
     }
 
-    getDiag(a, b) {
-        return Math.sqrt((a * a) + (b * b));
+    calTopVerticalBottom(triggerEl, triggerOffset) {
+        return triggerOffset.top + triggerEl.offsetHeight;
     }
 
-    getWrapperStyle() {
+    calTopVerticalTop(triggerOffset, menuEl) {
+        return triggerOffset.top - menuEl.offsetHeight
+            - parseInt(getComputedStyle(menuEl).marginTop)
+            - parseInt(getComputedStyle(menuEl).marginBottom);
+    }
+
+    calTopHorizontalTop(triggerOffset) {
+        return triggerOffset.top;
+    }
+
+    calTopHorizontalMiddle(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.top + triggerEl.offsetHeight / 2 - menuEl.offsetHeight / 2;
+    }
+
+    calTopHorizontalBottom(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.top + triggerEl.offsetHeight - menuEl.offsetHeight;
+    }
+
+    calLeftVerticalLeft(triggerOffset) {
+        return triggerOffset.left;
+    }
+
+    calLeftVerticalCenter(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.left + triggerEl.offsetWidth / 2 - menuEl.offsetWidth / 2;
+    }
+
+    calLeftVerticalRight(triggerEl, triggerOffset, menuEl) {
+        return triggerOffset.left - (menuEl.offsetWidth - triggerEl.offsetWidth);
+    }
+
+    calLeftHorizontalLeft(triggerOffset, menuEl) {
+        return triggerOffset.left - menuEl.offsetWidth
+            - parseInt(getComputedStyle(menuEl).marginLeft)
+            - parseInt(getComputedStyle(menuEl).marginRight);
+    }
+
+    calLeftHorizontalRight(triggerEl, triggerOffset) {
+        return triggerOffset.left + triggerEl.offsetWidth;
+    }
+
+    getMenuStyle() {
 
         const {triggerEl, position} = this.props;
 
-        if (!triggerEl || !this.refs.tip) {
+        if (!triggerEl || !this.tipEl) {
             return;
         }
 
         const triggerOffset = Dom.getOffset(triggerEl);
-        let WrapperStyle = {};
+        let left, top;
+
         switch (position) {
-            case 'right':
-                WrapperStyle.left = triggerOffset.left + triggerEl.clientHeight;
-                WrapperStyle.top = triggerOffset.top;
+            case TipBody.Position.TOP_LEFT: {
+                left = this.calLeftVerticalLeft(triggerOffset);
+                top = this.calTopVerticalTop(triggerOffset, this.tipEl);
                 break;
-            case 'left':
-                WrapperStyle.left = triggerOffset.left - this.refs.tip.clientWidth;
-                WrapperStyle.top = triggerOffset.top;
-                break;
-            case 'top':
-                WrapperStyle.top = triggerOffset.top - triggerEl.clientHeight;
-                WrapperStyle.left = triggerOffset.left + triggerEl.clientWidth / 2 - this.refs.tip.clientWidth / 2;
-                break;
-            case 'bottom':
-                WrapperStyle.top = triggerOffset.top + triggerEl.clientHeight;
-                WrapperStyle.left = triggerOffset.left + triggerEl.clientWidth / 2 - this.refs.tip.clientWidth / 2;
-                break;
-            case 'top-left':
-                WrapperStyle.left = triggerOffset.left - this.refs.tip.clientWidth;
-                WrapperStyle.top = triggerOffset.top - triggerEl.clientHeight;
-                break;
-            case 'top-right':
-                WrapperStyle.left = triggerOffset.left + triggerEl.clientHeight;
-                WrapperStyle.top = triggerOffset.top - triggerEl.clientHeight;
-                break;
-            case 'bottom-left':
-                WrapperStyle.left = triggerOffset.left - this.refs.tip.clientWidth;
-                WrapperStyle.top = triggerOffset.top + triggerEl.clientHeight;
-                break;
-            case 'bottom-right':
-                WrapperStyle.left = triggerOffset.left + triggerEl.clientHeight;
-                WrapperStyle.top = triggerOffset.top + triggerEl.clientHeight;
-                break;
-            default:
-                WrapperStyle.top = triggerOffset.top + triggerEl.clientHeight;
-                WrapperStyle.left = triggerOffset.left + triggerEl.clientWidth / 2 - this.refs.tip.clientWidth / 2;
-        }
-
-        return WrapperStyle;
-
-    }
-
-    getRippleStyle(elOffset) {
-
-        const {triggerEl} = this.props;
-
-        if (!triggerEl || !this.refs.tip || !elOffset) {
-            return;
-        }
-
-        let rippleStyle = {};
-
-        const offset = Dom.getOffset(triggerEl);
-        rippleStyle.top = offset.top + triggerEl.clientHeight / 2;
-        rippleStyle.left = offset.left + triggerEl.clientWidth / 2;
-
-        const elWidth = this.refs.tip.clientWidth;
-        const elHeight = this.refs.tip.clientHeight;
-
-        const rippleRadius = Math.max(
-            this.getDiag(elOffset.top - rippleStyle.top, elOffset.left - rippleStyle.left),
-            this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left - rippleStyle.left),
-            this.getDiag(elOffset.top - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left),
-            this.getDiag(elOffset.top + elHeight - rippleStyle.top, elOffset.left + elWidth - rippleStyle.left)
-        );
-
-        const rippleSize = rippleRadius * 2;
-
-        rippleStyle.width = rippleSize;
-        rippleStyle.height = rippleSize;
-        rippleStyle.top = rippleStyle.top - rippleRadius - elOffset.top;
-        rippleStyle.left = rippleStyle.left - rippleRadius - elOffset.left;
-
-        return rippleStyle;
-
-    }
-
-    triggerEventHandle(el, triggerEl, tipEl, currentVisible) {
-
-        while (el) {
-            if (el == triggerEl) {
-                return true;
-            } else if (el == tipEl) {
-                return currentVisible;
             }
-            el = el.parentNode;
+            case TipBody.Position.TOP: {
+                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.tipEl);
+                top = this.calTopVerticalTop(triggerOffset, this.tipEl);
+                break;
+            }
+            case TipBody.Position.TOP_RIGHT: {
+                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.tipEl);
+                top = this.calTopVerticalTop(triggerOffset, this.tipEl);
+                break;
+            }
+            case TipBody.Position.BOTTOM_LEFT: {
+                left = this.calLeftVerticalLeft(triggerOffset);
+                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                break;
+            }
+            case TipBody.Position.BOTTOM: {
+                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.tipEl);
+                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                break;
+            }
+            case TipBody.Position.BOTTOM_RIGHT: {
+                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.tipEl);
+                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                break;
+            }
+            case TipBody.Position.LEFT_TOP: {
+                left = this.calLeftHorizontalLeft(triggerOffset, this.tipEl);
+                top = this.calTopHorizontalTop(triggerOffset);
+                break;
+            }
+            case TipBody.Position.LEFT: {
+                left = this.calLeftHorizontalLeft(triggerOffset, this.tipEl);
+                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.tipEl);
+                break;
+            }
+            case TipBody.Position.LEFT_BOTTOM: {
+                left = this.calLeftHorizontalLeft(triggerOffset, this.tipEl);
+                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.tipEl);
+                break;
+            }
+            case TipBody.Position.RIGHT_TOP: {
+                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
+                top = this.calTopHorizontalTop(triggerOffset);
+                break;
+            }
+            case TipBody.Position.RIGHT: {
+                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
+                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.tipEl);
+                break;
+            }
+            case TipBody.Position.RIGHT_BOTTOM: {
+                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
+                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.tipEl);
+                break;
+            }
         }
 
-        return false;
+        return {left, top};
 
     }
 
-    mouseMoveHandle(e) {
+    triggerMouseEnterHandler(e) {
+        this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
+    }
 
-        const {triggerEl, onRequestClose} = this.props,
-            visible = this.triggerEventHandle(
-                e.target,
-                triggerEl,
-                this.refs.tip,
-                this.state.visible
-            );
-
-        if (visible === this.state.visible) {
-            return;
-        }
-
-        this.setState({
-            visible
-        }, () => {
-            if (!visible) {
-                setTimeout(() => {
-                    onRequestClose && onRequestClose();
+    triggerMouseLeaveHandler(e) {
+        this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
+        this.prepareCloseTimeout = setTimeout(() => {
+            this.setState({
+                visible: false
+            }, () => {
+                this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
+                this.requestCloseTimeout = setTimeout(() => {
+                    const {onRequestClose} = this.props;
+                    this.hasMounted && onRequestClose && onRequestClose();
                 }, 250);
-            }
-        });
+            });
+        }, 100);
+    }
 
+    resizeHandler() {
+        this.debounceResizeHandle();
+    }
+
+    debounceResizeHandle() {
+        this.forceUpdate();
+    }
+
+    wheelHandler(e) {
+        const {shouldPreventContainerScroll, onWheel} = this.props;
+        shouldPreventContainerScroll && Event.preventContainerScroll(e);
+        onWheel && onWheel(e);
     }
 
     initializeAnimation(callback) {
-        this.hasMounted && callback();
+        setTimeout(() => {
+            this.hasMounted && callback();
+        }, 0);
     }
 
     animate() {
@@ -189,15 +228,19 @@ export default class TipBody extends Component {
     }
 
     componentDidMount() {
+
         this.hasMounted = true;
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
+        this.tipEl = findDOMNode(this.refs.tip);
+
+        Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
+        Event.addEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.addEvent(this.tipEl, 'mouseenter', this.triggerMouseEnterHandler);
+        Event.addEvent(this.tipEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.addEvent(window, 'resize', this.resizeHandler);
+
     }
 
     componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentWillEnter(callback) {
         this.initializeAnimation(callback);
     }
 
@@ -205,56 +248,61 @@ export default class TipBody extends Component {
         this.animate();
     }
 
-    componentDidEnter() {
-        this.animate();
-    }
-
-    componentWillLeave(callback) {
-        this.setState({
-            visible: false
-        }, () => {
-            this.unrenderTimeout = setTimeout(() => {
-                this.hasMounted && callback();
-            }, 250);
-        });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: !!nextProps.visible
-            });
-        }
+    componentDidUpdate() {
+        const {onRender} = this.props,
+            {visible} = this.state;
+        visible && onRender && onRender(this.tipEl);
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
+
+        this.hasMounted = false;
+        this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
+        this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
+
+        Event.removeEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
+        Event.removeEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.removeEvent(this.tipEl, 'mouseenter', this.triggerMouseEnterHandler);
+        Event.removeEvent(this.tipEl, 'mouseleave', this.triggerMouseLeaveHandler);
+        Event.removeEvent(window, 'resize', this.resizeHandler);
+
     }
 
     render() {
 
-        const {className, style, position, text} = this.props;
-        const {visible} = this.state;
+        const {children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth} = this.props,
+            {visible} = this.state,
 
-        const wrapperStyle = this.getWrapperStyle();
+            menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' tip-has-triangle' : '')
+                + (theme ? ` theme-${theme}` : '') + (position ? ` tip-position-${position}` : '')
+                + (isAnimated ? ' tip-animated' : '') + (className ? ' ' + className : '');
 
         return (
-            <div ref="tip"
-                 className={`tip ${visible ? 'visible' : ''} ${className}`}
-                 style={{...style, ...wrapperStyle}}>
+            <Paper ref="tip"
+                   className={'tip' + menuClassName}
+                   style={{...this.getMenuStyle(), ...style}}
+                   depth={depth}
+                   onWheel={this.wheelHandler}>
 
-                {text}
+                {
+                    hasTriangle ?
+                        <div className="tip-triangle-wrapper">
+                            {triangle}
+                        </div>
+                        :
+                        null
+                }
 
-                <div className="tip-ripple"
-                     style={this.getRippleStyle(wrapperStyle)}></div>
+                <div className="tip-content"
+                     onWheel={this.wheelHandler}>
+                    {children}
+                </div>
 
-            </div>
+            </Paper>
         );
 
     }
-
-}
+};
 
 TipBody.propTypes = {
 
@@ -269,11 +317,6 @@ TipBody.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Tip text.
-     */
-    text: PropTypes.string,
-
-    /**
      * This is the DOM element that will be used to set the position of the popover.
      */
     triggerEl: PropTypes.object,
@@ -284,19 +327,48 @@ TipBody.propTypes = {
     visible: PropTypes.bool,
 
     /**
-     * The popover theme. Can be primary,highlight,success,warning,error.
+     * If true,the popover will have a triangle on the top of the DOM element.
+     */
+    hasTriangle: PropTypes.bool,
+
+    triangle: PropTypes.element,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The position of Tip.Can be top,left,right,bottom,top-left,top-right,bottom-left,bottom-right.
+     * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
      */
     position: PropTypes.oneOf(Util.enumerateValue(TipBody.Position)),
 
     /**
+     * If true, menu will have animation effects.
+     */
+    isAnimated: PropTypes.bool,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    /**
+     * The depth of Paper component.
+     */
+    depth: PropTypes.number,
+
+    /**
+     * The function of menu render.
+     */
+    onRender: PropTypes.func,
+
+    /**
      * Callback function fired when the popover is requested to be closed.
      */
-    onRequestClose: PropTypes.func
+    onRequestClose: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
@@ -304,11 +376,15 @@ TipBody.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
-    text: '',
     triggerEl: null,
     visible: false,
-    theme: Theme.DEFAULT,
-    position: TipBody.Position.BOTTOM
+    hasTriangle: true,
+    triangle: <div className="tip-triangle"></div>,
+    position: TipBody.Position.BOTTOM,
+    isAnimated: true,
+    depth: 6,
+    shouldPreventContainerScroll: true
 
 };
