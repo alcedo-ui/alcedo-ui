@@ -1,6 +1,6 @@
 /**
  * @file Tip component
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
@@ -28,7 +28,7 @@ export default class Tip extends Component {
 
     }
 
-}
+};
 
 Tip.propTypes = TipBody.propTypes;
 Tip.defaultProps = TipBody.defaultProps;
