@@ -20,7 +20,6 @@
     position: absolute;
     border-radius: $theme-border-radius;
     z-index: $popup-z-index;
-    padding: 8px;
     white-space: nowrap;
 
     .tip-triangle-wrapper {
@@ -39,6 +38,8 @@
         overflow: auto;
         border-radius: $theme-border-radius;
         transform: rotate(0deg);
+        padding: 8px;
+        text-align: center;
     }
 
     &.hidden {
