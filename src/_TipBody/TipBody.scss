@@ -3,7 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin tip-theme($bg-color) {
+@mixin tip-theme($bg-color, $color) {
+    background: $bg-color;
+    color: $color;
 
     .tip-triangle {
         border-color: $bg-color;
@@ -16,10 +18,10 @@
 
 .tip {
     position: absolute;
-    width: 200px;
     border-radius: $theme-border-radius;
-    z-index: $menu-z-index;
-    background: transparent;
+    z-index: $popup-z-index;
+    padding: 8px;
+    white-space: nowrap;
 
     .tip-triangle-wrapper {
         position: absolute;
@@ -346,29 +348,29 @@
     }
 
     // default theme
-    @include tip-theme($theme-field-bg);
+    @include tip-theme($theme-field-bg, $theme-primary);
 
     // other themes
     &.theme-primary {
-        @include tip-theme($theme-primary);
+        @include tip-theme($theme-primary, #fff);
     }
     &.theme-secondary {
-        @include tip-theme($theme-secondary);
+        @include tip-theme($theme-secondary, #fff);
     }
     &.theme-highlight {
-        @include tip-theme($theme-highlight);
+        @include tip-theme($theme-highlight, #fff);
     }
     &.theme-info {
-        @include tip-theme($theme-info);
+        @include tip-theme($theme-info, #fff);
     }
     &.theme-success {
-        @include tip-theme($theme-success);
+        @include tip-theme($theme-success, #fff);
     }
     &.theme-warning {
-        @include tip-theme($theme-warning);
+        @include tip-theme($theme-warning, #fff);
     }
     &.theme-error {
-        @include tip-theme($theme-error);
+        @include tip-theme($theme-error, #fff);
     }
 
 }
