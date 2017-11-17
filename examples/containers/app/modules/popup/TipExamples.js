@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 
-import RaisedButton from 'src/RaisedButton/index';
-import Tip from 'src/Tip/index';
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
+import RaisedButton from 'src/RaisedButton';
+import Tip from 'src/Tip';
+import TipProvider from 'src/TipProvider';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TipBody.json';
@@ -18,6 +19,7 @@ export default class TipExamples extends Component {
 
         this.state = {
             tipVisible1: false,
+            tipVisible2: false,
             tipVisible4: false,
             tipVisible5: false,
             tipVisible6: false,
@@ -31,6 +33,7 @@ export default class TipExamples extends Component {
             tipVisible14: false,
             tipVisible15: false,
             triggerEl1: null,
+            triggerEl2: null,
             triggerEl4: null,
             triggerEl5: null,
             triggerEl6: null,
@@ -66,10 +69,10 @@ export default class TipExamples extends Component {
     render() {
 
         const {
-            tipVisible1, tipVisible4, tipVisible5, tipVisible6,
-            tipVisible7, tipVisible8, tipVisible9, tipVisible10, tipVisible11, tipVisible12,
-            tipVisible13, tipVisible14, tipVisible15,
-            triggerEl1, triggerEl4, triggerEl5, triggerEl6,
+            tipVisible1, tipVisible2, tipVisible4, tipVisible5, tipVisible6,
+            tipVisible7, tipVisible8, tipVisible9, tipVisible10, tipVisible11,
+            tipVisible12, tipVisible13, tipVisible14, tipVisible15,
+            triggerEl1, triggerEl2, triggerEl4, triggerEl5, triggerEl6,
             triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11,
             triggerEl12, triggerEl13, triggerEl14, triggerEl15
         } = this.state;
@@ -316,6 +319,27 @@ export default class TipExamples extends Component {
                                      }}>
                                     Tip Content
                                 </Tip>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Customized Tip Triangle"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <TipProvider text="Tip Content">
+                                    <RaisedButton className="trigger-button"
+                                                  value="Show Tip"/>
+                                </TipProvider>
 
                             </div>
 
