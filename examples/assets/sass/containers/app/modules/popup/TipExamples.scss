@@ -82,9 +82,8 @@
 .customized-tip {
 
     .customized-tip-triangle {
-        position: absolute;
-        left: 0;
-        top: 0;
+        position: relative;
+        top: -4px;
     }
 
     .tip-content {
