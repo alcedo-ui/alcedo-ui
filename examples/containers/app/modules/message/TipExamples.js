@@ -6,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import MenuDoc from 'assets/propTypes/MenuBody.json';
+import doc from 'assets/propTypes/TipBody.json';
 
 import 'sass/containers/app/modules/popup/TipExamples.scss';
 
@@ -17,6 +17,7 @@ export default class TipExamples extends Component {
         super(props);
 
         this.state = {
+            tipVisible1: false,
             tipVisible4: false,
             tipVisible5: false,
             tipVisible6: false,
@@ -29,6 +30,7 @@ export default class TipExamples extends Component {
             tipVisible13: false,
             tipVisible14: false,
             tipVisible15: false,
+            triggerEl1: null,
             triggerEl4: null,
             triggerEl5: null,
             triggerEl6: null,
@@ -64,10 +66,10 @@ export default class TipExamples extends Component {
     render() {
 
         const {
-            tipVisible4, tipVisible5, tipVisible6,
+            tipVisible1, tipVisible4, tipVisible5, tipVisible6,
             tipVisible7, tipVisible8, tipVisible9, tipVisible10, tipVisible11, tipVisible12,
             tipVisible13, tipVisible14, tipVisible15,
-            triggerEl4, triggerEl5, triggerEl6,
+            triggerEl1, triggerEl4, triggerEl5, triggerEl6,
             triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11,
             triggerEl12, triggerEl13, triggerEl14, triggerEl15
         } = this.state;
@@ -280,9 +282,50 @@ export default class TipExamples extends Component {
                     </div>
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Customized Tip Triangle"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Tip"
+                                              onMouseEnter={(e) => {
+                                                  this.showTip(e, 1);
+                                              }}/>
+
+                                <Tip className="customized-tip"
+                                     visible={tipVisible1}
+                                     triggerEl={triggerEl1}
+                                     triangle={
+                                         <svg xmlns="http://www.w3.org/2000/svg"
+                                              version="1.1"
+                                              className="customized-tip-triangle"
+                                              width="17"
+                                              height="7">
+                                             <polyline points="0,7 9,0 17,7"
+                                                       style={{stroke: '#e7e7e7', fill: '#fff'}}/>
+                                         </svg>
+                                     }
+                                     onRequestClose={() => {
+                                         this.hideTip(1);
+                                     }}>
+                                    Tip Content
+                                </Tip>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MenuDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
