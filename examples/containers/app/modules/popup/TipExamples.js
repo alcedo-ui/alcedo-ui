@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import RaisedButton from 'src/RaisedButton';
-import Tip from 'src/Tip';
-import Widget from 'src/Widget';
-import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton/index';
+import Tip from 'src/Tip/index';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
 
 import PropTypeDescTable from '../PropTypeDescTable';
-import doc from 'assets/propTypes/TipBody.json';
+import doc from 'examples/assets/propTypes/TipBody.json';
 
 import 'sass/containers/app/modules/popup/TipExamples.scss';
 
@@ -75,7 +75,7 @@ export default class TipExamples extends Component {
         } = this.state;
 
         return (
-            <div className="example menu-examples">
+            <div className="example tip-examples">
 
                 <h2 className="example-title">Tip</h2>
 

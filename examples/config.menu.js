@@ -36,6 +36,9 @@ export default [{
     }, {
         text: 'Menu',
         route: '/components/Menu'
+    }, {
+        text: 'Tip',
+        route: '/components/Tip'
     }]
 }, {
     text: 'Date',
@@ -234,9 +237,6 @@ export default [{
     children: [{
         text: 'Toast',
         route: '/components/Toast'
-    }, {
-        text: 'Tip',
-        route: '/components/Tip'
     }, {
         text: 'Notification',
         route: '/components/Notification'
