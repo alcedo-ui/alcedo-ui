@@ -260,8 +260,6 @@ export default class TipBody extends Component {
 
         Event.removeEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.removeEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
-        Event.removeEvent(this.tipEl, 'mouseenter', this.triggerMouseEnterHandler);
-        Event.removeEvent(this.tipEl, 'mouseleave', this.triggerMouseLeaveHandler);
         Event.removeEvent(window, 'resize', this.resizeHandler);
 
     }

@@ -33,8 +33,7 @@
     }
 
     .tip-content {
-        width: 100%;
-        height: 100%;
+        box-sizing: border-box;
         overflow: auto;
         border-radius: $theme-border-radius;
         transform: rotate(0deg);
