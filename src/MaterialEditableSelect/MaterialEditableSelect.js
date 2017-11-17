@@ -133,16 +133,16 @@ export default class MaterialEditableSelect extends Component {
                 }
 
                 <EditableSelect {...restProps}
-                                   ref="editableSelect"
-                                   popupClassName={'material-editable-select-popup ' + popupClassName}
-                                   theme={theme}
-                                   value={value}
-                                   onFocus={this.triggerFocusHandler}
-                                   onPopupClosed={this.popupClosedHandler}
-                                   onTriggerMouseOver={this.triggerMouseOverHandler}
-                                   onTriggerMouseOut={this.triggerMouseOutHandler}
-                                   onFilterChange={this.triggerFilterChangeHandler}
-                                   onChange={this.triggerChangeHandler}/>
+                                ref="editableSelect"
+                                popupClassName={'material-editable-select-popup ' + popupClassName}
+                                theme={theme}
+                                value={value}
+                                onFocus={this.triggerFocusHandler}
+                                onPopupClosed={this.popupClosedHandler}
+                                onTriggerMouseOver={this.triggerMouseOverHandler}
+                                onTriggerMouseOut={this.triggerMouseOutHandler}
+                                onFilterChange={this.triggerFilterChangeHandler}
+                                onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
@@ -380,5 +380,5 @@ MaterialEditableSelect.defaultProps = {
     triggerTheme: Theme.DEFAULT,
     isGrouped: false,
 
-    selectMode:MaterialEditableSelect.NORMAL
+    selectMode: MaterialEditableSelect.NORMAL
 };

@@ -203,7 +203,7 @@ export default class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, disableTouchRipple, onItemTouchTap, selectMode,
+                triggerTheme, isGrouped, onItemTouchTap, selectMode,
                 onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
@@ -261,7 +261,6 @@ export default class EditableSelect extends Component {
                            rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
                            disabled={disabled}
                            theme={triggerTheme}
-                           disableTouchRipple={disableTouchRipple}
                            onMouseOver={onTriggerMouseOver}
                            onMouseOut={onTriggerMouseOut}
                            onChange={this.onChangeValue}
