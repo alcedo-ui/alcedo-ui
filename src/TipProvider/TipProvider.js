@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Tip from '../Tip';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
@@ -19,8 +20,7 @@ export default class TipProvider extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            tipVisible: false,
-            triggerEl: null
+            tipVisible: false
         };
 
         this.showTip = ::this.showTip;
@@ -31,8 +31,7 @@ export default class TipProvider extends Component {
     showTip(e) {
         if (!this.state.tipVisible) {
             this.setState({
-                tipVisible: true,
-                triggerEl: e.target
+                tipVisible: true
             });
         }
     }
@@ -43,36 +42,34 @@ export default class TipProvider extends Component {
         });
     }
 
+    componentDidMount() {
+        this.triggerWrapperEl = this.refs.triggerWrapper;
+    }
+
     render() {
 
-        const {children, text} = this.props;
+        const {children, text, ...restProps} = this.props,
+            {tipVisible} = this.state;
 
         if (!text) {
             return children;
         }
 
-        const {className, style, position} = this.props,
-            {tipVisible, triggerEl} = this.state;
-
         return (
-            <div className={'tip-provider' + (className ? ' ' + className : '')}
-                 style={style}>
+            <div className="tip-provider">
 
-                <div className="children-wrapper"
-                     onMouseOver={e => {
-                         this.showTip(e);
-                     }}
-                     onMouseEnter={e => {
-                         this.showTip(e);
-                     }}>
+                <div ref="triggerWrapper"
+                     className="trigger-wrapper"
+                     onMouseEnter={this.showTip}>
                     {children}
                 </div>
 
-                <Tip text={text}
+                <Tip {...restProps}
+                     triggerEl={this.triggerWrapperEl}
                      visible={tipVisible}
-                     triggerEl={triggerEl}
-                     position={position}
-                     onRequestClose={this.hideTip}/>
+                     onRequestClose={this.hideTip}>
+                    {text}
+                </Tip>
 
             </div>
         );
@@ -92,12 +89,61 @@ TipProvider.propTypes = {
      */
     style: PropTypes.object,
 
-    text: PropTypes.string,
+    /**
+     * This is the DOM element that will be used to set the position of the popover.
+     */
+    triggerEl: PropTypes.object,
 
     /**
-     * The position of Tip.Can be top,left,right,bottom,top-left,top-right,bottom-left,bottom-right.
+     * If true,the popover is visible.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position))
+    visible: PropTypes.bool,
+
+    /**
+     * If true,the popover will have a triangle on the top of the DOM element.
+     */
+    hasTriangle: PropTypes.bool,
+
+    triangle: PropTypes.element,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
+     */
+    position: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+    /**
+     * If true, menu will have animation effects.
+     */
+    isAnimated: PropTypes.bool,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    /**
+     * The depth of Paper component.
+     */
+    depth: PropTypes.number,
+
+    /**
+     * The function of menu render.
+     */
+    onRender: PropTypes.func,
+
+    /**
+     * Callback function fired when the popover is requested to be closed.
+     */
+    onRequestClose: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func,
+
+    text: PropTypes.any
 
 };
 
@@ -105,9 +151,17 @@ TipProvider.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
 
-    text: '',
+    triggerEl: null,
+    visible: false,
+    hasTriangle: true,
+    triangle: <div className="tip-triangle"></div>,
+    position: Tip.Position.BOTTOM,
+    isAnimated: true,
+    depth: 6,
+    shouldPreventContainerScroll: true,
 
-    position: TipProvider.Position.BOTTOM
+    text: null
 
 };

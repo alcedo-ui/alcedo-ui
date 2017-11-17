@@ -156,6 +156,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Menu',
                     component: ac(store, () => import('modules/popup/MenuExamples'))
+                }, {
+                    path: '/components/Tip',
+                    component: ac(store, () => import('modules/popup/TipExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -240,9 +243,6 @@ export default function configureRoutes(store) {
                 {
                     path: '/components/Toast',
                     component: ac(store, () => import('modules/message/ToastExamples'))
-                }, {
-                    path: '/components/Tip',
-                    component: ac(store, () => import('modules/message/TipExamples'))
                 }, {
                     path: '/components/Notification',
                     component: ac(store, () => import('modules/message/NotificationExamples'))
