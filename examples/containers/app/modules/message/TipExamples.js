@@ -293,7 +293,7 @@ export default class TipExamples extends Component {
                             <div className="popup-example-wrapper">
 
                                 <RaisedButton className="trigger-button"
-                                              value="Toggle Tip"
+                                              value="Show Tip"
                                               onMouseEnter={(e) => {
                                                   this.showTip(e, 1);
                                               }}/>
