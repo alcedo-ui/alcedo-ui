@@ -180,7 +180,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(4);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible5}
                                      triggerEl={triggerEl5}
@@ -188,7 +188,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(5);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible6}
                                      triggerEl={triggerEl6}
@@ -196,7 +196,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(6);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
 
                                 <Tip visible={tipVisible7}
@@ -205,7 +205,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(7);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible8}
                                      triggerEl={triggerEl8}
@@ -213,7 +213,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(8);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible9}
                                      triggerEl={triggerEl9}
@@ -221,7 +221,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(9);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
 
                                 <Tip visible={tipVisible10}
@@ -230,7 +230,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(10);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible11}
                                      triggerEl={triggerEl11}
@@ -238,7 +238,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(11);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible12}
                                      triggerEl={triggerEl12}
@@ -246,7 +246,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(12);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
 
                                 <Tip visible={tipVisible13}
@@ -255,7 +255,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(13);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible14}
                                      triggerEl={triggerEl14}
@@ -263,7 +263,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(14);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible15}
                                      triggerEl={triggerEl15}
@@ -271,7 +271,7 @@ export default class TipExamples extends Component {
                                      onRequestClose={() => {
                                          this.hideTip(15);
                                      }}>
-                                    Tip
+                                    Tip Content
                                 </Tip>
 
                             </div>
