@@ -179,7 +179,7 @@ MaterialEditableSelect.propTypes = {
     /**
      * The label of the text field.
      */
-    label: PropTypes.string,
+    label: PropTypes.any,
 
     /**
      * The animate of the text field.
