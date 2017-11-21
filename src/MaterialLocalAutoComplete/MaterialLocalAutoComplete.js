@@ -187,7 +187,7 @@ MaterialLocalAutoComplete.propTypes = {
      */
     placeholder: PropTypes.string,
 
-    label: PropTypes.string,
+    label: PropTypes.any,
 
     /**
      * Children passed into the List.
