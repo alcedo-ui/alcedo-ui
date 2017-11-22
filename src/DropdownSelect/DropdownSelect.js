@@ -10,6 +10,7 @@ import {findDOMNode} from 'react-dom';
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
 import List from '../List';
+import DynamicRenderList from '../DynamicRenderList';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
@@ -147,6 +148,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder, popupTheme, data,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
 
@@ -261,16 +263,33 @@ export default class DropdownSelect extends Component {
                                 null
                         }
 
-                        <List className="dropdown-select-list"
-                              theme={popupTheme}
-                              selectMode={selectMode}
-                              data={listData.length < 1 ? emptyEl : listData}
-                              value={value}
-                              valueField={valueField}
-                              displayField={displayField}
-                              descriptionField={descriptionField}
-                              onItemTouchTap={itemTouchTapHandle}
-                              onChange={this.changeHandler}/>
+                        {
+                            useDynamicRenderList ?
+                                <DynamicRenderList className="dropdown-select-list"
+                                                   theme={popupTheme}
+                                                   selectMode={selectMode}
+                                                   data={listData.length < 1 ? emptyEl : listData}
+                                                   value={value}
+                                                   valueField={valueField}
+                                                   displayField={displayField}
+                                                   descriptionField={descriptionField}
+                                                   listHeight={listHeight}
+                                                   itemHeight={itemHeight}
+                                                   scrollBuffer={scrollBuffer}
+                                                   onItemTouchTap={itemTouchTapHandle}
+                                                   onChange={this.changeHandler}/>
+                                :
+                                <List className="dropdown-select-list"
+                                      theme={popupTheme}
+                                      selectMode={selectMode}
+                                      data={listData.length < 1 ? emptyEl : listData}
+                                      value={value}
+                                      valueField={valueField}
+                                      displayField={displayField}
+                                      descriptionField={descriptionField}
+                                      onItemTouchTap={itemTouchTapHandle}
+                                      onChange={this.changeHandler}/>
+                        }
 
                     </div>
 
@@ -469,6 +488,11 @@ DropdownSelect.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    useDynamicRenderList: PropTypes.bool,
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -522,6 +546,8 @@ DropdownSelect.defaultProps = {
 
     shouldPreventContainerScroll: true,
 
-    popupChildren: null
+    popupChildren: null,
+
+    useDynamicRenderList: false
 
 };
