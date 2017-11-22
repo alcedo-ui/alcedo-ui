@@ -29,6 +29,7 @@ export default class MaterialDropdownFilter extends Component {
         };
 
         this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
         this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
@@ -44,6 +45,15 @@ export default class MaterialDropdownFilter extends Component {
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(...args);
+        });
+    }
+
+    triggerBlurHandler(...args) {
+        this.state.filter === '' && this.setState({
+            isFocus: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
         });
     }
 
@@ -137,6 +147,7 @@ export default class MaterialDropdownFilter extends Component {
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
+                                onBlur={this.triggerBlurHandler}
                                 onPopupClosed={this.popupClosedHandler}
                                 onTriggerMouseOver={this.triggerMouseOverHandler}
                                 onTriggerMouseOut={this.triggerMouseOutHandler}
