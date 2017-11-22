@@ -289,7 +289,7 @@ export default class PopupBody extends Component {
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
-        visible && onRender && onRender(this.popupEl);
+        visible && onRender && onRender(this.popupEl, this.props.triggerEl);
     }
 
     componentWillUnmount() {
