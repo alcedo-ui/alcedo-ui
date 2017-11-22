@@ -4,42 +4,50 @@
  */
 
 .table-header {
-    position: relative;
-    height: 30px;
-    line-height: 30px;
-    text-align: left;
-    padding: 15px 15px 14px;
-    font-weight: normal;
-    user-select: none;
-    color: $theme-field;
-    cursor: default;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     border-left: 1px solid $theme-border;
+    padding: 0;
+
+    .table-header-inner {
+        position: relative;
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        padding: 15px 15px 14px;
+        text-align: left;
+        font-weight: normal;
+        color: $theme-field;
+        cursor: default;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
     &:first-child {
         border-left: none;
     }
 
     &.sortable {
-        padding-right: 30px;
-        cursor: pointer;
+        .table-header-inner {
+            padding-right: 30px;
+            cursor: pointer;
+        }
     }
 
     &.hidden {
-        height: 0;
-        line-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        overflow: hidden;
+        .table-header-inner {
+            height: 0;
+            line-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            overflow: hidden;
 
-        .sort-icon {
-            display: none;
-        }
+            .sort-icon {
+                display: none;
+            }
 
-        & > * {
-            display: none;
+            & > * {
+                display: none;
+            }
         }
     }
 }
