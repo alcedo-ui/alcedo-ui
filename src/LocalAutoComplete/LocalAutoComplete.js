@@ -203,7 +203,8 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, useDynamicRenderList,
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
@@ -302,6 +303,9 @@ export default class LocalAutoComplete extends Component {
                                                                displayField={displayField}
                                                                descriptionField={descriptionField}
                                                                renderer={renderer}
+                                                               listHeight={listHeight}
+                                                               itemHeight={itemHeight}
+                                                               scrollBuffer={scrollBuffer}
                                                                onItemTouchTap={onItemTouchTap}
                                                                onChange={this.changeHandler}/>
                                             :
