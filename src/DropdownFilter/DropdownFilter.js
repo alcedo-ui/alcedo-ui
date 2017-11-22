@@ -10,6 +10,7 @@ import {findDOMNode} from 'react-dom';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
+import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -199,10 +200,11 @@ export default class DropdownFilter extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder, selectMode,
+                className, popupClassName, style, popupStyle, theme, popupTheme, placeholder, selectMode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
-                onTriggerMouseOver, onTriggerMouseOut
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
+                onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -282,17 +284,35 @@ export default class DropdownFilter extends Component {
                                           selectMode={List.SelectMode.NORMAL}
                                           data={emptyEl}/>
                                     :
-                                    <List className="dropdown-filter-list"
-                                          theme={popupTheme}
-                                          value={value}
-                                          selectMode={selectMode || List.SelectMode.NORMAL}
-                                          data={listData}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          descriptionField={descriptionField}
-                                          renderer={renderer}
-                                          onItemTouchTap={onItemTouchTap}
-                                          onChange={this.changeHandler}/>
+                                    (
+                                        useDynamicRenderList ?
+                                            <DynamicRenderList className="dropdown-filter-list"
+                                                               theme={popupTheme}
+                                                               value={value}
+                                                               selectMode={selectMode || List.SelectMode.NORMAL}
+                                                               data={listData}
+                                                               valueField={valueField}
+                                                               displayField={displayField}
+                                                               descriptionField={descriptionField}
+                                                               renderer={renderer}
+                                                               listHeight={listHeight}
+                                                               itemHeight={itemHeight}
+                                                               scrollBuffer={scrollBuffer}
+                                                               onItemTouchTap={onItemTouchTap}
+                                                               onChange={this.changeHandler}/>
+                                            :
+                                            <List className="dropdown-filter-list"
+                                                  theme={popupTheme}
+                                                  value={value}
+                                                  selectMode={selectMode || List.SelectMode.NORMAL}
+                                                  data={listData}
+                                                  valueField={valueField}
+                                                  displayField={displayField}
+                                                  descriptionField={descriptionField}
+                                                  renderer={renderer}
+                                                  onItemTouchTap={onItemTouchTap}
+                                                  onChange={this.changeHandler}/>
+                                    )
                             }
 
                             {popupChildren}
@@ -475,6 +495,11 @@ DropdownFilter.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    useDynamicRenderList: PropTypes.bool,
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -543,6 +568,8 @@ DropdownFilter.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: null,
 
-    popupChildren: null
+    popupChildren: null,
+
+    useDynamicRenderList: false
 
 };
