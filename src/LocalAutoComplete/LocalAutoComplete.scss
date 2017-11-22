@@ -45,7 +45,8 @@
     .popup-content {
         border-radius: 0 !important;
 
-        .local-auto-complete-list {
+        .local-auto-complete-list,
+        .list {
             width: 100%;
 
             .no-matched-list-item {
