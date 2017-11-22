@@ -41,7 +41,7 @@ export default class Thead extends Component {
                                              sortDescIconCls={sortDescIconCls}
                                              hidden={hidden}
                                              onSort={() => {
-                                                 onSort(item.sortProp);
+                                                 onSort(item);
                                              }}/>
                             );
 
