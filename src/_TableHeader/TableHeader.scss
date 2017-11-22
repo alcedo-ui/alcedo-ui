@@ -23,21 +23,7 @@
     }
 
     &.sortable {
-        position: relative;
-        cursor: pointer;
         padding-right: 30px;
-
-        &:hover {
-            color: $theme-field;
-        }
-
-        &.asc {
-            color: $theme-field;
-        }
-
-        &.desc {
-            color: $theme-field;
-        }
     }
 
     &.hidden {
