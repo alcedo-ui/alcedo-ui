@@ -249,7 +249,7 @@ export default class TipBody extends Component {
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
-        visible && onRender && onRender(this.tipEl);
+        visible && onRender && onRender(this.tipEl, this.props.triggerEl);
     }
 
     componentWillUnmount() {
