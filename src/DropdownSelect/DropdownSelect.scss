@@ -111,7 +111,8 @@
             overflow-y: auto;
             max-height: inherit;
 
-            .dropdown-select-list {
+            .dropdown-select-list,
+            .list {
                 width: 100%;
 
                 .no-matched-list-item {
