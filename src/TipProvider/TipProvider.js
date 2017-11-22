@@ -48,7 +48,7 @@ export default class TipProvider extends Component {
 
     render() {
 
-        const {children, text, ...restProps} = this.props,
+        const {children, text, onTipRender, ...restProps} = this.props,
             {tipVisible} = this.state;
 
         if (!text) {
@@ -67,6 +67,7 @@ export default class TipProvider extends Component {
                 <Tip {...restProps}
                      triggerEl={this.triggerWrapperEl}
                      visible={tipVisible}
+                     onRender={onTipRender}
                      onRequestClose={this.hideTip}>
                     {text}
                 </Tip>
@@ -129,9 +130,9 @@ TipProvider.propTypes = {
     depth: PropTypes.number,
 
     /**
-     * The function of menu render.
+     * The function of tip render.
      */
-    onRender: PropTypes.func,
+    onTipRender: PropTypes.func,
 
     /**
      * Callback function fired when the popover is requested to be closed.
