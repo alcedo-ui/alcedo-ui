@@ -10,6 +10,7 @@ import {findDOMNode} from 'react-dom';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
+import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -202,8 +203,8 @@ export default class LocalAutoComplete extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, onItemTouchTap, onFilterClear,
-                onTriggerMouseOver, onTriggerMouseOut
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, useDynamicRenderList,
+                onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -291,16 +292,30 @@ export default class LocalAutoComplete extends Component {
                                           theme={popupTheme}
                                           data={emptyEl}/>
                                     :
-                                    <List className="local-auto-complete-list"
-                                          theme={popupTheme}
-                                          value={value}
-                                          data={listData}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          descriptionField={descriptionField}
-                                          renderer={renderer}
-                                          onItemTouchTap={onItemTouchTap}
-                                          onChange={this.changeHandler}/>
+                                    (
+                                        useDynamicRenderList ?
+                                            <DynamicRenderList className="local-auto-complete-list"
+                                                               theme={popupTheme}
+                                                               value={value}
+                                                               data={listData}
+                                                               valueField={valueField}
+                                                               displayField={displayField}
+                                                               descriptionField={descriptionField}
+                                                               renderer={renderer}
+                                                               onItemTouchTap={onItemTouchTap}
+                                                               onChange={this.changeHandler}/>
+                                            :
+                                            <List className="local-auto-complete-list"
+                                                  theme={popupTheme}
+                                                  value={value}
+                                                  data={listData}
+                                                  valueField={valueField}
+                                                  displayField={displayField}
+                                                  descriptionField={descriptionField}
+                                                  renderer={renderer}
+                                                  onItemTouchTap={onItemTouchTap}
+                                                  onChange={this.changeHandler}/>
+                                    )
                             }
 
                             {popupChildren}
@@ -485,6 +500,11 @@ LocalAutoComplete.propTypes = {
 
     filterInitValue: PropTypes.string,
 
+    useDynamicRenderList: PropTypes.bool,
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -554,6 +574,8 @@ LocalAutoComplete.defaultProps = {
     noMatchedMsg: null,
     filterInitValue: '',
 
-    popupChildren: null
+    popupChildren: null,
+
+    useDynamicRenderList: false
 
 };
