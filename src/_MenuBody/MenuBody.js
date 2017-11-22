@@ -256,7 +256,7 @@ export default class MenuBody extends Component {
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
-        visible && onRender && onRender(this.menuEl);
+        visible && onRender && onRender(this.menuEl, this.props.triggerEl);
     }
 
     componentWillUnmount() {
