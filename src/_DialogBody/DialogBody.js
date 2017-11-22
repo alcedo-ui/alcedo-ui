@@ -201,6 +201,7 @@ export default class DialogBody extends Component {
         const {
 
                 children, className, modalClassName, style, disabled, showModal, title, buttons, isLoading,
+                closeIconCls,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme,
                 okButtonUIType, okButtonDisabled, okButtonIsLoading,
@@ -231,7 +232,7 @@ export default class DialogBody extends Component {
                     <div className="dialog-title">
                         {title}
                         <IconButton className="dialog-title-close-button"
-                                    iconCls="fa fa-times"
+                                    iconCls={closeIconCls}
                                     disabled={disabled}
                                     onTouchTap={this.closeButtonTouchTapHandle}/>
                     </div>
@@ -385,12 +386,14 @@ DialogBody.propTypes = {
      */
     cancelButtonUIType: PropTypes.oneOf(Util.enumerateValue(DialogBody.ButtonUITypes)),
 
+    closeIconCls: PropTypes.string,
+
+    isEscClose: PropTypes.bool,
+
     /**
      * The buttons of Dialog.
      */
     buttons: PropTypes.any,
-
-    isEscClose: PropTypes.bool,
 
     /**
      * The function that trigger when click submit.
@@ -442,6 +445,8 @@ DialogBody.defaultProps = {
     cancelButtonIconCls: '',
     cancelButtonTheme: Theme.DEFAULT,
     cancelButtonUIType: DialogBody.ButtonUITypes.FLAT,
+
+    closeIconCls: 'fa fa-times',
 
     isEscClose: true
 
