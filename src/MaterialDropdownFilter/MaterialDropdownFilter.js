@@ -342,6 +342,12 @@ MaterialDropdownFilter.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -412,6 +418,12 @@ MaterialDropdownFilter.defaultProps = {
     isGrouped: false,
     selectMode: SelectMode.NORMAL,
 
-    popupChildren: null
+    popupChildren: null,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
