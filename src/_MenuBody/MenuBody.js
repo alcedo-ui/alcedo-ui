@@ -14,28 +14,11 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopupCalculation from '../_vendors/PopupCalculation';
+import Position from '../_statics/Position';
 
 export default class MenuBody extends Component {
 
-    static Position = {
-
-        TOP_LEFT: 'top-left',
-        TOP: 'top',
-        TOP_RIGHT: 'top-right',
-
-        BOTTOM_LEFT: 'bottom-left',
-        BOTTOM: 'bottom',
-        BOTTOM_RIGHT: 'bottom-right',
-
-        LEFT_TOP: 'left-top',
-        LEFT: 'left',
-        LEFT_BOTTOM: 'left-bottom',
-
-        RIGHT_TOP: 'right-top',
-        RIGHT: 'right',
-        RIGHT_BOTTOM: 'right-bottom'
-
-    };
+    static Position = Position;
 
     static TriggerMode = {
         TOGGLE: 'toggle',
@@ -225,7 +208,7 @@ MenuBody.propTypes = {
     /**
      * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(MenuBody.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * If true, menu will have animation effects.
@@ -271,7 +254,7 @@ MenuBody.defaultProps = {
     visible: false,
     hasTriangle: true,
     triangle: <div className="menu-triangle"></div>,
-    position: MenuBody.Position.BOTTOM_LEFT,
+    position: Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: MenuBody.TriggerMode.TOGGLE,
     depth: 6,
