@@ -32,6 +32,10 @@ export default class Dialog extends Component {
 
     }
 
+    resetBody() {
+        Dom.removeClass(document.querySelector('body'), 'dialog-modal-lock');
+    }
+
     componentDidMount() {
         this.setBodyLock();
     }
@@ -43,7 +47,7 @@ export default class Dialog extends Component {
     }
 
     componentWillUnmount() {
-        this.setBodyLock(false);
+        this.resetBody();
     }
 
     render() {
