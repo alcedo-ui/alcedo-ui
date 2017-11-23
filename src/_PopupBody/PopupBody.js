@@ -38,91 +38,12 @@ export default class PopupBody extends Component {
             visible: false
         };
 
-        this.getPopupStyle = ::this.getPopupStyle;
         this.mousedownHandler = ::this.mousedownHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    getPopupStyle() {
-
-        const {triggerEl, position} = this.props;
-
-        if (!triggerEl || !this.popupEl) {
-            return;
-        }
-
-        const triggerOffset = Dom.getOffset(triggerEl);
-        let left, top;
-
-        switch (position) {
-            case Position.TOP_LEFT: {
-                left = PopupCalculation.leftVerticalLeft(triggerOffset);
-                top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
-                break;
-            }
-            case Position.TOP: {
-                left = PopupCalculation.leftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
-                top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
-                break;
-            }
-            case Position.TOP_RIGHT: {
-                left = PopupCalculation.leftVerticalRight(triggerEl, triggerOffset, this.popupEl);
-                top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
-                break;
-            }
-            case Position.BOTTOM_LEFT: {
-                left = PopupCalculation.leftVerticalLeft(triggerOffset);
-                top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case Position.BOTTOM: {
-                left = PopupCalculation.leftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
-                top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case Position.BOTTOM_RIGHT: {
-                left = PopupCalculation.leftVerticalRight(triggerEl, triggerOffset, this.popupEl);
-                top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case Position.LEFT_TOP: {
-                left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
-                top = PopupCalculation.topHorizontalTop(triggerOffset);
-                break;
-            }
-            case Position.LEFT: {
-                left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
-                top = PopupCalculation.topHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
-                break;
-            }
-            case Position.LEFT_BOTTOM: {
-                left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
-                top = PopupCalculation.topHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
-                break;
-            }
-            case Position.RIGHT_TOP: {
-                left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
-                top = PopupCalculation.topHorizontalTop(triggerOffset);
-                break;
-            }
-            case Position.RIGHT: {
-                left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
-                top = PopupCalculation.topHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
-                break;
-            }
-            case Position.RIGHT_BOTTOM: {
-                left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
-                top = PopupCalculation.topHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
-                break;
-            }
-        }
-
-        return {left, top};
 
     }
 
@@ -244,7 +165,9 @@ export default class PopupBody extends Component {
 
     render() {
 
-        const {children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth} = this.props,
+        const {
+                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth, triggerEl
+            } = this.props,
             {visible} = this.state,
             popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
                 + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
@@ -253,7 +176,7 @@ export default class PopupBody extends Component {
         return (
             <Paper ref="popup"
                    className={'popup' + popupClassName}
-                   style={{...this.getPopupStyle(), ...style}}
+                   style={{...PopupCalculation.getStyle(triggerEl, this.popupEl, position), ...style}}
                    depth={depth}
                    onWheel={this.wheelHandler}>
 
