@@ -12,7 +12,6 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 import PopupCalculation from '../_vendors/PopupCalculation';
