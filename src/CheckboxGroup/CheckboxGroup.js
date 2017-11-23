@@ -63,7 +63,10 @@ export default class CheckboxGroup extends Component {
 
     render() {
 
-        const {className, style, theme, name, disabled, data, idProp} = this.props,
+        const {
+                className, style, theme, name, disabled, data, idProp,
+                uncheckedIconCls, checkedIconCls, indeterminateIconCls
+            } = this.props,
             {value} = this.state;
 
         return data ? (
@@ -85,6 +88,9 @@ export default class CheckboxGroup extends Component {
                                       label={item.label}
                                       disabled={disabled || item.disabled}
                                       value={isChecked}
+                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
+                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
                                       onChange={() => {
                                           this.changeHandle(item);
                                       }}/>
@@ -127,6 +133,10 @@ CheckboxGroup.propTypes = {
 
     idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+    indeterminateIconCls: PropTypes.string,
+
     onChange: PropTypes.func
 
 };
@@ -141,6 +151,10 @@ CheckboxGroup.defaultProps = {
     data: null,
     value: null,
     disabled: false,
-    idProp: 'id'
+    idProp: 'id',
+
+    uncheckedIconCls: 'fa fa-square-o',
+    checkedIconCls: 'fa fa-check-square',
+    indeterminateIconCls: 'fa fa-minus-square'
 
 };
