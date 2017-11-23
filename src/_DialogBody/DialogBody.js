@@ -41,7 +41,6 @@ export default class DialogBody extends Component {
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
         this.mousedownHandle = ::this.mousedownHandle;
-        this.getButton = ::this.getButton;
         this.okButtonTouchTapHandle = ::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = ::this.cancelButtonTouchTapHandle;
         this.closeButtonTouchTapHandle = ::this.closeButtonTouchTapHandle;
@@ -86,38 +85,6 @@ export default class DialogBody extends Component {
             }
         });
 
-    }
-
-    getButton(uiType, value, iconCls, theme, handle, disabled, isLoading) {
-        switch (uiType) {
-            case DialogBody.ButtonUITypes.FLAT:
-                return <FlatButton value={value}
-                                   iconCls={iconCls}
-                                   theme={theme}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   onTouchTap={handle}/>;
-            case DialogBody.ButtonUITypes.GHOST:
-                return <GhostButton value={value}
-                                    iconCls={iconCls}
-                                    theme={theme}
-                                    disabled={disabled}
-                                    isLoading={isLoading}
-                                    onTouchTap={handle}/>;
-            case DialogBody.ButtonUITypes.ICON:
-                return <IconButton iconCls={iconCls}
-                                   theme={theme}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   onTouchTap={handle}/>;
-            default:
-                return <RaisedButton value={value}
-                                     iconCls={iconCls}
-                                     theme={theme}
-                                     disabled={disabled}
-                                     isLoading={isLoading}
-                                     onTouchTap={handle}/>;
-        }
     }
 
     okButtonTouchTapHandle() {
@@ -203,10 +170,8 @@ export default class DialogBody extends Component {
                 children, className, modalClassName, style, disabled, showModal, title, buttons, isLoading,
                 closeIconCls,
 
-                okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme,
-                okButtonUIType, okButtonDisabled, okButtonIsLoading,
-
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme, cancelButtonUIType
+                okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
+                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme
 
             } = this.props,
             {visible} = this.state,
@@ -255,16 +220,25 @@ export default class DialogBody extends Component {
 
                         {
                             !buttons && okButtonVisible ?
-                                this.getButton(okButtonUIType, okButtonText, okButtonIconCls, okButtonTheme,
-                                    this.okButtonTouchTapHandle, okButtonDisabled, (isLoading || okButtonIsLoading))
+                                <RaisedButton className="ok-button"
+                                              value={okButtonText}
+                                              iconCls={okButtonIconCls}
+                                              theme={okButtonTheme}
+                                              disabled={okButtonDisabled}
+                                              isLoading={isLoading || okButtonIsLoading}
+                                              onTouchTap={this.okButtonTouchTapHandle}/>
                                 :
                                 null
                         }
 
                         {
                             !buttons && cancelButtonVisible ?
-                                this.getButton(cancelButtonUIType, cancelButtonText,
-                                    cancelButtonIconCls, cancelButtonTheme, this.cancelButtonTouchTapHandle, disabled)
+                                <FlatButton className="cancel-button"
+                                            value={cancelButtonText}
+                                            iconCls={cancelButtonIconCls}
+                                            theme={cancelButtonTheme}
+                                            disabled={okButtonDisabled}
+                                            onTouchTap={this.cancelButtonTouchTapHandle}/>
                                 :
                                 null
                         }
@@ -325,6 +299,8 @@ DialogBody.propTypes = {
      * If true,when press down mouse the pop-up box will closed.
      */
     isBlurClose: PropTypes.bool,
+
+    isLoading: PropTypes.bool,
 
     /**
      * If true,the OK button will display.
@@ -431,6 +407,7 @@ DialogBody.defaultProps = {
     title: '',
 
     isBlurClose: false,
+    isLoading: false,
 
     okButtonVisible: true,
     okButtonText: 'OK',
@@ -438,13 +415,11 @@ DialogBody.defaultProps = {
     okButtonDisabled: false,
     okButtonIsLoading: false,
     okButtonTheme: Theme.SUCCESS,
-    okButtonUIType: DialogBody.ButtonUITypes.RAISED,
 
     cancelButtonVisible: true,
     cancelButtonText: 'Cancel',
     cancelButtonIconCls: '',
     cancelButtonTheme: Theme.DEFAULT,
-    cancelButtonUIType: DialogBody.ButtonUITypes.FLAT,
 
     closeIconCls: 'fa fa-times',
 
