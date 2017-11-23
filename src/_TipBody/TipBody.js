@@ -12,30 +12,13 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
+import PopupCalculation from '../_vendors/PopupCalculation';
+import Position from '../_statics/Position';
 
 export default class TipBody extends Component {
 
-    static Position = {
-
-        TOP_LEFT: 'top-left',
-        TOP: 'top',
-        TOP_RIGHT: 'top-right',
-
-        BOTTOM_LEFT: 'bottom-left',
-        BOTTOM: 'bottom',
-        BOTTOM_RIGHT: 'bottom-right',
-
-        LEFT_TOP: 'left-top',
-        LEFT: 'left',
-        LEFT_BOTTOM: 'left-bottom',
-
-        RIGHT_TOP: 'right-top',
-        RIGHT: 'right',
-        RIGHT_BOTTOM: 'right-bottom'
-
-    };
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -49,7 +32,6 @@ export default class TipBody extends Component {
             visible: false
         };
 
-        this.getMenuStyle = ::this.getMenuStyle;
         this.triggerMouseEnterHandler = ::this.triggerMouseEnterHandler;
         this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
         this.resizeHandler = ::this.resizeHandler;
@@ -57,128 +39,6 @@ export default class TipBody extends Component {
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    calTopVerticalBottom(triggerEl, triggerOffset) {
-        return triggerOffset.top + triggerEl.offsetHeight;
-    }
-
-    calTopVerticalTop(triggerOffset, menuEl) {
-        return triggerOffset.top - menuEl.offsetHeight
-            - parseInt(getComputedStyle(menuEl).marginTop)
-            - parseInt(getComputedStyle(menuEl).marginBottom);
-    }
-
-    calTopHorizontalTop(triggerOffset) {
-        return triggerOffset.top;
-    }
-
-    calTopHorizontalMiddle(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - menuEl.offsetHeight / 2;
-    }
-
-    calTopHorizontalBottom(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - menuEl.offsetHeight;
-    }
-
-    calLeftVerticalLeft(triggerOffset) {
-        return triggerOffset.left;
-    }
-
-    calLeftVerticalCenter(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.left + triggerEl.offsetWidth / 2 - menuEl.offsetWidth / 2;
-    }
-
-    calLeftVerticalRight(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.left - (menuEl.offsetWidth - triggerEl.offsetWidth);
-    }
-
-    calLeftHorizontalLeft(triggerOffset, menuEl) {
-        return triggerOffset.left - menuEl.offsetWidth
-            - parseInt(getComputedStyle(menuEl).marginLeft)
-            - parseInt(getComputedStyle(menuEl).marginRight);
-    }
-
-    calLeftHorizontalRight(triggerEl, triggerOffset) {
-        return triggerOffset.left + triggerEl.offsetWidth;
-    }
-
-    getMenuStyle() {
-
-        const {triggerEl, position} = this.props;
-
-        if (!triggerEl || !this.tipEl) {
-            return;
-        }
-
-        const triggerOffset = Dom.getOffset(triggerEl);
-        let left, top;
-
-        switch (position) {
-            case TipBody.Position.TOP_LEFT: {
-                left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalTop(triggerOffset, this.tipEl);
-                break;
-            }
-            case TipBody.Position.TOP: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.tipEl);
-                top = this.calTopVerticalTop(triggerOffset, this.tipEl);
-                break;
-            }
-            case TipBody.Position.TOP_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.tipEl);
-                top = this.calTopVerticalTop(triggerOffset, this.tipEl);
-                break;
-            }
-            case TipBody.Position.BOTTOM_LEFT: {
-                left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case TipBody.Position.BOTTOM: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.tipEl);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case TipBody.Position.BOTTOM_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.tipEl);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case TipBody.Position.LEFT_TOP: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.tipEl);
-                top = this.calTopHorizontalTop(triggerOffset);
-                break;
-            }
-            case TipBody.Position.LEFT: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.tipEl);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.tipEl);
-                break;
-            }
-            case TipBody.Position.LEFT_BOTTOM: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.tipEl);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.tipEl);
-                break;
-            }
-            case TipBody.Position.RIGHT_TOP: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalTop(triggerOffset);
-                break;
-            }
-            case TipBody.Position.RIGHT: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.tipEl);
-                break;
-            }
-            case TipBody.Position.RIGHT_BOTTOM: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.tipEl);
-                break;
-            }
-        }
-
-        return {left, top};
 
     }
 
@@ -266,7 +126,9 @@ export default class TipBody extends Component {
 
     render() {
 
-        const {children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth} = this.props,
+        const {
+                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth, triggerEl
+            } = this.props,
             {visible} = this.state,
 
             menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' tip-has-triangle' : '')
@@ -276,7 +138,7 @@ export default class TipBody extends Component {
         return (
             <Paper ref="tip"
                    className={'tip' + menuClassName}
-                   style={{...this.getMenuStyle(), ...style}}
+                   style={{...PopupCalculation.getStyle(triggerEl, this.tipEl, position), ...style}}
                    depth={depth}
                    onWheel={this.wheelHandler}>
 
@@ -337,7 +199,7 @@ TipBody.propTypes = {
     /**
      * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(TipBody.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * If true, menu will have animation effects.
@@ -378,7 +240,7 @@ TipBody.defaultProps = {
     visible: false,
     hasTriangle: true,
     triangle: <div className="tip-triangle"></div>,
-    position: TipBody.Position.BOTTOM,
+    position: Position.BOTTOM,
     isAnimated: true,
     depth: 6,
     shouldPreventContainerScroll: true
