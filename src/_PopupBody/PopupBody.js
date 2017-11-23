@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
+import PopupCalculation from '../_vendors/PopupCalculation';
 
 export default class PopupBody extends Component {
 
@@ -64,50 +65,6 @@ export default class PopupBody extends Component {
 
     }
 
-    calTopVerticalBottom(triggerEl, triggerOffset) {
-        return triggerOffset.top + triggerEl.offsetHeight;
-    }
-
-    calTopVerticalTop(triggerOffset, popupEl) {
-        return triggerOffset.top - popupEl.offsetHeight
-            - parseInt(getComputedStyle(popupEl).marginTop)
-            - parseInt(getComputedStyle(popupEl).marginBottom);
-    }
-
-    calTopHorizontalTop(triggerOffset) {
-        return triggerOffset.top;
-    }
-
-    calTopHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
-    }
-
-    calTopHorizontalBottom(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
-    }
-
-    calLeftVerticalLeft(triggerOffset) {
-        return triggerOffset.left;
-    }
-
-    calLeftVerticalCenter(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.left + triggerEl.offsetWidth / 2 - popupEl.offsetWidth / 2;
-    }
-
-    calLeftVerticalRight(triggerEl, triggerOffset, popupEl) {
-        return triggerOffset.left - (popupEl.offsetWidth - triggerEl.offsetWidth);
-    }
-
-    calLeftHorizontalLeft(triggerOffset, popupEl) {
-        return triggerOffset.left - popupEl.offsetWidth
-            - parseInt(getComputedStyle(popupEl).marginLeft)
-            - parseInt(getComputedStyle(popupEl).marginRight);
-    }
-
-    calLeftHorizontalRight(triggerEl, triggerOffset) {
-        return triggerOffset.left + triggerEl.offsetWidth;
-    }
-
     getPopupStyle() {
 
         const {triggerEl, position} = this.props;
@@ -121,63 +78,63 @@ export default class PopupBody extends Component {
 
         switch (position) {
             case PopupBody.Position.TOP_LEFT: {
-                left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                left = PopupCalculation.leftVerticalLeft(triggerOffset);
+                top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
                 break;
             }
             case PopupBody.Position.TOP: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
-                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                left = PopupCalculation.leftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
+                top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
                 break;
             }
             case PopupBody.Position.TOP_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.popupEl);
-                top = this.calTopVerticalTop(triggerOffset, this.popupEl);
+                left = PopupCalculation.leftVerticalRight(triggerEl, triggerOffset, this.popupEl);
+                top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
                 break;
             }
             case PopupBody.Position.BOTTOM_LEFT: {
-                left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                left = PopupCalculation.leftVerticalLeft(triggerOffset);
+                top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
             case PopupBody.Position.BOTTOM: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                left = PopupCalculation.leftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
+                top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
             case PopupBody.Position.BOTTOM_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.popupEl);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
+                left = PopupCalculation.leftVerticalRight(triggerEl, triggerOffset, this.popupEl);
+                top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
             case PopupBody.Position.LEFT_TOP: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
-                top = this.calTopHorizontalTop(triggerOffset);
+                left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
+                top = PopupCalculation.topHorizontalTop(triggerOffset);
                 break;
             }
             case PopupBody.Position.LEFT: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
+                left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
+                top = PopupCalculation.topHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
             case PopupBody.Position.LEFT_BOTTOM: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.popupEl);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
+                left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
+                top = PopupCalculation.topHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
             case PopupBody.Position.RIGHT_TOP: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalTop(triggerOffset);
+                left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
+                top = PopupCalculation.topHorizontalTop(triggerOffset);
                 break;
             }
             case PopupBody.Position.RIGHT: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
+                left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
+                top = PopupCalculation.topHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
             case PopupBody.Position.RIGHT_BOTTOM: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
+                left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
+                top = PopupCalculation.topHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
         }
