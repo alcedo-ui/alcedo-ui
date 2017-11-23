@@ -16,28 +16,11 @@ import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 import PopupCalculation from '../_vendors/PopupCalculation';
+import Position from '../_statics/Position';
 
 export default class PopupBody extends Component {
 
-    static Position = {
-
-        TOP_LEFT: 'top-left',
-        TOP: 'top',
-        TOP_RIGHT: 'top-right',
-
-        BOTTOM_LEFT: 'bottom-left',
-        BOTTOM: 'bottom',
-        BOTTOM_RIGHT: 'bottom-right',
-
-        LEFT_TOP: 'left-top',
-        LEFT: 'left',
-        LEFT_BOTTOM: 'left-bottom',
-
-        RIGHT_TOP: 'right-top',
-        RIGHT: 'right',
-        RIGHT_BOTTOM: 'right-bottom'
-
-    };
+    static Position = Position;
 
     static TriggerMode = {
         TOGGLE: 'toggle',
@@ -77,62 +60,62 @@ export default class PopupBody extends Component {
         let left, top;
 
         switch (position) {
-            case PopupBody.Position.TOP_LEFT: {
+            case Position.TOP_LEFT: {
                 left = PopupCalculation.leftVerticalLeft(triggerOffset);
                 top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
                 break;
             }
-            case PopupBody.Position.TOP: {
+            case Position.TOP: {
                 left = PopupCalculation.leftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
                 top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
                 break;
             }
-            case PopupBody.Position.TOP_RIGHT: {
+            case Position.TOP_RIGHT: {
                 left = PopupCalculation.leftVerticalRight(triggerEl, triggerOffset, this.popupEl);
                 top = PopupCalculation.topVerticalTop(triggerOffset, this.popupEl);
                 break;
             }
-            case PopupBody.Position.BOTTOM_LEFT: {
+            case Position.BOTTOM_LEFT: {
                 left = PopupCalculation.leftVerticalLeft(triggerOffset);
                 top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
-            case PopupBody.Position.BOTTOM: {
+            case Position.BOTTOM: {
                 left = PopupCalculation.leftVerticalCenter(triggerEl, triggerOffset, this.popupEl);
                 top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
-            case PopupBody.Position.BOTTOM_RIGHT: {
+            case Position.BOTTOM_RIGHT: {
                 left = PopupCalculation.leftVerticalRight(triggerEl, triggerOffset, this.popupEl);
                 top = PopupCalculation.topVerticalBottom(triggerEl, triggerOffset);
                 break;
             }
-            case PopupBody.Position.LEFT_TOP: {
+            case Position.LEFT_TOP: {
                 left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
                 top = PopupCalculation.topHorizontalTop(triggerOffset);
                 break;
             }
-            case PopupBody.Position.LEFT: {
+            case Position.LEFT: {
                 left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
                 top = PopupCalculation.topHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
-            case PopupBody.Position.LEFT_BOTTOM: {
+            case Position.LEFT_BOTTOM: {
                 left = PopupCalculation.leftHorizontalLeft(triggerOffset, this.popupEl);
                 top = PopupCalculation.topHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
-            case PopupBody.Position.RIGHT_TOP: {
+            case Position.RIGHT_TOP: {
                 left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
                 top = PopupCalculation.topHorizontalTop(triggerOffset);
                 break;
             }
-            case PopupBody.Position.RIGHT: {
+            case Position.RIGHT: {
                 left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
                 top = PopupCalculation.topHorizontalMiddle(triggerEl, triggerOffset, this.popupEl);
                 break;
             }
-            case PopupBody.Position.RIGHT_BOTTOM: {
+            case Position.RIGHT_BOTTOM: {
                 left = PopupCalculation.leftHorizontalRight(triggerEl, triggerOffset);
                 top = PopupCalculation.topHorizontalBottom(triggerEl, triggerOffset, this.popupEl);
                 break;
@@ -331,7 +314,7 @@ PopupBody.propTypes = {
     /**
      * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(PopupBody.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * If true,popup will have animation effects.
@@ -385,7 +368,7 @@ PopupBody.defaultProps = {
     hasTriangle: true,
     triangle: <div className="popup-triangle"></div>,
     theme: Theme.DEFAULT,
-    position: PopupBody.Position.BOTTOM_LEFT,
+    position: Position.BOTTOM_LEFT,
     isAnimated: true,
     triggerMode: PopupBody.TriggerMode.TOGGLE,
 
