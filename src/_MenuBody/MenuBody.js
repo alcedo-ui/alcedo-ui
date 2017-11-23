@@ -12,8 +12,8 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
+import PopupCalculation from '../_vendors/PopupCalculation';
 
 export default class MenuBody extends Component {
 
@@ -54,7 +54,6 @@ export default class MenuBody extends Component {
             visible: false
         };
 
-        this.getMenuStyle = ::this.getMenuStyle;
         this.triggerMouseEnterHandler = ::this.triggerMouseEnterHandler;
         this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
         this.resizeHandler = ::this.resizeHandler;
@@ -62,128 +61,6 @@ export default class MenuBody extends Component {
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    calTopVerticalBottom(triggerEl, triggerOffset) {
-        return triggerOffset.top + triggerEl.offsetHeight;
-    }
-
-    calTopVerticalTop(triggerOffset, menuEl) {
-        return triggerOffset.top - menuEl.offsetHeight
-            - parseInt(getComputedStyle(menuEl).marginTop)
-            - parseInt(getComputedStyle(menuEl).marginBottom);
-    }
-
-    calTopHorizontalTop(triggerOffset) {
-        return triggerOffset.top;
-    }
-
-    calTopHorizontalMiddle(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.top + triggerEl.offsetHeight / 2 - menuEl.offsetHeight / 2;
-    }
-
-    calTopHorizontalBottom(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.top + triggerEl.offsetHeight - menuEl.offsetHeight;
-    }
-
-    calLeftVerticalLeft(triggerOffset) {
-        return triggerOffset.left;
-    }
-
-    calLeftVerticalCenter(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.left + triggerEl.offsetWidth / 2 - menuEl.offsetWidth / 2;
-    }
-
-    calLeftVerticalRight(triggerEl, triggerOffset, menuEl) {
-        return triggerOffset.left - (menuEl.offsetWidth - triggerEl.offsetWidth);
-    }
-
-    calLeftHorizontalLeft(triggerOffset, menuEl) {
-        return triggerOffset.left - menuEl.offsetWidth
-            - parseInt(getComputedStyle(menuEl).marginLeft)
-            - parseInt(getComputedStyle(menuEl).marginRight);
-    }
-
-    calLeftHorizontalRight(triggerEl, triggerOffset) {
-        return triggerOffset.left + triggerEl.offsetWidth;
-    }
-
-    getMenuStyle() {
-
-        const {triggerEl, position} = this.props;
-
-        if (!triggerEl || !this.menuEl) {
-            return;
-        }
-
-        const triggerOffset = Dom.getOffset(triggerEl);
-        let left, top;
-
-        switch (position) {
-            case MenuBody.Position.TOP_LEFT: {
-                left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalTop(triggerOffset, this.menuEl);
-                break;
-            }
-            case MenuBody.Position.TOP: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.menuEl);
-                top = this.calTopVerticalTop(triggerOffset, this.menuEl);
-                break;
-            }
-            case MenuBody.Position.TOP_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.menuEl);
-                top = this.calTopVerticalTop(triggerOffset, this.menuEl);
-                break;
-            }
-            case MenuBody.Position.BOTTOM_LEFT: {
-                left = this.calLeftVerticalLeft(triggerOffset);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case MenuBody.Position.BOTTOM: {
-                left = this.calLeftVerticalCenter(triggerEl, triggerOffset, this.menuEl);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case MenuBody.Position.BOTTOM_RIGHT: {
-                left = this.calLeftVerticalRight(triggerEl, triggerOffset, this.menuEl);
-                top = this.calTopVerticalBottom(triggerEl, triggerOffset);
-                break;
-            }
-            case MenuBody.Position.LEFT_TOP: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.menuEl);
-                top = this.calTopHorizontalTop(triggerOffset);
-                break;
-            }
-            case MenuBody.Position.LEFT: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.menuEl);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.menuEl);
-                break;
-            }
-            case MenuBody.Position.LEFT_BOTTOM: {
-                left = this.calLeftHorizontalLeft(triggerOffset, this.menuEl);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.menuEl);
-                break;
-            }
-            case MenuBody.Position.RIGHT_TOP: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalTop(triggerOffset);
-                break;
-            }
-            case MenuBody.Position.RIGHT: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalMiddle(triggerEl, triggerOffset, this.menuEl);
-                break;
-            }
-            case MenuBody.Position.RIGHT_BOTTOM: {
-                left = this.calLeftHorizontalRight(triggerEl, triggerOffset);
-                top = this.calTopHorizontalBottom(triggerEl, triggerOffset, this.menuEl);
-                break;
-            }
-        }
-
-        return {left, top};
 
     }
 
@@ -275,7 +152,9 @@ export default class MenuBody extends Component {
 
     render() {
 
-        const {children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth} = this.props,
+        const {
+                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth, triggerEl
+            } = this.props,
             {visible} = this.state,
 
             menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' menu-has-triangle' : '')
@@ -285,7 +164,7 @@ export default class MenuBody extends Component {
         return (
             <Paper ref="menu"
                    className={'menu' + menuClassName}
-                   style={{...this.getMenuStyle(), ...style}}
+                   style={{...PopupCalculation.getStyle(triggerEl, this.menuEl, position), ...style}}
                    depth={depth}
                    onWheel={this.wheelHandler}>
 
