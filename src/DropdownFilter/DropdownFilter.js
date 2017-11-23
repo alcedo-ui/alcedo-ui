@@ -200,11 +200,17 @@ export default class DropdownFilter extends Component {
     render() {
 
         const {
+
                 className, popupClassName, style, popupStyle, theme, popupTheme, placeholder, selectMode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
+
+                radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
+
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -298,6 +304,11 @@ export default class DropdownFilter extends Component {
                                                                listHeight={listHeight}
                                                                itemHeight={itemHeight}
                                                                scrollBuffer={scrollBuffer}
+                                                               radioUncheckedIconCls={radioUncheckedIconCls}
+                                                               radioCheckedIconCls={radioCheckedIconCls}
+                                                               checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                                               checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                                               checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                                                onItemTouchTap={onItemTouchTap}
                                                                onChange={this.changeHandler}/>
                                             :
@@ -310,6 +321,11 @@ export default class DropdownFilter extends Component {
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
                                                   renderer={renderer}
+                                                  radioUncheckedIconCls={radioUncheckedIconCls}
+                                                  radioCheckedIconCls={radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                                   onItemTouchTap={onItemTouchTap}
                                                   onChange={this.changeHandler}/>
                                     )
@@ -500,6 +516,12 @@ DropdownFilter.propTypes = {
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -570,6 +592,12 @@ DropdownFilter.defaultProps = {
 
     popupChildren: null,
 
-    useDynamicRenderList: false
+    useDynamicRenderList: false,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
