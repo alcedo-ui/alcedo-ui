@@ -46,7 +46,7 @@ export default class PopupBody extends Component {
 
     }
 
-    triggerPopupEventHandle(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
+    triggerPopupEventHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
@@ -78,7 +78,7 @@ export default class PopupBody extends Component {
                     isAutoClose
                 )
                 :
-                this.triggerPopupEventHandle(
+                this.triggerPopupEventHandler(
                     e.target,
                     triggerEl,
                     this.popupEl,
