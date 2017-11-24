@@ -47,11 +47,11 @@ export default class MenuBody extends Component {
 
     }
 
-    triggerMouseEnterHandler(e) {
+    triggerMouseEnterHandler() {
         this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
     }
 
-    triggerMouseLeaveHandler(e) {
+    triggerMouseLeaveHandler() {
         this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
         this.prepareCloseTimeout = setTimeout(() => {
             this.setState({
