@@ -3,8 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 
 import Tip from '../Tip';
 import Theme from '../Theme';
@@ -28,8 +29,7 @@ export default class TipProvider extends Component {
 
     }
 
-    showTip(e) {
-        this.triggerEl = e.target;
+    showTip() {
         if (!this.state.tipVisible) {
             this.setState({
                 tipVisible: true
@@ -41,6 +41,10 @@ export default class TipProvider extends Component {
         this.setState({
             tipVisible: false
         });
+    }
+
+    componentDidMount() {
+        this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));
     }
 
     render() {
@@ -58,7 +62,9 @@ export default class TipProvider extends Component {
                 <div ref="triggerWrapper"
                      className="trigger-wrapper"
                      onMouseEnter={this.showTip}>
-                    {children}
+                    {cloneElement(children, {
+                        ref: 'trigger'
+                    })}
                 </div>
 
                 <Tip {...restProps}
