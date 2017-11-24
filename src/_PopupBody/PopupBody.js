@@ -165,17 +165,23 @@ export default class PopupBody extends Component {
     render() {
 
         const {
-                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth, triggerEl
+                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth,
+                triggerEl, isTriggerPositionFixed
             } = this.props,
             {visible} = this.state,
+
             popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
                 + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
-                + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : '');
+                + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : ''),
+            popupStyle = {
+                ...PopupCalculation.getStyle(triggerEl, this.popupEl, position, isTriggerPositionFixed),
+                ...style
+            };
 
         return (
             <Paper ref="popup"
                    className={'popup' + popupClassName}
-                   style={{...PopupCalculation.getStyle(triggerEl, this.popupEl, position), ...style}}
+                   style={popupStyle}
                    depth={depth}
                    onWheel={this.wheelHandler}>
 
@@ -256,6 +262,7 @@ PopupBody.propTypes = {
     isAutoClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
+    isTriggerPositionFixed: PropTypes.bool,
 
     /**
      * The function of popup event handler.
@@ -296,6 +303,7 @@ PopupBody.defaultProps = {
 
     isAutoClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isTriggerPositionFixed: false
 
 };
