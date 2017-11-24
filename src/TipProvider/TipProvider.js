@@ -29,6 +29,7 @@ export default class TipProvider extends Component {
     }
 
     showTip(e) {
+        this.triggerEl = e.target;
         if (!this.state.tipVisible) {
             this.setState({
                 tipVisible: true
@@ -40,10 +41,6 @@ export default class TipProvider extends Component {
         this.setState({
             tipVisible: false
         });
-    }
-
-    componentDidMount() {
-        this.triggerWrapperEl = this.refs.triggerWrapper;
     }
 
     render() {
@@ -65,7 +62,7 @@ export default class TipProvider extends Component {
                 </div>
 
                 <Tip {...restProps}
-                     triggerEl={this.triggerWrapperEl}
+                     triggerEl={this.triggerEl}
                      visible={tipVisible}
                      onRender={onTipRender}
                      onRequestClose={this.hideTip}>
@@ -129,6 +126,8 @@ TipProvider.propTypes = {
      */
     depth: PropTypes.number,
 
+    isTriggerPositionFixed: PropTypes.bool,
+
     /**
      * The function of tip render.
      */
@@ -162,6 +161,7 @@ TipProvider.defaultProps = {
     isAnimated: true,
     depth: 6,
     shouldPreventContainerScroll: true,
+    isTriggerPositionFixed: false,
 
     text: null
 
