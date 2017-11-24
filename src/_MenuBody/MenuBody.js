@@ -136,18 +136,23 @@ export default class MenuBody extends Component {
     render() {
 
         const {
-                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth, triggerEl
+                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth,
+                triggerEl, isTriggerPositionFixed
             } = this.props,
             {visible} = this.state,
 
             menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' menu-has-triangle' : '')
                 + (theme ? ` theme-${theme}` : '') + (position ? ` menu-position-${position}` : '')
-                + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : '');
+                + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : ''),
+            menuStyle = {
+                ...PopupCalculation.getStyle(triggerEl, this.menuEl, position, isTriggerPositionFixed),
+                ...style
+            };
 
         return (
             <Paper ref="menu"
                    className={'menu' + menuClassName}
-                   style={{...PopupCalculation.getStyle(triggerEl, this.menuEl, position), ...style}}
+                   style={menuStyle}
                    depth={depth}
                    onWheel={this.wheelHandler}>
 
@@ -227,6 +232,8 @@ MenuBody.propTypes = {
      */
     depth: PropTypes.number,
 
+    isTriggerPositionFixed: PropTypes.bool,
+
     /**
      * The function of menu render.
      */
@@ -258,6 +265,7 @@ MenuBody.defaultProps = {
     isAnimated: true,
     triggerMode: MenuBody.TriggerMode.TOGGLE,
     depth: 6,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isTriggerPositionFixed: false
 
 };
