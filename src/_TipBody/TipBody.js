@@ -127,18 +127,23 @@ export default class TipBody extends Component {
     render() {
 
         const {
-                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth, triggerEl
+                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth,
+                triggerEl, isTriggerPositionFixed
             } = this.props,
             {visible} = this.state,
 
-            menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' tip-has-triangle' : '')
+            tipClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' tip-has-triangle' : '')
                 + (theme ? ` theme-${theme}` : '') + (position ? ` tip-position-${position}` : '')
-                + (isAnimated ? ' tip-animated' : '') + (className ? ' ' + className : '');
+                + (isAnimated ? ' tip-animated' : '') + (className ? ' ' + className : ''),
+            tipStyle = {
+                ...PopupCalculation.getStyle(triggerEl, this.tipEl, position, isTriggerPositionFixed),
+                ...style
+            };
 
         return (
             <Paper ref="tip"
-                   className={'tip' + menuClassName}
-                   style={{...PopupCalculation.getStyle(triggerEl, this.tipEl, position), ...style}}
+                   className={'tip' + tipClassName}
+                   style={tipStyle}
                    depth={depth}
                    onWheel={this.wheelHandler}>
 
@@ -213,6 +218,8 @@ TipBody.propTypes = {
      */
     depth: PropTypes.number,
 
+    isTriggerPositionFixed: PropTypes.bool,
+
     /**
      * The function of menu render.
      */
@@ -243,6 +250,7 @@ TipBody.defaultProps = {
     position: Position.BOTTOM,
     isAnimated: true,
     depth: 6,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isTriggerPositionFixed: false
 
 };
