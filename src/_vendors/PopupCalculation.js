@@ -6,123 +6,129 @@
 import Dom from './Dom';
 import Position from '../_statics/Position';
 
-function topVerticalBottom(triggerEl, triggerOffset) {
+function topVerticalBottom(triggerEl, triggerOffset, isTriggerPositionFixed) {
     return triggerOffset.top + triggerEl.offsetHeight;
 }
 
-function topVerticalTop(triggerOffset, popupEl) {
+function topVerticalTop(triggerOffset, popupEl, isTriggerPositionFixed) {
     return triggerOffset.top - popupEl.offsetHeight
         - parseInt(getComputedStyle(popupEl).marginTop)
         - parseInt(getComputedStyle(popupEl).marginBottom);
 }
 
-function topHorizontalTop(triggerOffset) {
+function topHorizontalTop(triggerOffset, isTriggerPositionFixed) {
     return triggerOffset.top;
 }
 
-function topHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
+function topHorizontalMiddle(triggerEl, triggerOffset, popupEl, isTriggerPositionFixed) {
     return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
 }
 
-function topHorizontalBottom(triggerEl, triggerOffset, popupEl) {
+function topHorizontalBottom(triggerEl, triggerOffset, popupEl, isTriggerPositionFixed) {
     return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
 }
 
-function leftVerticalLeft(triggerOffset) {
+function leftVerticalLeft(triggerOffset, isTriggerPositionFixed) {
     return triggerOffset.left;
 }
 
-function leftVerticalCenter(triggerEl, triggerOffset, popupEl) {
+function leftVerticalCenter(triggerEl, triggerOffset, popupEl, isTriggerPositionFixed) {
     return triggerOffset.left + triggerEl.offsetWidth / 2 - popupEl.offsetWidth / 2;
 }
 
-function leftVerticalRight(triggerEl, triggerOffset, popupEl) {
+function leftVerticalRight(triggerEl, triggerOffset, popupEl, isTriggerPositionFixed) {
     return triggerOffset.left - (popupEl.offsetWidth - triggerEl.offsetWidth);
 }
 
-function leftHorizontalLeft(triggerOffset, popupEl) {
+function leftHorizontalLeft(triggerOffset, popupEl, isTriggerPositionFixed) {
     return triggerOffset.left - popupEl.offsetWidth
         - parseInt(getComputedStyle(popupEl).marginLeft)
         - parseInt(getComputedStyle(popupEl).marginRight);
 }
 
-function leftHorizontalRight(triggerEl, triggerOffset) {
+function leftHorizontalRight(triggerEl, triggerOffset, isTriggerPositionFixed) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
-function getStyle(triggerEl, popupEl, position) {
+function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
 
     if (!triggerEl || !popupEl) {
         return;
     }
 
     const triggerOffset = Dom.getOffset(triggerEl);
-    let left, top;
+    let result = {};
 
     switch (position) {
         case Position.TOP_LEFT: {
-            left = leftVerticalLeft(triggerOffset);
-            top = topVerticalTop(triggerOffset, popupEl);
+            result.left = leftVerticalLeft(triggerOffset);
+            result.top = topVerticalTop(triggerOffset, popupEl);
             break;
         }
         case Position.TOP: {
-            left = leftVerticalCenter(triggerEl, triggerOffset, popupEl);
-            top = topVerticalTop(triggerOffset, popupEl);
+            result.left = leftVerticalCenter(triggerEl, triggerOffset, popupEl);
+            result.top = topVerticalTop(triggerOffset, popupEl);
             break;
         }
         case Position.TOP_RIGHT: {
-            left = leftVerticalRight(triggerEl, triggerOffset, popupEl);
-            top = topVerticalTop(triggerOffset, popupEl);
+            result.left = leftVerticalRight(triggerEl, triggerOffset, popupEl);
+            result.top = topVerticalTop(triggerOffset, popupEl);
             break;
         }
         case Position.BOTTOM_LEFT: {
-            left = leftVerticalLeft(triggerOffset);
-            top = topVerticalBottom(triggerEl, triggerOffset);
+            result.left = leftVerticalLeft(triggerOffset);
+            result.top = topVerticalBottom(triggerEl, triggerOffset);
             break;
         }
         case Position.BOTTOM: {
-            left = leftVerticalCenter(triggerEl, triggerOffset, popupEl);
-            top = topVerticalBottom(triggerEl, triggerOffset);
+            result.left = leftVerticalCenter(triggerEl, triggerOffset, popupEl);
+            result.top = topVerticalBottom(triggerEl, triggerOffset);
             break;
         }
         case Position.BOTTOM_RIGHT: {
-            left = leftVerticalRight(triggerEl, triggerOffset, popupEl);
-            top = topVerticalBottom(triggerEl, triggerOffset);
+            result.left = leftVerticalRight(triggerEl, triggerOffset, popupEl);
+            result.top = topVerticalBottom(triggerEl, triggerOffset);
             break;
         }
         case Position.LEFT_TOP: {
-            left = leftHorizontalLeft(triggerOffset, popupEl);
-            top = topHorizontalTop(triggerOffset);
+            result.left = leftHorizontalLeft(triggerOffset, popupEl);
+            result.top = topHorizontalTop(triggerOffset);
             break;
         }
         case Position.LEFT: {
-            left = leftHorizontalLeft(triggerOffset, popupEl);
-            top = topHorizontalMiddle(triggerEl, triggerOffset, popupEl);
+            result.left = leftHorizontalLeft(triggerOffset, popupEl);
+            result.top = topHorizontalMiddle(triggerEl, triggerOffset, popupEl);
             break;
         }
         case Position.LEFT_BOTTOM: {
-            left = leftHorizontalLeft(triggerOffset, popupEl);
-            top = topHorizontalBottom(triggerEl, triggerOffset, popupEl);
+            result.left = leftHorizontalLeft(triggerOffset, popupEl);
+            result.top = topHorizontalBottom(triggerEl, triggerOffset, popupEl);
             break;
         }
         case Position.RIGHT_TOP: {
-            left = leftHorizontalRight(triggerEl, triggerOffset);
-            top = topHorizontalTop(triggerOffset);
+            result.left = leftHorizontalRight(triggerEl, triggerOffset);
+            result.top = topHorizontalTop(triggerOffset);
             break;
         }
         case Position.RIGHT: {
-            left = leftHorizontalRight(triggerEl, triggerOffset);
-            top = topHorizontalMiddle(triggerEl, triggerOffset, popupEl);
+            result.left = leftHorizontalRight(triggerEl, triggerOffset);
+            result.top = topHorizontalMiddle(triggerEl, triggerOffset, popupEl);
             break;
         }
         case Position.RIGHT_BOTTOM: {
-            left = leftHorizontalRight(triggerEl, triggerOffset);
-            top = topHorizontalBottom(triggerEl, triggerOffset, popupEl);
+            result.left = leftHorizontalRight(triggerEl, triggerOffset);
+            result.top = topHorizontalBottom(triggerEl, triggerOffset, popupEl);
             break;
         }
     }
 
-    return {left, top};
+    if (isTriggerPositionFixed) {
+        result.position = 'fixed';
+        result.left -= Dom.getScrollLeft();
+        result.top -= Dom.getScrollTop();
+    }
+
+    return result;
 
 }
 
