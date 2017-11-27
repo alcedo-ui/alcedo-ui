@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 import PopupCalculation from '../_vendors/PopupCalculation';
+
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
 
