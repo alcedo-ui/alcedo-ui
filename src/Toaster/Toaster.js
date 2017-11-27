@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import Toast from '../_Toast';
 
 import Util from '../_vendors/Util';
@@ -134,22 +134,20 @@ export default class Toaster extends Component {
         const {position} = this.props,
             {toasts, visible} = this.state;
 
-        return (
-            <SubtreeContainer className={'toaster' + (position ? ` toaster-position-${position}` : '')}
-                              visible={visible}>
+        return visible ?
+            <Portal className={'toaster' + (position ? ` toaster-position-${position}` : '')}>
                 {
                     toasts.length > 0 ?
-                        (
-                            toasts.map(options =>
-                                <Toast {...options}
-                                       key={options.toastsId}
-                                       onRequestClose={this.removeToast}/>
-                            )
+                        toasts.map(options =>
+                            <Toast {...options}
+                                   key={options.toastsId}
+                                   onRequestClose={this.removeToast}/>
                         )
                         : null
                 }
-            </SubtreeContainer>
-        );
+            </Portal>
+            :
+            null;
 
     }
 
