@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import Paper from '../Paper';
 import FlatButton from '../FlatButton';
 import RaisedButton from '../RaisedButton';
-import GhostButton from '../GhostButton';
 import IconButton from '../IconButton';
 import Theme from '../Theme';
 
@@ -19,13 +18,6 @@ import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 
 export default class DialogBody extends Component {
-
-    static ButtonUITypes = {
-        RAISED: 'raised',
-        FLAT: 'flat',
-        GHOST: 'ghost',
-        ICON: 'icon'
-    };
 
     constructor(props, ...restArgs) {
 
@@ -333,11 +325,6 @@ DialogBody.propTypes = {
     okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * Set the type of OK button.
-     */
-    okButtonUIType: PropTypes.oneOf(Util.enumerateValue(DialogBody.ButtonUITypes)),
-
-    /**
      * If true,the cancel button will display.
      */
     cancelButtonVisible: PropTypes.bool,
@@ -356,11 +343,6 @@ DialogBody.propTypes = {
      * Set theme of cancel button.
      */
     cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * Set the type of cancel button.
-     */
-    cancelButtonUIType: PropTypes.oneOf(Util.enumerateValue(DialogBody.ButtonUITypes)),
 
     closeIconCls: PropTypes.string,
 

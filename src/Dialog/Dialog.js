@@ -5,14 +5,12 @@
 
 import React, {Component} from 'react';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import DialogBody from '../_DialogBody/DialogBody';
 
 import Dom from '../_vendors/Dom';
 
 export default class Dialog extends Component {
-
-    static ButtonUITypes = DialogBody.ButtonUITypes;
 
     constructor(props, ...restArgs) {
 
@@ -51,15 +49,12 @@ export default class Dialog extends Component {
     }
 
     render() {
-
-        const {visible} = this.props;
-
-        return (
-            <SubtreeContainer visible={visible}>
+        return this.props.visible ?
+            <Portal>
                 <DialogBody {...this.props}/>
-            </SubtreeContainer>
-        );
-
+            </Portal>
+            :
+            null;
     }
 
 };
