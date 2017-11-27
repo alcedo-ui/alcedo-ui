@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import MenuBody from '../_MenuBody';
 
 export default class Menu extends Component {
@@ -17,15 +17,12 @@ export default class Menu extends Component {
     }
 
     render() {
-
-        const {visible} = this.props;
-
-        return (
-            <SubtreeContainer visible={visible}>
+        return this.props.visible ?
+            <Portal>
                 <MenuBody {...this.props}/>
-            </SubtreeContainer>
-        );
-
+            </Portal>
+            :
+            null;
     }
 
 };
