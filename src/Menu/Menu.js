@@ -11,7 +11,6 @@ import MenuBody from '../_MenuBody';
 export default class Menu extends Component {
 
     static Position = MenuBody.Position;
-    static TriggerMode = MenuBody.TriggerMode;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
