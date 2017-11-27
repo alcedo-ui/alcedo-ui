@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 
 import Portal from '../Portal';
 import TipBody from '../_TipBody';
+
 import Position from '../_statics/Position';
 
 export default class Tip extends Component {
