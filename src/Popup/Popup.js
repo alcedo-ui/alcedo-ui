@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import PopupBody from '../_PopupBody';
 
 export default class Popup extends Component {
@@ -18,15 +18,12 @@ export default class Popup extends Component {
     }
 
     render() {
-
-        const {visible} = this.props;
-
-        return (
-            <SubtreeContainer visible={visible}>
+        return this.props.visible ?
+            <Portal>
                 <PopupBody {...this.props}/>
-            </SubtreeContainer>
-        );
-
+            </Portal>
+            :
+            null;
     }
 
 };
