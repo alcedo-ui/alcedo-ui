@@ -16,15 +16,12 @@ import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 import PopupCalculation from '../_vendors/PopupCalculation';
 import Position from '../_statics/Position';
+import TriggerMode from '../_statics/TriggerMode';
 
 export default class PopupBody extends Component {
 
     static Position = Position;
-
-    static TriggerMode = {
-        TOGGLE: 'toggle',
-        OPEN: 'open'
-    };
+    static TriggerMode = TriggerMode;
 
     constructor(props, ...restArgs) {
 
@@ -56,7 +53,7 @@ export default class PopupBody extends Component {
             if (el == popupEl) {
                 return currentVisible;
             } else if (el == triggerEl) {
-                return triggerMode === PopupBody.TriggerMode.TOGGLE ? !currentVisible : true;
+                return triggerMode === TriggerMode.TOGGLE ? !currentVisible : true;
             }
             el = el.parentNode;
         }
@@ -252,7 +249,7 @@ PopupBody.propTypes = {
     /**
      * The status of popup-triangle.Can be open or toggle.
      */
-    triggerMode: PropTypes.oneOf(Util.enumerateValue(PopupBody.TriggerMode)),
+    triggerMode: PropTypes.oneOf(Util.enumerateValue(TriggerMode)),
 
     /**
      * The depth of Paper component.
@@ -299,7 +296,7 @@ PopupBody.defaultProps = {
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
-    triggerMode: PopupBody.TriggerMode.TOGGLE,
+    triggerMode: TriggerMode.TOGGLE,
 
     isAutoClose: true,
     isEscClose: true,
