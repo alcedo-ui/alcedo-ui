@@ -7,7 +7,24 @@
     position: fixed;
     z-index: $toast-z-index;
 
-    &.notifier-position-top-left {
+    &.notifier-position-left-top,
+    &.notifier-position-left,
+    &.notifier-position-left-bottom {
+        .notification {
+            float: left;
+        }
+    }
+
+    &.notifier-position-right-top,
+    &.notifier-position-right,
+    &.notifier-position-right-bottom {
+        .notification {
+            float: right;
+        }
+    }
+
+    &.notifier-position-top-left,
+    &.notifier-position-left-top {
         left: 20px;
         top: 20px;
     }
@@ -18,12 +35,20 @@
         transform: translateX(-50%);
     }
 
-    &.notifier-position-top-right {
-        right: 20px;
+    &.notifier-position-top-right,
+    &.notifier-position-right-top {
+        right: 10px;
         top: 20px;
     }
 
-    &.notifier-position-bottom-left {
+    &.notifier-position-left {
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &.notifier-position-bottom-left,
+    &.notifier-position-left-bottom {
         left: 20px;
         bottom: 20px;
     }
@@ -34,8 +59,15 @@
         transform: translateX(-50%);
     }
 
-    &.notifier-position-bottom-right {
-        right: 20px;
+    &.notifier-position-bottom-right,
+    &.notifier-position-right-bottom {
+        right: 10px;
         bottom: 20px;
+    }
+
+    &.notifier-position-right {
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }

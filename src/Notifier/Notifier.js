@@ -12,22 +12,12 @@ import Notification from '../_Notification';
 
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
+import Position from '../_statics/Position';
 
 export default class Notifier extends Component {
 
     static Type = MsgType;
-
-    static Position = {
-
-        TOP_LEFT: 'top-left',
-        TOP: 'top',
-        TOP_RIGHT: 'top-right',
-
-        BOTTOM_LEFT: 'bottom-left',
-        BOTTOM: 'bottom',
-        BOTTOM_RIGHT: 'bottom-right'
-
-    };
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -49,9 +39,7 @@ export default class Notifier extends Component {
     }
 
     isPositiveSequence(position = this.props.position) {
-        return position === Notifier.Position.TOP_LEFT
-            || position === Notifier.Position.TOP
-            || position === Notifier.Position.TOP_RIGHT;
+        return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     }
 
     clearUnrenderTimeout() {
@@ -221,7 +209,7 @@ Notifier.propTypes = {
 
     }), PropTypes.string, PropTypes.number])),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Notifier.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * Callback function fired when the notifier pop.
@@ -235,6 +223,6 @@ Notifier.defaultProps = {
     className: '',
     style: null,
 
-    position: Notifier.Position.BOTTOM_RIGHT
+    position: Position.BOTTOM_RIGHT
 
 };
