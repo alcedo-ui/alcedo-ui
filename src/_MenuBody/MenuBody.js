@@ -20,11 +20,6 @@ export default class MenuBody extends Component {
 
     static Position = Position;
 
-    static TriggerMode = {
-        TOGGLE: 'toggle',
-        OPEN: 'open'
-    };
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -223,11 +218,6 @@ MenuBody.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
-     * The status of menu-triangle.Can be open or toggle.
-     */
-    triggerMode: PropTypes.oneOf(Util.enumerateValue(MenuBody.TriggerMode)),
-
-    /**
      * The depth of Paper component.
      */
     depth: PropTypes.number,
@@ -263,7 +253,6 @@ MenuBody.defaultProps = {
     triangle: <div className="menu-triangle"></div>,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
-    triggerMode: MenuBody.TriggerMode.TOGGLE,
     depth: 6,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false
