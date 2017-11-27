@@ -7,10 +7,11 @@ import React, {Component} from 'react';
 
 import Portal from '../Portal';
 import PopupBody from '../_PopupBody';
+import Position from '../_statics/Position';
 
 export default class Popup extends Component {
 
-    static Position = PopupBody.Position;
+    static Position = Position;
     static TriggerMode = PopupBody.TriggerMode;
 
     constructor(props, ...restArgs) {
