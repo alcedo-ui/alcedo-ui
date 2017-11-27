@@ -9,9 +9,7 @@
         .examples-wrapper {
 
             .field-group {
-
                 @include float-fix;
-
                 float: none;
 
                 .radio {
@@ -28,6 +26,10 @@
                     line-height: 40px;
                     margin-right: 20px;
                     width: 60px;
+                }
+
+                .radio-group {
+                    overflow: hidden;
                 }
             }
 
