@@ -16,11 +16,12 @@
     width: 300px;
     height: auto;
     padding: 15px 15px 15px 50px;
-    margin-top: 10px;
+    margin: 10px 10px 0 0;
     box-sizing: border-box;
     border-width: 1px;
     border-style: solid;
     border-radius: $theme-border-radius;
+    overflow: hidden;
     transition: opacity $theme-transition-duration ease-in-out;
 
     .notification-icon {
@@ -90,10 +91,17 @@
 
     &.leave {
         margin-top: 0 !important;
+        width: 0 !important;
         height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
         transition: opacity $theme-transition-duration ease-in-out,
+        width $theme-transition-duration ease-in-out $theme-transition-duration,
         height $theme-transition-duration ease-in-out $theme-transition-duration,
-        margin-top $theme-transition-duration ease-in-out $theme-transition-duration;
+        border $theme-transition-duration ease-in-out $theme-transition-duration,
+        padding $theme-transition-duration ease-in-out $theme-transition-duration,
+        margin $theme-transition-duration ease-in-out $theme-transition-duration;
     }
 
     // default theme

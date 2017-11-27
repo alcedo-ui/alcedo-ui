@@ -74,6 +74,7 @@ export default class Notification extends Component {
 
         const notificationEl = this.refs.notification;
         notificationEl.style.height = notificationEl.clientHeight + 'px';
+        notificationEl.style.width = notificationEl.clientWidth + 'px';
 
         duration > 0 && (this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(notificationId);
