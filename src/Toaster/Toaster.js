@@ -11,22 +11,13 @@ import SubtreeContainer from '../_SubtreeContainer';
 import Toast from '../_Toast';
 
 import Util from '../_vendors/Util';
+import MsgType from '../_statics/MsgType';
+import Position from '../_statics/Position';
 
 export default class Toaster extends Component {
 
-    static ToastType = Toast.Type;
-
-    static Position = {
-
-        TOP_LEFT: 'top-left',
-        TOP: 'top',
-        TOP_RIGHT: 'top-right',
-
-        BOTTOM_LEFT: 'bottom-left',
-        BOTTOM: 'bottom',
-        BOTTOM_RIGHT: 'bottom-right'
-
-    };
+    static Type = MsgType;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -48,9 +39,7 @@ export default class Toaster extends Component {
     }
 
     isPositiveSequence(position = this.props.position) {
-        return position === Toaster.Position.TOP_LEFT
-            || position === Toaster.Position.TOP
-            || position === Toaster.Position.TOP_RIGHT;
+        return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     }
 
     clearUnrenderTimeout() {
@@ -196,7 +185,7 @@ Toaster.propTypes = {
         /**
          * The type of toast.
          */
-        type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
         /**
          * The message of toast.
@@ -215,7 +204,7 @@ Toaster.propTypes = {
 
     }), PropTypes.string, PropTypes.number])),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Toaster.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * Callback function fired when the toaster pop.
@@ -229,6 +218,6 @@ Toaster.defaultProps = {
     className: '',
     style: null,
 
-    position: Toaster.Position.BOTTOM_RIGHT
+    position: Position.BOTTOM_RIGHT
 
 };
