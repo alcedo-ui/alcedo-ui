@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import Notification from '../_Notification';
 
 import Util from '../_vendors/Util';
@@ -134,22 +134,20 @@ export default class Notifier extends Component {
         const {position} = this.props,
             {notifications, visible} = this.state;
 
-        return (
-            <SubtreeContainer className={'notifier' + (position ? ` notifier-position-${position}` : '')}
-                              visible={visible}>
+        return visible ?
+            <Portal className={'notifier' + (position ? ` notifier-position-${position}` : '')}>
                 {
                     notifications.length > 0 ?
-                        (
-                            notifications.map(options =>
-                                <Notification {...options}
-                                              key={options.notificationId}
-                                              onRequestClose={this.removeNotification}/>
-                            )
+                        notifications.map(options =>
+                            <Notification {...options}
+                                          key={options.notificationId}
+                                          onRequestClose={this.removeNotification}/>
                         )
                         : null
                 }
-            </SubtreeContainer>
-        );
+            </Portal>
+            :
+            null;
 
     }
 
