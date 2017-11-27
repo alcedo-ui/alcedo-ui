@@ -11,10 +11,11 @@ import SubtreeContainer from '../_SubtreeContainer';
 import Notification from '../_Notification';
 
 import Util from '../_vendors/Util';
+import MsgType from '../_statics/MsgType';
 
 export default class Notifier extends Component {
 
-    static NotificationType = Notification.Type;
+    static Type = MsgType;
 
     static Position = {
 
@@ -196,7 +197,7 @@ Notifier.propTypes = {
         /**
          * The type of toast.
          */
-        type: PropTypes.oneOf(Util.enumerateValue(Notification.Type)),
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
         /**
          * The title of toast.
