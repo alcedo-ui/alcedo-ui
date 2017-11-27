@@ -8,19 +8,13 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import RaisedButton from '../RaisedButton';
-import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import MsgType from '../_statics/MsgType';
 
 export default class Toast extends Component {
 
-    static Type = {
-        DEFAULT: Theme.DEFAULT,
-        INFO: Theme.INFO,
-        SUCCESS: Theme.SUCCESS,
-        WARNING: Theme.WARNING,
-        ERROR: Theme.ERROR
-    };
+    static Type = MsgType;
 
     constructor(props, ...restArgs) {
 
@@ -43,11 +37,11 @@ export default class Toast extends Component {
 
     getIconCls() {
         switch (this.props.type) {
-            case 'success':
+            case MsgType.SUCCESS:
                 return 'fa fa-check-circle';
-            case 'warning':
+            case MsgType.WARNING:
                 return 'fa fa-exclamation-triangle';
-            case 'error':
+            case MsgType.ERROR:
                 return 'fa fa-times-circle';
             default:
                 return 'fa fa-info-circle';
@@ -79,6 +73,7 @@ export default class Toast extends Component {
         this.hasMounted = true;
 
         const toastEl = findDOMNode(this.refs.toast);
+        toastEl.style.width = toastEl.clientWidth + 'px';
         toastEl.style.height = toastEl.clientHeight + 'px';
 
         duration > 0 && (this.unrenderTimeout = setTimeout(() => {
@@ -155,7 +150,7 @@ Toast.propTypes = {
     /**
      * The type of toast.
      */
-    type: PropTypes.oneOf(Util.enumerateValue(Toast.Type)),
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
     /**
      * The message of toast.
@@ -182,7 +177,7 @@ Toast.defaultProps = {
     style: null,
 
     toastsId: 0,
-    type: Toast.Type.INFO,
+    type: MsgType.INFO,
     message: '',
     iconCls: '',
     duration: 2500
