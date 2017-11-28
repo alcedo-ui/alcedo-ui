@@ -68,7 +68,8 @@ export default class RadioGroup extends Component {
                                    theme={item.theme || theme}
                                    name={name}
                                    label={item.label}
-                                   value={isChecked}
+                                   value={item.value}
+                                   checked={isChecked}
                                    disabled={disabled}
                                    tip={tip ? tip : item.label}
                                    tipPosition={tipPosition}
@@ -168,7 +169,7 @@ RadioGroup.defaultProps = {
 
     name: '',
     data: [],
-    value: '',
+    value: null,
     uncheckedIconCls: 'fa fa-circle-o',
     checkedIconCls: 'fa fa-dot-circle-o',
     disabled: false
