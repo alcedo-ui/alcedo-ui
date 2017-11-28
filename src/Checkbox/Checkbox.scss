@@ -13,6 +13,17 @@
     color: $theme-field;
     height: 40px;
 
+    .hidden-checkbox {
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        visibility: hidden;
+        appearance: none;
+    }
+
     .checkbox-icon-wrapper {
         display: inline-block;
         width: 40px;

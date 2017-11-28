@@ -18,7 +18,7 @@ export default class Checkbox extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: !!props.value
+            checked: !!props.checked
         };
 
         this.touchTapHandler = ::this.touchTapHandler;
@@ -29,12 +29,12 @@ export default class Checkbox extends Component {
 
     touchTapHandler() {
 
-        const value = !this.state.value;
+        const checked = !this.state.checked;
 
         this.setState({
-            value
+            checked
         }, () => {
-            this.props.onChange && this.props.onChange(value);
+            this.props.onChange && this.props.onChange(checked);
         });
 
     }
@@ -61,9 +61,9 @@ export default class Checkbox extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
+        if (nextProps.checked !== this.state.checked) {
             this.setState({
-                value: !!nextProps.value
+                checked: !!nextProps.checked
             });
         }
     }
@@ -71,12 +71,12 @@ export default class Checkbox extends Component {
     render() {
 
         const {
-                className, style, theme, name, label, disabled, indeterminate,
+                className, style, theme, name, label, value, disabled, indeterminate,
                 uncheckedIconCls, checkedIconCls, indeterminateIconCls
             } = this.props,
-            {value} = this.state,
+            {checked} = this.state,
 
-            checkboxClassName = (value ? ' activated' : '') + (indeterminate ? ' indeterminated' : '')
+            checkboxClassName = (checked ? ' activated' : '') + (indeterminate ? ' indeterminated' : '')
                 + (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
 
         return (
@@ -86,9 +86,13 @@ export default class Checkbox extends Component {
 
                 {
                     name ?
-                        <input type="hidden"
+                        <input className="hidden-checkbox"
+                               type="checkbox"
                                name={name}
-                               value={value}/>
+                               value={value}
+                               checked={checked}
+                               onChange={() => {
+                               }}/>
                         :
                         null
                 }
@@ -149,9 +153,14 @@ Checkbox.propTypes = {
     label: PropTypes.any,
 
     /**
+     * Value for checkbox.
+     */
+    value: PropTypes.any,
+
+    /**
      * If true,the checkbox will be checked.
      */
-    value: PropTypes.bool,
+    checked: PropTypes.bool,
 
     indeterminate: PropTypes.bool,
 
@@ -173,13 +182,14 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
-    name: '',
-    label: '',
-    value: false,
+    name: null,
+    label: null,
+    value: '',
+    checked: false,
     indeterminate: false,
     uncheckedIconCls: 'fa fa-square-o',
     checkedIconCls: 'fa fa-check-square',
