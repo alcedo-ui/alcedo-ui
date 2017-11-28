@@ -131,7 +131,7 @@ export default class CheckboxExamples extends Component {
 
                                 <Checkbox theme={Theme.HIGHLIGHT}
                                           label="All"
-                                          value={checkboxGroupValue.length === this.data.length}
+                                          checked={checkboxGroupValue.length === this.data.length}
                                           indeterminate={checkboxGroupValue.length > 0
                                           && checkboxGroupValue.length < this.data.length}
                                           onChange={this.checkboxChangeHandler}/>
