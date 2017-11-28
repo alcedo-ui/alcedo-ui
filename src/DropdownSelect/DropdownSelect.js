@@ -236,7 +236,7 @@ export default class DropdownSelect extends Component {
                                 <div className="list-item dropdown-select-all-wrapper"
                                      onTouchTap={this.selectAllTouchTapHandler}>
                                     <Checkbox className="list-item-checkbox"
-                                              value={data && value && value.length === data.length}
+                                              checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}/>
                                     Select All
                                 </div>
