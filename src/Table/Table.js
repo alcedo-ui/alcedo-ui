@@ -419,7 +419,7 @@ export default class Table extends Component {
                 headerClassName: 'table-select-th',
                 header() {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isHeadChecked()}
+                                     checked={self.isHeadChecked()}
                                      disabled={disabled}
                                      indeterminate={self.isHeadIndeterminate()}
                                      onChange={self.headCheckBoxChangeHandler}/>;
@@ -427,7 +427,7 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isItemChecked(rowData, value)}
+                                     checked={self.isItemChecked(rowData, value)}
                                      disabled={disabled || rowData.disabled}/>;
                 }
             });
