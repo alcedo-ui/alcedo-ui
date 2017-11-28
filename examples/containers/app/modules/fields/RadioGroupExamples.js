@@ -16,7 +16,8 @@ export default class RadioGroupExamples extends Component {
         super(props);
 
         this.state = {
-            radioValue: 'label1'
+            radioChecked: false,
+            radioGroupValue: 'label1'
         };
 
         this.data = [{
@@ -53,20 +54,31 @@ export default class RadioGroupExamples extends Component {
             value: 'label5'
         }];
 
-        this.changeHandler = this::this.changeHandler;
+        this.radioChangeHandler = ::this.radioChangeHandler;
+        this.radioGroupChangeHandler = ::this.radioGroupChangeHandler;
 
     }
 
-    changeHandler(radioValue) {
+    radioChangeHandler(radioChecked) {
         this.setState({
-            radioValue
+            radioChecked
         }, () => {
-            console.log(radioValue);
+            console.log(radioChecked);
+        });
+    }
+
+    radioGroupChangeHandler(radioGroupValue) {
+        this.setState({
+            radioGroupValue
+        }, () => {
+            console.log(radioGroupValue);
         });
     }
 
     render() {
-        const {radioValue} = this.state;
+
+        const {radioChecked, radioGroupValue} = this.state;
+
         return (
             <div className="example radio-examples">
 
@@ -88,13 +100,22 @@ export default class RadioGroupExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p><code>Radio</code> simple example.</p>
+
+                                <Radio theme={Theme.HIGHLIGHT}
+                                       label="radio"
+                                       name="radio"
+                                       value="radio"
+                                       checked={radioChecked}
+                                       onChange={this.radioChangeHandler}/>
+
                                 <p><code>RadioGroup</code> simple example.</p>
 
                                 <RadioGroup theme={Theme.HIGHLIGHT}
                                             name="radio-group-1"
                                             data={this.data}
-                                            value={radioValue}
-                                            onChange={this.changeHandler}/>
+                                            value={radioGroupValue}
+                                            onChange={this.radioGroupChangeHandler}/>
 
                             </div>
 
@@ -115,9 +136,9 @@ export default class RadioGroupExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true to disable the radio group button.</p>
 
                                 <RadioGroup data={this.data}
-                                            value={radioValue}
+                                            value={radioGroupValue}
                                             disabled={true}
-                                            onChange={this.changeHandler}/>
+                                            onChange={this.radioGroupChangeHandler}/>
 
                             </div>
 
@@ -137,10 +158,10 @@ export default class RadioGroupExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <RadioGroup data={this.data}
-                                            value={radioValue}
+                                            value={radioGroupValue}
                                             uncheckedIconCls="fa fa-times-circle-o"
                                             checkedIconCls="fa fa-times-circle"
-                                            onChange={this.changeHandler}/>
+                                            onChange={this.radioGroupChangeHandler}/>
 
                             </div>
 
