@@ -18,66 +18,69 @@ export default class Radio extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: !!props.value
+            checked: !!props.checked
         };
 
-        this.clickHandle = ::this.clickHandle;
-        this.mouseDownHandle = ::this.mouseDownHandle;
-        this.mouseUpHandle = ::this.mouseUpHandle;
+        this.touchTapHandler = ::this.touchTapHandler;
+        this.mouseDownHandler = ::this.mouseDownHandler;
+        this.mouseUpHandler = ::this.mouseUpHandler;
 
     }
 
-    clickHandle() {
+    touchTapHandler() {
 
-        let {value} = this.state;
+        let {checked} = this.state;
 
-        if (value) {
+        if (checked) {
             return;
         }
 
         this.setState({
-            value: true
+            checked: true
         }, () => {
             this.props.onChange && this.props.onChange(true);
         });
 
     }
 
-    mouseDownHandle(e) {
+    mouseDownHandler(e) {
 
         if (this.props.disabled) {
             return;
         }
 
         this.refs.radioIcon.startRipple(e);
-        this.clickHandle();
+        this.touchTapHandler();
 
     }
 
-    mouseUpHandle() {
+    mouseUpHandler(e) {
 
         if (this.props.disabled) {
             return;
         }
 
-        this.refs.radioIcon.endRipple();
+        this.refs.radioIcon.endRipple(e);
 
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
+        if (nextProps.checked !== this.state.checked) {
             this.setState({
-                value: !!nextProps.value
+                checked: !!nextProps.checked
             });
         }
     }
 
     render() {
 
-        const {className, style, theme, name, label, uncheckedIconCls, checkedIconCls, disabled} = this.props,
-            {value} = this.state,
+        const {
+                className, style, theme, name, label, value,
+                uncheckedIconCls, checkedIconCls, disabled
+            } = this.props,
+            {checked} = this.state,
 
-            radioClassName = (value ? ' activated' : '') + (theme ? ` theme-${theme}` : '')
+            radioClassName = (checked ? ' activated' : '') + (theme ? ` theme-${theme}` : '')
                 + (className ? ' ' + className : '');
 
         return (
@@ -85,27 +88,36 @@ export default class Radio extends Component {
                  style={style}
                  disabled={disabled}>
 
-                <input type="hidden"
-                       name={name}
-                       value={value}/>
+                {
+                    name ?
+                        <input className="hidden-radio"
+                               type="radio"
+                               name={name}
+                               value={value}
+                               checked={checked}
+                               onChange={() => {
+                               }}/>
+                        :
+                        null
+                }
 
                 <div className="radio-icon-wrapper">
                     <IconButton ref="radioIcon"
                                 className="radio-bg-icon"
                                 iconCls={uncheckedIconCls}
-                                onTouchTap={this.clickHandle}
+                                onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
 
                     <IconButton className="radio-icon"
                                 iconCls={checkedIconCls}
-                                onTouchTap={this.clickHandle}
+                                onTouchTap={this.touchTapHandler}
                                 disabled={disabled}/>
                 </div>
 
                 <div className="radio-label"
-                     onMouseDown={this.mouseDownHandle}
-                     onMouseUp={this.mouseUpHandle}
-                     onMouseLeave={this.mouseUpHandle}>
+                     onMouseDown={this.mouseDownHandler}
+                     onMouseUp={this.mouseUpHandler}
+                     onMouseLeave={this.mouseUpHandler}>
                     {label}
                 </div>
 
@@ -143,9 +155,14 @@ Radio.propTypes = {
     label: PropTypes.any,
 
     /**
+     * Value for radio.
+     */
+    value: PropTypes.any,
+
+    /**
      * If true,the radio will be checked.
      */
-    value: PropTypes.bool,
+    checked: PropTypes.bool,
 
     uncheckedIconCls: PropTypes.string,
     checkedIconCls: PropTypes.string,
@@ -164,13 +181,14 @@ Radio.propTypes = {
 
 Radio.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
-    name: '',
-    label: '',
-    value: false,
+    name: null,
+    label: null,
+    value: '',
+    checked: false,
     uncheckedIconCls: 'fa fa-circle-o',
     checkedIconCls: 'fa fa-dot-circle-o',
     disabled: false
