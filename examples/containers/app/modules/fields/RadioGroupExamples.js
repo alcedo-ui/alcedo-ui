@@ -57,12 +57,13 @@ export default class RadioGroupExamples extends Component {
 
     }
 
-    changeHandler(value) {
-        this.setState = ({
-            radioValue: value
+    changeHandler(radioValue) {
+        this.setState({
+            radioValue
+        }, () => {
+            console.log(radioValue);
         });
     }
-
 
     render() {
         const {radioValue} = this.state;
@@ -90,6 +91,7 @@ export default class RadioGroupExamples extends Component {
                                 <p><code>RadioGroup</code> simple example.</p>
 
                                 <RadioGroup theme={Theme.HIGHLIGHT}
+                                            name="radio-group-1"
                                             data={this.data}
                                             value={radioValue}
                                             onChange={this.changeHandler}/>
@@ -113,8 +115,9 @@ export default class RadioGroupExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true to disable the radio group button.</p>
 
                                 <RadioGroup data={this.data}
-                                            value={'label2'}
-                                            disabled={true}/>
+                                            value={radioValue}
+                                            disabled={true}
+                                            onChange={this.changeHandler}/>
 
                             </div>
 
@@ -134,9 +137,10 @@ export default class RadioGroupExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <RadioGroup data={this.data}
-                                            value={'label2'}
+                                            value={radioValue}
                                             uncheckedIconCls="fa fa-times-circle-o"
-                                            checkedIconCls="fa fa-times-circle"/>
+                                            checkedIconCls="fa fa-times-circle"
+                                            onChange={this.changeHandler}/>
 
                             </div>
 
