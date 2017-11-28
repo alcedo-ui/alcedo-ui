@@ -192,7 +192,7 @@ export default class DraggableGridItem extends Component {
                         {
                             selectMode === DraggableGridItem.SelectMode.MULTI_SELECT ?
                                 <Checkbox className="draggable-grid-item-checkbox"
-                                          value={checked}
+                                          checked={checked}
                                           disabled={disabled || isLoading}/>
                                 :
                                 null
