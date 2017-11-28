@@ -86,8 +86,9 @@ export default class CheckboxGroup extends Component {
                                       theme={item.theme || theme}
                                       name={name}
                                       label={item.label}
+                                      value={item.value}
                                       disabled={disabled || item.disabled}
-                                      value={isChecked}
+                                      checked={isChecked}
                                       uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
                                       checkedIconCls={item.checkedIconCls || checkedIconCls}
                                       indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
