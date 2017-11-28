@@ -130,7 +130,7 @@ export default class GridItem extends Component {
                         {
                             selectMode === GridItem.SelectMode.MULTI_SELECT ?
                                 <Checkbox className="grid-item-checkbox"
-                                          value={checked}
+                                          checked={checked}
                                           disabled={disabled || isLoading}/>
                                 :
                                 null
