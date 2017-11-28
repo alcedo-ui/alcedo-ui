@@ -217,7 +217,7 @@ export default class TreeNode extends Component {
                 {
                     multiple ?
                         <Checkbox label={this.renderIcon(iconCls, node.text)}
-                                  value={checkboxValue}
+                                  checked={checkboxValue}
                                   onChange={() => {
                                       this.checkboxSelected(node);
                                   }}/>
