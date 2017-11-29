@@ -67,6 +67,12 @@ export default class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
                                     <DropdownSelect data={this.data}
+                                                    renderer={data => {
+                                                        return data && typeof data === 'object' ?
+                                                            `${data.text} (${data.value})`
+                                                            :
+                                                            `${data} (${data})`;
+                                                    }}
                                                     onChange={this.onChange}/>
                                 </div>
 
