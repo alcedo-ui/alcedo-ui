@@ -1,5 +1,5 @@
 /**
- * @file DraggableGrid component
+ * @file DownloadField component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
