@@ -11,6 +11,12 @@ import Percent from '../_Percent';
 
 export default class LinearProgress extends Component {
 
+    static  WordStyle = {
+        FRONT: 'linear-progress-one',
+        MIDDLE: 'linear-progress-two',
+        FOLLOW: 'linear-progress-three'
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -41,11 +47,11 @@ export default class LinearProgress extends Component {
                 {
                     word
                         ? (
-                            wordStyle === LinearProgress.WordStyle.FOLLOW
-                                ? <Percent endNum={parseInt(highlightWidth)}
-                                           move={true}/>
-                                : <Percent endNum={parseInt(highlightWidth)}/>
-                        )
+                        wordStyle === LinearProgress.WordStyle.FOLLOW
+                            ? <Percent endNum={parseInt(highlightWidth)}
+                                       move={true}/>
+                            : <Percent endNum={parseInt(highlightWidth)}/>
+                    )
                         : null
                 }
                 <div className="linear-progress-background">
@@ -63,12 +69,6 @@ export default class LinearProgress extends Component {
             </div>
         );
     }
-};
-
-LinearProgress.WordStyle = {
-    FRONT: 'linear-progress-one',
-    MIDDLE: 'linear-progress-two',
-    FOLLOW: 'linear-progress-three'
 };
 
 LinearProgress.propTypes = {
