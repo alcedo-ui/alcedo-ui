@@ -11,6 +11,8 @@ import IconButton from '../IconButton';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
+import GroupList from '../GroupList';
+import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -42,7 +44,7 @@ export default class MultipleSelect extends Component {
         this.filterChangeHandle = ::this.filterChangeHandle;
         this.closePopup = ::this.closePopup;
         this.popupRenderHandle = ::this.popupRenderHandle;
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
         this.triggerHandler = ::this.triggerHandler;
 
     }
@@ -133,7 +135,8 @@ export default class MultipleSelect extends Component {
 
     toggleSelectedCollapse() {
         this.setState({
-            selectedCollapsed: !this.state.selectedCollapsed
+            selectedCollapsed: !this.state.selectedCollapsed,
+            popupVisible: false
         });
     }
 
@@ -184,7 +187,9 @@ export default class MultipleSelect extends Component {
 
     }
 
-    changeHandle(value) {
+    changeHandler(value) {
+
+        console.log(value);
 
         const {autoClose} = this.props,
             state = {
@@ -196,8 +201,14 @@ export default class MultipleSelect extends Component {
         }
 
         this.setState(state, () => {
+
             const {onChange} = this.props;
             onChange && onChange(value);
+
+            requestAnimationFrame(() => {
+                this.popupRef.reDraw();
+            });
+
         });
 
     }
@@ -236,6 +247,7 @@ export default class MultipleSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
@@ -342,7 +354,10 @@ export default class MultipleSelect extends Component {
                            onBlur={this.blurHandle}
                            onChange={this.filterChangeHandle}/>
 
-                <Popup className={'multiple-select-popup' + selectPopupClassName}
+                <Popup ref={popupRef => {
+                    this.popupRef = popupRef;
+                }}
+                       className={'multiple-select-popup' + selectPopupClassName}
                        style={selectPopupStyle}
                        theme={theme}
                        visible={popupVisible}
@@ -354,16 +369,42 @@ export default class MultipleSelect extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <List className="multiple-select-list"
-                          theme={theme}
-                          value={value}
-                          selectMode={isEmpty ? SelectMode.DEFAULT : SelectMode.MULTI_SELECT}
-                          isGrouped={isEmpty ? false : isGrouped}
-                          data={isEmpty ? emptyEl : listData}
-                          valueField={valueField}
-                          displayField={displayField}
-                          descriptionField={descriptionField}
-                          onChange={this.changeHandle}/>
+                    {
+                        isGrouped ?
+                            <GroupList className="multiple-select-list"
+                                       theme={theme}
+                                       value={value}
+                                       selectMode={isEmpty ? SelectMode.DEFAULT : SelectMode.MULTI_SELECT}
+                                       data={isEmpty ? emptyEl : listData}
+                                       valueField={valueField}
+                                       displayField={displayField}
+                                       descriptionField={descriptionField}
+                                       onChange={this.changeHandler}/>
+                            :
+                            useDynamicRenderList ?
+                                <DynamicRenderList className="multiple-select-list"
+                                                   theme={theme}
+                                                   value={value}
+                                                   selectMode={isEmpty ? SelectMode.DEFAULT : SelectMode.MULTI_SELECT}
+                                                   data={isEmpty ? emptyEl : listData}
+                                                   valueField={valueField}
+                                                   displayField={displayField}
+                                                   descriptionField={descriptionField}
+                                                   listHeight={listHeight}
+                                                   itemHeight={itemHeight}
+                                                   scrollBuffer={scrollBuffer}
+                                                   onChange={this.changeHandler}/>
+                                :
+                                <List className="multiple-select-list"
+                                      theme={theme}
+                                      value={value}
+                                      selectMode={isEmpty ? SelectMode.DEFAULT : SelectMode.MULTI_SELECT}
+                                      data={isEmpty ? emptyEl : listData}
+                                      valueField={valueField}
+                                      displayField={displayField}
+                                      descriptionField={descriptionField}
+                                      onChange={this.changeHandler}/>
+                    }
 
                 </Popup>
 
@@ -535,6 +576,11 @@ MultipleSelect.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    useDynamicRenderList: PropTypes.bool,
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
     /**
      * Callback function fired when MultipleSelect changed.
      */
@@ -573,6 +619,7 @@ MultipleSelect.defaultProps = {
     iconCls: '',
     rightIconCls: '',
     noMatchedMsg: '',
-    isGrouped: false
+    isGrouped: false,
+    useDynamicRenderList: false
 
 };

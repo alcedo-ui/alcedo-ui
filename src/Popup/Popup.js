@@ -20,6 +20,10 @@ export default class Popup extends Component {
         super(props, ...restArgs);
     }
 
+    reDraw() {
+        this.forceUpdate();
+    }
+
     render() {
         return this.props.visible ?
             <Portal>
