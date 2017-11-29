@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import MultipleSelect from 'src/MultipleSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from '../PropTypeDescTable';
 import MultipleSelectDoc from 'assets/propTypes/MultipleSelect.json';
@@ -17,16 +16,7 @@ export default class MultipleSelectExamples extends Component {
         super(props);
 
         this.state = {
-            value: [{
-                value: 1,
-                text: 'one'
-            }, {
-                value: 5,
-                text: 'five'
-            }, {
-                value: 9,
-                text: 'nine'
-            }]
+            value: null
         };
 
         this.data = [{
@@ -90,11 +80,11 @@ export default class MultipleSelectExamples extends Component {
             }]
         }];
 
-        this.onChangeHandle = this::this.onChangeHandle;
+        this.onChangeHandler = this::this.onChangeHandler;
 
     }
 
-    onChangeHandle(value) {
+    onChangeHandler(value) {
 
         console.log('value changed: ', value);
 
@@ -135,8 +125,8 @@ export default class MultipleSelectExamples extends Component {
                                     <MultipleSelect className="multiple-select"
                                                     data={this.data}
                                                     value={value}
-                                                    placeholder="please select number"
-                                                    onChange={this.onChangeHandle}/>
+                                                    onChange={this.onChangeHandler}
+                                                    placeholder="please select number"/>
                                 </div>
 
                             </div>
@@ -160,8 +150,7 @@ export default class MultipleSelectExamples extends Component {
                                 <div className="field-group">
                                     <label className="multiple-select-label">Number</label>
                                     <MultipleSelect isGrouped={true}
-                                                    data={this.groupedData}
-                                                    theme={Theme.PRIMARY}/>
+                                                    data={this.groupedData}/>
                                 </div>
 
                             </div>
