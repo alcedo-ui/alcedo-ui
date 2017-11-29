@@ -148,7 +148,7 @@ export default class DropdownSelect extends Component {
 
         const {
                 className, popupClassName, style, name, placeholder, popupTheme, data,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
 
@@ -190,7 +190,12 @@ export default class DropdownSelect extends Component {
                                 placeholder
                         )
                         :
-                        Util.getTextByDisplayField(value, displayField, valueField)
+                        (
+                            renderer ?
+                                renderer(value)
+                                :
+                                Util.getTextByDisplayField(value, displayField, valueField)
+                        )
                 )
                 :
                 placeholder,
@@ -276,6 +281,7 @@ export default class DropdownSelect extends Component {
                                                    listHeight={listHeight}
                                                    itemHeight={itemHeight}
                                                    scrollBuffer={scrollBuffer}
+                                                   renderer={renderer}
                                                    onItemTouchTap={itemTouchTapHandle}
                                                    onChange={this.changeHandler}/>
                                 :
@@ -287,6 +293,7 @@ export default class DropdownSelect extends Component {
                                       valueField={valueField}
                                       displayField={displayField}
                                       descriptionField={descriptionField}
+                                      renderer={renderer}
                                       onItemTouchTap={itemTouchTapHandle}
                                       onChange={this.changeHandler}/>
                         }
@@ -492,6 +499,8 @@ DropdownSelect.propTypes = {
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
+
+    renderer: PropTypes.func,
 
     /**
      * Callback function fired when the button is touch-tapped.
