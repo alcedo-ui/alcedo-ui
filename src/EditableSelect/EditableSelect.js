@@ -203,13 +203,13 @@ export default class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, onItemTouchTap, selectMode,
+                triggerTheme, isGrouped, onItemTouchTap, selectMode, renderer,
                 onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 
             emptyEl = [{
-                renderer() {
+                itemRenderer() {
                     return (
                         <div className="no-matched-list-item">
 
@@ -230,7 +230,7 @@ export default class EditableSelect extends Component {
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
-            triggerValue = Util.getTextByDisplayField(value, displayField, valueField)
+            triggerValue = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField)
             ,
 
             editableSelectPopupClassName = (isAbove ? ' above' : ' blow')
@@ -240,7 +240,6 @@ export default class EditableSelect extends Component {
             }, popupStyle),
 
             listData = this.filterData();
-
         return (
             <div ref="editabledSelect"
                  className={'editable-select' + (className ? ' ' + className : '')}
@@ -296,6 +295,7 @@ export default class EditableSelect extends Component {
                           selectMode={selectMode}
                           displayField={displayField}
                           descriptionField={descriptionField}
+                          renderer={renderer}
                           onItemTouchTap={onItemTouchTap}
                           onChange={this.changeHandle}/>
 
@@ -338,6 +338,11 @@ EditableSelect.propTypes = {
      * The value of the editableSelect.
      */
     value: PropTypes.any,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
 
     /**
      * The placeholder of the editableSelect.
@@ -521,6 +526,6 @@ EditableSelect.defaultProps = {
     triggerTheme: Theme.DEFAULT,
     isGrouped: false,
 
-    selectMode:SelectMode.NORMAL
+    selectMode: SelectMode.NORMAL
 
 };
