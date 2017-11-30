@@ -14,11 +14,8 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
-import SelectMode from '../_statics/SelectMode';
 
 export default class EditableSelect extends Component {
-
-    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -164,8 +161,8 @@ export default class EditableSelect extends Component {
     }
 
     changeHandle(value) {
-        const {displayField, valueField, renderer} = this.props;
-        let itemValue = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField);
+        const {valueField, renderer} = this.props;
+        let itemValue = renderer ? renderer(value) : value[valueField];
         const {autoClose} = this.props,
             state = {
                 value: itemValue,
@@ -200,8 +197,8 @@ export default class EditableSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, useFilter, valueField, displayField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, onItemTouchTap, selectMode, renderer,
+                disabled, useFilter, valueField, descriptionField, noMatchedMsg,
+                triggerTheme, isGrouped, onItemTouchTap, renderer,
                 onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
@@ -290,8 +287,7 @@ export default class EditableSelect extends Component {
                           data={listData.length < 1 ? emptyEl : listData}
                           valueField={valueField}
                           value={listValue}
-                          selectMode={selectMode}
-                          displayField={displayField}
+                          displayField={valueField}
                           descriptionField={descriptionField}
                           renderer={renderer}
                           onItemTouchTap={onItemTouchTap}
@@ -438,19 +434,9 @@ EditableSelect.propTypes = {
     valueField: PropTypes.string,
 
     /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
-
-    /**
      * The description field name in data. (default: "desc")
      */
     descriptionField: PropTypes.string,
-
-    /**
-     * The mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The message of the editableSelect.
@@ -521,8 +507,6 @@ EditableSelect.defaultProps = {
     useFilter: false,
     noMatchedMsg: '',
     triggerTheme: Theme.DEFAULT,
-    isGrouped: false,
-
-    selectMode: SelectMode.NORMAL
+    isGrouped: false
 
 };

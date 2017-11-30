@@ -130,7 +130,6 @@ export default class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
-                                                    selectMode={EditableSelect.SelectMode.SINGLE_SELECT}
                                                     useFilter={true}/>
 
                                 </div>
