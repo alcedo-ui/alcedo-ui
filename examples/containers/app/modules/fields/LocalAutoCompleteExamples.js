@@ -150,6 +150,12 @@ export default class LocalAutoCompleteExamples extends Component {
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
                                                    noMatchedMsg="There have no matched value."
                                                    data={this.data}
+                                                   renderer={data => {
+                                                       return data && typeof data === 'object' ?
+                                                           `${data.text} (${data.value})`
+                                                           :
+                                                           `${data} (${data})`;
+                                                   }}
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>
 
