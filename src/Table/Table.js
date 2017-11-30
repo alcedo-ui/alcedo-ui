@@ -548,7 +548,7 @@ Table.propTypes = {
     /**
      * The table list data.
      */
-    data: PropTypes.array.isRequired,
+    data: PropTypes.array,
 
     /**
      * The value of tr.
