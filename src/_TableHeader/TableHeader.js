@@ -44,25 +44,33 @@ export default class TableHeader extends Component {
                 className, style, header, hidden,
                 sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
             } = this.props,
-            finalHeader = this.headerRenderer();
+
+            finalHeader = this.headerRenderer(),
+
+            tableHeaderClassName = (sortable ? ' sortable' : '') + (hidden ? ' hidden' : '')
+                + (className ? ' ' + className : '');
 
         return (
-            <th className={'table-header' + (hidden ? ' hidden' : '') + (className ? ' ' + className : '')}
+            <th className={'table-header' + tableHeaderClassName}
                 style={style}
                 title={typeof header === 'string' ? header : null}
                 onTouchTap={this.touchTapHandler}>
 
-                {finalHeader}
+                <div className="table-header-inner">
 
-                {
-                    sortable ?
-                        <TableHeaderSortIcon sort={sort}
-                                             sortProp={sortProp}
-                                             sortAscIconCls={sortAscIconCls}
-                                             sortDescIconCls={sortDescIconCls}/>
-                        :
-                        null
-                }
+                    {finalHeader}
+
+                    {
+                        sortable ?
+                            <TableHeaderSortIcon sort={sort}
+                                                 sortProp={sortProp}
+                                                 sortAscIconCls={sortAscIconCls}
+                                                 sortDescIconCls={sortDescIconCls}/>
+                            :
+                            null
+                    }
+
+                </div>
 
             </th>
         );

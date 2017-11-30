@@ -8,19 +8,13 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
-import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import MsgType from '../_statics/MsgType';
 
 export default class Notification extends Component {
 
-    static Type = {
-        DEFAULT: Theme.DEFAULT,
-        INFO: Theme.INFO,
-        SUCCESS: Theme.SUCCESS,
-        WARNING: Theme.WARNING,
-        ERROR: Theme.ERROR
-    };
+    static Type = MsgType;
 
     constructor(props, ...restArgs) {
 
@@ -43,11 +37,11 @@ export default class Notification extends Component {
 
     getIconCls() {
         switch (this.props.type) {
-            case 'success':
+            case MsgType.SUCCESS:
                 return 'fa fa-check-circle';
-            case 'warning':
+            case MsgType.WARNING:
                 return 'fa fa-exclamation-triangle';
-            case 'error':
+            case MsgType.ERROR:
                 return 'fa fa-times-circle';
             default:
                 return 'fa fa-info-circle';
@@ -80,6 +74,7 @@ export default class Notification extends Component {
 
         const notificationEl = this.refs.notification;
         notificationEl.style.height = notificationEl.clientHeight + 'px';
+        notificationEl.style.width = notificationEl.clientWidth + 'px';
 
         duration > 0 && (this.unrenderTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(notificationId);
@@ -183,7 +178,7 @@ Notification.propTypes = {
     /**
      * The type of notification.
      */
-    type: PropTypes.oneOf(Util.enumerateValue(Notification.Type)),
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
     /**
      * The title of notification.
@@ -219,7 +214,7 @@ Notification.defaultProps = {
     style: null,
 
     notificationId: 0,
-    type: Notification.Type.INFO,
+    type: MsgType.INFO,
     title: 'message',
     message: '',
     iconCls: '',

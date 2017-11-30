@@ -4,6 +4,11 @@
  */
 
 function addEvent(el, type, cb) {
+
+    if (!el || !type) {
+        return;
+    }
+
     if (typeof window.addEventListener === 'function') {
         el.addEventListener(type, cb, false);
     } else if (typeof document.attachEvent === 'function') {
@@ -11,9 +16,15 @@ function addEvent(el, type, cb) {
     } else {
         el[`on${type}`] = cb;
     }
+
 }
 
 function removeEvent(el, type, cb) {
+
+    if (!el || !type) {
+        return;
+    }
+
     if (typeof window.removeEventListener === 'function') {
         el.removeEventListener(type, cb, false);
     } else if (typeof document.detachEvent === 'function') {
@@ -21,6 +32,7 @@ function removeEvent(el, type, cb) {
     } else {
         el[`on${type}`] = null;
     }
+
 }
 
 function triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {

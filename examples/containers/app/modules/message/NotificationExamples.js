@@ -21,16 +21,16 @@ export default class NotificationExamples extends Component {
         super(props);
 
         this.state = {
-            type: Notifier.NotificationType.INFO,
+            type: Notifier.Type.INFO,
             position: Notifier.Position.BOTTOM_RIGHT,
             title: 'Title',
             message: 'Message',
             notifications: []
         };
 
-        this.notificationType = Object.keys(Notifier.NotificationType).map(item => ({
+        this.Type = Object.keys(Notifier.Type).map(item => ({
             label: item,
-            value: Notifier.NotificationType[item]
+            value: Notifier.Type[item]
         }));
 
         this.notificationPosition = Object.keys(Notifier.Position).map(item => ({
@@ -99,7 +99,7 @@ export default class NotificationExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
-                                    <RadioGroup data={this.notificationType}
+                                    <RadioGroup data={this.Type}
                                                 value={type}
                                                 onChange={(value) => {
                                                     this.updateField('type', value);

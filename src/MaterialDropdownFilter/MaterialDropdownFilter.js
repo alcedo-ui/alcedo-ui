@@ -29,6 +29,7 @@ export default class MaterialDropdownFilter extends Component {
         };
 
         this.triggerFocusHandler = ::this.triggerFocusHandler;
+        this.triggerBlurHandler = ::this.triggerBlurHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
         this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
@@ -44,6 +45,15 @@ export default class MaterialDropdownFilter extends Component {
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(...args);
+        });
+    }
+
+    triggerBlurHandler(...args) {
+        this.state.filter === '' && this.setState({
+            isFocus: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
         });
     }
 
@@ -137,6 +147,7 @@ export default class MaterialDropdownFilter extends Component {
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
+                                onBlur={this.triggerBlurHandler}
                                 onPopupClosed={this.popupClosedHandler}
                                 onTriggerMouseOver={this.triggerMouseOverHandler}
                                 onTriggerMouseOut={this.triggerMouseOutHandler}
@@ -190,7 +201,7 @@ MaterialDropdownFilter.propTypes = {
      */
     placeholder: PropTypes.string,
 
-    label: PropTypes.string,
+    label: PropTypes.any,
 
     /**
      * Children passed into the List.
@@ -331,6 +342,12 @@ MaterialDropdownFilter.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -401,6 +418,12 @@ MaterialDropdownFilter.defaultProps = {
     isGrouped: false,
     selectMode: SelectMode.NORMAL,
 
-    popupChildren: null
+    popupChildren: null,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

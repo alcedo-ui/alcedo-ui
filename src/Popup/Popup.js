@@ -5,28 +5,32 @@
 
 import React, {Component} from 'react';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import PopupBody from '../_PopupBody';
+
+import Position from '../_statics/Position';
+import TriggerMode from '../_statics/TriggerMode';
 
 export default class Popup extends Component {
 
-    static Position = PopupBody.Position;
-    static TriggerMode = PopupBody.TriggerMode;
+    static Position = Position;
+    static TriggerMode = TriggerMode;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
 
+    reDraw() {
+        this.forceUpdate();
+    }
+
     render() {
-
-        const {visible} = this.props;
-
-        return (
-            <SubtreeContainer visible={visible}>
+        return this.props.visible ?
+            <Portal>
                 <PopupBody {...this.props}/>
-            </SubtreeContainer>
-        );
-
+            </Portal>
+            :
+            null;
     }
 
 };

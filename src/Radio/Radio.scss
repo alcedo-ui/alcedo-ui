@@ -13,6 +13,17 @@
     @include float-fix;
     color: $theme-field;
 
+    .hidden-radio {
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        visibility: hidden;
+        appearance: none;
+    }
+
     .radio-icon-wrapper {
         display: inline-block;
         width: 40px;

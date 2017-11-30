@@ -1,5 +1,5 @@
 /**
- * @file DraggableGrid component
+ * @file DownloadField component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -44,14 +44,15 @@ export default class DownloadField extends Component {
         const {url} = this.props,
             {key} = this.state;
 
-        return (
+        return key > 0 ?
             <iframe key={key}
                     ref="iframe"
                     className="download-field"
                     src={key > 0 ? url : null}
                     onLoad={this.loadedHandler}
                     onError={this.loadedHandler}></iframe>
-        );
+            :
+            null;
 
     }
 };

@@ -4,13 +4,7 @@
  */
 
 .tip-provider {
-    display: inline-block;
-
-    &.block {
-        display: block;
-    }
-
-    .children-wrapper {
-        display: inherit;
+    .trigger-wrapper {
+        display: inline-block;
     }
 }

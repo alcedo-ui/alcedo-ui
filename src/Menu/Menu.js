@@ -5,28 +5,26 @@
 
 import React, {Component} from 'react';
 
-import SubtreeContainer from '../_SubtreeContainer';
+import Portal from '../Portal';
 import MenuBody from '../_MenuBody';
+
+import Position from '../_statics/Position';
 
 export default class Menu extends Component {
 
-    static Position = MenuBody.Position;
-    static TriggerMode = MenuBody.TriggerMode;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
 
     render() {
-
-        const {visible} = this.props;
-
-        return (
-            <SubtreeContainer visible={visible}>
+        return this.props.visible ?
+            <Portal>
                 <MenuBody {...this.props}/>
-            </SubtreeContainer>
-        );
-
+            </Portal>
+            :
+            null;
     }
 
 };

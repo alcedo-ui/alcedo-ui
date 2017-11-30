@@ -18,10 +18,12 @@ import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
+import SortType from '../_statics/SortType';
 
 export default class Table extends Component {
 
     static SelectMode = SelectMode;
+    static SortType = SortType;
 
     constructor(props, ...restArgs) {
 
@@ -155,18 +157,19 @@ export default class Table extends Component {
 
     }
 
-    sortHandler(prop) {
+    sortHandler(col) {
 
-        const {sort} = this.state;
-        let type = 1;
+        const {defaultSortType} = this.props,
+            {sort} = this.state;
+        let type = col.defaultSortType || defaultSortType;
 
-        if (sort && sort.prop === prop) {
+        if (sort && sort.prop === col.sortProp) {
             type = -sort.type;
         }
 
         this.setState({
             sort: {
-                prop,
+                prop: col.sortProp,
                 type
             }
         });
@@ -396,7 +399,7 @@ export default class Table extends Component {
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
 
                 // not passing down these props
-                defaultPageSize, sortInitConfig, onPageChange,
+                defaultSortType, defaultPageSize, sortInitConfig, onPageChange,
 
                 ...restProps
 
@@ -416,7 +419,7 @@ export default class Table extends Component {
                 headerClassName: 'table-select-th',
                 header() {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isHeadChecked()}
+                                     checked={self.isHeadChecked()}
                                      disabled={disabled}
                                      indeterminate={self.isHeadIndeterminate()}
                                      onChange={self.headCheckBoxChangeHandler}/>;
@@ -424,7 +427,7 @@ export default class Table extends Component {
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return <Checkbox className="table-checkbox"
-                                     value={self.isItemChecked(rowData, value)}
+                                     checked={self.isItemChecked(rowData, value)}
                                      disabled={disabled || rowData.disabled}/>;
                 }
             });
@@ -617,7 +620,9 @@ Table.propTypes = {
         /**
          * Sort field.
          */
-        sortProp: PropTypes.string
+        sortProp: PropTypes.string,
+
+        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType))
 
     })).isRequired,
 
@@ -680,6 +685,7 @@ Table.propTypes = {
 
     }),
 
+    defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
     paggingPrevIconCls: PropTypes.string,
@@ -733,6 +739,7 @@ Table.defaultProps = {
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
 
+    defaultSortType: SortType.ASC,
     sortInitConfig: null
 
 };

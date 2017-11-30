@@ -4,8 +4,21 @@
  */
 
 .download-field {
+    position: absolute;
     width: 0;
     height: 0;
     visibility: hidden;
     opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    appearance: none;
+    background: transparent;
+    z-index: -1;
+    overflow: hidden;
+    cursor: none;
+    pointer-events: none;
+    white-space: nowrap;
+    resize: none;
+    outline: none;
 }

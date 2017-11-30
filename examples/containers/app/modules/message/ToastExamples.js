@@ -21,15 +21,15 @@ export default class ToastExamples extends Component {
         super(props);
 
         this.state = {
-            type: Toaster.ToastType.INFO,
+            type: Toaster.Type.INFO,
             position: Toaster.Position.BOTTOM_RIGHT,
             message: 'Message',
             toasts: []
         };
 
-        this.ToastType = Object.keys(Toaster.ToastType).map(item => ({
+        this.Type = Object.keys(Toaster.Type).map(item => ({
             label: item,
-            value: Toaster.ToastType[item]
+            value: Toaster.Type[item]
         }));
 
         this.ToasterPosition = Object.keys(Toaster.Position).map(item => ({
@@ -97,7 +97,7 @@ export default class ToastExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Type</label>
-                                    <RadioGroup data={this.ToastType}
+                                    <RadioGroup data={this.Type}
                                                 value={type}
                                                 onChange={(value) => {
                                                     this.updateField('type', value);
