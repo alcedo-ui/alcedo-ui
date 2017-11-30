@@ -74,10 +74,7 @@ export default class EditableSelect extends Component {
             listValue: ''
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange({
-                [this.props.valueField]: value,
-                [this.props.displayField]: value
-            });
+            onChange && onChange(value);
         });
     }
 
@@ -167,10 +164,11 @@ export default class EditableSelect extends Component {
     }
 
     changeHandle(value) {
-
+        const {displayField, valueField, renderer} = this.props;
+        let itemValue = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField);
         const {autoClose} = this.props,
             state = {
-                value,
+                value: itemValue,
                 listValue: value
             };
 
@@ -180,7 +178,7 @@ export default class EditableSelect extends Component {
 
         this.setState(state, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange(itemValue);
         });
 
     }
@@ -230,8 +228,6 @@ export default class EditableSelect extends Component {
 
             triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
                 + (value ? '' : ' empty'),
-            triggerValue = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField)
-            ,
 
             editableSelectPopupClassName = (isAbove ? ' above' : ' blow')
                 + (popupClassName ? ' ' + popupClassName : ''),
@@ -240,6 +236,7 @@ export default class EditableSelect extends Component {
             }, popupStyle),
 
             listData = this.filterData();
+
         return (
             <div ref="editabledSelect"
                  className={'editable-select' + (className ? ' ' + className : '')}
@@ -249,15 +246,16 @@ export default class EditableSelect extends Component {
                     name ?
                         <input type="hidden"
                                name={name}
-                               value={Util.getValueByValueField(value, valueField, displayField)}/>
+                               value={value}/>
                         :
                         null
                 }
 
                 <TextField ref="trigger"
                            className={'editable-select-trigger' + triggerClassName}
-                           value={triggerValue}
+                           value={value}
                            rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
+                           placeholder={placeholder}
                            disabled={disabled}
                            theme={triggerTheme}
                            onMouseOver={onTriggerMouseOver}
@@ -509,13 +507,12 @@ EditableSelect.defaultProps = {
     popupStyle: null,
 
     name: '',
-    value: null,
+    value: '',
     placeholder: 'Please select ...',
     data: [],
     invalidMsg: '',
     disabled: false,
 
-    valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
