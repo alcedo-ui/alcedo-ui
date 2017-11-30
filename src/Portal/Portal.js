@@ -1,0 +1,77 @@
+/**
+ * @file Portal component
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-transition-group';
+import {createPortal} from 'react-dom';
+
+export default class Portal extends Component {
+
+    constructor(props, ...restArgs) {
+
+        super(props, ...restArgs);
+
+        this.wrapper = null;
+
+        this.renderWrapper = ::this.renderWrapper;
+
+    }
+
+    renderWrapper() {
+
+        if (this.wrapper) {
+            return;
+        }
+
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'portal';
+        document.body.appendChild(this.wrapper);
+
+    }
+
+    componentWillUnmount() {
+        if (this.wrapper) {
+            document.body.removeChild(this.wrapper);
+        }
+    }
+
+    render() {
+
+        const {className, style} = this.props;
+
+        this.renderWrapper();
+
+        return createPortal(
+            <ReactCSSTransitionGroup component="div"
+                                     className={className}
+                                     style={style}>
+                {this.props.children}
+            </ReactCSSTransitionGroup>,
+            this.wrapper
+        );
+
+    }
+
+};
+
+Portal.propTypes = {
+
+    /**
+     * The css class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
+    style: PropTypes.object
+
+};
+
+Portal.defaultProps = {
+    className: '',
+    style: null
+};
