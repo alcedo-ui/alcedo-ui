@@ -68,20 +68,32 @@ export default class LocalAutoComplete extends Component {
             return data;
         }
 
-        const {displayField, filterCallback} = this.props;
+        const {valueField, displayField, renderer, filterCallback} = this.props;
 
         if (filterCallback) {
             return filterCallback(filter, data);
         }
 
-        const filterFunc = (originData) => {
-            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase()));
-        };
+        return data.filter(item => {
 
-        return filterFunc(data);
+            if (renderer) {
+                return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
+            }
+
+
+            if (typeof item === 'object') {
+
+                const itemDisplay = Util.getTextByDisplayField(item, displayField, valueField);
+
+                if (itemDisplay) {
+                    return itemDisplay.toString().toUpperCase().includes(filter.toUpperCase());
+                }
+
+            }
+
+            return item.toString().toUpperCase().includes(filter.toUpperCase());
+
+        });
 
     }
 
@@ -168,10 +180,10 @@ export default class LocalAutoComplete extends Component {
 
     changeHandler(value) {
 
-        const {autoClose, valueField, displayField} = this.props,
+        const {autoClose, valueField, displayField, renderer} = this.props,
             state = {
                 value,
-                filter: Util.getTextByDisplayField(value, displayField, valueField)
+                filter: renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField)
             };
 
         if (autoClose) {
