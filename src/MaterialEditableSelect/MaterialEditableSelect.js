@@ -60,7 +60,6 @@ export default class MaterialEditableSelect extends Component {
     }
 
     triggerChangeHandler(value) {
-        console.log(value)
         this.setState({
             value
         }, () => {
