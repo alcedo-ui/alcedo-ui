@@ -44,6 +44,15 @@ export default class MaterialEditableSelect extends Component {
         });
     }
 
+    triggerBlurHandler(...args) {
+        this.setState({
+            isFocus: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
+        });
+    }
+
     popupClosedHandler() {
         this.setState({
             isFocus: false
@@ -111,10 +120,10 @@ export default class MaterialEditableSelect extends Component {
                 className, style, theme, label, isLabelAnimated, popupClassName,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value, filter} = this.state,
+            {isFocus, isHover, value} = this.state,
 
             wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+                + (value ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'material-editable-select' + wrapperClassName}
@@ -135,6 +144,7 @@ export default class MaterialEditableSelect extends Component {
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
+                                onBlur={this.triggerBlurHandler}
                                 onPopupClosed={this.popupClosedHandler}
                                 onTriggerMouseOver={this.triggerMouseOverHandler}
                                 onTriggerMouseOut={this.triggerMouseOutHandler}
