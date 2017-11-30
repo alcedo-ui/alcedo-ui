@@ -477,16 +477,17 @@ export default class Table extends Component {
                                onSort={this.sortHandler}/>
 
                         {
-                            finalData && finalDataCount > 0
-                                ? <Tbody columns={finalColumns}
-                                         data={finalData}
-                                         idProp={idProp}
-                                         value={value}
-                                         selectMode={selectMode}
-                                         disabled={disabled}
-                                         onRowTouchTap={this.rowTouchTapHandler}
-                                         onCellTouchTap={this.cellTouchTapHandler}/>
-                                : null
+                            finalData && finalDataCount > 0 ?
+                                <Tbody columns={finalColumns}
+                                       data={finalData}
+                                       idProp={idProp}
+                                       value={value}
+                                       selectMode={selectMode}
+                                       disabled={disabled}
+                                       onRowTouchTap={this.rowTouchTapHandler}
+                                       onCellTouchTap={this.cellTouchTapHandler}/>
+                                :
+                                null
                         }
 
                     </table>
@@ -548,7 +549,19 @@ Table.propTypes = {
     /**
      * The table list data.
      */
-    data: PropTypes.array,
+    data: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * The class name of tr.
+         */
+        rowClassName: PropTypes.string,
+
+        /**
+         * Override the styles of tr.
+         */
+        rowStyle: PropTypes.object
+
+    })).isRequired,
 
     /**
      * The value of tr.
