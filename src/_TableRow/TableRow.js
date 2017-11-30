@@ -72,10 +72,13 @@ export default class TableRow extends Component {
 
     render() {
 
-        const {columns, isChecked, disabled} = this.props;
+        const {data, columns, isChecked, disabled} = this.props,
+
+            trClassName = (isChecked ? ' activated' : '') + (data.rowClassName ? ' ' + data.rowClassName : '');
 
         return (
-            <tr className={'table-row' + (isChecked ? ' activated' : '')}
+            <tr className={'table-row' + trClassName}
+                style={data.rowStyle}
                 disabled={disabled}
                 onTouchTap={this.rowTouchTapHandler}>
 
