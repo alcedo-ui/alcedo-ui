@@ -15,21 +15,21 @@ export default class EditableSelectExamples extends Component {
 
         super(props);
 
-        this.data = ['test0', 'test1', {
+        this.data = [{value: 0, text: 'test0'}, {value: 1, text: 'test1'}, {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
             onTouchTap() {
                 console.log('test2 selected!');
             }
-        }, 'test3', 'test4', 'test5', {
+        }, {value: 3, text: 'test3'}, {value: 4, text: 'test4'}, {value: 5, text: 'test5'}, {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
             onTouchTap() {
                 console.log('test6 selected!');
             }
-        }, 'test7', 'test8', 'test9'];
+        }, {value: 6, text: 'test6'}, {value: 7, text: 'test7'}, {value: 8, text: 'test8'}];
 
         this.groupedData = [{
             name: 'socialNetwork',
@@ -100,7 +100,11 @@ export default class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
-                                                    />
+                                                    renderer={data => {
+                                                        return data ?
+                                                            `[${data.value}] ${data.text}` : null
+                                                    }}
+                                    />
 
                                 </div>
 
