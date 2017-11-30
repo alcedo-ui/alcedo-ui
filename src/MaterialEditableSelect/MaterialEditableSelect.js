@@ -11,11 +11,8 @@ import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import SelectMode from '../_statics/SelectMode';
 
 export default class MaterialEditableSelect extends Component {
-
-    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -63,6 +60,7 @@ export default class MaterialEditableSelect extends Component {
     }
 
     triggerChangeHandler(value) {
+        console.log(value)
         this.setState({
             value
         }, () => {
@@ -197,6 +195,11 @@ MaterialEditableSelect.propTypes = {
     value: PropTypes.any,
 
     /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
      * The placeholder of the editableSelect.
      */
     placeholder: PropTypes.string,
@@ -292,19 +295,9 @@ MaterialEditableSelect.propTypes = {
     valueField: PropTypes.string,
 
     /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
-
-    /**
      * The description field name in data. (default: "desc")
      */
     descriptionField: PropTypes.string,
-
-    /**
-     * The mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
      * The message of the editableSelect.
@@ -361,7 +354,7 @@ MaterialEditableSelect.defaultProps = {
     popupStyle: null,
 
     name: '',
-    value: null,
+    value: '',
     label: null,
     isLabelAnimated: true,
     placeholder: 'Please select ...',
@@ -380,5 +373,4 @@ MaterialEditableSelect.defaultProps = {
     triggerTheme: Theme.DEFAULT,
     isGrouped: false,
 
-    selectMode: MaterialEditableSelect.NORMAL
 };

@@ -162,7 +162,7 @@ export default class EditableSelect extends Component {
 
     changeHandle(value) {
         const {valueField, renderer} = this.props;
-        let itemValue = renderer ? renderer(value) : value[valueField];
+        let itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
         const {autoClose} = this.props,
             state = {
                 value: itemValue,
