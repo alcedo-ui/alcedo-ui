@@ -81,10 +81,10 @@ export default class ListItem extends Component {
         const {selectMode} = this.props;
 
         switch (selectMode) {
-            case ListItem.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case ListItem.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -132,7 +132,7 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === ListItem.SelectMode.SINGLE_SELECT ?
+                        selectMode === SelectMode.SINGLE_SELECT ?
                             <Radio className="list-item-checked"
                                    theme={selectTheme}
                                    checked={checked}
@@ -144,7 +144,7 @@ export default class ListItem extends Component {
                     }
 
                     {
-                        selectMode === ListItem.SelectMode.MULTI_SELECT ?
+                        selectMode === SelectMode.MULTI_SELECT ?
                             <Checkbox className="list-item-checkbox"
                                       theme={selectTheme}
                                       checked={checked}
