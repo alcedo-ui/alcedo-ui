@@ -15,9 +15,28 @@ export default class TreeExamples extends Component {
         super(props);
 
         this.data = {
-            id: '1 - 1',
-            text: 'one-1',
-            deep: 1
+            id: '0',
+            text: 'Root',
+            children: [{
+                id: '00',
+                text: 'Children 0 - 0'
+            }, {
+                id: '01',
+                text: 'Children 0 - 1',
+                children: [{
+                    id: '010',
+                    text: 'Children 0 - 1 - 0'
+                }, {
+                    id: '011',
+                    text: 'Children 0 - 1 - 1'
+                }, {
+                    id: '012',
+                    text: 'Children 0 - 1 - 2'
+                }]
+            }, {
+                id: '02',
+                text: 'Children 0 - 2'
+            }]
         };
 
         this.onChangeHandler = this::this.onChangeHandler;
