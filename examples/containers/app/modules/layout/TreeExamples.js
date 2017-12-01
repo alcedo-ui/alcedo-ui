@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
-import Tree from 'src/Tree/index';
+import Paper from 'src/Paper';
+import Tree from 'src/Tree';
 import TreeDoc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
@@ -74,8 +75,10 @@ export default class TreeExamples extends Component {
 
                                 <p><code>Tree</code>simple example.</p>
 
-                                <Tree className="tree-example"
-                                      data={this.data}/>
+                                <Paper className="tree-wrapper">
+                                    <Tree className="tree-example"
+                                          data={this.data}/>
+                                </Paper>
 
                             </div>
 

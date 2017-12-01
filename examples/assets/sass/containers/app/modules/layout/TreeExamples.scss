@@ -4,26 +4,9 @@
 
     .examples-wrapper {
 
-        .field-group {
-
-            @include float-fix;
-
-            float: none;
-
-            .tree-label,
-            .tree {
-                float: left;
-            }
-
-            .tree-label {
-                font-size: 14px;
-                line-height: 50px;
-                margin-right: 20px;
-                width: 60px;
-            }
-            .tree {
-                width: 300px;
-            }
+        .tree-wrapper {
+            border: 1px solid $theme-border;
+            overflow: hidden;
         }
     }
 }
