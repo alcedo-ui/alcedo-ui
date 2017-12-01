@@ -12,6 +12,7 @@ import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 export default class BaseButton extends Component {
 
@@ -172,7 +173,7 @@ BaseButton.propTypes = {
     rightIconCls: PropTypes.string,
 
     tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     rippleDisplayCenter: PropTypes.bool,
 
@@ -207,6 +208,6 @@ BaseButton.defaultProps = {
     rightIconCls: null,
 
     tip: null,
-    tipPosition: TipProvider.Position.BOTTOM
+    tipPosition: Position.BOTTOM
 
 };
