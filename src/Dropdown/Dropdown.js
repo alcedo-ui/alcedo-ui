@@ -236,7 +236,8 @@ Dropdown.propTypes = {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onTriggerMouseOut: PropTypes.func,
+    onTriggerTouchTap: PropTypes.func
 
 };
 
