@@ -5,7 +5,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
@@ -147,10 +146,14 @@ export default class DropdownSelect extends Component {
     render() {
 
         const {
+
                 className, popupClassName, style, name, placeholder, popupTheme, data,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                itemTouchTapHandle, disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut, popupChildren,
+                onItemTouchTap, popupChildren,
+
+                // not passing down these props
+                disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
 
                 ...restProps
 
@@ -282,7 +285,7 @@ export default class DropdownSelect extends Component {
                                                    itemHeight={itemHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    renderer={renderer}
-                                                   onItemTouchTap={itemTouchTapHandle}
+                                                   onItemTouchTap={onItemTouchTap}
                                                    onChange={this.changeHandler}/>
                                 :
                                 <List className="dropdown-select-list"
@@ -294,7 +297,7 @@ export default class DropdownSelect extends Component {
                                       displayField={displayField}
                                       descriptionField={descriptionField}
                                       renderer={renderer}
-                                      onItemTouchTap={itemTouchTapHandle}
+                                      onItemTouchTap={onItemTouchTap}
                                       onChange={this.changeHandler}/>
                         }
 
