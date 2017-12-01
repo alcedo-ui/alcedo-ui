@@ -51,6 +51,7 @@ export default class GridGroup extends Component {
                     </div>
 
                 </div>
+
             </TipProvider>
         );
 
