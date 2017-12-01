@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import ListItem from '../_ListItem';
+import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -180,7 +180,7 @@ export default class Tree extends Component {
 
         const {
 
-                children, className, style, theme, data, itemHeight,
+                children, className, style, theme, data,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -196,26 +196,18 @@ export default class Tree extends Component {
                  style={style}
                  onWheel={this.wheelHandler}>
 
-                <ListItem key={item[idField] || index}
-                          {...item}
-                          index={index}
-                          style={{height: itemHeight}}
-                          theme={item.theme || theme}
+                <TreeNode {...data}
+                          theme={data.theme || theme}
                           selectTheme={item.selectTheme || selectTheme}
+                          disabled={disabled || item.disabled}
+                          isLoading={isLoading || item.isLoading}
+                          selectMode={selectMode}
+                          renderer={renderer}
                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                          data={item}
-                          checked={this.isItemChecked(item)}
-                          value={Util.getValueByValueField(item, valueField, displayField)}
-                          text={Util.getTextByDisplayField(item, displayField, valueField)}
-                          desc={item[descriptionField] || null}
-                          disabled={disabled || item.disabled}
-                          isLoading={isLoading || item.isLoading}
-                          selectMode={selectMode}
-                          renderer={renderer}
                           onTouchTap={(e) => {
                               this.listItemTouchTapHandler(item, index);
                               item.onTouchTap && item.onTouchTap(e);
