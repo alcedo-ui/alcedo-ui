@@ -4,5 +4,8 @@
  */
 
 .tree {
-
+    width: 200px;
+    background: $theme-field-bg;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
