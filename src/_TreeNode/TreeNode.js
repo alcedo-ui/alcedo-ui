@@ -14,6 +14,7 @@ import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
 export default class TreeNode extends Component {
@@ -293,7 +294,7 @@ TreeNode.propTypes = {
     rightIconCls: PropTypes.string,
 
     tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
     rippleDisplayCenter: PropTypes.bool,
 
     /**
@@ -351,7 +352,7 @@ TreeNode.defaultProps = {
     rightIconCls: null,
 
     tip: null,
-    tipPosition: TipProvider.Position.BOTTOM,
+    tipPosition: Position.BOTTOM,
 
     rippleDisplayCenter: false,
 
