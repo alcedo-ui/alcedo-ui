@@ -476,7 +476,7 @@ List.defaultProps = {
     theme: Theme.DEFAULT,
     selectTheme: Theme.DEFAULT,
 
-    data: [],
+    data: null,
 
     idField: 'id',
     valueField: 'value',
