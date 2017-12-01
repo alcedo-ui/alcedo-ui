@@ -29,9 +29,9 @@ export default class Tree extends Component {
 
         this.initValue = ::this.initValue;
         this.isItemChecked = ::this.isItemChecked;
-        this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
+        this.treeNodeTouchTapHandler = ::this.treeNodeTouchTapHandler;
+        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
+        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
         this.wheelHandler = ::this.wheelHandler;
 
     }
@@ -82,7 +82,7 @@ export default class Tree extends Component {
 
     }
 
-    listItemTouchTapHandler(value, index) {
+    treeNodeTouchTapHandler(value) {
 
         const {selectMode} = this.props;
 
@@ -94,13 +94,13 @@ export default class Tree extends Component {
             value
         }, () => {
             const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value, index);
-            onChange && onChange(value, index);
+            onItemTouchTap && onItemTouchTap(value);
+            onChange && onChange(value);
         });
 
     }
 
-    listItemSelectHandler(item, index) {
+    treeNodeSelectHandler(item) {
 
         const {selectMode} = this.props;
 
@@ -126,13 +126,13 @@ export default class Tree extends Component {
             value
         }, () => {
             const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(item, index);
-            onChange && onChange(value, index);
+            onItemSelect && onItemSelect(item);
+            onChange && onChange(value);
         });
 
     }
 
-    listItemDeselectHandler(item, index) {
+    treeNodeDeselectHandler(item) {
 
         const {selectMode} = this.props;
 
@@ -156,8 +156,8 @@ export default class Tree extends Component {
             value
         }, () => {
             const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(item, index);
-            onChange && onChange(value, index);
+            onItemDeselect && onItemDeselect(item);
+            onChange && onChange(value);
         });
 
     }
@@ -198,25 +198,25 @@ export default class Tree extends Component {
 
                 <TreeNode {...data}
                           theme={data.theme || theme}
-                          selectTheme={item.selectTheme || selectTheme}
-                          disabled={disabled || item.disabled}
-                          isLoading={isLoading || item.isLoading}
+                          selectTheme={data.selectTheme || selectTheme}
+                          disabled={disabled || data.disabled}
+                          isLoading={isLoading || data.isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                          radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                          checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                          onTouchTap={(e) => {
-                              this.listItemTouchTapHandler(item, index);
-                              item.onTouchTap && item.onTouchTap(e);
+                          radioUncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
+                          radioCheckedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
+                          checkboxUncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                          checkboxCheckedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                          checkboxIndeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                          onTouchTap={e => {
+                              this.treeNodeTouchTapHandler(data);
+                              data.onTouchTap && data.onTouchTap(e);
                           }}
                           onSelect={() => {
-                              this.listItemSelectHandler(item, index);
+                              this.treeNodeSelectHandler(data);
                           }}
                           onDeselect={() => {
-                              this.listItemDeselectHandler(item, index);
+                              this.treeNodeDeselectHandler(data);
                           }}/>
 
                 {children}
@@ -251,7 +251,7 @@ Tree.propTypes = {
     /**
      * Children passed into the ListItem.
      */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.shape({
 
         /**
          * The CSS class name of the tree item.
@@ -333,7 +333,7 @@ Tree.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
+    }).isRequired,
 
     /**
      * The id field name in data. (default: "id")
