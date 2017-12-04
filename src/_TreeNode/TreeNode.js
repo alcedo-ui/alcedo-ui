@@ -12,6 +12,7 @@ import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
+import IconButton from '../IconButton';
 
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
@@ -26,7 +27,8 @@ export default class TreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            checked: props.checked
+            checked: props.checked,
+            collapsed: false
         };
 
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
@@ -104,9 +106,12 @@ export default class TreeNode extends Component {
 
         const {
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly, children,
+                children,
 
+                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+
+                collapsedIconCls, expandedIconCls,
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -133,6 +138,14 @@ export default class TreeNode extends Component {
                          onTouchTap={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
+
+                        {
+                            children && children.length > 0 ?
+                                <IconButton className="tree-node-collapse-icon"
+                                            iconCls={collapsedIconCls}/>
+                                :
+                                null
+                        }
 
                         {
                             selectMode === SelectMode.SINGLE_SELECT ?
@@ -236,6 +249,8 @@ export default class TreeNode extends Component {
                                       isLoading={isLoading || item.isLoading}
                                       selectMode={selectMode}
                                       renderer={renderer}
+                                      collapsedIconCls={item.collapsedIconCls || collapsedIconCls}
+                                      expandedIconCls={item.expandedIconCls || expandedIconCls}
                                       radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
                                       radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
                                       checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
@@ -258,96 +273,54 @@ TreeNode.propTypes = {
 
     index: PropTypes.number,
 
-    /**
-     * The CSS class name of the list button.
-     */
     className: PropTypes.string,
-
-    /**
-     * Override the styles of the list button.
-     */
     style: PropTypes.object,
-
-    /**
-     * The theme of the list item.
-     */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    themeGlobal: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The theme of the list item select radio or checkbox.
-     */
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectThemeGlobal: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    selectModeGlobal: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-
-    /**
-     * The text value of the list button. Type can be string or number.
-     */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /**
-     * The list item's display text. Type can be string, number or bool.
-     */
     text: PropTypes.any,
-
-    /**
-     * The desc value of the list button. Type can be string or number.
-     */
     desc: PropTypes.string,
 
-    /**
-     * If true, the list button will be disabled.
-     */
     disabled: PropTypes.bool,
-
-    /**
-     * If true,the button will be have loading effect.
-     */
     isLoading: PropTypes.bool,
-
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
     disableTouchRipple: PropTypes.bool,
+    rippleDisplayCenter: PropTypes.bool,
 
-    /**
-     * Use this property to display an icon. It will display on the left.
-     */
+    checked: PropTypes.bool,
+    readOnly: PropTypes.bool,
+
     iconCls: PropTypes.string,
-
-    /**
-     * Use this property to display an icon. It will display on the right.
-     */
     rightIconCls: PropTypes.string,
 
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-    rippleDisplayCenter: PropTypes.bool,
 
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    itemRenderer: PropTypes.func,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
     renderer: PropTypes.func,
+    rendererGlobal: PropTypes.func,
 
-    checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    readOnly: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+    collapsedIconClsGlobal: PropTypes.string,
+    expandedIconClsGlobal: PropTypes.string,
+    radioUncheckedIconClsGlobal: PropTypes.string,
+    radioCheckedIconClsGlobal: PropTypes.string,
+    checkboxUncheckedIconClsGlobal: PropTypes.string,
+    checkboxCheckedIconClsGlobal: PropTypes.string,
+    checkboxIndeterminateIconClsGlobal: PropTypes.string,
 
-    /**
-     * Callback function fired when a list item touch-tapped.
-     */
     onTouchTap: PropTypes.func,
-
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -361,9 +334,13 @@ TreeNode.defaultProps = {
 
     className: null,
     style: null,
-
     theme: Theme.DEFAULT,
+    themeGlobal: Theme.DEFAULT,
+
     selectTheme: Theme.DEFAULT,
+    selectThemeGlobal: Theme.DEFAULT,
+    selectMode: SelectMode.NORMAL,
+    selectModeGlobal: SelectMode.NORMAL,
 
     data: null,
     value: null,
@@ -372,8 +349,11 @@ TreeNode.defaultProps = {
 
     disabled: false,
     isLoading: false,
-
     disableTouchRipple: false,
+    rippleDisplayCenter: false,
+
+    checked: false,
+    readOnly: false,
 
     iconCls: null,
     rightIconCls: null,
@@ -381,18 +361,19 @@ TreeNode.defaultProps = {
     tip: null,
     tipPosition: Position.BOTTOM,
 
-    rippleDisplayCenter: false,
-
-    checked: false,
-
-    selectMode: SelectMode.NORMAL,
-
-    readOnly: false,
-
+    collapsedIconCls: 'fa fa-caret-right',
+    expandedIconCls: 'fa fa-caret-down',
     radioUncheckedIconCls: 'fa fa-check',
     radioCheckedIconCls: 'fa fa-check',
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+    collapsedIconClsGlobal: 'fa fa-caret-right',
+    expandedIconClsGlobal: 'fa fa-caret-down',
+    radioUncheckedIconClsGlobal: 'fa fa-check',
+    radioCheckedIconClsGlobal: 'fa fa-check',
+    checkboxUncheckedIconClsGlobal: 'fa fa-square-o',
+    checkboxCheckedIconClsGlobal: 'fa fa-check-square',
+    checkboxIndeterminateIconClsGlobal: 'fa fa-minus-square'
 
 };

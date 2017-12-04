@@ -38,6 +38,12 @@
     color: $theme-field;
     background-color: $theme-field-bg;
 
+    .tree-node-collapse-icon {
+        .button-icon.button-icon-left {
+            float: none;
+        }
+    }
+
     .tree-node-checkbox {
         display: inline-block;
         width: 16px;
