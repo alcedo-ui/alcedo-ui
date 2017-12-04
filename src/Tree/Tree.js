@@ -182,6 +182,7 @@ export default class Tree extends Component {
 
                 children, className, style, theme, data,
 
+                collapsedIconCls, expandedIconCls,
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -197,17 +198,19 @@ export default class Tree extends Component {
                  onWheel={this.wheelHandler}>
 
                 <TreeNode {...data}
-                          theme={data.theme || theme}
-                          selectTheme={data.selectTheme || selectTheme}
-                          disabled={disabled || data.disabled}
-                          isLoading={isLoading || data.isLoading}
-                          selectMode={selectMode}
-                          renderer={renderer}
-                          radioUncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
-                          radioCheckedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                          checkboxUncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                          themeGlobal={theme}
+                          selectThemeGlobal={selectTheme}
+                          disabledGlobal={disabled}
+                          isLoadingGlobal={isLoading}
+                          selectModeGlobal={selectMode}
+                          rendererGlobal={renderer}
+                          collapsedIconClsGlobal={collapsedIconCls}
+                          expandedIconClsGlobal={expandedIconCls}
+                          radioUncheckedIconClsGlobal={radioUncheckedIconCls}
+                          radioCheckedIconClsGlobal={radioCheckedIconCls}
+                          checkboxUncheckedIconClsGlobal={checkboxUncheckedIconCls}
+                          checkboxCheckedIconClsGlobal={checkboxCheckedIconCls}
+                          checkboxIndeterminateIconClsGlobal={checkboxIndeterminateIconCls}
                           onTouchTap={e => {
                               this.treeNodeTouchTapHandler(data);
                               data.onTouchTap && data.onTouchTap(e);
@@ -328,7 +331,7 @@ Tree.propTypes = {
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
 
         /**
          * Callback function fired when a tree item touch-tapped.
@@ -374,6 +377,8 @@ Tree.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
 
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -429,6 +434,8 @@ Tree.defaultProps = {
     selectMode: SelectMode.NORMAL,
     shouldPreventContainerScroll: true,
 
+    collapsedIconCls: 'fa fa-caret-right',
+    expandedIconCls: 'fa fa-caret-down',
     radioUncheckedIconCls: 'fa fa-check',
     radioCheckedIconCls: 'fa fa-check',
     checkboxUncheckedIconCls: 'fa fa-square-o',
