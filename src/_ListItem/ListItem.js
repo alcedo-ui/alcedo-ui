@@ -231,96 +231,40 @@ ListItem.propTypes = {
 
     index: PropTypes.number,
 
-    /**
-     * The CSS class name of the list button.
-     */
     className: PropTypes.string,
-
-    /**
-     * Override the styles of the list button.
-     */
     style: PropTypes.object,
-
-    /**
-     * The theme of the list item.
-     */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The theme of the list item select radio or checkbox.
-     */
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-
-    /**
-     * The text value of the list button. Type can be string or number.
-     */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /**
-     * The list item's display text. Type can be string, number or bool.
-     */
     text: PropTypes.any,
-
-    /**
-     * The desc value of the list button. Type can be string or number.
-     */
     desc: PropTypes.string,
 
-    /**
-     * If true, the list button will be disabled.
-     */
     disabled: PropTypes.bool,
-
-    /**
-     * If true,the button will be have loading effect.
-     */
     isLoading: PropTypes.bool,
-
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
     disableTouchRipple: PropTypes.bool,
+    rippleDisplayCenter: PropTypes.bool,
+    checked: PropTypes.bool,
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    readOnly: PropTypes.bool,
 
-    /**
-     * Use this property to display an icon. It will display on the left.
-     */
     iconCls: PropTypes.string,
-
-    /**
-     * Use this property to display an icon. It will display on the right.
-     */
     rightIconCls: PropTypes.string,
 
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-    rippleDisplayCenter: PropTypes.bool,
 
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
     itemRenderer: PropTypes.func,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
     renderer: PropTypes.func,
 
-    checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    readOnly: PropTypes.bool,
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
-    /**
-     * Callback function fired when a list item touch-tapped.
-     */
     onTouchTap: PropTypes.func,
-
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -334,9 +278,9 @@ ListItem.defaultProps = {
 
     className: null,
     style: null,
-
-    theme: Theme.DEFAULT,
-    selectTheme: Theme.DEFAULT,
+    theme: null,
+    selectTheme: null,
+    selectMode: SelectMode.NORMAL,
 
     data: null,
     value: null,
@@ -345,22 +289,16 @@ ListItem.defaultProps = {
 
     disabled: false,
     isLoading: false,
-
     disableTouchRipple: false,
+    rippleDisplayCenter: false,
+    checked: false,
+    readOnly: false,
 
     iconCls: null,
     rightIconCls: null,
 
     tip: null,
     tipPosition: Position.BOTTOM,
-
-    rippleDisplayCenter: false,
-
-    checked: false,
-
-    selectMode: SelectMode.NORMAL,
-
-    readOnly: false,
 
     radioUncheckedIconCls: 'fa fa-check',
     radioCheckedIconCls: 'fa fa-check',
