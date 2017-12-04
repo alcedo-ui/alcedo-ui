@@ -105,12 +105,12 @@ export default class TreeNode extends Component {
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly, children,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave
+                onMouseEnter, onMouseLeave, onTouchTap, onSelect, onDeselect
 
             } = this.props,
             {checked} = this.state,
@@ -120,108 +120,135 @@ export default class TreeNode extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider className='block'
-                         text={tip}
-                         tipPosition={tipPosition}>
+            <div className="tree-node-wrapper">
 
-                <div className={'list-item' + listItemClassName}
-                     style={style}
-                     disabled={disabled || isLoading}
-                     readOnly={readOnly}
-                     onTouchTap={this.touchTapHandler}
-                     onMouseEnter={onMouseEnter}
-                     onMouseLeave={onMouseLeave}>
+                <TipProvider className='block'
+                             text={tip}
+                             tipPosition={tipPosition}>
 
-                    {
-                        selectMode === SelectMode.SINGLE_SELECT ?
-                            <Radio className="list-item-checked"
-                                   theme={selectTheme}
-                                   checked={checked}
-                                   disabled={disabled || isLoading}
-                                   uncheckedIconCls={radioUncheckedIconCls}
-                                   checkedIconCls={radioCheckedIconCls}/>
-                            :
-                            null
-                    }
+                    <div className={'tree-node' + listItemClassName}
+                         style={style}
+                         disabled={disabled || isLoading}
+                         readOnly={readOnly}
+                         onTouchTap={this.touchTapHandler}
+                         onMouseEnter={onMouseEnter}
+                         onMouseLeave={onMouseLeave}>
 
-                    {
-                        selectMode === SelectMode.MULTI_SELECT ?
-                            <Checkbox className="list-item-checkbox"
-                                      theme={selectTheme}
-                                      checked={checked}
-                                      disabled={disabled || isLoading}
-                                      uncheckedIconCls={checkboxUncheckedIconCls}
-                                      checkedIconCls={checkboxCheckedIconCls}
-                                      indeterminateIconCls={checkboxIndeterminateIconCls}/>
-                            :
-                            null
-                    }
+                        {
+                            selectMode === SelectMode.SINGLE_SELECT ?
+                                <Radio className="tree-node-checked"
+                                       theme={selectTheme}
+                                       checked={checked}
+                                       disabled={disabled || isLoading}
+                                       uncheckedIconCls={radioUncheckedIconCls}
+                                       checkedIconCls={radioCheckedIconCls}/>
+                                :
+                                null
+                        }
 
-                    {
-                        isLoading && loadingIconPosition === 'left' ?
-                            <div className="button-icon button-icon-left">
-                                <CircularLoading className="button-loading-icon"
+                        {
+                            selectMode === SelectMode.MULTI_SELECT ?
+                                <Checkbox className="tree-node-checkbox"
+                                          theme={selectTheme}
+                                          checked={checked}
+                                          disabled={disabled || isLoading}
+                                          uncheckedIconCls={checkboxUncheckedIconCls}
+                                          checkedIconCls={checkboxCheckedIconCls}
+                                          indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                :
+                                null
+                        }
+
+                        {
+                            isLoading && loadingIconPosition === 'left' ?
+                                <div className="button-icon button-icon-left">
+                                    <CircularLoading className="button-loading-icon"
+                                                     size="small"/>
+                                </div>
+                                :
+                                (
+                                    iconCls ?
+                                        <i className={`button-icon button-icon-left ${iconCls}`}
+                                           aria-hidden="true"></i>
+                                        :
+                                        null
+                                )
+                        }
+
+                        {
+                            itemRenderer && typeof itemRenderer === 'function' ?
+                                itemRenderer(data, index)
+                                :
+                                (
+                                    renderer && typeof renderer === 'function' ?
+                                        renderer(data, index)
+                                        :
+                                        (
+                                            desc ?
+                                                <div className="tree-node-content">
+                                                    <span className="tree-node-content-value">
+                                                        {text}
+                                                    </span>
+                                                    <span className="tree-node-content-desc">
+                                                        {desc}
+                                                    </span>
+                                                </div>
+                                                :
+                                                text
+                                        )
+                                )
+                        }
+
+                        {
+                            isLoading && loadingIconPosition === 'right' ?
+                                <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                                  size="small"/>
-                            </div>
-                            :
-                            (
-                                iconCls ?
-                                    <i className={`button-icon button-icon-left ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
+                                :
+                                (
+                                    rightIconCls ?
+                                        <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                           aria-hidden="true"></i>
+                                        :
+                                        null
+                                )
+                        }
 
-                    {
-                        itemRenderer && typeof itemRenderer === 'function' ?
-                            itemRenderer(data, index)
-                            :
-                            (
-                                renderer && typeof renderer === 'function' ?
-                                    renderer(data, index)
-                                    :
-                                    (
-                                        desc ?
-                                            <div className="list-item-content">
-                                                <div className="list-item-content-value">
-                                                    {text}
-                                                </div>
-                                                <div className="list-item-content-desc">
-                                                    {desc}
-                                                </div>
-                                            </div>
-                                            :
-                                            text
-                                    )
-                            )
-                    }
+                        {
+                            disableTouchRipple || readOnly ?
+                                null
+                                :
+                                <TouchRipple ref="touchRipple"
+                                             className={disabled || isLoading ? 'hidden' : ''}
+                                             displayCenter={rippleDisplayCenter}/>
+                        }
 
-                    {
-                        isLoading && loadingIconPosition === 'right' ?
-                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                rightIconCls ?
-                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
+                    </div>
+                </TipProvider>
 
-                    {
-                        disableTouchRipple || readOnly ?
-                            null
-                            :
-                            <TouchRipple ref="touchRipple"
-                                         className={disabled || isLoading ? 'hidden' : ''}
-                                         displayCenter={rippleDisplayCenter}/>
-                    }
+                {
+                    children && children.map((item, index) => {
+                        return (
+                            <TreeNode key={index}
+                                      {...item}
+                                      theme={item.theme || theme}
+                                      selectTheme={item.selectTheme || selectTheme}
+                                      disabled={disabled || item.disabled}
+                                      isLoading={isLoading || item.isLoading}
+                                      selectMode={selectMode}
+                                      renderer={renderer}
+                                      radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                      radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                      checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                      checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                      checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                      onTouchTap={onTouchTap}
+                                      onSelect={onSelect}
+                                      onDeselect={onDeselect}/>
+                        );
+                    })
+                }
 
-                </div>
-            </TipProvider>
+            </div>
         );
 
     }
