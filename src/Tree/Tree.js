@@ -323,6 +323,8 @@ Tree.propTypes = {
          */
         rippleDisplayCenter: PropTypes.bool,
 
+        children: PropTypes.array,
+
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
