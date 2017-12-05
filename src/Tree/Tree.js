@@ -297,11 +297,6 @@ Tree.propTypes = {
         isLoading: PropTypes.bool,
 
         /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
-
-        /**
          * Use this property to display an icon. It will display on the left.
          */
         iconCls: PropTypes.string,
@@ -320,11 +315,6 @@ Tree.propTypes = {
          * The position of tip.
          */
         tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-        /**
-         * If true,the item will have center displayed ripple effect.
-         */
-        rippleDisplayCenter: PropTypes.bool,
 
         children: PropTypes.array,
 
