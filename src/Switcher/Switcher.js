@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
+import CircularLoading from '../CircularLoading';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -94,7 +95,7 @@ export default class Switcher extends Component {
                     <div className="switcher-slider">
                         {
                             isLoading ?
-                                <i className="fa fa-spinner fa-pulse fa-3x fa-fw switcher-loading"></i>
+                                <CircularLoading/>
                                 :
                                 null
                         }

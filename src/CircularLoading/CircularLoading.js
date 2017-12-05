@@ -22,14 +22,16 @@ export default class CircularLoading extends Component {
 
     render() {
 
-        const {className, style, size, theme, type, weight} = this.props;
-        const border = {
-            borderWidth: weight
-        };
+        const {className, style, size, theme, type, weight} = this.props,
+
+            loadingClassName = (size ? ` circular-loading-size-${size}` : '') + (className ? ' ' + className : ''),
+            border = {
+                borderWidth: weight
+            };
 
         return (
 
-            <div className={`circular-loading circular-loading-size-${size} ${className}`}
+            <div className={'circular-loading' + loadingClassName}
                  type={type}
                  style={style}>
 
