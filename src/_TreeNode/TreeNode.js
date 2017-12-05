@@ -10,7 +10,6 @@ import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
-import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 import IconButton from '../IconButton';
 
