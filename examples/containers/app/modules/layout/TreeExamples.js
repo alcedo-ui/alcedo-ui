@@ -84,7 +84,8 @@ export default class TreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <Tree className="tree-example"
-                                          data={this.data}/>
+                                          data={this.data}
+                                          selectMode={Tree.SelectMode.MULTI_SELECT}/>
                                 </Paper>
 
                             </div>
