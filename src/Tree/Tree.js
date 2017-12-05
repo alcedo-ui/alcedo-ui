@@ -202,7 +202,7 @@ export default class Tree extends Component {
                           selectThemeGlobal={selectTheme}
                           disabledGlobal={disabled}
                           isLoadingGlobal={isLoading}
-                          selectModeGlobal={selectMode}
+                          selectMode={selectMode}
                           rendererGlobal={renderer}
                           collapsedIconClsGlobal={collapsedIconCls}
                           expandedIconClsGlobal={expandedIconCls}
