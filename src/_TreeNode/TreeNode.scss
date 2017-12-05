@@ -42,8 +42,11 @@
 
             .tree-node-collapse-icon {
                 position: absolute;
-                left: -40px;
+                left: -20px;
                 top: 0;
+                width: 20px;
+                height: 20px;
+                transform: translateY(50%);
 
                 .button-icon.button-icon-left {
                     float: none;

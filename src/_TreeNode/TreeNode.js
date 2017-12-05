@@ -134,7 +134,7 @@ export default class TreeNode extends Component {
                 + (className ? ' ' + className : ''),
             nodeStyle = {
                 ...style,
-                paddingLeft: (depth + 1) * 40
+                paddingLeft: (depth + 1) * 20
             },
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
