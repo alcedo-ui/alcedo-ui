@@ -95,12 +95,9 @@
             }
 
             .tree-node-content {
-                display: inline-block;
-                vertical-align: middle;
-                padding: 6px 0;
-
                 .tree-node-content-desc {
                     opacity: .5;
+                    margin-left: 10px;
                 }
             }
 
