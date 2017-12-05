@@ -114,8 +114,8 @@ export default class TreeNode extends Component {
 
                 children,
 
-                index, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, disabledGlobal, isLoading, isLoadingGlobal, renderer, rendererGlobal,
+                index, depth, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls,
+                tip, tipPosition, disabled, disabledGlobal, isLoading, isLoadingGlobal, renderer, rendererGlobal,
                 readOnly, selectTheme, selectThemeGlobal, selectMode,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
@@ -249,6 +249,8 @@ export default class TreeNode extends Component {
                             return (
                                 <TreeNode key={index}
                                           {...item}
+                                          index={index}
+                                          depth={depth + 1}
                                           themeGlobal={themeGlobal}
                                           selectThemeGlobal={selectThemeGlobal}
                                           disabledGlobal={disabledGlobal}
@@ -278,6 +280,7 @@ export default class TreeNode extends Component {
 TreeNode.propTypes = {
 
     index: PropTypes.number,
+    depth: PropTypes.number,
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -336,6 +339,7 @@ TreeNode.propTypes = {
 TreeNode.defaultProps = {
 
     index: 0,
+    depth: 0,
 
     className: null,
     style: null,
