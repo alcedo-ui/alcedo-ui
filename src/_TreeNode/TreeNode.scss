@@ -19,6 +19,7 @@
 }
 
 .tree-node-wrapper {
+
     .tree-node {
         display: block;
         width: 100%;
@@ -29,81 +30,86 @@
         transition: all $theme-transition-duration ease-in-out;
         cursor: pointer;
         box-sizing: border-box;
-        padding: 0 15px;
         font-size: 12px;
         text-align: left;
-        user-select: none;
-        overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         color: $theme-field;
         background-color: $theme-field-bg;
 
-        .tree-node-collapse-icon {
-            .button-icon.button-icon-left {
-                float: none;
-            }
-        }
+        .tree-node-inner {
+            position: relative;
 
-        .tree-node-checkbox {
-            display: inline-block;
-            width: 16px;
-            margin-right: 10px;
-            float: left;
-            overflow: hidden;
-        }
+            .tree-node-collapse-icon {
+                position: absolute;
+                left: -40px;
+                top: 0;
 
-        .tree-node-checked {
-            display: inline-block;
-            float: left;
-            width: 16px;
-            line-height: inherit;
-            margin-right: 10px;
-            color: lighten($theme-field, 45%);
-            text-align: center;
-
-            &.activated {
-                color: $theme-highlight;
-            }
-        }
-
-        .button-icon {
-            width: 16px;
-            line-height: inherit;
-            text-align: center;
-            font-size: inherit;
-            color: inherit;
-
-            &.button-icon-left {
-                float: left;
-                margin-right: 15px;
+                .button-icon.button-icon-left {
+                    float: none;
+                }
             }
 
-            &.button-icon-right {
-                float: right;
-                margin-left: 15px;
-            }
-
-            .circular-loading {
+            .tree-node-checkbox {
+                display: inline-block;
+                width: 16px;
                 margin-right: 10px;
+                float: left;
+                overflow: hidden;
             }
-        }
 
-        .tree-node-content {
-            display: inline-block;
-            vertical-align: middle;
-            padding: 6px 0;
+            .tree-node-checked {
+                display: inline-block;
+                float: left;
+                width: 16px;
+                line-height: inherit;
+                margin-right: 10px;
+                color: lighten($theme-field, 45%);
+                text-align: center;
 
-            .tree-node-content-desc {
-                opacity: .5;
+                &.activated {
+                    color: $theme-highlight;
+                }
             }
-        }
 
-        .touch-ripple {
-            border-radius: $theme-border-radius;
+            .button-icon {
+                width: 16px;
+                line-height: inherit;
+                text-align: center;
+                font-size: inherit;
+                color: inherit;
 
-            &.hidden {
-                display: none;
+                &.button-icon-left {
+                    float: left;
+                    margin-right: 15px;
+                }
+
+                &.button-icon-right {
+                    float: right;
+                    margin-left: 15px;
+                }
+
+                .circular-loading {
+                    margin-right: 10px;
+                }
+            }
+
+            .tree-node-content {
+                display: inline-block;
+                vertical-align: middle;
+                padding: 6px 0;
+
+                .tree-node-content-desc {
+                    opacity: .5;
+                }
+            }
+
+            .touch-ripple {
+                border-radius: $theme-border-radius;
+
+                &.hidden {
+                    display: none;
+                }
             }
         }
 

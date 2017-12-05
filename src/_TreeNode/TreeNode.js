@@ -130,8 +130,13 @@ export default class TreeNode extends Component {
 
             isNodeDisabled = disabled || disabledGlobal || isLoading || isLoadingGlobal,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
+            nodeClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
                 + (className ? ' ' + className : ''),
+            nodeStyle = {
+                ...style,
+                paddingLeft: (depth + 1) * 40
+            },
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -141,104 +146,107 @@ export default class TreeNode extends Component {
                              text={tip}
                              tipPosition={tipPosition}>
 
-                    <div className={'tree-node' + listItemClassName}
-                         style={style}
+                    <div className={'tree-node' + nodeClassName}
+                         style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
                          onTouchTap={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
-                        {
-                            children && children.length > 0 ?
-                                <IconButton className="tree-node-collapse-icon"
-                                            iconCls={collapsed ?
-                                                collapsedIconCls || collapsedIconClsGlobal
-                                                :
-                                                expandedIconCls || expandedIconClsGlobal}
-                                            onTouchTap={this.toggleTreeNode}/>
-                                :
-                                null
-                        }
+                        <div className="tree-node-inner">
 
-                        {
-                            selectMode === SelectMode.SINGLE_SELECT ?
-                                <Radio className="tree-node-checked"
-                                       theme={selectTheme || selectThemeGlobal}
-                                       checked={checked}
-                                       disabled={isNodeDisabled}
-                                       uncheckedIconCls={radioUncheckedIconCls || radioUncheckedIconClsGlobal}
-                                       checkedIconCls={radioCheckedIconCls || radioCheckedIconClsGlobal}/>
-                                :
-                                null
-                        }
+                            {
+                                children && children.length > 0 ?
+                                    <IconButton className="tree-node-collapse-icon"
+                                                iconCls={collapsed ?
+                                                    collapsedIconCls || collapsedIconClsGlobal
+                                                    :
+                                                    expandedIconCls || expandedIconClsGlobal}
+                                                onTouchTap={this.toggleTreeNode}/>
+                                    :
+                                    null
+                            }
 
-                        {
-                            selectMode === SelectMode.MULTI_SELECT ?
-                                <Checkbox className="tree-node-checkbox"
-                                          theme={selectTheme || selectThemeGlobal}
-                                          checked={checked}
-                                          disabled={isNodeDisabled}
-                                          uncheckedIconCls={checkboxUncheckedIconCls || checkboxUncheckedIconClsGlobal}
-                                          checkedIconCls={checkboxCheckedIconCls || checkboxCheckedIconClsGlobal}
-                                          indeterminateIconCls={checkboxIndeterminateIconCls || checkboxIndeterminateIconClsGlobal}/>
-                                :
-                                null
-                        }
+                            {
+                                selectMode === SelectMode.SINGLE_SELECT ?
+                                    <Radio className="tree-node-checked"
+                                           theme={selectTheme || selectThemeGlobal}
+                                           checked={checked}
+                                           disabled={isNodeDisabled}
+                                           uncheckedIconCls={radioUncheckedIconCls || radioUncheckedIconClsGlobal}
+                                           checkedIconCls={radioCheckedIconCls || radioCheckedIconClsGlobal}/>
+                                    :
+                                    null
+                            }
 
-                        {
-                            (isLoading || isLoadingGlobal) && loadingIconPosition === 'left' ?
-                                <div className="button-icon button-icon-left">
-                                    <CircularLoading className="button-loading-icon"
-                                                     size="small"/>
-                                </div>
-                                :
-                                (
-                                    iconCls ?
-                                        <i className={`button-icon button-icon-left ${iconCls}`}
-                                           aria-hidden="true"></i>
-                                        :
-                                        null
-                                )
-                        }
+                            {
+                                selectMode === SelectMode.MULTI_SELECT ?
+                                    <Checkbox className="tree-node-checkbox"
+                                              theme={selectTheme || selectThemeGlobal}
+                                              checked={checked}
+                                              disabled={isNodeDisabled}
+                                              uncheckedIconCls={checkboxUncheckedIconCls || checkboxUncheckedIconClsGlobal}
+                                              checkedIconCls={checkboxCheckedIconCls || checkboxCheckedIconClsGlobal}
+                                              indeterminateIconCls={checkboxIndeterminateIconCls || checkboxIndeterminateIconClsGlobal}/>
+                                    :
+                                    null
+                            }
 
-                        {
-                            renderer && typeof renderer === 'function' ?
-                                renderer(data, index)
-                                :
-                                (
-                                    rendererGlobal && typeof rendererGlobal === 'function' ?
-                                        rendererGlobal(data, index)
-                                        :
-                                        (
-                                            desc ?
-                                                <div className="tree-node-content">
+                            {
+                                (isLoading || isLoadingGlobal) && loadingIconPosition === 'left' ?
+                                    <div className="button-icon button-icon-left">
+                                        <CircularLoading className="button-loading-icon"
+                                                         size="small"/>
+                                    </div>
+                                    :
+                                    (
+                                        iconCls ?
+                                            <i className={`button-icon button-icon-left ${iconCls}`}
+                                               aria-hidden="true"></i>
+                                            :
+                                            null
+                                    )
+                            }
+
+                            {
+                                renderer && typeof renderer === 'function' ?
+                                    renderer(data, index)
+                                    :
+                                    (
+                                        rendererGlobal && typeof rendererGlobal === 'function' ?
+                                            rendererGlobal(data, index)
+                                            :
+                                            (
+                                                desc ?
+                                                    <div className="tree-node-content">
                                                     <span className="tree-node-content-value">
                                                         {text}
                                                     </span>
-                                                    <span className="tree-node-content-desc">
+                                                        <span className="tree-node-content-desc">
                                                         {desc}
                                                     </span>
-                                                </div>
-                                                :
-                                                text
-                                        )
-                                )
-                        }
+                                                    </div>
+                                                    :
+                                                    text
+                                            )
+                                    )
+                            }
 
-                        {
-                            (isLoading || isLoadingGlobal) && loadingIconPosition === 'right' ?
-                                <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                                 size="small"/>
-                                :
-                                (
-                                    rightIconCls ?
-                                        <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                           aria-hidden="true"></i>
-                                        :
-                                        null
-                                )
-                        }
+                            {
+                                (isLoading || isLoadingGlobal) && loadingIconPosition === 'right' ?
+                                    <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                                     size="small"/>
+                                    :
+                                    (
+                                        rightIconCls ?
+                                            <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                               aria-hidden="true"></i>
+                                            :
+                                            null
+                                    )
+                            }
+                        </div>
 
                     </div>
                 </TipProvider>
