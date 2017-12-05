@@ -18,137 +18,147 @@
     }
 }
 
-.tree-node {
-    display: block;
-    width: 100%;
-    height: 40px;
-    position: relative;
-    line-height: 40px;
-    border: none;
-    transition: all $theme-transition-duration ease-in-out;
-    cursor: pointer;
-    box-sizing: border-box;
-    padding: 0 15px;
-    font-size: 12px;
-    text-align: left;
-    user-select: none;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: $theme-field;
-    background-color: $theme-field-bg;
-
-    .tree-node-collapse-icon {
-        .button-icon.button-icon-left {
-            float: none;
-        }
-    }
-
-    .tree-node-checkbox {
-        display: inline-block;
-        width: 16px;
-        margin-right: 10px;
-        float: left;
+.tree-node-wrapper {
+    .tree-node {
+        display: block;
+        width: 100%;
+        height: 40px;
+        position: relative;
+        line-height: 40px;
+        border: none;
+        transition: all $theme-transition-duration ease-in-out;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding: 0 15px;
+        font-size: 12px;
+        text-align: left;
+        user-select: none;
         overflow: hidden;
-    }
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: $theme-field;
+        background-color: $theme-field-bg;
 
-    .tree-node-checked {
-        display: inline-block;
-        float: left;
-        width: 16px;
-        line-height: inherit;
-        margin-right: 10px;
-        color: lighten($theme-field, 45%);
-        text-align: center;
-
-        &.activated {
-            color: $theme-highlight;
-        }
-    }
-
-    .button-icon {
-        width: 16px;
-        line-height: inherit;
-        text-align: center;
-        font-size: inherit;
-        color: inherit;
-
-        &.button-icon-left {
-            float: left;
-            margin-right: 15px;
+        .tree-node-collapse-icon {
+            .button-icon.button-icon-left {
+                float: none;
+            }
         }
 
-        &.button-icon-right {
-            float: right;
-            margin-left: 15px;
-        }
-
-        .circular-loading {
+        .tree-node-checkbox {
+            display: inline-block;
+            width: 16px;
             margin-right: 10px;
+            float: left;
+            overflow: hidden;
+        }
+
+        .tree-node-checked {
+            display: inline-block;
+            float: left;
+            width: 16px;
+            line-height: inherit;
+            margin-right: 10px;
+            color: lighten($theme-field, 45%);
+            text-align: center;
+
+            &.activated {
+                color: $theme-highlight;
+            }
+        }
+
+        .button-icon {
+            width: 16px;
+            line-height: inherit;
+            text-align: center;
+            font-size: inherit;
+            color: inherit;
+
+            &.button-icon-left {
+                float: left;
+                margin-right: 15px;
+            }
+
+            &.button-icon-right {
+                float: right;
+                margin-left: 15px;
+            }
+
+            .circular-loading {
+                margin-right: 10px;
+            }
+        }
+
+        .tree-node-content {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 6px 0;
+
+            .tree-node-content-desc {
+                opacity: .5;
+            }
+        }
+
+        .touch-ripple {
+            border-radius: $theme-border-radius;
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        &[readonly] {
+            cursor: default;
+            color: $theme-field !important;
+            background: $theme-field-bg !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: $theme-field-disabled !important;
+            background-color: $theme-field-bg-disabled !important;
+        }
+
+        &:hover {
+            background-color: theme-color-hover($theme-secondary);
+        }
+
+        &:active {
+            background-color: theme-color-active($theme-field-bg);
+        }
+
+        // default theme
+        //@include tree-node-theme($theme-field, $theme-field-bg);
+
+        // other themes
+        &.theme-primary {
+            @include tree-node-theme($theme-secondary, $theme-primary);
+        }
+        &.theme-secondary {
+            @include tree-node-theme($theme-primary, $theme-secondary);
+        }
+        &.theme-highlight {
+            @include tree-node-theme(#fff, $theme-highlight);
+        }
+        &.theme-info {
+            @include tree-node-theme(#fff, $theme-info);
+        }
+        &.theme-success {
+            @include tree-node-theme(#fff, $theme-success);
+        }
+        &.theme-warning {
+            @include tree-node-theme(#fff, $theme-warning);
+        }
+        &.theme-error {
+            @include tree-node-theme(#fff, $theme-error);
         }
     }
 
-    .tree-node-content {
-        display: inline-block;
-        vertical-align: middle;
-        padding: 6px 0;
+    .tree-node-children {
 
-        .tree-node-content-desc {
-            opacity: .5;
+        &.collapsed {
+            height: 0;
+            overflow: hidden;
         }
-    }
-
-    .touch-ripple {
-        border-radius: $theme-border-radius;
-
-        &.hidden {
-            display: none;
-        }
-    }
-
-    &[readonly] {
-        cursor: default;
-        color: $theme-field !important;
-        background: $theme-field-bg !important;
-    }
-
-    &[disabled] {
-        cursor: not-allowed;
-        color: $theme-field-disabled !important;
-        background-color: $theme-field-bg-disabled !important;
-    }
-
-    &:hover {
-        background-color: theme-color-hover($theme-secondary);
-    }
-
-    &:active {
-        background-color: theme-color-active($theme-field-bg);
-    }
-
-    // default theme
-    //@include tree-node-theme($theme-field, $theme-field-bg);
-
-    // other themes
-    &.theme-primary {
-        @include tree-node-theme($theme-secondary, $theme-primary);
-    }
-    &.theme-secondary {
-        @include tree-node-theme($theme-primary, $theme-secondary);
-    }
-    &.theme-highlight {
-        @include tree-node-theme(#fff, $theme-highlight);
-    }
-    &.theme-info {
-        @include tree-node-theme(#fff, $theme-info);
-    }
-    &.theme-success {
-        @include tree-node-theme(#fff, $theme-success);
-    }
-    &.theme-warning {
-        @include tree-node-theme(#fff, $theme-warning);
-    }
-    &.theme-error {
-        @include tree-node-theme(#fff, $theme-error);
     }
 }

@@ -31,10 +31,17 @@ export default class TreeNode extends Component {
             collapsed: false
         };
 
+        this.toggleTreeNode = ::this.toggleTreeNode;
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
 
+    }
+
+    toggleTreeNode() {
+        this.setState({
+            collapsed: !this.state.collapsed
+        });
     }
 
     checkboxChangeHandler(checked) {
@@ -120,7 +127,7 @@ export default class TreeNode extends Component {
                 onMouseEnter, onMouseLeave, onTouchTap, onSelect, onDeselect
 
             } = this.props,
-            {checked} = this.state,
+            {checked, collapsed} = this.state,
 
             isNodeDisabled = disabled || disabledGlobal || isLoading || isLoadingGlobal,
 
@@ -137,7 +144,7 @@ export default class TreeNode extends Component {
 
                     <div className={'tree-node' + listItemClassName}
                          style={style}
-                         disabled={disabled || disabledGlobal || isLoading || isLoadingGlobal}
+                         disabled={isNodeDisabled}
                          readOnly={readOnly}
                          onTouchTap={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
@@ -146,7 +153,11 @@ export default class TreeNode extends Component {
                         {
                             children && children.length > 0 ?
                                 <IconButton className="tree-node-collapse-icon"
-                                            iconCls={collapsedIconCls || collapsedIconClsGlobal}/>
+                                            iconCls={collapsed ?
+                                                collapsedIconCls || collapsedIconClsGlobal
+                                                :
+                                                expandedIconCls || expandedIconClsGlobal}
+                                            onTouchTap={this.toggleTreeNode}/>
                                 :
                                 null
                         }
@@ -156,7 +167,7 @@ export default class TreeNode extends Component {
                                 <Radio className="tree-node-checked"
                                        theme={selectTheme || selectThemeGlobal}
                                        checked={checked}
-                                       disabled={disabled || disabledGlobal || isLoading || isLoadingGlobal}
+                                       disabled={isNodeDisabled}
                                        uncheckedIconCls={radioUncheckedIconCls || radioUncheckedIconClsGlobal}
                                        checkedIconCls={radioCheckedIconCls || radioCheckedIconClsGlobal}/>
                                 :
@@ -168,7 +179,7 @@ export default class TreeNode extends Component {
                                 <Checkbox className="tree-node-checkbox"
                                           theme={selectTheme || selectThemeGlobal}
                                           checked={checked}
-                                          disabled={disabled || disabledGlobal || isLoading || isLoadingGlobal}
+                                          disabled={isNodeDisabled}
                                           uncheckedIconCls={checkboxUncheckedIconCls || checkboxUncheckedIconClsGlobal}
                                           checkedIconCls={checkboxCheckedIconCls || checkboxCheckedIconClsGlobal}
                                           indeterminateIconCls={checkboxIndeterminateIconCls || checkboxIndeterminateIconClsGlobal}/>
@@ -235,36 +246,38 @@ export default class TreeNode extends Component {
                         {/*null*/}
                         {/*:*/}
                         {/*<TouchRipple ref="touchRipple"*/}
-                        {/*className={disabled || disabledGlobal || isLoading || isLoadingGlobal ? 'hidden' : ''}*/}
+                        {/*className={isNodeDisabled ? 'hidden' : ''}*/}
                         {/*displayCenter={rippleDisplayCenter}/>*/}
                         {/*}*/}
 
                     </div>
                 </TipProvider>
 
-                {
-                    children && children.map((item, index) => {
-                        return (
-                            <TreeNode key={index}
-                                      {...item}
-                                      themeGlobal={themeGlobal}
-                                      selectThemeGlobal={selectThemeGlobal}
-                                      disabledGlobal={disabledGlobal}
-                                      isLoadingGlobal={isLoadingGlobal}
-                                      rendererGlobal={rendererGlobal}
-                                      collapsedIconClsGlobal={collapsedIconClsGlobal}
-                                      expandedIconClsGlobal={expandedIconClsGlobal}
-                                      radioUncheckedIconClsGlobal={radioUncheckedIconClsGlobal}
-                                      radioCheckedIconClsGlobal={radioCheckedIconClsGlobal}
-                                      checkboxUncheckedIconClsGlobal={checkboxUncheckedIconClsGlobal}
-                                      checkboxCheckedIconClsGlobal={checkboxCheckedIconClsGlobal}
-                                      checkboxIndeterminateIconClsGlobal={checkboxIndeterminateIconClsGlobal}
-                                      onTouchTap={onTouchTap}
-                                      onSelect={onSelect}
-                                      onDeselect={onDeselect}/>
-                        );
-                    })
-                }
+                <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
+                    {
+                        children && children.map((item, index) => {
+                            return (
+                                <TreeNode key={index}
+                                          {...item}
+                                          themeGlobal={themeGlobal}
+                                          selectThemeGlobal={selectThemeGlobal}
+                                          disabledGlobal={disabledGlobal}
+                                          isLoadingGlobal={isLoadingGlobal}
+                                          rendererGlobal={rendererGlobal}
+                                          collapsedIconClsGlobal={collapsedIconClsGlobal}
+                                          expandedIconClsGlobal={expandedIconClsGlobal}
+                                          radioUncheckedIconClsGlobal={radioUncheckedIconClsGlobal}
+                                          radioCheckedIconClsGlobal={radioCheckedIconClsGlobal}
+                                          checkboxUncheckedIconClsGlobal={checkboxUncheckedIconClsGlobal}
+                                          checkboxCheckedIconClsGlobal={checkboxCheckedIconClsGlobal}
+                                          checkboxIndeterminateIconClsGlobal={checkboxIndeterminateIconClsGlobal}
+                                          onTouchTap={onTouchTap}
+                                          onSelect={onSelect}
+                                          onDeselect={onDeselect}/>
+                            );
+                        })
+                    }
+                </div>
 
             </div>
         );
