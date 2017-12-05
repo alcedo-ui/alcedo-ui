@@ -18,25 +18,32 @@ export default class TreeExamples extends Component {
         this.data = {
             id: '0',
             text: 'Root',
+            desc: 'Root',
             children: [{
                 id: '00',
-                text: 'Children 0 - 0'
+                text: 'Children 0 - 0',
+                desc: 'Children 0 - 0'
             }, {
                 id: '01',
                 text: 'Children 0 - 1',
+                desc: 'Children 0 - 1',
                 children: [{
                     id: '010',
-                    text: 'Children 0 - 1 - 0'
+                    text: 'Children 0 - 1 - 0',
+                    desc: 'Children 0 - 1 - 0'
                 }, {
                     id: '011',
-                    text: 'Children 0 - 1 - 1'
+                    text: 'Children 0 - 1 - 1',
+                    desc: 'Children 0 - 1 - 1'
                 }, {
                     id: '012',
-                    text: 'Children 0 - 1 - 2'
+                    text: 'Children 0 - 1 - 2',
+                    desc: 'Children 0 - 1 - 2'
                 }]
             }, {
                 id: '02',
-                text: 'Children 0 - 2'
+                text: 'Children 0 - 2',
+                desc: 'Children 0 - 2'
             }]
         };
 
