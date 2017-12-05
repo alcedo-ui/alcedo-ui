@@ -108,17 +108,21 @@ export default class TreeNode extends Component {
 
                 children,
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+                index, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, disabledGlobal, isLoading, isLoadingGlobal, disableTouchRipple, rippleDisplayCenter, renderer, rendererGlobal,
+                readOnly, selectTheme, selectThemeGlobal, selectMode,
 
-                collapsedIconCls, expandedIconCls,
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                collapsedIconClsGlobal, expandedIconClsGlobal, radioUncheckedIconClsGlobal, radioCheckedIconClsGlobal,
+                checkboxUncheckedIconClsGlobal, checkboxCheckedIconClsGlobal, checkboxIndeterminateIconClsGlobal,
 
                 onMouseEnter, onMouseLeave, onTouchTap, onSelect, onDeselect
 
             } = this.props,
             {checked} = this.state,
+
+            isNodeDisabled = disabled || disabledGlobal || isLoading || isLoadingGlobal,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
                 + (className ? ' ' + className : ''),
@@ -133,7 +137,7 @@ export default class TreeNode extends Component {
 
                     <div className={'tree-node' + listItemClassName}
                          style={style}
-                         disabled={disabled || isLoading}
+                         disabled={disabled || disabledGlobal || isLoading || isLoadingGlobal}
                          readOnly={readOnly}
                          onTouchTap={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
@@ -142,7 +146,7 @@ export default class TreeNode extends Component {
                         {
                             children && children.length > 0 ?
                                 <IconButton className="tree-node-collapse-icon"
-                                            iconCls={collapsedIconCls}/>
+                                            iconCls={collapsedIconCls || collapsedIconClsGlobal}/>
                                 :
                                 null
                         }
@@ -150,11 +154,11 @@ export default class TreeNode extends Component {
                         {
                             selectMode === SelectMode.SINGLE_SELECT ?
                                 <Radio className="tree-node-checked"
-                                       theme={selectTheme}
+                                       theme={selectTheme || selectThemeGlobal}
                                        checked={checked}
-                                       disabled={disabled || isLoading}
-                                       uncheckedIconCls={radioUncheckedIconCls}
-                                       checkedIconCls={radioCheckedIconCls}/>
+                                       disabled={disabled || disabledGlobal || isLoading || isLoadingGlobal}
+                                       uncheckedIconCls={radioUncheckedIconCls || radioUncheckedIconClsGlobal}
+                                       checkedIconCls={radioCheckedIconCls || radioCheckedIconClsGlobal}/>
                                 :
                                 null
                         }
@@ -162,18 +166,18 @@ export default class TreeNode extends Component {
                         {
                             selectMode === SelectMode.MULTI_SELECT ?
                                 <Checkbox className="tree-node-checkbox"
-                                          theme={selectTheme}
+                                          theme={selectTheme || selectThemeGlobal}
                                           checked={checked}
-                                          disabled={disabled || isLoading}
-                                          uncheckedIconCls={checkboxUncheckedIconCls}
-                                          checkedIconCls={checkboxCheckedIconCls}
-                                          indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                          disabled={disabled || disabledGlobal || isLoading || isLoadingGlobal}
+                                          uncheckedIconCls={checkboxUncheckedIconCls || checkboxUncheckedIconClsGlobal}
+                                          checkedIconCls={checkboxCheckedIconCls || checkboxCheckedIconClsGlobal}
+                                          indeterminateIconCls={checkboxIndeterminateIconCls || checkboxIndeterminateIconClsGlobal}/>
                                 :
                                 null
                         }
 
                         {
-                            isLoading && loadingIconPosition === 'left' ?
+                            (isLoading || isLoadingGlobal) && loadingIconPosition === 'left' ?
                                 <div className="button-icon button-icon-left">
                                     <CircularLoading className="button-loading-icon"
                                                      size="small"/>
@@ -189,12 +193,12 @@ export default class TreeNode extends Component {
                         }
 
                         {
-                            itemRenderer && typeof itemRenderer === 'function' ?
-                                itemRenderer(data, index)
+                            renderer && typeof renderer === 'function' ?
+                                renderer(data, index)
                                 :
                                 (
-                                    renderer && typeof renderer === 'function' ?
-                                        renderer(data, index)
+                                    rendererGlobal && typeof rendererGlobal === 'function' ?
+                                        rendererGlobal(data, index)
                                         :
                                         (
                                             desc ?
@@ -213,7 +217,7 @@ export default class TreeNode extends Component {
                         }
 
                         {
-                            isLoading && loadingIconPosition === 'right' ?
+                            (isLoading || isLoadingGlobal) && loadingIconPosition === 'right' ?
                                 <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                                  size="small"/>
                                 :
@@ -226,14 +230,14 @@ export default class TreeNode extends Component {
                                 )
                         }
 
-                        {
-                            disableTouchRipple || readOnly ?
-                                null
-                                :
-                                <TouchRipple ref="touchRipple"
-                                             className={disabled || isLoading ? 'hidden' : ''}
-                                             displayCenter={rippleDisplayCenter}/>
-                        }
+                        {/*{*/}
+                        {/*disableTouchRipple || readOnly ?*/}
+                        {/*null*/}
+                        {/*:*/}
+                        {/*<TouchRipple ref="touchRipple"*/}
+                        {/*className={disabled || disabledGlobal || isLoading || isLoadingGlobal ? 'hidden' : ''}*/}
+                        {/*displayCenter={rippleDisplayCenter}/>*/}
+                        {/*}*/}
 
                     </div>
                 </TipProvider>
@@ -243,19 +247,18 @@ export default class TreeNode extends Component {
                         return (
                             <TreeNode key={index}
                                       {...item}
-                                      theme={item.theme || theme}
-                                      selectTheme={item.selectTheme || selectTheme}
-                                      disabled={disabled || item.disabled}
-                                      isLoading={isLoading || item.isLoading}
-                                      selectMode={selectMode}
-                                      renderer={renderer}
-                                      collapsedIconCls={item.collapsedIconCls || collapsedIconCls}
-                                      expandedIconCls={item.expandedIconCls || expandedIconCls}
-                                      radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                      radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                      checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                      checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                      checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                      themeGlobal={themeGlobal}
+                                      selectThemeGlobal={selectThemeGlobal}
+                                      disabledGlobal={disabledGlobal}
+                                      isLoadingGlobal={isLoadingGlobal}
+                                      rendererGlobal={rendererGlobal}
+                                      collapsedIconClsGlobal={collapsedIconClsGlobal}
+                                      expandedIconClsGlobal={expandedIconClsGlobal}
+                                      radioUncheckedIconClsGlobal={radioUncheckedIconClsGlobal}
+                                      radioCheckedIconClsGlobal={radioCheckedIconClsGlobal}
+                                      checkboxUncheckedIconClsGlobal={checkboxUncheckedIconClsGlobal}
+                                      checkboxCheckedIconClsGlobal={checkboxCheckedIconClsGlobal}
+                                      checkboxIndeterminateIconClsGlobal={checkboxIndeterminateIconClsGlobal}
                                       onTouchTap={onTouchTap}
                                       onSelect={onSelect}
                                       onDeselect={onDeselect}/>
@@ -281,7 +284,6 @@ TreeNode.propTypes = {
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     selectThemeGlobal: PropTypes.oneOf(Util.enumerateValue(Theme)),
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    selectModeGlobal: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -340,7 +342,6 @@ TreeNode.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectThemeGlobal: Theme.DEFAULT,
     selectMode: SelectMode.NORMAL,
-    selectModeGlobal: SelectMode.NORMAL,
 
     data: null,
     value: null,
