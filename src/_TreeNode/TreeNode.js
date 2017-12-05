@@ -116,7 +116,7 @@ export default class TreeNode extends Component {
                 children,
 
                 index, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, disabledGlobal, isLoading, isLoadingGlobal, disableTouchRipple, rippleDisplayCenter, renderer, rendererGlobal,
+                disabled, disabledGlobal, isLoading, isLoadingGlobal, renderer, rendererGlobal,
                 readOnly, selectTheme, selectThemeGlobal, selectMode,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
@@ -241,15 +241,6 @@ export default class TreeNode extends Component {
                                 )
                         }
 
-                        {/*{*/}
-                        {/*disableTouchRipple || readOnly ?*/}
-                        {/*null*/}
-                        {/*:*/}
-                        {/*<TouchRipple ref="touchRipple"*/}
-                        {/*className={isNodeDisabled ? 'hidden' : ''}*/}
-                        {/*displayCenter={rippleDisplayCenter}/>*/}
-                        {/*}*/}
-
                     </div>
                 </TipProvider>
 
@@ -304,9 +295,9 @@ TreeNode.propTypes = {
     desc: PropTypes.string,
 
     disabled: PropTypes.bool,
+    disabledGlobal: PropTypes.bool,
     isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
-    rippleDisplayCenter: PropTypes.bool,
+    isLoadingGlobal: PropTypes.bool,
 
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -363,8 +354,6 @@ TreeNode.defaultProps = {
 
     disabled: false,
     isLoading: false,
-    disableTouchRipple: false,
-    rippleDisplayCenter: false,
 
     checked: false,
     readOnly: false,
