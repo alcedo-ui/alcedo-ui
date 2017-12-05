@@ -163,7 +163,8 @@ export default class DialogBody extends Component {
                 closeIconCls,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonTheme
+                cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
+                cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme
 
             } = this.props,
             {visible} = this.state,
@@ -229,7 +230,8 @@ export default class DialogBody extends Component {
                                             value={cancelButtonText}
                                             iconCls={cancelButtonIconCls}
                                             theme={cancelButtonTheme}
-                                            disabled={okButtonDisabled}
+                                            disabled={cancelButtonDisabled}
+                                            isLoading={isLoading || cancelButtonIsLoading}
                                             onTouchTap={this.cancelButtonTouchTapHandle}/>
                                 :
                                 null
@@ -340,6 +342,16 @@ DialogBody.propTypes = {
     cancelButtonIconCls: PropTypes.string,
 
     /**
+     * If true,the cancel button will disabled.
+     */
+    cancelButtonDisabled: PropTypes.bool,
+
+    /**
+     * If true,the cancel button will have loading effect.
+     */
+    cancelButtonIsLoading: PropTypes.bool,
+
+    /**
      * Set theme of cancel button.
      */
     cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
@@ -401,6 +413,8 @@ DialogBody.defaultProps = {
     cancelButtonVisible: true,
     cancelButtonText: 'Cancel',
     cancelButtonIconCls: '',
+    cancelButtonDisabled: false,
+    cancelButtonIsLoading: false,
     cancelButtonTheme: Theme.DEFAULT,
 
     closeIconCls: 'fa fa-times',
