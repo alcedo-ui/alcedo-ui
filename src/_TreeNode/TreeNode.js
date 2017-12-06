@@ -259,6 +259,7 @@ export default class TreeNode extends Component {
                                           {...item}
                                           index={index}
                                           depth={depth + 1}
+                                          selectMode={selectMode}
                                           themeGlobal={themeGlobal}
                                           selectThemeGlobal={selectThemeGlobal}
                                           disabledGlobal={disabledGlobal}
