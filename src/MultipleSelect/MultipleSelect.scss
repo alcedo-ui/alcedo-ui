@@ -105,11 +105,10 @@
 
     &.above {
         &.activated {
-            z-index: $popup-z-index + 1;
-
-            .multiple-select-selected-wrapper {
+            .multiple-select-trigger {
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
+                z-index: $popup-z-index + 1;
             }
         }
     }
