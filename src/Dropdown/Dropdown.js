@@ -57,9 +57,7 @@ export default class Dropdown extends Component {
 
     popupRenderHandler(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-
-        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, this.popupEl);
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
