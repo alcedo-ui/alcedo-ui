@@ -12,12 +12,14 @@ function isAbove(dropdownEl, triggerEl, popupEl) {
     }
 
     const {top} = Dom.getOffset(dropdownEl),
-        scrollTop = Dom.getScrollTop();
+        scrollTop = Dom.getScrollTop(),
+        triggerHeight = triggerEl.clientHeight,
+        popupHeight = popupEl.clientHeight;
 
     if (
-        top + triggerEl.clientHeight + popupEl.clientHeight - scrollTop > window.innerHeight // bottom overflow
+        top + triggerHeight + popupHeight - scrollTop > window.innerHeight // bottom overflow
         &&
-        top - popupEl.clientHeight - scrollTop >= 0 // no top overflow
+        top - popupHeight - scrollTop >= 0 // no top overflow
     ) {
         return true;
     }
