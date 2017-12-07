@@ -14,8 +14,8 @@ import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import SelectMode from '../_statics/SelectMode';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class DropdownFilter extends Component {
 
@@ -34,7 +34,6 @@ export default class DropdownFilter extends Component {
             isAbove: false
         };
 
-        this.isAbove = ::this.isAbove;
         this.filterData = ::this.filterData;
         this.triggerFocusHandler = ::this.triggerFocusHandler;
         this.triggerBlurHandler = ::this.triggerBlurHandler;
@@ -43,25 +42,6 @@ export default class DropdownFilter extends Component {
         this.closePopup = ::this.closePopup;
         this.popupRenderHandler = ::this.popupRenderHandler;
         this.changeHandler = ::this.changeHandler;
-
-    }
-
-    isAbove() {
-
-        const autoComplete = this.refs.autoComplete;
-
-        if (!this.popupHeight || !autoComplete) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(autoComplete),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
 
     }
 
@@ -156,10 +136,7 @@ export default class DropdownFilter extends Component {
 
     popupRenderHandler(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
+        const isAbove = DropdownCalculation.isAbove(this.dropdownFilterEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -185,8 +162,8 @@ export default class DropdownFilter extends Component {
     }
 
     componentDidMount() {
+        this.dropdownFilterEl = this.refs.dropdownFilter;
         this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -247,7 +224,7 @@ export default class DropdownFilter extends Component {
             }, popupStyle);
 
         return (
-            <div ref="autoComplete"
+            <div ref="dropdownFilter"
                  className={'dropdown-filter' + wrapperClassName}
                  style={style}>
 

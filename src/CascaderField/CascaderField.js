@@ -13,8 +13,8 @@ import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class CascaderField extends Component {
 
@@ -31,7 +31,6 @@ export default class CascaderField extends Component {
 
         this.togglePopup = ::this.togglePopup;
         this.closePopup = ::this.closePopup;
-        this.isAbove = ::this.isAbove;
         this.calDisplayValue = ::this.calDisplayValue;
         this.popupRenderHandle = ::this.popupRenderHandle;
         this.changeHandler = ::this.changeHandler;
@@ -50,25 +49,6 @@ export default class CascaderField extends Component {
         });
     }
 
-    isAbove() {
-
-        const cascaderField = this.refs.cascaderField;
-
-        if (!this.popupHeight || !cascaderField) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(cascaderField),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
-
-    }
-
     calDisplayValue(path, props = this.props) {
 
         if (!path || path.length < 1) {
@@ -77,16 +57,13 @@ export default class CascaderField extends Component {
 
         const {valueField, displayField, separator} = props;
         return path.map(item => Util.getTextByDisplayField(item.value, displayField, valueField))
-            .join(` ${separator} `);
+        .join(` ${separator} `);
 
     }
 
     popupRenderHandle(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
+        const isAbove = DropdownCalculation.isAbove(this.cascaderFieldEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -109,10 +86,8 @@ export default class CascaderField extends Component {
     }
 
     componentDidMount() {
-
+        this.cascaderFieldEl = this.refs.cascaderField;
         this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
-
     }
 
     componentWillReceiveProps(nextProps) {

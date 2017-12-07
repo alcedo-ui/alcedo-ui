@@ -13,7 +13,7 @@ import List from '../List';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class EditableSelect extends Component {
 
@@ -29,7 +29,6 @@ export default class EditableSelect extends Component {
             isAbove: false
         };
 
-        this.isAbove = ::this.isAbove;
         this.filterChangeHandle = ::this.filterChangeHandle;
         this.showPopup = ::this.showPopup;
         this.closePopup = ::this.closePopup;
@@ -37,25 +36,6 @@ export default class EditableSelect extends Component {
         this.popupRenderHandle = ::this.popupRenderHandle;
         this.changeHandle = ::this.changeHandle;
         this.onChangeValue = ::this.onChangeValue;
-
-    }
-
-    isAbove() {
-
-        const dropdownSelect = this.refs.dropdownSelect;
-
-        if (!this.popupHeight || !dropdownSelect) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(dropdownSelect),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
 
     }
 
@@ -147,10 +127,7 @@ export default class EditableSelect extends Component {
 
     popupRenderHandle(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
+        const isAbove = DropdownCalculation.isAbove(this.editabledSelectEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -181,8 +158,8 @@ export default class EditableSelect extends Component {
     }
 
     componentDidMount() {
+        this.editabledSelectEl = this.refs.editabledSelect;
         this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     componentWillReceiveProps(nextProps) {

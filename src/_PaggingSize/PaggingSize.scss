@@ -16,13 +16,22 @@
         width: auto;
         height: 40px;
 
-        .dropdown-select-trigger {
+        .dropdown-trigger {
             box-shadow: none;
             border-color: transparent;
+
+            &:hover {
+                @include shadow(1);
+                border-color: $theme-border;
+            }
 
             &.activated {
                 @include shadow(4);
                 border-color: $theme-border;
+            }
+
+            .dropdown-trigger-icon {
+                margin-left: 8px;
             }
         }
     }

@@ -14,7 +14,7 @@ import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class LocalAutoComplete extends Component {
 
@@ -31,7 +31,6 @@ export default class LocalAutoComplete extends Component {
             isAbove: false
         };
 
-        this.isAbove = ::this.isAbove;
         this.filterData = ::this.filterData;
         this.triggerFocusHandler = ::this.triggerFocusHandler;
         this.triggerBlurHandler = ::this.triggerBlurHandler;
@@ -40,25 +39,6 @@ export default class LocalAutoComplete extends Component {
         this.closePopup = ::this.closePopup;
         this.popupRenderHandler = ::this.popupRenderHandler;
         this.changeHandler = ::this.changeHandler;
-
-    }
-
-    isAbove() {
-
-        const autoComplete = this.refs.autoComplete;
-
-        if (!this.popupHeight || !autoComplete) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(autoComplete),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
 
     }
 
@@ -165,10 +145,7 @@ export default class LocalAutoComplete extends Component {
 
     popupRenderHandler(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
+        const isAbove = DropdownCalculation.isAbove(this.localAutoCompleteEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -198,8 +175,8 @@ export default class LocalAutoComplete extends Component {
     }
 
     componentDidMount() {
+        this.localAutoCompleteEl = this.refs.localAutoComplete;
         this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -254,7 +231,7 @@ export default class LocalAutoComplete extends Component {
             }, popupStyle);
 
         return (
-            <div ref="autoComplete"
+            <div ref="localAutoComplete"
                  className={'local-auto-complete' + wrapperClassName}
                  style={style}>
 

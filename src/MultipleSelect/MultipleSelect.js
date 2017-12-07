@@ -16,8 +16,8 @@ import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
 import SelectMode from '../_statics/SelectMode';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class MultipleSelect extends Component {
 
@@ -35,7 +35,6 @@ export default class MultipleSelect extends Component {
             isAbove: false
         };
 
-        this.isAbove = ::this.isAbove;
         this.filterData = ::this.filterData;
         this.removeSelected = ::this.removeSelected;
         this.toggleSelectedCollapse = ::this.toggleSelectedCollapse;
@@ -46,25 +45,6 @@ export default class MultipleSelect extends Component {
         this.popupRenderHandle = ::this.popupRenderHandle;
         this.changeHandler = ::this.changeHandler;
         this.triggerHandler = ::this.triggerHandler;
-
-    }
-
-    isAbove() {
-
-        const multipleSelect = this.refs.multipleSelect;
-
-        if (!this.popupHeight || !multipleSelect) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(multipleSelect),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
 
     }
 
@@ -174,10 +154,7 @@ export default class MultipleSelect extends Component {
 
     popupRenderHandle(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
+        const isAbove = DropdownCalculation.isAbove(this.multipleSelectEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -188,8 +165,6 @@ export default class MultipleSelect extends Component {
     }
 
     changeHandler(value) {
-
-        console.log(value);
 
         const {autoClose} = this.props,
             state = {
@@ -231,8 +206,8 @@ export default class MultipleSelect extends Component {
     }
 
     componentDidMount() {
+        this.multipleSelectEl = this.refs.multipleSelect;
         this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     componentWillReceiveProps(nextProps) {

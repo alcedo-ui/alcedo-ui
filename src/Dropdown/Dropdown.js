@@ -12,7 +12,7 @@ import Popup from '../Popup';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class Dropdown extends Component {
 
@@ -25,29 +25,9 @@ export default class Dropdown extends Component {
             isAbove: false
         };
 
-        this.isAbove = ::this.isAbove;
         this.togglePopup = ::this.togglePopup;
         this.closePopup = ::this.closePopup;
         this.popupRenderHandler = ::this.popupRenderHandler;
-
-    }
-
-    isAbove() {
-
-        const dropdown = this.refs.dropdown;
-
-        if (!this.popupHeight || !dropdown) {
-            return false;
-        }
-
-        const {top} = Dom.getOffset(dropdown),
-            scrollTop = Dom.getScrollTop();
-
-        if (top + this.triggerHeight + this.popupHeight - scrollTop > window.innerHeight) {
-            return true;
-        }
-
-        return false;
 
     }
 
@@ -77,10 +57,7 @@ export default class Dropdown extends Component {
 
     popupRenderHandler(popupEl) {
 
-        this.popupEl = findDOMNode(popupEl);
-        this.popupHeight = this.popupEl.offsetHeight;
-
-        const isAbove = this.isAbove();
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -91,8 +68,8 @@ export default class Dropdown extends Component {
     }
 
     componentDidMount() {
+        this.dropdownEl = this.refs.dropdown;
         this.triggerEl = findDOMNode(this.refs.trigger);
-        this.triggerHeight = this.triggerEl.clientHeight;
     }
 
     render() {
@@ -130,6 +107,7 @@ export default class Dropdown extends Component {
                               className={'dropdown-trigger' + selfTriggerClassName}
                               style={triggerStyle}
                               theme={theme}
+                              placeholder={placeholder}
                               value={triggerValue}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
