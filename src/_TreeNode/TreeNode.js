@@ -58,12 +58,12 @@ export default class TreeNode extends Component {
 
                 index, depth, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls,
                 tip, tipPosition, disabled, disabledGlobal, isLoading, isLoadingGlobal, renderer, rendererGlobal,
-                readOnly,
+                idField, valueField, displayField, descriptionField, readOnly,
 
                 collapsedIconCls, expandedIconCls,
                 collapsedIconClsGlobal, expandedIconClsGlobal,
 
-                onMouseEnter, onMouseLeave, onTouchTap, onSelect, onDeselect
+                onMouseEnter, onMouseLeave, onTouchTap
 
             } = this.props,
             {collapsed} = this.state,
@@ -174,14 +174,16 @@ export default class TreeNode extends Component {
                                           index={index}
                                           depth={depth + 1}
                                           themeGlobal={themeGlobal}
+                                          idField={idField}
+                                          valueField={valueField}
+                                          displayField={displayField}
+                                          descriptionField={descriptionField}
                                           disabledGlobal={disabledGlobal}
                                           isLoadingGlobal={isLoadingGlobal}
                                           rendererGlobal={rendererGlobal}
                                           collapsedIconClsGlobal={collapsedIconClsGlobal}
                                           expandedIconClsGlobal={expandedIconClsGlobal}
-                                          onTouchTap={onTouchTap}
-                                          onSelect={onSelect}
-                                          onDeselect={onDeselect}/>
+                                          onTouchTap={onTouchTap}/>
                             );
                         })
                     }
@@ -207,6 +209,11 @@ TreeNode.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.any,
     desc: PropTypes.string,
+
+    idField: PropTypes.string,
+    valueField: PropTypes.string,
+    displayField: PropTypes.string,
+    descriptionField: PropTypes.string,
 
     disabled: PropTypes.bool,
     disabledGlobal: PropTypes.bool,
@@ -250,6 +257,11 @@ TreeNode.defaultProps = {
     value: null,
     text: null,
     desc: null,
+
+    idField: 'id',
+    valueField: 'value',
+    displayField: 'text',
+    descriptionField: 'desc',
 
     disabled: false,
     isLoading: false,
