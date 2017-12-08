@@ -97,23 +97,21 @@ export default class TreeExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Basic"/>
+                                  title="Self Define Node Renderer"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p><code>Tree</code>simple example.</p>
-
                                 <Paper className="tree-wrapper">
                                     <Tree className="tree-example"
                                           data={this.data}
                                           renderer={node => {
-                                              return <div>
-                                                  <span>{node.id}</span>
-                                                  <span>{node.text}</span>
-                                                  <span>{node.desc}</span>
+                                              return <div className="self-define-node">
+                                                  <span className="self-define-node-id">{node.id}</span>
+                                                  <span className="self-define-node-text">{node.text}</span>
+                                                  <span className="self-define-node-desc">{node.desc}</span>
                                               </div>;
                                           }}/>
                                 </Paper>
