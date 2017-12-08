@@ -55,6 +55,10 @@ export default class Tree extends Component {
 
                 <TreeNode {...data}
                           themeGlobal={theme}
+                          idField={idField}
+                          valueField={valueField}
+                          displayField={displayField}
+                          descriptionField={descriptionField}
                           disabledGlobal={disabled}
                           isLoadingGlobal={isLoading}
                           rendererGlobal={renderer}
