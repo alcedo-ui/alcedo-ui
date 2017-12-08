@@ -54,36 +54,31 @@ export default class TreeNode extends Component {
 
         const {
 
-                children,
-
-                index, depth, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls,
-                tip, tipPosition, disabled, disabledGlobal, isLoading, isLoadingGlobal, renderer, rendererGlobal,
-                idField, valueField, displayField, descriptionField, readOnly,
+                index, depth, theme, data, disabled, isLoading, renderer, readOnly,
 
                 collapsedIconCls, expandedIconCls,
-                collapsedIconClsGlobal, expandedIconClsGlobal,
 
-                onMouseEnter, onMouseLeave, onTouchTap
+                onMouseEnter, onMouseLeave
 
             } = this.props,
             {collapsed} = this.state,
 
-            isNodeDisabled = disabled || disabledGlobal || isLoading || isLoadingGlobal,
+            isNodeDisabled = data.disabled || disabled || data.isLoading || isLoading,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
+            nodeClassName = (theme ? ` theme-${theme}` : '') + (data.className ? ' ' + data.className : ''),
             nodeStyle = {
-                ...style,
+                ...data.style,
                 paddingLeft: (depth + 1) * 20
             },
 
-            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
+            loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
             <div className="tree-node-wrapper">
 
                 <TipProvider className='block'
-                             text={tip}
-                             tipPosition={tipPosition}>
+                             text={data.tip}
+                             tipPosition={data.tipPosition}>
 
                     <div className={'tree-node' + nodeClassName}
                          style={nodeStyle}
@@ -96,27 +91,27 @@ export default class TreeNode extends Component {
                         <div className="tree-node-inner">
 
                             {
-                                children && children.length > 0 ?
+                                data.children && data.children.length > 0 ?
                                     <IconButton className="tree-node-collapse-icon"
                                                 iconCls={collapsed ?
-                                                    collapsedIconCls || collapsedIconClsGlobal
+                                                    data.collapsedIconCls || collapsedIconCls
                                                     :
-                                                    expandedIconCls || expandedIconClsGlobal}
+                                                    data.expandedIconCls || expandedIconCls}
                                                 onTouchTap={this.toggleTreeNode}/>
                                     :
                                     null
                             }
 
                             {
-                                (isLoading || isLoadingGlobal) && loadingIconPosition === 'left' ?
+                                (data.isLoading || isLoading) && loadingIconPosition === 'left' ?
                                     <div className="button-icon button-icon-left">
                                         <CircularLoading className="button-loading-icon"
                                                          size="small"/>
                                     </div>
                                     :
                                     (
-                                        iconCls ?
-                                            <i className={`button-icon button-icon-left ${iconCls}`}
+                                        data.iconCls ?
+                                            <i className={`button-icon button-icon-left ${data.iconCls}`}
                                                aria-hidden="true"></i>
                                             :
                                             null
@@ -124,37 +119,37 @@ export default class TreeNode extends Component {
                             }
 
                             {
-                                renderer && typeof renderer === 'function' ?
-                                    renderer(data, index)
+                                data.renderer && typeof data.renderer === 'function' ?
+                                    data.renderer(data, index)
                                     :
                                     (
-                                        rendererGlobal && typeof rendererGlobal === 'function' ?
-                                            rendererGlobal(data, index)
+                                        renderer && typeof renderer === 'function' ?
+                                            renderer(data, index)
                                             :
                                             (
-                                                desc ?
+                                                data.desc ?
                                                     <div className="tree-node-content">
                                                     <span className="tree-node-content-value">
-                                                        {text}
+                                                        {data.text}
                                                     </span>
                                                         <span className="tree-node-content-desc">
-                                                        {desc}
+                                                        {data.desc}
                                                     </span>
                                                     </div>
                                                     :
-                                                    text
+                                                    data.text
                                             )
                                     )
                             }
 
                             {
-                                (isLoading || isLoadingGlobal) && loadingIconPosition === 'right' ?
+                                (data.isLoading || isLoading) && loadingIconPosition === 'right' ?
                                     <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                                      size="small"/>
                                     :
                                     (
-                                        rightIconCls ?
-                                            <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                        data.rightIconCls ?
+                                            <i className={`button-icon button-icon-right ${data.rightIconCls}`}
                                                aria-hidden="true"></i>
                                             :
                                             null
@@ -167,23 +162,13 @@ export default class TreeNode extends Component {
 
                 <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
                     {
-                        children && children.map((item, index) => {
+                        data.children && data.children.map((item, index) => {
                             return (
-                                <TreeNode key={index}
-                                          {...item}
+                                <TreeNode {...this.props}
+                                          key={index}
+                                          data={item}
                                           index={index}
-                                          depth={depth + 1}
-                                          themeGlobal={themeGlobal}
-                                          idField={idField}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          descriptionField={descriptionField}
-                                          disabledGlobal={disabledGlobal}
-                                          isLoadingGlobal={isLoadingGlobal}
-                                          rendererGlobal={rendererGlobal}
-                                          collapsedIconClsGlobal={collapsedIconClsGlobal}
-                                          expandedIconClsGlobal={expandedIconClsGlobal}
-                                          onTouchTap={onTouchTap}/>
+                                          depth={depth + 1}/>
                             );
                         })
                     }
@@ -200,15 +185,7 @@ TreeNode.propTypes = {
     index: PropTypes.number,
     depth: PropTypes.number,
 
-    className: PropTypes.string,
-    style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    themeGlobal: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    text: PropTypes.any,
-    desc: PropTypes.string,
 
     idField: PropTypes.string,
     valueField: PropTypes.string,
@@ -216,28 +193,15 @@ TreeNode.propTypes = {
     descriptionField: PropTypes.string,
 
     disabled: PropTypes.bool,
-    disabledGlobal: PropTypes.bool,
     isLoading: PropTypes.bool,
-    isLoadingGlobal: PropTypes.bool,
     readOnly: PropTypes.bool,
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
-
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
     renderer: PropTypes.func,
-    rendererGlobal: PropTypes.func,
 
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
-    collapsedIconClsGlobal: PropTypes.string,
-    expandedIconClsGlobal: PropTypes.string,
 
     onTouchTap: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
@@ -248,15 +212,7 @@ TreeNode.defaultProps = {
     index: 0,
     depth: 0,
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
-    themeGlobal: Theme.DEFAULT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
 
     idField: 'id',
     valueField: 'value',
@@ -274,8 +230,6 @@ TreeNode.defaultProps = {
     tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fa fa-caret-right',
-    expandedIconCls: 'fa fa-caret-down',
-    collapsedIconClsGlobal: 'fa fa-caret-right',
-    expandedIconClsGlobal: 'fa fa-caret-down'
+    expandedIconCls: 'fa fa-caret-down'
 
 };
