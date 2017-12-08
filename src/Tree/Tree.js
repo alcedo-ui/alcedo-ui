@@ -13,153 +13,25 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import SelectMode from '../_statics/SelectMode';
 
 export default class Tree extends Component {
-
-    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.state = {
-            value: this.initValue(props)
-        };
-
-        this.initValue = ::this.initValue;
-        this.isItemChecked = ::this.isItemChecked;
         this.treeNodeTouchTapHandler = ::this.treeNodeTouchTapHandler;
-        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
-        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
         this.wheelHandler = ::this.wheelHandler;
 
     }
 
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                return [];
-            case SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
-
-    }
-
-    isItemChecked(item) {
-
-        const {selectMode, valueField, displayField} = this.props,
-            {value} = this.state;
-
-        if (!value) {
-            return false;
-        }
-
-        if (selectMode === SelectMode.MULTI_SELECT) {
-            return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
-        } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            return Util.isValueEqual(value, item, valueField, displayField);
-        }
-
-    }
-
     treeNodeTouchTapHandler(value) {
-
-        const {selectMode} = this.props;
-
-        if (selectMode !== SelectMode.NORMAL) {
-            return;
-        }
-
         this.setState({
             value
         }, () => {
-            const {onItemTouchTap, onChange} = this.props;
+            const {onItemTouchTap} = this.props;
             onItemTouchTap && onItemTouchTap(value);
-            onChange && onChange(value);
         });
-
-    }
-
-    treeNodeSelectHandler(item) {
-
-        const {selectMode} = this.props;
-
-        if (selectMode === SelectMode.NORMAL) {
-            return;
-        }
-
-        let {value} = this.state;
-
-        if (selectMode === SelectMode.MULTI_SELECT) {
-
-            if (!value || !_.isArray(value)) {
-                value = [];
-            }
-
-            value.push(item);
-
-        } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = item;
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(item);
-            onChange && onChange(value);
-        });
-
-    }
-
-    treeNodeDeselectHandler(item) {
-
-        const {selectMode} = this.props;
-
-        if (selectMode !== SelectMode.MULTI_SELECT) {
-            return;
-        }
-
-        const {valueField, displayField} = this.props;
-        let {value} = this.state;
-
-        if (!value || !_.isArray(value)) {
-            value = [];
-        } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(item, valueField, displayField);
-            });
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(item);
-            onChange && onChange(value);
-        });
-
     }
 
     wheelHandler(e) {
@@ -168,26 +40,11 @@ export default class Tree extends Component {
         onWheel && onWheel(e);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: this.initValue(nextProps)
-            });
-        }
-    }
-
     render() {
 
         const {
-
-                children, className, style, theme, data,
-
-                collapsedIconCls, expandedIconCls,
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-
+                children, className, style, theme, data, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
-
             } = this.props,
             listClassName = (className ? ' ' + className : '');
 
@@ -199,27 +56,14 @@ export default class Tree extends Component {
 
                 <TreeNode {...data}
                           themeGlobal={theme}
-                          selectThemeGlobal={selectTheme}
                           disabledGlobal={disabled}
                           isLoadingGlobal={isLoading}
-                          selectMode={selectMode}
                           rendererGlobal={renderer}
                           collapsedIconClsGlobal={collapsedIconCls}
                           expandedIconClsGlobal={expandedIconCls}
-                          radioUncheckedIconClsGlobal={radioUncheckedIconCls}
-                          radioCheckedIconClsGlobal={radioCheckedIconCls}
-                          checkboxUncheckedIconClsGlobal={checkboxUncheckedIconCls}
-                          checkboxCheckedIconClsGlobal={checkboxCheckedIconCls}
-                          checkboxIndeterminateIconClsGlobal={checkboxIndeterminateIconCls}
                           onTouchTap={e => {
                               this.treeNodeTouchTapHandler(data);
                               data.onTouchTap && data.onTouchTap(e);
-                          }}
-                          onSelect={() => {
-                              this.treeNodeSelectHandler(data);
-                          }}
-                          onDeselect={() => {
-                              this.treeNodeDeselectHandler(data);
                           }}/>
 
                 {children}
@@ -245,11 +89,6 @@ Tree.propTypes = {
      * The theme of the tree item.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The theme of the tree item select radio or checkbox.
-     */
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Children passed into the ListItem.
@@ -360,20 +199,10 @@ Tree.propTypes = {
      */
     isLoading: PropTypes.bool,
 
-    /**
-     * The mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
     shouldPreventContainerScroll: PropTypes.bool,
 
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -384,21 +213,6 @@ Tree.propTypes = {
      * Callback function fired when the tree-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree-item select.
-     */
-    onItemSelect: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree-item deselect.
-     */
-    onItemDeselect: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree changed.
-     */
-    onChange: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
@@ -412,7 +226,6 @@ Tree.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
-    selectTheme: Theme.DEFAULT,
 
     data: [],
 
@@ -421,15 +234,9 @@ Tree.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: SelectMode.NORMAL,
     shouldPreventContainerScroll: true,
 
     collapsedIconCls: 'fa fa-caret-right',
-    expandedIconCls: 'fa fa-caret-down',
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
-    checkboxUncheckedIconCls: 'fa fa-square-o',
-    checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    expandedIconCls: 'fa fa-caret-down'
 
 };
