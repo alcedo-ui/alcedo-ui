@@ -14,7 +14,7 @@
     opacity: .9;
     box-sizing: border-box;
     text-align: left;
-    word-break: break-all;
+    word-wrap: break-word;
     white-space: normal;
     transition: opacity $theme-transition-duration ease-in-out;
 
