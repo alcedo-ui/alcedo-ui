@@ -21,13 +21,10 @@ export default class TreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            checked: props.checked,
             collapsed: false
         };
 
         this.toggleTreeNode = ::this.toggleTreeNode;
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
 
     }
@@ -36,37 +33,6 @@ export default class TreeNode extends Component {
         this.setState({
             collapsed: !this.state.collapsed
         });
-    }
-
-    checkboxChangeHandler(checked) {
-        this.setState({
-            checked
-        }, () => {
-
-            const {onSelect, onDeselect} = this.props;
-
-            if (checked) {
-                onSelect && onSelect();
-            } else {
-                onDeselect && onDeselect();
-            }
-
-        });
-    }
-
-    radioChangeHandler() {
-
-        const {checked} = this.state;
-
-        if (!checked) {
-            this.setState({
-                checked: true
-            }, () => {
-                const {onSelect} = this.props;
-                onSelect && onSelect();
-            });
-        }
-
     }
 
     touchTapHandler(e) {
@@ -82,14 +48,6 @@ export default class TreeNode extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: nextProps.checked
-            });
-        }
     }
 
     render() {
@@ -108,12 +66,11 @@ export default class TreeNode extends Component {
                 onMouseEnter, onMouseLeave, onTouchTap, onSelect, onDeselect
 
             } = this.props,
-            {checked, collapsed} = this.state,
+            {collapsed} = this.state,
 
             isNodeDisabled = disabled || disabledGlobal || isLoading || isLoadingGlobal,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            nodeClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : ''),
             nodeStyle = {
                 ...style,
                 paddingLeft: (depth + 1) * 20
@@ -255,8 +212,6 @@ TreeNode.propTypes = {
     disabledGlobal: PropTypes.bool,
     isLoading: PropTypes.bool,
     isLoadingGlobal: PropTypes.bool,
-
-    checked: PropTypes.bool,
     readOnly: PropTypes.bool,
 
     iconCls: PropTypes.string,
@@ -298,8 +253,6 @@ TreeNode.defaultProps = {
 
     disabled: false,
     isLoading: false,
-
-    checked: false,
     readOnly: false,
 
     iconCls: null,
