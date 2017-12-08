@@ -5,7 +5,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
