@@ -53,17 +53,17 @@ export default class Tree extends Component {
                  style={style}
                  onWheel={this.wheelHandler}>
 
-                <TreeNode {...data}
-                          themeGlobal={theme}
+                <TreeNode data={data}
+                          theme={theme}
                           idField={idField}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
-                          disabledGlobal={disabled}
-                          isLoadingGlobal={isLoading}
-                          rendererGlobal={renderer}
-                          collapsedIconClsGlobal={collapsedIconCls}
-                          expandedIconClsGlobal={expandedIconCls}
+                          disabled={disabled}
+                          isLoading={isLoading}
+                          renderer={renderer}
+                          collapsedIconCls={collapsedIconCls}
+                          expandedIconCls={expandedIconCls}
                           onTouchTap={e => {
                               this.treeNodeTouchTapHandler(data);
                               data.onTouchTap && data.onTouchTap(e);
