@@ -94,6 +94,37 @@ export default class TreeExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Tree</code>simple example.</p>
+
+                                <Paper className="tree-wrapper">
+                                    <Tree className="tree-example"
+                                          data={this.data}
+                                          renderer={node => {
+                                              return <div>
+                                                  <span>{node.id}</span>
+                                                  <span>{node.text}</span>
+                                                  <span>{node.desc}</span>
+                                              </div>;
+                                          }}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={TreeDoc}/>
