@@ -6,8 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from '../Checkbox';
-import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
@@ -15,11 +13,8 @@ import IconButton from '../IconButton';
 
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
-import SelectMode from '../_statics/SelectMode';
 
 export default class TreeNode extends Component {
-
-    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -87,17 +82,6 @@ export default class TreeNode extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {selectMode} = this.props;
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked);
-                return;
-            case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
-                return;
-        }
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -116,12 +100,10 @@ export default class TreeNode extends Component {
 
                 index, depth, className, style, theme, themeGlobal, data, text, desc, iconCls, rightIconCls,
                 tip, tipPosition, disabled, disabledGlobal, isLoading, isLoadingGlobal, renderer, rendererGlobal,
-                readOnly, selectTheme, selectThemeGlobal, selectMode,
+                readOnly,
 
-                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                collapsedIconClsGlobal, expandedIconClsGlobal, radioUncheckedIconClsGlobal, radioCheckedIconClsGlobal,
-                checkboxUncheckedIconClsGlobal, checkboxCheckedIconClsGlobal, checkboxIndeterminateIconClsGlobal,
+                collapsedIconCls, expandedIconCls,
+                collapsedIconClsGlobal, expandedIconClsGlobal,
 
                 onMouseEnter, onMouseLeave, onTouchTap, onSelect, onDeselect
 
@@ -164,31 +146,6 @@ export default class TreeNode extends Component {
                                                     :
                                                     expandedIconCls || expandedIconClsGlobal}
                                                 onTouchTap={this.toggleTreeNode}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                selectMode === SelectMode.SINGLE_SELECT ?
-                                    <Radio className="tree-node-checked"
-                                           theme={selectTheme || selectThemeGlobal}
-                                           checked={checked}
-                                           disabled={isNodeDisabled}
-                                           uncheckedIconCls={radioUncheckedIconCls || radioUncheckedIconClsGlobal}
-                                           checkedIconCls={radioCheckedIconCls || radioCheckedIconClsGlobal}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                selectMode === SelectMode.MULTI_SELECT ?
-                                    <Checkbox className="tree-node-checkbox"
-                                              theme={selectTheme || selectThemeGlobal}
-                                              checked={checked}
-                                              disabled={isNodeDisabled}
-                                              uncheckedIconCls={checkboxUncheckedIconCls || checkboxUncheckedIconClsGlobal}
-                                              checkedIconCls={checkboxCheckedIconCls || checkboxCheckedIconClsGlobal}
-                                              indeterminateIconCls={checkboxIndeterminateIconCls || checkboxIndeterminateIconClsGlobal}/>
                                     :
                                     null
                             }
@@ -259,19 +216,12 @@ export default class TreeNode extends Component {
                                           {...item}
                                           index={index}
                                           depth={depth + 1}
-                                          selectMode={selectMode}
                                           themeGlobal={themeGlobal}
-                                          selectThemeGlobal={selectThemeGlobal}
                                           disabledGlobal={disabledGlobal}
                                           isLoadingGlobal={isLoadingGlobal}
                                           rendererGlobal={rendererGlobal}
                                           collapsedIconClsGlobal={collapsedIconClsGlobal}
                                           expandedIconClsGlobal={expandedIconClsGlobal}
-                                          radioUncheckedIconClsGlobal={radioUncheckedIconClsGlobal}
-                                          radioCheckedIconClsGlobal={radioCheckedIconClsGlobal}
-                                          checkboxUncheckedIconClsGlobal={checkboxUncheckedIconClsGlobal}
-                                          checkboxCheckedIconClsGlobal={checkboxCheckedIconClsGlobal}
-                                          checkboxIndeterminateIconClsGlobal={checkboxIndeterminateIconClsGlobal}
                                           onTouchTap={onTouchTap}
                                           onSelect={onSelect}
                                           onDeselect={onDeselect}/>
@@ -295,10 +245,6 @@ TreeNode.propTypes = {
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     themeGlobal: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectThemeGlobal: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -324,18 +270,8 @@ TreeNode.propTypes = {
 
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
     collapsedIconClsGlobal: PropTypes.string,
     expandedIconClsGlobal: PropTypes.string,
-    radioUncheckedIconClsGlobal: PropTypes.string,
-    radioCheckedIconClsGlobal: PropTypes.string,
-    checkboxUncheckedIconClsGlobal: PropTypes.string,
-    checkboxCheckedIconClsGlobal: PropTypes.string,
-    checkboxIndeterminateIconClsGlobal: PropTypes.string,
 
     onTouchTap: PropTypes.func,
     onSelect: PropTypes.func,
@@ -354,10 +290,6 @@ TreeNode.defaultProps = {
     style: null,
     theme: Theme.DEFAULT,
     themeGlobal: Theme.DEFAULT,
-
-    selectTheme: Theme.DEFAULT,
-    selectThemeGlobal: Theme.DEFAULT,
-    selectMode: SelectMode.NORMAL,
 
     data: null,
     value: null,
@@ -378,17 +310,7 @@ TreeNode.defaultProps = {
 
     collapsedIconCls: 'fa fa-caret-right',
     expandedIconCls: 'fa fa-caret-down',
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
-    checkboxUncheckedIconCls: 'fa fa-square-o',
-    checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square',
     collapsedIconClsGlobal: 'fa fa-caret-right',
-    expandedIconClsGlobal: 'fa fa-caret-down',
-    radioUncheckedIconClsGlobal: 'fa fa-check',
-    radioCheckedIconClsGlobal: 'fa fa-check',
-    checkboxUncheckedIconClsGlobal: 'fa fa-square-o',
-    checkboxCheckedIconClsGlobal: 'fa fa-check-square',
-    checkboxIndeterminateIconClsGlobal: 'fa fa-minus-square'
+    expandedIconClsGlobal: 'fa fa-caret-down'
 
 };
