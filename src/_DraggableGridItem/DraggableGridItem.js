@@ -276,11 +276,12 @@ export default class DraggableGridItem extends Component {
 
                     {
                         tip ?
-                            <Tip text={tip}
-                                 visible={tipVisible}
+                            <Tip visible={tipVisible}
                                  triggerEl={tipTriggerEl}
                                  position={tipPosition}
-                                 onRequestClose={this.hideTip}/>
+                                 onRequestClose={this.hideTip}>
+                                {tip}
+                            </Tip>
                             :
                             null
                     }
