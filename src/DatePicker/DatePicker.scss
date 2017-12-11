@@ -3,6 +3,10 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
+input::-ms-clear {
+    display: none;
+}
+
 .date-picker {
     position: relative;
     width: 240px;
@@ -55,7 +59,7 @@
         width: 300px;
         height: 342px;
         overflow: hidden;
-        background: #FFF;
+        background: #fff;
         border-radius: $theme-border-radius;
         z-index: $popup-z-index;
         transition: all $theme-transition-duration ease-in-out;
@@ -162,7 +166,7 @@
                         }
                         li.current-days:hover {
                             a {
-                                background:$theme-field-bg-hover;
+                                background: $theme-field-bg-hover;
                             }
                         }
                         li.active {
@@ -220,7 +224,7 @@
                         }
                         li.active {
                             a {
-                                background:$theme-field-bg-active;
+                                background: $theme-field-bg-active;
                                 color: #fff;
                             }
                             &:hover {
