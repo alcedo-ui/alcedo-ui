@@ -3,6 +3,10 @@
  * @author chao(chao.zhang@derbysoft.com)
  */
 
+input::-ms-clear {
+    display: none;
+}
+
 .editable-field {
     position: relative;
     display: inline-block;
