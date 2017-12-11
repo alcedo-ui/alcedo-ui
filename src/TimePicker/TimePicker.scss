@@ -3,6 +3,10 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
+input::-ms-clear {
+    display: none;
+}
+
 .time-picker {
     position: relative;
     width: 240px;
@@ -56,7 +60,7 @@
             width: 300px;
             height: 300px;
             overflow: hidden;
-            background: #FFF;
+            background: #fff;
             border-radius: $theme-border-radius;
             border: 1px solid #dfdfdf;
             z-index: $popup-z-index;
