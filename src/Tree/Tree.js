@@ -22,24 +22,82 @@ export default class Tree extends Component {
 
         super(props, ...restArgs);
 
+        this.state = {
+            value: this.initValue(props)
+        };
+
         this.treeNodeTouchTapHandler = ::this.treeNodeTouchTapHandler;
+        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
+        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
         this.wheelHandler = ::this.wheelHandler;
 
     }
 
-    treeNodeTouchTapHandler(value) {
+    initValue(props) {
+
+        if (!props) {
+            return;
+        }
+
+        const {value, selectMode} = props;
+
+        if (!selectMode) {
+            return;
+        }
+
+        if (value) {
+            return value;
+        }
+
+        switch (selectMode) {
+            case SelectMode.MULTI_SELECT:
+                return [];
+            case SelectMode.SINGLE_SELECT:
+                return null;
+            default:
+                return value;
+        }
+
+    }
+
+    treeNodeTouchTapHandler(nodeData, nodeIndex, e) {
+
+        const {selectMode} = this.props;
+
+        if (selectMode !== SelectMode.NORMAL) {
+            return;
+        }
+
         this.setState({
-            value
+            value: nodeData
         }, () => {
-            const {onItemTouchTap} = this.props;
-            onItemTouchTap && onItemTouchTap(value);
+            const {onNodeTouchTap, onChange} = this.props;
+            onNodeTouchTap && onNodeTouchTap(value, index, e);
+            onChange && onChange(value, index, e);
         });
+
+    }
+
+    treeNodeSelectHandler(nodeData, nodeIndex, e) {
+
+    }
+
+    treeNodeDeselectHandler() {
+
     }
 
     wheelHandler(e) {
         const {shouldPreventContainerScroll, onWheel} = this.props;
         shouldPreventContainerScroll && Event.preventContainerScroll(e);
         onWheel && onWheel(e);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: this.initValue(nextProps)
+            });
+        }
     }
 
     render() {
@@ -70,10 +128,9 @@ export default class Tree extends Component {
                           renderer={renderer}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
-                          onTouchTap={e => {
-                              this.treeNodeTouchTapHandler(data);
-                              data.onTouchTap && data.onTouchTap(e);
-                          }}/>
+                          onTouchTap={this.treeNodeTouchTapHandler}
+                          onSelect={this.treeNodeSelectHandler}
+                          onDeselect={this.treeNodeDeselectHandler}/>
 
                 {children}
 
@@ -233,7 +290,12 @@ Tree.propTypes = {
     /**
      * Callback function fired when the tree node touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onNodeTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree changed.
+     */
+    onChange: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
