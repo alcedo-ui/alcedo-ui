@@ -117,7 +117,12 @@ export default class BaseButton extends Component {
                         renderer && typeof renderer === 'function' ?
                             renderer(this.props)
                             :
-                            <span className="base-button-value">{value}</span>
+                            (
+                                value ?
+                                    <span className="base-button-value">{value}</span>
+                                    :
+                                    null
+                            )
                     }
 
                     {
