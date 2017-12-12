@@ -308,6 +308,11 @@ List.propTypes = {
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
+     * The mode of listItem.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
      * Children passed into the ListItem.
      */
     data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
@@ -424,11 +429,6 @@ List.propTypes = {
      */
     isLoading: PropTypes.bool,
 
-    /**
-     * The mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
     shouldPreventContainerScroll: PropTypes.bool,
 
     radioUncheckedIconCls: PropTypes.string,
@@ -474,7 +474,9 @@ List.defaultProps = {
     className: null,
     style: null,
     theme: Theme.DEFAULT,
+
     selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.NORMAL,
 
     data: null,
 
@@ -483,7 +485,6 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: SelectMode.NORMAL,
     shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fa fa-check',
