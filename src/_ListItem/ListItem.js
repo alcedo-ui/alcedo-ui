@@ -232,7 +232,9 @@ ListItem.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -244,7 +246,6 @@ ListItem.propTypes = {
     disableTouchRipple: PropTypes.bool,
     rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     readOnly: PropTypes.bool,
 
     iconCls: PropTypes.string,
@@ -277,6 +278,7 @@ ListItem.defaultProps = {
     className: null,
     style: null,
     theme: null,
+
     selectTheme: null,
     selectMode: SelectMode.NORMAL,
 
