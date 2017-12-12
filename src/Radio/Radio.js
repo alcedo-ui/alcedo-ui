@@ -114,12 +114,17 @@ export default class Radio extends Component {
                                 disabled={disabled}/>
                 </div>
 
-                <div className="radio-label"
-                     onMouseDown={this.mouseDownHandler}
-                     onMouseUp={this.mouseUpHandler}
-                     onMouseLeave={this.mouseUpHandler}>
-                    {label}
-                </div>
+                {
+                    label ?
+                        <div className="radio-label"
+                             onMouseDown={this.mouseDownHandler}
+                             onMouseUp={this.mouseUpHandler}
+                             onMouseLeave={this.mouseUpHandler}>
+                            {label}
+                        </div>
+                        :
+                        null
+                }
 
             </div>
         );
