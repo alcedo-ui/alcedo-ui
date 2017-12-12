@@ -95,7 +95,7 @@ export default class Dropdown extends Component {
 
             dropdownPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
             dropdownPopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                width: this.triggerEl && this.triggerEl.offsetWidth
             }, popupStyle);
 
         return (

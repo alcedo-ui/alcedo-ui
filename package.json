@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.11.10",
+    "version": "2.11.11",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -29,6 +29,7 @@
     },
     "homepage": "https://alcedo-ui.github.io/alcedo-ui/",
     "dependencies": {
+        "babel-polyfill": "^6.26.0",
         "history": "^4.7.2",
         "lodash": "^4.17.4",
         "moment": "^2.19.3",

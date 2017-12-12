@@ -8,6 +8,10 @@ input:focus {
     outline: none;
 }
 
+input::-ms-clear {
+    display: none;
+}
+
 .tag-field {
     position: relative;
     width: 400px;
