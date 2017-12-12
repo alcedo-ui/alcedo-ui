@@ -12,8 +12,11 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
 
 export default class Tree extends Component {
+
+    static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
 
@@ -43,7 +46,8 @@ export default class Tree extends Component {
 
         const {
                 children, className, style, theme, data, collapsedIconCls, expandedIconCls,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
+                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                renderer
             } = this.props,
             listClassName = (className ? ' ' + className : '');
 
@@ -61,6 +65,8 @@ export default class Tree extends Component {
                           descriptionField={descriptionField}
                           disabled={disabled}
                           isLoading={isLoading}
+                          readOnly={readOnly}
+                          selectMode={selectMode}
                           renderer={renderer}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
@@ -89,22 +95,32 @@ Tree.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of the tree item.
+     * The theme of the tree node.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * Children passed into the ListItem.
+     * The theme of the tree node select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of tree node.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * Children passed into the tree node.
      */
     data: PropTypes.shape({
 
         /**
-         * The CSS class name of the tree item.
+         * The CSS class name of the tree node.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the tree item.
+         * Override the styles of the tree node.
          */
         style: PropTypes.object,
 
@@ -119,17 +135,17 @@ Tree.propTypes = {
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The tree item's display text. Type can be string, number or bool.
+         * The tree node's display text. Type can be string, number or bool.
          */
         text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The desc value of the tree item. Type can be string or number.
+         * The desc value of the tree node. Type can be string or number.
          */
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * If true,the tree item will be disabled.
+         * If true,the tree node will be disabled.
          */
         disabled: PropTypes.bool,
 
@@ -166,7 +182,7 @@ Tree.propTypes = {
         renderer: PropTypes.func,
 
         /**
-         * Callback function fired when a tree item touch-tapped.
+         * Callback function fired when a tree node touch-tapped.
          */
         onTouchTap: PropTypes.func
 
@@ -202,6 +218,8 @@ Tree.propTypes = {
      */
     isLoading: PropTypes.bool,
 
+    readOnly: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     collapsedIconCls: PropTypes.string,
@@ -213,7 +231,7 @@ Tree.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the tree-item touch tap.
+     * Callback function fired when the tree node touch tap.
      */
     onItemTouchTap: PropTypes.func,
 
@@ -230,6 +248,9 @@ Tree.defaultProps = {
     style: null,
     theme: Theme.DEFAULT,
 
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.NORMAL,
+
     data: [],
 
     idField: 'id',
@@ -237,6 +258,8 @@ Tree.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    isLoading: false,
+    readOnly: false,
     shouldPreventContainerScroll: true,
 
     collapsedIconCls: 'fa fa-caret-right',
