@@ -3,9 +3,9 @@
 #landing-intro {
     position: relative;
     height: 100vh;
+    min-height: 600px;
 
     .landing-section-intro-bg {
-        width: 100%;
         height: 100%;
         background-color: transparentize($theme-primary, .5);
         background-image: url("../../../../images/intro-bg.jpg");
@@ -21,7 +21,7 @@
         display: table;
         width: 100%;
         height: 100%;
-        background: transparentize($theme-primary, .3);
+        background: transparentize($theme-primary, .25);
 
         .landing-section-inner {
             display: table-cell;
