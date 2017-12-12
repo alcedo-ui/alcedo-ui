@@ -55,16 +55,18 @@ export default class TreeNode extends Component {
 
         const {
 
-                index, depth, theme, data, disabled, isLoading, readOnly, selectMode,
+                index, depth, theme, selectTheme, selectMode, data, disabled, isLoading, readOnly,
 
-                collapsedIconCls, expandedIconCls,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 renderer, onMouseEnter, onMouseLeave
 
             } = this.props,
-            {collapsed} = this.state,
+            {checked, collapsed} = this.state,
 
-            isNodeDisabled = data.disabled || disabled || data.isLoading || isLoading,
+            isNodeLoading = data.isLoading || isLoading,
+            isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
             nodeClassName = (theme ? ` theme-${theme}` : '') + (data.className ? ' ' + data.className : ''),
             nodeStyle = {
@@ -108,9 +110,9 @@ export default class TreeNode extends Component {
                                     <Radio className="tree-node-checked"
                                            theme={selectTheme}
                                            checked={checked}
-                                           disabled={disabled || isLoading}
-                                           uncheckedIconCls={radioUncheckedIconCls}
-                                           checkedIconCls={radioCheckedIconCls}/>
+                                           disabled={isNodeDisabled}
+                                           uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
+                                           checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}/>
                                     :
                                     null
                             }
@@ -120,16 +122,16 @@ export default class TreeNode extends Component {
                                     <Checkbox className="tree-node-checkbox"
                                               theme={selectTheme}
                                               checked={checked}
-                                              disabled={disabled || isLoading}
-                                              uncheckedIconCls={checkboxUncheckedIconCls}
-                                              checkedIconCls={checkboxCheckedIconCls}
-                                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                              disabled={isNodeDisabled}
+                                              uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                              checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                              indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}/>
                                     :
                                     null
                             }
 
                             {
-                                (data.isLoading || isLoading) && loadingIconPosition === 'left' ?
+                                isNodeLoading && loadingIconPosition === 'left' ?
                                     <div className="button-icon button-icon-left">
                                         <CircularLoading className="button-loading-icon"
                                                          size="small"/>
@@ -169,7 +171,7 @@ export default class TreeNode extends Component {
                             }
 
                             {
-                                (data.isLoading || isLoading) && loadingIconPosition === 'right' ?
+                                isNodeLoading && loadingIconPosition === 'right' ?
                                     <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                                      size="small"/>
                                     :
@@ -213,6 +215,9 @@ TreeNode.propTypes = {
 
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
     idField: PropTypes.string,
     valueField: PropTypes.string,
     displayField: PropTypes.string,
@@ -221,12 +226,16 @@ TreeNode.propTypes = {
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     renderer: PropTypes.func,
 
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     onTouchTap: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -241,6 +250,9 @@ TreeNode.defaultProps = {
 
     theme: Theme.DEFAULT,
 
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.NORMAL,
+
     idField: 'id',
     valueField: 'value',
     displayField: 'text',
@@ -249,7 +261,6 @@ TreeNode.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    selectMode: SelectMode.NORMAL,
 
     iconCls: null,
     rightIconCls: null,
@@ -258,6 +269,11 @@ TreeNode.defaultProps = {
     tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fa fa-caret-right',
-    expandedIconCls: 'fa fa-caret-down'
+    expandedIconCls: 'fa fa-caret-down',
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
