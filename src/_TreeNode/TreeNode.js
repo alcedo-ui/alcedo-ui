@@ -13,6 +13,7 @@ import IconButton from '../IconButton';
 
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+import SelectMode from '../_statics/SelectMode';
 
 export default class TreeNode extends Component {
 
@@ -54,11 +55,11 @@ export default class TreeNode extends Component {
 
         const {
 
-                index, depth, theme, data, disabled, isLoading, renderer, readOnly,
+                index, depth, theme, data, disabled, isLoading, readOnly, selectMode,
 
                 collapsedIconCls, expandedIconCls,
 
-                onMouseEnter, onMouseLeave
+                renderer, onMouseEnter, onMouseLeave
 
             } = this.props,
             {collapsed} = this.state,
@@ -98,6 +99,31 @@ export default class TreeNode extends Component {
                                                     :
                                                     data.expandedIconCls || expandedIconCls}
                                                 onTouchTap={this.toggleTreeNode}/>
+                                    :
+                                    null
+                            }
+
+                            {
+                                selectMode === SelectMode.SINGLE_SELECT ?
+                                    <Radio className="tree-node-checked"
+                                           theme={selectTheme}
+                                           checked={checked}
+                                           disabled={disabled || isLoading}
+                                           uncheckedIconCls={radioUncheckedIconCls}
+                                           checkedIconCls={radioCheckedIconCls}/>
+                                    :
+                                    null
+                            }
+
+                            {
+                                selectMode === SelectMode.MULTI_SELECT ?
+                                    <Checkbox className="tree-node-checkbox"
+                                              theme={selectTheme}
+                                              checked={checked}
+                                              disabled={disabled || isLoading}
+                                              uncheckedIconCls={checkboxUncheckedIconCls}
+                                              checkedIconCls={checkboxCheckedIconCls}
+                                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
                                     :
                                     null
                             }
@@ -195,6 +221,7 @@ TreeNode.propTypes = {
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     renderer: PropTypes.func,
 
@@ -222,6 +249,7 @@ TreeNode.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
+    selectMode: SelectMode.NORMAL,
 
     iconCls: null,
     rightIconCls: null,
