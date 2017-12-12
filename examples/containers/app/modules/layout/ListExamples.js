@@ -109,6 +109,10 @@ export default class ListExamples extends Component {
         console.log('change::', value);
     }
 
+    itemTouchTapHandler(value, index) {
+        console.log('touchtap::', value);
+    }
+
     itemSelectHandler(value, index) {
         console.log('select::', value);
     }
@@ -212,7 +216,9 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          data={this.descListData}/>
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}/>
                                 </Paper>
 
                             </div>
@@ -241,6 +247,7 @@ export default class ListExamples extends Component {
                                           selectMode={List.SelectMode.SINGLE_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -250,6 +257,7 @@ export default class ListExamples extends Component {
                                           selectMode={List.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -260,6 +268,7 @@ export default class ListExamples extends Component {
                                           selectTheme={Theme.HIGHLIGHT}
                                           data={this.customizedListData}
                                           onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
