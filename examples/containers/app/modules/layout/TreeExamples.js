@@ -125,6 +125,29 @@ export default class TreeExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Single Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Paper className="tree-wrapper">
+                                    <Tree className="tree-example"
+                                          selectMode={Tree.SelectMode.SINGLE_SELECT}
+                                          data={this.data}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={TreeDoc}/>
