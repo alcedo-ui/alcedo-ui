@@ -7,7 +7,7 @@ input::-ms-clear {
     display: none;
 }
 
-.date-picker {
+.date-time-picker {
     position: relative;
     width: 240px;
     height: 40px;
@@ -155,31 +155,32 @@ input::-ms-clear {
                             }
                         }
                         li.current-days {
+                            cursor: pointer;
                             a {
                                 color: $theme-field;
+                                background: $theme-field-bg;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                            cursor: pointer;
-                        }
-                        li.current-days:hover {
-                            a {
-                                background: $theme-field-bg-hover;
+                            &:hover{
+                                a {
+                                    background: $theme-field-bg-active;
+                                    color: $theme-field-hover;
+                                }
                             }
-                        }
-                        li.active {
-                            a {
-                                border-radius: 50%;
-                                background: $theme-field-bg-active;
-                                color: #fff;
-                            }
+                            &.active {
+                                a {
+                                    border-radius: 50%;
+                                    background: $theme-highlight;
+                                    color: #fff;
+                                }
+                                &:hover{
+                                    a {
+                                        background: theme-color-hover($theme-highlight);
+                                    }
+                                }
 
-                        }
-                        li.active:hover {
-                            a {
-                                background: $theme-field-bg-hover;
                             }
-
                         }
                         li.item-gray {
                             a {
@@ -213,17 +214,26 @@ input::-ms-clear {
                                 overflow: hidden;
                             }
 
-                        }
-                        li.current-months:hover, li.current-years:hover {
-                            a {
-                                background: $theme-field-bg-hover;
-                            }
-
-                        }
-                        li.active {
-                            a {
-                                background: $theme-field-bg-active;
-                                color: #fff;
+                            &.current-months,
+                            &.current-years{
+                                &:hover{
+                                    a {
+                                        background: $theme-field-bg-active;
+                                        color: $theme-field-hover;
+                                    }
+                                }
+                                &.active {
+                                    a {
+                                        background: $theme-highlight;
+                                        color: #fff;
+                                    }
+                                    &:hover {
+                                        a {
+                                            background: theme-color-hover($theme-highlight);
+                                            color: #fff;
+                                        }
+                                    }
+                                }
                             }
 
                         }

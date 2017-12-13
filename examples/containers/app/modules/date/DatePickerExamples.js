@@ -45,7 +45,8 @@ export default class DatePickerExamples extends Component {
                                 </p>
 
                                 <DatePicker value='2017-04-17'
-                                            name="date"/>
+                                            name="date"
+                                            autoClose={false}/>
 
                             </div>
 
@@ -67,8 +68,8 @@ export default class DatePickerExamples extends Component {
                                     date choice.</p>
 
                                 <DatePicker name="date"
-                                            placeholder="2017-08-09"
-                                            dateFormat='YY/MM/DD'/>
+                                            dateFormat='YYYY/MM/DD'
+                                            autoClose={false}/>
 
                             </div>
 
@@ -91,7 +92,8 @@ export default class DatePickerExamples extends Component {
                                 <DatePicker name="date"
                                             dateFormat='YYYY-MM-DD'
                                             maxValue='2018-02-01'
-                                            minValue='2017-02-03'/>
+                                            minValue='2017-02-03'
+                                            autoClose={false}/>
 
                             </div>
 

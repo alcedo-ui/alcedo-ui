@@ -401,7 +401,7 @@ export default class DateRangePicker extends Component {
             left: '-' + marginLeft + 'px'
         };
         return (
-            <div className={`date-picker ${className}`}
+            <div className={`date-range-picker ${className}`}
                  ref="datePicker"
                  style={style}>
                 <TextField ref="trigger"
@@ -411,7 +411,7 @@ export default class DateRangePicker extends Component {
                            value={textFieldValue}
                            iconCls="fa fa-calendar"
                            readOnly={true}
-                           isClearIcon={false}
+                           clearButtonVisible={false}
                 />
 
                 <div ref="popup"

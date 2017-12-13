@@ -254,7 +254,7 @@ export default class DateTimePicker extends Component {
         };
 
         return (
-            <div className={`date-picker ${className}`}
+            <div className={`date-time-picker ${className}`}
                  ref="datePicker"
                  style={style}>
 
@@ -265,7 +265,7 @@ export default class DateTimePicker extends Component {
                            value={value}
                            iconCls="fa fa-calendar"
                            readOnly={true}
-                           isClearIcon={false}
+                           clearButtonVisible={false}
                 />
 
                 <div ref="popup"
@@ -274,7 +274,7 @@ export default class DateTimePicker extends Component {
                     <div className="calendar-date-input-wrap">
                         <TextField className='calendar-input'
                                    placeholder={'Select Date'}
-                                   isClearIcon={true}
+                                   clearButtonVisible={true}
                                    value={value}
                                    onChange={this.textFieldChangeHandle}/>
                     </div>

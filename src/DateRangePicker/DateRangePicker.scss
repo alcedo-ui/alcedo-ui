@@ -7,7 +7,7 @@ input::-ms-clear {
     display: none;
 }
 
-.date-picker {
+.date-range-picker {
     position: relative;
     width: 240px;
     height: 40px;
@@ -171,54 +171,67 @@ input::-ms-clear {
                                 text-align: center;
                                 position: relative;
                                 transition: none;
+                                color: $theme-field;
+                                background: $theme-field-bg;
                             }
                         }
                         li.current-days {
+                            cursor: pointer;
                             a {
                                 color: $theme-field;
+                                background: $theme-field-bg;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                            cursor: pointer;
-                        }
-                        li.current-days:hover {
-                            a {
-                                background: $theme-field-bg-hover;
+                            &:hover{
+                                a {
+                                    background: $theme-field-bg-active;
+                                    color: $theme-field-hover;
+                                }
                             }
-                        }
-                        li.active {
-                            a {
-                                border-radius: 50%;
-                                background: $theme-field-bg-active;
-                                color: #fff;
-                            }
-                        }
-                        li.start:hover, li.end:hover {
-                            a {
-                                background: $theme-field-bg-hover;
-                            }
-                        }
-                        li.start {
-                            a {
-                                border-bottom-left-radius: 50%;
-                                border-top-left-radius: 50%;
-                                border-bottom-right-radius: 0;
-                                border-top-right-radius: 0;
-                                background: $theme-field-bg-active;
-                                color: #fff;
+                            &.active {
+                                a {
+                                    border-radius: 50%;
+                                    background: $theme-highlight;
+                                    color: #fff;
+                                }
+                                &:hover{
+                                    a {
+                                        background: theme-color-hover($theme-highlight);
+                                    }
+                                }
+
                             }
 
-                        }
-                        li.end {
-                            a {
-                                border-bottom-right-radius: 50%;
-                                border-top-right-radius: 50%;
-                                border-bottom-left-radius: 0;
-                                border-top-left-radius: 0;
-                                background: $theme-field-bg-active;
-                                color: #fff;
-                            }
+                            &.start {
+                                a {
+                                    border-bottom-left-radius: 50%;
+                                    border-top-left-radius: 50%;
+                                    border-bottom-right-radius: 0;
+                                    border-top-right-radius: 0;
+                                    background: $theme-highlight;
+                                    color: #fff;
+                                }
 
+                            }
+                            &.end {
+                                a {
+                                    border-bottom-right-radius: 50%;
+                                    border-top-right-radius: 50%;
+                                    border-bottom-left-radius: 0;
+                                    border-top-left-radius: 0;
+                                    background: $theme-highlight;
+                                    color: #fff;
+                                }
+
+                            }
+                            &.start:hover ,
+                            &.end:hover {
+                                a {
+                                    background: theme-color-hover($theme-highlight);
+                                }
+
+                            }
                         }
                         li.item-gray {
                             a {
@@ -245,7 +258,8 @@ input::-ms-clear {
                             }
                         }
                         li.hover {
-                            background: $theme-field-bg-hover;
+                            background: $theme-field-bg-active;
+                            color: $theme-field-hover;
                         }
                     }
                     .margin-5 {
@@ -261,7 +275,7 @@ input::-ms-clear {
                         li.hover,
                         li.start,
                         li.end {
-                            background: $theme-field-bg-active;
+                            background: $theme-highlight;
                             a {
                                 color: #fff;
                                 background: inherit;
@@ -283,7 +297,7 @@ input::-ms-clear {
                         li.start:hover,
                         li.end:hover {
                             a {
-                                background: $theme-field-bg-hover;
+                                background: theme-color-hover($theme-highlight);
                                 color: #fff;
                             }
 
@@ -314,23 +328,28 @@ input::-ms-clear {
                                 overflow: hidden;
                             }
 
-                        }
-                        li.current-months:hover, li.current-years:hover {
-                            a {
-                                background: $theme-field-bg-hover;
+                            &.current-months,
+                            &.current-years{
+                                &:hover{
+                                    a {
+                                        background: $theme-field-bg-active;
+                                        color: $theme-field-hover;
+                                    }
+                                }
+                                &.active {
+                                    a {
+                                        background: $theme-highlight;
+                                        color: #fff;
+                                    }
+                                    &:hover {
+                                        a {
+                                            background: theme-color-hover($theme-highlight);
+                                            color: #fff;
+                                        }
+                                    }
+                                }
                             }
 
-                        }
-                        li.active {
-                            a {
-                                background: $theme-field-bg-active;
-                                color: #fff;
-                            }
-                        }
-                        li.active:hover {
-                            a {
-                                background: $theme-field-bg-active;
-                            }
                         }
                     }
                 }
