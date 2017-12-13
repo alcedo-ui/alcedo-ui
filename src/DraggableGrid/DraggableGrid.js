@@ -260,13 +260,13 @@ export default class DraggableGrid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === DraggableGrid.SelectMode.NORMAL) {
+        if (selectMode === SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (selectMode === DraggableGrid.SelectMode.MULTI_SELECT) {
+        if (selectMode === SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -274,7 +274,7 @@ export default class DraggableGrid extends Component {
 
             value.push(item);
 
-        } else if (selectMode === DraggableGrid.SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -291,7 +291,7 @@ export default class DraggableGrid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== DraggableGrid.SelectMode.MULTI_SELECT) {
+        if (selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
