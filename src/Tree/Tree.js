@@ -236,7 +236,7 @@ Tree.propTypes = {
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        renderer: PropTypes.func,
+        itemRenderer: PropTypes.func,
 
         /**
          * Callback function fired when a tree node touch-tapped.
