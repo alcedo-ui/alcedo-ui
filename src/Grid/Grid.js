@@ -15,6 +15,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
+import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 
 export default class Grid extends Component {
@@ -31,7 +32,6 @@ export default class Grid extends Component {
 
         this.initValue = ::this.initValue;
         this.calItemColStyle = ::this.calItemColStyle;
-        this.isItemChecked = ::this.isItemChecked;
         this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
         this.listItemsRenderer = ::this.listItemsRenderer;
         this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
@@ -98,25 +98,6 @@ export default class Grid extends Component {
 
     }
 
-    isItemChecked(item) {
-
-        const {selectMode, valueField, displayField} = this.props,
-            {value} = this.state;
-
-        if (!item || !value) {
-            return false;
-        }
-
-        if (selectMode === SelectMode.MULTI_SELECT) {
-            return _.isArray(value) && value.filter(valueItem => {
-                    return Util.isValueEqual(valueItem, item, valueField, displayField);
-                }).length > 0;
-        } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            return Util.isValueEqual(value, item, valueField, displayField);
-        }
-
-    }
-
     listGroupedItemsRenderer(items = this.props.items) {
         return _.isArray(items) ?
             items.map((group, groupIndex) => {
@@ -145,6 +126,7 @@ export default class Grid extends Component {
     listItemsRenderer(items = this.props.items) {
 
         const {valueField, displayField, descriptionField, disabled, isLoading, selectMode, renderer} = this.props,
+            {value} = this.state,
             itemColWidth = this.calItemColStyle(this.props, items);
 
         return _.isArray(items) && items.length > 0 ?
@@ -162,7 +144,7 @@ export default class Grid extends Component {
                                       index={index}
                                       itemColWidth={itemColWidth}
                                       data={item}
-                                      checked={this.isItemChecked(item)}
+                                      checked={Calculation.isItemChecked(item, value, this.props)}
                                       value={Util.getValueByValueField(item, valueField, displayField)}
                                       text={Util.getTextByDisplayField(item, displayField, valueField)}
                                       desc={item[descriptionField] || null}
@@ -187,7 +169,7 @@ export default class Grid extends Component {
                                       index={index}
                                       itemColWidth={itemColWidth}
                                       data={item}
-                                      checked={this.isItemChecked(item)}
+                                      checked={Calculation.isItemChecked(item, value, this.props)}
                                       value={item}
                                       text={item}
                                       disabled={disabled}
