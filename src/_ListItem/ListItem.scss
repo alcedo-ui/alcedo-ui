@@ -38,14 +38,6 @@
     color: $theme-field;
     background-color: $theme-field-bg;
 
-    .list-item-checkbox {
-        display: inline-block;
-        width: 16px;
-        margin-right: 10px;
-        float: left;
-        overflow: hidden;
-    }
-
     .list-item-checked {
         display: inline-block;
         float: left;
@@ -58,6 +50,14 @@
         &.activated {
             color: $theme-highlight;
         }
+    }
+
+    .list-item-checkbox {
+        display: inline-block;
+        width: 16px;
+        margin-right: 10px;
+        float: left;
+        overflow: hidden;
     }
 
     .button-icon {

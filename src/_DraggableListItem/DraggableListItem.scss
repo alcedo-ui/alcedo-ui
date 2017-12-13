@@ -36,14 +36,6 @@
     text-overflow: ellipsis;
     -webkit-user-drag: element;
 
-    .draggable-list-item-checkbox {
-        display: inline-block;
-        width: 16px;
-        margin-right: 10px;
-        float: left;
-        overflow: hidden;
-    }
-
     .draggable-list-item-checked {
         display: inline-block;
         float: left;
@@ -56,6 +48,14 @@
         &.activated {
             color: $theme-success;
         }
+    }
+
+    .draggable-list-item-checkbox {
+        display: inline-block;
+        width: 16px;
+        margin-right: 10px;
+        float: left;
+        overflow: hidden;
     }
 
     .button-icon {

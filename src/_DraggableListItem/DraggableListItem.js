@@ -120,10 +120,17 @@ export default class DraggableListItem extends Component {
     render() {
 
         const {
+
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
+
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls,
-                selectMode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 onMouseEnter, onMouseLeave
+
             } = this.props,
             {checked} = this.state,
 
@@ -146,18 +153,28 @@ export default class DraggableListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === DraggableListItem.SelectMode.MULTI_SELECT ?
-                            <Checkbox className="draggable-list-item-checkbox"
-                                      checked={checked}
-                                      disabled={disabled || isLoading}/>
+                        selectMode === SelectMode.SINGLE_SELECT ?
+                            <Radio className="draggable-list-item-checked"
+                                   theme={selectTheme}
+                                   checked={checked}
+                                   disabled={disabled || isLoading}
+                                   uncheckedIconCls={radioUncheckedIconCls}
+                                   checkedIconCls={radioCheckedIconCls}
+                                   disableTouchRipple={true}/>
                             :
                             null
                     }
 
                     {
-                        selectMode === DraggableListItem.SelectMode.SINGLE_SELECT ?
-                            <i className={'fa fa-check draggable-list-item-checked' + (checked ? ' activated' : '')}
-                               aria-hidden="true"></i>
+                        selectMode === SelectMode.MULTI_SELECT ?
+                            <Checkbox className="draggable-list-item-checkbox"
+                                      theme={selectTheme}
+                                      checked={checked}
+                                      disabled={disabled || isLoading}
+                                      uncheckedIconCls={checkboxUncheckedIconCls}
+                                      checkedIconCls={checkboxCheckedIconCls}
+                                      indeterminateIconCls={checkboxIndeterminateIconCls}
+                                      disableTouchRipple={true}/>
                             :
                             null
                     }
