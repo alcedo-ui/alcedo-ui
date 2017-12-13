@@ -39,7 +39,15 @@ export default class TreeNode extends Component {
         });
     }
 
-    checkboxChangeHandler() {
+    checkboxChangeHandler(e) {
+
+        const {data, value, index, onSelect, onDeselect} = this.props;
+
+        if (!Calculation.isItemChecked(data, value, this.props)) {
+            onSelect && onSelect(data, index, e);
+        } else {
+            onDeselect && onDeselect(data, index, e);
+        }
 
     }
 
