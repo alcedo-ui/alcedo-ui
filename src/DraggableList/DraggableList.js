@@ -107,8 +107,14 @@ export default class DraggableList extends Component {
     listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {
-                valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
+
+                valueField, displayField, descriptionField, disabled, isLoading, anchorIconCls, isDraggableAnyWhere,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 renderer
+
             } = this.props,
             {value} = this.state;
 
@@ -135,6 +141,7 @@ export default class DraggableList extends Component {
                             <DraggableListItem key={item.id || itemValue}
                                                {...item}
                                                index={index}
+                                               selectTheme={selectTheme}
                                                data={item}
                                                value={itemValue}
                                                checked={Calculation.isItemChecked(item, value, this.props)}
@@ -146,6 +153,11 @@ export default class DraggableList extends Component {
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
                                                selectMode={selectMode}
+                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={(e) => {
@@ -164,6 +176,7 @@ export default class DraggableList extends Component {
                             <DraggableListItem key={item.id || itemValue}
                                                index={index}
                                                data={item}
+                                               selectTheme={selectTheme}
                                                checked={Calculation.isItemChecked(item, value, this.props)}
                                                value={itemValue}
                                                text={item}
@@ -173,6 +186,11 @@ export default class DraggableList extends Component {
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
                                                selectMode={selectMode}
+                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
@@ -378,6 +396,21 @@ DraggableList.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The theme of the list item.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the list item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of listItem.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
      * Children passed into the _DraggableListItem.
      */
     items: PropTypes.oneOfType([
@@ -517,6 +550,12 @@ DraggableList.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -548,6 +587,10 @@ DraggableList.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
+
+    selectMode: SelectMode.NORMAL,
 
     items: [],
 
@@ -562,6 +605,12 @@ DraggableList.defaultProps = {
 
     scrollSpeed: 20,
     scrollBuffer: 40,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
