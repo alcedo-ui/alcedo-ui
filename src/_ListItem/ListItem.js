@@ -256,14 +256,14 @@ ListItem.propTypes = {
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    itemRenderer: PropTypes.func,
-    renderer: PropTypes.func,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
 
     onTouchTap: PropTypes.func,
     onSelect: PropTypes.func,
