@@ -38,18 +38,37 @@ export default class TreeNode extends Component {
         });
     }
 
+    checkboxChangeHandler() {
+
+    }
+
+    radioChangeHandler() {
+
+    }
+
     touchTapHandler(e) {
 
         e.preventDefault();
 
-        const {data, index, disabled, isLoading, readOnly} = this.props;
+        const {data, disabled, isLoading, readOnly} = this.props;
 
-        if (disabled || isLoading || readOnly) {
+        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
             return;
         }
 
         const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data, index, e);
+        onTouchTap && onTouchTap(e);
+
+        const {selectMode} = this.props;
+
+        switch (selectMode) {
+            case SelectMode.MULTI_SELECT:
+                this.checkboxChangeHandler();
+                return;
+            case SelectMode.SINGLE_SELECT:
+                this.radioChangeHandler();
+                return;
+        }
 
     }
 
