@@ -235,13 +235,13 @@ export default class DraggableList extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === DraggableList.SelectMode.NORMAL) {
+        if (selectMode === SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (selectMode === DraggableList.SelectMode.MULTI_SELECT) {
+        if (selectMode === SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -249,7 +249,7 @@ export default class DraggableList extends Component {
 
             value.push(item);
 
-        } else if (selectMode === DraggableList.SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -266,7 +266,7 @@ export default class DraggableList extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== DraggableList.SelectMode.MULTI_SELECT) {
+        if (selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
