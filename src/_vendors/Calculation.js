@@ -50,6 +50,33 @@ function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, bu
 
 }
 
+function getInitValue(props) {
+
+    if (!props) {
+        return;
+    }
+
+    const {value, selectMode} = props;
+
+    if (!selectMode) {
+        return;
+    }
+
+    if (value) {
+        return value;
+    }
+
+    switch (selectMode) {
+        case SelectMode.MULTI_SELECT:
+            return [];
+        case SelectMode.SINGLE_SELECT:
+            return null;
+        default:
+            return value;
+    }
+
+}
+
 function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
     if (!item || !value) {
@@ -69,5 +96,6 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 export default {
     pageSize,
     displayIndexByScrollTop,
+    getInitValue,
     isItemChecked
 };
