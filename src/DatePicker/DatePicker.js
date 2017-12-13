@@ -186,8 +186,6 @@ export default class DatePicker extends Component {
                 state.marginLeft = marginLeft;
             }
             this.setState(state);
-        }else{
-            this.todayHandle();
         }
 
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
