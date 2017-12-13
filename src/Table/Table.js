@@ -49,11 +49,10 @@ export default class Table extends Component {
                 page: 0
             },
 
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
 
         };
 
-        this.initValue = ::this.initValue;
         this.isHeadChecked = ::this.isHeadChecked;
         this.isHeadIndeterminate = ::this.isHeadIndeterminate;
         this.isItemChecked = ::this.isItemChecked;
@@ -68,34 +67,6 @@ export default class Table extends Component {
         this.paggingData = ::this.paggingData;
         this.pageChangedHandler = ::this.pageChangedHandler;
         this.resetPage = ::this.resetPage;
-        // this.wdithHandle = ::this.wdithHandle;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
-                return [];
-            case Table.SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
@@ -369,10 +340,6 @@ export default class Table extends Component {
 
     }
 
-    componentDidMount() {
-        // this.wdithHandle();
-    }
-
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.data.length !== this.props.data.length) {
@@ -381,7 +348,7 @@ export default class Table extends Component {
 
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
 
