@@ -133,7 +133,8 @@ export default class TreeNode extends Component {
                                            checked={checked}
                                            disabled={isNodeDisabled}
                                            uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
-                                           checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}/>
+                                           checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
+                                           disableTouchRipple={true}/>
                                     :
                                     null
                             }
@@ -146,7 +147,8 @@ export default class TreeNode extends Component {
                                               disabled={isNodeDisabled}
                                               uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                               checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                              indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}/>
+                                              indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                              disableTouchRipple={true}/>
                                     :
                                     null
                             }
@@ -168,8 +170,8 @@ export default class TreeNode extends Component {
                             }
 
                             {
-                                data.renderer && typeof data.renderer === 'function' ?
-                                    data.renderer(data, index)
+                                data.itemRenderer && typeof data.itemRenderer === 'function' ?
+                                    data.itemRenderer(data, index)
                                     :
                                     (
                                         renderer && typeof renderer === 'function' ?
