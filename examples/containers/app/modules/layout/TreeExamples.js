@@ -47,14 +47,12 @@ export default class TreeExamples extends Component {
             }]
         };
 
-        this.onChangeHandler = this::this.onChangeHandler;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
-    onChangeHandler(value) {
-        this.setState({
-            value: value
-        });
+    changeHandler(value) {
+        console.log(value);
     }
 
     render() {
@@ -84,7 +82,8 @@ export default class TreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <Tree className="tree-example"
-                                          data={this.data}/>
+                                          data={this.data}
+                                          onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
@@ -138,7 +137,8 @@ export default class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree className="tree-example"
                                           selectMode={Tree.SelectMode.SINGLE_SELECT}
-                                          data={this.data}/>
+                                          data={this.data}
+                                          onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
@@ -161,7 +161,8 @@ export default class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree className="tree-example"
                                           selectMode={Tree.SelectMode.MULTI_SELECT}
-                                          data={this.data}/>
+                                          data={this.data}
+                                          onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
