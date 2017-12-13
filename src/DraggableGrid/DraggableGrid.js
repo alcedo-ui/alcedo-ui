@@ -128,19 +128,19 @@ export default class DraggableGrid extends Component {
                         return null;
                     }
 
-                    const value = typeof item === 'object' ?
+                    const itemValue = typeof item === 'object' ?
                         Util.getValueByValueField(item, valueField, displayField)
                         :
                         item;
 
                     return typeof item === 'object' ?
                         (
-                            <DraggableGridItem key={item.id || value}
+                            <DraggableGridItem key={item.id || itemValue}
                                                {...item}
                                                index={index}
                                                itemColWidth={itemColWidth}
                                                data={item}
-                                               value={value}
+                                               value={itemValue}
                                                checked={Calculation.isItemChecked(item, value, this.props)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                desc={item[descriptionField] || null}
@@ -165,12 +165,12 @@ export default class DraggableGrid extends Component {
                         )
                         :
                         (
-                            <DraggableGridItem key={item.id || value}
+                            <DraggableGridItem key={item.id || itemValue}
                                                index={index}
                                                itemColWidth={itemColWidth}
                                                data={item}
                                                checked={Calculation.isItemChecked(item, value, this.props)}
-                                               value={value}
+                                               value={itemValue}
                                                text={item}
                                                disabled={disabled}
                                                isLoading={isLoading}
