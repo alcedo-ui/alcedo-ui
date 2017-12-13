@@ -110,7 +110,33 @@ export default class Tree extends Component {
 
     }
 
-    treeNodeDeselectHandler() {
+    treeNodeDeselectHandler(nodeData, nodeIndex, e) {
+
+        const {selectMode} = this.props;
+
+        if (selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {valueField, displayField} = this.props;
+        let {value} = this.state;
+
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => {
+                return Util.getValueByValueField(valueItem, valueField, displayField)
+                    != Util.getValueByValueField(nodeData, valueField, displayField);
+            });
+        }
+
+        this.setState({
+            value
+        }, () => {
+            const {onItemDeselect, onChange} = this.props;
+            onItemDeselect && onItemDeselect(nodeData, nodeIndex, e);
+            onChange && onChange(value, nodeIndex, e);
+        });
 
     }
 
