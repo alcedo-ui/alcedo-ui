@@ -50,14 +50,14 @@ export default class TreeNode extends Component {
 
         e.preventDefault();
 
-        const {data, disabled, isLoading, readOnly} = this.props;
+        const {index, data, disabled, isLoading, readOnly} = this.props;
 
         if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
             return;
         }
 
         const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        onTouchTap && onTouchTap(data, index, e);
 
         const {selectMode} = this.props;
 
