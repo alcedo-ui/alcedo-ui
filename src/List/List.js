@@ -13,6 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
@@ -30,7 +31,6 @@ export default class List extends Component {
         };
 
         this.initValue = ::this.initValue;
-        this.isItemChecked = ::this.isItemChecked;
         this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
@@ -61,25 +61,6 @@ export default class List extends Component {
                 return null;
             default:
                 return value;
-        }
-
-    }
-
-    isItemChecked(item) {
-
-        const {selectMode, valueField, displayField} = this.props,
-            {value} = this.state;
-
-        if (!value) {
-            return false;
-        }
-
-        if (selectMode === SelectMode.MULTI_SELECT) {
-            return _.isArray(value) && value.filter(valueItem => {
-                return Util.isValueEqual(valueItem, item, valueField, displayField);
-            }).length > 0;
-        } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            return Util.isValueEqual(value, item, valueField, displayField);
         }
 
     }
@@ -190,6 +171,7 @@ export default class List extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
 
             } = this.props,
+            {value} = this.state,
             listClassName = (className ? ' ' + className : '');
 
         return (
@@ -222,7 +204,7 @@ export default class List extends Component {
                                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
                                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                   data={item}
-                                                  checked={this.isItemChecked(item)}
+                                                  checked={Calculation.isItemChecked(item, value, this.props)}
                                                   value={Util.getValueByValueField(item, valueField, displayField)}
                                                   text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                   desc={item[descriptionField] || null}
@@ -254,7 +236,7 @@ export default class List extends Component {
                                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
                                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                   data={item}
-                                                  checked={this.isItemChecked(item)}
+                                                  checked={Calculation.isItemChecked(item, value, this.props)}
                                                   value={item}
                                                   text={item}
                                                   disabled={disabled}
@@ -398,6 +380,8 @@ List.propTypes = {
         onTouchTap: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
+
+    value: PropTypes.any,
 
     /**
      * The id field name in data. (default: "id")
