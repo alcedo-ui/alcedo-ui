@@ -3,6 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import _ from 'lodash';
 import Valid from './Valid';
 import SelectMode from '../_statics/SelectMode';
 import Util from './Util';
