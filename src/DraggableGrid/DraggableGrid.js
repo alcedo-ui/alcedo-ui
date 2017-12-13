@@ -18,6 +18,7 @@ import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
+import Calculation from '../_vendors/Calculation';
 
 const ScrollingComponent = withScrolling('div');
 
@@ -31,12 +32,10 @@ export default class DraggableGrid extends Component {
 
         this.state = {
             items: props.items,
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
 
-        this.initValue = ::this.initValue;
         this.calItemColStyle = ::this.calItemColStyle;
-        this.isItemChecked = ::this.isItemChecked;
         this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
         this.listItemsRenderer = ::this.listItemsRenderer;
         this.listGroupMoveHandler = ::this.listGroupMoveHandler;
@@ -47,33 +46,6 @@ export default class DraggableGrid extends Component {
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case DraggableGrid.SelectMode.MULTI_SELECT:
-                return [];
-            case DraggableGrid.SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
@@ -102,25 +74,6 @@ export default class DraggableGrid extends Component {
         }
 
         return !isNaN(col[colLen - 1]) ? 100 / validValue(col[colLen - 1]) : null;
-
-    }
-
-    isItemChecked(item) {
-
-        const {selectMode, valueField, displayField} = this.props,
-            {value} = this.state;
-
-        if (!item || !value) {
-            return false;
-        }
-
-        if (selectMode === DraggableGrid.SelectMode.MULTI_SELECT) {
-            return _.isArray(value) && value.filter(valueItem => {
-                    return Util.isValueEqual(valueItem, item, valueField, displayField);
-                }).length > 0;
-        } else if (selectMode === DraggableGrid.SelectMode.SINGLE_SELECT) {
-            return Util.isValueEqual(value, item, valueField, displayField);
-        }
 
     }
 
@@ -164,6 +117,7 @@ export default class DraggableGrid extends Component {
                 selectMode, anchorIconCls, isDraggableAnyWhere,
                 renderer
             } = this.props,
+            {value} = this.state,
             itemColWidth = this.calItemColStyle(this.props, items);
 
         return _.isArray(items) && items.length > 0 ?
@@ -187,7 +141,7 @@ export default class DraggableGrid extends Component {
                                                itemColWidth={itemColWidth}
                                                data={item}
                                                value={value}
-                                               checked={this.isItemChecked(item)}
+                                               checked={Calculation.isItemChecked(item, value, this.props)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                desc={item[descriptionField] || null}
                                                disabled={disabled || item.disabled}
@@ -215,7 +169,7 @@ export default class DraggableGrid extends Component {
                                                index={index}
                                                itemColWidth={itemColWidth}
                                                data={item}
-                                               checked={this.isItemChecked(item)}
+                                               checked={Calculation.isItemChecked(item, value, this.props)}
                                                value={value}
                                                text={item}
                                                disabled={disabled}
@@ -395,7 +349,7 @@ export default class DraggableGrid extends Component {
         }
         if (nextProps.value !== this.state.value) {
             state = state ? state : {};
-            state.value = this.initValue(nextProps);
+            state.value = Calculation.getInitValue(nextProps);
         }
 
         if (state) {
