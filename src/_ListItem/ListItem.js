@@ -137,7 +137,8 @@ export default class ListItem extends Component {
                                    checked={checked}
                                    disabled={disabled || isLoading}
                                    uncheckedIconCls={radioUncheckedIconCls}
-                                   checkedIconCls={radioCheckedIconCls}/>
+                                   checkedIconCls={radioCheckedIconCls}
+                                   disableTouchRipple={true}/>
                             :
                             null
                     }
@@ -150,7 +151,8 @@ export default class ListItem extends Component {
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
-                                      indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                      indeterminateIconCls={checkboxIndeterminateIconCls}
+                                      disableTouchRipple={true}/>
                             :
                             null
                     }
