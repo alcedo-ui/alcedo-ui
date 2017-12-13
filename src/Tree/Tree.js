@@ -72,8 +72,8 @@ export default class Tree extends Component {
             value: nodeData
         }, () => {
             const {onNodeTouchTap, onChange} = this.props;
-            onNodeTouchTap && onNodeTouchTap(value, index, e);
-            onChange && onChange(value, index, e);
+            onNodeTouchTap && onNodeTouchTap(nodeData, nodeIndex, e);
+            onChange && onChange(nodeData, nodeIndex, e);
         });
 
     }
