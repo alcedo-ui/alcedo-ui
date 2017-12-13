@@ -43,9 +43,9 @@ export default class TreeNode extends Component {
 
     }
 
-    radioChangeHandler() {
-        const {data, onSelect} = this.props;
-        onSelect && onSelect(data);
+    radioChangeHandler(e) {
+        const {data, index, onSelect} = this.props;
+        onSelect && onSelect(data, index, e);
     }
 
     touchTapHandler(e) {
@@ -65,10 +65,10 @@ export default class TreeNode extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler();
+                this.checkboxChangeHandler(e);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.radioChangeHandler(e);
                 return;
         }
 
@@ -78,7 +78,7 @@ export default class TreeNode extends Component {
 
         const {
 
-                index, depth, theme, selectTheme, selectMode, data, disabled, isLoading, readOnly,
+                index, depth, theme, selectTheme, selectMode, data, value, disabled, isLoading, readOnly,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -86,7 +86,9 @@ export default class TreeNode extends Component {
                 renderer, onMouseEnter, onMouseLeave
 
             } = this.props,
-            {checked, collapsed} = this.state,
+            {collapsed} = this.state,
+
+            checked = Calculation.isItemChecked(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,

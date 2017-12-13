@@ -80,6 +80,34 @@ export default class Tree extends Component {
 
     treeNodeSelectHandler(nodeData, nodeIndex, e) {
 
+        const {selectMode} = this.props;
+
+        if (selectMode === SelectMode.NORMAL) {
+            return;
+        }
+
+        let {value} = this.state;
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+
+            if (!value || !_.isArray(value)) {
+                value = [];
+            }
+
+            value.push(nodeData);
+
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
+            value = nodeData;
+        }
+
+        this.setState({
+            value
+        }, () => {
+            const {onItemSelect, onChange} = this.props;
+            onItemSelect && onItemSelect(nodeData, nodeIndex, e);
+            onChange && onChange(value, nodeIndex, e);
+        });
+
     }
 
     treeNodeDeselectHandler() {
