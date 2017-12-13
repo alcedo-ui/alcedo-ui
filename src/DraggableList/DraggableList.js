@@ -17,6 +17,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
+import Calculation from '../_vendors/Calculation';
 
 const ScrollingComponent = withScrolling('div');
 
@@ -31,11 +32,9 @@ export default class DraggableList extends Component {
 
         this.state = {
             items: props.items,
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
 
-        this.initValue = ::this.initValue;
-        this.isItemChecked = ::this.isItemChecked;
         this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
         this.listItemsRenderer = ::this.listItemsRenderer;
         this.listGroupMoveHandler = ::this.listGroupMoveHandler;
@@ -44,52 +43,6 @@ export default class DraggableList extends Component {
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case DraggableList.SelectMode.MULTI_SELECT:
-                return [];
-            case DraggableList.SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
-
-    }
-
-    isItemChecked(item) {
-
-        const {selectMode, valueField, displayField} = this.props,
-            {value} = this.state;
-
-        if (!item || !value) {
-            return false;
-        }
-
-        if (selectMode === DraggableList.SelectMode.MULTI_SELECT) {
-            return _.isArray(value) && value.filter(valueItem => {
-                    return Util.isValueEqual(valueItem, item, valueField, displayField);
-                }).length > 0;
-        } else if (selectMode === DraggableList.SelectMode.SINGLE_SELECT) {
-            return Util.isValueEqual(value, item, valueField, displayField);
-        }
 
     }
 
@@ -134,9 +87,10 @@ export default class DraggableList extends Component {
     listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {
-            valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
-            renderer
-        } = this.props;
+                valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
+                renderer
+            } = this.props,
+            {value} = this.state;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -163,7 +117,7 @@ export default class DraggableList extends Component {
                                                index={index}
                                                data={item}
                                                value={value}
-                                               checked={this.isItemChecked(item)}
+                                               checked={Calculation.isItemChecked(item, value, this.props)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                desc={item[descriptionField] || null}
                                                disabled={disabled || item.disabled}
@@ -190,7 +144,7 @@ export default class DraggableList extends Component {
                             <DraggableListItem key={item.id || value}
                                                index={index}
                                                data={item}
-                                               checked={this.isItemChecked(item)}
+                                               checked={Calculation.isItemChecked(item, value, this.props)}
                                                value={value}
                                                text={item}
                                                disabled={disabled}
@@ -353,7 +307,7 @@ export default class DraggableList extends Component {
         }
         if (nextProps.value !== this.state.value) {
             state = state ? state : {};
-            state.value = this.initValue(nextProps);
+            state.value = Calculation.getInitValue(nextProps);
         }
 
         if (state) {
