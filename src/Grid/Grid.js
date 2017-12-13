@@ -27,10 +27,9 @@ export default class Grid extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
 
-        this.initValue = ::this.initValue;
         this.calItemColStyle = ::this.calItemColStyle;
         this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
         this.listItemsRenderer = ::this.listItemsRenderer;
@@ -40,33 +39,6 @@ export default class Grid extends Component {
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                return [];
-            case SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
@@ -297,7 +269,7 @@ export default class Grid extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
     }
