@@ -113,9 +113,14 @@ export default class DraggableGrid extends Component {
     listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {
-                valueField, displayField, descriptionField, disabled, isLoading,
-                selectMode, anchorIconCls, isDraggableAnyWhere,
+
+                valueField, displayField, descriptionField, disabled, isLoading, anchorIconCls, isDraggableAnyWhere,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 renderer
+
             } = this.props,
             {value} = this.state,
             itemColWidth = this.calItemColStyle(this.props, items);
@@ -138,6 +143,7 @@ export default class DraggableGrid extends Component {
                             <DraggableGridItem key={item.id || itemValue}
                                                {...item}
                                                index={index}
+                                               selectTheme={selectTheme}
                                                itemColWidth={itemColWidth}
                                                data={item}
                                                value={itemValue}
@@ -150,6 +156,11 @@ export default class DraggableGrid extends Component {
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
                                                selectMode={selectMode}
+                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={(e) => {
@@ -167,6 +178,7 @@ export default class DraggableGrid extends Component {
                         (
                             <DraggableGridItem key={item.id || itemValue}
                                                index={index}
+                                               selectTheme={selectTheme}
                                                itemColWidth={itemColWidth}
                                                data={item}
                                                checked={Calculation.isItemChecked(item, value, this.props)}
@@ -178,6 +190,11 @@ export default class DraggableGrid extends Component {
                                                anchorIconCls={anchorIconCls}
                                                isDraggableAnyWhere={isDraggableAnyWhere}
                                                selectMode={selectMode}
+                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
                                                renderer={renderer}
                                                onMove={this.listItemMoveHandler}
                                                onTouchTap={() => {
@@ -405,7 +422,22 @@ DraggableGrid.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the _DraggableListItem.
+     * The theme of the grid item.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the grid item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of grid item.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * Children passed into the grid item.
      */
     items: PropTypes.oneOfType([
 
@@ -555,6 +587,12 @@ DraggableGrid.propTypes = {
     scrollBuffer: PropTypes.number,
     shouldPreventContainerScroll: PropTypes.bool,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
@@ -586,6 +624,10 @@ DraggableGrid.defaultProps = {
 
     className: '',
     style: null,
+    theme: Theme.DEFAULT,
+    selectTheme: Theme.DEFAULT,
+
+    selectMode: SelectMode.NORMAL,
 
     items: [],
 
@@ -604,6 +646,12 @@ DraggableGrid.defaultProps = {
 
     scrollSpeed: 20,
     scrollBuffer: 40,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
