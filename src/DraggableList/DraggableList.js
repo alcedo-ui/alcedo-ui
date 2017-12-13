@@ -107,9 +107,10 @@ export default class DraggableList extends Component {
     listItemsRenderer(items = this.state.items, groupIndex) {
 
         const {
-            valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
-            renderer
-        } = this.props;
+                valueField, displayField, descriptionField, disabled, isLoading, selectMode, anchorIconCls, isDraggableAnyWhere,
+                renderer
+            } = this.props,
+            {value} = this.state;
 
         return _.isArray(items) && items.length > 0 ?
             (
@@ -124,19 +125,19 @@ export default class DraggableList extends Component {
                                     className="draggable-list-separator"></div>;
                     }
 
-                    const value = typeof item === 'object' ?
+                    const itemValue = typeof item === 'object' ?
                         Util.getValueByValueField(item, valueField, displayField)
                         :
                         item;
 
                     return typeof item === 'object' ?
                         (
-                            <DraggableListItem key={item.id || value}
+                            <DraggableListItem key={item.id || itemValue}
                                                {...item}
                                                index={index}
                                                data={item}
-                                               value={value}
-                                               checked={this.isItemChecked(item)}
+                                               value={itemValue}
+                                               checked={Calculation.isItemChecked(item, value, this.props)}
                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                                desc={item[descriptionField] || null}
                                                disabled={disabled || item.disabled}
@@ -160,11 +161,11 @@ export default class DraggableList extends Component {
                         )
                         :
                         (
-                            <DraggableListItem key={item.id || value}
+                            <DraggableListItem key={item.id || itemValue}
                                                index={index}
                                                data={item}
-                                               checked={this.isItemChecked(item)}
-                                               value={value}
+                                               checked={Calculation.isItemChecked(item, value, this.props)}
+                                               value={itemValue}
                                                text={item}
                                                disabled={disabled}
                                                isLoading={isLoading}
