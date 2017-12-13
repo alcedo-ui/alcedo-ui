@@ -14,6 +14,7 @@ import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
 import Util from '../_vendors/Util';
+import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
@@ -43,7 +44,8 @@ export default class TreeNode extends Component {
     }
 
     radioChangeHandler() {
-
+        const {data, onSelect} = this.props;
+        onSelect && onSelect(data);
     }
 
     touchTapHandler(e) {
@@ -241,6 +243,9 @@ TreeNode.propTypes = {
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
+    data: PropTypes.object,
+    value: PropTypes.any,
+
     idField: PropTypes.string,
     valueField: PropTypes.string,
     displayField: PropTypes.string,
@@ -261,6 +266,8 @@ TreeNode.propTypes = {
     checkboxIndeterminateIconCls: PropTypes.string,
 
     onTouchTap: PropTypes.func,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
@@ -275,6 +282,9 @@ TreeNode.defaultProps = {
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.NORMAL,
+
+    data: null,
+    value: null,
 
     idField: 'id',
     valueField: 'value',
