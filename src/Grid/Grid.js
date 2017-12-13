@@ -60,9 +60,9 @@ export default class Grid extends Component {
         }
 
         switch (selectMode) {
-            case Grid.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return [];
-            case Grid.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
@@ -107,11 +107,11 @@ export default class Grid extends Component {
             return false;
         }
 
-        if (selectMode === Grid.SelectMode.MULTI_SELECT) {
+        if (selectMode === SelectMode.MULTI_SELECT) {
             return _.isArray(value) && value.filter(valueItem => {
                     return Util.isValueEqual(valueItem, item, valueField, displayField);
                 }).length > 0;
-        } else if (selectMode === Grid.SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
             return Util.isValueEqual(value, item, valueField, displayField);
         }
 
@@ -216,7 +216,7 @@ export default class Grid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== Grid.SelectMode.NORMAL) {
+        if (selectMode !== SelectMode.NORMAL) {
             return;
         }
 
@@ -234,13 +234,13 @@ export default class Grid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === Grid.SelectMode.NORMAL) {
+        if (selectMode === SelectMode.NORMAL) {
             return;
         }
 
         let {value} = this.state;
 
-        if (selectMode === Grid.SelectMode.MULTI_SELECT) {
+        if (selectMode === SelectMode.MULTI_SELECT) {
 
             if (!value || !_.isArray(value)) {
                 value = [];
@@ -248,7 +248,7 @@ export default class Grid extends Component {
 
             value.push(item);
 
-        } else if (selectMode === Grid.SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
             value = item;
         }
 
@@ -265,7 +265,7 @@ export default class Grid extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode !== Grid.SelectMode.MULTI_SELECT) {
+        if (selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
