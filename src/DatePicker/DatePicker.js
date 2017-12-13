@@ -186,6 +186,8 @@ export default class DatePicker extends Component {
                 state.marginLeft = marginLeft;
             }
             this.setState(state);
+        }else{
+            this.todayHandle();
         }
 
         Event.addEvent(window, 'mousedown', this.mousedownHandle);
@@ -218,7 +220,7 @@ export default class DatePicker extends Component {
                            value={value}
                            iconCls="fa fa-calendar"
                            readOnly={true}
-                           isClearIcon={false}/>
+                           clearButtonVisible={false}/>
 
                 <div ref="popup"
                      className={`date-picker-popup ${popupVisible ? '' : 'hidden'}`}
@@ -226,7 +228,7 @@ export default class DatePicker extends Component {
                     <div className="calendar-date-input-wrap">
                         <TextField className='calendar-input'
                                    placeholder={'Select Date'}
-                                   isClearIcon={true}
+                                   clearButtonVisible={true}
                                    value={value}
                                    onChange={this.textFieldChangeHandle}/>
                     </div>
@@ -350,7 +352,6 @@ DatePicker.defaultProps = {
     style: null,
 
     name: '',
-    value: moment().format('YYYY-MM-DD'),
     maxValue: '',
     minValue: '',
     placeholder: 'Date',

@@ -349,8 +349,7 @@ export default class DayPicker extends Component {
             for (let i = 0; i < Number(month_days); i++) {
                 let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
                 let current_link = (
-                    <li className={`${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''}
-                                                     ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`}
+                    <li className={`${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''} ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`}
                         key={'current' + i}
                         onClick={() => {
                             if ((minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))) {
