@@ -270,124 +270,40 @@ DraggableListItem.propTypes = {
 
     index: PropTypes.number,
 
-    /**
-     * The CSS class name of the list button.
-     */
     className: PropTypes.string,
-
-    /**
-     * Override the styles of the list button.
-     */
     style: PropTypes.object,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The theme of the list button.
-     */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-
-    /**
-     *
-     */
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-
-    /**
-     * The text value of the list button. Type can be string or number.
-     */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-    /**
-     * The list item's display text. Type can be string, number or bool.
-     */
     text: PropTypes.any,
-
-    /**
-     * The desc value of the list button. Type can be string or number.
-     */
     desc: PropTypes.string,
-
-    /**
-     * If true, the list button will be disabled.
-     */
     disabled: PropTypes.bool,
-
-    /**
-     * If true,the button will be have loading effect.
-     */
     isLoading: PropTypes.bool,
-
-    /**
-     * Use this property to display an icon. It will display on the left.
-     */
     iconCls: PropTypes.string,
-
-    /**
-     * Use this property to display an icon. It will display on the right.
-     */
     rightIconCls: PropTypes.string,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    itemRenderer: PropTypes.func,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    renderer: PropTypes.func,
-
-    /**
-     *
-     */
     checked: PropTypes.bool,
-
-    /**
-     *
-     */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     *
-     */
     groupIndex: PropTypes.number,
-
-    /**
-     *
-     */
     isGroupTitle: PropTypes.bool,
-
-    /**
-     *
-     */
     anchorIconCls: PropTypes.string,
-
-    /**
-     *
-     */
     isDraggableAnyWhere: PropTypes.bool,
 
-    /**
-     * Callback function fired when a list item touch-tapped.
-     */
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
+
     onTouchTap: PropTypes.func,
-
-    /**
-     *
-     */
     onSelect: PropTypes.func,
-
-    /**
-     *
-     */
     onDeselect: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseEnter: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseLeave: PropTypes.func
 
 };
@@ -396,21 +312,21 @@ DraggableListItem.defaultProps = {
 
     index: 0,
 
-    className: '',
+    className: null,
     style: null,
 
     theme: Theme.DEFAULT,
 
-    data: '',
-    value: '',
-    text: '',
-    desc: '',
+    data: null,
+    value: null,
+    text: null,
+    desc: null,
 
     disabled: false,
     isLoading: false,
 
-    iconCls: '',
-    rightIconCls: '',
+    iconCls: null,
+    rightIconCls: null,
 
     checked: false,
 
@@ -419,6 +335,12 @@ DraggableListItem.defaultProps = {
     isGroupTitle: false,
 
     anchorIconCls: 'fa fa-bars',
-    isDraggableAnyWhere: false
+    isDraggableAnyWhere: false,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
