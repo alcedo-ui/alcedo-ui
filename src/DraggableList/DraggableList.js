@@ -15,6 +15,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
@@ -31,10 +32,9 @@ export default class DraggableList extends Component {
 
         this.state = {
             items: props.items,
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
 
-        this.initValue = ::this.initValue;
         this.isItemChecked = ::this.isItemChecked;
         this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
         this.listItemsRenderer = ::this.listItemsRenderer;
@@ -44,33 +44,6 @@ export default class DraggableList extends Component {
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
         this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                return [];
-            case SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
@@ -353,7 +326,7 @@ export default class DraggableList extends Component {
         }
         if (nextProps.value !== this.state.value) {
             state = state ? state : {};
-            state.value = this.initValue(nextProps);
+            state.value = Calculation.getInitValue(nextProps);
         }
 
         if (state) {
