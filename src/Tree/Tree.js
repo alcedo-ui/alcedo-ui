@@ -107,6 +107,7 @@ export default class Tree extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 renderer
             } = this.props,
+            {value} = this.state,
             listClassName = (className ? ' ' + className : '');
 
         return (
@@ -116,6 +117,7 @@ export default class Tree extends Component {
                  onWheel={this.wheelHandler}>
 
                 <TreeNode data={data}
+                          value={value}
                           theme={theme}
                           idField={idField}
                           valueField={valueField}
