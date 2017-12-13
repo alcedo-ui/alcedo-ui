@@ -406,12 +406,12 @@ DraggableList.propTypes = {
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The mode of listItem.
+     * The mode of list item.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
-     * Children passed into the _DraggableListItem.
+     * Children passed into the list item.
      */
     items: PropTypes.oneOfType([
 
