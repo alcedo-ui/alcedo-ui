@@ -160,10 +160,18 @@ export default class DraggableGridItem extends Component {
     render() {
 
         const {
+
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging,
+
                 index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                selectMode, disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
-                tip, tipPosition, onMouseLeave
+                disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                tip, tipPosition,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                onMouseLeave
+
             } = this.props,
             {checked, tipVisible, tipTriggerEl} = this.state,
 
@@ -190,18 +198,28 @@ export default class DraggableGridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            selectMode === DraggableGridItem.SelectMode.MULTI_SELECT ?
-                                <Checkbox className="draggable-grid-item-checkbox"
-                                          checked={checked}
-                                          disabled={disabled || isLoading}/>
+                            selectMode === SelectMode.SINGLE_SELECT ?
+                                <Radio className="draggable-grid-item-checked"
+                                       theme={selectTheme}
+                                       checked={checked}
+                                       disabled={disabled || isLoading}
+                                       uncheckedIconCls={radioUncheckedIconCls}
+                                       checkedIconCls={radioCheckedIconCls}
+                                       disableTouchRipple={true}/>
                                 :
                                 null
                         }
 
                         {
-                            selectMode === DraggableGridItem.SelectMode.SINGLE_SELECT ?
-                                <i className={'fa fa-check draggable-grid-item-checked' + (checked ? ' activated' : '')}
-                                   aria-hidden="true"></i>
+                            selectMode === SelectMode.MULTI_SELECT ?
+                                <Checkbox className="draggable-grid-item-checkbox"
+                                          theme={selectTheme}
+                                          checked={checked}
+                                          disabled={disabled || isLoading}
+                                          uncheckedIconCls={checkboxUncheckedIconCls}
+                                          checkedIconCls={checkboxCheckedIconCls}
+                                          indeterminateIconCls={checkboxIndeterminateIconCls}
+                                          disableTouchRipple={true}/>
                                 :
                                 null
                         }
@@ -313,7 +331,8 @@ DraggableGridItem.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -323,17 +342,24 @@ DraggableGridItem.propTypes = {
     isLoading: PropTypes.bool,
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
-    itemRenderer: PropTypes.func,
-    renderer: PropTypes.func,
     checked: PropTypes.bool,
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     groupIndex: PropTypes.number,
     isGroupTitle: PropTypes.bool,
     anchorIconCls: PropTypes.string,
     isDraggableAnyWhere: PropTypes.bool,
-
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+    itemColWidth:PropTypes.number,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
 
     onTouchTap: PropTypes.func,
     onSelect: PropTypes.func,
@@ -348,21 +374,21 @@ DraggableGridItem.defaultProps = {
 
     index: 0,
 
-    className: '',
+    className: null,
     style: null,
 
     theme: Theme.DEFAULT,
 
-    data: '',
-    value: '',
-    text: '',
-    desc: '',
+    data: null,
+    value: null,
+    text: null,
+    desc: null,
 
     disabled: false,
     isLoading: false,
 
-    iconCls: '',
-    rightIconCls: '',
+    iconCls: null,
+    rightIconCls: null,
 
     checked: false,
 
@@ -373,6 +399,12 @@ DraggableGridItem.defaultProps = {
     anchorIconCls: 'fa fa-bars',
     isDraggableAnyWhere: false,
 
-    tip: ''
+    tip: null,
+
+    radioUncheckedIconCls: 'fa fa-check',
+    radioCheckedIconCls: 'fa fa-check',
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

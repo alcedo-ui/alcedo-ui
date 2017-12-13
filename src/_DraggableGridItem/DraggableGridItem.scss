@@ -29,14 +29,6 @@
         text-overflow: ellipsis;
         -webkit-user-drag: element;
 
-        .draggable-grid-item-checkbox {
-            display: inline-block;
-            width: 16px;
-            margin-right: 10px;
-            float: left;
-            overflow: hidden;
-        }
-
         .draggable-grid-item-checked {
             display: inline-block;
             float: left;
@@ -49,6 +41,14 @@
             &.activated {
                 color: $theme-success;
             }
+        }
+
+        .draggable-grid-item-checkbox {
+            display: inline-block;
+            width: 16px;
+            margin-right: 10px;
+            float: left;
+            overflow: hidden;
         }
 
         .button-icon {
