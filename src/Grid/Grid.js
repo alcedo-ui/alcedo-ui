@@ -38,7 +38,7 @@ export default class Grid extends Component {
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -252,12 +252,6 @@ export default class Grid extends Component {
         this.forceUpdate();
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentDidMount() {
 
         this.gridEl = this.refs.grid;
@@ -295,7 +289,7 @@ export default class Grid extends Component {
                  className={'grid' + listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={this.wheelHandler}>
+                 onWheel={Event.wheelHandler}>
 
                 {renderEl}
 
