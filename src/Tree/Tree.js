@@ -29,7 +29,7 @@ export default class Tree extends Component {
         this.treeNodeTouchTapHandler = ::this.treeNodeTouchTapHandler;
         this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
         this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -140,12 +140,6 @@ export default class Tree extends Component {
 
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -168,7 +162,7 @@ export default class Tree extends Component {
             <div className={'tree' + listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={this.wheelHandler}>
+                 onWheel={Event.wheelHandler}>
 
                 <TreeNode data={data}
                           value={value}
