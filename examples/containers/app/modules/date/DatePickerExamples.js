@@ -70,7 +70,6 @@ export default class DatePickerExamples extends Component {
                                 <DatePicker name="date"
                                             dateFormat='YYYY/MM/DD'
                                             autoClose={false}/>
-
                             </div>
 
                         </div>
