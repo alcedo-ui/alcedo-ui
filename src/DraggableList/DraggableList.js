@@ -43,7 +43,7 @@ export default class DraggableList extends Component {
         this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -329,12 +329,6 @@ export default class DraggableList extends Component {
 
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentWillReceiveProps(nextProps) {
 
         let state;
@@ -372,7 +366,7 @@ export default class DraggableList extends Component {
                                 style={style}
                                 strengthMultiplier={scrollSpeed}
                                 verticalStrength={createVerticalStrength(scrollBuffer)}
-                                onWheel={this.wheelHandler}>
+                                onWheel={Event.wheelHandler}>
 
                 {renderEl}
 
