@@ -35,10 +35,14 @@ export default class TreeNode extends Component {
 
     }
 
-    toggleTreeNode() {
+    toggleTreeNode(e) {
+
+        e.stopPropagation();
+
         this.setState({
             collapsed: !this.state.collapsed
         });
+
     }
 
     checkboxChangeHandler(e) {
