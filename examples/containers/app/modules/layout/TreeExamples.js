@@ -81,8 +81,7 @@ export default class TreeExamples extends Component {
                                 <p><code>Tree</code>simple example.</p>
 
                                 <Paper className="tree-wrapper">
-                                    <Tree className="tree-example"
-                                          data={this.data}
+                                    <Tree data={this.data}
                                           onChange={this.changeHandler}/>
                                 </Paper>
 
@@ -104,8 +103,7 @@ export default class TreeExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <Paper className="tree-wrapper">
-                                    <Tree className="tree-example"
-                                          data={this.data}
+                                    <Tree data={this.data}
                                           collapsedIconCls="fa fa-plus-square-o"
                                           expandedIconCls="fa fa-minus-square-o"
                                           renderer={node => {
@@ -135,8 +133,7 @@ export default class TreeExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <Paper className="tree-wrapper">
-                                    <Tree className="tree-example"
-                                          selectMode={Tree.SelectMode.SINGLE_SELECT}
+                                    <Tree selectMode={Tree.SelectMode.SINGLE_SELECT}
                                           data={this.data}
                                           onChange={this.changeHandler}/>
                                 </Paper>
@@ -159,8 +156,7 @@ export default class TreeExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <Paper className="tree-wrapper">
-                                    <Tree className="tree-example"
-                                          selectMode={Tree.SelectMode.MULTI_SELECT}
+                                    <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
                                           onChange={this.changeHandler}/>
                                 </Paper>
