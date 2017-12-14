@@ -37,7 +37,6 @@ export default class DropdownSelect extends Component {
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -249,7 +248,9 @@ export default class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
-                         onWheel={Event.wheelHandler}>
+                         onWheel={e => {
+                             Event.wheelHandler(e, this.props);
+                         }}>
 
                         {
                             useFilter ?
