@@ -11,7 +11,7 @@ import Theme from '../Theme';
 import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
-import CascaderCalculation from '../_vendors/CascaderCalculation';
+import CascaderCalculation from '../_vendors/TreeCalculation';
 
 export default class CascaderList extends Component {
 
