@@ -45,7 +45,7 @@ export default class DraggableGrid extends Component {
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -342,12 +342,6 @@ export default class DraggableGrid extends Component {
         this.forceUpdate();
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentDidMount() {
 
         this.gridEl = findDOMNode(this);
@@ -398,7 +392,7 @@ export default class DraggableGrid extends Component {
                                 strengthMultiplier={scrollSpeed}
                                 verticalStrength={createVerticalStrength(scrollBuffer)}
                                 horizontalStrength={createHorizontalStrength(scrollBuffer)}
-                                onWheel={this.wheelHandler}>
+                                onWheel={Event.wheelHandler}>
 
                 {renderEl}
 
