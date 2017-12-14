@@ -1,113 +1,169 @@
 /**
  * @file TreeSelect style
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
+@mixin tree-select-theme($color) {
+    border-color: $color;
+}
 
 .tree-select {
     position: relative;
-    height: 50px;
-    .tree-select-inner {
-        width: 100%;
-        overflow: hidden;
-        transition: all $theme-transition-duration ease-in-out;
-        border-radius: $theme-border-radius;
-        border: 1px solid #dfdfdf;
-        position: absolute;
-        top: 0;
-        left: 0;
-        &.hidden {
-            box-shadow: none;
-            z-index: 0;
-            height: 50px;
-        }
-        &.open {
-            @include shadow(3);
-            z-index: $popup-z-index;
-            .tree-select-trigger {
-                .tree-select-trigger-right-icon {
-                    transform: rotate(180deg);
-                }
-            }
-        }
-        &:hover {
-            @include shadow(3);
-        }
-        .tree-select-trigger {
-            position: absolute;
-            width: 100%;
-            height: 50px;
-            line-height: 20px;
-            padding: 10px 30px 10px 20px;
-            border-radius: 0;
-            text-align: left;
-            color: $theme-field;
-            background: $theme-field-bg;
+    width: 400px;
+    height: 40px;
 
-            .tree-select-trigger-right-icon {
-                position: absolute;
-                right: 15px;
-                top: 15px;
-                width: 10px;
-                height: 20px;
-                line-height: 20px;
-                text-align: center;
+    .dropdown {
+        width: 100%;
+
+        .dropdown-trigger {
+            width: 100%;
+            height: 100%;
+            text-align: left;
+
+            .base-button-value {
+                float: left;
+            }
+
+            .dropdown-trigger-icon {
+                float: right;
                 margin: 0;
                 color: inherit;
                 transition: all $theme-transition-duration ease-in-out;
             }
 
-            &:hover {
-                color: $theme-field;
-                background: darken($theme-field-bg, 2%);
+            &.above {
+                .dropdown-trigger-icon {
+                    transform: rotate(180deg);
+                }
             }
 
             &.activated {
-                color: $theme-highlight;
+                @include shadow(4);
+
+                .dropdown-trigger-icon {
+                    transform: rotate(180deg);
+                }
+
+                &.above {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    z-index: $popup-z-index + 1;
+
+                    .dropdown-trigger-icon {
+                        transform: rotate(0deg);
+                    }
+                }
+
+                &.blow {
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
             }
         }
-        .popup {
+    }
+
+}
+
+.tree-select-popup {
+    box-sizing: border-box;
+    max-height: 240px;
+    overflow: hidden;
+    margin: 0;
+    border-width: 1px;
+    border-style: solid;
+
+    .popup-content {
+        border-radius: 0 !important;
+        overflow: hidden !important;
+        max-height: inherit;
+
+        .tree-select-popup-fixed {
             position: absolute;
-            top: 50px;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin: 0;
-            border-top: 1px solid #dfdfdf;
             z-index: 1;
-            border-bottom-left-radius: $theme-border-radius;
-            border-bottom-right-radius: $theme-border-radius;
-            transition: all $theme-transition-duration ease-in-out;
-            .tree-inner {
+
+            .tree-select-filter {
                 border: none;
+                border-bottom: 1px solid $theme-border !important;
+                border-radius: 0;
+                width: 100%;
+                height: 40px;
+
+                .icon-button {
+                    margin: 0;
+                }
+            }
+
+            .tree-select-all-wrapper {
+                box-sizing: border-box;
+                border-bottom: 1px solid $theme-border;
             }
         }
 
-        &.error {
-            .trigger {
-                border: 1px solid $theme-error !important;
-            }
+        .tree-select-filter-placeholder,
+        .tree-select-all-placeholder {
+            height: 40px;
         }
-        &.above {
-            .options {
-                border-top: none;
 
-                .option {
-                    border: 1px solid #dfdfdf;
-                    border-bottom: none;
+        .tree-select-list-scroller {
+            overflow-y: auto;
+            max-height: inherit;
+
+            .tree-select-list,
+            .list {
+                width: 100%;
+
+                .no-matched-list-item {
+                    line-height: 40px;
+                    color: $theme-field;
+
+                    .no-matched-list-item-icon {
+                        color: $theme-warning;
+                        margin-right: 10px;
+                    }
                 }
             }
         }
 
-        &.below {
-            .options {
-                border-top: none;
-            }
-        }
+    }
 
-        &.empty {
-            .filter {
-                border-top: none !important;
-                margin-top: 0 !important;
-            }
-        }
+    &.above {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: none;
+    }
 
+    &.blow {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-top: none;
+    }
+
+    // default theme
+    @include tree-select-theme($theme-border);
+
+    // other themes
+    &.theme-primary {
+        @include tree-select-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include tree-select-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include tree-select-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include tree-select-theme($theme-info);
+    }
+    &.theme-success {
+        @include tree-select-theme($theme-success);
+    }
+    &.theme-warning {
+        @include tree-select-theme($theme-warning);
+    }
+    &.theme-error {
+        @include tree-select-theme($theme-error);
     }
 }
