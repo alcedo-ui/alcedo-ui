@@ -51,8 +51,8 @@ export default class TreeExamples extends Component {
 
     }
 
-    changeHandler(value) {
-        console.log(value);
+    changeHandler(value, path) {
+        console.log(path);
     }
 
     render() {
