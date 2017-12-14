@@ -7,6 +7,7 @@ import TreeSelect from 'src/TreeSelect';
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'sass/containers/app/modules/fields/TreeSelectExamples.scss';
+import Tree from '../../../../../src/Tree';
 
 export default class TreeSelectExamples extends Component {
 
@@ -84,6 +85,42 @@ export default class TreeSelectExamples extends Component {
 
                             </div>
 
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Single Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+                                <TreeSelect selectMode={TreeSelect.SelectMode.SINGLE_SELECT}
+                                            data={this.data}
+                                            autoClose={false}
+                                            onChange={this.changeHandler}/>
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Multi Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+                                <TreeSelect selectMode={TreeSelect.SelectMode.MULTI_SELECT}
+                                            data={this.data}
+                                            autoClose={false}
+                                            onChange={this.changeHandler}/>
+                            </div>
                         </div>
                     </div>
 
