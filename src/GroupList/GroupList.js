@@ -29,7 +29,6 @@ export default class GroupList extends Component {
         };
 
         this.initValue = ::this.initValue;
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -85,7 +84,9 @@ export default class GroupList extends Component {
             <div className={'group-list' + listClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={Event.wheelHandler}>
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 {
                     data && data.length > 0 ?
