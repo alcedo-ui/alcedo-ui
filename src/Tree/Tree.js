@@ -294,7 +294,7 @@ Tree.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }).isRequired,
+    }),
 
     /**
      * The id field name in data. (default: "id")
