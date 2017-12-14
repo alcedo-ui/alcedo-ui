@@ -36,8 +36,8 @@ export default class DropdownSelect extends Component {
         this.filterData = ::this.filterData;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
-        this.wheelHandler = ::this.wheelHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -118,12 +118,6 @@ export default class DropdownSelect extends Component {
             onChange && onChange(value);
         });
 
-    }
-
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
     }
 
     popupClosedHandler(e) {
@@ -255,7 +249,7 @@ export default class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
-                         onWheel={this.wheelHandler}>
+                         onWheel={Event.wheelHandler}>
 
                         {
                             useFilter ?
