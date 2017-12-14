@@ -34,7 +34,6 @@ export default class DynamicRenderList extends Component {
         this.getIndex = ::this.getIndex;
         this.scrollHandler = ::this.scrollHandler;
         this.changeHandler = ::this.changeHandler;
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -128,7 +127,9 @@ export default class DynamicRenderList extends Component {
                  className={'dynamic-render-list' + (className ? ' ' + className : '')}
                  style={{...style, height: listHeight}}
                  onScroll={this.scrollHandler}
-                 onWheel={Event.wheelHandler}>
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
