@@ -140,7 +140,7 @@ export default class TreeSelect extends Component {
 
         const {
 
-                className, popupClassName, style, name, placeholder, popupTheme, data, renderer,
+                className, popupClassName, style, name, placeholder, popupTheme, data, renderer, triggerRenderer,
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 onItemTouchTap, popupChildren,
 
@@ -177,19 +177,24 @@ export default class TreeSelect extends Component {
             triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
             triggerValue = value ?
                 (
-                    isMultiSelect ?
-                        (
-                            value.length > 0 ?
-                                value.length + ' selected'
-                                :
-                                placeholder
-                        )
+                    triggerRenderer ?
+                        triggerRenderer(value)
                         :
                         (
-                            renderer ?
-                                renderer(value)
+                            isMultiSelect ?
+                                (
+                                    value.length > 0 ?
+                                        value.length + ' selected'
+                                        :
+                                        placeholder
+                                )
                                 :
-                                Util.getTextByDisplayField(value, displayField, valueField)
+                                (
+                                    renderer ?
+                                        renderer(value)
+                                        :
+                                        Util.getTextByDisplayField(value, displayField, valueField)
+                                )
                         )
                 )
                 :
@@ -479,6 +484,8 @@ TreeSelect.propTypes = {
     popupChildren: PropTypes.any,
 
     renderer: PropTypes.func,
+
+    triggerRenderer: PropTypes.func,
 
     /**
      * Callback function fired when the button is touch-tapped.
