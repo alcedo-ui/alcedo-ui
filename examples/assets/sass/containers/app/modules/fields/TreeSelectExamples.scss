@@ -4,5 +4,28 @@
 
     .examples-wrapper {
 
+        .tree-wrapper {
+            border: 1px solid $theme-border;
+            overflow: hidden;
+        }
+    }
+}
+
+.self-define-node {
+
+    .self-define-node-id {
+        color: #fff;
+        background: $theme-highlight;
+        border-radius: $theme-border-radius;
+        padding: 0 4px;
+    }
+
+    .self-define-node-text {
+        margin-left: 4px;
+        margin-right: 8px;
+    }
+
+    .self-define-node-desc {
+        color: $theme-field-disabled;
     }
 }

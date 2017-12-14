@@ -4,10 +4,10 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import TreeSelect from 'src/TreeSelect';
+
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'sass/containers/app/modules/fields/TreeSelectExamples.scss';
-import Tree from '../../../../../src/Tree';
 
 export default class TreeSelectExamples extends Component {
 
@@ -57,7 +57,7 @@ export default class TreeSelectExamples extends Component {
 
     render() {
         return (
-            <div className="example tree-examples">
+            <div className="example tree-select-examples">
 
                 <h2 className="examples-title">Tree</h2>
 
@@ -85,6 +85,30 @@ export default class TreeSelectExamples extends Component {
 
                             </div>
 
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Self Define Node Renderer"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+                                <TreeSelect data={this.data}
+                                            collapsedIconCls="fa fa-plus-square-o"
+                                            expandedIconCls="fa fa-minus-square-o"
+                                            renderer={node => {
+                                                return <div className="self-define-node">
+                                                    <span className="self-define-node-id">{node.id}</span>
+                                                    <span className="self-define-node-text">{node.text}</span>
+                                                    <span className="self-define-node-desc">{node.desc}</span>
+                                                </div>;
+                                            }}/>
+                            </div>
                         </div>
                     </div>
 
