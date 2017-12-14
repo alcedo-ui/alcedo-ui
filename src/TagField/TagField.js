@@ -40,7 +40,6 @@ export default class TagField extends Component {
         this.itemEditStartHandler = ::this.itemEditStartHandler;
         this.itemEditEndHandler = ::this.itemEditEndHandler;
         this.clearHandler = ::this.clearHandler;
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -347,7 +346,9 @@ export default class TagField extends Component {
                  className={'tag-field' + tagFieldClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={Event.wheelHandler}>
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 {
                     indexData.map(index => {
