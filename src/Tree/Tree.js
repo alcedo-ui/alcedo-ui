@@ -60,7 +60,7 @@ export default class Tree extends Component {
 
     }
 
-    treeNodeTouchTapHandler(nodeData, nodeIndex, e) {
+    treeNodeTouchTapHandler(nodeData, path, e) {
 
         const {selectMode} = this.props;
 
@@ -72,13 +72,13 @@ export default class Tree extends Component {
             value: nodeData
         }, () => {
             const {onNodeTouchTap, onChange} = this.props;
-            onNodeTouchTap && onNodeTouchTap(nodeData, nodeIndex, e);
-            onChange && onChange(nodeData, nodeIndex, e);
+            onNodeTouchTap && onNodeTouchTap(nodeData, path, e);
+            onChange && onChange(nodeData, path, e);
         });
 
     }
 
-    treeNodeSelectHandler(nodeData, nodeIndex, e) {
+    treeNodeSelectHandler(nodeData, path, e) {
 
         const {selectMode} = this.props;
 
@@ -104,13 +104,13 @@ export default class Tree extends Component {
             value
         }, () => {
             const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(nodeData, nodeIndex, e);
-            onChange && onChange(value, nodeIndex, e);
+            onItemSelect && onItemSelect(nodeData, path, e);
+            onChange && onChange(value, path, e);
         });
 
     }
 
-    treeNodeDeselectHandler(nodeData, nodeIndex, e) {
+    treeNodeDeselectHandler(nodeData, path, e) {
 
         const {selectMode} = this.props;
 
@@ -134,8 +134,8 @@ export default class Tree extends Component {
             value
         }, () => {
             const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(nodeData, nodeIndex, e);
-            onChange && onChange(value, nodeIndex, e);
+            onItemDeselect && onItemDeselect(nodeData, path, e);
+            onChange && onChange(value, path, e);
         });
 
     }
