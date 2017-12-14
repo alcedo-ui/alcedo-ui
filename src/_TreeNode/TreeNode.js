@@ -28,6 +28,8 @@ export default class TreeNode extends Component {
             collapsed: false
         };
 
+        this.path = props.path ? props.path : [props.index];
+
         this.toggleTreeNode = ::this.toggleTreeNode;
         this.touchTapHandler = ::this.touchTapHandler;
 
@@ -41,33 +43,33 @@ export default class TreeNode extends Component {
 
     checkboxChangeHandler(e) {
 
-        const {data, value, index, onSelect, onDeselect} = this.props;
+        const {data, value, onSelect, onDeselect} = this.props;
 
         if (!Calculation.isItemChecked(data, value, this.props)) {
-            onSelect && onSelect(data, index, e);
+            onSelect && onSelect(data, this.path, e);
         } else {
-            onDeselect && onDeselect(data, index, e);
+            onDeselect && onDeselect(data, this.path, e);
         }
 
     }
 
     radioChangeHandler(e) {
-        const {data, index, onSelect} = this.props;
-        onSelect && onSelect(data, index, e);
+        const {data, onSelect} = this.props;
+        onSelect && onSelect(data, this.path, e);
     }
 
     touchTapHandler(e) {
 
         e.preventDefault();
 
-        const {index, data, disabled, isLoading, readOnly} = this.props;
+        const {data, disabled, isLoading, readOnly} = this.props;
 
         if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
             return;
         }
 
         const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data, index, e);
+        onTouchTap && onTouchTap(data, this.path, e);
 
         const {selectMode} = this.props;
 
@@ -231,7 +233,8 @@ export default class TreeNode extends Component {
                                           key={index}
                                           data={item}
                                           index={index}
-                                          depth={depth + 1}/>
+                                          depth={depth + 1}
+                                          path={[...this.path, index]}/>
                             );
                         })
                     }
@@ -247,6 +250,7 @@ TreeNode.propTypes = {
 
     index: PropTypes.number,
     depth: PropTypes.number,
+    path: PropTypes.array,
 
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
@@ -287,6 +291,7 @@ TreeNode.defaultProps = {
 
     index: 0,
     depth: 0,
+    path: null,
 
     theme: Theme.DEFAULT,
 
