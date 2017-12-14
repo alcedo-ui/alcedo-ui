@@ -132,7 +132,7 @@ export default class ListItem extends Component {
 
                     {
                         selectMode === SelectMode.SINGLE_SELECT ?
-                            <Radio className="list-item-checked"
+                            <Radio className="list-item-select"
                                    theme={selectTheme}
                                    checked={checked}
                                    disabled={disabled || isLoading}
@@ -145,7 +145,7 @@ export default class ListItem extends Component {
 
                     {
                         selectMode === SelectMode.MULTI_SELECT ?
-                            <Checkbox className="list-item-checkbox"
+                            <Checkbox className="list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
                                       disabled={disabled || isLoading}
