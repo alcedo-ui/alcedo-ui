@@ -5,7 +5,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import Paper from 'src/Paper';
 import Tree from 'src/Tree';
-import TreeDoc from 'examples/assets/propTypes/Tree.json';
+import doc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
 
@@ -99,9 +99,7 @@ export default class TreeExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
                                 <Paper className="tree-wrapper">
                                     <Tree data={this.data}
                                           collapsedIconCls="fa fa-plus-square-o"
@@ -114,9 +112,7 @@ export default class TreeExamples extends Component {
                                               </div>;
                                           }}/>
                                 </Paper>
-
                             </div>
-
                         </div>
                     </div>
 
@@ -129,17 +125,13 @@ export default class TreeExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.SINGLE_SELECT}
                                           data={this.data}
                                           onChange={this.changeHandler}/>
                                 </Paper>
-
                             </div>
-
                         </div>
                     </div>
 
@@ -152,17 +144,13 @@ export default class TreeExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
                                           onChange={this.changeHandler}/>
                                 </Paper>
-
                             </div>
-
                         </div>
                     </div>
 
@@ -170,7 +158,7 @@ export default class TreeExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TreeDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
