@@ -33,7 +33,7 @@ export default class List extends Component {
         this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -117,12 +117,6 @@ export default class List extends Component {
 
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -150,7 +144,7 @@ export default class List extends Component {
             <div className={'list' + listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={this.wheelHandler}>
+                 onWheel={Event.wheelHandler}>
 
                 {
                     _.isArray(data) && data.length > 0 ?
