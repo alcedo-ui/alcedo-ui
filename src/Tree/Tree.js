@@ -151,7 +151,7 @@ export default class Tree extends Component {
     render() {
 
         const {
-                children, className, style, theme, data, collapsedIconCls, expandedIconCls,
+                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 renderer
             } = this.props,
@@ -176,6 +176,7 @@ export default class Tree extends Component {
                           readOnly={readOnly}
                           selectMode={selectMode}
                           renderer={renderer}
+                          allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           onTouchTap={this.treeNodeTouchTapHandler}
@@ -329,6 +330,7 @@ Tree.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
 
+    allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
 
@@ -374,6 +376,7 @@ Tree.defaultProps = {
     readOnly: false,
     shouldPreventContainerScroll: true,
 
+    allowCollapse: true,
     collapsedIconCls: 'fa fa-caret-right',
     expandedIconCls: 'fa fa-caret-down'
 
