@@ -39,7 +39,6 @@ export default class TipBody extends Component {
         this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -140,7 +139,9 @@ export default class TipBody extends Component {
                    className={'tip' + tipClassName}
                    style={tipStyle}
                    depth={depth}
-                   onWheel={Event.wheelHandler}>
+                   onWheel={e => {
+                       Event.wheelHandler(e, this.props);
+                   }}>
 
                 {
                     hasTriangle ?
@@ -152,7 +153,9 @@ export default class TipBody extends Component {
                 }
 
                 <div className="tip-content"
-                     onWheel={Event.wheelHandler}>
+                     onWheel={e => {
+                         Event.wheelHandler(e, this.props);
+                     }}>
                     {children}
                 </div>
 
