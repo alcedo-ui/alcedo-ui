@@ -29,7 +29,7 @@ export default class GroupList extends Component {
         };
 
         this.initValue = ::this.initValue;
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -60,12 +60,6 @@ export default class GroupList extends Component {
 
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -91,7 +85,7 @@ export default class GroupList extends Component {
             <div className={'group-list' + listClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={this.wheelHandler}>
+                 onWheel={Event.wheelHandler}>
 
                 {
                     data && data.length > 0 ?
