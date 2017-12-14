@@ -36,23 +36,10 @@
     text-overflow: ellipsis;
     -webkit-user-drag: element;
 
-    .draggable-list-item-checked {
-        display: inline-block;
-        float: left;
-        width: 16px;
-        line-height: inherit;
-        margin-right: 10px;
-        color: lighten($theme-field, 45%);
-        text-align: center;
-
-        &.activated {
-            color: $theme-success;
-        }
-    }
-
-    .draggable-list-item-checkbox {
+    .draggable-list-item-select {
         display: inline-block;
         width: 16px;
+        height: 40px;
         margin-right: 10px;
         float: left;
         overflow: hidden;

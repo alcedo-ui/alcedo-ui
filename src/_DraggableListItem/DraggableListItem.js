@@ -154,7 +154,7 @@ export default class DraggableListItem extends Component {
 
                     {
                         selectMode === SelectMode.SINGLE_SELECT ?
-                            <Radio className="draggable-list-item-checked"
+                            <Radio className="draggable-list-item-select"
                                    theme={selectTheme}
                                    checked={checked}
                                    disabled={disabled || isLoading}
@@ -167,7 +167,7 @@ export default class DraggableListItem extends Component {
 
                     {
                         selectMode === SelectMode.MULTI_SELECT ?
-                            <Checkbox className="draggable-list-item-checkbox"
+                            <Checkbox className="draggable-list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
                                       disabled={disabled || isLoading}
