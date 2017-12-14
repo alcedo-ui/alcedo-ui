@@ -33,7 +33,6 @@ export default class List extends Component {
         this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -144,7 +143,9 @@ export default class List extends Component {
             <div className={'list' + listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={Event.wheelHandler}>
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 {
                     _.isArray(data) && data.length > 0 ?
