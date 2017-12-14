@@ -92,7 +92,7 @@ export default class TreeNode extends Component {
 
         const {
 
-                index, depth, theme, selectTheme, selectMode, data, value, disabled, isLoading, readOnly,
+                index, depth, theme, selectTheme, selectMode, data, value, disabled, isLoading, readOnly, allowCollapse,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -133,7 +133,7 @@ export default class TreeNode extends Component {
                         <div className="tree-node-inner">
 
                             {
-                                data.children && data.children.length > 0 ?
+                                allowCollapse && data.children && data.children.length > 0 ?
                                     <IconButton className="tree-node-collapse-icon"
                                                 iconCls={collapsed ?
                                                     data.collapsedIconCls || collapsedIconCls
@@ -272,6 +272,7 @@ TreeNode.propTypes = {
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -313,6 +314,7 @@ TreeNode.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
+    allowCollapse: true,
 
     iconCls: null,
     rightIconCls: null,
