@@ -73,7 +73,7 @@ export default class Tree extends Component {
         }, () => {
             const {onNodeTouchTap, onChange} = this.props;
             onNodeTouchTap && onNodeTouchTap(nodeData, path, e);
-            onChange && onChange(nodeData, path, e);
+            onChange && onChange(nodeData, e);
         });
 
     }
@@ -105,7 +105,7 @@ export default class Tree extends Component {
         }, () => {
             const {onItemSelect, onChange} = this.props;
             onItemSelect && onItemSelect(nodeData, path, e);
-            onChange && onChange(value, path, e);
+            onChange && onChange(value, e);
         });
 
     }
@@ -135,7 +135,7 @@ export default class Tree extends Component {
         }, () => {
             const {onItemDeselect, onChange} = this.props;
             onItemDeselect && onItemDeselect(nodeData, path, e);
-            onChange && onChange(value, path, e);
+            onChange && onChange(value, e);
         });
 
     }
