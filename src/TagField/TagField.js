@@ -40,7 +40,7 @@ export default class TagField extends Component {
         this.itemEditStartHandler = ::this.itemEditStartHandler;
         this.itemEditEndHandler = ::this.itemEditEndHandler;
         this.clearHandler = ::this.clearHandler;
-        this.wheelHandler = ::this.wheelHandler;
+        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -302,12 +302,6 @@ export default class TagField extends Component {
 
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
@@ -353,7 +347,7 @@ export default class TagField extends Component {
                  className={'tag-field' + tagFieldClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={this.wheelHandler}>
+                 onWheel={Event.wheelHandler}>
 
                 {
                     indexData.map(index => {
