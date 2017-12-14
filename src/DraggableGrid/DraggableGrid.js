@@ -45,7 +45,6 @@ export default class DraggableGrid extends Component {
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
-        Event.wheelHandler = this::Event.wheelHandler;
 
     }
 
@@ -392,7 +391,9 @@ export default class DraggableGrid extends Component {
                                 strengthMultiplier={scrollSpeed}
                                 verticalStrength={createVerticalStrength(scrollBuffer)}
                                 horizontalStrength={createHorizontalStrength(scrollBuffer)}
-                                onWheel={Event.wheelHandler}>
+                                onWheel={e => {
+                                    Event.wheelHandler(e, this.props);
+                                }}>
 
                 {renderEl}
 
