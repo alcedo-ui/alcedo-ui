@@ -142,7 +142,7 @@ export default class TreeNode extends Component {
 
                             {
                                 selectMode === SelectMode.SINGLE_SELECT ?
-                                    <Radio className="tree-node-checked"
+                                    <Radio className="tree-node-select"
                                            theme={selectTheme}
                                            checked={checked}
                                            disabled={isNodeDisabled}
@@ -155,7 +155,7 @@ export default class TreeNode extends Component {
 
                             {
                                 selectMode === SelectMode.MULTI_SELECT ?
-                                    <Checkbox className="tree-node-checkbox"
+                                    <Checkbox className="tree-node-select"
                                               theme={selectTheme}
                                               checked={checked}
                                               disabled={isNodeDisabled}

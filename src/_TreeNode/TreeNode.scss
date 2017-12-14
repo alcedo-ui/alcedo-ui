@@ -53,22 +53,7 @@
                 }
             }
 
-            .tree-node-checked {
-                display: inline-block;
-                width: 16px;
-                height: 40px;
-                line-height: inherit;
-                margin-right: 10px;
-                color: lighten($theme-field, 45%);
-                text-align: center;
-                vertical-align: bottom;
-
-                &.activated {
-                    color: $theme-highlight;
-                }
-            }
-
-            .tree-node-checkbox {
+            .tree-node-select {
                 display: inline-block;
                 width: 16px;
                 height: 40px;
