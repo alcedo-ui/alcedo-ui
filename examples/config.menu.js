@@ -54,6 +54,9 @@ export default [{
     }, {
         text: 'DateTimePicker',
         route: '/components/DateTimePicker'
+    },{
+        text: 'MaterialDatePicker',
+        route: '/components/MaterialDatePicker'
     }]
 }, {
     text: 'Field',
