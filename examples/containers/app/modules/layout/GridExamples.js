@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import Paper from 'src/Paper';
 import Grid from 'src/Grid';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -27,38 +28,6 @@ export default class GridExamples extends Component {
             iconCls: 'fa fa-google-plus',
             text: 'Google+',
             desc: 'Here is a Google+ Desc.'
-        }];
-
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
         }];
 
         this.changeHandler = this::this.changeHandler;
@@ -94,7 +63,9 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with desc.
                                 </p>
 
-                                <Grid items={this.descListData}/>
+                                <Paper>
+                                    <Grid data={this.descListData}/>
+                                </Paper>
 
                             </div>
 
@@ -117,9 +88,11 @@ export default class GridExamples extends Component {
                                     be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
-                                <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
-                                      items={this.descListData}
-                                      onChange={this.changeHandler}/>
+                                <Paper>
+                                    <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}/>
+                                </Paper>
 
                             </div>
 
