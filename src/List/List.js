@@ -327,7 +327,7 @@ List.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
     value: PropTypes.any,
 
