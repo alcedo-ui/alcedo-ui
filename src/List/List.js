@@ -419,8 +419,8 @@ List.defaultProps = {
     disabled: false,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: '',
-    radioCheckedIconCls: '',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
