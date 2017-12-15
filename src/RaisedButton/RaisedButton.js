@@ -74,9 +74,9 @@ RaisedButton.propTypes = {
     isCircular: PropTypes.bool,
 
     /**
-     * The text of the button.Type can be string or number.
+     * The text of the button.
      */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.any,
 
     /**
      * The type of button.Can be reset,submit or button.
