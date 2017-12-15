@@ -105,20 +105,20 @@ export default class ListExamples extends Component {
 
     }
 
-    changeHandler(value, index) {
-        console.log('change::', value);
+    changeHandler(value) {
+        console.log('changed::', value);
     }
 
-    itemTouchTapHandler(value, index) {
-        console.log('touchtap::', value);
+    itemTouchTapHandler(item) {
+        console.log('touchtapd::', item);
     }
 
-    itemSelectHandler(value, index) {
-        console.log('select::', value);
+    itemSelectHandler(value) {
+        console.log('selected::', value);
     }
 
-    itemDeselectHandler(value, index) {
-        console.log('deselect::', value);
+    itemDeselectHandler(value) {
+        console.log('deselected::', value);
     }
 
     render() {
@@ -146,7 +146,11 @@ export default class ListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <List data={this.listData}/>
+                                    <List data={this.listData}
+                                          onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                             </div>
@@ -238,8 +242,8 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with select mode.Can be <code>NORMAL</code>
-                                    , <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
+                                    A <code>List</code> with select mode.Can
+                                    be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
                                 <Paper style={{width: 240}}>
