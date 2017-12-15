@@ -167,7 +167,7 @@ BaseButton.propTypes = {
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.any,
     type: PropTypes.string,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
