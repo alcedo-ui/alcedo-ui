@@ -102,7 +102,7 @@ export default class GridItem extends Component {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
-                itemColWidth,
+                col,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -122,7 +122,7 @@ export default class GridItem extends Component {
                          tipPosition={tipPosition}>
 
                 <div className="grid-item-wrapper"
-                     style={itemColWidth ? {width: `${itemColWidth}%`} : null}>
+                     style={col ? {width: `${100 / col}%`} : null}>
 
                     <div className={'grid-item' + listItemClassName}
                          style={style}
@@ -266,6 +266,8 @@ GridItem.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
+    col: PropTypes.number,
+
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
@@ -310,6 +312,8 @@ GridItem.defaultProps = {
     radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    col: 3
 
 };
