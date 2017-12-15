@@ -77,9 +77,7 @@ export default class ListItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {selectMode} = this.props;
-
-        switch (selectMode) {
+        switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
@@ -131,7 +129,7 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === SelectMode.SINGLE_SELECT ?
+                        selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
                             <Radio className="list-item-select"
                                    theme={selectTheme}
                                    checked={checked}
@@ -279,10 +277,10 @@ ListItem.defaultProps = {
 
     className: null,
     style: null,
-    theme: null,
+    theme: Theme.DEFAULT,
 
-    selectTheme: null,
-    selectMode: SelectMode.NORMAL,
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: null,
     value: null,
@@ -302,8 +300,8 @@ ListItem.defaultProps = {
     tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: '',
+    radioCheckedIconCls: '',
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
