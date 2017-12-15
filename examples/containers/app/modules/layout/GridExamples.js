@@ -30,12 +30,22 @@ export default class GridExamples extends Component {
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.changeHandler = this::this.changeHandler;
-
     }
 
     changeHandler(value) {
-        console.log(value);
+        console.log('changed::', value);
+    }
+
+    itemTouchTapHandler(item) {
+        console.log('touchtapd::', item);
+    }
+
+    itemSelectHandler(value) {
+        console.log('selected::', value);
+    }
+
+    itemDeselectHandler(value) {
+        console.log('deselected::', value);
     }
 
     render() {
@@ -91,7 +101,10 @@ export default class GridExamples extends Component {
                                 <Paper>
                                     <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
-                                          onChange={this.changeHandler}/>
+                                          onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                             </div>
