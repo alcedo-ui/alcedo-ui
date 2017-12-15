@@ -7,16 +7,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import GridGroup from '../_GridGroup';
 import GridItem from '../_GridItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
+import Valid from '../_vendors/Valid';
 
 export default class Grid extends Component {
 
@@ -30,156 +29,8 @@ export default class Grid extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.calItemColStyle = ::this.calItemColStyle;
-        this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
-        this.listItemsRenderer = ::this.listItemsRenderer;
-        this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.resizeHandler = ::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
-
-    }
-
-    calItemColStyle(props = this.props, items = props.items) {
-
-        const {col, isItemsFullWidth} = props,
-            colLen = col.length,
-            itemsLen = items.length,
-            validValue = (value) => {
-                return isItemsFullWidth ?
-                    Valid.range(value, 1, itemsLen)
-                    :
-                    Valid.range(value, 1);
-            };
-
-        if (!this.gridEl || !col) {
-            return col && colLen > 0 ? 100 / validValue(col[0]) : null;
-        }
-
-        const gridWidth = this.gridEl.getBoundingClientRect().width;
-
-        for (let i = 1; i < colLen - 1; i += 2) {
-            if (gridWidth < col[i] && !isNaN(col[i - 1])) {
-                return 100 / validValue(col[i - 1]);
-            }
-        }
-
-        return !isNaN(col[colLen - 1]) ? 100 / validValue(col[colLen - 1]) : null;
-
-    }
-
-    listGroupedItemsRenderer(items = this.props.items) {
-        return _.isArray(items) ?
-            items.map((group, groupIndex) => {
-
-                if (group && group.name) {
-                    return (
-                        <GridGroup key={`group${groupIndex}`}
-                                   text={group.name}>
-                            {
-                                group.children && group.children.length > 0 ?
-                                    this.listItemsRenderer(group.children)
-                                    :
-                                    null
-                            }
-                        </GridGroup>
-                    );
-                }
-
-                return;
-
-            })
-            :
-            null;
-    }
-
-    listItemsRenderer(items = this.props.items) {
-
-        const {valueField, displayField, descriptionField, disabled, isLoading, selectMode, renderer} = this.props,
-            {value} = this.state,
-            itemColWidth = this.calItemColStyle(this.props, items);
-
-        return _.isArray(items) && items.length > 0 ?
-            (
-                items.map((item, index) => {
-
-                    if (!item) {
-                        return null;
-                    }
-
-                    return typeof item === 'object' ?
-                        (
-                            <GridItem key={index}
-                                      {...item}
-                                      index={index}
-                                      itemColWidth={itemColWidth}
-                                      data={item}
-                                      checked={Calculation.isItemChecked(item, value, this.props)}
-                                      value={Util.getValueByValueField(item, valueField, displayField)}
-                                      text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                      desc={item[descriptionField] || null}
-                                      disabled={disabled || item.disabled}
-                                      isLoading={isLoading || item.isLoading}
-                                      selectMode={selectMode}
-                                      renderer={renderer}
-                                      onTouchTap={(e) => {
-                                          this.listItemTouchTapHandler(item, index);
-                                          item.onTouchTap && item.onTouchTap(e);
-                                      }}
-                                      onSelect={() => {
-                                          this.listItemSelectHandler(item, index);
-                                      }}
-                                      onDeselect={() => {
-                                          this.listItemDeselectHandler(item, index);
-                                      }}/>
-                        )
-                        :
-                        (
-                            <GridItem key={index}
-                                      index={index}
-                                      itemColWidth={itemColWidth}
-                                      data={item}
-                                      checked={Calculation.isItemChecked(item, value, this.props)}
-                                      value={item}
-                                      text={item}
-                                      disabled={disabled}
-                                      isLoading={isLoading}
-                                      selectMode={selectMode}
-                                      renderer={renderer}
-                                      onTouchTap={() => {
-                                          this.listItemTouchTapHandler(item, index);
-                                      }}
-                                      onSelect={() => {
-                                          this.listItemSelectHandler(item, index);
-                                      }}
-                                      onDeselect={() => {
-                                          this.listItemDeselectHandler(item, index);
-                                      }}/>
-                        );
-
-                })
-            )
-            :
-            null;
-
-    }
-
-    listItemTouchTapHandler(value, index) {
-
-        const {selectMode} = this.props;
-
-        if (selectMode !== SelectMode.NORMAL) {
-            return;
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value, index);
-            onChange && onChange(value, index);
-        });
 
     }
 
@@ -208,7 +59,8 @@ export default class Grid extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
+            const {onItemSelect, onChange} = this.props;
+            onItemSelect && onItemSelect(item, index);
             onChange && onChange(value, index);
         });
 
@@ -237,25 +89,10 @@ export default class Grid extends Component {
         this.setState({
             value
         }, () => {
-            const {onChange} = this.props;
+            const {onItemDeselect, onChange} = this.props;
+            onItemDeselect && onItemDeselect(item, index);
             onChange && onChange(value, index);
         });
-
-    }
-
-    resizeHandler() {
-        this.debounceResizeHandler();
-    }
-
-    debounceResizeHandler() {
-        this.forceUpdate();
-    }
-
-    componentDidMount() {
-
-        this.gridEl = this.refs.grid;
-
-        Event.addEvent(window, 'resize', this.resizeHandler);
 
     }
 
@@ -267,32 +104,106 @@ export default class Grid extends Component {
         }
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandler);
-    }
-
     render() {
 
-        const {children, className, style, disabled, isGrouped} = this.props,
-            listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
+        const {
 
-        let renderEl;
-        if (isGrouped) {
-            renderEl = this.listGroupedItemsRenderer();
-        } else {
-            renderEl = this.listItemsRenderer();
-        }
+                children, className, style, theme, data, itemHeight, col,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap
+
+            } = this.props,
+            {value} = this.state,
+
+            listClassName = (className ? ' ' + className : '');
 
         return (
-            <div ref="grid"
-                 className={'grid' + listClassName}
+            <div className={'grid' + listClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
                      Event.wheelHandler(e, this.props);
                  }}>
 
-                {renderEl}
+                {
+                    _.isArray(data) && data.length > 0 ?
+                        (
+                            data.map((item, index) => {
+
+                                return typeof item === 'object' ?
+                                    (
+                                        <GridItem key={item[idField] || index}
+                                                  {...item}
+                                                  index={index}
+                                                  style={{height: itemHeight}}
+                                                  theme={item.theme || theme}
+                                                  col={col}
+                                                  selectTheme={item.selectTheme || selectTheme}
+                                                  radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                  radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                  data={item}
+                                                  checked={Calculation.isItemChecked(item, value, this.props)}
+                                                  value={Util.getValueByValueField(item, valueField, displayField)}
+                                                  text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                                  desc={item[descriptionField] || null}
+                                                  disabled={disabled || item.disabled}
+                                                  isLoading={isLoading || item.isLoading}
+                                                  selectMode={selectMode}
+                                                  renderer={renderer}
+                                                  onTouchTap={e => {
+                                                      onItemTouchTap && onItemTouchTap(item, index, e);
+                                                      item.onTouchTap && item.onTouchTap(e);
+                                                  }}
+                                                  onSelect={() => {
+                                                      this.listItemSelectHandler(item, index);
+                                                  }}
+                                                  onDeselect={() => {
+                                                      this.listItemDeselectHandler(item, index);
+                                                  }}/>
+                                    )
+                                    :
+                                    (
+                                        <GridItem key={index}
+                                                  index={index}
+                                                  style={{height: itemHeight}}
+                                                  theme={item.theme || theme}
+                                                  col={col}
+                                                  selectTheme={item.selectTheme || selectTheme}
+                                                  radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                  radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                  checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                  data={item}
+                                                  checked={Calculation.isItemChecked(item, value, this.props)}
+                                                  value={item}
+                                                  text={item}
+                                                  disabled={disabled}
+                                                  isLoading={isLoading}
+                                                  selectMode={selectMode}
+                                                  renderer={renderer}
+                                                  onTouchTap={e => {
+                                                      onItemTouchTap && onItemTouchTap(item, index, e);
+                                                  }}
+                                                  onSelect={() => {
+                                                      this.listItemSelectHandler(item, index);
+                                                  }}
+                                                  onDeselect={() => {
+                                                      this.listItemDeselectHandler(item, index);
+                                                  }}/>
+                                    );
+
+                            })
+                        )
+                        :
+                        null
+                }
 
                 {children}
 
@@ -314,104 +225,113 @@ Grid.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Children passed into the GridItem.
+     * The theme of the grid item.
      */
-    items: PropTypes.oneOfType([
-
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
-
-            /**
-             * The CSS class name of the list button.
-             */
-            className: PropTypes.string,
-
-            /**
-             * Override the styles of the list button.
-             */
-            style: PropTypes.object,
-
-            /**
-             * The theme of the list button.
-             */
-            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-
-            /**
-             * The text value of the list button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * The list item's display text. Type can be string, number or bool.
-             */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * The desc value of the list button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * If true,the list item will be disabled.
-             */
-            disabled: PropTypes.bool,
-
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
-
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
-
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
-
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
-
-            /**
-             * The message of tip.
-             */
-            tip: PropTypes.string,
-
-            /**
-             * The position of tip.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-            /**
-             * If true,the item will have center displayed ripple effect.
-             */
-            rippleDisplayCenter: PropTypes.bool,
-
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            itemRenderer: PropTypes.func,
-
-            /**
-             * Callback function fired when a list item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
-
-        }), PropTypes.string, PropTypes.number])),
-
-        // grouped
-        PropTypes.array
-
-    ]).isRequired,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     *
+     * The theme of the grid item select radio or checkbox.
      */
-    col: PropTypes.array,
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of listItem.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * Children passed into the GridItem.
+     */
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+        /**
+         * The CSS class name of the grid button.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the grid button.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The theme of the grid button.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        /**
+         * The text value of the grid button.Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The grid item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The desc value of the grid button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * If true,the grid item will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
+
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
+
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
+
+        /**
+         * The message of tip.
+         */
+        tip: PropTypes.string,
+
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+        /**
+         * If true,the item will have center displayed ripple effect.
+         */
+        rippleDisplayCenter: PropTypes.bool,
+
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        itemRenderer: PropTypes.func,
+
+        /**
+         * Callback function fired when a grid item touch-tapped.
+         */
+        onTouchTap: PropTypes.func
+
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
+
+    value: PropTypes.any,
+
+    /**
+     * The id field name in data. (default: "id")
+     */
+    idField: PropTypes.string,
 
     /**
      * The value field name in data. (default: "value")
@@ -429,27 +349,24 @@ Grid.propTypes = {
     descriptionField: PropTypes.string,
 
     /**
-     * If true, the list will be disabled.
+     * If true, the grid will be disabled.
      */
     disabled: PropTypes.bool,
 
     /**
-     * If true, the list will be at loading status.
+     * If true, the grid will be at loading status.
      */
     isLoading: PropTypes.bool,
 
-    /**
-     * The select mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     * If true,the listData will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
-    isItemsFullWidth: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    col: PropTypes.number,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -457,33 +374,56 @@ Grid.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the list-item select.
+     * Callback function fired when the grid-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when the list changed.
+     * Callback function fired when the grid-item select.
      */
-    onChange: PropTypes.func
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid-item deselect.
+     */
+    onItemDeselect: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid changed.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
 
 };
 
 Grid.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
+    theme: Theme.DEFAULT,
 
-    items: [],
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
-    col: [1, 480, 2, 720, 3, 960, 4, 1360, 6],
+    data: null,
+
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: SelectMode.NORMAL,
-    isGrouped: false,
+    shouldPreventContainerScroll: true,
 
-    isItemsFullWidth: false,
-    shouldPreventContainerScroll: true
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    col: 3
 
 };
