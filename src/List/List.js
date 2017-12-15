@@ -30,27 +30,8 @@ export default class List extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-
-    }
-
-    listItemTouchTapHandler(value, index) {
-
-        const {selectMode} = this.props;
-
-        if (selectMode !== SelectMode.NORMAL) {
-            return;
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value, index);
-            onChange && onChange(value, index);
-        });
 
     }
 
@@ -133,7 +114,7 @@ export default class List extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap
 
             } = this.props,
             {value} = this.state,
@@ -179,8 +160,8 @@ export default class List extends Component {
                                                   isLoading={isLoading || item.isLoading}
                                                   selectMode={selectMode}
                                                   renderer={renderer}
-                                                  onTouchTap={(e) => {
-                                                      this.listItemTouchTapHandler(item, index);
+                                                  onTouchTap={e => {
+                                                      onItemTouchTap && onItemTouchTap(item, index, e);
                                                       item.onTouchTap && item.onTouchTap(e);
                                                   }}
                                                   onSelect={() => {
@@ -210,8 +191,8 @@ export default class List extends Component {
                                                   isLoading={isLoading}
                                                   selectMode={selectMode}
                                                   renderer={renderer}
-                                                  onTouchTap={() => {
-                                                      this.listItemTouchTapHandler(item, index);
+                                                  onTouchTap={e => {
+                                                      onItemTouchTap && onItemTouchTap(item, index, e);
                                                   }}
                                                   onSelect={() => {
                                                       this.listItemSelectHandler(item, index);
@@ -427,7 +408,7 @@ List.defaultProps = {
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: null,
 
@@ -438,8 +419,8 @@ List.defaultProps = {
     disabled: false,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: '',
+    radioCheckedIconCls: '',
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
