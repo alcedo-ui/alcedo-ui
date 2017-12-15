@@ -300,8 +300,8 @@ ListItem.defaultProps = {
     tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: '',
-    radioCheckedIconCls: '',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
