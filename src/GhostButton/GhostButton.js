@@ -76,7 +76,7 @@ GhostButton.propTypes = {
     /**
      * The text of the button.Type can be string or number.
      */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.any,
 
     /**
      * The type of button.Can be reset,submit or button.
