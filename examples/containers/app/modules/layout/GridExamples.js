@@ -61,11 +61,11 @@ export default class GridExamples extends Component {
             }]
         }];
 
-        this.changeHandle = this::this.changeHandle;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
-    changeHandle(value) {
+    changeHandler(value) {
         console.log(value);
     }
 
@@ -105,7 +105,7 @@ export default class GridExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -113,37 +113,13 @@ export default class GridExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Grid</code> with select mode.Can be normal,radio,checkbox.
-                                </p>
-
-                                <Grid selectMode={Grid.SelectMode.SINGLE_SELECT}
-                                      items={this.descListData}
-                                      onChange={this.changeHandle}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>Grid</code> with isGrouped.
+                                    A <code>Grid</code> with select mode.Can
+                                    be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
                                 <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
-                                      isGrouped={true}
-                                      items={this.groupedListData}
-                                      onChange={this.changeHandle}/>
+                                      items={this.descListData}
+                                      onChange={this.changeHandler}/>
 
                             </div>
 
