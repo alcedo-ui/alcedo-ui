@@ -234,7 +234,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With Select Mode"/>
+                    <WidgetHeader className="example-header" title="Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -245,16 +245,6 @@ export default class ListExamples extends Component {
                                     A <code>List</code> with select mode.Can
                                     be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
-
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
-                                          selectMode={List.SelectMode.SINGLE_SELECT}
-                                          data={this.descListData}
-                                          onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
-                                          onItemSelect={this.itemSelectHandler}
-                                          onItemDeselect={this.itemDeselectHandler}/>
-                                </Paper>
 
                                 <Paper style={{width: 240, marginTop: 20}}>
                                     <List style={{width: 240}}
@@ -268,7 +258,6 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240, marginTop: 20}}>
                                     <List style={{width: 240}}
-                                          selectMode={List.SelectMode.SINGLE_SELECT}
                                           selectTheme={Theme.HIGHLIGHT}
                                           data={this.customizedListData}
                                           onChange={this.changeHandler}
