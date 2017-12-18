@@ -25,6 +25,7 @@ export default class DraggableList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
