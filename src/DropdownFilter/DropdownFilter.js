@@ -265,7 +265,7 @@ export default class DropdownFilter extends Component {
                                 isEmpty ?
                                     <List className="dropdown-filter-list"
                                           theme={popupTheme}
-                                          selectMode={List.SelectMode.NORMAL}
+                                          selectMode={SelectMode.SINGLE_SELECT}
                                           data={emptyEl}/>
                                     :
                                     (
@@ -273,7 +273,7 @@ export default class DropdownFilter extends Component {
                                             <DynamicRenderList className="dropdown-filter-list"
                                                                theme={popupTheme}
                                                                value={value}
-                                                               selectMode={selectMode || List.SelectMode.NORMAL}
+                                                               selectMode={selectMode || SelectMode.SINGLE_SELECT}
                                                                data={listData}
                                                                valueField={valueField}
                                                                displayField={displayField}
@@ -293,7 +293,7 @@ export default class DropdownFilter extends Component {
                                             <List className="dropdown-filter-list"
                                                   theme={popupTheme}
                                                   value={value}
-                                                  selectMode={selectMode || List.SelectMode.NORMAL}
+                                                  selectMode={selectMode || SelectMode.SINGLE_SELECT}
                                                   data={listData}
                                                   valueField={valueField}
                                                   displayField={displayField}
@@ -562,7 +562,7 @@ DropdownFilter.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
     iconCls: null,
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
