@@ -540,7 +540,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
     displayField: 'text',
