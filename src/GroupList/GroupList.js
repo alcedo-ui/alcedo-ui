@@ -69,13 +69,7 @@ export default class GroupList extends Component {
 
     render() {
 
-        const {
-
-                children, className, style, data, disabled,
-
-                ...restProps
-
-            } = this.props,
+        const {children, className, style, data, disabled, ...restProps} = this.props,
             {value} = this.state,
 
             listClassName = (className ? ' ' + className : '');
@@ -101,7 +95,8 @@ export default class GroupList extends Component {
                                 <div key={index}>
                                     <div className="group-list-group-title">{item.name}</div>
                                     <List {...restProps}
-                                          data={item.children}/>
+                                          data={item.children}
+                                          value={value}/>
                                 </div>
                             );
 
