@@ -417,7 +417,7 @@ MaterialDropdownFilter.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     popupChildren: null,
 
