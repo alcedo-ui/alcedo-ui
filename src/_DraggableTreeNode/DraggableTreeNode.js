@@ -119,13 +119,13 @@ export default class DraggableTreeNode extends Component {
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
-            <div className="tree-node-wrapper">
+            <div className="draggable-tree-node-wrapper">
 
                 <TipProvider className='block'
                              text={data.tip}
                              tipPosition={data.tipPosition}>
 
-                    <div className={'tree-node' + nodeClassName}
+                    <div className={'draggable-tree-node' + nodeClassName}
                          style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
@@ -133,11 +133,11 @@ export default class DraggableTreeNode extends Component {
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
-                        <div className="tree-node-inner">
+                        <div className="draggable-tree-node-inner">
 
                             {
                                 allowCollapse && data.children && data.children.length > 0 ?
-                                    <IconButton className="tree-node-collapse-icon"
+                                    <IconButton className="draggable-tree-node-collapse-icon"
                                                 iconCls={collapsed ?
                                                     data.collapsedIconCls || collapsedIconCls
                                                     :
@@ -149,7 +149,7 @@ export default class DraggableTreeNode extends Component {
 
                             {
                                 selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                                    <Radio className="tree-node-select"
+                                    <Radio className="draggable-tree-node-select"
                                            theme={selectTheme}
                                            checked={checked}
                                            disabled={isNodeDisabled}
@@ -162,7 +162,7 @@ export default class DraggableTreeNode extends Component {
 
                             {
                                 selectMode === SelectMode.MULTI_SELECT ?
-                                    <Checkbox className="tree-node-select"
+                                    <Checkbox className="draggable-tree-node-select"
                                               theme={selectTheme}
                                               checked={checked}
                                               disabled={isNodeDisabled}
@@ -200,11 +200,11 @@ export default class DraggableTreeNode extends Component {
                                             :
                                             (
                                                 data.desc ?
-                                                    <div className="tree-node-content">
-                                                    <span className="tree-node-content-value">
+                                                    <div className="draggable-tree-node-content">
+                                                    <span className="draggable-tree-node-content-value">
                                                         {data.text}
                                                     </span>
-                                                        <span className="tree-node-content-desc">
+                                                        <span className="draggable-tree-node-content-desc">
                                                         {data.desc}
                                                     </span>
                                                     </div>
@@ -232,7 +232,7 @@ export default class DraggableTreeNode extends Component {
                     </div>
                 </TipProvider>
 
-                <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
+                <div className={'draggable-tree-node-children' + (collapsed ? ' collapsed' : '')}>
                     {
                         data.children && data.children.map((item, index) => {
                             return (

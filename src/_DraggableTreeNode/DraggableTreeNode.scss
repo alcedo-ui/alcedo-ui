@@ -1,0 +1,159 @@
+/**
+ * @file DraggableTreeNode style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin draggable-tree-node-theme($color, $bg-color) {
+    color: $color;
+    background-color: $bg-color;
+
+    &:hover {
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
+    }
+
+    &:active {
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
+    }
+}
+
+.draggable-tree-node-wrapper {
+
+    .draggable-tree-node {
+        display: block;
+        width: 100%;
+        height: 40px;
+        position: relative;
+        line-height: 40px;
+        border: none;
+        transition: all $theme-transition-duration ease-in-out;
+        cursor: pointer;
+        box-sizing: border-box;
+        font-size: 12px;
+        text-align: left;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: $theme-field;
+        background-color: $theme-field-bg;
+
+        .draggable-tree-node-inner {
+            position: relative;
+
+            .draggable-tree-node-collapse-icon {
+                position: absolute;
+                left: -20px;
+                top: 0;
+                width: 20px;
+                height: 20px;
+                transform: translateY(50%);
+
+                .button-icon.button-icon-left {
+                    float: none;
+                }
+            }
+
+            .draggable-tree-node-select {
+                display: inline-block;
+                width: 16px;
+                height: 40px;
+                margin-right: 10px;
+                overflow: hidden;
+                vertical-align: bottom;
+            }
+
+            .button-icon {
+                width: 16px;
+                line-height: inherit;
+                text-align: center;
+                font-size: inherit;
+                color: inherit;
+
+                &.button-icon-left {
+                    float: left;
+                    margin-right: 15px;
+                }
+
+                &.button-icon-right {
+                    float: right;
+                    margin-left: 15px;
+                }
+
+                .circular-loading {
+                    margin-right: 10px;
+                }
+            }
+
+            .draggable-tree-node-content {
+                display: inline-block;
+
+                .draggable-tree-node-content-desc {
+                    opacity: .5;
+                    margin-left: 10px;
+                }
+            }
+
+            .touch-ripple {
+                border-radius: $theme-border-radius;
+
+                &.hidden {
+                    display: none;
+                }
+            }
+        }
+
+        &[readonly] {
+            cursor: default;
+            color: $theme-field !important;
+            background: $theme-field-bg !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: $theme-field-disabled !important;
+            background-color: $theme-field-bg-disabled !important;
+        }
+
+        &:hover {
+            background-color: theme-color-hover($theme-secondary);
+        }
+
+        &:active {
+            background-color: theme-color-active($theme-field-bg);
+        }
+
+        // default theme
+        //@include draggable-tree-node-theme($theme-field, $theme-field-bg);
+
+        // other themes
+        &.theme-primary {
+            @include draggable-tree-node-theme($theme-secondary, $theme-primary);
+        }
+        &.theme-secondary {
+            @include draggable-tree-node-theme($theme-primary, $theme-secondary);
+        }
+        &.theme-highlight {
+            @include draggable-tree-node-theme(#fff, $theme-highlight);
+        }
+        &.theme-info {
+            @include draggable-tree-node-theme(#fff, $theme-info);
+        }
+        &.theme-success {
+            @include draggable-tree-node-theme(#fff, $theme-success);
+        }
+        &.theme-warning {
+            @include draggable-tree-node-theme(#fff, $theme-warning);
+        }
+        &.theme-error {
+            @include draggable-tree-node-theme(#fff, $theme-error);
+        }
+    }
+
+    .draggable-tree-node-children {
+
+        &.collapsed {
+            height: 0;
+            overflow: hidden;
+        }
+    }
+}
