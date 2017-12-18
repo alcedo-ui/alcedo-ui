@@ -15,6 +15,8 @@ import Util from '../_vendors/Util';
 
 export default class IconAnchor extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
