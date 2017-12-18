@@ -3,6 +3,7 @@ import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableTree from 'src/DraggableTree';
+import Paper from 'src/Paper';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
@@ -18,16 +19,37 @@ export default class DraggableTreeExamples extends Component {
 
         super(props);
 
-        this.listData = [{
-            iconCls: 'fa fa-facebook',
-            text: 'Facebook'
-        }, {
-            iconCls: 'fa fa-twitter',
-            text: 'Twitter'
-        }, {
-            iconCls: 'fa fa-google-plus',
-            text: 'Google+'
-        }];
+        this.data = {
+            id: '0',
+            text: 'Root',
+            desc: 'Root',
+            children: [{
+                id: '00',
+                text: 'Children 0 - 0',
+                desc: 'Children 0 - 0'
+            }, {
+                id: '01',
+                text: 'Children 0 - 1',
+                desc: 'Children 0 - 1',
+                children: [{
+                    id: '010',
+                    text: 'Children 0 - 1 - 0',
+                    desc: 'Children 0 - 1 - 0'
+                }, {
+                    id: '011',
+                    text: 'Children 0 - 1 - 1',
+                    desc: 'Children 0 - 1 - 1'
+                }, {
+                    id: '012',
+                    text: 'Children 0 - 1 - 2',
+                    desc: 'Children 0 - 1 - 2'
+                }]
+            }, {
+                id: '02',
+                text: 'Children 0 - 2',
+                desc: 'Children 0 - 2'
+            }]
+        };
 
         this.sequenceChangeHandler = this::this.sequenceChangeHandler;
         this.valueChangeHandler = this::this.valueChangeHandler;
@@ -67,13 +89,10 @@ export default class DraggableTreeExamples extends Component {
                                     A multiple-choice <code>DraggableTree</code> example.
                                 </p>
 
-                                <div style={{width: 240}}>
-                                    <DraggableTree style={{width: 240}}
-                                                   selectMode={DraggableTree.SelectMode.MULTI_SELECT}
-                                                   items={this.listData}
-                                                   onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
-                                </div>
+                                <Paper className="tree-wrapper">
+                                    <DraggableTree data={this.data}
+                                                   onChange={this.changeHandler}/>
+                                </Paper>
 
                             </div>
 
