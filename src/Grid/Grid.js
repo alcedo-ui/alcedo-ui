@@ -64,6 +64,12 @@ export default class Grid extends Component {
 
     listItemDeselectHandler(item, index) {
 
+        const {selectMode} = this.props;
+
+        if (selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
         const {valueField, displayField} = this.props;
         let {value} = this.state;
 
