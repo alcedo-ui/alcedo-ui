@@ -572,8 +572,8 @@ DropdownFilter.defaultProps = {
 
     useDynamicRenderList: false,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
