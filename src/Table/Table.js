@@ -102,14 +102,14 @@ export default class Table extends Component {
 
         const {selectMode, idProp} = this.props;
 
-        if (selectMode === Table.SelectMode.NORMAL || !rowData || !value) {
+        if (!rowData || !value) {
             return false;
         }
 
         switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Table.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -249,10 +249,10 @@ export default class Table extends Component {
         const {selectMode} = this.props;
 
         switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 this.itemCheckBoxChangeHandler(rowData, rowIndex);
                 return;
-            case Table.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 this.itemRadioChangeHandler(rowData, rowIndex);
                 return;
         }
@@ -277,9 +277,9 @@ export default class Table extends Component {
             {value} = this.state;
 
         switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return value.length;
-            case Table.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return value ? 1 : 0;
         }
 
@@ -374,14 +374,14 @@ export default class Table extends Component {
             {value, sort, pagging} = this.state,
             self = this,
 
-            tableClassName = (selectMode === Table.SelectMode.MULTI_SELECT
-                || selectMode === Table.SelectMode.SINGLE_SELECT ? ' selectable' : '')
+            tableClassName = (selectMode === SelectMode.MULTI_SELECT
+                || selectMode === SelectMode.SINGLE_SELECT ? ' selectable' : '')
                 + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
 
-        if (selectMode === Table.SelectMode.MULTI_SELECT) {
+        if (selectMode === SelectMode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
                 header() {
@@ -398,7 +398,7 @@ export default class Table extends Component {
                                      disabled={disabled || rowData.disabled}/>;
                 }
             });
-        } else if (selectMode === Table.SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
@@ -709,7 +709,7 @@ Table.defaultProps = {
     value: null,
     hasLineNumber: false,
 
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
     disabled: false,
     idProp: 'id',
     isPagging: true,
