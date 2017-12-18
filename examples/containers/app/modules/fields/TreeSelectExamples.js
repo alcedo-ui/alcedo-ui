@@ -122,8 +122,7 @@ export default class TreeSelectExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <div className="examples-wrapper">
-                                <TreeSelect selectMode={TreeSelect.SelectMode.SINGLE_SELECT}
-                                            data={this.data}
+                                <TreeSelect data={this.data}
                                             autoClose={false}
                                             onChange={this.changeHandler}/>
                             </div>
