@@ -19,6 +19,8 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class ListItem extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
