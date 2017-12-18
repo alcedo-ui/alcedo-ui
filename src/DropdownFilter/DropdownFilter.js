@@ -20,6 +20,7 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 export default class DropdownFilter extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
