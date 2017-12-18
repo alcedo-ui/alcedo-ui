@@ -20,6 +20,7 @@ import Position from '../_statics/Position';
 export default class TipBody extends Component {
 
     static Position = Position;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
