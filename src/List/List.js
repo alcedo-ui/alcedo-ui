@@ -40,10 +40,6 @@ export default class List extends Component {
 
         const {selectMode} = this.props;
 
-        if (selectMode === SelectMode.NORMAL) {
-            return;
-        }
-
         let {value} = this.state;
 
         if (selectMode === SelectMode.MULTI_SELECT) {
