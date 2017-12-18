@@ -29,6 +29,7 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 export default class DraggableGridItem extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...rest) {
 
