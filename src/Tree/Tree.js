@@ -17,6 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 export default class Tree extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
