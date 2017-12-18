@@ -49,9 +49,9 @@ export default class GroupList extends Component {
         }
 
         switch (selectMode) {
-            case GroupList.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return [];
-            case GroupList.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return null;
             default:
                 return value;
