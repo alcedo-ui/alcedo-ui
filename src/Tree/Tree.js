@@ -13,6 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
+import Calculation from '../_vendors/Calculation';
 
 export default class Tree extends Component {
 
@@ -24,57 +25,11 @@ export default class Tree extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
 
-        this.treeNodeTouchTapHandler = ::this.treeNodeTouchTapHandler;
         this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
         this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                return [];
-            case SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
-
-    }
-
-    treeNodeTouchTapHandler(nodeData, path, e) {
-
-        const {selectMode} = this.props;
-
-        if (selectMode !== SelectMode.NORMAL) {
-            return;
-        }
-
-        this.setState({
-            value: nodeData
-        }, () => {
-            const {onNodeTouchTap, onChange} = this.props;
-            onNodeTouchTap && onNodeTouchTap(nodeData, path, e);
-            onChange && onChange(nodeData, e);
-        });
 
     }
 
@@ -143,7 +98,7 @@ export default class Tree extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
     }
@@ -153,7 +108,7 @@ export default class Tree extends Component {
         const {
                 children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer
+                renderer, onNodeTouchTap
             } = this.props,
             {value} = this.state,
             listClassName = (className ? ' ' + className : '');
@@ -181,7 +136,9 @@ export default class Tree extends Component {
                           allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
-                          onTouchTap={this.treeNodeTouchTapHandler}
+                          onTouchTap={(...args) => {
+                              onNodeTouchTap && onNodeTouchTap(...args);
+                          }}
                           onSelect={this.treeNodeSelectHandler}
                           onDeselect={this.treeNodeDeselectHandler}/>
 
@@ -365,7 +322,7 @@ Tree.defaultProps = {
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: [],
 
