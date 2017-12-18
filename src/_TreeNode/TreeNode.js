@@ -147,7 +147,7 @@ export default class TreeNode extends Component {
                             }
 
                             {
-                                selectMode === SelectMode.SINGLE_SELECT ?
+                                selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
                                     <Radio className="tree-node-select"
                                            theme={selectTheme}
                                            checked={checked}
@@ -303,7 +303,7 @@ TreeNode.defaultProps = {
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: null,
     value: null,
@@ -326,8 +326,8 @@ TreeNode.defaultProps = {
 
     collapsedIconCls: 'fa fa-caret-right',
     expandedIconCls: 'fa fa-caret-down',
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
