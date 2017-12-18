@@ -125,7 +125,6 @@ export default class TableExamples extends Component {
                                 <Table columns={this.columns}
                                        isPagging={true}
                                        data={this.generateData(5)}
-                                       selectMode={Table.SelectMode.SINGLE_SELECT}
                                        sortInitConfig={{
                                            prop: 'id',
                                            type: -1
