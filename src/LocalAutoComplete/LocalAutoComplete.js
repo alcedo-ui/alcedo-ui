@@ -18,6 +18,8 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class LocalAutoComplete extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
