@@ -27,41 +27,13 @@ export default class DynamicRenderList extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: this.initValue(props),
+            value: Calculation.getInitValue(props),
             scrollTop: 0
         };
 
-        this.initValue = ::this.initValue;
         this.getIndex = ::this.getIndex;
         this.scrollHandler = ::this.scrollHandler;
         this.changeHandler = ::this.changeHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case DynamicRenderList.SelectMode.MULTI_SELECT:
-                return [];
-            case DynamicRenderList.SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
@@ -96,7 +68,7 @@ export default class DynamicRenderList extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
     }
@@ -351,11 +323,11 @@ DynamicRenderList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square',
