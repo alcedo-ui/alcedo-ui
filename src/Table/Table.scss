@@ -38,24 +38,13 @@
                 padding-right: 5px !important;
                 text-align: center;
 
-                .table-checkbox {
+                .table-select {
                     width: 30px;
                     height: 30px;
 
+                    .radio-icon-wrapper,
                     .checkbox-icon-wrapper {
                         width: 30px;
-                    }
-
-                    .checkbox-label {
-                        display: none;
-                    }
-                }
-
-                .table-radio {
-                    color: $theme-secondary;
-
-                    &.activated {
-                        color: $theme-primary;
                     }
                 }
             }
