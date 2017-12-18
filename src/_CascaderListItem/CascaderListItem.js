@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import List from '../List';
 
 import Valid from '../_vendors/Valid';
+import SelectMode from '../_statics/SelectMode';
 
 export default class CascaderListItem extends Component {
 
@@ -84,7 +85,7 @@ export default class CascaderListItem extends Component {
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
-                      selectMode={List.SelectMode.SINGLE_SELECT}
+                      selectMode={SelectMode.SINGLE_SELECT}
                       onChange={this.changeHandle}/>
 
                 {
