@@ -25,6 +25,7 @@ const ScrollingComponent = withScrolling('div');
 export default class DraggableGrid extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
