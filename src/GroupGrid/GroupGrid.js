@@ -13,6 +13,7 @@ import Tip from '../Tip';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
+import Calculation from '../_vendors/Calculation';
 
 export default class GroupGrid extends Component {
 
@@ -24,44 +25,15 @@ export default class GroupGrid extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
-
-        this.initValue = ::this.initValue;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                return [];
-            case SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
     }
@@ -300,7 +272,7 @@ GroupGrid.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fa fa-check',
