@@ -20,6 +20,7 @@ import Tip from '../Tip';
 export default class TreeSelect extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
