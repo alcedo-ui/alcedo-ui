@@ -28,6 +28,7 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 export default class DraggableListItem extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
