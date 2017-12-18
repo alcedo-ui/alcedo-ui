@@ -121,25 +121,6 @@ export default class TreeExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Single Select"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-                            <div className="examples-wrapper">
-                                <Paper className="tree-wrapper">
-                                    <Tree selectMode={Tree.SelectMode.SINGLE_SELECT}
-                                          data={this.data}
-                                          onChange={this.changeHandler}/>
-                                </Paper>
-                            </div>
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
                                   title="Multi Select"/>
 
                     <div className="widget-content">
