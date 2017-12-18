@@ -27,7 +27,7 @@ export default class Tbody extends Component {
 
         const {selectMode, idProp, value} = this.props;
 
-        if (selectMode === SelectMode.NORMAL || !rowData || !value) {
+        if (!rowData || !value) {
             return false;
         }
 
