@@ -15,6 +15,8 @@ import CascaderCalculation from '../_vendors/TreeCalculation';
 
 export default class CascaderList extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
