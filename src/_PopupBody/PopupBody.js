@@ -23,6 +23,7 @@ export default class PopupBody extends Component {
 
     static Position = Position;
     static TriggerMode = TriggerMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
