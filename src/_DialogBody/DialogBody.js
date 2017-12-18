@@ -19,6 +19,8 @@ import PopupManagement from '../_vendors/PopupManagement';
 
 export default class DialogBody extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
