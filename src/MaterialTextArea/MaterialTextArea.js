@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 export default class MaterialTextArea extends Component {
 
     static Type = TextArea.Type;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
