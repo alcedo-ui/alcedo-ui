@@ -15,7 +15,6 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
-import Valid from '../_vendors/Valid';
 
 export default class Grid extends Component {
 
