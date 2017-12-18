@@ -16,6 +16,8 @@ import Position from '../_statics/Position';
 
 export default class BaseButton extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
