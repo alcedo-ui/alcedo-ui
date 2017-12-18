@@ -11,6 +11,8 @@ import Theme from '../Theme';
 
 export default class Accordion extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
