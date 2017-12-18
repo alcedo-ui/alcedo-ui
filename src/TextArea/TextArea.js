@@ -28,6 +28,7 @@ export default class TextArea extends Component {
         EMAIL: 'email',
         URL: 'url'
     };
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
