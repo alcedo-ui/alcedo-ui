@@ -51,6 +51,10 @@ export default class TreeExamples extends Component {
 
     }
 
+    nodeSelectHandler(node, path) {
+        console.log(node, path);
+    }
+
     changeHandler(value) {
         console.log(value);
     }
@@ -82,6 +86,7 @@ export default class TreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <Tree data={this.data}
+                                          onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
 
