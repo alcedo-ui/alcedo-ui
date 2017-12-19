@@ -3,10 +3,6 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin dropdown-select-theme($color) {
-    border-color: $color;
-}
-
 .dropdown-select {
     position: relative;
     width: 200px;
@@ -69,8 +65,6 @@
     max-height: 240px;
     overflow: hidden;
     margin: 0;
-    border-width: 1px;
-    border-style: solid;
 
     .popup-content {
         border-radius: 0 !important;
@@ -139,31 +133,5 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-top: none;
-    }
-
-    // default theme
-    @include dropdown-select-theme($theme-border);
-
-    // other themes
-    &.theme-primary {
-        @include dropdown-select-theme($theme-primary);
-    }
-    &.theme-secondary {
-        @include dropdown-select-theme($theme-secondary);
-    }
-    &.theme-highlight {
-        @include dropdown-select-theme($theme-highlight);
-    }
-    &.theme-info {
-        @include dropdown-select-theme($theme-info);
-    }
-    &.theme-success {
-        @include dropdown-select-theme($theme-success);
-    }
-    &.theme-warning {
-        @include dropdown-select-theme($theme-warning);
-    }
-    &.theme-error {
-        @include dropdown-select-theme($theme-error);
     }
 }
