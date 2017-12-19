@@ -65,7 +65,7 @@ export default class MaterialDatePicker extends Component {
                         month = moment(text).format('MM'),
                         day = moment(text).format('DD');
                     this.setState({
-                        value: text,
+                        value: new Date(text),
                         year: year,
                         month: month,
                         day: day
@@ -74,7 +74,7 @@ export default class MaterialDatePicker extends Component {
             }
         } else {
             this.setState({
-                value: text
+                value: new Date(text)
             });
         }
     }
@@ -82,11 +82,10 @@ export default class MaterialDatePicker extends Component {
     dayPickerChangeHandle(date) {
         const {autoClose} = this.props;
         let state = _.cloneDeep(this.state);
-        state.value = date.time;
+        state.value = new Date(date.time);
         state.year = date.year;
         state.month = date.month;
         state.day = date.day;
-
         if (autoClose) {
             state.popupVisible = false;
         }
@@ -112,7 +111,7 @@ export default class MaterialDatePicker extends Component {
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
             day = moment().format('DD');
-        let timer = moment().format(this.props.dateFormat);
+        let timer = new Date();
         this.setState({
             value: timer,
             year: year,
@@ -151,9 +150,10 @@ export default class MaterialDatePicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // debugger
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
             this.setState({
-                value: nextProps.value,
+                value: new Date(nextProps.value),
                 dateFormat: nextProps.dateFormat,
                 year: moment(nextProps.value).format('YYYY'),
                 month: moment(nextProps.value).format('MM'),
@@ -179,7 +179,7 @@ export default class MaterialDatePicker extends Component {
             const year = moment(value).format('YYYY'),
                 month = moment(value).format('MM'),
                 day = moment(value).format('DD');
-            state.value = value;
+            state.value = new Date(value);
             state.year = year;
             state.month = month;
             state.day = day;
@@ -200,41 +200,37 @@ export default class MaterialDatePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
+        const {className, style, name, label, placeholder, dateFormat, maxValue, minValue} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state,
 
             popStyle = {
                 left: '-' + marginLeft + 'px'
             };
-
+        let textValue = value ? moment(value).format(dateFormat) : '';
         return (
-            <div className={`date-picker ${className}`}
+            <div className={`material-date-picker ${className}`}
                  ref="datePicker"
                  style={style}>
 
                 <MaterialTextField ref="trigger"
-                                   className="date-picker-field"
+                                   className={`date-picker-field`}
                                    name={name}
+                                   label={label}
+                                   isLabelAnimate={false}
                                    placeholder={placeholder}
-                                   value={value}
+                                   value={textValue}
                                    iconCls="fa fa-calendar"
-                                   readOnly={true}
-                                   clearButtonVisible={false}/>
+                                   readOnly={popupVisible ? false : true}
+                                   clearButtonVisible={popupVisible}
+                                   onChange={this.textFieldChangeHandle}/>
 
                 <div ref="popup"
                      className={`date-picker-popup ${popupVisible ? '' : 'hidden'}`}
                      style={popStyle}>
-                    <div className="calendar-date-input-wrap">
-                        <TextField className='calendar-input'
-                                   placeholder={'Select Date'}
-                                   clearButtonVisible={true}
-                                   value={value}
-                                   onChange={this.textFieldChangeHandle}/>
-                    </div>
                     {
                         datePickerLevel == 0 ?
                             <DayPicker
-                                value={value}
+                                value={textValue}
                                 dateFormat={dateFormat}
                                 year={year}
                                 month={month}
@@ -247,7 +243,7 @@ export default class MaterialDatePicker extends Component {
                             : (
                             datePickerLevel == 1 ?
                                 <MonthPicker
-                                    value={value}
+                                    value={textValue}
                                     year={year}
                                     month={month}
                                     day={day}
@@ -257,7 +253,7 @@ export default class MaterialDatePicker extends Component {
                                     previousClick={this.datePickerChangeHandle}/>
                                 :
                                 <YearPicker
-                                    value={value}
+                                    value={textValue}
                                     year={year}
                                     month={month}
                                     day={day}
@@ -309,19 +305,24 @@ MaterialDatePicker.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The label of the DatePicker.
+     */
+    label: PropTypes.any,
+
+    /**
      * This is the initial date value of the component.
      */
-    value: PropTypes.string,
+    value: PropTypes.any,
 
     /**
      * The ending of a range of valid dates. The range includes the endDate.
      */
-    maxValue: PropTypes.string,
+    maxValue: PropTypes.any,
 
     /**
      * The beginning of a range of valid dates. The range includes the startDate.
      */
-    minValue: PropTypes.string,
+    minValue: PropTypes.any,
 
     /**
      * DatePicker textField element placeholder.
@@ -346,15 +347,12 @@ MaterialDatePicker.propTypes = {
 };
 
 MaterialDatePicker.defaultProps = {
-
     className: '',
     style: null,
-
     name: '',
     maxValue: '',
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     autoClose: true
-
 };

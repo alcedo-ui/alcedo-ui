@@ -44,8 +44,9 @@ export default class DatePickerExamples extends Component {
                                     <code>Material Date Picker</code> using the <code>value</code> property to set initial date.
                                 </p>
 
-                                <MaterialDatePicker value='2017-04-17'
-                                                    name="date"
+                                <MaterialDatePicker name="date"
+                                                    label={"date"}
+                                                    isLabelAnimate={true}
                                                     autoClose={false}/>
 
                             </div>

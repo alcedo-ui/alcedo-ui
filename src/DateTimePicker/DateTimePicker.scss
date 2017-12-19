@@ -328,11 +328,6 @@ input::-ms-clear {
                     height: 26px;
                     line-height: 20px;
                     text-align: center;
-                    background: $theme-field-bg-active;
-                    color: #fff;
-                    &.active {
-                        background: $theme-field-bg-active;
-                    }
                 }
             }
 
