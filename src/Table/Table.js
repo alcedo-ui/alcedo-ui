@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 import IconButton from '../IconButton';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
@@ -19,6 +20,7 @@ import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import SortType from '../_statics/SortType';
+import Theme from '../Theme';
 
 export default class Table extends Component {
 
@@ -49,11 +51,10 @@ export default class Table extends Component {
                 page: 0
             },
 
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
 
         };
 
-        this.initValue = ::this.initValue;
         this.isHeadChecked = ::this.isHeadChecked;
         this.isHeadIndeterminate = ::this.isHeadIndeterminate;
         this.isItemChecked = ::this.isItemChecked;
@@ -68,34 +69,6 @@ export default class Table extends Component {
         this.paggingData = ::this.paggingData;
         this.pageChangedHandler = ::this.pageChangedHandler;
         this.resetPage = ::this.resetPage;
-        // this.wdithHandle = ::this.wdithHandle;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
-                return [];
-            case Table.SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
 
     }
 
@@ -131,14 +104,14 @@ export default class Table extends Component {
 
         const {selectMode, idProp} = this.props;
 
-        if (selectMode === Table.SelectMode.NORMAL || !rowData || !value) {
+        if (!rowData || !value) {
             return false;
         }
 
         switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Table.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -278,10 +251,10 @@ export default class Table extends Component {
         const {selectMode} = this.props;
 
         switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 this.itemCheckBoxChangeHandler(rowData, rowIndex);
                 return;
-            case Table.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 this.itemRadioChangeHandler(rowData, rowIndex);
                 return;
         }
@@ -306,9 +279,9 @@ export default class Table extends Component {
             {value} = this.state;
 
         switch (selectMode) {
-            case Table.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return value.length;
-            case Table.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return value ? 1 : 0;
         }
 
@@ -369,10 +342,6 @@ export default class Table extends Component {
 
     }
 
-    componentDidMount() {
-        // this.wdithHandle();
-    }
-
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.data.length !== this.props.data.length) {
@@ -381,7 +350,7 @@ export default class Table extends Component {
 
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
 
@@ -391,7 +360,10 @@ export default class Table extends Component {
 
         const {
 
-                className, style, data, columns, hasLineNumber, selectMode, pageSizes, disabled,
+                className, style, data, columns, hasLineNumber, pageSizes, disabled,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 sortAscIconCls, sortDescIconCls,
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
@@ -407,38 +379,49 @@ export default class Table extends Component {
             {value, sort, pagging} = this.state,
             self = this,
 
-            tableClassName = (selectMode === Table.SelectMode.MULTI_SELECT
-                || selectMode === Table.SelectMode.SINGLE_SELECT ? ' selectable' : '')
+            tableClassName = (selectMode === SelectMode.MULTI_SELECT
+                || selectMode === SelectMode.SINGLE_SELECT ? ' selectable' : '')
                 + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
 
-        if (selectMode === Table.SelectMode.MULTI_SELECT) {
+        if (selectMode === SelectMode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
                 header() {
-                    return <Checkbox className="table-checkbox"
+                    return <Checkbox className="table-select"
+                                     theme={selectTheme}
                                      checked={self.isHeadChecked()}
                                      disabled={disabled}
                                      indeterminate={self.isHeadIndeterminate()}
+                                     uncheckedIconCls={checkboxUncheckedIconCls}
+                                     checkedIconCls={checkboxCheckedIconCls}
+                                     indeterminateIconCls={checkboxIndeterminateIconCls}
                                      onChange={self.headCheckBoxChangeHandler}/>;
                 },
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
-                    return <Checkbox className="table-checkbox"
+                    return <Checkbox className="table-select"
+                                     theme={selectTheme}
                                      checked={self.isItemChecked(rowData, value)}
-                                     disabled={disabled || rowData.disabled}/>;
+                                     disabled={disabled || rowData.disabled}
+                                     uncheckedIconCls={checkboxUncheckedIconCls}
+                                     checkedIconCls={checkboxCheckedIconCls}
+                                     indeterminateIconCls={checkboxIndeterminateIconCls}/>;
                 }
             });
-        } else if (selectMode === Table.SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls)) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
                 renderer(rowData) {
                     return (
-                        <IconButton className={'table-radio' + (self.isItemChecked(rowData, value) ? ' activated' : '')}
-                                    iconCls="fa fa-check"
-                                    disabled={disabled || rowData.disabled}/>
+                        <Radio className="table-select"
+                               theme={selectTheme}
+                               checked={self.isItemChecked(rowData, value)}
+                               disabled={disabled || rowData.disabled}
+                               uncheckedIconCls={radioUncheckedIconCls}
+                               checkedIconCls={radioCheckedIconCls}/>
                     );
                 }
             });
@@ -547,6 +530,16 @@ Table.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The theme of the table select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The select mode of table.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
      * The table list data.
      */
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -639,11 +632,6 @@ Table.propTypes = {
 
     })).isRequired,
 
-    /**
-     * The type of table list.Can be checkbox,radio,normal.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
     disabled: PropTypes.bool,
 
     /**
@@ -698,6 +686,12 @@ Table.propTypes = {
 
     }),
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
@@ -737,12 +731,14 @@ Table.defaultProps = {
     className: null,
     style: null,
 
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
+
     columns: [],
     data: [],
     value: null,
     hasLineNumber: false,
 
-    selectMode: SelectMode.NORMAL,
     disabled: false,
     idProp: 'id',
     isPagging: true,
@@ -753,6 +749,12 @@ Table.defaultProps = {
     pageSizes: [5, 10, 15, 20],
 
     defaultSortType: SortType.ASC,
-    sortInitConfig: null
+    sortInitConfig: null,
+
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };

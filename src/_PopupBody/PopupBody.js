@@ -23,6 +23,7 @@ export default class PopupBody extends Component {
 
     static Position = Position;
     static TriggerMode = TriggerMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -40,7 +41,6 @@ export default class PopupBody extends Component {
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
-        this.wheelHandler = ::this.wheelHandler;
 
     }
 
@@ -104,12 +104,6 @@ export default class PopupBody extends Component {
 
     debounceResizeHandler() {
         this.forceUpdate();
-    }
-
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
     }
 
     initializeAnimation(callback) {
@@ -181,7 +175,9 @@ export default class PopupBody extends Component {
                    className={'popup' + popupClassName}
                    style={popupStyle}
                    depth={depth}
-                   onWheel={this.wheelHandler}>
+                   onWheel={e => {
+                       Event.wheelHandler(e, this.props);
+                   }}>
 
                 {
                     hasTriangle ?
@@ -193,7 +189,9 @@ export default class PopupBody extends Component {
                 }
 
                 <div className="popup-content"
-                     onWheel={this.wheelHandler}>
+                     onWheel={e => {
+                         Event.wheelHandler(e, this.props);
+                     }}>
                     {children}
                 </div>
 

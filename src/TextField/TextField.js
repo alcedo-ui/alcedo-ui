@@ -28,6 +28,7 @@ export default class TextField extends Component {
         EMAIL: 'email',
         URL: 'url'
     };
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 

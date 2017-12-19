@@ -1,111 +1,84 @@
 /**
  * @file TreeSelect style
- * @author sunday(sunday.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 .tree-select {
-    position: relative;
-    height: 50px;
-    .tree-select-inner {
-        width: 100%;
-        overflow: hidden;
-        transition: all $theme-transition-duration ease-in-out;
-        border-radius: $theme-border-radius;
-        border: 1px solid #dfdfdf;
-        position: absolute;
-        top: 0;
-        left: 0;
-        &.hidden {
-            box-shadow: none;
-            z-index: 0;
-            height: 50px;
-        }
-        &.open {
-            @include shadow(3);
-            z-index: $popup-z-index;
-            .tree-select-trigger {
-                .tree-select-trigger-right-icon {
-                    transform: rotate(180deg);
+
+    .dropdown {
+        width: 400px;
+
+        .dropdown-trigger {
+
+            .base-button-value {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                .tree-select-trigger-value-separator {
+                    display: inline-block;
+                    margin: 0 8px;
+                    color: $theme-field-disabled;
+                }
+
+                .tree-select-trigger-value-node {
+                    display: inline-block;
                 }
             }
         }
-        &:hover {
-            @include shadow(3);
-        }
-        .tree-select-trigger {
+    }
+}
+
+.tree-select-popup {
+    .popup-content {
+
+        .tree-select-popup-fixed {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 50px;
-            line-height: 20px;
-            padding: 10px 30px 10px 20px;
-            border-radius: 0;
-            text-align: left;
-            color: $theme-field;
-            background: $theme-field-bg;
-
-            .tree-select-trigger-right-icon {
-                position: absolute;
-                right: 15px;
-                top: 15px;
-                width: 10px;
-                height: 20px;
-                line-height: 20px;
-                text-align: center;
-                margin: 0;
-                color: inherit;
-                transition: all $theme-transition-duration ease-in-out;
-            }
-
-            &:hover {
-                color: $theme-field;
-                background: darken($theme-field-bg, 2%);
-            }
-
-            &.activated {
-                color: $theme-highlight;
-            }
-        }
-        .popup {
-            position: absolute;
-            top: 50px;
-            width: 100%;
-            margin: 0;
-            border-top: 1px solid #dfdfdf;
             z-index: 1;
-            border-bottom-left-radius: $theme-border-radius;
-            border-bottom-right-radius: $theme-border-radius;
-            transition: all $theme-transition-duration ease-in-out;
-            .tree-inner {
+
+            .tree-select-filter {
                 border: none;
-            }
-        }
+                border-bottom: 1px solid $theme-border !important;
+                border-radius: 0;
+                width: 100%;
+                height: 40px;
 
-        &.error {
-            .trigger {
-                border: 1px solid $theme-error !important;
-            }
-        }
-        &.above {
-            .options {
-                border-top: none;
-
-                .option {
-                    border: 1px solid #dfdfdf;
-                    border-bottom: none;
+                .icon-button {
+                    margin: 0;
                 }
             }
-        }
 
-        &.below {
-            .options {
-                border-top: none;
+            .tree-select-all-wrapper {
+                box-sizing: border-box;
+                border-bottom: 1px solid $theme-border;
             }
         }
 
-        &.empty {
-            .filter {
-                border-top: none !important;
-                margin-top: 0 !important;
+        .tree-select-filter-placeholder,
+        .tree-select-all-placeholder {
+            height: 40px;
+        }
+
+        .tree-select-list-scroller {
+            overflow-y: auto;
+            max-height: inherit;
+
+            .tree-select-list,
+            .list {
+                width: 100%;
+
+                .no-matched-list-item {
+                    line-height: 40px;
+                    color: $theme-field;
+
+                    .no-matched-list-item-icon {
+                        color: $theme-warning;
+                        margin-right: 10px;
+                    }
+                }
             }
         }
 

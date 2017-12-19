@@ -12,6 +12,7 @@ import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
@@ -19,70 +20,29 @@ export default class GroupList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.state = {
-            value: this.initValue(props)
+            value: Calculation.getInitValue(props)
         };
 
-        this.initValue = ::this.initValue;
-        this.wheelHandler = ::this.wheelHandler;
-
-    }
-
-    initValue(props) {
-
-        if (!props) {
-            return;
-        }
-
-        const {value, selectMode} = props;
-
-        if (!selectMode) {
-            return;
-        }
-
-        if (value) {
-            return value;
-        }
-
-        switch (selectMode) {
-            case GroupList.SelectMode.MULTI_SELECT:
-                return [];
-            case GroupList.SelectMode.SINGLE_SELECT:
-                return null;
-            default:
-                return value;
-        }
-
-    }
-
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: this.initValue(nextProps)
+                value: Calculation.getInitValue(nextProps)
             });
         }
     }
 
     render() {
 
-        const {
-
-                children, className, style, data, disabled,
-
-                ...restProps
-
-            } = this.props,
+        const {children, className, style, data, disabled, ...restProps} = this.props,
             {value} = this.state,
 
             listClassName = (className ? ' ' + className : '');
@@ -91,7 +51,9 @@ export default class GroupList extends Component {
             <div className={'group-list' + listClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={this.wheelHandler}>
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 {
                     data && data.length > 0 ?
@@ -106,7 +68,8 @@ export default class GroupList extends Component {
                                 <div key={index}>
                                     <div className="group-list-group-title">{item.name}</div>
                                     <List {...restProps}
-                                          data={item.children}/>
+                                          data={item.children}
+                                          value={value}/>
                                 </div>
                             );
 
@@ -318,7 +281,7 @@ GroupList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fa fa-check',

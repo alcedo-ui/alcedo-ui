@@ -13,10 +13,12 @@ import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import CascaderCalculation from '../_vendors/CascaderCalculation';
+import CascaderCalculation from '../_vendors/TreeCalculation';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class CascaderField extends Component {
+
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 

@@ -3,79 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin dropdown-select-theme($color) {
-    border-color: $color;
-}
-
-.dropdown-select {
-    position: relative;
-    width: 200px;
-    height: 40px;
-
-    .dropdown {
-        width: 100%;
-
-        .dropdown-trigger {
-            width: 100%;
-            height: 100%;
-            text-align: left;
-
-            .base-button-value {
-                float: left;
-            }
-
-            .dropdown-trigger-icon {
-                float: right;
-                margin: 0;
-                color: inherit;
-                transition: all $theme-transition-duration ease-in-out;
-            }
-
-            &.above {
-                .dropdown-trigger-icon {
-                    transform: rotate(180deg);
-                }
-            }
-
-            &.activated {
-                @include shadow(4);
-
-                .dropdown-trigger-icon {
-                    transform: rotate(180deg);
-                }
-
-                &.above {
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                    z-index: $popup-z-index + 1;
-
-                    .dropdown-trigger-icon {
-                        transform: rotate(0deg);
-                    }
-                }
-
-                &.blow {
-                    border-bottom-left-radius: 0;
-                    border-bottom-right-radius: 0;
-                }
-            }
-        }
-    }
-
-}
-
 .dropdown-select-popup {
-    box-sizing: border-box;
-    max-height: 240px;
-    overflow: hidden;
-    margin: 0;
-    border-width: 1px;
-    border-style: solid;
 
     .popup-content {
-        border-radius: 0 !important;
-        overflow: hidden !important;
-        max-height: inherit;
 
         .dropdown-select-popup-fixed {
             position: absolute;
@@ -127,43 +57,5 @@
             }
         }
 
-    }
-
-    &.above {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        border-bottom: none;
-    }
-
-    &.blow {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-top: none;
-    }
-
-    // default theme
-    @include dropdown-select-theme($theme-border);
-
-    // other themes
-    &.theme-primary {
-        @include dropdown-select-theme($theme-primary);
-    }
-    &.theme-secondary {
-        @include dropdown-select-theme($theme-secondary);
-    }
-    &.theme-highlight {
-        @include dropdown-select-theme($theme-highlight);
-    }
-    &.theme-info {
-        @include dropdown-select-theme($theme-info);
-    }
-    &.theme-success {
-        @include dropdown-select-theme($theme-success);
-    }
-    &.theme-warning {
-        @include dropdown-select-theme($theme-warning);
-    }
-    &.theme-error {
-        @include dropdown-select-theme($theme-error);
     }
 }

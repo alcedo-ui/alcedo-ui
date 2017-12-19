@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 export default class TipProvider extends Component {
 
     static Position = Tip.Position;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 

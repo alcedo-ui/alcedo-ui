@@ -16,6 +16,8 @@ import Position from '../_statics/Position';
 
 export default class BaseButton extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -117,7 +119,12 @@ export default class BaseButton extends Component {
                         renderer && typeof renderer === 'function' ?
                             renderer(this.props)
                             :
-                            <span className="base-button-value">{value}</span>
+                            (
+                                value ?
+                                    <span className="base-button-value">{value}</span>
+                                    :
+                                    null
+                            )
                     }
 
                     {
@@ -162,7 +169,7 @@ BaseButton.propTypes = {
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.any,
     type: PropTypes.string,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,

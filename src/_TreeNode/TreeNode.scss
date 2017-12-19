@@ -53,26 +53,13 @@
                 }
             }
 
-            .tree-node-checkbox {
+            .tree-node-select {
                 display: inline-block;
                 width: 16px;
+                height: 40px;
                 margin-right: 10px;
-                float: left;
                 overflow: hidden;
-            }
-
-            .tree-node-checked {
-                display: inline-block;
-                float: left;
-                width: 16px;
-                line-height: inherit;
-                margin-right: 10px;
-                color: lighten($theme-field, 45%);
-                text-align: center;
-
-                &.activated {
-                    color: $theme-highlight;
-                }
+                vertical-align: bottom;
             }
 
             .button-icon {
@@ -98,6 +85,8 @@
             }
 
             .tree-node-content {
+                display: inline-block;
+
                 .tree-node-content-desc {
                     opacity: .5;
                     margin-left: 10px;

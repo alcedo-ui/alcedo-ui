@@ -38,26 +38,13 @@
     color: $theme-field;
     background-color: $theme-field-bg;
 
-    .list-item-checkbox {
+    .list-item-select {
         display: inline-block;
         width: 16px;
+        height: 40px;
         margin-right: 10px;
         float: left;
         overflow: hidden;
-    }
-
-    .list-item-checked {
-        display: inline-block;
-        float: left;
-        width: 16px;
-        line-height: inherit;
-        margin-right: 10px;
-        color: lighten($theme-field, 45%);
-        text-align: center;
-
-        &.activated {
-            color: $theme-highlight;
-        }
     }
 
     .button-icon {

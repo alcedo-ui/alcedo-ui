@@ -13,6 +13,8 @@ import Util from '../_vendors/Util';
 
 export default class Radio extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -76,7 +78,7 @@ export default class Radio extends Component {
 
         const {
                 className, style, theme, name, label, value,
-                uncheckedIconCls, checkedIconCls, disabled
+                uncheckedIconCls, checkedIconCls, disabled, disableTouchRipple
             } = this.props,
             {checked} = this.state,
 
@@ -106,20 +108,26 @@ export default class Radio extends Component {
                                 className="radio-bg-icon"
                                 iconCls={uncheckedIconCls}
                                 onTouchTap={this.touchTapHandler}
-                                disabled={disabled}/>
-
+                                disabled={disabled}
+                                disableTouchRipple={disableTouchRipple}/>
                     <IconButton className="radio-icon"
                                 iconCls={checkedIconCls}
                                 onTouchTap={this.touchTapHandler}
-                                disabled={disabled}/>
+                                disabled={disabled}
+                                disableTouchRipple={disableTouchRipple}/>
                 </div>
 
-                <div className="radio-label"
-                     onMouseDown={this.mouseDownHandler}
-                     onMouseUp={this.mouseUpHandler}
-                     onMouseLeave={this.mouseUpHandler}>
-                    {label}
-                </div>
+                {
+                    label ?
+                        <div className="radio-label"
+                             onMouseDown={this.mouseDownHandler}
+                             onMouseUp={this.mouseUpHandler}
+                             onMouseLeave={this.mouseUpHandler}>
+                            {label}
+                        </div>
+                        :
+                        null
+                }
 
             </div>
         );
@@ -173,6 +181,11 @@ Radio.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
+
+    /**
      * Callback function fired when the radio status change.
      */
     onChange: PropTypes.func
@@ -191,6 +204,7 @@ Radio.defaultProps = {
     checked: false,
     uncheckedIconCls: 'fa fa-circle-o',
     checkedIconCls: 'fa fa-dot-circle-o',
-    disabled: false
+    disabled: false,
+    disableTouchRipple: false
 
 };

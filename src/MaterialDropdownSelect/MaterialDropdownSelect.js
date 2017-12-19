@@ -16,6 +16,7 @@ import SelectMode from '../_statics/SelectMode';
 export default class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -371,7 +372,7 @@ MaterialDropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
     displayField: 'text',

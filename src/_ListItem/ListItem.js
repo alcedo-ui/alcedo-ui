@@ -19,7 +19,7 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class ListItem extends Component {
 
-    static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -79,9 +79,7 @@ export default class ListItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {selectMode} = this.props;
-
-        switch (selectMode) {
+        switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
@@ -133,26 +131,28 @@ export default class ListItem extends Component {
                      onMouseLeave={onMouseLeave}>
 
                     {
-                        selectMode === SelectMode.SINGLE_SELECT ?
-                            <Radio className="list-item-checked"
+                        selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                            <Radio className="list-item-select"
                                    theme={selectTheme}
                                    checked={checked}
                                    disabled={disabled || isLoading}
                                    uncheckedIconCls={radioUncheckedIconCls}
-                                   checkedIconCls={radioCheckedIconCls}/>
+                                   checkedIconCls={radioCheckedIconCls}
+                                   disableTouchRipple={true}/>
                             :
                             null
                     }
 
                     {
                         selectMode === SelectMode.MULTI_SELECT ?
-                            <Checkbox className="list-item-checkbox"
+                            <Checkbox className="list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
-                                      indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                      indeterminateIconCls={checkboxIndeterminateIconCls}
+                                      disableTouchRipple={true}/>
                             :
                             null
                     }
@@ -234,7 +234,9 @@ ListItem.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -246,7 +248,6 @@ ListItem.propTypes = {
     disableTouchRipple: PropTypes.bool,
     rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     readOnly: PropTypes.bool,
 
     iconCls: PropTypes.string,
@@ -255,14 +256,14 @@ ListItem.propTypes = {
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    itemRenderer: PropTypes.func,
-    renderer: PropTypes.func,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
 
     onTouchTap: PropTypes.func,
     onSelect: PropTypes.func,
@@ -278,9 +279,10 @@ ListItem.defaultProps = {
 
     className: null,
     style: null,
-    theme: null,
-    selectTheme: null,
-    selectMode: SelectMode.NORMAL,
+    theme: Theme.DEFAULT,
+
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: null,
     value: null,
@@ -300,8 +302,8 @@ ListItem.defaultProps = {
     tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square'

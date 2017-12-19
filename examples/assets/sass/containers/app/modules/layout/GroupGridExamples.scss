@@ -1,0 +1,11 @@
+@import '../../../../my-theme';
+
+.group-grid-examples {
+
+    .examples-wrapper {
+        .paper {
+            border: 1px solid $theme-border;
+            overflow: hidden;
+        }
+    }
+}

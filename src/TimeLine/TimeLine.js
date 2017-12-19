@@ -14,6 +14,7 @@ import Util from '../_vendors/Util';
 export default class TimeLine extends Component {
 
     static Type = TimeLineItem.Type;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);

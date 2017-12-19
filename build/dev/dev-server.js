@@ -19,7 +19,7 @@ var opn = require('opn'),
 
     devMiddleware = require('webpack-dev-middleware')(compiler, {
         publicPath: webpackConfig.output.publicPath,
-        quiet: true
+        logLevel: 'error'
     }),
 
     hotMiddleware = require('webpack-hot-middleware')(compiler, {

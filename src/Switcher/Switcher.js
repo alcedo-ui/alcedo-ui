@@ -18,6 +18,7 @@ export default class Switcher extends Component {
         DEFAULT: '',
         SMALL: 'small'
     };
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 

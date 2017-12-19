@@ -105,16 +105,20 @@ export default class ListExamples extends Component {
 
     }
 
-    changeHandler(value, index) {
-        console.log('change::', value);
+    changeHandler(value) {
+        console.log('changed::', value);
     }
 
-    itemSelectHandler(value, index) {
-        console.log('select::', value);
+    itemTouchTapHandler(item) {
+        console.log('touchtapd::', item);
     }
 
-    itemDeselectHandler(value, index) {
-        console.log('deselect::', value);
+    itemSelectHandler(value) {
+        console.log('selected::', value);
+    }
+
+    itemDeselectHandler(value) {
+        console.log('deselected::', value);
     }
 
     render() {
@@ -142,7 +146,11 @@ export default class ListExamples extends Component {
                                 <p>A <code>List</code> simple example with left icons.</p>
 
                                 <Paper>
-                                    <List data={this.listData}/>
+                                    <List data={this.listData}
+                                          onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                             </div>
@@ -212,7 +220,9 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240}}>
                                     <List style={{width: 240}}
-                                          data={this.descListData}/>
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}/>
                                 </Paper>
 
                             </div>
@@ -224,7 +234,7 @@ export default class ListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With Select Mode"/>
+                    <WidgetHeader className="example-header" title="Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -232,34 +242,26 @@ export default class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>List</code> with select mode.Can be <code>NORMAL</code>
-                                    , <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
+                                    A <code>List</code> with select mode.Can
+                                    be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
-
-                                <Paper style={{width: 240}}>
-                                    <List style={{width: 240}}
-                                          selectMode={List.SelectMode.SINGLE_SELECT}
-                                          data={this.descListData}
-                                          onChange={this.changeHandler}
-                                          onItemSelect={this.itemSelectHandler}
-                                          onItemDeselect={this.itemDeselectHandler}/>
-                                </Paper>
 
                                 <Paper style={{width: 240, marginTop: 20}}>
                                     <List style={{width: 240}}
                                           selectMode={List.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
 
                                 <Paper style={{width: 240, marginTop: 20}}>
                                     <List style={{width: 240}}
-                                          selectMode={List.SelectMode.SINGLE_SELECT}
                                           selectTheme={Theme.HIGHLIGHT}
                                           data={this.customizedListData}
                                           onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>

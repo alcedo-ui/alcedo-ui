@@ -14,6 +14,8 @@ import Util from '../_vendors/Util';
 
 export default class AnchorButton extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -74,9 +76,9 @@ AnchorButton.propTypes = {
     isCircular: PropTypes.bool,
 
     /**
-     * The text of the button.Type can be string or number.
+     * The text of the button.
      */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.any,
 
     /**
      * The type of button.Can be reset,submit or button.

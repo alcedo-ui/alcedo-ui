@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+import Paper from 'src/Paper';
 import Grid from 'src/Grid';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -29,44 +30,22 @@ export default class GridExamples extends Component {
             desc: 'Here is a Google+ Desc.'
         }];
 
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
-        }];
-
-        this.changeHandle = this::this.changeHandle;
-
     }
 
-    changeHandle(value) {
-        console.log(value);
+    changeHandler(value) {
+        console.log('changed::', value);
+    }
+
+    itemTouchTapHandler(item) {
+        console.log('touchtapd::', item);
+    }
+
+    itemSelectHandler(value) {
+        console.log('selected::', value);
+    }
+
+    itemDeselectHandler(value) {
+        console.log('deselected::', value);
     }
 
     render() {
@@ -94,7 +73,9 @@ export default class GridExamples extends Component {
                                     A <code>Grid</code> with desc.
                                 </p>
 
-                                <Grid items={this.descListData}/>
+                                <Paper>
+                                    <Grid data={this.descListData}/>
+                                </Paper>
 
                             </div>
 
@@ -105,7 +86,7 @@ export default class GridExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="Select Mode"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -113,37 +94,18 @@ export default class GridExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    A <code>Grid</code> with select mode.Can be normal,radio,checkbox.
+                                    A <code>Grid</code> with select mode.Can
+                                    be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
                                 </p>
 
-                                <Grid selectMode={Grid.SelectMode.SINGLE_SELECT}
-                                      items={this.descListData}
-                                      onChange={this.changeHandle}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isGrouped"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>Grid</code> with isGrouped.
-                                </p>
-
-                                <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
-                                      isGrouped={true}
-                                      items={this.groupedListData}
-                                      onChange={this.changeHandle}/>
+                                <Paper>
+                                    <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
+                                          data={this.descListData}
+                                          onChange={this.changeHandler}
+                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
 
                             </div>
 

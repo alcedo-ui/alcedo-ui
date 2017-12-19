@@ -88,9 +88,22 @@ function preventContainerScroll(e) {
 
 }
 
+function wheelHandler(e, props) {
+
+    if (!this || !props) {
+        return;
+    }
+
+    const {shouldPreventContainerScroll, onWheel} = props;
+    shouldPreventContainerScroll && preventContainerScroll(e);
+    onWheel && onWheel(e);
+
+}
+
 export default {
     addEvent,
     removeEvent,
     triggerPopupEventHandle,
-    preventContainerScroll
+    preventContainerScroll,
+    wheelHandler
 };

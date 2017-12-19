@@ -20,6 +20,7 @@ import Position from '../_statics/Position';
 export default class MenuBody extends Component {
 
     static Position = Position;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -39,7 +40,6 @@ export default class MenuBody extends Component {
         this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
         this.initializeAnimation = ::this.initializeAnimation;
         this.animate = ::this.animate;
-        this.wheelHandler = ::this.wheelHandler;
 
     }
 
@@ -68,12 +68,6 @@ export default class MenuBody extends Component {
 
     debounceResizeHandle() {
         this.forceUpdate();
-    }
-
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
     }
 
     initializeAnimation(callback) {
@@ -150,7 +144,9 @@ export default class MenuBody extends Component {
                    className={'menu' + menuClassName}
                    style={menuStyle}
                    depth={depth}
-                   onWheel={this.wheelHandler}>
+                   onWheel={e => {
+                       Event.wheelHandler(e, this.props);
+                   }}>
 
                 {
                     hasTriangle ?
@@ -162,7 +158,9 @@ export default class MenuBody extends Component {
                 }
 
                 <div className="menu-content"
-                     onWheel={this.wheelHandler}>
+                     onWheel={e => {
+                         Event.wheelHandler(e, this.props);
+                     }}>
                     {children}
                 </div>
 

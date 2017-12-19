@@ -20,6 +20,7 @@ import SelectMode from '../_statics/SelectMode';
 export default class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -36,7 +37,6 @@ export default class DropdownSelect extends Component {
         this.filterData = ::this.filterData;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
-        this.wheelHandler = ::this.wheelHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
 
     }
@@ -120,12 +120,6 @@ export default class DropdownSelect extends Component {
 
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
-    }
-
     popupClosedHandler(e) {
         this.setState({
             popupVisible: false
@@ -160,7 +154,7 @@ export default class DropdownSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isMultiSelect = selectMode === DropdownSelect.SelectMode.MULTI_SELECT,
+            isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
             emptyEl = [{
                 itemRenderer() {
@@ -243,7 +237,7 @@ export default class DropdownSelect extends Component {
                             isMultiSelect && useSelectAll ?
                                 <div className="list-item dropdown-select-all-wrapper"
                                      onTouchTap={this.selectAllTouchTapHandler}>
-                                    <Checkbox className="list-item-checkbox"
+                                    <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}/>
                                     Select All
@@ -255,7 +249,9 @@ export default class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
-                         onWheel={this.wheelHandler}>
+                         onWheel={e => {
+                             Event.wheelHandler(e, this.props);
+                         }}>
 
                         {
                             useFilter ?
@@ -544,7 +540,7 @@ DropdownSelect.defaultProps = {
     data: [],
     invalidMsg: null,
     disabled: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
     displayField: 'text',

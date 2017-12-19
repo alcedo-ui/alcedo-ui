@@ -13,6 +13,8 @@ import Util from '../_vendors/Util';
 
 export default class Checkbox extends Component {
 
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -71,8 +73,8 @@ export default class Checkbox extends Component {
     render() {
 
         const {
-                className, style, theme, name, label, value, disabled, indeterminate,
-                uncheckedIconCls, checkedIconCls, indeterminateIconCls
+                className, style, theme, name, label, value, disabled, disableTouchRipple,
+                indeterminate, uncheckedIconCls, checkedIconCls, indeterminateIconCls
             } = this.props,
             {checked} = this.state,
 
@@ -98,26 +100,30 @@ export default class Checkbox extends Component {
                 }
 
                 <div className="checkbox-icon-wrapper">
-
                     <IconButton ref="checkboxIcon"
                                 className="checkbox-bg-icon"
                                 iconCls={uncheckedIconCls}
                                 onTouchTap={this.touchTapHandler}
-                                disabled={disabled}/>
-
+                                disabled={disabled}
+                                disableTouchRipple={disableTouchRipple}/>
                     <IconButton className="checkbox-icon"
                                 iconCls={indeterminate ? indeterminateIconCls : checkedIconCls}
                                 onTouchTap={this.touchTapHandler}
-                                disabled={disabled}/>
-
+                                disabled={disabled}
+                                disableTouchRipple={disableTouchRipple}/>
                 </div>
 
-                <div className="checkbox-label"
-                     onMouseDown={this.mouseDownHandle}
-                     onMouseUp={this.mouseUpHandle}
-                     onMouseLeave={this.mouseUpHandle}>
-                    {label}
-                </div>
+                {
+                    label ?
+                        <div className="checkbox-label"
+                             onMouseDown={this.mouseDownHandle}
+                             onMouseUp={this.mouseUpHandle}
+                             onMouseLeave={this.mouseUpHandle}>
+                            {label}
+                        </div>
+                        :
+                        null
+                }
 
             </div>
         );
@@ -174,6 +180,11 @@ Checkbox.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
+
+    /**
      * Callback function fired when the checkbox status change.
      */
     onChange: PropTypes.func
@@ -194,6 +205,7 @@ Checkbox.defaultProps = {
     uncheckedIconCls: 'fa fa-square-o',
     checkedIconCls: 'fa fa-check-square',
     indeterminateIconCls: 'fa fa-minus-square',
-    disabled: false
+    disabled: false,
+    disableTouchRipple: false
 
 };

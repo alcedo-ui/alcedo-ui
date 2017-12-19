@@ -1,68 +1,69 @@
 import React, {Component} from 'react';
 
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import TreeSelect from 'src/TreeSelect';
-import TreeSelectDoc from 'assets/propTypes/TreeSelect.json';
+
+import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'sass/containers/app/modules/fields/TreeSelectExamples.scss';
 
 export default class TreeSelectExamples extends Component {
 
     constructor(props) {
+
         super(props);
-        this.state = {
-            data: [{id: 1, text: 'one', deep: 0, children: [{id: '1 - 1', text: 'one-1', deep: 1}]},
-                {id: 2, text: 'two', deep: 0},
-                {id: 3, text: 'three', deep: 0},
-                {
-                    id: 4,
-                    text: 'four',
-                    deep: 0,
-                    children: [
-                        {
-                            id: '4 - 1',
-                            text: 'four-1',
-                            deep: 1,
-                            children: [{id: '4 - 1 - 1', text: 'four-1-1', deep: 2}]
-                        },
-                        {
-                            id: '4 - 2', text: 'four-2', deep: 1, children: [
-                            {
-                                id: '4 - 2 - 1',
-                                text: 'four-2-1',
-                                deep: 2,
-                                children: [{id: '4 - 2 - 1 - 1', text: 'four-2-1-1', deep: 3}]
-                            },
-                            {id: '4 - 2 - 2', text: 'four-2-2', deep: 2}
-                        ]
-                        }
-                    ]
-                },
-                {id: 5, text: 'five', deep: 0},
-                {id: 6, text: 'six', deep: 1, children: [{id: '6 - 1', text: 'six-1'}]}],
-            value: [{id: 2, text: 'two', deep: 0}]
+
+        this.data = {
+            id: '0',
+            text: 'Root',
+            desc: 'Root',
+            children: [{
+                id: '00',
+                text: 'Children 0 - 0',
+                desc: 'Children 0 - 0'
+            }, {
+                id: '01',
+                text: 'Children 0 - 1',
+                desc: 'Children 0 - 1',
+                children: [{
+                    id: '010',
+                    text: 'Children 0 - 1 - 0',
+                    desc: 'Children 0 - 1 - 0'
+                }, {
+                    id: '011',
+                    text: 'Children 0 - 1 - 1',
+                    desc: 'Children 0 - 1 - 1'
+                }, {
+                    id: '012',
+                    text: 'Children 0 - 1 - 2',
+                    desc: 'Children 0 - 1 - 2'
+                }]
+            }, {
+                id: '02',
+                text: 'Children 0 - 2',
+                desc: 'Children 0 - 2'
+            }]
         };
-        this.onChangeHandle = this::this.onChangeHandle;
+
+        this.changeHandler = this::this.changeHandler;
+
     }
 
-    onChangeHandle(value) {
-        this.setState({
-            value: value
-        })
+    changeHandler(value) {
+        console.log(value);
     }
 
     render() {
-        const {data, value}=this.state;
         return (
             <div className="example tree-select-examples">
 
-                <h2 className="examples-title">TreeSelect</h2>
+                <h2 className="examples-title">Tree</h2>
 
                 <p>
-                    <span>TreeSelect</span> is a Tree component withe select field.
+                    <span>Tree</span> can fully display the hierarchy, and has interactive functions such as
+                    expansion, withdrawal and selection.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -77,17 +78,11 @@ export default class TreeSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TreeSelect</code> simple example.</p>
-                                <div className="field-group">
-                                    <TreeSelect className="tree-select-example"
-                                                data={data}
-                                                value={value}
-                                                placeholder={'please select a n ode'}
-                                                multiple={false}
-                                                onChange={(value)=> {
-                                                    this.onChangeHandle(value)
-                                                }}/>
-                                </div>
+                                <p><code>Tree</code>simple example.</p>
+
+                                <TreeSelect data={this.data}
+                                            onChange={this.changeHandler}/>
+
                             </div>
 
                         </div>
@@ -98,27 +93,21 @@ export default class TreeSelectExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Tree Select Example"/>
+                                  title="Self Define Node Renderer"/>
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
-                                <p>Icon Tree Select</p>
-                                <div className="field-group">
-                                    <TreeSelect className="tree-select-example"
-                                                data={data}
-                                                value={value}
-                                                placeholder={'please select a node'}
-                                                multiple={false}
-                                                iconCls='fa-file'
-                                                onChange={(value)=> {
-                                                    this.onChangeHandle(value)
-                                                }}/>
-                                </div>
+                                <TreeSelect data={this.data}
+                                            collapsedIconCls="fa fa-plus-square-o"
+                                            expandedIconCls="fa fa-minus-square-o"
+                                            renderer={node => {
+                                                return <div className="self-define-node">
+                                                    <span className="self-define-node-id">{node.id}</span>
+                                                    <span className="self-define-node-text">{node.text}</span>
+                                                </div>;
+                                            }}/>
                             </div>
-
                         </div>
                     </div>
 
@@ -127,26 +116,15 @@ export default class TreeSelectExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Tree Select Example"/>
+                                  title="Single Select"/>
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
-                                <p>Multiple Tree Select</p>
-                                <div className="field-group">
-                                    <TreeSelect className="tree-select-example"
-                                                data={data}
-                                                value={value}
-                                                placeholder={'please select a node'}
-                                                multiple={true}
-                                                onChange={(value)=> {
-                                                    this.onChangeHandle(value)
-                                                }}/>
-                                </div>
+                                <TreeSelect data={this.data}
+                                            autoClose={false}
+                                            onChange={this.changeHandler}/>
                             </div>
-
                         </div>
                     </div>
 
@@ -155,27 +133,16 @@ export default class TreeSelectExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Tree Select Example"/>
+                                  title="Multi Select"/>
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
-                                <p>Multiple Icon Tree Select</p>
-                                <div className="field-group">
-                                    <TreeSelect className="tree-select-example"
-                                                data={data}
-                                                value={value}
-                                                placeholder={'please select a node'}
-                                                multiple={true}
-                                                iconCls='fa-file'
-                                                onChange={(value)=> {
-                                                    this.onChangeHandle(value)
-                                                }}/>
-                                </div>
+                                <TreeSelect selectMode={TreeSelect.SelectMode.MULTI_SELECT}
+                                            data={this.data}
+                                            autoClose={false}
+                                            onChange={this.changeHandler}/>
                             </div>
-
                         </div>
                     </div>
 
@@ -183,10 +150,9 @@ export default class TreeSelectExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TreeSelectDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
-
         );
     }
 };

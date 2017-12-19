@@ -4,26 +4,27 @@
 
     .examples-wrapper {
 
-        .field-group {
-
-            @include float-fix;
-
-            float: none;
-
-            .tree-select-label,
-            .tree-select {
-                float: left;
-            }
-
-            .tree-select-label {
-                font-size: 14px;
-                line-height: 50px;
-                margin-right: 20px;
-                width: 60px;
-            }
-            .tree-select{
-                width: 300px;
-            }
+        .tree-wrapper {
+            border: 1px solid $theme-border;
+            overflow: hidden;
         }
+    }
+}
+
+.self-define-node {
+
+    .self-define-node-id {
+        color: #fff;
+        background: $theme-highlight;
+        border-radius: $theme-border-radius;
+        padding: 0 4px;
+    }
+
+    .self-define-node-text {
+        margin-left: 4px;
+    }
+
+    .self-define-node-desc {
+        color: $theme-field-disabled;
     }
 }

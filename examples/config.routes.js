@@ -211,6 +211,9 @@ export default function configureRoutes(store) {
                     path: '/components/Grid',
                     component: ac(store, () => import('modules/layout/GridExamples'))
                 }, {
+                    path: '/components/GroupGrid',
+                    component: ac(store, () => import('modules/layout/GroupGridExamples'))
+                }, {
                     path: '/components/Tree',
                     component: ac(store, () => import('modules/layout/TreeExamples'))
                 }, {

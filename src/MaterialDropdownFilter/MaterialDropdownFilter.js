@@ -16,6 +16,7 @@ import SelectMode from '../_statics/SelectMode';
 export default class MaterialDropdownFilter extends Component {
 
     static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -416,7 +417,7 @@ MaterialDropdownFilter.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     popupChildren: null,
 

@@ -5,7 +5,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from '../PropTypeDescTable';
 import Paper from 'src/Paper';
 import Tree from 'src/Tree';
-import TreeDoc from 'examples/assets/propTypes/Tree.json';
+import doc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
 
@@ -47,14 +47,16 @@ export default class TreeExamples extends Component {
             }]
         };
 
-        this.onChangeHandler = this::this.onChangeHandler;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
-    onChangeHandler(value) {
-        this.setState({
-            value: value
-        });
+    nodeSelectHandler(node, path) {
+        console.log(node, path);
+    }
+
+    changeHandler(value) {
+        console.log(value);
     }
 
     render() {
@@ -83,8 +85,9 @@ export default class TreeExamples extends Component {
                                 <p><code>Tree</code>simple example.</p>
 
                                 <Paper className="tree-wrapper">
-                                    <Tree className="tree-example"
-                                          data={this.data}/>
+                                    <Tree data={this.data}
+                                          onNodeSelect={this.nodeSelectHandler}
+                                          onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
@@ -101,12 +104,9 @@ export default class TreeExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-
                             <div className="examples-wrapper">
-
                                 <Paper className="tree-wrapper">
-                                    <Tree className="tree-example"
-                                          data={this.data}
+                                    <Tree data={this.data}
                                           collapsedIconCls="fa fa-plus-square-o"
                                           expandedIconCls="fa fa-minus-square-o"
                                           renderer={node => {
@@ -117,9 +117,26 @@ export default class TreeExamples extends Component {
                                               </div>;
                                           }}/>
                                 </Paper>
-
                             </div>
+                        </div>
+                    </div>
 
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Multi Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+                                <Paper className="tree-wrapper">
+                                    <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
+                                          data={this.data}
+                                          onChange={this.changeHandler}/>
+                                </Paper>
+                            </div>
                         </div>
                     </div>
 
@@ -127,7 +144,7 @@ export default class TreeExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TreeDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

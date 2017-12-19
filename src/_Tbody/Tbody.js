@@ -27,14 +27,14 @@ export default class Tbody extends Component {
 
         const {selectMode, idProp, value} = this.props;
 
-        if (selectMode === Tbody.SelectMode.NORMAL || !rowData || !value) {
+        if (!rowData || !value) {
             return false;
         }
 
         switch (selectMode) {
-            case Tbody.SelectMode.MULTI_SELECT:
+            case SelectMode.MULTI_SELECT:
                 return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
-            case Tbody.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
 
@@ -92,6 +92,6 @@ Tbody.defaultProps = {
     columns: [],
     startIndex: 0,
     idProp: 'id',
-    selectMode: SelectMode.NORMAL,
+    selectMode: SelectMode.SINGLE_SELECT,
     disabled: false
 };

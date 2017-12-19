@@ -20,7 +20,7 @@
         background-color: $theme-field-bg;
         transition: all $theme-transition-duration ease-in-out;
         cursor: pointer;
-        box-sizing: border-box;
+        //box-sizing: border-box;
         padding: 0 15px;
         font-size: 12px;
         text-align: left;
@@ -29,25 +29,16 @@
         white-space: nowrap;
         text-overflow: ellipsis;
 
-        .grid-item-checkbox {
+        .grid-item-select {
             display: inline-block;
             width: 16px;
+            height: 40px;
             margin-right: 10px;
             float: left;
             overflow: hidden;
-        }
 
-        .grid-item-checked {
-            display: inline-block;
-            float: left;
-            width: 16px;
-            line-height: inherit;
-            margin-right: 10px;
-            color: lighten($theme-field, 45%);
-            text-align: center;
-
-            &.activated {
-                color: $theme-highlight;
+            .checkbox-icon-wrapper {
+                vertical-align: baseline;
             }
         }
 
@@ -75,7 +66,6 @@
 
         .grid-item-content {
             display: inline-block;
-            vertical-align: middle;
             padding: 6px 0;
 
             .grid-item-content-value {

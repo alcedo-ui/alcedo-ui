@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 export default class MaterialTextField extends Component {
 
     static Type = TextField.Type;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 

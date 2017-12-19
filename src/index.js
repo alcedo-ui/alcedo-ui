@@ -31,6 +31,7 @@ export FlashNumber from './FlashNumber';
 export FlatButton from './FlatButton';
 export GhostButton from './GhostButton';
 export Grid from './Grid';
+export GroupGrid from './GroupGrid';
 export GroupList from './GroupList';
 export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';

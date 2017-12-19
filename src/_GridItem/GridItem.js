@@ -7,17 +7,19 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
 export default class GridItem extends Component {
 
-    static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -77,13 +79,11 @@ export default class GridItem extends Component {
         const {onTouchTap} = this.props;
         onTouchTap && onTouchTap(e);
 
-        const {selectMode} = this.props;
-
-        switch (selectMode) {
-            case GridItem.SelectMode.MULTI_SELECT:
+        switch (this.props.selectMode) {
+            case SelectMode.MULTI_SELECT:
                 this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case GridItem.SelectMode.SINGLE_SELECT:
+            case SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
@@ -101,9 +101,16 @@ export default class GridItem extends Component {
     render() {
 
         const {
-                index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, selectMode, renderer, itemRenderer, readOnly,
+
+                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+                col,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
                 onMouseEnter, onMouseLeave
+
             } = this.props,
             {checked} = this.state,
 
@@ -116,8 +123,8 @@ export default class GridItem extends Component {
                          text={tip}
                          tipPosition={tipPosition}>
 
-                <div className={'grid-item-wrapper'}
-                     style={itemColWidth ? {width: `${itemColWidth}%`} : null}>
+                <div className="grid-item-wrapper"
+                     style={col ? {width: `${100 / col}%`} : null}>
 
                     <div className={'grid-item' + listItemClassName}
                          style={style}
@@ -128,18 +135,28 @@ export default class GridItem extends Component {
                          onMouseLeave={onMouseLeave}>
 
                         {
-                            selectMode === GridItem.SelectMode.MULTI_SELECT ?
-                                <Checkbox className="grid-item-checkbox"
-                                          checked={checked}
-                                          disabled={disabled || isLoading}/>
+                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                <Radio className="grid-item-select"
+                                       theme={selectTheme}
+                                       checked={checked}
+                                       disabled={disabled || isLoading}
+                                       uncheckedIconCls={radioUncheckedIconCls}
+                                       checkedIconCls={radioCheckedIconCls}
+                                       disableTouchRipple={true}/>
                                 :
                                 null
                         }
 
                         {
-                            selectMode === GridItem.SelectMode.SINGLE_SELECT ?
-                                <i className={'fa fa-check grid-item-checked' + (checked ? ' activated' : '')}
-                                   aria-hidden="true"></i>
+                            selectMode === SelectMode.MULTI_SELECT ?
+                                <Checkbox className="grid-item-select"
+                                          theme={selectTheme}
+                                          checked={checked}
+                                          disabled={disabled || isLoading}
+                                          uncheckedIconCls={checkboxUncheckedIconCls}
+                                          checkedIconCls={checkboxCheckedIconCls}
+                                          indeterminateIconCls={checkboxIndeterminateIconCls}
+                                          disableTouchRipple={true}/>
                                 :
                                 null
                         }
@@ -208,6 +225,7 @@ export default class GridItem extends Component {
                         }
 
                     </div>
+
                 </div>
             </TipProvider>
         );
@@ -219,134 +237,46 @@ GridItem.propTypes = {
 
     index: PropTypes.number,
 
-    /**
-     * The CSS class name of the grid button.
-     */
     className: PropTypes.string,
-
-    /**
-     * Override the styles of the grid button.
-     */
     style: PropTypes.object,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The theme of the grid button.
-     */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
-
-    /**
-     *
-     */
-    itemColWidth: PropTypes.number,
-
-    /**
-     *
-     */
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-
-    /**
-     * The text value of the grid button. Type can be string or number.
-     */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /**
-     * The grid item's display text. Type can be string, number or bool.
-     */
-    text: PropTypes.any,
-
-    /**
-     * The desc value of the grid button. Type can be string or number.
-     */
-    desc: PropTypes.string,
-
-    /**
-     * If true, the grid button will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * If true,the button will be have loading effect.
-     */
-    isLoading: PropTypes.bool,
-
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
-    disableTouchRipple: PropTypes.bool,
-
-    /**
-     * Use this property to display an icon. It will display on the left.
-     */
-    iconCls: PropTypes.string,
-
-    /**
-     * Use this property to display an icon. It will display on the right.
-     */
-    rightIconCls: PropTypes.string,
-
-    /**
-     *
-     */
-    tip: PropTypes.string,
-
-    /**
-     *
-     */
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
-
-    /**
-     *
-     */
-    rippleDisplayCenter: PropTypes.bool,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    itemRenderer: PropTypes.func,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    renderer: PropTypes.func,
-
-    /**
-     *
-     */
-    checked: PropTypes.bool,
-
-    /**
-     *
-     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    /**
-     *
-     */
+    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    text: PropTypes.any,
+    desc: PropTypes.string,
+
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    disableTouchRipple: PropTypes.bool,
+    rippleDisplayCenter: PropTypes.bool,
+    checked: PropTypes.bool,
     readOnly: PropTypes.bool,
 
-    /**
-     * Callback function fired when a grid item touch-tapped.
-     */
+    iconCls: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    col: PropTypes.number,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
+
     onTouchTap: PropTypes.func,
-
-    /**
-     *
-     */
     onSelect: PropTypes.func,
-
-    /**
-     *
-     */
     onDeselect: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseEnter: PropTypes.func,
-
-    /**
-     *
-     */
     onMouseLeave: PropTypes.func
 
 };
@@ -355,35 +285,37 @@ GridItem.defaultProps = {
 
     index: 0,
 
-    className: '',
+    className: null,
     style: null,
-
     theme: Theme.DEFAULT,
 
-    itemColWidth: 100,
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
-    data: '',
-    value: '',
-    text: '',
-    desc: '',
+    data: null,
+    value: null,
+    text: null,
+    desc: null,
 
     disabled: false,
     isLoading: false,
-
     disableTouchRipple: false,
-
-    iconCls: '',
-    rightIconCls: '',
-
-    tip: '',
-    tipPosition: TipProvider.Position.BOTTOM,
-
     rippleDisplayCenter: false,
-
     checked: false,
+    readOnly: false,
 
-    selectMode: SelectMode.NORMAL,
+    iconCls: null,
+    rightIconCls: null,
 
-    readOnly: false
+    tip: null,
+    tipPosition: Position.BOTTOM,
+
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
+    checkboxUncheckedIconCls: 'fa fa-square-o',
+    checkboxCheckedIconCls: 'fa fa-check-square',
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    col: 3
 
 };

@@ -12,48 +12,113 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import SelectMode from '../_statics/SelectMode';
+import Calculation from '../_vendors/Calculation';
 
 export default class Tree extends Component {
+
+    static SelectMode = SelectMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.treeNodeTouchTapHandler = ::this.treeNodeTouchTapHandler;
-        this.wheelHandler = ::this.wheelHandler;
+        this.state = {
+            value: Calculation.getInitValue(props)
+        };
+
+        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
+        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
 
     }
 
-    treeNodeTouchTapHandler(value) {
+    treeNodeSelectHandler(nodeData, path, e) {
+
+        const {selectMode} = this.props;
+
+        let {value} = this.state;
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+
+            if (!value || !_.isArray(value)) {
+                value = [];
+            }
+
+            value.push(nodeData);
+
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
+            value = nodeData;
+        }
+
         this.setState({
             value
         }, () => {
-            const {onItemTouchTap} = this.props;
-            onItemTouchTap && onItemTouchTap(value);
+            const {onNodeSelect, onChange} = this.props;
+            onNodeSelect && onNodeSelect(nodeData, path, e);
+            onChange && onChange(value, e);
         });
+
     }
 
-    wheelHandler(e) {
-        const {shouldPreventContainerScroll, onWheel} = this.props;
-        shouldPreventContainerScroll && Event.preventContainerScroll(e);
-        onWheel && onWheel(e);
+    treeNodeDeselectHandler(nodeData, path, e) {
+
+        const {selectMode} = this.props;
+
+        if (selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {valueField, displayField} = this.props;
+        let {value} = this.state;
+
+        if (!value || !_.isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => {
+                return Util.getValueByValueField(valueItem, valueField, displayField)
+                    != Util.getValueByValueField(nodeData, valueField, displayField);
+            });
+        }
+
+        this.setState({
+            value
+        }, () => {
+            const {onNodeDeselect, onChange} = this.props;
+            onNodeDeselect && onNodeDeselect(nodeData, path, e);
+            onChange && onChange(value, e);
+        });
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: Calculation.getInitValue(nextProps)
+            });
+        }
     }
 
     render() {
 
         const {
-                children, className, style, theme, data, collapsedIconCls, expandedIconCls,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer
+                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
+                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                renderer, onNodeTouchTap
             } = this.props,
+            {value} = this.state,
             listClassName = (className ? ' ' + className : '');
 
         return (
             <div className={'tree' + listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={this.wheelHandler}>
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 <TreeNode data={data}
+                          value={value}
                           theme={theme}
                           idField={idField}
                           valueField={valueField}
@@ -61,13 +126,17 @@ export default class Tree extends Component {
                           descriptionField={descriptionField}
                           disabled={disabled}
                           isLoading={isLoading}
+                          readOnly={readOnly}
+                          selectMode={selectMode}
                           renderer={renderer}
+                          allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
-                          onTouchTap={e => {
-                              this.treeNodeTouchTapHandler(data);
-                              data.onTouchTap && data.onTouchTap(e);
-                          }}/>
+                          onTouchTap={(...args) => {
+                              onNodeTouchTap && onNodeTouchTap(...args);
+                          }}
+                          onSelect={this.treeNodeSelectHandler}
+                          onDeselect={this.treeNodeDeselectHandler}/>
 
                 {children}
 
@@ -89,22 +158,32 @@ Tree.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of the tree item.
+     * The theme of the tree node.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * Children passed into the ListItem.
+     * The theme of the tree node select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of tree node.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * Children passed into the tree node.
      */
     data: PropTypes.shape({
 
         /**
-         * The CSS class name of the tree item.
+         * The CSS class name of the tree node.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the tree item.
+         * Override the styles of the tree node.
          */
         style: PropTypes.object,
 
@@ -119,17 +198,17 @@ Tree.propTypes = {
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The tree item's display text. Type can be string, number or bool.
+         * The tree node's display text. Type can be string, number or bool.
          */
         text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The desc value of the tree item. Type can be string or number.
+         * The desc value of the tree node. Type can be string or number.
          */
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * If true,the tree item will be disabled.
+         * If true,the tree node will be disabled.
          */
         disabled: PropTypes.bool,
 
@@ -163,14 +242,14 @@ Tree.propTypes = {
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        renderer: PropTypes.func,
+        itemRenderer: PropTypes.func,
 
         /**
-         * Callback function fired when a tree item touch-tapped.
+         * Callback function fired when a tree node touch-tapped.
          */
         onTouchTap: PropTypes.func
 
-    }).isRequired,
+    }),
 
     /**
      * The id field name in data. (default: "id")
@@ -202,8 +281,11 @@ Tree.propTypes = {
      */
     isLoading: PropTypes.bool,
 
+    readOnly: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
+    allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
 
@@ -213,9 +295,24 @@ Tree.propTypes = {
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the tree-item touch tap.
+     * Callback function fired when the tree node touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onNodeTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node selected.
+     */
+    onNodeSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node deselected.
+     */
+    onNodeDeselect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree changed.
+     */
+    onChange: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
@@ -230,6 +327,9 @@ Tree.defaultProps = {
     style: null,
     theme: Theme.DEFAULT,
 
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
+
     data: [],
 
     idField: 'id',
@@ -237,8 +337,11 @@ Tree.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    isLoading: false,
+    readOnly: false,
     shouldPreventContainerScroll: true,
 
+    allowCollapse: true,
     collapsedIconCls: 'fa fa-caret-right',
     expandedIconCls: 'fa fa-caret-down'
 

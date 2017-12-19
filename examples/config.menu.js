@@ -196,6 +196,9 @@ export default [{
         text: 'Grid',
         route: '/components/Grid'
     }, {
+        text: 'GroupGrid',
+        route: '/components/GroupGrid'
+    }, {
         text: 'Tree',
         route: '/components/Tree'
     }, {
