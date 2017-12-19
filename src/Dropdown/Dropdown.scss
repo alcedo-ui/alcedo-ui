@@ -3,6 +3,10 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin dropdown-theme($color) {
+    border-color: $color;
+}
+
 .dropdown {
     position: relative;
     width: 200px;
@@ -63,6 +67,8 @@
     max-height: 240px;
     overflow: hidden;
     margin: 0;
+    border-width: 1px;
+    border-style: solid;
 
     .popup-content {
         border-radius: 0 !important;
@@ -80,5 +86,31 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         border-top: none;
+    }
+
+    // default theme
+    @include dropdown-theme($theme-border);
+
+    // other themes
+    &.theme-primary {
+        @include dropdown-theme($theme-primary);
+    }
+    &.theme-secondary {
+        @include dropdown-theme($theme-secondary);
+    }
+    &.theme-highlight {
+        @include dropdown-theme($theme-highlight);
+    }
+    &.theme-info {
+        @include dropdown-theme($theme-info);
+    }
+    &.theme-success {
+        @include dropdown-theme($theme-success);
+    }
+    &.theme-warning {
+        @include dropdown-theme($theme-warning);
+    }
+    &.theme-error {
+        @include dropdown-theme($theme-error);
     }
 }
