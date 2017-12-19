@@ -30,8 +30,6 @@ export default class TreeNode extends Component {
             collapsed: false
         };
 
-        this.path = props.path ? props.path : [props.index];
-
         this.toggleTreeNode = ::this.toggleTreeNode;
         this.touchTapHandler = ::this.touchTapHandler;
 
@@ -49,33 +47,33 @@ export default class TreeNode extends Component {
 
     checkboxChangeHandler(e) {
 
-        const {data, value, onSelect, onDeselect} = this.props;
+        const {data, path, value, onSelect, onDeselect} = this.props;
 
         if (!Calculation.isItemChecked(data, value, this.props)) {
-            onSelect && onSelect(data, this.path, e);
+            onSelect && onSelect(data, path, e);
         } else {
-            onDeselect && onDeselect(data, this.path, e);
+            onDeselect && onDeselect(data, path, e);
         }
 
     }
 
     radioChangeHandler(e) {
-        const {data, onSelect} = this.props;
-        onSelect && onSelect(data, this.path, e);
+        const {data, path, onSelect} = this.props;
+        onSelect && onSelect(data, path, e);
     }
 
     touchTapHandler(e) {
 
         e.preventDefault();
 
-        const {data, disabled, isLoading, readOnly} = this.props;
+        const {data, path, disabled, isLoading, readOnly} = this.props;
 
         if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
             return;
         }
 
         const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data, this.path, e);
+        onTouchTap && onTouchTap(data, path, e);
 
         const {selectMode} = this.props;
 
@@ -94,7 +92,8 @@ export default class TreeNode extends Component {
 
         const {
 
-                index, depth, theme, selectTheme, selectMode, data, value, disabled, isLoading, readOnly, allowCollapse,
+                index, depth, path, theme, selectTheme, selectMode, data, value,
+                disabled, isLoading, readOnly, allowCollapse,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -240,7 +239,7 @@ export default class TreeNode extends Component {
                                           data={item}
                                           index={index}
                                           depth={depth + 1}
-                                          path={[...this.path, index]}/>
+                                          path={path ? [...path, index] : [index]}/>
                             );
                         })
                     }
