@@ -72,9 +72,9 @@ export default class DraggableListExamples extends Component {
                                 <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
                                                    selectMode={DraggableList.SelectMode.MULTI_SELECT}
-                                                   items={this.listData}
+                                                   data={this.listData}
                                                    onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
+                                                   onChange={this.valueChangeHandler}/>
                                 </div>
 
                             </div>
@@ -99,9 +99,9 @@ export default class DraggableListExamples extends Component {
 
                                 <div style={{width: 240, height: 240}}>
                                     <DraggableList style={{width: 240, height: 240}}
-                                                   items={this.largeListData}
+                                                   data={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
+                                                   onChange={this.valueChangeHandler}/>
                                 </div>
 
                             </div>
