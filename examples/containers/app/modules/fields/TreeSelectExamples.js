@@ -105,7 +105,6 @@ export default class TreeSelectExamples extends Component {
                                                 return <div className="self-define-node">
                                                     <span className="self-define-node-id">{node.id}</span>
                                                     <span className="self-define-node-text">{node.text}</span>
-                                                    <span className="self-define-node-desc">{node.desc}</span>
                                                 </div>;
                                             }}/>
                             </div>

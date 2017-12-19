@@ -97,6 +97,7 @@ export default class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
                                     <DropdownSelect theme={Theme.PRIMARY}
+                                                    popupTheme={Theme.PRIMARY}
                                                     data={this.data}
                                                     onChange={this.onChange}/>
                                 </div>

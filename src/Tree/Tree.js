@@ -54,8 +54,8 @@ export default class Tree extends Component {
         this.setState({
             value
         }, () => {
-            const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(nodeData, path, e);
+            const {onNodeSelect, onChange} = this.props;
+            onNodeSelect && onNodeSelect(nodeData, path, e);
             onChange && onChange(value, e);
         });
 
@@ -84,8 +84,8 @@ export default class Tree extends Component {
         this.setState({
             value
         }, () => {
-            const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(nodeData, path, e);
+            const {onNodeDeselect, onChange} = this.props;
+            onNodeDeselect && onNodeDeselect(nodeData, path, e);
             onChange && onChange(value, e);
         });
 
@@ -298,6 +298,16 @@ Tree.propTypes = {
      * Callback function fired when the tree node touch tap.
      */
     onNodeTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node selected.
+     */
+    onNodeSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node deselected.
+     */
+    onNodeDeselect: PropTypes.func,
 
     /**
      * Callback function fired when the tree changed.
