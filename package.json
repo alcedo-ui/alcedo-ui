@@ -1,7 +1,7 @@
   {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.12.1",
+    "version": "2.12.2",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -9,7 +9,7 @@
         "compile:componentsIndex": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
         "compile:componentsStyle": "rimraf src/components.scss && node scripts/generateComponentsStyle.js",
         "compile": "npm run compile:propType && npm run compile:componentsIndex && npm run compile:componentsStyle",
-        "publish": "rimraf dist && npm run compile && gulp copy",
+        "prepublish": "rimraf dist && npm run compile && gulp copy",
         "dev": "npm run compile && node build/dev/dev-server.js",
         "build": "rimraf docs && npm run compile && node build/prod/prod.js",
         "run": "npm run build && node build/demo/demo-server.js"
