@@ -11,11 +11,12 @@ import TextField from '../TextField';
 import Tree from '../Tree';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
+import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import TreeCalculation from '../_vendors/TreeCalculation';
 import SelectMode from '../_statics/SelectMode';
-import Tip from '../Tip';
 
 export default class TreeSelect extends Component {
 
@@ -29,13 +30,17 @@ export default class TreeSelect extends Component {
         this.state = {
             value: props.value,
             filter: '',
-            popupVisible: false
+            popupVisible: false,
+            path: props.selectMode === SelectMode.SINGLE_SELECT ?
+                TreeCalculation.calPath(props.value, props) : undefined
         };
 
         this.closePopup = ::this.closePopup;
         this.filterChangeHandler = ::this.filterChangeHandler;
         this.filterData = ::this.filterData;
+        this.getTriggerValue = ::this.getTriggerValue;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
+        this.nodeSelectHandler = ::this.nodeSelectHandler;
         this.changeHandler = ::this.changeHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
 
@@ -84,6 +89,69 @@ export default class TreeSelect extends Component {
 
     }
 
+    getTriggerValue(props = this.props) {
+
+        const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
+            {value, path} = this.state,
+
+            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
+
+        if (!value) {
+            return placeholder;
+        }
+
+        if (triggerRenderer) {
+            return triggerRenderer(value, path);
+        }
+
+        if (isMultiSelect) {
+            return value.length > 0 ?
+                value.length + ' selected'
+                :
+                placeholder;
+        }
+
+        let node = data,
+            result = [];
+
+        function pushDisplay(key, node, path) {
+
+            if (key >= 0) {
+                result.push(
+                    <i key={2 * key}
+                       className="fa fa-angle-right tree-select-trigger-value-separator"/>
+                );
+            }
+
+            result.push(renderer ?
+                <div key={2 * key + 1}
+                     className="tree-select-trigger-value-node">
+                    {renderer(node, path)}
+                </div>
+                :
+                Util.getTextByDisplayField(node, displayField, valueField));
+
+        }
+
+        pushDisplay(-1, node);
+
+        if (path) {
+            for (let i = 0, len = path.length; i < len; i++) {
+
+                if (!node.children || !(path[i] in node.children)) {
+                    break;
+                }
+
+                node = node.children[path[i]];
+                pushDisplay(i, node, path.slice(0, i + 1));
+
+            }
+        }
+
+        return result;
+
+    }
+
     selectAllTouchTapHandler() {
 
         const {data} = this.props,
@@ -100,6 +168,18 @@ export default class TreeSelect extends Component {
             value: newValue
         }, () => {
             this.changeHandler(newValue);
+        });
+
+    }
+
+    nodeSelectHandler(value, path) {
+
+        if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
+            return;
+        }
+
+        this.setState({
+            path
         });
 
     }
@@ -151,7 +231,7 @@ export default class TreeSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state,
+            {value, path, filter, popupVisible} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
@@ -176,30 +256,7 @@ export default class TreeSelect extends Component {
             }],
 
             triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
-            triggerValue = value ?
-                (
-                    triggerRenderer ?
-                        triggerRenderer(value)
-                        :
-                        (
-                            isMultiSelect ?
-                                (
-                                    value.length > 0 ?
-                                        value.length + ' selected'
-                                        :
-                                        placeholder
-                                )
-                                :
-                                (
-                                    renderer ?
-                                        renderer(value)
-                                        :
-                                        Util.getTextByDisplayField(value, displayField, valueField)
-                                )
-                        )
-                )
-                :
-                placeholder,
+            triggerValue = this.getTriggerValue(),
 
             listData = this.filterData();
 
@@ -281,6 +338,7 @@ export default class TreeSelect extends Component {
                               descriptionField={descriptionField}
                               renderer={renderer}
                               onItemTouchTap={onItemTouchTap}
+                              onNodeSelect={this.nodeSelectHandler}
                               onChange={this.changeHandler}/>
 
                     </div>
