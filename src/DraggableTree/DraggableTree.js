@@ -171,6 +171,7 @@ export default class DraggableTree extends Component {
                                    allowCollapse={allowCollapse}
                                    collapsedIconCls={collapsedIconCls}
                                    expandedIconCls={expandedIconCls}
+                                   onMove={this.listItemMoveHandler}
                                    onTouchTap={(...args) => {
                                        onNodeTouchTap && onNodeTouchTap(...args);
                                    }}
