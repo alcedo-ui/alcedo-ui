@@ -40,7 +40,7 @@ export default class DraggableTree extends Component {
 
     listItemMoveHandler(dragIndex, hoverIndex, props) {
 
-        const {data} = this.state,
+        const {data} = props,
             dragItem = data.splice(dragIndex, 1);
 
         data.splice(hoverIndex, 0, ...dragItem);
