@@ -18,22 +18,24 @@ export default class DraggableGridExamples extends Component {
 
         super(props);
 
-        this.listData = [{
+        this.gridData = [{
             iconCls: 'fa fa-facebook',
             text: 'Facebook',
             tip: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
-            text: 'Twitter'
+            text: 'Twitter',
+            tip: 'Twitter'
         }, {
             iconCls: 'fa fa-google-plus',
-            text: 'Google+'
+            text: 'Google+',
+            tip: 'Google+'
         }];
 
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
         this.sequenceChangeHandler = this::this.sequenceChangeHandler;
-        this.valueChangeHandler = this::this.valueChangeHandler;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -41,7 +43,7 @@ export default class DraggableGridExamples extends Component {
         console.log('Sequence Changed:', value);
     }
 
-    valueChangeHandler(value) {
+    changeHandler(value) {
         console.log('Value Changed:', value);
     }
 
@@ -72,9 +74,9 @@ export default class DraggableGridExamples extends Component {
                                 </p>
 
                                 <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
-                                               items={this.listData}
+                                               data={this.gridData}
                                                onSequenceChange={this.sequenceChangeHandler}
-                                               onValueChange={this.valueChangeHandler}/>
+                                               onChange={this.changeHandler}/>
 
                             </div>
 
@@ -97,10 +99,10 @@ export default class DraggableGridExamples extends Component {
                                 </p>
 
                                 <DraggableGrid style={{height: 120}}
-                                               items={this.largeListData}
-                                               col={[5]}
+                                               data={this.largeListData}
+                                               col={5}
                                                onSequenceChange={this.sequenceChangeHandler}
-                                               onValueChange={this.valueChangeHandler}/>
+                                               onChange={this.changeHandler}/>
 
                             </div>
 
