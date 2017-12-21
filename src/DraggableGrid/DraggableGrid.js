@@ -5,20 +5,17 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
 import _ from 'lodash';
+import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
 
-import DraggableGridGroup from '../_DraggableGridGroup';
 import DraggableGridItem from '../_DraggableGridItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import Valid from '../_vendors/Valid';
 import Event from '../_vendors/Event';
-import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
+import SelectMode from '../_statics/SelectMode';
 
 const ScrollingComponent = withScrolling('div');
 
@@ -32,243 +29,28 @@ export default class DraggableGrid extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            items: props.items,
+            data: props.data,
             value: Calculation.getInitValue(props)
         };
 
-        this.calItemColStyle = ::this.calItemColStyle;
-        this.listGroupedItemsRenderer = ::this.listGroupedItemsRenderer;
-        this.listItemsRenderer = ::this.listItemsRenderer;
-        this.listGroupMoveHandler = ::this.listGroupMoveHandler;
         this.listItemMoveHandler = ::this.listItemMoveHandler;
-        this.listItemTouchTapHandler = ::this.listItemTouchTapHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.resizeHandler = ::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
-
-    }
-
-    calItemColStyle(props = this.props, items = props.items) {
-
-        const {col, isItemsFullWidth} = props,
-            colLen = col.length,
-            itemsLen = items.length,
-            validValue = (value) => {
-                return isItemsFullWidth ?
-                    Valid.range(value, 1, itemsLen)
-                    :
-                    Valid.range(value, 1);
-            };
-
-        if (!this.gridEl || !col) {
-            return col && colLen > 0 ? 100 / validValue(col[0]) : null;
-        }
-
-        const gridWidth = this.gridEl.getBoundingClientRect().width;
-
-        for (let i = 1; i < colLen - 1; i += 2) {
-            if (gridWidth < col[i] && !isNaN(col[i - 1])) {
-                return 100 / validValue(col[i - 1]);
-            }
-        }
-
-        return !isNaN(col[colLen - 1]) ? 100 / validValue(col[colLen - 1]) : null;
-
-    }
-
-    listGroupedItemsRenderer(items = this.props.items) {
-
-        const {anchorIconCls, isDraggableAnyWhere} = this.props;
-
-        return _.isArray(items) ?
-            items.map((group, groupIndex) => {
-
-                if (group && group.name) {
-                    return (
-                        <DraggableGridGroup key={group.id || group.name}
-                                            index={groupIndex}
-                                            text={group.name}
-                                            anchorIconCls={anchorIconCls}
-                                            isDraggableAnyWhere={isDraggableAnyWhere}
-                                            onMove={this.listGroupMoveHandler}>
-                            {
-                                group.children && group.children.length > 0 ?
-                                    this.listItemsRenderer(group.children, groupIndex)
-                                    :
-                                    null
-                            }
-                        </DraggableGridGroup>
-                    );
-                }
-
-                return;
-
-            })
-            :
-            null;
-
-    }
-
-    listItemsRenderer(items = this.state.items, groupIndex) {
-
-        const {
-
-                valueField, displayField, descriptionField, disabled, isLoading, anchorIconCls, isDraggableAnyWhere,
-
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-
-                renderer
-
-            } = this.props,
-            {value} = this.state,
-            itemColWidth = this.calItemColStyle(this.props, items);
-
-        return _.isArray(items) && items.length > 0 ?
-            (
-                items.map((item, index) => {
-
-                    if (!item) {
-                        return null;
-                    }
-
-                    const itemValue = typeof item === 'object' ?
-                        Util.getValueByValueField(item, valueField, displayField)
-                        :
-                        item;
-
-                    return typeof item === 'object' ?
-                        (
-                            <DraggableGridItem key={item.id || itemValue}
-                                               {...item}
-                                               index={index}
-                                               selectTheme={selectTheme}
-                                               itemColWidth={itemColWidth}
-                                               data={item}
-                                               value={itemValue}
-                                               checked={Calculation.isItemChecked(item, value, this.props)}
-                                               text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                               desc={item[descriptionField] || null}
-                                               disabled={disabled || item.disabled}
-                                               isLoading={isLoading || item.isLoading}
-                                               groupIndex={groupIndex}
-                                               anchorIconCls={anchorIconCls}
-                                               isDraggableAnyWhere={isDraggableAnyWhere}
-                                               selectMode={selectMode}
-                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                               renderer={renderer}
-                                               onMove={this.listItemMoveHandler}
-                                               onTouchTap={(e) => {
-                                                   this.listItemTouchTapHandler(item, index);
-                                                   item.onTouchTap && item.onTouchTap(e);
-                                               }}
-                                               onSelect={() => {
-                                                   this.listItemSelectHandler(item, index);
-                                               }}
-                                               onDeselect={() => {
-                                                   this.listItemDeselectHandler(item, index);
-                                               }}/>
-                        )
-                        :
-                        (
-                            <DraggableGridItem key={item.id || itemValue}
-                                               index={index}
-                                               selectTheme={selectTheme}
-                                               itemColWidth={itemColWidth}
-                                               data={item}
-                                               checked={Calculation.isItemChecked(item, value, this.props)}
-                                               value={itemValue}
-                                               text={item}
-                                               disabled={disabled}
-                                               isLoading={isLoading}
-                                               groupIndex={groupIndex}
-                                               anchorIconCls={anchorIconCls}
-                                               isDraggableAnyWhere={isDraggableAnyWhere}
-                                               selectMode={selectMode}
-                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                               renderer={renderer}
-                                               onMove={this.listItemMoveHandler}
-                                               onTouchTap={() => {
-                                                   this.listItemTouchTapHandler(item, index);
-                                               }}
-                                               onSelect={() => {
-                                                   this.listItemSelectHandler(item, index);
-                                               }}
-                                               onDeselect={() => {
-                                                   this.listItemDeselectHandler(item, index);
-                                               }}/>
-                        );
-
-                })
-            )
-            :
-            null;
-
-    }
-
-    listItemTouchTapHandler(value, index) {
-        const {onItemTouchTap} = this.props;
-        onItemTouchTap && onItemTouchTap(value, index);
-    }
-
-    listGroupMoveHandler(dragIndex, hoverIndex) {
-
-        const {items} = this.state,
-            dragGroup = items.splice(dragIndex, 1);
-
-        items.splice(hoverIndex, 0, ...dragGroup);
-
-        this.setState({
-            items
-        }, () => {
-            const {onSequenceChange} = this.props;
-            onSequenceChange && onSequenceChange(items);
-        });
 
     }
 
     listItemMoveHandler(dragIndex, hoverIndex, props) {
 
-        const {isGrouped} = this.props;
+        const {data} = this.state,
+            dragItem = data.splice(dragIndex, 1);
 
-        if (isGrouped && isNaN(props.groupIndex)) {
-            return;
-        }
-
-        const {items} = this.state;
-
-        if (isGrouped) {
-
-            const list = items[props.groupIndex].children;
-
-            if (!list || list.length < 1) {
-                return;
-            }
-
-            const dragItem = list.splice(dragIndex, 1);
-            list.splice(hoverIndex, 0, ...dragItem);
-
-        } else {
-
-            const dragItem = items.splice(dragIndex, 1);
-            items.splice(hoverIndex, 0, ...dragItem);
-
-        }
+        data.splice(hoverIndex, 0, ...dragItem);
 
         this.setState({
-            items
+            data
         }, () => {
             const {onSequenceChange} = this.props;
-            onSequenceChange && onSequenceChange(items);
+            onSequenceChange && onSequenceChange(data);
         });
 
     }
@@ -276,10 +58,6 @@ export default class DraggableGrid extends Component {
     listItemSelectHandler(item, index) {
 
         const {selectMode} = this.props;
-
-        if (selectMode === SelectMode.NORMAL) {
-            return;
-        }
 
         let {value} = this.state;
 
@@ -298,8 +76,9 @@ export default class DraggableGrid extends Component {
         this.setState({
             value
         }, () => {
-            const {onValueChange} = this.props;
-            onValueChange && onValueChange(value, index);
+            const {onItemSelect, onChange} = this.props;
+            onItemSelect && onItemSelect(item, index);
+            onChange && onChange(value, index);
         });
 
     }
@@ -327,26 +106,10 @@ export default class DraggableGrid extends Component {
         this.setState({
             value
         }, () => {
-            const {onValueChange} = this.props;
-            onValueChange && onValueChange(value, index);
+            const {onItemDeselect, onChange} = this.props;
+            onItemDeselect && onItemDeselect(item, index);
+            onChange && onChange(value, index);
         });
-
-    }
-
-    resizeHandler() {
-        this.debounceResizeHandler();
-    }
-
-    //If you want to make a component rerender without changing its state or props, you should call forceUpdate.
-    debounceResizeHandler() {
-        this.forceUpdate();
-    }
-
-    componentDidMount() {
-
-        this.gridEl = findDOMNode(this);
-
-        Event.addEvent(window, 'resize', this.resizeHandler);
 
     }
 
@@ -354,9 +117,9 @@ export default class DraggableGrid extends Component {
 
         let state;
 
-        if (nextProps.items !== this.state.items) {
+        if (nextProps.data !== this.state.data) {
             state = state ? state : {};
-            state.items = nextProps.items;
+            state.data = nextProps.data;
         }
         if (nextProps.value !== this.state.value) {
             state = state ? state : {};
@@ -369,24 +132,26 @@ export default class DraggableGrid extends Component {
 
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandler);
-    }
-
     render() {
 
-        const {children, className, style, disabled, isGrouped, scrollSpeed, scrollBuffer} = this.props,
-            listClassName = (isGrouped ? ' grouped' : '') + (className ? ' ' + className : '');
+        const {
 
-        let renderEl;
-        if (isGrouped) {
-            renderEl = this.listGroupedItemsRenderer();
-        } else {
-            renderEl = this.listItemsRenderer();
-        }
+                children, className, style, theme, itemHeight, col,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
+
+                scrollSpeed, scrollBuffer
+
+            } = this.props,
+            {data, value} = this.state,
+
+            gridClassName = (className ? ' ' + className : '');
 
         return (
-            <ScrollingComponent className={'draggable-grid' + listClassName}
+            <ScrollingComponent className={'draggable-grid' + gridClassName}
                                 disabled={disabled}
                                 style={style}
                                 strengthMultiplier={scrollSpeed}
@@ -396,7 +161,84 @@ export default class DraggableGrid extends Component {
                                     Event.wheelHandler(e, this.props);
                                 }}>
 
-                {renderEl}
+                {
+                    _.isArray(data) && data.length > 0 ?
+                        (
+                            data.map((item, index) => {
+
+                                return typeof item === 'object' ?
+                                    (
+                                        <DraggableGridItem key={item[idField] || index}
+                                                           {...item}
+                                                           index={index}
+                                                           style={{height: itemHeight}}
+                                                           theme={item.theme || theme}
+                                                           col={col}
+                                                           selectTheme={item.selectTheme || selectTheme}
+                                                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                           data={item}
+                                                           checked={Calculation.isItemChecked(item, value, this.props)}
+                                                           value={Util.getValueByValueField(item, valueField, displayField)}
+                                                           text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                                           desc={item[descriptionField] || null}
+                                                           disabled={disabled || item.disabled}
+                                                           isLoading={isLoading || item.isLoading}
+                                                           selectMode={selectMode}
+                                                           renderer={renderer}
+                                                           onMove={this.listItemMoveHandler}
+                                                           onTouchTap={e => {
+                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                               item.onTouchTap && item.onTouchTap(e);
+                                                           }}
+                                                           onSelect={() => {
+                                                               this.listItemSelectHandler(item, index);
+                                                           }}
+                                                           onDeselect={() => {
+                                                               this.listItemDeselectHandler(item, index);
+                                                           }}/>
+                                    )
+                                    :
+                                    (
+                                        <DraggableGridItem key={index}
+                                                           index={index}
+                                                           style={{height: itemHeight}}
+                                                           theme={item.theme || theme}
+                                                           col={col}
+                                                           selectTheme={item.selectTheme || selectTheme}
+                                                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                           data={item}
+                                                           checked={Calculation.isItemChecked(item, value, this.props)}
+                                                           value={item}
+                                                           text={item}
+                                                           disabled={disabled}
+                                                           isLoading={isLoading}
+                                                           selectMode={selectMode}
+                                                           renderer={renderer}
+                                                           onMove={this.listItemMoveHandler}
+                                                           onTouchTap={e => {
+                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                           }}
+                                                           onSelect={() => {
+                                                               this.listItemSelectHandler(item, index);
+                                                           }}
+                                                           onDeselect={() => {
+                                                               this.listItemDeselectHandler(item, index);
+                                                           }}/>
+                                    );
+
+                            })
+                        )
+                        :
+                        null
+                }
 
                 {children}
 
@@ -428,119 +270,103 @@ DraggableGrid.propTypes = {
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The mode of grid item.
+     * The mode of listItem.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
-     * Children passed into the grid item.
+     * Children passed into the GridItem.
      */
-    items: PropTypes.oneOfType([
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        /**
+         * The CSS class name of the grid button.
+         */
+        className: PropTypes.string,
 
-            /**
-             * The CSS class name of the grid button.
-             */
-            className: PropTypes.string,
+        /**
+         * Override the styles of the grid button.
+         */
+        style: PropTypes.object,
 
-            /**
-             * Override the styles of the grid button.
-             */
-            style: PropTypes.object,
+        /**
+         * The theme of the grid button.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-            /**
-             * The theme of the grid button.
-             */
-            theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+        /**
+         * The text value of the grid button.Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The text value of the grid button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * The grid item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The grid item's display text. Type can be string, number or bool.
-             */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * The desc value of the grid button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The desc value of the grid button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * If true,the grid item will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-            /**
-             * If true,the grid item will be disabled.
-             */
-            disabled: PropTypes.bool,
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
 
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
 
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
 
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
 
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
+        /**
+         * The message of tip.
+         */
+        tip: PropTypes.string,
 
-            /**
-             * The message of tip.
-             */
-            tip: PropTypes.string,
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
-            /**
-             * The position of tip.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        /**
+         * If true,the item will have center displayed ripple effect.
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
-            /**
-             * If true,the item will have center displayed ripple effect.
-             */
-            rippleDisplayCenter: PropTypes.bool,
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        itemRenderer: PropTypes.func,
 
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            itemRenderer: PropTypes.func,
+        /**
+         * Callback function fired when a grid item touch-tapped.
+         */
+        onTouchTap: PropTypes.func
 
-            /**
-             * Tip text.
-             */
-            tip: PropTypes.string,
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
-            /**
-             * The position of Tip.Can be top,left,right,bottom,top-left,top-right,bottom-left,bottom-right.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-            /**
-             * Callback function fired when a grid item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
-
-        }), PropTypes.string, PropTypes.number])),
-
-        // grouped
-        PropTypes.array
-
-    ]).isRequired,
+    value: PropTypes.any,
 
     /**
-     *
+     * The id field name in data. (default: "id")
      */
-    col: PropTypes.array,
+    idField: PropTypes.string,
 
     /**
      * The value field name in data. (default: "value")
@@ -568,19 +394,15 @@ DraggableGrid.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * If true,the listData will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
-    /**
      * The speed of scroll bar.
      */
-    anchorIconCls: PropTypes.string,
-
-    isDraggableAnyWhere: PropTypes.bool,
-    isItemsFullWidth: PropTypes.bool,
     scrollSpeed: PropTypes.number,
+
+    /**
+     * The number of overflows.
+     */
     scrollBuffer: PropTypes.number,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     radioUncheckedIconCls: PropTypes.string,
@@ -589,25 +411,37 @@ DraggableGrid.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
+    col: PropTypes.number,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
 
     /**
-     * Callback function fired when the grid-item touch-tapped.
+     * Callback function fired when the grid-item touch tap.
      */
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when item sequence changed.
+     * Callback function fired when the grid-item select.
      */
-    onSequenceChange: PropTypes.func,
+    onItemSelect: PropTypes.func,
 
     /**
-     * Callback function fired when select item changed.
+     * Callback function fired when the grid-item deselect.
      */
-    onValueChange: PropTypes.func,
+    onItemDeselect: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid changed.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when select item sequence changed.
+     */
+    onSequenceChange: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
@@ -618,36 +452,31 @@ DraggableGrid.propTypes = {
 
 DraggableGrid.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
+
     selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
-    selectMode: SelectMode.NORMAL,
+    data: null,
 
-    items: [],
-
-    col: [1, 480, 2, 720, 3, 960, 4, 1360, 6],
-
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    isGrouped: false,
-
-    anchorIconCls: 'fa fa-bars',
-    isDraggableAnyWhere: false,
-
-    isItemsFullWidth: false,
 
     scrollSpeed: 20,
     scrollBuffer: 40,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    col: 3
 
 };
