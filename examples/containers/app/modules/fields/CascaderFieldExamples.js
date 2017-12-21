@@ -7,7 +7,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import CascaderField from 'src/CascaderField';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import CascaderFieldDoc from '../../../../assets/propTypes/CascaderField.json';
 
 import '../../../../assets/sass/containers/app/modules/buttons/FlatButtonExamples.scss';

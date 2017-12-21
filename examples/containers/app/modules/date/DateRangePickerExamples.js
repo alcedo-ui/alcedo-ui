@@ -7,7 +7,7 @@ import DateRangePicker from 'src/DateRangePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import DateRangePickerDoc from 'assets/propTypes/DateRangePicker.json';
 
 import 'sass/containers/app/modules/date/DateRangePickerExamples.scss';

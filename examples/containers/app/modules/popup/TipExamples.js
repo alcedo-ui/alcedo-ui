@@ -6,7 +6,7 @@ import TipProvider from 'src/TipProvider';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TipBody.json';
 
 import 'sass/containers/app/modules/popup/TipExamples.scss';

@@ -9,7 +9,7 @@ import Theme from 'src/Theme';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import NotificationDoc from 'assets/propTypes/Notification.json';
 
 import 'sass/containers/app/modules/message/NotificationExamples.scss';

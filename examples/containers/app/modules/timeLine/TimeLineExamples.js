@@ -9,7 +9,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import TimeLineDoc from 'assets/propTypes/TimeLine.json';
 
 import 'sass/containers/app/modules/timeLine/TimeLineExamples.scss';

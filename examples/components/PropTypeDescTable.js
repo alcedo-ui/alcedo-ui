@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Table from 'src/Table';
+import Table from 'src/Table/index';
 
-import 'sass/containers/app/modules/PropTypeDescTable.scss';
+import 'sass/components/PropTypeDescTable.scss';
 
 export default class PropTypeDescTable extends Component {
 

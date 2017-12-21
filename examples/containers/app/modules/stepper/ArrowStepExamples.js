@@ -5,7 +5,7 @@ import RaisedButton from 'src/RaisedButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import ArrowStepDoc from 'assets/propTypes/ArrowStep.json';
 
 import 'sass/containers/app/modules/stepper/ArrowStepExamples.scss';

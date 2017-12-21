@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import doc from 'assets/propTypes/GroupGrid.json';
 
 import 'sass/containers/app/modules/layout/GroupGridExamples.scss';

@@ -5,7 +5,7 @@ import WidgetHeader from 'src/WidgetHeader/index';
 import MaterialDropdownSelect from 'src/MaterialDropdownSelect/index';
 import Theme from 'src/Theme/index';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdownSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialDropdownSelectExamples.scss';

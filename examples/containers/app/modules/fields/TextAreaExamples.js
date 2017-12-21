@@ -7,7 +7,7 @@ import TextArea from 'src/TextArea';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import TextAreaDoc from 'assets/propTypes/TextArea.json';
 
 

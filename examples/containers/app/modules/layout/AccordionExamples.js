@@ -5,7 +5,7 @@ import Accordion from 'src/Accordion';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import AccordionDoc from 'assets/propTypes/Accordion.json';
 
 import 'sass/containers/app/modules/layout/AccordionExamples.scss';

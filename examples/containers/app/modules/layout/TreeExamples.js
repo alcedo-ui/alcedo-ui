@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import Paper from 'src/Paper';
 import Tree from 'src/Tree';
 import doc from 'examples/assets/propTypes/Tree.json';

@@ -6,7 +6,7 @@ import DraggableList from 'src/DraggableList';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import DraggableListDoc from 'assets/propTypes/DraggableList.json';
 
 import 'sass/containers/app/modules/draggable/DraggableListExamples.scss';

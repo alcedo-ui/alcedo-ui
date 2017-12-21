@@ -4,7 +4,7 @@ import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import ButtonRadioGroupDoc from 'assets/propTypes/ButtonRadioGroup.json';
 
 import 'sass/containers/app/modules/fields/ButtonCheckboxExamples.scss';

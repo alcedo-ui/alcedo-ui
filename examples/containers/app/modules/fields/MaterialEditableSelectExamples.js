@@ -5,7 +5,7 @@ import Widget from 'src/Widget/index';
 import WidgetHeader from 'src/WidgetHeader/index';
 import Theme from 'src/Theme/index';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import MaterialEditableSelectDoc from 'examples/assets/propTypes/MaterialEditableSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialEditableSelectExamples.scss';

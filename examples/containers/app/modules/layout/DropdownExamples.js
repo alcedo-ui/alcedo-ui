@@ -4,7 +4,7 @@ import Dropdown from 'src/Dropdown';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
 import 'sass/containers/app/modules/layout/DropdownExamples.scss';

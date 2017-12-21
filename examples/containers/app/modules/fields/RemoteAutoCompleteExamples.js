@@ -7,7 +7,7 @@ import RemoteAutoComplete from 'src/RemoteAutoComplete';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from '../../../../components/PropTypeDescTable';
 import RemoteAutoCompleteDoc from 'assets/propTypes/RemoteAutoComplete.json';
 
 import 'sass/containers/app/modules/fields/RemoteAutoCompleteExamples.scss';
