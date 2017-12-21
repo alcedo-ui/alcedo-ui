@@ -47,18 +47,20 @@ export default class DraggableListItem extends Component {
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseEnterHandler = ::this.mouseEnterHandler;
         this.mouseOverHandler = ::this.mouseOverHandler;
 
     }
 
     showTip(e) {
-        if (!this.state.tipVisible) {
-            this.setState({
-                tipVisible: true,
-                tipTriggerEl: e.target
-            });
+
+        if (this.state.tipVisible) {
+            return;
         }
+
+        this.setState({
+            tipVisible: true
+        });
+
     }
 
     hideTip() {
@@ -122,12 +124,6 @@ export default class DraggableListItem extends Component {
 
     }
 
-    mouseEnterHandler(e) {
-        this.showTip(e);
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
-    }
-
     mouseOverHandler(e) {
         this.showTip(e);
         const {onMouseOver} = this.props;
@@ -148,13 +144,16 @@ export default class DraggableListItem extends Component {
 
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging, isDraggableAnyWhere, anchorIconCls,
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, renderer, itemRenderer, readOnly,
+                index, className, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, renderer, itemRenderer,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseLeave
+                // not passing down these props
+                onMove, onSelect, onDeselect,
+
+                ...restProps
 
             } = this.props,
             {checked, tipVisible} = this.state,
@@ -167,15 +166,12 @@ export default class DraggableListItem extends Component {
                           aria-hidden="true"></i>,
 
             el = connectDropTarget(
-                <div ref={el => this.tipTriggerEl = el}
+                <div {...restProps}
+                     ref={el => this.tipTriggerEl = el}
                      className={'draggable-list-item' + listItemClassName}
-                     style={style}
                      disabled={disabled || isLoading}
-                     readOnly={readOnly}
                      onTouchTap={this.touchTapHandler}
-                     onMouseEnter={this.mouseEnterHandler}
-                     onMouseOver={this.mouseOverHandler}
-                     onMouseLeave={onMouseLeave}>
+                     onMouseOver={this.mouseOverHandler}>
 
                     {
                         selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
@@ -290,11 +286,6 @@ export default class DraggableListItem extends Component {
 
 DraggableListItem.propTypes = {
 
-    connectDragPreview: PropTypes.func,
-    connectDragSource: PropTypes.func,
-    connectDropTarget: PropTypes.func,
-    isDragging: PropTypes.bool,
-
     index: PropTypes.number,
 
     className: PropTypes.string,
@@ -336,7 +327,14 @@ DraggableListItem.propTypes = {
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
+
+    // dnd
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool,
+    onMove: PropTypes.func
 
 };
 
