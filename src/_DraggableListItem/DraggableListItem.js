@@ -51,7 +51,7 @@ export default class DraggableListItem extends Component {
 
     }
 
-    showTip(e) {
+    showTip() {
 
         if (this.state.tipVisible) {
             return;
@@ -125,7 +125,7 @@ export default class DraggableListItem extends Component {
     }
 
     mouseOverHandler(e) {
-        this.showTip(e);
+        this.showTip();
         const {onMouseOver} = this.props;
         onMouseOver && onMouseOver(e);
     }
