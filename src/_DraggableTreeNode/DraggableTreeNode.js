@@ -46,6 +46,8 @@ export default class DraggableTreeNode extends Component {
 
         this.showTip = ::this.showTip;
         this.hideTip = ::this.hideTip;
+        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
+        this.radioChangeHandler = ::this.radioChangeHandler;
         this.toggleTreeNode = ::this.toggleTreeNode;
         this.touchTapHandler = ::this.touchTapHandler;
         this.mouseOverHandler = ::this.mouseOverHandler;
@@ -136,12 +138,10 @@ export default class DraggableTreeNode extends Component {
                 connectDragPreview, connectDragSource, connectDropTarget, isDragging, isDraggableAnyWhere, anchorIconCls,
 
                 index, depth, path, theme, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, allowCollapse,
+                disabled, isLoading, readOnly, allowCollapse, renderer,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-
-                renderer, onMouseEnter, onMouseLeave
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
 
             } = this.props,
             {collapsed, tipVisible} = this.state,
