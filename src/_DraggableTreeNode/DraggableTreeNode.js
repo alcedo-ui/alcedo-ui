@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 
 import CircularLoading from '../CircularLoading';
-import TipProvider from '../TipProvider';
+import Tip from '../Tip';
 import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
@@ -151,7 +151,8 @@ export default class DraggableTreeNode extends Component {
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (data.className ? ' ' + data.className : ''),
+            nodeClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
+                + (data.className ? ' ' + data.className : ''),
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
@@ -165,7 +166,8 @@ export default class DraggableTreeNode extends Component {
             el = connectDropTarget(
                 <div className="draggable-tree-node-wrapper">
 
-                    <div className={'draggable-tree-node' + nodeClassName}
+                    <div ref={el => this.tipTriggerEl = el}
+                         className={'draggable-tree-node' + nodeClassName}
                          style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
