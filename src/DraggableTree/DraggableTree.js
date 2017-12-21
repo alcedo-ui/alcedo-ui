@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
 
 import DraggableTreeNode from '../_DraggableTreeNode';
 import Tip from '../Tip';
@@ -14,6 +15,8 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
+
+const ScrollingComponent = withScrolling('div');
 
 export default class DraggableTree extends Component {
 
@@ -25,11 +28,29 @@ export default class DraggableTree extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            data: props.data,
             value: Calculation.getInitValue(props)
         };
 
+        this.listItemMoveHandler = ::this.listItemMoveHandler;
         this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
         this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
+
+    }
+
+    listItemMoveHandler(dragIndex, hoverIndex, props) {
+
+        const {data} = this.state,
+            dragItem = data.splice(dragIndex, 1);
+
+        data.splice(hoverIndex, 0, ...dragItem);
+
+        this.setState({
+            data
+        }, () => {
+            const {onSequenceChange} = this.props;
+            onSequenceChange && onSequenceChange(data);
+        });
 
     }
 
@@ -92,30 +113,48 @@ export default class DraggableTree extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
+
+        let state;
+
+        if (nextProps.data !== this.state.data) {
+            state = state ? state : {};
+            state.data = nextProps.data;
         }
+        if (nextProps.value !== this.state.value) {
+            state = state ? state : {};
+            state.value = Calculation.getInitValue(nextProps);
+        }
+
+        if (state) {
+            this.setState(state);
+        }
+
     }
 
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap
+
+                children, className, style, theme,
+
+                allowCollapse, collapsedIconCls, expandedIconCls, idField, valueField, displayField,
+                descriptionField, disabled, isLoading, readOnly, selectMode, renderer, onNodeTouchTap,
+
+                scrollSpeed, scrollBuffer
+
             } = this.props,
-            {value} = this.state,
+            {data, value} = this.state,
             treeClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'draggable-tree' + treeClassName}
-                 disabled={disabled}
-                 style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+            <ScrollingComponent className={'draggable-tree' + treeClassName}
+                                disabled={disabled}
+                                style={style}
+                                strengthMultiplier={scrollSpeed}
+                                verticalStrength={createVerticalStrength(scrollBuffer)}
+                                onWheel={e => {
+                                    Event.wheelHandler(e, this.props);
+                                }}>
 
                 <DraggableTreeNode data={data}
                                    value={value}
@@ -140,7 +179,7 @@ export default class DraggableTree extends Component {
 
                 {children}
 
-            </div>
+            </ScrollingComponent>
         );
     }
 };
@@ -283,6 +322,16 @@ DraggableTree.propTypes = {
 
     readOnly: PropTypes.bool,
 
+    /**
+     * The speed of scroll bar.
+     */
+    scrollSpeed: PropTypes.number,
+
+    /**
+     * The number of overflows.
+     */
+    scrollBuffer: PropTypes.number,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     allowCollapse: PropTypes.bool,
@@ -339,6 +388,9 @@ DraggableTree.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
+
+    scrollSpeed: 20,
+    scrollBuffer: 40,
     shouldPreventContainerScroll: true,
 
     allowCollapse: true,
