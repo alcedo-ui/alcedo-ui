@@ -30,38 +30,6 @@ export default class DraggableGridExamples extends Component {
             text: 'Google+'
         }];
 
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
-        }];
-
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
         this.sequenceChangeHandler = this::this.sequenceChangeHandler;
@@ -105,33 +73,6 @@ export default class DraggableGridExamples extends Component {
 
                                 <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
                                                items={this.listData}
-                                               onSequenceChange={this.sequenceChangeHandler}
-                                               onValueChange={this.valueChangeHandler}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Draggable Group"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A group <code>DraggableGrid </code>list example.
-                                </p>
-
-                                <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
-                                               isGrouped={true}
-                                               items={this.groupedListData}
-                                               isDraggableAnyWhere={true}
                                                onSequenceChange={this.sequenceChangeHandler}
                                                onValueChange={this.valueChangeHandler}/>
 
