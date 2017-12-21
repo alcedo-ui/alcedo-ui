@@ -84,14 +84,6 @@
         }
     }
 
-    .touch-ripple {
-        border-radius: $theme-border-radius;
-
-        &.hidden {
-            display: none;
-        }
-    }
-
     .draggable-list-item-anchor {
         position: absolute;
         right: 0;
