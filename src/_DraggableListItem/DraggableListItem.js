@@ -10,8 +10,7 @@ import {DragSource, DropTarget} from 'react-dnd';
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
-import TipProvider from '../TipProvider';
-import TouchRipple from '../TouchRipple';
+import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -39,13 +38,33 @@ export default class DraggableListItem extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            checked: props.checked
+            checked: props.checked,
+            tipVisible: false
         };
 
+        this.showTip = ::this.showTip;
+        this.hideTip = ::this.hideTip;
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
+        this.mouseEnterHandler = ::this.mouseEnterHandler;
+        this.mouseOverHandler = ::this.mouseOverHandler;
 
+    }
+
+    showTip(e) {
+        if (!this.state.tipVisible) {
+            this.setState({
+                tipVisible: true,
+                tipTriggerEl: e.target
+            });
+        }
+    }
+
+    hideTip() {
+        this.setState({
+            tipVisible: false
+        });
     }
 
     checkboxChangeHandler(checked) {
@@ -103,6 +122,18 @@ export default class DraggableListItem extends Component {
 
     }
 
+    mouseEnterHandler(e) {
+        this.showTip(e);
+        const {onMouseEnter} = this.props;
+        onMouseEnter && onMouseEnter(e);
+    }
+
+    mouseOverHandler(e) {
+        this.showTip(e);
+        const {onMouseOver} = this.props;
+        onMouseOver && onMouseOver(e);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
             this.setState({
@@ -123,10 +154,10 @@ export default class DraggableListItem extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave
+                onMouseLeave
 
             } = this.props,
-            {checked} = this.state,
+            {checked, tipVisible} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
                 + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
@@ -136,12 +167,14 @@ export default class DraggableListItem extends Component {
                           aria-hidden="true"></i>,
 
             el = connectDropTarget(
-                <div className={'draggable-list-item' + listItemClassName}
+                <div ref={el => this.tipTriggerEl = el}
+                     className={'draggable-list-item' + listItemClassName}
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
                      onTouchTap={this.touchTapHandler}
-                     onMouseEnter={onMouseEnter}
+                     onMouseEnter={this.mouseEnterHandler}
+                     onMouseOver={this.mouseOverHandler}
                      onMouseLeave={onMouseLeave}>
 
                     {
@@ -223,6 +256,18 @@ export default class DraggableListItem extends Component {
                                     :
                                     null
                             )
+                    }
+
+                    {
+                        tip ?
+                            <Tip visible={tipVisible}
+                                 triggerEl={this.tipTriggerEl}
+                                 position={tipPosition}
+                                 onRequestClose={this.hideTip}>
+                                {tip}
+                            </Tip>
+                            :
+                            null
                     }
 
                     {
