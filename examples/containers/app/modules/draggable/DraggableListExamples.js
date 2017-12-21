@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableList from 'src/DraggableList';
 import Widget from 'src/Widget';
@@ -11,7 +9,6 @@ import DraggableListDoc from 'assets/propTypes/DraggableList.json';
 
 import 'sass/containers/app/modules/draggable/DraggableListExamples.scss';
 
-@DragDropContext(HTML5Backend)
 export default class DraggableListExamples extends Component {
 
     constructor(props) {
