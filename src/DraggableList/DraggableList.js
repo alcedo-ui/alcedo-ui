@@ -396,14 +396,6 @@ DraggableList.propTypes = {
      */
     isLoading: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
-
     /**
      * The speed of scroll bar.
      */
@@ -413,6 +405,14 @@ DraggableList.propTypes = {
      * The number of overflows.
      */
     scrollBuffer: PropTypes.number,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
