@@ -20,13 +20,16 @@ export default class DraggableListExamples extends Component {
 
         this.listData = [{
             iconCls: 'fa fa-facebook',
-            text: 'Facebook'
+            text: 'Facebook',
+            tip: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
-            text: 'Twitter'
+            text: 'Twitter',
+            tip: 'Twitter'
         }, {
             iconCls: 'fa fa-google-plus',
-            text: 'Google+'
+            text: 'Google+',
+            tip: 'Google+'
         }];
 
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
