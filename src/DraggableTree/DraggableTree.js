@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {DragDropContext} from 'react-beautiful-dnd';
 
-import TreeNodeList from '../_TreeNodeList';
+import DraggableTreeNodeList from '../_DraggableTreeNodeList';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -91,6 +92,10 @@ export default class DraggableTree extends Component {
 
     }
 
+    onDragEnd() {
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -110,37 +115,39 @@ export default class DraggableTree extends Component {
             treeClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'draggable-tree' + treeClassName}
-                 disabled={disabled}
-                 style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className={'draggable-tree' + treeClassName}
+                     disabled={disabled}
+                     style={style}
+                     onWheel={e => {
+                         Event.wheelHandler(e, this.props);
+                     }}>
 
-                <TreeNodeList data={data}
-                              value={value}
-                              theme={theme}
-                              idField={idField}
-                              valueField={valueField}
-                              displayField={displayField}
-                              descriptionField={descriptionField}
-                              disabled={disabled}
-                              isLoading={isLoading}
-                              readOnly={readOnly}
-                              selectMode={selectMode}
-                              renderer={renderer}
-                              allowCollapse={allowCollapse}
-                              collapsedIconCls={collapsedIconCls}
-                              expandedIconCls={expandedIconCls}
-                              onTouchTap={(...args) => {
-                                  onNodeTouchTap && onNodeTouchTap(...args);
-                              }}
-                              onSelect={this.treeNodeSelectHandler}
-                              onDeselect={this.treeNodeDeselectHandler}/>
+                    <DraggableTreeNodeList data={data}
+                                           value={value}
+                                           theme={theme}
+                                           idField={idField}
+                                           valueField={valueField}
+                                           displayField={displayField}
+                                           descriptionField={descriptionField}
+                                           disabled={disabled}
+                                           isLoading={isLoading}
+                                           readOnly={readOnly}
+                                           selectMode={selectMode}
+                                           renderer={renderer}
+                                           allowCollapse={allowCollapse}
+                                           collapsedIconCls={collapsedIconCls}
+                                           expandedIconCls={expandedIconCls}
+                                           onTouchTap={(...args) => {
+                                               onNodeTouchTap && onNodeTouchTap(...args);
+                                           }}
+                                           onSelect={this.treeNodeSelectHandler}
+                                           onDeselect={this.treeNodeDeselectHandler}/>
 
-                {children}
+                    {children}
 
-            </div>
+                </div>
+            </DragDropContext>
         );
     }
 };
