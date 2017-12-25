@@ -7,9 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Dropdown from '../Dropdown';
-import TextField from '../TextField';
 import Tree from '../Tree';
-import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
@@ -29,17 +27,13 @@ export default class TreeSelect extends Component {
 
         this.state = {
             value: props.value,
-            filter: '',
             popupVisible: false,
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
                 TreeCalculation.calPath(props.value, props) : undefined
         };
 
         this.closePopup = ::this.closePopup;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.filterData = ::this.filterData;
         this.getTriggerValue = ::this.getTriggerValue;
-        this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.nodeSelectHandler = ::this.nodeSelectHandler;
         this.changeHandler = ::this.changeHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
@@ -48,45 +42,6 @@ export default class TreeSelect extends Component {
 
     closePopup() {
         this.refs.dropdown.closePopup();
-    }
-
-    filterChangeHandler(filter) {
-        this.setState({
-            filter
-        });
-    }
-
-    filterData(filter = this.state.filter, data = this.props.data) {
-
-        if (!filter) {
-            return data;
-        }
-
-        const {displayField, isGrouped} = this.props,
-            filterFunc = (originData) => {
-                return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                    item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                    :
-                    item.toString().toUpperCase().includes(filter.toUpperCase()));
-            };
-
-        if (isGrouped) {
-
-            let result = Object.assign(data);
-
-            for (let i = 0, len = result.length; i < len; i++) {
-                let group = result[i];
-                group.children = filterFunc(group.children);
-                if (group.children.length < 1) {
-                    result.splice(i, 1);
-                    i--;
-                }
-            }
-
-        }
-
-        return filterFunc(data);
-
     }
 
     getTriggerValue(props = this.props) {
@@ -111,64 +66,30 @@ export default class TreeSelect extends Component {
                 placeholder;
         }
 
-        let node = data,
-            result = [];
-
-        function pushDisplay(key, node, path) {
-
-            if (key >= 0) {
-                result.push(
-                    <i key={2 * key}
-                       className="fa fa-angle-right tree-select-trigger-value-separator"/>
-                );
-            }
-
-            result.push(renderer ?
-                <div key={2 * key + 1}
-                     className="tree-select-trigger-value-node">
-                    {renderer(node, path)}
-                </div>
-                :
-                Util.getTextByDisplayField(node, displayField, valueField));
-
-        }
-
-        pushDisplay(-1, node);
+        let result = [];
 
         if (path) {
             for (let i = 0, len = path.length; i < len; i++) {
 
-                if (!node.children || !(path[i] in node.children)) {
-                    break;
+                if (i > 0) {
+                    result.push(
+                        <i key={2 * i}
+                           className="fa fa-angle-right tree-select-trigger-value-separator"/>
+                    );
                 }
 
-                node = node.children[path[i]];
-                pushDisplay(i, node, path.slice(0, i + 1));
+                result.push(renderer ?
+                    <div key={2 * i + 1}
+                         className="tree-select-trigger-value-node">
+                        {renderer(path[i].value, path.slice(0, i + 1))}
+                    </div>
+                    :
+                    Util.getTextByDisplayField(path[i].value, displayField, valueField));
 
             }
         }
 
         return result;
-
-    }
-
-    selectAllTouchTapHandler() {
-
-        const {data} = this.props,
-            {value} = this.state;
-
-        if (!data) {
-            return;
-        }
-
-        const isSelectAll = !value || (value && value.length < data.length),
-            newValue = isSelectAll ? data : [];
-
-        this.setState({
-            value: newValue
-        }, () => {
-            this.changeHandler(newValue);
-        });
 
     }
 
@@ -221,8 +142,8 @@ export default class TreeSelect extends Component {
 
         const {
 
-                className, popupClassName, style, name, placeholder, popupTheme, data, renderer, triggerRenderer,
-                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
+                className, popupClassName, style, name, popupTheme, data, renderer,
+                selectMode, valueField, displayField, descriptionField,
                 onItemTouchTap, popupChildren,
 
                 // not passing down these props
@@ -231,34 +152,10 @@ export default class TreeSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, path, filter, popupVisible} = this.state,
-
-            isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
-
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                }
-            }],
+            {value, popupVisible} = this.state,
 
             triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
-            triggerValue = this.getTriggerValue(),
-
-            listData = this.filterData();
+            triggerValue = this.getTriggerValue();
 
         return (
             <div ref="dropdownSelect"
@@ -282,56 +179,15 @@ export default class TreeSelect extends Component {
                           triggerValue={triggerValue}
                           onClosePopup={this.popupClosedHandler}>
 
-                    <div className="tree-select-popup-fixed">
-
-                        {
-                            useFilter ?
-                                <TextField className="tree-select-filter"
-                                           value={filter}
-                                           rightIconCls="fa fa-search"
-                                           onChange={this.filterChangeHandler}/>
-                                :
-                                null
-                        }
-
-                        {
-                            isMultiSelect && useSelectAll ?
-                                <div className="list-item tree-select-all-wrapper"
-                                     onTouchTap={this.selectAllTouchTapHandler}>
-                                    <Checkbox className="list-item-checkbox"
-                                              checked={data && value && value.length === data.length}
-                                              indeterminate={data && value && value.length > 0 && value.length < data.length}/>
-                                    Select All
-                                </div>
-                                :
-                                null
-                        }
-
-                    </div>
-
                     <div className="tree-select-list-scroller"
                          onWheel={e => {
                              Event.wheelHandler(e, this.props);
                          }}>
 
-                        {
-                            useFilter ?
-                                <div className="tree-select-filter-placeholder"></div>
-                                :
-                                null
-                        }
-
-                        {
-                            isMultiSelect && useSelectAll ?
-                                <div className="tree-select-all-placeholder"></div>
-                                :
-                                null
-                        }
-
                         <Tree className="tree-select-list"
                               theme={popupTheme}
                               selectMode={selectMode}
-                              data={listData.length < 1 ? emptyEl : listData}
+                              data={data}
                               value={value}
                               valueField={valueField}
                               displayField={displayField}
@@ -405,7 +261,7 @@ TreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -479,7 +335,7 @@ TreeSelect.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    }),
+    })),
 
     /**
      * The invalid message of dropDownSelect.
@@ -525,18 +381,6 @@ TreeSelect.propTypes = {
      * If true,the drop-down box automatically closed after selection.
      */
     autoClose: PropTypes.bool,
-
-    /**
-     * If true,the drop-down box will have search input.
-     */
-    useFilter: PropTypes.bool,
-
-    useSelectAll: PropTypes.bool,
-
-    /**
-     * The message of no matching option.
-     */
-    noMatchedMsg: PropTypes.string,
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -593,9 +437,6 @@ TreeSelect.defaultProps = {
 
     infoMsg: null,
     autoClose: true,
-    useFilter: false,
-    useSelectAll: false,
-    noMatchedMsg: null,
 
     shouldPreventContainerScroll: true,
 
