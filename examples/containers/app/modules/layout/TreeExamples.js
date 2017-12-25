@@ -115,7 +115,9 @@ export default class TreeExamples extends Component {
                                                   <span className="self-define-node-text">{node.text}</span>
                                                   <span className="self-define-node-desc">{node.desc}</span>
                                               </div>;
-                                          }}/>
+                                          }}
+                                          onNodeSelect={this.nodeSelectHandler}
+                                          onChange={this.changeHandler}/>
                                 </Paper>
                             </div>
                         </div>
@@ -134,6 +136,7 @@ export default class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
+                                          onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
                             </div>
