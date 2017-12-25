@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Droppable} from 'react-beautiful-dnd';
 
 import TreeNode from '../_TreeNode/TreeNode';
 
@@ -19,27 +20,37 @@ export default class DraggableTreeNodeList extends Component {
         const {depth, path, data, collapsed} = this.props;
 
         return (
-            <div className={'draggable-tree-node-list' + (collapsed ? ' collapsed' : '')}>
+            <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                    <div ref={provided.innerRef}
+                         className={'draggable-tree-node-list' + (collapsed ? ' collapsed' : '')}>
 
-                {
-                    data && data.length > 0 ?
-                        (
-                            data.map((item, index) => {
-                                return (
-                                    <TreeNode {...this.props}
-                                              key={index}
-                                              data={item}
-                                              index={index}
-                                              depth={depth + 1}
-                                              path={path ? [...path, {index, value: item}] : [{index, value: item}]}/>
-                                );
-                            })
-                        )
-                        :
-                        null
-                }
+                        {
+                            data && data.length > 0 ?
+                                (
+                                    data.map((item, index) => {
+                                        return (
+                                            <TreeNode {...this.props}
+                                                      key={index}
+                                                      data={item}
+                                                      index={index}
+                                                      depth={depth + 1}
+                                                      path={path ? [...path, {index, value: item}] : [{
+                                                          index,
+                                                          value: item
+                                                      }]}/>
+                                        );
+                                    })
+                                )
+                                :
+                                null
+                        }
 
-            </div>
+                        {provided.placeholder}
+
+                    </div>
+                )}
+            </Droppable>
         );
 
     }
