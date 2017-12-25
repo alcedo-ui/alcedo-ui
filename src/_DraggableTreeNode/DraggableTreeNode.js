@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Draggable} from 'react-beautiful-dnd';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
@@ -119,129 +120,139 @@ export default class DraggableTreeNode extends Component {
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
-            <div className="draggable-tree-node-wrapper">
+            <Draggable key={data.id}
+                       draggableId={data.id}>
+                {(provided, snapshot) => (
+                    <div ref={provided.innerRef}
+                         className="draggable-tree-node-wrapper"
+                         {...provided.dragHandleProps}>
 
-                <TipProvider className='block'
-                             text={data.tip}
-                             tipPosition={data.tipPosition}>
+                        <TipProvider className='block'
+                                     text={data.tip}
+                                     tipPosition={data.tipPosition}>
 
-                    <div className={'draggable-tree-node' + nodeClassName}
-                         style={nodeStyle}
-                         disabled={isNodeDisabled}
-                         readOnly={readOnly}
-                         onTouchTap={this.touchTapHandler}
-                         onMouseEnter={onMouseEnter}
-                         onMouseLeave={onMouseLeave}>
+                            <div className={'draggable-tree-node' + nodeClassName}
+                                 style={nodeStyle}
+                                 disabled={isNodeDisabled}
+                                 readOnly={readOnly}
+                                 onTouchTap={this.touchTapHandler}
+                                 onMouseEnter={onMouseEnter}
+                                 onMouseLeave={onMouseLeave}>
 
-                        <div className="draggable-tree-node-inner">
+                                <div className="draggable-tree-node-inner">
 
-                            {
-                                allowCollapse && data.children && data.children.length > 0 ?
-                                    <IconButton className="draggable-tree-node-collapse-icon"
-                                                iconCls={collapsed ?
-                                                    data.collapsedIconCls || collapsedIconCls
-                                                    :
-                                                    data.expandedIconCls || expandedIconCls}
-                                                onTouchTap={this.toggleTreeNode}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                                    <Radio className="draggable-tree-node-select"
-                                           theme={selectTheme}
-                                           checked={checked}
-                                           disabled={isNodeDisabled}
-                                           uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
-                                           checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                                           disableTouchRipple={true}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                selectMode === SelectMode.MULTI_SELECT ?
-                                    <Checkbox className="draggable-tree-node-select"
-                                              theme={selectTheme}
-                                              checked={checked}
-                                              disabled={isNodeDisabled}
-                                              uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                              checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                              indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                              disableTouchRipple={true}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                isNodeLoading && loadingIconPosition === 'left' ?
-                                    <div className="button-icon button-icon-left">
-                                        <CircularLoading className="button-loading-icon"
-                                                         size="small"/>
-                                    </div>
-                                    :
-                                    (
-                                        data.iconCls ?
-                                            <i className={`button-icon button-icon-left ${data.iconCls}`}
-                                               aria-hidden="true"></i>
+                                    {
+                                        allowCollapse && data.children && data.children.length > 0 ?
+                                            <IconButton className="draggable-tree-node-collapse-icon"
+                                                        iconCls={collapsed ?
+                                                            data.collapsedIconCls || collapsedIconCls
+                                                            :
+                                                            data.expandedIconCls || expandedIconCls}
+                                                        onTouchTap={this.toggleTreeNode}/>
                                             :
                                             null
-                                    )
-                            }
+                                    }
 
-                            {
-                                data.itemRenderer && typeof data.itemRenderer === 'function' ?
-                                    data.itemRenderer(data, index)
-                                    :
-                                    (
-                                        renderer && typeof renderer === 'function' ?
-                                            renderer(data, index)
+                                    {
+                                        selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                            <Radio className="draggable-tree-node-select"
+                                                   theme={selectTheme}
+                                                   checked={checked}
+                                                   disabled={isNodeDisabled}
+                                                   uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                   checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
+                                                   disableTouchRipple={true}/>
+                                            :
+                                            null
+                                    }
+
+                                    {
+                                        selectMode === SelectMode.MULTI_SELECT ?
+                                            <Checkbox className="draggable-tree-node-select"
+                                                      theme={selectTheme}
+                                                      checked={checked}
+                                                      disabled={isNodeDisabled}
+                                                      uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                      checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                      indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                      disableTouchRipple={true}/>
+                                            :
+                                            null
+                                    }
+
+                                    {
+                                        isNodeLoading && loadingIconPosition === 'left' ?
+                                            <div className="button-icon button-icon-left">
+                                                <CircularLoading className="button-loading-icon"
+                                                                 size="small"/>
+                                            </div>
                                             :
                                             (
-                                                data.desc ?
-                                                    <div className="draggable-tree-node-content">
+                                                data.iconCls ?
+                                                    <i className={`button-icon button-icon-left ${data.iconCls}`}
+                                                       aria-hidden="true"></i>
+                                                    :
+                                                    null
+                                            )
+                                    }
+
+                                    {
+                                        data.itemRenderer && typeof data.itemRenderer === 'function' ?
+                                            data.itemRenderer(data, index)
+                                            :
+                                            (
+                                                renderer && typeof renderer === 'function' ?
+                                                    renderer(data, index)
+                                                    :
+                                                    (
+                                                        data.desc ?
+                                                            <div className="draggable-tree-node-content">
                                                     <span className="draggable-tree-node-content-value">
                                                         {data.text}
                                                     </span>
-                                                        <span className="draggable-tree-node-content-desc">
+                                                                <span className="draggable-tree-node-content-desc">
                                                         {data.desc}
                                                     </span>
-                                                    </div>
-                                                    :
-                                                    data.text
+                                                            </div>
+                                                            :
+                                                            data.text
+                                                    )
                                             )
-                                    )
-                            }
+                                    }
 
-                            {
-                                isNodeLoading && loadingIconPosition === 'right' ?
-                                    <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                                     size="small"/>
-                                    :
-                                    (
-                                        data.rightIconCls ?
-                                            <i className={`button-icon button-icon-right ${data.rightIconCls}`}
-                                               aria-hidden="true"></i>
+                                    {
+                                        isNodeLoading && loadingIconPosition === 'right' ?
+                                            <CircularLoading
+                                                className="button-icon button-icon-right button-loading-icon"
+                                                size="small"/>
                                             :
-                                            null
-                                    )
-                            }
-                        </div>
+                                            (
+                                                data.rightIconCls ?
+                                                    <i className={`button-icon button-icon-right ${data.rightIconCls}`}
+                                                       aria-hidden="true"></i>
+                                                    :
+                                                    null
+                                            )
+                                    }
+                                </div>
+
+                            </div>
+                        </TipProvider>
+
+                        {
+                            data.children ?
+                                <TreeNodeList {...this.props}
+                                              data={data.children}
+                                              collapsed={collapsed}/>
+                                :
+                                null
+                        }
+
+                        {provided.placeholder}
 
                     </div>
-                </TipProvider>
-
-                {
-                    data.children ?
-                        <TreeNodeList {...this.props}
-                                      data={data.children}
-                                      collapsed={collapsed}/>
-                        :
-                        null
-                }
-
-            </div>
+                )}
+            </Draggable>
         );
 
     }
