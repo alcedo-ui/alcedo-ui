@@ -15,7 +15,7 @@ export default class TreeExamples extends Component {
 
         super(props);
 
-        this.data = {
+        this.data = [{
             id: '0',
             text: 'Root',
             desc: 'Root',
@@ -45,18 +45,18 @@ export default class TreeExamples extends Component {
                 text: 'Children 0 - 2',
                 desc: 'Children 0 - 2'
             }]
-        };
+        }];
 
         this.changeHandler = this::this.changeHandler;
 
     }
 
     nodeSelectHandler(node, path) {
-        console.log(node, path);
+        console.log('Node Selected::', node, path);
     }
 
     changeHandler(value) {
-        console.log(value);
+        console.log('Changed::', value);
     }
 
     render() {
