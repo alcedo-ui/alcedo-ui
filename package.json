@@ -36,6 +36,7 @@
         "prop-types": "^15.6.0",
         "react": "^16.2.0",
         "react-addons-transition-group": "^15.6.2",
+        "react-beautiful-dnd": "^3.0.0",
         "react-dnd": "^2.5.4",
         "react-dnd-html5-backend": "^2.5.4",
         "react-dnd-scrollzone": "^4.0.0",
