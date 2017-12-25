@@ -1,0 +1,12 @@
+/**
+ * @file TreeNodeList style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.tree-node-list {
+
+    &.collapsed {
+        height: 0;
+        overflow: hidden;
+    }
+}
