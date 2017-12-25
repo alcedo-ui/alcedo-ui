@@ -15,7 +15,7 @@ export default class TreeSelectExamples extends Component {
 
         super(props);
 
-        this.data = {
+        this.data = [{
             id: '0',
             text: 'Root',
             desc: 'Root',
@@ -45,7 +45,7 @@ export default class TreeSelectExamples extends Component {
                 text: 'Children 0 - 2',
                 desc: 'Children 0 - 2'
             }]
-        };
+        }];
 
         this.changeHandler = this::this.changeHandler;
 
@@ -81,50 +81,15 @@ export default class TreeSelectExamples extends Component {
                                 <p><code>Tree</code>simple example.</p>
 
                                 <TreeSelect data={this.data}
+                                            value={{
+                                                id: '010',
+                                                text: 'Children 0 - 1 - 0',
+                                                desc: 'Children 0 - 1 - 0'
+                                            }}
                                             onChange={this.changeHandler}/>
 
                             </div>
 
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="Self Define Node Renderer"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-                            <div className="examples-wrapper">
-                                <TreeSelect data={this.data}
-                                            collapsedIconCls="fa fa-plus-square-o"
-                                            expandedIconCls="fa fa-minus-square-o"
-                                            renderer={node => {
-                                                return <div className="self-define-node">
-                                                    <span className="self-define-node-id">{node.id}</span>
-                                                    <span className="self-define-node-text">{node.text}</span>
-                                                </div>;
-                                            }}/>
-                            </div>
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="Single Select"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-                            <div className="examples-wrapper">
-                                <TreeSelect data={this.data}
-                                            autoClose={false}
-                                            onChange={this.changeHandler}/>
-                            </div>
                         </div>
                     </div>
 

@@ -12,6 +12,7 @@ import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
+import TreeNodeList from '../_TreeNodeList';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
@@ -231,20 +232,14 @@ export default class TreeNode extends Component {
                     </div>
                 </TipProvider>
 
-                <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
-                    {
-                        data.children && data.children.map((item, index) => {
-                            return (
-                                <TreeNode {...this.props}
-                                          key={index}
-                                          data={item}
-                                          index={index}
-                                          depth={depth + 1}
-                                          path={path ? [...path, index] : [index]}/>
-                            );
-                        })
-                    }
-                </div>
+                {
+                    data.children ?
+                        <TreeNodeList {...this.props}
+                                      data={data.children}
+                                      collapsed={collapsed}/>
+                        :
+                        null
+                }
 
             </div>
         );
@@ -297,7 +292,7 @@ TreeNode.propTypes = {
 TreeNode.defaultProps = {
 
     index: 0,
-    depth: 0,
+    depth: -1,
     path: null,
 
     theme: Theme.DEFAULT,
