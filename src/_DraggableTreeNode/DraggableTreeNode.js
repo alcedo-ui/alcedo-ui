@@ -5,31 +5,20 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DragSource, DropTarget} from 'react-dnd';
 
 import CircularLoading from '../CircularLoading';
-import Tip from '../Tip';
+import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
+import TreeNodeList from '../_TreeNodeList';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
-import DragDrop from '../_vendors/DragDrop';
 
-const DRAG_TREE_NODE_SYMBOL = Symbol('DRAG_TREE_NODE');
-
-@DropTarget(DRAG_TREE_NODE_SYMBOL, DragDrop.getVerticalTarget(), connect => ({
-    connectDropTarget: connect.dropTarget()
-}))
-@DragSource(DRAG_TREE_NODE_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
-    connectDragPreview: connect.dragPreview(),
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-}))
 export default class DraggableTreeNode extends Component {
 
     static SelectMode = SelectMode;
@@ -40,36 +29,12 @@ export default class DraggableTreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: false,
-            tipVisible: false
+            collapsed: false
         };
 
-        this.showTip = ::this.showTip;
-        this.hideTip = ::this.hideTip;
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
         this.toggleTreeNode = ::this.toggleTreeNode;
         this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseOverHandler = ::this.mouseOverHandler;
 
-    }
-
-    showTip() {
-
-        if (this.state.tipVisible) {
-            return;
-        }
-
-        this.setState({
-            tipVisible: true
-        });
-
-    }
-
-    hideTip() {
-        this.setState({
-            tipVisible: false
-        });
     }
 
     toggleTreeNode(e) {
@@ -125,54 +90,48 @@ export default class DraggableTreeNode extends Component {
 
     }
 
-    mouseOverHandler(e) {
-        this.showTip();
-        const {onMouseOver} = this.props;
-        onMouseOver && onMouseOver(e);
-    }
-
     render() {
 
         const {
 
-                connectDragPreview, connectDragSource, connectDropTarget, isDragging, isDraggableAnyWhere, anchorIconCls,
-
                 index, depth, path, theme, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, allowCollapse, renderer,
+                disabled, isLoading, readOnly, allowCollapse,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                renderer, onMouseEnter, onMouseLeave
 
             } = this.props,
-            {collapsed, tipVisible} = this.state,
+            {collapsed} = this.state,
 
             checked = Calculation.isItemChecked(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
-                + (data.className ? ' ' + data.className : ''),
+            nodeClassName = (theme ? ` theme-${theme}` : '') + (data.className ? ' ' + data.className : ''),
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
             },
 
-            loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left',
+            loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
-            anchorEl = <i className={`${anchorIconCls} draggable-tree-node-anchor`}
-                          aria-hidden="true"></i>,
+        return (
+            <div className="draggable-tree-node-wrapper">
 
-            el = connectDropTarget(
-                <div className="draggable-tree-node-wrapper">
+                <TipProvider className='block'
+                             text={data.tip}
+                             tipPosition={data.tipPosition}>
 
-                    <div ref={el => this.tipTriggerEl = el}
-                         className={'draggable-tree-node' + nodeClassName}
+                    <div className={'draggable-tree-node' + nodeClassName}
                          style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
                          onTouchTap={this.touchTapHandler}
-                         onMouseOver={this.mouseOverHandler}>
+                         onMouseEnter={onMouseEnter}
+                         onMouseLeave={onMouseLeave}>
 
                         <div className="draggable-tree-node-inner">
 
@@ -268,52 +227,22 @@ export default class DraggableTreeNode extends Component {
                                             null
                                     )
                             }
-
-                            {
-                                isDraggableAnyWhere ?
-                                    anchorEl
-                                    :
-                                    connectDragSource(anchorEl)
-                            }
-
                         </div>
 
-                        {
-                            data.tip ?
-                                <Tip visible={tipVisible}
-                                     triggerEl={this.tipTriggerEl}
-                                     position={data.tipPosition}
-                                     onRequestClose={this.hideTip}>
-                                    {data.tip}
-                                </Tip>
-                                :
-                                null
-                        }
-
                     </div>
+                </TipProvider>
 
-                    <div className={'draggable-tree-node-children' + (collapsed ? ' collapsed' : '')}>
-                        {
-                            data.children && data.children.map((item, index) => {
-                                return (
-                                    <DraggableTreeNode {...this.props}
-                                                       key={index}
-                                                       data={item}
-                                                       index={index}
-                                                       depth={depth + 1}
-                                                       path={path ? [...path, index] : [index]}/>
-                                );
-                            })
-                        }
-                    </div>
+                {
+                    data.children ?
+                        <TreeNodeList {...this.props}
+                                      data={data.children}
+                                      collapsed={collapsed}/>
+                        :
+                        null
+                }
 
-                </div>
-            );
-
-        return isDraggableAnyWhere ?
-            connectDragSource(el)
-            :
-            connectDragPreview(el);
+            </div>
+        );
 
     }
 };
@@ -352,28 +281,18 @@ DraggableTreeNode.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
-    isDraggableAnyWhere: PropTypes.bool,
-    anchorIconCls: PropTypes.string,
-
     onTouchTap: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-
-    // dnd
-    connectDragPreview: PropTypes.func,
-    connectDragSource: PropTypes.func,
-    connectDropTarget: PropTypes.func,
-    isDragging: PropTypes.bool,
-    onMove: PropTypes.func
+    onMouseLeave: PropTypes.func
 
 };
 
 DraggableTreeNode.defaultProps = {
 
     index: 0,
-    depth: 0,
+    depth: -1,
     path: null,
 
     theme: Theme.DEFAULT,
@@ -406,9 +325,6 @@ DraggableTreeNode.defaultProps = {
     radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square',
-
-    isDraggableAnyWhere: false,
-    anchorIconCls: 'fa fa-bars'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
