@@ -31,7 +31,7 @@ export default class TreeNodeList extends Component {
                                               data={item}
                                               index={index}
                                               depth={depth + 1}
-                                              path={path ? [...path, index] : [index]}/>
+                                              path={path ? [...path, {index, value: item}] : [{index, value: item}]}/>
                                 );
                             })
                         )
