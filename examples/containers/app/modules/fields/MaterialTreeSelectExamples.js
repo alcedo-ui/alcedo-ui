@@ -52,7 +52,7 @@ export default class MaterialTreeSelectExamples extends Component {
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {
@@ -80,7 +80,8 @@ export default class MaterialTreeSelectExamples extends Component {
 
                                 <p><code>Tree</code>simple example.</p>
 
-                                <MaterialTreeSelect data={this.data}
+                                <MaterialTreeSelect theme={Theme.HIGHLIGHT}
+                                                    data={this.data}
                                                     value={{
                                                         id: '010',
                                                         text: 'Children 0 - 1 - 0',
