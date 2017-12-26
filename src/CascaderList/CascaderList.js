@@ -33,7 +33,7 @@ export default class CascaderList extends Component {
 
     changeHandler(path) {
 
-        const value = path[path.length - 1].value;
+        const value = path[path.length - 1].node;
 
         this.setState({
             path,
