@@ -23,10 +23,7 @@ export default class CascaderList extends Component {
 
         this.state = {
             value: props.value,
-            path: CascaderCalculation.calPath(props.value, {
-                ...props,
-                data: props.items
-            })
+            path: CascaderCalculation.calPath(props.value, {children: props.data}, props)
         };
 
         this.changeHandler = ::this.changeHandler;
@@ -49,19 +46,20 @@ export default class CascaderList extends Component {
     }
 
     render() {
-        const {className, style, listWidth, items, valueField, displayField} = this.props;
-        const {path, value} = this.state;
+
+        const {className, style, listWidth, data, valueField, displayField} = this.props,
+            {path, value} = this.state;
 
         return (
             <div className={`cascader-list ${className}`}
                  style={style}>
-                <CascaderListItem listData={items}
+                <CascaderListItem data={data}
                                   value={value}
                                   path={path}
                                   listWidth={listWidth}
                                   valueField={valueField}
                                   displayField={displayField}
-                                  depth={CascaderCalculation.calDepth(items, path)}
+                                  depth={CascaderCalculation.calDepth(data, path)}
                                   onChange={this.changeHandler}/>
             </div>
         );
@@ -93,7 +91,7 @@ CascaderList.propTypes = {
     /**
      * The item-data of CascaderList.
      */
-    items: PropTypes.oneOfType([
+    data: PropTypes.oneOfType([
 
         // not grouped
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
@@ -186,7 +184,7 @@ CascaderList.propTypes = {
         // grouped
         PropTypes.array
 
-    ]).isRequired,
+    ]),
 
     /**
      * The value field name in data. (default: "value")
@@ -207,11 +205,11 @@ CascaderList.propTypes = {
 
 CascaderList.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     listWidth: 200,
 
-    items: [],
+    data: null,
 
     valueField: 'value',
     displayField: 'text'
