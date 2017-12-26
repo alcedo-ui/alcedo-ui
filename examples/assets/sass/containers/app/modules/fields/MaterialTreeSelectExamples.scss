@@ -1,0 +1,12 @@
+@import '../../../../my-theme';
+
+.material-tree-select-examples {
+
+    .examples-wrapper {
+
+        .field-group {
+            @include float-fix;
+            float: none;
+        }
+    }
+}

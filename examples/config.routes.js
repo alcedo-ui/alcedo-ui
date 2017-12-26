@@ -118,6 +118,9 @@ export default function configureRoutes(store) {
                     path: '/components/MaterialEditableSelect',
                     component: ac(store, () => import('modules/fields/MaterialEditableSelectExamples'))
                 }, {
+                    path: '/components/MaterialTreeSelect',
+                    component: ac(store, () => import('modules/fields/MaterialTreeSelectExamples'))
+                }, {
                     path: '/components/DownloadField',
                     component: ac(store, () => import('modules/fields/DownloadFieldExamples'))
                 },
