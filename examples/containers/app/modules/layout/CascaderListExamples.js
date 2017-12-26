@@ -15,7 +15,9 @@ import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
 export default class CascaderListExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
         this.data = [{
             text: 'Asia',
             value: 'Asia',
@@ -87,7 +89,7 @@ export default class CascaderListExamples extends Component {
 
 
     changeHandler(value, path) {
-        console.log(value);
+        console.log(value, path);
     }
 
     render() {
@@ -112,7 +114,7 @@ export default class CascaderListExamples extends Component {
 
                                 <p>CascaderList simple example.</p>
 
-                                <CascaderList items={this.data}
+                                <CascaderList data={this.data}
                                               onChange={this.changeHandler}/>
 
                             </div>
@@ -133,7 +135,7 @@ export default class CascaderListExamples extends Component {
 
                                 <p>CascaderList with default value example.</p>
 
-                                <CascaderList items={this.data}
+                                <CascaderList data={this.data}
                                               value={'Shanghai'}
                                               onChange={this.changeHandler}/>
 
