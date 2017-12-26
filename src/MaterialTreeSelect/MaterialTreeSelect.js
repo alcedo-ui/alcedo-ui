@@ -110,7 +110,7 @@ export default class MaterialTreeSelect extends Component {
             {isFocus, isHover, value} = this.state,
 
             wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
+                + (isFocus ? ' focused' : '') + (value && value.length > 0 ? ' has-value' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'material-tree-select' + wrapperClassName}
