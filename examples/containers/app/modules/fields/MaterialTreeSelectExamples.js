@@ -15,7 +15,7 @@ export default class MaterialTreeSelectExamples extends Component {
     constructor(props) {
         super(props);
 
-        this.data = [{
+        this.data = {
             id: '0',
             text: 'Root',
             desc: 'Root',
@@ -45,7 +45,7 @@ export default class MaterialTreeSelectExamples extends Component {
                 text: 'Children 0 - 2',
                 desc: 'Children 0 - 2'
             }]
-        }];
+        };
 
         this.onChangeHandle = this::this.onChangeHandle;
 
@@ -78,6 +78,33 @@ export default class MaterialTreeSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
+                                <p><code>Tree</code>simple example.</p>
+
+                                <MaterialTreeSelect data={this.data}
+                                                    value={{
+                                                        id: '010',
+                                                        text: 'Children 0 - 1 - 0',
+                                                        desc: 'Children 0 - 1 - 0'
+                                                    }}
+                                                    onChange={this.onChangeHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
 
                                 <div className="field-group">
@@ -85,7 +112,6 @@ export default class MaterialTreeSelectExamples extends Component {
                                                         label="Label"
                                                         placeholder="Placeholder"
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
-                                                        useSelectAll={true}
                                                         autoClose={false}
                                                         data={this.data}
                                                         onChange={this.onChangeHandle}/>

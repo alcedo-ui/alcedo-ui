@@ -201,7 +201,10 @@ MaterialTreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    /**
+     * The options data.
+     */
+    data: PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -275,7 +278,7 @@ MaterialTreeSelect.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    })),
+    }),
 
     /**
      * The invalid message of dropDownSelect.
