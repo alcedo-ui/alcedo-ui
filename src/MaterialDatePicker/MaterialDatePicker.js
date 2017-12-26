@@ -30,8 +30,7 @@ export default class MaterialDatePicker extends Component {
             month: moment(props.value).format('MM'),
             day: moment(props.value).format('DD'),
             datePickerLevel: 0,
-            marginLeft: 0,
-            isFooter: true
+            marginLeft: 0
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
@@ -121,7 +120,7 @@ export default class MaterialDatePicker extends Component {
     }
 
     mousedownHandle(e) {
-        const flag = Event.triggerPopupEventHandle(e.target, require('react-dom').findDOMNode(this.refs.trigger), this.refs.popup, this.state.popupVisible);
+        const flag = this.triggerPopupEventHandle(e.target, require('react-dom').findDOMNode(this.refs.trigger), this.refs.popup, this.state.popupVisible);
         if (flag) {
             !this.props.disabled && this.setState({
                 popupVisible: flag
@@ -132,6 +131,26 @@ export default class MaterialDatePicker extends Component {
                 datePickerLevel: 0
             });
         }
+    }
+
+
+   triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
+
+        let flag = true;
+
+        while (el) {
+            if (el == popupEl) {
+                return currentVisible;
+            } else if (el == triggerEl) {
+                return true;
+            }
+            el = el.parentNode;
+        }
+
+        if (flag) {
+            return false;
+        }
+
     }
 
     resizeHandle() {
@@ -200,8 +219,8 @@ export default class MaterialDatePicker extends Component {
 
     render() {
 
-        const {className, style, name, label, placeholder, dateFormat, maxValue, minValue} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state,
+        const {className, style, name, label, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, marginLeft} = this.state,
 
             popStyle = {
                 left: '-' + marginLeft + 'px'
@@ -354,5 +373,6 @@ MaterialDatePicker.defaultProps = {
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
-    autoClose: true
+    autoClose: true,
+    isFooter:true
 };
