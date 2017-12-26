@@ -250,10 +250,12 @@ export default class TreeNode extends Component {
                                                   data={item}
                                                   index={index}
                                                   depth={depth + 1}
-                                                  path={path ? [...path, {index, value: item}] : [{
-                                                      index,
-                                                      value: item
-                                                  }]}/>
+                                                  path={
+                                                      path ?
+                                                          [...path, {index, node: item}]
+                                                          :
+                                                          [{index, node: item}]
+                                                  }/>
                                     );
                                 })
                             }
