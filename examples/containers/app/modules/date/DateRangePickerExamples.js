@@ -109,7 +109,6 @@ export default class DateRangePickerExamples extends Component {
                                     default value.</p>
 
                                 <DateRangePicker dateFormat={'YYYY-MM-DD'}
-                                                 placeholder="hello"
                                                  popupVisible={true}
                                                  maxValue={'2018-12-21'}
                                                  minValue={'2017-02-01'}/>

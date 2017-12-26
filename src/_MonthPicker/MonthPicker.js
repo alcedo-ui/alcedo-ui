@@ -192,17 +192,13 @@ export default class MonthPicker extends Component {
 };
 
 MonthPicker.propTypes = {
-
     className: PropTypes.string,
-    value: PropTypes.string,
-
+    value: PropTypes.any,
+    maxValue: PropTypes.any,
+    minValue: PropTypes.any,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    maxValue: PropTypes.string,
-    minValue: PropTypes.string,
-
     onChange: PropTypes.func,
     previousClick: PropTypes.func
-
 };

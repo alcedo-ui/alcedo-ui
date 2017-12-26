@@ -46,7 +46,7 @@ export default class TreeSelect extends Component {
 
     getTriggerValue(props = this.props) {
 
-        const {selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
+        const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
             {value, path} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
@@ -68,23 +68,28 @@ export default class TreeSelect extends Component {
 
         let result = [];
 
+        function addNode(node, i) {
+            result.push(
+                renderer ?
+                    <div key={2 * i + 1}
+                         className="tree-select-trigger-value-node">
+                        {renderer(node, path.slice(0, i + 1))}
+                    </div>
+                    :
+                    Util.getTextByDisplayField(node, displayField, valueField)
+            );
+        }
+
+        addNode(data, -1);
         if (path) {
             for (let i = 0, len = path.length; i < len; i++) {
 
-                if (i > 0) {
-                    result.push(
-                        <i key={2 * i}
-                           className="fa fa-angle-right tree-select-trigger-value-separator"/>
-                    );
-                }
+                result.push(
+                    <i key={2 * i}
+                       className="fa fa-angle-right tree-select-trigger-value-separator"/>
+                );
 
-                result.push(renderer ?
-                    <div key={2 * i + 1}
-                         className="tree-select-trigger-value-node">
-                        {renderer(path[i].value, path.slice(0, i + 1))}
-                    </div>
-                    :
-                    Util.getTextByDisplayField(path[i].value, displayField, valueField));
+                addNode(path[i].node, i);
 
             }
         }
@@ -145,9 +150,6 @@ export default class TreeSelect extends Component {
                 className, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField,
                 onItemTouchTap, popupChildren,
-
-                // not passing down these props
-                disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
 
                 ...restProps
 

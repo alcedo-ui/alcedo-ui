@@ -47,7 +47,7 @@ export default class CascaderListItem extends Component {
 
         let path = this.props.path.slice(0, currDepth + 1);
         path[currDepth] = {
-            value,
+            node: value,
             index
         };
 
@@ -121,7 +121,7 @@ CascaderListItem.propTypes = {
         /**
          *
          */
-        value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
 
         /**
          *
