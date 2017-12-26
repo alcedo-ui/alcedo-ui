@@ -15,7 +15,7 @@ export default class TreeExamples extends Component {
 
         super(props);
 
-        this.data = {
+        this.data = [{
             id: '0',
             text: 'Root',
             desc: 'Root',
@@ -45,18 +45,18 @@ export default class TreeExamples extends Component {
                 text: 'Children 0 - 2',
                 desc: 'Children 0 - 2'
             }]
-        };
+        }];
 
         this.changeHandler = this::this.changeHandler;
 
     }
 
     nodeSelectHandler(node, path) {
-        console.log(node, path);
+        console.log('Node Selected::', node, path);
     }
 
     changeHandler(value) {
-        console.log(value);
+        console.log('Changed::', value);
     }
 
     render() {
@@ -115,7 +115,9 @@ export default class TreeExamples extends Component {
                                                   <span className="self-define-node-text">{node.text}</span>
                                                   <span className="self-define-node-desc">{node.desc}</span>
                                               </div>;
-                                          }}/>
+                                          }}
+                                          onNodeSelect={this.nodeSelectHandler}
+                                          onChange={this.changeHandler}/>
                                 </Paper>
                             </div>
                         </div>
@@ -134,6 +136,7 @@ export default class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
+                                          onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
                             </div>
