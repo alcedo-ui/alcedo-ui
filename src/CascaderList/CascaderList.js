@@ -11,7 +11,7 @@ import Theme from '../Theme';
 import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
-import CascaderCalculation from '../_vendors/TreeCalculation';
+import TreeCalculation from '../_vendors/TreeCalculation';
 
 export default class CascaderList extends Component {
 
@@ -23,7 +23,7 @@ export default class CascaderList extends Component {
 
         this.state = {
             value: props.value,
-            path: CascaderCalculation.calPath(props.value, {children: props.data}, props)
+            path: TreeCalculation.calPath(props.value, {children: props.data}, props)
         };
 
         this.changeHandler = ::this.changeHandler;
@@ -59,7 +59,7 @@ export default class CascaderList extends Component {
                                   listWidth={listWidth}
                                   valueField={valueField}
                                   displayField={displayField}
-                                  depth={CascaderCalculation.calDepth(data, path)}
+                                  depth={TreeCalculation.calDepth(data, path)}
                                   onChange={this.changeHandler}/>
             </div>
         );
