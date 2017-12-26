@@ -1,5 +1,5 @@
 /**
- * @file CascaderCalculation vendor
+ * @file TreeCalculation vendor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -33,18 +33,15 @@ function calDepth(data, path) {
 
 }
 
-function calPath(value, props) {
-
-    const {data} = props;
+function calPath(value, data, props) {
 
     if (!value || !data) {
         return;
     }
 
-    return traverseData({
-        [rootSymbol]: true,
-        children: data
-    }, value, props);
+    data[rootSymbol] = true;
+
+    return traverseData(data, value, props);
 
 }
 

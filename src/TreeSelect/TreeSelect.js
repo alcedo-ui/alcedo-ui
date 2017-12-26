@@ -29,7 +29,7 @@ export default class TreeSelect extends Component {
             value: props.value,
             popupVisible: false,
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
-                TreeCalculation.calPath(props.value, props) : undefined
+                TreeCalculation.calPath(props.value, props.data, props) : undefined
         };
 
         this.closePopup = ::this.closePopup;
@@ -46,7 +46,7 @@ export default class TreeSelect extends Component {
 
     getTriggerValue(props = this.props) {
 
-        const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
+        const {selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
             {value, path} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
@@ -261,7 +261,7 @@ TreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -335,7 +335,7 @@ TreeSelect.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    })),
+    }),
 
     /**
      * The invalid message of dropDownSelect.
@@ -426,7 +426,7 @@ TreeSelect.defaultProps = {
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
-    data: [],
+    data: null,
     invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,

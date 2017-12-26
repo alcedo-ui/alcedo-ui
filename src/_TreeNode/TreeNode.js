@@ -12,7 +12,6 @@ import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
-import TreeNodeList from '../_TreeNodeList';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
@@ -231,11 +230,34 @@ export default class TreeNode extends Component {
                     </div>
                 </TipProvider>
 
+                {/*{*/}
+                {/*data.children ?*/}
+                {/*<TreeNodeList {...this.props}*/}
+                {/*data={data.children}*/}
+                {/*collapsed={collapsed}/>*/}
+                {/*:*/}
+                {/*null*/}
+                {/*}*/}
+
                 {
-                    data.children ?
-                        <TreeNodeList {...this.props}
-                                      data={data.children}
-                                      collapsed={collapsed}/>
+                    data.children && data.children.length > 0 ?
+                        <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
+                            {
+                                data.children.map((item, index) => {
+                                    return (
+                                        <TreeNode {...this.props}
+                                                  key={index}
+                                                  data={item}
+                                                  index={index}
+                                                  depth={depth + 1}
+                                                  path={path ? [...path, {index, value: item}] : [{
+                                                      index,
+                                                      value: item
+                                                  }]}/>
+                                    );
+                                })
+                            }
+                        </div>
                         :
                         null
                 }
@@ -291,7 +313,7 @@ TreeNode.propTypes = {
 TreeNode.defaultProps = {
 
     index: 0,
-    depth: -1,
+    depth: 0,
     path: null,
 
     theme: Theme.DEFAULT,
