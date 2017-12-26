@@ -53,6 +53,10 @@
     border: none !important;
     border-radius: 0 !important;
 
+    &.popup{
+        width: auto;
+    }
+
     .popup-content {
         @include float-fix;
         overflow: visible;
