@@ -1,5 +1,5 @@
 /**
- * @file DateTimePicker style
+ * @file DatePicker style
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -7,18 +7,15 @@ input::-ms-clear {
     display: none;
 }
 
-.date-time-picker {
+.material-date-picker {
     position: relative;
-    width: 240px;
-    height: 40px;
+    width: 300px;
 
     .date-picker-field {
-
-        @include shadow(1);
-
         width: 100%;
         height: 100%;
         border-radius: $theme-border-radius !important;
+        box-shadow: none;
 
         input {
             line-height: 20px;
@@ -35,11 +32,13 @@ input::-ms-clear {
             &.text-field-icon {
                 margin-left: 3px;
             }
+        }
+        button {
+            &.clear-icon {
+                display: none;
+            }
+        }
 
-        }
-        .clear-icon {
-            display: none;
-        }
         &.empty {
             input {
                 padding: 10px 20px 10px 43px !important;
@@ -52,10 +51,10 @@ input::-ms-clear {
         @include shadow(3);
 
         position: absolute;
-        top: 0;
+        top:56px;
         left: 0;
         width: 300px;
-        height: 344px;
+        height: 302px;
         overflow: hidden;
         background: #fff;
         border-radius: $theme-border-radius;
@@ -208,129 +207,52 @@ input::-ms-clear {
                                 width: 40px;
                                 height: 40px;
                                 color: $theme-field;
+                                background: $theme-field-bg;
                                 line-height: 40px;
                                 margin-top: 5px;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-
-                            &.current-months,
-                            &.current-years{
-                                &:hover{
-                                    a {
-                                        background: $theme-field-bg-active;
-                                        color: $theme-field-hover;
-                                    }
-                                }
-                                &.active {
-                                    a {
-                                        background: $theme-highlight;
-                                        color: #fff;
-                                    }
-                                    &:hover {
-                                        a {
-                                            background: theme-color-hover($theme-highlight);
-                                            color: #fff;
-                                        }
-                                    }
-                                }
-                            }
-
+                           &.current-months,
+                           &.current-years{
+                               &:hover{
+                                   a {
+                                       background: $theme-field-bg-active;
+                                       color: $theme-field-hover;
+                                   }
+                               }
+                               &.active {
+                                   a {
+                                       background: $theme-highlight;
+                                       color: #fff;
+                                   }
+                                   &:hover {
+                                       a {
+                                           background: theme-color-hover($theme-highlight);
+                                           color: #fff;
+                                       }
+                                   }
+                               }
+                           }
                         }
                     }
-                }
-            }
-            .timeItems {
-                width: 100px;
-                height: 260px;
-                margin: 0;
-                padding: 0 0 230px 0;
-                float: left;
-                overflow: hidden;
-                box-sizing: border-box;
-                transition: all $theme-transition-duration ease-in-out;
-                border-left: 1px solid $theme-border;
-                user-select: none;
-
-                &:first-child {
-                    border: none;
-                }
-                .timeList {
-                    width: 100%;
-                    margin: 0;
-                    padding: 0;
-                    overflow: hidden;
-                    transition: all $theme-transition-duration ease-in-out;
-                    li {
-                        list-style-type: none;
-                        height: 30px;
-                        width: 100%;
-                        padding-left: 40px;
-                        line-height: 30px;
-                        cursor: pointer;
-                        &:hover {
-                            background: $theme-field-bg-hover;
-                        }
-                        &.active {
-                            background: $theme-field-bg-active;
-                            color: $theme-field;
-                            font-weight: 600;
-                        }
-                        &.disabled {
-                            color: $theme-field-disabled;
-                            cursor: not-allowed;
-                        }
-                    }
-                }
-            }
-            &.time-picker-body {
-                overflow: hidden;
-                border-bottom: 1px solid $theme-border;
-                border-top: 1px solid $theme-border;
-                &.hidden {
-                    display: none;
                 }
             }
         }
         .calendar-footer {
             height: 40px;
             line-height: 40px;
-            overflow: hidden;
-            box-sizing: border-box;
-            padding: 0 16px;
-            .action {
-                width: 206px;
-                float: left;
+            text-align: center;
+            a {
+                text-decoration: none;
+                color: $theme-field;
+                position: relative;
                 overflow: hidden;
-                a {
-                    text-decoration: none;
-                    color: $theme-field;
-                    position: relative;
-                    overflow: hidden;
-                    .item-gray {
-                        color: $theme-field-disabled;
-                        cursor: not-allowed;
-                    }
-                    &.fl {
-                        float: left;
-                    }
-                    &.fr {
-                        float: right;
-                    }
+                .item-gray {
+                    color: $theme-field-disabled;
+                    cursor: not-allowed;
                 }
             }
-            .select-button {
-                float: left;
-                margin-left: 20px;
-                .raised-button {
-                    padding: 0;
-                    width: 26px;
-                    height: 26px;
-                    line-height: 20px;
-                    text-align: center;
-                }
-            }
-
         }
 
     }

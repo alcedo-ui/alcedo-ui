@@ -54,6 +54,9 @@ export default [{
     }, {
         text: 'DateTimePicker',
         route: '/components/DateTimePicker'
+    },{
+        text: 'MaterialDatePicker',
+        route: '/components/MaterialDatePicker'
     }]
 }, {
     text: 'Field',
@@ -132,6 +135,9 @@ export default [{
     }, {
         text: 'MaterialEditableSelect',
         route: '/components/MaterialEditableSelect'
+    }, {
+        text: 'MaterialTreeSelect',
+        route: '/components/MaterialTreeSelect'
     }, {
         text: 'DownloadField',
         route: '/components/DownloadField'

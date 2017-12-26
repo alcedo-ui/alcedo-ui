@@ -385,7 +385,7 @@ export default class DayPicker extends Component {
             }
         }
         return (
-            <div className={`calendar ${className}`}>
+            <div className={`calendar`}>
                 <div className="calendar-header">
                     {
                         minValue ?
@@ -476,23 +476,19 @@ export default class DayPicker extends Component {
 };
 
 DayPicker.propTypes = {
-
     className: PropTypes.string,
     style: PropTypes.object,
-
-    value: PropTypes.string,
+    value: PropTypes.any,
+    maxValue: PropTypes.any,
+    minValue: PropTypes.any,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    maxValue: PropTypes.string,
-    minValue: PropTypes.string,
     dateFormat: PropTypes.string,
     isRange: PropTypes.bool,
     isFooter: PropTypes.bool,
-
     onChange: PropTypes.func,
     previousClick: PropTypes.func
-
 };
 
 DayPicker.defaultProps = {

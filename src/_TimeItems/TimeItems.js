@@ -105,11 +105,8 @@ export default class TimeItems extends Component {
     }
 }
 
-TimeItems.PropTypes = {
-
+TimeItems.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-
     data: PropTypes.array
-
 };
