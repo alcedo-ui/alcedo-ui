@@ -89,7 +89,7 @@ export default class TreeSelect extends Component {
                        className="fa fa-angle-right tree-select-trigger-value-separator"/>
                 );
 
-                addNode(path[i].value, i);
+                addNode(path[i].node, i);
 
             }
         }
