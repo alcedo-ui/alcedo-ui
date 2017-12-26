@@ -58,7 +58,7 @@ export default class CascaderField extends Component {
         }
 
         const {valueField, displayField, separator} = props;
-        return path.map(item => Util.getTextByDisplayField(item.value, displayField, valueField))
+        return path.map(item => Util.getTextByDisplayField(item.node, displayField, valueField))
         .join(` ${separator} `);
 
     }
