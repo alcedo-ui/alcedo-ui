@@ -1,0 +1,135 @@
+import React, {Component} from 'react';
+
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
+import MaterialTreeSelect from 'src/MaterialTreeSelect/index';
+import Theme from 'src/Theme/index';
+
+import PropTypeDescTable from '../PropTypeDescTable';
+import MaterialTreeSelectDoc from 'examples/assets/propTypes/MaterialTreeSelect.json';
+
+import 'sass/containers/app/modules/fields/MaterialTreeSelectExamples.scss';
+
+export default class MaterialTreeSelectExamples extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.data = {
+            id: '0',
+            text: 'Root',
+            desc: 'Root',
+            children: [{
+                id: '00',
+                text: 'Children 0 - 0',
+                desc: 'Children 0 - 0'
+            }, {
+                id: '01',
+                text: 'Children 0 - 1',
+                desc: 'Children 0 - 1',
+                children: [{
+                    id: '010',
+                    text: 'Children 0 - 1 - 0',
+                    desc: 'Children 0 - 1 - 0'
+                }, {
+                    id: '011',
+                    text: 'Children 0 - 1 - 1',
+                    desc: 'Children 0 - 1 - 1'
+                }, {
+                    id: '012',
+                    text: 'Children 0 - 1 - 2',
+                    desc: 'Children 0 - 1 - 2'
+                }]
+            }, {
+                id: '02',
+                text: 'Children 0 - 2',
+                desc: 'Children 0 - 2'
+            }]
+        };
+
+        this.onChangeHandle = this::this.onChangeHandle;
+
+    }
+
+    onChangeHandle(value) {
+        console.log(value);
+    }
+
+    render() {
+        return (
+            <div className="example material-tree-select-examples">
+
+                <h2 className="examples-title">MaterialTreeSelectExamples</h2>
+
+                <p>
+                    <span>MaterialTreeSelect</span> use to store operating elements. Click on the contact and a
+                    drop-down menu will appear. You can select from the list and execute the appropriate command.
+                </p>
+
+                <h2 className="example-title">Examples</h2>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Tree</code>simple example.</p>
+
+                                <MaterialTreeSelect theme={Theme.HIGHLIGHT}
+                                                    data={this.data}
+                                                    value={{
+                                                        id: '010',
+                                                        text: 'Children 0 - 1 - 0',
+                                                        desc: 'Children 0 - 1 - 0'
+                                                    }}
+                                                    onChange={this.onChangeHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialDropdownSelect</code> simple example.</p>
+
+                                <div className="field-group">
+                                    <MaterialTreeSelect theme={Theme.HIGHLIGHT}
+                                                        label="Label"
+                                                        placeholder="Placeholder"
+                                                        selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
+                                                        autoClose={false}
+                                                        data={this.data}
+                                                        onChange={this.onChangeHandle}/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <h2 className="example-title">Properties</h2>
+
+                <PropTypeDescTable data={MaterialTreeSelectDoc}/>
+
+            </div>
+
+        );
+    }
+};

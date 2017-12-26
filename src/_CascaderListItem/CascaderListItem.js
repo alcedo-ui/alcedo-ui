@@ -47,7 +47,7 @@ export default class CascaderListItem extends Component {
 
         let path = this.props.path.slice(0, currDepth + 1);
         path[currDepth] = {
-            value,
+            node: value,
             index
         };
 
@@ -57,10 +57,10 @@ export default class CascaderListItem extends Component {
 
     render() {
 
-        const {listWidth, listData, valueField, displayField, path, depth} = this.props,
+        const {listWidth, data, valueField, displayField, path, depth} = this.props,
 
             currDepth = this.props.currDepth || 0,
-            activatedNode = currDepth in path ? listData[path[currDepth].index] : null,
+            activatedNode = currDepth in path ? data[path[currDepth].index] : null,
             hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
 
             listStyle = currDepth === 0 ?
@@ -80,7 +80,7 @@ export default class CascaderListItem extends Component {
 
                 <List className={'cascader-popup-list' + popupListClassName}
                       style={popupListStyle}
-                      data={this.formatData(listData)}
+                      data={this.formatData(data)}
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
@@ -89,7 +89,7 @@ export default class CascaderListItem extends Component {
                 {
                     hasChildren ?
                         <CascaderListItem {...this.props}
-                                          listData={activatedNode.children}
+                                          data={activatedNode.children}
                                           currDepth={currDepth + 1}/>
                         :
                         null
@@ -111,7 +111,7 @@ CascaderListItem.propTypes = {
     /**
      * The data of cascader-list.
      */
-    listData: PropTypes.array,
+    data: PropTypes.array,
 
     /**
      *
@@ -121,7 +121,7 @@ CascaderListItem.propTypes = {
         /**
          *
          */
-        value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
 
         /**
          *
@@ -156,7 +156,7 @@ CascaderListItem.defaultProps = {
 
     listWidth: 200,
 
-    listData: [],
+    data: [],
 
     path: [],
 

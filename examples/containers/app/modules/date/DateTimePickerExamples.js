@@ -106,7 +106,7 @@ export default class DateTimePickerExamples extends Component {
                                 <DateTimePicker value='2017-04-21 12:23:10'
                                                 maxValue="2017-09-12 12:23:00"
                                                 minValue='2017-01-01 12:55:55'
-                                                dateFormat="YY/MM/DD HH:mm"
+                                                dateFormat="YYYY/MM/DD HH:mm"
                                                 placeholder="2017-05-03 11:05:20"/>
                             </div>
 

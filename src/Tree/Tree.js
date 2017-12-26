@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TreeNodeList from '../_TreeNodeList';
+import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -117,26 +117,26 @@ export default class Tree extends Component {
                      Event.wheelHandler(e, this.props);
                  }}>
 
-                <TreeNodeList data={data}
-                              value={value}
-                              theme={theme}
-                              idField={idField}
-                              valueField={valueField}
-                              displayField={displayField}
-                              descriptionField={descriptionField}
-                              disabled={disabled}
-                              isLoading={isLoading}
-                              readOnly={readOnly}
-                              selectMode={selectMode}
-                              renderer={renderer}
-                              allowCollapse={allowCollapse}
-                              collapsedIconCls={collapsedIconCls}
-                              expandedIconCls={expandedIconCls}
-                              onTouchTap={(...args) => {
-                                  onNodeTouchTap && onNodeTouchTap(...args);
-                              }}
-                              onSelect={this.treeNodeSelectHandler}
-                              onDeselect={this.treeNodeDeselectHandler}/>
+                <TreeNode data={data}
+                          value={value}
+                          theme={theme}
+                          idField={idField}
+                          valueField={valueField}
+                          displayField={displayField}
+                          descriptionField={descriptionField}
+                          disabled={disabled}
+                          isLoading={isLoading}
+                          readOnly={readOnly}
+                          selectMode={selectMode}
+                          renderer={renderer}
+                          allowCollapse={allowCollapse}
+                          collapsedIconCls={collapsedIconCls}
+                          expandedIconCls={expandedIconCls}
+                          onTouchTap={(...args) => {
+                              onNodeTouchTap && onNodeTouchTap(...args);
+                          }}
+                          onSelect={this.treeNodeSelectHandler}
+                          onDeselect={this.treeNodeDeselectHandler}/>
 
                 {children}
 
@@ -175,7 +175,7 @@ Tree.propTypes = {
     /**
      * Children passed into the tree node.
      */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -249,7 +249,7 @@ Tree.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    })),
+    }),
 
     /**
      * The id field name in data. (default: "id")
@@ -330,7 +330,7 @@ Tree.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    data: [],
+    data: null,
 
     idField: 'id',
     valueField: 'value',

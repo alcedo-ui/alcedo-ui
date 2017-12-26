@@ -146,9 +146,6 @@ export default class DropdownSelect extends Component {
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 onItemTouchTap, popupChildren,
 
-                // not passing down these props
-                disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
-
                 ...restProps
 
             } = this.props,

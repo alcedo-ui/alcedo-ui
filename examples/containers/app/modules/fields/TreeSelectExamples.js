@@ -15,7 +15,7 @@ export default class TreeSelectExamples extends Component {
 
         super(props);
 
-        this.data = [{
+        this.data = {
             id: '0',
             text: 'Root',
             desc: 'Root',
@@ -45,7 +45,7 @@ export default class TreeSelectExamples extends Component {
                 text: 'Children 0 - 2',
                 desc: 'Children 0 - 2'
             }]
-        }];
+        };
 
         this.changeHandler = this::this.changeHandler;
 

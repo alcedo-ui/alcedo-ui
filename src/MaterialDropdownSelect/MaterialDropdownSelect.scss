@@ -20,17 +20,21 @@
     .dropdown-select {
         width: 100%;
 
-        .dropdown-trigger {
+        .dropdown {
             width: 100%;
-            border: none;
-            border-radius: 0;
-            border-bottom: 1px solid $theme-border;
-            padding-left: 8px;
-            background: transparent;
-            box-shadow: none !important;
 
-            .base-button-value {
-                transition: opacity $theme-transition-duration ease-in-out;
+            .dropdown-trigger {
+                width: 100%;
+                border: none;
+                border-radius: 0;
+                border-bottom: 1px solid $theme-border;
+                padding-left: 8px;
+                background: transparent;
+                box-shadow: none !important;
+
+                .base-button-value {
+                    transition: opacity $theme-transition-duration ease-in-out;
+                }
             }
         }
     }

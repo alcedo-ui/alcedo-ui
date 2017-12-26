@@ -29,7 +29,7 @@ export default class TreeSelect extends Component {
             value: props.value,
             popupVisible: false,
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
-                TreeCalculation.calPath(props.value, props) : undefined
+                TreeCalculation.calPath(props.value, props.data, props) : undefined
         };
 
         this.closePopup = ::this.closePopup;
@@ -68,23 +68,28 @@ export default class TreeSelect extends Component {
 
         let result = [];
 
+        function addNode(node, i) {
+            result.push(
+                renderer ?
+                    <div key={2 * i + 1}
+                         className="tree-select-trigger-value-node">
+                        {renderer(node, path.slice(0, i + 1))}
+                    </div>
+                    :
+                    Util.getTextByDisplayField(node, displayField, valueField)
+            );
+        }
+
+        addNode(data, -1);
         if (path) {
             for (let i = 0, len = path.length; i < len; i++) {
 
-                if (i > 0) {
-                    result.push(
-                        <i key={2 * i}
-                           className="fa fa-angle-right tree-select-trigger-value-separator"/>
-                    );
-                }
+                result.push(
+                    <i key={2 * i}
+                       className="fa fa-angle-right tree-select-trigger-value-separator"/>
+                );
 
-                result.push(renderer ?
-                    <div key={2 * i + 1}
-                         className="tree-select-trigger-value-node">
-                        {renderer(path[i].value, path.slice(0, i + 1))}
-                    </div>
-                    :
-                    Util.getTextByDisplayField(path[i].value, displayField, valueField));
+                addNode(path[i].node, i);
 
             }
         }
@@ -145,9 +150,6 @@ export default class TreeSelect extends Component {
                 className, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField,
                 onItemTouchTap, popupChildren,
-
-                // not passing down these props
-                disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
 
                 ...restProps
 
@@ -261,7 +263,7 @@ TreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -335,7 +337,7 @@ TreeSelect.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    })),
+    }),
 
     /**
      * The invalid message of dropDownSelect.
@@ -426,7 +428,7 @@ TreeSelect.defaultProps = {
     value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
-    data: [],
+    data: null,
     invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,

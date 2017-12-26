@@ -1,11 +1,9 @@
 /**
- * @file CascaderCalculation vendor
+ * @file TreeCalculation vendor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import Util from './Util';
-
-const rootSymbol = Symbol('root');
 
 function calDepth(data, path) {
 
@@ -33,22 +31,17 @@ function calDepth(data, path) {
 
 }
 
-function calPath(value, props) {
-
-    const {data} = props;
+function calPath(value, data, props) {
 
     if (!value || !data) {
         return;
     }
 
-    return traverseData({
-        [rootSymbol]: true,
-        children: data
-    }, value, props);
+    return traverseData(data, value, props, null);
 
 }
 
-function traverseData(node, value, props, index = 0) {
+function traverseData(node, value, props, parent, index = 0) {
 
     if (!node || node.length < 1 || !value) {
         return;
@@ -62,18 +55,18 @@ function traverseData(node, value, props, index = 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
 
             // traverse child node
-            const path = traverseData(node.children[i], value, props, i);
+            const path = traverseData(node.children[i], value, props, node, i);
 
             // if finded in child node
             if (path) {
 
-                if (node[rootSymbol]) {
+                if (!parent) {
                     return path;
                 }
 
                 path.unshift({
-                    value: node,
-                    index: index
+                    node,
+                    index
                 });
                 return path;
 
@@ -85,7 +78,7 @@ function traverseData(node, value, props, index = 0) {
     if (Util.getValueByValueField(node, valueField, displayField)
         === Util.getValueByValueField(value, valueField, displayField)) {
         return [{
-            value: node,
+            node,
             index
         }];
     }

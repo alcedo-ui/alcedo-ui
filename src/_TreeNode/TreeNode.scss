@@ -148,4 +148,12 @@
             @include tree-node-theme(#fff, $theme-error);
         }
     }
+
+    .tree-node-children {
+
+        &.collapsed {
+            height: 0;
+            overflow: hidden;
+        }
+    }
 }

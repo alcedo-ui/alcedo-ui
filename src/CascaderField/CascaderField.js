@@ -13,7 +13,7 @@ import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import CascaderCalculation from '../_vendors/TreeCalculation';
+import TreeCalculation from '../_vendors/TreeCalculation';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class CascaderField extends Component {
@@ -28,7 +28,7 @@ export default class CascaderField extends Component {
             popupVisible: false,
             isAbove: false,
             value: props.value,
-            displayValue: this.calDisplayValue(CascaderCalculation.calPath(props.value, props))
+            displayValue: this.calDisplayValue(TreeCalculation.calPath(props.value, {children: props.data}, props))
         };
 
         this.togglePopup = ::this.togglePopup;
@@ -58,7 +58,7 @@ export default class CascaderField extends Component {
         }
 
         const {valueField, displayField, separator} = props;
-        return path.map(item => Util.getTextByDisplayField(item.value, displayField, valueField))
+        return path.map(item => Util.getTextByDisplayField(item.node, displayField, valueField))
         .join(` ${separator} `);
 
     }
@@ -147,7 +147,7 @@ export default class CascaderField extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <CascaderList items={data}
+                    <CascaderList data={data}
                                   value={value}
                                   listWidth={listWidth}
                                   valueField={valueField}
