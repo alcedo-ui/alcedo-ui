@@ -65,8 +65,8 @@ function traverseData(node, value, props, parent, index = 0) {
                 }
 
                 path.unshift({
-                    value: node,
-                    index: index
+                    node,
+                    index
                 });
                 return path;
 
@@ -78,7 +78,7 @@ function traverseData(node, value, props, parent, index = 0) {
     if (Util.getValueByValueField(node, valueField, displayField)
         === Util.getValueByValueField(value, valueField, displayField)) {
         return [{
-            value: node,
+            node,
             index
         }];
     }
