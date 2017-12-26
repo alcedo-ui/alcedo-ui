@@ -151,9 +151,6 @@ export default class TreeSelect extends Component {
                 selectMode, valueField, displayField, descriptionField,
                 onItemTouchTap, popupChildren,
 
-                // not passing down these props
-                disableTouchRipple, onTriggerMouseOver, onTriggerMouseOut,
-
                 ...restProps
 
             } = this.props,
