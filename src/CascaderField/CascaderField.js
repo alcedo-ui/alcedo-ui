@@ -28,7 +28,7 @@ export default class CascaderField extends Component {
             popupVisible: false,
             isAbove: false,
             value: props.value,
-            displayValue: this.calDisplayValue(CascaderCalculation.calPath(props.value, props))
+            displayValue: this.calDisplayValue(CascaderCalculation.calPath(props.value, {children: props.data}, props))
         };
 
         this.togglePopup = ::this.togglePopup;
