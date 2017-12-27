@@ -37,11 +37,11 @@ function calPath(value, data, props) {
         return;
     }
 
-    return traverseData(data, value, props, null);
+    return traverseDataCalPath(data, value, props, null);
 
 }
 
-function traverseData(node, value, props, parent, index = 0) {
+function traverseDataCalPath(node, value, props, parent, index = 0) {
 
     if (!node || node.length < 1 || !value) {
         return;
@@ -55,7 +55,7 @@ function traverseData(node, value, props, parent, index = 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
 
             // traverse child node
-            const path = traverseData(node.children[i], value, props, node, i);
+            const path = traverseDataCalPath(node.children[i], value, props, node, i);
 
             // if finded in child node
             if (path) {
@@ -87,7 +87,29 @@ function traverseData(node, value, props, parent, index = 0) {
 
 }
 
+function findNodeById(node, id, callback, index = null, parent = null) {
+
+    if (!node) {
+        return;
+    }
+
+    if (node.id === id) {
+        callback && callback(node, index, parent);
+        return true;
+    }
+
+    if (node.children && node.children.length > 0) {
+        for (let i = 0, len = node.children.length; i < len; i++) {
+            if (findNodeById(node.children[i], id, callback, i, node)) {
+                return;
+            }
+        }
+    }
+
+}
+
 export default {
     calDepth,
-    calPath
+    calPath,
+    findNodeById
 };
