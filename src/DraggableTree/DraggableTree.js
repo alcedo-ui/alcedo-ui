@@ -26,6 +26,7 @@ export default class DraggableTree extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            data: props.data,
             value: Calculation.getInitValue(props)
         };
 
@@ -104,21 +105,32 @@ export default class DraggableTree extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
+
+        let state;
+
+        if (nextProps.data !== this.state.data) {
+            state = state ? state : {};
+            state.data = nextProps.data;
         }
+        if (nextProps.value !== this.state.value) {
+            state = state ? state : {};
+            state.value = Calculation.getInitValue(nextProps);
+        }
+
+        if (state) {
+            this.setState(state);
+        }
+
     }
 
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
+                children, className, style, theme, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 renderer, onNodeTouchTap, onNodeDragStart
             } = this.props,
-            {value} = this.state,
+            {data, value} = this.state,
             treeClassName = (className ? ' ' + className : '');
 
         return (
