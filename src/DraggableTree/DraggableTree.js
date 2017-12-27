@@ -97,8 +97,6 @@ export default class DraggableTree extends Component {
 
     onNodeDragEnd(result) {
 
-        console.log(result);
-
         /**
          *  result: {
          *      draggableId,
@@ -115,8 +113,8 @@ export default class DraggableTree extends Component {
          */
 
         if (!result || !('draggableId' in result)
-            || !('source' in result) || !('index' in result.source)
-            || !('destination' in result) || !('index' in result.destination)) {
+            || !result.source || !('index' in result.source)
+            || !result.destination || !('index' in result.destination)) {
             return;
         }
 
