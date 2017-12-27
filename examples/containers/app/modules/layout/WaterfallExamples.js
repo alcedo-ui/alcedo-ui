@@ -6,7 +6,7 @@ import Waterfall from 'src/Waterfall';
 import Paper from 'src/Paper';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import WaterfallDoc from 'assets/propTypes/Waterfall.json';
 
 import 'sass/containers/app/modules/layout/WaterfallExamples.scss';

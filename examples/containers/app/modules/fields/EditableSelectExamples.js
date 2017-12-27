@@ -4,7 +4,7 @@ import EditableSelect from 'src/EditableSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import EditableSelectDoc from 'assets/propTypes/EditableSelect.json';
 
 import 'sass/containers/app/modules/fields/EditableSelectExamples.scss';

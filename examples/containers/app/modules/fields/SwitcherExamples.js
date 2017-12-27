@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import SwitcherDoc from 'assets/propTypes/Switcher.json';
 
 import 'sass/containers/app/modules/fields/SwitcherExamples.scss';

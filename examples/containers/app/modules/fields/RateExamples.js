@@ -4,7 +4,7 @@ import Rate from 'src/Rate';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import RateDoc from 'assets/propTypes/Rate.json';
 
 import 'sass/containers/app/modules/fields/RateExamples.scss';

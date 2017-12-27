@@ -7,7 +7,7 @@ import DateRangePicker from 'src/DateRangePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import DateRangePickerDoc from 'assets/propTypes/DateRangePicker.json';
 
 import 'sass/containers/app/modules/date/DateRangePickerExamples.scss';
@@ -83,7 +83,8 @@ export default class DateRangePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Date Range Picker</code> using the <code>maxValue</code> property and <code>minValue</code>
+                                <p><code>Date Range Picker</code> using the <code>maxValue</code> property
+                                    and <code>minValue</code>
                                     property to set date selectable range.</p>
 
                                 <DateRangePicker dateFormat={'YYYY-MM-DD'}

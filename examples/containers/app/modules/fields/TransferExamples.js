@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import Transfer from 'src/Transfer';
 import TransferDoc from 'assets/propTypes/Transfer.json';
 

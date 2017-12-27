@@ -5,7 +5,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import MaterialTextArea from 'src/MaterialTextArea';
 import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import MaterialTextAreaDoc from 'examples/assets/propTypes/MaterialTextArea.json';
 
 import 'sass/containers/app/modules/fields/MaterialTextAreaExamples.scss';

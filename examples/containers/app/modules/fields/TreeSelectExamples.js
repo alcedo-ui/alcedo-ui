@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import TreeSelect from 'src/TreeSelect';
 
 import doc from 'examples/assets/propTypes/TreeSelect.json';

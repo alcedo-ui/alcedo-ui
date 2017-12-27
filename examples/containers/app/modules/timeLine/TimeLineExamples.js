@@ -1,15 +1,11 @@
-/**
- * Created by Wendy on 2017/5/3.
- */
 import React, {Component} from 'react';
-import moment from 'moment';
 
 import TimeLine from 'src/TimeLine';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import TimeLineDoc from 'assets/propTypes/TimeLine.json';
 
 import 'sass/containers/app/modules/timeLine/TimeLineExamples.scss';
@@ -54,7 +50,7 @@ export default class TimeLineExamples extends Component {
             hasBorder: true,
             contentText: 'welcome to China.',
             date: '2017-05-03 15:16:34'
-        },{
+        }, {
             type: 'header',
             headerText: '2016'
         }];
@@ -91,6 +87,6 @@ export default class TimeLineExamples extends Component {
                 <PropTypeDescTable data={TimeLineDoc}/>
 
             </div>
-        )
+        );
     }
 }

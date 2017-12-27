@@ -4,7 +4,7 @@ import DropdownFilter from 'src/DropdownFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownFilter.json';
 
 export default class DropdownFilterExamples extends Component {

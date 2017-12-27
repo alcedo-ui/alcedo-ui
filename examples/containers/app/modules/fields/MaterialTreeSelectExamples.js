@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
-import MaterialTreeSelect from 'src/MaterialTreeSelect/index';
-import Theme from 'src/Theme/index';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import MaterialTreeSelect from 'src/MaterialTreeSelect';
+import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialTreeSelectDoc from 'examples/assets/propTypes/MaterialTreeSelect.json';
+import PropTypeDescTable from 'components/PropTypeDescTable';
+import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialTreeSelectExamples.scss';
 
@@ -126,7 +126,7 @@ export default class MaterialTreeSelectExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialTreeSelectDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 

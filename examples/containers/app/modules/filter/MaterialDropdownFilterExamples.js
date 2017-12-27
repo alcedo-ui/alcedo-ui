@@ -5,7 +5,7 @@ import Widget from 'src/Widget/index';
 import WidgetHeader from 'src/WidgetHeader/index';
 import Theme from 'src/Theme/index';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialDropdownFilter.json';
 
 export default class MaterialDropdownFilterExamples extends Component {

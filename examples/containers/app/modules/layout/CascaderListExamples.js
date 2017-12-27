@@ -7,7 +7,7 @@ import Widget from 'src/Widget/index';
 import WidgetHeader from 'src/WidgetHeader/index';
 import CascaderList from 'src/CascaderList/index';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import CascaderListDoc from 'assets/propTypes/CascaderList.json';
 
 import 'sass/containers/app/modules/layout/CascaderListExamples.scss';

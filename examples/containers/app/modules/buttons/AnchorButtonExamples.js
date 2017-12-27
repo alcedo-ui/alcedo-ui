@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../../../../components/PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import AnchorButtonDoc from 'assets/propTypes/AnchorButton.json';
 
 import 'sass/containers/app/modules/buttons/AnchorButtonExamples.scss';
