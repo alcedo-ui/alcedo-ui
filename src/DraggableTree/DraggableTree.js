@@ -93,7 +93,9 @@ export default class DraggableTree extends Component {
 
     }
 
-    onNodeDragEnd() {
+    onNodeDragEnd(result) {
+
+        console.log(result);
 
         const {onNodeDragEnd} = this.props;
 
