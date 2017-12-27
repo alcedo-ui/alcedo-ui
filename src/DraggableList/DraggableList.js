@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
 
 import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
@@ -17,8 +16,6 @@ import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
-
-const ScrollingComponent = withScrolling('div');
 
 export default class DraggableList extends Component {
 
@@ -31,29 +28,11 @@ export default class DraggableList extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            data: props.data,
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemMoveHandler = ::this.listItemMoveHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-
-    }
-
-    listItemMoveHandler(dragIndex, hoverIndex, props) {
-
-        const {data} = this.state,
-            dragItem = data.splice(dragIndex, 1);
-
-        data.splice(hoverIndex, 0, ...dragItem);
-
-        this.setState({
-            data
-        }, () => {
-            const {onSequenceChange} = this.props;
-            onSequenceChange && onSequenceChange(data);
-        });
 
     }
 
@@ -116,50 +95,35 @@ export default class DraggableList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
-        let state;
-
-        if (nextProps.data !== this.state.data) {
-            state = state ? state : {};
-            state.data = nextProps.data;
-        }
         if (nextProps.value !== this.state.value) {
-            state = state ? state : {};
-            state.value = Calculation.getInitValue(nextProps);
+            this.setState({
+                value: Calculation.getInitValue(nextProps)
+            });
         }
-
-        if (state) {
-            this.setState(state);
-        }
-
     }
 
     render() {
 
         const {
 
-                children, className, style, theme, itemHeight,
+                children, className, style, theme, data, itemHeight,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
-
-                scrollSpeed, scrollBuffer
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap
 
             } = this.props,
-            {data, value} = this.state,
+            {value} = this.state,
             listClassName = (className ? ' ' + className : '');
 
         return (
-            <ScrollingComponent className={'draggable-list' + listClassName}
-                                disabled={disabled}
-                                style={style}
-                                strengthMultiplier={scrollSpeed}
-                                verticalStrength={createVerticalStrength(scrollBuffer)}
-                                onWheel={e => {
-                                    Event.wheelHandler(e, this.props);
-                                }}>
+            <div className={'draggable-list' + listClassName}
+                 disabled={disabled}
+                 style={style}
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
                 {
                     _.isArray(data) && data.length > 0 ?
@@ -193,7 +157,6 @@ export default class DraggableList extends Component {
                                                            isLoading={isLoading || item.isLoading}
                                                            selectMode={selectMode}
                                                            renderer={renderer}
-                                                           onMove={this.listItemMoveHandler}
                                                            onTouchTap={e => {
                                                                onItemTouchTap && onItemTouchTap(item, index, e);
                                                                item.onTouchTap && item.onTouchTap(e);
@@ -225,7 +188,6 @@ export default class DraggableList extends Component {
                                                            isLoading={isLoading}
                                                            selectMode={selectMode}
                                                            renderer={renderer}
-                                                           onMove={this.listItemMoveHandler}
                                                            onTouchTap={e => {
                                                                onItemTouchTap && onItemTouchTap(item, index, e);
                                                            }}
@@ -245,7 +207,7 @@ export default class DraggableList extends Component {
 
                 {children}
 
-            </ScrollingComponent>
+            </div>
         );
     }
 };
@@ -396,16 +358,6 @@ DraggableList.propTypes = {
      */
     isLoading: PropTypes.bool,
 
-    /**
-     * The speed of scroll bar.
-     */
-    scrollSpeed: PropTypes.number,
-
-    /**
-     * The number of overflows.
-     */
-    scrollBuffer: PropTypes.number,
-
     shouldPreventContainerScroll: PropTypes.bool,
 
     radioUncheckedIconCls: PropTypes.string,
@@ -440,11 +392,6 @@ DraggableList.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Callback function fired when select item sequence changed.
-     */
-    onSequenceChange: PropTypes.func,
-
-    /**
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func
@@ -467,9 +414,6 @@ DraggableList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-
-    scrollSpeed: 20,
-    scrollBuffer: 40,
     shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: null,
