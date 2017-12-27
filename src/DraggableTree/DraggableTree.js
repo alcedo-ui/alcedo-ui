@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {DragDropContext} from 'react-beautiful-dnd';
 
 import DraggableTreeNode from '../_DraggableTreeNode';
 import Tip from '../Tip';
@@ -30,6 +31,7 @@ export default class DraggableTree extends Component {
 
         this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
         this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
+        this.onNodeDragEnd = ::this.onNodeDragEnd;
 
     }
 
@@ -91,6 +93,14 @@ export default class DraggableTree extends Component {
 
     }
 
+    onNodeDragEnd() {
+
+        const {onNodeDragEnd} = this.props;
+
+        onNodeDragEnd && onNodeDragEnd();
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -104,43 +114,48 @@ export default class DraggableTree extends Component {
         const {
                 children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap
+                renderer, onNodeTouchTap, onNodeDragStart
             } = this.props,
             {value} = this.state,
             treeClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'draggable-tree' + treeClassName}
-                 disabled={disabled}
-                 style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+            <DragDropContext onDragStart={onNodeDragStart}
+                             onDragEnd={this.onNodeDragEnd}>
 
-                <DraggableTreeNode data={data}
-                                   value={value}
-                                   theme={theme}
-                                   idField={idField}
-                                   valueField={valueField}
-                                   displayField={displayField}
-                                   descriptionField={descriptionField}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   readOnly={readOnly}
-                                   selectMode={selectMode}
-                                   renderer={renderer}
-                                   allowCollapse={allowCollapse}
-                                   collapsedIconCls={collapsedIconCls}
-                                   expandedIconCls={expandedIconCls}
-                                   onTouchTap={(...args) => {
-                                       onNodeTouchTap && onNodeTouchTap(...args);
-                                   }}
-                                   onSelect={this.treeNodeSelectHandler}
-                                   onDeselect={this.treeNodeDeselectHandler}/>
+                <div className={'draggable-tree' + treeClassName}
+                     disabled={disabled}
+                     style={style}
+                     onWheel={e => {
+                         Event.wheelHandler(e, this.props);
+                     }}>
 
-                {children}
+                    <DraggableTreeNode data={data}
+                                       value={value}
+                                       theme={theme}
+                                       idField={idField}
+                                       valueField={valueField}
+                                       displayField={displayField}
+                                       descriptionField={descriptionField}
+                                       disabled={disabled}
+                                       isLoading={isLoading}
+                                       readOnly={readOnly}
+                                       selectMode={selectMode}
+                                       renderer={renderer}
+                                       allowCollapse={allowCollapse}
+                                       collapsedIconCls={collapsedIconCls}
+                                       expandedIconCls={expandedIconCls}
+                                       onTouchTap={(...args) => {
+                                           onNodeTouchTap && onNodeTouchTap(...args);
+                                       }}
+                                       onSelect={this.treeNodeSelectHandler}
+                                       onDeselect={this.treeNodeDeselectHandler}/>
 
-            </div>
+                    {children}
+
+                </div>
+
+            </DragDropContext>
         );
     }
 };
@@ -317,7 +332,10 @@ DraggableTree.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    onNodeDragStart: PropTypes.func,
+    onNodeDragEnd: PropTypes.func
 
 };
 
