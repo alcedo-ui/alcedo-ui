@@ -231,15 +231,6 @@ export default class TreeNode extends Component {
                     </div>
                 </TipProvider>
 
-                {/*{*/}
-                {/*data.children ?*/}
-                {/*<TreeNodeList {...this.props}*/}
-                {/*data={data.children}*/}
-                {/*collapsed={collapsed}/>*/}
-                {/*:*/}
-                {/*null*/}
-                {/*}*/}
-
                 {
                     data.children && data.children.length > 0 ?
                         <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
