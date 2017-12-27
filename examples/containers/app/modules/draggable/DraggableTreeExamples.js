@@ -50,8 +50,8 @@ export default class DraggableTreeExamples extends Component {
 
     }
 
-    sequenceChangeHandler(value) {
-        console.log('Sequence Changed:', value);
+    sequenceChangeHandler(data) {
+        console.log('Sequence Changed:', data);
     }
 
     changeHandler(value) {
@@ -85,7 +85,8 @@ export default class DraggableTreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <DraggableTree data={this.data}
-                                                   onChange={this.changeHandler}/>
+                                                   onChange={this.changeHandler}
+                                                   onSequenceChange={this.sequenceChangeHandler}/>
                                 </Paper>
 
                             </div>
