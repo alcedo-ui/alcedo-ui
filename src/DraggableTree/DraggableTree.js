@@ -5,9 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext} from 'react-beautiful-dnd';
 
-import DraggableTreeNodeList from '../_DraggableTreeNodeList';
+import DraggableTreeNode from '../_DraggableTreeNode';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -92,10 +91,6 @@ export default class DraggableTree extends Component {
 
     }
 
-    onDragEnd() {
-
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -115,39 +110,37 @@ export default class DraggableTree extends Component {
             treeClassName = (className ? ' ' + className : '');
 
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <div className={'draggable-tree' + treeClassName}
-                     disabled={disabled}
-                     style={style}
-                     onWheel={e => {
-                         Event.wheelHandler(e, this.props);
-                     }}>
+            <div className={'draggable-tree' + treeClassName}
+                 disabled={disabled}
+                 style={style}
+                 onWheel={e => {
+                     Event.wheelHandler(e, this.props);
+                 }}>
 
-                    <DraggableTreeNodeList data={data}
-                                           value={value}
-                                           theme={theme}
-                                           idField={idField}
-                                           valueField={valueField}
-                                           displayField={displayField}
-                                           descriptionField={descriptionField}
-                                           disabled={disabled}
-                                           isLoading={isLoading}
-                                           readOnly={readOnly}
-                                           selectMode={selectMode}
-                                           renderer={renderer}
-                                           allowCollapse={allowCollapse}
-                                           collapsedIconCls={collapsedIconCls}
-                                           expandedIconCls={expandedIconCls}
-                                           onTouchTap={(...args) => {
-                                               onNodeTouchTap && onNodeTouchTap(...args);
-                                           }}
-                                           onSelect={this.treeNodeSelectHandler}
-                                           onDeselect={this.treeNodeDeselectHandler}/>
+                <DraggableTreeNode data={data}
+                                   value={value}
+                                   theme={theme}
+                                   idField={idField}
+                                   valueField={valueField}
+                                   displayField={displayField}
+                                   descriptionField={descriptionField}
+                                   disabled={disabled}
+                                   isLoading={isLoading}
+                                   readOnly={readOnly}
+                                   selectMode={selectMode}
+                                   renderer={renderer}
+                                   allowCollapse={allowCollapse}
+                                   collapsedIconCls={collapsedIconCls}
+                                   expandedIconCls={expandedIconCls}
+                                   onTouchTap={(...args) => {
+                                       onNodeTouchTap && onNodeTouchTap(...args);
+                                   }}
+                                   onSelect={this.treeNodeSelectHandler}
+                                   onDeselect={this.treeNodeDeselectHandler}/>
 
-                    {children}
+                {children}
 
-                </div>
-            </DragDropContext>
+            </div>
         );
     }
 };
@@ -182,7 +175,7 @@ DraggableTree.propTypes = {
     /**
      * Children passed into the tree node.
      */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -256,7 +249,7 @@ DraggableTree.propTypes = {
          */
         onTouchTap: PropTypes.func
 
-    })),
+    }),
 
     /**
      * The id field name in data. (default: "id")
@@ -337,7 +330,7 @@ DraggableTree.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    data: [],
+    data: null,
 
     idField: 'id',
     valueField: 'value',
