@@ -35,7 +35,6 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         color: $theme-field;
-        background-color: $theme-field-bg;
 
         .draggable-tree-node-inner {
             position: relative;
@@ -115,7 +114,13 @@
         }
 
         &.dragging {
-            opacity: .1;
+            opacity: .8;
+            background: $theme-field-bg-disabled;
+
+            & ~ .draggable-tree-node-children {
+                opacity: .8;
+                background: $theme-field-bg-disabled;
+            }
         }
 
         &.draggable {

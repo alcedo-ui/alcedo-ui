@@ -100,7 +100,9 @@ export default class DraggableTreeNode extends Component {
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                renderer, onMouseEnter, onMouseLeave
+                renderer, onMouseEnter, onMouseLeave,
+
+                isDragging
 
             } = this.props,
             {collapsed} = this.state,
@@ -110,7 +112,8 @@ export default class DraggableTreeNode extends Component {
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (data.className ? ' ' + data.className : ''),
+            nodeClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
+                + (data.className ? ' ' + data.className : ''),
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
@@ -248,7 +251,7 @@ export default class DraggableTreeNode extends Component {
                                                            draggableId={item.id}
                                                            type={data.id}>
                                                     {
-                                                        dragProvided => (
+                                                        (dragProvided, dragSnapshot) => (
                                                             <div>
                                                                 <div ref={dragProvided.innerRef}
                                                                      style={dragProvided.draggableStyle}
@@ -258,12 +261,14 @@ export default class DraggableTreeNode extends Component {
                                                                                        data={item}
                                                                                        index={index}
                                                                                        depth={depth + 1}
-                                                                                       path={
-                                                                                           path ?
-                                                                                               [...path, {index, node: item}]
-                                                                                               :
-                                                                                               [{index, node: item}]
-                                                                                       }/>
+                                                                                       path={path ?
+                                                                                           [...path, {
+                                                                                               index,
+                                                                                               node: item
+                                                                                           }]
+                                                                                           :
+                                                                                           [{index, node: item}]}
+                                                                                       isDragging={dragSnapshot.isDragging}/>
                                                                 </div>
                                                                 {dragProvided.placeholder}
                                                             </div>
@@ -327,7 +332,9 @@ DraggableTreeNode.propTypes = {
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
+
+    isDragging: PropTypes.bool
 
 };
 
@@ -367,6 +374,8 @@ DraggableTreeNode.defaultProps = {
     radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    isDragging: false
 
 };
