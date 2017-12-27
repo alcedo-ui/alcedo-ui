@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Table from 'src/Table/index';
+import Table from 'src/Table';
 
 import 'sass/components/PropTypeDescTable.scss';
 
@@ -65,5 +65,5 @@ PropTypeDescTable.propTypes = {
 };
 
 PropTypeDescTable.defaultProps = {
-    data: ''
+    data: null
 };
