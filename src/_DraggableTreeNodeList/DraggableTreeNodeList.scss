@@ -1,0 +1,12 @@
+/**
+ * @file DraggableTreeNodeList style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.draggable-tree-node-list {
+
+    &.collapsed {
+        height: 0;
+        overflow: hidden;
+    }
+}

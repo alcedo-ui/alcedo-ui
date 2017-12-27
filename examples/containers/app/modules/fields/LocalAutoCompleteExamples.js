@@ -4,7 +4,7 @@ import LocalAutoComplete from 'src/LocalAutoComplete';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import LocalAutoCompleteDoc from 'assets/propTypes/LocalAutoComplete.json';
 
 export default class LocalAutoCompleteExamples extends Component {

@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableList from 'src/DraggableList';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import DraggableListDoc from 'assets/propTypes/DraggableList.json';
 
 import 'sass/containers/app/modules/draggable/DraggableListExamples.scss';
 
-@DragDropContext(HTML5Backend)
 export default class DraggableListExamples extends Component {
 
     constructor(props) {
@@ -20,45 +17,16 @@ export default class DraggableListExamples extends Component {
 
         this.listData = [{
             iconCls: 'fa fa-facebook',
-            text: 'Facebook'
+            text: 'Facebook',
+            tip: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
-            text: 'Twitter'
+            text: 'Twitter',
+            tip: 'Twitter'
         }, {
             iconCls: 'fa fa-google-plus',
-            text: 'Google+'
-        }];
-
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, DraggableList.LIST_SEPARATOR, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
+            text: 'Google+',
+            tip: 'Google+'
         }];
 
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -104,39 +72,9 @@ export default class DraggableListExamples extends Component {
                                 <div style={{width: 240}}>
                                     <DraggableList style={{width: 240}}
                                                    selectMode={DraggableList.SelectMode.MULTI_SELECT}
-                                                   items={this.listData}
+                                                   data={this.listData}
                                                    onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Draggable Group"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A group <code>DraggableList</code>example.
-                                </p>
-
-                                <div style={{width: 240}}>
-                                    <DraggableList style={{width: 240}}
-                                                   selectMode={DraggableList.SelectMode.MULTI_SELECT}
-                                                   isGrouped={true}
-                                                   items={this.groupedListData}
-                                                   isDraggableAnyWhere={true}
-                                                   onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
+                                                   onChange={this.valueChangeHandler}/>
                                 </div>
 
                             </div>
@@ -161,9 +99,9 @@ export default class DraggableListExamples extends Component {
 
                                 <div style={{width: 240, height: 240}}>
                                     <DraggableList style={{width: 240, height: 240}}
-                                                   items={this.largeListData}
+                                                   data={this.largeListData}
                                                    onSequenceChange={this.sequenceChangeHandler}
-                                                   onValueChange={this.valueChangeHandler}/>
+                                                   onChange={this.valueChangeHandler}/>
                                 </div>
 
                             </div>

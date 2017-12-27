@@ -20,6 +20,7 @@ import SelectMode from '../_statics/SelectMode';
 
 export default class TreeNode extends Component {
 
+    static SelectMode = SelectMode;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -229,15 +230,6 @@ export default class TreeNode extends Component {
 
                     </div>
                 </TipProvider>
-
-                {/*{*/}
-                {/*data.children ?*/}
-                {/*<TreeNodeList {...this.props}*/}
-                {/*data={data.children}*/}
-                {/*collapsed={collapsed}/>*/}
-                {/*:*/}
-                {/*null*/}
-                {/*}*/}
 
                 {
                     data.children && data.children.length > 0 ?

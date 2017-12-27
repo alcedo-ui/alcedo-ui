@@ -8,12 +8,15 @@ import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 
 import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
+import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import DragDrop from '../_vendors/DragDrop';
+import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+import DragDrop from '../_vendors/DragDrop';
 
 const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 
@@ -35,16 +38,38 @@ export default class DraggableListItem extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            checked: props.checked
+            checked: props.checked,
+            tipVisible: false
         };
 
+        this.showTip = ::this.showTip;
+        this.hideTip = ::this.hideTip;
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
+        this.mouseOverHandler = ::this.mouseOverHandler;
 
     }
 
-    checkboxChangeHandler(checked, callback) {
+    showTip() {
+
+        if (this.state.tipVisible) {
+            return;
+        }
+
+        this.setState({
+            tipVisible: true
+        });
+
+    }
+
+    hideTip() {
+        this.setState({
+            tipVisible: false
+        });
+    }
+
+    checkboxChangeHandler(checked) {
         this.setState({
             checked
         }, () => {
@@ -57,12 +82,10 @@ export default class DraggableListItem extends Component {
                 onDeselect && onDeselect();
             }
 
-            callback && typeof callback === 'function' && callback();
-
         });
     }
 
-    radioChangeHandler(callback) {
+    radioChangeHandler() {
 
         const {checked} = this.state;
 
@@ -72,10 +95,7 @@ export default class DraggableListItem extends Component {
             }, () => {
                 const {onSelect} = this.props;
                 onSelect && onSelect();
-                callback && typeof callback === 'function' && callback();
             });
-        } else {
-            callback && typeof callback === 'function' && callback();
         }
 
     }
@@ -84,30 +104,30 @@ export default class DraggableListItem extends Component {
 
         e.preventDefault();
 
-        const {disabled, isLoading, isGroupTitle} = this.props;
+        const {disabled, isLoading, readOnly} = this.props;
 
-        if (disabled || isLoading || isGroupTitle) {
+        if (disabled || isLoading || readOnly) {
             return;
         }
 
-        const {selectMode} = this.props,
-            callback = () => {
-                const {onTouchTap} = this.props;
-                onTouchTap && onTouchTap(e);
-            };
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
 
-        switch (selectMode) {
-            case DraggableListItem.SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked, callback);
+        switch (this.props.selectMode) {
+            case SelectMode.MULTI_SELECT:
+                this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case DraggableListItem.SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler(callback);
-                return;
-            case DraggableListItem.SelectMode.NORMAL:
-                callback();
+            case SelectMode.SINGLE_SELECT:
+                this.radioChangeHandler();
                 return;
         }
 
+    }
+
+    mouseOverHandler(e) {
+        this.showTip();
+        const {onMouseOver} = this.props;
+        onMouseOver && onMouseOver(e);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -122,39 +142,39 @@ export default class DraggableListItem extends Component {
 
         const {
 
-                connectDragPreview, connectDragSource, connectDropTarget, isDragging,
+                connectDragPreview, connectDragSource, connectDropTarget, isDragging, isDraggableAnyWhere, anchorIconCls,
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls,
-                disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
+                index, className, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, renderer, itemRenderer,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave
+                // not passing down these props
+                onMove, onSelect, onDeselect,
+
+                ...restProps
 
             } = this.props,
-            {checked} = this.state,
+            {checked, tipVisible} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (isDragging ? ' dragging' : '') + (isDraggableAnyWhere ? ' draggable' : '')
-                + (className ? ' ' + className : ''),
-
+                + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
-            anchorEl = <i className={'draggable-list-item-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+            anchorEl = <i className={`${anchorIconCls} draggable-list-item-anchor`}
                           aria-hidden="true"></i>,
 
-            el = (
-                <div className={'draggable-list-item' + listItemClassName}
-                     style={style}
-                     readOnly={isDraggableAnyWhere}
+            el = connectDropTarget(
+                <div {...restProps}
+                     ref={el => this.tipTriggerEl = el}
+                     className={'draggable-list-item' + listItemClassName}
                      disabled={disabled || isLoading}
                      onTouchTap={this.touchTapHandler}
-                     onMouseEnter={onMouseEnter}
-                     onMouseLeave={onMouseLeave}>
+                     onMouseOver={this.mouseOverHandler}>
 
                     {
-                        selectMode === SelectMode.SINGLE_SELECT ?
+                        selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
                             <Radio className="draggable-list-item-select"
                                    theme={selectTheme}
                                    checked={checked}
@@ -206,11 +226,11 @@ export default class DraggableListItem extends Component {
                                     :
                                     (
                                         desc ?
-                                            <div className="list-item-content">
-                                                <div className="list-item-content-value">
+                                            <div className="draggable-list-item-content">
+                                                <div className="draggable-list-item-content-value">
                                                     {text}
                                                 </div>
-                                                <div className="list-item-content-desc">
+                                                <div className="draggable-list-item-content-desc">
                                                     {desc}
                                                 </div>
                                             </div>
@@ -235,68 +255,70 @@ export default class DraggableListItem extends Component {
                     }
 
                     {
-                        isGroupTitle ?
-                            null
+                        tip ?
+                            <Tip visible={tipVisible}
+                                 triggerEl={this.tipTriggerEl}
+                                 position={tipPosition}
+                                 onRequestClose={this.hideTip}>
+                                {tip}
+                            </Tip>
                             :
-                            (
-                                isDraggableAnyWhere ?
-                                    anchorEl
-                                    :
-                                    connectDragSource(anchorEl)
-                            )
+                            null
+                    }
+
+                    {
+                        isDraggableAnyWhere ?
+                            anchorEl
+                            :
+                            connectDragSource(anchorEl)
                     }
 
                 </div>
             );
 
-        return isGroupTitle ?
-            el
+        return isDraggableAnyWhere ?
+            connectDragSource(el)
             :
-            (
-                isDraggableAnyWhere ?
-                    connectDragSource(connectDropTarget(el))
-                    :
-                    connectDragPreview(connectDropTarget(el))
-            );
+            connectDragPreview(el);
 
     }
 };
 
 DraggableListItem.propTypes = {
 
-    connectDragPreview: PropTypes.func,
-    connectDragSource: PropTypes.func,
-    connectDropTarget: PropTypes.func,
-    isDragging: PropTypes.bool,
-
     index: PropTypes.number,
 
     className: PropTypes.string,
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
     text: PropTypes.any,
     desc: PropTypes.string,
+
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
+    checked: PropTypes.bool,
+    readOnly: PropTypes.bool,
+
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
-    checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    groupIndex: PropTypes.number,
-    isGroupTitle: PropTypes.bool,
-    anchorIconCls: PropTypes.string,
-    isDraggableAnyWhere: PropTypes.bool,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    isDraggableAnyWhere: PropTypes.bool,
+    anchorIconCls: PropTypes.string,
 
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
@@ -305,7 +327,14 @@ DraggableListItem.propTypes = {
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
+
+    // dnd
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool,
+    onMove: PropTypes.func
 
 };
 
@@ -315,8 +344,10 @@ DraggableListItem.defaultProps = {
 
     className: null,
     style: null,
-
     theme: Theme.DEFAULT,
+
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: null,
     value: null,
@@ -325,23 +356,22 @@ DraggableListItem.defaultProps = {
 
     disabled: false,
     isLoading: false,
+    checked: false,
+    readOnly: false,
 
     iconCls: null,
     rightIconCls: null,
 
-    checked: false,
+    tip: null,
+    tipPosition: Position.BOTTOM,
 
-    selectMode: SelectMode.NORMAL,
-
-    isGroupTitle: false,
-
-    anchorIconCls: 'fa fa-bars',
-    isDraggableAnyWhere: false,
-
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    isDraggableAnyWhere: false,
+    anchorIconCls: 'fa fa-bars'
 
 };

@@ -225,6 +225,9 @@ export default [{
     }, {
         text: 'DraggableGrid',
         route: '/components/DraggableGrid'
+    }, {
+        text: 'DraggableTree',
+        route: '/components/DraggableTree'
     }]
 }, {
     text: 'Stepper',

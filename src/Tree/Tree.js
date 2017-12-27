@@ -107,10 +107,10 @@ export default class Tree extends Component {
                 renderer, onNodeTouchTap
             } = this.props,
             {value} = this.state,
-            listClassName = (className ? ' ' + className : '');
+            treeClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'tree' + listClassName}
+            <div className={'tree' + treeClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {

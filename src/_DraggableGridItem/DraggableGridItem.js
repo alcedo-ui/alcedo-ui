@@ -8,13 +8,15 @@ import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 
 import Checkbox from '../Checkbox';
+import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
-import DragDrop from '../_vendors/DragDrop';
+import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+import DragDrop from '../_vendors/DragDrop';
 
 const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 
@@ -31,14 +33,13 @@ export default class DraggableGridItem extends Component {
     static SelectMode = SelectMode;
     static Theme = Theme;
 
-    constructor(props, ...rest) {
+    constructor(props, ...restArgs) {
 
-        super(props, ...rest);
+        super(props, ...restArgs);
 
         this.state = {
             checked: props.checked,
-            tipVisible: false,
-            tipTriggerEl: null
+            tipVisible: false
         };
 
         this.showTip = ::this.showTip;
@@ -46,18 +47,20 @@ export default class DraggableGridItem extends Component {
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseEnterHandler = ::this.mouseEnterHandler;
         this.mouseOverHandler = ::this.mouseOverHandler;
 
     }
 
-    showTip(e) {
-        if (!this.state.tipVisible) {
-            this.setState({
-                tipVisible: true,
-                tipTriggerEl: e.target
-            });
+    showTip() {
+
+        if (this.state.tipVisible) {
+            return;
         }
+
+        this.setState({
+            tipVisible: true
+        });
+
     }
 
     hideTip() {
@@ -66,7 +69,7 @@ export default class DraggableGridItem extends Component {
         });
     }
 
-    checkboxChangeHandler(checked, callback) {
+    checkboxChangeHandler(checked) {
         this.setState({
             checked
         }, () => {
@@ -79,12 +82,10 @@ export default class DraggableGridItem extends Component {
                 onDeselect && onDeselect();
             }
 
-            callback && typeof callback === 'function' && callback();
-
         });
     }
 
-    radioChangeHandler(callback) {
+    radioChangeHandler() {
 
         const {checked} = this.state;
 
@@ -94,10 +95,7 @@ export default class DraggableGridItem extends Component {
             }, () => {
                 const {onSelect} = this.props;
                 onSelect && onSelect();
-                callback && typeof callback === 'function' && callback();
             });
-        } else {
-            callback && typeof callback === 'function' && callback();
         }
 
     }
@@ -106,49 +104,32 @@ export default class DraggableGridItem extends Component {
 
         e.preventDefault();
 
-        const {disabled, isLoading, isGroupTitle} = this.props;
+        const {disabled, isLoading, readOnly} = this.props;
 
-        if (disabled || isLoading || isGroupTitle) {
+        if (disabled || isLoading || readOnly) {
             return;
         }
 
-        const {selectMode} = this.props,
-            callback = () => {
-                const {onTouchTap} = this.props;
-                onTouchTap && onTouchTap(e);
-            };
+        const {onTouchTap} = this.props;
+        onTouchTap && onTouchTap(e);
 
-        switch (selectMode) {
-            case DraggableGridItem.SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked, callback);
+        switch (this.props.selectMode) {
+            case SelectMode.MULTI_SELECT:
+                this.checkboxChangeHandler(!this.state.checked);
                 return;
-            case DraggableGridItem.SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler(callback);
-                return;
-            case DraggableGridItem.SelectMode.NORMAL:
-                callback();
+            case SelectMode.SINGLE_SELECT:
+                this.radioChangeHandler();
                 return;
         }
-
-    }
-
-    mouseEnterHandler(e) {
-
-        this.showTip(e);
-
-        const {onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e);
 
     }
 
     mouseOverHandler(e) {
-
         this.showTip(e);
-
         const {onMouseOver} = this.props;
         onMouseOver && onMouseOver(e);
-
     }
+
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
@@ -162,45 +143,44 @@ export default class DraggableGridItem extends Component {
 
         const {
 
-                connectDragPreview, connectDragSource, connectDropTarget, isDragging,
+                connectDragPreview, connectDragSource, connectDropTarget, isDragging, isDraggableAnyWhere, anchorIconCls,
 
-                index, className, style, itemColWidth, theme, data, text, desc, iconCls, rightIconCls,
-                disabled, isLoading, itemRenderer, renderer, isGroupTitle, anchorIconCls, isDraggableAnyWhere,
-                tip, tipPosition,
+                index, className, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                disabled, isLoading, renderer, itemRenderer,
+                col,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseLeave
+                // not passing down these props
+                itemColWidth, onMove, onSelect, onDeselect,
+
+                ...restProps
 
             } = this.props,
-            {checked, tipVisible, tipTriggerEl} = this.state,
+            {checked, tipVisible} = this.state,
 
             listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (isDragging ? ' dragging' : '') + (isDraggableAnyWhere ? ' draggable' : '')
                 + (className ? ' ' + className : ''),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
-            anchorEl = <i className={'draggable-grid-item-anchor' + (anchorIconCls ? ' ' + anchorIconCls : '')}
+            anchorEl = <i className={`${anchorIconCls} draggable-grid-item-anchor`}
                           aria-hidden="true"></i>,
 
-            el = (
-                <div className={'draggable-grid-item-wrapper'}
-                     style={itemColWidth ? {width: `${itemColWidth}%`} : null}>
+            el = connectDropTarget(
+                <div className="draggable-grid-item-wrapper"
+                     style={col ? {width: `${100 / col}%`} : null}>
 
-                    <div className={'draggable-grid-item' + listItemClassName}
-                         style={style}
+                    <div {...restProps}
+                         ref={el => this.tipTriggerEl = el}
+                         className={'draggable-grid-item' + listItemClassName}
                          disabled={disabled || isLoading}
-                         readOnly={isGroupTitle}
                          onTouchTap={this.touchTapHandler}
-                         onMouseEnter={this.mouseEnterHandler}
-                         onMouseOver={this.mouseOverHandler}
-                         onMouseLeave={onMouseLeave}>
+                         onMouseOver={this.mouseOverHandler}>
 
                         {
-                            selectMode === SelectMode.SINGLE_SELECT ?
-                                <Radio className="draggable-grid-item-checked"
+                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                <Radio className="draggable-grid-item-select"
                                        theme={selectTheme}
                                        checked={checked}
                                        disabled={disabled || isLoading}
@@ -213,7 +193,7 @@ export default class DraggableGridItem extends Component {
 
                         {
                             selectMode === SelectMode.MULTI_SELECT ?
-                                <Checkbox className="draggable-grid-item-checkbox"
+                                <Checkbox className="draggable-grid-item-select"
                                           theme={selectTheme}
                                           checked={checked}
                                           disabled={disabled || isLoading}
@@ -251,11 +231,11 @@ export default class DraggableGridItem extends Component {
                                         :
                                         (
                                             desc ?
-                                                <div className="grid-item-content">
-                                                    <div className="grid-item-content-value">
+                                                <div className="draggable-grid-item-content">
+                                                    <div className="draggable-grid-item-content-value">
                                                         {text}
                                                     </div>
-                                                    <div className="grid-item-content-desc">
+                                                    <div className="draggable-grid-item-content-desc">
                                                         {desc}
                                                     </div>
                                                 </div>
@@ -280,84 +260,73 @@ export default class DraggableGridItem extends Component {
                         }
 
                         {
-                            isGroupTitle ?
-                                null
+                            tip ?
+                                <Tip visible={tipVisible}
+                                     triggerEl={this.tipTriggerEl}
+                                     position={tipPosition}
+                                     onRequestClose={this.hideTip}>
+                                    {tip}
+                                </Tip>
                                 :
-                                (
-                                    isDraggableAnyWhere ?
-                                        anchorEl
-                                        :
-                                        connectDragSource(anchorEl)
-                                )
+                                null
+                        }
+
+                        {
+                            isDraggableAnyWhere ?
+                                anchorEl
+                                :
+                                connectDragSource(anchorEl)
                         }
 
                     </div>
 
-                    {
-                        tip ?
-                            <Tip visible={tipVisible}
-                                 triggerEl={tipTriggerEl}
-                                 position={tipPosition}
-                                 onRequestClose={this.hideTip}>
-                                {tip}
-                            </Tip>
-                            :
-                            null
-                    }
-
                 </div>
             );
 
-        return isGroupTitle ?
-            el
+        return isDraggableAnyWhere ?
+            connectDragSource(el)
             :
-            (
-                isDraggableAnyWhere ?
-                    connectDragSource(connectDropTarget(el))
-                    :
-                    connectDragPreview(connectDropTarget(el))
-            );
+            connectDragPreview(el);
 
     }
 };
 
 DraggableGridItem.propTypes = {
 
-    connectDragPreview: PropTypes.func,
-    connectDragSource: PropTypes.func,
-    connectDropTarget: PropTypes.func,
-    isDragging: PropTypes.bool,
-
     index: PropTypes.number,
 
     className: PropTypes.string,
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.any,
     desc: PropTypes.string,
+
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
+    checked: PropTypes.bool,
+    readOnly: PropTypes.bool,
+
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
-    checked: PropTypes.bool,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    groupIndex: PropTypes.number,
-    isGroupTitle: PropTypes.bool,
-    anchorIconCls: PropTypes.string,
-    isDraggableAnyWhere: PropTypes.bool,
+
     tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-    itemColWidth:PropTypes.number,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    isDraggableAnyWhere: PropTypes.bool,
+    anchorIconCls: PropTypes.string,
+    col: PropTypes.number,
 
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
@@ -367,7 +336,13 @@ DraggableGridItem.propTypes = {
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-    onMouseOver: PropTypes.func
+
+    // dnd
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool,
+    onMove: PropTypes.func
 
 };
 
@@ -377,8 +352,10 @@ DraggableGridItem.defaultProps = {
 
     className: null,
     style: null,
-
     theme: Theme.DEFAULT,
+
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
 
     data: null,
     value: null,
@@ -387,25 +364,23 @@ DraggableGridItem.defaultProps = {
 
     disabled: false,
     isLoading: false,
+    checked: false,
+    readOnly: false,
 
     iconCls: null,
     rightIconCls: null,
 
-    checked: false,
-
-    selectMode: SelectMode.NORMAL,
-
-    isGroupTitle: false,
-
-    anchorIconCls: 'fa fa-bars',
-    isDraggableAnyWhere: false,
-
     tip: null,
+    tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: null,
+    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    isDraggableAnyWhere: false,
+    anchorIconCls: 'fa fa-bars',
+    col: 3
 
 };

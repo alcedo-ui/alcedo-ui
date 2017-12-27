@@ -4,7 +4,7 @@ import CircularLoading from 'src/CircularLoading';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import CircularLoadingDoc from 'assets/propTypes/CircularLoading.json';
 
 import 'sass/containers/app/modules/loading/CircularLoadingExamples.scss';

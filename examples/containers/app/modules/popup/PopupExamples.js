@@ -7,7 +7,7 @@ import Theme from 'src/Theme';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import PopupDoc from 'assets/propTypes/PopupBody.json';
 
 import 'sass/containers/app/modules/popup/PopupExamples.scss';

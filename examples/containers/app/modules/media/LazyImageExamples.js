@@ -5,7 +5,7 @@ import WidgetHeader from 'src/WidgetHeader';
 
 import LazyImage from 'src/LazyImage';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import LazyImageDoc from 'assets/propTypes/LazyImage.json';
 
 import 'sass/containers/app/modules/media/LazyImageExamples.scss';

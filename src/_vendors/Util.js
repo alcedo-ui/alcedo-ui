@@ -132,6 +132,11 @@ function getDiag(a, b) {
     return Math.sqrt((a * a) + (b * b));
 }
 
+function reorder(data, startIndex, endIndex) {
+    const [removed] = data.splice(startIndex, 1);
+    data.splice(endIndex, 0, removed);
+};
+
 export default {
     isEnableLocalStorage,
     isEnableSessionStorage,
@@ -145,5 +150,6 @@ export default {
     getTextByDisplayField,
     isValueEqual,
     genIndexArray,
-    getDiag
+    getDiag,
+    reorder
 };

@@ -231,6 +231,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/DraggableGrid',
                     component: ac(store, () => import('modules/draggable/DraggableGridExamples'))
+                }, {
+                    path: '/components/DraggableTree',
+                    component: ac(store, () => import('modules/draggable/DraggableTreeExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

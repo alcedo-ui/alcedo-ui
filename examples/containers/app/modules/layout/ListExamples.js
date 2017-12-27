@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 import Theme from 'src/Theme';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import ListDoc from 'assets/propTypes/List.json';
 
 import 'sass/containers/app/modules/layout/ListExamples.scss';

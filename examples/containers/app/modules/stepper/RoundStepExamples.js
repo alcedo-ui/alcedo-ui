@@ -5,7 +5,7 @@ import RaisedButton from 'src/RaisedButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import RoundStepDoc from 'assets/propTypes/RoundStep.json';
 
 import 'sass/containers/app/modules/stepper/RoundStepExamples.scss';

@@ -4,7 +4,7 @@ import Tab from 'src/Tab';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import TabDoc from 'assets/propTypes/Tab.json';
 
 export default class TabExamples extends Component {

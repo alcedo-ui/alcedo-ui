@@ -1,0 +1,12 @@
+@import '../../../../my-theme';
+
+.draggable-tree-examples {
+
+    .examples-wrapper {
+
+        .tree-wrapper {
+            border: 1px solid $theme-border;
+            overflow: hidden;
+        }
+    }
+}

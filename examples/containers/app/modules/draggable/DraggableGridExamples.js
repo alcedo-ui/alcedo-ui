@@ -1,71 +1,38 @@
 import React, {Component} from 'react';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableGrid from 'src/DraggableGrid';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import DraggableGridDoc from 'assets/propTypes/DraggableGrid.json';
 
 import 'sass/containers/app/modules/draggable/DraggableGridExamples.scss';
 
-@DragDropContext(HTML5Backend)
 export default class DraggableGridExamples extends Component {
 
     constructor(props) {
 
         super(props);
 
-        this.listData = [{
+        this.gridData = [{
             iconCls: 'fa fa-facebook',
             text: 'Facebook',
             tip: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
-            text: 'Twitter'
+            text: 'Twitter',
+            tip: 'Twitter'
         }, {
             iconCls: 'fa fa-google-plus',
-            text: 'Google+'
-        }];
-
-        this.groupedListData = [{
-            name: 'socialNetwork',
-            children: [{
-                iconCls: 'fa fa-facebook',
-                text: 'Facebook',
-                desc: 'Here is a Facebook Desc.'
-            }, {
-                iconCls: 'fa fa-twitter',
-                text: 'Twitter',
-                desc: 'Here is a Twitter Desc.'
-            }, {
-                iconCls: 'fa fa-google-plus',
-                text: 'Google+',
-                desc: 'Here is a Google+ Desc.'
-            }]
-        }, {
-            name: 'device',
-            children: [{
-                iconCls: 'fa fa-android',
-                text: 'Android',
-                desc: 'Here is a Android Desc.'
-            }, {
-                iconCls: 'fa fa-apple',
-                text: 'Apple',
-                desc: 'Here is a Apple Desc.'
-            }, {
-                iconCls: 'fa fa-windows',
-                text: 'Windows',
-                desc: 'Here is a Windows Desc.'
-            }]
+            text: 'Google+',
+            tip: 'Google+'
         }];
 
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
         this.sequenceChangeHandler = this::this.sequenceChangeHandler;
-        this.valueChangeHandler = this::this.valueChangeHandler;
+        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -73,7 +40,7 @@ export default class DraggableGridExamples extends Component {
         console.log('Sequence Changed:', value);
     }
 
-    valueChangeHandler(value) {
+    changeHandler(value) {
         console.log('Value Changed:', value);
     }
 
@@ -104,36 +71,9 @@ export default class DraggableGridExamples extends Component {
                                 </p>
 
                                 <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
-                                               items={this.listData}
+                                               data={this.gridData}
                                                onSequenceChange={this.sequenceChangeHandler}
-                                               onValueChange={this.valueChangeHandler}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Draggable Group"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A group <code>DraggableGrid </code>list example.
-                                </p>
-
-                                <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
-                                               isGrouped={true}
-                                               items={this.groupedListData}
-                                               isDraggableAnyWhere={true}
-                                               onSequenceChange={this.sequenceChangeHandler}
-                                               onValueChange={this.valueChangeHandler}/>
+                                               onChange={this.changeHandler}/>
 
                             </div>
 
@@ -156,10 +96,10 @@ export default class DraggableGridExamples extends Component {
                                 </p>
 
                                 <DraggableGrid style={{height: 120}}
-                                               items={this.largeListData}
-                                               col={[5]}
+                                               data={this.largeListData}
+                                               col={5}
                                                onSequenceChange={this.sequenceChangeHandler}
-                                               onValueChange={this.valueChangeHandler}/>
+                                               onChange={this.changeHandler}/>
 
                             </div>
 

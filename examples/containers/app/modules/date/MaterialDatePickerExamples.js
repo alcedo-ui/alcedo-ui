@@ -1,14 +1,11 @@
-/**
- * Created by Administrator on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
 import MaterialDatePicker from 'src/MaterialDatePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
-import PropTypeDescTable from '../PropTypeDescTable';
-import MaterialDatePickerDoc from 'assets/propTypes/MaterialDatePicker.json';
+import PropTypeDescTable from 'components/PropTypeDescTable';
+import doc from 'assets/propTypes/MaterialDatePicker.json';
 
 import 'sass/containers/app/modules/date/DatePickerExamples.scss';
 
@@ -41,11 +38,12 @@ export default class DatePickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>Material Date Picker</code> using the <code>value</code> property to set initial date.
+                                    <code>Material Date Picker</code> using the <code>value</code> property to set
+                                    initial date.
                                 </p>
 
                                 <MaterialDatePicker name="date"
-                                                    label={"date"}
+                                                    label={'date'}
                                                     isLabelAnimate={true}
                                                     autoClose={false}/>
 
@@ -57,7 +55,7 @@ export default class DatePickerExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialDatePickerDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

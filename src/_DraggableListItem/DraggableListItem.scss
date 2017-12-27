@@ -26,15 +26,17 @@
     line-height: 40px;
     border: none;
     transition: all $theme-transition-duration ease-in-out;
+    cursor: pointer;
     box-sizing: border-box;
-    padding: 0 40px 0 15px;
+    padding: 0 15px;
     font-size: 12px;
     text-align: left;
     user-select: none;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    -webkit-user-drag: element;
+    color: $theme-field;
+    background-color: $theme-field-bg;
 
     .draggable-list-item-select {
         display: inline-block;
@@ -82,14 +84,6 @@
         }
     }
 
-    .touch-ripple {
-        border-radius: $theme-border-radius;
-
-        &.hidden {
-            display: none;
-        }
-    }
-
     .draggable-list-item-anchor {
         position: absolute;
         right: 0;
@@ -110,14 +104,28 @@
         cursor: move;
     }
 
+    &[readonly] {
+        cursor: default;
+        color: $theme-field !important;
+        background: $theme-field-bg !important;
+    }
+
     &[disabled] {
         cursor: not-allowed;
         color: $theme-field-disabled !important;
         background-color: $theme-field-bg-disabled !important;
     }
 
+    &:hover {
+        background-color: theme-color-hover($theme-secondary);
+    }
+
+    &:active {
+        background-color: theme-color-active($theme-field-bg);
+    }
+
     // default theme
-    @include draggable-list-item-theme($theme-field, $theme-field-bg);
+    //@include draggable-list-item-theme($theme-field, $theme-field-bg);
 
     // other themes
     &.theme-primary {
