@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {DragDropContext} from 'react-beautiful-dnd';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
 import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
@@ -175,96 +175,124 @@ export default class DraggableList extends Component {
             <DragDropContext onDragStart={onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
-                <div className={'draggable-list' + listClassName}
-                     disabled={disabled}
-                     style={style}
-                     onWheel={e => {
-                         Event.wheelHandler(e, this.props);
-                     }}>
+                <Droppable droppableId="droppable">
 
                     {
-                        _.isArray(data) && data.length > 0 ?
-                            (
-                                data.map((item, index) => {
+                        dropProvided => (
+                            <div ref={dropProvided.innerRef}
+                                 className={'draggable-list' + listClassName}
+                                 disabled={disabled}
+                                 style={style}
+                                 onWheel={e => {
+                                     Event.wheelHandler(e, this.props);
+                                 }}>
 
-                                    if (item === LIST_SEPARATOR) {
-                                        return <div key={index}
-                                                    className="draggable-list-separator"></div>;
-                                    }
+                                {
+                                    data.map((item, index) => {
 
-                                    return typeof item === 'object' ?
-                                        (
-                                            <DraggableListItem key={item[idField] || index}
-                                                               {...item}
-                                                               index={index}
-                                                               style={{height: itemHeight}}
-                                                               theme={item.theme || theme}
-                                                               selectTheme={item.selectTheme || selectTheme}
-                                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                               data={item}
-                                                               checked={Calculation.isItemChecked(item, value, this.props)}
-                                                               value={Util.getValueByValueField(item, valueField, displayField)}
-                                                               text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                                               desc={item[descriptionField] || null}
-                                                               disabled={disabled || item.disabled}
-                                                               isLoading={isLoading || item.isLoading}
-                                                               selectMode={selectMode}
-                                                               renderer={renderer}
-                                                               onTouchTap={e => {
-                                                                   onItemTouchTap && onItemTouchTap(item, index, e);
-                                                                   item.onTouchTap && item.onTouchTap(e);
-                                                               }}
-                                                               onSelect={() => {
-                                                                   this.listItemSelectHandler(item, index);
-                                                               }}
-                                                               onDeselect={() => {
-                                                                   this.listItemDeselectHandler(item, index);
-                                                               }}/>
-                                        )
-                                        :
-                                        (
-                                            <DraggableListItem key={index}
-                                                               index={index}
-                                                               style={{height: itemHeight}}
-                                                               theme={item.theme || theme}
-                                                               selectTheme={item.selectTheme || selectTheme}
-                                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                               data={item}
-                                                               checked={Calculation.isItemChecked(item, value, this.props)}
-                                                               value={item}
-                                                               text={item}
-                                                               disabled={disabled}
-                                                               isLoading={isLoading}
-                                                               selectMode={selectMode}
-                                                               renderer={renderer}
-                                                               onTouchTap={e => {
-                                                                   onItemTouchTap && onItemTouchTap(item, index, e);
-                                                               }}
-                                                               onSelect={() => {
-                                                                   this.listItemSelectHandler(item, index);
-                                                               }}
-                                                               onDeselect={() => {
-                                                                   this.listItemDeselectHandler(item, index);
-                                                               }}/>
+                                        if (item === LIST_SEPARATOR) {
+                                            return <div key={index}
+                                                        className="draggable-list-separator"></div>;
+                                        }
+
+                                        return (
+                                            <Draggable key={index}
+                                                       draggableId={index}>
+                                                {
+                                                    (dragProvided, dragSnapshot) => (
+                                                        <div>
+                                                            <div ref={dragProvided.innerRef}
+                                                                 style={dragProvided.draggableStyle}
+                                                                 {...dragProvided.dragHandleProps}>
+                                                                {
+                                                                    typeof item === 'object' ?
+                                                                        (
+                                                                            <DraggableListItem
+                                                                                key={item[idField] || index}
+                                                                                {...item}
+                                                                                index={index}
+                                                                                style={{height: itemHeight}}
+                                                                                theme={item.theme || theme}
+                                                                                selectTheme={item.selectTheme || selectTheme}
+                                                                                radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                                                radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                                                checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                                                checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                                                checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                                                data={item}
+                                                                                checked={Calculation.isItemChecked(item, value, this.props)}
+                                                                                value={Util.getValueByValueField(item, valueField, displayField)}
+                                                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                                                                desc={item[descriptionField] || null}
+                                                                                disabled={disabled || item.disabled}
+                                                                                isLoading={isLoading || item.isLoading}
+                                                                                selectMode={selectMode}
+                                                                                renderer={renderer}
+                                                                                onTouchTap={e => {
+                                                                                    onItemTouchTap && onItemTouchTap(item, index, e);
+                                                                                    item.onTouchTap && item.onTouchTap(e);
+                                                                                }}
+                                                                                onSelect={() => {
+                                                                                    this.listItemSelectHandler(item, index);
+                                                                                }}
+                                                                                onDeselect={() => {
+                                                                                    this.listItemDeselectHandler(item, index);
+                                                                                }}/>
+                                                                        )
+                                                                        :
+                                                                        (
+                                                                            <DraggableListItem key={index}
+                                                                                               index={index}
+                                                                                               style={{height: itemHeight}}
+                                                                                               theme={item.theme || theme}
+                                                                                               selectTheme={item.selectTheme || selectTheme}
+                                                                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                                                               data={item}
+                                                                                               checked={Calculation.isItemChecked(item, value, this.props)}
+                                                                                               value={item}
+                                                                                               text={item}
+                                                                                               disabled={disabled}
+                                                                                               isLoading={isLoading}
+                                                                                               selectMode={selectMode}
+                                                                                               renderer={renderer}
+                                                                                               onTouchTap={e => {
+                                                                                                   onItemTouchTap && onItemTouchTap(item, index, e);
+                                                                                               }}
+                                                                                               onSelect={() => {
+                                                                                                   this.listItemSelectHandler(item, index);
+                                                                                               }}
+                                                                                               onDeselect={() => {
+                                                                                                   this.listItemDeselectHandler(item, index);
+                                                                                               }}/>
+                                                                        )
+                                                                }
+
+                                                            </div>
+
+                                                            {dragProvided.placeholder}
+
+                                                        </div>
+                                                    )
+                                                }
+                                            </Draggable>
                                         );
 
-                                })
-                            )
-                            :
-                            null
+                                    })
+                                }
+
+                                {dropProvided.placeholder}
+
+                                {children}
+
+                            </div>
+                        )
                     }
 
-                    {children}
-
-                </div>
+                </Droppable>
 
             </DragDropContext>
         );
