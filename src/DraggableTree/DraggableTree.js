@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
+import TreeCalculation from '../_vendors/TreeCalculation';
 
 export default class DraggableTree extends Component {
 
@@ -98,9 +99,48 @@ export default class DraggableTree extends Component {
 
         console.log(result);
 
-        const {onNodeDragEnd} = this.props;
+        /**
+         *  result: {
+         *      draggableId,
+         *      type,
+         *      source: {
+         *          droppableId,
+         *          index
+         *      },
+         *      destination: {
+         *          droppableId,
+         *          index
+         *      }
+         *  }
+         */
 
-        onNodeDragEnd && onNodeDragEnd();
+        if (!result || !('draggableId' in result)
+            || !('source' in result) || !('index' in result.source)
+            || !('destination' in result) || !('index' in result.destination)) {
+            return;
+        }
+
+        const {data} = this.state,
+            sourceIndex = result.source.index,
+            destinationIndex = result.destination.index;
+
+        TreeCalculation.findNodeById(data, result.draggableId, (node, index, parent) => {
+
+            if (!parent.children || !(sourceIndex in parent.children) || !(destinationIndex in parent.children)) {
+                return;
+            }
+
+            Util.reorder(parent.children, sourceIndex, destinationIndex);
+
+            this.setState({
+                data
+            }, () => {
+                const {onNodeDragEnd, onSequenceChange} = this.props;
+                onNodeDragEnd && onNodeDragEnd(result);
+                onSequenceChange && onSequenceChange(data);
+            });
+
+        });
 
     }
 
@@ -349,7 +389,9 @@ DraggableTree.propTypes = {
     onWheel: PropTypes.func,
 
     onNodeDragStart: PropTypes.func,
-    onNodeDragEnd: PropTypes.func
+    onNodeDragEnd: PropTypes.func,
+
+    onSequenceChange: PropTypes.func
 
 };
 
