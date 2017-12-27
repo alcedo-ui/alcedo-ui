@@ -29,8 +29,7 @@ export default class DatePicker extends Component {
             month: moment(props.value).format('MM'),
             day: moment(props.value).format('DD'),
             datePickerLevel: 0,
-            marginLeft: 0,
-            isFooter: true
+            marginLeft: 0
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
@@ -60,20 +59,21 @@ export default class DatePicker extends Component {
                 if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
 
                 } else {
-                    const year = moment(text).format('YYYY'),
-                        month = moment(text).format('MM'),
-                        day = moment(text).format('DD');
                     this.setState({
                         value: moment(text,dateFormat),
-                        year: year,
-                        month: month,
-                        day: day
+                        year: moment(text).format('YYYY'),
+                        month: moment(text).format('MM'),
+                        day: moment(text).format('DD')
+                    },()=>{
+                        this.props.onChange && this.props.onChange(moment(text,dateFormat))
                     });
                 }
             }
         } else {
             this.setState({
                 value: moment(text,dateFormat)
+            },()=>{
+                this.props.onChange && this.props.onChange(moment(text,dateFormat))
             });
         }
     }
@@ -89,7 +89,9 @@ export default class DatePicker extends Component {
         if (autoClose) {
             state.popupVisible = false;
         }
-        this.setState(state);
+        this.setState(state,()=>{
+            this.props.onChange && this.props.onChange(state.value)
+        });
     }
 
     monthPickerChangeHandle(date) {
@@ -109,15 +111,14 @@ export default class DatePicker extends Component {
 
     todayHandle() {
         const {dateFormat}=this.props;
-        const year = moment().format('YYYY'),
-            month = moment().format('MM'),
-            day = moment().format('DD');
         let timer = moment(moment(),dateFormat);
         this.setState({
             value: timer,
-            year: year,
-            month: month,
-            day: day
+            year: moment().format('YYYY'),
+            month: moment().format('MM'),
+            day: moment().format('DD')
+        },()=>{
+            this.props.onChange && this.props.onChange(timer)
         });
     }
 
@@ -176,13 +177,10 @@ export default class DatePicker extends Component {
             marginLeft = 0;
         }
         if (value) {
-            const year = moment(value).format('YYYY'),
-                month = moment(value).format('MM'),
-                day = moment(value).format('DD');
             state.value = moment(value, dateFormat);
-            state.year = year;
-            state.month = month;
-            state.day = day;
+            state.year = moment(value).format('YYYY');
+            state.month = moment(value).format('MM');
+            state.day = moment(value).format('DD');
             if (marginLeft) {
                 state.marginLeft = marginLeft;
             }
@@ -199,8 +197,8 @@ export default class DatePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, marginLeft, isFooter} = this.state,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, marginLeft} = this.state,
 
             popStyle = {
                 left: '-' + marginLeft + 'px'
@@ -353,5 +351,6 @@ DatePicker.defaultProps = {
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
-    autoClose: true
+    autoClose: true,
+    isFooter: true
 };

@@ -16,6 +16,12 @@ export default class DatePickerExamples extends Component {
 
     constructor(props) {
         super(props);
+
+        this.onChangeHandle == ::this.onChangeHandle;
+    }
+
+    onChangeHandle(value) {
+        console.log(value)
     }
 
     render() {
@@ -46,7 +52,8 @@ export default class DatePickerExamples extends Component {
 
                                 <DatePicker value='2017-04-17'
                                             name="date"
-                                            autoClose={false}/>
+                                            autoClose={false}
+                                            onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -69,7 +76,8 @@ export default class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY/MM/DD'
-                                            autoClose={false}/>
+                                            autoClose={false}
+                                            onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>
@@ -92,7 +100,8 @@ export default class DatePickerExamples extends Component {
                                             dateFormat='YYYY-MM-DD'
                                             maxValue='2018-02-01'
                                             minValue='2017-02-03'
-                                            autoClose={false}/>
+                                            autoClose={false}
+                                            onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -116,7 +125,8 @@ export default class DatePickerExamples extends Component {
                                             dateFormat='YYYY-MM-DD'
                                             maxValue='2018-02-01'
                                             minValue='2017-02-03'
-                                            autoClose={false}/>
+                                            autoClose={false}
+                                            onChange={this.onChangeHandle}/>
 
                             </div>
 
