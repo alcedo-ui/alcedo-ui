@@ -36,6 +36,7 @@ export default class DraggableList extends Component {
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
         this.onNodeDragEnd = ::this.onNodeDragEnd;
+        this.renderListItem = ::this.renderListItem;
 
     }
 
@@ -154,6 +155,86 @@ export default class DraggableList extends Component {
 
     }
 
+    renderListItem(item, index) {
+
+        const {
+
+                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
+
+                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                onItemTouchTap
+
+            } = this.props,
+            {value} = this.state;
+
+        return typeof item === 'object' ?
+            (
+                <DraggableListItem key={item[idField] || index}
+                                   {...item}
+                                   index={index}
+                                   style={{height: itemHeight}}
+                                   theme={item.theme || theme}
+                                   selectTheme={item.selectTheme || selectTheme}
+                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                   data={item}
+                                   checked={Calculation.isItemChecked(item, value, this.props)}
+                                   value={Util.getValueByValueField(item, valueField, displayField)}
+                                   text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                   desc={item[descriptionField] || null}
+                                   disabled={disabled || item.disabled}
+                                   isLoading={isLoading || item.isLoading}
+                                   selectMode={selectMode}
+                                   renderer={renderer}
+                                   onTouchTap={e => {
+                                       onItemTouchTap && onItemTouchTap(item, index, e);
+                                       item.onTouchTap && item.onTouchTap(e);
+                                   }}
+                                   onSelect={() => {
+                                       this.listItemSelectHandler(item, index);
+                                   }}
+                                   onDeselect={() => {
+                                       this.listItemDeselectHandler(item, index);
+                                   }}/>
+            )
+            :
+            (
+                <DraggableListItem key={index}
+                                   index={index}
+                                   style={{height: itemHeight}}
+                                   theme={item.theme || theme}
+                                   selectTheme={item.selectTheme || selectTheme}
+                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                   data={item}
+                                   checked={Calculation.isItemChecked(item, value, this.props)}
+                                   value={item}
+                                   text={item}
+                                   disabled={disabled}
+                                   isLoading={isLoading}
+                                   selectMode={selectMode}
+                                   renderer={renderer}
+                                   onTouchTap={e => {
+                                       onItemTouchTap && onItemTouchTap(item, index, e);
+                                   }}
+                                   onSelect={() => {
+                                       this.listItemSelectHandler(item, index);
+                                   }}
+                                   onDeselect={() => {
+                                       this.listItemDeselectHandler(item, index);
+                                   }}/>
+            );
+
+    }
+
     render() {
 
         const {
@@ -204,72 +285,8 @@ export default class DraggableList extends Component {
                                                             <div ref={dragProvided.innerRef}
                                                                  style={dragProvided.draggableStyle}
                                                                  {...dragProvided.dragHandleProps}>
-                                                                {
-                                                                    typeof item === 'object' ?
-                                                                        (
-                                                                            <DraggableListItem
-                                                                                key={item[idField] || index}
-                                                                                {...item}
-                                                                                index={index}
-                                                                                style={{height: itemHeight}}
-                                                                                theme={item.theme || theme}
-                                                                                selectTheme={item.selectTheme || selectTheme}
-                                                                                radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                                                                radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                                                                checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                                                checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                                                checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                                                data={item}
-                                                                                checked={Calculation.isItemChecked(item, value, this.props)}
-                                                                                value={Util.getValueByValueField(item, valueField, displayField)}
-                                                                                text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                                                                desc={item[descriptionField] || null}
-                                                                                disabled={disabled || item.disabled}
-                                                                                isLoading={isLoading || item.isLoading}
-                                                                                selectMode={selectMode}
-                                                                                renderer={renderer}
-                                                                                onTouchTap={e => {
-                                                                                    onItemTouchTap && onItemTouchTap(item, index, e);
-                                                                                    item.onTouchTap && item.onTouchTap(e);
-                                                                                }}
-                                                                                onSelect={() => {
-                                                                                    this.listItemSelectHandler(item, index);
-                                                                                }}
-                                                                                onDeselect={() => {
-                                                                                    this.listItemDeselectHandler(item, index);
-                                                                                }}/>
-                                                                        )
-                                                                        :
-                                                                        (
-                                                                            <DraggableListItem key={index}
-                                                                                               index={index}
-                                                                                               style={{height: itemHeight}}
-                                                                                               theme={item.theme || theme}
-                                                                                               selectTheme={item.selectTheme || selectTheme}
-                                                                                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                                                                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                                                                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                                                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                                                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                                                               data={item}
-                                                                                               checked={Calculation.isItemChecked(item, value, this.props)}
-                                                                                               value={item}
-                                                                                               text={item}
-                                                                                               disabled={disabled}
-                                                                                               isLoading={isLoading}
-                                                                                               selectMode={selectMode}
-                                                                                               renderer={renderer}
-                                                                                               onTouchTap={e => {
-                                                                                                   onItemTouchTap && onItemTouchTap(item, index, e);
-                                                                                               }}
-                                                                                               onSelect={() => {
-                                                                                                   this.listItemSelectHandler(item, index);
-                                                                                               }}
-                                                                                               onDeselect={() => {
-                                                                                                   this.listItemDeselectHandler(item, index);
-                                                                                               }}/>
-                                                                        )
-                                                                }
+
+                                                                {this.renderListItem(item, index)}
 
                                                             </div>
 
