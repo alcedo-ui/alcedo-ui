@@ -28,11 +28,15 @@ export default class DraggableTree extends Component {
 
         this.state = {
             data: props.data,
-            value: Calculation.getInitValue(props)
+            value: Calculation.getInitValue(props),
+            isNodeToggling: false
         };
 
         this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
         this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
+        this.nodeToggleStartHandler = ::this.nodeToggleStartHandler;
+        this.nodeToggleEndHandler = ::this.nodeToggleEndHandler;
+        this.onNodeDragStart = ::this.onNodeDragStart;
         this.onNodeDragEnd = ::this.onNodeDragEnd;
 
     }
@@ -93,6 +97,31 @@ export default class DraggableTree extends Component {
             onChange && onChange(value, e);
         });
 
+    }
+
+    nodeToggleStartHandler() {
+
+        const {beforeNodeToggle} = this.props;
+
+        if (beforeNodeToggle && beforeNodeToggle() === false) {
+            return;
+        }
+
+        this.setState({
+            isNodeToggling: true
+        });
+
+    }
+
+    nodeToggleEndHandler() {
+        this.setState({
+            isNodeToggling: false
+        });
+    }
+
+    onNodeDragStart(initial) {
+        const {onNodeDragStart} = this.props;
+        onNodeDragStart && onNodeDragStart(initial);
     }
 
     onNodeDragEnd(result) {
@@ -166,13 +195,13 @@ export default class DraggableTree extends Component {
         const {
                 children, className, style, theme, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap, onNodeDragStart
+                renderer, onNodeTouchTap
             } = this.props,
-            {data, value} = this.state,
+            {data, value, isNodeToggling} = this.state,
             treeClassName = (className ? ' ' + className : '');
 
         return (
-            <DragDropContext onDragStart={onNodeDragStart}
+            <DragDropContext onDragStart={this.onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
                 <div className={'draggable-tree' + treeClassName}
@@ -197,9 +226,12 @@ export default class DraggableTree extends Component {
                                        allowCollapse={allowCollapse}
                                        collapsedIconCls={collapsedIconCls}
                                        expandedIconCls={expandedIconCls}
+                                       isNodeToggling={isNodeToggling}
                                        onTouchTap={(...args) => {
                                            onNodeTouchTap && onNodeTouchTap(...args);
                                        }}
+                                       onNodeToggleStart={this.nodeToggleStartHandler}
+                                       onNodeToggleEnd={this.nodeToggleEndHandler}
                                        onSelect={this.treeNodeSelectHandler}
                                        onDeselect={this.treeNodeDeselectHandler}/>
 
@@ -385,6 +417,8 @@ DraggableTree.propTypes = {
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func,
+
+    beforeNodeToggle: PropTypes.func,
 
     onNodeDragStart: PropTypes.func,
     onNodeDragEnd: PropTypes.func,
