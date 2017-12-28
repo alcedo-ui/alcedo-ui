@@ -120,13 +120,12 @@ export default class GridItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider className='block'
-                         text={tip}
-                         tipPosition={tipPosition}>
+            <div className="grid-item-wrapper"
+                 style={col ? {width: `${100 / col}%`} : null}>
 
-                <div className="grid-item-wrapper"
-                     style={col ? {width: `${100 / col}%`} : null}>
-
+                <TipProvider className='block'
+                             text={tip}
+                             tipPosition={tipPosition}>
                     <div className={'grid-item' + listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
@@ -226,9 +225,9 @@ export default class GridItem extends Component {
                         }
 
                     </div>
+                </TipProvider>
 
-                </div>
-            </TipProvider>
+            </div>
         );
 
     }
