@@ -239,7 +239,8 @@ export default class DraggableGrid extends Component {
             <DragDropContext onDragStart={onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
-                <Droppable droppableId="droppable">
+                <Droppable droppableId="droppable"
+                           direction="horizontal">
 
                     {
                         dropProvided => (
