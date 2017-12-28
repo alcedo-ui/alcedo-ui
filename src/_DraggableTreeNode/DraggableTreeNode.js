@@ -122,7 +122,7 @@ export default class DraggableTreeNode extends Component {
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
-            <Droppable droppableId={data.id}
+            <Droppable droppableId={'' + data.id}
                        type={data.id}
                        key={data.id}>
                 {
@@ -248,7 +248,7 @@ export default class DraggableTreeNode extends Component {
                                         {
                                             data.children.map((item, index) => (
                                                 <Draggable key={item.id}
-                                                           draggableId={item.id}
+                                                           draggableId={'' + item.id}
                                                            type={data.id}>
                                                     {
                                                         (dragProvided, dragSnapshot) => (

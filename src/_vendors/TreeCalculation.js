@@ -93,7 +93,7 @@ function findNodeById(node, id, callback, index = null, parent = null) {
         return;
     }
 
-    if (node.id === id) {
+    if (('' + node.id) === ('' + id)) {
         callback && callback(node, index, parent);
         return true;
     }
