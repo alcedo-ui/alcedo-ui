@@ -114,6 +114,7 @@
         }
 
         &.dragging {
+            user-select: none;
             opacity: .8;
             background: $theme-field-bg-disabled;
 
