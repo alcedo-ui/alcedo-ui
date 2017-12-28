@@ -10,7 +10,6 @@ import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
-import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -104,8 +103,7 @@ export default class DraggableGridItem extends Component {
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
-                col,
+                disabled, isLoading, renderer, itemRenderer, readOnly, col, anchorIconCls,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -216,14 +214,8 @@ export default class DraggableGridItem extends Component {
                                 )
                         }
 
-                        {
-                            disableTouchRipple || readOnly ?
-                                null
-                                :
-                                <TouchRipple ref="touchRipple"
-                                             className={disabled || isLoading ? 'hidden' : ''}
-                                             displayCenter={rippleDisplayCenter}/>
-                        }
+                        <i className={`${anchorIconCls} draggable-grid-item-anchor`}
+                           aria-hidden="true"></i>
 
                     </div>
 
@@ -252,8 +244,6 @@ DraggableGridItem.propTypes = {
 
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
-    rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
 
@@ -268,6 +258,8 @@ DraggableGridItem.propTypes = {
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    anchorIconCls: PropTypes.string,
 
     col: PropTypes.number,
 
@@ -300,8 +292,6 @@ DraggableGridItem.defaultProps = {
 
     disabled: false,
     isLoading: false,
-    disableTouchRipple: false,
-    rippleDisplayCenter: false,
     checked: false,
     readOnly: false,
 
@@ -316,6 +306,8 @@ DraggableGridItem.defaultProps = {
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
     checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    anchorIconCls: 'fa fa-bars',
 
     col: 3
 
