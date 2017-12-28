@@ -5,8 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import _ from 'lodash';
 
 import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
