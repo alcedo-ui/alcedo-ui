@@ -10,7 +10,6 @@ import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
-import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -104,8 +103,7 @@ export default class DraggableListItem extends Component {
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
-                anchorIconCls,
+                disabled, isLoading, renderer, itemRenderer, readOnly, anchorIconCls,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -213,15 +211,6 @@ export default class DraggableListItem extends Component {
                             )
                     }
 
-                    {
-                        disableTouchRipple || readOnly ?
-                            null
-                            :
-                            <TouchRipple ref="touchRipple"
-                                         className={disabled || isLoading ? 'hidden' : ''}
-                                         displayCenter={rippleDisplayCenter}/>
-                    }
-
                     <i className={`${anchorIconCls} draggable-list-item-anchor`}
                        aria-hidden="true"></i>
 
@@ -250,8 +239,6 @@ DraggableListItem.propTypes = {
 
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
-    rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
 
@@ -298,8 +285,6 @@ DraggableListItem.defaultProps = {
 
     disabled: false,
     isLoading: false,
-    disableTouchRipple: false,
-    rippleDisplayCenter: false,
     checked: false,
     readOnly: false,
 
