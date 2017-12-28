@@ -41,8 +41,14 @@ export default class DraggableTreeNode extends Component {
 
         e.stopPropagation();
 
+        const {onNodeToggleStart} = this.props;
+        onNodeToggleStart && onNodeToggleStart();
+
         this.setState({
             collapsed: !this.state.collapsed
+        }, () => {
+            const {onNodeToggleEnd} = this.props;
+            onNodeToggleEnd && onNodeToggleEnd();
         });
 
     }
@@ -102,7 +108,7 @@ export default class DraggableTreeNode extends Component {
 
                 renderer, onMouseEnter, onMouseLeave,
 
-                isDragging
+                isDragging, isNodeToggling
 
             } = this.props,
             {collapsed} = this.state,
@@ -249,7 +255,9 @@ export default class DraggableTreeNode extends Component {
                                             data.children.map((item, index) => (
                                                 <Draggable key={item.id}
                                                            draggableId={'' + item.id}
-                                                           type={data.id}>
+                                                           type={data.id}
+                                                           disableInteractiveElementBlocking={false}
+                                                           isDragDisabled={isNodeToggling}>
                                                     {
                                                         (dragProvided, dragSnapshot) => (
                                                             <div>
@@ -317,6 +325,7 @@ DraggableTreeNode.propTypes = {
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    isNodeToggling: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -333,6 +342,8 @@ DraggableTreeNode.propTypes = {
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onNodeToggleStart: PropTypes.func,
+    onNodeToggleEnd: PropTypes.func,
 
     isDragging: PropTypes.bool
 
@@ -361,6 +372,7 @@ DraggableTreeNode.defaultProps = {
     isLoading: false,
     readOnly: false,
     allowCollapse: true,
+    isNodeToggling: false,
 
     iconCls: null,
     rightIconCls: null,
