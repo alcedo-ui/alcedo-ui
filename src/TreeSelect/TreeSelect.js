@@ -73,7 +73,7 @@ export default class TreeSelect extends Component {
                 renderer ?
                     <div key={2 * i + 1}
                          className="tree-select-trigger-value-node">
-                        {renderer(node, path.slice(0, i + 1))}
+                        {renderer(node, path && path.slice(0, i + 1))}
                     </div>
                     :
                     Util.getTextByDisplayField(node, displayField, valueField)
