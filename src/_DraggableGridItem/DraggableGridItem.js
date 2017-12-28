@@ -123,118 +123,123 @@ export default class DraggableGridItem extends Component {
                        draggableId={index}>
                 {
                     dragProvided => (
-                        <TipProvider className='block'
-                                     text={tip}
-                                     tipPosition={tipPosition}>
+                        <div className="draggable-grid-item-drag-provided-wrapper"
+                             style={col ? {width: `${100 / col}%`} : null}>
 
-                            <div className="draggable-grid-item-wrapper"
-                                 style={col ? {width: `${100 / col}%`} : null}>
+                            <div ref={dragProvided.innerRef}
+                                 style={dragProvided.draggableStyle}
+                                 {...dragProvided.dragHandleProps}>
 
-                                <div ref={dragProvided.innerRef}
-                                     style={dragProvided.draggableStyle}
-                                     {...dragProvided.dragHandleProps}>
+                                <div className="draggable-grid-item-wrapper">
 
-                                    <div className={'draggable-grid-item' + listItemClassName}
-                                         style={style}
-                                         disabled={disabled || isLoading}
-                                         readOnly={readOnly}
-                                         onTouchTap={this.touchTapHandler}
-                                         onMouseEnter={onMouseEnter}
-                                         onMouseLeave={onMouseLeave}>
+                                    <TipProvider className='block'
+                                                 text={tip}
+                                                 tipPosition={tipPosition}>
+                                        <div className={'draggable-grid-item' + listItemClassName}
+                                             style={style}
+                                             disabled={disabled || isLoading}
+                                             readOnly={readOnly}
+                                             onTouchTap={this.touchTapHandler}
+                                             onMouseEnter={onMouseEnter}
+                                             onMouseLeave={onMouseLeave}>
 
-                                        {
-                                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                                                <Radio className="draggable-grid-item-select"
-                                                       theme={selectTheme}
-                                                       checked={checked}
-                                                       disabled={disabled || isLoading}
-                                                       uncheckedIconCls={radioUncheckedIconCls}
-                                                       checkedIconCls={radioCheckedIconCls}
-                                                       disableTouchRipple={true}/>
-                                                :
-                                                null
-                                        }
+                                            {
+                                                selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                                    <Radio className="draggable-grid-item-select"
+                                                           theme={selectTheme}
+                                                           checked={checked}
+                                                           disabled={disabled || isLoading}
+                                                           uncheckedIconCls={radioUncheckedIconCls}
+                                                           checkedIconCls={radioCheckedIconCls}
+                                                           disableTouchRipple={true}/>
+                                                    :
+                                                    null
+                                            }
 
-                                        {
-                                            selectMode === SelectMode.MULTI_SELECT ?
-                                                <Checkbox className="draggable-grid-item-select"
-                                                          theme={selectTheme}
-                                                          checked={checked}
-                                                          disabled={disabled || isLoading}
-                                                          uncheckedIconCls={checkboxUncheckedIconCls}
-                                                          checkedIconCls={checkboxCheckedIconCls}
-                                                          indeterminateIconCls={checkboxIndeterminateIconCls}
-                                                          disableTouchRipple={true}/>
-                                                :
-                                                null
-                                        }
+                                            {
+                                                selectMode === SelectMode.MULTI_SELECT ?
+                                                    <Checkbox className="draggable-grid-item-select"
+                                                              theme={selectTheme}
+                                                              checked={checked}
+                                                              disabled={disabled || isLoading}
+                                                              uncheckedIconCls={checkboxUncheckedIconCls}
+                                                              checkedIconCls={checkboxCheckedIconCls}
+                                                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                                                              disableTouchRipple={true}/>
+                                                    :
+                                                    null
+                                            }
 
-                                        {
-                                            isLoading && loadingIconPosition === 'left' ?
-                                                <div className="button-icon button-icon-left">
-                                                    <CircularLoading className="button-loading-icon"
-                                                                     size="small"/>
-                                                </div>
-                                                :
-                                                (
-                                                    iconCls ?
-                                                        <i className={`button-icon button-icon-left ${iconCls}`}
-                                                           aria-hidden="true"></i>
-                                                        :
-                                                        null
-                                                )
-                                        }
+                                            {
+                                                isLoading && loadingIconPosition === 'left' ?
+                                                    <div className="button-icon button-icon-left">
+                                                        <CircularLoading className="button-loading-icon"
+                                                                         size="small"/>
+                                                    </div>
+                                                    :
+                                                    (
+                                                        iconCls ?
+                                                            <i className={`button-icon button-icon-left ${iconCls}`}
+                                                               aria-hidden="true"></i>
+                                                            :
+                                                            null
+                                                    )
+                                            }
 
-                                        {
-                                            itemRenderer && typeof itemRenderer === 'function' ?
-                                                itemRenderer(data, index)
-                                                :
-                                                (
-                                                    renderer && typeof renderer === 'function' ?
-                                                        renderer(data, index)
-                                                        :
-                                                        (
-                                                            desc ?
-                                                                <div className="draggable-grid-item-content">
-                                                                    <div className="draggable-grid-item-content-value">
-                                                                        {text}
+                                            {
+                                                itemRenderer && typeof itemRenderer === 'function' ?
+                                                    itemRenderer(data, index)
+                                                    :
+                                                    (
+                                                        renderer && typeof renderer === 'function' ?
+                                                            renderer(data, index)
+                                                            :
+                                                            (
+                                                                desc ?
+                                                                    <div className="draggable-grid-item-content">
+                                                                        <div
+                                                                            className="draggable-grid-item-content-value">
+                                                                            {text}
+                                                                        </div>
+                                                                        <div
+                                                                            className="draggable-grid-item-content-desc">
+                                                                            {desc}
+                                                                        </div>
                                                                     </div>
-                                                                    <div className="draggable-grid-item-content-desc">
-                                                                        {desc}
-                                                                    </div>
-                                                                </div>
-                                                                :
-                                                                text
-                                                        )
-                                                )
-                                        }
+                                                                    :
+                                                                    text
+                                                            )
+                                                    )
+                                            }
 
-                                        {
-                                            isLoading && loadingIconPosition === 'right' ?
-                                                <CircularLoading
-                                                    className="button-icon button-icon-right button-loading-icon"
-                                                    size="small"/>
-                                                :
-                                                (
-                                                    rightIconCls ?
-                                                        <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                                           aria-hidden="true"></i>
-                                                        :
-                                                        null
-                                                )
-                                        }
+                                            {
+                                                isLoading && loadingIconPosition === 'right' ?
+                                                    <CircularLoading
+                                                        className="button-icon button-icon-right button-loading-icon"
+                                                        size="small"/>
+                                                    :
+                                                    (
+                                                        rightIconCls ?
+                                                            <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                                               aria-hidden="true"></i>
+                                                            :
+                                                            null
+                                                    )
+                                            }
 
-                                        <i className={`${anchorIconCls} draggable-grid-item-anchor`}
-                                           aria-hidden="true"></i>
+                                            <i className={`${anchorIconCls} draggable-grid-item-anchor`}
+                                               aria-hidden="true"></i>
 
-                                    </div>
-
-                                    {dragProvided.placeholder}
+                                        </div>
+                                    </TipProvider>
 
                                 </div>
 
                             </div>
-                        </TipProvider>
+
+                            {dragProvided.placeholder}
+
+                        </div>
                     )
                 }
             </Draggable>
