@@ -51,6 +51,7 @@ export default class MaterialTextFieldExamples extends Component {
                                     <MaterialTextField theme={Theme.HIGHLIGHT}
                                                        label="Search"
                                                        placeholder="keywords"
+                                                       autoFocus={true}
                                                        rightIconCls={'fa fa-search'}/>
                                 </div>
 
