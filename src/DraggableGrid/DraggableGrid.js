@@ -27,6 +27,7 @@ export default class DraggableGrid extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            data: props.data,
             value: Calculation.getInitValue(props)
         };
 
@@ -134,11 +135,22 @@ export default class DraggableGrid extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
+
+        let state;
+
+        if (nextProps.data !== this.state.data) {
+            state = state ? state : {};
+            state.data = nextProps.data;
         }
+        if (nextProps.value !== this.state.value) {
+            state = state ? state : {};
+            state.value = Calculation.getInitValue(nextProps);
+        }
+
+        if (state) {
+            this.setState(state);
+        }
+
     }
 
     renderGridItem(item, index) {
@@ -252,29 +264,7 @@ export default class DraggableGrid extends Component {
                                      Event.wheelHandler(e, this.props);
                                  }}>
 
-                                {
-                                    data.map((item, index) => (
-                                        <Draggable key={index}
-                                                   draggableId={index}>
-                                            {
-                                                dragProvided => (
-                                                    <div>
-                                                        <div ref={dragProvided.innerRef}
-                                                             style={dragProvided.draggableStyle}
-                                                             {...dragProvided.dragHandleProps}>
-
-                                                            {this.renderGridItem(item, index)}
-
-                                                        </div>
-
-                                                        {dragProvided.placeholder}
-
-                                                    </div>
-                                                )
-                                            }
-                                        </Draggable>
-                                    ))
-                                }
+                                {data.map((item, index) => this.renderGridItem(item, index))}
 
                                 {dropProvided.placeholder}
 
