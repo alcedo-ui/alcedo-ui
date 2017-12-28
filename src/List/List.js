@@ -33,6 +33,7 @@ export default class List extends Component {
 
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
+        this.renderListItem = ::this.renderListItem;
 
     }
 
