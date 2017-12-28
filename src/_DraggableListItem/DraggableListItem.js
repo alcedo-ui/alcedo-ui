@@ -105,6 +105,7 @@ export default class DraggableListItem extends Component {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+                anchorIconCls,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -221,6 +222,9 @@ export default class DraggableListItem extends Component {
                                          displayCenter={rippleDisplayCenter}/>
                     }
 
+                    <i className={`${anchorIconCls} draggable-list-item-anchor`}
+                       aria-hidden="true"></i>
+
                 </div>
             </TipProvider>
         );
@@ -262,6 +266,8 @@ DraggableListItem.propTypes = {
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    anchorIconCls: PropTypes.string,
 
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
@@ -307,6 +313,8 @@ DraggableListItem.defaultProps = {
     radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'fa fa-square-o',
     checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+    anchorIconCls: 'fa fa-bars'
 
 };
