@@ -133,8 +133,14 @@ function getDiag(a, b) {
 }
 
 function reorder(data, startIndex, endIndex) {
+
+    if (!data || !(startIndex in data) || !(startIndex in data)) {
+        return;
+    }
+
     const [removed] = data.splice(startIndex, 1);
     data.splice(endIndex, 0, removed);
+
 };
 
 export default {
