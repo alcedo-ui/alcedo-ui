@@ -237,19 +237,8 @@ export default class DraggableList extends Component {
 
     render() {
 
-        const {
-
-                children, className, style, theme, itemHeight,
-
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
-
-                onItemTouchTap, onNodeDragStart
-
-            } = this.props,
-            {data, value} = this.state,
+        const {children, className, style, disabled, onNodeDragStart} = this.props,
+            {data} = this.state,
             listClassName = (className ? ' ' + className : '');
 
         return (
