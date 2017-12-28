@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Draggable} from 'react-beautiful-dnd';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -118,104 +119,122 @@ export default class DraggableListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider className='block'
-                         text={tip}
-                         tipPosition={tipPosition}>
+            <Draggable key={index}
+                       draggableId={index}>
+                {
+                    dragProvided => (
+                        <div>
+                            <div ref={dragProvided.innerRef}
+                                 style={dragProvided.draggableStyle}
+                                 {...dragProvided.dragHandleProps}>
 
-                <div className={'draggable-list-item' + listItemClassName}
-                     style={style}
-                     disabled={disabled || isLoading}
-                     readOnly={readOnly}
-                     onTouchTap={this.touchTapHandler}
-                     onMouseEnter={onMouseEnter}
-                     onMouseLeave={onMouseLeave}>
+                                <TipProvider className='block'
+                                             text={tip}
+                                             tipPosition={tipPosition}>
 
-                    {
-                        selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                            <Radio className="draggable-list-item-select"
-                                   theme={selectTheme}
-                                   checked={checked}
-                                   disabled={disabled || isLoading}
-                                   uncheckedIconCls={radioUncheckedIconCls}
-                                   checkedIconCls={radioCheckedIconCls}
-                                   disableTouchRipple={true}/>
-                            :
-                            null
-                    }
+                                    <div className={'draggable-list-item' + listItemClassName}
+                                         style={style}
+                                         disabled={disabled || isLoading}
+                                         readOnly={readOnly}
+                                         onTouchTap={this.touchTapHandler}
+                                         onMouseEnter={onMouseEnter}
+                                         onMouseLeave={onMouseLeave}>
 
-                    {
-                        selectMode === SelectMode.MULTI_SELECT ?
-                            <Checkbox className="draggable-list-item-select"
-                                      theme={selectTheme}
-                                      checked={checked}
-                                      disabled={disabled || isLoading}
-                                      uncheckedIconCls={checkboxUncheckedIconCls}
-                                      checkedIconCls={checkboxCheckedIconCls}
-                                      indeterminateIconCls={checkboxIndeterminateIconCls}
-                                      disableTouchRipple={true}/>
-                            :
-                            null
-                    }
+                                        {
+                                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                                <Radio className="draggable-list-item-select"
+                                                       theme={selectTheme}
+                                                       checked={checked}
+                                                       disabled={disabled || isLoading}
+                                                       uncheckedIconCls={radioUncheckedIconCls}
+                                                       checkedIconCls={radioCheckedIconCls}
+                                                       disableTouchRipple={true}/>
+                                                :
+                                                null
+                                        }
 
-                    {
-                        isLoading && loadingIconPosition === 'left' ?
-                            <div className="button-icon button-icon-left">
-                                <CircularLoading className="button-loading-icon"
-                                                 size="small"/>
+                                        {
+                                            selectMode === SelectMode.MULTI_SELECT ?
+                                                <Checkbox className="draggable-list-item-select"
+                                                          theme={selectTheme}
+                                                          checked={checked}
+                                                          disabled={disabled || isLoading}
+                                                          uncheckedIconCls={checkboxUncheckedIconCls}
+                                                          checkedIconCls={checkboxCheckedIconCls}
+                                                          indeterminateIconCls={checkboxIndeterminateIconCls}
+                                                          disableTouchRipple={true}/>
+                                                :
+                                                null
+                                        }
+
+                                        {
+                                            isLoading && loadingIconPosition === 'left' ?
+                                                <div className="button-icon button-icon-left">
+                                                    <CircularLoading className="button-loading-icon"
+                                                                     size="small"/>
+                                                </div>
+                                                :
+                                                (
+                                                    iconCls ?
+                                                        <i className={`button-icon button-icon-left ${iconCls}`}
+                                                           aria-hidden="true"></i>
+                                                        :
+                                                        null
+                                                )
+                                        }
+
+                                        {
+                                            itemRenderer && typeof itemRenderer === 'function' ?
+                                                itemRenderer(data, index)
+                                                :
+                                                (
+                                                    renderer && typeof renderer === 'function' ?
+                                                        renderer(data, index)
+                                                        :
+                                                        (
+                                                            desc ?
+                                                                <div className="draggable-list-item-content">
+                                                                    <div className="draggable-list-item-content-value">
+                                                                        {text}
+                                                                    </div>
+                                                                    <div className="draggable-list-item-content-desc">
+                                                                        {desc}
+                                                                    </div>
+                                                                </div>
+                                                                :
+                                                                text
+                                                        )
+                                                )
+                                        }
+
+                                        {
+                                            isLoading && loadingIconPosition === 'right' ?
+                                                <CircularLoading
+                                                    className="button-icon button-icon-right button-loading-icon"
+                                                    size="small"/>
+                                                :
+                                                (
+                                                    rightIconCls ?
+                                                        <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                                           aria-hidden="true"></i>
+                                                        :
+                                                        null
+                                                )
+                                        }
+
+                                        <i className={`${anchorIconCls} draggable-list-item-anchor`}
+                                           aria-hidden="true"></i>
+
+                                    </div>
+                                </TipProvider>
                             </div>
-                            :
-                            (
-                                iconCls ?
-                                    <i className={`button-icon button-icon-left ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
 
-                    {
-                        itemRenderer && typeof itemRenderer === 'function' ?
-                            itemRenderer(data, index)
-                            :
-                            (
-                                renderer && typeof renderer === 'function' ?
-                                    renderer(data, index)
-                                    :
-                                    (
-                                        desc ?
-                                            <div className="draggable-list-item-content">
-                                                <div className="draggable-list-item-content-value">
-                                                    {text}
-                                                </div>
-                                                <div className="draggable-list-item-content-desc">
-                                                    {desc}
-                                                </div>
-                                            </div>
-                                            :
-                                            text
-                                    )
-                            )
-                    }
+                            {dragProvided.placeholder}
 
-                    {
-                        isLoading && loadingIconPosition === 'right' ?
-                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                rightIconCls ?
-                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
-
-                    <i className={`${anchorIconCls} draggable-list-item-anchor`}
-                       aria-hidden="true"></i>
-
-                </div>
-            </TipProvider>
+                        </div>
+                    )
+                }
+            </Draggable>
         );
 
     }
