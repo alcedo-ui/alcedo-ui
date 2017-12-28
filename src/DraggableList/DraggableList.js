@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import _ from 'lodash';
 
 import DraggableListItem from '../_DraggableListItem';
@@ -265,27 +265,7 @@ export default class DraggableList extends Component {
                                                         className="draggable-list-separator"></div>;
                                         }
 
-                                        return (
-                                            <Draggable key={index}
-                                                       draggableId={index}>
-                                                {
-                                                    dragProvided => (
-                                                        <div>
-                                                            <div ref={dragProvided.innerRef}
-                                                                 style={dragProvided.draggableStyle}
-                                                                 {...dragProvided.dragHandleProps}>
-
-                                                                {this.renderListItem(item, index)}
-
-                                                            </div>
-
-                                                            {dragProvided.placeholder}
-
-                                                        </div>
-                                                    )
-                                                }
-                                            </Draggable>
-                                        );
+                                        return this.renderListItem(item, index);
 
                                     })
                                 }
