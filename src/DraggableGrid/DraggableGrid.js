@@ -257,7 +257,7 @@ export default class DraggableGrid extends Component {
                                         <Draggable key={index}
                                                    draggableId={index}>
                                             {
-                                                (dragProvided, dragSnapshot) => (
+                                                dragProvided => (
                                                     <div>
                                                         <div ref={dragProvided.innerRef}
                                                              style={dragProvided.draggableStyle}
