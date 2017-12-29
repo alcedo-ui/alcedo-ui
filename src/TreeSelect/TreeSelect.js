@@ -81,6 +81,7 @@ export default class TreeSelect extends Component {
         }
 
         addNode(data, -1);
+
         if (path) {
             for (let i = 0, len = path.length; i < len; i++) {
 
