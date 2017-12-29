@@ -36,7 +36,7 @@ export default class MonthPicker extends Component {
     }
 
     previousLevel() {
-        this.props.previousClick && this.props.previousClick(1);
+        this.props.previousClick && this.props.previousClick('year');
     }
 
     selectDate(s_month) {
@@ -151,9 +151,8 @@ export default class MonthPicker extends Component {
             }
         }
         selectYear = selectYear.toString();
-        let leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +selectYear) ? true : false;
-
-        let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear) ? true : false;
+        let leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +selectYear);
+        let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear);
 
         return (
             <div className={'calendar ' + className}>
