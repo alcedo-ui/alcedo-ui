@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import Util from '../_vendors/Util';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -195,39 +196,6 @@ export default class DateRangePicker extends Component {
         this.setState(state);
     }
 
-    MonthDays(year) {
-        // debugger
-        let _date_array = [];
-        for (var i = 0; i < 12; i++) {
-            switch (i + 1) {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    _date_array.push(31);
-                    break;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    _date_array.push(30);
-                    break;
-                case 2:
-                    if (moment(year + '-02-29', 'YYYY-MM-DD', true).isValid()) {
-                        _date_array.push(29);
-                    } else {
-                        _date_array.push(28);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        return _date_array;
-    }
 
     togglePopup(e) {
         this.setState({
@@ -331,7 +299,7 @@ export default class DateRangePicker extends Component {
         maxYear = maxMonth == 1 ? +maxYear - 1 : maxYear;
         maxMonth = maxMonth == 1 ? 11 : +maxMonth - 2;
 
-        let maxDay = this.MonthDays(maxYear)[maxMonth];
+        let maxDay = Util.MonthDays(maxYear)[maxMonth];
         let leftMaxValue = moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD');
         let minYear = left.year;
         let minMonth = left.month;

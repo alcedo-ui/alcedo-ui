@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Util from '../_vendors/Util';
 
 import TouchRipple from '../TouchRipple';
 
@@ -31,7 +32,7 @@ export default class DayPicker extends Component {
             currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM'),
             currentDay: moment(value).format('DD'),
-            date_num_array: this.MonthDays(this.props.year),
+            date_num_array: Util.MonthDays(this.props.year),
             first_day: this.weekday(this.props.year, this.props.month)
         };
 
@@ -43,39 +44,6 @@ export default class DayPicker extends Component {
         this.nextYear = ::this.nextYear;
         this.hoverDateHandle = ::this.hoverDateHandle;
 
-    }
-
-    MonthDays(year) {
-        let _date_array = [];
-        for (var i = 0; i < 12; i++) {
-            switch (i + 1) {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    _date_array.push(31);
-                    break;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    _date_array.push(30);
-                    break;
-                case 2:
-                    if (moment(year + '-02-29', 'YYYY-MM-DD', true).isValid()) {
-                        _date_array.push(29);
-                    } else {
-                        _date_array.push(28);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        return _date_array;
     }
 
     previousLevel() {
@@ -123,7 +91,7 @@ export default class DayPicker extends Component {
     previousYear() {
         let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
         selectYear = +selectYear - 1;
-        date_num_array = this.MonthDays(selectYear);
+        date_num_array = Util.MonthDays(selectYear);
         first_day = this.weekday(selectYear, selectMonth);
         if (Number(currentYear) === Number(selectYear) &&
             Number(currentMonth) === Number(selectMonth)) {
@@ -149,7 +117,7 @@ export default class DayPicker extends Component {
         if (selectMonth == 1) {
             selectYear = +selectYear - 1;
             selectMonth = 12;
-            date_num_array = this.MonthDays(selectYear);
+            date_num_array = Util.MonthDays(selectYear);
         } else {
             selectMonth = +selectMonth - 1;
         }
@@ -173,7 +141,7 @@ export default class DayPicker extends Component {
         if (selectMonth == 12) {
             selectYear = +selectYear + 1;
             selectMonth = 1;
-            date_num_array = this.MonthDays(selectYear);
+            date_num_array = Util.MonthDays(selectYear);
         } else {
             selectMonth = +selectMonth + 1;
         }
@@ -195,7 +163,7 @@ export default class DayPicker extends Component {
     nextYear() {
         let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
         selectYear = +selectYear + 1;
-        date_num_array = this.MonthDays(selectYear);
+        date_num_array = Util.MonthDays(selectYear);
         first_day = this.weekday(selectYear, selectMonth);
         selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
 
@@ -238,7 +206,7 @@ export default class DayPicker extends Component {
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM'),
                 currentDay: moment(value).format('DD'),
-                date_num_array: this.MonthDays(nextProps.year),
+                date_num_array: Util.MonthDays(nextProps.year),
                 first_day: this.weekday(nextProps.year, nextProps.month)
             });
         }
@@ -257,7 +225,7 @@ export default class DayPicker extends Component {
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM'),
                 currentDay: moment(value).format('DD'),
-                date_num_array: this.MonthDays(year),
+                date_num_array: Util.MonthDays(year),
                 first_day: this.weekday(year, month)
             });
 
