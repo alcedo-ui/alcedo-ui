@@ -25,11 +25,14 @@ export default class Tree extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: Calculation.getInitValue(props)
+            value: Calculation.getInitValue(props),
+            isNodeToggling: false
         };
 
         this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
         this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
+        this.nodeToggleStartHandler = ::this.nodeToggleStartHandler;
+        this.nodeToggleEndHandler = ::this.nodeToggleEndHandler;
 
     }
 
@@ -91,6 +94,26 @@ export default class Tree extends Component {
 
     }
 
+    nodeToggleStartHandler() {
+
+        const {beforeNodeToggle} = this.props;
+
+        if (beforeNodeToggle && beforeNodeToggle() === false) {
+            return;
+        }
+
+        this.setState({
+            isNodeToggling: true
+        });
+
+    }
+
+    nodeToggleEndHandler() {
+        this.setState({
+            isNodeToggling: false
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
@@ -106,7 +129,7 @@ export default class Tree extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 renderer, onNodeTouchTap
             } = this.props,
-            {value} = this.state,
+            {value, isNodeToggling} = this.state,
             treeClassName = (className ? ' ' + className : '');
 
         return (
@@ -132,9 +155,12 @@ export default class Tree extends Component {
                           allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
+                          isNodeToggling={isNodeToggling}
                           onTouchTap={(...args) => {
                               onNodeTouchTap && onNodeTouchTap(...args);
                           }}
+                          onNodeToggleStart={this.nodeToggleStartHandler}
+                          onNodeToggleEnd={this.nodeToggleEndHandler}
                           onSelect={this.treeNodeSelectHandler}
                           onDeselect={this.treeNodeDeselectHandler}/>
 
@@ -317,7 +343,9 @@ Tree.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    beforeNodeToggle: PropTypes.func
 
 };
 

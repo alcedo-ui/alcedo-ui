@@ -49,6 +49,20 @@ function traverseDataCalPath(node, value, props, parent, index = 0) {
 
     const {valueField, displayField} = props;
 
+    if (Util.getValueByValueField(node, valueField, displayField)
+        === Util.getValueByValueField(value, valueField, displayField)) {
+
+        if (!parent) { // root
+            return null;
+        } else {
+            return [{
+                node,
+                index
+            }];
+        }
+
+    }
+
     // find in children
     if (node.children && node.children.length > 0) {
 
@@ -60,7 +74,7 @@ function traverseDataCalPath(node, value, props, parent, index = 0) {
             // if finded in child node
             if (path) {
 
-                if (!parent) {
+                if (!parent) { // root
                     return path;
                 }
 
@@ -75,14 +89,6 @@ function traverseDataCalPath(node, value, props, parent, index = 0) {
         }
     }
 
-    if (Util.getValueByValueField(node, valueField, displayField)
-        === Util.getValueByValueField(value, valueField, displayField)) {
-        return [{
-            node,
-            index
-        }];
-    }
-
     return;
 
 }
@@ -93,7 +99,7 @@ function findNodeById(node, id, callback, index = null, parent = null) {
         return;
     }
 
-    if (node.id === id) {
+    if (('' + node.id) === ('' + id)) {
         callback && callback(node, index, parent);
         return true;
     }

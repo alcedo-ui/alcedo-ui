@@ -40,8 +40,14 @@ export default class TreeNode extends Component {
 
         e.stopPropagation();
 
+        const {onNodeToggleStart} = this.props;
+        onNodeToggleStart && onNodeToggleStart();
+
         this.setState({
             collapsed: !this.state.collapsed
+        }, () => {
+            const {onNodeToggleEnd} = this.props;
+            onNodeToggleEnd && onNodeToggleEnd();
         });
 
     }
@@ -285,6 +291,7 @@ TreeNode.propTypes = {
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    isNodeToggling: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -300,7 +307,9 @@ TreeNode.propTypes = {
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
+    onNodeToggleStart: PropTypes.func,
+    onNodeToggleEnd: PropTypes.func
 
 };
 
@@ -327,6 +336,7 @@ TreeNode.defaultProps = {
     isLoading: false,
     readOnly: false,
     allowCollapse: true,
+    isNodeToggling: false,
 
     iconCls: null,
     rightIconCls: null,

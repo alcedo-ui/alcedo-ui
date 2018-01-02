@@ -19,7 +19,8 @@ export default class GridExamples extends Component {
         this.descListData = [{
             iconCls: 'fa fa-facebook',
             text: 'Facebook',
-            desc: 'Here is a Facebook Desc.'
+            desc: 'Here is a Facebook Desc.',
+            tip: 'Facebook'
         }, {
             iconCls: 'fa fa-twitter',
             text: 'Twitter',

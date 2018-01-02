@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.14.1",
+    "version": "2.14.3",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -91,7 +91,7 @@
         "sass-loader": "^6.0.6",
         "style-loader": "^0.19.1",
         "through2": "^2.0.3",
-        "uglifyjs-webpack-plugin": "^1.1.4",
+        "uglifyjs-webpack-plugin": "^1.1.5",
         "url-loader": "^0.6.2",
         "webpack": "^3.10.0",
         "webpack-dev-middleware": "^2.0.3",

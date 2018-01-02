@@ -8,4 +8,8 @@
     padding-top: 10px;
     background: $theme-field-bg;
     overflow: auto;
+
+    .tip-provider > .trigger-wrapper {
+        display: block;
+    }
 }
