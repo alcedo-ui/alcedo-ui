@@ -2,7 +2,6 @@
  * @file DateRangePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -13,10 +12,6 @@ import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-
-import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
-import Event from '../_vendors/Event';
 
 export default class DateRangePicker extends Component {
 
@@ -30,7 +25,7 @@ export default class DateRangePicker extends Component {
             endTime = '';
 
         this.state = {
-            value: initValue, // Moment object
+            value: props.value, // Moment object
             popupVisible: false,
             triggerEl: null,
             left: {
@@ -242,6 +237,7 @@ export default class DateRangePicker extends Component {
     }
 
     closePopup() {
+        const {dateFormat} =this.props;
         let state = _.cloneDeep(this.state);
         state.popupVisible = false;
         state.left.datePickerLevel = 'day';
@@ -271,21 +267,21 @@ export default class DateRangePicker extends Component {
                 state.right.day = moment(state.historyEndTime).format('DD');
             }
         }
-        !this.props.disabled && this.setState(state);
+        state.value = [moment(state.left.text, dateFormat),moment(state.right.text, dateFormat)];
+        !this.props.disabled && this.setState(state,()=>{
+            this.props.onChange && this.props.onChange(state.value)
+        });
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
+        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
             this.setState({
-                value,
-                textFieldValue: value.format(nextProps.dateFormat)
+                value:nextProps.value
             });
         }
     }
 
     componentDidMount() {
-
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value && value.length) {
@@ -337,7 +333,6 @@ export default class DateRangePicker extends Component {
 
         let maxDay = this.MonthDays(maxYear)[maxMonth];
         let leftMaxValue = moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD');
-        // debugger
         let minYear = left.year;
         let minMonth = left.month;
         minYear = minMonth == 12 ? +minYear + 1 : minYear;
@@ -564,11 +559,9 @@ DateRangePicker.propTypes = {
 };
 
 DateRangePicker.defaultProps = {
-
     className: '',
     style: null,
     name: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD'
-
 };
