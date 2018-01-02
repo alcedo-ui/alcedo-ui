@@ -138,6 +138,7 @@ export default class EditableFieldExamples extends Component {
 
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}
+                                               maxLength={5}
                                                tip="this is a tip"/>
                             </div>
 

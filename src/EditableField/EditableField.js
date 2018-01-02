@@ -131,7 +131,7 @@ export default class EditableField extends Component {
 
         const {
             children, className, style, name, disabled, tip, tipPosition, title,
-            onMouseDown, onTouchTap, showModal
+            onMouseDown, onTouchTap, showModal, maxLength
         } = this.props;
 
         return (
@@ -156,6 +156,7 @@ export default class EditableField extends Component {
                                 aria-hidden="true"></i></span>
                             : <TextField ref="textField"
                                          className={'editable-field-input'}
+                                         maxLength={maxLength}
                                          value={this.state.changeText}
                                          onChange={this.onInputChange}/>
                     }
@@ -211,6 +212,11 @@ EditableField.propTypes = {
      * The title of the editableField.
      */
     title: PropTypes.string,
+
+    /**
+     * The maximum length of editableField to enter.
+     */
+    maxLength: PropTypes.number,
 
     /**
      * The tip of the editableField.
