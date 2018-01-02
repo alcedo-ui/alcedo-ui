@@ -9,6 +9,7 @@ import moment from 'moment';
 
 import TextField from '../TextField';
 import TimeList from '../_TimeList';
+import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -24,11 +25,13 @@ export default class TimePicker extends Component {
             popupVisible: false,
             hour: moment().format('HH'),
             minute: moment().format('mm'),
-            second: moment().format('ss')
+            second: moment().format('ss'),
+            triggerEl:null
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.mousedownHandle = ::this.mousedownHandle;
+        this.togglePopup = ::this.togglePopup;
+        this.closePopup = ::this.closePopup;
         this.wrapperHeight = ::this.wrapperHeight;
         this.timePickerChangeHandle = ::this.timePickerChangeHandle;
 
@@ -87,14 +90,16 @@ export default class TimePicker extends Component {
         });
     }
 
-    mousedownHandle(e) {
-        !this.props.disabled && this.setState({
-            popupVisible: Event.triggerPopupEventHandle(
-                e.target,
-                require('react-dom').findDOMNode(this.refs.trigger),
-                this.refs.popup,
-                this.state.popupVisible
-            )
+    togglePopup(e) {
+        this.setState({
+            popupVisible: !this.state.popupVisible,
+            triggerEl: e.target
+        });
+    }
+
+    closePopup() {
+        this.setState({
+            popupVisible: false
         });
     }
 
@@ -127,7 +132,7 @@ export default class TimePicker extends Component {
     render() {
 
         const {className, style, name, placeholder, maxValue, minValue, dateFormat} = this.props,
-            {popupVisible, textFieldValue, hour, minute, second} = this.state,
+            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
 
             wrapperHeight = this.wrapperHeight(),
             wrapperStyle = {
@@ -146,10 +151,18 @@ export default class TimePicker extends Component {
                                placeholder={placeholder}
                                value={textFieldValue}
                                iconCls="fa fa-clock-o"
-                               readOnly={true}/>
+                               readOnly={true}
+                               onTouchTap={e => {
+                                   this.togglePopup(e);
+                               }}/>
 
-                    <div ref="popup"
-                         className={`time-picker-popup ${popupVisible ? '' : 'hidden'}`}>
+                    <Popup className={`time-picker-popup`}
+                           visible={popupVisible}
+                           triggerEl={triggerEl}
+                           hasTriangle={false}
+                           onRequestClose={() => {
+                               this.closePopup();
+                           }}>
                         <TextField className="popup-text-field"
                                    placeholder={placeholder}
                                    value={textFieldValue ? popupTextField : textFieldValue}
@@ -163,7 +176,7 @@ export default class TimePicker extends Component {
                                   dateFormat={dateFormat}
                                   popupVisible={popupVisible}
                                   onChange={this.timePickerChangeHandle}/>
-                    </div>
+                    </Popup>
                 </div>
             </div>
         );

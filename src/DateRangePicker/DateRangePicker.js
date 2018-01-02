@@ -12,6 +12,7 @@ import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
+import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
@@ -31,6 +32,7 @@ export default class DateRangePicker extends Component {
         this.state = {
             value: initValue, // Moment object
             popupVisible: false,
+            triggerEl: null,
             left: {
                 text: startTime,
                 datePickerLevel: 0,
@@ -49,13 +51,12 @@ export default class DateRangePicker extends Component {
             endTime: '',
             historyStartTime: '',
             historyEndTime: '',
-            hoverTime: '',
-            marginLeft: 0
+            hoverTime: ''
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.mousedownHandle = ::this.mousedownHandle;
-        this.resizeHandle = ::this.resizeHandle;
+        this.togglePopup = ::this.togglePopup;
+        this.closePopup = ::this.closePopup;
         this.datePickerChangeHandle = ::this.datePickerChangeHandle;
         this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
         this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
@@ -64,9 +65,9 @@ export default class DateRangePicker extends Component {
         this.monthAndYearChangeHandle = ::this.monthAndYearChangeHandle;
     }
 
-    datePickerChangeHandle(select) {
+    datePickerChangeHandle(select,selectLevel) {
         let state = _.cloneDeep(this.state);
-        state[select].datePickerLevel = state[select].datePickerLevel + 1;
+        state[select].datePickerLevel = selectLevel;
         this.setState(state);
     }
 
@@ -233,18 +234,16 @@ export default class DateRangePicker extends Component {
         return _date_array;
     }
 
-    resizeHandle() {
-        const {left} = Dom.getOffset(this.refs.datePicker);
-        const width = 600;
-        const windowWidth = document.body.clientWidth;
-        let marginLeft;
-        if ((left + width) >= windowWidth) {
-            marginLeft = (left + width) - windowWidth;
-        } else {
-            marginLeft = 0;
-        }
+    togglePopup(e) {
         this.setState({
-            marginLeft: marginLeft
+            popupVisible: !this.state.popupVisible,
+            triggerEl: e.target
+        });
+    }
+
+    closePopup() {
+        this.setState({
+            popupVisible: false
         });
     }
 
@@ -303,15 +302,6 @@ export default class DateRangePicker extends Component {
 
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
-        const {left} = Dom.getOffset(this.refs.datePicker);
-        const width = 600;
-        const windowWidth = document.body.clientWidth;
-        let marginLeft;
-        if ((left + width) >= windowWidth) {
-            marginLeft = (left + width) - windowWidth;
-        } else {
-            marginLeft = 0;
-        }
         if (value && value.length) {
             let leftValue = value[0],
                 rightValue = value[1],
@@ -343,22 +333,14 @@ export default class DateRangePicker extends Component {
             state.endTime = rightValue;
             state.historyStartTime = leftValue;
             state.historyEndTime = rightValue;
-            state.marginLeft = marginLeft;
-
             this.setState(state);
         }
-        Event.addEvent(window, 'mousedown', this.mousedownHandle);
-        Event.addEvent(window, 'resize', this.resizeHandle);
-    }
 
-    componentWillUnmount() {
-        Event.removeEvent(window, 'mousedown', this.mousedownHandle);
-        Event.removeEvent(window, 'resize', this.resizeHandle);
     }
 
     render() {
         const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
-        const {popupVisible, left, right, startTime, endTime, hoverTime, marginLeft} = this.state;
+        const {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -376,26 +358,29 @@ export default class DateRangePicker extends Component {
         minMonth = minMonth == 12 ? 1 : +minMonth + 1;
 
         let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
-        const popStyle = {
-            left: '-' + marginLeft + 'px'
-        };
+
         return (
             <div className={`date-range-picker ${className}`}
                  ref="datePicker"
                  style={style}>
                 <TextField ref="trigger"
-                           className="date-picker-field"
+                           className="date-range-picker-field"
                            name={name}
                            placeholder={placeholder}
                            value={textFieldValue}
                            iconCls="fa fa-calendar"
                            readOnly={true}
                            clearButtonVisible={false}
-                />
-
-                <div ref="popup"
-                     className={`date-range-picker-popup ${popupVisible ? '' : 'hidden'}`}
-                     style={popStyle}>
+                           onTouchTap={e => {
+                               this.togglePopup(e);
+                           }}/>
+                <Popup className={`date-range-picker-popup`}
+                       visible={popupVisible}
+                       triggerEl={triggerEl}
+                       hasTriangle={false}
+                       onRequestClose={() => {
+                           this.closePopup();
+                       }}>
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">
                             <TextField className='fl calendar-input'
@@ -435,8 +420,8 @@ export default class DateRangePicker extends Component {
                                 onChange={(obj) => {
                                     this.dayPickerChangeHandle('left', obj);
                                 }}
-                                previousClick={() => {
-                                    this.datePickerChangeHandle('left');
+                                previousClick={(level) => {
+                                    this.datePickerChangeHandle('left',level);
                                 }}
                                 hoverHandle={(obj) => {
                                     this.dayPickerHoverHandle('left', obj);
@@ -454,8 +439,8 @@ export default class DateRangePicker extends Component {
                                     onChange={(obj) => {
                                         this.monthPickerChangeHandle('left', obj);
                                     }}
-                                    previousClick={() => {
-                                        this.datePickerChangeHandle('left');
+                                    previousClick={(level) => {
+                                        this.datePickerChangeHandle('left',level);
                                     }}
                                 />
                                 :
@@ -494,8 +479,8 @@ export default class DateRangePicker extends Component {
                                 onChange={(obj) => {
                                     this.dayPickerChangeHandle('right', obj);
                                 }}
-                                previousClick={() => {
-                                    this.datePickerChangeHandle('right');
+                                previousClick={(level) => {
+                                    this.datePickerChangeHandle('right',level);
                                 }}
                                 hoverHandle={(obj) => {
                                     this.dayPickerHoverHandle('left', obj);
@@ -513,8 +498,8 @@ export default class DateRangePicker extends Component {
                                     onChange={(obj) => {
                                         this.monthPickerChangeHandle('right', obj);
                                     }}
-                                    previousClick={() => {
-                                        this.datePickerChangeHandle('right');
+                                    previousClick={(level) => {
+                                        this.datePickerChangeHandle('right',level);
                                     }}
                                 />
                                 :
@@ -532,8 +517,7 @@ export default class DateRangePicker extends Component {
                         )
 
                     }
-                </div>
-
+                </Popup>
             </div>
         );
     }

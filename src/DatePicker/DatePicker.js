@@ -14,9 +14,6 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
-import Dom from '../_vendors/Dom';
-import Event from '../_vendors/Event';
-
 export default class DatePicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -26,11 +23,11 @@ export default class DatePicker extends Component {
         this.state = {
             value: props.value,
             popupVisible: false,
+            triggerEl: null,
             year: moment(props.value).format('YYYY'),
             month: moment(props.value).format('MM'),
             day: moment(props.value).format('DD'),
-            datePickerLevel: 'day',
-            marginLeft: 0
+            datePickerLevel: 'day'
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
@@ -174,9 +171,8 @@ export default class DatePicker extends Component {
                            placeholder={placeholder}
                            value={textValue}
                            iconCls="fa fa-calendar"
-                           readOnly={!popupVisible}
-                           clearButtonVisible={popupVisible}
-                           onChange={this.textFieldChangeHandle}
+                           readOnly={true}
+                           clearButtonVisible={false}
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}/>
@@ -185,8 +181,13 @@ export default class DatePicker extends Component {
                        triggerEl={triggerEl}
                        hasTriangle={false}
                        onRequestClose={() => {
-                           this.closePopup(3);
+                           this.closePopup();
                        }}>
+                    <TextField className='calendar-input'
+                               placeholder={placeholder}
+                               clearButtonVisible={true}
+                               value={textValue}
+                               onChange={this.textFieldChangeHandle}/>
                     {
                         datePickerLevel == 'day' ?
                             <DayPicker

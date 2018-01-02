@@ -20,6 +20,11 @@ input::-ms-clear {
         height: 100%;
         border-radius: $theme-border-radius !important;
 
+        &.focused{
+            border: $theme-border;
+            @include shadow(1);
+        }
+
         input {
             line-height: 20px;
             padding: 10px 40px !important;
@@ -53,6 +58,21 @@ input::-ms-clear {
     &.date-picker-popup {
         width: 300px;
         @include shadow(3);
+        margin-top: -40px;
+        .calendar-input {
+            height: 40px;
+            width: 95%;
+            border: none;
+            outline: none;
+            margin-left: 5%;
+            input {
+                padding-left: 10px;
+                font-size: 12px;
+            }
+            .clear-icon {
+                top: -5px;
+            }
+        }
         .calendar {
             user-select: none;
             .calendar-header {
@@ -61,8 +81,8 @@ input::-ms-clear {
                 line-height: 40px;
                 text-align: center;
                 font-size: 14px;
-                border-top: 1px solid #dfdfdf;
                 border-bottom: 1px solid #dfdfdf;
+                border-top: 1px solid #dfdfdf;
                 span {
                     margin: 0 20px;
                     cursor: pointer;

@@ -20,6 +20,11 @@ input::-ms-clear {
         height: 100%;
         border-radius: $theme-border-radius !important;
 
+        &.focused{
+            border: $theme-border;
+            @include shadow(1);
+        }
+
         input {
             line-height: 20px;
             padding: 10px 40px !important;
@@ -46,44 +51,26 @@ input::-ms-clear {
             }
         }
     }
+}
 
-    .date-picker-popup {
-
+.popup {
+    &.date-time-picker-popup {
         @include shadow(3);
-
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 300px;
         height: 344px;
-        overflow: hidden;
-        background: #fff;
-        border-radius: $theme-border-radius;
-        z-index: $popup-z-index;
-        transition: all $theme-transition-duration ease-in-out;
-
-        &.hidden {
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            z-index: -1;
-            visibility: hidden;
-        }
-        .calendar-date-input-wrap {
+        margin-top: -40px;
+        .calendar-input {
             height: 40px;
-            .calendar-input {
-                height: 40px;
-                width: 95%;
-                border: none;
-                outline: none;
-                margin-left: 5%;
-                input {
-                    padding-left: 10px;
-                    font-size: 12px;
-                }
-                .clear-icon {
-                    top: -5px;
-                }
+            width: 95%;
+            border: none;
+            outline: none;
+            margin-left: 5%;
+            input {
+                padding-left: 10px;
+                font-size: 12px;
+            }
+            .clear-icon {
+                top: -5px;
             }
         }
         .calendar {
@@ -94,8 +81,8 @@ input::-ms-clear {
                 line-height: 40px;
                 text-align: center;
                 font-size: 14px;
-                border-top: 1px solid #dfdfdf;
                 border-bottom: 1px solid #dfdfdf;
+                border-top: 1px solid #dfdfdf;
                 span {
                     margin: 0 20px;
                     cursor: pointer;
@@ -332,7 +319,5 @@ input::-ms-clear {
             }
 
         }
-
     }
-
 }
