@@ -242,50 +242,36 @@ export default class DateRangePicker extends Component {
     }
 
     closePopup() {
-        this.setState({
-            popupVisible: false
-        });
-    }
-
-    mousedownHandle(e) {
-        // debugger
-        const flag = Event.triggerPopupEventHandle(e.target, require('react-dom').findDOMNode(this.refs.trigger), this.refs.popup, this.state.popupVisible);
         let state = _.cloneDeep(this.state);
-        if (flag) {
-            state.popupVisible = flag;
-            !this.props.disabled && this.setState(state);
-        } else {
-            state.popupVisible = flag;
-            state.left.datePickerLevel = 'day';
-            state.right.datePickerLevel = 'day';
-            if (!state.endTime) {
-                state.startTime = state.historyStartTime;
-                state.endTime = state.historyEndTime;
-                state.left.text = state.historyStartTime;
-                state.right.text = state.historyEndTime;
-                state.hoverTime = '';
-                if (state.historyStartTime && state.historyEndTime) {
-                    state.left.year = moment(state.historyStartTime).format('YYYY');
-                    state.left.month = moment(state.historyStartTime).format('MM');
-                    state.left.day = moment(state.historyStartTime).format('DD');
-                    if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY') && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
-                        if (moment(state.historyEndTime).format('MM') == 12) {
-                            state.right.year = +moment(state.historyEndTime).format('YYYY') + 1;
-                            state.right.month = 1;
-                        } else {
-                            state.right.year = moment(state.historyEndTime).format('YYYY');
-                            state.right.month = +moment(state.historyEndTime).format('MM') + 1;
-                        }
+        state.popupVisible = false;
+        state.left.datePickerLevel = 'day';
+        state.right.datePickerLevel = 'day';
+        if (!state.endTime) {
+            state.startTime = state.historyStartTime;
+            state.endTime = state.historyEndTime;
+            state.left.text = state.historyStartTime;
+            state.right.text = state.historyEndTime;
+            state.hoverTime = '';
+            if (state.historyStartTime && state.historyEndTime) {
+                state.left.year = moment(state.historyStartTime).format('YYYY');
+                state.left.month = moment(state.historyStartTime).format('MM');
+                state.left.day = moment(state.historyStartTime).format('DD');
+                if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY') && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
+                    if (moment(state.historyEndTime).format('MM') == 12) {
+                        state.right.year = +moment(state.historyEndTime).format('YYYY') + 1;
+                        state.right.month = 1;
                     } else {
                         state.right.year = moment(state.historyEndTime).format('YYYY');
-                        state.right.month = moment(state.historyEndTime).format('MM');
+                        state.right.month = +moment(state.historyEndTime).format('MM') + 1;
                     }
-                    state.right.day = moment(state.historyEndTime).format('DD');
+                } else {
+                    state.right.year = moment(state.historyEndTime).format('YYYY');
+                    state.right.month = moment(state.historyEndTime).format('MM');
                 }
+                state.right.day = moment(state.historyEndTime).format('DD');
             }
-            !this.props.disabled && this.setState(state);
         }
-
+        !this.props.disabled && this.setState(state);
     }
 
     componentWillReceiveProps(nextProps) {
