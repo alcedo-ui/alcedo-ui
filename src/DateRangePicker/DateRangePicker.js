@@ -35,14 +35,14 @@ export default class DateRangePicker extends Component {
             triggerEl: null,
             left: {
                 text: startTime,
-                datePickerLevel: 0,
+                datePickerLevel: 'day',
                 year: initValue.format('YYYY'),
                 month: initValue.format('MM'),
                 day: initValue.format('DD')
             },
             right: {
                 text: endTime,
-                datePickerLevel: 0,
+                datePickerLevel: 'day',
                 year: initValue.format('MM') == 12 ? +(initValue.format('YYYY')) + 1 : initValue.format('YYYY'),
                 month: initValue.format('MM') == 12 ? 1 : +(initValue.format('MM')) + 1,
                 day: initValue.format('DD')
@@ -187,7 +187,7 @@ export default class DateRangePicker extends Component {
 
     monthPickerChangeHandle(select, date) {
         let state = _.cloneDeep(this.state);
-        state[select].datePickerLevel = 0;
+        state[select].datePickerLevel = 'day';
         state[select].year = date.year;
         state[select].month = date.month;
         this.setState(state);
@@ -195,7 +195,7 @@ export default class DateRangePicker extends Component {
 
     yearPickerChangeHandle(select, year) {
         let state = _.cloneDeep(this.state);
-        state[select].datePickerLevel = 1;
+        state[select].datePickerLevel = 'month';
         state[select].year = year;
         this.setState(state);
     }
@@ -256,8 +256,8 @@ export default class DateRangePicker extends Component {
             !this.props.disabled && this.setState(state);
         } else {
             state.popupVisible = flag;
-            state.left.datePickerLevel = 0;
-            state.right.datePickerLevel = 0;
+            state.left.datePickerLevel = 'day';
+            state.right.datePickerLevel = 'day';
             if (!state.endTime) {
                 state.startTime = state.historyStartTime;
                 state.endTime = state.historyEndTime;
@@ -400,7 +400,7 @@ export default class DateRangePicker extends Component {
                         </div>
                     </div>
                     {
-                        left.datePickerLevel == 0 ?
+                        left.datePickerLevel == 'day' ?
                             <DayPicker
                                 value={left.text}
                                 dateFormat={dateFormat}
@@ -428,7 +428,7 @@ export default class DateRangePicker extends Component {
                                 }}
                             />
                             : (
-                            left.datePickerLevel == 1 ?
+                            left.datePickerLevel == 'month' ?
                                 <MonthPicker
                                     value={left.text}
                                     year={left.year}
@@ -459,7 +459,7 @@ export default class DateRangePicker extends Component {
 
                     }
                     {
-                        right.datePickerLevel == 0 ?
+                        right.datePickerLevel == 'day' ?
                             <DayPicker
                                 value={right.text}
                                 dateFormat={dateFormat}
@@ -487,7 +487,7 @@ export default class DateRangePicker extends Component {
                                 }}
                             />
                             : (
-                            right.datePickerLevel == 1 ?
+                            right.datePickerLevel == 'month' ?
                                 <MonthPicker
                                     value={right.text}
                                     year={right.year}
