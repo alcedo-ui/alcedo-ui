@@ -54,7 +54,7 @@ export default [{
     }, {
         text: 'DateTimePicker',
         route: '/components/DateTimePicker'
-    },{
+    }, {
         text: 'MaterialDatePicker',
         route: '/components/MaterialDatePicker'
     }]
@@ -207,6 +207,12 @@ export default [{
     }, {
         text: 'Dropdown',
         route: '/components/Dropdown'
+    }, {
+        text: 'Pagging',
+        route: '/components/Pagging'
+    }, {
+        text: 'BriefPagging',
+        route: '/components/BriefPagging'
     }]
 }, {
     text: 'Loading',
