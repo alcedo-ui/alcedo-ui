@@ -9,10 +9,10 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import MaterialTextField from '../MaterialTextField';
-import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
+import Popup from '../Popup';
 
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
@@ -29,13 +29,13 @@ export default class MaterialDatePicker extends Component {
             year: moment(props.value).format('YYYY'),
             month: moment(props.value).format('MM'),
             day: moment(props.value).format('DD'),
-            datePickerLevel: 0,
+            datePickerLevel: 'day',
             marginLeft: 0
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.mousedownHandle = ::this.mousedownHandle;
-        this.resizeHandle = ::this.resizeHandle;
+        this.togglePopup = ::this.togglePopup;
+        this.closePopup = ::this.closePopup;
         this.datePickerChangeHandle = ::this.datePickerChangeHandle;
         this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
         this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
@@ -44,16 +44,14 @@ export default class MaterialDatePicker extends Component {
 
     }
 
-    datePickerChangeHandle(select) {
-        let {datePickerLevel} = this.state;
-        datePickerLevel = datePickerLevel + 1;
+    datePickerChangeHandle(selectLevel) {
         this.setState({
-            datePickerLevel: datePickerLevel
+            datePickerLevel: selectLevel
         });
     }
 
     textFieldChangeHandle(text) {
-        const {minValue, maxValue} = this.props;
+        const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
@@ -64,36 +62,39 @@ export default class MaterialDatePicker extends Component {
                         month = moment(text).format('MM'),
                         day = moment(text).format('DD');
                     this.setState({
-                        value: new Date(text),
+                        value: moment(text, dateFormat),
                         year: year,
                         month: month,
                         day: day
                     });
                 }
+            } else {
+
             }
         } else {
             this.setState({
-                value: new Date(text)
+                value: moment(text, dateFormat)
             });
         }
     }
 
     dayPickerChangeHandle(date) {
-        const {autoClose} = this.props;
+        const {autoClose, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
-        state.value = new Date(date.time);
+        state.value = moment(date.time, dateFormat);
         state.year = date.year;
         state.month = date.month;
         state.day = date.day;
-        if (autoClose) {
-            state.popupVisible = false;
-        }
+        state.popupVisible = !autoClose;
+        let target = require('react-dom').findDOMNode(this.refs.datePickerInput);
+        let dom = target.getElementsByTagName("input")[0];
+        dom.focus();
         this.setState(state);
     }
 
     monthPickerChangeHandle(date) {
         this.setState({
-            datePickerLevel: 0,
+            datePickerLevel: 'day',
             year: date.year,
             month: date.month
         });
@@ -101,16 +102,17 @@ export default class MaterialDatePicker extends Component {
 
     yearPickerChangeHandle(year) {
         this.setState({
-            datePickerLevel: 1,
+            datePickerLevel: 'month',
             year: year
         });
     }
 
     todayHandle() {
+        const {dateFormat} = this.props;
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
             day = moment().format('DD');
-        let timer = new Date();
+        let timer = moment(moment(), dateFormat);
         this.setState({
             value: timer,
             year: year,
@@ -119,60 +121,23 @@ export default class MaterialDatePicker extends Component {
         });
     }
 
-    mousedownHandle(e) {
-        const flag = this.triggerPopupEventHandle(e.target, require('react-dom').findDOMNode(this.refs.trigger), this.refs.popup, this.state.popupVisible);
-        if (flag) {
-            !this.props.disabled && this.setState({
-                popupVisible: flag
-            });
-        } else {
-            !this.props.disabled && this.setState({
-                popupVisible: flag,
-                datePickerLevel: 0
-            });
-        }
-    }
-
-
-   triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
-
-        let flag = true;
-
-        while (el) {
-            if (el == popupEl) {
-                return currentVisible;
-            } else if (el == triggerEl) {
-                return true;
-            }
-            el = el.parentNode;
-        }
-
-        if (flag) {
-            return false;
-        }
-
-    }
-
-    resizeHandle() {
-        const {left} = Dom.getOffset(this.refs.datePicker);
-        const width = 300;
-        const windowWidth = document.body.clientWidth;
-        let marginLeft;
-        if ((left + width) >= windowWidth) {
-            marginLeft = (left + width) - windowWidth;
-        } else {
-            marginLeft = 0;
-        }
+    togglePopup(e) {
         this.setState({
-            marginLeft: marginLeft
+            popupVisible: !this.state.popupVisible,
+            triggerEl: e.target
+        });
+    }
+
+    closePopup() {
+        this.setState({
+            popupVisible: false
         });
     }
 
     componentWillReceiveProps(nextProps) {
-        // debugger
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
             this.setState({
-                value: new Date(nextProps.value),
+                value: moment(nextProps.value, nextProps.dateFormat),
                 dateFormat: nextProps.dateFormat,
                 year: moment(nextProps.value).format('YYYY'),
                 month: moment(nextProps.value).format('MM'),
@@ -183,73 +148,55 @@ export default class MaterialDatePicker extends Component {
 
     componentDidMount() {
         // debugger
-        const {value} = this.props;
+        const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
-        const {left} = Dom.getOffset(this.refs.datePicker);
-        const width = 300;
-        const windowWidth = document.body.clientWidth;
-        let marginLeft;
-        if ((left + width) >= windowWidth) {
-            marginLeft = (left + width) - windowWidth;
-        } else {
-            marginLeft = 0;
-        }
         if (value) {
             const year = moment(value).format('YYYY'),
                 month = moment(value).format('MM'),
                 day = moment(value).format('DD');
-            state.value = new Date(value);
+            state.value = moment(value, dateFormat);
             state.year = year;
             state.month = month;
             state.day = day;
-            if (marginLeft) {
-                state.marginLeft = marginLeft;
-            }
             this.setState(state);
         }
-
-        Event.addEvent(window, 'mousedown', this.mousedownHandle);
-        Event.addEvent(window, 'resize', this.resizeHandle);
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'mousedown', this.mousedownHandle);
-        Event.removeEvent(window, 'resize', this.resizeHandle);
     }
 
     render() {
 
-        const {className, style, name, label, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, marginLeft} = this.state,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isFooter} = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state;
+        let textValue = moment(value).format(dateFormat);
 
-            popStyle = {
-                left: '-' + marginLeft + 'px'
-            };
-        let textValue = value ? moment(value).format(dateFormat) : '';
         return (
-            <div className={`material-date-picker ${className}`}
-                 ref="datePicker"
-                 style={style}>
+            <div className={`date-picker ${className}`}
+                 ref="datePicker">
 
-                <MaterialTextField ref="trigger"
-                                   className={`date-picker-field`}
+                <MaterialTextField className="material-date-picker-field"
+                                   ref="datePickerInput"
                                    name={name}
-                                   label={label}
-                                   isLabelAnimate={false}
                                    placeholder={placeholder}
                                    value={textValue}
                                    iconCls="fa fa-calendar"
-                                   readOnly={popupVisible ? false : true}
+                                   readOnly={!popupVisible}
                                    clearButtonVisible={popupVisible}
-                                   onChange={this.textFieldChangeHandle}/>
-
-                <div ref="popup"
-                     className={`date-picker-popup ${popupVisible ? '' : 'hidden'}`}
-                     style={popStyle}>
+                                   label={label}
+                                   isLabelAnimate={false}
+                                   onChange={this.textFieldChangeHandle}
+                                   onTouchTap={e => {
+                                       this.togglePopup(e);
+                                   }}/>
+                <Popup className={`material-date-picker-popup`}
+                       visible={popupVisible}
+                       triggerEl={triggerEl}
+                       hasTriangle={false}
+                       onRequestClose={() => {
+                           this.closePopup(3);
+                       }}>
                     {
-                        datePickerLevel == 0 ?
+                        datePickerLevel == 'day' ?
                             <DayPicker
-                                value={textValue}
+                                value={value}
                                 dateFormat={dateFormat}
                                 year={year}
                                 month={month}
@@ -260,9 +207,9 @@ export default class MaterialDatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
-                            datePickerLevel == 1 ?
+                            datePickerLevel == 'month' ?
                                 <MonthPicker
-                                    value={textValue}
+                                    value={value}
                                     year={year}
                                     month={month}
                                     day={day}
@@ -272,7 +219,7 @@ export default class MaterialDatePicker extends Component {
                                     previousClick={this.datePickerChangeHandle}/>
                                 :
                                 <YearPicker
-                                    value={textValue}
+                                    value={value}
                                     year={year}
                                     month={month}
                                     day={day}
@@ -282,7 +229,7 @@ export default class MaterialDatePicker extends Component {
                         )
                     }
                     {
-                        isFooter ?
+                        isFooter && datePickerLevel == 'day' ?
                             <div className="calendar-footer">
                                 {
                                     (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
@@ -299,8 +246,7 @@ export default class MaterialDatePicker extends Component {
                             :
                             null
                     }
-                </div>
-
+                </Popup>
             </div>
         );
     }
@@ -324,14 +270,14 @@ MaterialDatePicker.propTypes = {
     name: PropTypes.string,
 
     /**
-     * The label of the DatePicker.
-     */
-    label: PropTypes.any,
-
-    /**
      * This is the initial date value of the component.
      */
     value: PropTypes.any,
+
+    /**
+     * The label of the text field.
+     */
+    label: PropTypes.any,
 
     /**
      * The ending of a range of valid dates. The range includes the endDate.
@@ -374,5 +320,5 @@ MaterialDatePicker.defaultProps = {
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     autoClose: true,
-    isFooter:true
+    isFooter: true
 };

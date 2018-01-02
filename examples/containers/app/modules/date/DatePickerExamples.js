@@ -52,7 +52,7 @@ export default class DatePickerExamples extends Component {
 
                                 <DatePicker value='2017-04-17'
                                             name="date"
-                                            autoClose={false}
+                                            autoClose={true}
                                             onChange={this.onChangeHandle}/>
 
                             </div>

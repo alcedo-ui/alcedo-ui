@@ -11,7 +11,7 @@ input::-ms-clear {
     position: relative;
     width: 300px;
 
-    .date-picker-field {
+    .material-date-picker-field {
         width: 100%;
         height: 100%;
         border-radius: $theme-border-radius !important;
@@ -46,28 +46,14 @@ input::-ms-clear {
         }
     }
 
-    .date-picker-popup {
+}
 
+.popup{
+    &.material-date-picker-popup {
         @include shadow(3);
-
-        position: absolute;
-        top:56px;
-        left: 0;
         width: 300px;
         height: 302px;
-        overflow: hidden;
-        background: #fff;
-        border-radius: $theme-border-radius;
-        z-index: $popup-z-index;
-        transition: all $theme-transition-duration ease-in-out;
-
-        &.hidden {
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            z-index: -1;
-            visibility: hidden;
-        }
+        margin-top: 1px;
         .calendar-date-input-wrap {
             height: 40px;
             .calendar-input {
@@ -213,27 +199,27 @@ input::-ms-clear {
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                           &.current-months,
-                           &.current-years{
-                               &:hover{
-                                   a {
-                                       background: $theme-field-bg-active;
-                                       color: $theme-field-hover;
-                                   }
-                               }
-                               &.active {
-                                   a {
-                                       background: $theme-highlight;
-                                       color: #fff;
-                                   }
-                                   &:hover {
-                                       a {
-                                           background: theme-color-hover($theme-highlight);
-                                           color: #fff;
-                                       }
-                                   }
-                               }
-                           }
+                            &.current-months,
+                            &.current-years{
+                                &:hover{
+                                    a {
+                                        background: $theme-field-bg-active;
+                                        color: $theme-field-hover;
+                                    }
+                                }
+                                &.active {
+                                    a {
+                                        background: $theme-highlight;
+                                        color: #fff;
+                                    }
+                                    &:hover {
+                                        a {
+                                            background: theme-color-hover($theme-highlight);
+                                            color: #fff;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -256,5 +242,4 @@ input::-ms-clear {
         }
 
     }
-
 }

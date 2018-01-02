@@ -158,7 +158,7 @@ export default class YearPicker extends Component {
         let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +yearRangeStart) ? true : false;
 
         return (
-            <div className={'calendar ' + className}>
+            <div className={'calendar'}>
                 <div className="calendar-header">
                     {
                         rightPreYear ?
