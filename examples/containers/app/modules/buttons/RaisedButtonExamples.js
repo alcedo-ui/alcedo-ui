@@ -40,8 +40,8 @@ export default class RaisedButtonExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>Raised Button</code> with default theme,<code>success</code>,
-                                    <code>warning</code>,<code>error</code> and <code>disabled</code> props applied.
+                                    <code>Raised Button</code> with default theme, <code>success</code>
+                                    , <code>warning</code>, <code>error</code> and <code>disabled</code> props applied.
                                 </p>
 
                                 <RaisedButton value="Default"/>
@@ -141,7 +141,7 @@ export default class RaisedButtonExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>Set the <code>iconCls</code> property for button left icon.And set the
+                                <p>Set the <code>iconCls</code> property for button left icon. And set the
                                     <code>rightIconCls</code> property for button right icon.</p>
 
                                 <RaisedButton value="Reset"
