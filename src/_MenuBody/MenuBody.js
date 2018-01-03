@@ -126,8 +126,14 @@ export default class MenuBody extends Component {
     render() {
 
         const {
-                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth,
-                triggerEl, isTriggerPositionFixed
+
+                children,
+
+                className, style, theme, hasTriangle, triangle, position, isAnimated,
+                triggerEl, isTriggerPositionFixed,
+
+                ...restProps
+
             } = this.props,
             {visible} = this.state,
 
@@ -140,10 +146,10 @@ export default class MenuBody extends Component {
             };
 
         return (
-            <Paper ref="menu"
+            <Paper {...restProps}
+                   ref="menu"
                    className={'menu' + menuClassName}
                    style={menuStyle}
-                   depth={depth}
                    onWheel={e => {
                        Event.wheelHandler(e, this.props);
                    }}>
