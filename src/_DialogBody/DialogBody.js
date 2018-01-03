@@ -161,12 +161,16 @@ export default class DialogBody extends Component {
 
         const {
 
-                children, className, modalClassName, style, disabled, showModal, title, buttons, isLoading,
+                children,
+
+                className, modalClassName, disabled, showModal, title, buttons, isLoading,
                 closeIconCls,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
                 cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
-                cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme
+                cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
+
+                ...restProps
 
             } = this.props,
             {visible} = this.state,
@@ -184,9 +188,9 @@ export default class DialogBody extends Component {
                         null
                 }
 
-                <Paper ref="dialog"
+                <Paper {...restProps}
+                       ref="dialog"
                        className={'dialog-wrapper' + dialogClassName}
-                       style={style}
                        depth={6}>
 
                     <div className="dialog-title">

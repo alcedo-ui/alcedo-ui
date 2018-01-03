@@ -31,13 +31,21 @@ export default class Paper extends Component {
 
     render() {
 
-        const {children, className, style, theme, depth, nonRounded, isCircular, ...rest} = this.props,
+        const {
+
+                children,
+
+                className, style, theme, depth, nonRounded, isCircular,
+
+                ...restProps
+
+            } = this.props,
 
             paperClassName = (depth ? ` depth-${this.formatDepth(depth)}` : '') + (theme ? ` theme-${theme}` : '')
                 + (nonRounded ? ' nonRounded' : (isCircular ? ' circular' : '')) + (className ? ' ' + className : '');
 
         return (
-            <div {...rest}
+            <div {...restProps}
                  className={'paper' + paperClassName}
                  style={style}>
                 {children}
