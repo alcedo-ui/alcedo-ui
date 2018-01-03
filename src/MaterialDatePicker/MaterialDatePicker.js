@@ -276,7 +276,7 @@ MaterialDatePicker.propTypes = {
     value: PropTypes.any,
 
     /**
-     * The label of the text field.
+     * The label of the date picker.
      */
     label: PropTypes.any,
 

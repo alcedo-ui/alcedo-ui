@@ -362,6 +362,11 @@ MaterialDateTimePicker.propTypes = {
     name: PropTypes.string,
 
     /**
+     * The label of the date time picker.
+     */
+    label: PropTypes.any,
+
+    /**
      * This is the initial date value of the component.
      */
     value: PropTypes.string,
