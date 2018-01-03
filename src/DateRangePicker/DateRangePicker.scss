@@ -20,7 +20,7 @@ input::-ms-clear {
         height: 100%;
         border-radius: $theme-border-radius !important;
         &.focused{
-            border: $theme-border;
+            border: 1px solid $theme-border;
             @include shadow(1);
         }
         input {
