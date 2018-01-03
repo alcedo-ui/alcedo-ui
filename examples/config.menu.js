@@ -63,6 +63,9 @@ export default [{
     },{
         text: 'MaterialTimePicker',
         route: '/components/MaterialTimePicker'
+    },{
+        text: 'MaterialDateRangePicker',
+        route: '/components/MaterialDateRangePicker'
     }]
 }, {
     text: 'Field',

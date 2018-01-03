@@ -160,6 +160,10 @@ export default function configureRoutes(store) {
                     path: '/components/MaterialTimePicker',
                     component: ac(store, () => import('modules/date/MaterialTimePickerExamples'))
                 },
+                {
+                    path: '/components/MaterialDateRangePicker',
+                    component: ac(store, () => import('modules/date/MaterialDateRangePickerExamples'))
+                },
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Dialog',
