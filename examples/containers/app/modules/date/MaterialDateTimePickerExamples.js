@@ -1,15 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 
-import MaterialDatePicker from 'src/MaterialDatePicker';
+import MaterialDateTimePicker from 'src/MaterialDateTimePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/MaterialDatePicker.json';
+import doc from 'assets/propTypes/MaterialDateTimePicker.json';
 
 import 'sass/containers/app/modules/date/DatePickerExamples.scss';
 
-export default class MaterialDatePickerExamples extends Component {
+export default class MaterialDateTimePickerExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -42,10 +42,10 @@ export default class MaterialDatePickerExamples extends Component {
                                     initial date.
                                 </p>
 
-                                <MaterialDatePicker name="date"
-                                                    label={'date'}
-                                                    isLabelAnimate={true}
-                                                    autoClose={false}/>
+                                <MaterialDateTimePicker name="date"
+                                                        label={'date'}
+                                                        isLabelAnimate={true}
+                                                        autoClose={false}/>
 
                             </div>
 

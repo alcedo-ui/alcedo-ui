@@ -42,6 +42,8 @@ export List from './List';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
 export MaterialDatePicker from './MaterialDatePicker';
+export MaterialDatePickerTextField from './MaterialDatePickerTextField';
+export MaterialDateTimePicker from './MaterialDateTimePicker';
 export MaterialDropdownFilter from './MaterialDropdownFilter';
 export MaterialDropdownSelect from './MaterialDropdownSelect';
 export MaterialEditableSelect from './MaterialEditableSelect';
@@ -86,4 +88,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 86;
+export const COMPONENTS_TOTAL_COUNT = 88;

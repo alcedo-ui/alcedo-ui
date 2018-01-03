@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 
-import TextField from '../TextField';
+import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
@@ -17,7 +17,7 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from 'src/Theme';
 
-export default class DateTimePicker extends Component {
+export default class MaterialDateTimePicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -172,6 +172,7 @@ export default class DateTimePicker extends Component {
             popupVisible: false
         });
     }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
             const value = moment(nextProps.value, nextProps.dateFormat);
@@ -206,41 +207,35 @@ export default class DateTimePicker extends Component {
 
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props;
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isFooter} = this.props;
         const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state;
         let textValue = moment(value).format(dateFormat);
         return (
             <div className={`date-time-picker ${className}`}
                  ref="datePicker"
                  style={style}>
-
-                <TextField ref="trigger"
-                           className="date-picker-field"
-                           name={name}
-                           placeholder={placeholder}
-                           value={textValue}
-                           iconCls="fa fa-calendar"
-                           readOnly={true}
-                           clearButtonVisible={false}
-                           onTouchTap={e => {
-                               this.togglePopup(e);
-                           }}
-                />
-                <Popup className={`date-time-picker-popup`}
+                <MaterialDatePickerTextField
+                    ref="datePickerInput"
+                    name={name}
+                    placeholder={placeholder}
+                    value={textValue}
+                    iconCls="fa fa-calendar"
+                    readOnly={!popupVisible}
+                    clearButtonVisible={popupVisible}
+                    popupVisible={popupVisible}
+                    label={label}
+                    isLabelAnimate={false}
+                    onChange={this.textFieldChangeHandle}
+                    onTouchTap={e => {
+                        this.togglePopup(e);
+                    }}/>
+                <Popup className={`material-date-time-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
-
-                    <div className="calendar-date-input-wrap">
-                        <TextField className='calendar-input'
-                                   placeholder={'Select Date'}
-                                   clearButtonVisible={true}
-                                   value={textValue}
-                                   onChange={this.textFieldChangeHandle}/>
-                    </div>
                     {
                         datePickerLevel == 'day' ?
                             <DayPicker
@@ -349,7 +344,7 @@ export default class DateTimePicker extends Component {
     }
 };
 
-DateTimePicker.propTypes = {
+MaterialDateTimePicker.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -398,7 +393,7 @@ DateTimePicker.propTypes = {
 
 };
 
-DateTimePicker.defaultProps = {
+MaterialDateTimePicker.defaultProps = {
 
     className: '',
     style: null,
