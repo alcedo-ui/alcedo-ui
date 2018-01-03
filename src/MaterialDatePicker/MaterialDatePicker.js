@@ -8,20 +8,21 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 
-import MaterialTextField from '../MaterialTextField';
+import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
-import Dom from '../_vendors/Dom';
-import Event from '../_vendors/Event';
+import Theme from '../Theme';
 
 export default class MaterialDatePicker extends Component {
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
 
         this.state = {
             value: props.value,
@@ -87,8 +88,8 @@ export default class MaterialDatePicker extends Component {
         state.day = date.day;
         state.popupVisible = !autoClose;
         let target = require('react-dom').findDOMNode(this.refs.datePickerInput);
-        let dom = target.getElementsByTagName("input")[0];
-        dom.focus();
+        let dom = target.getElementsByClassName("material-field-separator")[0];
+        dom.className = "material-field-separator focused";
         this.setState(state);
     }
 
@@ -165,27 +166,27 @@ export default class MaterialDatePicker extends Component {
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, label, isFooter} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state;
+            {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state;
         let textValue = moment(value).format(dateFormat);
 
         return (
             <div className={`date-picker ${className}`}
                  ref="datePicker">
-
-                <MaterialTextField className="material-date-picker-field"
-                                   ref="datePickerInput"
-                                   name={name}
-                                   placeholder={placeholder}
-                                   value={textValue}
-                                   iconCls="fa fa-calendar"
-                                   readOnly={!popupVisible}
-                                   clearButtonVisible={popupVisible}
-                                   label={label}
-                                   isLabelAnimate={false}
-                                   onChange={this.textFieldChangeHandle}
-                                   onTouchTap={e => {
-                                       this.togglePopup(e);
-                                   }}/>
+                <MaterialDatePickerTextField
+                    ref="datePickerInput"
+                    name={name}
+                    placeholder={placeholder}
+                    value={textValue}
+                    iconCls="fa fa-calendar"
+                    readOnly={!popupVisible}
+                    clearButtonVisible={popupVisible}
+                    popupVisible={popupVisible}
+                    label={label}
+                    isLabelAnimate={false}
+                    onChange={this.textFieldChangeHandle}
+                    onTouchTap={e => {
+                        this.togglePopup(e);
+                    }}/>
                 <Popup className={`material-date-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}

@@ -1,0 +1,63 @@
+/**
+ * @file MaterialTextField style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.material-text-field {
+    position: relative;
+    width: 300px;
+    background: $theme-field-bg;
+
+    .material-text-field-label {
+        display: inline-block;
+        line-height: 16px;
+        color: $theme-field-disabled;
+        transform-origin: top left;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
+    }
+
+    .text-field {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        border-bottom: 1px solid $theme-border !important;
+        box-shadow: none !important;
+
+        .text-field-input {
+            padding-left: 8px;
+            transition: opacity $theme-transition-duration ease-in-out;
+        }
+
+    }
+
+    &.focused {
+        .material-text-field-label {
+            color: $theme-highlight;
+        }
+    }
+
+    &.has-label.animated {
+
+        .material-text-field-label {
+            transform: translate(8px, 28px);
+        }
+
+        .text-field-input {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .material-text-field-label {
+                transform: translate(0, 0);
+            }
+
+            .text-field-input {
+                opacity: 1;
+            }
+        }
+    }
+
+}
