@@ -37,8 +37,10 @@ export default class IconButtonExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Icon Button</code> using icon specified with the <code>iconCls</code> property
-                                    example.</p>
+                                <p>
+                                    <code>Icon Button</code> using icon specified with the <code>iconCls</code> property
+                                    example.
+                                </p>
 
                                 <IconButton iconCls="fa fa-plus"/>
 

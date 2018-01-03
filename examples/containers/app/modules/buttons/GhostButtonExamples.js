@@ -39,8 +39,10 @@ export default class GhostButtonExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Ghost Button</code> with default theme,<code>success</code>,
-                                    <code>warning</code>,<code>error</code> and <code>disabled</code> props applied.</p>
+                                <p>
+                                    <code>Ghost Button</code> with default theme, <code>success</code>
+                                    , <code>warning</code>, <code>error</code> and <code>disabled</code> props applied.
+                                </p>
 
                                 <GhostButton value="Default"/>
 
