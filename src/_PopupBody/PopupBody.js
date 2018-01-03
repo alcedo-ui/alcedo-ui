@@ -157,8 +157,14 @@ export default class PopupBody extends Component {
     render() {
 
         const {
-                children, className, style, theme, hasTriangle, triangle, position, isAnimated, depth,
-                triggerEl, isTriggerPositionFixed
+
+                children,
+
+                className, style, theme, hasTriangle, triangle, position, isAnimated,
+                triggerEl, isTriggerPositionFixed,
+
+                ...restProps
+
             } = this.props,
             {visible} = this.state,
 
@@ -171,10 +177,10 @@ export default class PopupBody extends Component {
             };
 
         return (
-            <Paper ref="popup"
+            <Paper {...restProps}
+                   ref="popup"
                    className={'popup' + popupClassName}
                    style={popupStyle}
-                   depth={depth}
                    onWheel={e => {
                        Event.wheelHandler(e, this.props);
                    }}>
