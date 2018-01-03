@@ -186,12 +186,12 @@ MaterialTimePicker.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Time picker input name.
+     * MaterialTimePicker input name.
      */
     name: PropTypes.string,
 
     /**
-     * The label of the time picker.
+     * The label of the MaterialTimePicker.
      */
     label: PropTypes.any,
 
@@ -211,7 +211,7 @@ MaterialTimePicker.propTypes = {
     minValue: PropTypes.string,
 
     /**
-     * TimePicker textField element placeholder.
+     * MaterialTimePicker textField element placeholder.
      */
     placeholder: PropTypes.string,
 

@@ -357,12 +357,12 @@ MaterialDateTimePicker.propTypes = {
     style: PropTypes.object,
 
     /**
-     * Date picker input name.
+     * MaterialDateTimePicker input name.
      */
     name: PropTypes.string,
 
     /**
-     * The label of the date time picker.
+     * The label of the MaterialDateTimePicker.
      */
     label: PropTypes.any,
 
@@ -382,12 +382,12 @@ MaterialDateTimePicker.propTypes = {
     minValue: PropTypes.string,
 
     /**
-     * DateTimePicker textField element placeholder.
+     * MaterialDateTimePicker textField element placeholder.
      */
     placeholder: PropTypes.string,
 
     /**
-     * Date Time format.
+     * MaterialDateTimePicker format.
      */
     dateFormat: PropTypes.string,
 
