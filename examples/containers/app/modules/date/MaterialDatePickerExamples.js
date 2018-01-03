@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDatePicker.json';
 
-import 'sass/containers/app/modules/date/DatePickerExamples.scss';
+import 'sass/containers/app/modules/date/MaterialDatePickerExamples.scss';
 
 export default class MaterialDatePickerExamples extends Component {
 

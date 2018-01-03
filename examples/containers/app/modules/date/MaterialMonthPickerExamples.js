@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialMonthPicker.json';
 
-import 'sass/containers/app/modules/date/DatePickerExamples.scss';
+import 'sass/containers/app/modules/date/MaterialMonthPickerExamples.scss';
 
 export default class MaterialMonthPickerExamples extends Component {
 
@@ -20,10 +20,10 @@ export default class MaterialMonthPickerExamples extends Component {
         return (
             <div className="example time-picker-examples">
 
-                <h2 className="example-title">Material Date Picker</h2>
+                <h2 className="example-title">Material Month Picker</h2>
 
                 <p>
-                    <span>Material Date Picker</span> is used to select a single date for an input.
+                    <span>Material Month Picker</span> is used to select a single date for an input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -38,7 +38,7 @@ export default class MaterialMonthPickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>Material Date Picker</code> using the <code>value</code> property to set
+                                    <code>Material Month Picker</code> using the <code>value</code> property to set
                                     initial date.
                                 </p>
 

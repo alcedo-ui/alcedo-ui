@@ -11,7 +11,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialTimePicker.json';
 
-import 'sass/containers/app/modules/date/TimePickerExamples.scss';
+import 'sass/containers/app/modules/date/MaterialTimePickerExamples.scss';
 
 
 export default class MaterialTimePickerExamples extends Component {
@@ -24,10 +24,10 @@ export default class MaterialTimePickerExamples extends Component {
         return (
             <div className="example time-picker-examples">
 
-                <h2 className="example-title">Time Picker</h2>
+                <h2 className="example-title">Material Time Picker</h2>
 
                 <p>
-                    <span>Time Picker</span> is used to select select a single time for an input.
+                    <span>Material Time Picker</span> is used to select select a single time for an input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -41,7 +41,7 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Time Picker</code> simple example.</p>
+                                <p><code>Material Time Picker</code> simple example.</p>
 
                                 <MaterialTimePicker/>
 
@@ -60,7 +60,7 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Time Picker</code> using the <code>value</code> property to set initial time.
+                                <p><code>Material Time Picker</code> using the <code>value</code> property to set initial time.
                                 </p>
 
                                 <MaterialTimePicker value="12:00:00"/>
@@ -80,7 +80,7 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Time Picker</code> using the <code>maxValue</code> and <code>minValue</code>
+                                <p><code>Material Time Picker</code> using the <code>maxValue</code> and <code>minValue</code>
                                     property to set time selectable range.</p>
 
                                 <MaterialTimePicker value="10:00:00"
@@ -101,7 +101,7 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Time Picker</code> using the <code>placeholder</code> property to set time
+                                <p><code>Material Time Picker</code> using the <code>placeholder</code> property to set time
                                     default value and using the <code>dateFormat</code> property constructor set time
                                     format.</p>
 

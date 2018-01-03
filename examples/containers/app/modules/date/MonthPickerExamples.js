@@ -20,7 +20,7 @@ export default class MonthPickerExamples extends Component {
         return (
             <div className="example time-picker-examples">
 
-                <h2 className="example-title">Material Date Picker</h2>
+                <h2 className="example-title">Month Picker</h2>
 
                 <p>
                     <span>Month Picker</span> is used to select a single date for an input.
@@ -38,12 +38,13 @@ export default class MonthPickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>Material Date Picker</code> using the <code>value</code> property to set
+                                    <code>Month Picker</code> using the <code>value</code> property to set
                                     initial date.
                                 </p>
 
                                 <MonthPicker name="date"
                                              label={'date'}
+                                             dateFormat={'YYYY/MM'}
                                              isLabelAnimate={true}
                                              autoClose={false}/>
 
