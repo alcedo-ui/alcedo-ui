@@ -399,10 +399,8 @@ MaterialDateTimePicker.propTypes = {
 };
 
 MaterialDateTimePicker.defaultProps = {
-
     className: '',
     style: null,
-
     name: '',
     value: moment().format('YYYY-MM-DD HH:mm:ss'),
     maxValue: '',
@@ -411,5 +409,4 @@ MaterialDateTimePicker.defaultProps = {
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
     autoClose: true,
     isFooter: true
-
 };

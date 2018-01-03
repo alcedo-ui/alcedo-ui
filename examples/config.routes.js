@@ -138,6 +138,9 @@ export default function configureRoutes(store) {
                 {
                     path: '/components/DatePicker',
                     component: ac(store, () => import('modules/date/DatePickerExamples'))
+                },{
+                    path: '/components/MonthPicker',
+                    component: ac(store, () => import('modules/date/MonthPickerExamples'))
                 }, {
                     path: '/components/DateRangePicker',
                     component: ac(store, () => import('modules/date/DateRangePickerExamples'))
@@ -163,6 +166,10 @@ export default function configureRoutes(store) {
                 {
                     path: '/components/MaterialDateRangePicker',
                     component: ac(store, () => import('modules/date/MaterialDateRangePickerExamples'))
+                },
+                {
+                    path: '/components/MaterialMonthPicker',
+                    component: ac(store, () => import('modules/date/MaterialMonthPickerExamples'))
                 },
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {

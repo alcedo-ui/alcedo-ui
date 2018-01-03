@@ -45,6 +45,9 @@ export default [{
     children: [{
         text: 'DatePicker',
         route: '/components/DatePicker'
+    },{
+        text: 'MonthPicker',
+        route: '/components/MonthPicker'
     }, {
         text: 'DateRangePicker',
         route: '/components/DateRangePicker'
@@ -66,6 +69,9 @@ export default [{
     },{
         text: 'MaterialDateRangePicker',
         route: '/components/MaterialDateRangePicker'
+    },{
+        text: 'MaterialMonthPicker',
+        route: '/components/MaterialMonthPicker'
     }]
 }, {
     text: 'Field',
