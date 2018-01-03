@@ -39,9 +39,11 @@ export default class AnchorButtonExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Anchor Button</code> with default
+                                <p>
+                                    <code>Anchor Button</code> with default
                                     theme, <code>success</code>, <code>warning</code>
-                                    , <code>error</code> and <code>disabled</code> props applied.</p>
+                                    , <code>error</code> and <code>disabled</code> props applied.
+                                </p>
 
                                 <AnchorButton value="Default"/>
 
