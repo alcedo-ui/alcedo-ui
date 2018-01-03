@@ -43,7 +43,7 @@ export default class MaterialDateRangePickerExamples extends Component {
 
                                 <p><code>Date Range Picker</code>simple example.</p>
 
-                                <MaterialDateRangePicker />
+                                <MaterialDateRangePicker label={`date range`}/>
 
                             </div>
 
@@ -64,7 +64,8 @@ export default class MaterialDateRangePickerExamples extends Component {
                                 <p><code>Date Range Picker</code> using the <code>value</code> property to set initial
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
-                                <MaterialDateRangePicker value={['2015-07-01', '2017-04-21']}
+                                <MaterialDateRangePicker label={`date range`}
+                                                         value={['2015-07-01', '2017-04-21']}
                                                          dateFormat={'YYYY-MM-DD'}/>
 
                             </div>
@@ -87,7 +88,8 @@ export default class MaterialDateRangePickerExamples extends Component {
                                     and <code>minValue</code>
                                     property to set date selectable range.</p>
 
-                                <MaterialDateRangePicker dateFormat={'YYYY-MM-DD'}
+                                <MaterialDateRangePicker label={`date range`}
+                                                         dateFormat={'YYYY-MM-DD'}
                                                          maxValue={'2018-12-21'}
                                                          minValue={'2017-02-01'}/>
                             </div>
@@ -109,7 +111,8 @@ export default class MaterialDateRangePickerExamples extends Component {
                                 <p><code>Date Range Picker</code> using the <code>placeholder</code> property to set
                                     default value.</p>
 
-                                <MaterialDateRangePicker dateFormat={'YYYY-MM-DD'}
+                                <MaterialDateRangePicker label={`date range`}
+                                                         dateFormat={'YYYY-MM-DD'}
                                                          popupVisible={true}
                                                          maxValue={'2018-12-21'}
                                                          minValue={'2017-02-01'}/>

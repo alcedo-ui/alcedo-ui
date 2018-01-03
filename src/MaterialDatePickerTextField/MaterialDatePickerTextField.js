@@ -99,12 +99,12 @@ export default class MaterialDatePickerTextField extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, popupVisible ,
+                className, style, theme, label, isLabelAnimate, popupVisible,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
+            wrapperClassName = (label ? ' has-label' : '')
                 + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
 
         return (
