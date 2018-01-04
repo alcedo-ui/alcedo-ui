@@ -170,6 +170,10 @@ export default class DialogBody extends Component {
                 cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
                 cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
 
+                // not passing down these props
+                visible: v, isBlurClose, isEscClose,
+                onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
+
                 ...restProps
 
             } = this.props,
