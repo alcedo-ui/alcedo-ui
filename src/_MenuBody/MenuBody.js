@@ -132,6 +132,9 @@ export default class MenuBody extends Component {
                 className, style, theme, hasTriangle, triangle, position, isAnimated,
                 triggerEl, isTriggerPositionFixed,
 
+                // not passing down these props
+                visible: v, shouldPreventContainerScroll, onRequestClose,
+
                 ...restProps
 
             } = this.props,
