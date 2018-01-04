@@ -133,7 +133,7 @@ export default class MenuBody extends Component {
                 triggerEl, isTriggerPositionFixed,
 
                 // not passing down these props
-                visible: v, shouldPreventContainerScroll, onRequestClose,
+                visible: v, shouldPreventContainerScroll, onRender, onRequestClose,
 
                 ...restProps
 
