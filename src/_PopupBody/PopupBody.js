@@ -164,7 +164,8 @@ export default class PopupBody extends Component {
                 triggerEl, isTriggerPositionFixed,
 
                 // not passing down these props
-                visible: v, isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode, onRequestClose,
+                visible: v, isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode,
+                onRender, onRequestClose,
 
                 ...restProps
 
