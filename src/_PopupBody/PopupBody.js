@@ -163,6 +163,9 @@ export default class PopupBody extends Component {
                 className, style, theme, hasTriangle, triangle, position, isAnimated,
                 triggerEl, isTriggerPositionFixed,
 
+                // not passing down these props
+                visible: v, isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode, onRequestClose,
+
                 ...restProps
 
             } = this.props,
