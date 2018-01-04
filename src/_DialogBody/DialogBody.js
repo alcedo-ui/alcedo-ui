@@ -152,6 +152,12 @@ export default class DialogBody extends Component {
         this.animate();
     }
 
+    componentDidUpdate() {
+        const {onRender} = this.props,
+            {visible} = this.state;
+        visible && onRender && onRender(this.dialogEl, this.props.triggerEl);
+    }
+
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
@@ -172,7 +178,7 @@ export default class DialogBody extends Component {
 
                 // not passing down these props
                 visible: v, isBlurClose, isEscClose,
-                onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
+                onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
 
                 ...restProps
 
@@ -374,6 +380,11 @@ DialogBody.propTypes = {
      * The buttons of Dialog.
      */
     buttons: PropTypes.any,
+
+    /**
+     * The function of dialog render.
+     */
+    onRender: PropTypes.func,
 
     /**
      * The function that trigger when click submit.
