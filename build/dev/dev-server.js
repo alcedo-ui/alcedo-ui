@@ -23,8 +23,7 @@ var opn = require('opn'),
     }),
 
     hotMiddleware = require('webpack-hot-middleware')(compiler, {
-        log: () => {
-        }
+        log: console.log
     });
 
 compiler.plugin('compilation', function (compilation) {
