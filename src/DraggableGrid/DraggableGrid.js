@@ -168,7 +168,7 @@ export default class DraggableGrid extends Component {
 
                                 return typeof item === 'object' ?
                                     (
-                                        <DraggableGridItem key={item[idField] || index}
+                                        <DraggableGridItem key={index}
                                                            {...item}
                                                            index={index}
                                                            style={{height: itemHeight}}
