@@ -99,7 +99,6 @@ export default class TableExamples extends Component {
 
                             <Paper>
                                 <Table columns={this.columns}
-                                       defaultSortType={Table.SortType.DESC}
                                        data={this.generateData()}/>
                             </Paper>
 
