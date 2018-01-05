@@ -102,7 +102,6 @@ export default class TableExamples extends Component {
 
                             <Paper>
                                 <Table columns={this.columns}
-                                       isPagging={true}
                                        defaultSortType={Table.SortType.DESC}
                                        data={this.generateData()}/>
                             </Paper>
@@ -123,7 +122,6 @@ export default class TableExamples extends Component {
 
                             <Paper style={{width: 400, height: 600, overflow: 'auto'}}>
                                 <Table columns={this.columns}
-                                       isPagging={true}
                                        data={this.generateData(5)}
                                        sortInitConfig={{
                                            prop: 'id',
@@ -151,7 +149,6 @@ export default class TableExamples extends Component {
 
                             <Paper>
                                 <Table columns={this.columns}
-                                       isPagging={true}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
                                        data={this.generateData()}
                                        paggingSelectedCountVisible={true}
