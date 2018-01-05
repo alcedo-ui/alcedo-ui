@@ -59,8 +59,8 @@ export default class Table extends Component {
         this.isHeadIndeterminate = ::this.isHeadIndeterminate;
         this.isItemChecked = ::this.isItemChecked;
         this.headCheckBoxChangeHandler = ::this.headCheckBoxChangeHandler;
-        this.itemCheckBoxChangeHandler = ::this.itemCheckBoxChangeHandler;
-        this.itemRadioChangeHandler = ::this.itemRadioChangeHandler;
+        this.multiSelectHandler = ::this.multiSelectHandler;
+        this.singleSelectHandler = ::this.singleSelectHandler;
         this.sortHandler = ::this.sortHandler;
         this.sortData = ::this.sortData;
         this.rowTouchTapHandler = ::this.rowTouchTapHandler;
@@ -174,7 +174,7 @@ export default class Table extends Component {
 
     }
 
-    itemCheckBoxChangeHandler(rowData, rowIndex) {
+    multiSelectHandler(rowData, rowIndex) {
 
         if (!rowData) {
             return;
@@ -207,7 +207,7 @@ export default class Table extends Component {
 
     }
 
-    itemRadioChangeHandler(rowData, rowIndex) {
+    singleSelectHandler(rowData, rowIndex) {
 
         if (!rowData) {
             return;
@@ -252,10 +252,10 @@ export default class Table extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.itemCheckBoxChangeHandler(rowData, rowIndex);
+                this.multiSelectHandler(rowData, rowIndex);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.itemRadioChangeHandler(rowData, rowIndex);
+                this.singleSelectHandler(rowData, rowIndex);
                 return;
         }
 
