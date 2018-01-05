@@ -23,14 +23,12 @@ export default class TableExamples extends Component {
             sortProp: 'id',
             renderer: 'id',
             headerClassName: 'test-header',
-            cellClassName: 'test-cell',
-            flex: 1
+            cellClassName: 'test-cell'
         }, {
             header: 'Name',
             sortable: true,
             sortProp: 'firstName',
-            renderer: '${firstName} - ${lastName}',
-            flex: 2
+            renderer: '${firstName} - ${lastName}'
         }, {
             header: 'Status',
             renderer(rowData) {
@@ -39,8 +37,7 @@ export default class TableExamples extends Component {
                                  onTouchTap={(e) => {
                                      e.stopPropagation();
                                  }}/>;
-            },
-            flex: 2
+            }
         }];
 
         this.pageSizes = [{
