@@ -173,7 +173,7 @@ export default class DraggableList extends Component {
 
                                 return typeof item === 'object' ?
                                     (
-                                        <DraggableListItem key={item[idField] || index}
+                                        <DraggableListItem key={index}
                                                            {...item}
                                                            index={index}
                                                            style={{height: itemHeight}}
