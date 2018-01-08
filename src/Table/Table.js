@@ -51,7 +51,9 @@ export default class Table extends Component {
                 page: 0
             },
 
-            value: Calculation.getInitValue(props)
+            value: Calculation.getInitValue(props),
+
+            sortedData: this.sortData(props.data, props.sortInitConfig)
 
         };
 
@@ -132,26 +134,28 @@ export default class Table extends Component {
 
     sortHandler(col) {
 
-        const {defaultSortType} = this.props,
-            {sort} = this.state;
-        let type = col.defaultSortType || defaultSortType;
+        const {data, defaultSortType} = this.props;
+        let {sort} = this.state,
+            type = col.defaultSortType || defaultSortType;
 
         if (sort && sort.prop === col.sortProp) {
             type = -sort.type;
         }
 
+        sort = {
+            prop: col.sortProp,
+            type
+        };
+
         this.setState({
-            sort: {
-                prop: col.sortProp,
-                type
-            }
+            sort,
+            sortedData: this.sortData(data, sort)
         });
 
     }
 
-    sortData(data) {
+    sortData(data, sort = this.state.sort) {
 
-        const {sort} = this.state;
         if (!sort) {
             return data;
         }
@@ -162,7 +166,11 @@ export default class Table extends Component {
             data = sortFunc(data, sort);
         } else {
             data.sort((a, b) => {
-                return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
+                if (!isNaN(a[sort.prop]) && !isNaN(b[sort.prop])) {
+                    return (Number(a[sort.prop]) - Number(b[sort.prop])) * sort.type;
+                } else {
+                    return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
+                }
             });
         }
 
@@ -372,7 +380,7 @@ export default class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {value, sort, pagging} = this.state,
+            {value, sort, pagging, sortedData} = this.state,
             self = this,
 
             tableClassName = (selectMode === SelectMode.MULTI_SELECT
@@ -434,8 +442,7 @@ export default class Table extends Component {
         }
 
         // handle data
-        const sortedData = this.sortData(data),
-            totalPage = Math.ceil(sortedData.length / pagging.pageSize),
+        const totalPage = Math.ceil(sortedData.length / pagging.pageSize),
             finalData = isPagging ? this.paggingData(sortedData) : sortedData,
             finalDataCount = finalData.length;
 
