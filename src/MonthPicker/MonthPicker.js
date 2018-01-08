@@ -76,7 +76,6 @@ export default class MonthPicker extends Component {
         state.value = moment(`${date.year}-${date.month}`, dateFormat);
         state.year = date.year;
         state.month = date.month;
-
         if (state.popupVisible) {
             this.setState(state);
         } else {

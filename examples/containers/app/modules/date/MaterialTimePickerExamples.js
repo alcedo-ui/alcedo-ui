@@ -20,6 +20,10 @@ export default class MaterialTimePickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
         return (
             <div className="example time-picker-examples">
@@ -43,7 +47,7 @@ export default class MaterialTimePickerExamples extends Component {
 
                                 <p><code>Material Time Picker</code> simple example.</p>
 
-                                <MaterialTimePicker/>
+                                <MaterialTimePicker onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -60,10 +64,12 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Material Time Picker</code> using the <code>value</code> property to set initial time.
+                                <p><code>Material Time Picker</code> using the <code>value</code> property to set
+                                    initial time.
                                 </p>
 
-                                <MaterialTimePicker value="12:00:00"/>
+                                <MaterialTimePicker value="12:00:00"
+                                                    onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -80,12 +86,14 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Material Time Picker</code> using the <code>maxValue</code> and <code>minValue</code>
+                                <p><code>Material Time Picker</code> using the <code>maxValue</code> and
+                                    <code>minValue</code>
                                     property to set time selectable range.</p>
 
                                 <MaterialTimePicker value="10:00:00"
                                                     maxValue="20:56:20"
-                                                    minValue="01:20:20"/>
+                                                    minValue="01:20:20"
+                                                    onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>
@@ -101,7 +109,8 @@ export default class MaterialTimePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Material Time Picker</code> using the <code>placeholder</code> property to set time
+                                <p><code>Material Time Picker</code> using the <code>placeholder</code> property to set
+                                    time
                                     default value and using the <code>dateFormat</code> property constructor set time
                                     format.</p>
 
@@ -109,7 +118,7 @@ export default class MaterialTimePickerExamples extends Component {
                                                     dateFormat="HH:mm"
                                                     maxValue="23:56"
                                                     minValue="01:20"
-                                />
+                                                    onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>

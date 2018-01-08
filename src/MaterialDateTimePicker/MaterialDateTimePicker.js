@@ -137,7 +137,9 @@ export default class MaterialDateTimePicker extends Component {
         let state = _.cloneDeep(this.state);
         state.popupVisible = false;
         state.datePickerLevel = 'day';
-        this.setState(state);
+        !this.props.disabled && this.setState(state, () => {
+            this.props.onChange && this.props.onChange(moment(state.value).format(this.props.dateFormat));
+        });
     }
 
     nowHandle() {
@@ -168,8 +170,11 @@ export default class MaterialDateTimePicker extends Component {
     }
 
     closePopup() {
-        this.setState({
+        const {value} = this.state;
+        !this.props.disabled && this.setState({
             popupVisible: false
+        }, () => {
+            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
         });
     }
 
@@ -407,6 +412,5 @@ MaterialDateTimePicker.defaultProps = {
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
-    autoClose: true,
     isFooter: true
 };

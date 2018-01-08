@@ -15,6 +15,10 @@ export default class MaterialDateTimePickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
 
         return (
@@ -45,7 +49,8 @@ export default class MaterialDateTimePickerExamples extends Component {
                                 <MaterialDateTimePicker name="date"
                                                         label={'date'}
                                                         isLabelAnimate={true}
-                                                        autoClose={false}/>
+                                                        autoClose={false}
+                                                        onChange={this.onChangeHandle}/>
 
                             </div>
 

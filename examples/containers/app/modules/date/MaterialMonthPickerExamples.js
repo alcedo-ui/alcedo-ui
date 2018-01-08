@@ -15,6 +15,10 @@ export default class MaterialMonthPickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
 
         return (
@@ -43,9 +47,34 @@ export default class MaterialMonthPickerExamples extends Component {
                                 </p>
 
                                 <MaterialMonthPicker name="date"
-                                                    label={'date'}
-                                                    isLabelAnimate={true}
-                                                    autoClose={false}/>
+                                                     label={'date'}
+                                                     autoClose={false}
+                                                     onChange={this.onChangeHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    <code>Material Month Picker</code> using the <code>value</code> property to set
+                                    initial date.
+                                </p>
+
+                                <MaterialMonthPicker name="date"
+                                                     label={'date'}
+                                                     autoClose={true}
+                                                     onChange={this.onChangeHandle}/>
 
                             </div>
 

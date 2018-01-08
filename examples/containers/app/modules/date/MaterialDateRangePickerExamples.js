@@ -19,6 +19,10 @@ export default class MaterialDateRangePickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
         return (
 
@@ -43,7 +47,9 @@ export default class MaterialDateRangePickerExamples extends Component {
 
                                 <p><code>Material Date Range Picker</code>simple example.</p>
 
-                                <MaterialDateRangePicker label={`date range`}/>
+                                <MaterialDateRangePicker label={`date range`}
+                                                         onChange={this.onChangeHandle}
+                                />
 
                             </div>
 
@@ -66,7 +72,8 @@ export default class MaterialDateRangePickerExamples extends Component {
 
                                 <MaterialDateRangePicker label={`date range`}
                                                          value={['2015-07-01', '2017-04-21']}
-                                                         dateFormat={'YYYY-MM-DD'}/>
+                                                         dateFormat={'YYYY-MM-DD'}
+                                                         onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -91,7 +98,8 @@ export default class MaterialDateRangePickerExamples extends Component {
                                 <MaterialDateRangePicker label={`date range`}
                                                          dateFormat={'YYYY-MM-DD'}
                                                          maxValue={'2018-12-21'}
-                                                         minValue={'2017-02-01'}/>
+                                                         minValue={'2017-02-01'}
+                                                         onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>
@@ -115,7 +123,8 @@ export default class MaterialDateRangePickerExamples extends Component {
                                                          dateFormat={'YYYY-MM-DD'}
                                                          popupVisible={true}
                                                          maxValue={'2018-12-21'}
-                                                         minValue={'2017-02-01'}/>
+                                                         minValue={'2017-02-01'}
+                                                         onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>

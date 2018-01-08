@@ -32,7 +32,6 @@ export default class MaterialTimePicker extends Component {
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
         this.togglePopup = ::this.togglePopup;
         this.closePopup = ::this.closePopup;
-        this.wrapperHeight = ::this.wrapperHeight;
         this.timePickerChangeHandle = ::this.timePickerChangeHandle;
 
     }
@@ -46,13 +45,6 @@ export default class MaterialTimePicker extends Component {
             arr.push({text: i, value: true});
         }
         return arr;
-    }
-
-    wrapperHeight() {
-        const {popupVisible} = this.state;
-        if (this.refs.trigger) {
-            return popupVisible ? (this.refs.trigger.offsetHeight + 300) : this.refs.trigger.offsetHeight;
-        }
     }
 
     textFieldChangeHandle(text) {
@@ -98,8 +90,11 @@ export default class MaterialTimePicker extends Component {
     }
 
     closePopup() {
-        this.setState({
+        const {textFieldValue} = this.state;
+        !this.props.disabled && this.setState({
             popupVisible: false
+        }, () => {
+            this.props.onChange && this.props.onChange(textFieldValue);
         });
     }
 
