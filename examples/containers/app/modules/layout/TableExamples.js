@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
+import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
@@ -57,6 +58,12 @@ export default class TableExamples extends Component {
             text: '50 / page'
         }];
 
+        this.state = {
+            data: this.generateData()
+        };
+
+        this.deleteRow = ::this.deleteRow;
+
     }
 
     generateData(size = 100) {
@@ -74,7 +81,21 @@ export default class TableExamples extends Component {
 
     }
 
+    deleteRow(id) {
+
+        const {data} = this.state,
+            newData = data.filter(item => item.id !== id);
+
+        this.setState({
+            data: newData
+        });
+
+    }
+
     render() {
+
+        const {data} = this.state,
+            {deleteRow} = this;
 
         return (
             <div className="example table-examples">
@@ -97,8 +118,18 @@ export default class TableExamples extends Component {
                             <p>A simple <code>Table</code> example.</p>
 
                             <Paper>
-                                <Table columns={this.columns}
-                                       data={this.generateData()}/>
+                                <Table columns={[...this.columns, {
+                                    header: 'action',
+                                    renderer(rowData) {
+                                        return (
+                                            <IconButton iconCls="fa fa-trash"
+                                                        onTouchTap={() => {
+                                                            deleteRow(rowData.id);
+                                                        }}/>
+                                        );
+                                    }
+                                }]}
+                                       data={data}/>
                             </Paper>
 
                         </div>
@@ -117,7 +148,7 @@ export default class TableExamples extends Component {
 
                             <Paper style={{width: 400, height: 600, overflow: 'auto'}}>
                                 <Table columns={this.columns}
-                                       data={this.generateData(5)}
+                                       data={data}
                                        sortInitConfig={{
                                            prop: 'id',
                                            type: -1
@@ -145,7 +176,7 @@ export default class TableExamples extends Component {
                             <Paper>
                                 <Table columns={this.columns}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
-                                       data={this.generateData()}
+                                       data={data}
                                        paggingSelectedCountVisible={true}
                                        defaultPageSize={20}
                                        pageSizes={this.pageSizes}
