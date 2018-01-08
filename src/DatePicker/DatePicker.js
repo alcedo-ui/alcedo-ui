@@ -84,7 +84,13 @@ export default class DatePicker extends Component {
         state.month = date.month;
         state.day = date.day;
         state.popupVisible = !autoClose;
-        this.setState(state);
+        if(state.popupVisible){
+            this.setState(state);
+        }else{
+            this.setState(state,()=>{
+                this.props.onChange && this.props.onChange(moment(date.time).format(dateFormat));
+            });
+        }
     }
 
     monthPickerChangeHandle(date) {
@@ -124,8 +130,11 @@ export default class DatePicker extends Component {
     }
 
     closePopup() {
+        const {value} =this.state;
         this.setState({
             popupVisible: false
+        },()=>{
+            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
         });
     }
 
