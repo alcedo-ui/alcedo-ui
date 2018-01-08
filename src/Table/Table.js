@@ -9,7 +9,6 @@ import _ from 'lodash';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
-import IconButton from '../IconButton';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Pagging from '../Pagging';
@@ -161,11 +160,12 @@ export default class Table extends Component {
         }
 
         const {sortFunc} = this.props;
+        let copyData = _.cloneDeep(data);
 
         if (sortFunc) {
-            data = sortFunc(data, sort);
+            copyData = sortFunc(copyData, sort);
         } else {
-            data.sort((a, b) => {
+            copyData.sort((a, b) => {
                 if (!isNaN(a[sort.prop]) && !isNaN(b[sort.prop])) {
                     return (Number(a[sort.prop]) - Number(b[sort.prop])) * sort.type;
                 } else {
@@ -174,7 +174,7 @@ export default class Table extends Component {
             });
         }
 
-        return data;
+        return copyData;
 
     }
 
@@ -349,7 +349,13 @@ export default class Table extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.data.length !== this.props.data.length) {
+
             this.resetPage(nextProps.data);
+
+            this.setState({
+                sortedData: this.sortData(nextProps.data)
+            });
+
         }
 
         if (nextProps.value !== this.state.value) {
