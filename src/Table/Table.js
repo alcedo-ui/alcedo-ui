@@ -162,11 +162,7 @@ export default class Table extends Component {
             data = sortFunc(data, sort);
         } else {
             data.sort((a, b) => {
-                if (!isNaN(a[sort.prop]) && !isNaN(b[sort.prop])) {
-                    return (Number(a[sort.prop]) - Number(b[sort.prop])) * sort.type;
-                } else {
-                    return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
-                }
+                return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
             });
         }
 
