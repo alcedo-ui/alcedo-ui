@@ -237,7 +237,10 @@ export default class DateRangePicker extends Component {
         }
         state.value = [moment(state.left.text, dateFormat),moment(state.right.text, dateFormat)];
         !this.props.disabled && this.setState(state,()=>{
-            this.props.onChange && this.props.onChange(state.value)
+            this.props.onChange && this.props.onChange([
+                moment(state.value[0]).format(this.props.dateFormat),
+                moment(state.value[1]).format(this.props.dateFormat)
+            ])
         });
     }
 

@@ -19,6 +19,10 @@ export default class DateTimePickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
         return (
             <div className="example date-time-picker-examples">
@@ -42,7 +46,7 @@ export default class DateTimePickerExamples extends Component {
 
                                 <p><code>Date Time Picker</code> simple example.</p>
 
-                                <DateTimePicker/>
+                                <DateTimePicker onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -62,7 +66,8 @@ export default class DateTimePickerExamples extends Component {
                                 <p><code>Date Time Picker</code> using the <code>value</code> property to set initial
                                     date and time.</p>
 
-                                <DateTimePicker value='2017-04-21 12:23:10'/>
+                                <DateTimePicker value='2017-04-21 12:23:10'
+                                                onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -85,7 +90,8 @@ export default class DateTimePickerExamples extends Component {
 
                                 <DateTimePicker value='2017-04-21 12:23:10'
                                                 maxValue="2017-09-12 12:23:00"
-                                                minValue='2017-01-01 12:55:55'/>
+                                                minValue='2017-01-01 12:55:55'
+                                                onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>
@@ -109,7 +115,8 @@ export default class DateTimePickerExamples extends Component {
                                                 maxValue="2017-09-12 12:23:00"
                                                 minValue='2017-01-01 12:55:55'
                                                 dateFormat="YYYY/MM/DD HH:mm"
-                                                placeholder="2017-05-03 11:05:20"/>
+                                                placeholder="2017-05-03 11:05:20"
+                                                onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>

@@ -20,6 +20,10 @@ export default class TimePickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
         return (
             <div className="example time-picker-examples">
@@ -43,7 +47,7 @@ export default class TimePickerExamples extends Component {
 
                                 <p><code>Time Picker</code> simple example.</p>
 
-                                <TimePicker/>
+                                <TimePicker onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -63,7 +67,8 @@ export default class TimePickerExamples extends Component {
                                 <p><code>Time Picker</code> using the <code>value</code> property to set initial time.
                                 </p>
 
-                                <TimePicker value="12:00:00"/>
+                                <TimePicker value="12:00:00"
+                                            onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -85,7 +90,8 @@ export default class TimePickerExamples extends Component {
 
                                 <TimePicker value="10:00:00"
                                             maxValue="20:56:20"
-                                            minValue="01:20:20"/>
+                                            minValue="01:20:20"
+                                            onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>
@@ -109,7 +115,7 @@ export default class TimePickerExamples extends Component {
                                             dateFormat="HH:mm"
                                             maxValue="23:56"
                                             minValue="01:20"
-                                />
+                                            onChange={this.onChangeHandle}/>
                             </div>
 
                         </div>

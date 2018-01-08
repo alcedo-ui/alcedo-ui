@@ -15,6 +15,10 @@ export default class MonthPickerExamples extends Component {
         super(props);
     }
 
+    onChangeHandle(value) {
+        console.log(value)
+    }
+
     render() {
 
         return (
@@ -45,8 +49,8 @@ export default class MonthPickerExamples extends Component {
                                 <MonthPicker name="date"
                                              label={'date'}
                                              dateFormat={'YYYY/MM'}
-                                             isLabelAnimate={true}
-                                             autoClose={false}/>
+                                             autoClose={false}
+                                             onChange={this.onChangeHandle}/>
 
                             </div>
 

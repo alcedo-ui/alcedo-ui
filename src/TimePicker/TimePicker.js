@@ -26,7 +26,7 @@ export default class TimePicker extends Component {
             hour: moment().format('HH'),
             minute: moment().format('mm'),
             second: moment().format('ss'),
-            triggerEl:null
+            triggerEl: null
         };
 
         this.textFieldChangeHandle = ::this.textFieldChangeHandle;
@@ -98,8 +98,11 @@ export default class TimePicker extends Component {
     }
 
     closePopup() {
-        this.setState({
+        const {textFieldValue} = this.state;
+        !this.props.disabled && this.setState({
             popupVisible: false
+        }, () => {
+            this.props.onChange && this.props.onChange(textFieldValue);
         });
     }
 
@@ -228,13 +231,10 @@ TimePicker.propTypes = {
 };
 
 TimePicker.defaultProps = {
-
     className: '',
     style: null,
-
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss'
-
 };

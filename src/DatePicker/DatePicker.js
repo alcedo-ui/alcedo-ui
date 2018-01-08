@@ -55,7 +55,7 @@ export default class DatePicker extends Component {
             if (flag) {
                 if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
 
-                }else{
+                } else {
                     const year = moment(text).format('YYYY'),
                         month = moment(text).format('MM'),
                         day = moment(text).format('DD');
@@ -66,7 +66,7 @@ export default class DatePicker extends Component {
                         day: day
                     });
                 }
-            }else{
+            } else {
 
             }
         } else {
@@ -84,10 +84,10 @@ export default class DatePicker extends Component {
         state.month = date.month;
         state.day = date.day;
         state.popupVisible = !autoClose;
-        if(state.popupVisible){
+        if (state.popupVisible) {
             this.setState(state);
-        }else{
-            this.setState(state,()=>{
+        } else {
+            !this.props.disabled && this.setState(state, () => {
                 this.props.onChange && this.props.onChange(moment(date.time).format(dateFormat));
             });
         }
@@ -130,10 +130,10 @@ export default class DatePicker extends Component {
     }
 
     closePopup() {
-        const {value} =this.state;
-        this.setState({
+        const {value} = this.state;
+        !this.props.disabled && this.setState({
             popupVisible: false
-        },()=>{
+        }, () => {
             this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
         });
     }

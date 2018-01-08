@@ -137,7 +137,9 @@ export default class DateTimePicker extends Component {
         let state = _.cloneDeep(this.state);
         state.popupVisible = false;
         state.datePickerLevel = 'day';
-        this.setState(state);
+        !this.props.disabled && this.setState(state, () => {
+            this.props.onChange && this.props.onChange(moment(state.value).format(this.props.dateFormat));
+        });
     }
 
     nowHandle() {
@@ -168,10 +170,14 @@ export default class DateTimePicker extends Component {
     }
 
     closePopup() {
-        this.setState({
+        const {value} = this.state;
+        !this.props.disabled && this.setState({
             popupVisible: false
+        }, () => {
+            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
         });
     }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
             const value = moment(nextProps.value, nextProps.dateFormat);
@@ -399,17 +405,13 @@ DateTimePicker.propTypes = {
 };
 
 DateTimePicker.defaultProps = {
-
     className: '',
     style: null,
-
     name: '',
     value: moment().format('YYYY-MM-DD HH:mm:ss'),
     maxValue: '',
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
-    autoClose: true,
     isFooter: true
-
 };
