@@ -24,11 +24,11 @@ export default class CheckboxGroup extends Component {
             value: props.value
         };
 
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
-    changeHandle(item) {
+    changeHandler(item) {
 
         let value = _.cloneDeep(this.state.value);
 
@@ -65,13 +65,19 @@ export default class CheckboxGroup extends Component {
 
     render() {
 
+        const {data} = this.props;
+
+        if (!data) {
+            return null;
+        }
+
         const {
-                className, style, theme, name, disabled, data, idProp,
-                uncheckedIconCls, checkedIconCls, indeterminateIconCls
+                className, style, theme, name, disabled, idProp, uncheckedIconCls, checkedIconCls, indeterminateIconCls,
+                onCheck, onUncheck
             } = this.props,
             {value} = this.state;
 
-        return data ? (
+        return (
             <div className={'checkbox-group' + (className ? ' ' + className : '')}
                  style={style}
                  disabled={disabled}>
@@ -95,7 +101,13 @@ export default class CheckboxGroup extends Component {
                                       checkedIconCls={item.checkedIconCls || checkedIconCls}
                                       indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
                                       onChange={() => {
-                                          this.changeHandle(item);
+                                          this.changeHandler(item);
+                                      }}
+                                      onCheck={() => {
+                                          onCheck && onCheck(item);
+                                      }}
+                                      onUncheck={() => {
+                                          onUncheck && onUncheck(item);
                                       }}/>
                         );
 
@@ -103,9 +115,7 @@ export default class CheckboxGroup extends Component {
                 }
 
             </div>
-        )
-            :
-            null;
+        );
 
     }
 };
@@ -140,7 +150,11 @@ CheckboxGroup.propTypes = {
     checkedIconCls: PropTypes.string,
     indeterminateIconCls: PropTypes.string,
 
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func,
+
+    onUncheck: PropTypes.func
 
 };
 
