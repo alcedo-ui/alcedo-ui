@@ -2,6 +2,8 @@ var path = require('path');
 
 module.exports = {
 
+    productionGzipExtensions: ['js', 'css'],
+
     dev: {
 
         env: require('./dev.env'),
@@ -24,10 +26,7 @@ module.exports = {
         assetsRoot: path.resolve(__dirname, '../docs'),
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-        productionSourceMap: false,
-        productionGzip: true,
-        productionGzipExtensions: ['js', 'css'],
-        bundleAnalyzerReport: process.env.npm_config_report
+        productionSourceMap: false
 
     },
 
