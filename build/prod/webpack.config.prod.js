@@ -9,10 +9,11 @@ var path = require('path'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
     OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
     UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
+    CompressionWebpackPlugin = require('compression-webpack-plugin'),
 
     env = config.build.env;
 
-var webpackConfig = merge(baseWebpackConfig, {
+module.exports = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
@@ -72,32 +73,15 @@ var webpackConfig = merge(baseWebpackConfig, {
             from: path.resolve(__dirname, '../../static'),
             to: config.build.assetsSubDirectory,
             ignore: ['.*']
-        }])
+        }]),
+
+        new CompressionWebpackPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
+            threshold: 10240,
+            minRatio: 0.8
+        })
 
     ]
 });
-
-if (config.build.productionGzip) {
-
-    var CompressionWebpackPlugin = require('compression-webpack-plugin');
-
-    webpackConfig.plugins.push(new CompressionWebpackPlugin({
-        asset: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: new RegExp(
-            '\\.(' +
-            config.build.productionGzipExtensions.join('|') +
-            ')$'
-        ),
-        threshold: 10240,
-        minRatio: 0.8
-    }));
-
-}
-
-if (config.build.bundleAnalyzerReport) {
-    var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-    webpackConfig.plugins.push(new BundleAnalyzerPlugin());
-}
-
-module.exports = webpackConfig;
