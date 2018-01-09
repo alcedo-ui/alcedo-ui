@@ -120,7 +120,8 @@ export default class RadioGroupExamples extends Component {
                                             name="radio-group-1"
                                             data={this.data}
                                             value={radioGroupValue}
-                                            onChange={this.radioGroupChangeHandler}/>
+                                            onChange={this.radioGroupChangeHandler}
+                                            onCheck={this.checkHandler}/>
 
                             </div>
 
