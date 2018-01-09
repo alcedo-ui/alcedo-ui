@@ -11,6 +11,7 @@ import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 export default class CheckboxGroup extends Component {
 
@@ -92,14 +93,16 @@ export default class CheckboxGroup extends Component {
                                       className={item.className ? item.className : ''}
                                       style={item.style}
                                       theme={item.theme || theme}
+                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
+                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
                                       name={name}
                                       label={item.label}
                                       value={item.value}
                                       disabled={disabled || item.disabled}
                                       checked={isChecked}
-                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
-                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
-                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
+                                      tip={item.tip}
+                                      tipPosition={item.tipPosition}
                                       onChange={() => {
                                           this.changeHandler(item);
                                       }}
@@ -131,6 +134,7 @@ CheckboxGroup.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     name: PropTypes.string,
+
     data: PropTypes.arrayOf(PropTypes.shape({
 
         className: PropTypes.string,
@@ -138,7 +142,12 @@ CheckboxGroup.propTypes = {
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         label: PropTypes.any,
-        value: PropTypes.any
+        value: PropTypes.any,
+
+        disabled: PropTypes.bool,
+
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
 
     })).isRequired,
     value: PropTypes.array,
