@@ -11,6 +11,7 @@ import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 export default class Radio extends Component {
 
@@ -92,7 +93,7 @@ export default class Radio extends Component {
                 + (className ? ' ' + className : '');
 
         return (
-            <TipProvider tip={tip}
+            <TipProvider text={tip}
                          position={tipPosition}>
 
                 <div className={'radio' + radioClassName}
@@ -195,6 +196,9 @@ Radio.propTypes = {
      * If true,the element's ripple effect will be disabled.
      */
     disableTouchRipple: PropTypes.bool,
+
+    tip: PropTypes.any,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * Callback function fired when the radio status change.
