@@ -148,7 +148,10 @@ RadioGroup.propTypes = {
         /**
          * If true,the Radio will be disabled.
          */
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
 
     })).isRequired,
 
@@ -164,9 +167,6 @@ RadioGroup.propTypes = {
      * If true,the RadioGroup will be disabled.
      */
     disabled: PropTypes.bool,
-
-    tip: PropTypes.any,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * Callback function fired when the value of RadioGroup changed.
