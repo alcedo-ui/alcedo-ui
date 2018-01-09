@@ -48,7 +48,7 @@ export default class RadioGroup extends Component {
 
         const {
                 className, style, theme, name, uncheckedIconCls, checkedIconCls,
-                disabled, data, tip, tipPosition, onCheck
+                disabled, data, onCheck
             } = this.props,
             {value} = this.state;
 
@@ -73,9 +73,9 @@ export default class RadioGroup extends Component {
                                    label={item.label}
                                    value={item.value}
                                    checked={isChecked}
-                                   disabled={disabled}
-                                   tip={tip ? tip : item.label}
-                                   tipPosition={tipPosition}
+                                   disabled={disabled || item.disabled}
+                                   tip={item.tip}
+                                   tipPosition={item.tipPosition}
                                    onChange={() => {
                                        this.changeHandler(item);
                                    }}
@@ -143,7 +143,12 @@ RadioGroup.propTypes = {
         /**
          * The value of Radio component.
          */
-        value: PropTypes.any
+        value: PropTypes.any,
+
+        /**
+         * If true,the Radio will be disabled.
+         */
+        disabled: PropTypes.bool
 
     })).isRequired,
 
