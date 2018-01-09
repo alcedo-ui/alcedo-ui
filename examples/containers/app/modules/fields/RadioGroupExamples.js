@@ -22,24 +22,8 @@ export default class RadioGroupExamples extends Component {
 
         this.data = [{
             label: 'label1',
-            value: 'label1'
-        }, {
-            label: 'label2',
-            value: 'label2'
-        }, {
-            label: 'label3',
-            value: 'label3'
-        }, {
-            label: 'label4',
-            value: 'label4'
-        }, {
-            label: 'label5',
-            value: 'label5'
-        }];
-
-        this.data = [{
-            label: 'label1',
-            value: 'label1'
+            value: 'label1',
+            tip: 'dfvsefv'
         }, {
             label: 'label2',
             value: 'label2'
