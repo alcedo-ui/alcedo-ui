@@ -48,6 +48,14 @@ export default class CheckboxExamples extends Component {
 
     }
 
+    checkHandler() {
+        console.log('checked');
+    }
+
+    uncheckHandler() {
+        console.log('unchecked');
+    }
+
     checkboxChangeHandler(value) {
         this.setState({
             checkboxGroupValue: value ? [...this.data] : []
@@ -87,7 +95,9 @@ export default class CheckboxExamples extends Component {
 
                                 <p><code>Checkbox</code> simple example.</p>
 
-                                <Checkbox label="Licence"/>
+                                <Checkbox label="Licence"
+                                          onCheck={this.checkHandler}
+                                          onUncheck={this.uncheckHandler}/>
 
                             </div>
 
