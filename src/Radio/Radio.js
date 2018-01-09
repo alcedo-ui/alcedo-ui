@@ -225,6 +225,6 @@ Radio.defaultProps = {
     disableTouchRipple: false,
 
     tip: null,
-    tipPosition: null
+    tipPosition: Position.BOTTOM
 
 };

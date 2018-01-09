@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
+import TipProvider from '../TipProvider';
 
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
@@ -232,6 +233,6 @@ Checkbox.defaultProps = {
     disableTouchRipple: false,
 
     tip: null,
-    tipPosition: null
+    tipPosition: Position.BOTTOM
 
 };
