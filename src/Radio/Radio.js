@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
+import TipProvider from '../TipProvider';
 
 import Util from '../_vendors/Util';
 
@@ -82,8 +83,8 @@ export default class Radio extends Component {
     render() {
 
         const {
-                className, style, theme, name, label, value,
-                uncheckedIconCls, checkedIconCls, disabled, disableTouchRipple
+                className, style, theme, name, label, value, uncheckedIconCls, checkedIconCls, disabled,
+                disableTouchRipple, tip, tipPosition
             } = this.props,
             {checked} = this.state,
 
@@ -91,50 +92,55 @@ export default class Radio extends Component {
                 + (className ? ' ' + className : '');
 
         return (
-            <div className={'radio' + radioClassName}
-                 style={style}
-                 disabled={disabled}>
+            <TipProvider tip={tip}
+                         position={tipPosition}>
 
-                {
-                    name ?
-                        <input className="hidden-radio"
-                               type="radio"
-                               name={name}
-                               value={value}
-                               checked={checked}
-                               onChange={() => {
-                               }}/>
-                        :
-                        null
-                }
+                <div className={'radio' + radioClassName}
+                     style={style}
+                     disabled={disabled}>
 
-                <div className="radio-icon-wrapper">
-                    <IconButton ref="radioIcon"
-                                className="radio-bg-icon"
-                                iconCls={uncheckedIconCls}
-                                onTouchTap={this.touchTapHandler}
-                                disabled={disabled}
-                                disableTouchRipple={disableTouchRipple}/>
-                    <IconButton className="radio-icon"
-                                iconCls={checkedIconCls}
-                                onTouchTap={this.touchTapHandler}
-                                disabled={disabled}
-                                disableTouchRipple={disableTouchRipple}/>
+                    {
+                        name ?
+                            <input className="hidden-radio"
+                                   type="radio"
+                                   name={name}
+                                   value={value}
+                                   checked={checked}
+                                   onChange={() => {
+                                   }}/>
+                            :
+                            null
+                    }
+
+                    <div className="radio-icon-wrapper">
+                        <IconButton ref="radioIcon"
+                                    className="radio-bg-icon"
+                                    iconCls={uncheckedIconCls}
+                                    onTouchTap={this.touchTapHandler}
+                                    disabled={disabled}
+                                    disableTouchRipple={disableTouchRipple}/>
+                        <IconButton className="radio-icon"
+                                    iconCls={checkedIconCls}
+                                    onTouchTap={this.touchTapHandler}
+                                    disabled={disabled}
+                                    disableTouchRipple={disableTouchRipple}/>
+                    </div>
+
+                    {
+                        label ?
+                            <div className="radio-label"
+                                 onMouseDown={this.mouseDownHandler}
+                                 onMouseUp={this.mouseUpHandler}
+                                 onMouseLeave={this.mouseUpHandler}>
+                                {label}
+                            </div>
+                            :
+                            null
+                    }
+
                 </div>
 
-                {
-                    label ?
-                        <div className="radio-label"
-                             onMouseDown={this.mouseDownHandler}
-                             onMouseUp={this.mouseUpHandler}
-                             onMouseLeave={this.mouseUpHandler}>
-                            {label}
-                        </div>
-                        :
-                        null
-                }
-
-            </div>
+            </TipProvider>
         );
 
     }
