@@ -19,7 +19,7 @@ export default class MaterialTimePicker extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
-
+        this.validValue = true;
         this.state = {
             textFieldValue: props.value,
             popupVisible: false,
@@ -83,10 +83,12 @@ export default class MaterialTimePicker extends Component {
     }
 
     togglePopup(e) {
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.target
-        });
+        if(this.validValue) {
+            this.setState({
+                popupVisible: !this.state.popupVisible,
+                triggerEl: e.target
+            });
+        }
     }
 
     closePopup() {
@@ -111,17 +113,19 @@ export default class MaterialTimePicker extends Component {
     componentDidMount() {
         const {value} = this.props;
         let dateFormatValue = '2000-02-01 ' + value;
-        this.setState({
-            textFieldValue: value,
-            hour: moment(dateFormatValue).format('HH'),
-            minute: moment(dateFormatValue).format('mm'),
-            second: moment(dateFormatValue).format('ss')
-        });
-        Event.addEvent(window, 'mousedown', this.mousedownHandle);
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'mousedown', this.mousedownHandle);
+        if(value){
+            if (moment(dateFormatValue, 'YYYY-MM-DD HH:mm:ss').isValid()) {
+                this.setState({
+                    textFieldValue: value,
+                    hour: moment(dateFormatValue).format('HH'),
+                    minute: moment(dateFormatValue).format('mm'),
+                    second: moment(dateFormatValue).format('ss')
+                });
+            }else {
+                this.validValue = false;
+                console.error('Invalid date');
+            }
+        }
     }
 
     render() {

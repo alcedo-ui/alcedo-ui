@@ -18,7 +18,7 @@ export default class MonthPicker extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
-
+        this.validValue = true;
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -93,10 +93,12 @@ export default class MonthPicker extends Component {
     }
 
     togglePopup(e) {
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.target
-        });
+        if(this.validValue) {
+            this.setState({
+                popupVisible: !this.state.popupVisible,
+                triggerEl: e.target
+            });
+        }
     }
 
     closePopup() {
@@ -124,12 +126,17 @@ export default class MonthPicker extends Component {
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value) {
-            const year = moment(value).format('YYYY'),
-                month = moment(value).format('MM');
-            state.value = moment(value, dateFormat);
-            state.year = year;
-            state.month = month;
-            this.setState(state);
+            if(moment(value, dateFormat).isValid()) {
+                const year = moment(value).format('YYYY'),
+                    month = moment(value).format('MM');
+                state.value = moment(value, dateFormat);
+                state.year = year;
+                state.month = month;
+                this.setState(state);
+            }else{
+                console.error('Invalid date');
+                this.validValue = false;
+            }
         }
     }
 

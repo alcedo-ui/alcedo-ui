@@ -23,6 +23,7 @@ export default class DateTimePicker extends Component {
 
         super(props, ...restArgs);
 
+        this.validValue = true;
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -163,10 +164,12 @@ export default class DateTimePicker extends Component {
     }
 
     togglePopup(e) {
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.target
-        });
+        if(this.validValue) {
+            this.setState({
+                popupVisible: !this.state.popupVisible,
+                triggerEl: e.target
+            });
+        }
     }
 
     closePopup() {
@@ -199,20 +202,25 @@ export default class DateTimePicker extends Component {
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value) {
-            const select_year = moment(value).format('YYYY'),
-                select_month = moment(value).format('MM'),
-                select_day = moment(value).format('DD');
-            state.value = moment(value, dateFormat);
-            state.year = select_year;
-            state.month = select_month;
-            state.day = select_day;
-            this.setState(state);
+            if(moment(value, dateFormat).isValid()) {
+                const select_year = moment(value).format('YYYY'),
+                    select_month = moment(value).format('MM'),
+                    select_day = moment(value).format('DD');
+                state.value = moment(value, dateFormat);
+                state.year = select_year;
+                state.month = select_month;
+                state.day = select_day;
+                this.setState(state);
+            }else{
+                console.error('Invalid date');
+                this.validValue = false;
+            }
         }
     }
 
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props;
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled} = this.props;
         const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state;
         let textValue = moment(value).format(dateFormat);
         return (
@@ -227,6 +235,7 @@ export default class DateTimePicker extends Component {
                            value={textValue}
                            iconCls="fa fa-calendar"
                            readOnly={true}
+                           disabled={disabled}
                            clearButtonVisible={false}
                            onTouchTap={e => {
                                this.togglePopup(e);

@@ -21,6 +21,8 @@ export default class DatePicker extends Component {
 
         super(props, ...restArgs);
 
+       this.validValue = true;
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -123,10 +125,12 @@ export default class DatePicker extends Component {
     }
 
     togglePopup(e) {
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.target
-        });
+        if(this.validValue){
+            this.setState({
+                popupVisible: !this.state.popupVisible,
+                triggerEl: e.target
+            });
+        }
     }
 
     closePopup() {
@@ -155,14 +159,20 @@ export default class DatePicker extends Component {
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value) {
-            const year = moment(value).format('YYYY'),
-                month = moment(value).format('MM'),
-                day = moment(value).format('DD');
-            state.value = moment(value, dateFormat);
-            state.year = year;
-            state.month = month;
-            state.day = day;
-            this.setState(state);
+            // debugger
+            if (moment(value, dateFormat).isValid()) {
+                const year = moment(value).format('YYYY'),
+                    month = moment(value).format('MM'),
+                    day = moment(value).format('DD');
+                state.value = moment(value, dateFormat);
+                state.year = year;
+                state.month = month;
+                state.day = day;
+                this.setState(state);
+            } else {
+                this.validValue = false;
+                console.error('Invalid date');
+            }
         }
     }
 

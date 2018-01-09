@@ -22,6 +22,7 @@ export default class MaterialDateTimePicker extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+        this.validValue = true;
 
         this.state = {
             value: props.value,
@@ -163,10 +164,12 @@ export default class MaterialDateTimePicker extends Component {
     }
 
     togglePopup(e) {
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.target
-        });
+        if(this.validValue) {
+            this.setState({
+                popupVisible: !this.state.popupVisible,
+                triggerEl: e.target
+            });
+        }
     }
 
     closePopup() {
@@ -199,14 +202,19 @@ export default class MaterialDateTimePicker extends Component {
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value) {
-            const select_year = moment(value).format('YYYY'),
-                select_month = moment(value).format('MM'),
-                select_day = moment(value).format('DD');
-            state.value = moment(value, dateFormat);
-            state.year = select_year;
-            state.month = select_month;
-            state.day = select_day;
-            this.setState(state);
+            if(moment(value, dateFormat).isValid()) {
+                const select_year = moment(value).format('YYYY'),
+                    select_month = moment(value).format('MM'),
+                    select_day = moment(value).format('DD');
+                state.value = moment(value, dateFormat);
+                state.year = select_year;
+                state.month = select_month;
+                state.day = select_day;
+                this.setState(state);
+            }else{
+                console.error('Invalid date');
+                this.validValue = false;
+            }
         }
     }
 

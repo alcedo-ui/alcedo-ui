@@ -22,6 +22,7 @@ export default class MaterialDateRangePicker extends Component {
         super(props, ...restArgs);
 
         const initValue = moment();
+        this.validValue = true;
 
         let startTime = '',
             endTime = '';
@@ -199,10 +200,12 @@ export default class MaterialDateRangePicker extends Component {
 
 
     togglePopup(e) {
-        this.setState({
-            popupVisible: !this.state.popupVisible,
-            triggerEl: e.target
-        });
+        if (this.validValue) {
+            this.setState({
+                popupVisible: !this.state.popupVisible,
+                triggerEl: e.target
+            });
+        }
     }
 
     closePopup() {
@@ -237,7 +240,7 @@ export default class MaterialDateRangePicker extends Component {
             }
         }
         state.value = [moment(state.left.text, dateFormat), moment(state.right.text, dateFormat)];
-        !this.props.disabled && this.setState(state,()=>{
+        !this.props.disabled && this.setState(state, () => {
             this.props.onChange && this.props.onChange([
                 moment(state.value[0]).format(this.props.dateFormat),
                 moment(state.value[1]).format(this.props.dateFormat)
@@ -258,36 +261,41 @@ export default class MaterialDateRangePicker extends Component {
         let state = _.cloneDeep(this.state);
         if (value && value.length) {
             let leftValue = value[0],
-                rightValue = value[1],
-                leftYear = moment(value[0]).format('YYYY'),
-                leftMonth = moment(value[0]).format('MM'),
-                leftDay = moment(value[0]).format('DD'),
-                rightYear = moment(value[1]).format('YYYY'),
-                rightMonth = moment(value[1]).format('MM'),
-                rightDay = moment(value[1]).format('DD');
-            state.left.text = leftValue;
-            state.left.year = leftYear;
-            state.left.month = leftMonth;
-            state.left.day = leftDay;
-            state.right.text = rightValue;
-            state.right.day = rightDay;
-            if (leftYear == rightYear && leftMonth == rightMonth) {
-                if (leftMonth == 12) {
-                    state.right.year = +rightYear + 1;
-                    state.right.month = 1;
+                rightValue = value[1];
+            if (moment(leftValue, dateFormat).isValid() && moment(rightValue, dateFormat).isValid()) {
+                let leftYear = moment(value[0]).format('YYYY'),
+                    leftMonth = moment(value[0]).format('MM'),
+                    leftDay = moment(value[0]).format('DD'),
+                    rightYear = moment(value[1]).format('YYYY'),
+                    rightMonth = moment(value[1]).format('MM'),
+                    rightDay = moment(value[1]).format('DD');
+                state.left.text = leftValue;
+                state.left.year = leftYear;
+                state.left.month = leftMonth;
+                state.left.day = leftDay;
+                state.right.text = rightValue;
+                state.right.day = rightDay;
+                if (leftYear == rightYear && leftMonth == rightMonth) {
+                    if (leftMonth == 12) {
+                        state.right.year = +rightYear + 1;
+                        state.right.month = 1;
+                    } else {
+                        state.right.year = rightYear;
+                        state.right.month = +rightMonth + 1;
+                    }
                 } else {
                     state.right.year = rightYear;
-                    state.right.month = +rightMonth + 1;
+                    state.right.month = rightMonth;
                 }
-            } else {
-                state.right.year = rightYear;
-                state.right.month = rightMonth;
+                state.startTime = leftValue;
+                state.endTime = rightValue;
+                state.historyStartTime = leftValue;
+                state.historyEndTime = rightValue;
+                this.setState(state);
+            }else{
+                this.validValue = false;
+                console.error('Invalid date');
             }
-            state.startTime = leftValue;
-            state.endTime = rightValue;
-            state.historyStartTime = leftValue;
-            state.historyEndTime = rightValue;
-            this.setState(state);
         }
 
     }

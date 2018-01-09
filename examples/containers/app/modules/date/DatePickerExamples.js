@@ -50,7 +50,8 @@ export default class DatePickerExamples extends Component {
                                     <code>Date Picker</code> using the <code>value</code> property to set initial date.
                                 </p>
 
-                                <DatePicker value='2017-04-17'
+                                <DatePicker value={'2314-33-55'}
+                                            dateFormat={'YYYY-MM-DD'}
                                             name="date"
                                             autoClose={true}
                                             onChange={this.onChangeHandle}/>
@@ -76,6 +77,7 @@ export default class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY/MM/DD'
+                                            value='2017/02/03'
                                             autoClose={false}
                                             onChange={this.onChangeHandle}/>
                             </div>
