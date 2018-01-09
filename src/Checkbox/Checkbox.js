@@ -36,7 +36,17 @@ export default class Checkbox extends Component {
         this.setState({
             checked
         }, () => {
-            this.props.onChange && this.props.onChange(checked);
+
+            const {onChange, onCheck, onUncheck} = this.props;
+
+            onChange && onChange(checked);
+
+            if (checked) {
+                onCheck && onCheck();
+            } else {
+                onUncheck && onUncheck();
+            }
+
         });
 
     }
@@ -187,7 +197,11 @@ Checkbox.propTypes = {
     /**
      * Callback function fired when the checkbox status change.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func,
+
+    onUncheck: PropTypes.func
 
 };
 
