@@ -59,19 +59,23 @@ export default class RadioGroupExamples extends Component {
 
     }
 
+    checkHandler(item) {
+        if (item) {
+            console.log('checked', item);
+        } else {
+            console.log('checked');
+        }
+    }
+
     radioChangeHandler(radioChecked) {
         this.setState({
             radioChecked
-        }, () => {
-            console.log(radioChecked);
         });
     }
 
     radioGroupChangeHandler(radioGroupValue) {
         this.setState({
             radioGroupValue
-        }, () => {
-            console.log(radioGroupValue);
         });
     }
 
@@ -107,7 +111,8 @@ export default class RadioGroupExamples extends Component {
                                        name="radio"
                                        value="radio"
                                        checked={radioChecked}
-                                       onChange={this.radioChangeHandler}/>
+                                       onChange={this.radioChangeHandler}
+                                       onCheck={this.checkHandler}/>
 
                                 <p><code>RadioGroup</code> simple example.</p>
 
