@@ -41,15 +41,10 @@ export default class Radio extends Component {
             checked: true
         }, () => {
 
-            const {onChange, onCheck, onUncheck} = this.props;
+            const {onChange, onCheck} = this.props;
 
-            onChange && onChange(checked);
-
-            if (checked) {
-                onCheck && onCheck();
-            } else {
-                onUncheck && onUncheck();
-            }
+            onChange && onChange(true);
+            onCheck && onCheck();
 
         });
 
@@ -200,9 +195,7 @@ Radio.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onCheck: PropTypes.func,
-
-    onUncheck: PropTypes.func
+    onCheck: PropTypes.func
 
 };
 
