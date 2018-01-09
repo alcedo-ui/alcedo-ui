@@ -40,7 +40,17 @@ export default class Radio extends Component {
         this.setState({
             checked: true
         }, () => {
-            this.props.onChange && this.props.onChange(true);
+
+            const {onChange, onCheck, onUncheck} = this.props;
+
+            onChange && onChange(checked);
+
+            if (checked) {
+                onCheck && onCheck();
+            } else {
+                onUncheck && onUncheck();
+            }
+
         });
 
     }
@@ -188,7 +198,11 @@ Radio.propTypes = {
     /**
      * Callback function fired when the radio status change.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func,
+
+    onUncheck: PropTypes.func
 
 };
 
