@@ -37,41 +37,28 @@ export default class RadioGroupExamples extends Component {
             value: 'label5'
         }];
 
-        this.data = [{
-            label: 'label1',
-            value: 'label1'
-        }, {
-            label: 'label2',
-            value: 'label2'
-        }, {
-            label: 'label3',
-            value: 'label3'
-        }, {
-            label: 'label4',
-            value: 'label4'
-        }, {
-            label: 'label5',
-            value: 'label5'
-        }];
-
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.radioGroupChangeHandler = ::this.radioGroupChangeHandler;
 
     }
 
+    checkHandler(item) {
+        if (item) {
+            console.log('checked', item);
+        } else {
+            console.log('checked');
+        }
+    }
+
     radioChangeHandler(radioChecked) {
         this.setState({
             radioChecked
-        }, () => {
-            console.log(radioChecked);
         });
     }
 
     radioGroupChangeHandler(radioGroupValue) {
         this.setState({
             radioGroupValue
-        }, () => {
-            console.log(radioGroupValue);
         });
     }
 
@@ -107,7 +94,8 @@ export default class RadioGroupExamples extends Component {
                                        name="radio"
                                        value="radio"
                                        checked={radioChecked}
-                                       onChange={this.radioChangeHandler}/>
+                                       onChange={this.radioChangeHandler}
+                                       onCheck={this.checkHandler}/>
 
                                 <p><code>RadioGroup</code> simple example.</p>
 
@@ -115,7 +103,8 @@ export default class RadioGroupExamples extends Component {
                                             name="radio-group-1"
                                             data={this.data}
                                             value={radioGroupValue}
-                                            onChange={this.radioGroupChangeHandler}/>
+                                            onChange={this.radioGroupChangeHandler}
+                                            onCheck={this.checkHandler}/>
 
                             </div>
 

@@ -10,6 +10,7 @@ import Radio from '../Radio';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 export default class RadioGroup extends Component {
 
@@ -47,7 +48,7 @@ export default class RadioGroup extends Component {
 
         const {
                 className, style, theme, name, uncheckedIconCls, checkedIconCls,
-                disabled, data, tip, tipPosition
+                disabled, data, onCheck
             } = this.props,
             {value} = this.state;
 
@@ -72,11 +73,14 @@ export default class RadioGroup extends Component {
                                    label={item.label}
                                    value={item.value}
                                    checked={isChecked}
-                                   disabled={disabled}
-                                   tip={tip ? tip : item.label}
-                                   tipPosition={tipPosition}
+                                   disabled={disabled || item.disabled}
+                                   tip={item.tip}
+                                   tipPosition={item.tipPosition}
                                    onChange={() => {
                                        this.changeHandler(item);
+                                   }}
+                                   onCheck={() => {
+                                       onCheck && onCheck(item);
                                    }}/>
                         );
 
@@ -139,7 +143,15 @@ RadioGroup.propTypes = {
         /**
          * The value of Radio component.
          */
-        value: PropTypes.any
+        value: PropTypes.any,
+
+        /**
+         * If true,the Radio will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
 
     })).isRequired,
 
@@ -159,7 +171,9 @@ RadioGroup.propTypes = {
     /**
      * Callback function fired when the value of RadioGroup changed.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func
 
 };
 

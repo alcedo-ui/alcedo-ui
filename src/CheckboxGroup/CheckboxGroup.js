@@ -11,6 +11,7 @@ import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 export default class CheckboxGroup extends Component {
 
@@ -24,11 +25,11 @@ export default class CheckboxGroup extends Component {
             value: props.value
         };
 
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
-    changeHandle(item) {
+    changeHandler(item) {
 
         let value = _.cloneDeep(this.state.value);
 
@@ -65,13 +66,19 @@ export default class CheckboxGroup extends Component {
 
     render() {
 
+        const {data} = this.props;
+
+        if (!data) {
+            return null;
+        }
+
         const {
-                className, style, theme, name, disabled, data, idProp,
-                uncheckedIconCls, checkedIconCls, indeterminateIconCls
+                className, style, theme, name, disabled, idProp, uncheckedIconCls, checkedIconCls, indeterminateIconCls,
+                onCheck, onUncheck
             } = this.props,
             {value} = this.state;
 
-        return data ? (
+        return (
             <div className={'checkbox-group' + (className ? ' ' + className : '')}
                  style={style}
                  disabled={disabled}>
@@ -86,16 +93,24 @@ export default class CheckboxGroup extends Component {
                                       className={item.className ? item.className : ''}
                                       style={item.style}
                                       theme={item.theme || theme}
+                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
+                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
                                       name={name}
                                       label={item.label}
                                       value={item.value}
                                       disabled={disabled || item.disabled}
                                       checked={isChecked}
-                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
-                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
-                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
+                                      tip={item.tip}
+                                      tipPosition={item.tipPosition}
                                       onChange={() => {
-                                          this.changeHandle(item);
+                                          this.changeHandler(item);
+                                      }}
+                                      onCheck={() => {
+                                          onCheck && onCheck(item);
+                                      }}
+                                      onUncheck={() => {
+                                          onUncheck && onUncheck(item);
                                       }}/>
                         );
 
@@ -103,9 +118,7 @@ export default class CheckboxGroup extends Component {
                 }
 
             </div>
-        )
-            :
-            null;
+        );
 
     }
 };
@@ -121,6 +134,7 @@ CheckboxGroup.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     name: PropTypes.string,
+
     data: PropTypes.arrayOf(PropTypes.shape({
 
         className: PropTypes.string,
@@ -128,7 +142,12 @@ CheckboxGroup.propTypes = {
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         label: PropTypes.any,
-        value: PropTypes.any
+        value: PropTypes.any,
+
+        disabled: PropTypes.bool,
+
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
 
     })).isRequired,
     value: PropTypes.array,
@@ -140,7 +159,11 @@ CheckboxGroup.propTypes = {
     checkedIconCls: PropTypes.string,
     indeterminateIconCls: PropTypes.string,
 
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func,
+
+    onUncheck: PropTypes.func
 
 };
 
