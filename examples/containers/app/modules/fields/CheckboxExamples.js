@@ -48,12 +48,20 @@ export default class CheckboxExamples extends Component {
 
     }
 
-    checkHandler() {
-        console.log('checked');
+    checkHandler(item) {
+        if (item) {
+            console.log('checked', item);
+        } else {
+            console.log('checked');
+        }
     }
 
-    uncheckHandler() {
-        console.log('unchecked');
+    uncheckHandler(item) {
+        if (item) {
+            console.log('unchecked', item);
+        } else {
+            console.log('unchecked');
+        }
     }
 
     checkboxChangeHandler(value) {
@@ -149,7 +157,9 @@ export default class CheckboxExamples extends Component {
                                 <CheckboxGroup theme={Theme.HIGHLIGHT}
                                                data={this.data}
                                                value={checkboxGroupValue}
-                                               onChange={this.checkboxGroupChangeHandler}/>
+                                               onChange={this.checkboxGroupChangeHandler}
+                                               onCheck={this.checkHandler}
+                                               onUncheck={this.uncheckHandler}/>
 
                             </div>
 
