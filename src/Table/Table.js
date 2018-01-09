@@ -349,20 +349,18 @@ export default class Table extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.data.length !== this.props.data.length) {
-
             this.resetPage(nextProps.data);
-
-            this.setState({
-                sortedData: this.sortData(nextProps.data)
-            });
-
         }
+
+        let state = {
+            sortedData: this.sortData(nextProps.data)
+        };
 
         if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
+            state.value = Calculation.getInitValue(nextProps);
         }
+
+        this.setState(state);
 
     }
 
