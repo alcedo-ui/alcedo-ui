@@ -35,7 +35,12 @@ export default class LandingNav extends Component {
     }
 
     menuClickHandle(activatedMenu) {
-        document.body.scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
+
+        const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
+
+        document.body.scrollTop = scrollTop;
+        document.documentElement.scrollTop = scrollTop;
+
     }
 
     updateActivatedMenu(props = this.props) {
