@@ -74,6 +74,7 @@ export default class LandingNav extends Component {
 
         const {bodyScrollTop} = this.props,
             {activatedMenu} = this.state,
+
             introEl = document.querySelector(this.menu[0].hash),
             isFixed = introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
 
@@ -97,20 +98,25 @@ export default class LandingNav extends Component {
                                     href="https://github.com/alcedo-ui/alcedo-ui"/>
 
                         <ul className="landing-nav-menu">
+
                             {
                                 this.menu.map((item, index) => {
+
+                                    const itemClassName = (activatedMenu.hash === item.hash ? ' activated' : '');
+
                                     return (
                                         <li key={index}
-                                            className={`landing-nav-menu-item
-                                                ${activatedMenu.hash === item.hash ? 'activated' : ''}`}
+                                            className={'landing-nav-menu-item' + itemClassName}
                                             onClick={() => {
                                                 this.menuClickHandle(item);
                                             }}>
                                             {item.name}
                                         </li>
                                     );
+
                                 })
                             }
+
                         </ul>
 
                     </div>
