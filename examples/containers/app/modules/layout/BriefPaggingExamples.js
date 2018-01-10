@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import BriefPagging from 'src/BriefPagging';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Calculation from '../../../../../src/_vendors/Calculation';
+
+import Valid from '../../../../../src/_vendors/Valid';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import BriefPaggingDoc from 'assets/propTypes/BriefPagging.json';
@@ -33,11 +34,14 @@ export default class BriefPaggingExamples extends Component {
         }];
 
         this.state = {
-            // pagging: {
-            //     pageSize: Calculation.pageSize(defaultPageSize, pageSizes, 10),
-            //     page: 0
-            // }
+            pagging: {
+                pageSize: 10,
+                page: 0
+            }
         }
+        this.pageChangedHandler = this::this.pageChangedHandler;
+        this.generateData = this::this.generateData;
+
     }
 
     generateData(size = 100) {
@@ -52,14 +56,37 @@ export default class BriefPaggingExamples extends Component {
         return data.length;
     }
 
-    changeHandler() {
+    pageChangedHandler(pagging) {
+        if (typeof pagging.pageSize === 'object') {
+            pagging.pageSize = pagging.pageSize.value;
+        }
 
+        this.setState({
+            pagging
+        }, () => {
+            this.resetPage(this.generateData(100), pagging);
+        });
+    }
+
+    resetPage(data = this.generateData(100), pagging = this.state.pagging) {
+        let {page, pageSize} = pagging,
+            total = Math.ceil(data / pageSize);
+
+        if (page + 1 > total) {
+            this.setState({
+                pagging: {
+                    pageSize,
+                    page: Valid.range(total - 1, 0)
+                }
+            });
+            return;
+        }
     }
 
     render() {
-        const {pageSize} = this.state;
+        const {pagging} = this.state;
 
-        const totalPage = Math.ceil(this.generateData() / pageSize);
+        const totalPage = Math.ceil(this.generateData() / pagging.pageSize);
 
         return (
             <div className="example brief-pagging-examples">
@@ -74,26 +101,6 @@ export default class BriefPaggingExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="BriefPagging Example"/>
-
-                    <div className="widget-content">
-
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>BriefPagging examples showing with default value.</p>
-
-                                <BriefPagging/>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
                     <WidgetHeader className="example-header" title="With selectedCountVisible"/>
 
                     <div className="widget-content">
@@ -105,35 +112,16 @@ export default class BriefPaggingExamples extends Component {
                                 <p>A more complex example.Set the <code>selectedCountVisible</code>to true to show
                                     selectedCount.</p>
 
-                                <BriefPagging selectedCountVisible={true}/>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With selectedCountVisible"/>
-
-                    <div className="widget-content">
-
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>A more complex example.Set the <code>selectedCountVisible</code>to true for
-                                    selectedCount.</p>
-
                                 <BriefPagging selectedCountVisible={true}
-                                              total={totalPage}
-                                              page={2}
-                                              pageSize={pageSize}
-                                              pageSizes={this.pageSizes}
+                                              page={pagging.page}
                                               count={this.generateData()}
-                                              onChange={this.changeHandler()}/>
+                                              total={totalPage}
+                                              pageSize={pagging.pageSize}
+                                              pageSizes={this.pageSizes}
+                                              onChange={this.pageChangedHandler}/>
+
                             </div>
+
                         </div>
                     </div>
 
