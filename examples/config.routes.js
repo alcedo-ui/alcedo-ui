@@ -1,6 +1,7 @@
 import {ac} from 'vendors/AsyncComponent';
 
 import AppRoot from 'examples/containers/AppRoot';
+import ColorPicker from '../src/ColorPicker/ColorPicker';
 
 export default function configureRoutes(store) {
 
@@ -138,7 +139,7 @@ export default function configureRoutes(store) {
                 {
                     path: '/components/DatePicker',
                     component: ac(store, () => import('modules/date/DatePickerExamples'))
-                },{
+                }, {
                     path: '/components/MonthPicker',
                     component: ac(store, () => import('modules/date/MonthPickerExamples'))
                 }, {
@@ -298,6 +299,9 @@ export default function configureRoutes(store) {
                 {
                     path: '/components/LazyImage',
                     component: ac(store, () => import('modules/media/LazyImageExamples'))
+                }, {
+                    path: '/components/ColorPicker',
+                    component: ac(store, () => import('modules/media/ColorPickerExamples'))
                 }
             ]
         }]
