@@ -38,7 +38,7 @@ export default class BriefPaggingExamples extends Component {
                 pageSize: 10,
                 page: 0
             }
-        }
+        };
         this.pageChangedHandler = this::this.pageChangedHandler;
         this.generateData = this::this.generateData;
 
@@ -109,8 +109,7 @@ export default class BriefPaggingExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>A more complex example.Set the <code>selectedCountVisible</code>to true to show
-                                    selectedCount.</p>
+                                <p>A simple <code>BriefPagging</code> example.</p>
 
                                 <BriefPagging selectedCountVisible={true}
                                               page={pagging.page}
