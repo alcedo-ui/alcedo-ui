@@ -241,6 +241,12 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Dropdown',
                     component: ac(store, () => import('modules/layout/DropdownExamples'))
+                }, {
+                    path: '/components/Pagging',
+                    component: ac(store, () => import('modules/layout/PaggingExamples'))
+                }, {
+                    path: '/components/BriefPagging',
+                    component: ac(store, () => import('modules/layout/BriefPaggingExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
