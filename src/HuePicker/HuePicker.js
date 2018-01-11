@@ -18,7 +18,8 @@ export default class HuePicker extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            offset: 0
+            offset: 0,
+            value: props.value
         };
 
         this.activated = false;
@@ -50,18 +51,18 @@ export default class HuePicker extends Component {
     changeHandler(offsetX) {
 
         const width = this.huePickerEl.offsetWidth,
-            offset = Valid.range(offsetX, 0, width);
+            offset = Valid.range(offsetX, 0, width),
+            perCent = offset / width,
+            value = Color.perCent2RGB(perCent);
 
         this.setState({
-            offset
+            offset,
+            value
         }, () => {
-
-            const perCent = offset / width,
-                {onChange} = this.props;
-
-            onChange && onChange(Color.perCent2RGB(perCent));
-
+            const {onChange} = this.props;
+            onChange && onChange(value);
         });
+
     }
 
     componentDidMount() {
@@ -119,7 +120,7 @@ HuePicker.propTypes = {
      */
     style: PropTypes.object,
 
-
+    value: PropTypes.any,
 
     onChange: PropTypes.func
 
@@ -128,6 +129,8 @@ HuePicker.propTypes = {
 HuePicker.defaultProps = {
 
     className: null,
-    style: null
+    style: null,
+
+    value: [255, 0, 0]
 
 };
