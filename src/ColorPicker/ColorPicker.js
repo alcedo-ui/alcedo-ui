@@ -22,6 +22,10 @@ export default class ColorPicker extends Component {
             <div className={'color-picker' + (className ? ' ' + className : '')}
                  style={style}>
 
+                <div className="color-picker-area">
+
+                </div>
+
             </div>
         );
 
