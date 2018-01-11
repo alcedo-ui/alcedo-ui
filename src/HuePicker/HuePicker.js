@@ -16,12 +16,17 @@ export default class HuePicker extends Component {
 
     render() {
 
-        const {className, style} = this.props;
+        const {className, style} = this.props,
+
+            wrapperClassName = (className ? ' ' + className : '');
 
         return (
-            <div className="color-picker-hue">
+            <div className={'color-picker-hue' + wrapperClassName}
+                 style={style}>
+
                 <i className="fa fa-caret-down color-picker-hue-pointer-top"></i>
                 <i className="fa fa-caret-up color-picker-hue-pointer-bottom"></i>
+
             </div>
         );
 

@@ -13,17 +13,18 @@
     .color-picker-hue-pointer-bottom {
         position: absolute;
         color: $theme-field;
-        font-size: 8px;
+        font-size: 12px;
         width: 8px;
+        line-height: 6px;
         text-align: center;
         left: -4px;
     }
 
     .color-picker-hue-pointer-top {
-        top: -8px;
+        top: -5px;
     }
 
     .color-picker-hue-pointer-bottom {
-        bottom: -8px;
+        bottom: -5px;
     }
 }
