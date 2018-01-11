@@ -140,16 +140,38 @@ BriefPagging.propTypes = {
      */
     pageSize: PropTypes.number,
 
+    /**
+     * The array of pageSize.
+     */
     pageSizes: PropTypes.array,
+
+    /**
+     * The total count of selected.
+     */
     selectedCount: PropTypes.number,
+
+    /**
+     * If true,the selectedCount will show.
+     */
     selectedCountVisible: PropTypes.bool,
+
+    /**
+     * If false, the pageSize choice box will not show.
+     */
     pageSizeVisible: PropTypes.bool,
 
+    /**
+     * Use this property to set prev button icon.
+     */
     paggingPrevIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set next button icon.
+     */
     paggingNextIconCls: PropTypes.string,
 
     /**
-     * Callback function fired when the number of pages varies.
+     * Callback function fired when Pagging component change.
      */
     onChange: PropTypes.func
 

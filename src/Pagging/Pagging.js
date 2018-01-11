@@ -99,23 +99,79 @@ export default class Pagging extends Component {
 
 Pagging.propTypes = {
 
+    /**
+     * The CSS class name of the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
     style: PropTypes.object,
 
+    /**
+     * The total of data.
+     */
     count: PropTypes.number,
+
+    /**
+     * The valid page.
+     */
     page: PropTypes.number,
+
+    /**
+     * The page count.
+     */
     total: PropTypes.number,
+
+    /**
+     * The number of per page.
+     */
     pageSize: PropTypes.number,
+
+    /**
+     * The array of pageSize.
+     */
     pageSizes: PropTypes.array,
+
+    /**
+     * The total count of selected.
+     */
     selectedCount: PropTypes.number,
+
+    /**
+     * If true,the selectedCount will show.
+     */
     selectedCountVisible: PropTypes.bool,
+
+    /**
+     * If false, the pageSize choice box will not show.
+     */
     pageSizeVisible: PropTypes.bool,
 
+    /**
+     * Use this property to set prev button icon.
+     */
     paggingPrevIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set next button icon.
+     */
     paggingNextIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set first button icon.
+     */
     paggingFirstIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set last button icon.
+     */
     paggingLastIconCls: PropTypes.string,
 
+    /**
+     * Callback function fired when Pagging component change.
+     */
     onChange: PropTypes.func
 
 };
@@ -133,6 +189,11 @@ Pagging.defaultProps = {
     selectedCount: 0,
 
     selectedCountVisible: false,
-    pageSizeVisible: true
+    pageSizeVisible: true,
+
+    paggingPrevIconCls: 'fa fa-angle-left',
+    paggingNextIconCls: 'fa fa-angle-right',
+    paggingFirstIconCls: 'fa fa-angle-double-left',
+    paggingLastIconCls: 'fa fa-angle-double-right'
 
 };
