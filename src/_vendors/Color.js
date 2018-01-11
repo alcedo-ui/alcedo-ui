@@ -27,7 +27,7 @@ function perCent2RGB(perCent) {
         offset = Math.round((perCent * 6 - int) * 255),
         baseRGB = _getBaseRGB(perCent);
 
-    baseRGB[(((int + 2) % 3) * 2) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
+    baseRGB[(int * 2 + 1) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
 
     return baseRGB;
 
