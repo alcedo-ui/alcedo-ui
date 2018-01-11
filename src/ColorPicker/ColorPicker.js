@@ -26,6 +26,11 @@ export default class ColorPicker extends Component {
 
                 </div>
 
+                <div className="color-picker-hue">
+                    <i className="fa fa-caret-down color-picker-hue-pointer-top"></i>
+                    <i className="fa fa-caret-up color-picker-hue-pointer-bottom"></i>
+                </div>
+
             </div>
         );
 
