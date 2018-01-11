@@ -6,12 +6,33 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Event from '../_vendors/Event';
+
 export default class HuePicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
+        this.mouseDownHandler = ::this.mouseDownHandler;
+        this.mouseMoveHandler = ::this.mouseMoveHandler;
+
+    }
+
+    mouseDownHandler(e) {
+        console.log(e.clientX);
+    }
+
+    mouseMoveHandler(e) {
+
+    }
+
+    componentDidMount() {
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     render() {
@@ -21,8 +42,10 @@ export default class HuePicker extends Component {
             wrapperClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'color-picker-hue' + wrapperClassName}
-                 style={style}>
+            <div ref="huePicker"
+                 className={'hue-picker' + wrapperClassName}
+                 style={style}
+                 onMouseDown={this.mouseDownHandler}>
 
                 <i className="fa fa-caret-down color-picker-hue-pointer-top"></i>
                 <i className="fa fa-caret-up color-picker-hue-pointer-bottom"></i>
@@ -43,7 +66,11 @@ HuePicker.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+
+
+    onChange: PropTypes.func
 
 };
 
