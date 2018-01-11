@@ -302,6 +302,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/ColorPicker',
                     component: ac(store, () => import('modules/media/ColorPickerExamples'))
+                }, {
+                    path: '/components/HuePicker',
+                    component: ac(store, () => import('modules/media/HuePickerExamples'))
                 }
             ]
         }]

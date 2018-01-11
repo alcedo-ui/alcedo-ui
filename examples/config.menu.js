@@ -281,5 +281,8 @@ export default [{
     }, {
         text: 'ColorPicker',
         route: '/components/ColorPicker'
+    }, {
+        text: 'HuePicker',
+        route: '/components/HuePicker'
     }]
 }];
