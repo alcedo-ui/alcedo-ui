@@ -5,7 +5,7 @@
 
 import Valid from './Valid';
 
-function _getBaseRGB(perCent) {
+function _getBaseHue(perCent) {
 
     const data = [[255, 0, 0], [255, 255, 0], [0, 255, 0], [0, 255, 255], [0, 0, 255], [255, 0, 255], [255, 0, 0]];
 
@@ -17,7 +17,7 @@ function _getBaseRGB(perCent) {
 
 }
 
-function perCent2RGB(perCent) {
+function perCent2Hue(perCent) {
 
     if (!Valid.isPerCent(perCent)) {
         return;
@@ -25,14 +25,19 @@ function perCent2RGB(perCent) {
 
     const int = Math.floor(perCent * 6),
         offset = Math.round((perCent * 6 - int) * 255),
-        baseRGB = _getBaseRGB(perCent);
+        baseHue = _getBaseHue(perCent);
 
-    baseRGB[(int * 2 + 1) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
+    baseHue[(int * 2 + 1) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
 
-    return baseRGB;
+    return baseHue;
+
+}
+
+function hue2PerCent(hue) {
 
 }
 
 export default {
-    perCent2RGB
+    perCent2Hue,
+    hue2PerCent
 };
