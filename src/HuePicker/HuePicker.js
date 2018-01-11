@@ -53,7 +53,7 @@ export default class HuePicker extends Component {
         const width = this.huePickerEl.offsetWidth,
             offset = Valid.range(offsetX, 0, width),
             perCent = offset / width,
-            value = Color.perCent2RGB(perCent);
+            value = Color.perCent2Hue(perCent);
 
         this.setState({
             offset,
