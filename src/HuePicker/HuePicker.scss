@@ -1,0 +1,29 @@
+/**
+ * @file HuePicker style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.color-picker-hue {
+    position: relative;
+    height: 20px;
+    cursor: pointer;
+    background-image: linear-gradient(270deg, #f00, #ff0080, #f0f, #8000ff, #0021f5, #0080ff, #73fbfd, #00ff80, #75fa4c, #80ff00, #ff0, #ff8000, #f00);
+
+    .color-picker-hue-pointer-top,
+    .color-picker-hue-pointer-bottom {
+        position: absolute;
+        color: $theme-field;
+        font-size: 8px;
+        width: 8px;
+        text-align: center;
+        left: -4px;
+    }
+
+    .color-picker-hue-pointer-top {
+        top: -8px;
+    }
+
+    .color-picker-hue-pointer-bottom {
+        bottom: -8px;
+    }
+}
