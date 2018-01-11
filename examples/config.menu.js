@@ -276,10 +276,10 @@ export default [{
 }, {
     text: 'Media',
     children: [{
-        text: 'LazyImageExamples',
+        text: 'LazyImage',
         route: '/components/LazyImage'
     }, {
-        text: 'ColorPickerExamples',
+        text: 'ColorPicker',
         route: '/components/ColorPicker'
     }]
 }];
