@@ -62,7 +62,7 @@ function isUrl(value) {
 }
 
 function isPerCent(perCent) {
-    return !isNaN(perCent) && perCent > 0 && perCent < 1;
+    return !isNaN(perCent) && perCent >= 0 && perCent <= 1;
 }
 
 export default {
