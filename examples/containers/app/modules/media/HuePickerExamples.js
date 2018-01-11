@@ -52,7 +52,9 @@ export default class HuePickerExamples extends Component {
                                 <HuePicker value={rgb}
                                            onChange={this.changeHandler}/>
 
-                                <div style={{color: `rgb(${rgb.join(', ')})`}}>[{rgb.join(', ')}]</div>
+                                <div style={{color: `rgb(${rgb.join(', ')})`}}>
+                                    [{rgb.join(', ')}]
+                                </div>
 
                             </div>
 
