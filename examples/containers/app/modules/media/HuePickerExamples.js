@@ -12,10 +12,26 @@ import 'sass/containers/app/modules/media/HuePickerExamples.scss';
 export default class HuePickerExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            rgb: [255, 0, 0]
+        };
+
+        this.changeHandler = ::this.changeHandler;
+
+    }
+
+    changeHandler(rgb) {
+        this.setState({
+            rgb
+        });
     }
 
     render() {
+
+        const {rgb} = this.state;
 
         return (
             <div className="example hue-picker-examples">
@@ -33,7 +49,10 @@ export default class HuePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <HuePicker/>
+                                <HuePicker value={rgb}
+                                           onChange={this.changeHandler}/>
+
+                                <div style={{color: `rgb(${rgb.join(', ')})`}}>[{rgb.join(', ')}]</div>
 
                             </div>
 
