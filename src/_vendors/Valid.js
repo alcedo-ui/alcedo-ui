@@ -26,7 +26,7 @@ function isNumber(value) {
 }
 
 function isInteger(value) {
-    return !Number.isInteger(value);
+    return Number.isInteger(value);
 }
 
 function isPositiveInteger(value) {
