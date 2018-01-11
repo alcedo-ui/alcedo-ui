@@ -18,7 +18,7 @@ export default class ColorPickerExamples extends Component {
     render() {
 
         return (
-            <div className="example lazy-image-examples">
+            <div className="example color-picker-examples">
 
                 <h2 className="example-title">Lazy Image</h2>
 
