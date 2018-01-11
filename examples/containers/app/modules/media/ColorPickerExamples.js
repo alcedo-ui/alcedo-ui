@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-
 import ColorPicker from 'src/ColorPicker';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
