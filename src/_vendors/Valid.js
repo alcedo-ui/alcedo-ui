@@ -45,12 +45,24 @@ function isNonpositiveInteger(value) {
     return isInteger(value) && value <= 0;
 }
 
+function isOdd(value) {
+    return isInteger(value) && value % 2 === 1;
+}
+
+function isEven(value) {
+    return isInteger(value) && value % 2 === 0;
+}
+
 function isEmail(value) {
     return /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/.test(value);
 }
 
 function isUrl(value) {
     return /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+$/.test(value);
+}
+
+function isPerCent(perCent) {
+    return !isNaN(perCent) && perCent > 0 && perCent < 1;
 }
 
 export default {
@@ -64,6 +76,9 @@ export default {
     isNonnegativeInteger,
     isNegativeInteger,
     isNonpositiveInteger,
+    isOdd,
+    isEven,
     isEmail,
-    isUrl
+    isUrl,
+    isPerCent
 };
