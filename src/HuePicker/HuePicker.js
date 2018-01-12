@@ -30,12 +30,12 @@ export default class HuePicker extends Component {
 
     mouseDownHandler(e) {
         this.activated = true;
-        this.changeHandler(e.clientX - Dom.getOffset(this.huePickerEl).left);
+        this.changeHandler(e.clientX - Dom.getOffset(this.huePickerBarEl).left);
     }
 
     mouseMoveHandler(e) {
         if (this.activated) {
-            this.changeHandler(e.clientX - Dom.getOffset(this.huePickerEl).left);
+            this.changeHandler(e.clientX - Dom.getOffset(this.huePickerBarEl).left);
         }
     }
 
@@ -45,7 +45,7 @@ export default class HuePicker extends Component {
 
     changeHandler(offsetX) {
 
-        const width = this.huePickerEl.offsetWidth,
+        const width = this.huePickerBarEl.offsetWidth,
             offset = Valid.range(offsetX, 0, width),
             perCent = offset / width,
             value = perCent * 360;
@@ -61,7 +61,7 @@ export default class HuePicker extends Component {
 
     componentDidMount() {
 
-        this.huePickerEl = this.refs.huePicker;
+        this.huePickerBarEl = this.refs.huePickerBar;
 
         Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.addEvent(document, 'mouseup', this.mouseUpHandler);
@@ -93,11 +93,11 @@ export default class HuePicker extends Component {
             };
 
         return (
-            <div ref="huePicker"
-                 className={'hue-picker' + wrapperClassName}
+            <div className={'hue-picker' + wrapperClassName}
                  style={style}>
 
-                <div className="hue-picker-bar"
+                <div ref="huePickerBar"
+                     className="hue-picker-bar"
                      onMouseDown={this.mouseDownHandler}>
 
                     <div className="hue-picker-pointer-wrapper"
