@@ -38,7 +38,7 @@ export default class HuePickerExamples extends Component {
         return (
             <div className="example hue-picker-examples">
 
-                <h2 className="example-title">Lazy Image</h2>
+                <h2 className="example-title">Hue Picker</h2>
 
                 <h2 className="example-title">Examples</h2>
 
