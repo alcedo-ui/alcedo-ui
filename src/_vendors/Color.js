@@ -66,9 +66,11 @@ function hsb2rgb(hsb) {
         return;
     }
 
-    const [h, s, v] = hsb,
-        i = Math.floor((h / 60) % 6),
-        f = (h / 60) - i,
+    let [h, s, v] = hsb;
+    h = h === 360 ? 0 : h;
+
+    const i = Math.floor(h / 60) % 6,
+        f = h / 60 - i,
         p = v * (1 - s),
         q = v * (1 - f * s),
         t = v * (1 - (1 - f) * s);
@@ -108,7 +110,7 @@ function hsb2rgb(hsb) {
             break;
     }
 
-    return [Math.round(r * 255.0), Math.round(g * 255.0), Math.round(b * 255.0)];
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 
 }
 
