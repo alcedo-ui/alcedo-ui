@@ -30,12 +30,12 @@ export default class HuePicker extends Component {
 
     mouseDownHandler(e) {
         this.activated = true;
-        this.changeHandler(e.clientX - Dom.getOffset(this.huePickerBarEl).left);
+        this.changeHandler(e.clientX);
     }
 
     mouseMoveHandler(e) {
         if (this.activated) {
-            this.changeHandler(e.clientX - Dom.getOffset(this.huePickerBarEl).left);
+            this.changeHandler(e.clientX);
         }
     }
 
@@ -43,9 +43,15 @@ export default class HuePicker extends Component {
         this.activated = false;
     }
 
-    changeHandler(offsetX) {
+    changeHandler(mouseX) {
 
-        const width = this.huePickerBarEl.offsetWidth,
+        const elOffset = Dom.getOffset(this.huePickerBarEl);
+        if (!elOffset) {
+            return;
+        }
+
+        const offsetX = mouseX - elOffset.left,
+            width = this.huePickerBarEl.offsetWidth,
             offset = Valid.range(offsetX, 0, width),
             perCent = offset / width,
             value = perCent * 360;
