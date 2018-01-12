@@ -67,6 +67,10 @@ function isPerCent(perCent) {
     return !isNaN(perCent) && perCent >= 0 && perCent <= 1;
 }
 
+function isDeg(deg) {
+    return !isNaN(deg) && deg >= 0 && deg <= 360;
+}
+
 function isRGB(rgb) {
     return rgb && _.isArray(rgb) && rgb.length === 3
         && rgb.filter(item => isInteger(item) && item >= 0 && item <= 255).length === 3;
@@ -88,5 +92,6 @@ export default {
     isEmail,
     isUrl,
     isPerCent,
+    isDeg,
     isRGB
 };
