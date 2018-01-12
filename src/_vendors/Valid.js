@@ -85,6 +85,18 @@ function isHSB(hsb) {
         && isDeg(hsb[0]) && isInRange(hsb[1], 0, 1) && isInRange(hsb[2], 0, 1);
 }
 
+function isHex(hex) {
+
+    if (!hex || hex.length !== 6) {
+        return false;
+    }
+
+    return isInRange(parseInt(hex.slice(0, 2), 16), 0, 255)
+        && isInRange(parseInt(hex.slice(2, 4), 16), 0, 255)
+        && isInRange(parseInt(hex.slice(4, 6), 16), 0, 255);
+
+}
+
 export default {
     range,
     isChrome,
@@ -104,5 +116,6 @@ export default {
     isPerCent,
     isDeg,
     isRGB,
-    isHSB
+    isHSB,
+    isHex
 };
