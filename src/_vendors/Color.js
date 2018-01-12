@@ -108,7 +108,7 @@ function hsb2rgb(hsb) {
             break;
     }
 
-    return [Math.floor(r * 255.0), Math.floor(g * 255.0), Math.floor(b * 255.0)];
+    return [Math.round(r * 255.0), Math.round(g * 255.0), Math.round(b * 255.0)];
 
 }
 
@@ -122,9 +122,24 @@ function rgb2hex(rgb) {
 
 }
 
+function hex2rgb(hex) {
+
+    if (!Valid.isHex(hex)) {
+        return;
+    }
+
+    return [
+        parseInt(hex.slice(0, 2), 16),
+        parseInt(hex.slice(2, 4), 16),
+        parseInt(hex.slice(4, 6), 16)
+    ];
+
+}
+
 export default {
     hue2rgb,
     rgb2hsb,
     hsb2rgb,
-    rgb2hex
+    rgb2hex,
+    hex2rgb
 };
