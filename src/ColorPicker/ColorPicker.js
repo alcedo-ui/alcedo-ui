@@ -86,6 +86,9 @@ export default class ColorPicker extends Component {
         this.setState({
             value: Color.hsb2rgb(hsb),
             hsb
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
         });
 
     }
