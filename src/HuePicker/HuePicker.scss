@@ -4,11 +4,13 @@
  */
 
 .hue-picker {
+    width: 200px;
+    height: 20px;
     padding: 10px 0;
 
     .hue-picker-bar {
+        height: 100%;
         position: relative;
-        height: 20px;
         background: linear-gradient(270deg, #f00, #ff0080, #f0f, #8000ff, #0021f5,
             #0080ff, #73fbfd, #00ff80, #75fa4c, #80ff00, #ff0, #ff8000, #f00);
         cursor: pointer;
