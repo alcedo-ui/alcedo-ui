@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
-import Color from '../_vendors/Color';
 
 export default class HuePicker extends Component {
 
@@ -18,35 +17,20 @@ export default class HuePicker extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            offset: 0,
             value: props.value
         };
 
         this.activated = false;
 
-        this.getOffset = ::this.getOffset;
         this.mouseDownHandler = ::this.mouseDownHandler;
         this.mouseMoveHandler = ::this.mouseMoveHandler;
         this.mouseUpHandler = ::this.mouseUpHandler;
 
     }
 
-    getOffset(value = this.props.value) {
-
-        if (!Valid.isRGB(value)) {
-            return 0;
-        }
-
-        return this.huePickerEl.offsetWidth * Color.hue2PerCent(value);
-
-    }
-
     mouseDownHandler(e) {
-
         this.activated = true;
-
         this.changeHandler(e.clientX - Dom.getOffset(this.huePickerEl).left);
-
     }
 
     mouseMoveHandler(e) {
@@ -55,7 +39,7 @@ export default class HuePicker extends Component {
         }
     }
 
-    mouseUpHandler(e) {
+    mouseUpHandler() {
         this.activated = false;
     }
 
@@ -64,10 +48,9 @@ export default class HuePicker extends Component {
         const width = this.huePickerEl.offsetWidth,
             offset = Valid.range(offsetX, 0, width),
             perCent = offset / width,
-            value = Color.perCent2Hue(perCent);
+            value = perCent * 360;
 
         this.setState({
-            offset,
             value
         }, () => {
             const {onChange} = this.props;
@@ -80,10 +63,6 @@ export default class HuePicker extends Component {
 
         this.huePickerEl = this.refs.huePicker;
 
-        this.setState({
-            offset: this.getOffset()
-        });
-
         Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.addEvent(document, 'mouseup', this.mouseUpHandler);
 
@@ -92,8 +71,7 @@ export default class HuePicker extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
             this.setState({
-                value: nextProps.value,
-                offset: this.getOffset(nextProps.value)
+                value: nextProps.value
             });
         }
     }
@@ -106,12 +84,12 @@ export default class HuePicker extends Component {
     render() {
 
         const {className, style} = this.props,
-            {offset} = this.state,
+            {value} = this.state,
 
             wrapperClassName = (className ? ' ' + className : ''),
 
             pointerStyle = {
-                transform: `translateX(${offset}px)`
+                left: `${value / 360 * 100}%`
             };
 
         return (
@@ -145,9 +123,9 @@ HuePicker.propTypes = {
     style: PropTypes.object,
 
     /**
-     * hue rgb value.
+     * hue value (deg).
      */
-    value: PropTypes.arrayOf(PropTypes.number),
+    value: PropTypes.number,
 
     onChange: PropTypes.func
 
@@ -158,6 +136,6 @@ HuePicker.defaultProps = {
     className: null,
     style: null,
 
-    value: [255, 0, 0]
+    value: 0
 
 };
