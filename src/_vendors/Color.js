@@ -5,7 +5,7 @@
 
 import Valid from './Valid';
 
-function _getBaseHue(perCent) {
+function _getHueRGB(perCent) {
 
     const data = [[255, 0, 0], [255, 255, 0], [0, 255, 0], [0, 255, 255], [0, 0, 255], [255, 0, 255], [255, 0, 0]];
 
@@ -17,76 +17,49 @@ function _getBaseHue(perCent) {
 
 }
 
-function perCent2Hue(perCent) {
+function hue2Rgb(hue) {
 
-    if (!Valid.isPerCent(perCent)) {
+    if (!Valid.isDeg(hue)) {
         return;
     }
 
-    const int = Math.floor(perCent * 6),
+    const perCent = hue / 360,
+        int = Math.floor(perCent * 6),
         offset = Math.round((perCent * 6 - int) * 255),
-        baseHue = _getBaseHue(perCent);
+        rgb = _getHueRGB(perCent);
 
-    baseHue[(int * 2 + 1) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
+    rgb[(int * 2 + 1) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
 
-    return baseHue;
-
-}
-
-function _getBasePerCentIndex(hue) {
-
-    if (hue[0] === 255 && hue[2] === 0) {
-        return 0;
-    }
-
-    if (hue[1] === 255 && hue[2] === 0) {
-        return 1;
-    }
-
-    if (hue[0] === 0 && hue[1] === 255) {
-        return 2;
-    }
-
-    if (hue[0] === 0 && hue[2] === 255) {
-        return 3;
-    }
-
-    if (hue[1] === 0 && hue[2] === 255) {
-        return 4;
-    }
-
-    if (hue[1] === 255 && hue[1] === 0) {
-        return 5;
-    }
+    return rgb;
 
 }
 
-function hue2PerCent(hue) {
+function rgb2hsb(rgb) {
 
-    if (!Valid.isRGB(hue)) {
+    if (!Valid.isRGB(rgb)) {
         return;
     }
 
-    const basePerCentIndex = _getBasePerCentIndex(hue);
+    const [r, g, b] = rgb,
+        max = Math.max(...rgb),
+        min = Math.min(...rgb);
+    let h = 0;
 
-    switch (basePerCentIndex) {
-        case 0:
-            return (basePerCentIndex + hue[1] / 255) / 6;
-        case 1:
-            return (basePerCentIndex + (255 - hue[0]) / 255) / 6;
-        case 2:
-            return (basePerCentIndex + hue[2] / 255) / 6;
-        case 3:
-            return (basePerCentIndex + (255 - hue[1]) / 255) / 6;
-        case 4:
-            return (basePerCentIndex + hue[0] / 255) / 6;
-        case 3:
-            return (basePerCentIndex + (255 - hue[2]) / 255) / 6;
+    if (max == r && g >= b) {
+        h = (g - b) * 60 / (max - min) + 0;
+    } else if (max == r && g < b) {
+        h = (g - b) * 60 / (max - min) + 360;
+    } else if (max == g) {
+        h = (b - r) * 60 / (max - min) + 120;
+    } else if (max == b) {
+        h = (r - g) * 60 / (max - min) + 240;
     }
+
+    return [h, max === 0 ? 0 : (max - min) / max, max / 255];
 
 }
 
 export default {
-    perCent2Hue,
-    hue2PerCent
+    hue2Rgb,
+    rgb2hsb
 };
