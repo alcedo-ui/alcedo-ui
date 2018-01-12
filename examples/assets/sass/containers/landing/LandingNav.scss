@@ -75,6 +75,7 @@
                     font-weight: 300;
                     cursor: pointer;
                     transition: color $theme-transition-duration ease-in-out;
+                    user-select: none;
 
                     &.activated {
                         color: transparentize(#fff, .2);

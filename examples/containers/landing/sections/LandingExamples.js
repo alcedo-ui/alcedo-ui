@@ -1,23 +1,27 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import * as actions from 'reduxes/actions';
 
 import Paper from 'src/Paper';
 import FlatButton from 'src/FlatButton';
 
 import 'sass/containers/landing/sections/LandingExamples.scss';
 
-export default class LandingExamples extends Component {
+class LandingExamples extends Component {
 
     constructor(props) {
 
         super(props);
 
-        this.goToDemo = this::this.goToDemo;
+        this.goToDemo = ::this.goToDemo;
 
     }
 
     goToDemo() {
-        this.context.router.push('/components');
+        this.props.routerPush('/components');
     }
 
     render() {
@@ -51,6 +55,16 @@ export default class LandingExamples extends Component {
     }
 }
 
-LandingExamples.contextTypes = {
-    router: PropTypes.object.isRequired
+LandingExamples.propTypes = {
+    routerPush: PropTypes.func
 };
+
+function mapStateToProps(state, ownProps) {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingExamples);

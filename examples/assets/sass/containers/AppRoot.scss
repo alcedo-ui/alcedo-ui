@@ -1,9 +1,6 @@
 @import '../my-theme';
 
 .app-root {
-    min-width: $minWidth;
-    overflow-x: hidden;
-    transition: none;
     color: $theme-field;
     background: $theme-bg;
 

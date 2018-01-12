@@ -38,4 +38,6 @@ body {
     padding: 0;
     font-size: 12px;
     -webkit-font-smoothing: antialiased;
+    min-width: $minWidth;
+    overflow-x: hidden;
 }

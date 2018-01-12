@@ -1,3 +1,5 @@
+import ColorPicker from '../src/ColorPicker/ColorPicker';
+
 export default [{
     text: 'Button',
     children: [{
@@ -45,7 +47,7 @@ export default [{
     children: [{
         text: 'DatePicker',
         route: '/components/DatePicker'
-    },{
+    }, {
         text: 'MonthPicker',
         route: '/components/MonthPicker'
     }, {
@@ -60,16 +62,16 @@ export default [{
     }, {
         text: 'MaterialDatePicker',
         route: '/components/MaterialDatePicker'
-    },{
+    }, {
         text: 'MaterialDateTimePicker',
         route: '/components/MaterialDateTimePicker'
-    },{
+    }, {
         text: 'MaterialTimePicker',
         route: '/components/MaterialTimePicker'
-    },{
+    }, {
         text: 'MaterialDateRangePicker',
         route: '/components/MaterialDateRangePicker'
-    },{
+    }, {
         text: 'MaterialMonthPicker',
         route: '/components/MaterialMonthPicker'
     }]
@@ -280,7 +282,13 @@ export default [{
 }, {
     text: 'Media',
     children: [{
-        text: 'LazyImageExamples',
+        text: 'LazyImage',
         route: '/components/LazyImage'
+    }, {
+        text: 'ColorPicker',
+        route: '/components/ColorPicker'
+    }, {
+        text: 'HuePicker',
+        route: '/components/HuePicker'
     }]
 }];

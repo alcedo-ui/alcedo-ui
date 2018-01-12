@@ -30,7 +30,7 @@ export default class Landing extends Component {
 
     debounceScrollHandler() {
         this.setState({
-            bodyScrollTop: document.body.scrollTop
+            bodyScrollTop: document.body.scrollTop || document.documentElement.scrollTop
         });
     }
 

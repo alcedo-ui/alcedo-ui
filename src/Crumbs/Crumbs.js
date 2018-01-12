@@ -50,7 +50,7 @@ export default class Crumbs extends Component {
                  style={style}>
 
                 {
-                    items.map((item, index) => {
+                    items && items.map((item, index) => {
                         return (
                             <div key={index}
                                  className="crumbs-item-wrapper">
@@ -192,11 +192,11 @@ Crumbs.propTypes = {
 
 Crumbs.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
-    items: [],
+    items: null,
 
     separator: '>'
 
