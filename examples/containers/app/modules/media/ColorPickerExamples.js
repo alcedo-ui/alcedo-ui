@@ -19,6 +19,14 @@ export default class ColorPickerExamples extends Component {
             value: [56, 177, 235]
         };
 
+        this.changeHandler = ::this.changeHandler;
+
+    }
+
+    changeHandler(value) {
+        this.setState({
+            value
+        });
     }
 
     render() {
@@ -41,7 +49,17 @@ export default class ColorPickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <ColorPicker value={value}/>
+                                <ColorPicker value={value}
+                                             onChange={this.changeHandler}/>
+
+                                <div className="picked-color-wrapper">
+
+                                    <div className="picked-color"
+                                         style={{background: `rgb(${value.join(', ')})`}}></div>
+
+                                    <div className="picked-color-value">{value.join(', ')}</div>
+
+                                </div>
 
                             </div>
 

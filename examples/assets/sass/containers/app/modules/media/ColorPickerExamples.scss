@@ -4,6 +4,26 @@
 
     .examples-wrapper {
 
+        .picked-color-wrapper {
+            margin-top: 8px;
+            border-top: 1px solid $theme-border;
+            padding-top: 8px;
+
+            .picked-color {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                margin-right: 16px;
+                vertical-align: bottom;
+            }
+
+            .picked-color-value {
+                display: inline-block;
+                line-height: 20px;
+                user-select: none;
+            }
+        }
+
     }
 
 }
