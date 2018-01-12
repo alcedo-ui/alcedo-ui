@@ -122,17 +122,18 @@ function rgb2hex(rgb) {
 
 }
 
-function hex2rgb(hex) {
+function hex2rgb(hex, hasHash) {
 
-    if (!Valid.isHex(hex)) {
+    if (!Valid.isHex(hex, hasHash)) {
         return;
     }
 
-    return [
-        parseInt(hex.slice(0, 2), 16),
-        parseInt(hex.slice(2, 4), 16),
-        parseInt(hex.slice(4, 6), 16)
-    ];
+    function fn(i) {
+        const j = hasHash ? 1 : 0;
+        return parseInt(hex.slice(i + j, i + j + 2), 16);
+    }
+
+    return [fn(0), fn(2), fn(4)];
 
 }
 
