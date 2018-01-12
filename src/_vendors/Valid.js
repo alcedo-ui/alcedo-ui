@@ -3,6 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import _ from 'lodash';
+
 function range(value, min, max) {
     max !== undefined && (value = value > max ? max : value);
     min !== undefined && (value = value < min ? min : value);
@@ -65,6 +67,11 @@ function isPerCent(perCent) {
     return !isNaN(perCent) && perCent >= 0 && perCent <= 1;
 }
 
+function isRGB(rgb) {
+    return rgb && _.isArray(rgb) && rgb.length === 3
+        && rgb.filter(item => isInteger(item) && item >= 0 && item <= 255).length === 3;
+}
+
 export default {
     range,
     isChrome,
@@ -80,5 +87,6 @@ export default {
     isEven,
     isEmail,
     isUrl,
-    isPerCent
+    isPerCent,
+    isRGB
 };
