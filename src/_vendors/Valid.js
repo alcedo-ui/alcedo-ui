@@ -55,6 +55,10 @@ function isEven(value) {
     return isInteger(value) && value % 2 === 0;
 }
 
+function isInRange(value, min, max) {
+    return isNumber(value) && isNumber(min) && isNumber(max) && value >= min && value <= max;
+}
+
 function isEmail(value) {
     return /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/.test(value);
 }
@@ -64,16 +68,21 @@ function isUrl(value) {
 }
 
 function isPerCent(perCent) {
-    return !isNaN(perCent) && perCent >= 0 && perCent <= 1;
+    return isNumber(perCent) && perCent >= 0 && perCent <= 1;
 }
 
 function isDeg(deg) {
-    return !isNaN(deg) && deg >= 0 && deg <= 360;
+    return isNumber(deg) && deg >= 0 && deg <= 360;
 }
 
 function isRGB(rgb) {
     return rgb && _.isArray(rgb) && rgb.length === 3
         && rgb.filter(item => isInteger(item) && item >= 0 && item <= 255).length === 3;
+}
+
+function isHSB(hsb) {
+    return hsb && _.isArray(hsb) && hsb.length === 3
+        && isDeg(hsb[0]) && isInRange(hsb[1], 0, 1) && isInRange(hsb[2], 0, 1);
 }
 
 export default {
@@ -89,9 +98,11 @@ export default {
     isNonpositiveInteger,
     isOdd,
     isEven,
+    isInRange,
     isEmail,
     isUrl,
     isPerCent,
     isDeg,
-    isRGB
+    isRGB,
+    isHSB
 };
