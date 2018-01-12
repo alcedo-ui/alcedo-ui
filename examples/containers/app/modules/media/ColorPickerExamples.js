@@ -4,6 +4,8 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ColorPicker from 'src/ColorPicker';
 
+import Color from 'src/_vendors/Color';
+
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ColorPicker.json';
 
@@ -16,7 +18,7 @@ export default class ColorPickerExamples extends Component {
         super(props);
 
         this.state = {
-            value: [56, 177, 235]
+            value: Color.hex2rgb('38b1eb')
         };
 
         this.changeHandler = ::this.changeHandler;
