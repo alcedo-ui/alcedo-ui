@@ -85,15 +85,26 @@ function isHSB(hsb) {
         && isDeg(hsb[0]) && isInRange(hsb[1], 0, 1) && isInRange(hsb[2], 0, 1);
 }
 
-function isHex(hex) {
+function isHex(hex, hasHash) {
 
-    if (!hex || hex.length !== 6) {
+    if (!hex) {
         return false;
     }
 
-    return isInRange(parseInt(hex.slice(0, 2), 16), 0, 255)
-        && isInRange(parseInt(hex.slice(2, 4), 16), 0, 255)
-        && isInRange(parseInt(hex.slice(4, 6), 16), 0, 255);
+    if ((!hasHash && hex.length !== 6) || (hasHash && hex.length !== 7)) {
+        return false;
+    }
+
+    if (hasHash && hex[0] !== '#') {
+        return false;
+    }
+
+    function fn(i) {
+        const j = hasHash ? 1 : 0;
+        return isInRange(parseInt(hex.slice(i + j, i + j + 2), 16), 0, 255);
+    }
+
+    return fn(0) && fn(2) && fn(4);
 
 }
 
