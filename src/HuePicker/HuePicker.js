@@ -30,6 +30,16 @@ export default class HuePicker extends Component {
 
     }
 
+    getOffset(value) {
+
+        if (!Valid.isRGB(value)) {
+            return 0;
+        }
+
+        return this.huePickerEl.offsetWidth * Color.hue2PerCent(value);
+
+    }
+
     mouseDownHandler(e) {
 
         this.activated = true;
@@ -68,6 +78,10 @@ export default class HuePicker extends Component {
     componentDidMount() {
 
         this.huePickerEl = this.refs.huePicker;
+
+        this.setState({
+            offset: this.getOffset(this.props.value)
+        });
 
         Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.addEvent(document, 'mouseup', this.mouseUpHandler);
