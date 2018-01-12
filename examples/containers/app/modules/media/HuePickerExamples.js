@@ -57,7 +57,7 @@ export default class HuePickerExamples extends Component {
                                 <div className="picked-hue-wrapper">
 
                                     <div className="picked-hue"
-                                         style={{background: `rgb(${Color.hue2Rgb(hue).join(', ')})`}}></div>
+                                         style={{background: `rgb(${Color.hue2rgb(hue).join(', ')})`}}></div>
 
                                     <div className="picked-hue-value">{hue}°</div>
 
