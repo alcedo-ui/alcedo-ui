@@ -144,7 +144,10 @@ HuePicker.propTypes = {
      */
     style: PropTypes.object,
 
-    value: PropTypes.any,
+    /**
+     * hue rgb value.
+     */
+    value: PropTypes.arrayOf(PropTypes.number),
 
     onChange: PropTypes.func
 
