@@ -95,13 +95,17 @@ export default class HuePicker extends Component {
         return (
             <div ref="huePicker"
                  className={'hue-picker' + wrapperClassName}
-                 style={style}
-                 onMouseDown={this.mouseDownHandler}>
+                 style={style}>
 
-                <div className="color-picker-hue-pointer-wrapper"
-                     style={pointerStyle}>
-                    <i className="fa fa-caret-down color-picker-hue-pointer-top"></i>
-                    <i className="fa fa-caret-up color-picker-hue-pointer-bottom"></i>
+                <div className="hue-picker-bar"
+                     onMouseDown={this.mouseDownHandler}>
+
+                    <div className="hue-picker-pointer-wrapper"
+                         style={pointerStyle}>
+                        <i className="fa fa-caret-down hue-picker-pointer-top"></i>
+                        <i className="fa fa-caret-up hue-picker-pointer-bottom"></i>
+                    </div>
+
                 </div>
 
             </div>

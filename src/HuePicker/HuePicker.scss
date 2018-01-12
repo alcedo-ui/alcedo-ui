@@ -4,35 +4,40 @@
  */
 
 .hue-picker {
-    position: relative;
-    height: 20px;
-    cursor: pointer;
-    background-image: linear-gradient(270deg, #f00, #ff0080, #f0f, #8000ff, #0021f5, #0080ff, #73fbfd, #00ff80, #75fa4c, #80ff00, #ff0, #ff8000, #f00);
+    padding: 10px 0;
 
-    .color-picker-hue-pointer-wrapper {
-        position: absolute;
-        left: 0;
-        top: 0;
+    .hue-picker-bar {
+        position: relative;
         height: 20px;
-        user-select: none;
+        background: linear-gradient(270deg, #f00, #ff0080, #f0f, #8000ff, #0021f5,
+            #0080ff, #73fbfd, #00ff80, #75fa4c, #80ff00, #ff0, #ff8000, #f00);
+        cursor: pointer;
 
-        .color-picker-hue-pointer-top,
-        .color-picker-hue-pointer-bottom {
+        .hue-picker-pointer-wrapper {
             position: absolute;
-            color: $theme-field;
-            font-size: 12px;
-            width: 8px;
-            line-height: 6px;
-            text-align: center;
-            left: -4px;
-        }
+            left: 0;
+            top: 0;
+            height: 20px;
+            user-select: none;
 
-        .color-picker-hue-pointer-top {
-            top: -5px;
-        }
+            .hue-picker-pointer-top,
+            .hue-picker-pointer-bottom {
+                position: absolute;
+                color: $theme-field;
+                font-size: 12px;
+                width: 8px;
+                line-height: 6px;
+                text-align: center;
+                left: -4px;
+            }
 
-        .color-picker-hue-pointer-bottom {
-            bottom: -5px;
+            .hue-picker-pointer-top {
+                top: -5px;
+            }
+
+            .hue-picker-pointer-bottom {
+                bottom: -5px;
+            }
         }
     }
 }
