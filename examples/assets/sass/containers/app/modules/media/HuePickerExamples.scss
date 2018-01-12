@@ -4,10 +4,10 @@
 
     .examples-wrapper {
 
-        .picked-color-wrapper {
+        .picked-hue-wrapper {
             margin-top: 16px;
 
-            .picked-color {
+            .picked-hue {
                 display: inline-block;
                 width: 20px;
                 height: 20px;
@@ -15,7 +15,7 @@
                 vertical-align: bottom;
             }
 
-            .picked-color-value {
+            .picked-hue-value {
                 display: inline-block;
                 line-height: 20px;
                 user-select: none;

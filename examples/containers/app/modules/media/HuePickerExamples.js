@@ -4,6 +4,8 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import HuePicker from 'src/HuePicker';
 
+import Color from 'src/_vendors/Color';
+
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/HuePicker.json';
 
@@ -16,22 +18,22 @@ export default class HuePickerExamples extends Component {
         super(props);
 
         this.state = {
-            rgb: [0, 172, 255]
+            hue: 199
         };
 
         this.changeHandler = ::this.changeHandler;
 
     }
 
-    changeHandler(rgb) {
+    changeHandler(hue) {
         this.setState({
-            rgb
+            hue
         });
     }
 
     render() {
 
-        const {rgb} = this.state;
+        const {hue} = this.state;
 
         return (
             <div className="example hue-picker-examples">
@@ -49,17 +51,15 @@ export default class HuePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <HuePicker value={rgb}
+                                <HuePicker value={hue}
                                            onChange={this.changeHandler}/>
 
-                                <div className="picked-color-wrapper">
+                                <div className="picked-hue-wrapper">
 
-                                    <div className="picked-color"
-                                         style={{background: `rgb(${rgb.join(', ')})`}}></div>
+                                    <div className="picked-hue"
+                                         style={{background: `rgb(${Color.hue2Rgb(hue).join(', ')})`}}></div>
 
-                                    <div className="picked-color-value">
-                                        [{rgb.join(', ')}]
-                                    </div>
+                                    <div className="picked-hue-value">{hue}°</div>
 
                                 </div>
 
