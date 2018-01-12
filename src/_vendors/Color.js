@@ -43,6 +43,7 @@ function rgb2hsb(rgb) {
     const [r, g, b] = rgb,
         max = Math.max(...rgb),
         min = Math.min(...rgb);
+
     let h = 0;
 
     if (max == r && g >= b) {
@@ -59,7 +60,55 @@ function rgb2hsb(rgb) {
 
 }
 
-function hsb2rgb() {
+function hsb2rgb(hsb) {
+
+    if (!Valid.isHSB(hsb)) {
+        return;
+    }
+
+    const [h, s, v] = hsb,
+        i = Math.floor((h / 60) % 6),
+        f = (h / 60) - i,
+        p = v * (1 - s),
+        q = v * (1 - f * s),
+        t = v * (1 - (1 - f) * s);
+
+    let r = 0, g = 0, b = 0;
+
+    switch (i) {
+        case 0:
+            r = v;
+            g = t;
+            b = p;
+            break;
+        case 1:
+            r = q;
+            g = v;
+            b = p;
+            break;
+        case 2:
+            r = p;
+            g = v;
+            b = t;
+            break;
+        case 3:
+            r = p;
+            g = q;
+            b = v;
+            break;
+        case 4:
+            r = t;
+            g = p;
+            b = v;
+            break;
+        case 5:
+            r = v;
+            g = p;
+            b = q;
+            break;
+    }
+
+    return [Math.floor(r * 255.0), Math.floor(g * 255.0), Math.floor(b * 255.0)];
 
 }
 
