@@ -12,15 +12,23 @@ import 'sass/containers/app/modules/media/ColorPickerExamples.scss';
 export default class ColorPickerExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: [56, 177, 235]
+        };
+
     }
 
     render() {
 
+        const {value} = this.state;
+
         return (
             <div className="example color-picker-examples">
 
-                <h2 className="example-title">Lazy Image</h2>
+                <h2 className="example-title">Color Picker</h2>
 
                 <h2 className="example-title">Examples</h2>
 
@@ -33,7 +41,7 @@ export default class ColorPickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <ColorPicker/>
+                                <ColorPicker value={value}/>
 
                             </div>
 
