@@ -6,12 +6,26 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import HuePicker from '../HuePicker';
+
 export default class ColorPicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
+        this.state = {
+            value: props.value
+        };
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
     }
 
     render() {
@@ -26,10 +40,7 @@ export default class ColorPicker extends Component {
 
                 </div>
 
-                <div className="color-picker-hue">
-                    <i className="fa fa-caret-down color-picker-hue-pointer-top"></i>
-                    <i className="fa fa-caret-up color-picker-hue-pointer-bottom"></i>
-                </div>
+                <HuePicker/>
 
             </div>
         );
@@ -47,13 +58,17 @@ ColorPicker.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    value: PropTypes.array
 
 };
 
 ColorPicker.defaultProps = {
 
     className: null,
-    style: null
+    style: null,
+
+    value: [255, 0, 0]
 
 };
