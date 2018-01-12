@@ -50,10 +50,9 @@ export default class HuePicker extends Component {
             return;
         }
 
-        const offsetX = mouseX - elOffset.left,
-            width = this.huePickerBarEl.offsetWidth,
-            offset = Valid.range(offsetX, 0, width),
-            perCent = offset / width,
+        const width = this.huePickerBarEl.offsetWidth,
+            offsetX = Valid.range(mouseX - elOffset.left, 0, width),
+            perCent = offsetX / width,
             value = perCent * 360;
 
         this.setState({
