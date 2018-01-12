@@ -4,6 +4,24 @@
 
     .examples-wrapper {
 
+        .picked-color-wrapper {
+            margin-top: 16px;
+
+            .picked-color {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                margin-right: 16px;
+                vertical-align: bottom;
+            }
+
+            .picked-color-value {
+                display: inline-block;
+                line-height: 20px;
+                user-select: none;
+            }
+        }
+
     }
 
 }

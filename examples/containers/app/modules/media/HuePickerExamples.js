@@ -16,7 +16,7 @@ export default class HuePickerExamples extends Component {
         super(props);
 
         this.state = {
-            rgb: [255, 255, 0]
+            rgb: [0, 172, 255]
         };
 
         this.changeHandler = ::this.changeHandler;
@@ -52,8 +52,15 @@ export default class HuePickerExamples extends Component {
                                 <HuePicker value={rgb}
                                            onChange={this.changeHandler}/>
 
-                                <div style={{color: `rgb(${rgb.join(', ')})`}}>
-                                    [{rgb.join(', ')}]
+                                <div className="picked-color-wrapper">
+
+                                    <div className="picked-color"
+                                         style={{background: `rgb(${rgb.join(', ')})`}}></div>
+
+                                    <div className="picked-color-value">
+                                        [{rgb.join(', ')}]
+                                    </div>
+
                                 </div>
 
                             </div>
