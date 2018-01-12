@@ -7,7 +7,38 @@
     width: 200px;
 
     .color-picker-area {
+        position: relative;
+        width: 100%;
+        height: 200px;
 
+        .color-picker-area-white-overlay,
+        .color-picker-area-black-overlay {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .color-picker-area-white-overlay {
+            background: linear-gradient(90deg, #fff 0, transparent);
+        }
+
+        .color-picker-area-black-overlay {
+            background: linear-gradient(180deg, transparent 0, #000);
+        }
+
+        .color-picker-cursor {
+            position: absolute;
+            left: 0;
+            top: 0;
+            box-sizing: border-box;
+            width: 8px;
+            height: 8px;
+            border: 1px solid $theme-field;
+            border-radius: 50%;
+            transform: translate(-4px, -4px);
+        }
     }
 
 }

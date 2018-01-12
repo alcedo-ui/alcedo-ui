@@ -7,6 +7,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import HuePicker from '../HuePicker';
+import Dom from '../_vendors/Dom';
+import Event from '../_vendors/Event';
+import Valid from '../_vendors/Valid';
+import Color from '../_vendors/Color';
 
 export default class ColorPicker extends Component {
 
@@ -15,8 +19,82 @@ export default class ColorPicker extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: props.value
+            value: props.value,
+            hsb: Color.rgb2hsb(props.value)
         };
+
+        this.activated = false;
+
+        this.mouseDownHandler = ::this.mouseDownHandler;
+        this.mouseMoveHandler = ::this.mouseMoveHandler;
+        this.mouseUpHandler = ::this.mouseUpHandler;
+        this.changeHandler = ::this.changeHandler;
+        this.hueChangeHandler = ::this.hueChangeHandler;
+
+    }
+
+    mouseDownHandler(e) {
+        this.activated = true;
+        this.changeHandler(e.clientX, e.clientY);
+    }
+
+    mouseMoveHandler(e) {
+        if (this.activated) {
+            this.changeHandler(e.clientX, e.clientY);
+        }
+    }
+
+    mouseUpHandler() {
+        this.activated = false;
+    }
+
+    changeHandler(mouseX, mouseY) {
+
+        const elOffset = Dom.getOffset(this.colorPickerAreaEl);
+        if (!elOffset) {
+            return;
+        }
+
+        const width = this.colorPickerAreaEl.offsetWidth,
+            height = this.colorPickerAreaEl.offsetHeight,
+
+            offsetX = Valid.range(mouseX - elOffset.left, 0, width),
+            offsetY = Valid.range(mouseY - elOffset.top, 0, height),
+
+            s = offsetX / width,
+            b = 1 - offsetY / height,
+
+            hsb = [this.state.hsb[0], s, b],
+            value = Color.hsb2rgb(hsb);
+
+        this.setState({
+            value,
+            hsb
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value);
+        });
+
+    }
+
+    hueChangeHandler(hue) {
+
+        const {hsb} = this.state;
+        hsb[0] = hue;
+
+        this.setState({
+            value: Color.hsb2rgb(hsb),
+            hsb
+        });
+
+    }
+
+    componentDidMount() {
+
+        this.colorPickerAreaEl = this.refs.colorPickerArea;
+
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
+        Event.addEvent(document, 'mouseup', this.mouseUpHandler);
 
     }
 
@@ -28,19 +106,44 @@ export default class ColorPicker extends Component {
         }
     }
 
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
+        Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
+    }
+
     render() {
 
-        const {className, style} = this.props;
+        const {className, style} = this.props,
+            {hsb} = this.state,
+
+            areaStyle = {
+                background: `rgb(${Color.hue2rgb(hsb[0]).join(', ')})`
+            },
+
+            cursorStyle = {
+                left: `${hsb[1] * 100}%`,
+                top: `${(1 - hsb[2]) * 100}%`
+            };
 
         return (
             <div className={'color-picker' + (className ? ' ' + className : '')}
                  style={style}>
 
-                <div className="color-picker-area">
+                <div ref="colorPickerArea"
+                     className="color-picker-area"
+                     style={areaStyle}
+                     onMouseDown={this.mouseDownHandler}>
+
+                    <div className="color-picker-area-white-overlay"></div>
+                    <div className="color-picker-area-black-overlay"></div>
+
+                    <div className="color-picker-cursor"
+                         style={cursorStyle}></div>
 
                 </div>
 
-                <HuePicker/>
+                <HuePicker value={hsb[0]}
+                           onChange={this.hueChangeHandler}/>
 
             </div>
         );
