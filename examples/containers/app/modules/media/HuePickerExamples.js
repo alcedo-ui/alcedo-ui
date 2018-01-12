@@ -18,7 +18,7 @@ export default class HuePickerExamples extends Component {
         super(props);
 
         this.state = {
-            hue: 199
+            hue: Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]
         };
 
         this.changeHandler = ::this.changeHandler;
