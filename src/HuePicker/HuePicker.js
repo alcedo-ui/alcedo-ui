@@ -24,13 +24,14 @@ export default class HuePicker extends Component {
 
         this.activated = false;
 
+        this.getOffset = ::this.getOffset;
         this.mouseDownHandler = ::this.mouseDownHandler;
         this.mouseMoveHandler = ::this.mouseMoveHandler;
         this.mouseUpHandler = ::this.mouseUpHandler;
 
     }
 
-    getOffset(value) {
+    getOffset(value = this.props.value) {
 
         if (!Valid.isRGB(value)) {
             return 0;
@@ -80,12 +81,21 @@ export default class HuePicker extends Component {
         this.huePickerEl = this.refs.huePicker;
 
         this.setState({
-            offset: this.getOffset(this.props.value)
+            offset: this.getOffset()
         });
 
         Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.addEvent(document, 'mouseup', this.mouseUpHandler);
 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value,
+                offset: this.getOffset(nextProps.value)
+            });
+        }
     }
 
     componentWillUnmount() {
