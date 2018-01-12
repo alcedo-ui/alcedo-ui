@@ -112,8 +112,19 @@ function hsb2rgb(hsb) {
 
 }
 
+function rgb2hex(rgb) {
+
+    if (!Valid.isRGB(rgb)) {
+        return;
+    }
+
+    return rgb.map(item => item.toString(16)).join('');
+
+}
+
 export default {
     hue2rgb,
     rgb2hsb,
-    hsb2rgb
+    hsb2rgb,
+    rgb2hex
 };
