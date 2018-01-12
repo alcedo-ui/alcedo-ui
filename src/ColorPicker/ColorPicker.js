@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import HuePicker from '../HuePicker';
 import Dom from '../_vendors/Dom';
@@ -114,12 +115,13 @@ export default class ColorPicker extends Component {
     render() {
 
         const {className, style} = this.props,
-            {hsb} = this.state,
+            {value, hsb} = this.state,
 
             areaStyle = {
                 background: `rgb(${Color.hue2rgb(hsb[0]).join(', ')})`
             },
 
+            cursorClassName = (_.sum(value) / 3 < 128 ? ' light' : ''),
             cursorStyle = {
                 left: `${hsb[1] * 100}%`,
                 top: `${(1 - hsb[2]) * 100}%`
@@ -137,7 +139,7 @@ export default class ColorPicker extends Component {
                     <div className="color-picker-area-white-overlay"></div>
                     <div className="color-picker-area-black-overlay"></div>
 
-                    <div className="color-picker-cursor"
+                    <div className={'color-picker-cursor' + cursorClassName}
                          style={cursorStyle}></div>
 
                 </div>

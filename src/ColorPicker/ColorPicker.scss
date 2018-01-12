@@ -18,6 +18,8 @@
             top: 0;
             width: 100%;
             height: 100%;
+            user-select: none;
+            pointer-events: none;
         }
 
         .color-picker-area-white-overlay {
@@ -38,6 +40,12 @@
             border: 1px solid $theme-field;
             border-radius: 50%;
             transform: translate(-4px, -4px);
+            user-select: none;
+            pointer-events: none;
+
+            &.light {
+                border-color: #fff;
+            }
         }
     }
 
