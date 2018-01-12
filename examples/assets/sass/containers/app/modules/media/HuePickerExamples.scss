@@ -5,7 +5,9 @@
     .examples-wrapper {
 
         .picked-hue-wrapper {
-            margin-top: 16px;
+            margin-top: 8px;
+            border-top: 1px solid $theme-border;
+            padding-top: 8px;
 
             .picked-hue {
                 display: inline-block;
