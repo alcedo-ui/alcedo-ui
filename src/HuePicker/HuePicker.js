@@ -25,6 +25,7 @@ export default class HuePicker extends Component {
         this.mouseDownHandler = ::this.mouseDownHandler;
         this.mouseMoveHandler = ::this.mouseMoveHandler;
         this.mouseUpHandler = ::this.mouseUpHandler;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
