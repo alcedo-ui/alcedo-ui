@@ -17,7 +17,7 @@ function _getHueRGB(perCent) {
 
 }
 
-function hue2Rgb(hue) {
+function hue2rgb(hue) {
 
     if (!Valid.isDeg(hue)) {
         return;
@@ -59,7 +59,12 @@ function rgb2hsb(rgb) {
 
 }
 
+function hsb2rgb() {
+
+}
+
 export default {
-    hue2Rgb,
-    rgb2hsb
+    hue2rgb,
+    rgb2hsb,
+    hsb2rgb
 };
