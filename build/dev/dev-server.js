@@ -1,11 +1,11 @@
 delete process.env['DEBUG_FD'];
 
-var config = require('../../config');
+const config = require('../../config');
 if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV);
 }
 
-var opn = require('opn'),
+const opn = require('opn'),
     webpack = require('webpack'),
 
     port = process.env.PORT || config.dev.port,
