@@ -2,7 +2,7 @@ delete process.env['DEBUG_FD'];
 
 process.env.NODE_ENV = '"production"';
 
-var express = require('express'),
+const express = require('express'),
     history = require('connect-history-api-fallback'),
     opn = require('opn'),
     compression = require('compression'),
@@ -18,11 +18,10 @@ app.use(history());
 
 app.use(express.static(config.build.assetsRoot));
 
-app.listen(port, function (err) {
+app.listen(port, err => {
 
     if (err) {
-        console.log(err);
-        return;
+        return console.log(err);
     }
 
     console.log('> Listening at ' + uri);
