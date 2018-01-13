@@ -36,12 +36,12 @@ export default class ColorPicker extends Component {
 
     mouseDownHandler(e) {
         this.activated = true;
-        this.changeHandler(e.clientX, e.clientY);
+        this.changeHandler(e.pageX, e.pageY);
     }
 
     mouseMoveHandler(e) {
         if (this.activated) {
-            this.changeHandler(e.clientX, e.clientY);
+            this.changeHandler(e.pageX, e.pageY);
         }
     }
 
