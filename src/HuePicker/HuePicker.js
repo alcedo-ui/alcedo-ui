@@ -31,12 +31,12 @@ export default class HuePicker extends Component {
 
     mouseDownHandler(e) {
         this.activated = true;
-        this.changeHandler(e.clientX);
+        this.changeHandler(e.pageX);
     }
 
     mouseMoveHandler(e) {
         if (this.activated) {
-            this.changeHandler(e.clientX);
+            this.changeHandler(e.pageX);
         }
     }
 
