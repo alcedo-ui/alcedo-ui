@@ -17,6 +17,7 @@ import Position from '../_statics/Position';
 export default class BaseButton extends Component {
 
     static Theme = Theme;
+    static TipPosition = Position;
 
     constructor(props, ...restArgs) {
 
