@@ -1,19 +1,23 @@
-var path = require('path');
-var config = require('../config');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path'),
+    config = require('../config'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-exports.assetsPath = function (_path) {
-    var assetsSubDirectory = process.env.NODE_ENV === 'production'
-        ? config.build.assetsSubDirectory
-        : config.dev.assetsSubDirectory;
+exports.assetsPath = _path => {
+
+    const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
+        config.build.assetsSubDirectory
+        :
+        config.dev.assetsSubDirectory;
+
     return path.posix.join(assetsSubDirectory, _path);
+
 };
 
-exports.cssLoaders = function (options) {
+exports.cssLoaders = options => {
 
     options = options || {};
 
-    var cssLoader = {
+    const cssLoader = {
         loader: 'css-loader',
         options: {
             minimize: process.env.NODE_ENV === 'production',
@@ -23,7 +27,8 @@ exports.cssLoaders = function (options) {
 
     function generateLoaders(loader, loaderOptions) {
 
-        var loaders = [cssLoader];
+        const loaders = [cssLoader];
+
         if (loader) {
             loaders.push({
                 loader: loader + '-loader',
@@ -39,9 +44,9 @@ exports.cssLoaders = function (options) {
                 fallback: 'style-loader',
                 publicPath: '"../../"'
             });
-        } else {
-            return ['style-loader'].concat(loaders);
         }
+
+        return ['style-loader'].concat(loaders);
 
     }
 
@@ -57,13 +62,13 @@ exports.cssLoaders = function (options) {
 
 };
 
-exports.styleLoaders = function (options) {
+exports.styleLoaders = options => {
 
-    var output = [];
-    var loaders = exports.cssLoaders(options);
+    const output = [],
+        loaders = exports.cssLoaders(options);
 
-    for (var extension in loaders) {
-        var loader = loaders[extension];
+    for (let extension in loaders) {
+        const loader = loaders[extension];
         output.push({
             test: new RegExp('\\.' + extension + '$'),
             use: loader
