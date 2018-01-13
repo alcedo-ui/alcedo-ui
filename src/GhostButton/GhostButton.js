@@ -11,10 +11,12 @@ import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 export default class GhostButton extends Component {
 
     static Theme = Theme;
+    static TipPosition = Position;
 
     constructor(props, ...restArgs) {
 
