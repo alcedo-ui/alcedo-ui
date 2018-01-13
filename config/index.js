@@ -8,7 +8,6 @@ module.exports = {
 
         env: require('./dev.env'),
         port: 3000,
-        autoOpenBrowser: true,
         srcRoot: path.resolve(__dirname, '../examples'),
         index: path.resolve(__dirname, '../examples/index.html'),
         assetsSubDirectory: 'static',
