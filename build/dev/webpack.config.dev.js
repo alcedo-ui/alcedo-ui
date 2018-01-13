@@ -1,10 +1,10 @@
-var utils = require('./../utils');
-var webpack = require('webpack');
-var config = require('../../config/index');
-var merge = require('webpack-merge');
-var baseWebpackConfig = require('./../webpack.config.base.js');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const utils = require('./../utils'),
+    webpack = require('webpack'),
+    config = require('../../config/index'),
+    merge = require('webpack-merge'),
+    baseWebpackConfig = require('./../webpack.config.base.js'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 Object.keys(baseWebpackConfig.entry).forEach(name => {
     baseWebpackConfig.entry[name] = ['./build/dev/dev-client'].concat(baseWebpackConfig.entry[name]);
