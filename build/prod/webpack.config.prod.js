@@ -1,4 +1,4 @@
-var path = require('path'),
+const path = require('path'),
     utils = require('./../utils'),
     webpack = require('webpack'),
     config = require('../../config/index'),
@@ -55,11 +55,10 @@ module.exports = merge(baseWebpackConfig, {
 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            minChunks: function (module, count) {
+            minChunks(module, count) {
                 return (
-                    module.resource && /\.js$/.test(module.resource) && module.resource.indexOf(
-                        path.join(__dirname, '../node_modules')
-                    ) === 0
+                    module.resource && /\.js$/.test(module.resource)
+                    && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
                 );
             }
         }),
