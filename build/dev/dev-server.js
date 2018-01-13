@@ -26,32 +26,28 @@ var opn = require('opn'),
         log: console.log
     });
 
-compiler.plugin('compilation', function (compilation) {
-    compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+compiler.plugin('compilation', compilation => {
+    compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
         hotMiddleware.publish({action: 'reload'});
         cb();
     });
 });
-
 
 app.use(devMiddleware);
 app.use(hotMiddleware);
 
 app.use(config.dev.assetsVirtualRoot, express.static('./static'));
 
-devMiddleware.waitUntilValid(function () {
+devMiddleware.waitUntilValid(() => {
     console.log('> Listening at ' + uri + '\n');
 });
 
-module.exports = app.listen(port, function (err) {
+module.exports = app.listen(port, err => {
 
     if (err) {
-        console.log(err);
-        return;
+        return console.log(err);
     }
 
-    if (!!config.dev.autoOpenBrowser) {
-        opn(uri);
-    }
+    opn(uri);
 
 });
