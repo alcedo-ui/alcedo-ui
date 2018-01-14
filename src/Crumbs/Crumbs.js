@@ -41,7 +41,7 @@ export default class Crumbs extends Component {
 
     render() {
 
-        const {className, style, items, separator} = this.props,
+        const {className, style, items, separator, showLastSeparator} = this.props,
 
             crumbsClassName = (className ? ' ' + className : '');
 
@@ -50,20 +50,23 @@ export default class Crumbs extends Component {
                  style={style}>
 
                 {
-                    items && items.map((item, index) => {
-                        return (
-                            <div key={index}
-                                 className="crumbs-item-wrapper">
+                    items && items.map((item, index) => (
+                        <div key={index}
+                             className="crumbs-item-wrapper">
 
-                                {this.itemRender(item)}
+                            {this.itemRender(item)}
 
-                                <div className="crumbs-separator">
-                                    {separator}
-                                </div>
+                            {
+                                !showLastSeparator && index === items.length - 1 ?
+                                    null
+                                    :
+                                    <div className="crumbs-separator">
+                                        {separator}
+                                    </div>
+                            }
 
-                            </div>
-                        );
-                    })
+                        </div>
+                    ))
                 }
 
             </div>
@@ -183,6 +186,8 @@ Crumbs.propTypes = {
 
     separator: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
+    showLastSeparator: PropTypes.bool,
+
     /**
      * Crumbs items renderer callback.
      */
@@ -198,6 +203,7 @@ Crumbs.defaultProps = {
 
     items: null,
 
-    separator: '>'
+    separator: '>',
+    showLastSeparator: false
 
 };
