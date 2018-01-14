@@ -45,7 +45,7 @@ export default class Crumbs extends Component {
 
     render() {
 
-        const {className, style, items, separator, showLastSeparator} = this.props,
+        const {className, style, data, separator, showLastSeparator} = this.props,
 
             crumbsClassName = (className ? ' ' + className : '');
 
@@ -54,14 +54,14 @@ export default class Crumbs extends Component {
                  style={style}>
 
                 {
-                    items && items.map((item, index) => (
+                    data && data.map((item, index) => (
                         <div key={index}
                              className="crumbs-item-wrapper">
 
                             {this.itemRender(item, index)}
 
                             {
-                                !showLastSeparator && index === items.length - 1 ?
+                                !showLastSeparator && index === data.length - 1 ?
                                     null
                                     :
                                     <div className="crumbs-separator">
@@ -97,9 +97,9 @@ Crumbs.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * Crumbs items config.
+     * Crumbs data config.
      */
-    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the list button.
@@ -193,7 +193,7 @@ Crumbs.propTypes = {
     showLastSeparator: PropTypes.bool,
 
     /**
-     * Crumbs items renderer callback.
+     * Crumbs data renderer callback.
      */
     itemRenderer: PropTypes.func,
 
@@ -207,7 +207,7 @@ Crumbs.defaultProps = {
     style: null,
     theme: Theme.DEFAULT,
 
-    items: null,
+    data: null,
 
     separator: '>',
     showLastSeparator: false
