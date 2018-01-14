@@ -30,12 +30,16 @@ export default class Crumbs extends Component {
             return item.renderer(item, index);
         }
 
-        const {itemRenderer} = this.props;
+        const {itemRenderer, onItemTouchTap} = this.props;
         if (itemRenderer) {
             return itemRenderer(item, index);
         }
 
-        return <Crumb {...item}/>;
+        return <Crumb {...item}
+                      onTouchTap={e => {
+                          item.onTouchTap && item.onTouchTap(e);
+                          onItemTouchTap && onItemTouchTap(e, item, index);
+                      }}/>;
 
     }
 
@@ -191,7 +195,9 @@ Crumbs.propTypes = {
     /**
      * Crumbs items renderer callback.
      */
-    itemRenderer: PropTypes.func
+    itemRenderer: PropTypes.func,
+
+    onItemTouchTap: PropTypes.func
 
 };
 
