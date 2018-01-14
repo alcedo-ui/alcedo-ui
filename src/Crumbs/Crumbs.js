@@ -24,15 +24,15 @@ export default class Crumbs extends Component {
 
     }
 
-    itemRender(item) {
+    itemRender(item, index) {
 
         if (item.renderer) {
-            return item.renderer(item);
+            return item.renderer(item, index);
         }
 
         const {itemRenderer} = this.props;
         if (itemRenderer) {
-            return itemRenderer(item);
+            return itemRenderer(item, index);
         }
 
         return <Crumb {...item}/>;
@@ -54,7 +54,7 @@ export default class Crumbs extends Component {
                         <div key={index}
                              className="crumbs-item-wrapper">
 
-                            {this.itemRender(item)}
+                            {this.itemRender(item, index)}
 
                             {
                                 !showLastSeparator && index === items.length - 1 ?
