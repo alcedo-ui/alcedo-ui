@@ -54,7 +54,7 @@ export default class RoundStep extends Component {
             {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={`round-step ${className}`}
+            <div className={'round-step' + (className ? ' ' + className : '')}
                  style={style}>
 
                 {
