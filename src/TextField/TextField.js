@@ -335,14 +335,24 @@ export default class TextField extends Component {
                        onBlur={this.blurHandler}
                        disabled={disabled}/>
 
-                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
-                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                            onTouchTap={this.togglePasswordVisible}/>
+                {
+                    isPassword && passwordButtonVisible ?
+                        <IconButton className="password-visible-icon"
+                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                                    onTouchTap={this.togglePasswordVisible}/>
+                        :
+                        null
+                }
 
-                <IconButton ref="clearButton"
-                            className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
-                            iconCls="fa fa-times-circle"
-                            onTouchTap={this.clearValue}/>
+                {
+                    clearButtonVisible ?
+                        <IconButton ref="clearButton"
+                                    className={`clear-icon ${!disabled && value && value.length > 0 ? '' : 'hidden'}`}
+                                    iconCls="fa fa-times-circle"
+                                    onTouchTap={this.clearValue}/>
+                        :
+                        null
+                }
 
                 {
                     rightIconCls ?
