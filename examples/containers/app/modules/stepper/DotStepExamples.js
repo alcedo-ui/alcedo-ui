@@ -14,6 +14,7 @@ import DotStepDoc from 'assets/propTypes/DotStep.json';
 import 'sass/containers/app/modules/stepper/DotStepExamples.scss';
 
 export default class DotStepExamples extends Component {
+
     constructor(props) {
 
         super(props);
