@@ -28,15 +28,17 @@ export default class DownloadField extends Component {
     }
 
     loadedHandler(e) {
-        const {onLoad} = this.props;
-        onLoad && onLoad(e, this.iframeEl.contentDocument ?
-            this.iframeEl.contentDocument.body.innerText
-            :
-            undefined);
-    }
 
-    componentDidMount() {
-        this.iframeEl = this.refs.iframe;
+        const {onLoad} = this.props,
+            iframeEl = this.refs.iframe;
+
+        iframeEl && onLoad && onLoad(
+            e, iframeEl.contentDocument ?
+                iframeEl.contentDocument.body.innerText
+                :
+                undefined
+        );
+
     }
 
     render() {
