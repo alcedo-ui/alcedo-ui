@@ -9,7 +9,7 @@
     .bg-bar {
         width: 2px;
         height: 40px;
-        background: $theme-field-bg-disabled;
+        background: $theme-border;
         margin: auto;
     }
 
@@ -32,8 +32,7 @@
             text-align: center;
             line-height: 32px;
             font-weight: bold;
-            background: $theme-field-bg-disabled;
-            color: $theme-field-disabled;
+            background: $theme-border;
             margin: auto;
         }
     }
