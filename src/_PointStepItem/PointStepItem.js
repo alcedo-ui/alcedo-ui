@@ -51,7 +51,7 @@ export default class PointStepItem extends Component {
                 + (disabled ? ' disabled' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'round-step-item' + itemClassName}
+            <div className={'point-step-item' + itemClassName}
                  style={style}>
 
                 <div className="bg-bar"></div>
