@@ -1,0 +1,13 @@
+/**
+ * @file HorizontalPointStep style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.horizontal-point-step {
+
+    @include float-fix;
+
+    width: 100%;
+    height: 90px;
+    position: relative;
+}
