@@ -55,7 +55,6 @@ export default class PointStepItem extends Component {
                  style={style}>
 
                 <div className="bg-bar"></div>
-                <div className="bg-round"></div>
 
                 {
                     !isFirst && (finishedStep >= index || activatedStep >= index) ?
@@ -71,16 +70,9 @@ export default class PointStepItem extends Component {
                         null
                 }
 
+                <div className="bg-round"></div>
                 <div className="round"
-                     onTouchTap={this.touchTapHandler}>
-                    {
-                        showFinishedStepIcon && finishedStep > index ?
-                            <i className={finishedStepIconCls}
-                               aria-hidden="true"></i>
-                            :
-                            (index + 1)
-                    }
-                </div>
+                     onTouchTap={this.touchTapHandler}></div>
 
                 <div className="title">
                     {value.title}
