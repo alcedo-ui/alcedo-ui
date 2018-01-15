@@ -8,97 +8,57 @@
 
     .bg-bar {
         width: 2px;
-        height: 20px;
+        height: 40px;
         background: $theme-field-bg-disabled;
+        margin: auto;
     }
 
-    .top-bar,
-    .bottom-bar {
-        width: 2px;
-        height: 20px;
-        background: $theme-primary;
-    }
-
-    .top-bar {
-        height: 50%;
-    }
-
-    .bottom-bar {
-        height: 50%;
-
-        &.hidden {
-            display: none;
-        }
-
-        &.full {
-            height: 50%;
-        }
-    }
-
-    //.bg-round {
-    //    width: 16px;
-    //    height: 16px;
-    //    border-radius: 50%;
-    //    position: absolute;
-    //    left: 50%;
-    //    top: 22px;
-    //    margin-left: -8px;
-    //    background: $theme-field-bg;
-    //}
-
-    .round {
+    .bg-round {
         position: relative;
-        width: 8px;
-        height: 8px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
-        margin-left: -4px;
-        text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        background: $theme-field-bg-disabled;
-        color: $theme-field-disabled;
+        background: $theme-field-bg;
+        margin: auto;
 
-        i {
+        .round {
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: -4px;
             text-align: center;
             line-height: 32px;
+            font-weight: bold;
+            background: $theme-field-bg-disabled;
+            color: $theme-field-disabled;
+            margin: auto;
         }
     }
 
     .title {
         width: 100%;
-        height: 30px;
-        line-height: 30px;
+        line-height: 20px;
         text-align: center;
-        color: $theme-field;
+        color: $theme-description;
+        margin: 0 auto 8px;
     }
 
     &.first {
         .bg-bar {
-            height: 50%;
-        }
-    }
-
-    &.last {
-        .bg-bar {
-            height: 50%;
+            display: none;
         }
     }
 
     &.activated {
         .round {
             background: $theme-highlight;
+        }
 
-            //&::after {
-            //    content: "";
-            //    position: absolute;
-            //    left: -16px;
-            //    top: -16px;
-            //    display: block;
-            //    width: 40px;
-            //    height: 40px;
-            //    background: transparentize($theme-highlight, .9);
-            //    border-radius: 50%;
-            //}
+        .title {
+            color: $theme-field;
         }
     }
 

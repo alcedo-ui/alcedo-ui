@@ -41,10 +41,7 @@ export default class HorizontalPointStepItem extends Component {
 
     render() {
 
-        const {
-                className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
-                showFinishedStepIcon, finishedStepIconCls, disabled
-            } = this.props,
+        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast, disabled} = this.props,
 
             itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
                 + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
@@ -56,23 +53,10 @@ export default class HorizontalPointStepItem extends Component {
 
                 <div className="bg-bar"></div>
 
-                {
-                    !isFirst && (finishedStep >= index || activatedStep >= index) ?
-                        <div className="top-bar"></div>
-                        :
-                        null
-                }
-
-                {
-                    !isLast ?
-                        <div className={'bottom-bar' + this.getRightBarClassName()}></div>
-                        :
-                        null
-                }
-
-                {/*<div className="bg-round"></div>*/}
-                <div className="round"
-                     onTouchTap={this.touchTapHandler}></div>
+                <div className="bg-round">
+                    <div className="round"
+                         onTouchTap={this.touchTapHandler}></div>
+                </div>
 
                 <div className="title">
                     {value.title}
@@ -96,9 +80,6 @@ HorizontalPointStepItem.propTypes = {
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
 
-    showFinishedStepIcon: PropTypes.bool,
-    finishedStepIconCls: PropTypes.string,
-
     disabled: PropTypes.bool,
 
     onTouchTap: PropTypes.func
@@ -116,9 +97,6 @@ HorizontalPointStepItem.defaultProps = {
     value: {},
     isFirst: true,
     isLast: false,
-
-    showFinishedStepIcon: true,
-    finishedStepIconCls: 'fa fa-check',
 
     disabled: false
 
