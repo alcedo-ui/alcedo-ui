@@ -54,7 +54,7 @@ export default class PointStep extends Component {
             {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={'round-step' + (className ? ' ' + className : '')}
+            <div className={'point-step' + (className ? ' ' + className : '')}
                  style={style}>
 
                 {
