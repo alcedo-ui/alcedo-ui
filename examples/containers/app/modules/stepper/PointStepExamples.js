@@ -73,7 +73,7 @@ export default class PointStepExamples extends Component {
             }];
 
         return (
-            <div className="example round-step-examples">
+            <div className="example point-step-examples">
 
                 <h2 className="example-title">PointStep</h2>
 
