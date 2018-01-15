@@ -48,6 +48,7 @@ export MaterialDatePicker from './MaterialDatePicker';
 export MaterialDatePickerTextField from './MaterialDatePickerTextField';
 export MaterialDateRangePicker from './MaterialDateRangePicker';
 export MaterialDateTimePicker from './MaterialDateTimePicker';
+export MaterialDropdown from './MaterialDropdown';
 export MaterialDropdownFilter from './MaterialDropdownFilter';
 export MaterialDropdownSelect from './MaterialDropdownSelect';
 export MaterialEditableSelect from './MaterialEditableSelect';

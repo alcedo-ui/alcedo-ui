@@ -225,6 +225,9 @@ export default [{
         text: 'Dropdown',
         route: '/components/Dropdown'
     }, {
+        text: 'MaterialDropdown',
+        route: '/components/MaterialDropdown'
+    }, {
         text: 'Pagging',
         route: '/components/Pagging'
     }, {

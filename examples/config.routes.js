@@ -243,6 +243,9 @@ export default function configureRoutes(store) {
                     path: '/components/Dropdown',
                     component: ac(store, () => import('modules/layout/DropdownExamples'))
                 }, {
+                    path: '/components/MaterialDropdown',
+                    component: ac(store, () => import('modules/layout/MaterialDropdownExamples'))
+                }, {
                     path: '/components/Pagging',
                     component: ac(store, () => import('modules/layout/PaggingExamples'))
                 }, {
