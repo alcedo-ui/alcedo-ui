@@ -15,7 +15,7 @@
         left: 0;
         width: 100%;
         height: 20px;
-        background: $theme-field-bg-disabled;
+        background: $theme-border;
     }
 
     .bg-round {
@@ -26,7 +26,7 @@
         left: 50%;
         top: 10px;
         margin-left: -20px;
-        background: $theme-field-bg-disabled;
+        background: $theme-border;
     }
 
     .left-bar,
@@ -83,7 +83,7 @@
         position: absolute;
         top: 55px;
         left: 0;
-        color: $theme-field;
+        color: $theme-description;
     }
 
     &.first {
@@ -101,9 +101,7 @@
 
     &.activated {
         .round {
-
             @include shadow(3);
-
             width: 46px;
             height: 46px;
             top: 7px;
@@ -111,6 +109,10 @@
             line-height: 46px;
             background: $theme-highlight;
             color: #fff;
+        }
+
+        .title {
+            color: $theme-field;
         }
     }
 
