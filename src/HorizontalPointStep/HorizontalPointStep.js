@@ -63,11 +63,7 @@ export default class HorizontalPointStep extends Component {
                             <HorizontalPointStepItem key={index}
                                                      index={index}
                                                      className={item.className}
-                                                     style={{
-                                                         ...item.style,
-                                                         width: `${100 / steps.length}%`,
-                                                         zIndex: steps.length - index
-                                                     }}
+                                                     style={item.style}
                                                      activatedStep={activatedStep}
                                                      finishedStep={finishedStep}
                                                      value={item}
