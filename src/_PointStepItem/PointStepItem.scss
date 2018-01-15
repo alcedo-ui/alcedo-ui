@@ -55,7 +55,6 @@
     }
 
     .round {
-        position: relative;
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -68,11 +67,6 @@
         font-weight: bold;
         background: $theme-field-bg-disabled;
         color: $theme-field-disabled;
-
-        i {
-            text-align: center;
-            line-height: 32px;
-        }
     }
 
     .title {
