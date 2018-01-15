@@ -50,7 +50,7 @@ export default class HorizontalPointStep extends Component {
 
     render() {
 
-        const {className, style, steps, showFinishedStepIcon, finishedStepIconCls, disabled} = this.props,
+        const {className, style, steps, disabled} = this.props,
             {activatedStep, finishedStep} = this.state;
 
         return (
@@ -69,8 +69,6 @@ export default class HorizontalPointStep extends Component {
                                                      value={item}
                                                      isFirst={index === 0}
                                                      isLast={index === steps.length - 1}
-                                                     showFinishedStepIcon={showFinishedStepIcon}
-                                                     finishedStepIconCls={finishedStepIconCls}
                                                      disabled={disabled}
                                                      onTouchTap={this.touchTapHandler}/>
                         );
@@ -128,9 +126,6 @@ HorizontalPointStep.propTypes = {
      */
     finishedStep: PropTypes.number,
 
-    showFinishedStepIcon: PropTypes.bool,
-    finishedStepIconCls: PropTypes.string,
-
     disabled: PropTypes.bool,
 
     /**
@@ -150,8 +145,6 @@ HorizontalPointStep.defaultProps = {
     activatedStep: 0,
     finishedStep: 0,
 
-    showFinishedStepIcon: true,
-    finishedStepIconCls: 'fa fa-check',
     disabled: false
 
 };
