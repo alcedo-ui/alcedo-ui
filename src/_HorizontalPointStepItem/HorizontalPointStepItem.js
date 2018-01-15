@@ -58,19 +58,19 @@ export default class HorizontalPointStepItem extends Component {
 
                 {
                     !isFirst && (finishedStep >= index || activatedStep >= index) ?
-                        <div className="left-bar"></div>
+                        <div className="top-bar"></div>
                         :
                         null
                 }
 
                 {
                     !isLast ?
-                        <div className={'right-bar' + this.getRightBarClassName()}></div>
+                        <div className={'bottom-bar' + this.getRightBarClassName()}></div>
                         :
                         null
                 }
 
-                <div className="bg-round"></div>
+                {/*<div className="bg-round"></div>*/}
                 <div className="round"
                      onTouchTap={this.touchTapHandler}></div>
 

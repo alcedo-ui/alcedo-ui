@@ -4,64 +4,53 @@
  */
 
 .horizontal-point-step-item {
-    float: left;
-    width: 50%;
-    height: 90px;
     position: relative;
 
     .bg-bar {
-        position: absolute;
-        top: 29px;
-        left: 0;
-        width: 100%;
-        height: 2px;
+        width: 2px;
+        height: 20px;
         background: $theme-field-bg-disabled;
     }
 
-    .bg-round {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        top: 22px;
-        margin-left: -8px;
-        background: $theme-field-bg;
-    }
-
-    .left-bar,
-    .right-bar {
-        position: absolute;
-        top: 29px;
-        height: 2px;
+    .top-bar,
+    .bottom-bar {
+        width: 2px;
+        height: 20px;
         background: $theme-primary;
     }
 
-    .left-bar {
-        width: 50%;
+    .top-bar {
+        height: 50%;
     }
 
-    .right-bar {
-        left: 50%;
-        width: 50%;
+    .bottom-bar {
+        height: 50%;
 
         &.hidden {
             display: none;
         }
 
         &.full {
-            width: 50%;
+            height: 50%;
         }
     }
+
+    //.bg-round {
+    //    width: 16px;
+    //    height: 16px;
+    //    border-radius: 50%;
+    //    position: absolute;
+    //    left: 50%;
+    //    top: 22px;
+    //    margin-left: -8px;
+    //    background: $theme-field-bg;
+    //}
 
     .round {
         position: relative;
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        top: 26px;
         margin-left: -4px;
         text-align: center;
         line-height: 32px;
@@ -80,22 +69,18 @@
         height: 30px;
         line-height: 30px;
         text-align: center;
-        position: absolute;
-        top: 55px;
-        left: 0;
         color: $theme-field;
     }
 
     &.first {
         .bg-bar {
-            width: 50%;
-            left: 50%;
+            height: 50%;
         }
     }
 
     &.last {
         .bg-bar {
-            width: 50%;
+            height: 50%;
         }
     }
 
@@ -103,17 +88,17 @@
         .round {
             background: $theme-highlight;
 
-            &::after {
-                content: "";
-                position: absolute;
-                left: -16px;
-                top: -16px;
-                display: block;
-                width: 40px;
-                height: 40px;
-                background: transparentize($theme-highlight, .9);
-                border-radius: 50%;
-            }
+            //&::after {
+            //    content: "";
+            //    position: absolute;
+            //    left: -16px;
+            //    top: -16px;
+            //    display: block;
+            //    width: 40px;
+            //    height: 40px;
+            //    background: transparentize($theme-highlight, .9);
+            //    border-radius: 50%;
+            //}
         }
     }
 
