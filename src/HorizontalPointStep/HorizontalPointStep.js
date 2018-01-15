@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import PointStepItem from '../_PointStepItem';
+import HorizontalPointStepItem from '../_HorizontalPointStepItem';
 
 export default class HorizontalPointStep extends Component {
 
@@ -60,23 +60,23 @@ export default class HorizontalPointStep extends Component {
                 {
                     steps && steps.map((item, index) => {
                         return (
-                            <PointStepItem key={index}
-                                           index={index}
-                                           className={item.className}
-                                           style={{
-                                               ...item.style,
-                                               width: `${100 / steps.length}%`,
-                                               zIndex: steps.length - index
-                                           }}
-                                           activatedStep={activatedStep}
-                                           finishedStep={finishedStep}
-                                           value={item}
-                                           isFirst={index === 0}
-                                           isLast={index === steps.length - 1}
-                                           showFinishedStepIcon={showFinishedStepIcon}
-                                           finishedStepIconCls={finishedStepIconCls}
-                                           disabled={disabled}
-                                           onTouchTap={this.touchTapHandler}/>
+                            <HorizontalPointStepItem key={index}
+                                                     index={index}
+                                                     className={item.className}
+                                                     style={{
+                                                         ...item.style,
+                                                         width: `${100 / steps.length}%`,
+                                                         zIndex: steps.length - index
+                                                     }}
+                                                     activatedStep={activatedStep}
+                                                     finishedStep={finishedStep}
+                                                     value={item}
+                                                     isFirst={index === 0}
+                                                     isLast={index === steps.length - 1}
+                                                     showFinishedStepIcon={showFinishedStepIcon}
+                                                     finishedStepIconCls={finishedStepIconCls}
+                                                     disabled={disabled}
+                                                     onTouchTap={this.touchTapHandler}/>
                         );
                     })
                 }
