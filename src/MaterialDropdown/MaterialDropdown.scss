@@ -1,0 +1,29 @@
+/**
+ * @file Dropdown style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+.material-dropdown {
+    position: relative;
+    width: 300px;
+    background: $theme-field-bg;
+
+    .dropdown {
+        &.material-dropdown-content {
+            width: 100%;
+
+            .dropdown-trigger {
+                width: 100%;
+                border: none;
+                border-radius: 0;
+                border-bottom: 1px solid $theme-border;
+                padding-left: 8px;
+                background: transparent;
+                box-shadow: none !important;
+
+                .base-button-value {
+                    transition: opacity $theme-transition-duration ease-in-out;
+                }
+            }
+        }
+    }
+}
