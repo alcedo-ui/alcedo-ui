@@ -278,6 +278,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/PointStep',
                     component: ac(store, () => import('modules/stepper/PointStepExamples'))
+                }, {
+                    path: '/components/HorizontalPointStep',
+                    component: ac(store, () => import('modules/stepper/HorizontalPointStepExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

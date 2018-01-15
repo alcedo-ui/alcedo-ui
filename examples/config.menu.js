@@ -269,6 +269,9 @@ export default [{
     }, {
         text: 'PointStep',
         route: '/components/PointStep'
+    }, {
+        text: 'HorizontalPointStep',
+        route: '/components/HorizontalPointStep'
     }]
 }, {
     text: 'Message',
