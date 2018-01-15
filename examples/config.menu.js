@@ -266,6 +266,9 @@ export default [{
     }, {
         text: 'DotStep',
         route: '/components/DotStep'
+    }, {
+        text: 'PointStep',
+        route: '/components/PointStep'
     }]
 }, {
     text: 'Message',

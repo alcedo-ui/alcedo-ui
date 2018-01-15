@@ -275,6 +275,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/DotStep',
                     component: ac(store, () => import('modules/stepper/DotStepExamples'))
+                }, {
+                    path: '/components/PointStep',
+                    component: ac(store, () => import('modules/stepper/PointStepExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
