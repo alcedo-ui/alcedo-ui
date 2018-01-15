@@ -9,7 +9,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import ListStepDoc from 'assets/propTypes/ListStep.json';
+import doc from 'assets/propTypes/ListStep.json';
 
 import 'sass/containers/app/modules/stepper/ListStepExamples.scss';
 
@@ -145,7 +145,7 @@ export default class ListStepExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ListStepDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
