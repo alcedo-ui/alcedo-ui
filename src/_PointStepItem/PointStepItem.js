@@ -55,22 +55,8 @@ export default class PointStepItem extends Component {
                  style={style}>
 
                 <div className="bg-bar"></div>
-
-                {
-                    !isFirst && (finishedStep >= index || activatedStep >= index) ?
-                        <div className="left-bar"></div>
-                        :
-                        null
-                }
-
-                {
-                    !isLast ?
-                        <div className={'right-bar' + this.getRightBarClassName()}></div>
-                        :
-                        null
-                }
-
                 <div className="bg-round"></div>
+
                 <div className="round"
                      onTouchTap={this.touchTapHandler}></div>
 

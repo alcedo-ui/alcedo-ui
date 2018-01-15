@@ -18,31 +18,6 @@
         background: $theme-field-bg-disabled;
     }
 
-    .left-bar,
-    .right-bar {
-        position: absolute;
-        top: 29px;
-        height: 2px;
-        background: $theme-primary;
-    }
-
-    .left-bar {
-        width: 50%;
-    }
-
-    .right-bar {
-        left: 50%;
-        width: 50%;
-
-        &.hidden {
-            display: none;
-        }
-
-        &.full {
-            width: 50%;
-        }
-    }
-
     .bg-round {
         width: 16px;
         height: 16px;
