@@ -15,7 +15,7 @@
         left: 0;
         width: 100%;
         height: 2px;
-        background: $theme-field-bg-disabled;
+        background: $theme-border;
     }
 
     .bg-round {
@@ -40,8 +40,7 @@
         text-align: center;
         line-height: 32px;
         font-weight: bold;
-        background: $theme-field-bg-disabled;
-        color: $theme-field-disabled;
+        background: $theme-border;
     }
 
     .title {
@@ -52,7 +51,7 @@
         position: absolute;
         top: 55px;
         left: 0;
-        color: $theme-field;
+        color: $theme-description;
     }
 
     &.first {
@@ -83,6 +82,10 @@
                 background: transparentize($theme-highlight, .9);
                 border-radius: 50%;
             }
+        }
+
+        .title {
+            color: $theme-field;
         }
     }
 
