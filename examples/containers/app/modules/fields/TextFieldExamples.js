@@ -132,7 +132,8 @@ export default class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextFieldGroup</code>code> without <code>label</code> element and <code>disabled</code>
+                                <p><code>TextFieldGroup</code>code> without <code>label</code> element
+                                    and <code>disabled</code>
                                     props applied.</p>
 
                                 <TextFieldGroup>
@@ -166,7 +167,8 @@ export default class TextFieldExamples extends Component {
 
                                 <div>Required</div>
                                 <div className="field-group">
-                                    <TextField required={true}/>
+                                    <TextField required={true}
+                                               clearButtonVisible={false}/>
                                 </div>
 
                                 <div>Min / Max</div>
