@@ -40,7 +40,8 @@ module.exports = function () {
                     'moment': data.dependencies['moment'],
                     'react-dnd': data.dependencies['react-dnd'],
                     'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend'],
-                    'react-dnd-scrollzone': data.dependencies['react-dnd-scrollzone']
+                    'react-dnd-scrollzone': data.dependencies['react-dnd-scrollzone'],
+                    'react-beautiful-dnd': data.dependencies['react-beautiful-dnd']
                 }
             };
 
