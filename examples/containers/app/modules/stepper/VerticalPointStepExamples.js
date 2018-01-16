@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 
-import HorizontalPointStep from 'src/HorizontalPointStep';
+import VerticalPointStep from 'src/VerticalPointStep';
 import RaisedButton from 'src/RaisedButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/HorizontalPointStep.json';
+import doc from 'assets/propTypes/VerticalPointStep.json';
 
-import 'sass/containers/app/modules/stepper/HorizontalPointStepExamples.scss';
+import 'sass/containers/app/modules/stepper/VerticalPointStepExamples.scss';
 
-export default class HorizontalPointStepExamples extends Component {
+export default class VerticalPointStepExamples extends Component {
 
     constructor(props) {
 
@@ -75,10 +75,10 @@ export default class HorizontalPointStepExamples extends Component {
         return (
             <div className="example horizontal-point-step-examples">
 
-                <h2 className="example-title">HorizontalPointStep</h2>
+                <h2 className="example-title">VerticalPointStep</h2>
 
                 <p>
-                    A <span>HorizontalPointStep</span> is an interface for users to show linear steps or for
+                    A <span>VerticalPointStep</span> is an interface for users to show linear steps or for
                     navigation.It
                     just provides views, not handling logic (when the step is active, or when the step is completed, or
                     how to move to the next step).
@@ -89,17 +89,17 @@ export default class HorizontalPointStepExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="HorizontalPointStep Example"/>
+                                  title="VerticalPointStep Example"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple <code>HorizontalPointStep</code> example.</p>
+                            <p>A simple <code>VerticalPointStep</code> example.</p>
 
-                            <HorizontalPointStep steps={steps}
-                                                 activatedStep={activatedStep}
-                                                 finishedStep={finishedStep}
-                                                 onChange={this.updateStep}/>
+                            <VerticalPointStep steps={steps}
+                                               activatedStep={activatedStep}
+                                               finishedStep={finishedStep}
+                                               onChange={this.updateStep}/>
 
                             <div className="step-ctrls">
 
