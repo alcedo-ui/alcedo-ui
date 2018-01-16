@@ -233,6 +233,9 @@ export default [{
     }, {
         text: 'BriefPagging',
         route: '/components/BriefPagging'
+    }, {
+        text: 'MaterialProvider',
+        route: '/components/MaterialProvider'
     }]
 }, {
     text: 'Loading',

@@ -251,6 +251,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/BriefPagging',
                     component: ac(store, () => import('modules/layout/BriefPaggingExamples'))
+                },{
+                    path: '/components/MaterialProvider',
+                    component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
