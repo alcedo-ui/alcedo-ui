@@ -5,7 +5,6 @@ import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Paper from 'src/Paper';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import TableDoc from 'assets/propTypes/Table.json';
@@ -117,46 +116,18 @@ export default class TableExamples extends Component {
 
                             <p>A simple <code>Table</code> example.</p>
 
-                            <Paper>
-                                <Table columns={[...this.columns, {
-                                    header: 'action',
-                                    renderer(rowData) {
-                                        return (
-                                            <IconButton iconCls="fa fa-trash"
-                                                        onTouchTap={() => {
-                                                            deleteRow(rowData.id);
-                                                        }}/>
-                                        );
-                                    }
-                                }]}
-                                       data={data}/>
-                            </Paper>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With isPagging"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <p>A simple <code>Table</code> example.</p>
-
-                            <Paper style={{width: 400, height: 600, overflow: 'auto'}}>
-                                <Table columns={this.columns}
-                                       data={data}
-                                       sortInitConfig={{
-                                           prop: 'id',
-                                           type: -1
-                                       }}
-                                       onChange={value => {
-                                           console.log(value);
-                                       }}/>
-                            </Paper>
+                            <Table columns={[...this.columns, {
+                                header: 'action',
+                                renderer(rowData) {
+                                    return (
+                                        <IconButton iconCls="fa fa-trash"
+                                                    onTouchTap={() => {
+                                                        deleteRow(rowData.id);
+                                                    }}/>
+                                    );
+                                }
+                            }]}
+                                   data={data}/>
 
                         </div>
                     </div>
@@ -173,23 +144,21 @@ export default class TableExamples extends Component {
                             <p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>
                                 to true for showLineNumber and checkbox.</p>
 
-                            <Paper>
-                                <Table columns={this.columns}
-                                       selectMode={Table.SelectMode.MULTI_SELECT}
-                                       data={data}
-                                       paggingSelectedCountVisible={true}
-                                       defaultPageSize={20}
-                                       pageSizes={this.pageSizes}
-                                       useFullPagging={true}
-                                       sortAscIconCls="fa fa-caret-up"
-                                       sortDescIconCls="fa fa-caret-down"
-                                       onPageChange={(page, pageSize) => {
-                                           console.log(`page: ${page}, pageSize: ${pageSize}`);
-                                       }}
-                                       onChange={value => {
-                                           console.log(value);
-                                       }}/>
-                            </Paper>
+                            <Table columns={this.columns}
+                                   selectMode={Table.SelectMode.MULTI_SELECT}
+                                   data={data}
+                                   paggingSelectedCountVisible={true}
+                                   defaultPageSize={20}
+                                   pageSizes={this.pageSizes}
+                                   useFullPagging={true}
+                                   sortAscIconCls="fa fa-caret-up"
+                                   sortDescIconCls="fa fa-caret-down"
+                                   onPageChange={(page, pageSize) => {
+                                       console.log(`page: ${page}, pageSize: ${pageSize}`);
+                                   }}
+                                   onChange={value => {
+                                       console.log(value);
+                                   }}/>
 
                         </div>
                     </div>

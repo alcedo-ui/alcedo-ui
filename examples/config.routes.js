@@ -251,6 +251,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/BriefPagging',
                     component: ac(store, () => import('modules/layout/BriefPaggingExamples'))
+                },{
+                    path: '/components/MaterialProvider',
+                    component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -282,8 +285,8 @@ export default function configureRoutes(store) {
                     path: '/components/PointStep',
                     component: ac(store, () => import('modules/stepper/PointStepExamples'))
                 }, {
-                    path: '/components/HorizontalPointStep',
-                    component: ac(store, () => import('modules/stepper/HorizontalPointStepExamples'))
+                    path: '/components/VerticalPointStep',
+                    component: ac(store, () => import('modules/stepper/VerticalPointStepExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

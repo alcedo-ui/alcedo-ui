@@ -233,6 +233,9 @@ export default [{
     }, {
         text: 'BriefPagging',
         route: '/components/BriefPagging'
+    }, {
+        text: 'MaterialProvider',
+        route: '/components/MaterialProvider'
     }]
 }, {
     text: 'Loading',
@@ -273,8 +276,8 @@ export default [{
         text: 'PointStep',
         route: '/components/PointStep'
     }, {
-        text: 'HorizontalPointStep',
-        route: '/components/HorizontalPointStep'
+        text: 'VerticalPointStep',
+        route: '/components/VerticalPointStep'
     }]
 }, {
     text: 'Message',

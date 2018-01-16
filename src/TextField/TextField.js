@@ -236,7 +236,7 @@ export default class TextField extends Component {
 
     blurHandler(e) {
 
-        if (e.relatedTarget == this.clearButtonEl) {
+        if (this.clearButtonEl && e.relatedTarget && e.relatedTarget == this.clearButtonEl) {
             return;
         }
 

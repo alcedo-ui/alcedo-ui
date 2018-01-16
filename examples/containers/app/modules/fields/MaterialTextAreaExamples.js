@@ -49,10 +49,10 @@ export default class MaterialTextAreaExamples extends Component {
 
                                 <div className="field-group">
                                     <MaterialTextArea theme={Theme.HIGHLIGHT}
-                                                      label="Desciption"
+                                                      label="Description"
                                                       autoHeight={true}
                                                       wordCountVisible={true}
-                                                      placeholder="Desciption"
+                                                      placeholder="Description"
                                                       maxLength={100}/>
                                 </div>
 

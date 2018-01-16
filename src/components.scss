@@ -33,7 +33,6 @@
 @import './Grid/Grid.scss';
 @import './GroupGrid/GroupGrid.scss';
 @import './GroupList/GroupList.scss';
-@import './HorizontalPointStep/HorizontalPointStep.scss';
 @import './HuePicker/HuePicker.scss';
 @import './IconAnchor/IconAnchor.scss';
 @import './IconButton/IconButton.scss';
@@ -52,6 +51,7 @@
 @import './MaterialEditableSelect/MaterialEditableSelect.scss';
 @import './MaterialLocalAutoComplete/MaterialLocalAutoComplete.scss';
 @import './MaterialMonthPicker/MaterialMonthPicker.scss';
+@import './MaterialProvider/MaterialProvider.scss';
 @import './MaterialTextArea/MaterialTextArea.scss';
 @import './MaterialTextField/MaterialTextField.scss';
 @import './MaterialTimePicker/MaterialTimePicker.scss';
@@ -87,6 +87,7 @@
 @import './Transfer/Transfer.scss';
 @import './Tree/Tree.scss';
 @import './TreeSelect/TreeSelect.scss';
+@import './VerticalPointStep/VerticalPointStep.scss';
 @import './Waterfall/Waterfall.scss';
 @import './Widget/Widget.scss';
 @import './WidgetHeader/WidgetHeader.scss';
@@ -101,7 +102,6 @@
 @import './_DraggableTreeNode/DraggableTreeNode.scss';
 @import './_DraggableTreeNodeList/DraggableTreeNodeList.scss';
 @import './_GridItem/GridItem.scss';
-@import './_HorizontalPointStepItem/HorizontalPointStepItem.scss';
 @import './_ListItem/ListItem.scss';
 @import './_ListStepItem/ListStepItem.scss';
 @import './_MaterialFieldSeparator/MaterialFieldSeparator.scss';
@@ -119,3 +119,4 @@
 @import './_TipBody/TipBody.scss';
 @import './_Toast/Toast.scss';
 @import './_TreeNode/TreeNode.scss';
+@import './_VerticalPointStepItem/VerticalPointStepItem.scss';

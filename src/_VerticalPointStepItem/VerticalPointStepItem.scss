@@ -1,0 +1,78 @@
+/**
+ * @file VerticalPointStepItem style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.vertical-point-step-item {
+    position: relative;
+
+    .bg-bar {
+        width: 2px;
+        height: 40px;
+        background: $theme-border;
+        margin: auto;
+    }
+
+    .bg-round {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: $theme-field-bg;
+        margin: auto;
+
+        .round {
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: -4px;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            background: $theme-border;
+            margin: auto;
+        }
+    }
+
+    .title {
+        width: 100%;
+        line-height: 20px;
+        text-align: center;
+        color: $theme-description;
+        margin: 0 auto 8px;
+    }
+
+    &.first {
+        .bg-bar {
+            display: none;
+        }
+    }
+
+    &.activated {
+        .round {
+            background: $theme-highlight;
+        }
+
+        .title {
+            color: $theme-field;
+        }
+    }
+
+    &.finished {
+        .round {
+            cursor: pointer;
+            background: $theme-primary;
+            color: #fff;
+        }
+    }
+
+    &.disabled {
+        .round {
+            cursor: default;
+        }
+    }
+
+}

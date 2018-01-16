@@ -1,0 +1,16 @@
+/**
+ * @file MaterialProvider style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.material-provider {
+    position: relative;
+    width: 300px;
+    background: $theme-field-bg;
+
+    .material-provider-label {
+        line-height: 16px;
+        margin-bottom: 16px;
+        color: $theme-description;
+    }
+}
