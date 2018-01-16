@@ -8,6 +8,15 @@
     width: 300px;
     background: $theme-field-bg;
 
+    .material-dropdown-label {
+        display: inline-block;
+        line-height: 16px;
+        color: $theme-label;
+        transform-origin: top left;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
+    }
+
     .dropdown {
         &.material-dropdown-content {
             width: 100%;
@@ -23,6 +32,37 @@
 
                 .base-button-value {
                     transition: opacity $theme-transition-duration ease-in-out;
+                }
+            }
+        }
+    }
+
+    &.focused {
+        .material-dropdown-label {
+            color: $theme-highlight;
+        }
+    }
+
+    &.has-label.animated {
+
+        .material-dropdown-label {
+            transform: translate(8px, 28px);
+        }
+
+        .dropdown-trigger {
+            .base-button-value {
+                opacity: 0;
+            }
+        }
+
+        &.focused {
+            .material-dropdown-label {
+                transform: translate(0, 0);
+            }
+
+            .dropdown-trigger {
+                .base-button-value {
+                    opacity: 1;
                 }
             }
         }

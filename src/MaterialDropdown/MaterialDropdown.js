@@ -71,16 +71,26 @@ export default class MaterialDropdown extends Component {
     render() {
 
         const {
-                className, style, theme,
+                className, style, theme, label, isLabelAnimate,
                 ...restProps
             } = this.props,
             {isFocus, isHover} = this.state,
 
-            wrapperClassName = (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
+                + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'material-dropdown' + wrapperClassName}
                  style={style}>
+
+                {
+                    label ?
+                        <div className="material-dropdown-label">
+                            {label}
+                        </div>
+                        :
+                        null
+                }
 
                 <Dropdown {...restProps}
                           className="material-dropdown-content"
@@ -141,6 +151,16 @@ MaterialDropdown.propTypes = {
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
+     * The label of the dropdown.
+     */
+    label: PropTypes.any,
+
+    /**
+     * The animate of the dropdown.
+     */
+    isLabelAnimate: PropTypes.bool,
+
+    /**
      * The value of the dropDown trigger.
      */
     triggerValue: PropTypes.any,
@@ -190,6 +210,8 @@ MaterialDropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
+    label: '',
+    isLabelAnimate: true,
     triggerValue: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',
