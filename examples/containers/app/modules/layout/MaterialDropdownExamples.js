@@ -39,6 +39,7 @@ export default class MaterialDropdownExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <MaterialDropdown theme={Theme.HIGHLIGHT}
+                                                  label="Label"
                                                   triggerValue="Material Dropdown">
                                     <div className="dropdown-content">MaterialDropdown content</div>
                                 </MaterialDropdown>
