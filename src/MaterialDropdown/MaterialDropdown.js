@@ -1,20 +1,16 @@
 /**
- * @file Dropdown component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ * @file MaterialDropdown component
+ * @author wendy(wendy.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
-import RaisedButton from '../RaisedButton';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
-import Popup from '../Popup';
 import Theme from '../Theme';
 import Dropdown from '../Dropdown';
 
 import Util from '../_vendors/Util';
-import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class MaterialDropdown extends Component {
 
