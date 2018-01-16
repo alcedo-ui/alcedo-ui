@@ -9,6 +9,7 @@
 
     .table-header-inner {
         position: relative;
+        box-sizing: content-box;
         display: block;
         height: 30px;
         line-height: 30px;
