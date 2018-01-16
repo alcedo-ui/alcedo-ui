@@ -6,43 +6,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Theme from '../Theme';
-
-import Util from '../_vendors/Util';
-
 export default class MaterialProvider extends Component {
-
-    static Theme = Theme;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
-    }
-
     render() {
 
-        const {children, className, isLabelAnimate, label, ...restProps} = this.props,
-            {value} = this.state,
-
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (value ? ' has-value' : '') + (className ? ' ' + className : '');
+        const {children, className, label, ...restProps} = this.props;
 
         return (
             <div {...restProps}
-                 className={'material-provider' + wrapperClassName}>
+                 className={'material-provider' + (className ? ' ' + className : '')}>
 
                 {
                     label ?
@@ -73,12 +49,7 @@ MaterialProvider.propTypes = {
      */
     style: PropTypes.object,
 
-    /**
-     * The TextField theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    isLabelAnimate: PropTypes.bool
+    label: PropTypes.string
 
 };
 
@@ -86,8 +57,7 @@ MaterialProvider.defaultProps = {
 
     className: '',
     style: null,
-    theme: Theme.DEFAULT,
 
-    isLabelAnimate: true
+    label: null
 
 };

@@ -53,6 +53,7 @@ export MaterialDropdownSelect from './MaterialDropdownSelect';
 export MaterialEditableSelect from './MaterialEditableSelect';
 export MaterialLocalAutoComplete from './MaterialLocalAutoComplete';
 export MaterialMonthPicker from './MaterialMonthPicker';
+export MaterialProvider from './MaterialProvider';
 export MaterialTextArea from './MaterialTextArea';
 export MaterialTextField from './MaterialTextField';
 export MaterialTimePicker from './MaterialTimePicker';
@@ -97,4 +98,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 97;
+export const COMPONENTS_TOTAL_COUNT = 98;
