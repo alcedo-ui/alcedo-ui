@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import MaterialProvider from 'src/MaterialProvider';
 import Switcher from 'src/Switcher';
+import Checkbox from 'src/Checkbox';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
@@ -23,14 +24,14 @@ export default class MaterialProviderExamples extends Component {
                 <h2 className="example-title">MaterialProvider</h2>
 
                 <p>
-                    A <span>MaterialProvider</span> element is a basic container that can give depth to the page.
+                    A <span>MaterialProvider</span>.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="MaterialProvider Example"/>
+                    <WidgetHeader className="example-header" title="Switcher"/>
 
                     <div className="widget-content">
 
@@ -38,10 +39,28 @@ export default class MaterialProviderExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>MaterialProvider examples showing the range of zDepth.</p>
-
-                                <MaterialProvider lable="Switcher">
+                                <MaterialProvider label="Switcher">
                                     <Switcher/>
+                                </MaterialProvider>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Checkbox"/>
+
+                    <div className="widget-content">
+
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <MaterialProvider label="Checkbox">
+                                    <Checkbox/>
                                 </MaterialProvider>
 
                             </div>
