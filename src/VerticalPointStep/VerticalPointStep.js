@@ -1,14 +1,14 @@
 /**
- * @file HorizontalPointStep component
+ * @file VerticalPointStep component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import HorizontalPointStepItem from '../_HorizontalPointStepItem';
+import VerticalPointStepItem from '../_VerticalPointStepItem';
 
-export default class HorizontalPointStep extends Component {
+export default class VerticalPointStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -54,23 +54,23 @@ export default class HorizontalPointStep extends Component {
             {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={'horizontal-point-step' + (className ? ' ' + className : '')}
+            <div className={'vertical-point-step' + (className ? ' ' + className : '')}
                  style={style}>
 
                 {
                     steps && steps.map((item, index) => {
                         return (
-                            <HorizontalPointStepItem key={index}
-                                                     index={index}
-                                                     className={item.className}
-                                                     style={item.style}
-                                                     activatedStep={activatedStep}
-                                                     finishedStep={finishedStep}
-                                                     value={item}
-                                                     isFirst={index === 0}
-                                                     isLast={index === steps.length - 1}
-                                                     disabled={disabled}
-                                                     onTouchTap={this.touchTapHandler}/>
+                            <VerticalPointStepItem key={index}
+                                                   index={index}
+                                                   className={item.className}
+                                                   style={item.style}
+                                                   activatedStep={activatedStep}
+                                                   finishedStep={finishedStep}
+                                                   value={item}
+                                                   isFirst={index === 0}
+                                                   isLast={index === steps.length - 1}
+                                                   disabled={disabled}
+                                                   onTouchTap={this.touchTapHandler}/>
                         );
                     })
                 }
@@ -81,7 +81,7 @@ export default class HorizontalPointStep extends Component {
     }
 };
 
-HorizontalPointStep.propTypes = {
+VerticalPointStep.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -135,7 +135,7 @@ HorizontalPointStep.propTypes = {
 
 };
 
-HorizontalPointStep.defaultProps = {
+VerticalPointStep.defaultProps = {
 
     className: null,
     style: null,
