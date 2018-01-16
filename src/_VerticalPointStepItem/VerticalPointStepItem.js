@@ -1,12 +1,12 @@
 /**
- * @file HorizontalPointStepItem component
+ * @file VerticalPointStepItem component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class HorizontalPointStepItem extends Component {
+export default class VerticalPointStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -48,7 +48,7 @@ export default class HorizontalPointStepItem extends Component {
                 + (disabled ? ' disabled' : '') + (className ? ' ' + className : '');
 
         return (
-            <div className={'horizontal-point-step-item' + itemClassName}
+            <div className={'vertical-point-step-item' + itemClassName}
                  style={style}>
 
                 <div className="bg-bar"></div>
@@ -68,7 +68,7 @@ export default class HorizontalPointStepItem extends Component {
     }
 };
 
-HorizontalPointStepItem.propTypes = {
+VerticalPointStepItem.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -86,7 +86,7 @@ HorizontalPointStepItem.propTypes = {
 
 };
 
-HorizontalPointStepItem.defaultProps = {
+VerticalPointStepItem.defaultProps = {
 
     className: '',
     style: null,
