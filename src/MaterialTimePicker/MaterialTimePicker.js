@@ -143,7 +143,7 @@ export default class MaterialTimePicker extends Component {
                                              value={textFieldValue}
                                              iconCls="fa fa-clock-o"
                                              readOnly={!popupVisible}
-                                             clearButtonVisible={popupVisible}
+                                             clearButtonVisible={false}
                                              popupVisible={popupVisible}
                                              onChange={this.textFieldChangeHandle}
                                              onTouchTap={e => {

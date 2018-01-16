@@ -74,7 +74,7 @@ export default class MaterialDatePicker extends Component {
             }
         } else {
             this.setState({
-                value: moment(text, dateFormat)
+                value: ''
             });
         }
     }
@@ -126,7 +126,7 @@ export default class MaterialDatePicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue){
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -139,7 +139,7 @@ export default class MaterialDatePicker extends Component {
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
-            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
+            this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
     }
 
@@ -180,7 +180,7 @@ export default class MaterialDatePicker extends Component {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, label, isFooter} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state;
-        let textValue = moment(value).format(dateFormat);
+        let textValue = value && moment(value).format(dateFormat);
 
         return (
             <div className={`date-picker ${className}`}
@@ -192,7 +192,7 @@ export default class MaterialDatePicker extends Component {
                     value={textValue}
                     iconCls="fa fa-calendar"
                     readOnly={!popupVisible}
-                    clearButtonVisible={popupVisible}
+                    clearButtonVisible={false}
                     popupVisible={popupVisible}
                     label={label}
                     isLabelAnimate={false}

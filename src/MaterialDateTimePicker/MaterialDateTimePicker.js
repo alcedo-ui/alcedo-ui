@@ -15,7 +15,7 @@ import YearPicker from '../_YearPicker';
 import TimeList from '../_TimeList';
 import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
-import Theme from 'src/Theme';
+import Theme from '../Theme';
 
 export default class MaterialDateTimePicker extends Component {
 
@@ -83,7 +83,7 @@ export default class MaterialDateTimePicker extends Component {
             }
         } else {
             this.setState({
-                value: moment(text, dateFormat)
+                value: ''
             });
         }
     }
@@ -139,7 +139,7 @@ export default class MaterialDateTimePicker extends Component {
         state.popupVisible = false;
         state.datePickerLevel = 'day';
         !this.props.disabled && this.setState(state, () => {
-            this.props.onChange && this.props.onChange(moment(state.value).format(this.props.dateFormat));
+            this.props.onChange && this.props.onChange(state.value && moment(state.value).format(this.props.dateFormat));
         });
     }
 
@@ -164,7 +164,7 @@ export default class MaterialDateTimePicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue) {
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -177,7 +177,7 @@ export default class MaterialDateTimePicker extends Component {
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
-            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
+            this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
     }
 
@@ -202,7 +202,7 @@ export default class MaterialDateTimePicker extends Component {
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value) {
-            if(moment(value, dateFormat).isValid()) {
+            if (moment(value, dateFormat).isValid()) {
                 const select_year = moment(value).format('YYYY'),
                     select_month = moment(value).format('MM'),
                     select_day = moment(value).format('DD');
@@ -211,7 +211,7 @@ export default class MaterialDateTimePicker extends Component {
                 state.month = select_month;
                 state.day = select_day;
                 this.setState(state);
-            }else{
+            } else {
                 console.error('Invalid date');
                 this.validValue = false;
             }
@@ -222,7 +222,7 @@ export default class MaterialDateTimePicker extends Component {
     render() {
         const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isFooter} = this.props;
         const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state;
-        let textValue = moment(value).format(dateFormat);
+        let textValue = value && moment(value).format(dateFormat);
         return (
             <div className={`date-time-picker ${className}`}
                  ref="datePicker"
@@ -234,7 +234,7 @@ export default class MaterialDateTimePicker extends Component {
                     value={textValue}
                     iconCls="fa fa-calendar"
                     readOnly={!popupVisible}
-                    clearButtonVisible={popupVisible}
+                    clearButtonVisible={false}
                     popupVisible={popupVisible}
                     label={label}
                     isLabelAnimate={false}

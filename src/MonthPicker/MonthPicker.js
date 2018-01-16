@@ -64,7 +64,7 @@ export default class MonthPicker extends Component {
             }
         } else {
             this.setState({
-                value: moment(text, dateFormat)
+                value: ''
             });
         }
     }
@@ -80,7 +80,7 @@ export default class MonthPicker extends Component {
             this.setState(state);
         } else {
             !this.props.disabled && this.setState(state, () => {
-                this.props.onChange && this.props.onChange(moment(state.value).format(dateFormat));
+                this.props.onChange && this.props.onChange(state.value && moment(state.value).format(dateFormat));
             });
         }
     }
@@ -93,7 +93,7 @@ export default class MonthPicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue) {
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -106,7 +106,7 @@ export default class MonthPicker extends Component {
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
-            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
+            this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
     }
 
@@ -126,14 +126,14 @@ export default class MonthPicker extends Component {
         const {value, dateFormat} = this.props;
         let state = _.cloneDeep(this.state);
         if (value) {
-            if(moment(value, dateFormat).isValid()) {
+            if (moment(value, dateFormat).isValid()) {
                 const year = moment(value).format('YYYY'),
                     month = moment(value).format('MM');
                 state.value = moment(value, dateFormat);
                 state.year = year;
                 state.month = month;
                 this.setState(state);
-            }else{
+            } else {
                 console.error('Invalid date');
                 this.validValue = false;
             }
@@ -144,7 +144,7 @@ export default class MonthPicker extends Component {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue} = this.props,
             {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state;
-        let textValue = moment(value).format(dateFormat);
+        let textValue = value && moment(value).format(dateFormat);
 
         return (
             <div className={`month-picker ${className}`}
@@ -169,7 +169,7 @@ export default class MonthPicker extends Component {
                        }}>
                     <TextField className='calendar-input'
                                placeholder={placeholder}
-                               clearButtonVisible={true}
+                               clearButtonVisible={false}
                                value={textValue}
                                onChange={this.textFieldChangeHandle}/>
                     {

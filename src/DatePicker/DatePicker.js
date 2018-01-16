@@ -73,7 +73,7 @@ export default class DatePicker extends Component {
             }
         } else {
             this.setState({
-                value: moment(text, dateFormat)
+                value: ''
             });
         }
     }
@@ -138,7 +138,7 @@ export default class DatePicker extends Component {
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
-            this.props.onChange && this.props.onChange(moment(value).format(this.props.dateFormat));
+            this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
     }
 
@@ -180,7 +180,7 @@ export default class DatePicker extends Component {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state;
-        let textValue = moment(value).format(dateFormat);
+        let textValue = value && moment(value).format(dateFormat);
 
         return (
             <div className={`date-picker ${className}`}
@@ -205,7 +205,7 @@ export default class DatePicker extends Component {
                        }}>
                     <TextField className='calendar-input'
                                placeholder={placeholder}
-                               clearButtonVisible={true}
+                               clearButtonVisible={false}
                                value={textValue}
                                onChange={this.textFieldChangeHandle}/>
                     {

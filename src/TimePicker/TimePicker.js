@@ -160,6 +160,7 @@ export default class TimePicker extends Component {
                         <TextField className="popup-text-field"
                                    placeholder={placeholder}
                                    value={textFieldValue ? popupTextField : textFieldValue}
+                                   clearButtonVisible={false}
                                    onChange={this.textFieldChangeHandle}/>
                         <TimeList hour={hour}
                                   minute={minute}

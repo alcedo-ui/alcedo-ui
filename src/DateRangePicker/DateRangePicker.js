@@ -109,10 +109,6 @@ export default class DateRangePicker extends Component {
                     this.setState(state);
                 }
             }
-        } else {
-            let state = _.cloneDeep(this.state);
-            state[select].text = text;
-            this.setState(state);
         }
     }
 
@@ -347,6 +343,7 @@ export default class DateRangePicker extends Component {
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
                                        value={left.text}
+                                       clearButtonVisible={false}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('left', text);
                                        }}
@@ -354,6 +351,7 @@ export default class DateRangePicker extends Component {
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
                                        value={right.text}
+                                       clearButtonVisible={false}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('right', text);
                                        }}
