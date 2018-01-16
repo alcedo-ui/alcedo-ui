@@ -101,7 +101,7 @@ export default class MaterialDropdownFilter extends Component {
     }
 
     closePopup() {
-        this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+        this.refs.dropdownFilter && this.refs.dropdownFilter.closePopup();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -129,13 +129,15 @@ export default class MaterialDropdownFilter extends Component {
             wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
                 + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
+        popupClassName;
+
         return (
-            <div className={'material-local-auto-complete' + wrapperClassName}
+            <div className={'material-dropdown-filter' + wrapperClassName}
                  style={style}>
 
                 {
                     label ?
-                        <div className="material-local-auto-complete-label">
+                        <div className="material-dropdown-filter-label">
                             {label}
                         </div>
                         :
@@ -143,8 +145,8 @@ export default class MaterialDropdownFilter extends Component {
                 }
 
                 <DropdownFilter {...restProps}
-                                ref="localAutoComplete"
-                                popupClassName={'material-local-auto-complete-popup ' + popupClassName}
+                                ref="dropdownFilter"
+                                popupClassName={'material-dropdown-filter-popup' + (popupClassName ? ' ' + popupClassName : '')}
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
