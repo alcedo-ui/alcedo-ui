@@ -41,6 +41,11 @@
                 padding-right: 5px !important;
                 text-align: center;
 
+                .table-header-inner {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
                 .table-select {
                     width: 30px;
                     height: 30px;
@@ -50,6 +55,7 @@
                         width: 30px;
                     }
                 }
+
             }
 
             &.selectable {
