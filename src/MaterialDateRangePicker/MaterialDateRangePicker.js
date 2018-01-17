@@ -297,7 +297,7 @@ export default class MaterialDateRangePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label} = this.props;
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate} = this.props;
         const {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
@@ -325,6 +325,7 @@ export default class MaterialDateRangePicker extends Component {
                                              name={name}
                                              placeholder={placeholder}
                                              label={label}
+                                             isLabelAnimate={isLabelAnimate}
                                              value={textFieldValue}
                                              readOnly={true}
                                              clearButtonVisible={false}
@@ -524,6 +525,11 @@ MaterialDateRangePicker.propTypes = {
      * The label of the DateRangePicker.
      */
     label: PropTypes.any,
+
+    /**
+     * The animate of the DateRangePicker.
+     */
+    isLabelAnimate: PropTypes.bool,
 
     /**
      * Date format.

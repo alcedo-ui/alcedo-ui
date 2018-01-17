@@ -145,7 +145,7 @@ export default class MaterialMonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, label} = this.props,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate} = this.props,
             {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state;
         let textValue = value && moment(value).format(dateFormat);
 
@@ -161,7 +161,7 @@ export default class MaterialMonthPicker extends Component {
                     clearButtonVisible={false}
                     popupVisible={popupVisible}
                     label={label}
-                    isLabelAnimate={false}
+                    isLabelAnimate={isLabelAnimate}
                     onChange={this.textFieldChangeHandle}
                     onTouchTap={e => {
                         this.togglePopup(e);
@@ -221,9 +221,14 @@ MaterialMonthPicker.propTypes = {
     value: PropTypes.any,
 
     /**
-     * The label of the date picker.
+     * The label of the MaterialMonthPicker.
      */
     label: PropTypes.any,
+
+    /**
+     * The animate of the MaterialMonthPicker.
+     */
+    isLabelAnimate: PropTypes.bool,
 
     /**
      * The ending of a range of valid dates. The range includes the endDate.
@@ -236,7 +241,7 @@ MaterialMonthPicker.propTypes = {
     minValue: PropTypes.any,
 
     /**
-     * DatePicker textField element placeholder.
+     * MaterialMonthPicker textField element placeholder.
      */
     placeholder: PropTypes.string,
 

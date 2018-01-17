@@ -85,7 +85,7 @@ export default class MaterialDatePickerTextField extends Component {
         if (nextProps.value !== this.state.value || nextProps.popupVisible !== this.props.popupVisible) {
             this.setState({
                 value: nextProps.value,
-                isFocus:nextProps.popupVisible
+                isFocus: nextProps.popupVisible
             });
         }
     }
@@ -104,7 +104,7 @@ export default class MaterialDatePickerTextField extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (label ? ' has-label' : '')
+            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
                 + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
 
         return (

@@ -220,7 +220,7 @@ export default class MaterialDateTimePicker extends Component {
 
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isFooter} = this.props;
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter} = this.props;
         const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state;
         let textValue = value && moment(value).format(dateFormat);
         return (
@@ -236,7 +236,7 @@ export default class MaterialDateTimePicker extends Component {
                     clearButtonVisible={false}
                     popupVisible={popupVisible}
                     label={label}
-                    isLabelAnimate={false}
+                    isLabelAnimate={isLabelAnimate}
                     onChange={this.textFieldChangeHandle}
                     onTouchTap={e => {
                         this.togglePopup(e);
@@ -377,6 +377,11 @@ MaterialDateTimePicker.propTypes = {
      * The label of the MaterialDateTimePicker.
      */
     label: PropTypes.any,
+
+    /**
+     * The animate of the MaterialDateTimePicker.
+     */
+    isLabelAnimate: PropTypes.bool,
 
     /**
      * This is the initial date value of the component.
