@@ -1,5 +1,5 @@
 /**
- * @file MaterialLocalAutoComplete component
+ * @file MaterialEditableSelect component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 

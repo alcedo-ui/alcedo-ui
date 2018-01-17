@@ -1,20 +1,16 @@
 /**
- * @file Dropdown component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ * @file MaterialDropdown component
+ * @author wendy(wendy.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
-import RaisedButton from '../RaisedButton';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
-import Popup from '../Popup';
 import Theme from '../Theme';
 import Dropdown from '../Dropdown';
 
 import Util from '../_vendors/Util';
-import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 export default class MaterialDropdown extends Component {
 
@@ -75,16 +71,26 @@ export default class MaterialDropdown extends Component {
     render() {
 
         const {
-                className, style, theme,
+                className, style, theme, label, isLabelAnimate,
                 ...restProps
             } = this.props,
             {isFocus, isHover} = this.state,
 
-            wrapperClassName = (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
+                + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
 
         return (
             <div className={'material-dropdown' + wrapperClassName}
                  style={style}>
+
+                {
+                    label ?
+                        <div className="material-dropdown-label">
+                            {label}
+                        </div>
+                        :
+                        null
+                }
 
                 <Dropdown {...restProps}
                           className="material-dropdown-content"
@@ -145,6 +151,16 @@ MaterialDropdown.propTypes = {
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
+     * The label of the dropdown.
+     */
+    label: PropTypes.any,
+
+    /**
+     * The animate of the dropdown.
+     */
+    isLabelAnimate: PropTypes.bool,
+
+    /**
      * The value of the dropDown trigger.
      */
     triggerValue: PropTypes.any,
@@ -194,6 +210,8 @@ MaterialDropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
+    label: '',
+    isLabelAnimate: true,
     triggerValue: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fa fa-angle-down',

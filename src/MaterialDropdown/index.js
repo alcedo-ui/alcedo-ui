@@ -1,6 +1,6 @@
 /**
- * @file Dropdown
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ * @file MaterialDropdown
+ * @author wendy(wendy.wei@derbysoft.com)
  */
 
 export default from './MaterialDropdown';

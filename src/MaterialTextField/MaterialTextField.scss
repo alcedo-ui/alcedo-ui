@@ -11,7 +11,7 @@
     .material-text-field-label {
         display: inline-block;
         line-height: 16px;
-        color: $theme-field-disabled;
+        color: $theme-label;
         transform-origin: top left;
         transition: transform $theme-transition-duration ease-in-out,
         color $theme-transition-duration ease-in-out;
