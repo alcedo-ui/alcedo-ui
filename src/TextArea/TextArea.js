@@ -296,7 +296,7 @@ export default class TextArea extends Component {
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
+                autoFocus, pattern, patternInvalidMsg, preventInvalidInput, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
