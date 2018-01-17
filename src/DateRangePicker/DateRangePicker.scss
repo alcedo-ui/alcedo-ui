@@ -24,28 +24,7 @@ input::-ms-clear {
             @include shadow(1);
         }
         input {
-            line-height: 20px;
-            padding: 10px 40px !important;
             cursor: pointer;
-        }
-
-        i {
-            width: 40px !important;
-            height: 40px;
-            text-align: center;
-            line-height: 40px;
-            margin: 0;
-            &.text-field-icon {
-                margin-left: 3px;
-            }
-        }
-        .clear-icon {
-            display: none;
-        }
-        &.empty {
-            input {
-                padding: 10px 20px 10px 43px !important;
-            }
         }
     }
 }
@@ -74,7 +53,6 @@ input::-ms-clear {
                     border: none;
                     outline: none;
                     input {
-                        padding-left: 10px;
                         font-size: 12px;
                         text-align: center;
                     }

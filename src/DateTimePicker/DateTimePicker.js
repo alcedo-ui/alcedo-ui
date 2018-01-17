@@ -233,7 +233,6 @@ export default class DateTimePicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           iconCls="fa fa-calendar"
                            readOnly={true}
                            disabled={disabled}
                            clearButtonVisible={false}

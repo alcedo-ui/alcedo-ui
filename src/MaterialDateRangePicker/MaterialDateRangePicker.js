@@ -326,7 +326,6 @@ export default class MaterialDateRangePicker extends Component {
                                              placeholder={placeholder}
                                              label={label}
                                              value={textFieldValue}
-                                             iconCls="fa fa-calendar"
                                              readOnly={true}
                                              clearButtonVisible={false}
                                              popupVisible={popupVisible}

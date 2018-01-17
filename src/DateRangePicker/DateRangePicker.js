@@ -325,7 +325,6 @@ export default class DateRangePicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textFieldValue}
-                           iconCls="fa fa-calendar"
                            readOnly={true}
                            clearButtonVisible={false}
                            onTouchTap={e => {

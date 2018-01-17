@@ -190,7 +190,6 @@ export default class DatePicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           iconCls="fa fa-calendar"
                            readOnly={true}
                            clearButtonVisible={false}
                            onTouchTap={e => {

@@ -157,7 +157,6 @@ export default class MaterialMonthPicker extends Component {
                     name={name}
                     placeholder={placeholder}
                     value={textValue}
-                    iconCls="fa fa-calendar"
                     readOnly={!popupVisible}
                     clearButtonVisible={false}
                     popupVisible={popupVisible}
