@@ -47,7 +47,9 @@ export default class MaterialTimePickerExamples extends Component {
 
                                 <p><code>Material Time Picker</code> simple example.</p>
 
-                                <MaterialTimePicker onChange={this.onChangeHandle}/>
+                                <MaterialTimePicker label={'time'}
+                                                    isLabelAnimate={true}
+                                                    onChange={this.onChangeHandle}/>
 
                             </div>
 
@@ -68,7 +70,9 @@ export default class MaterialTimePickerExamples extends Component {
                                     initial time.
                                 </p>
 
-                                <MaterialTimePicker value="12:00:00"
+                                <MaterialTimePicker label={'time'}
+                                                    isLabelAnimate={false}
+                                                    value="12:00:00"
                                                     onChange={this.onChangeHandle}/>
 
                             </div>
@@ -90,7 +94,8 @@ export default class MaterialTimePickerExamples extends Component {
                                     <code>minValue</code>
                                     property to set time selectable range.</p>
 
-                                <MaterialTimePicker value="10:00:00"
+                                <MaterialTimePicker label={'time'}
+                                                    value="10:00:00"
                                                     maxValue="20:56:20"
                                                     minValue="01:20:20"
                                                     onChange={this.onChangeHandle}/>
@@ -114,7 +119,8 @@ export default class MaterialTimePickerExamples extends Component {
                                     default value and using the <code>dateFormat</code> property constructor set time
                                     format.</p>
 
-                                <MaterialTimePicker value="12:00"
+                                <MaterialTimePicker label={'time'}
+                                                    value="12:00"
                                                     dateFormat="HH:mm"
                                                     maxValue="23:56"
                                                     minValue="01:20"

@@ -144,7 +144,7 @@ export default class TimePicker extends Component {
                                name={name}
                                placeholder={placeholder}
                                value={textFieldValue}
-                               iconCls="fa fa-clock-o"
+                               clearButtonVisible={false}
                                readOnly={true}
                                onTouchTap={e => {
                                    this.togglePopup(e);

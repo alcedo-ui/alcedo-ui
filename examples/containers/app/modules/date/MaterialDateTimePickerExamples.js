@@ -49,7 +49,31 @@ export default class MaterialDateTimePickerExamples extends Component {
                                 <MaterialDateTimePicker name="date"
                                                         label={'date'}
                                                         isLabelAnimate={true}
-                                                        autoClose={false}
+                                                        onChange={this.onChangeHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    <code>Material Date Time Picker</code> using the <code>value</code> property to set
+                                    initial date.
+                                </p>
+
+                                <MaterialDateTimePicker name="date"
+                                                        label={'date'}
+                                                        isLabelAnimate={false}
                                                         onChange={this.onChangeHandle}/>
 
                             </div>

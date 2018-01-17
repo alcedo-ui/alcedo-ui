@@ -48,6 +48,7 @@ export default class MaterialMonthPickerExamples extends Component {
 
                                 <MaterialMonthPicker name="date"
                                                      label={'date'}
+                                                     isLabelAnimate={true}
                                                      autoClose={false}
                                                      onChange={this.onChangeHandle}/>
 
@@ -73,6 +74,7 @@ export default class MaterialMonthPickerExamples extends Component {
 
                                 <MaterialMonthPicker name="date"
                                                      label={'date'}
+                                                     isLabelAnimate={false}
                                                      autoClose={true}
                                                      onChange={this.onChangeHandle}/>
 

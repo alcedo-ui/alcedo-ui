@@ -96,6 +96,7 @@ export default class MaterialDateRangePickerExamples extends Component {
                                     property to set date selectable range.</p>
 
                                 <MaterialDateRangePicker label={`date range`}
+                                                         isLabelAnimate={true}
                                                          dateFormat={'YYYY-MM-DD'}
                                                          maxValue={'2018-12-21'}
                                                          minValue={'2017-02-01'}
@@ -120,6 +121,7 @@ export default class MaterialDateRangePickerExamples extends Component {
                                     default value.</p>
 
                                 <MaterialDateRangePicker label={`date range`}
+                                                         isLabelAnimate={false}
                                                          dateFormat={'YYYY-MM-DD'}
                                                          popupVisible={true}
                                                          maxValue={'2018-12-21'}

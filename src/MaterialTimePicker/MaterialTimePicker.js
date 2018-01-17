@@ -130,7 +130,7 @@ export default class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat} = this.props,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state;
 
         return (
@@ -139,9 +139,10 @@ export default class MaterialTimePicker extends Component {
                 <MaterialDatePickerTextField ref="trigger"
                                              className="time-picker-field"
                                              name={name}
+                                             label={label}
+                                             isLabelAnimate={isLabelAnimate}
                                              placeholder={placeholder}
                                              value={textFieldValue}
-                                             iconCls="fa fa-clock-o"
                                              readOnly={!popupVisible}
                                              clearButtonVisible={false}
                                              popupVisible={popupVisible}
@@ -193,6 +194,11 @@ MaterialTimePicker.propTypes = {
      * The label of the MaterialTimePicker.
      */
     label: PropTypes.any,
+
+    /**
+     * The animate of the MaterialTimePicker.
+     */
+    isLabelAnimate: PropTypes.bool,
 
     /**
      * This is the initial date value of the component.
