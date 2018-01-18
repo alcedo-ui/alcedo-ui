@@ -228,9 +228,14 @@ export default class TextField extends Component {
         this.setState({
             isFocused: true
         }, () => {
-            const {onFocus} = this.props,
+
+            const {isFocusedSelectAll, onFocus} = this.props,
                 {value} = this.state;
+
             onFocus && onFocus(e, value);
+
+            isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
+
         });
     }
 
@@ -283,7 +288,7 @@ export default class TextField extends Component {
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, preventInvalidInput,
+                autoFocus, pattern, patternInvalidMsg, preventInvalidInput, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -450,6 +455,8 @@ TextField.propTypes = {
      */
     infoMsg: PropTypes.string,
 
+    isFocusedSelectAll: PropTypes.bool,
+
     /**
      * If true,clearButton will display when the textField is not empty.
      */
@@ -568,6 +575,7 @@ TextField.defaultProps = {
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
+    isFocusedSelectAll: true,
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
