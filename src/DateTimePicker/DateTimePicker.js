@@ -236,6 +236,7 @@ export default class DateTimePicker extends Component {
                            readOnly={true}
                            disabled={disabled}
                            clearButtonVisible={false}
+                           isFocusedSelectAll={false}
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}

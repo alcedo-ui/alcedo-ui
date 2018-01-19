@@ -192,6 +192,7 @@ export default class MaterialDatePicker extends Component {
                     value={textValue}
                     readOnly={!popupVisible}
                     clearButtonVisible={false}
+                    isFocusedSelectAll={false}
                     popupVisible={popupVisible}
                     label={label}
                     isLabelAnimate={isLabelAnimate}

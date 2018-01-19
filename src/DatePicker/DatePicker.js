@@ -192,6 +192,7 @@ export default class DatePicker extends Component {
                            value={textValue}
                            readOnly={true}
                            clearButtonVisible={false}
+                           isFocusedSelectAll={false}
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}/>

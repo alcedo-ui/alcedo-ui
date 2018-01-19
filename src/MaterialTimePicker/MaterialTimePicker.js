@@ -145,6 +145,7 @@ export default class MaterialTimePicker extends Component {
                                              value={textFieldValue}
                                              readOnly={!popupVisible}
                                              clearButtonVisible={false}
+                                             isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
                                              onChange={this.textFieldChangeHandle}
                                              onTouchTap={e => {

@@ -145,6 +145,7 @@ export default class TimePicker extends Component {
                                placeholder={placeholder}
                                value={textFieldValue}
                                clearButtonVisible={false}
+                               isFocusedSelectAll={false}
                                readOnly={true}
                                onTouchTap={e => {
                                    this.togglePopup(e);

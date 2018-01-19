@@ -329,6 +329,7 @@ export default class MaterialDateRangePicker extends Component {
                                              value={textFieldValue}
                                              readOnly={true}
                                              clearButtonVisible={false}
+                                             isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
                                              onTouchTap={e => {
                                                  this.togglePopup(e);
