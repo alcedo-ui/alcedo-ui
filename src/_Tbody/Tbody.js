@@ -51,18 +51,21 @@ export default class Tbody extends Component {
             <tbody className="tbody">
 
                 {
-                    data.map((row, rowIndex) => {
-                        return (
-                            <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
-                                      rowIndex={startIndex + rowIndex}
-                                      columns={columns}
-                                      data={row}
-                                      isChecked={this.isItemChecked(row)}
-                                      disabled={disabled || row.disabled}
-                                      onRowTouchTap={onRowTouchTap}
-                                      onCellTouchTap={onCellTouchTap}/>
-                        );
-                    })
+                    data.map((row, rowIndex) => (
+                        row ?
+                            (
+                                <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
+                                          rowIndex={startIndex + rowIndex}
+                                          columns={columns}
+                                          data={row}
+                                          isChecked={this.isItemChecked(row)}
+                                          disabled={disabled || row.disabled}
+                                          onRowTouchTap={onRowTouchTap}
+                                          onCellTouchTap={onCellTouchTap}/>
+                            )
+                            :
+                            null
+                    ))
                 }
 
             </tbody>
