@@ -41,6 +41,13 @@ export default class DownloadField extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.key !== this.state.key) {
+            return true;
+        }
+        return false;
+    }
+
     render() {
 
         const {url} = this.props,
@@ -50,9 +57,9 @@ export default class DownloadField extends Component {
             <iframe key={key}
                     ref="iframe"
                     className="download-field"
-                    src={key > 0 ? url : null}
                     onLoad={this.loadedHandler}
-                    onError={this.loadedHandler}></iframe>
+                    onError={this.loadedHandler}
+                    src={key > 0 ? url : null}></iframe>
             :
             null;
 
