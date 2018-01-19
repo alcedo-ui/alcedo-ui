@@ -58,10 +58,13 @@ export default class LocalAutoComplete extends Component {
 
         return data.filter(item => {
 
+            if (!item) {
+                return false;
+            }
+
             if (renderer) {
                 return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
             }
-
 
             if (typeof item === 'object') {
 
