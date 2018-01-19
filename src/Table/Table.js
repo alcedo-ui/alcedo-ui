@@ -82,7 +82,7 @@ export default class Table extends Component {
             return false;
         }
 
-        return value.length === data.filter(item => !item.disabled).length;
+        return value.length === data.filter(item => item && !item.disabled).length;
 
     }
 
@@ -90,7 +90,7 @@ export default class Table extends Component {
 
         const {data} = this.props,
             {value} = this.state,
-            dataLen = data.filter(item => !item.disabled).length,
+            dataLen = data.filter(item => item && !item.disabled).length,
             valueLen = value.length;
 
         if (dataLen > 0 && valueLen > 0 && valueLen < dataLen) {
