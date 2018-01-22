@@ -22,7 +22,7 @@ export default class TimeItems extends Component {
 
     clickHandle(value) {
         if (this.refs.timeItems) {
-            this.refs.timeItems.scrollTop = (+value) * 30;
+            this.scrollTo(this.refs.timeItems, (+value) * 30, 200);
         }
         this.props.onChange && this.props.onChange(value);
     }
@@ -32,6 +32,21 @@ export default class TimeItems extends Component {
         this.refs.timeItems.style.overflowY = 'auto';
     }
 
+    scrollTo(element, to, duration) {
+        // jump to target if duration zero
+        if (duration <= 0) {
+            element.scrollTop = to;
+            return;
+        }
+        let difference = to - element.scrollTop;
+        let perTick = difference / duration * 10;
+        setTimeout(() => {
+            element.scrollTop = element.scrollTop + perTick;
+            if (element.scrollTop === to) return;
+            this.scrollTo(element, to, duration - 10);
+        }, 10);
+    };
+
     mouseoutHandle() {
         this.refs.timeItems.style.overflowY = 'hidden';
     }
@@ -40,7 +55,7 @@ export default class TimeItems extends Component {
         const {value} = this.props;
         if (this.refs.timeItems) {
             const el = this.refs.timeItems;
-            el.scrollTop = (+value) * 30;
+            this.scrollTo(this.refs.timeItems, (+value) * 30, 0)
         }
         Event.addEvent(this.refs.timeItems, 'mousemove', this.mousemoveHandle);
         Event.addEvent(this.refs.timeItems, 'mouseout', this.mouseoutHandle);
