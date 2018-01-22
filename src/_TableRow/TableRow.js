@@ -51,23 +51,13 @@ export default class TableRow extends Component {
     }
 
     rowTouchTapHandler(e) {
-
-        e.preventDefault();
-
         const {data, rowIndex, disabled, onRowTouchTap} = this.props;
-
-        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex);
-
+        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex, e);
     }
 
     cellTouchTapHandler(e, colIndex) {
-
-        e.preventDefault();
-
         const {data, rowIndex, disabled, onCellTouchTap} = this.props;
-
-        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
-
+        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
     }
 
     render() {
