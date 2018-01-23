@@ -575,7 +575,7 @@ TextField.defaultProps = {
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
-    isFocusedSelectAll: true,
+    isFocusedSelectAll: false,
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
