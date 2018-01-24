@@ -48,12 +48,16 @@ export default class MaterialLocalAutoComplete extends Component {
     }
 
     triggerBlurHandler(...args) {
-        this.state.filter === '' && this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
+
+        if (this.state.filter === '') {
+            this.setState({
+                isFocus: false
+            });
+        }
+
+        const {onBlur} = this.props;
+        onBlur && onBlur(...args);
+
     }
 
     popupClosedHandler() {
