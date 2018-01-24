@@ -51,13 +51,14 @@ input::-ms-clear {
 
         &.clear-icon {
             right: 0;
-        }
-
-        &.text-field-right-icon {
-            right: 0;
+            opacity: 0;
         }
 
         &.password-visible-icon {
+            right: 0;
+        }
+
+        &.text-field-right-icon {
             right: 0;
         }
 
@@ -105,13 +106,13 @@ input::-ms-clear {
             }
         }
 
-        .password-visible-icon {
-            right: 26px;
-        }
-
         &.password {
             .text-field-input {
                 padding-right: 66px;
+            }
+
+            .clear-icon { // password-visible-icon
+                right: 26px;
             }
         }
     }
@@ -128,7 +129,7 @@ input::-ms-clear {
                 padding-right: 66px;
             }
 
-            .password-visible-icon {
+            .password-visible-icon { // clear-icon
                 right: 26px;
             }
         }
@@ -138,17 +139,21 @@ input::-ms-clear {
                 padding-right: 66px;
             }
 
-            .clear-icon {
+            .password-visible-icon { // clear-icon
                 right: 26px;
             }
 
-            .password-visible-icon {
-                right: 52px;
+            .clear-icon { // password-visible-icon
+                right: 26px;
             }
 
             &.password {
                 .text-field-input {
                     padding-right: 92px;
+                }
+
+                .clear-icon { // password-visible-icon
+                    right: 52px;
                 }
             }
         }
@@ -168,6 +173,12 @@ input::-ms-clear {
         .text-field-input {
             cursor: not-allowed;
             user-select: none;
+        }
+    }
+
+    &.focused {
+        .clear-icon {
+            opacity: 1;
         }
     }
 

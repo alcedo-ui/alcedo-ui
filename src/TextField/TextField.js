@@ -341,20 +341,20 @@ export default class TextField extends Component {
                        disabled={disabled}/>
 
                 {
-                    isPassword && passwordButtonVisible ?
-                        <IconButton className="password-visible-icon"
-                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
-                        :
-                        null
-                }
-
-                {
                     clearButtonVisible ?
                         <IconButton ref="clearButton"
                                     className={`clear-icon ${!disabled && value && value.length > 0 ? '' : 'hidden'}`}
                                     iconCls="fa fa-times-circle"
                                     onTouchTap={this.clearValue}/>
+                        :
+                        null
+                }
+
+                {
+                    isPassword && passwordButtonVisible ?
+                        <IconButton className="password-visible-icon"
+                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                                    onTouchTap={this.togglePasswordVisible}/>
                         :
                         null
                 }
