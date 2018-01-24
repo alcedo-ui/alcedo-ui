@@ -155,12 +155,12 @@ export default class TextField extends Component {
 
     keyDownHandler(e) {
 
-        const {onKeyDown} = this.props;
+        const {onKeyDown} = this.props,
+            {value} = this.state;
         onKeyDown && onKeyDown(e, value);
 
         if (e.keyCode === 13) {
-            const {onPressEnter} = this.props,
-                {value} = this.state;
+            const {onPressEnter} = this.props;
             onPressEnter && onPressEnter(e, value);
         }
 
