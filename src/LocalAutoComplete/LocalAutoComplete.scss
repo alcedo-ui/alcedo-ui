@@ -49,6 +49,10 @@
         .list {
             width: 100%;
 
+            .list-item.activated {
+                background: $theme-field-bg-active;
+            }
+
             .no-matched-list-item {
                 line-height: 40px;
                 color: $theme-field;

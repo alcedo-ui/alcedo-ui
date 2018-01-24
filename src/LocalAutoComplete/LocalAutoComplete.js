@@ -27,10 +27,12 @@ export default class LocalAutoComplete extends Component {
         this.triggerEl = null;
 
         this.state = {
+            tempValue: props.value,
             value: props.value,
             filter: props.filterInitValue,
             popupVisible: false,
-            isAbove: false
+            isAbove: false,
+            listData: props.data
         };
 
         this.filterData = ::this.filterData;
@@ -85,12 +87,17 @@ export default class LocalAutoComplete extends Component {
     triggerFocusHandler(...args) {
 
         const {disabled, onFocus} = this.props,
-            {filter} = this.state;
+            {filter, listData} = this.state;
 
         onFocus && onFocus(...args);
 
-        !disabled && filter && this.setState({
-            popupVisible: true
+        if (disabled || !filter) {
+            return;
+        }
+
+        this.setState({
+            popupVisible: true,
+            tempValue: listData.length > 0 ? listData[0] : null
         });
 
     }
@@ -102,14 +109,18 @@ export default class LocalAutoComplete extends Component {
 
     filterChangeHandler(filter) {
 
-        const value = this.state.value,
+        const {data} = this.props,
             state = {
                 filter,
                 popupVisible: !!filter
             };
 
         if (!filter) {
+            state.listData = data;
             state.value = undefined;
+        } else {
+            state.listData = this.filterData(filter);
+            state.tempValue = state.listData.length > 0 ? state.listData[0] : null;
         }
 
         this.setState(state, () => {
@@ -201,7 +212,7 @@ export default class LocalAutoComplete extends Component {
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
-            {isAbove, value, filter, popupVisible} = this.state,
+            {isAbove, tempValue, value, filter, popupVisible, listData} = this.state,
 
             emptyEl = [{
                 itemRenderer() {
@@ -224,7 +235,6 @@ export default class LocalAutoComplete extends Component {
                 disableTouchRipple: true
             }],
 
-            listData = this.filterData(),
             isEmpty = listData.length < 1,
 
             wrapperClassName = (className ? ' ' + className : ''),
@@ -291,8 +301,8 @@ export default class LocalAutoComplete extends Component {
                                         useDynamicRenderList ?
                                             <DynamicRenderList className="local-auto-complete-list"
                                                                theme={popupTheme}
-                                                               value={value}
                                                                data={listData}
+                                                               value={tempValue}
                                                                valueField={valueField}
                                                                displayField={displayField}
                                                                descriptionField={descriptionField}
@@ -305,8 +315,8 @@ export default class LocalAutoComplete extends Component {
                                             :
                                             <List className="local-auto-complete-list"
                                                   theme={popupTheme}
-                                                  value={value}
                                                   data={listData}
+                                                  value={tempValue}
                                                   valueField={valueField}
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
