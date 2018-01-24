@@ -154,11 +154,16 @@ export default class TextField extends Component {
     }
 
     keyDownHandler(e) {
+
+        const {onKeyDown} = this.props;
+        onKeyDown && onKeyDown(e, value);
+
         if (e.keyCode === 13) {
             const {onPressEnter} = this.props,
                 {value} = this.state;
             onPressEnter && onPressEnter(e, value);
         }
+
     }
 
     clearValue() {
@@ -512,7 +517,12 @@ TextField.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Callback function fired when the press enter.
+     * Callback function fired when key down.
+     */
+    onKeyDown: PropTypes.func,
+
+    /**
+     * Callback function fired when press enter.
      */
     onPressEnter: PropTypes.func,
 
