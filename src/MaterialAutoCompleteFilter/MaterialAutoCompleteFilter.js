@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import LocalAutoComplete from '../LocalAutoComplete';
+import AutoCompleteFilter from '../AutoCompleteFilter';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
@@ -144,18 +144,18 @@ export default class MaterialAutoCompleteFilter extends Component {
                         null
                 }
 
-                <LocalAutoComplete {...restProps}
-                                   ref="localAutoComplete"
-                                   popupClassName={'material-auto-complete-filter-popup ' + popupClassName}
-                                   theme={theme}
-                                   value={value}
-                                   onFocus={this.triggerFocusHandler}
-                                   onBlur={this.triggerBlurHandler}
-                                   onPopupClosed={this.popupClosedHandler}
-                                   onTriggerMouseOver={this.triggerMouseOverHandler}
-                                   onTriggerMouseOut={this.triggerMouseOutHandler}
-                                   onFilterChange={this.triggerFilterChangeHandler}
-                                   onChange={this.triggerChangeHandler}/>
+                <AutoCompleteFilter {...restProps}
+                                    ref="localAutoComplete"
+                                    popupClassName={'material-auto-complete-filter-popup ' + popupClassName}
+                                    theme={theme}
+                                    value={value}
+                                    onFocus={this.triggerFocusHandler}
+                                    onBlur={this.triggerBlurHandler}
+                                    onPopupClosed={this.popupClosedHandler}
+                                    onTriggerMouseOver={this.triggerMouseOverHandler}
+                                    onTriggerMouseOut={this.triggerMouseOutHandler}
+                                    onFilterChange={this.triggerFilterChangeHandler}
+                                    onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
@@ -373,12 +373,12 @@ MaterialAutoCompleteFilter.propTypes = {
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when LocalAutoComplete get focus.
+     * Callback function fired when AutoCompleteFilter get focus.
      */
     onFocus: PropTypes.func,
 
     /**
-     * Callback function fired when LocalAutoComplete lose focus.
+     * Callback function fired when AutoCompleteFilter lose focus.
      */
     onBlur: PropTypes.func,
 
