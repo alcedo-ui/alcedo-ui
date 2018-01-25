@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import RaisedButton from 'src/RaisedButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/RaisedButton.json';
@@ -47,25 +46,25 @@ export default class RaisedButtonExamples extends Component {
                                 <RaisedButton value="Default"/>
 
                                 <RaisedButton value="Primary"
-                                              theme={Theme.PRIMARY}/>
+                                              theme={RaisedButton.Theme.PRIMARY}/>
 
                                 <RaisedButton value="Secondary"
-                                              theme={Theme.SECONDARY}/>
+                                              theme={RaisedButton.Theme.SECONDARY}/>
 
                                 <RaisedButton value="Highlight"
-                                              theme={Theme.HIGHLIGHT}/>
+                                              theme={RaisedButton.Theme.HIGHLIGHT}/>
 
                                 <RaisedButton value="Info"
-                                              theme={Theme.INFO}/>
+                                              theme={RaisedButton.Theme.INFO}/>
 
                                 <RaisedButton value="Success"
-                                              theme={Theme.SUCCESS}/>
+                                              theme={RaisedButton.Theme.SUCCESS}/>
 
                                 <RaisedButton value="Warning"
-                                              theme={Theme.WARNING}/>
+                                              theme={RaisedButton.Theme.WARNING}/>
 
                                 <RaisedButton value="Error"
-                                              theme={Theme.ERROR}/>
+                                              theme={RaisedButton.Theme.ERROR}/>
 
                                 <RaisedButton value="Disabled"
                                               disabled={true}/>
@@ -94,31 +93,31 @@ export default class RaisedButtonExamples extends Component {
                                               isRounded={true}/>
 
                                 <RaisedButton value="Primary"
-                                              theme={Theme.PRIMARY}
+                                              theme={RaisedButton.Theme.PRIMARY}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Secondary"
-                                              theme={Theme.SECONDARY}
+                                              theme={RaisedButton.Theme.SECONDARY}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Highlight"
-                                              theme={Theme.HIGHLIGHT}
+                                              theme={RaisedButton.Theme.HIGHLIGHT}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Info"
-                                              theme={Theme.INFO}
+                                              theme={RaisedButton.Theme.INFO}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Success"
-                                              theme={Theme.SUCCESS}
+                                              theme={RaisedButton.Theme.SUCCESS}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Warning"
-                                              theme={Theme.WARNING}
+                                              theme={RaisedButton.Theme.WARNING}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Error"
-                                              theme={Theme.ERROR}
+                                              theme={RaisedButton.Theme.ERROR}
                                               isRounded={true}/>
 
                                 <RaisedButton value="Disabled"
@@ -148,15 +147,15 @@ export default class RaisedButtonExamples extends Component {
                                               iconCls="fa fa-undo"/>
 
                                 <RaisedButton value="Add"
-                                              theme={Theme.SUCCESS}
+                                              theme={RaisedButton.Theme.SUCCESS}
                                               iconCls="fa fa-plus"/>
 
                                 <RaisedButton value="Delete"
-                                              theme={Theme.ERROR}
+                                              theme={RaisedButton.Theme.ERROR}
                                               iconCls="fa fa-trash"/>
 
                                 <RaisedButton value="Next"
-                                              theme={Theme.PRIMARY}
+                                              theme={RaisedButton.Theme.PRIMARY}
                                               rightIconCls="fa fa-chevron-right"/>
 
                             </div>
@@ -181,15 +180,15 @@ export default class RaisedButtonExamples extends Component {
                                               isCircular={true}/>
 
                                 <RaisedButton value="Add"
-                                              theme={Theme.SUCCESS}
+                                              theme={RaisedButton.Theme.SUCCESS}
                                               isCircular={true}/>
 
                                 <RaisedButton value="Delete"
-                                              theme={Theme.ERROR}
+                                              theme={RaisedButton.Theme.ERROR}
                                               isCircular={true}/>
 
                                 <RaisedButton value="Next"
-                                              theme={Theme.PRIMARY}
+                                              theme={RaisedButton.Theme.PRIMARY}
                                               isCircular={true}/>
 
                             </div>
