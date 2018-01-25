@@ -2,26 +2,16 @@
 
 .button-checkbox-examples {
 
-    .examples-wrapper {
+    label {
+        margin-right: 10px;
+    }
 
-        label {
+    .base-button {
+        margin: 0 10px 10px 0;
+    }
 
-            margin-right: 10px;
-
-        }
-
-        .base-button {
-
-            margin: 0 10px 10px 0;
-
-        }
-
-        .field-group {
-
-            @include float-fix;
-
-            float: none;
-
-        }
+    .field-group {
+        @include float-fix;
+        float: none;
     }
 }
