@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import MaterialAutoCompleteFilter from 'src/MaterialAutoCompleteFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialAutoCompleteFilter.json';
@@ -72,7 +71,7 @@ export default class MaterialAutoCompleteFilterExamples extends Component {
 
                                 <p><code>MaterialAutoCompleteFilter</code> simple example.</p>
 
-                                <MaterialAutoCompleteFilter theme={Theme.HIGHLIGHT}
+                                <MaterialAutoCompleteFilter theme={MaterialAutoCompleteFilter.Theme.HIGHLIGHT}
                                                             filterInitValue={'test'}
                                                             data={this.data}
                                                             label="Label"
