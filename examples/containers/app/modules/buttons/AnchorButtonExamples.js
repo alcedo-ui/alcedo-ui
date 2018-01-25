@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import AnchorButtonDoc from 'assets/propTypes/AnchorButton.json';
+import doc from 'assets/propTypes/AnchorButton.json';
 
 import 'sass/containers/app/modules/buttons/AnchorButtonExamples.scss';
 
@@ -200,7 +200,7 @@ export default class AnchorButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={AnchorButtonDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
