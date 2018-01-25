@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import FlatButton from 'src/FlatButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/FlatButton.json';
@@ -48,25 +47,25 @@ export default class FlatButtonExamples extends Component {
                                 <FlatButton value="Default"/>
 
                                 <FlatButton value="Primary"
-                                            theme={Theme.PRIMARY}/>
+                                            theme={FlatButton.Theme.PRIMARY}/>
 
                                 <FlatButton value="Secondary"
-                                            theme={Theme.SECONDARY}/>
+                                            theme={FlatButton.Theme.SECONDARY}/>
 
                                 <FlatButton value="Highlight"
-                                            theme={Theme.HIGHLIGHT}/>
+                                            theme={FlatButton.Theme.HIGHLIGHT}/>
 
                                 <FlatButton value="Info"
-                                            theme={Theme.INFO}/>
+                                            theme={FlatButton.Theme.INFO}/>
 
                                 <FlatButton value="Success"
-                                            theme={Theme.SUCCESS}/>
+                                            theme={FlatButton.Theme.SUCCESS}/>
 
                                 <FlatButton value="Warning"
-                                            theme={Theme.WARNING}/>
+                                            theme={FlatButton.Theme.WARNING}/>
 
                                 <FlatButton value="Error"
-                                            theme={Theme.ERROR}/>
+                                            theme={FlatButton.Theme.ERROR}/>
 
                                 <FlatButton value="Disabled"
                                             disabled={true}/>
@@ -93,31 +92,31 @@ export default class FlatButtonExamples extends Component {
                                             isRounded={true}/>
 
                                 <FlatButton value="Primary"
-                                            theme={Theme.PRIMARY}
+                                            theme={FlatButton.Theme.PRIMARY}
                                             isRounded={true}/>
 
                                 <FlatButton value="Secondary"
-                                            theme={Theme.SECONDARY}
+                                            theme={FlatButton.Theme.SECONDARY}
                                             isRounded={true}/>
 
                                 <FlatButton value="Highlight"
-                                            theme={Theme.HIGHLIGHT}
+                                            theme={FlatButton.Theme.HIGHLIGHT}
                                             isRounded={true}/>
 
                                 <FlatButton value="Info"
-                                            theme={Theme.INFO}
+                                            theme={FlatButton.Theme.INFO}
                                             isRounded={true}/>
 
                                 <FlatButton value="Success"
-                                            theme={Theme.SUCCESS}
+                                            theme={FlatButton.Theme.SUCCESS}
                                             isRounded={true}/>
 
                                 <FlatButton value="Warning"
-                                            theme={Theme.WARNING}
+                                            theme={FlatButton.Theme.WARNING}
                                             isRounded={true}/>
 
                                 <FlatButton value="Error"
-                                            theme={Theme.ERROR}
+                                            theme={FlatButton.Theme.ERROR}
                                             isRounded={true}/>
 
                                 <FlatButton value="Disabled"
@@ -147,15 +146,15 @@ export default class FlatButtonExamples extends Component {
                                             iconCls="fa fa-undo"/>
 
                                 <FlatButton value="Add"
-                                            theme={Theme.SUCCESS}
+                                            theme={FlatButton.Theme.SUCCESS}
                                             iconCls="fa fa-plus"/>
 
                                 <FlatButton value="Delete"
-                                            theme={Theme.ERROR}
+                                            theme={FlatButton.Theme.ERROR}
                                             iconCls="fa fa-trash"/>
 
                                 <FlatButton value="Next"
-                                            theme={Theme.PRIMARY}
+                                            theme={FlatButton.Theme.PRIMARY}
                                             rightIconCls="fa fa-chevron-right"/>
 
                             </div>
@@ -180,15 +179,15 @@ export default class FlatButtonExamples extends Component {
                                             isCircular={true}/>
 
                                 <FlatButton value="Success"
-                                            theme={Theme.SUCCESS}
+                                            theme={FlatButton.Theme.SUCCESS}
                                             isCircular={true}/>
 
                                 <FlatButton value="Error"
-                                            theme={Theme.ERROR}
+                                            theme={FlatButton.Theme.ERROR}
                                             isCircular={true}/>
 
                                 <FlatButton value="Warning"
-                                            theme={Theme.WARNING}
+                                            theme={FlatButton.Theme.WARNING}
                                             isCircular={true}/>
 
                             </div>
