@@ -6,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DialogDoc from 'assets/propTypes/DialogBody.json';
+import doc from 'assets/propTypes/DialogBody.json';
 
 import 'sass/containers/app/modules/popup/DialogExamples.scss';
 
@@ -22,12 +22,9 @@ export default class DialogExamples extends Component {
             type: 'primary'
         };
 
-        this.toggleDialog = this::this.toggleDialog;
-        this.closeDialog = this::this.closeDialog;
-        this.okHandle = this::this.okHandle;
-        this.cancelHandle = this::this.cancelHandle;
-        this.closeHandle = this::this.closeHandle;
-        this.updateField = this::this.updateField;
+        this.toggleDialog = ::this.toggleDialog;
+        this.closeDialog = ::this.closeDialog;
+        this.updateField = ::this.updateField;
 
     }
 
@@ -49,16 +46,16 @@ export default class DialogExamples extends Component {
         });
     }
 
-    okHandle(closeDialog) {
+    okHandler(closeDialog) {
         console.log('OK button clicked');
         closeDialog();
     }
 
-    cancelHandle() {
+    cancelHandler() {
         console.log('Cancel button clicked');
     }
 
-    closeHandle() {
+    closeHandler() {
         console.log('Close button clicked');
     }
 
@@ -111,9 +108,9 @@ export default class DialogExamples extends Component {
                                         onRequestClose={() => {
                                             this.closeDialog(1);
                                         }}
-                                        onOKButtonTouchTap={this.okHandle}
-                                        onCancelButtonTouchTap={this.cancelHandle}
-                                        onCloseButtonTouchTap={this.closeHandle}>
+                                        onOKButtonTouchTap={this.okHandler}
+                                        onCancelButtonTouchTap={this.cancelHandler}
+                                        onCloseButtonTouchTap={this.closeHandler}>
                                     <div className="dialog-example-content">
                                         content
                                     </div>
@@ -157,9 +154,9 @@ export default class DialogExamples extends Component {
                                         onRequestClose={() => {
                                             this.closeDialog(2);
                                         }}
-                                        onOKButtonTouchTap={this.okHandle}
-                                        onCancelButtonTouchTap={this.cancelHandle}
-                                        onCloseButtonTouchTap={this.closeHandle}>
+                                        onOKButtonTouchTap={this.okHandler}
+                                        onCancelButtonTouchTap={this.cancelHandler}
+                                        onCloseButtonTouchTap={this.closeHandler}>
                                     <div className="dialog-example-content">
                                         content
                                     </div>
@@ -173,7 +170,7 @@ export default class DialogExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DialogDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
