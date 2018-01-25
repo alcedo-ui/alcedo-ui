@@ -48,8 +48,8 @@ export default class TipExamples extends Component {
             triggerEl15: null
         };
 
-        this.showTip = this::this.showTip;
-        this.hideTip = this::this.hideTip;
+        this.showTip = ::this.showTip;
+        this.hideTip = ::this.hideTip;
 
     }
 
