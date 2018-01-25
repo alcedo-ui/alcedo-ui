@@ -1,12 +1,9 @@
 @import '../../../../my-theme';
 
 .group-list-examples {
-
-    .examples-wrapper {
-        .paper {
-            width: 240px;
-            border: 1px solid $theme-border;
-            overflow: hidden;
-        }
+    .paper {
+        width: 240px;
+        border: 1px solid $theme-border;
+        overflow: hidden;
     }
 }
