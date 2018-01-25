@@ -1,20 +1,16 @@
-/**
- * Created by DT314 on 2017/5/15.
- */
 import React, {Component} from 'react';
-import RemoteAutoComplete from 'src/RemoteAutoComplete';
 
+import RemoteAutoComplete from 'src/RemoteAutoComplete';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import RemoteAutoCompleteDoc from 'assets/propTypes/RemoteAutoComplete.json';
-
-import 'sass/containers/app/modules/fields/RemoteAutoCompleteExamples.scss';
+import doc from 'assets/propTypes/RemoteAutoComplete.json';
 
 export default class RemoteAutoCompleteExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.data = ['test123456789123456789123456789123456789', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
@@ -26,8 +22,9 @@ export default class RemoteAutoCompleteExamples extends Component {
             loading: false
         };
 
-        this.onChange = this :: this.onChange;
-        this.onBlur = this :: this.onBlur;
+        this.onChange = ::this.onChange;
+        this.onBlur = ::this.onBlur;
+
     }
 
     /**
@@ -112,7 +109,7 @@ export default class RemoteAutoCompleteExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={RemoteAutoCompleteDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 
