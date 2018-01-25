@@ -3,12 +3,9 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialTextField from 'src/MaterialTextField';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MaterialTextFieldDoc from 'examples/assets/propTypes/MaterialTextField.json';
-
-import 'sass/containers/app/modules/fields/MaterialTextFieldExamples.scss';
+import doc from 'examples/assets/propTypes/MaterialTextField.json';
 
 export default class MaterialTextFieldExamples extends Component {
 
@@ -48,7 +45,7 @@ export default class MaterialTextFieldExamples extends Component {
                                 <p><code>MaterialTextField</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialTextField theme={Theme.HIGHLIGHT}
+                                    <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
                                                        label="Search"
                                                        placeholder="keywords"
                                                        autoFocus={true}
@@ -64,7 +61,7 @@ export default class MaterialTextFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialTextFieldDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 
