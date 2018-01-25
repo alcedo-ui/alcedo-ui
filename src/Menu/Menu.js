@@ -7,12 +7,14 @@ import React, {Component} from 'react';
 
 import Portal from '../Portal';
 import MenuBody from '../_MenuBody';
+import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
 export default class Menu extends Component {
 
     static Position = Position;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
