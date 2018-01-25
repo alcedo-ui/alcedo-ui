@@ -4,13 +4,11 @@ import RadioGroup from 'src/RadioGroup';
 import TextField from 'src/TextField';
 import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
-import Theme from 'src/Theme';
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import ToastDoc from 'assets/propTypes/Toast.json';
+import doc from 'assets/propTypes/Toast.json';
 
 import 'sass/containers/app/modules/message/ToastExamples.scss';
 
@@ -122,7 +120,7 @@ export default class ToastExamples extends Component {
                                 </div>
 
                                 <RaisedButton className="show-toast-button"
-                                              theme={Theme.PRIMARY}
+                                              theme={RaisedButton.Theme.PRIMARY}
                                               value="Show Toast"
                                               style={{width: '120px'}}
                                               onTouchTap={this.addToast}/>
@@ -138,10 +136,9 @@ export default class ToastExamples extends Component {
 
                 </Widget>
 
-
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ToastDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
