@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 
-import IconAnchor from 'src/IconAnchor/index';
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
+import IconAnchor from 'src/IconAnchor';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import IconAnchorDoc from 'examples/assets/propTypes/IconAnchor.json';
-
-import 'sass/containers/app/modules/anchor/IconAnchorExamples.scss';
+import doc from 'examples/assets/propTypes/IconAnchor.json';
 
 export default class IconAnchorExamples extends Component {
 
@@ -150,7 +148,7 @@ export default class IconAnchorExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={IconAnchorDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
