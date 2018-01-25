@@ -8,8 +8,6 @@ import Theme from 'src/Theme/index';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import MaterialLocalAutoCompleteDoc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
 
-import 'sass/containers/app/modules/fields/MaterialLocalAutoCompleteExamples.scss';
-
 export default class MaterialLocalAutoCompleteExamples extends Component {
 
     constructor(props) {
