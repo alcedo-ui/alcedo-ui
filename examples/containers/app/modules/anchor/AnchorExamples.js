@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import AnchorDoc from 'assets/propTypes/Anchor.json';
+import doc from 'assets/propTypes/Anchor.json';
 
 import 'sass/containers/app/modules/anchor/AnchorExamples.scss';
 
@@ -118,7 +118,7 @@ export default class AnchorExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={AnchorDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
