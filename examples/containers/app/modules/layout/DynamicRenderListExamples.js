@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DynamicRenderListDoc from 'assets/propTypes/DynamicRenderList.json';
+import doc from 'assets/propTypes/DynamicRenderList.json';
 
 import 'sass/containers/app/modules/layout/DynamicRenderListExamples.scss';
 
@@ -23,8 +23,6 @@ export default class DynamicRenderListExamples extends Component {
                 value: i
             });
         }
-
-        this.changeHandler = this::this.changeHandler;
 
     }
 
@@ -71,7 +69,7 @@ export default class DynamicRenderListExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DynamicRenderListDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
