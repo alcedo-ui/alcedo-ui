@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-import MaterialLocalAutoComplete from 'src/MaterialLocalAutoComplete';
+import MaterialAutoCompleteFilter from 'src/MaterialAutoCompleteFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MaterialLocalAutoCompleteDoc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
+import doc from 'examples/assets/propTypes/MaterialAutoCompleteFilter.json';
 
 export default class MaterialAutoCompleteFilterExamples extends Component {
 
@@ -53,10 +53,10 @@ export default class MaterialAutoCompleteFilterExamples extends Component {
         return (
             <div className="example material-auto-complete-examples">
 
-                <h2 className="example-title">LocalAutoComplete</h2>
+                <h2 className="example-title">MaterialAutoCompleteFilter</h2>
 
                 <p>
-                    A <span>LocalAutoComplete</span> is an interface to help users to complete their input.
+                    A <span>MaterialAutoCompleteFilter</span> is an interface to help users to complete their input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -70,16 +70,16 @@ export default class MaterialAutoCompleteFilterExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>LocalAutoComplete</code> simple example.</p>
+                                <p><code>MaterialAutoCompleteFilter</code> simple example.</p>
 
-                                <MaterialLocalAutoComplete theme={Theme.HIGHLIGHT}
-                                                           filterInitValue={'test'}
-                                                           data={this.data}
-                                                           label="Label"
-                                                           placeholder="Please select ..."
-                                                           onChange={this.onChange}
-                                                           onFilterPressEnter={this.filterPressEnterHandle}
-                                                           onFilterClear={this.filterClearHandle}/>
+                                <MaterialAutoCompleteFilter theme={Theme.HIGHLIGHT}
+                                                            filterInitValue={'test'}
+                                                            data={this.data}
+                                                            label="Label"
+                                                            placeholder="Please select ..."
+                                                            onChange={this.onChange}
+                                                            onFilterPressEnter={this.filterPressEnterHandle}
+                                                            onFilterClear={this.filterClearHandle}/>
 
                             </div>
 
@@ -90,7 +90,7 @@ export default class MaterialAutoCompleteFilterExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialLocalAutoCompleteDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 
