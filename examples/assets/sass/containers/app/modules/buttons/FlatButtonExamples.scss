@@ -1,25 +1,14 @@
 @import '../../../../my-theme';
 
 .flat-button-examples {
+    .flat-button {
+        margin: 0 10px 10px 0;
 
-    .examples-wrapper {
-
-        .flat-button {
-
-            margin: 0 10px 10px 0;
-
-            &.button-circular {
-
-                width: 60px;
-                height: 60px;
-                padding: 0;
-                line-height: 60px;
-
-            }
-
+        &.button-circular {
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            line-height: 60px;
         }
-
     }
-
 }
-
