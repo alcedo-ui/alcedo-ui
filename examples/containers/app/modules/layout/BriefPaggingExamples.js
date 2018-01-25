@@ -11,6 +11,7 @@ import doc from 'assets/propTypes/BriefPagging.json';
 export default class BriefPaggingExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.pageSizes = [{
@@ -36,13 +37,13 @@ export default class BriefPaggingExamples extends Component {
                 page: 0
             }
         };
-        this.pageChangedHandler = this::this.pageChangedHandler;
-        this.generateData = this::this.generateData;
+
+        this.pageChangedHandler = ::this.pageChangedHandler;
+        this.generateData = ::this.generateData;
 
     }
 
     generateData(size = 100) {
-
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
