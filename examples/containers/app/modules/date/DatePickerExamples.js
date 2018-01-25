@@ -10,11 +10,7 @@ import doc from 'assets/propTypes/DatePicker.json';
 export default class DatePickerExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.onChangeHandle == ::this.onChangeHandle;
-
     }
 
     onChangeHandle(value) {
