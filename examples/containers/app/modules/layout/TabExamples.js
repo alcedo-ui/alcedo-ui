@@ -5,16 +5,12 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TabDoc from 'assets/propTypes/Tab.json';
+import doc from 'assets/propTypes/Tab.json';
 
 export default class TabExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.activeHandle = this::this.activeHandle;
-
     }
 
     activeHandle(tab) {
@@ -167,7 +163,7 @@ export default class TabExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TabDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
