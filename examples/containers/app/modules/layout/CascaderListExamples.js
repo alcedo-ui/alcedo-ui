@@ -84,7 +84,6 @@ export default class CascaderListExamples extends Component {
 
     }
 
-
     changeHandler(value, path) {
         console.log(value, path);
     }
@@ -152,6 +151,3 @@ export default class CascaderListExamples extends Component {
     }
 
 }
-
-
-
