@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 
 import Portal from '../Portal';
 import PopupBody from '../_PopupBody';
+import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
@@ -15,6 +16,7 @@ export default class Popup extends Component {
 
     static Position = Position;
     static TriggerMode = TriggerMode;
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
