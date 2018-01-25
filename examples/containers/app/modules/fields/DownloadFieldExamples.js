@@ -4,10 +4,9 @@ import RaisedButton from 'src/RaisedButton';
 import DownloadField from 'src/DownloadField';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DownloadFieldDoc from 'assets/propTypes/DownloadField.json';
+import doc from 'assets/propTypes/DownloadField.json';
 
 import 'sass/containers/app/modules/fields/DownloadFieldExamples.scss';
 
@@ -57,7 +56,7 @@ export default class DownloadFieldExamples extends Component {
                                                }}/>
 
                                 <RaisedButton value="Download NodeJs"
-                                              theme={Theme.PRIMARY}
+                                              theme={RaisedButton.Theme.PRIMARY}
                                               onTouchTap={this.download}/>
 
                             </div>
@@ -69,7 +68,7 @@ export default class DownloadFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DownloadFieldDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
