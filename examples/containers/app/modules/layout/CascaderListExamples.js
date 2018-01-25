@@ -1,6 +1,3 @@
-/**
- * Created by Wendy on 2017/8/31.
- */
 import React, {Component} from 'react';
 
 import Widget from 'src/Widget/index';
@@ -8,7 +5,7 @@ import WidgetHeader from 'src/WidgetHeader/index';
 import CascaderList from 'src/CascaderList/index';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import CascaderListDoc from 'assets/propTypes/CascaderList.json';
+import doc from 'assets/propTypes/CascaderList.json';
 
 import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
 
@@ -148,7 +145,7 @@ export default class CascaderListExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CascaderListDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
