@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import MaterialDropdown from 'src/MaterialDropdown';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
@@ -18,7 +17,7 @@ export default class MaterialDropdownExamples extends Component {
 
     render() {
         return (
-            <div className="example dropdown-examples">
+            <div className="example material-dropdown-examples">
 
                 <h2 className="example-title">MaterialDropdown</h2>
 
@@ -38,7 +37,7 @@ export default class MaterialDropdownExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <MaterialDropdown theme={Theme.HIGHLIGHT}
+                                <MaterialDropdown theme={MaterialDropdown.Theme.HIGHLIGHT}
                                                   label="Label"
                                                   triggerValue="Material Dropdown">
                                     <div className="dropdown-content">MaterialDropdown content</div>
