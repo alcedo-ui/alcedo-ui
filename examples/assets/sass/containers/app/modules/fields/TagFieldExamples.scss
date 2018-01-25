@@ -2,20 +2,17 @@
 
 .tag-field-examples {
 
-    .examples-wrapper {
+    .tag-field-item-wrapper {
 
-        .tag-field-item-wrapper {
-
-            &.duplicate {
-                .editable-field-text {
-                    color: $theme-info;
-                }
+        &.duplicate {
+            .editable-field-text {
+                color: $theme-info;
             }
+        }
 
-            &.unfound {
-                .editable-field-text {
-                    color: $theme-error;
-                }
+        &.unfound {
+            .editable-field-text {
+                color: $theme-error;
             }
         }
     }
