@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import FlatButtonDoc from 'assets/propTypes/FlatButton.json';
+import doc from 'assets/propTypes/FlatButton.json';
 
 import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
@@ -200,7 +200,7 @@ export default class FlatButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={FlatButtonDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
