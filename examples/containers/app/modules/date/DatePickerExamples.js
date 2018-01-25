@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
 import DatePicker from 'src/DatePicker';
@@ -8,20 +5,20 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DatePickerDoc from 'assets/propTypes/DatePicker.json';
-
-import 'sass/containers/app/modules/date/DatePickerExamples.scss';
+import doc from 'assets/propTypes/DatePicker.json';
 
 export default class DatePickerExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.onChangeHandle == ::this.onChangeHandle;
+
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {
@@ -138,7 +135,7 @@ export default class DatePickerExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DatePickerDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
