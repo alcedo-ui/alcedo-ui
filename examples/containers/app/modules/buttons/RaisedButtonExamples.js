@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import RaisedButtonDoc from 'assets/propTypes/RaisedButton.json';
+import doc from 'assets/propTypes/RaisedButton.json';
 
 import 'sass/containers/app/modules/buttons/RaisedButtonExamples.scss';
 
@@ -201,7 +201,7 @@ export default class RaisedButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={RaisedButtonDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
