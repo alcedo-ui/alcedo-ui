@@ -2,6 +2,7 @@ export Accordion from './Accordion';
 export Anchor from './Anchor';
 export AnchorButton from './AnchorButton';
 export ArrowStep from './ArrowStep';
+export AutoCompleteFilter from './AutoCompleteFilter';
 export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
@@ -98,4 +99,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 98;
+export const COMPONENTS_TOTAL_COUNT = 99;
