@@ -44,6 +44,7 @@ export LinearProgress from './LinearProgress';
 export List from './List';
 export ListStep from './ListStep';
 export LocalAutoComplete from './LocalAutoComplete';
+export MaterialAutoCompleteFilter from './MaterialAutoCompleteFilter';
 export MaterialDatePicker from './MaterialDatePicker';
 export MaterialDatePickerTextField from './MaterialDatePickerTextField';
 export MaterialDateRangePicker from './MaterialDateRangePicker';
@@ -99,4 +100,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 99;
+export const COMPONENTS_TOTAL_COUNT = 100;
