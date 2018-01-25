@@ -29,9 +29,9 @@ export default class DropdownFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = this::this.onChange;
-        this.filterPressEnterHandle = this::this.filterPressEnterHandle;
-        this.filterClearHandle = this::this.filterClearHandle;
+        this.onChange = ::this.onChange;
+        this.filterPressEnterHandle = ::this.filterPressEnterHandle;
+        this.filterClearHandle = ::this.filterClearHandle;
 
     }
 
