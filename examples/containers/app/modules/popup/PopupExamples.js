@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import RaisedButton from 'src/RaisedButton';
 import Popup from 'src/Popup';
 import List from 'src/List';
-import Theme from 'src/Theme';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
@@ -51,8 +50,8 @@ export default class PopupExamples extends Component {
             triggerEl15: null
         };
 
-        this.togglePopup = this::this.togglePopup;
-        this.closePopup = this::this.closePopup;
+        this.togglePopup = ::this.togglePopup;
+        this.closePopup = ::this.closePopup;
 
     }
 
@@ -123,7 +122,7 @@ export default class PopupExamples extends Component {
                                                   this.togglePopup(e, 1);
                                               }}/>
 
-                                <Popup theme={Theme.PRIMARY}
+                                <Popup theme={Popup.Theme.PRIMARY}
                                        visible={popupVisible1}
                                        triggerEl={triggerEl1}
                                        onRequestClose={() => {
