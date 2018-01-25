@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import LocalAutoCompleteDoc from 'assets/propTypes/LocalAutoComplete.json';
+import doc from 'assets/propTypes/LocalAutoComplete.json';
 
 export default class LocalAutoCompleteExamples extends Component {
 
@@ -168,7 +168,7 @@ export default class LocalAutoCompleteExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={LocalAutoCompleteDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 
