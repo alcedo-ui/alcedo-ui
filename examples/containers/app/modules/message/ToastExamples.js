@@ -35,9 +35,9 @@ export default class ToastExamples extends Component {
             value: Toaster.Position[item]
         }));
 
-        this.updateField = this::this.updateField;
-        this.addToast = this::this.addToast;
-        this.toastPopHandler = this::this.toastPopHandler;
+        this.updateField = ::this.updateField;
+        this.addToast = ::this.addToast;
+        this.toastPopHandler = ::this.toastPopHandler;
 
     }
 
