@@ -2,6 +2,8 @@ import {ac} from 'vendors/AsyncComponent';
 
 import AppRoot from 'examples/containers/AppRoot';
 import ColorPicker from '../src/ColorPicker/ColorPicker';
+import AutoCompleteFilter from '../src/AutoCompleteFilter/AutoCompleteFilter';
+import MaterialAutoCompleteFilter from '../src/MaterialAutoCompleteFilter/MaterialAutoCompleteFilter';
 
 export default function configureRoutes(store) {
 
@@ -133,6 +135,12 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialDropdownFilter',
                     component: ac(store, () => import('modules/filter/MaterialDropdownFilterExamples'))
+                }, {
+                    path: '/components/AutoCompleteFilter',
+                    component: ac(store, () => import('modules/filter/AutoCompleteFilterExamples'))
+                }, {
+                    path: '/components/MaterialAutoCompleteFilter',
+                    component: ac(store, () => import('modules/filter/MaterialAutoCompleteFilterExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -251,7 +259,7 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/BriefPagging',
                     component: ac(store, () => import('modules/layout/BriefPaggingExamples'))
-                },{
+                }, {
                     path: '/components/MaterialProvider',
                     component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
                 },
