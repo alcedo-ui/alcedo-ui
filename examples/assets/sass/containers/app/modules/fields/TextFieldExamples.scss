@@ -2,26 +2,21 @@
 
 .text-field-examples {
 
-    .examples-wrapper {
+    .field-group {
+        @include float-fix;
+        margin: 10px auto;
+        float: none;
 
-        .field-group {
+        .text-field-label,
+        .text-field {
+            float: left;
+        }
 
-            @include float-fix;
-            margin: 10px auto;
-
-            float: none;
-
-            .text-field-label,
-            .text-field {
-                float: left;
-            }
-
-            .text-field-label {
-                font-size: 14px;
-                line-height: 40px;
-                margin-right: 20px;
-                width: 80px;
-            }
+        .text-field-label {
+            font-size: 14px;
+            line-height: 40px;
+            margin-right: 20px;
+            width: 80px;
         }
     }
 }
