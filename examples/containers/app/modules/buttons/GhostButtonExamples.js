@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import GhostButtonDoc from 'assets/propTypes/GhostButton.json';
+import doc from 'assets/propTypes/GhostButton.json';
 
 import 'sass/containers/app/modules/buttons/GhostButtonExamples.scss';
 
@@ -199,7 +199,7 @@ export default class GhostButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={GhostButtonDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
