@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import AnchorButton from 'src/AnchorButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AnchorButton.json';
@@ -48,25 +47,25 @@ export default class AnchorButtonExamples extends Component {
                                 <AnchorButton value="Default"/>
 
                                 <AnchorButton value="Primary"
-                                              theme={Theme.PRIMARY}/>
+                                              theme={AnchorButton.Theme.PRIMARY}/>
 
                                 <AnchorButton value="Secondary"
-                                              theme={Theme.SECONDARY}/>
+                                              theme={AnchorButton.Theme.SECONDARY}/>
 
                                 <AnchorButton value="Highlight"
-                                              theme={Theme.HIGHLIGHT}/>
+                                              theme={AnchorButton.Theme.HIGHLIGHT}/>
 
                                 <AnchorButton value="Info"
-                                              theme={Theme.INFO}/>
+                                              theme={AnchorButton.Theme.INFO}/>
 
                                 <AnchorButton value="Success"
-                                              theme={Theme.SUCCESS}/>
+                                              theme={AnchorButton.Theme.SUCCESS}/>
 
                                 <AnchorButton value="Warning"
-                                              theme={Theme.WARNING}/>
+                                              theme={AnchorButton.Theme.WARNING}/>
 
                                 <AnchorButton value="Error"
-                                              theme={Theme.ERROR}/>
+                                              theme={AnchorButton.Theme.ERROR}/>
 
                                 <AnchorButton value="Disabled"
                                               disabled={true}/>
@@ -93,31 +92,31 @@ export default class AnchorButtonExamples extends Component {
                                               isRounded={true}/>
 
                                 <AnchorButton value="Primary"
-                                              theme={Theme.PRIMARY}
+                                              theme={AnchorButton.Theme.PRIMARY}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Secondary"
-                                              theme={Theme.SECONDARY}
+                                              theme={AnchorButton.Theme.SECONDARY}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Highlight"
-                                              theme={Theme.HIGHLIGHT}
+                                              theme={AnchorButton.Theme.HIGHLIGHT}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Info"
-                                              theme={Theme.INFO}
+                                              theme={AnchorButton.Theme.INFO}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Success"
-                                              theme={Theme.SUCCESS}
+                                              theme={AnchorButton.Theme.SUCCESS}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Warning"
-                                              theme={Theme.WARNING}
+                                              theme={AnchorButton.Theme.WARNING}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Error"
-                                              theme={Theme.ERROR}
+                                              theme={AnchorButton.Theme.ERROR}
                                               isRounded={true}/>
 
                                 <AnchorButton value="Disabled"
@@ -147,15 +146,15 @@ export default class AnchorButtonExamples extends Component {
                                               iconCls="fa fa-undo"/>
 
                                 <AnchorButton value="Add"
-                                              theme={Theme.SUCCESS}
+                                              theme={AnchorButton.Theme.SUCCESS}
                                               iconCls="fa fa-plus"/>
 
                                 <AnchorButton value="Delete"
-                                              theme={Theme.ERROR}
+                                              theme={AnchorButton.Theme.ERROR}
                                               iconCls="fa fa-trash"/>
 
                                 <AnchorButton value="Next"
-                                              theme={Theme.PRIMARY}
+                                              theme={AnchorButton.Theme.PRIMARY}
                                               rightIconCls="fa fa-chevron-right"/>
 
                             </div>
@@ -180,15 +179,15 @@ export default class AnchorButtonExamples extends Component {
                                               isCircular={true}/>
 
                                 <AnchorButton value="Success"
-                                              theme={Theme.SUCCESS}
+                                              theme={AnchorButton.Theme.SUCCESS}
                                               isCircular={true}/>
 
                                 <AnchorButton value="Error"
-                                              theme={Theme.ERROR}
+                                              theme={AnchorButton.Theme.ERROR}
                                               isCircular={true}/>
 
                                 <AnchorButton value="Warning"
-                                              theme={Theme.WARNING}
+                                              theme={AnchorButton.Theme.WARNING}
                                               isCircular={true}/>
 
                             </div>
