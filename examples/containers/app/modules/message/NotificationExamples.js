@@ -36,9 +36,9 @@ export default class NotificationExamples extends Component {
             value: Notifier.Position[item]
         }));
 
-        this.updateField = this::this.updateField;
-        this.addNotification = this::this.addNotification;
-        this.notificationPopHandler = this::this.notificationPopHandler;
+        this.updateField = ::this.updateField;
+        this.addNotification = ::this.addNotification;
+        this.notificationPopHandler = ::this.notificationPopHandler;
 
     }
 
