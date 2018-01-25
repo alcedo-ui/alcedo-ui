@@ -45,7 +45,6 @@ export default class PaggingExamples extends Component {
     }
 
     generateData(size = 100) {
-
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
