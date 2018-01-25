@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
 import DateRangePicker from 'src/DateRangePicker';
@@ -8,10 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DateRangePickerDoc from 'assets/propTypes/DateRangePicker.json';
-
-import 'sass/containers/app/modules/date/DateRangePickerExamples.scss';
-
+import doc from 'assets/propTypes/DateRangePicker.json';
 
 export default class DateRangePickerExamples extends Component {
 
@@ -20,7 +14,7 @@ export default class DateRangePickerExamples extends Component {
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {
@@ -129,7 +123,7 @@ export default class DateRangePickerExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DateRangePickerDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
