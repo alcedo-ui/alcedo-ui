@@ -1,6 +1,3 @@
-/**
- * Created by DT314 on 2017/7/4.
- */
 import React, {Component} from 'react';
 
 import ListStep from 'src/ListStep';
@@ -24,10 +21,10 @@ export default class ListStepExamples extends Component {
             finishedStep: 0
         };
 
-        this.updateStep = this::this.updateStep;
-        this.prev = this::this.prev;
-        this.next = this::this.next;
-        this.reset = this::this.reset;
+        this.updateStep = ::this.updateStep;
+        this.prev = ::this.prev;
+        this.next = ::this.next;
+        this.reset = ::this.reset;
 
     }
 
