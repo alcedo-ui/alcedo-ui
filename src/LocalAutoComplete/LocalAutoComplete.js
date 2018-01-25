@@ -28,7 +28,7 @@ export default class LocalAutoComplete extends Component {
         this.triggerEl = null;
 
         this.state = {
-            tempIndex: null,
+            tempSelectIndex: null,
             value: props.value,
             filter: props.filterInitValue,
             popupVisible: false,
@@ -99,7 +99,7 @@ export default class LocalAutoComplete extends Component {
 
         this.setState({
             popupVisible: true,
-            tempIndex: listData.length > 0 ? 0 : null
+            tempSelectIndex: listData.length > 0 ? 0 : null
         });
 
     }
@@ -122,7 +122,7 @@ export default class LocalAutoComplete extends Component {
             state.value = undefined;
         } else {
             state.listData = this.filterData(filter);
-            state.tempIndex = state.listData.length > 0 ? 0 : null;
+            state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
         }
 
         this.setState(state, () => {
@@ -136,8 +136,8 @@ export default class LocalAutoComplete extends Component {
 
         e.preventDefault();
 
-        const {tempIndex, listData} = this.state;
-        let index = tempIndex;
+        const {tempSelectIndex, listData} = this.state;
+        let index = tempSelectIndex;
 
         if (e.keyCode === 38) { // up
             index--;
@@ -146,7 +146,7 @@ export default class LocalAutoComplete extends Component {
         }
 
         this.setState({
-            tempIndex: Valid.range(index, 0, listData.length - 1)
+            tempSelectIndex: Valid.range(index, 0, listData.length - 1)
         });
 
     }
@@ -233,7 +233,7 @@ export default class LocalAutoComplete extends Component {
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
             } = this.props,
-            {isAbove, tempIndex, value, filter, popupVisible, listData} = this.state,
+            {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
             emptyEl = [{
                 itemRenderer() {
@@ -324,7 +324,7 @@ export default class LocalAutoComplete extends Component {
                                             <DynamicRenderList className="local-auto-complete-list"
                                                                theme={popupTheme}
                                                                data={listData}
-                                                               value={listData[tempIndex]}
+                                                               value={listData[tempSelectIndex]}
                                                                valueField={valueField}
                                                                displayField={displayField}
                                                                descriptionField={descriptionField}
@@ -338,7 +338,7 @@ export default class LocalAutoComplete extends Component {
                                             <List className="local-auto-complete-list"
                                                   theme={popupTheme}
                                                   data={listData}
-                                                  value={listData[tempIndex]}
+                                                  value={listData[tempSelectIndex]}
                                                   valueField={valueField}
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
