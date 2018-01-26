@@ -548,14 +548,14 @@ LocalAutoComplete.propTypes = {
     onFilterKeyDown: PropTypes.func,
 
     /**
-     * The function that trigger when filter changes.
-     */
-    onFilterChange: PropTypes.func,
-
-    /**
      * The function that trigger when press enter.
      */
     onFilterPressEnter: PropTypes.func,
+
+    /**
+     * The function that trigger when filter changes.
+     */
+    onFilterChange: PropTypes.func,
 
     /**
      * The function that trigger when filter cleared.
