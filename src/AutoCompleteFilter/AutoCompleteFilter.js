@@ -34,10 +34,10 @@ export default class AutoCompleteFilter extends Component {
         };
 
         this.filterData = ::this.filterData;
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
+        this.filterFocusHandler = ::this.filterFocusHandler;
+        this.filterBlurHandler = ::this.filterBlurHandler;
         this.filterPressEnterHandler = ::this.filterPressEnterHandler;
+        this.filterChangeHandler = ::this.filterChangeHandler;
         this.closePopup = ::this.closePopup;
         this.popupRenderHandler = ::this.popupRenderHandler;
         this.changeHandler = ::this.changeHandler;
@@ -82,7 +82,7 @@ export default class AutoCompleteFilter extends Component {
 
     }
 
-    triggerFocusHandler(...args) {
+    filterFocusHandler(...args) {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -95,28 +95,9 @@ export default class AutoCompleteFilter extends Component {
 
     }
 
-    triggerBlurHandler(...args) {
+    filterBlurHandler(...args) {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur(...args);
-    }
-
-    filterChangeHandler(filter) {
-
-        const value = this.state.value,
-            state = {
-                filter,
-                popupVisible: !!filter
-            };
-
-        if (!filter) {
-            state.value = undefined;
-        }
-
-        this.setState(state, () => {
-            const {onFilterChange} = this.props;
-            onFilterChange && onFilterChange(filter);
-        });
-
     }
 
     filterPressEnterHandler(e, filter) {
@@ -136,6 +117,25 @@ export default class AutoCompleteFilter extends Component {
         } else {
             callback();
         }
+
+    }
+
+    filterChangeHandler(filter) {
+
+        const value = this.state.value,
+            state = {
+                filter,
+                popupVisible: !!filter
+            };
+
+        if (!filter) {
+            state.value = undefined;
+        }
+
+        this.setState(state, () => {
+            const {onFilterChange} = this.props;
+            onFilterChange && onFilterChange(filter);
+        });
 
     }
 
@@ -257,8 +257,8 @@ export default class AutoCompleteFilter extends Component {
                            disabled={disabled}
                            iconCls={iconCls}
                            rightIconCls={rightIconCls}
-                           onFocus={this.triggerFocusHandler}
-                           onBlur={this.triggerBlurHandler}
+                           onFocus={this.filterFocusHandler}
+                           onBlur={this.filterBlurHandler}
                            onMouseOver={onTriggerMouseOver}
                            onMouseOut={onTriggerMouseOut}
                            onChange={this.filterChangeHandler}
