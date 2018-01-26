@@ -37,11 +37,11 @@ export default class LocalAutoComplete extends Component {
         };
 
         this.filterData = ::this.filterData;
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
+        this.filterFocusHandler = ::this.filterFocusHandler;
+        this.filterBlurHandler = ::this.filterBlurHandler;
         this.filterKeyDownHandler = ::this.filterKeyDownHandler;
         this.filterPressEnterHandler = ::this.filterPressEnterHandler;
+        this.filterChangeHandler = ::this.filterChangeHandler;
         this.closePopup = ::this.closePopup;
         this.popupRenderHandler = ::this.popupRenderHandler;
         this.changeHandler = ::this.changeHandler;
@@ -86,7 +86,7 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    triggerFocusHandler(...args) {
+    filterFocusHandler(...args) {
 
         const {disabled, onFocus} = this.props,
             {filter, listData} = this.state;
@@ -104,37 +104,12 @@ export default class LocalAutoComplete extends Component {
 
     }
 
-    triggerBlurHandler(...args) {
+    filterBlurHandler(...args) {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur(...args);
     }
 
-    filterChangeHandler(filter) {
-
-        const {data} = this.props,
-            state = {
-                filter,
-                popupVisible: !!filter
-            };
-
-        if (!filter) {
-            state.listData = data;
-            state.value = undefined;
-        } else {
-            state.listData = this.filterData(filter);
-            state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
-        }
-
-        this.setState(state, () => {
-            const {onFilterChange} = this.props;
-            onFilterChange && onFilterChange(filter);
-        });
-
-    }
-
     filterKeyDownHandler(e) {
-
-        e.preventDefault();
 
         const {tempSelectIndex, listData} = this.state;
         let index = tempSelectIndex;
@@ -147,6 +122,9 @@ export default class LocalAutoComplete extends Component {
 
         this.setState({
             tempSelectIndex: Valid.range(index, 0, listData.length - 1)
+        }, () => {
+            const {onFilterKeyDown} = this.props;
+            onFilterKeyDown && onFilterKeyDown(e);
         });
 
     }
@@ -168,6 +146,30 @@ export default class LocalAutoComplete extends Component {
         } else {
             callback();
         }
+
+    }
+
+    filterChangeHandler(filter) {
+
+        const {data} = this.props,
+            state = {
+                filter,
+                popupVisible: !!filter
+            };
+
+        if (!filter) {
+            state.listData = data;
+            state.value = null;
+            state.tempSelectIndex = null;
+        } else {
+            state.listData = this.filterData(filter);
+            state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
+        }
+
+        this.setState(state, () => {
+            const {onFilterChange} = this.props;
+            onFilterChange && onFilterChange(filter);
+        });
 
     }
 
@@ -288,8 +290,8 @@ export default class LocalAutoComplete extends Component {
                            disabled={disabled}
                            iconCls={iconCls}
                            rightIconCls={rightIconCls}
-                           onFocus={this.triggerFocusHandler}
-                           onBlur={this.triggerBlurHandler}
+                           onFocus={this.filterFocusHandler}
+                           onBlur={this.filterBlurHandler}
                            onMouseOver={onTriggerMouseOver}
                            onMouseOut={onTriggerMouseOut}
                            onChange={this.filterChangeHandler}
@@ -539,6 +541,11 @@ LocalAutoComplete.propTypes = {
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
+
+    /**
+     * The function that trigger when filter key down.
+     */
+    onFilterKeyDown: PropTypes.func,
 
     /**
      * The function that trigger when filter changes.
