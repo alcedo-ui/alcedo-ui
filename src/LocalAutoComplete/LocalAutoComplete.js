@@ -107,10 +107,10 @@ export default class LocalAutoComplete extends Component {
     filterBlurHandler(...args) {
 
         const {disabled, displayField, valueField, renderer, onBlur} = this.props,
-            {tempSelectIndex, listData} = this.state,
+            {filter, tempSelectIndex, listData} = this.state,
             state = {};
 
-        if (listData && listData.length > 0) {
+        if (filter && listData && listData.length > 0) {
             const index = Valid.isNumber(tempSelectIndex) ? tempSelectIndex : 0;
             state.value = listData[index];
             state.filter = renderer ?
