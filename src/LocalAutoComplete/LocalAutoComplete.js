@@ -105,8 +105,25 @@ export default class LocalAutoComplete extends Component {
     }
 
     filterBlurHandler(...args) {
-        const {disabled, onBlur} = this.props;
-        !disabled && onBlur && onBlur(...args);
+
+        const {disabled, displayField, valueField, renderer, onBlur} = this.props,
+            {tempSelectIndex, listData} = this.state,
+            state = {};
+
+        if (listData && listData.length > 0) {
+            const index = Valid.isNumber(tempSelectIndex) ? tempSelectIndex : 0;
+            state.value = listData[index];
+            state.filter = renderer ?
+                renderer(state.value)
+                :
+                Util.getTextByDisplayField(state.value, displayField, valueField);
+            state.listData = this.filterData(state.filter);
+        }
+
+        this.setState(state, () => {
+            !disabled && onBlur && onBlur(...args);
+        });
+
     }
 
     filterKeyDownHandler(e) {
@@ -132,20 +149,20 @@ export default class LocalAutoComplete extends Component {
     filterPressEnterHandler(e, filter) {
 
         const {autoClose} = this.props,
-            callback = () => {
-                const {onFilterPressEnter} = this.props;
-                onFilterPressEnter && onFilterPressEnter(filter);
-            };
+            state = {};
 
         if (autoClose) {
-            this.setState({
-                popupVisible: false
-            }, () => {
-                callback();
-            });
-        } else {
-            callback();
+            state.popupVisible = false;
         }
+
+        this.setState(state, () => {
+
+            const {onFilterPressEnter} = this.props;
+            onFilterPressEnter && onFilterPressEnter(filter);
+
+            this.refs.trigger.blur();
+
+        });
 
     }
 
@@ -604,7 +621,7 @@ LocalAutoComplete.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
-    autoClose: false,
+    autoClose: true,
     iconCls: null,
     rightIconCls: 'fa fa-search',
     noMatchedPopupVisible: true,
