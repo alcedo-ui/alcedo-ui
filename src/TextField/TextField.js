@@ -43,6 +43,8 @@ export default class TextField extends Component {
             invalidMsgs: ''
         };
 
+        this.focus = ::this.focus;
+        this.blur = ::this.blur;
         this.valid = ::this.valid;
         this.changeHandler = ::this.changeHandler;
         this.keyDownHandler = ::this.keyDownHandler;
@@ -54,6 +56,14 @@ export default class TextField extends Component {
         this.blurHandler = ::this.blurHandler;
         this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
 
+    }
+
+    focus() {
+        this.refs.input.focus();
+    }
+
+    blur() {
+        this.refs.input.blur();
     }
 
     isNumberType(type) {
@@ -177,7 +187,7 @@ export default class TextField extends Component {
             invalidMsgs
         }, () => {
 
-            this.refs.input.focus();
+            this.focus();
 
             onClear && onClear();
             onChange && onChange('');
@@ -197,7 +207,7 @@ export default class TextField extends Component {
             passwordVisible
         }, () => {
 
-            this.refs.input.focus();
+            this.focus();
 
             passwordVisible
                 ? (onPasswordVisible && onPasswordVisible())
