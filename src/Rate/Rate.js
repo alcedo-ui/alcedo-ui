@@ -10,6 +10,51 @@ import Event from '../_vendors/Event';
 
 export default class Rate extends Component {
 
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The value of Rate component.
+         */
+        value: PropTypes.number,
+
+        /**
+         * If true,the Rate will have half star.
+         */
+        allowHalf: PropTypes.bool,
+
+        /**
+         * If true,the Rate component will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * Callback function fired when the rate change.
+         */
+        onChange: PropTypes.func
+
+    };
+
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        count: 5,
+        defaultValue: 0,
+        disabled: false
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -19,7 +64,7 @@ export default class Rate extends Component {
             items: []
         };
 
-        this.mouseMoveHandle = ::this.mouseMoveHandle;
+        this.mouseMoveHandler = ::this.mouseMoveHandler;
         this.selectHandler = ::this.selectHandler;
         this.createItems = ::this.createItems;
 
@@ -38,7 +83,7 @@ export default class Rate extends Component {
 
     }
 
-    mouseMoveHandle(e) {
+    mouseMoveHandler(e) {
         const {disabled} = this.props;
         if (disabled) {
             return;
@@ -127,11 +172,11 @@ export default class Rate extends Component {
             value,
             items
         });
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     render() {
@@ -192,49 +237,3 @@ export default class Rate extends Component {
         );
     }
 };
-
-Rate.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The value of Rate component.
-     */
-    value: PropTypes.number,
-
-    /**
-     * If true,the Rate will have half star.
-     */
-    allowHalf: PropTypes.bool,
-
-    /**
-     * If true,the Rate component will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * Callback function fired when the rate change.
-     */
-    onChange: PropTypes.func
-
-};
-
-Rate.defaultProps = {
-
-    className: '',
-    style: null,
-
-    count: 5,
-    defaultValue: 0,
-    disabled: false
-
-};
-
