@@ -108,20 +108,34 @@ export default class LocalAutoComplete extends Component {
 
         const {disabled, displayField, valueField, renderer, onBlur} = this.props,
             {filter, tempSelectIndex, listData} = this.state,
+            changed = filter && listData && listData.length > 0,
             state = {};
 
-        if (filter && listData && listData.length > 0) {
+        if (changed) {
+
             const index = Valid.isNumber(tempSelectIndex) ? tempSelectIndex : 0;
+
             state.value = listData[index];
+
             state.filter = renderer ?
                 renderer(state.value)
                 :
                 Util.getTextByDisplayField(state.value, displayField, valueField);
+
             state.listData = this.filterData(state.filter);
+
         }
 
         this.setState(state, () => {
+
             !disabled && onBlur && onBlur(...args);
+
+            if (changed) {
+                const {onFilterChange, onChange} = this.props;
+                onFilterChange && onFilterChange(state.filter);
+                onChange && onChange(state.value);
+            }
+
         });
 
     }
