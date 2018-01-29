@@ -19,6 +19,65 @@ export default class BaseButton extends Component {
     static Theme = Theme;
     static TipPosition = Position;
 
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        isRounded: PropTypes.bool,
+        isCircular: PropTypes.bool,
+
+        value: PropTypes.any,
+        type: PropTypes.string,
+        disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        disableTouchRipple: PropTypes.bool,
+
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
+
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+        rippleDisplayCenter: PropTypes.bool,
+
+        renderer: PropTypes.func,
+        onTouchTap: PropTypes.func,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func
+
+    };
+
+    static defaultProps = {
+
+        className: null,
+        style: null,
+        theme: Theme.DEFAULT,
+
+        isRounded: false,
+        isCircular: false,
+
+        value: null,
+        disabled: false,
+        readOnly: false,
+        type: 'button',
+        isLoading: false,
+        disableTouchRipple: false,
+
+        rippleDisplayCenter: false,
+
+        iconCls: null,
+        rightIconCls: null,
+
+        tip: null,
+        tipPosition: Position.BOTTOM
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -159,63 +218,4 @@ export default class BaseButton extends Component {
         );
 
     }
-};
-
-BaseButton.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    isRounded: PropTypes.bool,
-    isCircular: PropTypes.bool,
-
-    value: PropTypes.any,
-    type: PropTypes.string,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
-
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
-
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-    rippleDisplayCenter: PropTypes.bool,
-
-    renderer: PropTypes.func,
-    onTouchTap: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
-
-};
-
-BaseButton.defaultProps = {
-
-    className: null,
-    style: null,
-    theme: Theme.DEFAULT,
-
-    isRounded: false,
-    isCircular: false,
-
-    value: null,
-    disabled: false,
-    readOnly: false,
-    type: 'button',
-    isLoading: false,
-    disableTouchRipple: false,
-
-    rippleDisplayCenter: false,
-
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
-    tipPosition: Position.BOTTOM
-
 };
