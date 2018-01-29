@@ -21,7 +21,7 @@ export default class MaterialLocalAutoComplete extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: '',
+            value: props.value,
             filter: props.filterInitValue,
             isFocus: false,
             isHover: false
@@ -112,12 +112,6 @@ export default class MaterialLocalAutoComplete extends Component {
                 value: nextProps.value
             });
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
     }
 
     render() {
