@@ -149,6 +149,26 @@ function findParentByClassName(el, className) {
 
 }
 
+function hasParent(el, parentEl) {
+
+    if (!el || !parentEl) {
+        return false;
+    }
+
+    do {
+
+        el = el.parentNode;
+
+        if (el == parentEl) {
+            return true;
+        }
+
+    } while (el);
+
+    return false;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
@@ -158,5 +178,6 @@ export default {
     addClass,
     removeClass,
     toggleClass,
-    findParentByClassName
+    findParentByClassName,
+    hasParent
 };
