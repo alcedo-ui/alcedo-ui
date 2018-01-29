@@ -77,7 +77,7 @@ export default class TagField extends Component {
         while (x >= minX) {
 
             const item = document.elementFromPoint(x, y),
-                wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+                wrapperEl = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
 
             if (wrapperEl) {
                 inputIndex = +wrapperEl.dataset.index + 1;
@@ -92,7 +92,7 @@ export default class TagField extends Component {
             while (x <= maxX) {
 
                 const item = document.elementFromPoint(x, y),
-                    wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+                    wrapperEl = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
 
                 if (wrapperEl) {
                     inputIndex = +wrapperEl.dataset.index;
@@ -110,7 +110,7 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
-        if (this.props.disabled || Dom.findParent(e.target, 'tag-field-item-wrapper')
+        if (this.props.disabled || Dom.findParentByClassName(e.target, 'tag-field-item-wrapper')
             || Dom.hasClass(e.target, 'tag-field-input')) {
             return;
         }
@@ -119,7 +119,7 @@ export default class TagField extends Component {
 
             return () => {
 
-                if (Dom.findParent(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
+                if (Dom.findParentByClassName(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
                     this.setState({
                         inputIndex: this.state.data.length
                     });
