@@ -35,8 +35,8 @@ export default class LocalAutoCompleteExamples extends Component {
 
     }
 
-    onChange(item) {
-        console.log('select item: ', item);
+    onChange(value) {
+        console.log('changed value: ', value);
     }
 
     filterPressEnterHandle(value) {
