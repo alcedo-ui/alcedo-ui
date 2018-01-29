@@ -132,7 +132,7 @@ function toggleClass(el, className, bool) {
         removeClass(el, className);
 }
 
-function findParent(el, className) {
+function findParentByClassName(el, className) {
 
     if (!el || !className) {
         return;
@@ -158,5 +158,5 @@ export default {
     addClass,
     removeClass,
     toggleClass,
-    findParent
+    findParentByClassName
 };
