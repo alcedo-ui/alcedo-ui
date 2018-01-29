@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import * as types from 'reduxes/actionTypes';
+import * as types from 'reduxes/actionTypes/index';
 
-export function asyncComponent(store, getComponent) {
+export default function asyncComponent(store, getComponent) {
 
     return class AsyncComponent extends Component {
 
@@ -50,15 +50,17 @@ export function asyncComponent(store, getComponent) {
         }
 
         render() {
+
             const {Component} = this.state;
+
             if (Component) {
-                return <Component {...this.props} />;
+                return <Component {...this.props}/>;
             }
+
             return null;
+
         }
 
     };
 
 }
-
-export const ac = asyncComponent;
