@@ -12,10 +12,10 @@ import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-
 import Theme from '../Theme';
 
-export default class MaterialMonthPicker extends Component {
+class MaterialMonthPicker extends Component {
+
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -274,3 +274,5 @@ MaterialMonthPicker.defaultProps = {
     autoClose: true,
     isFooter: true
 };
+
+export default MaterialMonthPicker;
