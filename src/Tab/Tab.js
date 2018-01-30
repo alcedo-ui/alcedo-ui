@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import FlatButton from '../FlatButton';
 
-export default class Tab extends Component {
+class Tab extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -189,3 +189,5 @@ Tab.defaultProps = {
     tabs: []
 
 };
+
+export default Tab;
