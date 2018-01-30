@@ -19,7 +19,6 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 export default class AutoCompleteFilter extends Component {
 
     static Theme = Theme;
-
     static propTypes = {
 
         /**
@@ -241,7 +240,6 @@ export default class AutoCompleteFilter extends Component {
         onPopupClosed: PropTypes.func
 
     };
-
     static defaultProps = {
 
         className: null,
