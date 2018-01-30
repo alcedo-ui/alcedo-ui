@@ -6,20 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class TableHeaderSortIcon extends Component {
-
-    static propTypes = {
-        sort: PropTypes.object,
-        sortProp: PropTypes.string,
-        sortAscIconCls: PropTypes.string,
-        sortDescIconCls: PropTypes.string
-    };
-    static defaultProps = {
-        sort: null,
-        sortProp: null,
-        sortAscIconCls: 'fa fa-angle-up',
-        sortDescIconCls: 'fa fa-angle-down'
-    };
+class TableHeaderSortIcon extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -41,3 +28,19 @@ export default class TableHeaderSortIcon extends Component {
 
     }
 };
+
+TableHeaderSortIcon.propTypes = {
+    sort: PropTypes.object,
+    sortProp: PropTypes.string,
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string
+};
+
+TableHeaderSortIcon.defaultProps = {
+    sort: null,
+    sortProp: null,
+    sortAscIconCls: 'fa fa-angle-up',
+    sortDescIconCls: 'fa fa-angle-down'
+};
+
+export default TableHeaderSortIcon;
