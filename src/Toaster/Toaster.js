@@ -14,7 +14,7 @@ import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
-export default class Toaster extends Component {
+class Toaster extends Component {
 
     static Type = MsgType;
     static Position = Position;
@@ -219,3 +219,5 @@ Toaster.defaultProps = {
     position: Position.BOTTOM_RIGHT
 
 };
+
+export default Toaster;
