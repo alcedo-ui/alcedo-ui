@@ -20,7 +20,7 @@ import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 const ScrollingComponent = withScrolling('div');
 
-export default class DraggableList extends Component {
+class DraggableList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
@@ -479,3 +479,5 @@ DraggableList.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default DraggableList;
