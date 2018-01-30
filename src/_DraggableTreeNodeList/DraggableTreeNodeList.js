@@ -9,28 +9,7 @@ import {Droppable} from 'react-beautiful-dnd';
 
 import TreeNode from '../_TreeNode/TreeNode';
 
-export default class DraggableTreeNodeList extends Component {
-
-    static propTypes = {
-
-        depth: PropTypes.number,
-        path: PropTypes.array,
-
-        data: PropTypes.array,
-
-        collapsed: PropTypes.bool
-
-    };
-    static defaultProps = {
-
-        depth: -1,
-        path: null,
-
-        data: [],
-
-        collapsed: false
-
-    };
+class DraggableTreeNodeList extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -76,3 +55,27 @@ export default class DraggableTreeNodeList extends Component {
 
     }
 };
+
+DraggableTreeNodeList.propTypes = {
+
+    depth: PropTypes.number,
+    path: PropTypes.array,
+
+    data: PropTypes.array,
+
+    collapsed: PropTypes.bool
+
+};
+
+DraggableTreeNodeList.defaultProps = {
+
+    depth: -1,
+    path: null,
+
+    data: [],
+
+    collapsed: false
+
+};
+
+export default DraggableTreeNodeList;
