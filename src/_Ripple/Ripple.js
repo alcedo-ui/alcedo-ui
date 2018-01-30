@@ -6,16 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class Ripple extends Component {
-
-    static propTypes = {
-        className: PropTypes.string,
-        style: PropTypes.object
-    };
-    static defaultProps = {
-        className: '',
-        style: null
-    };
+class Ripple extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -91,3 +82,15 @@ export default class Ripple extends Component {
 
     }
 };
+
+Ripple.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object
+};
+
+Ripple.defaultProps = {
+    className: '',
+    style: null
+};
+
+export default Ripple;
