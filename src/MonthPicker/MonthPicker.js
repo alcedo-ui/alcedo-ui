@@ -13,12 +13,14 @@ import Month from '../_MonthPicker';
 import Year from '../_YearPicker';
 import Popup from '../Popup';
 
-export default class MonthPicker extends Component {
+class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
         this.validValue = true;
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -261,3 +263,5 @@ MonthPicker.defaultProps = {
     autoClose: true,
     isFooter: true
 };
+
+export default MonthPicker;
