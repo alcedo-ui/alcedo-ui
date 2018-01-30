@@ -15,6 +15,49 @@ import Util from '../_vendors/Util';
 export default class Anchor extends Component {
 
     static Theme = Theme;
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        href: PropTypes.string,
+        alt: PropTypes.string,
+        target: PropTypes.string,
+
+        disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        isLoading: PropTypes.bool,
+
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
+
+        tip: PropTypes.string,
+        tipPosition: PropTypes.string,
+
+        onTouchTap: PropTypes.func,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: null,
+        style: null,
+        theme: Theme.DEFAULT,
+
+        href: 'javascript:void(0)',
+        alt: null,
+        target: '_blank',
+
+        disabled: false,
+        readOnly: false,
+        isLoading: false,
+
+        iconCls: null,
+        rightIconCls: null
+
+    };
 
     constructor(props, ...restArgs) {
 
@@ -119,49 +162,4 @@ export default class Anchor extends Component {
         );
 
     }
-};
-
-Anchor.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    href: PropTypes.string,
-    alt: PropTypes.string,
-    target: PropTypes.string,
-
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    isLoading: PropTypes.bool,
-
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
-
-    tip: PropTypes.string,
-    tipPosition: PropTypes.string,
-
-    onTouchTap: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
-
-};
-
-Anchor.defaultProps = {
-
-    className: null,
-    style: null,
-    theme: Theme.DEFAULT,
-
-    href: 'javascript:void(0)',
-    alt: null,
-    target: '_blank',
-
-    disabled: false,
-    readOnly: false,
-    isLoading: false,
-
-    iconCls: null,
-    rightIconCls: null
-
 };
