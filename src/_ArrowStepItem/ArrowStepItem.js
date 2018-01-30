@@ -6,38 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class ArrowStepItem extends Component {
-
-    static propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        index: PropTypes.number,
-        activatedStep: PropTypes.number,
-        finishedStep: PropTypes.number,
-        value: PropTypes.object,
-
-        isFirst: PropTypes.bool,
-        isLast: PropTypes.bool,
-
-        onTouchTap: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: '',
-        style: null,
-
-        index: 0,
-        activatedStep: 0,
-        finishedStep: 0,
-        value: null,
-
-        isFirst: true,
-        isLast: true
-
-    };
+class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -105,3 +74,37 @@ export default class ArrowStepItem extends Component {
 
     }
 };
+
+ArrowStepItem.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    index: PropTypes.number,
+    activatedStep: PropTypes.number,
+    finishedStep: PropTypes.number,
+    value: PropTypes.object,
+
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+
+    onTouchTap: PropTypes.func
+
+};
+
+ArrowStepItem.defaultProps = {
+
+    className: '',
+    style: null,
+
+    index: 0,
+    activatedStep: 0,
+    finishedStep: 0,
+    value: null,
+
+    isFirst: true,
+    isLast: true
+
+};
+
+export default ArrowStepItem;
