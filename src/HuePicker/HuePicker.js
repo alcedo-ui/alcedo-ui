@@ -10,7 +10,7 @@ import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
 
-export default class HuePicker extends Component {
+class HuePicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -149,3 +149,5 @@ HuePicker.defaultProps = {
     value: 0
 
 };
+
+export default HuePicker;
