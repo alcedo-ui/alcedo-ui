@@ -15,7 +15,7 @@ import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 
-export default class GroupGrid extends Component {
+class GroupGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -282,3 +282,5 @@ GroupGrid.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default GroupGrid;
