@@ -20,7 +20,6 @@ import PopupManagement from '../_vendors/PopupManagement';
 export default class DialogBody extends Component {
 
     static Theme = Theme;
-
     static propTypes = {
 
         /**
@@ -165,7 +164,6 @@ export default class DialogBody extends Component {
         onCloseButtonTouchTap: PropTypes.func
 
     };
-
     static defaultProps = {
 
         className: '',
