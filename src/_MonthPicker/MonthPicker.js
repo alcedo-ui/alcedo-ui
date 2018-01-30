@@ -11,6 +11,18 @@ import TouchRipple from '../TouchRipple';
 
 export default class MonthPicker extends Component {
 
+    static propTypes = {
+        className: PropTypes.string,
+        value: PropTypes.any,
+        maxValue: PropTypes.any,
+        minValue: PropTypes.any,
+        year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        onChange: PropTypes.func,
+        previousClick: PropTypes.func
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -188,16 +200,4 @@ export default class MonthPicker extends Component {
             </div>
         );
     }
-};
-
-MonthPicker.propTypes = {
-    className: PropTypes.string,
-    value: PropTypes.any,
-    maxValue: PropTypes.any,
-    minValue: PropTypes.any,
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func,
-    previousClick: PropTypes.func
 };
