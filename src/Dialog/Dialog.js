@@ -12,6 +12,9 @@ import Dom from '../_vendors/Dom';
 
 export default class Dialog extends Component {
 
+    static propTypes = DialogBody.propTypes;
+    static defaultProps = DialogBody.defaultProps;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -58,6 +61,3 @@ export default class Dialog extends Component {
     }
 
 };
-
-Dialog.propTypes = DialogBody.propTypes;
-Dialog.defaultProps = DialogBody.defaultProps;
