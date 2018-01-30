@@ -6,46 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class RoundStepItem extends Component {
-
-    static propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        activatedStep: PropTypes.number,
-        finishedStep: PropTypes.number,
-        index: PropTypes.number,
-        value: PropTypes.object,
-        isFirst: PropTypes.bool,
-        isLast: PropTypes.bool,
-
-        showFinishedStepIcon: PropTypes.bool,
-        finishedStepIconCls: PropTypes.string,
-
-        disabled: PropTypes.bool,
-
-        onTouchTap: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: '',
-        style: null,
-
-        activatedStep: 0,
-        finishedStep: 0,
-        index: 0,
-        value: {},
-        isFirst: true,
-        isLast: false,
-
-        showFinishedStepIcon: true,
-        finishedStepIconCls: 'fa fa-check',
-
-        disabled: false
-
-    };
+class RoundStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -130,3 +91,45 @@ export default class RoundStepItem extends Component {
 
     }
 };
+
+RoundStepItem.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    activatedStep: PropTypes.number,
+    finishedStep: PropTypes.number,
+    index: PropTypes.number,
+    value: PropTypes.object,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+
+    showFinishedStepIcon: PropTypes.bool,
+    finishedStepIconCls: PropTypes.string,
+
+    disabled: PropTypes.bool,
+
+    onTouchTap: PropTypes.func
+
+};
+
+RoundStepItem.defaultProps = {
+
+    className: '',
+    style: null,
+
+    activatedStep: 0,
+    finishedStep: 0,
+    index: 0,
+    value: {},
+    isFirst: true,
+    isLast: false,
+
+    showFinishedStepIcon: true,
+    finishedStepIconCls: 'fa fa-check',
+
+    disabled: false
+
+};
+
+export default RoundStepItem;
