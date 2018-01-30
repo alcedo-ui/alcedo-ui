@@ -32,6 +32,96 @@ export default class DraggableListItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static propTypes = {
+
+        index: PropTypes.number,
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+        data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        text: PropTypes.any,
+        desc: PropTypes.string,
+
+        disabled: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        checked: PropTypes.bool,
+        readOnly: PropTypes.bool,
+
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
+
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+        radioUncheckedIconCls: PropTypes.string,
+        radioCheckedIconCls: PropTypes.string,
+        checkboxUncheckedIconCls: PropTypes.string,
+        checkboxCheckedIconCls: PropTypes.string,
+        checkboxIndeterminateIconCls: PropTypes.string,
+
+        isDraggableAnyWhere: PropTypes.bool,
+        anchorIconCls: PropTypes.string,
+
+        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
+
+        onTouchTap: PropTypes.func,
+        onSelect: PropTypes.func,
+        onDeselect: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+
+        // dnd
+        connectDragPreview: PropTypes.func,
+        connectDragSource: PropTypes.func,
+        connectDropTarget: PropTypes.func,
+        isDragging: PropTypes.bool,
+        onMove: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        index: 0,
+
+        className: null,
+        style: null,
+        theme: Theme.DEFAULT,
+
+        selectTheme: Theme.DEFAULT,
+        selectMode: SelectMode.SINGLE_SELECT,
+
+        data: null,
+        value: null,
+        text: null,
+        desc: null,
+
+        disabled: false,
+        isLoading: false,
+        checked: false,
+        readOnly: false,
+
+        iconCls: null,
+        rightIconCls: null,
+
+        tip: null,
+        tipPosition: Position.BOTTOM,
+
+        radioUncheckedIconCls: null,
+        radioCheckedIconCls: null,
+        checkboxUncheckedIconCls: 'fa fa-square-o',
+        checkboxCheckedIconCls: 'fa fa-check-square',
+        checkboxIndeterminateIconCls: 'fa fa-minus-square',
+
+        isDraggableAnyWhere: false,
+        anchorIconCls: 'fa fa-bars'
+
+    };
 
     constructor(props, ...restArgs) {
 
@@ -282,96 +372,4 @@ export default class DraggableListItem extends Component {
             connectDragPreview(el);
 
     }
-};
-
-DraggableListItem.propTypes = {
-
-    index: PropTypes.number,
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    text: PropTypes.any,
-    desc: PropTypes.string,
-
-    disabled: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    checked: PropTypes.bool,
-    readOnly: PropTypes.bool,
-
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
-
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
-
-    isDraggableAnyWhere: PropTypes.bool,
-    anchorIconCls: PropTypes.string,
-
-    itemRenderer: PropTypes.func,
-    renderer: PropTypes.func,
-
-    onTouchTap: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-
-    // dnd
-    connectDragPreview: PropTypes.func,
-    connectDragSource: PropTypes.func,
-    connectDropTarget: PropTypes.func,
-    isDragging: PropTypes.bool,
-    onMove: PropTypes.func
-
-};
-
-DraggableListItem.defaultProps = {
-
-    index: 0,
-
-    className: null,
-    style: null,
-    theme: Theme.DEFAULT,
-
-    selectTheme: Theme.DEFAULT,
-    selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
-
-    disabled: false,
-    isLoading: false,
-    checked: false,
-    readOnly: false,
-
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
-    tipPosition: Position.BOTTOM,
-
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
-    checkboxUncheckedIconCls: 'fa fa-square-o',
-    checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square',
-
-    isDraggableAnyWhere: false,
-    anchorIconCls: 'fa fa-bars'
-
 };
