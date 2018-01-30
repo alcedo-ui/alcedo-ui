@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class DownloadField extends Component {
+class DownloadField extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -83,3 +83,5 @@ DownloadField.propTypes = {
 DownloadField.defaultProps = {
     url: null
 };
+
+export default DownloadField;
