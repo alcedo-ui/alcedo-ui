@@ -18,7 +18,6 @@ export default class BaseButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
-
     static propTypes = {
 
         className: PropTypes.string,
@@ -51,7 +50,6 @@ export default class BaseButton extends Component {
         onMouseLeave: PropTypes.func
 
     };
-
     static defaultProps = {
 
         className: null,
