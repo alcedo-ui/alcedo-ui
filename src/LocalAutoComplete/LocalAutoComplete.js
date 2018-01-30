@@ -19,7 +19,7 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 
-export default class LocalAutoComplete extends Component {
+class LocalAutoComplete extends Component {
 
     static Theme = Theme;
 
@@ -680,3 +680,5 @@ export default class LocalAutoComplete extends Component {
     }
 
 };
+
+export default LocalAutoComplete;
