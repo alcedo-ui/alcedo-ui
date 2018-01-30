@@ -15,6 +15,30 @@ import Color from '../_vendors/Color';
 
 export default class ColorPicker extends Component {
 
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        value: PropTypes.array
+
+    };
+    static defaultProps = {
+
+        className: null,
+        style: null,
+
+        value: [255, 0, 0]
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -156,29 +180,4 @@ export default class ColorPicker extends Component {
         );
 
     }
-};
-
-ColorPicker.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    value: PropTypes.array
-
-};
-
-ColorPicker.defaultProps = {
-
-    className: null,
-    style: null,
-
-    value: [255, 0, 0]
-
 };
