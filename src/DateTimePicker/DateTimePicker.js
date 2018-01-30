@@ -19,6 +19,66 @@ import Theme from 'src/Theme';
 
 export default class DateTimePicker extends Component {
 
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * Date picker input name.
+         */
+        name: PropTypes.string,
+
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.string,
+
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.string,
+
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.string,
+
+        /**
+         * DateTimePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
+
+        /**
+         * Date Time format.
+         */
+        dateFormat: PropTypes.string,
+
+        /**
+         * Callback function that is fired when the date value changes.
+         */
+        onChange: PropTypes.func
+
+    };
+    static defaultProps = {
+        className: '',
+        style: null,
+        name: '',
+        value: moment().format('YYYY-MM-DD HH:mm:ss'),
+        maxValue: '',
+        minValue: '',
+        placeholder: 'Date',
+        dateFormat: 'YYYY-MM-DD HH:mm:ss',
+        isFooter: true
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -274,33 +334,33 @@ export default class DateTimePicker extends Component {
                                 previousClick={this.datePickerChangeHandle}
                             />
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                    minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}
-                                />
-                                : (
-                                datePickerLevel == 'year' ?
-                                    <YearPicker
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker
                                         value={value}
                                         year={year}
                                         month={month}
                                         day={day}
                                         maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                         minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                        onChange={this.yearPickerChangeHandle}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}
                                     />
-                                    :
-                                    null
-                            )
+                                    : (
+                                        datePickerLevel == 'year' ?
+                                            <YearPicker
+                                                value={value}
+                                                year={year}
+                                                month={month}
+                                                day={day}
+                                                maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                                minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                                onChange={this.yearPickerChangeHandle}
+                                            />
+                                            :
+                                            null
+                                    )
 
-                        )
+                            )
                     }
                     {
                         <TimeList className={`time-picker-body ${datePickerLevel == 'time' ? '' : 'hidden'}`}
@@ -362,65 +422,4 @@ export default class DateTimePicker extends Component {
             </div>
         );
     }
-};
-
-DateTimePicker.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Date picker input name.
-     */
-    name: PropTypes.string,
-
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.string,
-
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.string,
-
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.string,
-
-    /**
-     * DateTimePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
-
-    /**
-     * Date Time format.
-     */
-    dateFormat: PropTypes.string,
-
-    /**
-     * Callback function that is fired when the date value changes.
-     */
-    onChange: PropTypes.func
-
-};
-
-DateTimePicker.defaultProps = {
-    className: '',
-    style: null,
-    name: '',
-    value: moment().format('YYYY-MM-DD HH:mm:ss'),
-    maxValue: '',
-    minValue: '',
-    placeholder: 'Date',
-    dateFormat: 'YYYY-MM-DD HH:mm:ss',
-    isFooter: true
 };
