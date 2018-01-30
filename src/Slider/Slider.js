@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 
-export default class Slider extends Component {
+class Slider extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -345,3 +345,4 @@ Slider.defaultProps = {
 
 };
 
+export default Slider;
