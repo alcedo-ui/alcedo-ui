@@ -16,7 +16,8 @@ import Popup from '../Popup';
 
 import Theme from '../Theme';
 
-export default class MaterialDatePicker extends Component {
+class MaterialDatePicker extends Component {
+
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -221,26 +222,26 @@ export default class MaterialDatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}/>
-                                :
-                                <YearPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.yearPickerChangeHandle}/>
-                        )
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}/>
+                                    :
+                                    <YearPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.yearPickerChangeHandle}/>
+                            )
                     }
                     {
                         isFooter && datePickerLevel == 'day' ?
@@ -338,7 +339,9 @@ MaterialDatePicker.defaultProps = {
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
-    isLabelAnimate:true,
+    isLabelAnimate: true,
     autoClose: true,
     isFooter: true
 };
+
+export default MaterialDatePicker;
