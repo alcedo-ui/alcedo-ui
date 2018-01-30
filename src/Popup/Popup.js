@@ -12,7 +12,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
 
-export default class Popup extends Component {
+class Popup extends Component {
 
     static Position = Position;
     static TriggerMode = TriggerMode;
@@ -39,3 +39,5 @@ export default class Popup extends Component {
 
 Popup.propTypes = PopupBody.propTypes;
 Popup.defaultProps = PopupBody.defaultProps;
+
+export default Popup;
