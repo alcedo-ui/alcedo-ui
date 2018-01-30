@@ -8,13 +8,7 @@ import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 
-export default class TimeItems extends Component {
-
-    static propTypes = {
-        className: PropTypes.string,
-        style: PropTypes.object,
-        data: PropTypes.array
-    };
+class TimeItems extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -115,3 +109,11 @@ export default class TimeItems extends Component {
 
     }
 }
+
+TimeItems.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    data: PropTypes.array
+};
+
+export default TimeItems;
