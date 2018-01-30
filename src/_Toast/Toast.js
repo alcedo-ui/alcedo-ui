@@ -15,6 +15,55 @@ import MsgType from '../_statics/MsgType';
 export default class Toast extends Component {
 
     static Type = MsgType;
+    static propTypes = {
+
+        /**
+         * The CSS class name of toast.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the toast.
+         */
+        style: PropTypes.object,
+
+        toastsId: PropTypes.number,
+
+        /**
+         * The type of toast.
+         */
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+        /**
+         * The message of toast.
+         */
+        message: PropTypes.any,
+
+        /**
+         * The icon class name of toast.
+         */
+        iconCls: PropTypes.string,
+
+        /**
+         * The duration of toast.
+         */
+        duration: PropTypes.number,
+
+        onRequestClose: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        toastsId: 0,
+        type: MsgType.INFO,
+        message: '',
+        iconCls: '',
+        duration: 2500
+
+    };
 
     constructor(props, ...restArgs) {
 
@@ -131,55 +180,4 @@ export default class Toast extends Component {
         );
 
     }
-};
-
-Toast.propTypes = {
-
-    /**
-     * The CSS class name of toast.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the toast.
-     */
-    style: PropTypes.object,
-
-    toastsId: PropTypes.number,
-
-    /**
-     * The type of toast.
-     */
-    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-    /**
-     * The message of toast.
-     */
-    message: PropTypes.any,
-
-    /**
-     * The icon class name of toast.
-     */
-    iconCls: PropTypes.string,
-
-    /**
-     * The duration of toast.
-     */
-    duration: PropTypes.number,
-
-    onRequestClose: PropTypes.func
-
-};
-
-Toast.defaultProps = {
-
-    className: '',
-    style: null,
-
-    toastsId: 0,
-    type: MsgType.INFO,
-    message: '',
-    iconCls: '',
-    duration: 2500
-
 };
