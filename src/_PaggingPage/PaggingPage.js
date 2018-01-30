@@ -10,6 +10,37 @@ import IconButton from '../IconButton';
 
 export default class PaggingPage extends Component {
 
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        page: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+
+        paggingPrevIconCls: PropTypes.string,
+        paggingNextIconCls: PropTypes.string,
+        paggingFirstIconCls: PropTypes.string,
+        paggingLastIconCls: PropTypes.string,
+
+        onPageChange: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        page: 0,
+        total: 0,
+
+        paggingPrevIconCls: 'fa fa-angle-left',
+        paggingNextIconCls: 'fa fa-angle-right',
+        paggingFirstIconCls: 'fa fa-angle-double-left',
+        paggingLastIconCls: 'fa fa-angle-double-right'
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -229,36 +260,4 @@ export default class PaggingPage extends Component {
         );
 
     }
-};
-
-PaggingPage.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-
-    page: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-
-    paggingPrevIconCls: PropTypes.string,
-    paggingNextIconCls: PropTypes.string,
-    paggingFirstIconCls: PropTypes.string,
-    paggingLastIconCls: PropTypes.string,
-
-    onPageChange: PropTypes.func
-
-};
-
-PaggingPage.defaultProps = {
-
-    className: '',
-    style: null,
-
-    page: 0,
-    total: 0,
-
-    paggingPrevIconCls: 'fa fa-angle-left',
-    paggingNextIconCls: 'fa fa-angle-right',
-    paggingFirstIconCls: 'fa fa-angle-double-left',
-    paggingLastIconCls: 'fa fa-angle-double-right'
-
 };
