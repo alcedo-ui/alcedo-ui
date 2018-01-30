@@ -15,68 +15,7 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
-export default class DateRangePicker extends Component {
-
-    static propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * DateRangePicker input name.
-         */
-        name: PropTypes.string,
-
-        /**
-         * This is the initial date value of the component.
-         */
-        value: PropTypes.array,
-
-        /**
-         * The ending of a range of valid dates. The range includes the endDate.
-         */
-        maxValue: PropTypes.string,
-
-        /**
-         * The beginning of a range of valid dates. The range includes the startDate.
-         */
-        minValue: PropTypes.string,
-
-        /**
-         * DateRangePicker textField element placeholder.
-         */
-        placeholder: PropTypes.string,
-
-        /**
-         * Date format.
-         */
-        dateFormat: PropTypes.string,
-
-        /**
-         * If true,the date selection box will displayed.
-         */
-        popupVisible: PropTypes.bool,
-
-        /**
-         * Callback function that is fired when the date value changes.
-         */
-        onChange: PropTypes.func
-
-    };
-    static defaultProps = {
-        className: '',
-        style: null,
-        name: '',
-        placeholder: 'Date',
-        dateFormat: 'YYYY-MM-DD'
-    };
+class DateRangePicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -539,3 +478,67 @@ export default class DateRangePicker extends Component {
         );
     }
 };
+
+DateRangePicker.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * DateRangePicker input name.
+     */
+    name: PropTypes.string,
+
+    /**
+     * This is the initial date value of the component.
+     */
+    value: PropTypes.array,
+
+    /**
+     * The ending of a range of valid dates. The range includes the endDate.
+     */
+    maxValue: PropTypes.string,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
+    minValue: PropTypes.string,
+
+    /**
+     * DateRangePicker textField element placeholder.
+     */
+    placeholder: PropTypes.string,
+
+    /**
+     * Date format.
+     */
+    dateFormat: PropTypes.string,
+
+    /**
+     * If true,the date selection box will displayed.
+     */
+    popupVisible: PropTypes.bool,
+
+    /**
+     * Callback function that is fired when the date value changes.
+     */
+    onChange: PropTypes.func
+
+};
+
+DateRangePicker.defaultProps = {
+    className: '',
+    style: null,
+    name: '',
+    placeholder: 'Date',
+    dateFormat: 'YYYY-MM-DD'
+};
+
+export default DateRangePicker;
