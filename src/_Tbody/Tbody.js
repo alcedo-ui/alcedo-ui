@@ -14,6 +14,29 @@ import SelectMode from '../_statics/SelectMode';
 export default class Tbody extends Component {
 
     static SelectMode = SelectMode;
+    static propTypes = {
+
+        columns: PropTypes.array,
+        data: PropTypes.array,
+        startIndex: PropTypes.number,
+        idProp: PropTypes.string,
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        disabled: PropTypes.bool,
+
+        isItemChecked: PropTypes.func,
+
+        onRowTouchTap: PropTypes.func,
+        onCellTouchTap: PropTypes.func
+
+    };
+    static defaultProps = {
+        data: [],
+        columns: [],
+        startIndex: 0,
+        idProp: 'id',
+        selectMode: SelectMode.SINGLE_SELECT,
+        disabled: false
+    };
 
     constructor(props, ...restArgs) {
 
@@ -72,29 +95,4 @@ export default class Tbody extends Component {
         );
 
     }
-};
-
-Tbody.propTypes = {
-
-    columns: PropTypes.array,
-    data: PropTypes.array,
-    startIndex: PropTypes.number,
-    idProp: PropTypes.string,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    disabled: PropTypes.bool,
-
-    isItemChecked: PropTypes.func,
-
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
-
-};
-
-Tbody.defaultProps = {
-    data: [],
-    columns: [],
-    startIndex: 0,
-    idProp: 'id',
-    selectMode: SelectMode.SINGLE_SELECT,
-    disabled: false
 };
