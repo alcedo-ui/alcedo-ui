@@ -21,6 +21,87 @@ export default class ListItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static propTypes = {
+
+        index: PropTypes.number,
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+        data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        text: PropTypes.any,
+        desc: PropTypes.string,
+
+        disabled: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        disableTouchRipple: PropTypes.bool,
+        rippleDisplayCenter: PropTypes.bool,
+        checked: PropTypes.bool,
+        readOnly: PropTypes.bool,
+
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
+
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+        radioUncheckedIconCls: PropTypes.string,
+        radioCheckedIconCls: PropTypes.string,
+        checkboxUncheckedIconCls: PropTypes.string,
+        checkboxCheckedIconCls: PropTypes.string,
+        checkboxIndeterminateIconCls: PropTypes.string,
+
+        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
+
+        onTouchTap: PropTypes.func,
+        onSelect: PropTypes.func,
+        onDeselect: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        index: 0,
+
+        className: null,
+        style: null,
+        theme: Theme.DEFAULT,
+
+        selectTheme: Theme.DEFAULT,
+        selectMode: SelectMode.SINGLE_SELECT,
+
+        data: null,
+        value: null,
+        text: null,
+        desc: null,
+
+        disabled: false,
+        isLoading: false,
+        disableTouchRipple: false,
+        rippleDisplayCenter: false,
+        checked: false,
+        readOnly: false,
+
+        iconCls: null,
+        rightIconCls: null,
+
+        tip: null,
+        tipPosition: Position.BOTTOM,
+
+        radioUncheckedIconCls: null,
+        radioCheckedIconCls: null,
+        checkboxUncheckedIconCls: 'fa fa-square-o',
+        checkboxCheckedIconCls: 'fa fa-check-square',
+        checkboxIndeterminateIconCls: 'fa fa-minus-square'
+
+    };
 
     constructor(props, ...restArgs) {
 
@@ -226,87 +307,4 @@ export default class ListItem extends Component {
         );
 
     }
-};
-
-ListItem.propTypes = {
-
-    index: PropTypes.number,
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    text: PropTypes.any,
-    desc: PropTypes.string,
-
-    disabled: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
-    rippleDisplayCenter: PropTypes.bool,
-    checked: PropTypes.bool,
-    readOnly: PropTypes.bool,
-
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
-
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
-
-    itemRenderer: PropTypes.func,
-    renderer: PropTypes.func,
-
-    onTouchTap: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
-
-};
-
-ListItem.defaultProps = {
-
-    index: 0,
-
-    className: null,
-    style: null,
-    theme: Theme.DEFAULT,
-
-    selectTheme: Theme.DEFAULT,
-    selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
-
-    disabled: false,
-    isLoading: false,
-    disableTouchRipple: false,
-    rippleDisplayCenter: false,
-    checked: false,
-    readOnly: false,
-
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
-    tipPosition: Position.BOTTOM,
-
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
-    checkboxUncheckedIconCls: 'fa fa-square-o',
-    checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
-
 };
