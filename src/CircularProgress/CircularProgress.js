@@ -10,6 +10,63 @@ import Percent from '../_Percent';
 
 export default class CircularProgress extends Component {
 
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The style of the percent text description.
+         */
+        percentStyle: PropTypes.object,
+
+        /**
+         * The radius of the progress in pixels.
+         */
+        r: PropTypes.number,
+
+        /**
+         * Stroke width in pixels.
+         */
+        width: PropTypes.number,
+
+        /**
+         * Override the progress's color.
+         */
+        // rgba: PropTypes.string,
+
+        /**
+         * The value of progress.
+         */
+        percent: PropTypes.number,
+
+        /**
+         * If true,there will have a text description.
+         */
+        word: PropTypes.bool
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        percentStyle: {},
+        r: 48,
+        width: 2,
+        // rgba: 'rgb(0, 188, 212)',
+        percent: 0,
+        word: true
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -64,62 +121,3 @@ export default class CircularProgress extends Component {
     }
 
 };
-
-CircularProgress.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The style of the percent text description.
-     */
-    percentStyle: PropTypes.object,
-
-    /**
-     * The radius of the progress in pixels.
-     */
-    r: PropTypes.number,
-
-    /**
-     * Stroke width in pixels.
-     */
-    width: PropTypes.number,
-
-    /**
-     * Override the progress's color.
-     */
-    // rgba: PropTypes.string,
-
-    /**
-     * The value of progress.
-     */
-    percent: PropTypes.number,
-
-    /**
-     * If true,there will have a text description.
-     */
-    word: PropTypes.bool
-
-};
-
-CircularProgress.defaultProps = {
-
-    className: '',
-    style: null,
-
-    percentStyle: {},
-    r: 48,
-    width: 2,
-    // rgba: 'rgb(0, 188, 212)',
-    percent: 0,
-    word: true
-
-};
-
