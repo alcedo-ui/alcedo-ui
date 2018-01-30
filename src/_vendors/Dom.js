@@ -149,7 +149,7 @@ function findParentByClassName(el, className) {
 
 }
 
-function hasParent(el, parentEl) {
+function isParent(el, parentEl) {
 
     if (!el || !parentEl) {
         return false;
@@ -179,5 +179,5 @@ export default {
     removeClass,
     toggleClass,
     findParentByClassName,
-    hasParent
+    isParent
 };
