@@ -13,6 +13,26 @@ import Util from '../_vendors/Util';
 export default class MaterialFieldSeparator extends Component {
 
     static Theme = Theme;
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        isHover: PropTypes.bool,
+        isFocus: PropTypes.bool
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+        theme: Theme.DEFAULT,
+
+        isHover: false,
+        isFocus: false
+
+    };
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -31,26 +51,4 @@ export default class MaterialFieldSeparator extends Component {
             </div>
         );
     }
-};
-
-MaterialFieldSeparator.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    isHover: PropTypes.bool,
-    isFocus: PropTypes.bool
-
-};
-
-MaterialFieldSeparator.defaultProps = {
-
-    className: '',
-    style: null,
-    theme: Theme.DEFAULT,
-
-    isHover: false,
-    isFocus: false
-
 };
