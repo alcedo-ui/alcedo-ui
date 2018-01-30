@@ -10,22 +10,7 @@ import _ from 'lodash';
 
 import TimeItems from '../_TimeItems';
 
-export default class TimeList extends Component {
-
-    static propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        popupVisible: PropTypes.bool,
-        hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        isRequired: PropTypes.bool,
-        maxValue: PropTypes.string, // '11:20:39'
-        minValue: PropTypes.string
-
-    };
+class TimeList extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -345,3 +330,20 @@ export default class TimeList extends Component {
         );
     }
 };
+
+TimeList.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    popupVisible: PropTypes.bool,
+    hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    isRequired: PropTypes.bool,
+    maxValue: PropTypes.string, // '11:20:39'
+    minValue: PropTypes.string
+
+};
+
+export default TimeList;
