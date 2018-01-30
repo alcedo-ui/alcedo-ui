@@ -10,26 +10,7 @@ import Util from '../_vendors/Util';
 
 import TouchRipple from '../TouchRipple';
 
-export default class DayPicker extends Component {
-
-    static propTypes = {
-        className: PropTypes.string,
-        style: PropTypes.object,
-        value: PropTypes.any,
-        maxValue: PropTypes.any,
-        minValue: PropTypes.any,
-        year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        dateFormat: PropTypes.string,
-        isRange: PropTypes.bool,
-        isFooter: PropTypes.bool,
-        onChange: PropTypes.func,
-        previousClick: PropTypes.func
-    };
-    static defaultProps = {
-        isFooter: false
-    };
+class DayPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -450,3 +431,25 @@ export default class DayPicker extends Component {
         );
     }
 };
+
+DayPicker.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    value: PropTypes.any,
+    maxValue: PropTypes.any,
+    minValue: PropTypes.any,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    dateFormat: PropTypes.string,
+    isRange: PropTypes.bool,
+    isFooter: PropTypes.bool,
+    onChange: PropTypes.func,
+    previousClick: PropTypes.func
+};
+
+DayPicker.defaultProps = {
+    isFooter: false
+};
+
+export default DayPicker;
