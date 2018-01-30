@@ -10,36 +10,7 @@ import _ from 'lodash';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 
-export default class TransferList extends Component {
-
-    static propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        listStyle: PropTypes.object,
-
-        /**
-         *
-         */
-        data: PropTypes.array,
-
-        /**
-         *
-         */
-        value: PropTypes.array
-
-
-    };
-    static defaultProps = {
-        className: '',
-        style: null
-    };
+class TransferList extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -196,3 +167,35 @@ export default class TransferList extends Component {
     }
 
 };
+
+TransferList.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    listStyle: PropTypes.object,
+
+    /**
+     *
+     */
+    data: PropTypes.array,
+
+    /**
+     *
+     */
+    value: PropTypes.array
+
+
+};
+
+TransferList.defaultProps = {
+    className: '',
+    style: null
+};
+
+export default TransferList;
