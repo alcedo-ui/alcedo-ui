@@ -41,7 +41,6 @@ export default class DotStepItem extends Component {
         onTouchTap: PropTypes.func
 
     };
-
     static defaultProps = {
 
         className: '',
