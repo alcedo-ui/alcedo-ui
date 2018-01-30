@@ -8,6 +8,51 @@ import PropTypes from 'prop-types';
 
 export default class DotStepItem extends Component {
 
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * Item index.
+         */
+        index: PropTypes.number,
+
+        /**
+         * Sets the step as active.
+         */
+        activatedStep: PropTypes.number,
+
+        /**
+         * The final step.
+         */
+        finishedStep: PropTypes.number,
+
+        /**
+         * Callback function fired when step change.
+         */
+        onTouchTap: PropTypes.func
+
+    };
+
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        index: 0,
+        activatedStep: 0,
+        finishedStep: 0
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -35,49 +80,4 @@ export default class DotStepItem extends Component {
         );
 
     }
-};
-
-DotStepItem.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Item index.
-     */
-    index: PropTypes.number,
-
-    /**
-     * Sets the step as active.
-     */
-    activatedStep: PropTypes.number,
-
-    /**
-     * The final step.
-     */
-    finishedStep: PropTypes.number,
-
-    /**
-     * Callback function fired when step change.
-     */
-    onTouchTap: PropTypes.func
-
-};
-
-DotStepItem.defaultProps = {
-
-    className: '',
-    style: null,
-
-    index: 0,
-    activatedStep: 0,
-    finishedStep: 0
-
 };
