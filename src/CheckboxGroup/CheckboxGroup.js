@@ -13,69 +13,9 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class CheckboxGroup extends Component {
+class CheckboxGroup extends Component {
 
     static Theme = Theme;
-    static propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        /**
-         * The CheckboxGroup theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        name: PropTypes.string,
-
-        data: PropTypes.arrayOf(PropTypes.shape({
-
-            className: PropTypes.string,
-            style: PropTypes.object,
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-            label: PropTypes.any,
-            value: PropTypes.any,
-
-            disabled: PropTypes.bool,
-
-            tip: PropTypes.any,
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
-
-        })).isRequired,
-        value: PropTypes.array,
-        disabled: PropTypes.bool,
-
-        idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
-        uncheckedIconCls: PropTypes.string,
-        checkedIconCls: PropTypes.string,
-        indeterminateIconCls: PropTypes.string,
-
-        onChange: PropTypes.func,
-
-        onCheck: PropTypes.func,
-
-        onUncheck: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: null,
-        style: null,
-        theme: Theme.DEFAULT,
-
-        name: null,
-        data: null,
-        value: null,
-        disabled: false,
-        idProp: 'id',
-
-        uncheckedIconCls: 'fa fa-square-o',
-        checkedIconCls: 'fa fa-check-square',
-        indeterminateIconCls: 'fa fa-minus-square'
-
-    };
 
     constructor(props, ...restArgs) {
 
@@ -182,3 +122,67 @@ export default class CheckboxGroup extends Component {
 
     }
 };
+
+CheckboxGroup.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    /**
+     * The CheckboxGroup theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    name: PropTypes.string,
+
+    data: PropTypes.arrayOf(PropTypes.shape({
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        label: PropTypes.any,
+        value: PropTypes.any,
+
+        disabled: PropTypes.bool,
+
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
+
+    })).isRequired,
+    value: PropTypes.array,
+    disabled: PropTypes.bool,
+
+    idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+    indeterminateIconCls: PropTypes.string,
+
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func,
+
+    onUncheck: PropTypes.func
+
+};
+
+CheckboxGroup.defaultProps = {
+
+    className: null,
+    style: null,
+    theme: Theme.DEFAULT,
+
+    name: null,
+    data: null,
+    value: null,
+    disabled: false,
+    idProp: 'id',
+
+    uncheckedIconCls: 'fa fa-square-o',
+    checkedIconCls: 'fa fa-check-square',
+    indeterminateIconCls: 'fa fa-minus-square'
+
+};
+
+export default CheckboxGroup;
