@@ -9,55 +9,9 @@ import PropTypes from 'prop-types';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-export default class ListStepItem extends Component {
+class ListStepItem extends Component {
 
     static Theme = Theme;
-    static propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Item index.
-         */
-        index: PropTypes.number,
-
-        /**
-         * Sets the step as active.
-         */
-        activatedStep: PropTypes.number,
-
-        /**
-         * The final step.
-         */
-        finishedStep: PropTypes.number,
-
-        /**
-         * The data of step item.
-         */
-        data: PropTypes.object,
-
-        /**
-         * Callback function fired when step change.
-         */
-        onTouchTap: PropTypes.func
-
-    };
-    static defaultProps = {
-        className: '',
-        style: null,
-        index: 0,
-        activatedStep: 0,
-        finishedStep: 0,
-        data: null
-    };
 
     constructor(props, ...restArgs) {
 
@@ -90,3 +44,53 @@ export default class ListStepItem extends Component {
 
     }
 };
+
+ListStepItem.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Item index.
+     */
+    index: PropTypes.number,
+
+    /**
+     * Sets the step as active.
+     */
+    activatedStep: PropTypes.number,
+
+    /**
+     * The final step.
+     */
+    finishedStep: PropTypes.number,
+
+    /**
+     * The data of step item.
+     */
+    data: PropTypes.object,
+
+    /**
+     * Callback function fired when step change.
+     */
+    onTouchTap: PropTypes.func
+
+};
+
+ListStepItem.defaultProps = {
+    className: '',
+    style: null,
+    index: 0,
+    activatedStep: 0,
+    finishedStep: 0,
+    data: null
+};
+
+export default ListStepItem;
