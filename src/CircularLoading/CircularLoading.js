@@ -15,6 +15,50 @@ export default class CircularLoading extends Component {
         SMALL: 'small',
         LARGE: 'large'
     };
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * Set the size of loading,can use small or large.
+         */
+        size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size)),
+
+        /**
+         * Set the theme of loading,can use highlight,success,error,warning.
+         */
+        theme: PropTypes.string,
+
+        /**
+         * Set the CircularLoading border-width.
+         */
+        weight: PropTypes.number,
+
+        /**
+         * Set the border style of CircularLoading,can use solid,dotted.
+         */
+        type: PropTypes.string
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        size: CircularLoading.Size.DEFAULT,
+        theme: '',
+        width: '1',
+        type: 'solid'
+
+    };
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -58,50 +102,4 @@ export default class CircularLoading extends Component {
         );
 
     }
-};
-
-CircularLoading.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Set the size of loading,can use small or large.
-     */
-    size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size)),
-
-    /**
-     * Set the theme of loading,can use highlight,success,error,warning.
-     */
-    theme: PropTypes.string,
-
-    /**
-     * Set the CircularLoading border-width.
-     */
-    weight: PropTypes.number,
-
-    /**
-     * Set the border style of CircularLoading,can use solid,dotted.
-     */
-    type: PropTypes.string
-
-};
-
-CircularLoading.defaultProps = {
-
-    className: '',
-    style: null,
-
-    size: CircularLoading.Size.DEFAULT,
-    theme: '',
-    width: '1',
-    type: 'solid'
-
 };
