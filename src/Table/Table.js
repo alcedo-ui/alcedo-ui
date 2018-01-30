@@ -21,7 +21,7 @@ import SelectMode from '../_statics/SelectMode';
 import SortType from '../_statics/SortType';
 import Theme from '../Theme';
 
-export default class Table extends Component {
+class Table extends Component {
 
     static SelectMode = SelectMode;
     static SortType = SortType;
@@ -765,3 +765,5 @@ Table.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default Table;
