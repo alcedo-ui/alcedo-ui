@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialAutoCompleteFilter extends Component {
+class MaterialAutoCompleteFilter extends Component {
 
     static Theme = Theme;
 
@@ -415,3 +415,5 @@ MaterialAutoCompleteFilter.defaultProps = {
     popupChildren: null
 
 };
+
+export default MaterialAutoCompleteFilter;
