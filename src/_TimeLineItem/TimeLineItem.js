@@ -12,6 +12,23 @@ export default class TimeLineItem extends Component {
         HEADER: 'header',
         TITLE: 'title'
     };
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object
+
+    };
+    static defaultProps = {
+        className: '',
+        style: null
+    };
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -56,22 +73,3 @@ export default class TimeLineItem extends Component {
         );
     }
 }
-
-TimeLineItem.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object
-
-};
-
-TimeLineItem.defaultProps = {
-    className: '',
-    style: null
-};
