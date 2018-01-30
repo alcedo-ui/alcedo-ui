@@ -13,7 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class GhostButton extends Component {
+class GhostButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
@@ -156,3 +156,5 @@ GhostButton.defaultProps = {
     tipPosition: TipProvider.Position.BOTTOM
 
 };
+
+export default GhostButton;
