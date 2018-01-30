@@ -50,8 +50,8 @@ input::-ms-clear {
         }
 
         &.clear-icon {
-            right: 0;
-            opacity: 0;
+            right: -99999px;
+            transition: right 0s;
         }
 
         &.password-visible-icon {
@@ -86,6 +86,12 @@ input::-ms-clear {
         text-overflow: ellipsis;
     }
 
+    &.focused {
+        .clear-icon {
+            transition: right 0s $theme-transition-duration;
+        }
+    }
+
     &.has-icon {
         .text-field-input {
             padding-left: 40px;
@@ -104,6 +110,12 @@ input::-ms-clear {
             .text-field-input {
                 padding-right: 40px;
             }
+
+            //&.focused {
+            //    .clear-icon {
+            //        display: block;
+            //    }
+            //}
         }
 
         &.password {
@@ -111,8 +123,10 @@ input::-ms-clear {
                 padding-right: 66px;
             }
 
-            .clear-icon { // password-visible-icon
-                right: 26px;
+            &.focused {
+                .clear-icon {
+                    right: 26px;
+                }
             }
         }
     }
@@ -129,7 +143,7 @@ input::-ms-clear {
                 padding-right: 66px;
             }
 
-            .password-visible-icon { // clear-icon
+            .password-visible-icon {
                 right: 26px;
             }
         }
@@ -139,12 +153,14 @@ input::-ms-clear {
                 padding-right: 66px;
             }
 
-            .password-visible-icon { // clear-icon
+            .password-visible-icon {
                 right: 26px;
             }
 
-            .clear-icon { // password-visible-icon
-                right: 26px;
+            &.focused {
+                .clear-icon {
+                    right: 26px;
+                }
             }
 
             &.password {
@@ -152,8 +168,10 @@ input::-ms-clear {
                     padding-right: 92px;
                 }
 
-                .clear-icon { // password-visible-icon
-                    right: 52px;
+                &.focused {
+                    .clear-icon {
+                        right: 52px;
+                    }
                 }
             }
         }
@@ -173,12 +191,6 @@ input::-ms-clear {
         .text-field-input {
             cursor: not-allowed;
             user-select: none;
-        }
-    }
-
-    &.focused {
-        .clear-icon {
-            opacity: 1;
         }
     }
 
