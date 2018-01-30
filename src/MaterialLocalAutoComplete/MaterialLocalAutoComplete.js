@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialLocalAutoComplete extends Component {
+class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;
 
@@ -409,3 +409,5 @@ MaterialLocalAutoComplete.defaultProps = {
     popupChildren: null
 
 };
+
+export default MaterialLocalAutoComplete;
