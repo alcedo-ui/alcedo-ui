@@ -14,60 +14,7 @@ import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
 
-export default class TagField extends Component {
-
-    static propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        data: PropTypes.array,
-        inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        valueField: PropTypes.string,
-        displayField: PropTypes.string,
-        separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-        disabled: PropTypes.bool,
-        placeholder: PropTypes.string,
-        clearButtonVisible: PropTypes.bool,
-        shouldPreventContainerScroll: PropTypes.bool,
-
-        onChange: PropTypes.func,
-        onInputChange: PropTypes.func,
-
-        /**
-         * Callback function fired when wrapper wheeled.
-         */
-        onWheel: PropTypes.func
-
-    };
-
-    static defaultProps = {
-
-        className: '',
-        style: null,
-
-        data: [],
-        inputValue: '',
-
-        valueField: 'value',
-        displayField: 'text',
-        separator: /\s*,\s*/,
-
-        disabled: false,
-
-        placeholder: '',
-        clearButtonVisible: true,
-        shouldPreventContainerScroll: true
-
-    };
+class TagField extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -468,3 +415,58 @@ export default class TagField extends Component {
 
     }
 };
+
+TagField.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    data: PropTypes.array,
+    inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    valueField: PropTypes.string,
+    displayField: PropTypes.string,
+    separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+    disabled: PropTypes.bool,
+    placeholder: PropTypes.string,
+    clearButtonVisible: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    onChange: PropTypes.func,
+    onInputChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
+
+};
+
+TagField.defaultProps = {
+
+    className: '',
+    style: null,
+
+    data: [],
+    inputValue: '',
+
+    valueField: 'value',
+    displayField: 'text',
+    separator: /\s*,\s*/,
+
+    disabled: false,
+
+    placeholder: '',
+    clearButtonVisible: true,
+    shouldPreventContainerScroll: true
+
+};
+
+export default TagField;
