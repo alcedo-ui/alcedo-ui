@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialTextField extends Component {
+class MaterialTextField extends Component {
 
     static Type = TextField.Type;
     static Theme = Theme;
@@ -360,3 +360,5 @@ MaterialTextField.defaultProps = {
     fieldMsgVisible: true
 
 };
+
+export default MaterialTextField;
