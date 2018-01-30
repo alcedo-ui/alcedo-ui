@@ -9,19 +9,7 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-export default class YearPicker extends Component {
-
-    static propTypes = {
-        className: PropTypes.string,
-        style: PropTypes.object,
-        value: PropTypes.any,
-        maxValue: PropTypes.any,
-        minValue: PropTypes.any,
-        year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        onChange: PropTypes.func
-    };
+class YearPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -204,3 +192,17 @@ export default class YearPicker extends Component {
         );
     }
 };
+
+YearPicker.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    value: PropTypes.any,
+    maxValue: PropTypes.any,
+    minValue: PropTypes.any,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onChange: PropTypes.func
+};
+
+export default YearPicker;
