@@ -10,6 +10,27 @@ import DropdownSelect from '../DropdownSelect';
 
 export default class PaggingSize extends Component {
 
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        pageSize: PropTypes.number,
+        pageSizes: PropTypes.array,
+
+        onPageSizeChange: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        pageSize: 10,
+        pageSizes: [5, 10, 15, 20]
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -46,26 +67,4 @@ export default class PaggingSize extends Component {
         );
 
     }
-};
-
-PaggingSize.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-
-    pageSize: PropTypes.number,
-    pageSizes: PropTypes.array,
-
-    onPageSizeChange: PropTypes.func
-
-};
-
-PaggingSize.defaultProps = {
-
-    className: '',
-    style: null,
-
-    pageSize: 10,
-    pageSizes: [5, 10, 15, 20]
-
 };
