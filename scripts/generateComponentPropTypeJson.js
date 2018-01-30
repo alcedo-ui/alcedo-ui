@@ -54,7 +54,7 @@ function splitField(fieldString) {
  */
 function generatePropTypes(componentName, fileString, result) {
 
-    var propTypesFileString = fileString.slice(fileString.indexOf(componentName + '.propTypes')),
+    var propTypesFileString = fileString.slice(fileString.indexOf('static propTypes')),
         propTypesFileArray = propTypesFileString.split('\n'),
         lastLineBraceCount = 0, braceCount = 0, commentStart, comment, fieldString, fieldObj;
 
@@ -126,7 +126,7 @@ function generatePropTypes(componentName, fileString, result) {
  */
 function generateDefaultProps(componentName, fileString, result) {
 
-    var defaultPropsFileString = fileString.slice(fileString.indexOf(componentName + '.defaultProps')),
+    var defaultPropsFileString = fileString.slice(fileString.indexOf('static defaultProps')),
         defaultPropsFileArray = defaultPropsFileString.split('\n'),
         braceCount = 0, fieldObj, fieldName;
 
@@ -153,7 +153,7 @@ function generateDefaultProps(componentName, fileString, result) {
 
 }
 
-module.exports = function (componentName, fileString) {
+module.exports = function generateComponentPropTypeJson(componentName, fileString) {
 
     if (!fileString) {
         return fileString;
