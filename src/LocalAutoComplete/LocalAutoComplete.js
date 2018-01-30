@@ -268,14 +268,10 @@ class LocalAutoComplete extends Component {
     }
 
     mouseDownHandler(e) {
-
-        if (!this.state.filterFocused && (!Dom.isParent(e.target, this.localAutoCompleteEl)
-                || !Dom.isParent(e.target, findDOMNode(this.refs.popup)))) {
-            return;
+        if (this.state.filterFocused && !Dom.isParent(e.target, this.localAutoCompleteEl)
+            && !Dom.isParent(e.target, findDOMNode(this.refs.popup))) {
+            this.update();
         }
-
-        this.update();
-
     }
 
     componentDidMount() {
