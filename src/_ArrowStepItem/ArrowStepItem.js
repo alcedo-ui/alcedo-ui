@@ -24,7 +24,6 @@ export default class ArrowStepItem extends Component {
         onTouchTap: PropTypes.func
 
     };
-
     static defaultProps = {
 
         className: '',
