@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Paper from '../Paper';
 
-export default class Widget extends Component {
+class Widget extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -56,3 +56,5 @@ Widget.defaultProps = {
     depth: 1
 
 };
+
+export default Widget;
