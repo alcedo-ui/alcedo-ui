@@ -27,7 +27,6 @@ export default class DayPicker extends Component {
         onChange: PropTypes.func,
         previousClick: PropTypes.func
     };
-
     static defaultProps = {
         isFooter: false
     };
