@@ -12,7 +12,6 @@ export default class Ripple extends Component {
         className: PropTypes.string,
         style: PropTypes.object
     };
-
     static defaultProps = {
         className: '',
         style: null
