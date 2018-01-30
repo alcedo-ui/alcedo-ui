@@ -13,7 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class IconButton extends Component {
+class IconButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
@@ -149,3 +149,5 @@ IconButton.defaultProps = {
     tipPosition: TipProvider.Position.BOTTOM
 
 };
+
+export default IconButton;
