@@ -13,7 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class MaterialDropdownSelect extends Component {
+class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -388,3 +388,5 @@ MaterialDropdownSelect.defaultProps = {
     shouldPreventContainerScroll: true
 
 };
+
+export default MaterialDropdownSelect;
