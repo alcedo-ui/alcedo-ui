@@ -12,72 +12,9 @@ import AnchorButton from '../AnchorButton';
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
-export default class Notification extends Component {
+class Notification extends Component {
 
     static Type = MsgType;
-    static propTypes = {
-
-        /**
-         * The CSS class name of notification.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the notification.
-         */
-        style: PropTypes.object,
-
-        notificationId: PropTypes.number,
-
-        /**
-         * The type of notification.
-         */
-        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-        /**
-         * The title of notification.
-         */
-        title: PropTypes.any,
-
-        /**
-         * The message of notification.
-         */
-        message: PropTypes.any,
-
-        /**
-         * The icon class name of notification.
-         */
-        iconCls: PropTypes.string,
-
-        /**
-         * The duration of notification.
-         */
-        duration: PropTypes.number,
-
-        closeIconVisible: PropTypes.bool,
-        closeButtonVisible: PropTypes.bool,
-        closeButtonValue: PropTypes.string,
-
-        onRequestClose: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: '',
-        style: null,
-
-        notificationId: 0,
-        type: MsgType.INFO,
-        title: 'message',
-        message: '',
-        iconCls: '',
-        duration: 0,
-
-        closeIconVisible: false,
-        closeButtonVisible: true,
-        closeButtonValue: 'Close'
-
-    };
 
     constructor(props, ...restArgs) {
 
@@ -223,3 +160,70 @@ export default class Notification extends Component {
 
     }
 };
+
+Notification.propTypes = {
+
+    /**
+     * The CSS class name of notification.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the notification.
+     */
+    style: PropTypes.object,
+
+    notificationId: PropTypes.number,
+
+    /**
+     * The type of notification.
+     */
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+    /**
+     * The title of notification.
+     */
+    title: PropTypes.any,
+
+    /**
+     * The message of notification.
+     */
+    message: PropTypes.any,
+
+    /**
+     * The icon class name of notification.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * The duration of notification.
+     */
+    duration: PropTypes.number,
+
+    closeIconVisible: PropTypes.bool,
+    closeButtonVisible: PropTypes.bool,
+    closeButtonValue: PropTypes.string,
+
+    onRequestClose: PropTypes.func
+
+};
+
+Notification.defaultProps = {
+
+    className: '',
+    style: null,
+
+    notificationId: 0,
+    type: MsgType.INFO,
+    title: 'message',
+    message: '',
+    iconCls: '',
+    duration: 0,
+
+    closeIconVisible: false,
+    closeButtonVisible: true,
+    closeButtonValue: 'Close'
+
+};
+
+export default Notification;
