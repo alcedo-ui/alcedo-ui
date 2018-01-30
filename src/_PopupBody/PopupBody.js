@@ -19,112 +19,11 @@ import PopupCalculation from '../_vendors/PopupCalculation';
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
 
-export default class PopupBody extends Component {
+class PopupBody extends Component {
 
     static Position = Position;
     static TriggerMode = TriggerMode;
     static Theme = Theme;
-    static propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * This is the DOM element that will be used to set the position of the popover.
-         */
-        triggerEl: PropTypes.object,
-
-        /**
-         * If true,the popover is visible.
-         */
-        visible: PropTypes.bool,
-
-        /**
-         * If true,the popover will have a triangle on the top of the DOM element.
-         */
-        hasTriangle: PropTypes.bool,
-
-        triangle: PropTypes.element,
-
-        /**
-         * The popover theme.Can be primary,highlight,success,warning,error.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
-         */
-        position: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-        /**
-         * If true,popup will have animation effects.
-         */
-        isAnimated: PropTypes.bool,
-
-        /**
-         * The status of popup-triangle.Can be open or toggle.
-         */
-        triggerMode: PropTypes.oneOf(Util.enumerateValue(TriggerMode)),
-
-        /**
-         * The depth of Paper component.
-         */
-        depth: PropTypes.number,
-
-        isAutoClose: PropTypes.bool,
-        isEscClose: PropTypes.bool,
-        shouldPreventContainerScroll: PropTypes.bool,
-        isTriggerPositionFixed: PropTypes.bool,
-
-        /**
-         * The function of popup event handler.
-         */
-        triggerHandler: PropTypes.func,
-
-        /**
-         * The function of popup render.
-         */
-        onRender: PropTypes.func,
-
-        /**
-         * Callback function fired when the popover is requested to be closed.
-         */
-        onRequestClose: PropTypes.func,
-
-        /**
-         * Callback function fired when wrapper wheeled.
-         */
-        onWheel: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: '',
-        style: null,
-        depth: 6,
-
-        triggerEl: null,
-        visible: false,
-        hasTriangle: true,
-        triangle: <div className="popup-triangle"></div>,
-        theme: Theme.DEFAULT,
-        position: Position.BOTTOM_LEFT,
-        isAnimated: true,
-        triggerMode: TriggerMode.TOGGLE,
-
-        isAutoClose: true,
-        isEscClose: true,
-        shouldPreventContainerScroll: true,
-        isTriggerPositionFixed: false
-
-    };
 
     constructor(props, ...restArgs) {
 
@@ -311,3 +210,108 @@ export default class PopupBody extends Component {
 
     }
 };
+
+PopupBody.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * This is the DOM element that will be used to set the position of the popover.
+     */
+    triggerEl: PropTypes.object,
+
+    /**
+     * If true,the popover is visible.
+     */
+    visible: PropTypes.bool,
+
+    /**
+     * If true,the popover will have a triangle on the top of the DOM element.
+     */
+    hasTriangle: PropTypes.bool,
+
+    triangle: PropTypes.element,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     */
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    /**
+     * If true,popup will have animation effects.
+     */
+    isAnimated: PropTypes.bool,
+
+    /**
+     * The status of popup-triangle.Can be open or toggle.
+     */
+    triggerMode: PropTypes.oneOf(Util.enumerateValue(TriggerMode)),
+
+    /**
+     * The depth of Paper component.
+     */
+    depth: PropTypes.number,
+
+    isAutoClose: PropTypes.bool,
+    isEscClose: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
+    isTriggerPositionFixed: PropTypes.bool,
+
+    /**
+     * The function of popup event handler.
+     */
+    triggerHandler: PropTypes.func,
+
+    /**
+     * The function of popup render.
+     */
+    onRender: PropTypes.func,
+
+    /**
+     * Callback function fired when the popover is requested to be closed.
+     */
+    onRequestClose: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
+
+};
+
+PopupBody.defaultProps = {
+
+    className: '',
+    style: null,
+    depth: 6,
+
+    triggerEl: null,
+    visible: false,
+    hasTriangle: true,
+    triangle: <div className="popup-triangle"></div>,
+    theme: Theme.DEFAULT,
+    position: Position.BOTTOM_LEFT,
+    isAnimated: true,
+    triggerMode: TriggerMode.TOGGLE,
+
+    isAutoClose: true,
+    isEscClose: true,
+    shouldPreventContainerScroll: true,
+    isTriggerPositionFixed: false
+
+};
+
+export default PopupBody;
