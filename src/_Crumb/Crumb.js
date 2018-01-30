@@ -15,7 +15,6 @@ import Util from '../_vendors/Util';
 export default class Crumb extends Component {
 
     static Theme = Theme;
-
     static propTypes = {
 
         /**
@@ -104,7 +103,6 @@ export default class Crumb extends Component {
         onTouchTap: PropTypes.func
 
     };
-
     static defaultProps = {
 
         className: '',
