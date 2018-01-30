@@ -2,30 +2,11 @@
  * @file TableRow component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class TableRow extends Component {
-
-    static propTypes = {
-
-        rowIndex: PropTypes.number,
-        columns: PropTypes.array,
-        data: PropTypes.object,
-        isChecked: PropTypes.bool,
-        disabled: PropTypes.bool,
-
-        onRowTouchTap: PropTypes.func,
-        onCellTouchTap: PropTypes.func
-
-    };
-    static defaultProps = {
-        rowIndex: 0,
-        columns: [],
-        data: {},
-        isChecked: false,
-        disabled: false
-    };
+class TableRow extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -110,3 +91,26 @@ export default class TableRow extends Component {
 
     }
 };
+
+TableRow.propTypes = {
+
+    rowIndex: PropTypes.number,
+    columns: PropTypes.array,
+    data: PropTypes.object,
+    isChecked: PropTypes.bool,
+    disabled: PropTypes.bool,
+
+    onRowTouchTap: PropTypes.func,
+    onCellTouchTap: PropTypes.func
+
+};
+
+TableRow.defaultProps = {
+    rowIndex: 0,
+    columns: [],
+    data: {},
+    isChecked: false,
+    disabled: false
+};
+
+export default TableRow;
