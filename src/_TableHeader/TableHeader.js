@@ -10,6 +10,37 @@ import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
 export default class TableHeader extends Component {
 
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        colIndex: PropTypes.number,
+        sortable: PropTypes.bool,
+        sortProp: PropTypes.string,
+        sort: PropTypes.object,
+        sortAscIconCls: PropTypes.string,
+        sortDescIconCls: PropTypes.string,
+        hidden: PropTypes.bool,
+
+        onSort: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: null,
+        style: null,
+
+        header: null,
+        colIndex: 0,
+        sortable: false,
+        sortProp: null,
+        sort: null,
+        hidden: false
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -76,36 +107,4 @@ export default class TableHeader extends Component {
         );
 
     }
-};
-
-TableHeader.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-
-    header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    colIndex: PropTypes.number,
-    sortable: PropTypes.bool,
-    sortProp: PropTypes.string,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
-    hidden: PropTypes.bool,
-
-    onSort: PropTypes.func
-
-};
-
-TableHeader.defaultProps = {
-
-    className: null,
-    style: null,
-
-    header: null,
-    colIndex: 0,
-    sortable: false,
-    sortProp: null,
-    sort: null,
-    hidden: false
-
 };
