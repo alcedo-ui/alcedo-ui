@@ -16,6 +16,93 @@ import Position from '../_statics/Position';
 export default class Checkbox extends Component {
 
     static Theme = Theme;
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The Checkbox theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        /**
+         * The name of the checkbox.
+         */
+        name: PropTypes.string,
+
+        /**
+         * Label for checkbox.
+         */
+        label: PropTypes.any,
+
+        /**
+         * Value for checkbox.
+         */
+        value: PropTypes.any,
+
+        /**
+         * If true,the checkbox will be checked.
+         */
+        checked: PropTypes.bool,
+
+        indeterminate: PropTypes.bool,
+
+        uncheckedIconCls: PropTypes.string,
+        checkedIconCls: PropTypes.string,
+        indeterminateIconCls: PropTypes.string,
+
+        /**
+         * If true, the checkbox will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
+
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+        /**
+         * Callback function fired when the checkbox status change.
+         */
+        onChange: PropTypes.func,
+
+        onCheck: PropTypes.func,
+
+        onUncheck: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: null,
+        style: null,
+        theme: Theme.DEFAULT,
+
+        name: null,
+        label: null,
+        value: '',
+        checked: false,
+        indeterminate: false,
+        uncheckedIconCls: 'fa fa-square-o',
+        checkedIconCls: 'fa fa-check-square',
+        indeterminateIconCls: 'fa fa-minus-square',
+        disabled: false,
+        disableTouchRipple: false,
+
+        tip: null,
+        tipPosition: Position.BOTTOM
+
+    };
 
     constructor(props, ...restArgs) {
 
@@ -146,93 +233,4 @@ export default class Checkbox extends Component {
         );
 
     }
-};
-
-Checkbox.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The Checkbox theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The name of the checkbox.
-     */
-    name: PropTypes.string,
-
-    /**
-     * Label for checkbox.
-     */
-    label: PropTypes.any,
-
-    /**
-     * Value for checkbox.
-     */
-    value: PropTypes.any,
-
-    /**
-     * If true,the checkbox will be checked.
-     */
-    checked: PropTypes.bool,
-
-    indeterminate: PropTypes.bool,
-
-    uncheckedIconCls: PropTypes.string,
-    checkedIconCls: PropTypes.string,
-    indeterminateIconCls: PropTypes.string,
-
-    /**
-     * If true, the checkbox will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
-    disableTouchRipple: PropTypes.bool,
-
-    tip: PropTypes.any,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-    /**
-     * Callback function fired when the checkbox status change.
-     */
-    onChange: PropTypes.func,
-
-    onCheck: PropTypes.func,
-
-    onUncheck: PropTypes.func
-
-};
-
-Checkbox.defaultProps = {
-
-    className: null,
-    style: null,
-    theme: Theme.DEFAULT,
-
-    name: null,
-    label: null,
-    value: '',
-    checked: false,
-    indeterminate: false,
-    uncheckedIconCls: 'fa fa-square-o',
-    checkedIconCls: 'fa fa-check-square',
-    indeterminateIconCls: 'fa fa-minus-square',
-    disabled: false,
-    disableTouchRipple: false,
-
-    tip: null,
-    tipPosition: Position.BOTTOM
-
 };
