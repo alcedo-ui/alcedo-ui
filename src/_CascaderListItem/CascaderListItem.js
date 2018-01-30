@@ -10,73 +10,7 @@ import List from '../List';
 
 import Valid from '../_vendors/Valid';
 
-export default class CascaderListItem extends Component {
-
-    static propTypes = {
-
-        /**
-         * The width of CascaderListItem.
-         */
-        listWidth: PropTypes.number,
-
-        /**
-         * The data of cascader-list.
-         */
-        data: PropTypes.array,
-
-        /**
-         *
-         */
-        path: PropTypes.arrayOf(PropTypes.shape({
-
-            /**
-             *
-             */
-            node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-
-            /**
-             *
-             */
-            index: PropTypes.number
-
-        })),
-
-        /**
-         * The value field name in data. (default: "value")
-         */
-        valueField: PropTypes.string,
-
-        /**
-         * The display field name in data. (default: "text")
-         */
-        displayField: PropTypes.string,
-
-        /**
-         * The current depth.
-         */
-        currDepth: PropTypes.number,
-
-        /**
-         *
-         */
-        depth: PropTypes.number
-
-    };
-    static defaultProps = {
-
-        listWidth: 200,
-
-        data: [],
-
-        path: [],
-
-        valueField: 'value',
-        displayField: 'text',
-
-        currDepth: 0,
-        depth: 0
-
-    };
+class CascaderListItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -166,3 +100,72 @@ export default class CascaderListItem extends Component {
 
     }
 }
+
+CascaderListItem.propTypes = {
+
+    /**
+     * The width of CascaderListItem.
+     */
+    listWidth: PropTypes.number,
+
+    /**
+     * The data of cascader-list.
+     */
+    data: PropTypes.array,
+
+    /**
+     *
+     */
+    path: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         *
+         */
+        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+
+        /**
+         *
+         */
+        index: PropTypes.number
+
+    })),
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
+    /**
+     * The current depth.
+     */
+    currDepth: PropTypes.number,
+
+    /**
+     *
+     */
+    depth: PropTypes.number
+
+};
+
+CascaderListItem.defaultProps = {
+
+    listWidth: 200,
+
+    data: [],
+
+    path: [],
+
+    valueField: 'value',
+    displayField: 'text',
+
+    currDepth: 0,
+    depth: 0
+
+};
+
+export default CascaderListItem;
