@@ -18,7 +18,7 @@ import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
-export default class DraggableList extends Component {
+class DraggableList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
@@ -501,3 +501,5 @@ DraggableList.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default DraggableList;
