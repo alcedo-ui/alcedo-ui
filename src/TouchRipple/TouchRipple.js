@@ -13,7 +13,7 @@ import Ripple from '../_Ripple';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 
-export default class TouchRipple extends Component {
+class TouchRipple extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -173,3 +173,5 @@ TouchRipple.defaultProps = {
     displayCenter: false
 
 };
+
+export default TouchRipple;
