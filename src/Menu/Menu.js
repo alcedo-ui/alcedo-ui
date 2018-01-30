@@ -11,7 +11,7 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-export default class Menu extends Component {
+class Menu extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -33,3 +33,5 @@ export default class Menu extends Component {
 
 Menu.propTypes = MenuBody.propTypes;
 Menu.defaultProps = MenuBody.defaultProps;
+
+export default Menu;
