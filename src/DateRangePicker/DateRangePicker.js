@@ -122,6 +122,7 @@ export default class DateRangePicker extends Component {
         this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
         this.dayPickerHoverHandle = ::this.dayPickerHoverHandle;
         this.monthAndYearChangeHandle = ::this.monthAndYearChangeHandle;
+
     }
 
     datePickerChangeHandle(select, selectLevel) {
@@ -359,8 +360,9 @@ export default class DateRangePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
-        const {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
+
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
+            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -408,16 +410,14 @@ export default class DateRangePicker extends Component {
                                        clearButtonVisible={false}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('left', text);
-                                       }}
-                            />
+                                       }}/>
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
                                        value={right.text}
                                        clearButtonVisible={false}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('right', text);
-                                       }}
-                            />
+                                       }}/>
                         </div>
                     </div>
                     {
@@ -446,9 +446,9 @@ export default class DateRangePicker extends Component {
                                 }}
                                 hoverHandle={(obj) => {
                                     this.dayPickerHoverHandle('left', obj);
-                                }}
-                            />
-                            : (
+                                }}/>
+                            :
+                            (
                                 left.datePickerLevel == 'month' ?
                                     <MonthPicker
                                         value={left.text}
@@ -462,8 +462,7 @@ export default class DateRangePicker extends Component {
                                         }}
                                         previousClick={(level) => {
                                             this.datePickerChangeHandle('left', level);
-                                        }}
-                                    />
+                                        }}/>
                                     :
                                     <YearPicker
                                         value={left.text}
@@ -474,8 +473,7 @@ export default class DateRangePicker extends Component {
                                         minValue={minValue}
                                         onChange={(obj) => {
                                             this.yearPickerChangeHandle('left', obj);
-                                        }}
-                                    />
+                                        }}/>
                             )
 
                     }
@@ -505,9 +503,9 @@ export default class DateRangePicker extends Component {
                                 }}
                                 hoverHandle={(obj) => {
                                     this.dayPickerHoverHandle('left', obj);
-                                }}
-                            />
-                            : (
+                                }}/>
+                            :
+                            (
                                 right.datePickerLevel == 'month' ?
                                     <MonthPicker
                                         value={right.text}
@@ -521,8 +519,7 @@ export default class DateRangePicker extends Component {
                                         }}
                                         previousClick={(level) => {
                                             this.datePickerChangeHandle('right', level);
-                                        }}
-                                    />
+                                        }}/>
                                     :
                                     <YearPicker
                                         value={right.text}
@@ -533,8 +530,7 @@ export default class DateRangePicker extends Component {
                                         maxValue={maxValue}
                                         onChange={(obj) => {
                                             this.yearPickerChangeHandle('right', obj);
-                                        }}
-                                    />
+                                        }}/>
                             )
 
                     }
