@@ -11,70 +11,9 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class ButtonCheckbox extends Component {
+class ButtonCheckbox extends Component {
 
     static Theme = Theme;
-    static propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The ButtonCheckbox theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The ButtonCheckbox activated theme.
-         */
-        activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The name of the toggleButton.
-         */
-        // name: PropTypes.string,
-
-        /**
-         * The text of the button.
-         */
-        text: PropTypes.string,
-
-        /**
-         * If true,the button will be in active status.
-         */
-        value: PropTypes.bool,
-
-        /**
-         * Disables the button if set to true.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * Callback function fired when the button is touch-tapped.
-         */
-        onChange: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: '',
-        style: null,
-        theme: Theme.DEFAULT,
-        activatedTheme: Theme.PRIMARY,
-
-        name: '',
-        text: '',
-        value: false,
-        disabled: false
-
-    };
 
     constructor(props, ...restArgs) {
 
@@ -122,3 +61,68 @@ export default class ButtonCheckbox extends Component {
 
     }
 };
+
+ButtonCheckbox.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The ButtonCheckbox theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The ButtonCheckbox activated theme.
+     */
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The name of the toggleButton.
+     */
+    // name: PropTypes.string,
+
+    /**
+     * The text of the button.
+     */
+    text: PropTypes.string,
+
+    /**
+     * If true,the button will be in active status.
+     */
+    value: PropTypes.bool,
+
+    /**
+     * Disables the button if set to true.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * Callback function fired when the button is touch-tapped.
+     */
+    onChange: PropTypes.func
+
+};
+
+ButtonCheckbox.defaultProps = {
+
+    className: '',
+    style: null,
+    theme: Theme.DEFAULT,
+    activatedTheme: Theme.PRIMARY,
+
+    name: '',
+    text: '',
+    value: false,
+    disabled: false
+
+};
+
+export default ButtonCheckbox;
