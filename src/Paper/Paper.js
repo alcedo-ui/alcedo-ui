@@ -10,7 +10,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Paper extends Component {
+class Paper extends Component {
 
     static Theme = Theme;
 
@@ -100,3 +100,5 @@ Paper.defaultProps = {
     isCircular: false
 
 };
+
+export default Paper;
