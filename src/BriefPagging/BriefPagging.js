@@ -13,6 +13,94 @@ import Valid from '../_vendors/Valid';
 
 export default class BriefPagging extends Component {
 
+    static propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * The total of data.
+         */
+        count: PropTypes.number,
+
+        /**
+         * The valid page.
+         */
+        page: PropTypes.number,
+
+        /**
+         * The page count.
+         */
+        total: PropTypes.number,
+
+        /**
+         * The number of per page.
+         */
+        pageSize: PropTypes.number,
+
+        /**
+         * The array of pageSize.
+         */
+        pageSizes: PropTypes.array,
+
+        /**
+         * The total count of selected.
+         */
+        selectedCount: PropTypes.number,
+
+        /**
+         * If true,the selectedCount will show.
+         */
+        selectedCountVisible: PropTypes.bool,
+
+        /**
+         * If false, the pageSize choice box will not show.
+         */
+        pageSizeVisible: PropTypes.bool,
+
+        /**
+         * Use this property to set prev button icon.
+         */
+        paggingPrevIconCls: PropTypes.string,
+
+        /**
+         * Use this property to set next button icon.
+         */
+        paggingNextIconCls: PropTypes.string,
+
+        /**
+         * Callback function fired when Pagging component change.
+         */
+        onChange: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: '',
+        style: null,
+
+        count: 0,
+        page: 0,
+        total: 0,
+        pageSize: 10,
+        pageSizes: [5, 10, 15, 20],
+        selectedCount: 0,
+
+        selectedCountVisible: false,
+        pageSizeVisible: true,
+
+        paggingPrevIconCls: 'fa fa-chevron-left',
+        paggingNextIconCls: 'fa fa-chevron-right'
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -106,93 +194,4 @@ export default class BriefPagging extends Component {
         );
 
     }
-};
-
-BriefPagging.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The total of data.
-     */
-    count: PropTypes.number,
-
-    /**
-     * The valid page.
-     */
-    page: PropTypes.number,
-
-    /**
-     * The page count.
-     */
-    total: PropTypes.number,
-
-    /**
-     * The number of per page.
-     */
-    pageSize: PropTypes.number,
-
-    /**
-     * The array of pageSize.
-     */
-    pageSizes: PropTypes.array,
-
-    /**
-     * The total count of selected.
-     */
-    selectedCount: PropTypes.number,
-
-    /**
-     * If true,the selectedCount will show.
-     */
-    selectedCountVisible: PropTypes.bool,
-
-    /**
-     * If false, the pageSize choice box will not show.
-     */
-    pageSizeVisible: PropTypes.bool,
-
-    /**
-     * Use this property to set prev button icon.
-     */
-    paggingPrevIconCls: PropTypes.string,
-
-    /**
-     * Use this property to set next button icon.
-     */
-    paggingNextIconCls: PropTypes.string,
-
-    /**
-     * Callback function fired when Pagging component change.
-     */
-    onChange: PropTypes.func
-
-};
-
-BriefPagging.defaultProps = {
-
-    className: '',
-    style: null,
-
-    count: 0,
-    page: 0,
-    total: 0,
-    pageSize: 10,
-    pageSizes: [5, 10, 15, 20],
-    selectedCount: 0,
-
-    selectedCountVisible: false,
-    pageSizeVisible: true,
-
-    paggingPrevIconCls: 'fa fa-chevron-left',
-    paggingNextIconCls: 'fa fa-chevron-right'
-
 };
