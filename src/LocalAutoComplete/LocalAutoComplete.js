@@ -33,6 +33,7 @@ class LocalAutoComplete extends Component {
             tempSelectIndex: null,
             value: props.value,
             filter: props.filterInitValue,
+            filterFocused: false,
             popupVisible: false,
             isAbove: false,
             listData: props.data
@@ -92,25 +93,34 @@ class LocalAutoComplete extends Component {
 
     filterFocusHandler(...args) {
 
-        const {disabled, onFocus} = this.props,
-            {filter, listData} = this.state;
-
-        onFocus && onFocus(...args);
-
-        if (disabled || !filter) {
+        if (this.props.disabled) {
             return;
         }
 
-        this.setState({
-            popupVisible: true,
-            tempSelectIndex: listData.length > 0 ? 0 : null
-        });
+        const {onFocus} = this.props,
+            {filter, listData} = this.state,
+            state = {
+                filterFocused: true
+            };
+
+        onFocus && onFocus(...args);
+
+        if (filter) {
+            state.popupVisible = true;
+            state.tempSelectIndex = listData.length > 0 ? 0 : null;
+        }
+
+        this.setState(state);
 
     }
 
     filterBlurHandler(...args) {
-        const {disabled, onBlur} = this.props;
-        !disabled && onBlur && onBlur(...args);
+        this.setState({
+            filterFocused: false
+        }, () => {
+            const {onBlur} = this.props;
+            onBlur && onBlur(...args);
+        });
     }
 
     filterKeyDownHandler(e) {
@@ -259,12 +269,12 @@ class LocalAutoComplete extends Component {
 
     mouseDownHandler(e) {
 
-        if (!Dom.hasParent(e.target, this.localAutoCompleteEl)
-            || !Dom.hasParent(e.target, findDOMNode(this.refs.popup))) {
+        if (!this.state.filterFocused && (!Dom.isParent(e.target, this.localAutoCompleteEl)
+                || !Dom.isParent(e.target, findDOMNode(this.refs.popup)))) {
             return;
         }
 
-        this.updateValue();
+        this.update();
 
     }
 
