@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class SpanLoading extends Component {
+class SpanLoading extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -114,3 +114,5 @@ SpanLoading.defaultProps = {
     type: ''
 
 };
+
+export default SpanLoading;
