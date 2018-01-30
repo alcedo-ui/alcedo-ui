@@ -12,6 +12,21 @@ import TimeItems from '../_TimeItems';
 
 export default class TimeList extends Component {
 
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        popupVisible: PropTypes.bool,
+        hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        isRequired: PropTypes.bool,
+        maxValue: PropTypes.string, // '11:20:39'
+        minValue: PropTypes.string
+
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -285,20 +300,23 @@ export default class TimeList extends Component {
     }
 
     render() {
-        const {className, popupVisible, dateFormat} = this.props;
-        const {hour, minute, second, hoursData, minutesData, secondsData} = this.state;
-        const TimeItemsStyle = {
-            width: 100 / (dateFormat.split(':').length) + '%'
-        };
+
+        const {className, popupVisible, dateFormat} = this.props,
+            {hour, minute, second, hoursData, minutesData, secondsData} = this.state,
+            TimeItemsStyle = {
+                width: 100 / (dateFormat.split(':').length) + '%'
+            };
+
         return (
             <div className={`calendar ${className ? className : ''}`}>
+
                 <TimeItems className="hours"
                            style={TimeItemsStyle}
                            data={hoursData}
                            value={hour}
                            popupVisible={popupVisible}
-                           onChange={this.hourChangeHandle}
-                />
+                           onChange={this.hourChangeHandle}/>
+
                 {
                     dateFormat.split(':').length > 1 ?
                         <TimeItems className="minutes"
@@ -306,8 +324,7 @@ export default class TimeList extends Component {
                                    data={minutesData}
                                    value={minute}
                                    popupVisible={popupVisible}
-                                   onChange={this.minuteChangeHandle}
-                        />
+                                   onChange={this.minuteChangeHandle}/>
                         :
                         null
                 }
@@ -319,8 +336,7 @@ export default class TimeList extends Component {
                                    data={secondsData}
                                    value={second}
                                    popupVisible={popupVisible}
-                                   onChange={this.secondChangeHandle}
-                        />
+                                   onChange={this.secondChangeHandle}/>
                         :
                         null
                 }
@@ -328,19 +344,4 @@ export default class TimeList extends Component {
             </div>
         );
     }
-};
-
-TimeList.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-
-    popupVisible: PropTypes.bool,
-    hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    isRequired: PropTypes.bool,
-    maxValue: PropTypes.string, // '11:20:39'
-    minValue: PropTypes.string
-
 };
