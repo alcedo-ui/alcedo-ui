@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialTextArea extends Component {
+class MaterialTextArea extends Component {
 
     static Type = TextArea.Type;
     static Theme = Theme;
@@ -348,3 +348,5 @@ MaterialTextArea.defaultProps = {
     fieldMsgVisible: false
 
 };
+
+export default MaterialTextArea;
