@@ -11,7 +11,7 @@ import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
 
-export default class RemoteAutoComplete extends Component {
+class RemoteAutoComplete extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -249,3 +249,5 @@ RemoteAutoComplete.defaultProps = {
     searchLength: 1,
     loading: false
 };
+
+export default RemoteAutoComplete;
