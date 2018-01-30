@@ -14,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
-export default class TextArea extends Component {
+class TextArea extends Component {
 
     static Type = {
         TEXT: 'text',
@@ -608,3 +608,5 @@ TextArea.defaultProps = {
     fieldMsgVisible: false
 
 };
+
+export default TextArea;
