@@ -62,7 +62,6 @@ export default class CascaderListItem extends Component {
         depth: PropTypes.number
 
     };
-
     static defaultProps = {
 
         listWidth: 200,
