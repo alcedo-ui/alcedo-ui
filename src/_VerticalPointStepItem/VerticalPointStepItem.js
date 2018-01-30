@@ -6,40 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class VerticalPointStepItem extends Component {
-
-    static propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        activatedStep: PropTypes.number,
-        finishedStep: PropTypes.number,
-        index: PropTypes.number,
-        value: PropTypes.object,
-        isFirst: PropTypes.bool,
-        isLast: PropTypes.bool,
-
-        disabled: PropTypes.bool,
-
-        onTouchTap: PropTypes.func
-
-    };
-    static defaultProps = {
-
-        className: '',
-        style: null,
-
-        activatedStep: 0,
-        finishedStep: 0,
-        index: 0,
-        value: {},
-        isFirst: true,
-        isLast: false,
-
-        disabled: false
-
-    };
+class VerticalPointStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -100,3 +67,39 @@ export default class VerticalPointStepItem extends Component {
 
     }
 };
+
+VerticalPointStepItem.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    activatedStep: PropTypes.number,
+    finishedStep: PropTypes.number,
+    index: PropTypes.number,
+    value: PropTypes.object,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+
+    disabled: PropTypes.bool,
+
+    onTouchTap: PropTypes.func
+
+};
+
+VerticalPointStepItem.defaultProps = {
+
+    className: '',
+    style: null,
+
+    activatedStep: 0,
+    finishedStep: 0,
+    index: 0,
+    value: {},
+    isFirst: true,
+    isLast: false,
+
+    disabled: false
+
+};
+
+export default VerticalPointStepItem;
