@@ -12,14 +12,15 @@ import TimeList from '../_TimeList';
 import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 
-export default class MaterialTimePicker extends Component {
+class MaterialTimePicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
         this.validValue = true;
+
         this.state = {
             textFieldValue: props.value,
             popupVisible: false,
@@ -83,7 +84,7 @@ export default class MaterialTimePicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue) {
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -113,7 +114,7 @@ export default class MaterialTimePicker extends Component {
     componentDidMount() {
         const {value} = this.props;
         let dateFormatValue = '2000-02-01 ' + value;
-        if(value){
+        if (value) {
             if (moment(dateFormatValue, 'YYYY-MM-DD HH:mm:ss').isValid()) {
                 this.setState({
                     textFieldValue: value,
@@ -121,7 +122,7 @@ export default class MaterialTimePicker extends Component {
                     minute: moment(dateFormatValue).format('mm'),
                     second: moment(dateFormatValue).format('ss')
                 });
-            }else {
+            } else {
                 this.validValue = false;
                 console.error('Invalid date');
             }
@@ -236,3 +237,5 @@ MaterialTimePicker.defaultProps = {
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss'
 };
+
+export default MaterialTimePicker;
