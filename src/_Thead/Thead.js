@@ -10,6 +10,31 @@ import TableHeader from '../_TableHeader';
 
 export default class Thead extends Component {
 
+    static propTypes = {
+
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        columns: PropTypes.array,
+        sort: PropTypes.object,
+        sortAscIconCls: PropTypes.string,
+        sortDescIconCls: PropTypes.string,
+        hidden: PropTypes.bool,
+
+        onSort: PropTypes.func
+
+    };
+    static defaultProps = {
+
+        className: null,
+        style: null,
+
+        columns: [],
+        sort: null,
+        hidden: false
+
+    };
+
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
@@ -52,30 +77,4 @@ export default class Thead extends Component {
         );
 
     }
-};
-
-Thead.propTypes = {
-
-    className: PropTypes.string,
-    style: PropTypes.object,
-
-    columns: PropTypes.array,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
-    hidden: PropTypes.bool,
-
-    onSort: PropTypes.func
-
-};
-
-Thead.defaultProps = {
-
-    className: null,
-    style: null,
-
-    columns: [],
-    sort: null,
-    hidden: false
-
 };
