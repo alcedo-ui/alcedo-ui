@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialDatePickerTextField extends Component {
+class MaterialDatePickerTextField extends Component {
 
     static Type = TextField.Type;
     static Theme = Theme;
@@ -368,3 +368,5 @@ MaterialDatePickerTextField.defaultProps = {
     fieldMsgVisible: true
 
 };
+
+export default MaterialDatePickerTextField;
