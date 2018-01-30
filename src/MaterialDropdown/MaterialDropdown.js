@@ -12,7 +12,7 @@ import Dropdown from '../Dropdown';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialDropdown extends Component {
+class MaterialDropdown extends Component {
 
     static Theme = Theme;
 
@@ -222,3 +222,5 @@ MaterialDropdown.defaultProps = {
     shouldPreventContainerScroll: true
 
 };
+
+export default MaterialDropdown;
