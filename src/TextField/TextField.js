@@ -14,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
-export default class TextField extends Component {
+class TextField extends Component {
 
     static Type = {
         TEXT: 'text',
@@ -613,3 +613,5 @@ TextField.defaultProps = {
     fieldMsgVisible: false
 
 };
+
+export default TextField;
