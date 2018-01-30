@@ -6,26 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class Percent extends Component {
-
-    static propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        endNum: PropTypes.number,
-        move: PropTypes.bool
-
-    };
-    static defaultProps = {
-
-        className: null,
-        style: null,
-
-        endNum: 100,
-        move: false
-
-    };
+class Percent extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -94,3 +75,25 @@ export default class Percent extends Component {
 
     }
 };
+
+Percent.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    endNum: PropTypes.number,
+    move: PropTypes.bool
+
+};
+
+Percent.defaultProps = {
+
+    className: null,
+    style: null,
+
+    endNum: 100,
+    move: false
+
+};
+
+export default Percent;
