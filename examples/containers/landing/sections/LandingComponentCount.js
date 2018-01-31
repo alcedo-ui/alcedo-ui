@@ -5,7 +5,7 @@ import {COMPONENTS_TOTAL_COUNT} from 'src';
 
 import 'sass/containers/landing/sections/LandingComponentCount.scss';
 
-export default class LandingComponentCount extends Component {
+class LandingComponentCount extends Component {
 
     constructor(props) {
         super(props);
@@ -39,3 +39,5 @@ LandingComponentCount.propTypes = {
 LandingComponentCount.defaultProps = {
     bodyScrollTop: 0
 };
+
+export default LandingComponentCount;
