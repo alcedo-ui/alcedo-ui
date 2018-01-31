@@ -47,14 +47,15 @@ export default class MyComponent extends Component {
 Examples can be found in the 
 [examples folder](https://github.com/alcedo-ui/alcedo-ui/tree/master/examples).
 
-**Run Demo**
+Check [online examples](https://alcedo-ui.github.io/alcedo-ui/).
+
+**Run Local Examples**
 
 ```bash
-$ npm run demo
+$ npm start
 ```
 
 ## License
 
 This project is licensed under the terms of the
 [MIT license](https://github.com/alcedo-ui/alcedo-ui/blob/dev/LICENSE)
-
