@@ -33,6 +33,7 @@ class List extends Component {
 
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
+        this.adjustScroll = ::this.adjustScroll;
         this.renderListItem = ::this.renderListItem;
 
     }
@@ -93,6 +94,34 @@ class List extends Component {
             onChange && onChange(value, index);
         });
 
+    }
+
+    adjustScroll() {
+
+        const {data} = this.props,
+            {value} = this.state,
+            index = data.indexOf(value);
+
+        if (index < 0) {
+            return;
+        }
+
+        const listHeight = this.listEl.clientHeight,
+            listScrollTop = this.listEl.scrollTop,
+            itemEl = this.listEl.childNodes[index],
+            itemHeight = itemEl.clientHeight,
+            itemTop = itemEl.offsetTop;
+
+        if (itemTop < listScrollTop) {
+            this.listEl.scrollTop = itemTop;
+        } else if (itemTop + itemHeight > listScrollTop + listHeight) {
+            this.listEl.scrollTop = itemTop + itemHeight - listHeight;
+        }
+
+    }
+
+    componentDidMount() {
+        this.listEl = this.refs.list;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -189,7 +218,8 @@ class List extends Component {
             listClassName = (className ? ' ' + className : '');
 
         return (
-            <div className={'list' + listClassName}
+            <div ref="list"
+                 className={'list' + listClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
