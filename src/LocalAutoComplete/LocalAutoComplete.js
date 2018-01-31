@@ -125,7 +125,9 @@ class LocalAutoComplete extends Component {
 
     filterKeyDownHandler(e) {
 
-        const {tempSelectIndex, listData} = this.state;
+        const {useDynamicRenderList} = this.props,
+            {tempSelectIndex, listData} = this.state,
+            listEl = useDynamicRenderList ? this.refs.dynamicRenderList : this.refs.list;
         let index = tempSelectIndex;
 
         if (e.keyCode === 38) { // up
@@ -134,11 +136,17 @@ class LocalAutoComplete extends Component {
             index++;
         }
 
+        const newTempSelectIndex = Valid.range(index, 0, listData.length - 1);
+
         this.setState({
-            tempSelectIndex: Valid.range(index, 0, listData.length - 1)
+            tempSelectIndex: newTempSelectIndex
         }, () => {
+
             const {onFilterKeyDown} = this.props;
             onFilterKeyDown && onFilterKeyDown(e);
+
+            listEl.adjustScroll();
+
         });
 
     }
@@ -393,7 +401,8 @@ class LocalAutoComplete extends Component {
                                     :
                                     (
                                         useDynamicRenderList ?
-                                            <DynamicRenderList className="local-auto-complete-list"
+                                            <DynamicRenderList ref="dynamicRenderList"
+                                                               className="local-auto-complete-list"
                                                                theme={popupTheme}
                                                                data={listData}
                                                                value={listData[tempSelectIndex]}
@@ -407,7 +416,8 @@ class LocalAutoComplete extends Component {
                                                                onItemTouchTap={onItemTouchTap}
                                                                onChange={this.changeHandler}/>
                                             :
-                                            <List className="local-auto-complete-list"
+                                            <List ref="list"
+                                                  className="local-auto-complete-list"
                                                   theme={popupTheme}
                                                   data={listData}
                                                   value={listData[tempSelectIndex]}
