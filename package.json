@@ -12,7 +12,8 @@
         "pre-publish": "rimraf dist && npm run compile && gulp copy",
         "dev": "npm run compile && node build/dev/dev-server.js",
         "build": "rimraf docs && npm run compile && node build/prod/prod.js",
-        "run": "npm run build && node build/demo/demo-server.js"
+        "demo": "node build/demo/demo-server.js",
+        "start": "npm run build && npm run demo"
     },
     "repository": {
         "type": "git",
