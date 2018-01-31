@@ -13,21 +13,11 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import FieldType from '../_statics/FieldType';
 
 class TextArea extends Component {
 
-    static Type = {
-        TEXT: 'text',
-        PASSWORD: 'password',
-        NUMBER: 'number',
-        INTEGER: 'integer',
-        POSITIVE_INTEGER: 'positiveInteger',
-        NONNEGATIVE_INTEGER: 'nonnegativeInteger',
-        NEGATIVE_INTEGER: 'negativeInteger',
-        NONPOSITIVE_INTEGER: 'nonpositiveInteger',
-        EMAIL: 'email',
-        URL: 'url'
-    };
+    static Type = FieldType;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -60,7 +50,7 @@ class TextArea extends Component {
 
         const {
             NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
-        } = TextArea.Type;
+        } = FieldType;
 
         return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
             || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
@@ -72,11 +62,11 @@ class TextArea extends Component {
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
 
-        if (type === TextArea.Type.EMAIL && !Valid.isEmail(value)) {
+        if (type === FieldType.EMAIL && !Valid.isEmail(value)) {
             invalidMsgs.push('Invalid E-mail address');
         }
 
-        if (type === TextArea.Type.URL && !Valid.isUrl(value)) {
+        if (type === FieldType.URL && !Valid.isUrl(value)) {
             invalidMsgs.push('Invalid url');
         }
 
@@ -94,23 +84,23 @@ class TextArea extends Component {
                 invalidMsgs.push('Not a valid number');
             }
 
-            if (type === TextArea.Type.INTEGER && ~~value !== value) {
+            if (type === FieldType.INTEGER && ~~value !== value) {
                 invalidMsgs.push('Not a valid integer');
             }
 
-            if (type === TextArea.Type.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+            if (type === FieldType.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
                 invalidMsgs.push('Not a valid positive integer');
             }
 
-            if (type === TextArea.Type.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+            if (type === FieldType.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
                 invalidMsgs.push('Not a valid nonnegative integer');
             }
 
-            if (type === TextArea.Type.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+            if (type === FieldType.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
                 invalidMsgs.push('Not a valid negative integer');
             }
 
-            if (type === TextArea.Type.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+            if (type === FieldType.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
                 invalidMsgs.push('Not a valid nonpositive integer');
             }
 
@@ -305,7 +295,7 @@ class TextArea extends Component {
 
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
-            isPassword = type === TextArea.Type.PASSWORD,
+            isPassword = type === FieldType.PASSWORD,
 
             wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
@@ -315,8 +305,8 @@ class TextArea extends Component {
                 + (className ? ' ' + className : '');
 
         let inputType = type;
-        if (inputType === TextArea.Type.PASSWORD) {
-            inputType = passwordVisible ? TextArea.Type.TEXT : TextArea.Type.PASSWORD;
+        if (inputType === FieldType.PASSWORD) {
+            inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
         } else if (this.isNumberType(type)) {
             inputType = 'text';
         }
@@ -428,7 +418,7 @@ TextArea.propTypes = {
     /**
      * Specifies the type of input to display such as "password" or "text".
      */
-    type: PropTypes.oneOf(Util.enumerateValue(TextArea.Type)),
+    type: PropTypes.oneOf(Util.enumerateValue(FieldType)),
 
     /**
      * The name of the text area.
@@ -441,7 +431,7 @@ TextArea.propTypes = {
     placeholder: PropTypes.string,
 
     /**
-     * The value of the text area. Type can be string or number.
+     * The value of the TextArea.Type can be string or number.
      */
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
