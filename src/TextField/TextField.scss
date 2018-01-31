@@ -42,6 +42,7 @@ input::-ms-clear {
         cursor: pointer;
         top: 0;
         color: inherit;
+        z-index: 1;
 
         &.text-field-left-icon {
             left: 0;
