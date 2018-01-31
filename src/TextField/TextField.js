@@ -288,7 +288,7 @@ class TextField extends Component {
 
         const {
 
-                children, className, style, theme, type, iconCls, disabled, infoMsg,
+                children, className, style, theme, type, iconCls, disabled, infoMsg, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 onIconTouchTap, onRightIconTouchTap,
 
@@ -303,8 +303,9 @@ class TextField extends Component {
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
             isPassword = type === FieldType.PASSWORD,
+            empty = !value || value.length <= 0,
 
-            wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
+            wrapperClassName = (empty ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
                 + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
                 + (isFocused ? ' focused' : '') + (clearButtonVisible ? ' has-clear-button' : '')
@@ -328,6 +329,15 @@ class TextField extends Component {
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
                                     onTouchTap={onIconTouchTap}/>
+                        :
+                        null
+                }
+
+                {
+                    placeholder && empty ?
+                        <input className="text-field-placeholder"
+                               value={placeholder}
+                               disabled={true}/>
                         :
                         null
                 }
