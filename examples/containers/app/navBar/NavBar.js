@@ -5,7 +5,7 @@ import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/app/navBar/nav/Nav.scss';
 
-export default class NavBar extends Component {
+class NavBar extends Component {
 
     constructor(props) {
         super(props);
@@ -27,3 +27,5 @@ export default class NavBar extends Component {
         );
     }
 }
+
+export default NavBar;
