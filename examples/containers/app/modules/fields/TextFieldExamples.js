@@ -137,10 +137,12 @@ export default class TextFieldExamples extends Component {
 
                                 <TextFieldGroup>
 
-                                    <TextField iconCls="fa fa-user"/>
+                                    <TextField iconCls="fa fa-user"
+                                               placeholder="username"/>
 
                                     <TextField iconCls="fa fa-lock"
-                                               type={TextField.Type.PASSWORD}/>
+                                               type={TextField.Type.PASSWORD}
+                                               placeholder="password"/>
 
                                 </TextFieldGroup>
 
