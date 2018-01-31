@@ -5,7 +5,7 @@ import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/landing/LandingNav.scss';
 
-export default class LandingNav extends Component {
+class LandingNav extends Component {
 
     constructor(props) {
 
@@ -136,3 +136,5 @@ export default class LandingNav extends Component {
 LandingNav.propTypes = {
     bodyScrollTop: PropTypes.number
 };
+
+export default LandingNav;
