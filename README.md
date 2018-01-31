@@ -3,9 +3,9 @@
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][npm-url]
 
-[npm-image]: https://img.shields.io/npm/v/alcedo-ui.svg
+[npm-image]: https://img.shields.io/npm/v/alcedo-ui.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/alcedo-ui
-[license-image]: https://img.shields.io/npm/l/alcedo-ui.svg
+[license-image]: https://img.shields.io/npm/l/alcedo-ui.svg?style=flat-square
 
 A set of React components.
 
