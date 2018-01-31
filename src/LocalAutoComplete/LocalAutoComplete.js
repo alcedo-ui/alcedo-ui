@@ -145,7 +145,7 @@ class LocalAutoComplete extends Component {
             const {onFilterKeyDown} = this.props;
             onFilterKeyDown && onFilterKeyDown(e);
 
-            listEl.adjustScroll();
+            listEl && listEl.adjustScroll();
 
         });
 
