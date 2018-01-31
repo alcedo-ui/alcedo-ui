@@ -13,21 +13,11 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import FieldType from '../_statics/FieldType';
 
 class TextField extends Component {
 
-    static Type = {
-        TEXT: 'text',
-        PASSWORD: 'password',
-        NUMBER: 'number',
-        INTEGER: 'integer',
-        POSITIVE_INTEGER: 'positiveInteger',
-        NONNEGATIVE_INTEGER: 'nonnegativeInteger',
-        NEGATIVE_INTEGER: 'negativeInteger',
-        NONPOSITIVE_INTEGER: 'nonpositiveInteger',
-        EMAIL: 'email',
-        URL: 'url'
-    };
+    static Type = FieldType;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -70,7 +60,7 @@ class TextField extends Component {
 
         const {
             NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
-        } = TextField.Type;
+        } = FieldType;
 
         return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
             || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
@@ -82,11 +72,11 @@ class TextField extends Component {
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
 
-        if (type === TextField.Type.EMAIL && !Valid.isEmail(value)) {
+        if (type === FieldType.EMAIL && !Valid.isEmail(value)) {
             invalidMsgs.push('Invalid E-mail address');
         }
 
-        if (type === TextField.Type.URL && !Valid.isUrl(value)) {
+        if (type === FieldType.URL && !Valid.isUrl(value)) {
             invalidMsgs.push('Invalid url');
         }
 
@@ -104,23 +94,23 @@ class TextField extends Component {
                 invalidMsgs.push('Not a valid number');
             }
 
-            if (type === TextField.Type.INTEGER && ~~value !== value) {
+            if (type === FieldType.INTEGER && ~~value !== value) {
                 invalidMsgs.push('Not a valid integer');
             }
 
-            if (type === TextField.Type.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+            if (type === FieldType.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
                 invalidMsgs.push('Not a valid positive integer');
             }
 
-            if (type === TextField.Type.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+            if (type === FieldType.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
                 invalidMsgs.push('Not a valid nonnegative integer');
             }
 
-            if (type === TextField.Type.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+            if (type === FieldType.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
                 invalidMsgs.push('Not a valid negative integer');
             }
 
-            if (type === TextField.Type.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+            if (type === FieldType.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
                 invalidMsgs.push('Not a valid nonpositive integer');
             }
 
@@ -312,7 +302,7 @@ class TextField extends Component {
 
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
-            isPassword = type === TextField.Type.PASSWORD,
+            isPassword = type === FieldType.PASSWORD,
 
             wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
                 + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
@@ -321,8 +311,8 @@ class TextField extends Component {
                 + (className ? ' ' + className : '');
 
         let inputType = type;
-        if (inputType === TextField.Type.PASSWORD) {
-            inputType = passwordVisible ? TextField.Type.TEXT : TextField.Type.PASSWORD;
+        if (inputType === FieldType.PASSWORD) {
+            inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
         } else if (this.isNumberType(type)) {
             inputType = 'text';
         }
@@ -428,7 +418,7 @@ TextField.propTypes = {
     /**
      * Specifies the type of input to display such as "password" or "text".
      */
-    type: PropTypes.oneOf(Util.enumerateValue(TextField.Type)),
+    type: PropTypes.oneOf(Util.enumerateValue(FieldType)),
 
     /**
      * The name of the text field.
@@ -441,7 +431,7 @@ TextField.propTypes = {
     placeholder: PropTypes.string,
 
     /**
-     * The value of the text field.Type can be string or number.
+     * The value of the TextField.Type can be string or number.
      */
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
