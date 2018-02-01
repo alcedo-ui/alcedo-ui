@@ -5,9 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TableHeader from '../_TableHeader';
-import classNames from 'classnames';
 
 class Thead extends Component {
 
