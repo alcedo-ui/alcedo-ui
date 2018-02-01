@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 
@@ -95,16 +96,22 @@ class LazyImage extends Component {
         const {className, style, src, alt, loadingWidth, loadingHeight, width, height, placeholder} = this.props,
             {imageState} = this.state,
 
-            lazyImageClassName = (className ? ' ' + className : ''),
+            lazyImageClassName = classNames('lazy-image', {
+                [className]: className
+            }),
             lazyImageStyle = {
                 ...style,
                 width: imageState === 2 ? width : loadingWidth,
                 height: imageState === 2 ? height : loadingHeight
-            };
+            },
+
+            placeholderClassName = classNames('lazy-image-placeholder', {
+                hidden: imageState === 2
+            });
 
         return (
             <div ref="wrapper"
-                 className={'lazy-image' + lazyImageClassName}
+                 className={lazyImageClassName}
                  style={lazyImageStyle}>
 
                 <img className="lazy-image-img"
@@ -113,7 +120,7 @@ class LazyImage extends Component {
                      width={width}
                      height={height}/>
 
-                <div className={'lazy-image-placeholder' + (imageState === 2 ? ' hidden' : '')}>
+                <div className={placeholderClassName}>
                     {
                         placeholder ?
                             {placeholder}
