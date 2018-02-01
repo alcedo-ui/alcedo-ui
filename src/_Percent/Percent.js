@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class Percent extends Component {
 
@@ -48,7 +49,10 @@ class Percent extends Component {
         const {className, style, move, endNum} = this.props,
             {percent} = this.state,
 
-            wrapperClassName = (className ? ' ' + className : ''),
+            wrapperClassName = classNames('circular-progress-percent', {
+                [className]: className
+            }),
+
             wrapperStyle = move === true ?
                 {
                     width: endNum + '%',
@@ -59,7 +63,7 @@ class Percent extends Component {
                 {...style};
 
         return (
-            <div className={'circular-progress-percent' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={wrapperStyle}>
 
                 {
