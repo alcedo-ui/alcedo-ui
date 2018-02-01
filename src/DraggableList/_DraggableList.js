@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
@@ -239,7 +240,10 @@ class DraggableList extends Component {
 
         const {children, className, style, disabled, onNodeDragStart} = this.props,
             {data} = this.state,
-            listClassName = (className ? ' ' + className : '');
+
+            listClassName = classNames('draggable-list', {
+                [className]: className
+            });
 
         return (
             <DragDropContext onDragStart={onNodeDragStart}
@@ -250,7 +254,7 @@ class DraggableList extends Component {
                     {
                         dropProvided => (
                             <div ref={dropProvided.innerRef}
-                                 className={'draggable-list' + listClassName}
+                                 className={listClassName}
                                  disabled={disabled}
                                  style={style}
                                  onWheel={e => {
