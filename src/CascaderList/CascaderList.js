@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 import Theme from '../Theme';
@@ -48,10 +49,14 @@ class CascaderList extends Component {
     render() {
 
         const {className, style, listWidth, data, valueField, displayField} = this.props,
-            {path, value} = this.state;
+            {path, value} = this.state,
+
+            listClassName = classNames('cascader-list', {
+                [className]: className
+            });
 
         return (
-            <div className={`cascader-list ${className}`}
+            <div className={listClassName}
                  style={style}>
                 <CascaderListItem data={data}
                                   value={value}
