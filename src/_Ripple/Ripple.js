@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class Ripple extends Component {
 
@@ -70,11 +71,15 @@ class Ripple extends Component {
 
     render() {
 
-        const {className, style, children} = this.props;
+        const {className, style, children} = this.props,
+
+            rippleClassName = classNames('ripple', {
+                [className]: className
+            });
 
         return (
             <div ref="ripple"
-                 className={`ripple ${className}`}
+                 className={rippleClassName}
                  style={style}>
                 {children}
             </div>
