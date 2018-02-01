@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
@@ -66,8 +67,11 @@ class Anchor extends Component {
             } = this.props,
             {focused} = this.state,
 
-            anchorClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
-                + (className ? ' ' + className : ''),
+            anchorClassName = classNames('anchor', {
+                focused: focused,
+                [`theme-${theme}`]: theme,
+                [className]: className
+            }),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -76,7 +80,7 @@ class Anchor extends Component {
                          position={tipPosition}>
 
                 <a {...restProps}
-                   className={'anchor' + anchorClassName}
+                   className={anchorClassName}
                    style={style}
                    disabled={disabled || isLoading}
                    onTouchTap={this.touchTapHandler}
