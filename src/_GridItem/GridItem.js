@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -115,8 +116,12 @@ class GridItem extends Component {
             } = this.props,
             {checked} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = classNames('grid-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -126,7 +131,7 @@ class GridItem extends Component {
                 <TipProvider className='block'
                              text={tip}
                              tipPosition={tipPosition}>
-                    <div className={'grid-item' + listItemClassName}
+                    <div className={listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
