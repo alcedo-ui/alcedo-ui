@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
+import classNames from 'classnames';
 
 class TransferList extends Component {
 
@@ -121,18 +122,29 @@ class TransferList extends Component {
 
         const {className, listStyle, data, value} = this.props,
             {filter, selectAll} = this.state,
-            {filterChangeHandle, getItemValue, getFilterList, select, selectAllHandle} = this;
+            {filterChangeHandle, getItemValue, getFilterList, select, selectAllHandle} = this,
 
-        this.filterList = getFilterList(data, filter);
+            listClassName = classNames('transfer-list', {
+                [className]: className
+            }),
+
+            filterList = getFilterList(data, filter),
+
+            headerLabel = value && value.length > 0 ?
+                value.length + '/' + filterList.length + ' items'
+                :
+                filterList.length + ' items';
+
+        this.filterList = filterList;
 
         return (
-            <div className={`transfer-list ${className ? className : ''}`}
+            <div className={listClassName}
                  style={listStyle}>
+
                 <div className="transfer-header">
-                    <Checkbox
-                        label={value && value.length > 0 ? value.length + '/' + this.filterList.length + ' items' : this.filterList.length + ' items'}
-                        checked={selectAll}
-                        onChange={selectAllHandle}/>
+                    <Checkbox label={headerLabel}
+                              checked={selectAll}
+                              onChange={selectAllHandle}/>
                 </div>
 
                 <TextField className="search"
@@ -145,20 +157,17 @@ class TransferList extends Component {
                      className="options">
                     {
 
-                        this.filterList.map((item, index) => {
-                            let itemValue = getItemValue(item.id);
-                            return (
-                                <div key={item.text}
-                                     className={`option ${item.disabled ? 'disabled' : ''}`}>
-                                    <Checkbox label={item.text}
-                                              checked={itemValue}
-                                              disabled={item.disabled ? item.disabled : false}
-                                              onChange={() => {
-                                                  select(item);
-                                              }}/>
-                                </div>
-                            );
-                        })
+                        this.filterList.map(item => (
+                            <div key={item.text}
+                                 className={`option ${item.disabled ? 'disabled' : ''}`}>
+                                <Checkbox label={item.text}
+                                          checked={getItemValue(item.id)}
+                                          disabled={item.disabled ? item.disabled : false}
+                                          onChange={() => {
+                                              select(item);
+                                          }}/>
+                            </div>
+                        ))
                     }
                 </div>
 
