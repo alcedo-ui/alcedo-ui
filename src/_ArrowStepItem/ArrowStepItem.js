@@ -28,7 +28,7 @@ class ArrowStepItem extends Component {
         const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
 
             itemClassName = classNames('arrow-step-item',
-                (activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : '')), {
+                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     [className]: className
