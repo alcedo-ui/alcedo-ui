@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
-import Util from '../_vendors/Util';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -179,12 +179,17 @@ class DatePicker extends Component {
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+            {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state,
+
+            pickerClassName = classNames('date-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div className={`date-picker ${className}`}
-                 ref="datePicker">
+            <div ref="datePicker"
+                 className={pickerClassName}>
 
                 <TextField className="date-picker-field"
                            name={name}
@@ -196,6 +201,7 @@ class DatePicker extends Component {
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}/>
+
                 <Popup className={`date-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
@@ -203,11 +209,13 @@ class DatePicker extends Component {
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
+
                     <TextField className='calendar-input'
                                placeholder={placeholder}
                                clearButtonVisible={false}
                                value={textValue}
                                onChange={this.textFieldChangeHandle}/>
+
                     {
                         datePickerLevel == 'day' ?
                             <DayPicker
@@ -243,11 +251,13 @@ class DatePicker extends Component {
                                         onChange={this.yearPickerChangeHandle}/>
                             )
                     }
+
                     {
                         isFooter && datePickerLevel == 'day' ?
                             <div className="calendar-footer">
                                 {
-                                    (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
+                                    (minValue && moment(this.props.value).isBefore(minValue))
+                                    || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
                                         <a href="javascript:;">
                                             <span className="item-gray">Today</span>
                                         </a>
@@ -256,11 +266,11 @@ class DatePicker extends Component {
                                             Today
                                         </a>
                                 }
-
                             </div>
                             :
                             null
                     }
+
                 </Popup>
             </div>
         );
