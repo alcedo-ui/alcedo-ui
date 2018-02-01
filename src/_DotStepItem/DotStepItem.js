@@ -27,7 +27,7 @@ class DotStepItem extends Component {
         const {className, style, activatedStep, finishedStep, index} = this.props,
 
             itemClassName = classNames('dot-step-item',
-                (activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : '')), {
+                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
                     [className]: className
                 });
 
