@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import List from '../List';
 import Theme from '../Theme';
@@ -45,10 +46,12 @@ class GroupList extends Component {
         const {children, className, style, data, disabled, ...restProps} = this.props,
             {value} = this.state,
 
-            listClassName = (className ? ' ' + className : '');
+            listClassName = classNames('group-list', {
+                [className]: className
+            });
 
         return (
-            <div className={'group-list' + listClassName}
+            <div className={listClassName}
                  style={style}
                  disabled={disabled}
                  onWheel={e => {
