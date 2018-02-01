@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Paper from '../Paper';
 import Theme from '../Theme';
@@ -140,9 +141,14 @@ class MenuBody extends Component {
             } = this.props,
             {visible} = this.state,
 
-            menuClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' menu-has-triangle' : '')
-                + (theme ? ` theme-${theme}` : '') + (position ? ` menu-position-${position}` : '')
-                + (isAnimated ? ' menu-animated' : '') + (className ? ' ' + className : ''),
+            menuClassName = classNames('menu', {
+                hidden: !visible,
+                'menu-has-triangle': hasTriangle,
+                [`theme-${theme}`]: theme,
+                [`menu-position-${position}`]: position,
+                'menu-animated': isAnimated,
+                [className]: className
+            }),
             menuStyle = {
                 ...PopupCalculation.getStyle(triggerEl, this.menuEl, position, isTriggerPositionFixed),
                 ...style
@@ -151,7 +157,7 @@ class MenuBody extends Component {
         return (
             <Paper {...restProps}
                    ref="menu"
-                   className={'menu' + menuClassName}
+                   className={menuClassName}
                    style={menuStyle}
                    onWheel={e => {
                        Event.wheelHandler(e, this.props);
