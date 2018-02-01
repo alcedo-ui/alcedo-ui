@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Util from '../_vendors/Util';
 
@@ -90,31 +91,39 @@ class FieldMsg extends Component {
 
     render() {
 
-        const {type, children, className, style, isHtmlMsg} = this.props;
-        const {msg, multiLine, width} = this.state;
-        const {MAX_WIDTH} = this;
+        const {type, children, className, style, isHtmlMsg} = this.props,
+            {msg, multiLine, width} = this.state,
+            {MAX_WIDTH} = this,
 
-        const lineCount = Math.ceil(width / MAX_WIDTH),
-            msgHeight = multiLine ? (lineCount * 24 + 6) : 'auto';
+            lineCount = Math.ceil(width / MAX_WIDTH),
+            msgHeight = multiLine ? (lineCount * 24 + 6) : 'auto',
 
-        const msgWrapStyle = {
-            width: multiLine ? MAX_WIDTH : 'auto',
-            height: isHtmlMsg ? 'auto' : msgHeight,
-            top: type == 'info' ? (multiLine ? 30 - msgHeight : 0) : 6
-        };
+            wrapperClassName = classNames('field-msg', {
+                [`theme-${type}`]: type,
+                [className]: className
+            }),
 
-        const msgStyle = {
-            width: multiLine ? MAX_WIDTH : 'auto',
-            height: isHtmlMsg ? 'auto' : msgHeight
-        };
+            msgWrapClassName = classNames('msg-wrap', {
+                'multi-line': multiLine
+            }),
+            msgWrapStyle = {
+                width: multiLine ? MAX_WIDTH : 'auto',
+                height: isHtmlMsg ? 'auto' : msgHeight,
+                top: type == 'info' ? (multiLine ? 30 - msgHeight : 0) : 6
+            },
+
+            msgStyle = {
+                width: multiLine ? MAX_WIDTH : 'auto',
+                height: isHtmlMsg ? 'auto' : msgHeight
+            };
 
         return (
-            <div className={`field-msg ${type ? `theme-${type}` : ''} ${className}`}
+            <div className={wrapperClassName}
                  style={style}>
 
                 <div className="triangle"></div>
 
-                <div className={`msg-wrap ${multiLine ? 'multiLine' : ''}`}
+                <div className={msgWrapClassName}
                      style={msgWrapStyle}>
 
                     <div className="msg"
