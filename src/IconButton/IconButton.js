@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
@@ -37,12 +38,16 @@ class IconButton extends Component {
 
     render() {
 
-        const {children, className, isCircular} = this.props;
+        const {children, className, isCircular} = this.props,
+
+            buttonClassName = classNames('icon-button', {
+                [className]: className
+            });
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`icon-button ${className}`}
+                        className={buttonClassName}
                         isCircular={isCircular}
                         rippleDisplayCenter={true}>
 
