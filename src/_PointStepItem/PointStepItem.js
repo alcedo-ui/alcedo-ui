@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class PointStepItem extends Component {
 
@@ -41,14 +42,15 @@ class PointStepItem extends Component {
 
     render() {
 
-        const {
-                className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
-                showFinishedStepIcon, finishedStepIconCls, disabled
-            } = this.props,
+        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast, disabled} = this.props,
 
-            itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
-                + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (disabled ? ' disabled' : '') + (className ? ' ' + className : '');
+            itemClassName = classNames('point-step-item',
+                activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''), {
+                    first: isFirst,
+                    last: isLast,
+                    disabled: disabled,
+                    [className]: className
+                });
 
         return (
             <div className={'point-step-item' + itemClassName}
@@ -81,10 +83,6 @@ PointStepItem.propTypes = {
     value: PropTypes.object,
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
-
-    showFinishedStepIcon: PropTypes.bool,
-    finishedStepIconCls: PropTypes.string,
-
     disabled: PropTypes.bool,
 
     onTouchTap: PropTypes.func
@@ -102,10 +100,6 @@ PointStepItem.defaultProps = {
     value: {},
     isFirst: true,
     isLast: false,
-
-    showFinishedStepIcon: true,
-    finishedStepIconCls: 'fa fa-check',
-
     disabled: false
 
 };
