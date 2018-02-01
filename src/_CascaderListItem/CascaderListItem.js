@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import List from '../List';
 
@@ -68,7 +69,10 @@ class CascaderListItem extends Component {
                 :
                 null,
 
-            popupListClassName = (currDepth === 0 ? ' first' : '') + (currDepth === depth - 1 ? ' last' : ''),
+            popupListClassName = classNames('cascader-popup-list', {
+                first: currDepth === 0,
+                last: currDepth === depth - 1
+            }),
             popupListStyle = {
                 width: listWidth,
                 zIndex: 99 - currDepth
@@ -78,7 +82,7 @@ class CascaderListItem extends Component {
             <div className="cascader-list-item"
                  style={listStyle}>
 
-                <List className={'cascader-popup-list' + popupListClassName}
+                <List className={popupListClassName}
                       style={popupListStyle}
                       data={this.formatData(data)}
                       value={activatedNode}
