@@ -62,7 +62,7 @@ export default class CrumbsExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Crumbs items={this.items}/>
+                                <Crumbs data={this.items}/>
 
                             </div>
                         </div>
@@ -80,7 +80,7 @@ export default class CrumbsExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Crumbs items={this.selfDefineItems}
+                                <Crumbs data={this.selfDefineItems}
                                         itemRenderer={item => (
                                             <Link className="crumbs-link"
                                                   to={item.route}>
