@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import GridItem from '../_GridItem';
 import Tip from '../Tip';
@@ -187,10 +188,12 @@ class Grid extends Component {
 
         const {children, className, style, data, disabled} = this.props,
 
-            listClassName = (className ? ' ' + className : '');
+            listClassName = classNames('grid', {
+                [className]: className
+            });
 
         return (
-            <div className={'grid' + listClassName}
+            <div className={listClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
