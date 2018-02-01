@@ -6,10 +6,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
-import classNames from 'classnames';
 
 class TransferList extends Component {
 
