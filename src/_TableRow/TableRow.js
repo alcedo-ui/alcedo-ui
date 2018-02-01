@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class TableRow extends Component {
 
@@ -65,10 +66,13 @@ class TableRow extends Component {
 
         const {data, columns, isChecked, disabled} = this.props,
 
-            trClassName = (isChecked ? ' activated' : '') + (data.rowClassName ? ' ' + data.rowClassName : '');
+            trClassName = classNames('table-row', {
+                activated: isChecked,
+                [data.rowClassName]: data.rowClassName
+            });
 
         return (
-            <tr className={'table-row' + trClassName}
+            <tr className={trClassName}
                 style={data.rowStyle}
                 disabled={disabled}
                 onTouchTap={this.rowTouchTapHandler}>
