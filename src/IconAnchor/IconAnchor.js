@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
@@ -52,14 +53,17 @@ class IconAnchor extends Component {
 
             } = this.props,
 
-            iconAnchorClassName = (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
+            iconAnchorClassName = classNames('icon-anchor', {
+                [`theme-${theme}`]: theme,
+                [className]: className
+            });
 
         return (
             <TipProvider text={tip}
                          position={tipPosition}>
 
                 <a {...restProps}
-                   className={'icon-anchor' + iconAnchorClassName}
+                   className={iconAnchorClassName}
                    disabled={disabled || isLoading}
                    onTouchTap={this.touchTapHandler}>
 
