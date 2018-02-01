@@ -7,6 +7,25 @@ $field-msg-z-index: 81;
 $popup-z-index: 80;
 $menu-z-index: 80;
 
+@mixin invisible {
+    position: absolute;
+    font: inherit;
+    background: transparent;
+    z-index: -1;
+    opacity: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    resize: none;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    width: 0;
+    height: 0;
+    cursor: none;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
 @mixin float-fix {
     &::before, &::after {
         display: table;
