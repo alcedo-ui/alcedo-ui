@@ -188,12 +188,12 @@ class Grid extends Component {
 
         const {children, className, style, data, disabled} = this.props,
 
-            listClassName = classNames('grid', {
+            gridClassName = classNames('grid', {
                 [className]: className
             });
 
         return (
-            <div className={listClassName}
+            <div className={gridClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
