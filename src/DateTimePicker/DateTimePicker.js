@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -15,7 +16,7 @@ import YearPicker from '../_YearPicker';
 import TimeList from '../_TimeList';
 import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
-import Theme from 'src/Theme';
+import Theme from '../Theme';
 
 class DateTimePicker extends Component {
 
@@ -220,12 +221,19 @@ class DateTimePicker extends Component {
 
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled} = this.props;
-        const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled} = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state,
+
+            pickerClassName = classNames('date-time-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
+
         return (
-            <div className={`date-time-picker ${className}`}
-                 ref="datePicker"
+            <div ref="datePicker"
+                 className={pickerClassName}
                  style={style}>
 
                 <TextField ref="trigger"
@@ -239,8 +247,8 @@ class DateTimePicker extends Component {
                            isFocusedSelectAll={false}
                            onTouchTap={e => {
                                this.togglePopup(e);
-                           }}
-                />
+                           }}/>
+
                 <Popup className={`date-time-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
@@ -256,6 +264,7 @@ class DateTimePicker extends Component {
                                    value={textValue}
                                    onChange={this.textFieldChangeHandle}/>
                     </div>
+
                     {
                         datePickerLevel == 'day' ?
                             <DayPicker
@@ -271,8 +280,7 @@ class DateTimePicker extends Component {
                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                 isFooter={true}
                                 onChange={this.dayPickerChangeHandle}
-                                previousClick={this.datePickerChangeHandle}
-                            />
+                                previousClick={this.datePickerChangeHandle}/>
                             : (
                                 datePickerLevel == 'month' ?
                                     <MonthPicker
@@ -283,8 +291,7 @@ class DateTimePicker extends Component {
                                         maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                         minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                         onChange={this.monthPickerChangeHandle}
-                                        previousClick={this.datePickerChangeHandle}
-                                    />
+                                        previousClick={this.datePickerChangeHandle}/>
                                     : (
                                         datePickerLevel == 'year' ?
                                             <YearPicker
@@ -294,14 +301,14 @@ class DateTimePicker extends Component {
                                                 day={day}
                                                 maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                                onChange={this.yearPickerChangeHandle}
-                                            />
+                                                onChange={this.yearPickerChangeHandle}/>
                                             :
                                             null
                                     )
 
                             )
                     }
+
                     {
                         <TimeList className={`time-picker-body ${datePickerLevel == 'time' ? '' : 'hidden'}`}
                                   dateFormat={dateFormat.split(' ')[1]}
@@ -312,9 +319,9 @@ class DateTimePicker extends Component {
                                   isRequired={(minValue && textValue.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0]) ? true : false}
                                   maxValue={maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
                                   minValue={minValue && textValue.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
-                                  onChange={this.timePickerChangeHandle}
-                        />
+                                  onChange={this.timePickerChangeHandle}/>
                     }
+
                     {
                         isFooter ?
                             <div className="calendar-footer">
@@ -350,8 +357,7 @@ class DateTimePicker extends Component {
                                     <RaisedButton
                                         className={year && month && day && hour && minute && second ? 'active' : ''}
                                         value="Ok"
-                                        theme={Theme.HIGHLIGHT}
-                                    />
+                                        theme={Theme.HIGHLIGHT}/>
                                 </div>
                             </div>
                             :
