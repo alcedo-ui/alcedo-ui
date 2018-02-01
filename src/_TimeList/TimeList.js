@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import TimeItems from '../_TimeItems';
 
@@ -288,15 +289,19 @@ class TimeList extends Component {
 
         const {className, popupVisible, dateFormat} = this.props,
             {hour, minute, second, hoursData, minutesData, secondsData} = this.state,
-            TimeItemsStyle = {
+
+            calendarClassName = classNames('calendar', {
+                [className]: className
+            }),
+            itemsStyle = {
                 width: 100 / (dateFormat.split(':').length) + '%'
             };
 
         return (
-            <div className={`calendar ${className ? className : ''}`}>
+            <div className={calendarClassName}>
 
                 <TimeItems className="hours"
-                           style={TimeItemsStyle}
+                           style={itemsStyle}
                            data={hoursData}
                            value={hour}
                            popupVisible={popupVisible}
@@ -305,7 +310,7 @@ class TimeList extends Component {
                 {
                     dateFormat.split(':').length > 1 ?
                         <TimeItems className="minutes"
-                                   style={TimeItemsStyle}
+                                   style={itemsStyle}
                                    data={minutesData}
                                    value={minute}
                                    popupVisible={popupVisible}
@@ -317,7 +322,7 @@ class TimeList extends Component {
                 {
                     dateFormat.split(':').length > 2 ?
                         <TimeItems className="seconds"
-                                   style={TimeItemsStyle}
+                                   style={itemsStyle}
                                    data={secondsData}
                                    value={second}
                                    popupVisible={popupVisible}
