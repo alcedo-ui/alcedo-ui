@@ -1,5 +1,5 @@
 /**
- * @file DateTimePicker component
+ * @file MaterialDateTimePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
@@ -22,6 +23,7 @@ class MaterialDateTimePicker extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
         this.validValue = true;
 
         this.state = {
@@ -48,6 +50,7 @@ class MaterialDateTimePicker extends Component {
         this.chooseDateAndTimeHandle = ::this.chooseDateAndTimeHandle;
         this.nowHandle = ::this.nowHandle;
         this.selectDateTimeHandle = ::this.selectDateTimeHandle;
+
     }
 
     datePickerChangeHandle(selectLevel) {
@@ -220,13 +223,23 @@ class MaterialDateTimePicker extends Component {
 
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter} = this.props;
-        const {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+
+        const {
+                className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter
+            } = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state,
+
+            pickerClassName = classNames('date-time-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
+
         return (
-            <div className={`date-time-picker ${className}`}
+            <div className={pickerClassName}
                  ref="datePicker"
                  style={style}>
+
                 <MaterialDatePickerTextField
                     ref="datePickerInput"
                     name={name}
@@ -242,13 +255,15 @@ class MaterialDateTimePicker extends Component {
                     onTouchTap={e => {
                         this.togglePopup(e);
                     }}/>
-                <Popup className={`material-date-time-picker-popup`}
+
+                <Popup className="material-date-time-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
+
                     {
                         datePickerLevel == 'day' ?
                             <DayPicker
@@ -264,8 +279,7 @@ class MaterialDateTimePicker extends Component {
                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                 isFooter={true}
                                 onChange={this.dayPickerChangeHandle}
-                                previousClick={this.datePickerChangeHandle}
-                            />
+                                previousClick={this.datePickerChangeHandle}/>
                             : (
                                 datePickerLevel == 'month' ?
                                     <MonthPicker
@@ -295,6 +309,7 @@ class MaterialDateTimePicker extends Component {
 
                             )
                     }
+
                     {
                         <TimeList className={`time-picker-body ${datePickerLevel == 'time' ? '' : 'hidden'}`}
                                   dateFormat={dateFormat.split(' ')[1]}
@@ -308,6 +323,7 @@ class MaterialDateTimePicker extends Component {
                                   onChange={this.timePickerChangeHandle}
                         />
                     }
+
                     {
                         isFooter ?
                             <div className="calendar-footer">
@@ -408,6 +424,8 @@ MaterialDateTimePicker.propTypes = {
      * MaterialDateTimePicker format.
      */
     dateFormat: PropTypes.string,
+
+    isFooter: PropTypes.bool,
 
     /**
      * Callback function that is fired when the date value changes.
