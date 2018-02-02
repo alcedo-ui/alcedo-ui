@@ -72,8 +72,32 @@ export default class DropdownFilterExamples extends Component {
                                 <p><code>DropdownFilter</code> simple example.</p>
 
                                 <DropdownFilter data={this.data}
-                                                selectMode={DropdownFilter.SelectMode.MULTI_SELECT}
                                                 placeholder="Please select ..."
+                                                onChange={this.onChange}
+                                                onFilterPressEnter={this.filterPressEnterHandle}
+                                                onFilterClear={this.filterClearHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>DropdownFilter</code> multiple example.</p>
+
+                                <DropdownFilter data={this.data}
+                                                placeholder="Please select ..."
+                                                selectMode={DropdownFilter.SelectMode.MULTI_SELECT}
                                                 onChange={this.onChange}
                                                 onFilterPressEnter={this.filterPressEnterHandle}
                                                 onFilterClear={this.filterClearHandle}/>
