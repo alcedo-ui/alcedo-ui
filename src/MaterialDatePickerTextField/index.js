@@ -1,6 +1,6 @@
 /**
- * @file MaterialTextField
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ * @file MaterialDatePickerTextField
+ * @author sunday(sunday.wei@derbysoft.com)
  */
 
 export default from './MaterialDatePickerTextField';
