@@ -24,6 +24,7 @@ class MaterialMonthPicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -39,6 +40,7 @@ class MaterialMonthPicker extends Component {
         this.datePickerChangeHandle = ::this.datePickerChangeHandle;
         this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
         this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
+
     }
 
     datePickerChangeHandle(selectLevel) {
@@ -48,12 +50,14 @@ class MaterialMonthPicker extends Component {
     }
 
     textFieldChangeHandle(text) {
-        const {minValue, maxValue, dateFormat} = this.props;
-        if (text && text.length) {
-            const flag = moment(text, this.props.dateFormat, true).isValid();
-            if (flag) {
-                if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
 
+        const {minValue, maxValue, dateFormat} = this.props;
+
+        if (text && text.length) {
+
+            if (moment(text, this.props.dateFormat, true).isValid()) {
+                if ((minValue && moment(text).isBefore(minValue)) || (maxValue && moment(text).isAfter(maxValue))) {
+                    //
                 } else {
                     const year = moment(text).format('YYYY'),
                         month = moment(text).format('MM');
@@ -63,14 +67,14 @@ class MaterialMonthPicker extends Component {
                         month: month
                     });
                 }
-            } else {
-
             }
+
         } else {
             this.setState({
                 value: ''
             });
         }
+
     }
 
     monthPickerChangeHandle(date) {
