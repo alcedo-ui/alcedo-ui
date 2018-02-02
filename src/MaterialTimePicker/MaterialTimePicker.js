@@ -1,11 +1,12 @@
 /**
- * @file TimePicker component
+ * @file MaterialTimePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
@@ -132,11 +133,16 @@ class MaterialTimePicker extends Component {
     render() {
 
         const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate} = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state;
+            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
+
+            pickerClassName = classNames('material-time-picker', {
+                [className]: className
+            });
 
         return (
-            <div className={`material-time-picker ${className}`}
+            <div className={pickerClassName}
                  style={style}>
+
                 <MaterialDatePickerTextField ref="trigger"
                                              className="time-picker-field"
                                              name={name}
@@ -153,7 +159,7 @@ class MaterialTimePicker extends Component {
                                                  this.togglePopup(e);
                                              }}/>
 
-                <Popup className={`material-time-picker-popup`}
+                <Popup className="material-time-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
