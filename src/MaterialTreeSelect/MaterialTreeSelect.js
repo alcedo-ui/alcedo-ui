@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
 import Tip from '../Tip';
@@ -109,11 +110,16 @@ class MaterialTreeSelect extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value && value.length > 0 ? ' has-value' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-tree-select', {
+                animated: isLabelAnimate,
+                'has-label': label,
+                focused: isFocus,
+                'has-value': value && value.length > 0,
+                [className]: className
+            });
 
         return (
-            <div className={'material-tree-select' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
