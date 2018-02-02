@@ -47,6 +47,7 @@ class LocalAutoComplete extends Component {
         this.filterChangeHandler = ::this.filterChangeHandler;
         this.closePopup = ::this.closePopup;
         this.popupRenderHandler = ::this.popupRenderHandler;
+        this.itemTouchTapHandler = ::this.itemTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.update = ::this.update;
         this.mouseDownHandler = ::this.mouseDownHandler;
@@ -216,7 +217,7 @@ class LocalAutoComplete extends Component {
 
     }
 
-    changeHandler(value) {
+    itemTouchTapHandler(value) {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
@@ -225,16 +226,40 @@ class LocalAutoComplete extends Component {
                 value,
                 filter,
                 listData: this.filterData(filter)
-            };
+            },
+            isChanged = this.state.value != value;
 
         if (autoClose) {
             state.popupVisible = false;
         }
 
         this.setState(state, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
+            const {onItemTouchTap, onChange} = this.props;
+            onItemTouchTap && onItemTouchTap(value);
+            isChanged && onChange && onChange(value);
         });
+
+    }
+
+    changeHandler(value) {
+
+        // const {autoClose, valueField, displayField, renderer} = this.props,
+        //     filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
+        //     state = {
+        //         tempSelectIndex: null,
+        //         value,
+        //         filter,
+        //         listData: this.filterData(filter)
+        //     };
+        //
+        // if (autoClose) {
+        //     state.popupVisible = false;
+        // }
+        //
+        // this.setState(state, () => {
+        //     const {onChange} = this.props;
+        //     onChange && onChange(value);
+        // });
 
     }
 
@@ -413,7 +438,7 @@ class LocalAutoComplete extends Component {
                                                                listHeight={listHeight}
                                                                itemHeight={itemHeight}
                                                                scrollBuffer={scrollBuffer}
-                                                               onItemTouchTap={onItemTouchTap}
+                                                               onItemTouchTap={this.itemTouchTapHandler}
                                                                onChange={this.changeHandler}/>
                                             :
                                             <List ref="list"
@@ -425,7 +450,7 @@ class LocalAutoComplete extends Component {
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
                                                   renderer={renderer}
-                                                  onItemTouchTap={onItemTouchTap}
+                                                  onItemTouchTap={this.itemTouchTapHandler}
                                                   onChange={this.changeHandler}/>
                                     )
                             }
