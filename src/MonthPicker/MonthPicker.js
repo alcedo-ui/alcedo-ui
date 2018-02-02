@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Month from '../_MonthPicker';
@@ -145,12 +146,17 @@ class MonthPicker extends Component {
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
+
+            pickerClassName = classNames('month-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div className={`month-picker ${className}`}
-                 ref="datePicker">
+            <div ref="datePicker"
+                 className={pickerClassName}>
 
                 <TextField className="month-picker-field"
                            name={name}
@@ -162,13 +168,15 @@ class MonthPicker extends Component {
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}/>
-                <Popup className={`month-picker-popup`}
+
+                <Popup className="month-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
+
                     <TextField className='calendar-input'
                                placeholder={placeholder}
                                clearButtonVisible={false}
