@@ -43,7 +43,7 @@ class Paper extends Component {
 
         return (
             <div {...restProps}
-                 className={'paper' + paperClassName}
+                 className={paperClassName}
                  style={style}>
                 {children}
             </div>
