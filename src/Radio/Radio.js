@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
@@ -89,14 +90,17 @@ class Radio extends Component {
             } = this.props,
             {checked} = this.state,
 
-            radioClassName = (checked ? ' activated' : '') + (theme ? ` theme-${theme}` : '')
-                + (className ? ' ' + className : '');
+            radioClassName = classNames('radio', {
+                activated: checked,
+                [`theme-${theme}`]: theme,
+                [className]: className
+            });
 
         return (
             <TipProvider text={tip}
                          position={tipPosition}>
 
-                <div className={'radio' + radioClassName}
+                <div className={radioClassName}
                      style={style}
                      disabled={disabled}>
 
