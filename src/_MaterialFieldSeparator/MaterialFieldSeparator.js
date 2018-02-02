@@ -10,7 +10,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialFieldSeparator extends Component {
+class MaterialFieldSeparator extends Component {
 
     static Theme = Theme;
 
@@ -54,3 +54,5 @@ MaterialFieldSeparator.defaultProps = {
     isFocus: false
 
 };
+
+export default MaterialFieldSeparator;

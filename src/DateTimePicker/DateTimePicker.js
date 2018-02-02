@@ -17,7 +17,7 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from 'src/Theme';
 
-export default class DateTimePicker extends Component {
+class DateTimePicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -274,33 +274,33 @@ export default class DateTimePicker extends Component {
                                 previousClick={this.datePickerChangeHandle}
                             />
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                    minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}
-                                />
-                                : (
-                                datePickerLevel == 'year' ?
-                                    <YearPicker
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker
                                         value={value}
                                         year={year}
                                         month={month}
                                         day={day}
                                         maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                         minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                        onChange={this.yearPickerChangeHandle}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}
                                     />
-                                    :
-                                    null
-                            )
+                                    : (
+                                        datePickerLevel == 'year' ?
+                                            <YearPicker
+                                                value={value}
+                                                year={year}
+                                                month={month}
+                                                day={day}
+                                                maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                                minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                                onChange={this.yearPickerChangeHandle}
+                                            />
+                                            :
+                                            null
+                                    )
 
-                        )
+                            )
                     }
                     {
                         <TimeList className={`time-picker-body ${datePickerLevel == 'time' ? '' : 'hidden'}`}
@@ -424,3 +424,5 @@ DateTimePicker.defaultProps = {
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
     isFooter: true
 };
+
+export default DateTimePicker;

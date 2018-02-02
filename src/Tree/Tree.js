@@ -15,7 +15,7 @@ import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 
-export default class Tree extends Component {
+class Tree extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -374,3 +374,5 @@ Tree.defaultProps = {
     expandedIconCls: 'fa fa-caret-down'
 
 };
+
+export default Tree;

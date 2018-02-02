@@ -28,7 +28,7 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
-export default class DraggableListItem extends Component {
+class DraggableListItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -375,3 +375,5 @@ DraggableListItem.defaultProps = {
     anchorIconCls: 'fa fa-bars'
 
 };
+
+export default DraggableListItem;

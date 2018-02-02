@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import CircularLoadingDoc from 'assets/propTypes/CircularLoading.json';
+import doc from 'assets/propTypes/CircularLoading.json';
 
 import 'sass/containers/app/modules/loading/CircularLoadingExamples.scss';
 
@@ -141,7 +141,7 @@ export default class CircularLoadingExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CircularLoadingDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

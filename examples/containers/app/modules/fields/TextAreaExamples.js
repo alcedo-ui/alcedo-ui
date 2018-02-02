@@ -1,19 +1,16 @@
-/**
- * Created by DT314 on 2017/5/5.
- */
 import React, {Component} from 'react';
-import TextArea from 'src/TextArea';
 
+import TextArea from 'src/TextArea';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TextAreaDoc from 'assets/propTypes/TextArea.json';
-
+import doc from 'assets/propTypes/TextArea.json';
 
 export default class TextAreaExamples extends Component {
+
     constructor(props) {
-        super();
+        super(props);
     }
 
     onChangeHandle(value) {
@@ -56,7 +53,7 @@ export default class TextAreaExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TextAreaDoc}/>
+                <PropTypeDescTable data={doc}/>
             </div>
         );
     }

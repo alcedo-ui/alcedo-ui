@@ -28,10 +28,11 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
-export default class DraggableGridItem extends Component {
+class DraggableGridItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+
 
     constructor(props, ...restArgs) {
 
@@ -384,3 +385,5 @@ DraggableGridItem.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGridItem;

@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Crumbs extends Component {
+class Crumbs extends Component {
 
     static Theme = Theme;
 
@@ -213,3 +213,5 @@ Crumbs.defaultProps = {
     showLastSeparator: false
 
 };
+
+export default Crumbs;

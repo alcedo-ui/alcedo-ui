@@ -6,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import GridDoc from 'assets/propTypes/Grid.json';
+import doc from 'assets/propTypes/Grid.json';
 
 import 'sass/containers/app/modules/layout/GridExamples.scss';
 
@@ -117,7 +117,7 @@ export default class GridExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={GridDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

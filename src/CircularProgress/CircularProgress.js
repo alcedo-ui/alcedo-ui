@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Percent from '../_Percent';
 
-export default class CircularProgress extends Component {
+class CircularProgress extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -123,3 +123,4 @@ CircularProgress.defaultProps = {
 
 };
 
+export default CircularProgress;

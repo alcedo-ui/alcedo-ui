@@ -19,7 +19,7 @@ import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DraggableTreeNode extends Component {
+class DraggableTreeNode extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -391,3 +391,5 @@ DraggableTreeNode.defaultProps = {
     isDragging: false
 
 };
+
+export default DraggableTreeNode;

@@ -21,7 +21,7 @@ import SelectMode from '../_statics/SelectMode';
 import SortType from '../_statics/SortType';
 import Theme from '../Theme';
 
-export default class Table extends Component {
+class Table extends Component {
 
     static SelectMode = SelectMode;
     static SortType = SortType;
@@ -238,7 +238,7 @@ export default class Table extends Component {
 
     }
 
-    rowTouchTapHandler(rowData, rowIndex) {
+    rowTouchTapHandler(rowData, rowIndex, e) {
 
         if (!rowData) {
             return;
@@ -250,7 +250,7 @@ export default class Table extends Component {
         }
 
         const {onRowTouchTap} = this.props;
-        onRowTouchTap && onRowTouchTap(rowData, rowIndex);
+        onRowTouchTap && onRowTouchTap(rowData, rowIndex, e);
 
         const {selectMode} = this.props;
 
@@ -265,7 +265,7 @@ export default class Table extends Component {
 
     }
 
-    cellTouchTapHandler(data, rowIndex, colIndex) {
+    cellTouchTapHandler(data, rowIndex, colIndex, e) {
 
         const {disabled} = this.props;
         if (disabled) {
@@ -273,7 +273,7 @@ export default class Table extends Component {
         }
 
         const {onCellTouchTap} = this.props;
-        onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
+        onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
 
     }
 
@@ -765,3 +765,5 @@ Table.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default Table;

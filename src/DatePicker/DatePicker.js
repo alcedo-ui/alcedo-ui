@@ -15,13 +15,13 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
-export default class DatePicker extends Component {
+class DatePicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-       this.validValue = true;
+        this.validValue = true;
 
         this.state = {
             value: props.value,
@@ -125,7 +125,7 @@ export default class DatePicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue){
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -222,26 +222,26 @@ export default class DatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}/>
-                                :
-                                <YearPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.yearPickerChangeHandle}/>
-                        )
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}/>
+                                    :
+                                    <YearPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.yearPickerChangeHandle}/>
+                            )
                     }
                     {
                         isFooter && datePickerLevel == 'day' ?
@@ -332,3 +332,5 @@ DatePicker.defaultProps = {
     autoClose: true,
     isFooter: true
 };
+
+export default DatePicker;

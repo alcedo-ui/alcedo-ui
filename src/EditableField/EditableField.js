@@ -11,7 +11,7 @@ import TipProvider from '../TipProvider';
 
 import Event from '../_vendors/Event';
 
-export default class EditableField extends Component {
+class EditableField extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -289,3 +289,5 @@ EditableField.defaultProps = {
     showModal: false
 
 };
+
+export default EditableField;

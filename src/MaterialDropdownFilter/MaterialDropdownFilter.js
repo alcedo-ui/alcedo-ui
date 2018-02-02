@@ -13,7 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class MaterialDropdownFilter extends Component {
+class MaterialDropdownFilter extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -430,3 +430,5 @@ MaterialDropdownFilter.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default MaterialDropdownFilter;

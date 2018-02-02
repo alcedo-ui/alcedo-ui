@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class RoundStepItem extends Component {
+class RoundStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -131,3 +131,5 @@ RoundStepItem.defaultProps = {
     disabled: false
 
 };
+
+export default RoundStepItem;

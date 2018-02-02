@@ -17,7 +17,7 @@ import PopupCalculation from '../_vendors/PopupCalculation';
 
 import Position from '../_statics/Position';
 
-export default class MenuBody extends Component {
+class MenuBody extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -266,3 +266,5 @@ MenuBody.defaultProps = {
     isTriggerPositionFixed: false
 
 };
+
+export default MenuBody;

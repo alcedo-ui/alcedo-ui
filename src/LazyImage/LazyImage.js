@@ -11,7 +11,7 @@ import CircularLoading from '../CircularLoading';
 
 import Event from '../_vendors/Event';
 
-export default class LazyImage extends Component {
+class LazyImage extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -200,3 +200,5 @@ LazyImage.defaultProps = {
     placeholder: ''
 
 };
+
+export default LazyImage;

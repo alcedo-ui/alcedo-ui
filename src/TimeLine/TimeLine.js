@@ -11,7 +11,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class TimeLine extends Component {
+class TimeLine extends Component {
 
     static Type = TimeLineItem.Type;
     static Theme = Theme;
@@ -110,3 +110,5 @@ TimeLine.defaultProps = {
     type: ''
 
 };
+
+export default TimeLine;

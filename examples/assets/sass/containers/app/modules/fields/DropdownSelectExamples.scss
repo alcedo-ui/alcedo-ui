@@ -1,26 +1,20 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .dropdown-select-examples {
+    .field-group {
+        @include float-fix;
+        float: none;
 
-    .examples-wrapper {
+        .dropdown-select-label,
+        .dropdown-select {
+            float: left;
+        }
 
-        .field-group {
-
-            @include float-fix;
-
-            float: none;
-
-            .dropdown-select-label,
-            .dropdown-select {
-                float: left;
-            }
-
-            .dropdown-select-label {
-                font-size: 14px;
-                line-height: 50px;
-                margin-right: 20px;
-                width: 60px;
-            }
+        .dropdown-select-label {
+            font-size: 14px;
+            line-height: 50px;
+            margin-right: 20px;
+            width: 60px;
         }
     }
 }

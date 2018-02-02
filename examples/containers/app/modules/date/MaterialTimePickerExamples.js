@@ -1,18 +1,11 @@
-/**
- * Created by Administrator on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
 import MaterialTimePicker from 'src/MaterialTimePicker';
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialTimePicker.json';
-
-import 'sass/containers/app/modules/date/MaterialTimePickerExamples.scss';
-
 
 export default class MaterialTimePickerExamples extends Component {
 
@@ -21,7 +14,7 @@ export default class MaterialTimePickerExamples extends Component {
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {

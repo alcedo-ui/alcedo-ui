@@ -18,7 +18,7 @@ import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class TreeNode extends Component {
+class TreeNode extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -353,3 +353,5 @@ TreeNode.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default TreeNode;

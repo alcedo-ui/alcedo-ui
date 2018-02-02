@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-export default class MonthPicker extends Component {
+class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -201,3 +201,5 @@ MonthPicker.propTypes = {
     onChange: PropTypes.func,
     previousClick: PropTypes.func
 };
+
+export default MonthPicker;

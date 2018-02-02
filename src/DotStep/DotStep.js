@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import DotStepItem from '../_DotStepItem';
 
-export default class DotStep extends Component {
+class DotStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -156,3 +156,5 @@ DotStep.defaultProps = {
     finishedText: ''
 
 };
+
+export default DotStep;

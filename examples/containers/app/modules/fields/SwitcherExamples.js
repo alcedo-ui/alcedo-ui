@@ -3,10 +3,9 @@ import React, {Component} from 'react';
 import Switcher from 'src/Switcher';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import SwitcherDoc from 'assets/propTypes/Switcher.json';
+import doc from 'assets/propTypes/Switcher.json';
 
 import 'sass/containers/app/modules/fields/SwitcherExamples.scss';
 
@@ -59,7 +58,7 @@ export default class SwitcherExamples extends Component {
 
                                 <p>Set the size property to small for small size switcher.</p>
 
-                                <Switcher theme={Theme.HIGHLIGHT}
+                                <Switcher theme={Switcher.Theme.HIGHLIGHT}
                                           size={Switcher.Size.SMALL}
                                           labelVisible={true}/>
 
@@ -97,7 +96,7 @@ export default class SwitcherExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={SwitcherDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

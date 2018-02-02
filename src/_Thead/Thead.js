@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import TableHeader from '../_TableHeader';
 
-export default class Thead extends Component {
+class Thead extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -79,3 +79,5 @@ Thead.defaultProps = {
     hidden: false
 
 };
+
+export default Thead;

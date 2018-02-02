@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import TouchRipple from 'src/TouchRipple';
 
-export default class NavMenuItem extends Component {
+class NavMenuItem extends Component {
 
     constructor(props) {
 
@@ -138,3 +138,5 @@ NavMenuItem.defaultProps = {
     depth: 0
 
 };
+
+export default NavMenuItem;

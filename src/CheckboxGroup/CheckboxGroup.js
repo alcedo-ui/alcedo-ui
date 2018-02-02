@@ -13,7 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class CheckboxGroup extends Component {
+class CheckboxGroup extends Component {
 
     static Theme = Theme;
 
@@ -184,3 +184,5 @@ CheckboxGroup.defaultProps = {
     indeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default CheckboxGroup;

@@ -14,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class Dropdown extends Component {
+class Dropdown extends Component {
 
     static Theme = Theme;
 
@@ -242,3 +242,5 @@ Dropdown.defaultProps = {
     shouldPreventContainerScroll: true
 
 };
+
+export default Dropdown;

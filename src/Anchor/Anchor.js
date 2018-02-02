@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Anchor extends Component {
+class Anchor extends Component {
 
     static Theme = Theme;
 
@@ -165,3 +165,5 @@ Anchor.defaultProps = {
     rightIconCls: null
 
 };
+
+export default Anchor;

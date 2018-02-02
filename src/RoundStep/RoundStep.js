@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import RoundStepItem from '../_RoundStepItem';
 
-export default class RoundStep extends Component {
+class RoundStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -159,3 +159,5 @@ RoundStep.defaultProps = {
     disabled: false
 
 };
+
+export default RoundStep;

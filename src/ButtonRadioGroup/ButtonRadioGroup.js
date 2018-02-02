@@ -11,7 +11,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class ButtonRadioGroup extends Component {
+class ButtonRadioGroup extends Component {
 
     static Theme = Theme;
 
@@ -178,3 +178,5 @@ ButtonRadioGroup.defaultProps = {
     disabled: false
 
 };
+
+export default ButtonRadioGroup;

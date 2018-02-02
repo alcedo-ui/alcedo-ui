@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
-export default class TableHeader extends Component {
+class TableHeader extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -109,3 +109,5 @@ TableHeader.defaultProps = {
     hidden: false
 
 };
+
+export default TableHeader;

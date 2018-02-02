@@ -17,7 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
-export default class DraggableTree extends Component {
+class DraggableTree extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -452,3 +452,5 @@ DraggableTree.defaultProps = {
     expandedIconCls: 'fa fa-caret-down'
 
 };
+
+export default DraggableTree;

@@ -1,6 +1,3 @@
-/**
- * Created by DT314 on 2017/8/23.
- */
 import React, {Component} from 'react';
 
 import DotStep from 'src/DotStep';
@@ -9,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DotStepDoc from 'assets/propTypes/DotStep.json';
+import doc from 'assets/propTypes/DotStep.json';
 
 import 'sass/containers/app/modules/stepper/DotStepExamples.scss';
 
@@ -24,11 +21,11 @@ export default class DotStepExamples extends Component {
             finishedStep: 0
         };
 
-        this.updateStep = this::this.updateStep;
-        this.prev = this::this.prev;
-        this.next = this::this.next;
-        this.reset = this::this.reset;
-        this.setFinished = this::this.setFinished;
+        this.updateStep = ::this.updateStep;
+        this.prev = ::this.prev;
+        this.next = ::this.next;
+        this.reset = ::this.reset;
+        this.setFinished = ::this.setFinished;
 
     }
 
@@ -152,7 +149,7 @@ export default class DotStepExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DotStepDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

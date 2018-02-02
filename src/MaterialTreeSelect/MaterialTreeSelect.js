@@ -14,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class MaterialTreeSelect extends Component {
+class MaterialTreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -389,3 +389,5 @@ MaterialTreeSelect.defaultProps = {
     popupChildren: null
 
 };
+
+export default MaterialTreeSelect;

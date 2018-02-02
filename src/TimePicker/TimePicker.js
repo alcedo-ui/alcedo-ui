@@ -12,9 +12,8 @@ import TimeList from '../_TimeList';
 import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 
-export default class TimePicker extends Component {
+class TimePicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -83,7 +82,7 @@ export default class TimePicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue) {
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -113,7 +112,7 @@ export default class TimePicker extends Component {
     componentDidMount() {
         const {value} = this.props;
         let dateFormatValue = '2000-02-01 ' + value;
-        if(value){
+        if (value) {
             if (moment(dateFormatValue, 'YYYY-MM-DD HH:mm:ss').isValid()) {
                 this.setState({
                     textFieldValue: value,
@@ -121,7 +120,7 @@ export default class TimePicker extends Component {
                     minute: moment(dateFormatValue).format('mm'),
                     second: moment(dateFormatValue).format('ss')
                 });
-            }else {
+            } else {
                 this.validValue = false;
                 console.error('Invalid date');
             }
@@ -133,7 +132,7 @@ export default class TimePicker extends Component {
 
         const {className, style, name, placeholder, maxValue, minValue, dateFormat} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
-            popupTextField = moment(moment().format('YYYY-MM-DD')+' '+ hour + ':' + minute + ':' + second).format(dateFormat);
+            popupTextField = moment(moment().format('YYYY-MM-DD') + ' ' + hour + ':' + minute + ':' + second).format(dateFormat);
 
         return (
             <div className={`time-picker ${className}`}
@@ -231,3 +230,5 @@ TimePicker.defaultProps = {
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss'
 };
+
+export default TimePicker;

@@ -1,22 +1,22 @@
-/**
- * Created by DT314 on 2017/4/12.
- */
 import React, {Component, PropTypes} from 'react';
-import Slider from 'src/Slider';
 
+import Slider from 'src/Slider';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import SliderDoc from 'assets/propTypes/Slider.json';
+import doc from 'assets/propTypes/Slider.json';
 
 import 'sass/containers/app/modules/fields/SliderExamples.scss';
 
 export default class SliderExamples extends Component {
-    constructor(props) {
-        super();
 
-        this.change = this :: this.change;
+    constructor(props) {
+
+        super(props);
+
+        this.change = ::this.change;
+
     }
 
     change(left, right) {
@@ -153,9 +153,9 @@ export default class SliderExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={SliderDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
-        )
+        );
     }
 }

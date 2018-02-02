@@ -9,8 +9,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialProvider.json';
 
-import 'sass/containers/app/modules/layout/MaterialProviderExamples.scss';
-
 export default class MaterialProviderExamples extends Component {
 
     constructor(props) {

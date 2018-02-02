@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 
 import MaterialDropdownFilter from 'src/MaterialDropdownFilter';
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
-import Theme from 'src/Theme/index';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialDropdownFilter.json';
@@ -29,10 +28,6 @@ export default class MaterialDropdownFilterExamples extends Component {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
-
-        this.onChange = this::this.onChange;
-        this.filterPressEnterHandle = this::this.filterPressEnterHandle;
-        this.filterClearHandle = this::this.filterClearHandle;
 
     }
 
@@ -72,7 +67,7 @@ export default class MaterialDropdownFilterExamples extends Component {
 
                                 <p><code>MaterialDropdownFilter</code> simple example.</p>
 
-                                <MaterialDropdownFilter theme={Theme.HIGHLIGHT}
+                                <MaterialDropdownFilter theme={MaterialDropdownFilter.Theme.HIGHLIGHT}
                                                         label="Label"
                                                         placeholder="Please select ..."
                                                         data={this.data}

@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DropdownSelect extends Component {
+class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -556,3 +556,5 @@ DropdownSelect.defaultProps = {
     useDynamicRenderList: false
 
 };
+
+export default DropdownSelect;

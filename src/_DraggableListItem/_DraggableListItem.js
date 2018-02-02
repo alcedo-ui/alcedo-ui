@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DraggableListItem extends Component {
+class DraggableListItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -322,3 +322,5 @@ DraggableListItem.defaultProps = {
     anchorIconCls: 'fa fa-bars'
 
 };
+
+export default DraggableListItem;

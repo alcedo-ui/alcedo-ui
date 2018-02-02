@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 
-export default class Rate extends Component {
+class Rate extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -19,7 +19,7 @@ export default class Rate extends Component {
             items: []
         };
 
-        this.mouseMoveHandle = ::this.mouseMoveHandle;
+        this.mouseMoveHandler = ::this.mouseMoveHandler;
         this.selectHandler = ::this.selectHandler;
         this.createItems = ::this.createItems;
 
@@ -38,7 +38,7 @@ export default class Rate extends Component {
 
     }
 
-    mouseMoveHandle(e) {
+    mouseMoveHandler(e) {
         const {disabled} = this.props;
         if (disabled) {
             return;
@@ -127,11 +127,11 @@ export default class Rate extends Component {
             value,
             items
         });
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     render() {
@@ -238,3 +238,4 @@ Rate.defaultProps = {
 
 };
 
+export default Rate;

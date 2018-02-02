@@ -17,7 +17,7 @@ import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DraggableGrid extends Component {
+class DraggableGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -501,3 +501,5 @@ DraggableGrid.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGrid;

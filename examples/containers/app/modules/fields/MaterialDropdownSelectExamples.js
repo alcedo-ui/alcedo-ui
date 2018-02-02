@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
-import MaterialDropdownSelect from 'src/MaterialDropdownSelect/index';
-import Theme from 'src/Theme/index';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdownSelect.json';
@@ -13,6 +12,7 @@ import 'sass/containers/app/modules/fields/MaterialDropdownSelectExamples.scss';
 export default class MaterialDropdownSelectExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.data = ['test0', 'test1', {
@@ -65,7 +65,7 @@ export default class MaterialDropdownSelectExamples extends Component {
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialDropdownSelect theme={Theme.HIGHLIGHT}
+                                    <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
                                                             label="Label"
                                                             placeholder="Placeholder"
                                                             selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}

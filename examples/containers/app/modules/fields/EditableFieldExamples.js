@@ -1,20 +1,17 @@
-/**
- * Created by DT314 on 2017/4/18.
- */
 import React, {Component, PropTypes} from 'react';
-import EditableField from 'src/EditableField/EditableField';
 
+import EditableField from 'src/EditableField';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import EditableFieldDoc from 'assets/propTypes/EditableField.json';
-
-import 'sass/containers/app/modules/fields/EditableFieldExamples.scss';
+import doc from 'assets/propTypes/EditableField.json';
 
 export default class EditableFieldExamples extends Component {
+
     constructor(props) {
-        super();
+
+        super(props);
 
         this.state = {
             value: 'text',
@@ -149,7 +146,7 @@ export default class EditableFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={EditableFieldDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 

@@ -15,7 +15,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class EditableSelect extends Component {
+class EditableSelect extends Component {
 
     static Theme = Theme;
 
@@ -489,3 +489,5 @@ EditableSelect.defaultProps = {
     isGrouped: false
 
 };
+
+export default EditableSelect;

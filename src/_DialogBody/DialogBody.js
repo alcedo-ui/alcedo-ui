@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 
-export default class DialogBody extends Component {
+class DialogBody extends Component {
 
     static Theme = Theme;
 
@@ -443,3 +443,5 @@ DialogBody.defaultProps = {
     isEscClose: true
 
 };
+
+export default DialogBody;

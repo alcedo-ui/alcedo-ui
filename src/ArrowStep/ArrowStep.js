@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import ArrowStepItem from '../_ArrowStepItem';
 
-export default class ArrowStep extends Component {
+class ArrowStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -146,3 +146,5 @@ ArrowStep.defaultProps = {
     finishedStep: 0
 
 };
+
+export default ArrowStep;

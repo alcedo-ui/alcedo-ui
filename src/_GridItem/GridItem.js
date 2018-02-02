@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class GridItem extends Component {
+class GridItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -319,3 +319,5 @@ GridItem.defaultProps = {
     col: 3
 
 };
+
+export default GridItem;

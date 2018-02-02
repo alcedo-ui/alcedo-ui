@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import PointStepItem from '../_PointStepItem';
 
-export default class PointStep extends Component {
+class PointStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -159,3 +159,5 @@ PointStep.defaultProps = {
     disabled: false
 
 };
+
+export default PointStep;

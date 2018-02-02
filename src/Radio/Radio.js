@@ -13,7 +13,7 @@ import TipProvider from '../TipProvider';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class Radio extends Component {
+class Radio extends Component {
 
     static Theme = Theme;
 
@@ -228,3 +228,5 @@ Radio.defaultProps = {
     tipPosition: Position.BOTTOM
 
 };
+
+export default Radio;

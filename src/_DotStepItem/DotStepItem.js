@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class DotStepItem extends Component {
+class DotStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -81,3 +81,5 @@ DotStepItem.defaultProps = {
     finishedStep: 0
 
 };
+
+export default DotStepItem;

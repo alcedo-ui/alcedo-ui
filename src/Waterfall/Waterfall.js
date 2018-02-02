@@ -7,7 +7,7 @@ import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 
-export default class Waterfall extends Component {
+class Waterfall extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -222,3 +222,5 @@ Waterfall.defaultProps = {
     separator: 10
 
 };
+
+export default Waterfall;

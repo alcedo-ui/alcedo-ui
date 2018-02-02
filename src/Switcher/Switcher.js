@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Switcher extends Component {
+class Switcher extends Component {
 
     static Size = {
         DEFAULT: '',
@@ -178,3 +178,5 @@ Switcher.defaultProps = {
     size: Switcher.Size.DEFAULT
 
 };
+
+export default Switcher;

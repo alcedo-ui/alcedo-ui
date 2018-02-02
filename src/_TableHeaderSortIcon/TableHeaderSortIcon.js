@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class TableHeaderSortIcon extends Component {
+class TableHeaderSortIcon extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -42,3 +42,5 @@ TableHeaderSortIcon.defaultProps = {
     sortAscIconCls: 'fa fa-angle-up',
     sortDescIconCls: 'fa fa-angle-down'
 };
+
+export default TableHeaderSortIcon;

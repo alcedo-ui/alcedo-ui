@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 
-import MaterialEditableSelect from 'src/MaterialEditableSelect/index';
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
-import Theme from 'src/Theme/index';
+import MaterialEditableSelect from 'src/MaterialEditableSelect';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MaterialEditableSelectDoc from 'examples/assets/propTypes/MaterialEditableSelect.json';
-
-import 'sass/containers/app/modules/fields/MaterialEditableSelectExamples.scss';
+import doc from 'examples/assets/propTypes/MaterialEditableSelect.json';
 
 export default class MaterialEditableSelectExamples extends Component {
 
@@ -143,7 +140,7 @@ export default class MaterialEditableSelectExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialEditableSelectDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

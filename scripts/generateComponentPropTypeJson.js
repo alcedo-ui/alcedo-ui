@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash'),
+const _ = require('lodash'),
     PropTypes = require('prop-types');
 
 /**
@@ -9,7 +9,7 @@ var _ = require('lodash'),
  * @returns {*}
  */
 function formatPropTypes(fieldPropType) {
-    for (var key in PropTypes) {
+    for (let key in PropTypes) {
         if (fieldPropType.indexOf(key) > -1) {
             return 'PropTypes.' + key;
         }
@@ -24,7 +24,7 @@ function formatPropTypes(fieldPropType) {
  */
 function formatDefaultProps(fieldDefaultProps) {
 
-    var result = fieldDefaultProps;
+    let result = fieldDefaultProps;
 
     if (result.slice(-1) === ',') {
         result = result.slice(0, -1);
@@ -54,13 +54,13 @@ function splitField(fieldString) {
  */
 function generatePropTypes(componentName, fileString, result) {
 
-    var propTypesFileString = fileString.slice(fileString.indexOf(componentName + '.propTypes')),
+    let propTypesFileString = fileString.slice(fileString.indexOf(componentName + '.propTypes')),
         propTypesFileArray = propTypesFileString.split('\n'),
         lastLineBraceCount = 0, braceCount = 0, commentStart, comment, fieldString, fieldObj;
 
-    for (var i = 0, len = propTypesFileArray.length; i < len; i++) {
+    for (let i = 0, len = propTypesFileArray.length; i < len; i++) {
 
-        var line = propTypesFileArray[i];
+        let line = propTypesFileArray[i];
 
         lastLineBraceCount = braceCount;
 
@@ -126,13 +126,13 @@ function generatePropTypes(componentName, fileString, result) {
  */
 function generateDefaultProps(componentName, fileString, result) {
 
-    var defaultPropsFileString = fileString.slice(fileString.indexOf(componentName + '.defaultProps')),
+    let defaultPropsFileString = fileString.slice(fileString.indexOf(componentName + '.defaultProps')),
         defaultPropsFileArray = defaultPropsFileString.split('\n'),
         braceCount = 0, fieldObj, fieldName;
 
-    for (var i = 0, len = defaultPropsFileArray.length; i < len; i++) {
+    for (let i = 0, len = defaultPropsFileArray.length; i < len; i++) {
 
-        var line = defaultPropsFileArray[i];
+        let line = defaultPropsFileArray[i];
 
         fieldObj = splitField(line);
         fieldName = fieldObj.key;
@@ -148,18 +148,17 @@ function generateDefaultProps(componentName, fileString, result) {
             break;
         }
 
-
     }
 
 }
 
-module.exports = function (componentName, fileString) {
+module.exports = (componentName, fileString) => {
 
     if (!fileString) {
         return fileString;
     }
 
-    var result = {};
+    const result = {};
 
     generatePropTypes(componentName, fileString, result);
     generateDefaultProps(componentName, fileString, result);

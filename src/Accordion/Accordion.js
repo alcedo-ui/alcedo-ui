@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-export default class Accordion extends Component {
+class Accordion extends Component {
 
     static Theme = Theme;
 
@@ -146,3 +146,5 @@ Accordion.defaultProps = {
     expandIcon: 'fa fa-angle-down'
 
 };
+
+export default Accordion;

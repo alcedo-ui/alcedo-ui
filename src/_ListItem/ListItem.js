@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class ListItem extends Component {
+class ListItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -310,3 +310,5 @@ ListItem.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default ListItem;

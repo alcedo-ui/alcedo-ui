@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class MaterialProvider extends Component {
+class MaterialProvider extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -61,3 +61,5 @@ MaterialProvider.defaultProps = {
     label: null
 
 };
+
+export default MaterialProvider;

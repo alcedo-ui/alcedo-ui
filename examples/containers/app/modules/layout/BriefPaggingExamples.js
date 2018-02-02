@@ -3,17 +3,15 @@ import React, {Component} from 'react';
 import BriefPagging from 'src/BriefPagging';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-
-import Valid from '../../../../../src/_vendors/Valid';
+import Valid from 'src/_vendors/Valid';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import BriefPaggingDoc from 'assets/propTypes/BriefPagging.json';
-
-import 'sass/containers/app/modules/layout/PaperExamples.scss';
+import doc from 'assets/propTypes/BriefPagging.json';
 
 export default class BriefPaggingExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.pageSizes = [{
@@ -39,13 +37,13 @@ export default class BriefPaggingExamples extends Component {
                 page: 0
             }
         };
-        this.pageChangedHandler = this::this.pageChangedHandler;
-        this.generateData = this::this.generateData;
+
+        this.pageChangedHandler = ::this.pageChangedHandler;
+        this.generateData = ::this.generateData;
 
     }
 
     generateData(size = 100) {
-
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
@@ -128,7 +126,7 @@ export default class BriefPaggingExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={BriefPaggingDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

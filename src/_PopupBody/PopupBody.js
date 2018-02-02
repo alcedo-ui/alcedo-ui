@@ -19,7 +19,7 @@ import PopupCalculation from '../_vendors/PopupCalculation';
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
 
-export default class PopupBody extends Component {
+class PopupBody extends Component {
 
     static Position = Position;
     static TriggerMode = TriggerMode;
@@ -313,3 +313,5 @@ PopupBody.defaultProps = {
     isTriggerPositionFixed: false
 
 };
+
+export default PopupBody;

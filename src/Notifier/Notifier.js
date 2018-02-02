@@ -14,7 +14,7 @@ import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
-export default class Notifier extends Component {
+class Notifier extends Component {
 
     static Type = MsgType;
     static Position = Position;
@@ -224,3 +224,5 @@ Notifier.defaultProps = {
     position: Position.BOTTOM_RIGHT
 
 };
+
+export default Notifier;

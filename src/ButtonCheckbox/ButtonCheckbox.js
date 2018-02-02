@@ -11,7 +11,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class ButtonCheckbox extends Component {
+class ButtonCheckbox extends Component {
 
     static Theme = Theme;
 
@@ -124,3 +124,5 @@ ButtonCheckbox.defaultProps = {
     disabled: false
 
 };
+
+export default ButtonCheckbox;

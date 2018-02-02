@@ -3,12 +3,9 @@ import React, {Component} from 'react';
 import TimeLine from 'src/TimeLine';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TimeLineDoc from 'assets/propTypes/TimeLine.json';
-
-import 'sass/containers/app/modules/timeLine/TimeLineExamples.scss';
+import doc from 'assets/propTypes/TimeLine.json';
 
 export default class TimeLineExamples extends Component {
 
@@ -21,31 +18,31 @@ export default class TimeLineExamples extends Component {
             type: 'header',
             headerText: 'Now'
         }, {
-            theme: Theme.PRIMARY,
+            theme: TimeLine.Theme.PRIMARY,
             type: 'title',
             contentText: 'just a title.',
             hasBorder: false,
             date: '2017-05-03 15:16:34'
         }, {
-            theme: Theme.HIGHLIGHT,
+            theme: TimeLine.Theme.HIGHLIGHT,
             type: 'title',
             hasBorder: true,
             contentText: 'just a title.',
             date: '2017-05-03 15:16:34'
         }, {
-            theme: Theme.SUCCESS,
+            theme: TimeLine.Theme.SUCCESS,
             type: 'title',
             contentText: 'just a title.',
             hasBorder: true,
             date: '2017-05-03 15:16:34'
         }, {
-            theme: Theme.WARNING,
+            theme: TimeLine.Theme.WARNING,
             type: 'title',
             hasBorder: true,
             contentText: 'example content.',
             date: '2017-05-06 12:52:12'
         }, {
-            theme: Theme.ERROR,
+            theme: TimeLine.Theme.ERROR,
             type: 'title',
             hasBorder: true,
             contentText: 'welcome to China.',
@@ -84,7 +81,7 @@ export default class TimeLineExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TimeLineDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

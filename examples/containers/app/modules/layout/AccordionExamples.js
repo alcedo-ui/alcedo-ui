@@ -6,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import AccordionDoc from 'assets/propTypes/Accordion.json';
+import doc from 'assets/propTypes/Accordion.json';
 
 import 'sass/containers/app/modules/layout/AccordionExamples.scss';
 
@@ -89,7 +89,7 @@ export default class AccordionExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={AccordionDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

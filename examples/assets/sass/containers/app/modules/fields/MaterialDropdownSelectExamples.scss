@@ -1,12 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .material-dropdown-select-examples {
-
-    .examples-wrapper {
-
-        .field-group {
-            @include float-fix;
-            float: none;
-        }
+    .field-group {
+        @include float-fix;
+        float: none;
     }
 }

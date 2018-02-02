@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DraggableGridItem extends Component {
+class DraggableGridItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -334,3 +334,5 @@ DraggableGridItem.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGridItem;

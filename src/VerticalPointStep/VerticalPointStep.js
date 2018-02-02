@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import VerticalPointStepItem from '../_VerticalPointStepItem';
 
-export default class VerticalPointStep extends Component {
+class VerticalPointStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -148,3 +148,5 @@ VerticalPointStep.defaultProps = {
     disabled: false
 
 };
+
+export default VerticalPointStep;

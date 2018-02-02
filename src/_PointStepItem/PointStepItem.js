@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class PointStepItem extends Component {
+class PointStepItem extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -109,3 +109,5 @@ PointStepItem.defaultProps = {
     disabled: false
 
 };
+
+export default PointStepItem;

@@ -12,7 +12,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class RadioGroup extends Component {
+class RadioGroup extends Component {
 
     static Theme = Theme;
 
@@ -191,3 +191,5 @@ RadioGroup.defaultProps = {
     disabled: false
 
 };
+
+export default RadioGroup;

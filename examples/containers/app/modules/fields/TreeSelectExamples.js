@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from 'components/PropTypeDescTable';
 import TreeSelect from 'src/TreeSelect';
 
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'sass/containers/app/modules/fields/TreeSelectExamples.scss';

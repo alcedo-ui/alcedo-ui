@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-export default class ListStepItem extends Component {
+class ListStepItem extends Component {
 
     static Theme = Theme;
 
@@ -92,3 +92,5 @@ ListStepItem.defaultProps = {
     finishedStep: 0,
     data: null
 };
+
+export default ListStepItem;

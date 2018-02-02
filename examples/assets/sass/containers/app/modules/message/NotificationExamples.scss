@@ -1,9 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .notification-examples {
 
     .example-content {
-
         padding-bottom: 50px;
 
         .examples-wrapper {
@@ -38,7 +37,5 @@
                 width: auto !important;
             }
         }
-
     }
-
 }

@@ -10,7 +10,7 @@ import _ from 'lodash';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 
-export default class TransferList extends Component {
+class TransferList extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -197,3 +197,5 @@ TransferList.defaultProps = {
     className: '',
     style: null
 };
+
+export default TransferList;

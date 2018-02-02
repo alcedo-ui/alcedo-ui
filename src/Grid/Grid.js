@@ -16,7 +16,7 @@ import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 
-export default class Grid extends Component {
+class Grid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -421,3 +421,5 @@ Grid.defaultProps = {
     col: 3
 
 };
+
+export default Grid;

@@ -13,7 +13,7 @@ import TipProvider from '../TipProvider';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class Checkbox extends Component {
+class Checkbox extends Component {
 
     static Theme = Theme;
 
@@ -236,3 +236,5 @@ Checkbox.defaultProps = {
     tipPosition: Position.BOTTOM
 
 };
+
+export default Checkbox;

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
 
-export default class FieldMsg extends Component {
+class FieldMsg extends Component {
 
     static Type = {
         DEFAULT: '',
@@ -162,3 +162,5 @@ FieldMsg.defaultProps = {
     isHtmlMsg: false
 
 };
+
+export default FieldMsg;

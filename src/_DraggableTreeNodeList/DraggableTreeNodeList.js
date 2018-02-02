@@ -9,7 +9,7 @@ import {Droppable} from 'react-beautiful-dnd';
 
 import TreeNode from '../_TreeNode/TreeNode';
 
-export default class DraggableTreeNodeList extends Component {
+class DraggableTreeNodeList extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -77,3 +77,5 @@ DraggableTreeNodeList.defaultProps = {
     collapsed: false
 
 };
+
+export default DraggableTreeNodeList;

@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class TimeLineItem extends Component {
+class TimeLineItem extends Component {
 
     static Type = {
         HEADER: 'header',
@@ -75,3 +75,5 @@ TimeLineItem.defaultProps = {
     className: '',
     style: null
 };
+
+export default TimeLineItem;

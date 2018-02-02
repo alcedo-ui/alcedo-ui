@@ -13,7 +13,7 @@ import TipProvider from '../TipProvider';
 
 import Util from '../_vendors/Util';
 
-export default class IconAnchor extends Component {
+class IconAnchor extends Component {
 
     static Theme = Theme;
 
@@ -164,3 +164,5 @@ IconAnchor.defaultProps = {
     tipPosition: TipProvider.Position.BOTTOM
 
 };
+
+export default IconAnchor;

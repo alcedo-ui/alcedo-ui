@@ -10,7 +10,7 @@ import _ from 'lodash';
 
 import TimeItems from '../_TimeItems';
 
-export default class TimeList extends Component {
+class TimeList extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -285,20 +285,23 @@ export default class TimeList extends Component {
     }
 
     render() {
-        const {className, popupVisible, dateFormat} = this.props;
-        const {hour, minute, second, hoursData, minutesData, secondsData} = this.state;
-        const TimeItemsStyle = {
-            width: 100 / (dateFormat.split(':').length) + '%'
-        };
+
+        const {className, popupVisible, dateFormat} = this.props,
+            {hour, minute, second, hoursData, minutesData, secondsData} = this.state,
+            TimeItemsStyle = {
+                width: 100 / (dateFormat.split(':').length) + '%'
+            };
+
         return (
             <div className={`calendar ${className ? className : ''}`}>
+
                 <TimeItems className="hours"
                            style={TimeItemsStyle}
                            data={hoursData}
                            value={hour}
                            popupVisible={popupVisible}
-                           onChange={this.hourChangeHandle}
-                />
+                           onChange={this.hourChangeHandle}/>
+
                 {
                     dateFormat.split(':').length > 1 ?
                         <TimeItems className="minutes"
@@ -306,8 +309,7 @@ export default class TimeList extends Component {
                                    data={minutesData}
                                    value={minute}
                                    popupVisible={popupVisible}
-                                   onChange={this.minuteChangeHandle}
-                        />
+                                   onChange={this.minuteChangeHandle}/>
                         :
                         null
                 }
@@ -319,8 +321,7 @@ export default class TimeList extends Component {
                                    data={secondsData}
                                    value={second}
                                    popupVisible={popupVisible}
-                                   onChange={this.secondChangeHandle}
-                        />
+                                   onChange={this.secondChangeHandle}/>
                         :
                         null
                 }
@@ -344,3 +345,5 @@ TimeList.propTypes = {
     minValue: PropTypes.string
 
 };
+
+export default TimeList;

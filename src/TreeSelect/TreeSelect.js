@@ -16,7 +16,7 @@ import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import SelectMode from '../_statics/SelectMode';
 
-export default class TreeSelect extends Component {
+class TreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -446,3 +446,5 @@ TreeSelect.defaultProps = {
     popupChildren: null
 
 };
+
+export default TreeSelect;

@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Crumb extends Component {
+class Crumb extends Component {
 
     static Theme = Theme;
 
@@ -133,3 +133,5 @@ Crumb.defaultProps = {
     theme: Theme.DEFAULT
 
 };
+
+export default Crumb;

@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class WidgetHeader extends Component {
+class WidgetHeader extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -49,3 +49,5 @@ WidgetHeader.defaultProps = {
     title: ''
 
 };
+
+export default WidgetHeader;

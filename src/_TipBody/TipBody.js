@@ -17,7 +17,7 @@ import PopupCalculation from '../_vendors/PopupCalculation';
 
 import Position from '../_statics/Position';
 
-export default class TipBody extends Component {
+class TipBody extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -253,3 +253,5 @@ TipBody.defaultProps = {
     isTriggerPositionFixed: false
 
 };
+
+export default TipBody;

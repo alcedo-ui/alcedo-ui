@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import IconButtonDoc from 'assets/propTypes/IconButton.json';
+import doc from 'assets/propTypes/IconButton.json';
 
 import 'sass/containers/app/modules/buttons/IconButtonExamples.scss';
 
@@ -85,7 +85,7 @@ export default class IconButtonExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={IconButtonDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

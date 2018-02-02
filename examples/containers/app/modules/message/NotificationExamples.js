@@ -4,13 +4,11 @@ import RadioGroup from 'src/RadioGroup';
 import TextField from 'src/TextField';
 import RaisedButton from 'src/RaisedButton';
 import Notifier from 'src/Notifier';
-import Theme from 'src/Theme';
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import NotificationDoc from 'assets/propTypes/Notification.json';
+import doc from 'assets/propTypes/Notification.json';
 
 import 'sass/containers/app/modules/message/NotificationExamples.scss';
 
@@ -38,9 +36,9 @@ export default class NotificationExamples extends Component {
             value: Notifier.Position[item]
         }));
 
-        this.updateField = this::this.updateField;
-        this.addNotification = this::this.addNotification;
-        this.notificationPopHandler = this::this.notificationPopHandler;
+        this.updateField = ::this.updateField;
+        this.addNotification = ::this.addNotification;
+        this.notificationPopHandler = ::this.notificationPopHandler;
 
     }
 
@@ -132,7 +130,7 @@ export default class NotificationExamples extends Component {
                                 </div>
 
                                 <RaisedButton className="show-notification-button"
-                                              theme={Theme.PRIMARY}
+                                              theme={RaisedButton.Theme.PRIMARY}
                                               value="Show Notification"
                                               onTouchTap={this.addNotification}/>
 
@@ -147,10 +145,9 @@ export default class NotificationExamples extends Component {
 
                 </Widget>
 
-
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={NotificationDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

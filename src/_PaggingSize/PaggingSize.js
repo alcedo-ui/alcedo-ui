@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
-export default class PaggingSize extends Component {
+class PaggingSize extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -69,3 +69,5 @@ PaggingSize.defaultProps = {
     pageSizes: [5, 10, 15, 20]
 
 };
+
+export default PaggingSize;

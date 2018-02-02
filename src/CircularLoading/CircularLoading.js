@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Util from '../_vendors/Util';
 
-export default class CircularLoading extends Component {
+class CircularLoading extends Component {
 
     static Size = {
         DEFAULT: '',
@@ -105,3 +105,5 @@ CircularLoading.defaultProps = {
     type: 'solid'
 
 };
+
+export default CircularLoading;

@@ -9,7 +9,7 @@ import Theme from '../Theme';
 
 import Percent from '../_Percent';
 
-export default class LinearProgress extends Component {
+class LinearProgress extends Component {
 
     static WordStyle = {
         FRONT: 'linear-progress-one',
@@ -125,3 +125,5 @@ LinearProgress.defaultProps = {
     animation: false
 
 };
+
+export default LinearProgress;

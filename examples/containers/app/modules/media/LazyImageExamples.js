@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-
 import LazyImage from 'src/LazyImage';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import LazyImageDoc from 'assets/propTypes/LazyImage.json';
-
-import 'sass/containers/app/modules/media/LazyImageExamples.scss';
+import doc from 'assets/propTypes/LazyImage.json';
 
 export default class LazyImageExamples extends Component {
 
@@ -116,7 +113,7 @@ export default class LazyImageExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={LazyImageDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

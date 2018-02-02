@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialEditableSelect extends Component {
+class MaterialEditableSelect extends Component {
 
     static Theme = Theme;
 
@@ -382,6 +382,8 @@ MaterialEditableSelect.defaultProps = {
     useFilter: false,
     noMatchedMsg: '',
     triggerTheme: Theme.DEFAULT,
-    isGrouped: false,
+    isGrouped: false
 
 };
+
+export default MaterialEditableSelect;

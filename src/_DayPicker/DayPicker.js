@@ -10,7 +10,7 @@ import Util from '../_vendors/Util';
 
 import TouchRipple from '../TouchRipple';
 
-export default class DayPicker extends Component {
+class DayPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -282,7 +282,7 @@ export default class DayPicker extends Component {
                 let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
                 let liClassName = `${start == item ? 'start' : ''} ${item == end || item == hover ? 'end' : ''} ${ moment(start).isBefore(item) && moment(item).isBefore(end)
                 || moment(start).isBefore(item) && moment(item).isBefore(hover) ? 'hover' : ''} ${i == 0 ? 'first-day' : ''} ${ i == (+month_days - 1) ? 'last-day' : ''}
-                    ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`
+                    ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
                 let current_link = (
                     <li className={liClassName}
                         key={'current' + i}
@@ -304,8 +304,8 @@ export default class DayPicker extends Component {
             for (let i = 0; i < Number(month_days); i++) {
                 let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
                 let liClassName = `${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''} 
-                ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`
-                    let current_link = (
+                ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
+                let current_link = (
                     <li className={liClassName}
                         key={'current' + i}
                         onClick={() => {
@@ -451,3 +451,5 @@ DayPicker.propTypes = {
 DayPicker.defaultProps = {
     isFooter: false
 };
+
+export default DayPicker;

@@ -16,7 +16,7 @@ import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
-export default class DynamicRenderList extends Component {
+class DynamicRenderList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
@@ -34,6 +34,7 @@ export default class DynamicRenderList extends Component {
         this.getIndex = ::this.getIndex;
         this.scrollHandler = ::this.scrollHandler;
         this.changeHandler = ::this.changeHandler;
+        this.adjustScroll = ::this.adjustScroll;
 
     }
 
@@ -45,7 +46,7 @@ export default class DynamicRenderList extends Component {
 
     scrollHandler(e) {
         this.setState({
-            scrollTop: this.listEl.scrollTop
+            scrollTop: this.dynamicRenderListEl.scrollTop
         }, () => {
             const {onScroll} = this.props;
             onScroll && onScroll(e);
@@ -61,8 +62,12 @@ export default class DynamicRenderList extends Component {
         });
     }
 
+    adjustScroll() {
+        this.refs.list.adjustScroll();
+    }
+
     componentDidMount() {
-        this.listEl = this.refs.list;
+        this.dynamicRenderListEl = this.refs.dynamicRenderList;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -85,7 +90,7 @@ export default class DynamicRenderList extends Component {
                 ...restProps
 
             } = this.props,
-            {value, scrollTop} = this.state,
+            {value} = this.state,
 
             scrollerStyle = {
                 height: data.length * itemHeight
@@ -96,7 +101,7 @@ export default class DynamicRenderList extends Component {
             filteredData = data && index ? data.slice(index.startWithBuffer, index.stopWithBuffer + 1) : data;
 
         return (
-            <div ref="list"
+            <div ref="dynamicRenderList"
                  className={'dynamic-render-list' + (className ? ' ' + className : '')}
                  style={{...style, height: listHeight}}
                  onScroll={this.scrollHandler}
@@ -108,6 +113,7 @@ export default class DynamicRenderList extends Component {
                      style={scrollerStyle}>
 
                     <List {...restProps}
+                          ref="list"
                           style={{transform: `translateY(${index.startWithBuffer * itemHeight}px)`}}
                           data={filteredData}
                           value={value}
@@ -337,3 +343,5 @@ DynamicRenderList.defaultProps = {
     scrollBuffer: 6
 
 };
+
+export default DynamicRenderList;

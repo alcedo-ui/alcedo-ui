@@ -17,7 +17,7 @@ import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class DropdownFilter extends Component {
+class DropdownFilter extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -579,3 +579,5 @@ DropdownFilter.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default DropdownFilter;

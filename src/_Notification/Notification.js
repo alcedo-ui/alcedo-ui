@@ -12,7 +12,7 @@ import AnchorButton from '../AnchorButton';
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
-export default class Notification extends Component {
+class Notification extends Component {
 
     static Type = MsgType;
 
@@ -225,3 +225,5 @@ Notification.defaultProps = {
     closeButtonValue: 'Close'
 
 };
+
+export default Notification;

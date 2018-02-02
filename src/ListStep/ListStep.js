@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import ListStepItem from '../_ListStepItem';
 
-export default class ListStep extends Component {
+class ListStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -144,3 +144,5 @@ ListStep.defaultProps = {
     finishedStep: 0
 
 };
+
+export default ListStep;

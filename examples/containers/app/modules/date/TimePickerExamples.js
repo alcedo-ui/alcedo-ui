@@ -1,18 +1,11 @@
-/**
- * Created by Administrator on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
 import TimePicker from 'src/TimePicker';
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TimePickerDoc from 'assets/propTypes/TimePicker.json';
-
-import 'sass/containers/app/modules/date/TimePickerExamples.scss';
-
+import doc from 'assets/propTypes/TimePicker.json';
 
 export default class TimePickerExamples extends Component {
 
@@ -21,7 +14,7 @@ export default class TimePickerExamples extends Component {
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {
@@ -124,7 +117,7 @@ export default class TimePickerExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TimePickerDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

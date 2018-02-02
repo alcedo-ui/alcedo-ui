@@ -1,4 +1,6 @@
 import ColorPicker from '../src/ColorPicker/ColorPicker';
+import AutoCompleteFilter from '../src/AutoCompleteFilter/AutoCompleteFilter';
+import MaterialAutoCompleteFilter from '../src/MaterialAutoCompleteFilter/MaterialAutoCompleteFilter';
 
 export default [{
     text: 'Button',
@@ -167,6 +169,12 @@ export default [{
     }, {
         text: 'MaterialDropdownFilter',
         route: '/components/MaterialDropdownFilter'
+    }, {
+        text: 'AutoCompleteFilter',
+        route: '/components/AutoCompleteFilter'
+    }, {
+        text: 'MaterialAutoCompleteFilter',
+        route: '/components/MaterialAutoCompleteFilter'
     }]
 }, {
     text: 'Progress',

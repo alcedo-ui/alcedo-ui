@@ -4,12 +4,9 @@ import Checkbox from 'src/Checkbox';
 import CheckboxGroup from 'src/CheckboxGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import CheckboxDoc from 'assets/propTypes/Checkbox.json';
-
-import 'sass/containers/app/modules/fields/CheckboxExamples.scss';
+import doc from 'assets/propTypes/Checkbox.json';
 
 export default class CheckboxExamples extends Component {
 
@@ -147,14 +144,14 @@ export default class CheckboxExamples extends Component {
 
                                 <p>CheckboxGroup simple example.</p>
 
-                                <Checkbox theme={Theme.HIGHLIGHT}
+                                <Checkbox theme={Checkbox.Theme.HIGHLIGHT}
                                           label="All"
                                           checked={checkboxGroupValue.length === this.data.length}
                                           indeterminate={checkboxGroupValue.length > 0
                                           && checkboxGroupValue.length < this.data.length}
                                           onChange={this.checkboxChangeHandler}/>
 
-                                <CheckboxGroup theme={Theme.HIGHLIGHT}
+                                <CheckboxGroup theme={CheckboxGroup.Theme.HIGHLIGHT}
                                                data={this.data}
                                                value={checkboxGroupValue}
                                                onChange={this.checkboxGroupChangeHandler}
@@ -178,7 +175,7 @@ export default class CheckboxExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Checkbox theme={Theme.HIGHLIGHT}
+                                <Checkbox theme={Checkbox.Theme.HIGHLIGHT}
                                           label="Self Defined Icon"
                                           uncheckedIconCls="fa fa-window-close-o"
                                           checkedIconCls="fa fa-window-close"/>
@@ -192,7 +189,7 @@ export default class CheckboxExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CheckboxDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from 'components/PropTypeDescTable';
 import Paper from 'src/Paper';
 import Tree from 'src/Tree';
+
+import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
@@ -46,8 +47,6 @@ export default class TreeExamples extends Component {
                 desc: 'Children 0 - 2'
             }]
         };
-
-        this.changeHandler = this::this.changeHandler;
 
     }
 

@@ -11,7 +11,7 @@ import IconButton from '../IconButton';
 
 import Valid from '../_vendors/Valid';
 
-export default class BriefPagging extends Component {
+class BriefPagging extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -196,3 +196,5 @@ BriefPagging.defaultProps = {
     paggingNextIconCls: 'fa fa-chevron-right'
 
 };
+
+export default BriefPagging;

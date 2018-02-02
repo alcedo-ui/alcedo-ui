@@ -1,6 +1,3 @@
-/**
- * Created by Wendy on 2017/5/16.
- */
 import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
@@ -8,9 +5,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import CascaderField from 'src/CascaderField';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import CascaderFieldDoc from '../../../../assets/propTypes/CascaderField.json';
-
-import '../../../../assets/sass/containers/app/modules/buttons/FlatButtonExamples.scss';
+import doc from 'assets/propTypes/CascaderField.json';
 
 export default class CascaderFieldExamples extends Component {
 
@@ -23,7 +18,7 @@ export default class CascaderFieldExamples extends Component {
             value: 'Asia',
             children: [{
                 text: 'Korea',
-                value: 'Korea',
+                value: 'Korea'
             }, {
                 text: 'Japan',
                 value: 'Japan',
@@ -42,13 +37,13 @@ export default class CascaderFieldExamples extends Component {
                 value: 'China',
                 children: [{
                     text: 'Shanghai',
-                    value: 'Shanghai',
+                    value: 'Shanghai'
                 }, {
                     text: 'Beijing',
-                    value: 'Beijing',
+                    value: 'Beijing'
                 }, {
                     text: 'Shenzhen',
-                    value: 'Shenzhen',
+                    value: 'Shenzhen'
                 }]
             }]
         }, {
@@ -79,11 +74,11 @@ export default class CascaderFieldExamples extends Component {
             value: 'Africa'
         }, {
             text: 'Oceania',
-            value: 'Oceania',
+            value: 'Oceania'
         }, {
             text: 'Antarctica',
             value: 'Antarctica'
-        }]
+        }];
 
     }
 
@@ -127,7 +122,7 @@ export default class CascaderFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CascaderFieldDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

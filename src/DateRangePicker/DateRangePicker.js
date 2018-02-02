@@ -2,6 +2,7 @@
  * @file DateRangePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -14,7 +15,7 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
-export default class DateRangePicker extends Component {
+class DateRangePicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -60,6 +61,7 @@ export default class DateRangePicker extends Component {
         this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
         this.dayPickerHoverHandle = ::this.dayPickerHoverHandle;
         this.monthAndYearChangeHandle = ::this.monthAndYearChangeHandle;
+
     }
 
     datePickerChangeHandle(select, selectLevel) {
@@ -195,7 +197,7 @@ export default class DateRangePicker extends Component {
 
 
     togglePopup(e) {
-        if(this.validValue) {
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -239,7 +241,7 @@ export default class DateRangePicker extends Component {
             this.props.onChange && this.props.onChange([
                 moment(state.value[0]).format(this.props.dateFormat),
                 moment(state.value[1]).format(this.props.dateFormat)
-            ])
+            ]);
         });
     }
 
@@ -287,7 +289,7 @@ export default class DateRangePicker extends Component {
                 state.historyStartTime = leftValue;
                 state.historyEndTime = rightValue;
                 this.setState(state);
-            }else{
+            } else {
                 this.validValue = false;
                 console.error('Invalid date');
             }
@@ -297,8 +299,9 @@ export default class DateRangePicker extends Component {
     }
 
     render() {
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props;
-        const {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
+
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
+            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -346,16 +349,14 @@ export default class DateRangePicker extends Component {
                                        clearButtonVisible={false}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('left', text);
-                                       }}
-                            />
+                                       }}/>
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
                                        value={right.text}
                                        clearButtonVisible={false}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('right', text);
-                                       }}
-                            />
+                                       }}/>
                         </div>
                     </div>
                     {
@@ -384,37 +385,35 @@ export default class DateRangePicker extends Component {
                                 }}
                                 hoverHandle={(obj) => {
                                     this.dayPickerHoverHandle('left', obj);
-                                }}
-                            />
-                            : (
-                            left.datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={left.text}
-                                    year={left.year}
-                                    month={left.month}
-                                    day={left.day}
-                                    maxValue={leftMaxValue}
-                                    minValue={minValue}
-                                    onChange={(obj) => {
-                                        this.monthPickerChangeHandle('left', obj);
-                                    }}
-                                    previousClick={(level) => {
-                                        this.datePickerChangeHandle('left', level);
-                                    }}
-                                />
-                                :
-                                <YearPicker
-                                    value={left.text}
-                                    year={left.year}
-                                    month={left.month}
-                                    day={left.day}
-                                    maxValue={leftMaxValue}
-                                    minValue={minValue}
-                                    onChange={(obj) => {
-                                        this.yearPickerChangeHandle('left', obj);
-                                    }}
-                                />
-                        )
+                                }}/>
+                            :
+                            (
+                                left.datePickerLevel == 'month' ?
+                                    <MonthPicker
+                                        value={left.text}
+                                        year={left.year}
+                                        month={left.month}
+                                        day={left.day}
+                                        maxValue={leftMaxValue}
+                                        minValue={minValue}
+                                        onChange={(obj) => {
+                                            this.monthPickerChangeHandle('left', obj);
+                                        }}
+                                        previousClick={(level) => {
+                                            this.datePickerChangeHandle('left', level);
+                                        }}/>
+                                    :
+                                    <YearPicker
+                                        value={left.text}
+                                        year={left.year}
+                                        month={left.month}
+                                        day={left.day}
+                                        maxValue={leftMaxValue}
+                                        minValue={minValue}
+                                        onChange={(obj) => {
+                                            this.yearPickerChangeHandle('left', obj);
+                                        }}/>
+                            )
 
                     }
                     {
@@ -443,37 +442,35 @@ export default class DateRangePicker extends Component {
                                 }}
                                 hoverHandle={(obj) => {
                                     this.dayPickerHoverHandle('left', obj);
-                                }}
-                            />
-                            : (
-                            right.datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={right.text}
-                                    year={right.year}
-                                    month={right.month}
-                                    day={right.day}
-                                    minValue={rightMinValue}
-                                    maxValue={maxValue}
-                                    onChange={(obj) => {
-                                        this.monthPickerChangeHandle('right', obj);
-                                    }}
-                                    previousClick={(level) => {
-                                        this.datePickerChangeHandle('right', level);
-                                    }}
-                                />
-                                :
-                                <YearPicker
-                                    value={right.text}
-                                    year={right.year}
-                                    month={right.month}
-                                    day={right.day}
-                                    minValue={rightMinValue}
-                                    maxValue={maxValue}
-                                    onChange={(obj) => {
-                                        this.yearPickerChangeHandle('right', obj);
-                                    }}
-                                />
-                        )
+                                }}/>
+                            :
+                            (
+                                right.datePickerLevel == 'month' ?
+                                    <MonthPicker
+                                        value={right.text}
+                                        year={right.year}
+                                        month={right.month}
+                                        day={right.day}
+                                        minValue={rightMinValue}
+                                        maxValue={maxValue}
+                                        onChange={(obj) => {
+                                            this.monthPickerChangeHandle('right', obj);
+                                        }}
+                                        previousClick={(level) => {
+                                            this.datePickerChangeHandle('right', level);
+                                        }}/>
+                                    :
+                                    <YearPicker
+                                        value={right.text}
+                                        year={right.year}
+                                        month={right.month}
+                                        day={right.day}
+                                        minValue={rightMinValue}
+                                        maxValue={maxValue}
+                                        onChange={(obj) => {
+                                            this.yearPickerChangeHandle('right', obj);
+                                        }}/>
+                            )
 
                     }
                 </Popup>
@@ -543,3 +540,5 @@ DateRangePicker.defaultProps = {
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD'
 };
+
+export default DateRangePicker;

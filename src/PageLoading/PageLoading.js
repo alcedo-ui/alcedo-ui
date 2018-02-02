@@ -6,13 +6,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class PageLoading extends Component {
+class PageLoading extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.unrenderTimeout = null;
+
         this.loadingArray = [{
             width: 0,
             timeout: 1
@@ -29,6 +30,7 @@ export default class PageLoading extends Component {
             width: 95,
             timeout: 25000
         }];
+
         this.finishedArray = [{
             width: 100,
             timeout: 250
@@ -111,3 +113,4 @@ PageLoading.defaultProps = {
     style: null
 };
 
+export default PageLoading;

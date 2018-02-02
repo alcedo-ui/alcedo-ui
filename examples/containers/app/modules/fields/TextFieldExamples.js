@@ -4,10 +4,9 @@ import TextField from 'src/TextField';
 import TextFieldGroup from 'src/TextFieldGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TextFieldDoc from 'assets/propTypes/TextField.json';
+import doc from 'assets/propTypes/TextField.json';
 
 import 'sass/containers/app/modules/fields/TextFieldExamples.scss';
 
@@ -76,7 +75,7 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Search</label>
                                     <TextField rightIconCls={'fa fa-search'}
-                                               theme={Theme.PRIMARY}
+                                               theme={TextField.Theme.PRIMARY}
                                                onRightIconTouchTap={() => {
                                                    console.log('Search Icon Clicked.');
                                                }}/>
@@ -105,14 +104,14 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
                                     <TextField iconCls="fa fa-user"
-                                               theme={Theme.HIGHLIGHT}/>
+                                               theme={TextField.Theme.HIGHLIGHT}/>
                                 </div>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
                                     <TextField iconCls="fa fa-lock"
                                                type="password"
-                                               theme={Theme.HIGHLIGHT}/>
+                                               theme={TextField.Theme.HIGHLIGHT}/>
                                 </div>
 
                             </div>
@@ -138,10 +137,12 @@ export default class TextFieldExamples extends Component {
 
                                 <TextFieldGroup>
 
-                                    <TextField iconCls="fa fa-user"/>
+                                    <TextField iconCls="fa fa-user"
+                                               placeholder="username"/>
 
                                     <TextField iconCls="fa fa-lock"
-                                               type={TextField.Type.PASSWORD}/>
+                                               type={TextField.Type.PASSWORD}
+                                               placeholder="password"/>
 
                                 </TextFieldGroup>
 
@@ -204,7 +205,7 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <TextField rightIconCls={'fa fa-search'}
                                                value="Disabled"
-                                               theme={Theme.PRIMARY}
+                                               theme={TextField.Theme.PRIMARY}
                                                disabled={true}/>
                                 </div>
 
@@ -217,7 +218,7 @@ export default class TextFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TextFieldDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

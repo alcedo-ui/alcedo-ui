@@ -13,7 +13,7 @@ import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 import Color from '../_vendors/Color';
 
-export default class ColorPicker extends Component {
+class ColorPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -182,3 +182,5 @@ ColorPicker.defaultProps = {
     value: [255, 0, 0]
 
 };
+
+export default ColorPicker;

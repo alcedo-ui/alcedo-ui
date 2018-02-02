@@ -1,12 +1,9 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .list-examples {
-
-    .examples-wrapper {
-        .paper {
-            width: 200px;
-            border: 1px solid $theme-border;
-            overflow: hidden;
-        }
+    .paper {
+        width: 200px;
+        border: 1px solid $theme-border;
+        overflow: hidden;
     }
 }

@@ -14,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class BaseButton extends Component {
+class BaseButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
@@ -219,3 +219,5 @@ BaseButton.defaultProps = {
     tipPosition: Position.BOTTOM
 
 };
+
+export default BaseButton;

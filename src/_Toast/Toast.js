@@ -12,7 +12,7 @@ import RaisedButton from '../RaisedButton';
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
-export default class Toast extends Component {
+class Toast extends Component {
 
     static Type = MsgType;
 
@@ -183,3 +183,5 @@ Toast.defaultProps = {
     duration: 2500
 
 };
+
+export default Toast;

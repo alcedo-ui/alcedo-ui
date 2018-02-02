@@ -21,10 +21,10 @@ export default class VerticalPointStepExamples extends Component {
             finishedStep: 0
         };
 
-        this.updateStep = this::this.updateStep;
-        this.prev = this::this.prev;
-        this.next = this::this.next;
-        this.reset = this::this.reset;
+        this.updateStep = ::this.updateStep;
+        this.prev = ::this.prev;
+        this.next = ::this.next;
+        this.reset = ::this.reset;
 
     }
 

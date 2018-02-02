@@ -13,7 +13,7 @@ import Tip from '../Tip';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
-export default class CascaderList extends Component {
+class CascaderList extends Component {
 
     static Theme = Theme;
 
@@ -215,3 +215,5 @@ CascaderList.defaultProps = {
     displayField: 'text'
 
 };
+
+export default CascaderList;

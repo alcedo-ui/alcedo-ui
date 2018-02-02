@@ -19,7 +19,7 @@ import SelectMode from '../_statics/SelectMode';
 
 const ScrollingComponent = withScrolling('div');
 
-export default class DraggableGrid extends Component {
+class DraggableGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -480,3 +480,5 @@ DraggableGrid.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGrid;

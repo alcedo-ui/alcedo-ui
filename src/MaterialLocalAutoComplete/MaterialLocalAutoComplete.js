@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialLocalAutoComplete extends Component {
+class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;
 
@@ -21,7 +21,7 @@ export default class MaterialLocalAutoComplete extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: '',
+            value: props.value,
             filter: props.filterInitValue,
             isFocus: false,
             isHover: false
@@ -48,12 +48,16 @@ export default class MaterialLocalAutoComplete extends Component {
     }
 
     triggerBlurHandler(...args) {
-        this.state.filter === '' && this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
+
+        if (this.state.filter === '') {
+            this.setState({
+                isFocus: false
+            });
+        }
+
+        const {onBlur} = this.props;
+        onBlur && onBlur(...args);
+
     }
 
     popupClosedHandler() {
@@ -108,12 +112,6 @@ export default class MaterialLocalAutoComplete extends Component {
                 value: nextProps.value
             });
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
     }
 
     render() {
@@ -411,3 +409,5 @@ MaterialLocalAutoComplete.defaultProps = {
     popupChildren: null
 
 };
+
+export default MaterialLocalAutoComplete;

@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2017/4/10.
- */
 import React, {Component, PropTypes} from 'react';
 
 import MaterialDateRangePicker from 'src/MaterialDateRangePicker';
@@ -8,10 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MaterialDateRangePickerDoc from 'assets/propTypes/MaterialDateRangePicker.json';
-
-import 'sass/containers/app/modules/date/MaterialDateRangePickerExamples.scss';
-
+import doc from 'assets/propTypes/MaterialDateRangePicker.json';
 
 export default class MaterialDateRangePickerExamples extends Component {
 
@@ -20,7 +14,7 @@ export default class MaterialDateRangePickerExamples extends Component {
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {
@@ -67,7 +61,8 @@ export default class MaterialDateRangePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Material Date Range Picker</code> using the <code>value</code> property to set initial
+                                <p><code>Material Date Range Picker</code> using the <code>value</code> property to set
+                                    initial
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
                                 <MaterialDateRangePicker label={`date range`}
@@ -117,7 +112,8 @@ export default class MaterialDateRangePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Material Date Range Picker</code> using the <code>placeholder</code> property to set
+                                <p><code>Material Date Range Picker</code> using the <code>placeholder</code> property
+                                    to set
                                     default value.</p>
 
                                 <MaterialDateRangePicker label={`date range`}
@@ -136,7 +132,7 @@ export default class MaterialDateRangePickerExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialDateRangePickerDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

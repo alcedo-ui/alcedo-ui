@@ -6,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import ArrowStepDoc from 'assets/propTypes/ArrowStep.json';
+import doc from 'assets/propTypes/ArrowStep.json';
 
 import 'sass/containers/app/modules/stepper/ArrowStepExamples.scss';
 
@@ -21,10 +21,10 @@ export default class ArrowStepExamples extends Component {
             finishedStep: 0
         };
 
-        this.updateStep = this::this.updateStep;
-        this.prev = this::this.prev;
-        this.next = this::this.next;
-        this.reset = this::this.reset;
+        this.updateStep = ::this.updateStep;
+        this.prev = ::this.prev;
+        this.next = ::this.next;
+        this.reset = ::this.reset;
 
     }
 
@@ -123,7 +123,7 @@ export default class ArrowStepExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ArrowStepDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

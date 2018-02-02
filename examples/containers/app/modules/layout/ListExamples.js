@@ -4,10 +4,9 @@ import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import ListDoc from 'assets/propTypes/List.json';
+import doc from 'assets/propTypes/List.json';
 
 import 'sass/containers/app/modules/layout/ListExamples.scss';
 
@@ -258,7 +257,7 @@ export default class ListExamples extends Component {
 
                                 <Paper style={{width: 240, marginTop: 20}}>
                                     <List style={{width: 240}}
-                                          selectTheme={Theme.HIGHLIGHT}
+                                          selectTheme={List.Theme.HIGHLIGHT}
                                           data={this.customizedListData}
                                           onChange={this.changeHandler}
                                           onItemTouchTap={this.itemTouchTapHandler}
@@ -275,7 +274,7 @@ export default class ListExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ListDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

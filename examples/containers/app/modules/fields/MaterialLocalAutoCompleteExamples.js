@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 
-import MaterialLocalAutoComplete from 'src/MaterialLocalAutoComplete/index';
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
-import Theme from 'src/Theme/index';
+import MaterialLocalAutoComplete from 'src/MaterialLocalAutoComplete';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MaterialLocalAutoCompleteDoc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
-
-import 'sass/containers/app/modules/fields/MaterialLocalAutoCompleteExamples.scss';
+import doc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
 
 export default class MaterialLocalAutoCompleteExamples extends Component {
 
@@ -74,7 +71,7 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
 
                                 <p><code>LocalAutoComplete</code> simple example.</p>
 
-                                <MaterialLocalAutoComplete theme={Theme.HIGHLIGHT}
+                                <MaterialLocalAutoComplete theme={MaterialLocalAutoComplete.Theme.HIGHLIGHT}
                                                            filterInitValue={'test'}
                                                            data={this.data}
                                                            label="Label"
@@ -92,7 +89,7 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialLocalAutoCompleteDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 

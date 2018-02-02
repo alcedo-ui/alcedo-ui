@@ -1,79 +1,64 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .span-loading-examples {
 
-    .example-content {
+    .example-span-loading {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+        padding: 30px 50px;
+        margin: 20px 0;
+        position: relative;
+    }
 
-        .example-span-loading {
+    .span-loading-nested {
+        width: 100%;
 
-            text-align: center;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
-            padding: 30px 50px;
-            margin: 20px 0;
-            position: relative;
-
-        }
-
-        .span-loading-nested {
-            width: 100%;
-
-            .span-loading-dot {
-
-                position: absolute;
-                top: calc(50% - 10px);
-                left: calc(50% - 10px);
-                z-index: $content-wrap-z-index;
-
-            }
-
-        }
-
-        .span-loading-info {
-
-            border: 1px solid lighten($theme-highlight, 15%);
-            background-color: lighten($theme-highlight, 45%);
-            padding: 20px 0;
-            position: relative;
-            width: 100%;
-
-            &.span-loading-blur {
-                overflow: hidden;
-                opacity: .7;
-                filter: blur(.5px);
-            }
-
-            .span-loading-message {
-                font-size: 14px;
-                color: rgba(0, 0, 0, .55);
-                display: block;
-                margin-bottom: 10px;
-
-            }
-
-            .span-loading-content {
-                display: block;
-            }
-
-        }
-
-        .switcher-con {
-
-            padding: 30px 0 20px 10px;
-
-            span {
-
-                float: left;
-            }
-
-            .switcher {
-
-                float: left;
-                margin-left: 20px;
-
-            }
+        .span-loading-dot {
+            position: absolute;
+            top: calc(50% - 10px);
+            left: calc(50% - 10px);
+            z-index: $content-wrap-z-index;
         }
 
     }
 
+    .span-loading-info {
+        border: 1px solid lighten($theme-highlight, 15%);
+        background-color: lighten($theme-highlight, 45%);
+        padding: 20px 0;
+        position: relative;
+        width: 100%;
+
+        &.span-loading-blur {
+            overflow: hidden;
+            opacity: .7;
+            filter: blur(.5px);
+        }
+
+        .span-loading-message {
+            font-size: 14px;
+            color: rgba(0, 0, 0, .55);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .span-loading-content {
+            display: block;
+        }
+
+    }
+
+    .switcher-con {
+        padding: 30px 0 20px 10px;
+
+        span {
+            float: left;
+        }
+
+        .switcher {
+            float: left;
+            margin-left: 20px;
+        }
+    }
 }

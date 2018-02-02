@@ -7,7 +7,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TableDoc from 'assets/propTypes/Table.json';
+import doc from 'assets/propTypes/Table.json';
 
 import 'sass/containers/app/modules/layout/TableExamples.scss';
 
@@ -167,7 +167,7 @@ export default class TableExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TableDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class TextFieldGroup extends Component {
+class TextFieldGroup extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -35,3 +35,5 @@ TextFieldGroup.defaultProps = {
     className: '',
     style: null
 };
+
+export default TextFieldGroup;

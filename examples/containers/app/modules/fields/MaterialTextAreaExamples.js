@@ -3,10 +3,9 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialTextArea from 'src/MaterialTextArea';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MaterialTextAreaDoc from 'examples/assets/propTypes/MaterialTextArea.json';
+import doc from 'examples/assets/propTypes/MaterialTextArea.json';
 
 import 'sass/containers/app/modules/fields/MaterialTextAreaExamples.scss';
 
@@ -48,7 +47,7 @@ export default class MaterialTextAreaExamples extends Component {
                                 <p><code>MaterialTextArea</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialTextArea theme={Theme.HIGHLIGHT}
+                                    <MaterialTextArea theme={MaterialTextArea.Theme.HIGHLIGHT}
                                                       label="Description"
                                                       autoHeight={true}
                                                       wordCountVisible={true}
@@ -65,7 +64,7 @@ export default class MaterialTextAreaExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MaterialTextAreaDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 

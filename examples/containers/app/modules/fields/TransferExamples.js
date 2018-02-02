@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
-
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import PropTypeDescTable from 'components/PropTypeDescTable';
 import Transfer from 'src/Transfer';
-import TransferDoc from 'assets/propTypes/Transfer.json';
+
+import PropTypeDescTable from 'components/PropTypeDescTable';
+import doc from 'assets/propTypes/Transfer.json';
 
 import 'sass/containers/app/modules/fields/TransferExamples.scss';
 
@@ -13,7 +13,6 @@ export default class TransferExamples extends Component {
 
     constructor(props) {
         super(props);
-
     }
 
     render() {
@@ -21,12 +20,12 @@ export default class TransferExamples extends Component {
         for (let i = 0; i < 30; i++) {
             let obj = {text: 'item' + (i + 1), id: i};
             if (i % 2 == 0) {
-                obj.disabled = true
+                obj.disabled = true;
             }
             if (Math.random() * 2 > 1) {
-                leftData.push(obj)
+                leftData.push(obj);
             } else {
-                rightData.push(obj)
+                rightData.push(obj);
             }
         }
         return (
@@ -64,7 +63,7 @@ export default class TransferExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TransferDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

@@ -3,9 +3,9 @@
 [![NPM Version][npm-image]][npm-url]
 [![License][license-image]][npm-url]
 
-[npm-image]: https://img.shields.io/npm/v/alcedo-ui.svg
+[npm-image]: https://img.shields.io/npm/v/alcedo-ui.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/alcedo-ui
-[license-image]: https://img.shields.io/npm/l/alcedo-ui.svg
+[license-image]: https://img.shields.io/npm/l/alcedo-ui.svg?style=flat-square
 
 A set of React components.
 
@@ -47,14 +47,15 @@ export default class MyComponent extends Component {
 Examples can be found in the 
 [examples folder](https://github.com/alcedo-ui/alcedo-ui/tree/master/examples).
 
-**Run Demo**
+Check [online examples](https://alcedo-ui.github.io/alcedo-ui/).
+
+**Run Local Examples**
 
 ```bash
-$ npm run demo
+$ npm start
 ```
 
 ## License
 
 This project is licensed under the terms of the
 [MIT license](https://github.com/alcedo-ui/alcedo-ui/blob/dev/LICENSE)
-

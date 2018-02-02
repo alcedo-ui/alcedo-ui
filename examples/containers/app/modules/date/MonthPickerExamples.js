@@ -7,8 +7,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MonthPicker.json';
 
-import 'sass/containers/app/modules/date/DatePickerExamples.scss';
-
 export default class MonthPickerExamples extends Component {
 
     constructor(props) {
@@ -16,7 +14,7 @@ export default class MonthPickerExamples extends Component {
     }
 
     onChangeHandle(value) {
-        console.log(value)
+        console.log(value);
     }
 
     render() {

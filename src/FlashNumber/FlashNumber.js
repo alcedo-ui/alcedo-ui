@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class FlashNumber extends Component {
+class FlashNumber extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -142,3 +142,5 @@ FlashNumber.defaultProps = {
     flashDuration: 450
 
 };
+
+export default FlashNumber;

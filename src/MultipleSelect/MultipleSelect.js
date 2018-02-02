@@ -19,7 +19,7 @@ import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class MultipleSelect extends Component {
+class MultipleSelect extends Component {
 
     static Theme = Theme;
 
@@ -600,3 +600,5 @@ MultipleSelect.defaultProps = {
     useDynamicRenderList: false
 
 };
+
+export default MultipleSelect;
