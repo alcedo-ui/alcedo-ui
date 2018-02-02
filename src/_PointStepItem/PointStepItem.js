@@ -53,7 +53,7 @@ class PointStepItem extends Component {
                 });
 
         return (
-            <div className={'point-step-item' + itemClassName}
+            <div className={itemClassName}
                  style={style}>
 
                 <div className="bg-bar"></div>
