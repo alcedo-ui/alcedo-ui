@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Theme from '../Theme';
 
@@ -31,18 +32,14 @@ class Paper extends Component {
 
     render() {
 
-        const {
+        const {children, className, style, theme, depth, nonRounded, isCircular, ...restProps} = this.props,
 
-                children,
-
-                className, style, theme, depth, nonRounded, isCircular,
-
-                ...restProps
-
-            } = this.props,
-
-            paperClassName = (depth ? ` depth-${this.formatDepth(depth)}` : '') + (theme ? ` theme-${theme}` : '')
-                + (nonRounded ? ' nonRounded' : (isCircular ? ' circular' : '')) + (className ? ' ' + className : '');
+            paperClassName = classNames('paper',
+                nonRounded ? 'nonRounded' : (isCircular ? 'circular' : ''), {
+                    [`depth-${this.formatDepth(depth)}`]: depth,
+                    [`theme-${theme}`]: theme,
+                    [className]: className
+                });
 
         return (
             <div {...restProps}
