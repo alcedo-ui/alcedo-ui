@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class PageLoading extends Component {
 
@@ -81,21 +82,25 @@ class PageLoading extends Component {
     }
 
     render() {
-        const {className, style} = this.props;
+
+        const {className, style} = this.props,
+
+            loadingClassName = classNames('page-loading', 'page-loading-one', {
+                [className]: className
+            });
 
         return (
-            <div>
-                <div className={`page-loading page-loading-one ${className}`}
-                     style={style}
-                     ref="progress">
-                    <div className="page-loading-background">
-                        <div className={`page-loading-highlight`}
-                             ref="highlight">
-                        </div>
+            <div ref="progress"
+                 className={loadingClassName}
+                 style={style}>
+                <div className="page-loading-background">
+                    <div ref="highlight"
+                         className={`page-loading-highlight`}>
                     </div>
                 </div>
             </div>
         );
+
     }
 };
 
