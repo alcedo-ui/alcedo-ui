@@ -1,5 +1,5 @@
 /**
- * @file DatePicker component
+ * @file MaterialDatePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
