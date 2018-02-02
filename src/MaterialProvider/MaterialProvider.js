@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class MaterialProvider extends Component {
 
@@ -14,11 +15,15 @@ class MaterialProvider extends Component {
 
     render() {
 
-        const {children, className, label, ...restProps} = this.props;
+        const {children, className, label, ...restProps} = this.props,
+
+            providerClassName = classNames('material-provider', {
+                [className]: className
+            });
 
         return (
             <div {...restProps}
-                 className={'material-provider' + (className ? ' ' + className : '')}>
+                 className={providerClassName}>
 
                 {
                     label ?
