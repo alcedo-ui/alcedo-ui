@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -116,17 +117,23 @@ class MaterialLocalAutoComplete extends Component {
 
     render() {
 
-        const {
-                className, style, theme, label, isLabelAnimated, popupClassName,
-                ...restProps
-            } = this.props,
+        const {className, style, theme, label, isLabelAnimated, popupClassName, ...restProps} = this.props,
             {isFocus, isHover, value, filter} = this.state,
 
-            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-local-auto-complete', {
+                animated: isLabelAnimated,
+                'has-label': label,
+                'has-value': filter,
+                focused: isFocus,
+                [className]: className
+            }),
+
+            autoCompleteClassName = classNames('material-local-auto-complete-popup', {
+                [popupClassName]: popupClassName
+            });
 
         return (
-            <div className={'material-local-auto-complete' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -140,7 +147,7 @@ class MaterialLocalAutoComplete extends Component {
 
                 <LocalAutoComplete {...restProps}
                                    ref="localAutoComplete"
-                                   popupClassName={'material-local-auto-complete-popup ' + popupClassName}
+                                   popupClassName={autoCompleteClassName}
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
