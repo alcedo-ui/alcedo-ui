@@ -4,7 +4,7 @@ const gutil = require('gulp-util'),
     through = require('through2');
 
 module.exports = () => {
-    return through.obj((chunk, encoding, callback) => {
+    return through.obj(function (chunk, encoding, callback) {
 
         if (chunk.isNull()) {
             callback(null, chunk);
