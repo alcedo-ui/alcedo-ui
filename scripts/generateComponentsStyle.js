@@ -30,8 +30,8 @@ fs.readdir('./src', (err, files) => {
                     name = name.slice(1);
                 }
 
-                if (fsExistsSync('./src/' + item + '/' + name + '.scss')) {
-                    indexArray.push('@import \'./' + item + '/' + name + '.scss\';');
+                if (fsExistsSync(`./src/${item}/${name}.scss`)) {
+                    indexArray.push(`@import \'./${item}/${name}.scss\';`);
                 }
 
             });
