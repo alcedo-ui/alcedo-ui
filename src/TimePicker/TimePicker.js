@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import TimeList from '../_TimeList';
@@ -20,6 +21,7 @@ class TimePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+
         this.state = {
             textFieldValue: props.value,
             popupVisible: false,
@@ -127,17 +129,24 @@ class TimePicker extends Component {
         }
     }
 
-
     render() {
 
         const {className, style, name, placeholder, maxValue, minValue, dateFormat} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
-            popupTextField = moment(moment().format('YYYY-MM-DD') + ' ' + hour + ':' + minute + ':' + second).format(dateFormat);
+
+            pickerClassName = classNames('time-picker', {
+                [className]: className
+            }),
+
+            popupTextField = moment(moment().format('YYYY-MM-DD') + ' ' + hour + ':' + minute + ':' + second)
+            .format(dateFormat);
 
         return (
-            <div className={`time-picker ${className}`}
+            <div className={pickerClassName}
                  style={style}>
+
                 <div className="wrapper">
+
                     <TextField ref="trigger"
                                className="time-picker-field"
                                name={name}
@@ -150,7 +159,7 @@ class TimePicker extends Component {
                                    this.togglePopup(e);
                                }}/>
 
-                    <Popup className={`time-picker-popup`}
+                    <Popup className="time-picker-popup"
                            visible={popupVisible}
                            triggerEl={triggerEl}
                            hasTriangle={false}
