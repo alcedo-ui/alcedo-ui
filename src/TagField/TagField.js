@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import EditableField from '../EditableField';
 import IconButton from '../IconButton';
@@ -336,14 +337,18 @@ class TagField extends Component {
         const {className, style, valueField, displayField, disabled, placeholder, clearButtonVisible} = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
-            tagFieldClassName = (clearButtonVisible ? ' with-clear' : '') + (className ? ' ' + className : '');
+            fieldClassName = classNames('tag-field', {
+                'with-clear': clearButtonVisible,
+                [className]: className
+            }),
 
-        const indexData = Util.genIndexArray(data.length);
+            indexData = Util.genIndexArray(data.length);
+
         indexData.splice(inputIndex, 0, this.inputSymbol);
 
         return (
             <div ref="wrapper"
-                 className={'tag-field' + tagFieldClassName}
+                 className={fieldClassName}
                  style={style}
                  disabled={disabled}
                  onWheel={e => {
