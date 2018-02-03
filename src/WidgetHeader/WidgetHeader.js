@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class WidgetHeader extends Component {
 
@@ -14,10 +15,14 @@ class WidgetHeader extends Component {
 
     render() {
 
-        const {children, className, style, title} = this.props;
+        const {children, className, style, title} = this.props,
+
+            headerClassName = classNames('widget-header', {
+                [className]: className
+            });
 
         return (
-            <div className={`widget-header ${className}`}
+            <div className={headerClassName}
                  style={style}>
 
                 {title}
