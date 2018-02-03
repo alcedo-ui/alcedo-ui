@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -387,9 +388,11 @@ class Table extends Component {
             {value, sort, pagging, sortedData} = this.state,
             self = this,
 
-            tableClassName = (selectMode === SelectMode.MULTI_SELECT
-                || selectMode === SelectMode.SINGLE_SELECT ? ' selectable' : '')
-                + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
+            tableClassName = classNames('table', {
+                selectable: selectMode === SelectMode.MULTI_SELECT || selectMode === SelectMode.SINGLE_SELECT,
+                'pagging-table': isPagging,
+                [className]: className
+            });
 
         // handle columns
         let finalColumns = _.cloneDeep(columns);
@@ -451,7 +454,7 @@ class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <div className={'table' + tableClassName}
+            <div className={tableClassName}
                  style={style}>
 
                 <div className="inner-table-wrapper">
