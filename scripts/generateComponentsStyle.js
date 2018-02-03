@@ -1,6 +1,6 @@
 'use strict';
 
-var os = require('os'),
+const os = require('os'),
     fs = require('fs'),
     path = require('path');
 
@@ -13,7 +13,7 @@ function fsExistsSync(path) {
     return true;
 }
 
-fs.readdir('./src', function (err, files) {
+fs.readdir('./src', (err, files) => {
 
     if (err) {
         console.log('read src error');
@@ -23,9 +23,9 @@ fs.readdir('./src', function (err, files) {
 
             let indexArray = [];
 
-            files.forEach(function (item) {
+            files.forEach(item => {
 
-                var name = item;
+                let name = item;
                 if (name.slice(0, 1) === '_') {
                     name = name.slice(1);
                 }
@@ -36,7 +36,7 @@ fs.readdir('./src', function (err, files) {
 
             });
 
-            fs.writeFile(path.join(__dirname, '../src/components.scss'), indexArray.join(os.EOL), function (error) {
+            fs.writeFile(path.join(__dirname, '../src/components.scss'), indexArray.join(os.EOL), error => {
                 if (error) {
                     throw error;
                 }
