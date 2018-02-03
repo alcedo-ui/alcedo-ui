@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import CircularLoading from '../CircularLoading';
@@ -75,14 +76,18 @@ class Switcher extends Component {
         const {className, style, theme, disabled, isLoading, size, labelVisible} = this.props,
             {value} = this.state,
 
-            switcherClassName = (value === true ? ' activated' : '') + (size === Switcher.Size.SMALL ? ' small' : '')
-                + (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
+            switcherClassName = classNames('switcher', {
+                activated: value,
+                small: size === Switcher.Size.SMALL,
+                [`theme-${theme}`]: theme,
+                [className]: className
+            });
 
         return (
-            <div className={'switcher' + switcherClassName}
+            <div className={switcherClassName}
                  style={style}
-                 onTouchTap={this.touchTapHandler}
-                 disabled={disabled || isLoading}>
+                 disabled={disabled || isLoading}
+                 onTouchTap={this.touchTapHandler}>
 
                 {
                     labelVisible ?
