@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import TransferList from '../_TransferList';
@@ -108,15 +109,23 @@ class Transfer extends Component {
     }
 
     render() {
-        const {className, style} = this.props;
-        const {leftData, rightData, leftSelected, rightSelected} = this.state;
+
+        const {className, style} = this.props,
+            {leftData, rightData, leftSelected, rightSelected} = this.state,
+
+            transferClassName = classNames('transfer', {
+                [className]: className
+            });
+
         return (
-            <div className={`transfer ${className ? className : ''}`}
+            <div className={transferClassName}
                  style={style}>
+
                 <TransferList className="fl"
                               data={leftData}
                               value={leftSelected}
                               onChange={this.leftSelectHandle}/>
+
                 <div className="transfer-operation fl">
                     <div>
                         <RaisedButton className='action-button'
@@ -131,12 +140,15 @@ class Transfer extends Component {
                                       onTouchTap={this.moveToLeftHandle}/>
                     </div>
                 </div>
+
                 <TransferList className="fl"
                               data={rightData}
                               value={rightSelected}
                               onChange={this.rightSelectHandle}/>
+
             </div>
         );
+
     }
 
 };
