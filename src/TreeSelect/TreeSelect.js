@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import Tree from '../Tree';
@@ -157,12 +158,23 @@ class TreeSelect extends Component {
             } = this.props,
             {value, popupVisible} = this.state,
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
+            wrapperClassName = classNames('tree-select', {
+                [className]: className
+            }),
+
+            triggerClassName = classNames({
+                activated: popupVisible,
+                empty: !value
+            }),
+            selectPopupClassName = classNames('tree-select-popup', {
+                [popupClassName]: popupClassName
+            }),
+
             triggerValue = this.getTriggerValue();
 
         return (
             <div ref="dropdownSelect"
-                 className={'tree-select' + (className ? ' ' + className : '')}
+                 className={wrapperClassName}
                  style={style}>
 
                 {
@@ -177,7 +189,7 @@ class TreeSelect extends Component {
                 <Dropdown {...restProps}
                           ref="dropdown"
                           triggerClassName={triggerClassName}
-                          popupClassName={'tree-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
+                          popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}
                           onClosePopup={this.popupClosedHandler}>
