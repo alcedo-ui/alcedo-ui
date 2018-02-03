@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
@@ -130,10 +131,13 @@ class Tree extends Component {
                 renderer, onNodeTouchTap
             } = this.props,
             {value, isNodeToggling} = this.state,
-            treeClassName = (className ? ' ' + className : '');
+
+            treeClassName = classNames('tree', {
+                [className]: className
+            });
 
         return (
-            <div className={'tree' + treeClassName}
+            <div className={treeClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
