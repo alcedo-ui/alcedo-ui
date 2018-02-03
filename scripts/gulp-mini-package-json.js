@@ -36,6 +36,7 @@ module.exports = function () {
                     'react-dom': data.dependencies['react-dom']
                 },
                 dependencies: {
+                    'classnames': data.dependencies['classnames'],
                     'lodash': data.dependencies['lodash'],
                     'moment': data.dependencies['moment'],
                     'react-dnd': data.dependencies['react-dnd'],
