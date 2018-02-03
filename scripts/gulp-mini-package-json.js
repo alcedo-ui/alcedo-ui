@@ -1,10 +1,10 @@
 'use strict';
 
-var gutil = require('gulp-util'),
+const gutil = require('gulp-util'),
     through = require('through2');
 
 module.exports = function () {
-    return through.obj(function (chunk, encoding, callback) {
+    return through.obj((chunk, encoding, callback) => {
 
         if (chunk.isNull()) {
             callback(null, chunk);
@@ -18,33 +18,33 @@ module.exports = function () {
 
         try {
 
-            var data = JSON.parse(chunk.contents.toString());
+            const data = JSON.parse(chunk.contents.toString()),
 
-            var miniData = {
-                name: 'alcedo-ui',
-                author: data.author,
-                version: data.version,
-                description: data.description,
-                keywords: data.keywords,
-                repository: data.repository,
-                license: data.license,
-                homepage: data.homepage,
-                peerDependencies: {
-                    'prop-types': data.dependencies['prop-types'],
-                    'react': data.dependencies['react'],
-                    'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
-                    'react-dom': data.dependencies['react-dom']
-                },
-                dependencies: {
-                    'classnames': data.dependencies['classnames'],
-                    'lodash': data.dependencies['lodash'],
-                    'moment': data.dependencies['moment'],
-                    'react-dnd': data.dependencies['react-dnd'],
-                    'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend'],
-                    'react-dnd-scrollzone': data.dependencies['react-dnd-scrollzone'],
-                    'react-beautiful-dnd': data.dependencies['react-beautiful-dnd']
-                }
-            };
+                miniData = {
+                    name: 'alcedo-ui',
+                    author: data.author,
+                    version: data.version,
+                    description: data.description,
+                    keywords: data.keywords,
+                    repository: data.repository,
+                    license: data.license,
+                    homepage: data.homepage,
+                    peerDependencies: {
+                        'prop-types': data.dependencies['prop-types'],
+                        'react': data.dependencies['react'],
+                        'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
+                        'react-dom': data.dependencies['react-dom']
+                    },
+                    dependencies: {
+                        'classnames': data.dependencies['classnames'],
+                        'lodash': data.dependencies['lodash'],
+                        'moment': data.dependencies['moment'],
+                        'react-dnd': data.dependencies['react-dnd'],
+                        'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend'],
+                        'react-dnd-scrollzone': data.dependencies['react-dnd-scrollzone'],
+                        'react-beautiful-dnd': data.dependencies['react-beautiful-dnd']
+                    }
+                };
 
             chunk.contents = new Buffer(JSON.stringify(miniData, null, 2));
 
