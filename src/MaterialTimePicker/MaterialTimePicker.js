@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
-import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
+import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
 

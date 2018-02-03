@@ -9,7 +9,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import TextField from '../TextField';
-import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
+import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
