@@ -5,7 +5,7 @@ import Widget from 'src/Widget/index';
 import WidgetHeader from 'src/WidgetHeader/index';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'propTypes/TimeLine.json';
+import doc from 'examples/assets/propTypes/TimeLine.json';
 
 export default class TimeLineExamples extends Component {
 

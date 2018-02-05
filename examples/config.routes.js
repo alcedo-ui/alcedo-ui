@@ -261,7 +261,7 @@ export default function configureRoutes(store) {
                     component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
                 }, {
                     path: '/components/TimeLine',
-                    component: ac(store, () => import('modules/timeLine/TimeLineExamples'))
+                    component: ac(store, () => import('modules/layout/TimeLineExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
