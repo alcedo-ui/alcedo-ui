@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
@@ -173,7 +174,11 @@ class DropdownSelect extends Component {
                 }
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
+            triggerClassName = classNames({
+                activated: popupVisible,
+                empty: !value,
+                [className]: className
+            }),
             triggerValue = value ?
                 (
                     isMultiSelect ?

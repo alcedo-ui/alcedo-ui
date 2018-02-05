@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class SpanLoading extends Component {
 
@@ -38,19 +39,21 @@ class SpanLoading extends Component {
     render() {
 
         const {className, style, description, size, children} = this.props,
-            {spanning} = this.state;
+            {spanning} = this.state,
+
+            loadingClassName = classNames('span-loading', {
+                [`span-loading-${size}`]: size,
+                [className]: className
+            });
 
         return (
-            <div className={`span-loading span-loading-${size} ${className}`}
+            <div className={loadingClassName}
                  style={style}>
 
                 {
                     spanning ?
                         <span className={`span-loading-dot ${size ? size : ''}`}>
-                            <i/>
-                            <i/>
-                            <i/>
-                            <i/>
+                            <i/><i/><i/><i/>
                         </span>
                         :
                         null

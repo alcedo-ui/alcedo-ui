@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import List from '../List';
 import Tip from '../Tip';
@@ -92,6 +93,10 @@ class DynamicRenderList extends Component {
             } = this.props,
             {value} = this.state,
 
+            listClassName = classNames('dynamic-render-list', {
+                [className]: className
+            }),
+
             scrollerStyle = {
                 height: data.length * itemHeight
             },
@@ -102,7 +107,7 @@ class DynamicRenderList extends Component {
 
         return (
             <div ref="dynamicRenderList"
-                 className={'dynamic-render-list' + (className ? ' ' + className : '')}
+                 className={listClassName}
                  style={{...style, height: listHeight}}
                  onScroll={this.scrollHandler}
                  onWheel={e => {

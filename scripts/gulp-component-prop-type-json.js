@@ -1,11 +1,11 @@
 'use strict';
 
-var gutil = require('gulp-util'),
+const gutil = require('gulp-util'),
     through = require('through2'),
     path = require('path'),
     generateComponentPropTypeJson = require('./generateComponentPropTypeJson');
 
-module.exports = function () {
+module.exports = () => {
     return through.obj(function (chunk, encoding, callback) {
 
         if (chunk.isNull()) {
@@ -20,7 +20,7 @@ module.exports = function () {
 
         try {
 
-            var componentName = path.parse(chunk.path).name,
+            const componentName = path.parse(chunk.path).name,
                 fileString = chunk.contents.toString();
 
             chunk.contents = new Buffer(generateComponentPropTypeJson(componentName, fileString));

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
@@ -80,9 +81,13 @@ class BaseButton extends Component {
             } = this.props,
             {focused} = this.state,
 
-            buttonClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
-                + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
-                + (className ? ' ' + className : ''),
+            buttonClassName = classNames('base-button', {
+                focused: focused,
+                [`theme-${theme}`]: theme,
+                'button-circular': isCircular,
+                'button-rounded': isRounded,
+                [className]: className
+            }),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -91,7 +96,7 @@ class BaseButton extends Component {
                          position={tipPosition}>
 
                 <button {...restProps}
-                        className={'base-button' + buttonClassName}
+                        className={buttonClassName}
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}

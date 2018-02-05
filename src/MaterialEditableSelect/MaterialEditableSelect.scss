@@ -25,7 +25,8 @@
         border-bottom: 1px solid $theme-border !important;
         box-shadow: none !important;
 
-        .text-field-input {
+        .text-field-input,
+        .text-field-placeholder {
             padding-left: 8px;
             transition: opacity $theme-transition-duration ease-in-out;
         }

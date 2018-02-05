@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -339,17 +340,24 @@ class LocalAutoComplete extends Component {
 
             isEmpty = listData.length < 1,
 
-            wrapperClassName = (className ? ' ' + className : ''),
-            triggerClassName = (isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''))
-                + (isAbove ? ' above' : ' blow'),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            wrapperClassName = classNames('local-auto-complete', {
+                [className]: className
+            }),
+
+            triggerClassName = classNames('local-auto-complete-trigger',
+                isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
+                isAbove ? ' above' : ' blow'),
+
+            autoCompletePopupClassName = classNames('local-auto-complete-popup', isAbove ? ' above' : ' blow', {
+                [popupClassName]: popupClassName
+            }),
             autoCompletePopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle);
 
         return (
             <div ref="localAutoComplete"
-                 className={'local-auto-complete' + wrapperClassName}
+                 className={wrapperClassName}
                  style={style}>
 
                 {
@@ -362,7 +370,7 @@ class LocalAutoComplete extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'local-auto-complete-trigger' + triggerClassName}
+                           className={triggerClassName}
                            theme={theme}
                            value={filter}
                            placeholder={placeholder}
@@ -384,7 +392,7 @@ class LocalAutoComplete extends Component {
                         null
                         :
                         <Popup ref="popup"
-                               className={'local-auto-complete-popup' + autoCompletePopupClassName}
+                               className={autoCompletePopupClassName}
                                style={autoCompletePopupStyle}
                                theme={popupTheme}
                                visible={popupVisible}

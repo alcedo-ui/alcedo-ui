@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Crumb from '../_Crumb';
 import Tip from '../Tip';
@@ -47,10 +48,12 @@ class Crumbs extends Component {
 
         const {className, style, data, separator, showLastSeparator} = this.props,
 
-            crumbsClassName = (className ? ' ' + className : '');
+            crumbsClassName = classNames('crumbs', {
+                [className]: className
+            });
 
         return (
-            <div className={'crumbs' + crumbsClassName}
+            <div className={crumbsClassName}
                  style={style}>
 
                 {

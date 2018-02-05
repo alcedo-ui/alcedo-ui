@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -227,17 +228,23 @@ class AutoCompleteFilter extends Component {
             listData = this.filterData(),
             isEmpty = listData.length < 1,
 
-            wrapperClassName = (className ? ' ' + className : ''),
-            triggerClassName = (isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''))
-                + (isAbove ? ' above' : ' blow'),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            wrapperClassName = classNames('auto-complete-filter', {
+                [className]: className
+            }),
+            triggerClassName = classNames('auto-complete-filter-trigger',
+                isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
+                isAbove ? ' above' : ' blow'),
+            autoCompletePopupClassName = classNames('auto-complete-filter-popup',
+                isAbove ? ' above' : ' blow', {
+                    [popupClassName]: popupClassName
+                }),
             autoCompletePopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle);
 
         return (
             <div ref="localAutoComplete"
-                 className={'auto-complete-filter' + wrapperClassName}
+                 className={wrapperClassName}
                  style={style}>
 
                 {
@@ -250,7 +257,7 @@ class AutoCompleteFilter extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'auto-complete-filter-trigger' + triggerClassName}
+                           className={triggerClassName}
                            theme={theme}
                            value={filter}
                            placeholder={placeholder}
@@ -270,7 +277,7 @@ class AutoCompleteFilter extends Component {
                     isEmpty && !noMatchedPopupVisible ?
                         null
                         :
-                        <Popup className={'auto-complete-filter-popup' + autoCompletePopupClassName}
+                        <Popup className={autoCompletePopupClassName}
                                style={autoCompletePopupStyle}
                                theme={popupTheme}
                                visible={popupVisible}

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
@@ -92,14 +93,15 @@ class HuePicker extends Component {
         const {className, style} = this.props,
             {value} = this.state,
 
-            wrapperClassName = (className ? ' ' + className : ''),
-
+            pickerClassName = classNames('hue-picker', {
+                [className]: className
+            }),
             pointerStyle = {
                 left: `${value / 360 * 100}%`
             };
 
         return (
-            <div className={'hue-picker' + wrapperClassName}
+            <div className={pickerClassName}
                  style={style}>
 
                 <div ref="huePickerBar"

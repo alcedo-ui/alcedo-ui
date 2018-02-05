@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class FlashNumber extends Component {
 
@@ -88,17 +89,19 @@ class FlashNumber extends Component {
 
     render() {
 
-        const {className, style} = this.props;
-        const {currentValue} = this;
+        const {className, style} = this.props,
+
+            numberClassName = classNames('flash-number', {
+                [className]: className
+            });
 
         return (
             <span ref="el"
-                  className={(className ? className : '')}
+                  className={numberClassName}
                   style={style}>
-				{currentValue}
+				{this.currentValue}
 			</span>
         );
-
 
     }
 };

@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import ListItem from '../_ListItem';
 import Tip from '../Tip';
@@ -215,11 +216,14 @@ class List extends Component {
     render() {
 
         const {children, className, style, data, disabled} = this.props,
-            listClassName = (className ? ' ' + className : '');
+
+            listClassName = classNames('list', {
+                [className]: className
+            });
 
         return (
             <div ref="list"
-                 className={'list' + listClassName}
+                 className={listClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
@@ -227,16 +231,12 @@ class List extends Component {
                  }}>
 
                 {
-                    data.map((item, index) => {
-
-                        if (item === LIST_SEPARATOR) {
-                            return <div key={index}
-                                        className="list-separator"></div>;
-                        }
-
-                        return this.renderListItem(item, index);
-
-                    })
+                    data.map((item, index) => item === LIST_SEPARATOR ?
+                        <div key={index}
+                             className="list-separator"></div>
+                        :
+                        this.renderListItem(item, index)
+                    )
                 }
 
                 {children}

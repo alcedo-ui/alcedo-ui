@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
@@ -92,10 +93,13 @@ class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
-            selfTriggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
-                + (triggerClassName ? ' ' + triggerClassName : ''),
-
-            dropdownPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
+                activated: popupVisible,
+                [triggerClassName]: triggerClassName
+            }),
+            dropdownPopupClassName = classNames('dropdown-popup', isAbove ? 'above' : 'blow', {
+                [popupClassName]: popupClassName
+            }),
             dropdownPopupStyle = Object.assign({
                 width: this.triggerEl && this.triggerEl.offsetWidth
             }, popupStyle);
@@ -106,7 +110,7 @@ class Dropdown extends Component {
                  style={style}>
 
                 <RaisedButton ref="trigger"
-                              className={'dropdown-trigger' + selfTriggerClassName}
+                              className={buttonClassName}
                               style={triggerStyle}
                               theme={theme}
                               placeholder={placeholder}
@@ -119,7 +123,7 @@ class Dropdown extends Component {
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
-                       className={'dropdown-popup' + dropdownPopupClassName}
+                       className={dropdownPopupClassName}
                        style={dropdownPopupStyle}
                        theme={popupTheme}
                        visible={popupVisible}

@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
+import classNames from 'classnames';
 
 import DraggableGridItem from '../_DraggableGridItem';
 import Tip from '../Tip';
@@ -141,17 +142,19 @@ class DraggableGrid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
+                valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
 
                 scrollSpeed, scrollBuffer
 
             } = this.props,
             {data, value} = this.state,
 
-            gridClassName = (className ? ' ' + className : '');
+            gridClassName = classNames('draggable-grid', {
+                [className]: className
+            });
 
         return (
-            <ScrollingComponent className={'draggable-grid' + gridClassName}
+            <ScrollingComponent className={gridClassName}
                                 disabled={disabled}
                                 style={style}
                                 strengthMultiplier={scrollSpeed}

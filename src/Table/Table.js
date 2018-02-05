@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -70,6 +71,7 @@ class Table extends Component {
         this.paggingData = ::this.paggingData;
         this.pageChangedHandler = ::this.pageChangedHandler;
         this.resetPage = ::this.resetPage;
+        this.handleColumns = ::this.handleColumns;
 
     }
 
@@ -346,52 +348,16 @@ class Table extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-
-        if (nextProps.data.length !== this.props.data.length) {
-            this.resetPage(nextProps.data);
-        }
-
-        let state = {
-            sortedData: this.sortData(nextProps.data)
-        };
-
-        if (nextProps.value !== this.state.value) {
-            state.value = Calculation.getInitValue(nextProps);
-        }
-
-        this.setState(state);
-
-    }
-
-    render() {
+    handleColumns(columns = this.props.columns) {
 
         const {
-
-                className, style, data, columns, hasLineNumber, pageSizes, disabled,
-
+                hasLineNumber, disabled,
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-
-                sortAscIconCls, sortDescIconCls,
-                paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
-
-                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
-
-                // not passing down these props
-                defaultSortType, defaultPageSize, sortInitConfig, onPageChange,
-
-                ...restProps
-
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
-            {value, sort, pagging, sortedData} = this.state,
-            self = this,
+            {value} = this.state,
+            self = this;
 
-            tableClassName = (selectMode === SelectMode.MULTI_SELECT
-                || selectMode === SelectMode.SINGLE_SELECT ? ' selectable' : '')
-                + (isPagging ? ' pagging-table' : '') + (className ? ' ' + className : '');
-
-        // handle columns
         let finalColumns = _.cloneDeep(columns);
 
         if (selectMode === SelectMode.MULTI_SELECT) {
@@ -445,13 +411,64 @@ class Table extends Component {
             });
         }
 
+        return finalColumns;
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        if (nextProps.data.length !== this.props.data.length) {
+            this.resetPage(nextProps.data);
+        }
+
+        let state = {
+            sortedData: this.sortData(nextProps.data)
+        };
+
+        if (nextProps.value !== this.state.value) {
+            state.value = Calculation.getInitValue(nextProps);
+        }
+
+        this.setState(state);
+
+    }
+
+    render() {
+
+        const {
+
+                className, style, data, pageSizes, disabled, selectMode,
+
+                sortAscIconCls, sortDescIconCls,
+                paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
+
+                idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
+
+                // not passing down these props
+                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber,
+                selectTheme, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+
+                ...restProps
+
+            } = this.props,
+            {value, sort, pagging, sortedData} = this.state,
+
+            tableClassName = classNames('table', {
+                selectable: selectMode === SelectMode.MULTI_SELECT || selectMode === SelectMode.SINGLE_SELECT,
+                'pagging-table': isPagging,
+                [className]: className
+            }),
+
+            finalColumns = this.handleColumns();
+
         // handle data
         const totalPage = Math.ceil(sortedData.length / pagging.pageSize),
             finalData = isPagging ? this.paggingData(sortedData) : sortedData,
             finalDataCount = finalData.length;
 
         return (
-            <div className={'table' + tableClassName}
+            <div className={tableClassName}
                  style={style}>
 
                 <div className="inner-table-wrapper">

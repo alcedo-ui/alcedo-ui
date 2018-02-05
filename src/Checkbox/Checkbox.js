@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
@@ -90,14 +91,18 @@ class Checkbox extends Component {
             } = this.props,
             {checked} = this.state,
 
-            checkboxClassName = (checked ? ' activated' : '') + (indeterminate ? ' indeterminated' : '')
-                + (theme ? ` theme-${theme}` : '') + (className ? ' ' + className : '');
+            checkboxClassName = classNames('checkbox', {
+                activated: checked,
+                indeterminated: indeterminate,
+                [`theme-${theme}`]: theme,
+                [className]: className
+            });
 
         return (
             <TipProvider text={tip}
                          position={tipPosition}>
 
-                <div className={'checkbox' + checkboxClassName}
+                <div className={checkboxClassName}
                      style={style}
                      disabled={disabled}>
 

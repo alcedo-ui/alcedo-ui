@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import ListStepItem from '../_ListStepItem';
 
@@ -50,29 +51,31 @@ class ListStep extends Component {
 
     render() {
 
-        const {className, style, steps} = this.props;
-        const {activatedStep, finishedStep} = this.state;
+        const {className, style, steps} = this.props,
+            {activatedStep, finishedStep} = this.state,
+
+            stepClassName = classNames('list-step', {
+                [className]: className
+            });
 
         return (
-            <div className={`list-step ${className}`}
+            <div className={stepClassName}
                  style={style}>
 
                 {
-                    steps.map((item, index) => {
-                        return (
-                            <ListStepItem key={index}
-                                          index={index}
-                                          className={item.className}
-                                          style={{
-                                              ...item.style,
-                                              zIndex: steps.length - index
-                                          }}
-                                          activatedStep={activatedStep}
-                                          finishedStep={finishedStep}
-                                          data={item}
-                                          onTouchTap={this.touchTapHandler}/>
-                        );
-                    })
+                    steps.map((item, index) =>
+                        <ListStepItem key={index}
+                                      index={index}
+                                      className={item.className}
+                                      style={{
+                                          ...item.style,
+                                          zIndex: steps.length - index
+                                      }}
+                                      activatedStep={activatedStep}
+                                      finishedStep={finishedStep}
+                                      data={item}
+                                      onTouchTap={this.touchTapHandler}/>
+                    )
                 }
 
             </div>

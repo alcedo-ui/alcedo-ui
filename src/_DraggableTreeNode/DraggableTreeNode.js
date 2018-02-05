@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Droppable, Draggable} from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
@@ -118,8 +119,12 @@ class DraggableTreeNode extends Component {
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (isDragging ? ' dragging' : '')
-                + (data.className ? ' ' + data.className : ''),
+            nodeClassName = classNames('draggable-tree-node', {
+                [`theme-${theme}`]: theme,
+                dragging: isDragging,
+                [data.className]: data.className
+            }),
+
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
@@ -140,7 +145,7 @@ class DraggableTreeNode extends Component {
                                          text={data.tip}
                                          tipPosition={data.tipPosition}>
 
-                                <div className={'draggable-tree-node' + nodeClassName}
+                                <div className={nodeClassName}
                                      style={nodeStyle}
                                      disabled={isNodeDisabled}
                                      readOnly={readOnly}

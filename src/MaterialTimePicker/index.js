@@ -1,5 +1,5 @@
 /**
- * @file TimePicker
+ * @file MaterialTimePicker
  * @author sunday(sunday.wei@derbysoft.com)
  */
 

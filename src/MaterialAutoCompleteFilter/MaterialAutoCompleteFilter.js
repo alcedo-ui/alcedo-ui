@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import AutoCompleteFilter from '../AutoCompleteFilter';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -128,11 +129,20 @@ class MaterialAutoCompleteFilter extends Component {
             } = this.props,
             {isFocus, isHover, value, filter} = this.state,
 
-            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-auto-complete-filter', {
+                animated: isLabelAnimated,
+                'has-label': label,
+                'has-value': filter,
+                focused: isFocus,
+                [className]: className
+            }),
+
+            filterClassName = classNames('material-auto-complete-filter-popup', {
+                [popupClassName]: popupClassName
+            });
 
         return (
-            <div className={'material-auto-complete-filter' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -146,7 +156,7 @@ class MaterialAutoCompleteFilter extends Component {
 
                 <AutoCompleteFilter {...restProps}
                                     ref="localAutoComplete"
-                                    popupClassName={'material-auto-complete-filter-popup ' + popupClassName}
+                                    popupClassName={filterClassName}
                                     theme={theme}
                                     value={value}
                                     onFocus={this.triggerFocusHandler}

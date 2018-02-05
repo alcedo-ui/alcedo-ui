@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TableHeader from '../_TableHeader';
 
@@ -16,10 +17,15 @@ class Thead extends Component {
 
     render() {
 
-        const {className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden, onSort} = this.props;
+        const {className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden, onSort} = this.props,
+
+            theadClassName = classNames('thead', {
+                hidden: hidden,
+                [className]: className
+            });
 
         return (
-            <thead className={'thead' + (hidden ? ' hidden' : '') + (className ? ' ' + className : '')}
+            <thead className={theadClassName}
                    style={style}>
                 <tr>
                     {

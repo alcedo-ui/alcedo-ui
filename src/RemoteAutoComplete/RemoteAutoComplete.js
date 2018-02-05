@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Event from '../_vendors/Event';
+import classNames from 'classnames';
 
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
@@ -129,33 +130,49 @@ class RemoteAutoComplete extends Component {
     }
 
     render() {
-        const {data, className, style, placeholder} = this.props;
-        const {value, focus, loading} = this.state;
-        const {liHeight, maxHeight, inputHeight, borderWidth} = this;
 
-        let ulHeight = loading ? 50 : ((data.length > 0) ? data.length * liHeight + borderWidth : 0);
-        let ulStyle = {
-            height: ulHeight > maxHeight ? maxHeight : ulHeight
-        }, innerStyle = {
-            height: inputHeight
-        }, liStyle = {
-            height: liHeight,
-            lineHeight: liHeight + 'px'
-        }, inputStyle = {
-            height: inputHeight
-        };
+        const {data, className, style, placeholder} = this.props,
+            {value, focus, loading} = this.state,
+            {liHeight, maxHeight, inputHeight, borderWidth} = this,
+
+            fieldClassName = classNames('remote-auto-complete', {
+                [className]: className
+            }),
+
+            innerClassName = classNames('auto-complete-inner', {
+                focused: focus
+            }),
+
+            ulHeight = loading ? 50 : ((data.length > 0) ? data.length * liHeight + borderWidth : 0),
+
+            ulStyle = {
+                height: ulHeight > maxHeight ? maxHeight : ulHeight
+            },
+            innerStyle = {
+                height: inputHeight
+            },
+            liStyle = {
+                height: liHeight,
+                lineHeight: liHeight + 'px'
+            },
+            inputStyle = {
+                height: inputHeight
+            };
 
         return (
-            <div className={`remote-auto-complete ${className}`}
+            <div className={fieldClassName}
                  style={style}>
-                <div className={`auto-complete-inner ${focus === true ? 'focused' : ''}`}
+
+                <div className={innerClassName}
                      style={innerStyle}>
-                    <TextField onChange={this.onChange}
+
+                    <TextField ref="trigger"
+                               style={inputStyle}
                                value={value}
                                onFocus={this.onFocus}
                                placeholder={placeholder}
-                               style={inputStyle}
-                               ref="trigger"/>
+                               onChange={this.onChange}/>
+
                     <Popup visible={focus}
                            triggerEl={this.triggerEl}
                            hasTriangle={false}
@@ -164,28 +181,25 @@ class RemoteAutoComplete extends Component {
                         <ul className="auto-complete-list"
                             style={ulStyle}>
                             {
-                                loading
-                                    ?
-                                    <li className="auto-complete-li-loading"><CircularLoading className="loading"
-                                                                                              size={CircularLoading.Size.DEFAULT}/>
+                                loading ?
+                                    <li className="auto-complete-li-loading">
+                                        <CircularLoading className="loading"
+                                                         size={CircularLoading.Size.DEFAULT}/>
                                     </li>
                                     :
-                                    (
-                                        data.length > 0
-                                            ?
-                                            (
-                                                data.map((value) => {
-                                                    return <li className="auto-complete-li"
-                                                               key={value}
-                                                               style={liStyle}
-                                                               title={value}>{value}</li>;
-                                                })
-                                            )
-                                            : null
-                                    )
+                                    data.length > 0 ?
+                                        data.map(value =>
+                                            <li className="auto-complete-li"
+                                                key={value}
+                                                style={liStyle}
+                                                title={value}>{value}</li>
+                                        )
+                                        :
+                                        null
                             }
                         </ul>
                     </Popup>
+
                 </div>
             </div>
         );

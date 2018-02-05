@@ -1,5 +1,5 @@
 /**
- * @file DatePicker component
+ * @file MaterialDatePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -7,13 +7,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
-import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
+import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-
 import Theme from '../Theme';
 
 class MaterialDatePicker extends Component {
@@ -179,13 +179,21 @@ class MaterialDatePicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+        const {
+                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter
+            } = this.props,
+            {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state,
+
+            pickerClassName = classNames('date-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div className={`date-picker ${className}`}
+            <div className={pickerClassName}
                  ref="datePicker">
+
                 <MaterialDatePickerTextField
                     ref="datePickerInput"
                     name={name}
@@ -201,6 +209,7 @@ class MaterialDatePicker extends Component {
                     onTouchTap={e => {
                         this.togglePopup(e);
                     }}/>
+
                 <Popup className={`material-date-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
@@ -208,6 +217,7 @@ class MaterialDatePicker extends Component {
                        onRequestClose={() => {
                            this.closePopup(3);
                        }}>
+
                     {
                         datePickerLevel == 'day' ?
                             <DayPicker
@@ -243,6 +253,7 @@ class MaterialDatePicker extends Component {
                                         onChange={this.yearPickerChangeHandle}/>
                             )
                     }
+
                     {
                         isFooter && datePickerLevel == 'day' ?
                             <div className="calendar-footer">
@@ -256,11 +267,11 @@ class MaterialDatePicker extends Component {
                                             Today
                                         </a>
                                 }
-
                             </div>
                             :
                             null
                     }
+
                 </Popup>
             </div>
         );

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Paper from '../Paper';
 
@@ -16,10 +17,14 @@ class Widget extends Component {
 
     render() {
 
-        const {children, className, style, depth} = this.props;
+        const {children, className, style, depth} = this.props,
+
+            widgetClassName = classNames('widget', {
+                [className]: className
+            });
 
         return (
-            <Paper className={`widget ${className}`}
+            <Paper className={widgetClassName}
                    style={style}
                    depth={depth}>
                 {children}

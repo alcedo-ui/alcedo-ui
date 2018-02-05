@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import VerticalPointStepItem from '../_VerticalPointStepItem';
 
@@ -51,28 +52,30 @@ class VerticalPointStep extends Component {
     render() {
 
         const {className, style, steps, disabled} = this.props,
-            {activatedStep, finishedStep} = this.state;
+            {activatedStep, finishedStep} = this.state,
+
+            stepClassName = classNames('vertical-point-step', {
+                [className]: className
+            });
 
         return (
-            <div className={'vertical-point-step' + (className ? ' ' + className : '')}
+            <div className={stepClassName}
                  style={style}>
 
                 {
-                    steps && steps.map((item, index) => {
-                        return (
-                            <VerticalPointStepItem key={index}
-                                                   index={index}
-                                                   className={item.className}
-                                                   style={item.style}
-                                                   activatedStep={activatedStep}
-                                                   finishedStep={finishedStep}
-                                                   value={item}
-                                                   isFirst={index === 0}
-                                                   isLast={index === steps.length - 1}
-                                                   disabled={disabled}
-                                                   onTouchTap={this.touchTapHandler}/>
-                        );
-                    })
+                    steps && steps.map((item, index) =>
+                        <VerticalPointStepItem key={index}
+                                               index={index}
+                                               className={item.className}
+                                               style={item.style}
+                                               activatedStep={activatedStep}
+                                               finishedStep={finishedStep}
+                                               value={item}
+                                               isFirst={index === 0}
+                                               isLast={index === steps.length - 1}
+                                               disabled={disabled}
+                                               onTouchTap={this.touchTapHandler}/>
+                    )
                 }
 
             </div>

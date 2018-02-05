@@ -44,7 +44,7 @@
         white-space: nowrap;
         word-break: break-all;
 
-        &.multiLine {
+        &.multi-line {
             .msg {
                 padding-top: 3px;
                 white-space: normal;
@@ -55,21 +55,7 @@
     }
 
     .test-char-width-div {
-        font-family: 'Myriad Pro', Helvetica, Verdana, Arial;
-        font-size: 14px;
-        height: auto;
-        width: auto;
-        top: 0px;
-        left: 0px;
-        visibility: hidden;
-        position: absolute;
-        white-space: pre;
-        font-style: inherit;
-        font-variant: inherit;
-        font-weight: inherit;
-        font-stretch: inherit;
-        line-height: inherit;
-        overflow: visible;
+        @include invisible;
     }
 
     @include field-msg-theme($theme-field, $theme-border);

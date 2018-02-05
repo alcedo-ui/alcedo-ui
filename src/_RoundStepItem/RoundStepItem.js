@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class RoundStepItem extends Component {
 
@@ -46,12 +47,16 @@ class RoundStepItem extends Component {
                 showFinishedStepIcon, finishedStepIconCls, disabled
             } = this.props,
 
-            itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
-                + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (disabled ? ' disabled' : '') + (className ? ' ' + className : '');
+            itemClassName = classNames('round-step-item',
+                activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''), {
+                    first: isFirst,
+                    last: isLast,
+                    disabled: disabled,
+                    [className]: className
+                });
 
         return (
-            <div className={'round-step-item' + itemClassName}
+            <div className={itemClassName}
                  style={style}>
 
                 <div className="bg-bar"></div>

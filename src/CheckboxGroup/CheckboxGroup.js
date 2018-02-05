@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
@@ -76,10 +77,14 @@ class CheckboxGroup extends Component {
                 className, style, theme, name, disabled, idProp, uncheckedIconCls, checkedIconCls, indeterminateIconCls,
                 onCheck, onUncheck
             } = this.props,
-            {value} = this.state;
+            {value} = this.state,
+
+            groupClassName = classNames('checkbox-group', {
+                [className]: className
+            });
 
         return (
-            <div className={'checkbox-group' + (className ? ' ' + className : '')}
+            <div className={groupClassName}
                  style={style}
                  disabled={disabled}>
 

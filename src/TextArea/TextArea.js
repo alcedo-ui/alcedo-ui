@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -297,12 +298,18 @@ class TextArea extends Component {
 
             isPassword = type === FieldType.PASSWORD,
 
-            wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
-                + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
-                + (iconCls ? ' has-icon' : '') + (autoHeight ? ' auto-height' : '') + (isFocused ? ' focused' : '')
-                + (rightIconCls ? ' has-right-icon' : '') + (wordCountVisible ? ' has-word-count' : '')
-                + (clearButtonVisible ? ' has-clear-button' : '') + (autoHeight ? ' auto-height' : '')
-                + (className ? ' ' + className : '');
+            wrapperClassName = classNames('text-area',
+                !value || value.length <= 0 ? 'empty' : 'not-empty',
+                invalidMsgs.length > 0 ? 'theme-error' : (theme ? `theme-${theme}` : ''), {
+                    password: isPassword,
+                    'has-icon': iconCls,
+                    'auto-height': autoHeight,
+                    focused: isFocused,
+                    'has-right-icon': rightIconCls,
+                    'has-word-count': wordCountVisible,
+                    'has-clear-button': clearButtonVisible,
+                    [className]: className
+                });
 
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
@@ -312,7 +319,7 @@ class TextArea extends Component {
         }
 
         return (
-            <div className={'text-area' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}
                  disabled={disabled}>
 

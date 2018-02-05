@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
@@ -37,12 +38,16 @@ class FlatButton extends Component {
 
     render() {
 
-        const {children, className} = this.props;
+        const {children, className} = this.props,
+
+            buttonClassName = classNames('flat-button', {
+                [className]: className
+            });
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`flat-button ${className}`}>
+                        className={buttonClassName}>
                 {children}
             </BaseButton>
         );

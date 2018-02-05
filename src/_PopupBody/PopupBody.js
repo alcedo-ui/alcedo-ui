@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Paper from '../Paper';
 import Theme from '../Theme';
@@ -172,9 +173,14 @@ class PopupBody extends Component {
             } = this.props,
             {visible} = this.state,
 
-            popupClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' popup-has-triangle' : '')
-                + (theme ? ` theme-${theme}` : '') + (position ? ` popup-position-${position}` : '')
-                + (isAnimated ? ' popup-animated' : '') + (className ? ' ' + className : ''),
+            popupClassName = classNames('popup', {
+                hidden: !visible,
+                'popup-has-triangle': hasTriangle,
+                [`theme-${theme}`]: theme,
+                [`popup-position-${position}`]: position,
+                'popup-animated': isAnimated,
+                [className]: className
+            }),
             popupStyle = {
                 ...PopupCalculation.getStyle(triggerEl, this.popupEl, position, isTriggerPositionFixed),
                 ...style
@@ -183,7 +189,7 @@ class PopupBody extends Component {
         return (
             <Paper {...restProps}
                    ref="popup"
-                   className={'popup' + popupClassName}
+                   className={popupClassName}
                    style={popupStyle}
                    onWheel={e => {
                        Event.wheelHandler(e, this.props);

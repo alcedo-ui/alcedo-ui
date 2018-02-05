@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -305,11 +306,16 @@ class TextField extends Component {
             isPassword = type === FieldType.PASSWORD,
             empty = !value || value.length <= 0,
 
-            wrapperClassName = (empty ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
-                + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
-                + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
-                + (isFocused ? ' focused' : '') + (clearButtonVisible ? ' has-clear-button' : '')
-                + (className ? ' ' + className : '');
+            wrapperClassName = classNames('text-field',
+                empty ? 'empty' : 'not-empty',
+                invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
+                    password: isPassword,
+                    'has-icon': iconCls,
+                    'has-right-icon': rightIconCls,
+                    focused: isFocused,
+                    'has-clear-button': clearButtonVisible,
+                    [className]: className
+                });
 
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
@@ -319,7 +325,7 @@ class TextField extends Component {
         }
 
         return (
-            <div className={'text-field' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}
                  disabled={disabled}>
 

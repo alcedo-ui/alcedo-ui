@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Draggable} from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -114,8 +115,12 @@ class DraggableListItem extends Component {
             } = this.props,
             {checked} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = classNames('draggable-list-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -132,7 +137,7 @@ class DraggableListItem extends Component {
                                              text={tip}
                                              tipPosition={tipPosition}>
 
-                                    <div className={'draggable-list-item' + listItemClassName}
+                                    <div className={listItemClassName}
                                          style={style}
                                          disabled={disabled || isLoading}
                                          readOnly={readOnly}

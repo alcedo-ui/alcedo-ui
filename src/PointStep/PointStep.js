@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import PointStepItem from '../_PointStepItem';
 
@@ -51,34 +52,36 @@ class PointStep extends Component {
     render() {
 
         const {className, style, steps, showFinishedStepIcon, finishedStepIconCls, disabled} = this.props,
-            {activatedStep, finishedStep} = this.state;
+            {activatedStep, finishedStep} = this.state,
+
+            stepClassName = classNames('point-step', {
+                [className]: className
+            });
 
         return (
-            <div className={'point-step' + (className ? ' ' + className : '')}
+            <div className={stepClassName}
                  style={style}>
 
                 {
-                    steps && steps.map((item, index) => {
-                        return (
-                            <PointStepItem key={index}
-                                           index={index}
-                                           className={item.className}
-                                           style={{
-                                               ...item.style,
-                                               width: `${100 / steps.length}%`,
-                                               zIndex: steps.length - index
-                                           }}
-                                           activatedStep={activatedStep}
-                                           finishedStep={finishedStep}
-                                           value={item}
-                                           isFirst={index === 0}
-                                           isLast={index === steps.length - 1}
-                                           showFinishedStepIcon={showFinishedStepIcon}
-                                           finishedStepIconCls={finishedStepIconCls}
-                                           disabled={disabled}
-                                           onTouchTap={this.touchTapHandler}/>
-                        );
-                    })
+                    steps && steps.map((item, index) =>
+                        <PointStepItem key={index}
+                                       index={index}
+                                       className={item.className}
+                                       style={{
+                                           ...item.style,
+                                           width: `${100 / steps.length}%`,
+                                           zIndex: steps.length - index
+                                       }}
+                                       activatedStep={activatedStep}
+                                       finishedStep={finishedStep}
+                                       value={item}
+                                       isFirst={index === 0}
+                                       isLast={index === steps.length - 1}
+                                       showFinishedStepIcon={showFinishedStepIcon}
+                                       finishedStepIconCls={finishedStepIconCls}
+                                       disabled={disabled}
+                                       onTouchTap={this.touchTapHandler}/>
+                    )
                 }
 
             </div>

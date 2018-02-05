@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class DotStepItem extends Component {
 
@@ -25,11 +26,13 @@ class DotStepItem extends Component {
 
         const {className, style, activatedStep, finishedStep, index} = this.props,
 
-            itemClassName = (activatedStep === index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (className ? ' ' + className : '');
+            itemClassName = classNames('dot-step-item',
+                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
+                    [className]: className
+                });
 
         return (
-            <div className={'dot-step-item' + itemClassName}
+            <div className={itemClassName}
                  onClick={this.touchTapHandler}
                  style={style}></div>
         );

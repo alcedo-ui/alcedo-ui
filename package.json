@@ -31,6 +31,7 @@
     "homepage": "https://alcedo-ui.github.io/alcedo-ui/",
     "dependencies": {
         "babel-polyfill": "^6.26.0",
+        "classnames": "^2.2.5",
         "history": "^4.7.2",
         "lodash": "^4.17.4",
         "moment": "^2.20.1",

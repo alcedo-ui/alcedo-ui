@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext} from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 import DraggableTreeNode from '../_DraggableTreeNode';
 import Tip from '../Tip';
@@ -198,13 +199,16 @@ class DraggableTree extends Component {
                 renderer, onNodeTouchTap
             } = this.props,
             {data, value, isNodeToggling} = this.state,
-            treeClassName = (className ? ' ' + className : '');
+
+            treeClassName = classNames('draggable-tree', {
+                [className]: className
+            });
 
         return (
             <DragDropContext onDragStart={this.onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
-                <div className={'draggable-tree' + treeClassName}
+                <div className={treeClassName}
                      disabled={disabled}
                      style={style}
                      onWheel={e => {

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class VerticalPointStepItem extends Component {
 
@@ -43,12 +44,16 @@ class VerticalPointStepItem extends Component {
 
         const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast, disabled} = this.props,
 
-            itemClassName = (isFirst ? ' first' : '') + (isLast ? ' last' : '')
-                + (activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''))
-                + (disabled ? ' disabled' : '') + (className ? ' ' + className : '');
+            itemClassName = classNames('vertical-point-step-item',
+                activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''), {
+                    first: isFirst,
+                    last: isLast,
+                    disabled: disabled,
+                    [className]: className
+                });
 
         return (
-            <div className={'vertical-point-step-item' + itemClassName}
+            <div className={itemClassName}
                  style={style}>
 
                 <div className="bg-bar"></div>

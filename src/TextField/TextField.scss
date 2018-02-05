@@ -32,6 +32,7 @@ input::-ms-clear {
     color: $theme-field;
     background-color: $theme-field-bg;
     border: 1px solid $theme-border;
+    overflow: hidden;
     transition: border-color $theme-transition-duration ease-in-out;
 
     .icon-button {
@@ -131,11 +132,11 @@ input::-ms-clear {
                 padding-right: 40px;
             }
 
-            //&.focused {
-            //    .clear-icon {
-            //        display: block;
-            //    }
-            //}
+            &.focused {
+                .clear-icon {
+                    right: 0;
+                }
+            }
         }
 
         &.password {

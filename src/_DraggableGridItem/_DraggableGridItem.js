@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Draggable} from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -114,8 +115,12 @@ class DraggableGridItem extends Component {
             } = this.props,
             {checked} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = classNames('draggable-grid-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -135,7 +140,7 @@ class DraggableGridItem extends Component {
                                     <TipProvider className='block'
                                                  text={tip}
                                                  tipPosition={tipPosition}>
-                                        <div className={'draggable-grid-item' + listItemClassName}
+                                        <div className={listItemClassName}
                                              style={style}
                                              disabled={disabled || isLoading}
                                              readOnly={readOnly}

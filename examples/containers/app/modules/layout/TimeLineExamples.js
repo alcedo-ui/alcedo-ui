@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
-import TimeLine from 'src/TimeLine';
-import Widget from 'src/Widget';
-import WidgetHeader from 'src/WidgetHeader';
+import TimeLine from 'src/TimeLine/index';
+import Widget from 'src/Widget/index';
+import WidgetHeader from 'src/WidgetHeader/index';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/TimeLine.json';
+import doc from 'examples/assets/propTypes/TimeLine.json';
 
 export default class TimeLineExamples extends Component {
 

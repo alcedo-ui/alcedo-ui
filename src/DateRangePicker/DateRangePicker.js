@@ -7,13 +7,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
-import Util from '../_vendors/Util';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
+
+import Util from '../_vendors/Util';
 
 class DateRangePicker extends Component {
 
@@ -301,7 +303,11 @@ class DateRangePicker extends Component {
     render() {
 
         const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
+            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
+
+            pickerClassName = classNames('date-range-picker', {
+                [className]: className
+            });
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -320,9 +326,10 @@ class DateRangePicker extends Component {
         let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
 
         return (
-            <div className={`date-range-picker ${className}`}
-                 ref="datePicker"
+            <div ref="datePicker"
+                 className={pickerClassName}
                  style={style}>
+
                 <TextField ref="trigger"
                            className="date-range-picker-field"
                            name={name}
@@ -334,6 +341,7 @@ class DateRangePicker extends Component {
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}/>
+
                 <Popup className={`date-range-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
@@ -341,6 +349,7 @@ class DateRangePicker extends Component {
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
+
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">
                             <TextField className='fl calendar-input'
@@ -359,6 +368,7 @@ class DateRangePicker extends Component {
                                        }}/>
                         </div>
                     </div>
+
                     {
                         left.datePickerLevel == 'day' ?
                             <DayPicker
@@ -416,6 +426,7 @@ class DateRangePicker extends Component {
                             )
 
                     }
+
                     {
                         right.datePickerLevel == 'day' ?
                             <DayPicker
@@ -473,6 +484,7 @@ class DateRangePicker extends Component {
                             )
 
                     }
+
                 </Popup>
             </div>
         );

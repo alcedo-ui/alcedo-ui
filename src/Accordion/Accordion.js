@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
@@ -68,10 +69,13 @@ class Accordion extends Component {
         const {className, style, children, title, collapseIcon, expandIcon} = this.props,
             {collapsed, contentHeight} = this.state,
 
-            wrapperClassName = (collapsed ? ' collapsed' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('accordion', {
+                collapsed: collapsed,
+                [className]: className
+            });
 
         return (
-            <div className={'accordion' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 <RaisedButton className="accordion-title"

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Grid from '../Grid';
 import Theme from '../Theme';
@@ -43,10 +44,12 @@ class GroupGrid extends Component {
         const {children, className, style, data, disabled, ...restProps} = this.props,
             {value} = this.state,
 
-            listClassName = (className ? ' ' + className : '');
+            gridClassName = classNames('group-grid', {
+                [className]: className
+            });
 
         return (
-            <div className={'group-grid' + listClassName}
+            <div className={gridClassName}
                  style={style}
                  disabled={disabled}
                  onWheel={e => {
