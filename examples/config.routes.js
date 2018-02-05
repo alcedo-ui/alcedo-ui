@@ -259,6 +259,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialProvider',
                     component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
+                }, {
+                    path: '/components/TimeLine',
+                    component: ac(store, () => import('modules/timeLine/TimeLineExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -301,12 +304,6 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Notification',
                     component: ac(store, () => import('modules/message/NotificationExamples'))
-                },
-
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-                {
-                    path: '/components/TimeLine',
-                    component: ac(store, () => import('modules/timeLine/TimeLineExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

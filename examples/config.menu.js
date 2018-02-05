@@ -244,6 +244,9 @@ export default [{
     }, {
         text: 'MaterialProvider',
         route: '/components/MaterialProvider'
+    }, {
+        text: 'TimeLine',
+        route: '/components/TimeLine'
     }]
 }, {
     text: 'Loading',
@@ -296,9 +299,6 @@ export default [{
         text: 'Notification',
         route: '/components/Notification'
     }]
-}, {
-    text: 'TimeLine',
-    route: '/components/TimeLine'
 }, {
     text: 'Media',
     children: [{
