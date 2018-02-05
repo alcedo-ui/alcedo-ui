@@ -48,13 +48,26 @@ class EditableSelect extends Component {
     }
 
     onChangeValue(value) {
-        this.setState({
-            value,
-            listValue: ''
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+        const {useFilter} = this.props;
+        if (useFilter) {
+            this.setState({
+                value,
+                filter: value,
+                listValue: ''
+            }, () => {
+                const {onChange} = this.props;
+                onChange && onChange(value);
+            });
+        } else {
+            this.setState({
+                value,
+                listValue: ''
+            }, () => {
+                const {onChange} = this.props;
+                onChange && onChange(value);
+            });
+        }
+
     }
 
     showPopup() {
@@ -237,7 +250,8 @@ class EditableSelect extends Component {
                            onMouseOver={onTriggerMouseOver}
                            onMouseOut={onTriggerMouseOut}
                            onChange={this.onChangeValue}
-                           onFocus={this.showPopup}/>
+                           onFocus={this.showPopup}
+                />
 
 
                 <Popup ref="popup"
@@ -250,16 +264,6 @@ class EditableSelect extends Component {
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
-
-                    {
-                        useFilter ?
-                            <TextField className="editable-select-filter"
-                                       value={filter}
-                                       rightIconCls="fa fa-search"
-                                       onChange={this.filterChangeHandle}/>
-                            :
-                            null
-                    }
 
                     <List className="editable-select-list"
                           isGrouped={isGrouped}
@@ -278,7 +282,8 @@ class EditableSelect extends Component {
         );
 
     }
-};
+}
+;
 
 EditableSelect.propTypes = {
 

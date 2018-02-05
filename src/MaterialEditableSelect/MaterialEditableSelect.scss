@@ -44,7 +44,8 @@
             transform: translate(8px, 28px);
         }
 
-        .text-field-input {
+        .text-field-input,
+        .text-field-placeholder {
             opacity: 0;
         }
 
@@ -54,7 +55,8 @@
                 transform: translate(0, 0);
             }
 
-            .text-field-input {
+            .text-field-input,
+            .text-field-placeholder {
                 opacity: 1;
             }
         }
