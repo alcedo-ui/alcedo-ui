@@ -133,15 +133,5 @@ function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
 }
 
 export default {
-    topVerticalBottom,
-    topVerticalTop,
-    topHorizontalTop,
-    topHorizontalMiddle,
-    topHorizontalBottom,
-    leftVerticalLeft,
-    leftVerticalCenter,
-    leftVerticalRight,
-    leftHorizontalLeft,
-    leftHorizontalRight,
     getStyle
 };
