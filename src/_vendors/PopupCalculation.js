@@ -50,7 +50,7 @@ function leftHorizontalRight(triggerEl, triggerOffset) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
-function getStyle(triggerEl, popupEl, position) {
+function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
 
     if (!triggerEl || !popupEl) {
         return;
