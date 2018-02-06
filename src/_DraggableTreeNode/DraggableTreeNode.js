@@ -257,38 +257,40 @@ class DraggableTreeNode extends Component {
                                 data.children && data.children.length > 0 ?
                                     <div className={'draggable-tree-node-children' + (collapsed ? ' collapsed' : '')}>
                                         {
-                                            data.children.map((item, index) => (
-                                                <Draggable key={item.id}
-                                                           draggableId={'' + item.id}
-                                                           type={data.id}
-                                                           disableInteractiveElementBlocking={false}
-                                                           isDragDisabled={isNodeToggling}>
+                                            data.children.map((item, index) => {
+
+                                                const path = path ?
+                                                    [...path, {index, node: item}]
+                                                    :
+                                                    [{index, node: item}];
+
+                                                return <Draggable key={item.id}
+                                                                  draggableId={'' + item.id}
+                                                                  type={data.id}
+                                                                  disableInteractiveElementBlocking={false}
+                                                                  isDragDisabled={isNodeToggling}
+                                                                  index={index}>
                                                     {
                                                         (dragProvided, dragSnapshot) => (
                                                             <div>
                                                                 <div ref={dragProvided.innerRef}
                                                                      style={dragProvided.draggableStyle}
+                                                                     {...dragProvided.draggableProps}
                                                                      {...dragProvided.dragHandleProps}>
                                                                     <DraggableTreeNode {...this.props}
                                                                                        key={index}
                                                                                        data={item}
                                                                                        index={index}
                                                                                        depth={depth + 1}
-                                                                                       path={path ?
-                                                                                           [...path, {
-                                                                                               index,
-                                                                                               node: item
-                                                                                           }]
-                                                                                           :
-                                                                                           [{index, node: item}]}
+                                                                                       path={path}
                                                                                        isDragging={dragSnapshot.isDragging}/>
                                                                 </div>
                                                                 {dragProvided.placeholder}
                                                             </div>
                                                         )
                                                     }
-                                                </Draggable>
-                                            ))
+                                                </Draggable>;
+                                            })
                                         }
                                     </div>
                                     :
