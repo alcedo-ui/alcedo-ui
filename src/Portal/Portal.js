@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
+import Transition from 'react-transition-group/Transition';
 import {createPortal} from 'react-dom';
+import classNames from 'classnames';
 
 class Portal extends Component {
 
@@ -40,16 +41,21 @@ class Portal extends Component {
 
     render() {
 
-        const {className, style} = this.props;
+        const {children, className, style, visible, timeout} = this.props;
 
         this.renderWrapper();
 
         return createPortal(
-            <ReactCSSTransitionGroup component="div"
-                                     className={className}
-                                     style={style}>
-                {this.props.children}
-            </ReactCSSTransitionGroup>,
+            <Transition className={className}
+                        style={style}
+                        in={visible}
+                        timeout={timeout}>
+                {transitionState => (
+                    <div className={classNames('portal-content', `transition-${transitionState}`)}>
+                        {children}
+                    </div>
+                )}
+            </Transition>,
             this.wrapper
         );
 
@@ -67,13 +73,22 @@ Portal.propTypes = {
     /**
      * The styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    visible: PropTypes.bool,
+
+    timeout: PropTypes.number
 
 };
 
 Portal.defaultProps = {
-    className: '',
-    style: null
+
+    className: null,
+    style: null,
+
+    visible: false,
+    timeout: 250
+
 };
 
 export default Portal;

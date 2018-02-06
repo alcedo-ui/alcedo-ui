@@ -10,4 +10,14 @@
     width: 0;
     height: 0;
     overflow: visible;
+
+    .portal-content {
+        opacity: 0;
+        transition: opacity $theme-transition-duration ease-in-out;
+
+        &.transition-entering,
+        &.transition-entered {
+            opacity: 1;
+        }
+    }
 }
