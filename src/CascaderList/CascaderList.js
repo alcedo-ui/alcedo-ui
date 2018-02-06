@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 import Theme from '../Theme';
@@ -13,7 +14,7 @@ import Tip from '../Tip';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
-export default class CascaderList extends Component {
+class CascaderList extends Component {
 
     static Theme = Theme;
 
@@ -48,10 +49,14 @@ export default class CascaderList extends Component {
     render() {
 
         const {className, style, listWidth, data, valueField, displayField} = this.props,
-            {path, value} = this.state;
+            {path, value} = this.state,
+
+            listClassName = classNames('cascader-list', {
+                [className]: className
+            });
 
         return (
-            <div className={`cascader-list ${className}`}
+            <div className={listClassName}
                  style={style}>
                 <CascaderListItem data={data}
                                   value={value}
@@ -215,3 +220,5 @@ CascaderList.defaultProps = {
     displayField: 'text'
 
 };
+
+export default CascaderList;

@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
+import classNames from 'classnames';
 
 import DraggableGridItem from '../_DraggableGridItem';
 import Tip from '../Tip';
@@ -19,7 +20,7 @@ import SelectMode from '../_statics/SelectMode';
 
 const ScrollingComponent = withScrolling('div');
 
-export default class DraggableGrid extends Component {
+class DraggableGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -141,17 +142,19 @@ export default class DraggableGrid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
+                valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
 
                 scrollSpeed, scrollBuffer
 
             } = this.props,
             {data, value} = this.state,
 
-            gridClassName = (className ? ' ' + className : '');
+            gridClassName = classNames('draggable-grid', {
+                [className]: className
+            });
 
         return (
-            <ScrollingComponent className={'draggable-grid' + gridClassName}
+            <ScrollingComponent className={gridClassName}
                                 disabled={disabled}
                                 style={style}
                                 strengthMultiplier={scrollSpeed}
@@ -480,3 +483,5 @@ DraggableGrid.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGrid;

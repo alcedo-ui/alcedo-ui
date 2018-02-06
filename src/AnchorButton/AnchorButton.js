@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
@@ -13,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class AnchorButton extends Component {
+class AnchorButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
@@ -37,12 +38,16 @@ export default class AnchorButton extends Component {
 
     render() {
 
-        const {children, className} = this.props;
+        const {children, className} = this.props,
+
+            buttonClassName = classNames('anchor-button', {
+                [className]: className
+            });
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`anchor-button ${className}`}>
+                        className={buttonClassName}>
                 {children}
             </BaseButton>
         );
@@ -156,3 +161,5 @@ AnchorButton.defaultProps = {
     tipPosition: TipProvider.Position.BOTTOM
 
 };
+
+export default AnchorButton;

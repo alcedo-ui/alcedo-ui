@@ -5,13 +5,14 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class ButtonCheckbox extends Component {
+class ButtonCheckbox extends Component {
 
     static Theme = Theme;
 
@@ -46,11 +47,16 @@ export default class ButtonCheckbox extends Component {
 
     render() {
 
-        const {className, style, theme, activatedTheme, text, disabled} = this.props;
-        const {value} = this.state;
+        const {className, style, theme, activatedTheme, text, disabled} = this.props,
+            {value} = this.state,
+
+            buttonClassName = classNames('button-checkbox', {
+                activated: value,
+                [className]: className
+            });
 
         return (
-            <RaisedButton className={`button-checkbox ${value ? 'activated' : ''} ${className}`}
+            <RaisedButton className={buttonClassName}
                           style={style}
                           value={text}
                           disabled={disabled}
@@ -124,3 +130,5 @@ ButtonCheckbox.defaultProps = {
     disabled: false
 
 };
+
+export default ButtonCheckbox;

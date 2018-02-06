@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
@@ -13,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class RaisedButton extends Component {
+class RaisedButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
@@ -37,12 +38,16 @@ export default class RaisedButton extends Component {
 
     render() {
 
-        const {children, className} = this.props;
+        const {children, className} = this.props,
+
+            buttonClassName = classNames('raised-button', {
+                [className]: className
+            });
 
         return (
             <BaseButton {...this.props}
                         ref="baseButton"
-                        className={`raised-button ${className}`}>
+                        className={buttonClassName}>
                 {children}
             </BaseButton>
         );
@@ -156,3 +161,5 @@ RaisedButton.defaultProps = {
     tipPosition: TipProvider.Position.BOTTOM
 
 };
+
+export default RaisedButton;

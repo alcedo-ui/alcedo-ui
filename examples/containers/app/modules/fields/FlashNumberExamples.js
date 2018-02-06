@@ -6,7 +6,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import FlashNumberDoc from 'assets/propTypes/FlashNumber.json';
+import doc from 'assets/propTypes/FlashNumber.json';
 
 import 'sass/containers/app/modules/fields/FlashNumberExamples.scss';
 
@@ -112,7 +112,7 @@ export default class FlashNumberExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={FlashNumberDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

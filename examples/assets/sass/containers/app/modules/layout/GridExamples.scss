@@ -1,11 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .grid-examples {
-
-    .examples-wrapper {
-        .paper {
-            border: 1px solid $theme-border;
-            overflow: hidden;
-        }
+    .paper {
+        border: 1px solid $theme-border;
+        overflow: hidden;
     }
 }

@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -17,7 +18,7 @@ import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class DropdownFilter extends Component {
+class DropdownFilter extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -216,21 +217,26 @@ export default class DropdownFilter extends Component {
             listData = this.filterData(),
             isEmpty = listData.length < 1,
 
-            wrapperClassName = (className ? ' ' + className : ''),
-            triggerClassName = (isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''))
-                + (isAbove ? ' above' : ' blow'),
-            autoCompletePopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            wrapperClassName = classNames('dropdown-filter', {
+                [className]: className
+            }),
+            triggerClassName = classNames('dropdown-filter-trigger',
+                isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? 'activated' : ''),
+                isAbove ? 'above' : 'blow'),
+            autoCompletePopupClassName = classNames('dropdown-filter-popup', isAbove ? ' above' : ' blow', {
+                [popupClassName]: popupClassName
+            }),
             autoCompletePopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle);
 
         return (
             <div ref="dropdownFilter"
-                 className={'dropdown-filter' + wrapperClassName}
+                 className={wrapperClassName}
                  style={style}>
 
                 <TextField ref="trigger"
-                           className={'dropdown-filter-trigger' + triggerClassName}
+                           className={triggerClassName}
                            theme={theme}
                            value={filter}
                            placeholder={placeholder}
@@ -250,7 +256,7 @@ export default class DropdownFilter extends Component {
                     isEmpty && !noMatchedPopupVisible ?
                         null
                         :
-                        <Popup className={'dropdown-filter-popup' + autoCompletePopupClassName}
+                        <Popup className={autoCompletePopupClassName}
                                style={autoCompletePopupStyle}
                                theme={popupTheme}
                                visible={popupVisible}
@@ -579,3 +585,5 @@ DropdownFilter.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default DropdownFilter;

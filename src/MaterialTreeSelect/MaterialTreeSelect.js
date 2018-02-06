@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
 import Tip from '../Tip';
@@ -14,7 +15,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class MaterialTreeSelect extends Component {
+class MaterialTreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -109,11 +110,16 @@ export default class MaterialTreeSelect extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value && value.length > 0 ? ' has-value' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-tree-select', {
+                animated: isLabelAnimate,
+                'has-label': label,
+                focused: isFocus,
+                'has-value': value && value.length > 0,
+                [className]: className
+            });
 
         return (
-            <div className={'material-tree-select' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -389,3 +395,5 @@ MaterialTreeSelect.defaultProps = {
     popupChildren: null
 
 };
+
+export default MaterialTreeSelect;

@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import GroupListDoc from 'assets/propTypes/GroupList.json';
+import doc from 'assets/propTypes/GroupList.json';
 
 import 'sass/containers/app/modules/layout/GroupListExamples.scss';
 
@@ -55,8 +55,6 @@ export default class GroupListExamples extends Component {
             }]
         }];
 
-        this.changeHandler = this::this.changeHandler;
-
     }
 
     changeHandler(value) {
@@ -104,7 +102,7 @@ export default class GroupListExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={GroupListDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

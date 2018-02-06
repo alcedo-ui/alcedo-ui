@@ -1,5 +1,5 @@
 /**
- * @file DatePicker component
+ * @file MaterialMonthPicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -7,15 +7,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
-import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
+import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-
 import Theme from '../Theme';
 
-export default class MaterialMonthPicker extends Component {
+class MaterialMonthPicker extends Component {
+
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -23,6 +24,7 @@ export default class MaterialMonthPicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -38,6 +40,7 @@ export default class MaterialMonthPicker extends Component {
         this.datePickerChangeHandle = ::this.datePickerChangeHandle;
         this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
         this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
+
     }
 
     datePickerChangeHandle(selectLevel) {
@@ -47,12 +50,14 @@ export default class MaterialMonthPicker extends Component {
     }
 
     textFieldChangeHandle(text) {
-        const {minValue, maxValue, dateFormat} = this.props;
-        if (text && text.length) {
-            const flag = moment(text, this.props.dateFormat, true).isValid();
-            if (flag) {
-                if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
 
+        const {minValue, maxValue, dateFormat} = this.props;
+
+        if (text && text.length) {
+
+            if (moment(text, this.props.dateFormat, true).isValid()) {
+                if ((minValue && moment(text).isBefore(minValue)) || (maxValue && moment(text).isAfter(maxValue))) {
+                    //
                 } else {
                     const year = moment(text).format('YYYY'),
                         month = moment(text).format('MM');
@@ -62,14 +67,14 @@ export default class MaterialMonthPicker extends Component {
                         month: month
                     });
                 }
-            } else {
-
             }
+
         } else {
             this.setState({
                 value: ''
             });
         }
+
     }
 
     monthPickerChangeHandle(date) {
@@ -146,53 +151,59 @@ export default class MaterialMonthPicker extends Component {
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
+
+            pickerClassName = classNames('material-month-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div className={`material-month-picker ${className}`}
-                 ref="datePicker">
-                <MaterialDatePickerTextField
-                    ref="datePickerInput"
-                    name={name}
-                    placeholder={placeholder}
-                    value={textValue}
-                    readOnly={!popupVisible}
-                    clearButtonVisible={false}
-                    isFocusedSelectAll={false}
-                    popupVisible={popupVisible}
-                    label={label}
-                    isLabelAnimate={isLabelAnimate}
-                    onChange={this.textFieldChangeHandle}
-                    onTouchTap={e => {
-                        this.togglePopup(e);
-                    }}/>
-                <Popup className={`material-month-picker-popup`}
+            <div ref="datePicker"
+                 className={pickerClassName}>
+
+                <MaterialDatePickerTextField ref="datePickerInput"
+                                             name={name}
+                                             placeholder={placeholder}
+                                             value={textValue}
+                                             readOnly={!popupVisible}
+                                             clearButtonVisible={false}
+                                             isFocusedSelectAll={false}
+                                             popupVisible={popupVisible}
+                                             label={label}
+                                             isLabelAnimate={isLabelAnimate}
+                                             onChange={this.textFieldChangeHandle}
+                                             onTouchTap={e => {
+                                                 this.togglePopup(e);
+                                             }}/>
+
+                <Popup className="material-month-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup(3);
                        }}>
+
                     {
                         datePickerLevel == 'month' ?
-                            <MonthPicker
-                                value={value}
-                                year={year}
-                                month={month}
-                                maxValue={maxValue}
-                                minValue={minValue}
-                                onChange={this.monthPickerChangeHandle}
-                                previousClick={this.datePickerChangeHandle}/>
+                            <MonthPicker value={value}
+                                         year={year}
+                                         month={month}
+                                         maxValue={maxValue}
+                                         minValue={minValue}
+                                         onChange={this.monthPickerChangeHandle}
+                                         previousClick={this.datePickerChangeHandle}/>
                             :
-                            <YearPicker
-                                value={value}
-                                year={year}
-                                month={month}
-                                maxValue={maxValue}
-                                minValue={minValue}
-                                onChange={this.yearPickerChangeHandle}/>
+                            <YearPicker value={value}
+                                        year={year}
+                                        month={month}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.yearPickerChangeHandle}/>
                     }
+
                 </Popup>
             </div>
         );
@@ -274,3 +285,5 @@ MaterialMonthPicker.defaultProps = {
     autoClose: true,
     isFooter: true
 };
+
+export default MaterialMonthPicker;

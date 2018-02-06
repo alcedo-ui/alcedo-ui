@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
@@ -17,7 +18,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DropdownSelect extends Component {
+class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -173,7 +174,11 @@ export default class DropdownSelect extends Component {
                 }
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (value ? '' : ' empty'),
+            triggerClassName = classNames({
+                activated: popupVisible,
+                empty: !value,
+                [className]: className
+            }),
             triggerValue = value ?
                 (
                     isMultiSelect ?
@@ -556,3 +561,5 @@ DropdownSelect.defaultProps = {
     useDynamicRenderList: false
 
 };
+
+export default DropdownSelect;

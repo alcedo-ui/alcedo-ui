@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Portal from '../Portal';
 import Toast from '../_Toast';
@@ -14,7 +15,7 @@ import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
-export default class Toaster extends Component {
+class Toaster extends Component {
 
     static Type = MsgType;
     static Position = Position;
@@ -131,19 +132,23 @@ export default class Toaster extends Component {
 
     render() {
 
-        const {position} = this.props,
-            {toasts, visible} = this.state;
+        const {className, style, position} = this.props,
+            {toasts, visible} = this.state,
+
+            toasterClassName = classNames('toaster', {
+                [`toaster-position-${position}`]: position,
+                [className]: className
+            });
 
         return visible ?
-            <Portal className={'toaster' + (position ? ` toaster-position-${position}` : '')}>
+            <Portal className={toasterClassName}
+                    style={style}>
                 {
-                    toasts.length > 0 ?
-                        toasts.map(options =>
-                            <Toast {...options}
-                                   key={options.toastsId}
-                                   onRequestClose={this.removeToast}/>
-                        )
-                        : null
+                    toasts && toasts.map(options =>
+                        <Toast {...options}
+                               key={options.toastsId}
+                               onRequestClose={this.removeToast}/>
+                    )
                 }
             </Portal>
             :
@@ -213,9 +218,12 @@ Toaster.propTypes = {
 
 Toaster.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
 
+    toasts: null,
     position: Position.BOTTOM_RIGHT
 
 };
+
+export default Toaster;

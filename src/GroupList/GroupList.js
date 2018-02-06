@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import List from '../List';
 import Theme from '../Theme';
@@ -16,7 +17,7 @@ import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
-export default class GroupList extends Component {
+class GroupList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
@@ -45,10 +46,12 @@ export default class GroupList extends Component {
         const {children, className, style, data, disabled, ...restProps} = this.props,
             {value} = this.state,
 
-            listClassName = (className ? ' ' + className : '');
+            listClassName = classNames('group-list', {
+                [className]: className
+            });
 
         return (
-            <div className={'group-list' + listClassName}
+            <div className={listClassName}
                  style={style}
                  disabled={disabled}
                  onWheel={e => {
@@ -291,3 +294,5 @@ GroupList.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default GroupList;

@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import EditableSelectDoc from 'assets/propTypes/EditableSelect.json';
+import doc from 'assets/propTypes/EditableSelect.json';
 
 import 'sass/containers/app/modules/fields/EditableSelectExamples.scss';
 
@@ -74,7 +74,7 @@ export default class EditableSelectExamples extends Component {
     render() {
 
         return (
-            <div className="example edit-able-select-examples">
+            <div className="example editable-select-examples">
 
                 <h2 className="example-title">Editable Select</h2>
 
@@ -102,7 +102,7 @@ export default class EditableSelectExamples extends Component {
                                                     onChange={this.onChange}
                                                     renderer={data => {
                                                         return data ?
-                                                            `[${data.value}] ${data.text}` : null
+                                                            `[${data.value}] ${data.text}` : null;
                                                     }}
                                     />
 
@@ -144,7 +144,7 @@ export default class EditableSelectExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={EditableSelectDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

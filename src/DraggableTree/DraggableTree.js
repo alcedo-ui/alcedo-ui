@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext} from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 import DraggableTreeNode from '../_DraggableTreeNode';
 import Tip from '../Tip';
@@ -17,7 +18,7 @@ import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
-export default class DraggableTree extends Component {
+class DraggableTree extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -198,13 +199,16 @@ export default class DraggableTree extends Component {
                 renderer, onNodeTouchTap
             } = this.props,
             {data, value, isNodeToggling} = this.state,
-            treeClassName = (className ? ' ' + className : '');
+
+            treeClassName = classNames('draggable-tree', {
+                [className]: className
+            });
 
         return (
             <DragDropContext onDragStart={this.onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
-                <div className={'draggable-tree' + treeClassName}
+                <div className={treeClassName}
                      disabled={disabled}
                      style={style}
                      onWheel={e => {
@@ -452,3 +456,5 @@ DraggableTree.defaultProps = {
     expandedIconCls: 'fa fa-caret-down'
 
 };
+
+export default DraggableTree;

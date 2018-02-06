@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
@@ -18,7 +19,7 @@ import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class TreeNode extends Component {
+class TreeNode extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -115,7 +116,10 @@ export default class TreeNode extends Component {
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            nodeClassName = (theme ? ` theme-${theme}` : '') + (data.className ? ' ' + data.className : ''),
+            nodeClassName = classNames('tree-node', {
+                [`theme-${theme}`]: theme,
+                [data.className]: data.className
+            }),
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
@@ -130,7 +134,7 @@ export default class TreeNode extends Component {
                              text={data.tip}
                              tipPosition={data.tipPosition}>
 
-                    <div className={'tree-node' + nodeClassName}
+                    <div className={nodeClassName}
                          style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
@@ -353,3 +357,5 @@ TreeNode.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default TreeNode;

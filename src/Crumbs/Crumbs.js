@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Crumb from '../_Crumb';
 import Tip from '../Tip';
@@ -12,7 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Crumbs extends Component {
+class Crumbs extends Component {
 
     static Theme = Theme;
 
@@ -47,10 +48,12 @@ export default class Crumbs extends Component {
 
         const {className, style, data, separator, showLastSeparator} = this.props,
 
-            crumbsClassName = (className ? ' ' + className : '');
+            crumbsClassName = classNames('crumbs', {
+                [className]: className
+            });
 
         return (
-            <div className={'crumbs' + crumbsClassName}
+            <div className={crumbsClassName}
                  style={style}>
 
                 {
@@ -213,3 +216,5 @@ Crumbs.defaultProps = {
     showLastSeparator: false
 
 };
+
+export default Crumbs;

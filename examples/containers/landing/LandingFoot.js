@@ -4,7 +4,7 @@ import IconAnchor from 'src/IconAnchor';
 
 import 'sass/containers/landing/LandingFoot.scss';
 
-export default class LandingFoot extends Component {
+class LandingFoot extends Component {
 
     constructor(props) {
         super(props);
@@ -32,3 +32,5 @@ export default class LandingFoot extends Component {
         );
     }
 }
+
+export default LandingFoot;

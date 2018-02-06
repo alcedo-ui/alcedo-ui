@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
@@ -12,7 +13,7 @@ import AnchorButton from '../AnchorButton';
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
-export default class Notification extends Component {
+class Notification extends Component {
 
     static Type = MsgType;
 
@@ -121,12 +122,16 @@ export default class Notification extends Component {
             } = this.props,
             {hidden, leave} = this.state,
 
-            wrapperClassName = ` theme-${type}` + (hidden ? ' hidden' : '') + (leave ? ' leave' : '')
-                + (closeButtonVisible ? ' has-close-button' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('notification', `theme-${type}`, {
+                hidden: hidden,
+                leave: leave,
+                'has-close-button': closeButtonVisible,
+                [className]: className
+            });
 
         return (
             <div ref="notification"
-                 className={'notification' + wrapperClassName}
+                 className={wrapperClassName}
                  style={style}>
 
                 <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}></i>
@@ -225,3 +230,5 @@ Notification.defaultProps = {
     closeButtonValue: 'Close'
 
 };
+
+export default Notification;

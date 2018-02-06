@@ -1,12 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .draggable-tree-examples {
-
-    .examples-wrapper {
-
-        .tree-wrapper {
-            border: 1px solid $theme-border;
-            overflow: hidden;
-        }
+    .tree-wrapper {
+        border: 1px solid $theme-border;
+        overflow: hidden;
     }
 }

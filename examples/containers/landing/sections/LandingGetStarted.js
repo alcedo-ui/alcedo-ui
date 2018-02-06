@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import 'sass/containers/landing/sections/LandingGetStarted.scss';
 
-export default class LandingGetStarted extends Component {
+class LandingGetStarted extends Component {
 
     constructor(props) {
         super(props);
@@ -29,3 +29,5 @@ export default class LandingGetStarted extends Component {
         );
     }
 }
+
+export default LandingGetStarted;

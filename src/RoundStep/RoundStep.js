@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import RoundStepItem from '../_RoundStepItem';
 
-export default class RoundStep extends Component {
+class RoundStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -51,34 +52,36 @@ export default class RoundStep extends Component {
     render() {
 
         const {className, style, steps, showFinishedStepIcon, finishedStepIconCls, disabled} = this.props,
-            {activatedStep, finishedStep} = this.state;
+            {activatedStep, finishedStep} = this.state,
+
+            stepClassName = classNames('round-step', {
+                [className]: className
+            });
 
         return (
-            <div className={'round-step' + (className ? ' ' + className : '')}
+            <div className={stepClassName}
                  style={style}>
 
                 {
-                    steps && steps.map((item, index) => {
-                        return (
-                            <RoundStepItem key={index}
-                                           index={index}
-                                           className={item.className}
-                                           style={{
-                                               ...item.style,
-                                               width: `${100 / steps.length}%`,
-                                               zIndex: steps.length - index
-                                           }}
-                                           activatedStep={activatedStep}
-                                           finishedStep={finishedStep}
-                                           value={item}
-                                           isFirst={index === 0}
-                                           isLast={index === steps.length - 1}
-                                           showFinishedStepIcon={showFinishedStepIcon}
-                                           finishedStepIconCls={finishedStepIconCls}
-                                           disabled={disabled}
-                                           onTouchTap={this.touchTapHandler}/>
-                        );
-                    })
+                    steps && steps.map((item, index) =>
+                        <RoundStepItem key={index}
+                                       index={index}
+                                       className={item.className}
+                                       style={{
+                                           ...item.style,
+                                           width: `${100 / steps.length}%`,
+                                           zIndex: steps.length - index
+                                       }}
+                                       activatedStep={activatedStep}
+                                       finishedStep={finishedStep}
+                                       value={item}
+                                       isFirst={index === 0}
+                                       isLast={index === steps.length - 1}
+                                       showFinishedStepIcon={showFinishedStepIcon}
+                                       finishedStepIconCls={finishedStepIconCls}
+                                       disabled={disabled}
+                                       onTouchTap={this.touchTapHandler}/>
+                    )
                 }
 
             </div>
@@ -159,3 +162,5 @@ RoundStep.defaultProps = {
     disabled: false
 
 };
+
+export default RoundStep;

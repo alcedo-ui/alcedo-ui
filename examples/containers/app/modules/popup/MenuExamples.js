@@ -3,12 +3,11 @@ import React, {Component} from 'react';
 import RaisedButton from 'src/RaisedButton';
 import Menu from 'src/Menu';
 import List from 'src/List';
-import Theme from 'src/Theme';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MenuDoc from 'assets/propTypes/MenuBody.json';
+import doc from 'assets/propTypes/MenuBody.json';
 
 import 'sass/containers/app/modules/popup/MenuExamples.scss';
 
@@ -51,8 +50,8 @@ export default class MenuExamples extends Component {
             triggerEl15: null
         };
 
-        this.showMenu = this::this.showMenu;
-        this.hideMenu = this::this.hideMenu;
+        this.showMenu = ::this.showMenu;
+        this.hideMenu = ::this.hideMenu;
 
     }
 
@@ -123,7 +122,7 @@ export default class MenuExamples extends Component {
                                                   this.showMenu(e, 1);
                                               }}/>
 
-                                <Menu theme={Theme.PRIMARY}
+                                <Menu theme={Menu.Theme.PRIMARY}
                                       visible={menuVisible1}
                                       triggerEl={triggerEl1}
                                       onRequestClose={() => {
@@ -417,7 +416,7 @@ export default class MenuExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MenuDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

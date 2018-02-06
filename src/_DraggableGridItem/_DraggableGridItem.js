@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Draggable} from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -17,7 +18,7 @@ import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class DraggableGridItem extends Component {
+class DraggableGridItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -114,8 +115,12 @@ export default class DraggableGridItem extends Component {
             } = this.props,
             {checked} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = classNames('draggable-grid-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -135,7 +140,7 @@ export default class DraggableGridItem extends Component {
                                     <TipProvider className='block'
                                                  text={tip}
                                                  tipPosition={tipPosition}>
-                                        <div className={'draggable-grid-item' + listItemClassName}
+                                        <div className={listItemClassName}
                                              style={style}
                                              disabled={disabled || isLoading}
                                              readOnly={readOnly}
@@ -334,3 +339,5 @@ DraggableGridItem.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGridItem;

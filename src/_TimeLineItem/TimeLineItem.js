@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class TimeLineItem extends Component {
+class TimeLineItem extends Component {
 
     static Type = {
         HEADER: 'header',
@@ -19,11 +20,15 @@ export default class TimeLineItem extends Component {
 
     render() {
 
-        const {className, date, theme, type, headerText, contentText, hasBorder, style} = this.props;
+        const {className, date, theme, type, headerText, contentText, hasBorder, style} = this.props,
+
+            itemClassName = classNames('time-line-item', {
+                [className]: className
+            });
 
         return (
 
-            <li className={`time-line-item ${className}`}
+            <li className={itemClassName}
                 style={style}>
 
                 {
@@ -75,3 +80,5 @@ TimeLineItem.defaultProps = {
     className: '',
     style: null
 };
+
+export default TimeLineItem;

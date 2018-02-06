@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import DotStepItem from '../_DotStepItem';
 
-export default class DotStep extends Component {
+class DotStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -51,32 +52,38 @@ export default class DotStep extends Component {
     render() {
 
         const {className, style, steps, displayField, finishedText} = this.props,
-            {activatedStep, finishedStep} = this.state;
+            {activatedStep, finishedStep} = this.state,
+
+            stepClassName = classNames('dot-step', {
+                [className]: className
+            });
 
         return (
-            <div className={`dot-step ${className}`}
+            <div className={stepClassName}
                  style={style}>
+
                 <span className="dot-step-value">
-                    {activatedStep < steps.length ? steps[activatedStep][displayField] : finishedText}</span>
+                    {activatedStep < steps.length ? steps[activatedStep][displayField] : finishedText}
+                </span>
+
                 <div className="dot-step-menu">
                     {
-                        steps.map((item, index) => {
-                            return (
-                                <DotStepItem key={index}
-                                             index={index}
-                                             className={item.className}
-                                             style={{
-                                                 ...item.style,
-                                                 zIndex: steps.length - index
-                                             }}
-                                             activatedStep={activatedStep}
-                                             finishedStep={finishedStep}
-                                             data={item}
-                                             onTouchTap={this.touchTapHandler}/>
-                            );
-                        })
+                        steps.map((item, index) => (
+                            <DotStepItem key={index}
+                                         index={index}
+                                         className={item.className}
+                                         style={{
+                                             ...item.style,
+                                             zIndex: steps.length - index
+                                         }}
+                                         activatedStep={activatedStep}
+                                         finishedStep={finishedStep}
+                                         data={item}
+                                         onTouchTap={this.touchTapHandler}/>
+                        ))
                     }
                 </div>
+
             </div>
         );
     }
@@ -156,3 +163,5 @@ DotStep.defaultProps = {
     finishedText: ''
 
 };
+
+export default DotStep;

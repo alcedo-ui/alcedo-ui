@@ -5,12 +5,13 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialFieldSeparator extends Component {
+class MaterialFieldSeparator extends Component {
 
     static Theme = Theme;
 
@@ -22,10 +23,14 @@ export default class MaterialFieldSeparator extends Component {
 
         const {theme, isHover, isFocus} = this.props,
 
-            className = (isHover ? ' hover' : '') + (isFocus ? ' focused' : '') + (theme ? ` theme-${theme}` : '');
+            className = classNames('material-field-separator', {
+                hover: isHover,
+                focused: isFocus,
+                [`theme-${theme}`]: theme
+            });
 
         return (
-            <div className={'material-field-separator' + className}>
+            <div className={className}>
                 <div className="material-field-separator-hover"></div>
                 <div className="material-field-separator-focus"></div>
             </div>
@@ -54,3 +59,5 @@ MaterialFieldSeparator.defaultProps = {
     isFocus: false
 
 };
+
+export default MaterialFieldSeparator;

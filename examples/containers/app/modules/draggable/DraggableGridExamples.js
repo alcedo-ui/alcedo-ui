@@ -5,9 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DraggableGridDoc from 'assets/propTypes/DraggableGrid.json';
-
-import 'sass/containers/app/modules/draggable/DraggableGridExamples.scss';
+import doc from 'assets/propTypes/DraggableGrid.json';
 
 export default class DraggableGridExamples extends Component {
 
@@ -110,7 +108,7 @@ export default class DraggableGridExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DraggableGridDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

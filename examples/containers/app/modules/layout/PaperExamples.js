@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import PaperDoc from 'assets/propTypes/Paper.json';
+import doc from 'assets/propTypes/Paper.json';
 
 import 'sass/containers/app/modules/layout/PaperExamples.scss';
 
@@ -123,7 +123,7 @@ export default class PaperExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={PaperDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

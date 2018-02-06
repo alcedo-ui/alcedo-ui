@@ -6,14 +6,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import HuePicker from '../HuePicker';
+
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 import Color from '../_vendors/Color';
 
-export default class ColorPicker extends Component {
+class ColorPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -126,7 +128,9 @@ export default class ColorPicker extends Component {
                 background: `rgb(${Color.hue2rgb(hsb[0]).join(', ')})`
             },
 
-            cursorClassName = (_.sum(value) / 3 < 128 ? ' light' : ''),
+            cursorClassName = classNames('color-picker-cursor', {
+                light: _.sum(value) / 3 < 128
+            }),
             cursorStyle = {
                 left: `${hsb[1] * 100}%`,
                 top: `${(1 - hsb[2]) * 100}%`
@@ -144,7 +148,7 @@ export default class ColorPicker extends Component {
                     <div className="color-picker-area-white-overlay"></div>
                     <div className="color-picker-area-black-overlay"></div>
 
-                    <div className={'color-picker-cursor' + cursorClassName}
+                    <div className={cursorClassName}
                          style={cursorStyle}></div>
 
                 </div>
@@ -182,3 +186,5 @@ ColorPicker.defaultProps = {
     value: [255, 0, 0]
 
 };
+
+export default ColorPicker;

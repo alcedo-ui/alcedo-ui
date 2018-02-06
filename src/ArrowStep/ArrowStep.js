@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import ArrowStepItem from '../_ArrowStepItem';
 
-export default class ArrowStep extends Component {
+class ArrowStep extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -50,11 +51,15 @@ export default class ArrowStep extends Component {
 
     render() {
 
-        const {className, style, steps} = this.props;
-        const {activatedStep, finishedStep} = this.state;
+        const {className, style, steps} = this.props,
+            {activatedStep, finishedStep} = this.state,
+
+            stepClassName = classNames('arrow-step', {
+                [className]: className
+            });
 
         return (
-            <div className={`arrow-step ${className}`}
+            <div className={stepClassName}
                  style={style}>
 
                 {
@@ -146,3 +151,5 @@ ArrowStep.defaultProps = {
     finishedStep: 0
 
 };
+
+export default ArrowStep;

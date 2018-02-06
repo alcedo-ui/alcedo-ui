@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TextArea from '../TextArea';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -12,7 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialTextArea extends Component {
+class MaterialTextArea extends Component {
 
     static Type = TextArea.Type;
     static Theme = Theme;
@@ -102,12 +103,17 @@ export default class MaterialTextArea extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '')
-                + (wordCountVisible ? ' has-word-count' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-text-area', {
+                animated: isLabelAnimate,
+                'has-label': label,
+                focused: isFocus,
+                'has-value': value,
+                'has-word-count': wordCountVisible,
+                [className]: className
+            });
 
         return (
-            <div className={'material-text-area' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -348,3 +354,5 @@ MaterialTextArea.defaultProps = {
     fieldMsgVisible: false
 
 };
+
+export default MaterialTextArea;

@@ -1,11 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .draggable-list-examples {
-
-    .examples-wrapper {
-        .draggable-list {
-            width: 200px;
-            border: 1px solid $theme-border;
-        }
+    .draggable-list {
+        width: 200px;
+        border: 1px solid $theme-border;
     }
 }

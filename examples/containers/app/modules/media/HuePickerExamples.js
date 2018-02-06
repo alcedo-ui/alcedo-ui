@@ -4,10 +4,10 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import HuePicker from 'src/HuePicker';
 
-import Color from 'src/_vendors/Color';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/HuePicker.json';
+
+import Color from 'src/_vendors/Color';
 
 import 'sass/containers/app/modules/media/HuePickerExamples.scss';
 

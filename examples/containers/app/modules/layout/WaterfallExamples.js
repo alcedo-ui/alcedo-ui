@@ -7,7 +7,7 @@ import Paper from 'src/Paper';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import WaterfallDoc from 'assets/propTypes/Waterfall.json';
+import doc from 'assets/propTypes/Waterfall.json';
 
 import 'sass/containers/app/modules/layout/WaterfallExamples.scss';
 
@@ -35,7 +35,7 @@ export default class WaterfallExamples extends Component {
             column: 3
         };
 
-        this.columnChangeHandle = this::this.columnChangeHandle;
+        this.columnChangeHandle = ::this.columnChangeHandle;
 
     }
 
@@ -96,7 +96,7 @@ export default class WaterfallExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={WaterfallDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

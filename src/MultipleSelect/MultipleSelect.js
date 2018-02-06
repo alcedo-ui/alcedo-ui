@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import TextField from '../TextField';
@@ -19,7 +20,7 @@ import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class MultipleSelect extends Component {
+class MultipleSelect extends Component {
 
     static Theme = Theme;
 
@@ -251,12 +252,20 @@ export default class MultipleSelect extends Component {
 
             valueLen = (value ? value.length : 0),
 
-            multipleSelectClassName = (theme ? ` theme-${theme}` : '') + (valueLen > 0 ? ' not-empty' : '')
-                + (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
-                + (className ? ' ' + className : ''),
+            multipleSelectClassName = classNames('multiple-select', isAbove ? 'above' : 'blow', {
+                [`theme-${theme}`]: theme,
+                'not-empty': valueLen > 0,
+                activated: popupVisible,
+                [className]: className
+            }),
 
-            selectedClassName = (selectedCollapsed ? ' collapsed' : ''),
-            selectPopupClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : ''),
+            selectedClassName = classNames('multiple-select-selected-wrapper', isAbove ? 'above' : 'blow', {
+                collapsed: selectedCollapsed
+            }),
+
+            selectPopupClassName = classNames('multiple-select-popup', isAbove ? 'above' : 'blow', {
+                [popupClassName]: popupClassName
+            }),
             selectPopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle),
@@ -266,7 +275,7 @@ export default class MultipleSelect extends Component {
 
         return (
             <div ref="multipleSelect"
-                 className={'multiple-select' + multipleSelectClassName}
+                 className={multipleSelectClassName}
                  style={style}>
 
                 {
@@ -281,7 +290,7 @@ export default class MultipleSelect extends Component {
                 {
                     value && valueLen > 0 ?
                         (
-                            <div className={'multiple-select-selected-wrapper' + selectedClassName}>
+                            <div className={selectedClassName}>
 
                                 <div className="multiple-select-selected-count">
                                     {`${valueLen} selected`}
@@ -334,7 +343,7 @@ export default class MultipleSelect extends Component {
                 <Popup ref={popupRef => {
                     this.popupRef = popupRef;
                 }}
-                       className={'multiple-select-popup' + selectPopupClassName}
+                       className={selectPopupClassName}
                        style={selectPopupStyle}
                        theme={theme}
                        visible={popupVisible}
@@ -600,3 +609,5 @@ MultipleSelect.defaultProps = {
     useDynamicRenderList: false
 
 };
+
+export default MultipleSelect;

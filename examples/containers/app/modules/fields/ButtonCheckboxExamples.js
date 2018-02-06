@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import ButtonCheckboxDoc from 'assets/propTypes/ButtonCheckbox.json';
+import doc from 'assets/propTypes/ButtonCheckbox.json';
 
 import 'sass/containers/app/modules/fields/ButtonCheckboxExamples.scss';
 
@@ -117,7 +117,7 @@ export default class ButtonCheckboxExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ButtonCheckboxDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
@@ -15,7 +16,7 @@ import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 
-export default class Tree extends Component {
+class Tree extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -130,10 +131,13 @@ export default class Tree extends Component {
                 renderer, onNodeTouchTap
             } = this.props,
             {value, isNodeToggling} = this.state,
-            treeClassName = (className ? ' ' + className : '');
+
+            treeClassName = classNames('tree', {
+                [className]: className
+            });
 
         return (
-            <div className={'tree' + treeClassName}
+            <div className={treeClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
@@ -374,3 +378,5 @@ Tree.defaultProps = {
     expandedIconCls: 'fa fa-caret-down'
 
 };
+
+export default Tree;

@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import Popup from '../Popup';
 import CascaderList from '../CascaderList/CascaderList';
@@ -16,7 +17,7 @@ import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class CascaderField extends Component {
+class CascaderField extends Component {
 
     static Theme = Theme;
 
@@ -109,10 +110,13 @@ export default class CascaderField extends Component {
 
             {value, popupVisible, isAbove, displayValue} = this.state,
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
-                + (value ? '' : ' empty'),
-
-            popupRenderClassName = (isAbove ? ' above' : ' blow') + (popupClassName ? ' ' + popupClassName : '');
+            triggerClassName = classNames('cascader-trigger', isAbove ? 'above' : 'blow', {
+                activated: popupVisible,
+                empty: !value
+            }),
+            popupRenderClassName = classNames('cascader-popup', isAbove ? 'above' : 'blow', {
+                [popupClassName]: popupClassName
+            });
 
         return (
 
@@ -130,7 +134,7 @@ export default class CascaderField extends Component {
                 }
 
                 <RaisedButton ref="trigger"
-                              className={'cascader-trigger' + triggerClassName}
+                              className={triggerClassName}
                               rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
                               disabled={disabled}
                               value={displayValue || placeholder}
@@ -138,7 +142,7 @@ export default class CascaderField extends Component {
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
-                       className={'cascader-popup' + popupRenderClassName}
+                       className={popupRenderClassName}
                        style={popupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
@@ -316,3 +320,5 @@ CascaderField.defaultProps = {
     separator: '/'
 
 };
+
+export default CascaderField;

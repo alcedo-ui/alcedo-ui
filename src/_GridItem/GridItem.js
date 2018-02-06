@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -17,7 +18,7 @@ import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-export default class GridItem extends Component {
+class GridItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -115,8 +116,12 @@ export default class GridItem extends Component {
             } = this.props,
             {checked} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = classNames('grid-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -126,7 +131,7 @@ export default class GridItem extends Component {
                 <TipProvider className='block'
                              text={tip}
                              tipPosition={tipPosition}>
-                    <div className={'grid-item' + listItemClassName}
+                    <div className={listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
@@ -319,3 +324,5 @@ GridItem.defaultProps = {
     col: 3
 
 };
+
+export default GridItem;

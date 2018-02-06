@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import DropdownSelect from '../DropdownSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -13,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class MaterialDropdownSelect extends Component {
+class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -108,11 +109,16 @@ export default class MaterialDropdownSelect extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-dropdown-select', {
+                animated: isLabelAnimate,
+                'has-label': label,
+                focused: isFocus,
+                'has-value': this.props.selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : value,
+                [className]: className
+            });
 
         return (
-            <div className={'material-dropdown-select' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -388,3 +394,5 @@ MaterialDropdownSelect.defaultProps = {
     shouldPreventContainerScroll: true
 
 };
+
+export default MaterialDropdownSelect;

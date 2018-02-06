@@ -5,13 +5,14 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TextField from '../TextField/TextField';
 import TipProvider from '../TipProvider';
 
 import Event from '../_vendors/Event';
 
-export default class EditableField extends Component {
+class EditableField extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -130,35 +131,42 @@ export default class EditableField extends Component {
     render() {
 
         const {
-            children, className, style, name, disabled, tip, tipPosition, title,
-            onMouseDown, onTouchTap, showModal, maxLength
-        } = this.props;
+                children, className, style, name, disabled, tip, tipPosition, title,
+                onMouseDown, onTouchTap, showModal, maxLength
+            } = this.props,
+
+            fieldClassName = classNames('editable-field', {
+                [className]: className
+            });
 
         return (
             <TipProvider text={tip}
                          position={tipPosition}>
                 <div ref="editableField"
-                     className={`editable-field ${className}`}
+                     className={fieldClassName}
                      style={style}
                      title={`${disabled ? '' : title}`}
                      onMouseDown={onMouseDown}
                      onTouchTap={onTouchTap}>
 
                     <span className={`editable-field-text`}
-                          disabled={disabled}>{this.state.text}</span>
+                          disabled={disabled}>
+                        {this.state.text}
+                    </span>
 
                     {
-                        this.state.hide === true
-                            ?
+                        this.state.hide === true ?
                             <span className="editable-field-span"
-                                  onTouchTap={this.showInput}>{this.state.text}<i
-                                className="fa fa-pencil editable-field-icon"
-                                aria-hidden="true"></i></span>
-                            : <TextField ref="textField"
-                                         className={'editable-field-input'}
-                                         maxLength={maxLength}
-                                         value={this.state.changeText}
-                                         onChange={this.onInputChange}/>
+                                  onTouchTap={this.showInput}>{this.state.text}
+                                <i className="fa fa-pencil editable-field-icon"
+                                   aria-hidden="true"></i>
+                            </span>
+                            :
+                            <TextField ref="textField"
+                                       className={'editable-field-input'}
+                                       maxLength={maxLength}
+                                       value={this.state.changeText}
+                                       onChange={this.onInputChange}/>
                     }
 
                     <input type="hidden"
@@ -167,13 +175,10 @@ export default class EditableField extends Component {
                            name={name}/>
 
                     {
-                        showModal && !this.state.hide
-                            ?
+                        showModal && !this.state.hide ?
                             <div className="editable-modal"
                                  ref="editableModal"
-                                 onTouchTap={this.finishEdit}>
-
-                            </div>
+                                 onTouchTap={this.finishEdit}></div>
                             :
                             null
                     }
@@ -289,3 +294,5 @@ EditableField.defaultProps = {
     showModal: false
 
 };
+
+export default EditableField;

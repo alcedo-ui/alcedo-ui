@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class TableHeaderSortIcon extends Component {
+class TableHeaderSortIcon extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -15,10 +16,12 @@ export default class TableHeaderSortIcon extends Component {
     render() {
 
         const {sort, sortProp, sortAscIconCls, sortDescIconCls} = this.props,
-            className = (sort && sort.prop === sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '');
+
+            className = classNames('table-header-sort-icon-wrapper',
+                sort && sort.prop === sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '');
 
         return (
-            <div className={'table-header-sort-icon-wrapper' + className}>
+            <div className={className}>
                 <i className={`table-header-sort-icon ${sortAscIconCls} up`}
                    aria-hidden="true"></i>
                 <i className={`table-header-sort-icon ${sortDescIconCls} down`}
@@ -42,3 +45,5 @@ TableHeaderSortIcon.defaultProps = {
     sortAscIconCls: 'fa fa-angle-up',
     sortDescIconCls: 'fa fa-angle-down'
 };
+
+export default TableHeaderSortIcon;

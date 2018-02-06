@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class Percent extends Component {
+class Percent extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -45,26 +46,34 @@ export default class Percent extends Component {
 
     render() {
 
-        const {move, endNum, style, className} = this.props,
-            {percent} = this.state;
+        const {className, style, move, endNum} = this.props,
+            {percent} = this.state,
 
-        const widthStyle = move === true ? {
-            width: endNum + '%',
-            textAlign: 'right',
-            ...style
-        } : {
-            ...style
-        };
+            wrapperClassName = classNames('circular-progress-percent', {
+                [className]: className
+            }),
+
+            wrapperStyle = move === true ?
+                {
+                    width: endNum + '%',
+                    textAlign: 'right',
+                    ...style
+                }
+                :
+                {...style};
 
         return (
-            <div>
-                <div className={`circular-progress-percent ${className}`}
-                     style={widthStyle}>
-                    {React.Children.map(this.props.children, function (child) {
-                        return <span>{child}</span>;
-                    })}
-                    <span>{percent}%</span>
-                </div>
+            <div className={wrapperClassName}
+                 style={wrapperStyle}>
+
+                {
+                    React.Children.map(this.props.children, child => (
+                        <span>{child}</span>
+                    ))
+                }
+
+                <span>{percent}%</span>
+
             </div>
         );
 
@@ -72,17 +81,23 @@ export default class Percent extends Component {
 };
 
 Percent.propTypes = {
+
     className: PropTypes.string,
     style: PropTypes.object,
 
     endNum: PropTypes.number,
     move: PropTypes.bool
+
 };
 
 Percent.defaultProps = {
-    className: '',
-    style: {},
+
+    className: null,
+    style: null,
 
     endNum: 100,
     move: false
+
 };
+
+export default Percent;

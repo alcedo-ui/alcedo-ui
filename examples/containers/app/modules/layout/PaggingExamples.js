@@ -5,11 +5,9 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import PaggingDoc from 'assets/propTypes/Pagging.json';
+import doc from 'assets/propTypes/Pagging.json';
 
-import Valid from '../../../../../src/_vendors/Valid';
-
-import 'sass/containers/app/modules/layout/TableExamples.scss';
+import Valid from 'src/_vendors/Valid';
 
 export default class PaggingExamples extends Component {
 
@@ -40,13 +38,13 @@ export default class PaggingExamples extends Component {
                 page: 0
             }
         };
-        this.pageChangedHandler = this::this.pageChangedHandler;
-        this.generateData = this::this.generateData;
+
+        this.pageChangedHandler = ::this.pageChangedHandler;
+        this.generateData = ::this.generateData;
 
     }
 
     generateData(size = 100) {
-
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
@@ -121,7 +119,7 @@ export default class PaggingExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={PaggingDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

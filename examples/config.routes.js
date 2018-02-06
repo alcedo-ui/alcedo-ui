@@ -1,7 +1,6 @@
-import {ac} from 'vendors/AsyncComponent';
+import ac from 'components/AsyncComponent';
 
 import AppRoot from 'examples/containers/AppRoot';
-import ColorPicker from '../src/ColorPicker/ColorPicker';
 
 export default function configureRoutes(store) {
 
@@ -133,6 +132,12 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/MaterialDropdownFilter',
                     component: ac(store, () => import('modules/filter/MaterialDropdownFilterExamples'))
+                }, {
+                    path: '/components/AutoCompleteFilter',
+                    component: ac(store, () => import('modules/filter/AutoCompleteFilterExamples'))
+                }, {
+                    path: '/components/MaterialAutoCompleteFilter',
+                    component: ac(store, () => import('modules/filter/MaterialAutoCompleteFilterExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -251,9 +256,12 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/BriefPagging',
                     component: ac(store, () => import('modules/layout/BriefPaggingExamples'))
-                },{
+                }, {
                     path: '/components/MaterialProvider',
                     component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
+                }, {
+                    path: '/components/TimeLine',
+                    component: ac(store, () => import('modules/layout/TimeLineExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -296,12 +304,6 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Notification',
                     component: ac(store, () => import('modules/message/NotificationExamples'))
-                },
-
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- timeLine -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-                {
-                    path: '/components/TimeLine',
-                    component: ac(store, () => import('modules/timeLine/TimeLineExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

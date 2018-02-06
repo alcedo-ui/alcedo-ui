@@ -5,11 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-export default class ListStepItem extends Component {
+class ListStepItem extends Component {
 
     static Theme = Theme;
 
@@ -31,11 +32,14 @@ export default class ListStepItem extends Component {
         const {className, style, activatedStep, finishedStep, index, data} = this.props,
 
             state = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''),
-            itemClassName = (state ? ' ' + state : '') + (className ? ' ' + className : '');
+            itemClassName = classNames('list-step-item', {
+                [state]: state,
+                [className]: className
+            });
 
         return (
             <RaisedButton {...data}
-                          className={'list-step-item' + itemClassName}
+                          className={itemClassName}
                           style={style}
                           theme={state === 'activated' ? Theme.HIGHLIGHT : (state === 'finished' ? Theme.PRIMARY : '')}
                           value={data.value}
@@ -92,3 +96,5 @@ ListStepItem.defaultProps = {
     finishedStep: 0,
     data: null
 };
+
+export default ListStepItem;

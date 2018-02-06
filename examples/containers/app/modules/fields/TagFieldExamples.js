@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import TagFieldDoc from 'assets/propTypes/TagField.json';
+import doc from 'assets/propTypes/TagField.json';
 
 import 'sass/containers/app/modules/fields/TagFieldExamples.scss';
 
@@ -77,7 +77,7 @@ export default class TagFieldExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={TagFieldDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

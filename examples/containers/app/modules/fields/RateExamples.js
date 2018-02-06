@@ -5,13 +5,12 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import RateDoc from 'assets/propTypes/Rate.json';
-
-import 'sass/containers/app/modules/fields/RateExamples.scss';
+import doc from 'assets/propTypes/Rate.json';
 
 export default class RateExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.state = {
@@ -19,24 +18,25 @@ export default class RateExamples extends Component {
             value2: 3.5
         };
 
-        this.onChangeHandle = this::this.onChangeHandle;
+        this.onChangeHandle = ::this.onChangeHandle;
+
     }
 
     onChangeHandle(value) {
         this.setState({
             value
-        })
+        });
     }
 
     onChangeHandle2(value2) {
         this.setState({
             value2
-        })
+        });
     }
 
     render() {
 
-        const {value, value2}=this.state;
+        const {value, value2} = this.state;
 
         return (
             <div className="example rate-examples">
@@ -59,8 +59,8 @@ export default class RateExamples extends Component {
                             <p>A simple <code>Rate</code> example.</p>
 
                             <Rate value={value}
-                                  onChange={(value)=> {
-                                      this.onChangeHandle(value)
+                                  onChange={(value) => {
+                                      this.onChangeHandle(value);
                                   }}/>
 
                         </div>
@@ -79,8 +79,8 @@ export default class RateExamples extends Component {
 
                             <Rate value={value2}
                                   allowHalf={true}
-                                  onChange={(value2)=> {
-                                      this.onChangeHandle2(value2)
+                                  onChange={(value2) => {
+                                      this.onChangeHandle2(value2);
                                   }}/>
 
                         </div>
@@ -100,8 +100,8 @@ export default class RateExamples extends Component {
                             <Rate value={value2}
                                   allowHalf={true}
                                   disabled={true}
-                                  onChange={(value2)=> {
-                                      this.onChangeHandle2(value2)
+                                  onChange={(value2) => {
+                                      this.onChangeHandle2(value2);
                                   }}/>
 
                         </div>
@@ -111,9 +111,9 @@ export default class RateExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={RateDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
-        )
+        );
     }
 }

@@ -4,10 +4,9 @@ import Radio from 'src/Radio';
 import RadioGroup from 'src/RadioGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import RadioGroupDoc from 'assets/propTypes/RadioGroup.json';
+import doc from 'assets/propTypes/RadioGroup.json';
 
 export default class RadioGroupExamples extends Component {
 
@@ -89,7 +88,7 @@ export default class RadioGroupExamples extends Component {
 
                                 <p><code>Radio</code> simple example.</p>
 
-                                <Radio theme={Theme.HIGHLIGHT}
+                                <Radio theme={Radio.Theme.HIGHLIGHT}
                                        label="radio"
                                        name="radio"
                                        value="radio"
@@ -99,7 +98,7 @@ export default class RadioGroupExamples extends Component {
 
                                 <p><code>RadioGroup</code> simple example.</p>
 
-                                <RadioGroup theme={Theme.HIGHLIGHT}
+                                <RadioGroup theme={RadioGroup.Theme.HIGHLIGHT}
                                             name="radio-group-1"
                                             data={this.data}
                                             value={radioGroupValue}
@@ -161,7 +160,7 @@ export default class RadioGroupExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={RadioGroupDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

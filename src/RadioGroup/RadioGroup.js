@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Radio from '../Radio';
 import Theme from '../Theme';
@@ -12,7 +13,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class RadioGroup extends Component {
+class RadioGroup extends Component {
 
     static Theme = Theme;
 
@@ -50,10 +51,14 @@ export default class RadioGroup extends Component {
                 className, style, theme, name, uncheckedIconCls, checkedIconCls,
                 disabled, data, onCheck
             } = this.props,
-            {value} = this.state;
+            {value} = this.state,
+
+            groupClassName = classNames('radio-group', {
+                [className]: className
+            });
 
         return (
-            <div className={'radio-group' + (className ? ' ' + className : '')}
+            <div className={groupClassName}
                  style={style}
                  disabled={disabled}>
 
@@ -191,3 +196,5 @@ RadioGroup.defaultProps = {
     disabled: false
 
 };
+
+export default RadioGroup;

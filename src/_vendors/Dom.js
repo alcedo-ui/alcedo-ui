@@ -132,7 +132,7 @@ function toggleClass(el, className, bool) {
         removeClass(el, className);
 }
 
-function findParent(el, className) {
+function findParentByClassName(el, className) {
 
     if (!el || !className) {
         return;
@@ -149,6 +149,26 @@ function findParent(el, className) {
 
 }
 
+function isParent(el, parentEl) {
+
+    if (!el || !parentEl) {
+        return false;
+    }
+
+    do {
+
+        el = el.parentNode;
+
+        if (el == parentEl) {
+            return true;
+        }
+
+    } while (el);
+
+    return false;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
@@ -158,5 +178,6 @@ export default {
     addClass,
     removeClass,
     toggleClass,
-    findParent
+    findParentByClassName,
+    isParent
 };

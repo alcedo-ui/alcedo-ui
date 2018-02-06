@@ -1,20 +1,13 @@
-@import '../../../../my-theme';
-
 .circular-progress-examples {
-
     .example-content {
         overflow: hidden;
 
-        > div {
-
+        & > div {
             float: left;
             margin-top: 10px;
             margin-left: 50px;
-
         }
-
     }
-
 }
 
 

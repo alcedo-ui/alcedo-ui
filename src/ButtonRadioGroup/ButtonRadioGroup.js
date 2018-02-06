@@ -5,13 +5,14 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class ButtonRadioGroup extends Component {
+class ButtonRadioGroup extends Component {
 
     static Theme = Theme;
 
@@ -45,11 +46,15 @@ export default class ButtonRadioGroup extends Component {
 
     render() {
 
-        const {className, style, theme, activatedTheme, name, disabled, data} = this.props;
-        const {value} = this.state;
+        const {className, style, theme, activatedTheme, name, disabled, data} = this.props,
+            {value} = this.state,
+
+            groupClassName = classNames('button-radio-group', {
+                [className]: className
+            });
 
         return (
-            <div className={`button-radio-group ${className}`}
+            <div className={groupClassName}
                  style={style}
                  disabled={disabled}>
 
@@ -178,3 +183,5 @@ ButtonRadioGroup.defaultProps = {
     disabled: false
 
 };
+
+export default ButtonRadioGroup;

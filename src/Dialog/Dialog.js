@@ -10,7 +10,7 @@ import DialogBody from '../_DialogBody/DialogBody';
 
 import Dom from '../_vendors/Dom';
 
-export default class Dialog extends Component {
+class Dialog extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -61,3 +61,5 @@ export default class Dialog extends Component {
 
 Dialog.propTypes = DialogBody.propTypes;
 Dialog.defaultProps = DialogBody.defaultProps;
+
+export default Dialog;

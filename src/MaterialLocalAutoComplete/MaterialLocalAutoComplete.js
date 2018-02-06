@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -12,7 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialLocalAutoComplete extends Component {
+class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;
 
@@ -21,7 +22,7 @@ export default class MaterialLocalAutoComplete extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: '',
+            value: props.value,
             filter: props.filterInitValue,
             isFocus: false,
             isHover: false
@@ -48,12 +49,16 @@ export default class MaterialLocalAutoComplete extends Component {
     }
 
     triggerBlurHandler(...args) {
-        this.state.filter === '' && this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
+
+        if (this.state.filter === '') {
+            this.setState({
+                isFocus: false
+            });
+        }
+
+        const {onBlur} = this.props;
+        onBlur && onBlur(...args);
+
     }
 
     popupClosedHandler() {
@@ -110,25 +115,25 @@ export default class MaterialLocalAutoComplete extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
-    }
-
     render() {
 
-        const {
-                className, style, theme, label, isLabelAnimated, popupClassName,
-                ...restProps
-            } = this.props,
+        const {className, style, theme, label, isLabelAnimated, popupClassName, ...restProps} = this.props,
             {isFocus, isHover, value, filter} = this.state,
 
-            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-local-auto-complete', {
+                animated: isLabelAnimated,
+                'has-label': label,
+                'has-value': filter,
+                focused: isFocus,
+                [className]: className
+            }),
+
+            autoCompleteClassName = classNames('material-local-auto-complete-popup', {
+                [popupClassName]: popupClassName
+            });
 
         return (
-            <div className={'material-local-auto-complete' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -142,7 +147,7 @@ export default class MaterialLocalAutoComplete extends Component {
 
                 <LocalAutoComplete {...restProps}
                                    ref="localAutoComplete"
-                                   popupClassName={'material-local-auto-complete-popup ' + popupClassName}
+                                   popupClassName={autoCompleteClassName}
                                    theme={theme}
                                    value={value}
                                    onFocus={this.triggerFocusHandler}
@@ -411,3 +416,5 @@ MaterialLocalAutoComplete.defaultProps = {
     popupChildren: null
 
 };
+
+export default MaterialLocalAutoComplete;

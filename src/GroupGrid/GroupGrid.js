@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Grid from '../Grid';
 import Theme from '../Theme';
@@ -15,7 +16,7 @@ import Event from '../_vendors/Event';
 import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 
-export default class GroupGrid extends Component {
+class GroupGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -43,10 +44,12 @@ export default class GroupGrid extends Component {
         const {children, className, style, data, disabled, ...restProps} = this.props,
             {value} = this.state,
 
-            listClassName = (className ? ' ' + className : '');
+            gridClassName = classNames('group-grid', {
+                [className]: className
+            });
 
         return (
-            <div className={'group-grid' + listClassName}
+            <div className={gridClassName}
                  style={style}
                  disabled={disabled}
                  onWheel={e => {
@@ -282,3 +285,5 @@ GroupGrid.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default GroupGrid;

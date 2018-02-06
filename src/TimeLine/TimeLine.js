@@ -5,13 +5,14 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TimeLineItem from '../_TimelineItem';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class TimeLine extends Component {
+class TimeLine extends Component {
 
     static Type = TimeLineItem.Type;
     static Theme = Theme;
@@ -22,25 +23,27 @@ export default class TimeLine extends Component {
 
     render() {
 
-        const {data, style, className} = this.props;
+        const {data, style, className} = this.props,
+
+            wrapperClassName = classNames('time-line', {
+                [className]: className
+            });
 
         return (
-            <ul className={`time-line ${className}`}
+            <ul className={wrapperClassName}
                 style={style}>
 
                 {
-                    data.map((item, index) => {
-                        return (
-                            <TimeLineItem key={index}
-                                          theme={item.theme}
-                                          type={item.type}
-                                          title={item.title}
-                                          date={item.date}
-                                          hasBorder={item.hasBorder}
-                                          contentText={item.contentText}
-                                          headerText={item.headerText}/>
-                        );
-                    })
+                    data.map((item, index) =>
+                        <TimeLineItem key={index}
+                                      theme={item.theme}
+                                      type={item.type}
+                                      title={item.title}
+                                      date={item.date}
+                                      hasBorder={item.hasBorder}
+                                      contentText={item.contentText}
+                                      headerText={item.headerText}/>
+                    )
                 }
 
             </ul>
@@ -110,3 +113,5 @@ TimeLine.defaultProps = {
     type: ''
 
 };
+
+export default TimeLine;

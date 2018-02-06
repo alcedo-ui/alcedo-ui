@@ -6,8 +6,9 @@
 import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class Waterfall extends Component {
+class Waterfall extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -164,22 +165,24 @@ export default class Waterfall extends Component {
     render() {
 
         const {className, style, children} = this.props,
-            {dom} = this.state;
+            {dom} = this.state,
+
+            wrapperClassName = classNames('waterfall', {
+                [className]: className
+            });
 
         return (
-            <div className={'waterfall' + (className ? ' ' + className : '')}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {dom}
 
                 <div className="waterfall-hidden">
                     {
-                        children.map((child, index) => {
-                            return cloneElement(child, {
-                                key: index,
-                                ref: `waterfallTempChild${index}`
-                            });
-                        })
+                        children.map((child, index) => cloneElement(child, {
+                            key: index,
+                            ref: `waterfallTempChild${index}`
+                        }))
                     }
                 </div>
 
@@ -222,3 +225,5 @@ Waterfall.defaultProps = {
     separator: 10
 
 };
+
+export default Waterfall;

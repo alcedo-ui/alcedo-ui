@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
-export default class TableHeader extends Component {
+class TableHeader extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -47,11 +48,14 @@ export default class TableHeader extends Component {
 
             finalHeader = this.headerRenderer(),
 
-            tableHeaderClassName = (sortable ? ' sortable' : '') + (hidden ? ' hidden' : '')
-                + (className ? ' ' + className : '');
+            tableHeaderClassName = classNames('table-header', {
+                sortable: sortable,
+                hidden: hidden,
+                [className]: className
+            });
 
         return (
-            <th className={'table-header' + tableHeaderClassName}
+            <th className={tableHeaderClassName}
                 style={style}
                 title={typeof header === 'string' ? header : null}
                 onTouchTap={this.touchTapHandler}>
@@ -109,3 +113,5 @@ TableHeader.defaultProps = {
     hidden: false
 
 };
+
+export default TableHeader;

@@ -1,17 +1,14 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .toast-examples {
 
     .example-content {
-
         padding-bottom: 50px;
 
         .examples-wrapper {
 
             .field-group {
-
                 @include float-fix;
-
                 float: none;
 
                 .radio {
@@ -39,7 +36,5 @@
                 margin-top: 20px;
             }
         }
-
     }
-
 }

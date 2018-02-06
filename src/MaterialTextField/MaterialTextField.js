@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -12,7 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialTextField extends Component {
+class MaterialTextField extends Component {
 
     static Type = TextField.Type;
     static Theme = Theme;
@@ -102,11 +103,16 @@ export default class MaterialTextField extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimate ? ' animated' : '') + (label ? ' has-label' : '')
-                + (isFocus ? ' focused' : '') + (value ? ' has-value' : '') + (className ? ' ' + className : '');
+            fieldClassName = classNames('material-text-field', {
+                animated: isLabelAnimate,
+                'has-label': label,
+                focused: isFocus,
+                'has-value': value,
+                [className]: className
+            });
 
         return (
-            <div className={'material-text-field' + wrapperClassName}
+            <div className={fieldClassName}
                  style={style}>
 
                 {
@@ -360,3 +366,5 @@ MaterialTextField.defaultProps = {
     fieldMsgVisible: true
 
 };
+
+export default MaterialTextField;

@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Switcher from 'src/Switcher';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import SpanLoadingDoc from 'assets/propTypes/SpanLoading.json';
+import doc from 'assets/propTypes/SpanLoading.json';
 
 import 'sass/containers/app/modules/loading/SpanLoadingExamples.scss';
 
@@ -21,7 +21,7 @@ export default class SpanLoadingExamples extends Component {
             loading2: false
         };
 
-        this.toggle = this::this.toggle;
+        this.toggle = ::this.toggle;
 
     }
 
@@ -191,10 +191,10 @@ export default class SpanLoadingExamples extends Component {
 
                 </Widget>
 
-
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={SpanLoadingDoc}/>
+                <PropTypeDescTable data={doc}/>
+
             </div>
         );
     }

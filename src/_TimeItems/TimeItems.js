@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Event from '../_vendors/Event';
 
-export default class TimeItems extends Component {
+class TimeItems extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -55,7 +55,7 @@ export default class TimeItems extends Component {
         const {value} = this.props;
         if (this.refs.timeItems) {
             const el = this.refs.timeItems;
-            this.scrollTo(this.refs.timeItems, (+value) * 30, 0)
+            this.scrollTo(this.refs.timeItems, (+value) * 30, 0);
         }
         Event.addEvent(this.refs.timeItems, 'mouseover', this.mousemoveHandle);
         Event.addEvent(this.refs.timeItems, 'mouseout', this.mouseoutHandle);
@@ -115,3 +115,5 @@ TimeItems.propTypes = {
     style: PropTypes.object,
     data: PropTypes.array
 };
+
+export default TimeItems;

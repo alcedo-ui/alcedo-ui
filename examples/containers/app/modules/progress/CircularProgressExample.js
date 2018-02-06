@@ -1,27 +1,28 @@
-/**
- * Created by DT314 on 2017/4/7.
- */
-import React, {Component, PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react';
 
-import CircularProgress from '../../../../../src/CircularProgress'
+import CircularProgress from 'src/CircularProgress';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import CircularProgressDoc from 'assets/propTypes/CircularProgress.json';
+import doc from 'assets/propTypes/CircularProgress.json';
 
 import 'sass/containers/app/modules/progress/CircularProgressExample.scss';
 
 export default class Test extends Component {
+
     constructor(props) {
-        super();
+
+        super(props);
+
         this.state = {
             percent: 0
-        }
+        };
+
     }
 
     componentDidMount() {
-        this.timer = setTimeout(() => this.progress(0), 1000)
+        this.timer = setTimeout(() => this.progress(0), 1000);
     }
 
     componentWillUnmount() {
@@ -126,10 +127,10 @@ export default class Test extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CircularProgressDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
 
-        )
+        );
     }
 }

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import {createPortal} from 'react-dom';
 
-export default class Portal extends Component {
+class Portal extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -75,3 +75,5 @@ Portal.defaultProps = {
     className: '',
     style: null
 };
+
+export default Portal;

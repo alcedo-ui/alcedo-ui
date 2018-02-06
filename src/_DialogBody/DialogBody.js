@@ -6,6 +6,7 @@
 import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Paper from '../Paper';
 import FlatButton from '../FlatButton';
@@ -17,7 +18,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 
-export default class DialogBody extends Component {
+class DialogBody extends Component {
 
     static Theme = Theme;
 
@@ -185,22 +186,29 @@ export default class DialogBody extends Component {
             } = this.props,
             {visible} = this.state,
 
-            modalClass = (visible ? '' : ' hidden') + (modalClassName ? ' ' + modalClassName : ''),
-            dialogClassName = (visible ? '' : ' hidden') + (className ? ' ' + className : '');
+            modalClass = classNames('dialog-modal', {
+                hidden: !visible,
+                [modalClassName]: modalClassName
+            }),
+
+            dialogClassName = classNames('dialog-wrapper', {
+                hidden: !visible,
+                [className]: className
+            });
 
         return (
             <div>
 
                 {
                     showModal ?
-                        <div className={'dialog-modal' + modalClass}></div>
+                        <div className={modalClass}></div>
                         :
                         null
                 }
 
                 <Paper {...restProps}
                        ref="dialog"
-                       className={'dialog-wrapper' + dialogClassName}
+                       className={dialogClassName}
                        depth={6}>
 
                     <div className="dialog-title">
@@ -443,3 +451,5 @@ DialogBody.defaultProps = {
     isEscClose: true
 
 };
+
+export default DialogBody;

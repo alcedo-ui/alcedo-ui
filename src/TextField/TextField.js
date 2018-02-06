@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -13,21 +14,11 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import FieldType from '../_statics/FieldType';
 
-export default class TextField extends Component {
+class TextField extends Component {
 
-    static Type = {
-        TEXT: 'text',
-        PASSWORD: 'password',
-        NUMBER: 'number',
-        INTEGER: 'integer',
-        POSITIVE_INTEGER: 'positiveInteger',
-        NONNEGATIVE_INTEGER: 'nonnegativeInteger',
-        NEGATIVE_INTEGER: 'negativeInteger',
-        NONPOSITIVE_INTEGER: 'nonpositiveInteger',
-        EMAIL: 'email',
-        URL: 'url'
-    };
+    static Type = FieldType;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -43,6 +34,8 @@ export default class TextField extends Component {
             invalidMsgs: ''
         };
 
+        this.focus = ::this.focus;
+        this.blur = ::this.blur;
         this.valid = ::this.valid;
         this.changeHandler = ::this.changeHandler;
         this.keyDownHandler = ::this.keyDownHandler;
@@ -56,11 +49,19 @@ export default class TextField extends Component {
 
     }
 
+    focus() {
+        this.refs.input.focus();
+    }
+
+    blur() {
+        this.refs.input.blur();
+    }
+
     isNumberType(type) {
 
         const {
             NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
-        } = TextField.Type;
+        } = FieldType;
 
         return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
             || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
@@ -72,11 +73,11 @@ export default class TextField extends Component {
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
 
-        if (type === TextField.Type.EMAIL && !Valid.isEmail(value)) {
+        if (type === FieldType.EMAIL && !Valid.isEmail(value)) {
             invalidMsgs.push('Invalid E-mail address');
         }
 
-        if (type === TextField.Type.URL && !Valid.isUrl(value)) {
+        if (type === FieldType.URL && !Valid.isUrl(value)) {
             invalidMsgs.push('Invalid url');
         }
 
@@ -94,23 +95,23 @@ export default class TextField extends Component {
                 invalidMsgs.push('Not a valid number');
             }
 
-            if (type === TextField.Type.INTEGER && ~~value !== value) {
+            if (type === FieldType.INTEGER && ~~value !== value) {
                 invalidMsgs.push('Not a valid integer');
             }
 
-            if (type === TextField.Type.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+            if (type === FieldType.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
                 invalidMsgs.push('Not a valid positive integer');
             }
 
-            if (type === TextField.Type.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+            if (type === FieldType.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
                 invalidMsgs.push('Not a valid nonnegative integer');
             }
 
-            if (type === TextField.Type.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+            if (type === FieldType.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
                 invalidMsgs.push('Not a valid negative integer');
             }
 
-            if (type === TextField.Type.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+            if (type === FieldType.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
                 invalidMsgs.push('Not a valid nonpositive integer');
             }
 
@@ -154,11 +155,16 @@ export default class TextField extends Component {
     }
 
     keyDownHandler(e) {
+
+        const {onKeyDown} = this.props,
+            {value} = this.state;
+        onKeyDown && onKeyDown(e, value);
+
         if (e.keyCode === 13) {
-            const {onPressEnter} = this.props,
-                {value} = this.state;
+            const {onPressEnter} = this.props;
             onPressEnter && onPressEnter(e, value);
         }
+
     }
 
     clearValue() {
@@ -172,7 +178,7 @@ export default class TextField extends Component {
             invalidMsgs
         }, () => {
 
-            this.refs.input.focus();
+            this.focus();
 
             onClear && onClear();
             onChange && onChange('');
@@ -192,7 +198,7 @@ export default class TextField extends Component {
             passwordVisible
         }, () => {
 
-            this.refs.input.focus();
+            this.focus();
 
             passwordVisible
                 ? (onPasswordVisible && onPasswordVisible())
@@ -283,7 +289,7 @@ export default class TextField extends Component {
 
         const {
 
-                children, className, style, theme, type, iconCls, disabled, infoMsg,
+                children, className, style, theme, type, iconCls, disabled, infoMsg, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 onIconTouchTap, onRightIconTouchTap,
 
@@ -297,23 +303,29 @@ export default class TextField extends Component {
 
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
-            isPassword = type === TextField.Type.PASSWORD,
+            isPassword = type === FieldType.PASSWORD,
+            empty = !value || value.length <= 0,
 
-            wrapperClassName = (!value || value.length <= 0 ? ' empty' : ' not-empty') + (isPassword ? ' password' : '')
-                + (invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''))
-                + (iconCls ? ' has-icon' : '') + (rightIconCls ? ' has-right-icon' : '')
-                + (isFocused ? ' focused' : '') + (clearButtonVisible ? ' has-clear-button' : '')
-                + (className ? ' ' + className : '');
+            wrapperClassName = classNames('text-field',
+                empty ? 'empty' : 'not-empty',
+                invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
+                    password: isPassword,
+                    'has-icon': iconCls,
+                    'has-right-icon': rightIconCls,
+                    focused: isFocused,
+                    'has-clear-button': clearButtonVisible,
+                    [className]: className
+                });
 
         let inputType = type;
-        if (inputType === TextField.Type.PASSWORD) {
-            inputType = passwordVisible ? TextField.Type.TEXT : TextField.Type.PASSWORD;
+        if (inputType === FieldType.PASSWORD) {
+            inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
         } else if (this.isNumberType(type)) {
             inputType = 'text';
         }
 
         return (
-            <div className={'text-field' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}
                  disabled={disabled}>
 
@@ -323,6 +335,15 @@ export default class TextField extends Component {
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
                                     onTouchTap={onIconTouchTap}/>
+                        :
+                        null
+                }
+
+                {
+                    placeholder && empty ?
+                        <input className="text-field-placeholder"
+                               value={placeholder}
+                               disabled={true}/>
                         :
                         null
                 }
@@ -341,20 +362,20 @@ export default class TextField extends Component {
                        disabled={disabled}/>
 
                 {
-                    isPassword && passwordButtonVisible ?
-                        <IconButton className="password-visible-icon"
-                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
-                        :
-                        null
-                }
-
-                {
                     clearButtonVisible ?
                         <IconButton ref="clearButton"
                                     className={`clear-icon ${!disabled && value && value.length > 0 ? '' : 'hidden'}`}
                                     iconCls="fa fa-times-circle"
                                     onTouchTap={this.clearValue}/>
+                        :
+                        null
+                }
+
+                {
+                    isPassword && passwordButtonVisible ?
+                        <IconButton className="password-visible-icon"
+                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                                    onTouchTap={this.togglePasswordVisible}/>
                         :
                         null
                 }
@@ -413,7 +434,7 @@ TextField.propTypes = {
     /**
      * Specifies the type of input to display such as "password" or "text".
      */
-    type: PropTypes.oneOf(Util.enumerateValue(TextField.Type)),
+    type: PropTypes.oneOf(Util.enumerateValue(FieldType)),
 
     /**
      * The name of the text field.
@@ -426,7 +447,7 @@ TextField.propTypes = {
     placeholder: PropTypes.string,
 
     /**
-     * The value of the text field.Type can be string or number.
+     * The value of the TextField.Type can be string or number.
      */
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
@@ -512,7 +533,12 @@ TextField.propTypes = {
     onChange: PropTypes.func,
 
     /**
-     * Callback function fired when the press enter.
+     * Callback function fired when key down.
+     */
+    onKeyDown: PropTypes.func,
+
+    /**
+     * Callback function fired when press enter.
      */
     onPressEnter: PropTypes.func,
 
@@ -575,7 +601,7 @@ TextField.defaultProps = {
     readOnly: false,
     autoFocus: false,
     infoMsg: '',
-    isFocusedSelectAll: true,
+    isFocusedSelectAll: false,
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
@@ -593,3 +619,5 @@ TextField.defaultProps = {
     fieldMsgVisible: false
 
 };
+
+export default TextField;

@@ -3,10 +3,9 @@ import React, {Component} from 'react';
 import Anchor from 'src/Anchor';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import AnchorDoc from 'assets/propTypes/Anchor.json';
+import doc from 'assets/propTypes/Anchor.json';
 
 import 'sass/containers/app/modules/anchor/AnchorExamples.scss';
 
@@ -42,31 +41,31 @@ export default class AnchorExamples extends Component {
                                     Default
                                 </Anchor>
 
-                                <Anchor theme={Theme.PRIMARY}>
+                                <Anchor theme={Anchor.Theme.PRIMARY}>
                                     Primary
                                 </Anchor>
 
-                                <Anchor theme={Theme.SECONDARY}>
+                                <Anchor theme={Anchor.Theme.SECONDARY}>
                                     Secondary
                                 </Anchor>
 
-                                <Anchor theme={Theme.HIGHLIGHT}>
+                                <Anchor theme={Anchor.Theme.HIGHLIGHT}>
                                     Highlight
                                 </Anchor>
 
-                                <Anchor theme={Theme.INFO}>
+                                <Anchor theme={Anchor.Theme.INFO}>
                                     Info
                                 </Anchor>
 
-                                <Anchor theme={Theme.SUCCESS}>
+                                <Anchor theme={Anchor.Theme.SUCCESS}>
                                     Success
                                 </Anchor>
 
-                                <Anchor theme={Theme.WARNING}>
+                                <Anchor theme={Anchor.Theme.WARNING}>
                                     Warning
                                 </Anchor>
 
-                                <Anchor theme={Theme.ERROR}>
+                                <Anchor theme={Anchor.Theme.ERROR}>
                                     Error
                                 </Anchor>
 
@@ -94,17 +93,17 @@ export default class AnchorExamples extends Component {
                                     Reset
                                 </Anchor>
 
-                                <Anchor theme={Theme.SUCCESS}
+                                <Anchor theme={Anchor.Theme.SUCCESS}
                                         iconCls="fa fa-plus">
                                     Add
                                 </Anchor>
 
-                                <Anchor theme={Theme.ERROR}
+                                <Anchor theme={Anchor.Theme.ERROR}
                                         iconCls="fa fa-trash">
                                     Delete
                                 </Anchor>
 
-                                <Anchor theme={Theme.PRIMARY}
+                                <Anchor theme={Anchor.Theme.PRIMARY}
                                         rightIconCls="fa fa-chevron-right">
                                     Next
                                 </Anchor>
@@ -118,7 +117,7 @@ export default class AnchorExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={AnchorDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

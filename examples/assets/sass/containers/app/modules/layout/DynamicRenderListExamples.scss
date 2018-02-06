@@ -1,12 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .dynamic-render-list-examples {
-
-    .examples-wrapper {
-        .paper {
-            width: 200px;
-            border: 1px solid $theme-border;
-            overflow: hidden;
-        }
+    .paper {
+        border: 1px solid $theme-border;
+        overflow: hidden;
     }
 }

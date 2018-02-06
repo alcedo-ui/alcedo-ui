@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -25,13 +26,13 @@ const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
 }))
 @DragSource(DRAG_GRID_ITEM_SYMBOL, DragDrop.getSource(), (connect, monitor) => ({
     connectDragPreview: connect.dragPreview(),
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    connectDragSource: connect.dragSource()
 }))
-export default class DraggableGridItem extends Component {
+class DraggableGridItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+
 
     constructor(props, ...restArgs) {
 
@@ -143,7 +144,7 @@ export default class DraggableGridItem extends Component {
 
         const {
 
-                connectDragPreview, connectDragSource, connectDropTarget, isDragging, isDraggableAnyWhere, anchorIconCls,
+                connectDragPreview, connectDragSource, connectDropTarget, isDraggableAnyWhere, anchorIconCls,
 
                 index, className, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, renderer, itemRenderer,
@@ -160,8 +161,12 @@ export default class DraggableGridItem extends Component {
             } = this.props,
             {checked, tipVisible} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (className ? ' ' + className : ''),
+            listItemClassName = classNames('draggable-grid-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
             anchorEl = <i className={`${anchorIconCls} draggable-grid-item-anchor`}
@@ -173,7 +178,7 @@ export default class DraggableGridItem extends Component {
 
                     <div {...restProps}
                          ref={el => this.tipTriggerEl = el}
-                         className={'draggable-grid-item' + listItemClassName}
+                         className={listItemClassName}
                          disabled={disabled || isLoading}
                          onTouchTap={this.touchTapHandler}
                          onMouseOver={this.mouseOverHandler}>
@@ -341,7 +346,6 @@ DraggableGridItem.propTypes = {
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
-    isDragging: PropTypes.bool,
     onMove: PropTypes.func
 
 };
@@ -384,3 +388,5 @@ DraggableGridItem.defaultProps = {
     col: 3
 
 };
+
+export default DraggableGridItem;

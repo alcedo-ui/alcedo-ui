@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import DropdownFilter from '../DropdownFilter';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -13,7 +14,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class MaterialDropdownFilter extends Component {
+class MaterialDropdownFilter extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -120,19 +121,23 @@ export default class MaterialDropdownFilter extends Component {
 
     render() {
 
-        const {
-                className, style, theme, label, isLabelAnimated, popupClassName,
-                ...restProps
-            } = this.props,
+        const {className, style, theme, label, isLabelAnimated, popupClassName, ...restProps} = this.props,
             {isFocus, isHover, value, filter} = this.state,
 
-            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (filter ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-dropdown-filter', {
+                animated: isLabelAnimated,
+                'has-label': label,
+                'has-value': filter,
+                focused: isFocus,
+                [className]: className
+            }),
 
-        popupClassName;
+            filterClassName = classNames('material-dropdown-filter-popup', {
+                [popupClassName]: popupClassName
+            });
 
         return (
-            <div className={'material-dropdown-filter' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -146,7 +151,7 @@ export default class MaterialDropdownFilter extends Component {
 
                 <DropdownFilter {...restProps}
                                 ref="dropdownFilter"
-                                popupClassName={'material-dropdown-filter-popup' + (popupClassName ? ' ' + popupClassName : '')}
+                                popupClassName={filterClassName}
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
@@ -430,3 +435,5 @@ MaterialDropdownFilter.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default MaterialDropdownFilter;

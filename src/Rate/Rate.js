@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Event from '../_vendors/Event';
 
-export default class Rate extends Component {
+class Rate extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -19,7 +20,7 @@ export default class Rate extends Component {
             items: []
         };
 
-        this.mouseMoveHandle = ::this.mouseMoveHandle;
+        this.mouseMoveHandler = ::this.mouseMoveHandler;
         this.selectHandler = ::this.selectHandler;
         this.createItems = ::this.createItems;
 
@@ -38,7 +39,7 @@ export default class Rate extends Component {
 
     }
 
-    mouseMoveHandle(e) {
+    mouseMoveHandler(e) {
         const {disabled} = this.props;
         if (disabled) {
             return;
@@ -127,11 +128,11 @@ export default class Rate extends Component {
             value,
             items
         });
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandle);
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandle);
+        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     render() {
@@ -139,55 +140,56 @@ export default class Rate extends Component {
         const {className, style, allowHalf, disabled, count} = this.props,
             {items} = this.state,
 
-            warpStyle = {
-                width: count * 30
+            rateClassName = classNames('rate', {
+                [className]: className
+            }),
+
+            rateStyle = {
+                width: count * 30,
+                ...style
             };
 
         return (
-            <div className={`rate ${className ? className : ''}`}
-                 style={{...warpStyle, ...style}}
-                 ref="rate">
+            <div ref="rate"
+                 className={rateClassName}
+                 style={rateStyle}>
+
                 {
-                    items.map((item, index) => {
-                        if (allowHalf) {
-                            return (
-                                <div key={index}
-                                     className={`half-star ${disabled ? 'disabled' : ''}`}
-                                     data-key={index + 1}>
-                                    <div className="half-star-left">
-                                        <i className={`fa fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
-                                           data-key={index + 0.5}
-                                           onTouchTap={(e) => {
-                                               this.selectHandler(index + 0.5, e);
-                                           }}
-                                        ></i>
-                                    </div>
-                                    <div className="half-star-right">
-                                        <i className={`fa fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
-                                           data-key={index + 1}
-                                           onTouchTap={(e) => {
-                                               this.selectHandler(index + 1, e);
-                                           }}
-                                        ></i>
-                                    </div>
-                                </div>
-                            );
-                        } else {
-                            return (
-                                <div key={index}
-                                     className={`star ${disabled ? 'disabled' : ''}`}
-                                     data-key={index + 1}>
-                                    <i className={`fa fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
-                                       data-key={index + 1}
-                                       onTouchTap={(e) => {
-                                           this.selectHandler(index + 1, e);
-                                       }}
-                                    ></i>
-                                </div>
-                            );
-                        }
-                    })
+                    items.map((item, index) => allowHalf ?
+                        <div key={index}
+                             className={`half-star ${disabled ? 'disabled' : ''}`}
+                             data-key={index + 1}>
+                            <div className="half-star-left">
+                                <i className={`fa fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
+                                   data-key={index + 0.5}
+                                   onTouchTap={(e) => {
+                                       this.selectHandler(index + 0.5, e);
+                                   }}
+                                ></i>
+                            </div>
+                            <div className="half-star-right">
+                                <i className={`fa fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                   data-key={index + 1}
+                                   onTouchTap={(e) => {
+                                       this.selectHandler(index + 1, e);
+                                   }}
+                                ></i>
+                            </div>
+                        </div>
+                        :
+                        <div key={index}
+                             className={`star ${disabled ? 'disabled' : ''}`}
+                             data-key={index + 1}>
+                            <i className={`fa fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                               data-key={index + 1}
+                               onTouchTap={(e) => {
+                                   this.selectHandler(index + 1, e);
+                               }}
+                            ></i>
+                        </div>
+                    )
                 }
+
             </div>
         );
     }
@@ -238,3 +240,4 @@ Rate.defaultProps = {
 
 };
 
+export default Rate;

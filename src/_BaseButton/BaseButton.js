@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
@@ -14,7 +15,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-export default class BaseButton extends Component {
+class BaseButton extends Component {
 
     static Theme = Theme;
     static TipPosition = Position;
@@ -80,9 +81,13 @@ export default class BaseButton extends Component {
             } = this.props,
             {focused} = this.state,
 
-            buttonClassName = (focused ? ' focused' : '') + (theme ? ` theme-${theme}` : '')
-                + (isCircular ? ' button-circular' : (isRounded ? ' button-rounded' : ''))
-                + (className ? ' ' + className : ''),
+            buttonClassName = classNames('base-button', {
+                focused: focused,
+                [`theme-${theme}`]: theme,
+                'button-circular': isCircular,
+                'button-rounded': isRounded,
+                [className]: className
+            }),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -91,7 +96,7 @@ export default class BaseButton extends Component {
                          position={tipPosition}>
 
                 <button {...restProps}
-                        className={'base-button' + buttonClassName}
+                        className={buttonClassName}
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
@@ -219,3 +224,5 @@ BaseButton.defaultProps = {
     tipPosition: Position.BOTTOM
 
 };
+
+export default BaseButton;

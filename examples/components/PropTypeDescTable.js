@@ -5,7 +5,7 @@ import Table from 'src/Table';
 
 import 'sass/components/PropTypeDescTable.scss';
 
-export default class PropTypeDescTable extends Component {
+class PropTypeDescTable extends Component {
 
     constructor(props) {
 
@@ -67,3 +67,5 @@ PropTypeDescTable.propTypes = {
 PropTypeDescTable.defaultProps = {
     data: null
 };
+
+export default PropTypeDescTable;

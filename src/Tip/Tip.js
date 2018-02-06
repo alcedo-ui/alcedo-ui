@@ -10,7 +10,7 @@ import TipBody from '../_TipBody';
 
 import Position from '../_statics/Position';
 
-export default class Tip extends Component {
+class Tip extends Component {
 
     static Position = Position;
 
@@ -31,3 +31,5 @@ export default class Tip extends Component {
 
 Tip.propTypes = TipBody.propTypes;
 Tip.defaultProps = TipBody.defaultProps;
+
+export default Tip;

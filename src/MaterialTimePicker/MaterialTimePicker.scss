@@ -1,5 +1,5 @@
 /**
- * @file TimePicker style
+ * @file MaterialTimePicker style
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -97,8 +97,8 @@ input::-ms-clear {
             &:first-child {
                 border: none;
             }
-            &.hours{
-                .timeList{
+            &.hours {
+                .timeList {
                     height: 720px;
                 }
             }

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import EditableSelect from '../EditableSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -12,7 +13,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class MaterialEditableSelect extends Component {
+class MaterialEditableSelect extends Component {
 
     static Theme = Theme;
 
@@ -124,11 +125,20 @@ export default class MaterialEditableSelect extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            wrapperClassName = (isLabelAnimated ? ' animated' : '') + (label ? ' has-label' : '')
-                + (value ? ' has-value' : '') + (isFocus ? ' focused' : '') + (className ? ' ' + className : '');
+            wrapperClassName = classNames('material-editable-select', {
+                animated: isLabelAnimated,
+                'has-label': label,
+                'has-value': value,
+                focused: isFocus,
+                [className]: className
+            }),
+
+            selectClassName = classNames('material-editable-select-popup', {
+                [popupClassName]: popupClassName
+            });
 
         return (
-            <div className={'material-editable-select' + wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -142,7 +152,7 @@ export default class MaterialEditableSelect extends Component {
 
                 <EditableSelect {...restProps}
                                 ref="editableSelect"
-                                popupClassName={'material-editable-select-popup ' + popupClassName}
+                                popupClassName={selectClassName}
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
@@ -382,6 +392,8 @@ MaterialEditableSelect.defaultProps = {
     useFilter: false,
     noMatchedMsg: '',
     triggerTheme: Theme.DEFAULT,
-    isGrouped: false,
+    isGrouped: false
 
 };
+
+export default MaterialEditableSelect;

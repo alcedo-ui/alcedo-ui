@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Portal from '../Portal';
 import Notification from '../_Notification';
@@ -14,7 +15,7 @@ import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
-export default class Notifier extends Component {
+class Notifier extends Component {
 
     static Type = MsgType;
     static Position = Position;
@@ -132,18 +133,20 @@ export default class Notifier extends Component {
     render() {
 
         const {position} = this.props,
-            {notifications, visible} = this.state;
+            {notifications, visible} = this.state,
+
+            notifierClassName = classNames('notifier', {
+                [`notifier-position-${position}`]: position
+            });
 
         return visible ?
-            <Portal className={'notifier' + (position ? ` notifier-position-${position}` : '')}>
+            <Portal className={notifierClassName}>
                 {
-                    notifications.length > 0 ?
-                        notifications.map(options =>
-                            <Notification {...options}
-                                          key={options.notificationId}
-                                          onRequestClose={this.removeNotification}/>
-                        )
-                        : null
+                    notifications.map(options =>
+                        <Notification {...options}
+                                      key={options.notificationId}
+                                      onRequestClose={this.removeNotification}/>
+                    )
                 }
             </Portal>
             :
@@ -224,3 +227,5 @@ Notifier.defaultProps = {
     position: Position.BOTTOM_RIGHT
 
 };
+
+export default Notifier;

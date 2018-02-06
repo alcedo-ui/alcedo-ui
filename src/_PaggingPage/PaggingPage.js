@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
-export default class PaggingPage extends Component {
+class PaggingPage extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -262,3 +262,5 @@ PaggingPage.defaultProps = {
     paggingLastIconCls: 'fa fa-angle-double-right'
 
 };
+
+export default PaggingPage;

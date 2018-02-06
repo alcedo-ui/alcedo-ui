@@ -1,24 +1,12 @@
-@import '../../../../my-theme';
-
 .ghost-button-examples {
+    .ghost-button {
+        margin: 0 10px 10px 0;
 
-    .examples-wrapper {
-
-        .ghost-button {
-
-            margin: 0 10px 10px 0;
-
-            &.button-circular {
-
-                width: 60px;
-                height: 60px;
-                padding: 0;
-                line-height: 60px;
-
-            }
-
+        &.button-circular {
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            line-height: 60px;
         }
     }
-
 }
-

@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -15,7 +16,7 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-export default class EditableSelect extends Component {
+class EditableSelect extends Component {
 
     static Theme = Theme;
 
@@ -202,11 +203,15 @@ export default class EditableSelect extends Component {
                 }
             }],
 
-            triggerClassName = (popupVisible ? ' activated' : '') + (isAbove ? ' above' : ' blow')
-                + (value ? '' : ' empty'),
+            triggerClassName = classNames('editable-select-trigger', isAbove ? 'above' : 'blow', {
+                activated: popupVisible,
+                empty: !value
+            }),
 
-            editableSelectPopupClassName = (isAbove ? ' above' : ' blow')
-                + (popupClassName ? ' ' + popupClassName : ''),
+            editableSelectPopupClassName = classNames('editable-select-popup', isAbove ? 'above' : 'blow', {
+                [popupClassName]: popupClassName
+            }),
+
             editablePopupStyle = Object.assign({
                 width: this.triggerEl && getComputedStyle(this.triggerEl).width
             }, popupStyle),
@@ -228,7 +233,7 @@ export default class EditableSelect extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={'editable-select-trigger' + triggerClassName}
+                           className={triggerClassName}
                            value={value}
                            rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
                            placeholder={placeholder}
@@ -241,7 +246,7 @@ export default class EditableSelect extends Component {
 
 
                 <Popup ref="popup"
-                       className={'editable-select-popup' + editableSelectPopupClassName}
+                       className={editableSelectPopupClassName}
                        style={editablePopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
@@ -489,3 +494,5 @@ EditableSelect.defaultProps = {
     isGrouped: false
 
 };
+
+export default EditableSelect;

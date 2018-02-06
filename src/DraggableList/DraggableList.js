@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
+import classNames from 'classnames';
 
 import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
@@ -20,7 +21,7 @@ import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 const ScrollingComponent = withScrolling('div');
 
-export default class DraggableList extends Component {
+class DraggableList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
@@ -149,10 +150,13 @@ export default class DraggableList extends Component {
 
             } = this.props,
             {data, value} = this.state,
-            listClassName = (className ? ' ' + className : '');
+
+            listClassName = classNames('draggable-list', {
+                [className]: className
+            });
 
         return (
-            <ScrollingComponent className={'draggable-list' + listClassName}
+            <ScrollingComponent className={listClassName}
                                 disabled={disabled}
                                 style={style}
                                 strengthMultiplier={scrollSpeed}
@@ -479,3 +483,5 @@ DraggableList.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default DraggableList;

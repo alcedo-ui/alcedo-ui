@@ -6,13 +6,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
-export default class Toast extends Component {
+class Toast extends Component {
 
     static Type = MsgType;
 
@@ -118,11 +119,15 @@ export default class Toast extends Component {
         const {className, style, type, message, iconCls} = this.props,
             {hidden, leave} = this.state,
 
-            wrapperClassName = (hidden ? ' hidden' : '') + (leave ? ' leave' : '') + (className ? ' ' + className : '');
+            toastClassName = classNames('toast', {
+                hidden: hidden,
+                leave: leave,
+                [className]: className
+            });
 
         return (
             <RaisedButton ref="toast"
-                          className={'toast' + wrapperClassName}
+                          className={toastClassName}
                           style={style}
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
@@ -183,3 +188,5 @@ Toast.defaultProps = {
     duration: 2500
 
 };
+
+export default Toast;

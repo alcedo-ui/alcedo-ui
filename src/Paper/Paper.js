@@ -5,12 +5,13 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class Paper extends Component {
+class Paper extends Component {
 
     static Theme = Theme;
 
@@ -31,22 +32,18 @@ export default class Paper extends Component {
 
     render() {
 
-        const {
+        const {children, className, style, theme, depth, nonRounded, isCircular, ...restProps} = this.props,
 
-                children,
-
-                className, style, theme, depth, nonRounded, isCircular,
-
-                ...restProps
-
-            } = this.props,
-
-            paperClassName = (depth ? ` depth-${this.formatDepth(depth)}` : '') + (theme ? ` theme-${theme}` : '')
-                + (nonRounded ? ' nonRounded' : (isCircular ? ' circular' : '')) + (className ? ' ' + className : '');
+            paperClassName = classNames('paper',
+                nonRounded ? 'nonRounded' : (isCircular ? 'circular' : ''), {
+                    [`depth-${this.formatDepth(depth)}`]: depth,
+                    [`theme-${theme}`]: theme,
+                    [className]: className
+                });
 
         return (
             <div {...restProps}
-                 className={'paper' + paperClassName}
+                 className={paperClassName}
                  style={style}>
                 {children}
             </div>
@@ -100,3 +97,5 @@ Paper.defaultProps = {
     isCircular: false
 
 };
+
+export default Paper;

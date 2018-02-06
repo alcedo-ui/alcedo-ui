@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Paper from '../Paper';
 import Theme from '../Theme';
@@ -17,7 +18,7 @@ import PopupCalculation from '../_vendors/PopupCalculation';
 
 import Position from '../_statics/Position';
 
-export default class TipBody extends Component {
+class TipBody extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -127,9 +128,15 @@ export default class TipBody extends Component {
             } = this.props,
             {visible} = this.state,
 
-            tipClassName = (visible ? '' : ' hidden') + (hasTriangle ? ' tip-has-triangle' : '')
-                + (theme ? ` theme-${theme}` : '') + (position ? ` tip-position-${position}` : '')
-                + (isAnimated ? ' tip-animated' : '') + (className ? ' ' + className : ''),
+
+            tipClassName = classNames('tip', {
+                hidden: !visible,
+                'tip-has-triangle': hasTriangle,
+                [`theme-${theme}`]: theme,
+                [`tip-position-${position}`]: position,
+                'tip-animated': isAnimated,
+                [className]: className
+            }),
             tipStyle = {
                 ...PopupCalculation.getStyle(triggerEl, this.tipEl, position, isTriggerPositionFixed),
                 ...style
@@ -137,7 +144,7 @@ export default class TipBody extends Component {
 
         return (
             <Paper ref="tip"
-                   className={'tip' + tipClassName}
+                   className={tipClassName}
                    style={tipStyle}
                    depth={depth}
                    onWheel={e => {
@@ -253,3 +260,5 @@ TipBody.defaultProps = {
     isTriggerPositionFixed: false
 
 };
+
+export default TipBody;

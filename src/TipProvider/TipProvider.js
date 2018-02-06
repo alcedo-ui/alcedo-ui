@@ -12,7 +12,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-export default class TipProvider extends Component {
+class TipProvider extends Component {
 
     static Position = Tip.Position;
     static Theme = Theme;
@@ -173,3 +173,5 @@ TipProvider.defaultProps = {
     text: null
 
 };
+
+export default TipProvider;

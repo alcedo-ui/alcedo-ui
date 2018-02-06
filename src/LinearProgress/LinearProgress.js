@@ -5,11 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Theme from '../Theme';
+import classNames from 'classnames';
 
+import Theme from '../Theme';
 import Percent from '../_Percent';
 
-export default class LinearProgress extends Component {
+class LinearProgress extends Component {
 
     static WordStyle = {
         FRONT: 'linear-progress-one',
@@ -33,40 +34,57 @@ export default class LinearProgress extends Component {
     }
 
     render() {
-        const {className, highlightWidth, style, word, wordStyle, theme, animation} = this.props;
 
-        const highlightStyle = {
-            width: highlightWidth
-        }, percentStyle = {
-            marginLeft: this.getProgressWidth()
-        };
+        const {className, highlightWidth, style, word, wordStyle, theme, animation} = this.props,
+
+            progressClassName = classNames('linear-progress', {
+                [wordStyle]: wordStyle,
+                [`theme-${theme}`]: theme,
+                [className]: className
+            }),
+
+            highlightClassName = classNames('linear-progress-highlight', {
+                'linear-progress-animate': animation
+            }),
+            highlightStyle = {
+                width: highlightWidth
+            },
+            percentStyle = {
+                marginLeft: this.getProgressWidth()
+            };
 
         return (
-            <div className={`linear-progress ${wordStyle} ${theme ? `theme-${theme}` : ''} ${className}`}
+            <div className={progressClassName}
                  style={style}
                  ref="progress">
+
                 {
-                    word
-                        ? (
-                            wordStyle === LinearProgress.WordStyle.FOLLOW
-                                ? <Percent endNum={parseInt(highlightWidth)}
-                                           move={true}/>
-                                : <Percent endNum={parseInt(highlightWidth)}/>
+                    word ?
+                        (
+                            wordStyle === LinearProgress.WordStyle.FOLLOW ?
+                                <Percent endNum={parseInt(highlightWidth)}
+                                         move={true}/>
+                                :
+                                <Percent endNum={parseInt(highlightWidth)}/>
                         )
-                        : null
+                        :
+                        null
                 }
+
                 <div className="linear-progress-background">
-                    <div className={`linear-progress-highlight ${animation ? 'linear-progress-animate' : ''}`}
+                    <div className={highlightClassName}
                          style={highlightStyle}>
                         {
-                            wordStyle === LinearProgress.WordStyle.MIDDLE
-                                ? <Percent endNum={parseInt(highlightWidth)}
-                                           className="linear-progress-word"
-                                           style={percentStyle}/>
-                                : null
+                            wordStyle === LinearProgress.WordStyle.MIDDLE ?
+                                <Percent className="linear-progress-word"
+                                         style={percentStyle}
+                                         endNum={parseInt(highlightWidth)}/>
+                                :
+                                null
                         }
                     </div>
                 </div>
+
             </div>
         );
     }
@@ -125,3 +143,5 @@ LinearProgress.defaultProps = {
     animation: false
 
 };
+
+export default LinearProgress;

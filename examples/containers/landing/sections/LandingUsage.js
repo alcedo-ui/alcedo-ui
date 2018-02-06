@@ -4,7 +4,7 @@ import landingExampleHTML from './landingExample.html';
 
 import 'sass/containers/landing/sections/LandingUsage.scss';
 
-export default class LandingUsage extends Component {
+class LandingUsage extends Component {
 
     constructor(props) {
         super(props);
@@ -35,3 +35,5 @@ export default class LandingUsage extends Component {
         );
     }
 }
+
+export default LandingUsage;

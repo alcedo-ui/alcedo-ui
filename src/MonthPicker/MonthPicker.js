@@ -7,18 +7,21 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Month from '../_MonthPicker';
 import Year from '../_YearPicker';
 import Popup from '../Popup';
 
-export default class MonthPicker extends Component {
+class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
         this.validValue = true;
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -143,12 +146,17 @@ export default class MonthPicker extends Component {
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state;
-        let textValue = value && moment(value).format(dateFormat);
+            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
+
+            pickerClassName = classNames('month-picker', {
+                [className]: className
+            }),
+
+            textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div className={`month-picker ${className}`}
-                 ref="datePicker">
+            <div ref="datePicker"
+                 className={pickerClassName}>
 
                 <TextField className="month-picker-field"
                            name={name}
@@ -160,13 +168,15 @@ export default class MonthPicker extends Component {
                            onTouchTap={e => {
                                this.togglePopup(e);
                            }}/>
-                <Popup className={`month-picker-popup`}
+
+                <Popup className="month-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
+
                     <TextField className='calendar-input'
                                placeholder={placeholder}
                                clearButtonVisible={false}
@@ -261,3 +271,5 @@ MonthPicker.defaultProps = {
     autoClose: true,
     isFooter: true
 };
+
+export default MonthPicker;

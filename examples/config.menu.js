@@ -1,4 +1,6 @@
 import ColorPicker from '../src/ColorPicker/ColorPicker';
+import AutoCompleteFilter from '../src/AutoCompleteFilter/AutoCompleteFilter';
+import MaterialAutoCompleteFilter from '../src/MaterialAutoCompleteFilter/MaterialAutoCompleteFilter';
 
 export default [{
     text: 'Button',
@@ -167,6 +169,12 @@ export default [{
     }, {
         text: 'MaterialDropdownFilter',
         route: '/components/MaterialDropdownFilter'
+    }, {
+        text: 'AutoCompleteFilter',
+        route: '/components/AutoCompleteFilter'
+    }, {
+        text: 'MaterialAutoCompleteFilter',
+        route: '/components/MaterialAutoCompleteFilter'
     }]
 }, {
     text: 'Progress',
@@ -236,6 +244,9 @@ export default [{
     }, {
         text: 'MaterialProvider',
         route: '/components/MaterialProvider'
+    }, {
+        text: 'TimeLine',
+        route: '/components/TimeLine'
     }]
 }, {
     text: 'Loading',
@@ -288,9 +299,6 @@ export default [{
         text: 'Notification',
         route: '/components/Notification'
     }]
-}, {
-    text: 'TimeLine',
-    route: '/components/TimeLine'
 }, {
     text: 'Media',
     children: [{

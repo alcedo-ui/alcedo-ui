@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Crumbs from 'src/Crumbs';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import CrumbsDoc from 'assets/propTypes/Crumbs.json';
+import doc from 'assets/propTypes/Crumbs.json';
 
 import 'sass/containers/app/modules/layout/CrumbsExamples.scss';
 
@@ -62,7 +62,7 @@ export default class CrumbsExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Crumbs items={this.items}/>
+                                <Crumbs data={this.items}/>
 
                             </div>
                         </div>
@@ -80,7 +80,7 @@ export default class CrumbsExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Crumbs items={this.selfDefineItems}
+                                <Crumbs data={this.selfDefineItems}
                                         itemRenderer={item => (
                                             <Link className="crumbs-link"
                                                   to={item.route}>
@@ -96,7 +96,7 @@ export default class CrumbsExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={CrumbsDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

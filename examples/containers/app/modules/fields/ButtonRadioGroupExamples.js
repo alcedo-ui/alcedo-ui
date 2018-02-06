@@ -5,9 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import ButtonRadioGroupDoc from 'assets/propTypes/ButtonRadioGroup.json';
-
-import 'sass/containers/app/modules/fields/ButtonCheckboxExamples.scss';
+import doc from 'assets/propTypes/ButtonRadioGroup.json';
 
 export default class ButtonRadioGroupExamples extends Component {
 
@@ -139,7 +137,7 @@ export default class ButtonRadioGroupExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={ButtonRadioGroupDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

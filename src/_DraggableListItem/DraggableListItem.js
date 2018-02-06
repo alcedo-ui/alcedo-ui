@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
+import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
@@ -28,7 +29,7 @@ const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
-export default class DraggableListItem extends Component {
+class DraggableListItem extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -158,8 +159,13 @@ export default class DraggableListItem extends Component {
             } = this.props,
             {checked, tipVisible} = this.state,
 
-            listItemClassName = (theme ? ` theme-${theme}` : '') + (checked ? ' activated' : '')
-                + (isDragging ? ' dragging' : '') + (className ? ' ' + className : ''),
+            listItemClassName = classNames('draggable-list-item', {
+                [`theme-${theme}`]: theme,
+                activated: checked,
+                dragging: isDragging,
+                [className]: className
+            }),
+
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
 
             anchorEl = <i className={`${anchorIconCls} draggable-list-item-anchor`}
@@ -168,7 +174,7 @@ export default class DraggableListItem extends Component {
             el = connectDropTarget(
                 <div {...restProps}
                      ref={el => this.tipTriggerEl = el}
-                     className={'draggable-list-item' + listItemClassName}
+                     className={listItemClassName}
                      disabled={disabled || isLoading}
                      onTouchTap={this.touchTapHandler}
                      onMouseOver={this.mouseOverHandler}>
@@ -375,3 +381,5 @@ DraggableListItem.defaultProps = {
     anchorIconCls: 'fa fa-bars'
 
 };
+
+export default DraggableListItem;

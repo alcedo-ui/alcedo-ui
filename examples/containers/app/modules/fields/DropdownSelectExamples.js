@@ -6,7 +6,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import DropdownSelectDoc from 'assets/propTypes/DropdownSelect.json';
+import doc from 'assets/propTypes/DropdownSelect.json';
 
 import 'sass/containers/app/modules/fields/DropdownSelectExamples.scss';
 
@@ -172,7 +172,7 @@ export default class DropdownSelectExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={DropdownSelectDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

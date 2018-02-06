@@ -1,12 +1,8 @@
-@import '../../../../my-theme';
+@import '../../../../my-theme.scss';
 
 .crumbs-examples {
-
-    .examples-wrapper {
-
-        .crumbs-link {
-            color: $theme-primary;
-            text-decoration: none;
-        }
+    .crumbs-link {
+        color: $theme-primary;
+        text-decoration: none;
     }
 }

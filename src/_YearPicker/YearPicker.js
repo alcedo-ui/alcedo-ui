@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-export default class YearPicker extends Component {
+class YearPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -204,3 +204,5 @@ YearPicker.propTypes = {
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func
 };
+
+export default YearPicker;

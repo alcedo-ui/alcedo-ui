@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import GridItem from '../_GridItem';
 import Tip from '../Tip';
@@ -16,7 +17,7 @@ import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 
-export default class Grid extends Component {
+class Grid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
@@ -187,10 +188,12 @@ export default class Grid extends Component {
 
         const {children, className, style, data, disabled} = this.props,
 
-            listClassName = (className ? ' ' + className : '');
+            gridClassName = classNames('grid', {
+                [className]: className
+            });
 
         return (
-            <div className={'grid' + listClassName}
+            <div className={gridClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
@@ -421,3 +424,5 @@ Grid.defaultProps = {
     col: 3
 
 };
+
+export default Grid;

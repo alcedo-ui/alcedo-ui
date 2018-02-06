@@ -1,5 +1,5 @@
 /**
- * @file DatePicker style
+ * @file MaterialDateTimePicker style
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -48,7 +48,7 @@ input::-ms-clear {
 
 }
 
-.popup{
+.popup {
     &.material-date-time-picker-popup {
         @include shadow(3);
         width: 300px;
@@ -144,7 +144,7 @@ input::-ms-clear {
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                            &:hover{
+                            &:hover {
                                 a {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
@@ -156,7 +156,7 @@ input::-ms-clear {
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
-                                &:hover{
+                                &:hover {
                                     a {
                                         background: theme-color-hover($theme-highlight);
                                     }
@@ -197,8 +197,8 @@ input::-ms-clear {
                             }
 
                             &.current-months,
-                            &.current-years{
-                                &:hover{
+                            &.current-years {
+                                &:hover {
                                     a {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;

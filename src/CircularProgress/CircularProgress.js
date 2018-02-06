@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Percent from '../_Percent';
 
-export default class CircularProgress extends Component {
+class CircularProgress extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -30,12 +31,16 @@ export default class CircularProgress extends Component {
                 height: (r + width) * 2,
                 ...style
             },
+
+            circleClassName = classNames('circular-progress', {
+                [className]: className
+            }),
             circleStyle = {
                 strokeDasharray: percent / 100 * l + ',' + l
             };
 
         return (
-            <div className={'circular-progress' + (className ? ' ' + className : '')}
+            <div className={circleClassName}
                  style={svgStyle}>
 
                 <svg className="circular-progress-svg">
@@ -123,3 +128,4 @@ CircularProgress.defaultProps = {
 
 };
 
+export default CircularProgress;

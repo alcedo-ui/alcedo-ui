@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import ListItem from '../_ListItem';
 import Tip from '../Tip';
@@ -17,7 +18,7 @@ import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
-export default class List extends Component {
+class List extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
@@ -33,6 +34,7 @@ export default class List extends Component {
 
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
+        this.adjustScroll = ::this.adjustScroll;
         this.renderListItem = ::this.renderListItem;
 
     }
@@ -93,6 +95,34 @@ export default class List extends Component {
             onChange && onChange(value, index);
         });
 
+    }
+
+    adjustScroll() {
+
+        const {data} = this.props,
+            {value} = this.state,
+            index = data.indexOf(value);
+
+        if (index < 0) {
+            return;
+        }
+
+        const listHeight = this.listEl.clientHeight,
+            listScrollTop = this.listEl.scrollTop,
+            itemEl = this.listEl.childNodes[index],
+            itemHeight = itemEl.clientHeight,
+            itemTop = itemEl.offsetTop;
+
+        if (itemTop < listScrollTop) {
+            this.listEl.scrollTop = itemTop;
+        } else if (itemTop + itemHeight > listScrollTop + listHeight) {
+            this.listEl.scrollTop = itemTop + itemHeight - listHeight;
+        }
+
+    }
+
+    componentDidMount() {
+        this.listEl = this.refs.list;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -186,10 +216,14 @@ export default class List extends Component {
     render() {
 
         const {children, className, style, data, disabled} = this.props,
-            listClassName = (className ? ' ' + className : '');
+
+            listClassName = classNames('list', {
+                [className]: className
+            });
 
         return (
-            <div className={'list' + listClassName}
+            <div ref="list"
+                 className={listClassName}
                  disabled={disabled}
                  style={style}
                  onWheel={e => {
@@ -197,16 +231,12 @@ export default class List extends Component {
                  }}>
 
                 {
-                    data.map((item, index) => {
-
-                        if (item === LIST_SEPARATOR) {
-                            return <div key={index}
-                                        className="list-separator"></div>;
-                        }
-
-                        return this.renderListItem(item, index);
-
-                    })
+                    data.map((item, index) => item === LIST_SEPARATOR ?
+                        <div key={index}
+                             className="list-separator"></div>
+                        :
+                        this.renderListItem(item, index)
+                    )
                 }
 
                 {children}
@@ -427,3 +457,5 @@ List.defaultProps = {
     checkboxIndeterminateIconCls: 'fa fa-minus-square'
 
 };
+
+export default List;

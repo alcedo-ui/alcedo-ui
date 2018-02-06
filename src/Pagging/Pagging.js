@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
 
-export default class Pagging extends Component {
+class Pagging extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -197,3 +197,5 @@ Pagging.defaultProps = {
     paggingLastIconCls: 'fa fa-angle-double-right'
 
 };
+
+export default Pagging;

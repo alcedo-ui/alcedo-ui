@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Event from '../_vendors/Event';
 
-export default class Slider extends Component {
+class Slider extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -209,56 +210,75 @@ export default class Slider extends Component {
     }
 
     render() {
-        const {leftPoint, scale, width, showScale, decimalPlaces, className, style, tipShow} = this.props;
-        const {left, right, shadow, tip} = this.state;
-        const grayStyle = {
+
+        const {leftPoint, scale, width, showScale, decimalPlaces, className, style} = this.props,
+            {left, right, shadow, tip} = this.state,
+
+            sliderClassName = classNames('slider', {
+                [className]: className
+            }),
+            sliderStyle = {
                 ...style,
                 width
             },
+
             highStyle = {width: Math.abs(left - right), left: Math.min(left, right)},
             leftStyle = {left: left},
-            rightStyle = {left: right};
-        let display = (tip || shadow) ? '' : 'hide',
+            rightStyle = {left: right},
+
+            display = (tip || shadow) ? '' : 'hide',
             leftShadow = shadow === 'left' ? 'slider-shadow' : '',
-            rightShadow = shadow === 'right' ? 'slider-shadow' : '';
-        let leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
+            rightShadow = shadow === 'right' ? 'slider-shadow' : '',
+
+            leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
             rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
 
         return (
-            <div className={`slider ${className}`}
-                 style={grayStyle}>
-                <div className="slider-box"
-                     onMouseDown={this.clickHandle}
-                     ref="sliderBox">
+            <div className={sliderClassName}
+                 style={sliderStyle}>
+
+                <div ref="sliderBox"
+                     className="slider-box"
+                     onMouseDown={this.clickHandle}>
+
                     {
-                        leftPoint
-                            ? (<div className={`slider-circle slider-circle-left ${leftShadow}`}
-                                    onMouseDown={this.downHandle}
-                                    style={leftStyle}
-                                    ref="circleLeft"></div>)
-                            : null
+                        leftPoint ?
+                            <div ref="circleLeft"
+                                 className={`slider-circle slider-circle-left ${leftShadow}`}
+                                 style={leftStyle}
+                                 onMouseDown={this.downHandle}></div>
+                            :
+                            null
                     }
-                    <div className={`slider-circle slider-circle-right ${rightShadow}`}
-                         onMouseDown={this.downHandle}
+
+                    <div ref="circleRight"
+                         className={`slider-circle slider-circle-right ${rightShadow}`}
                          style={rightStyle}
-                         ref="circleRight"></div>
+                         onMouseDown={this.downHandle}></div>
                     <div className="slider-highlight"
                          style={highStyle}></div>
+
                     {
 
-                        shadow === 'left' || tip === 'left'
-                            ? <div className={`slider-tip ${display}`}
-                                   style={leftStyle}>{leftTip}</div>
-                            : <div className={`slider-tip ${display}`}
-                                   style={rightStyle}>{rightTip}</div>
+                        shadow === 'left' || tip === 'left' ?
+                            <div className={`slider-tip ${display}`}
+                                 style={leftStyle}>
+                                {leftTip}
+                            </div>
+                            :
+                            <div className={`slider-tip ${display}`}
+                                 style={rightStyle}>
+                                {rightTip}
+                            </div>
 
                     }
 
                 </div>
+
                 <div className="Slide-scale">
                     {
-                        showScale
-                            ? <ul>
+                        showScale ?
+                            <ul>
                                 {
                                     scale.map((number, index) => {
                                         let left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100;
@@ -268,10 +288,11 @@ export default class Slider extends Component {
                                     })
                                 }
                             </ul>
-                            : null
+                            :
+                            null
                     }
-
                 </div>
+
             </div>
         );
     }
@@ -310,11 +331,6 @@ Slider.propTypes = {
     showScale: PropTypes.bool,
 
     /**
-     * If true,the tip will display.
-     */
-    tipShow: PropTypes.bool,
-
-    /**
      * The granularity the slider can step through values.
      */
     ruler: PropTypes.number,
@@ -340,8 +356,8 @@ Slider.defaultProps = {
     width: 300,
     scale: [0, 100],
     showScale: false,
-    tipShow: true,
     decimalPlaces: 0
 
 };
 
+export default Slider;

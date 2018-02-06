@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import EditableField from '../EditableField';
 import IconButton from '../IconButton';
@@ -14,7 +15,7 @@ import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
 
-export default class TagField extends Component {
+class TagField extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -77,7 +78,7 @@ export default class TagField extends Component {
         while (x >= minX) {
 
             const item = document.elementFromPoint(x, y),
-                wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+                wrapperEl = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
 
             if (wrapperEl) {
                 inputIndex = +wrapperEl.dataset.index + 1;
@@ -92,7 +93,7 @@ export default class TagField extends Component {
             while (x <= maxX) {
 
                 const item = document.elementFromPoint(x, y),
-                    wrapperEl = Dom.findParent(item, 'tag-field-item-wrapper');
+                    wrapperEl = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
 
                 if (wrapperEl) {
                     inputIndex = +wrapperEl.dataset.index;
@@ -110,7 +111,7 @@ export default class TagField extends Component {
 
     mouseDownHandler(e) {
 
-        if (this.props.disabled || Dom.findParent(e.target, 'tag-field-item-wrapper')
+        if (this.props.disabled || Dom.findParentByClassName(e.target, 'tag-field-item-wrapper')
             || Dom.hasClass(e.target, 'tag-field-input')) {
             return;
         }
@@ -119,7 +120,7 @@ export default class TagField extends Component {
 
             return () => {
 
-                if (Dom.findParent(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
+                if (Dom.findParentByClassName(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
                     this.setState({
                         inputIndex: this.state.data.length
                     });
@@ -336,14 +337,18 @@ export default class TagField extends Component {
         const {className, style, valueField, displayField, disabled, placeholder, clearButtonVisible} = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
-            tagFieldClassName = (clearButtonVisible ? ' with-clear' : '') + (className ? ' ' + className : '');
+            fieldClassName = classNames('tag-field', {
+                'with-clear': clearButtonVisible,
+                [className]: className
+            }),
 
-        const indexData = Util.genIndexArray(data.length);
+            indexData = Util.genIndexArray(data.length);
+
         indexData.splice(inputIndex, 0, this.inputSymbol);
 
         return (
             <div ref="wrapper"
-                 className={'tag-field' + tagFieldClassName}
+                 className={fieldClassName}
                  style={style}
                  disabled={disabled}
                  onWheel={e => {
@@ -468,3 +473,5 @@ TagField.defaultProps = {
     shouldPreventContainerScroll: true
 
 };
+
+export default TagField;

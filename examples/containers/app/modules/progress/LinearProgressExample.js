@@ -1,24 +1,24 @@
-/**
- * Created by DT314 on 2017/4/10.
- */
 import React, {Component} from 'react';
 
-import LinearProgress from '../../../../../src/LinearProgress';
+import LinearProgress from 'src/LinearProgress';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import LinearProgressDoc from 'assets/propTypes/LinearProgress.json';
+import doc from 'assets/propTypes/LinearProgress.json';
 
 import 'sass/containers/app/modules/progress/LinearProgressExample.scss';
 
 export default class LinearProgressExample extends Component {
 
     constructor(props) {
+
         super(props);
+
         this.state = {
             percent: 0
         };
+
     }
 
     componentDidMount() {
@@ -46,6 +46,7 @@ export default class LinearProgressExample extends Component {
     }
 
     render() {
+
         const style1 = {
             width: '300px',
             height: '30px',
@@ -64,6 +65,7 @@ export default class LinearProgressExample extends Component {
         }, progressGroup = {
             marginBottom: '20px'
         };
+
         return (
 
             <div className="example linear-progress-examples">
@@ -152,7 +154,7 @@ export default class LinearProgressExample extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={LinearProgressDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

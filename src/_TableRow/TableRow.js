@@ -2,10 +2,12 @@
  * @file TableRow component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class TableRow extends Component {
+class TableRow extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -51,33 +53,26 @@ export default class TableRow extends Component {
     }
 
     rowTouchTapHandler(e) {
-
-        e.preventDefault();
-
         const {data, rowIndex, disabled, onRowTouchTap} = this.props;
-
-        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex);
-
+        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex, e);
     }
 
     cellTouchTapHandler(e, colIndex) {
-
-        e.preventDefault();
-
         const {data, rowIndex, disabled, onCellTouchTap} = this.props;
-
-        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex);
-
+        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
     }
 
     render() {
 
         const {data, columns, isChecked, disabled} = this.props,
 
-            trClassName = (isChecked ? ' activated' : '') + (data.rowClassName ? ' ' + data.rowClassName : '');
+            trClassName = classNames('table-row', {
+                activated: isChecked,
+                [data.rowClassName]: data.rowClassName
+            });
 
         return (
-            <tr className={'table-row' + trClassName}
+            <tr className={trClassName}
                 style={data.rowStyle}
                 disabled={disabled}
                 onTouchTap={this.rowTouchTapHandler}>
@@ -121,3 +116,5 @@ TableRow.defaultProps = {
     isChecked: false,
     disabled: false
 };
+
+export default TableRow;

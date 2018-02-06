@@ -13,7 +13,7 @@ import LandingFoot from './LandingFoot';
 
 import 'sass/containers/landing/Landing.scss';
 
-export default class Landing extends Component {
+class Landing extends Component {
 
     constructor(props) {
 
@@ -72,3 +72,5 @@ export default class Landing extends Component {
 
     }
 }
+
+export default Landing;

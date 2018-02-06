@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Util from '../_vendors/Util';
 
-export default class CircularLoading extends Component {
+class CircularLoading extends Component {
 
     static Size = {
         DEFAULT: '',
@@ -24,14 +25,17 @@ export default class CircularLoading extends Component {
 
         const {className, style, size, theme, type, weight} = this.props,
 
-            loadingClassName = (size ? ` circular-loading-size-${size}` : '') + (className ? ' ' + className : ''),
+            loadingClassName = classNames('circular-loading', {
+                [`circular-loading-size-${size}`]: size,
+                [className]: className
+            }),
             border = {
                 borderWidth: weight
             };
 
         return (
 
-            <div className={'circular-loading' + loadingClassName}
+            <div className={loadingClassName}
                  type={type}
                  style={style}>
 
@@ -105,3 +109,5 @@ CircularLoading.defaultProps = {
     type: 'solid'
 
 };
+
+export default CircularLoading;

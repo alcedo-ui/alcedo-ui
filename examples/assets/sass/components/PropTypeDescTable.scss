@@ -3,4 +3,8 @@
 .prop-type-desc-table-wrapper {
     overflow-x: auto;
     overflow-y: visible;
+
+    .prop-type-desc-table {
+        border: none;
+    }
 }

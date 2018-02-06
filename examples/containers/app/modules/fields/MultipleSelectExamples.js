@@ -5,7 +5,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import MultipleSelectDoc from 'assets/propTypes/MultipleSelect.json';
+import doc from 'assets/propTypes/MultipleSelect.json';
 
 import 'sass/containers/app/modules/fields/MultipleSelectExamples.scss';
 
@@ -162,7 +162,7 @@ export default class MultipleSelectExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={MultipleSelectDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );

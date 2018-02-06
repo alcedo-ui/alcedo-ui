@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class TextFieldGroup extends Component {
+class TextFieldGroup extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -14,10 +15,14 @@ export default class TextFieldGroup extends Component {
 
     render() {
 
-        const {children, className, style} = this.props;
+        const {children, className, style} = this.props,
+
+            groupClassName = classNames('text-field-group', {
+                [className]: className
+            });
 
         return (
-            <div className={`text-field-group ${className}`}
+            <div className={groupClassName}
                  style={style}>
                 {children}
             </div>
@@ -35,3 +40,5 @@ TextFieldGroup.defaultProps = {
     className: '',
     style: null
 };
+
+export default TextFieldGroup;

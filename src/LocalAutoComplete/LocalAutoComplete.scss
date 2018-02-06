@@ -36,18 +36,22 @@
 
 .local-auto-complete-popup {
     box-sizing: border-box;
-    max-height: 240px;
     border: 1px solid $theme-border;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    overflow-y: auto;
+    overflow: hidden;
 
     .popup-content {
         border-radius: 0 !important;
 
-        .local-auto-complete-list,
-        .list {
+        .local-auto-complete-list {
             width: 100%;
+            max-height: 240px;
+            overflow-y: auto;
+
+            .list-item.activated {
+                background: $theme-field-bg-active;
+            }
 
             .no-matched-list-item {
                 line-height: 40px;

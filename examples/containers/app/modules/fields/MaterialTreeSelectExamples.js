@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialTreeSelect from 'src/MaterialTreeSelect';
-import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
@@ -80,7 +79,7 @@ export default class MaterialTreeSelectExamples extends Component {
 
                                 <p><code>Tree</code>simple example.</p>
 
-                                <MaterialTreeSelect theme={Theme.HIGHLIGHT}
+                                <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
                                                     data={this.data}
                                                     value={{
                                                         id: '010',
@@ -109,7 +108,7 @@ export default class MaterialTreeSelectExamples extends Component {
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialTreeSelect theme={Theme.HIGHLIGHT}
+                                    <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
                                                         label="Label"
                                                         placeholder="Placeholder"
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}

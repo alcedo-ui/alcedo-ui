@@ -7,10 +7,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import TimeItems from '../_TimeItems';
 
-export default class TimeList extends Component {
+class TimeList extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -285,29 +286,35 @@ export default class TimeList extends Component {
     }
 
     render() {
-        const {className, popupVisible, dateFormat} = this.props;
-        const {hour, minute, second, hoursData, minutesData, secondsData} = this.state;
-        const TimeItemsStyle = {
-            width: 100 / (dateFormat.split(':').length) + '%'
-        };
+
+        const {className, popupVisible, dateFormat} = this.props,
+            {hour, minute, second, hoursData, minutesData, secondsData} = this.state,
+
+            calendarClassName = classNames('calendar', {
+                [className]: className
+            }),
+            itemsStyle = {
+                width: 100 / (dateFormat.split(':').length) + '%'
+            };
+
         return (
-            <div className={`calendar ${className ? className : ''}`}>
+            <div className={calendarClassName}>
+
                 <TimeItems className="hours"
-                           style={TimeItemsStyle}
+                           style={itemsStyle}
                            data={hoursData}
                            value={hour}
                            popupVisible={popupVisible}
-                           onChange={this.hourChangeHandle}
-                />
+                           onChange={this.hourChangeHandle}/>
+
                 {
                     dateFormat.split(':').length > 1 ?
                         <TimeItems className="minutes"
-                                   style={TimeItemsStyle}
+                                   style={itemsStyle}
                                    data={minutesData}
                                    value={minute}
                                    popupVisible={popupVisible}
-                                   onChange={this.minuteChangeHandle}
-                        />
+                                   onChange={this.minuteChangeHandle}/>
                         :
                         null
                 }
@@ -315,12 +322,11 @@ export default class TimeList extends Component {
                 {
                     dateFormat.split(':').length > 2 ?
                         <TimeItems className="seconds"
-                                   style={TimeItemsStyle}
+                                   style={itemsStyle}
                                    data={secondsData}
                                    value={second}
                                    popupVisible={popupVisible}
-                                   onChange={this.secondChangeHandle}
-                        />
+                                   onChange={this.secondChangeHandle}/>
                         :
                         null
                 }
@@ -344,3 +350,5 @@ TimeList.propTypes = {
     minValue: PropTypes.string
 
 };
+
+export default TimeList;

@@ -4,10 +4,10 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ColorPicker from 'src/ColorPicker';
 
-import Color from 'src/_vendors/Color';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ColorPicker.json';
+
+import Color from 'src/_vendors/Color';
 
 import 'sass/containers/app/modules/media/ColorPickerExamples.scss';
 

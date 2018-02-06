@@ -7,13 +7,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-transition-group';
+import classNames from 'classnames';
 
 import Ripple from '../_Ripple';
 
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 
-export default class TouchRipple extends Component {
+class TouchRipple extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -134,12 +135,16 @@ export default class TouchRipple extends Component {
 
     render() {
 
-        const {className, style} = this.props;
-        const {ripples} = this.state;
+        const {className, style} = this.props,
+            {ripples} = this.state,
+
+            wrapperClassName = classNames('touch-ripple', {
+                [className]: className
+            });
 
         return (
             <ReactCSSTransitionGroup component="div"
-                                     className={`touch-ripple ${className}`}
+                                     className={wrapperClassName}
                                      style={style}
                                      onMouseDown={this.mouseDownHandle}
                                      onMouseUp={this.removeRipple}
@@ -173,3 +178,5 @@ TouchRipple.defaultProps = {
     displayCenter: false
 
 };
+
+export default TouchRipple;

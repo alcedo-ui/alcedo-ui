@@ -5,8 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class MaterialProvider extends Component {
+class MaterialProvider extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -14,11 +15,15 @@ export default class MaterialProvider extends Component {
 
     render() {
 
-        const {children, className, label, ...restProps} = this.props;
+        const {children, className, label, ...restProps} = this.props,
+
+            providerClassName = classNames('material-provider', {
+                [className]: className
+            });
 
         return (
             <div {...restProps}
-                 className={'material-provider' + (className ? ' ' + className : '')}>
+                 className={providerClassName}>
 
                 {
                     label ?
@@ -61,3 +66,5 @@ MaterialProvider.defaultProps = {
     label: null
 
 };
+
+export default MaterialProvider;

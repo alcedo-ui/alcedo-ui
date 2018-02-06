@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export default class PageLoading extends Component {
+class PageLoading extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.unrenderTimeout = null;
+
         this.loadingArray = [{
             width: 0,
             timeout: 1
@@ -29,6 +31,7 @@ export default class PageLoading extends Component {
             width: 95,
             timeout: 25000
         }];
+
         this.finishedArray = [{
             width: 100,
             timeout: 250
@@ -79,21 +82,25 @@ export default class PageLoading extends Component {
     }
 
     render() {
-        const {className, style} = this.props;
+
+        const {className, style} = this.props,
+
+            loadingClassName = classNames('page-loading', 'page-loading-one', {
+                [className]: className
+            });
 
         return (
-            <div>
-                <div className={`page-loading page-loading-one ${className}`}
-                     style={style}
-                     ref="progress">
-                    <div className="page-loading-background">
-                        <div className={`page-loading-highlight`}
-                             ref="highlight">
-                        </div>
+            <div ref="progress"
+                 className={loadingClassName}
+                 style={style}>
+                <div className="page-loading-background">
+                    <div ref="highlight"
+                         className={`page-loading-highlight`}>
                     </div>
                 </div>
             </div>
         );
+
     }
 };
 
@@ -111,3 +118,4 @@ PageLoading.defaultProps = {
     style: null
 };
 
+export default PageLoading;

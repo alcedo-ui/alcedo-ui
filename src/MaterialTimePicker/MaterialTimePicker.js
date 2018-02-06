@@ -1,25 +1,27 @@
 /**
- * @file TimePicker component
+ * @file MaterialTimePicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
-import MaterialDatePickerTextField from '../MaterialDatePickerTextField';
+import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 
-export default class MaterialTimePicker extends Component {
+class MaterialTimePicker extends Component {
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
         this.validValue = true;
+
         this.state = {
             textFieldValue: props.value,
             popupVisible: false,
@@ -83,7 +85,7 @@ export default class MaterialTimePicker extends Component {
     }
 
     togglePopup(e) {
-        if(this.validValue) {
+        if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
@@ -113,7 +115,7 @@ export default class MaterialTimePicker extends Component {
     componentDidMount() {
         const {value} = this.props;
         let dateFormatValue = '2000-02-01 ' + value;
-        if(value){
+        if (value) {
             if (moment(dateFormatValue, 'YYYY-MM-DD HH:mm:ss').isValid()) {
                 this.setState({
                     textFieldValue: value,
@@ -121,7 +123,7 @@ export default class MaterialTimePicker extends Component {
                     minute: moment(dateFormatValue).format('mm'),
                     second: moment(dateFormatValue).format('ss')
                 });
-            }else {
+            } else {
                 this.validValue = false;
                 console.error('Invalid date');
             }
@@ -131,11 +133,16 @@ export default class MaterialTimePicker extends Component {
     render() {
 
         const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate} = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state;
+            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
+
+            pickerClassName = classNames('material-time-picker', {
+                [className]: className
+            });
 
         return (
-            <div className={`material-time-picker ${className}`}
+            <div className={pickerClassName}
                  style={style}>
+
                 <MaterialDatePickerTextField ref="trigger"
                                              className="time-picker-field"
                                              name={name}
@@ -152,7 +159,7 @@ export default class MaterialTimePicker extends Component {
                                                  this.togglePopup(e);
                                              }}/>
 
-                <Popup className={`material-time-picker-popup`}
+                <Popup className="material-time-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
@@ -236,3 +243,5 @@ MaterialTimePicker.defaultProps = {
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss'
 };
+
+export default MaterialTimePicker;

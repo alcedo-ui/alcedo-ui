@@ -11,7 +11,7 @@ import TableRow from '../_TableRow';
 import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
-export default class Tbody extends Component {
+class Tbody extends Component {
 
     static SelectMode = SelectMode;
 
@@ -98,3 +98,5 @@ Tbody.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     disabled: false
 };
+
+export default Tbody;
