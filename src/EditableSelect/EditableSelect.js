@@ -32,7 +32,6 @@ class EditableSelect extends Component {
             isAbove: false
         };
 
-        this.filterChangeHandle = ::this.filterChangeHandle;
         this.showPopup = ::this.showPopup;
         this.closePopup = ::this.closePopup;
         this.filterData = ::this.filterData;
@@ -40,12 +39,6 @@ class EditableSelect extends Component {
         this.changeHandle = ::this.changeHandle;
         this.onChangeValue = ::this.onChangeValue;
 
-    }
-
-    filterChangeHandle(filter) {
-        this.setState({
-            filter
-        });
     }
 
     onChangeValue(value) {
@@ -196,26 +189,6 @@ class EditableSelect extends Component {
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                }
-            }],
-
             triggerClassName = classNames('editable-select-trigger', isAbove ? 'above' : 'blow', {
                 activated: popupVisible,
                 empty: !value
@@ -272,7 +245,7 @@ class EditableSelect extends Component {
 
                     <List className="editable-select-list"
                           isGrouped={isGrouped}
-                          data={listData.length < 1 ? emptyEl : listData}
+                          data={listData.length < 1 ? [] : listData}
                           valueField={valueField}
                           value={listValue}
                           displayField={valueField}
