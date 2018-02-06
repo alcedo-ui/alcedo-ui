@@ -70,9 +70,6 @@ class Popup extends Component {
                 :
                 this.triggerPopupEventHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
 
-        console.log('visible::', visible);
-        console.log('currentVisible::', currentVisible);
-
         if (!currentVisible) {
             onRequestClose && onRequestClose(e);
         }
