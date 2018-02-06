@@ -7,7 +7,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import PopupDoc from 'assets/propTypes/PopupBody.json';
+import doc from 'assets/propTypes/Popup.json';
 
 import 'sass/containers/app/modules/popup/PopupExamples.scss';
 
@@ -416,7 +416,7 @@ export default class PopupExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={PopupDoc}/>
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
