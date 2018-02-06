@@ -5,9 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Transition from 'react-transition-group/Transition';
 import {createPortal} from 'react-dom';
-import classNames from 'classnames';
 
 class Portal extends Component {
 
@@ -41,21 +39,12 @@ class Portal extends Component {
 
     render() {
 
-        const {children, className, style, visible, timeout} = this.props;
+        const {children} = this.props;
 
         this.renderWrapper();
 
         return createPortal(
-            <Transition className={className}
-                        style={style}
-                        in={visible}
-                        timeout={timeout}>
-                {transitionState => (
-                    <div className={classNames('portal-content', `transition-${transitionState}`)}>
-                        {children}
-                    </div>
-                )}
-            </Transition>,
+            children,
             this.wrapper
         );
 
@@ -73,22 +62,13 @@ Portal.propTypes = {
     /**
      * The styles of the root element.
      */
-    style: PropTypes.object,
-
-    visible: PropTypes.bool,
-
-    timeout: PropTypes.number
+    style: PropTypes.object
 
 };
 
 Portal.defaultProps = {
-
     className: null,
-    style: null,
-
-    visible: false,
-    timeout: 250
-
+    style: null
 };
 
 export default Portal;
