@@ -27,9 +27,7 @@ class MenuBody extends Component {
 
         super(props, ...restArgs);
 
-        this.hasMounted = false;
         this.prepareCloseTimeout = null;
-        this.requestCloseTimeout = null;
 
         this.state = {
             visible: false
@@ -39,13 +37,14 @@ class MenuBody extends Component {
         this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
-        this.initializeAnimation = ::this.initializeAnimation;
-        this.animate = ::this.animate;
 
     }
 
     triggerMouseEnterHandler() {
         this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
+        this.setState({
+            visible: true
+        });
     }
 
     triggerMouseLeaveHandler() {
@@ -54,11 +53,8 @@ class MenuBody extends Component {
             this.setState({
                 visible: false
             }, () => {
-                this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
-                this.requestCloseTimeout = setTimeout(() => {
-                    const {onRequestClose} = this.props;
-                    this.hasMounted && onRequestClose && onRequestClose();
-                }, 250);
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
             });
         }, 100);
     }
@@ -71,21 +67,8 @@ class MenuBody extends Component {
         this.forceUpdate();
     }
 
-    initializeAnimation(callback) {
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
-    }
-
-    animate() {
-        this.setState({
-            visible: true
-        });
-    }
-
     componentDidMount() {
 
-        this.hasMounted = true;
         this.menuEl = findDOMNode(this.refs.menu);
 
         Event.addEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
@@ -96,14 +79,6 @@ class MenuBody extends Component {
 
     }
 
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
-    }
-
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
@@ -112,9 +87,7 @@ class MenuBody extends Component {
 
     componentWillUnmount() {
 
-        this.hasMounted = false;
         this.prepareCloseTimeout && clearTimeout(this.prepareCloseTimeout);
-        this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
 
         Event.removeEvent(this.props.triggerEl, 'mouseenter', this.triggerMouseEnterHandler);
         Event.removeEvent(this.props.triggerEl, 'mouseleave', this.triggerMouseLeaveHandler);
