@@ -19,47 +19,20 @@ class Popup extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            visible: props.visible
-        };
-
-        this.requestCloseHandler = ::this.requestCloseHandler;
-
     }
 
     reDraw() {
         this.forceUpdate();
     }
 
-    requestCloseHandler(e) {
-        this.setState({
-            visible: false
-        }, () => {
-            const {onRequestClose} = this.props;
-            onRequestClose && onRequestClose(e);
-        });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: nextProps.visible
-            });
-        }
-    }
-
     render() {
 
-        const {visible} = this.state;
+        const {visible} = this.props;
 
         return (
             <Portal visible={visible}>
-                <PopupBody {...this.props}
-                           visible={visible}
-                           onRequestClose={this.requestCloseHandler}/>
+                <PopupBody {...this.props}/>
             </Portal>
         );
 
