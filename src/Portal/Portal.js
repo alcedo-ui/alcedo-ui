@@ -89,7 +89,7 @@ Portal.defaultProps = {
     className: null,
     style: null,
 
-    visible: PropTypes.bool
+    visible: false
 
 };
 
