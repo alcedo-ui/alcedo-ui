@@ -119,14 +119,6 @@ class PopupBody extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: nextProps.visible
-            });
-        }
-    }
-
     componentDidUpdate() {
         const {onRender} = this.props,
             {visible} = this.state;
