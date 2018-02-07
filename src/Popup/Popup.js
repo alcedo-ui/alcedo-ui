@@ -55,14 +55,13 @@ class Popup extends Component {
 
         const {visible} = this.state;
 
-        return visible ?
+        return (
             <Portal visible={visible}>
                 <PopupBody {...this.props}
                            visible={visible}
                            onRequestClose={this.requestCloseHandler}/>
             </Portal>
-            :
-            null;
+        );
 
     }
 
