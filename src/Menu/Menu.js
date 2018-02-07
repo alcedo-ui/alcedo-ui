@@ -20,13 +20,20 @@ class Menu extends Component {
         super(props, ...restArgs);
     }
 
+    reDraw() {
+        this.forceUpdate();
+    }
+
     render() {
-        return this.props.visible ?
-            <Portal>
+
+        const {visible} = this.props;
+
+        return (
+            <Portal visible={visible}>
                 <MenuBody {...this.props}/>
             </Portal>
-            :
-            null;
+        );
+
     }
 
 };
