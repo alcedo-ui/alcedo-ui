@@ -40,7 +40,6 @@
     }
 
     &.hidden {
-        opacity: 0 !important;
         left: -99999px !important;
     }
 
@@ -63,7 +62,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate3d(-50%, -50%, 0) scale(0);
         }
 
     }
@@ -88,7 +87,7 @@
         }
 
         &.hidden {
-            transform: translate(0, -50%) scale(0);
+            transform: translate3d(0, -50%, 0) scale(0);
         }
 
     }
@@ -112,7 +111,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, -50%) scale(0);
+            transform: translate3d(50%, -50%, 0) scale(0);
         }
 
     }
@@ -136,7 +135,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, 50%) scale(0);
+            transform: translate3d(-50%, 50%, 0) scale(0);
         }
 
     }
@@ -161,7 +160,7 @@
         }
 
         &.hidden {
-            transform: translate(0, 50%) scale(0);
+            transform: translate3d(0, 50%, 0) scale(0);
         }
 
     }
@@ -185,7 +184,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, 50%) scale(0);
+            transform: translate3d(50%, 50%, 0) scale(0);
         }
 
     }
@@ -209,7 +208,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, -50%) scale(0);
+            transform: translate3d(50%, -50%, 0) scale(0);
         }
 
     }
@@ -234,7 +233,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, 0) scale(0);
+            transform: translate3d(50%, 0, 0) scale(0);
         }
 
     }
@@ -258,7 +257,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, 50%) scale(0);
+            transform: translate3d(50%, 50%, 0) scale(0);
         }
 
     }
@@ -282,7 +281,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate3d(-50%, -50%, 0) scale(0);
         }
 
     }
@@ -307,7 +306,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, 0) scale(0);
+            transform: translate3d(-50%, 0, 0) scale(0);
         }
 
     }
@@ -331,17 +330,16 @@
         }
 
         &.hidden {
-            transform: translate(-50%, 50%) scale(0);
+            transform: translate3d(-50%, 50%, 0) scale(0);
         }
 
     }
 
     &.menu-animated {
-        transition: left 0s, opacity $theme-transition-duration ease-in-out, transform $theme-transition-duration ease-in-out;
+        transition: left 0s, transform $theme-transition-duration ease-in-out;
 
         &.hidden {
-            transition: left 0s $theme-transition-duration, opacity $theme-transition-duration ease-in-out,
-            transform $theme-transition-duration ease-in-out;
+            transition: left 0s $theme-transition-duration, transform $theme-transition-duration ease-in-out;
         }
     }
 
