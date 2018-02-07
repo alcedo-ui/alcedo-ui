@@ -126,7 +126,11 @@ class DialogBody extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.visible);
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: nextProps.visible
+            });
+        }
     }
 
     componentDidUpdate() {
