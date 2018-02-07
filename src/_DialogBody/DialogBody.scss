@@ -11,12 +11,10 @@
     height: 100%;
     z-index: $dialog-modal-z-index;
     background: transparentize(#000, .5);
+    transition: left 0s $theme-transition-duration;
 
     &.hidden {
-        opacity: 0 !important;
         left: -99999px !important;
-        transition: left 0s $theme-transition-duration,
-        opacity $theme-transition-duration ease-in-out;
     }
 }
 
@@ -27,8 +25,7 @@
     top: 50%;
     -webkit-transform: translateX(-50%) translateY(calc(-50% - .5px));
     transform: translate(-50%, -50%);
-    transition: left 0s, opacity $theme-transition-duration ease-in-out,
-    -webkit-transform $theme-transition-duration ease-in-out,
+    transition: left 0s, -webkit-transform $theme-transition-duration ease-in-out,
     transform $theme-transition-duration ease-in-out;
     z-index: $dialog-z-index;
     box-sizing: border-box;
@@ -82,11 +79,9 @@
     }
 
     &.hidden {
-        opacity: 0 !important;
         left: -99999px !important;
         transform: translate(-50%, -70%);
         transition: left 0s $theme-transition-duration,
-        opacity $theme-transition-duration ease-in-out,
         -webkit-transform $theme-transition-duration ease-in-out,
         transform $theme-transition-duration ease-in-out;
     }

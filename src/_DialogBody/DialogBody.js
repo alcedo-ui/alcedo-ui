@@ -26,15 +26,10 @@ class DialogBody extends Component {
 
         super(props, ...restArgs);
 
-        this.hasMounted = false;
-        this.unrenderTimeout = null;
-
         this.state = {
             visible: false
         };
 
-        this.initializeAnimation = ::this.initializeAnimation;
-        this.animate = ::this.animate;
         this.mousedownHandle = ::this.mousedownHandle;
         this.okButtonTouchTapHandle = ::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = ::this.cancelButtonTouchTapHandle;
@@ -73,10 +68,8 @@ class DialogBody extends Component {
             visible: currVisible
         }, () => {
             if (!currVisible) {
-                setTimeout(() => {
-                    const {onRequestClose} = this.props;
-                    onRequestClose && onRequestClose();
-                }, 250);
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
             }
         });
 
@@ -100,9 +93,7 @@ class DialogBody extends Component {
             visible: false
         }, () => {
             onCancelButtonTouchTap && onCancelButtonTouchTap();
-            setTimeout(() => {
-                onRequestClose && onRequestClose();
-            }, 250);
+            onRequestClose && onRequestClose();
         });
 
     }
@@ -115,42 +106,27 @@ class DialogBody extends Component {
             visible: false
         }, () => {
             onCloseButtonTouchTap && onCloseButtonTouchTap();
-            setTimeout(() => {
-                onRequestClose && onRequestClose();
-            }, 250);
+            onRequestClose && onRequestClose();
         });
 
-    }
-
-    initializeAnimation(callback) {
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
-    }
-
-    animate() {
-        this.setState({
-            visible: true
-        });
     }
 
     componentDidMount() {
 
-        this.hasMounted = true;
         this.dialogEl = findDOMNode(this.refs.dialog);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
 
         this.props.isEscClose && PopupManagement.push(this);
 
+        this.setState({
+            visible: true
+        });
+
     }
 
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.visible);
     }
 
     componentDidUpdate() {
@@ -161,7 +137,6 @@ class DialogBody extends Component {
 
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.mousedownHandle);
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
     render() {
@@ -186,87 +161,87 @@ class DialogBody extends Component {
             } = this.props,
             {visible} = this.state,
 
-            modalClass = classNames('dialog-modal', {
-                hidden: !visible,
-                [modalClassName]: modalClassName
-            }),
-
             dialogClassName = classNames('dialog-wrapper', {
                 hidden: !visible,
                 [className]: className
+            }),
+
+            el = <Paper {...restProps}
+                        key={0}
+                        ref="dialog"
+                        className={dialogClassName}
+                        depth={6}>
+
+                <div className="dialog-title">
+                    {title}
+                    <IconButton className="dialog-title-close-button"
+                                iconCls={closeIconCls}
+                                disabled={disabled}
+                                onTouchTap={this.closeButtonTouchTapHandle}/>
+                </div>
+
+                <div className="dialog-content">
+                    {children}
+                </div>
+
+                <div className="dialog-buttons">
+
+                    {
+                        buttons ?
+                            Children.map(buttons, button => cloneElement(button, {
+                                isLoading,
+                                disabled
+                            }))
+                            :
+                            null
+                    }
+
+                    {
+                        !buttons && okButtonVisible ?
+                            <RaisedButton className="ok-button"
+                                          value={okButtonText}
+                                          iconCls={okButtonIconCls}
+                                          theme={okButtonTheme}
+                                          disabled={okButtonDisabled}
+                                          isLoading={isLoading || okButtonIsLoading}
+                                          onTouchTap={this.okButtonTouchTapHandle}/>
+                            :
+                            null
+                    }
+
+                    {
+                        !buttons && cancelButtonVisible ?
+                            <FlatButton className="cancel-button"
+                                        value={cancelButtonText}
+                                        iconCls={cancelButtonIconCls}
+                                        theme={cancelButtonTheme}
+                                        disabled={cancelButtonDisabled}
+                                        isLoading={isLoading || cancelButtonIsLoading}
+                                        onTouchTap={this.cancelButtonTouchTapHandle}/>
+                            :
+                            null
+                    }
+
+                </div>
+
+            </Paper>;
+
+        if (showModal) {
+
+            const modalClass = classNames('dialog-modal', {
+                hidden: !visible,
+                [modalClassName]: modalClassName
             });
 
-        return (
-            <div>
+            return [
+                <div key={1}
+                     className={modalClass}></div>,
+                el
+            ];
 
-                {
-                    showModal ?
-                        <div className={modalClass}></div>
-                        :
-                        null
-                }
+        }
 
-                <Paper {...restProps}
-                       ref="dialog"
-                       className={dialogClassName}
-                       depth={6}>
-
-                    <div className="dialog-title">
-                        {title}
-                        <IconButton className="dialog-title-close-button"
-                                    iconCls={closeIconCls}
-                                    disabled={disabled}
-                                    onTouchTap={this.closeButtonTouchTapHandle}/>
-                    </div>
-
-                    <div className="dialog-content">
-                        {children}
-                    </div>
-
-                    <div className="dialog-buttons">
-
-                        {
-                            buttons ?
-                                Children.map(buttons, button => cloneElement(button, {
-                                    isLoading,
-                                    disabled
-                                }))
-                                :
-                                null
-                        }
-
-                        {
-                            !buttons && okButtonVisible ?
-                                <RaisedButton className="ok-button"
-                                              value={okButtonText}
-                                              iconCls={okButtonIconCls}
-                                              theme={okButtonTheme}
-                                              disabled={okButtonDisabled}
-                                              isLoading={isLoading || okButtonIsLoading}
-                                              onTouchTap={this.okButtonTouchTapHandle}/>
-                                :
-                                null
-                        }
-
-                        {
-                            !buttons && cancelButtonVisible ?
-                                <FlatButton className="cancel-button"
-                                            value={cancelButtonText}
-                                            iconCls={cancelButtonIconCls}
-                                            theme={cancelButtonTheme}
-                                            disabled={cancelButtonDisabled}
-                                            isLoading={isLoading || cancelButtonIsLoading}
-                                            onTouchTap={this.cancelButtonTouchTapHandle}/>
-                                :
-                                null
-                        }
-
-                    </div>
-
-                </Paper>
-
-            </div>
-        );
+        return el;
 
     }
 };
