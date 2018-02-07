@@ -58,6 +58,7 @@ class Popup extends Component {
         return visible ?
             <Portal visible={visible}>
                 <PopupBody {...this.props}
+                           visible={visible}
                            onRequestClose={this.requestCloseHandler}/>
             </Portal>
             :
