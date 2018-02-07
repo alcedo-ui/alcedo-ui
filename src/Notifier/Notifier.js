@@ -139,18 +139,19 @@ class Notifier extends Component {
                 [`notifier-position-${position}`]: position
             });
 
-        return visible ?
-            <Portal className={notifierClassName}>
-                {
-                    notifications.map(options =>
-                        <Notification {...options}
-                                      key={options.notificationId}
-                                      onRequestClose={this.removeNotification}/>
-                    )
-                }
+        return (
+            <Portal visible={visible}>
+                <div className={notifierClassName}>
+                    {
+                        notifications.map(options =>
+                            <Notification {...options}
+                                          key={options.notificationId}
+                                          onRequestClose={this.removeNotification}/>
+                        )
+                    }
+                </div>
             </Portal>
-            :
-            null;
+        );
 
     }
 
