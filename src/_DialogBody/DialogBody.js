@@ -27,7 +27,7 @@ class DialogBody extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            visible: props.visible
+            visible: false
         };
 
         this.mousedownHandle = ::this.mousedownHandle;
@@ -120,9 +120,11 @@ class DialogBody extends Component {
 
         this.props.isEscClose && PopupManagement.push(this);
 
-        // this.setState({
-        //     visible: true
-        // });
+        setTimeout(() => {
+            this.setState({
+                visible: true
+            });
+        }, 0);
 
     }
 
