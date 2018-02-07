@@ -140,19 +140,20 @@ class Toaster extends Component {
                 [className]: className
             });
 
-        return visible ?
-            <Portal className={toasterClassName}
-                    style={style}>
-                {
-                    toasts && toasts.map(options =>
-                        <Toast {...options}
-                               key={options.toastsId}
-                               onRequestClose={this.removeToast}/>
-                    )
-                }
+        return (
+            <Portal visible={visible}>
+                <div className={toasterClassName}
+                     style={style}>
+                    {
+                        toasts && toasts.map(options =>
+                            <Toast {...options}
+                                   key={options.toastsId}
+                                   onRequestClose={this.removeToast}/>
+                        )
+                    }
+                </div>
             </Portal>
-            :
-            null;
+        );
 
     }
 

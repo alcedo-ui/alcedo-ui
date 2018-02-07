@@ -30,22 +30,17 @@ class PopupBody extends Component {
 
         super(props, ...restArgs);
 
-        this.hasMounted = false;
-        this.requestCloseTimeout = null;
-
         this.state = {
             visible: false
         };
 
         this.mousedownHandler = ::this.mousedownHandler;
         this.resizeHandler = ::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
-        this.initializeAnimation = ::this.initializeAnimation;
-        this.animate = ::this.animate;
+        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 250);
 
     }
 
-    triggerPopupEventHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
+    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
@@ -67,33 +62,17 @@ class PopupBody extends Component {
     mousedownHandler(e) {
 
         const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
-            visible = triggerHandler ?
-                triggerHandler(
-                    e.target,
-                    triggerEl,
-                    this.popupEl,
-                    triggerMode,
-                    this.state.visible,
-                    isAutoClose
-                )
+            {visible} = this.state,
+            currVisible = triggerHandler ?
+                triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose)
                 :
-                this.triggerPopupEventHandler(
-                    e.target,
-                    triggerEl,
-                    this.popupEl,
-                    triggerMode,
-                    this.state.visible,
-                    isAutoClose
-                );
+                this.triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
 
         this.setState({
-            visible
+            visible: currVisible
         }, () => {
-            if (!visible) {
-                this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
-                this.requestCloseTimeout = setTimeout(() => {
-                    this.hasMounted && onRequestClose && onRequestClose(e);
-                }, 250);
+            if (!currVisible) {
+                onRequestClose && onRequestClose(e);
             }
         });
 
@@ -107,21 +86,8 @@ class PopupBody extends Component {
         this.forceUpdate();
     }
 
-    initializeAnimation(callback) {
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
-    }
-
-    animate() {
-        this.setState({
-            visible: true
-        });
-    }
-
     componentDidMount() {
 
-        this.hasMounted = true;
         this.popupEl = findDOMNode(this.refs.popup);
 
         Event.addEvent(document, 'mousedown', this.mousedownHandler);
@@ -129,14 +95,12 @@ class PopupBody extends Component {
 
         this.props.isEscClose && PopupManagement.push(this);
 
-    }
+        setTimeout(() => {
+            this.setState({
+                visible: true
+            });
+        }, 0);
 
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
     }
 
     componentDidUpdate() {
@@ -146,13 +110,8 @@ class PopupBody extends Component {
     }
 
     componentWillUnmount() {
-
-        this.hasMounted = false;
-        this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
-
         Event.removeEvent(document, 'mousedown', this.mousedownHandler);
         Event.removeEvent(window, 'resize', this.resizeHandler);
-
     }
 
     render() {

@@ -49,12 +49,16 @@ class Dialog extends Component {
     }
 
     render() {
-        return this.props.visible ?
-            <Portal>
-                <DialogBody {...this.props}/>
+
+        const {visible} = this.props;
+
+        return (
+            <Portal visible={visible}>
+                <DialogBody {...this.props}
+                            visible={visible}/>
             </Portal>
-            :
-            null;
+        );
+
     }
 
 };

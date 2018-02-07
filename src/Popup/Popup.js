@@ -27,12 +27,15 @@ class Popup extends Component {
     }
 
     render() {
-        return this.props.visible ?
-            <Portal>
+
+        const {visible} = this.props;
+
+        return (
+            <Portal visible={visible}>
                 <PopupBody {...this.props}/>
             </Portal>
-            :
-            null;
+        );
+
     }
 
 };

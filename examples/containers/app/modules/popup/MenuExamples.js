@@ -18,36 +18,8 @@ export default class MenuExamples extends Component {
         super(props);
 
         this.state = {
-            menuVisible1: false,
-            menuVisible2: false,
-            menuVisible3: false,
-            menuVisible4: false,
-            menuVisible5: false,
-            menuVisible6: false,
-            menuVisible7: false,
-            menuVisible8: false,
-            menuVisible9: false,
-            menuVisible10: false,
-            menuVisible11: false,
-            menuVisible12: false,
-            menuVisible13: false,
-            menuVisible14: false,
-            menuVisible15: false,
-            triggerEl1: null,
-            triggerEl2: null,
-            triggerEl3: null,
-            triggerEl4: null,
-            triggerEl5: null,
-            triggerEl6: null,
-            triggerEl7: null,
-            triggerEl8: null,
-            triggerEl9: null,
-            triggerEl10: null,
-            triggerEl11: null,
-            triggerEl12: null,
-            triggerEl13: null,
-            triggerEl14: null,
-            triggerEl15: null
+            menuVisible: {},
+            triggerEl: {}
         };
 
         this.showMenu = ::this.showMenu;
@@ -56,28 +28,37 @@ export default class MenuExamples extends Component {
     }
 
     showMenu(e, id) {
+
+        const {menuVisible, triggerEl} = this.state;
+
+        menuVisible[id] = true;
+
+        if (!triggerEl[id]) {
+            triggerEl[id] = e.target;
+        }
+
         this.setState({
-            [`menuVisible${id}`]: true,
-            [`triggerEl${id}`]: e.currentTarget
+            menuVisible,
+            triggerEl
         });
+
     }
 
     hideMenu(id) {
+
+        const {menuVisible} = this.state;
+
+        menuVisible[id] = false;
+
         this.setState({
-            [`menuVisible${id}`]: false
+            menuVisible
         });
+
     }
 
     render() {
 
-        const {
-                menuVisible1, menuVisible2, menuVisible3, menuVisible4, menuVisible5, menuVisible6,
-                menuVisible7, menuVisible8, menuVisible9, menuVisible10, menuVisible11, menuVisible12,
-                menuVisible13, menuVisible14, menuVisible15,
-                triggerEl1, triggerEl2, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
-                triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11, triggerEl12
-                , triggerEl13, triggerEl14, triggerEl15
-            } = this.state,
+        const {menuVisible, triggerEl} = this.state,
             items = [{
                 iconCls: 'fa fa-facebook',
                 value: 'Facebook',
@@ -119,14 +100,14 @@ export default class MenuExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Menu"
                                               onMouseEnter={(e) => {
-                                                  this.showMenu(e, 1);
+                                                  this.showMenu(e, 0);
                                               }}/>
 
                                 <Menu theme={Menu.Theme.PRIMARY}
-                                      visible={menuVisible1}
-                                      triggerEl={triggerEl1}
+                                      visible={menuVisible[0]}
+                                      triggerEl={triggerEl[0]}
                                       onRequestClose={() => {
-                                          this.hideMenu(1);
+                                          this.hideMenu(0);
                                       }}>
                                     <div style={{padding: 20, color: '#fff'}}>
                                         Menu
@@ -157,14 +138,14 @@ export default class MenuExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Menu"
                                               onMouseEnter={(e) => {
-                                                  this.showMenu(e, 3);
+                                                  this.showMenu(e, 1);
                                               }}/>
 
-                                <Menu visible={menuVisible3}
-                                      triggerEl={triggerEl3}
+                                <Menu visible={menuVisible[1]}
+                                      triggerEl={triggerEl[1]}
                                       hasTriangle={false}
                                       onRequestClose={() => {
-                                          this.hideMenu(3);
+                                          this.hideMenu(1);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
@@ -195,17 +176,17 @@ export default class MenuExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top Left"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 7);
+                                                          this.showMenu(e, 5);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 8);
+                                                          this.showMenu(e, 6);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top right"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 9);
+                                                          this.showMenu(e, 7);
                                                       }}/>
                                     </div>
 
@@ -213,17 +194,17 @@ export default class MenuExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Top"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 13);
+                                                          this.showMenu(e, 11);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 14);
+                                                          this.showMenu(e, 12);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Bottom"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 15);
+                                                          this.showMenu(e, 13);
                                                       }}/>
                                     </div>
 
@@ -231,17 +212,17 @@ export default class MenuExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Left"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 4);
+                                                          this.showMenu(e, 2);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 5);
+                                                          this.showMenu(e, 3);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Right"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 6);
+                                                          this.showMenu(e, 4);
                                                       }}/>
                                     </div>
 
@@ -249,118 +230,118 @@ export default class MenuExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Top"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 10);
+                                                          this.showMenu(e, 8);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 11);
+                                                          this.showMenu(e, 9);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Bottom"
                                                       onMouseEnter={(e) => {
-                                                          this.showMenu(e, 12);
+                                                          this.showMenu(e, 10);
                                                       }}/>
                                     </div>
 
                                 </div>
 
-                                <Menu visible={menuVisible4}
-                                      triggerEl={triggerEl4}
+                                <Menu visible={menuVisible[2]}
+                                      triggerEl={triggerEl[2]}
                                       position={Menu.Position.BOTTOM_LEFT}
+                                      onRequestClose={() => {
+                                          this.hideMenu(2);
+                                      }}>
+                                    <List data={items}/>
+                                </Menu>
+                                <Menu visible={menuVisible[3]}
+                                      triggerEl={triggerEl[3]}
+                                      position={Menu.Position.BOTTOM}
+                                      onRequestClose={() => {
+                                          this.hideMenu(3);
+                                      }}>
+                                    <List data={items}/>
+                                </Menu>
+                                <Menu visible={menuVisible[4]}
+                                      triggerEl={triggerEl[4]}
+                                      position={Menu.Position.BOTTOM_RIGHT}
                                       onRequestClose={() => {
                                           this.hideMenu(4);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-                                <Menu visible={menuVisible5}
-                                      triggerEl={triggerEl5}
-                                      position={Menu.Position.BOTTOM}
+
+                                <Menu visible={menuVisible[5]}
+                                      triggerEl={triggerEl[5]}
+                                      position={Menu.Position.TOP_LEFT}
                                       onRequestClose={() => {
                                           this.hideMenu(5);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-                                <Menu visible={menuVisible6}
-                                      triggerEl={triggerEl6}
-                                      position={Menu.Position.BOTTOM_RIGHT}
+                                <Menu visible={menuVisible[6]}
+                                      triggerEl={triggerEl[6]}
+                                      position={Menu.Position.TOP}
                                       onRequestClose={() => {
                                           this.hideMenu(6);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-
-                                <Menu visible={menuVisible7}
-                                      triggerEl={triggerEl7}
-                                      position={Menu.Position.TOP_LEFT}
+                                <Menu visible={menuVisible[7]}
+                                      triggerEl={triggerEl[7]}
+                                      position={Menu.Position.TOP_RIGHT}
                                       onRequestClose={() => {
                                           this.hideMenu(7);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-                                <Menu visible={menuVisible8}
-                                      triggerEl={triggerEl8}
-                                      position={Menu.Position.TOP}
+
+                                <Menu visible={menuVisible[8]}
+                                      triggerEl={triggerEl[8]}
+                                      position={Menu.Position.LEFT_TOP}
                                       onRequestClose={() => {
                                           this.hideMenu(8);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-                                <Menu visible={menuVisible9}
-                                      triggerEl={triggerEl9}
-                                      position={Menu.Position.TOP_RIGHT}
+                                <Menu visible={menuVisible[9]}
+                                      triggerEl={triggerEl[9]}
+                                      position={Menu.Position.LEFT}
                                       onRequestClose={() => {
                                           this.hideMenu(9);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-
-                                <Menu visible={menuVisible10}
-                                      triggerEl={triggerEl10}
-                                      position={Menu.Position.LEFT_TOP}
+                                <Menu visible={menuVisible[10]}
+                                      triggerEl={triggerEl[10]}
+                                      position={Menu.Position.LEFT_BOTTOM}
                                       onRequestClose={() => {
                                           this.hideMenu(10);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-                                <Menu visible={menuVisible11}
-                                      triggerEl={triggerEl11}
-                                      position={Menu.Position.LEFT}
+
+                                <Menu visible={menuVisible[11]}
+                                      triggerEl={triggerEl[11]}
+                                      position={Menu.Position.RIGHT_TOP}
                                       onRequestClose={() => {
                                           this.hideMenu(11);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-                                <Menu visible={menuVisible12}
-                                      triggerEl={triggerEl12}
-                                      position={Menu.Position.LEFT_BOTTOM}
+                                <Menu visible={menuVisible[12]}
+                                      triggerEl={triggerEl[12]}
+                                      position={Menu.Position.RIGHT}
                                       onRequestClose={() => {
                                           this.hideMenu(12);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
-
-                                <Menu visible={menuVisible13}
-                                      triggerEl={triggerEl13}
-                                      position={Menu.Position.RIGHT_TOP}
-                                      onRequestClose={() => {
-                                          this.hideMenu(13);
-                                      }}>
-                                    <List data={items}/>
-                                </Menu>
-                                <Menu visible={menuVisible14}
-                                      triggerEl={triggerEl14}
-                                      position={Menu.Position.RIGHT}
-                                      onRequestClose={() => {
-                                          this.hideMenu(14);
-                                      }}>
-                                    <List data={items}/>
-                                </Menu>
-                                <Menu visible={menuVisible15}
-                                      triggerEl={triggerEl15}
+                                <Menu visible={menuVisible[13]}
+                                      triggerEl={triggerEl[13]}
                                       position={Menu.Position.RIGHT_BOTTOM}
                                       onRequestClose={() => {
-                                          this.hideMenu(15);
+                                          this.hideMenu(13);
                                       }}>
                                     <List data={items}/>
                                 </Menu>
@@ -384,12 +365,12 @@ export default class MenuExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Menu"
                                               onMouseEnter={(e) => {
-                                                  this.showMenu(e, 2);
+                                                  this.showMenu(e, 14);
                                               }}/>
 
                                 <Menu className="customized-menu"
-                                      visible={menuVisible2}
-                                      triggerEl={triggerEl2}
+                                      visible={menuVisible[14]}
+                                      triggerEl={triggerEl[14]}
                                       triangle={
                                           <svg xmlns="http://www.w3.org/2000/svg"
                                                version="1.1"
@@ -401,7 +382,7 @@ export default class MenuExamples extends Component {
                                           </svg>
                                       }
                                       onRequestClose={() => {
-                                          this.hideMenu(2);
+                                          this.hideMenu(14);
                                       }}>
                                     <div style={{padding: 20}}>
                                         Menu
