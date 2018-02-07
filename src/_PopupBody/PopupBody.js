@@ -40,7 +40,7 @@ class PopupBody extends Component {
 
     }
 
-    triggerPopupEventHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
+    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
@@ -62,29 +62,16 @@ class PopupBody extends Component {
     mousedownHandler(e) {
 
         const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
-            visible = triggerHandler ?
-                triggerHandler(
-                    e.target,
-                    triggerEl,
-                    this.popupEl,
-                    triggerMode,
-                    this.state.visible,
-                    isAutoClose
-                )
+            {visible} = this.state,
+            currVisible = triggerHandler ?
+                triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose)
                 :
-                this.triggerPopupEventHandler(
-                    e.target,
-                    triggerEl,
-                    this.popupEl,
-                    triggerMode,
-                    this.state.visible,
-                    isAutoClose
-                );
+                this.triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
 
         this.setState({
-            visible
+            visible: currVisible
         }, () => {
-            if (!visible) {
+            if (!currVisible) {
                 onRequestClose && onRequestClose(e);
             }
         });
