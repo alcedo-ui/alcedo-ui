@@ -18,36 +18,8 @@ export default class PopupExamples extends Component {
         super(props);
 
         this.state = {
-            popupVisible1: false,
-            popupVisible2: false,
-            popupVisible3: false,
-            popupVisible4: false,
-            popupVisible5: false,
-            popupVisible6: false,
-            popupVisible7: false,
-            popupVisible8: false,
-            popupVisible9: false,
-            popupVisible10: false,
-            popupVisible11: false,
-            popupVisible12: false,
-            popupVisible13: false,
-            popupVisible14: false,
-            popupVisible15: false,
-            triggerEl1: null,
-            triggerEl2: null,
-            triggerEl3: null,
-            triggerEl4: null,
-            triggerEl5: null,
-            triggerEl6: null,
-            triggerEl7: null,
-            triggerEl8: null,
-            triggerEl9: null,
-            triggerEl10: null,
-            triggerEl11: null,
-            triggerEl12: null,
-            triggerEl13: null,
-            triggerEl14: null,
-            triggerEl15: null
+            popupVisible: {},
+            triggerEl: {}
         };
 
         this.togglePopup = ::this.togglePopup;
@@ -56,28 +28,37 @@ export default class PopupExamples extends Component {
     }
 
     togglePopup(e, id) {
+
+        const {popupVisible, triggerEl} = this.state;
+
+        popupVisible[id] = !popupVisible[id];
+
+        if (!triggerEl[id]) {
+            triggerEl[id] = e.target;
+        }
+
         this.setState({
-            [`popupVisible${id}`]: !this.state[`popupVisible${id}`],
-            [`triggerEl${id}`]: e.target
+            popupVisible,
+            triggerEl
         });
+
     }
 
     closePopup(id) {
+
+        const {popupVisible} = this.state;
+
+        popupVisible[id] = false;
+
         this.setState({
-            [`popupVisible${id}`]: false
+            popupVisible
         });
+
     }
 
     render() {
 
-        const {
-                popupVisible1, popupVisible2, popupVisible3, popupVisible4, popupVisible5, popupVisible6,
-                popupVisible7, popupVisible8, popupVisible9, popupVisible10, popupVisible11, popupVisible12,
-                popupVisible13, popupVisible14, popupVisible15,
-                triggerEl1, triggerEl2, triggerEl3, triggerEl4, triggerEl5, triggerEl6,
-                triggerEl7, triggerEl8, triggerEl9, triggerEl10, triggerEl11, triggerEl12
-                , triggerEl13, triggerEl14, triggerEl15
-            } = this.state,
+        const {popupVisible, triggerEl} = this.state,
             data = [{
                 iconCls: 'fa fa-facebook',
                 value: 'Facebook',
@@ -119,14 +100,14 @@ export default class PopupExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
                                               onTouchTap={e => {
-                                                  this.togglePopup(e, 1);
+                                                  this.togglePopup(e, 0);
                                               }}/>
 
                                 <Popup theme={Popup.Theme.PRIMARY}
-                                       visible={popupVisible1}
-                                       triggerEl={triggerEl1}
+                                       visible={popupVisible[0]}
+                                       triggerEl={triggerEl[0]}
                                        onRequestClose={() => {
-                                           this.closePopup(1);
+                                           this.closePopup(0);
                                        }}>
                                     <div style={{padding: 20, color: '#fff'}}>
                                         Popup Content
@@ -157,14 +138,14 @@ export default class PopupExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
                                               onTouchTap={e => {
-                                                  this.togglePopup(e, 3);
+                                                  this.togglePopup(e, 1);
                                               }}/>
 
-                                <Popup visible={popupVisible3}
-                                       triggerEl={triggerEl3}
+                                <Popup visible={popupVisible[1]}
+                                       triggerEl={triggerEl[1]}
                                        hasTriangle={false}
                                        onRequestClose={() => {
-                                           this.closePopup(3);
+                                           this.closePopup(1);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
@@ -195,17 +176,17 @@ export default class PopupExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top Left"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 7);
+                                                          this.togglePopup(e, 5);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 8);
+                                                          this.togglePopup(e, 6);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top right"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 9);
+                                                          this.togglePopup(e, 7);
                                                       }}/>
                                     </div>
 
@@ -213,17 +194,17 @@ export default class PopupExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Top"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 13);
+                                                          this.togglePopup(e, 11);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 14);
+                                                          this.togglePopup(e, 12);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Bottom"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 15);
+                                                          this.togglePopup(e, 13);
                                                       }}/>
                                     </div>
 
@@ -231,17 +212,17 @@ export default class PopupExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Left"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 4);
+                                                          this.togglePopup(e, 2);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 5);
+                                                          this.togglePopup(e, 3);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Right"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 6);
+                                                          this.togglePopup(e, 4);
                                                       }}/>
                                     </div>
 
@@ -249,118 +230,118 @@ export default class PopupExamples extends Component {
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Top"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 10);
+                                                          this.togglePopup(e, 8);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 11);
+                                                          this.togglePopup(e, 9);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Bottom"
                                                       onTouchTap={e => {
-                                                          this.togglePopup(e, 12);
+                                                          this.togglePopup(e, 10);
                                                       }}/>
                                     </div>
 
                                 </div>
 
-                                <Popup visible={popupVisible4}
-                                       triggerEl={triggerEl4}
+                                <Popup visible={popupVisible[2]}
+                                       triggerEl={triggerEl[2]}
                                        position={Popup.Position.BOTTOM_LEFT}
+                                       onRequestClose={() => {
+                                           this.closePopup(2);
+                                       }}>
+                                    <List data={data}/>
+                                </Popup>
+                                <Popup visible={popupVisible[3]}
+                                       triggerEl={triggerEl[3]}
+                                       position={Popup.Position.BOTTOM}
+                                       onRequestClose={() => {
+                                           this.closePopup(3);
+                                       }}>
+                                    <List data={data}/>
+                                </Popup>
+                                <Popup visible={popupVisible[4]}
+                                       triggerEl={triggerEl[4]}
+                                       position={Popup.Position.BOTTOM_RIGHT}
                                        onRequestClose={() => {
                                            this.closePopup(4);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-                                <Popup visible={popupVisible5}
-                                       triggerEl={triggerEl5}
-                                       position={Popup.Position.BOTTOM}
+
+                                <Popup visible={popupVisible[5]}
+                                       triggerEl={triggerEl[5]}
+                                       position={Popup.Position.TOP_LEFT}
                                        onRequestClose={() => {
                                            this.closePopup(5);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-                                <Popup visible={popupVisible6}
-                                       triggerEl={triggerEl6}
-                                       position={Popup.Position.BOTTOM_RIGHT}
+                                <Popup visible={popupVisible[6]}
+                                       triggerEl={triggerEl[6]}
+                                       position={Popup.Position.TOP}
                                        onRequestClose={() => {
                                            this.closePopup(6);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-
-                                <Popup visible={popupVisible7}
-                                       triggerEl={triggerEl7}
-                                       position={Popup.Position.TOP_LEFT}
+                                <Popup visible={popupVisible[7]}
+                                       triggerEl={triggerEl[7]}
+                                       position={Popup.Position.TOP_RIGHT}
                                        onRequestClose={() => {
                                            this.closePopup(7);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-                                <Popup visible={popupVisible8}
-                                       triggerEl={triggerEl8}
-                                       position={Popup.Position.TOP}
+
+                                <Popup visible={popupVisible[8]}
+                                       triggerEl={triggerEl[8]}
+                                       position={Popup.Position.LEFT_TOP}
                                        onRequestClose={() => {
                                            this.closePopup(8);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-                                <Popup visible={popupVisible9}
-                                       triggerEl={triggerEl9}
-                                       position={Popup.Position.TOP_RIGHT}
+                                <Popup visible={popupVisible[9]}
+                                       triggerEl={triggerEl[9]}
+                                       position={Popup.Position.LEFT}
                                        onRequestClose={() => {
                                            this.closePopup(9);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-
-                                <Popup visible={popupVisible10}
-                                       triggerEl={triggerEl10}
-                                       position={Popup.Position.LEFT_TOP}
+                                <Popup visible={popupVisible[10]}
+                                       triggerEl={triggerEl[10]}
+                                       position={Popup.Position.LEFT_BOTTOM}
                                        onRequestClose={() => {
                                            this.closePopup(10);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-                                <Popup visible={popupVisible11}
-                                       triggerEl={triggerEl11}
-                                       position={Popup.Position.LEFT}
+
+                                <Popup visible={popupVisible[11]}
+                                       triggerEl={triggerEl[11]}
+                                       position={Popup.Position.RIGHT_TOP}
                                        onRequestClose={() => {
                                            this.closePopup(11);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-                                <Popup visible={popupVisible12}
-                                       triggerEl={triggerEl12}
-                                       position={Popup.Position.LEFT_BOTTOM}
+                                <Popup visible={popupVisible[12]}
+                                       triggerEl={triggerEl[12]}
+                                       position={Popup.Position.RIGHT}
                                        onRequestClose={() => {
                                            this.closePopup(12);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
-
-                                <Popup visible={popupVisible13}
-                                       triggerEl={triggerEl13}
-                                       position={Popup.Position.RIGHT_TOP}
-                                       onRequestClose={() => {
-                                           this.closePopup(13);
-                                       }}>
-                                    <List data={data}/>
-                                </Popup>
-                                <Popup visible={popupVisible14}
-                                       triggerEl={triggerEl14}
-                                       position={Popup.Position.RIGHT}
-                                       onRequestClose={() => {
-                                           this.closePopup(14);
-                                       }}>
-                                    <List data={data}/>
-                                </Popup>
-                                <Popup visible={popupVisible15}
-                                       triggerEl={triggerEl15}
+                                <Popup visible={popupVisible[13]}
+                                       triggerEl={triggerEl[13]}
                                        position={Popup.Position.RIGHT_BOTTOM}
                                        onRequestClose={() => {
-                                           this.closePopup(15);
+                                           this.closePopup(13);
                                        }}>
                                     <List data={data}/>
                                 </Popup>
@@ -384,12 +365,12 @@ export default class PopupExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Popup"
                                               onTouchTap={e => {
-                                                  this.togglePopup(e, 2);
+                                                  this.togglePopup(e, 14);
                                               }}/>
 
                                 <Popup className="customized-popup"
-                                       visible={popupVisible2}
-                                       triggerEl={triggerEl2}
+                                       visible={popupVisible[14]}
+                                       triggerEl={triggerEl[14]}
                                        triangle={
                                            <svg xmlns="http://www.w3.org/2000/svg"
                                                 version="1.1"
@@ -401,7 +382,7 @@ export default class PopupExamples extends Component {
                                            </svg>
                                        }
                                        onRequestClose={() => {
-                                           this.closePopup(2);
+                                           this.closePopup(14);
                                        }}>
                                     <div style={{padding: 20}}>
                                         Popup Content
