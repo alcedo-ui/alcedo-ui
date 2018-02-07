@@ -95,9 +95,11 @@ class PopupBody extends Component {
 
         this.props.isEscClose && PopupManagement.push(this);
 
-        this.setState({
-            visible: true
-        });
+        setTimeout(() => {
+            this.setState({
+                visible: true
+            });
+        }, 0);
 
     }
 
