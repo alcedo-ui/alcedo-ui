@@ -36,7 +36,7 @@ class MenuBody extends Component {
         this.triggerMouseEnterHandler = ::this.triggerMouseEnterHandler;
         this.triggerMouseLeaveHandler = ::this.triggerMouseLeaveHandler;
         this.resizeHandler = ::this.resizeHandler;
-        this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 150);
+        this.debounceResizeHandle = _.debounce(::this.debounceResizeHandle, 250);
 
     }
 
