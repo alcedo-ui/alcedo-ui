@@ -30,8 +30,6 @@ class PopupBody extends Component {
 
         super(props, ...restArgs);
 
-        this.requestCloseTimeout = null;
-
         this.state = {
             visible: false
         };
@@ -87,10 +85,7 @@ class PopupBody extends Component {
             visible
         }, () => {
             if (!visible) {
-                this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
-                this.requestCloseTimeout = setTimeout(() => {
-                    onRequestClose && onRequestClose(e);
-                }, 250);
+                onRequestClose && onRequestClose(e);
             }
         });
 
@@ -126,12 +121,8 @@ class PopupBody extends Component {
     }
 
     componentWillUnmount() {
-
-        this.requestCloseTimeout && clearTimeout(this.requestCloseTimeout);
-
         Event.removeEvent(document, 'mousedown', this.mousedownHandler);
         Event.removeEvent(window, 'resize', this.resizeHandler);
-
     }
 
     render() {
