@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
+import classNames from 'classnames';
 
 class Portal extends Component {
 
@@ -27,8 +28,25 @@ class Portal extends Component {
             return;
         }
 
+        const {
+
+            className,
+
+            // not passing down these props
+            children, visible,
+
+            ...restProps
+
+        } = this.props;
+
         this.wrapper = document.createElement('div');
-        this.wrapper.className = 'portal';
+        this.wrapper.className = classNames('portal', {
+            [className]: className
+        });
+
+        for (let key in restProps) {
+            this.wrapper[key] = restProps[key];
+        }
 
         document.body.appendChild(this.wrapper);
 
@@ -38,12 +56,8 @@ class Portal extends Component {
 
         this.renderWrapper();
 
-        const {visible, ...restProps} = this.props;
-
         return this.portal = createPortal(
-            <div {...restProps}>
-                {this.props.children}
-            </div>,
+            this.props.children,
             this.wrapper
         );
 
