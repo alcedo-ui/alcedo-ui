@@ -71,25 +71,25 @@ class Toaster extends Component {
 
     removeToast(toastsId) {
 
-        // let toasts = this.state.toasts;
-        //
-        // toasts.splice(toasts.findIndex(item => item.toastsId === toastsId), 1);
-        //
-        // this.setState({
-        //     toasts
-        // }, () => {
-        //     if (toasts.length < 1) {
-        //
-        //         this.clearUnrenderTimeout();
-        //
-        //         this.unrenderTimeout = setTimeout(() => {
-        //             this.setState({
-        //                 visible: false
-        //             });
-        //         }, 1250);
-        //
-        //     }
-        // });
+        let toasts = this.state.toasts;
+
+        toasts.splice(toasts.findIndex(item => item.toastsId === toastsId), 1);
+
+        this.setState({
+            toasts
+        }, () => {
+            if (toasts.length < 1) {
+
+                this.clearUnrenderTimeout();
+
+                this.unrenderTimeout = setTimeout(() => {
+                    this.setState({
+                        visible: false
+                    });
+                }, 1250);
+
+            }
+        });
 
     }
 
