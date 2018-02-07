@@ -19,12 +19,15 @@ class Tip extends Component {
     }
 
     render() {
-        return this.props.visible ?
-            <Portal>
+
+        const {visible} = this.props;
+
+        return (
+            <Portal visible={visible}>
                 <TipBody {...this.props}/>
             </Portal>
-            :
-            null;
+        );
+
     }
 
 };
