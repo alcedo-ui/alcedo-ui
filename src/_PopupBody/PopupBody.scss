@@ -61,7 +61,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate3d(-50%, -50%, 0) scale(0);
         }
 
     }
@@ -86,7 +86,7 @@
         }
 
         &.hidden {
-            transform: translate(0, -50%) scale(0);
+            transform: translate3d(0, -50%, 0) scale(0);
         }
 
     }
@@ -110,7 +110,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, -50%) scale(0);
+            transform: translate3d(50%, -50%, 0) scale(0);
         }
 
     }
@@ -134,7 +134,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, 50%) scale(0);
+            transform: translate3d(-50%, 50%, 0) scale(0);
         }
 
     }
@@ -159,7 +159,7 @@
         }
 
         &.hidden {
-            transform: translate(0, 50%) scale(0);
+            transform: translate3d(0, 50%, 0) scale(0);
         }
 
     }
@@ -183,7 +183,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, 50%) scale(0);
+            transform: translate3d(50%, 50%, 0) scale(0);
         }
 
     }
@@ -207,7 +207,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, -50%) scale(0);
+            transform: translate3d(50%, -50%, 0) scale(0);
         }
 
     }
@@ -232,7 +232,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, 0) scale(0);
+            transform: translate3d(50%, 0, 0) scale(0);
         }
 
     }
@@ -256,7 +256,7 @@
         }
 
         &.hidden {
-            transform: translate(50%, 50%) scale(0);
+            transform: translate3d(50%, 50%, 0) scale(0);
         }
 
     }
@@ -280,7 +280,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate3d(-50%, -50%, 0) scale(0);
         }
 
     }
@@ -305,7 +305,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, 0) scale(0);
+            transform: translate3d(-50%, 0, 0) scale(0);
         }
 
     }
@@ -329,7 +329,7 @@
         }
 
         &.hidden {
-            transform: translate(-50%, 50%) scale(0);
+            transform: translate3d(-50%, 50%, 0) scale(0);
         }
 
     }
