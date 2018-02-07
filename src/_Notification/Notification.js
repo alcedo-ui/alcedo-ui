@@ -21,7 +21,6 @@ class Notification extends Component {
 
         super(props, ...restArgs);
 
-        this.hasMounted = false;
         this.unrenderTimeout = null;
 
         this.state = {
@@ -31,8 +30,6 @@ class Notification extends Component {
 
         this.getIconCls = ::this.getIconCls;
         this.touchTapHandler = ::this.touchTapHandler;
-        this.initializeAnimation = ::this.initializeAnimation;
-        this.animate = ::this.animate;
 
     }
 
@@ -50,64 +47,49 @@ class Notification extends Component {
     }
 
     touchTapHandler(e) {
+
         e.preventDefault();
-        const {onRequestClose, notificationId} = this.props;
-        onRequestClose && onRequestClose(notificationId);
-    }
 
-    initializeAnimation(callback) {
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
-    }
+        const {notificationId, onRequestClose} = this.props;
 
-    animate() {
         this.setState({
-            hidden: false
+            hidden: true,
+            leave: true
+        }, () => {
+            setTimeout(() => {
+                onRequestClose && onRequestClose(notificationId);
+            }, 500);
         });
+
     }
 
     componentDidMount() {
 
         const {notificationId, duration, onRequestClose} = this.props;
 
-        this.hasMounted = true;
-
         const notificationEl = this.refs.notification;
         notificationEl.style.height = notificationEl.clientHeight + 'px';
         notificationEl.style.width = notificationEl.clientWidth + 'px';
 
-        duration > 0 && (this.unrenderTimeout = setTimeout(() => {
-            onRequestClose && onRequestClose(notificationId);
-        }, duration));
-
-    }
-
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentWillEnter(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
-    }
-
-    componentDidEnter() {
-        this.animate();
-    }
-
-    componentWillLeave(callback) {
-        this.setState({
-            hidden: true,
-            leave: true
-        }, () => {
+        if (duration > 0) {
             this.unrenderTimeout = setTimeout(() => {
-                this.hasMounted && callback();
-            }, 500);
-        });
+                this.setState({
+                    hidden: true,
+                    leave: true
+                }, () => {
+                    setTimeout(() => {
+                        onRequestClose && onRequestClose(notificationId);
+                    }, 500);
+                });
+            }, duration);
+        }
+
+        setTimeout(() => {
+            this.setState({
+                hidden: false
+            });
+        }, 0);
+
     }
 
     componentWillUnmount() {
