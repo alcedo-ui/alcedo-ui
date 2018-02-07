@@ -37,10 +37,8 @@ class Portal extends Component {
 
         this.renderWrapper();
 
-        const {children} = this.props;
-
         return this.portal = createPortal(
-            children,
+            this.props.children,
             this.wrapper
         );
 
@@ -55,7 +53,7 @@ class Portal extends Component {
     render() {
 
         if (this.portal) {
-            return this.portal;
+            return this.renderPortal();
         }
 
         if (!this.props.visible) {
