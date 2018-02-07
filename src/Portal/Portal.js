@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
-import classNames from 'classnames';
 
 class Portal extends Component {
 
@@ -28,13 +27,8 @@ class Portal extends Component {
             return;
         }
 
-        const {className, style} = this.props;
-
         this.wrapper = document.createElement('div');
-        this.wrapper.className = classNames('portal', {
-            [className]: className
-        });
-        this.wrapper.style = style;
+        this.wrapper.className = 'portal';
 
         document.body.appendChild(this.wrapper);
 
@@ -44,8 +38,12 @@ class Portal extends Component {
 
         this.renderWrapper();
 
+        const {visible, ...restProps} = this.props;
+
         return this.portal = createPortal(
-            this.props.children,
+            <div {...restProps}>
+                {this.props.children}
+            </div>,
             this.wrapper
         );
 
@@ -74,28 +72,11 @@ class Portal extends Component {
 };
 
 Portal.propTypes = {
-
-    /**
-     * The css class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * The styles of the root element.
-     */
-    style: PropTypes.object,
-
     visible: PropTypes.bool
-
 };
 
 Portal.defaultProps = {
-
-    className: null,
-    style: null,
-
     visible: false
-
 };
 
 export default Portal;
