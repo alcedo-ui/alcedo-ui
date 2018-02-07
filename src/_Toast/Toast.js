@@ -21,7 +21,6 @@ class Toast extends Component {
 
         super(props, ...restArgs);
 
-        this.hasMounted = false;
         this.unrenderTimeout = null;
 
         this.state = {
@@ -31,8 +30,6 @@ class Toast extends Component {
 
         this.getIconCls = ::this.getIconCls;
         this.touchTapHandler = ::this.touchTapHandler;
-        this.initializeAnimation = ::this.initializeAnimation;
-        this.animate = ::this.animate;
 
     }
 
@@ -55,23 +52,9 @@ class Toast extends Component {
         onRequestClose && onRequestClose(toastsId);
     }
 
-    initializeAnimation(callback) {
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
-    }
-
-    animate() {
-        this.setState({
-            hidden: false
-        });
-    }
-
     componentDidMount() {
 
         const {toastsId, duration, onRequestClose} = this.props;
-
-        this.hasMounted = true;
 
         const toastEl = findDOMNode(this.refs.toast);
         toastEl.style.width = toastEl.clientWidth + 'px';
@@ -81,33 +64,12 @@ class Toast extends Component {
             onRequestClose && onRequestClose(toastsId);
         }, duration));
 
-    }
+        setTimeout(() => {
+            this.setState({
+                hidden: false
+            });
+        }, 0);
 
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentWillEnter(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
-    }
-
-    componentDidEnter() {
-        this.animate();
-    }
-
-    componentWillLeave(callback) {
-        this.setState({
-            hidden: true,
-            leave: true
-        }, () => {
-            this.unrenderTimeout = setTimeout(() => {
-                this.hasMounted && callback();
-            }, 500);
-        });
     }
 
     componentWillUnmount() {
