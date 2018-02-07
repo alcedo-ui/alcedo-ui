@@ -14,8 +14,10 @@ class Portal extends Component {
         super(props, ...restArgs);
 
         this.wrapper = null;
+        this.portal = null;
 
         this.renderWrapper = ::this.renderWrapper;
+        this.renderPortal = ::this.renderPortal;
 
     }
 
@@ -31,6 +33,19 @@ class Portal extends Component {
 
     }
 
+    renderPortal() {
+
+        this.renderWrapper();
+
+        const {children} = this.props;
+
+        return this.portal = createPortal(
+            children,
+            this.wrapper
+        );
+
+    }
+
     componentWillUnmount() {
         if (this.wrapper) {
             document.body.removeChild(this.wrapper);
@@ -39,14 +54,15 @@ class Portal extends Component {
 
     render() {
 
-        const {children} = this.props;
+        if (this.portal) {
+            return this.portal;
+        }
 
-        this.renderWrapper();
+        if (!this.props.visible) {
+            return null;
+        }
 
-        return createPortal(
-            children,
-            this.wrapper
-        );
+        return this.renderPortal();
 
     }
 
@@ -62,13 +78,19 @@ Portal.propTypes = {
     /**
      * The styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    visible: PropTypes.bool
 
 };
 
 Portal.defaultProps = {
+
     className: null,
-    style: null
+    style: null,
+
+    visible: PropTypes.bool
+
 };
 
 export default Portal;
