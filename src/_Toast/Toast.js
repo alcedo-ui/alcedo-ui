@@ -60,9 +60,18 @@ class Toast extends Component {
         toastEl.style.width = toastEl.clientWidth + 'px';
         toastEl.style.height = toastEl.clientHeight + 'px';
 
-        duration > 0 && (this.unrenderTimeout = setTimeout(() => {
-            onRequestClose && onRequestClose(toastsId);
-        }, duration));
+        if (duration > 0) {
+            this.unrenderTimeout = setTimeout(() => {
+                this.setState({
+                    hidden: true,
+                    leave: true
+                }, () => {
+                    setTimeout(() => {
+                        onRequestClose && onRequestClose(toastsId);
+                    }, 500);
+                });
+            }, duration);
+        }
 
         setTimeout(() => {
             this.setState({
