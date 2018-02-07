@@ -36,7 +36,7 @@ class PopupBody extends Component {
 
         this.mousedownHandler = ::this.mousedownHandler;
         this.resizeHandler = ::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 150);
+        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 250);
 
     }
 
