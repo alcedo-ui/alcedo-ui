@@ -26,6 +26,10 @@ class DialogBody extends Component {
 
         super(props, ...restArgs);
 
+        this.state = {
+            visible: props.visible
+        };
+
         this.mousedownHandle = ::this.mousedownHandle;
         this.okButtonTouchTapHandle = ::this.okButtonTouchTapHandle;
         this.cancelButtonTouchTapHandle = ::this.cancelButtonTouchTapHandle;
@@ -48,7 +52,8 @@ class DialogBody extends Component {
 
     mousedownHandle(e) {
 
-        const {visible, isBlurClose, isLoading, disabled} = this.props;
+        const {isBlurClose, isLoading, disabled} = this.props,
+            {visible} = this.state;
 
         if (!isBlurClose || !visible || isLoading || disabled) {
             return;
@@ -60,10 +65,14 @@ class DialogBody extends Component {
             visible
         );
 
-        if (!currVisible) {
-            const {onRequestClose} = this.props;
-            onRequestClose && onRequestClose();
-        }
+        this.setState({
+            visible: currVisible
+        }, () => {
+            if (!currVisible) {
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
+            }
+        });
 
     }
 
@@ -81,8 +90,12 @@ class DialogBody extends Component {
 
         const {onCancelButtonTouchTap, onRequestClose} = this.props;
 
-        onCancelButtonTouchTap && onCancelButtonTouchTap();
-        onRequestClose && onRequestClose();
+        this.setState({
+            visible: false
+        }, () => {
+            onCancelButtonTouchTap && onCancelButtonTouchTap();
+            onRequestClose && onRequestClose();
+        });
 
     }
 
@@ -90,8 +103,12 @@ class DialogBody extends Component {
 
         const {onCloseButtonTouchTap, onRequestClose} = this.props;
 
-        onCloseButtonTouchTap && onCloseButtonTouchTap();
-        onRequestClose && onRequestClose();
+        this.setState({
+            visible: false
+        }, () => {
+            onCloseButtonTouchTap && onCloseButtonTouchTap();
+            onRequestClose && onRequestClose();
+        });
 
     }
 
@@ -103,10 +120,14 @@ class DialogBody extends Component {
 
         this.props.isEscClose && PopupManagement.push(this);
 
+        // this.setState({
+        //     visible: true
+        // });
+
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.props.visible) {
+        if (nextProps.visible !== this.state.visible) {
             this.setState({
                 visible: nextProps.visible
             });
@@ -114,7 +135,8 @@ class DialogBody extends Component {
     }
 
     componentDidUpdate() {
-        const {visible, onRender} = this.props;
+        const {onRender} = this.props,
+            {visible} = this.state;
         visible && onRender && onRender(this.dialogEl, this.props.triggerEl);
     }
 
@@ -128,19 +150,21 @@ class DialogBody extends Component {
 
                 children,
 
-                className, modalClassName, visible, disabled, showModal, title, buttons, isLoading, closeIconCls,
+                className, modalClassName, disabled, showModal, title, buttons, isLoading,
+                closeIconCls,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
                 cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
                 cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
 
                 // not passing down these props
-                isBlurClose, isEscClose, onRender, onRequestClose, onOKButtonTouchTap,
-                onCloseButtonTouchTap, onCancelButtonTouchTap,
+                visible: v, isBlurClose, isEscClose,
+                onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
 
                 ...restProps
 
             } = this.props,
+            {visible} = this.state,
 
             dialogClassName = classNames('dialog-wrapper', {
                 hidden: !visible,
@@ -185,6 +209,7 @@ class DialogBody extends Component {
                                           theme={okButtonTheme}
                                           disabled={okButtonDisabled}
                                           isLoading={isLoading || okButtonIsLoading}
+                                          disableTouchRipple={true}
                                           onTouchTap={this.okButtonTouchTapHandle}/>
                             :
                             null
@@ -198,6 +223,7 @@ class DialogBody extends Component {
                                         theme={cancelButtonTheme}
                                         disabled={cancelButtonDisabled}
                                         isLoading={isLoading || cancelButtonIsLoading}
+                                        disableTouchRipple={true}
                                         onTouchTap={this.cancelButtonTouchTapHandle}/>
                             :
                             null
