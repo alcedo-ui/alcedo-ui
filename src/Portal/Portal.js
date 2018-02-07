@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
+import classNames from 'classnames';
 
 class Portal extends Component {
 
@@ -27,8 +28,14 @@ class Portal extends Component {
             return;
         }
 
+        const {className, style} = this.props;
+
         this.wrapper = document.createElement('div');
-        this.wrapper.className = 'portal';
+        this.wrapper.className = classNames('portal', {
+            [className]: className
+        });
+        this.wrapper.style = style;
+
         document.body.appendChild(this.wrapper);
 
     }
