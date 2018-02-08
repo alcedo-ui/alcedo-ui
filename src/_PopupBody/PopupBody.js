@@ -16,6 +16,7 @@ import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopupManagement from '../_vendors/PopupManagement';
 import PopupCalculation from '../_vendors/PopupCalculation';
+import Dom from '../_vendors/Dom';
 
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
@@ -42,15 +43,13 @@ class PopupBody extends Component {
 
     triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
-        if (!triggerEl) {
-            return true;
-        }
+        // if (!triggerEl) {
+        //     return true;
+        // }
 
         while (el) {
             if (el == popupEl) {
                 return currentVisible;
-            } else if (el == triggerEl) {
-                return triggerMode === TriggerMode.TOGGLE ? !currentVisible : true;
             }
             el = el.parentNode;
         }
@@ -62,19 +61,23 @@ class PopupBody extends Component {
     mousedownHandler(e) {
 
         const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
-            {visible} = this.state,
-            currVisible = triggerHandler ?
-                triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose)
-                :
-                this.triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
+            {visible} = this.state;
 
-        this.setState({
-            visible: currVisible
-        }, () => {
-            if (!currVisible) {
+        let currVisible;
+
+        if (triggerHandler) {
+            currVisible = triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
+        } else if (!Dom.isParent(e.target, triggerEl)) {
+            currVisible = this.triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
+        }
+
+        if (currVisible === false) {
+            this.setState({
+                visible: false
+            }, () => {
                 onRequestClose && onRequestClose(e);
-            }
-        });
+            });
+        }
 
     }
 
@@ -101,6 +104,14 @@ class PopupBody extends Component {
             });
         }, 0);
 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.visible !== this.state.visible) {
+            this.setState({
+                visible: nextProps.visible
+            });
+        }
     }
 
     componentDidUpdate() {
