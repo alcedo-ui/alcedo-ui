@@ -36,22 +36,6 @@
         text-align: center;
     }
 
-    .notification-close-icon {
-        position: absolute;
-        top: 5px;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        right: 5px;
-        color: #fff;
-        opacity: .5;
-        transition: opacity $theme-transition-duration ease-in-out;
-
-        &:hover {
-            opacity: 1;
-        }
-    }
-
     .notification-close-Button {
         position: absolute;
         right: 15px;
@@ -59,7 +43,7 @@
         width: auto;
         height: auto;
         padding: 0px;
-        color: #fff;
+        color: inherit;
         opacity: .5;
         transition: opacity $theme-transition-duration ease-in-out;
 
