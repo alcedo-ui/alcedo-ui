@@ -125,6 +125,7 @@ export default class MaterialEditableSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <MaterialEditableSelect data={this.data}
+                                                            label="MaterialEditableSelect"
                                                             onChange={this.onChange}
                                                             autoClose={false}
                                                             useFilter={true}/>

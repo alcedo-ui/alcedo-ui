@@ -113,7 +113,16 @@ class Table extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
+
+                let index = value.findIndex(item => (idProp in item) && (idProp in rowData)
+                    && item[idProp] === rowData[idProp]);
+
+                if (index < 0) {
+                    index = value.indexOf(rowData);
+                }
+
+                return index >= 0;
+
             case SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
@@ -186,11 +195,21 @@ class Table extends Component {
             return;
         }
 
-        const {value} = this.state,
+        const {idProp} = this.props,
+            {value} = this.state,
             checked = this.isItemChecked(rowData, value);
 
         if (checked) {
-            value.splice(value.indexOf(rowData), 1);
+
+            let index = value.findIndex(item => (idProp in item) && (idProp in rowData)
+                && item[idProp] === rowData[idProp]);
+
+            if (index < 0) {
+                index = value.indexOf(rowData);
+            }
+
+            value.splice(index, 1);
+
         } else {
             value.push(rowData);
         }

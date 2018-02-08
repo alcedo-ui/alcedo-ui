@@ -71,6 +71,32 @@ export default class MaterialDropdownFilterExamples extends Component {
                                                         label="Label"
                                                         placeholder="Please select ..."
                                                         data={this.data}
+                                                        onChange={this.onChange}
+                                                        onFilterPressEnter={this.filterPressEnterHandle}
+                                                        onFilterClear={this.filterClearHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialDropdownFilter</code> multiple example.</p>
+
+                                <MaterialDropdownFilter theme={Theme.HIGHLIGHT}
+                                                        label="Label"
+                                                        placeholder="Please select ..."
+                                                        data={this.data}
                                                         selectMode={MaterialDropdownFilter.SelectMode.MULTI_SELECT}
                                                         onChange={this.onChange}
                                                         onFilterPressEnter={this.filterPressEnterHandle}

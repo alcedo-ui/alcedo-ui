@@ -32,7 +32,6 @@ class EditableSelect extends Component {
             isAbove: false
         };
 
-        this.filterChangeHandle = ::this.filterChangeHandle;
         this.showPopup = ::this.showPopup;
         this.closePopup = ::this.closePopup;
         this.filterData = ::this.filterData;
@@ -42,20 +41,27 @@ class EditableSelect extends Component {
 
     }
 
-    filterChangeHandle(filter) {
-        this.setState({
-            filter
-        });
-    }
-
     onChangeValue(value) {
-        this.setState({
-            value,
-            listValue: ''
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+        const {useFilter} = this.props;
+        if (useFilter) {
+            this.setState({
+                value,
+                filter: value,
+                listValue: ''
+            }, () => {
+                const {onChange} = this.props;
+                onChange && onChange(value);
+            });
+        } else {
+            this.setState({
+                value,
+                listValue: ''
+            }, () => {
+                const {onChange} = this.props;
+                onChange && onChange(value);
+            });
+        }
+
     }
 
     showPopup() {
@@ -183,26 +189,6 @@ class EditableSelect extends Component {
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                }
-            }],
-
             triggerClassName = classNames('editable-select-trigger', isAbove ? 'above' : 'blow', {
                 activated: popupVisible,
                 empty: !value
@@ -242,7 +228,8 @@ class EditableSelect extends Component {
                            onMouseOver={onTriggerMouseOver}
                            onMouseOut={onTriggerMouseOut}
                            onChange={this.onChangeValue}
-                           onFocus={this.showPopup}/>
+                           onFocus={this.showPopup}
+                />
 
 
                 <Popup ref="popup"
@@ -256,19 +243,9 @@ class EditableSelect extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    {
-                        useFilter ?
-                            <TextField className="editable-select-filter"
-                                       value={filter}
-                                       rightIconCls="fa fa-search"
-                                       onChange={this.filterChangeHandle}/>
-                            :
-                            null
-                    }
-
                     <List className="editable-select-list"
                           isGrouped={isGrouped}
-                          data={listData.length < 1 ? emptyEl : listData}
+                          data={listData.length < 1 ? [] : listData}
                           valueField={valueField}
                           value={listValue}
                           displayField={valueField}
@@ -283,7 +260,8 @@ class EditableSelect extends Component {
         );
 
     }
-};
+}
+;
 
 EditableSelect.propTypes = {
 
