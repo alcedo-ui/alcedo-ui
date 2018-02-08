@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Tip from 'src/Tip';
@@ -27,19 +28,14 @@ export default class TipExamples extends Component {
 
     }
 
-    showTip(e, id) {
+    showTip(id) {
 
-        const {tipVisible, triggerEl} = this.state;
+        const {tipVisible} = this.state;
 
         tipVisible[id] = true;
 
-        if (!triggerEl[id]) {
-            triggerEl[id] = e.target;
-        }
-
         this.setState({
-            tipVisible,
-            triggerEl
+            tipVisible
         });
 
     }
@@ -52,6 +48,20 @@ export default class TipExamples extends Component {
 
         this.setState({
             tipVisible
+        });
+
+    }
+
+    componentDidMount() {
+
+        const triggerEl = {};
+
+        for (let i = 0; i <= 12; i++) {
+            triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
+        }
+
+        this.setState({
+            triggerEl
         });
 
     }
@@ -89,74 +99,86 @@ export default class TipExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger3"
+                                                      className="trigger-position-button"
                                                       value="Top Left"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 3);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(3);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger4"
+                                                      className="trigger-position-button"
                                                       value="Top"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 4);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(4);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger5"
+                                                      className="trigger-position-button"
                                                       value="Top right"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 5);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(5);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger9"
+                                                      className="trigger-position-button"
                                                       value="Right Top"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 9);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(9);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger10"
+                                                      className="trigger-position-button"
                                                       value="Right"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 10);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(10);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger11"
+                                                      className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 11);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(11);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger0"
+                                                      className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 0);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(0);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger1"
+                                                      className="trigger-position-button"
                                                       value="Bottom"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 1);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(1);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger2"
+                                                      className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 2);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(2);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger6"
+                                                      className="trigger-position-button"
                                                       value="Left Top"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 6);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(6);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger7"
+                                                      className="trigger-position-button"
                                                       value="Left"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 7);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(7);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger8"
+                                                      className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onMouseEnter={(e) => {
-                                                          this.showTip(e, 8);
+                                                      onMouseEnter={() => {
+                                                          this.showTip(8);
                                                       }}/>
                                     </div>
 
@@ -278,10 +300,11 @@ export default class TipExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <RaisedButton className="trigger-button"
+                                <RaisedButton ref="trigger12"
+                                              className="trigger-button"
                                               value="Show Tip"
-                                              onMouseEnter={(e) => {
-                                                  this.showTip(e, 12);
+                                              onMouseEnter={() => {
+                                                  this.showTip(12);
                                               }}/>
 
                                 <Tip className="customized-tip"
@@ -307,28 +330,26 @@ export default class TipExamples extends Component {
 
                         </div>
                     </div>
-                </Widget>
+                </Widget><Widget>
 
-                <Widget>
+                <WidgetHeader className="example-header"
+                              title="Use Tip Provider"/>
 
-                    <WidgetHeader className="example-header"
-                                  title="Customized Tip Triangle"/>
+                <div className="widget-content">
+                    <div className="example-content">
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                        <div className="popup-example-wrapper">
 
-                            <div className="popup-example-wrapper">
-
-                                <TipProvider text="Tip Content">
-                                    <RaisedButton className="trigger-button"
-                                                  value="Show Tip"/>
-                                </TipProvider>
-
-                            </div>
+                            <TipProvider text="Tip Content">
+                                <RaisedButton className="trigger-button"
+                                              value="Show Tip"/>
+                            </TipProvider>
 
                         </div>
+
                     </div>
-                </Widget>
+                </div>
+            </Widget>
 
                 <h2 className="example-title">Properties</h2>
 
