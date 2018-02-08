@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Menu from 'src/Menu';
@@ -27,19 +28,14 @@ export default class MenuExamples extends Component {
 
     }
 
-    showMenu(e, id) {
+    showMenu(id) {
 
-        const {menuVisible, triggerEl} = this.state;
+        const {menuVisible} = this.state;
 
         menuVisible[id] = true;
 
-        if (!triggerEl[id]) {
-            triggerEl[id] = e.target;
-        }
-
         this.setState({
-            menuVisible,
-            triggerEl
+            menuVisible
         });
 
     }
@@ -52,6 +48,20 @@ export default class MenuExamples extends Component {
 
         this.setState({
             menuVisible
+        });
+
+    }
+
+    componentDidMount() {
+
+        const triggerEl = {};
+
+        for (let i = 0; i <= 14; i++) {
+            triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
+        }
+
+        this.setState({
+            triggerEl
         });
 
     }
@@ -97,10 +107,11 @@ export default class MenuExamples extends Component {
 
                                 <p><code>Menu</code> simple example.</p>
 
-                                <RaisedButton className="trigger-button"
+                                <RaisedButton ref="trigger0"
+                                              className="trigger-button"
                                               value="Toggle Menu"
-                                              onMouseEnter={(e) => {
-                                                  this.showMenu(e, 0);
+                                              onMouseEnter={() => {
+                                                  this.showMenu(0);
                                               }}/>
 
                                 <Menu theme={Menu.Theme.PRIMARY}
@@ -135,10 +146,11 @@ export default class MenuExamples extends Component {
                                     no triangle on the top of the DOM element.
                                 </p>
 
-                                <RaisedButton className="trigger-button"
+                                <RaisedButton ref="trigger1"
+                                              className="trigger-button"
                                               value="Toggle Menu"
-                                              onMouseEnter={(e) => {
-                                                  this.showMenu(e, 1);
+                                              onMouseEnter={() => {
+                                                  this.showMenu(1);
                                               }}/>
 
                                 <Menu visible={menuVisible[1]}
@@ -173,74 +185,86 @@ export default class MenuExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger5"
+                                                      className="trigger-position-button"
                                                       value="Top Left"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 5);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(5);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger6"
+                                                      className="trigger-position-button"
                                                       value="Top"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 6);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(6);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger7"
+                                                      className="trigger-position-button"
                                                       value="Top right"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 7);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(7);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger11"
+                                                      className="trigger-position-button"
                                                       value="Right Top"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 11);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(11);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger12"
+                                                      className="trigger-position-button"
                                                       value="Right"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 12);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(12);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger13"
+                                                      className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 13);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(13);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger2"
+                                                      className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 2);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(2);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger3"
+                                                      className="trigger-position-button"
                                                       value="Bottom"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 3);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(3);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger4"
+                                                      className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 4);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(4);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger8"
+                                                      className="trigger-position-button"
                                                       value="Left Top"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 8);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(8);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger9"
+                                                      className="trigger-position-button"
                                                       value="Left"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 9);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(9);
                                                       }}/>
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger10"
+                                                      className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onMouseEnter={(e) => {
-                                                          this.showMenu(e, 10);
+                                                      onMouseEnter={() => {
+                                                          this.showMenu(10);
                                                       }}/>
                                     </div>
 
@@ -362,10 +386,11 @@ export default class MenuExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <RaisedButton className="trigger-button"
+                                <RaisedButton ref="trigger14"
+                                              className="trigger-button"
                                               value="Toggle Menu"
-                                              onMouseEnter={(e) => {
-                                                  this.showMenu(e, 14);
+                                              onMouseEnter={() => {
+                                                  this.showMenu(14);
                                               }}/>
 
                                 <Menu className="customized-menu"
