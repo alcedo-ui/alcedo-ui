@@ -36,7 +36,7 @@ export default class ListExamples extends Component {
             text: 'Firefox',
             disabled: true
         }, {
-            iconCls: 'fa fa-chrome',
+            iconCls: 'fab fa-chrome',
             value: 'Chrome',
             text: 'Chrome'
         }, {
