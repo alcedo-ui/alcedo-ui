@@ -135,7 +135,7 @@ export default class TabExamples extends Component {
                                     </div>
                                 }, {
                                     value: 'Taxi',
-                                    iconCls: 'fa fa-taxi',
+                                    iconCls: 'fas fa-taxi',
                                     renderer: <div>
                                         <h1>Taxi</h1>
                                     </div>
