@@ -46,16 +46,12 @@
 
         .checkbox-bg-icon {
             color: $theme-secondary;
-
-            .button-icon {
-                transition: all $theme-transition-duration ease-in-out;
-            }
         }
 
         .checkbox-icon {
             .button-icon {
-                transform: scale(0);
-                transition: all $theme-transition-duration ease-in-out;
+                opacity: 0;
+                transition: opacity $theme-transition-duration ease-in-out;
             }
         }
     }
@@ -71,15 +67,9 @@
     &.activated,
     &.indeterminated {
 
-        .checkbox-bg-icon {
-            .button-icon {
-                opacity: 0;
-            }
-        }
-
         .checkbox-icon {
             .button-icon {
-                transform: scale(1);
+                opacity: 1;
             }
         }
     }
