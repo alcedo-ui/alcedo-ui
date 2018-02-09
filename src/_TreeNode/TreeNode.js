@@ -352,9 +352,9 @@ TreeNode.defaultProps = {
     expandedIconCls: 'fa fa-caret-down',
     radioUncheckedIconCls: null,
     radioCheckedIconCls: null,
-    checkboxUncheckedIconCls: 'fa fa-square-o',
-    checkboxCheckedIconCls: 'fa fa-check-square',
-    checkboxIndeterminateIconCls: 'fa fa-minus-square'
+    checkboxUncheckedIconCls: 'far fa-square',
+    checkboxCheckedIconCls: 'fas fa-check-square',
+    checkboxIndeterminateIconCls: 'fas fa-minus-square'
 
 };
 

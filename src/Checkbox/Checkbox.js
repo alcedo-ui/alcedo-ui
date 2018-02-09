@@ -231,9 +231,9 @@ Checkbox.defaultProps = {
     value: '',
     checked: false,
     indeterminate: false,
-    uncheckedIconCls: 'fa fa-square-o',
-    checkedIconCls: 'fa fa-check-square',
-    indeterminateIconCls: 'fa fa-minus-square',
+    uncheckedIconCls: 'far fa-square',
+    checkedIconCls: 'fas fa-check-square',
+    indeterminateIconCls: 'fas fa-minus-square',
     disabled: false,
     disableTouchRipple: false,
 
