@@ -18,7 +18,7 @@ export default class DraggableGridExamples extends Component {
             text: 'Facebook',
             tip: 'Facebook'
         }, {
-            iconCls: 'fa fa-twitter',
+            iconCls: 'fab fa-twitter',
             text: 'Twitter',
             tip: 'Twitter'
         }, {

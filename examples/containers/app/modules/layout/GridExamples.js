@@ -22,7 +22,7 @@ export default class GridExamples extends Component {
             desc: 'Here is a Facebook Desc.',
             tip: 'Facebook'
         }, {
-            iconCls: 'fa fa-twitter',
+            iconCls: 'fab fa-twitter',
             text: 'Twitter',
             desc: 'Here is a Twitter Desc.'
         }, {

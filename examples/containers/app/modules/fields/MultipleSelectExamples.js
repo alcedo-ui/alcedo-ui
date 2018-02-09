@@ -55,7 +55,7 @@ export default class MultipleSelectExamples extends Component {
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
             }, {
-                iconCls: 'fa fa-twitter',
+                iconCls: 'fab fa-twitter',
                 text: 'Twitter',
                 desc: 'Here is a Twitter Desc.'
             }, {

@@ -25,7 +25,7 @@ export default class GroupGridExamples extends Component {
                 desc: 'Here is a Facebook Desc.',
                 checked: 'true'
             }, {
-                iconCls: 'fa fa-twitter',
+                iconCls: 'fab fa-twitter',
                 value: 'Twitter',
                 text: 'Twitter',
                 desc: 'Here is a Twitter Desc.'

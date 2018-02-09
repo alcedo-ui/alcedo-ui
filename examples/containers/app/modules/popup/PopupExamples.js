@@ -74,7 +74,7 @@ export default class PopupExamples extends Component {
                 value: 'Facebook',
                 text: 'Facebook'
             }, {
-                iconCls: 'fa fa-twitter',
+                iconCls: 'fab fa-twitter',
                 value: 'Twitter',
                 text: 'Twitter'
             }, {

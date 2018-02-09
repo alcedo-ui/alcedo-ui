@@ -21,7 +21,7 @@ export default class ListExamples extends Component {
             value: 'Facebook',
             text: 'Facebook'
         }, {
-            iconCls: 'fa fa-twitter',
+            iconCls: 'fab fa-twitter',
             value: 'Twitter',
             text: 'Twitter'
         }, {
@@ -74,7 +74,7 @@ export default class ListExamples extends Component {
             text: 'Facebook',
             desc: 'Here is a Facebook Desc.'
         }, {
-            iconCls: 'fa fa-twitter',
+            iconCls: 'fab fa-twitter',
             value: 'Twitter',
             text: 'Twitter',
             desc: 'Here is a Twitter Desc.'
@@ -91,8 +91,8 @@ export default class ListExamples extends Component {
             value: 'Facebook',
             text: 'Facebook'
         }, {
-            radioUncheckedIconCls: 'fa fa-twitter',
-            radioCheckedIconCls: 'fa fa-twitter',
+            radioUncheckedIconCls: 'fab fa-twitter',
+            radioCheckedIconCls: 'fab fa-twitter',
             value: 'Twitter',
             text: 'Twitter'
         }, {
