@@ -430,7 +430,7 @@ DialogBody.defaultProps = {
     cancelButtonIsLoading: false,
     cancelButtonTheme: Theme.DEFAULT,
 
-    closeIconCls: 'fa fa-times',
+    closeIconCls: 'fas fa-times',
 
     isEscClose: true
 

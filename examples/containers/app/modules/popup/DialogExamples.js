@@ -149,7 +149,7 @@ export default class DialogExamples extends Component {
                                         okButtonIconCls="fa fa-check"
                                         cancelButtonVisible={true}
                                         cancelButtonText="CANCEL"
-                                        cancelButtonIconCls="fa fa-times"
+                                        cancelButtonIconCls="fas fa-times"
                                         cancelButtonTheme="error"
                                         onRequestClose={() => {
                                             this.closeDialog(2);

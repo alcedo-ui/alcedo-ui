@@ -391,7 +391,7 @@ class TagField extends Component {
                                                    onEditEnd={this.itemEditEndHandler}>
 
                                         <IconButton className="tag-field-item-field-delete-button"
-                                                    iconCls="fa fa-times"
+                                                    iconCls="fas fa-times"
                                                     disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                                     onTouchTap={() => {
                                                         this.removeItem(index);
