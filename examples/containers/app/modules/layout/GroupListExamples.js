@@ -19,7 +19,7 @@ export default class GroupListExamples extends Component {
         this.listData = [{
             name: 'socialNetwork',
             children: [{
-                iconCls: 'fa fa-facebook',
+                iconCls: 'fab fa-facebook',
                 value: 'Facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.',

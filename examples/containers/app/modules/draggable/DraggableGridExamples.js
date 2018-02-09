@@ -14,7 +14,7 @@ export default class DraggableGridExamples extends Component {
         super(props);
 
         this.gridData = [{
-            iconCls: 'fa fa-facebook',
+            iconCls: 'fab fa-facebook',
             text: 'Facebook',
             tip: 'Facebook'
         }, {

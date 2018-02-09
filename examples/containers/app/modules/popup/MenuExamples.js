@@ -70,7 +70,7 @@ export default class MenuExamples extends Component {
 
         const {menuVisible, triggerEl} = this.state,
             items = [{
-                iconCls: 'fa fa-facebook',
+                iconCls: 'fab fa-facebook',
                 value: 'Facebook',
                 text: 'Facebook'
             }, {

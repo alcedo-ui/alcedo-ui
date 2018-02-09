@@ -16,7 +16,7 @@ export default class DraggableListExamples extends Component {
         super(props);
 
         this.listData = [{
-            iconCls: 'fa fa-facebook',
+            iconCls: 'fab fa-facebook',
             text: 'Facebook',
             tip: 'Facebook'
         }, {

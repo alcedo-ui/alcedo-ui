@@ -70,7 +70,7 @@ export default class PopupExamples extends Component {
 
         const {popupVisible, triggerEl} = this.state,
             data = [{
-                iconCls: 'fa fa-facebook',
+                iconCls: 'fab fa-facebook',
                 value: 'Facebook',
                 text: 'Facebook'
             }, {

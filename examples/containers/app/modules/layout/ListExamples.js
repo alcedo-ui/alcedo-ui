@@ -17,7 +17,7 @@ export default class ListExamples extends Component {
         super(props);
 
         this.listData = [{
-            iconCls: 'fa fa-facebook',
+            iconCls: 'fab fa-facebook',
             value: 'Facebook',
             text: 'Facebook'
         }, {
@@ -69,7 +69,7 @@ export default class ListExamples extends Component {
         }];
 
         this.descListData = [{
-            iconCls: 'fa fa-facebook',
+            iconCls: 'fab fa-facebook',
             value: 'Facebook',
             text: 'Facebook',
             desc: 'Here is a Facebook Desc.'
@@ -86,8 +86,8 @@ export default class ListExamples extends Component {
         }];
 
         this.customizedListData = [{
-            radioUncheckedIconCls: 'fa fa-facebook',
-            radioCheckedIconCls: 'fa fa-facebook',
+            radioUncheckedIconCls: 'fab fa-facebook',
+            radioCheckedIconCls: 'fab fa-facebook',
             value: 'Facebook',
             text: 'Facebook'
         }, {

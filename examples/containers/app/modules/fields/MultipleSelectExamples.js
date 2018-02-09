@@ -51,7 +51,7 @@ export default class MultipleSelectExamples extends Component {
         this.groupedData = [{
             name: 'socialNetwork',
             children: [{
-                iconCls: 'fa fa-facebook',
+                iconCls: 'fab fa-facebook',
                 text: 'Facebook',
                 desc: 'Here is a Facebook Desc.'
             }, {
