@@ -46,7 +46,7 @@ export default class IconButtonExamples extends Component {
 
                                 <IconButton iconCls="fas fa-trash-alt"/>
 
-                                <IconButton iconCls="fa fa-wrench"
+                                <IconButton iconCls="fas fa-wrench"
                                             disabled={true}/>
 
                             </div>
@@ -73,7 +73,7 @@ export default class IconButtonExamples extends Component {
                                 <IconButton iconCls="fas fa-trash-alt"
                                             theme="error"/>
 
-                                <IconButton iconCls="fa fa-wrench"
+                                <IconButton iconCls="fas fa-wrench"
                                             disabled={true}/>
 
                             </div>
