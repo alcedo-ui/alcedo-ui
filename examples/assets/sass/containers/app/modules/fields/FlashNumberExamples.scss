@@ -2,6 +2,7 @@
     .field-group {
         & > * {
             display: inline-block;
+            vertical-align: middle;
         }
     }
 }
