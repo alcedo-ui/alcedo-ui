@@ -12,6 +12,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import configureStore from 'reduxes/store';
 import configureRoutes from './config.routes';
 
+import 'assets/font-awesome/js/fontawesome-all.min';
+
 import 'sass/index.scss';
 
 const history = createHashHistory(),

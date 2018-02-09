@@ -41,7 +41,7 @@ class Brand extends Component {
                 </Link>
 
                 <IconAnchor className="github-icon"
-                            iconCls="fa fa-github"
+                            iconCls="fab fa-github"
                             href="https://github.com/alcedo-ui/alcedo-ui"/>
 
             </div>

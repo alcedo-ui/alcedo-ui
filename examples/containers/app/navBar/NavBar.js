@@ -19,7 +19,7 @@ class NavBar extends Component {
 
                 <div className="nav-collapse floatfix">
                     <IconAnchor className="github-icon"
-                                iconCls="fa fa-github"
+                                iconCls="fab fa-github"
                                 href="https://github.com/alcedo-ui/alcedo-ui"/>
                 </div>
 
