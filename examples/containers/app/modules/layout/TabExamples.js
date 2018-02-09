@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Tab from 'src/Tab';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Toaster from 'src/Toaster';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Tab.json';
@@ -10,14 +11,43 @@ import doc from 'assets/propTypes/Tab.json';
 export default class TabExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            toasts: []
+        };
+
+        this.activeHandler = ::this.activeHandler;
+        this.toastPopHandler = ::this.toastPopHandler;
+
     }
 
-    activeHandle(tab) {
-        alert(`${tab.value} activated.`);
+    activeHandler(tab) {
+
+        const {toasts} = this.state;
+
+        toasts.push({
+            type: Toaster.Type.INFO,
+            message: `${tab.value} Activated`
+        });
+
+        this.setState({
+            toasts
+        });
+
+    }
+
+    toastPopHandler() {
+        this.setState({
+            toasts: []
+        });
     }
 
     render() {
+
+        const {toasts} = this.state;
+
         return (
             <div className="example tab-examples">
 
@@ -54,13 +84,13 @@ export default class TabExamples extends Component {
                                         <h1>Tab 2</h1>
                                     </div>
                                 }, {
-                                    value: 'onActive',
+                                    value: 'Tab 3',
                                     renderer: <div>
                                         <h1>onActive</h1>
                                     </div>,
-                                    onActive: this.activeHandle
+                                    onActive: this.activeHandler
                                 }, {
-                                    value: 'Disabled',
+                                    value: 'Tab 4',
                                     disabled: true
                                 }]}/>
 
@@ -96,13 +126,13 @@ export default class TabExamples extends Component {
                                         <h1>Tab 2</h1>
                                     </div>
                                 }, {
-                                    value: 'onActive',
+                                    value: 'Tab 3',
                                     renderer: <div>
                                         <h1>onActive</h1>
                                     </div>,
-                                    onActive: this.activeHandle
+                                    onActive: this.activeHandler
                                 }, {
-                                    value: 'Disabled',
+                                    value: 'Tab 4',
                                     disabled: true
                                 }]}
                                      isTabFullWidth={false}/>
@@ -160,6 +190,9 @@ export default class TabExamples extends Component {
                     </div>
 
                 </Widget>
+
+                <Toaster toasts={toasts}
+                         onToastPop={this.toastPopHandler}/>
 
                 <h2 className="example-title">Properties</h2>
 
