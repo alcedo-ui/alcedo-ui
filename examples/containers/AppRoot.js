@@ -9,6 +9,7 @@ import * as actions from 'reduxes/actions';
 import Event from 'vendors/Event';
 import Config from 'examples/config';
 
+import 'assets/font-awesome/css/fontawesome-all.min.css';
 import 'sass/global.scss';
 import 'sass/containers/AppRoot.scss';
 

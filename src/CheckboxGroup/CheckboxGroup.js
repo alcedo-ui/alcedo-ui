@@ -182,11 +182,7 @@ CheckboxGroup.defaultProps = {
     data: null,
     value: null,
     disabled: false,
-    idProp: 'id',
-
-    uncheckedIconCls: 'far fa-square',
-    checkedIconCls: 'fas fa-check-square',
-    indeterminateIconCls: 'fas fa-minus-square'
+    idProp: 'id'
 
 };
 

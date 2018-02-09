@@ -75,7 +75,11 @@ export default class CheckboxExamples extends Component {
 
     render() {
 
-        const {checkboxGroupValue} = this.state;
+        const {checkboxGroupValue} = this.state,
+
+            indeterminate = checkboxGroupValue.length > 0 && checkboxGroupValue.length < this.data.length;
+
+        console.log(indeterminate);
 
         return (
             <div className="example checkbox-examples">
@@ -147,8 +151,7 @@ export default class CheckboxExamples extends Component {
                                 <Checkbox theme={Checkbox.Theme.HIGHLIGHT}
                                           label="All"
                                           checked={checkboxGroupValue.length === this.data.length}
-                                          indeterminate={checkboxGroupValue.length > 0
-                                          && checkboxGroupValue.length < this.data.length}
+                                          indeterminate={indeterminate}
                                           onChange={this.checkboxChangeHandler}/>
 
                                 <CheckboxGroup theme={CheckboxGroup.Theme.HIGHLIGHT}
