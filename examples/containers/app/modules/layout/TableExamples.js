@@ -151,7 +151,7 @@ export default class TableExamples extends Component {
                                    defaultPageSize={20}
                                    pageSizes={this.pageSizes}
                                    useFullPagging={true}
-                                   sortAscIconCls="fa fa-caret-up"
+                                   sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
                                    onPageChange={(page, pageSize) => {
                                        console.log(`page: ${page}, pageSize: ${pageSize}`);

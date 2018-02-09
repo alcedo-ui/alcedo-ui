@@ -111,7 +111,7 @@ class HuePicker extends Component {
                     <div className="hue-picker-pointer-wrapper"
                          style={pointerStyle}>
                         <i className="fas fa-caret-down hue-picker-pointer-top"></i>
-                        <i className="fa fa-caret-up hue-picker-pointer-bottom"></i>
+                        <i className="fas fa-caret-up hue-picker-pointer-bottom"></i>
                     </div>
 
                 </div>
