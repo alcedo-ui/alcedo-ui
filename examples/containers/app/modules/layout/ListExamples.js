@@ -31,7 +31,7 @@ export default class ListExamples extends Component {
         }];
 
         this.disabledListData = [{
-            iconCls: 'fa fa-firefox',
+            iconCls: 'fab fa-firefox',
             value: 'Firefox',
             text: 'Firefox',
             disabled: true
