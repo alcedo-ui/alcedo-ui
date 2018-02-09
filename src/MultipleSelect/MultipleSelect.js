@@ -319,7 +319,7 @@ class MultipleSelect extends Component {
                                 }
 
                                 <IconButton className="multiple-select-selected-collapse-button"
-                                            iconCls="fa fa-angle-double-up"
+                                            iconCls="fas fa-angle-double-up"
                                             onTouchTap={this.toggleSelectedCollapse}/>
 
                             </div>
