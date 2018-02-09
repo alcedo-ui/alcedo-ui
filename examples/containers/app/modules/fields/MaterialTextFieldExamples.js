@@ -49,7 +49,7 @@ export default class MaterialTextFieldExamples extends Component {
                                                        label="Search"
                                                        placeholder="keywords"
                                                        autoFocus={true}
-                                                       rightIconCls={'fa fa-search'}/>
+                                                       rightIconCls={'fas fa-search'}/>
                                 </div>
 
                             </div>

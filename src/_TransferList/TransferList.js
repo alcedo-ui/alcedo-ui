@@ -148,7 +148,7 @@ class TransferList extends Component {
                 </div>
 
                 <TextField className="search"
-                           rightIconCls={'fa fa-search'}
+                           rightIconCls={'fas fa-search'}
                            onChange={filterChangeHandle}
                            placeholder={'Search here'}
                            value={filter}/>

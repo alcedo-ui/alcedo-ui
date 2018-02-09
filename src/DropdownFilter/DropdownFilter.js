@@ -570,7 +570,7 @@ DropdownFilter.defaultProps = {
     autoClose: false,
     selectMode: SelectMode.SINGLE_SELECT,
     iconCls: null,
-    rightIconCls: 'fa fa-search',
+    rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: null,
 

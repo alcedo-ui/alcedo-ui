@@ -27,7 +27,7 @@ class NavMenu extends Component {
 
                 <TextField className="nav-menu-filter"
                            value={filter}
-                           rightIconCls="fa fa-search"
+                           rightIconCls="fas fa-search"
                            onChange={updateFilter}/>
 
                 <NavMenuList/>

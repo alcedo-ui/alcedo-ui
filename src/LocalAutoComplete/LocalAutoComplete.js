@@ -694,7 +694,7 @@ LocalAutoComplete.defaultProps = {
     descriptionField: 'desc',
     autoClose: true,
     iconCls: null,
-    rightIconCls: 'fa fa-search',
+    rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: null,
     filterInitValue: '',

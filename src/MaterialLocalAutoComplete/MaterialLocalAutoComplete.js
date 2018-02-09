@@ -407,7 +407,7 @@ MaterialLocalAutoComplete.defaultProps = {
     descriptionField: 'desc',
     autoClose: false,
     iconCls: '',
-    rightIconCls: 'fa fa-search',
+    rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,

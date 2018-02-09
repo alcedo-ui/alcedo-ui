@@ -74,7 +74,7 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Search</label>
-                                    <TextField rightIconCls={'fa fa-search'}
+                                    <TextField rightIconCls={'fas fa-search'}
                                                theme={TextField.Theme.PRIMARY}
                                                onRightIconTouchTap={() => {
                                                    console.log('Search Icon Clicked.');
@@ -203,7 +203,7 @@ export default class TextFieldExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <div className="field-group">
-                                    <TextField rightIconCls={'fa fa-search'}
+                                    <TextField rightIconCls={'fas fa-search'}
                                                value="Disabled"
                                                theme={TextField.Theme.PRIMARY}
                                                disabled={true}/>

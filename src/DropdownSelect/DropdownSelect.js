@@ -229,7 +229,7 @@ class DropdownSelect extends Component {
                             useFilter ?
                                 <TextField className="dropdown-select-filter"
                                            value={filter}
-                                           rightIconCls="fa fa-search"
+                                           rightIconCls="fas fa-search"
                                            onChange={this.filterChangeHandler}/>
                                 :
                                 null

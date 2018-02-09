@@ -574,7 +574,7 @@ AutoCompleteFilter.defaultProps = {
     descriptionField: 'desc',
     autoClose: false,
     iconCls: null,
-    rightIconCls: 'fa fa-search',
+    rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: null,
     filterInitValue: '',

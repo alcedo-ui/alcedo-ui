@@ -335,7 +335,7 @@ class MultipleSelect extends Component {
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
-                           rightIconCls={rightIconCls || 'fa fa-search'}
+                           rightIconCls={rightIconCls || 'fas fa-search'}
                            onFocus={this.focusHandle}
                            onBlur={this.blurHandle}
                            onChange={this.filterChangeHandle}/>
