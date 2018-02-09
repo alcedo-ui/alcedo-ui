@@ -45,11 +45,15 @@
         -webkit-user-drag: element;
 
         .draggable-grid-item-select {
-            display: inline-block;
-            width: 16px;
-            margin-right: 10px;
             float: left;
-            overflow: hidden;
+            width: 16px;
+            height: 40px;
+            margin-right: 10px;
+
+            .checkbox-icon-wrapper {
+                vertical-align: baseline;
+                width: 100%;
+            }
         }
 
         .button-icon {
