@@ -192,7 +192,7 @@ Pagging.defaultProps = {
     pageSizeVisible: true,
 
     paggingPrevIconCls: 'fas fa-angle-left',
-    paggingNextIconCls: 'fa fa-angle-right',
+    paggingNextIconCls: 'fas fa-angle-right',
     paggingFirstIconCls: 'fa fa-angle-double-left',
     paggingLastIconCls: 'fa fa-angle-double-right'
 

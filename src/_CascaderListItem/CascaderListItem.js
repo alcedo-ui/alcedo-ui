@@ -30,7 +30,7 @@ class CascaderListItem extends Component {
 
         return data.map(item => {
             if (item.children && item.children.length > 0) {
-                item.rightIconCls = 'fa fa-angle-right';
+                item.rightIconCls = 'fas fa-angle-right';
             }
             return item;
         });

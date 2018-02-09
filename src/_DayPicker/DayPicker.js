@@ -381,14 +381,14 @@ class DayPicker extends Component {
                     {
                         maxValue ?
                             ((moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) || maxValue && selectYear < moment(maxValue).format('YYYY') ?
-                                    <i className="fa fa-angle-right" onClick={nextMonth}>
+                                    <i className="fas fa-angle-right" onClick={nextMonth}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fa fa-angle-right" onClick={nextMonth}>
+                            <i className="fas fa-angle-right" onClick={nextMonth}>
                                 <TouchRipple/>
                             </i>
 

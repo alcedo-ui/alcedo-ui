@@ -132,7 +132,7 @@ export default class DotStepExamples extends Component {
                                               onTouchTap={this.prev}/>
 
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
-                                              rightIconCls={activatedStep < steps.length - 1 ? 'fa fa-angle-right' : ''}
+                                              rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' : ''}
                                               disabled={activatedStep >= steps.length}
                                               onTouchTap={this.next}/>
 

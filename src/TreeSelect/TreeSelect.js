@@ -88,7 +88,7 @@ class TreeSelect extends Component {
 
                 result.push(
                     <i key={2 * i}
-                       className="fa fa-angle-right tree-select-trigger-value-separator"/>
+                       className="fas fa-angle-right tree-select-trigger-value-separator"/>
                 );
 
                 addNode(path[i].node, i);
