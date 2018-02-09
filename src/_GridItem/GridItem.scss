@@ -11,6 +11,7 @@
 
     .grid-item {
         display: block;
+        box-sizing: content-box;
         width: auto;
         height: 40px;
         position: relative;
@@ -20,7 +21,6 @@
         background-color: $theme-field-bg;
         transition: all $theme-transition-duration ease-in-out;
         cursor: pointer;
-        //box-sizing: border-box;
         padding: 0 15px;
         font-size: 12px;
         text-align: left;
@@ -66,7 +66,10 @@
 
         .grid-item-content {
             display: inline-block;
+            box-sizing: border-box;
+            height: 40px;
             padding: 6px 0;
+            line-height: 28px;
 
             .grid-item-content-value {
                 line-height: 14px;

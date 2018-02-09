@@ -201,7 +201,9 @@ class GridItem extends Component {
                                                     </div>
                                                 </div>
                                                 :
-                                                text
+                                                <div className="grid-item-content">
+                                                    {text}
+                                                </div>
                                         )
                                 )
                         }
