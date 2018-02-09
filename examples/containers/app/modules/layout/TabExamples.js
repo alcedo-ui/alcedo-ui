@@ -147,7 +147,7 @@ export default class TabExamples extends Component {
                                     </div>
                                 }, {
                                     value: 'Rocket',
-                                    iconCls: 'fa fa-rocket',
+                                    iconCls: 'fas fa-rocket',
                                     renderer: <div>
                                         <h1>Rocket</h1>
                                     </div>
