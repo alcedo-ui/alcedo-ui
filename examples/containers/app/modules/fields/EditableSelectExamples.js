@@ -53,7 +53,7 @@ export default class EditableSelectExamples extends Component {
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
             }, {
-                iconCls: 'fa fa-apple',
+                iconCls: 'fab fa-apple',
                 text: 'Apple',
                 desc: 'Here is a Apple Desc.'
             }, {
