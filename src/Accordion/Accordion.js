@@ -146,7 +146,7 @@ Accordion.defaultProps = {
     style: null,
 
     title: 'title',
-    collapseIcon: 'fa fa-angle-up',
+    collapseIcon: 'fas fa-angle-up',
     expandIcon: 'fas fa-angle-down'
 
 };

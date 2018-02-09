@@ -42,7 +42,7 @@ TableHeaderSortIcon.propTypes = {
 TableHeaderSortIcon.defaultProps = {
     sort: null,
     sortProp: null,
-    sortAscIconCls: 'fa fa-angle-up',
+    sortAscIconCls: 'fas fa-angle-up',
     sortDescIconCls: 'fas fa-angle-down'
 };
 
