@@ -387,7 +387,7 @@ DraggableTreeNode.defaultProps = {
     tip: null,
     tipPosition: Position.BOTTOM,
 
-    collapsedIconCls: 'fa fa-caret-right',
+    collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fa fa-caret-down',
     radioUncheckedIconCls: null,
     radioCheckedIconCls: null,
