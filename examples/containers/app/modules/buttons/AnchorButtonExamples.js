@@ -143,7 +143,7 @@ export default class AnchorButtonExamples extends Component {
                                     <code>rightIconCls</code> property for button right icon.</p>
 
                                 <AnchorButton value="Reset"
-                                              iconCls="fa fa-undo"/>
+                                              iconCls="fas fa-undo"/>
 
                                 <AnchorButton value="Add"
                                               theme={AnchorButton.Theme.SUCCESS}

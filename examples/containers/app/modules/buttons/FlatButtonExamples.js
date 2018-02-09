@@ -143,7 +143,7 @@ export default class FlatButtonExamples extends Component {
                                     <code>rightIconCls</code> property for button right icon.</p>
 
                                 <FlatButton value="Reset"
-                                            iconCls="fa fa-undo"/>
+                                            iconCls="fas fa-undo"/>
 
                                 <FlatButton value="Add"
                                             theme={FlatButton.Theme.SUCCESS}

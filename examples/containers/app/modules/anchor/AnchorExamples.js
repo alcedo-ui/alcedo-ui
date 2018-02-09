@@ -89,7 +89,7 @@ export default class AnchorExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Anchor iconCls="fa fa-undo">
+                                <Anchor iconCls="fas fa-undo">
                                     Reset
                                 </Anchor>
 

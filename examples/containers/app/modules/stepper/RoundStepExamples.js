@@ -113,7 +113,7 @@ export default class RoundStepExamples extends Component {
                                               onTouchTap={this.next}/>
 
                                 <RaisedButton value="Reset"
-                                              iconCls="fa fa-undo"
+                                              iconCls="fas fa-undo"
                                               onTouchTap={this.reset}/>
 
                             </div>

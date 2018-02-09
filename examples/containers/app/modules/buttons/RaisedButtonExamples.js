@@ -144,7 +144,7 @@ export default class RaisedButtonExamples extends Component {
                                     <code>rightIconCls</code> property for button right icon.</p>
 
                                 <RaisedButton value="Reset"
-                                              iconCls="fa fa-undo"/>
+                                              iconCls="fas fa-undo"/>
 
                                 <RaisedButton value="Add"
                                               theme={RaisedButton.Theme.SUCCESS}

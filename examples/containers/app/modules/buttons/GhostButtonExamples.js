@@ -142,7 +142,7 @@ export default class GhostButtonExamples extends Component {
                                     <code>rightIconCls</code> property for button right icon.</p>
 
                                 <GhostButton value="Reset"
-                                             iconCls="fa fa-undo"/>
+                                             iconCls="fas fa-undo"/>
 
                                 <GhostButton value="Add"
                                              theme={GhostButton.Theme.SUCCESS}
