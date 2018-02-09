@@ -103,7 +103,7 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
-                                    <TextField iconCls="fa fa-user"
+                                    <TextField iconCls="fas fa-user"
                                                theme={TextField.Theme.HIGHLIGHT}/>
                                 </div>
 
@@ -137,7 +137,7 @@ export default class TextFieldExamples extends Component {
 
                                 <TextFieldGroup>
 
-                                    <TextField iconCls="fa fa-user"
+                                    <TextField iconCls="fas fa-user"
                                                placeholder="username"/>
 
                                     <TextField iconCls="fas fa-lock"
