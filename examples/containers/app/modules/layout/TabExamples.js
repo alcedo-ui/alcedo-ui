@@ -141,7 +141,7 @@ export default class TabExamples extends Component {
                                     </div>
                                 }, {
                                     value: 'Plane',
-                                    iconCls: 'fa fa-plane',
+                                    iconCls: 'fas fa-plane',
                                     renderer: <div>
                                         <h1>Plane</h1>
                                     </div>
