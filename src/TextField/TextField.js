@@ -374,7 +374,7 @@ class TextField extends Component {
                 {
                     isPassword && passwordButtonVisible ?
                         <IconButton className="password-visible-icon"
-                                    iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                                    iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
                                     onTouchTap={this.togglePasswordVisible}/>
                         :
                         null

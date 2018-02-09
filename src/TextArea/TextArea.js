@@ -347,7 +347,7 @@ class TextArea extends Component {
                           disabled={disabled}/>
 
                 <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
-                            iconCls={passwordVisible ? 'fa fa-eye' : 'fa fa-eye-slash'}
+                            iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
                             onTouchTap={this.togglePasswordVisible}/>
 
                 <IconButton ref="clearButton"
