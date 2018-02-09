@@ -40,7 +40,7 @@ export default class ListExamples extends Component {
             value: 'Chrome',
             text: 'Chrome'
         }, {
-            iconCls: 'fa fa-safari',
+            iconCls: 'fab fa-safari',
             value: 'Safari',
             text: 'Safari',
             disabled: true
