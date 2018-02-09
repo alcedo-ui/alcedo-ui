@@ -49,7 +49,7 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
                                     <TextField type="password"
-                                               rightIconCls={'fa fa-lock'}/>
+                                               rightIconCls={'fas fa-lock'}/>
                                 </div>
 
                             </div>
@@ -109,7 +109,7 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
-                                    <TextField iconCls="fa fa-lock"
+                                    <TextField iconCls="fas fa-lock"
                                                type="password"
                                                theme={TextField.Theme.HIGHLIGHT}/>
                                 </div>
@@ -140,7 +140,7 @@ export default class TextFieldExamples extends Component {
                                     <TextField iconCls="fa fa-user"
                                                placeholder="username"/>
 
-                                    <TextField iconCls="fa fa-lock"
+                                    <TextField iconCls="fas fa-lock"
                                                type={TextField.Type.PASSWORD}
                                                placeholder="password"/>
 
