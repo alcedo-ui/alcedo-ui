@@ -48,7 +48,7 @@ export default class GroupListExamples extends Component {
                 text: 'Apple',
                 desc: 'Here is a Apple Desc.'
             }, {
-                iconCls: 'fa fa-windows',
+                iconCls: 'fab fa-windows',
                 value: 'Windows',
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'

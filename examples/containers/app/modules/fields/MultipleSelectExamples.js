@@ -74,7 +74,7 @@ export default class MultipleSelectExamples extends Component {
                 text: 'Apple',
                 desc: 'Here is a Apple Desc.'
             }, {
-                iconCls: 'fa fa-windows',
+                iconCls: 'fab fa-windows',
                 text: 'Windows',
                 desc: 'Here is a Windows Desc.'
             }]
