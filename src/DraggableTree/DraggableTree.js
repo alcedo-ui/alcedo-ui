@@ -453,7 +453,7 @@ DraggableTree.defaultProps = {
 
     allowCollapse: true,
     collapsedIconCls: 'fas fa-caret-right',
-    expandedIconCls: 'fa fa-caret-down'
+    expandedIconCls: 'fas fa-caret-down'
 
 };
 
