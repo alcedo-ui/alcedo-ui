@@ -180,8 +180,8 @@ export default class CheckboxExamples extends Component {
 
                                 <Checkbox theme={Checkbox.Theme.HIGHLIGHT}
                                           label="Self Defined Icon"
-                                          uncheckedIconCls="fa fa-window-close-o"
-                                          checkedIconCls="fa fa-window-close"/>
+                                          uncheckedIconCls="far fa-window-close"
+                                          checkedIconCls="fas fa-window-close"/>
 
                             </div>
 
