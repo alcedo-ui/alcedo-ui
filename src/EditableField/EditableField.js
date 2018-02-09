@@ -158,7 +158,7 @@ class EditableField extends Component {
                         this.state.hide === true ?
                             <span className="editable-field-span"
                                   onTouchTap={this.showInput}>{this.state.text}
-                                <i className="fa fa-pencil editable-field-icon"
+                                <i className="fas fa-pencil-alt editable-field-icon"
                                    aria-hidden="true"></i>
                             </span>
                             :
