@@ -245,7 +245,9 @@ class DraggableGridItem extends Component {
                                                     </div>
                                                 </div>
                                                 :
-                                                text
+                                                <div className="draggable-grid-item-content">
+                                                    {text}
+                                                </div>
                                         )
                                 )
                         }
