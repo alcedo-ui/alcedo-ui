@@ -146,7 +146,7 @@ export default class DialogExamples extends Component {
                                         okButtonTheme={type}
                                         theme={type}
                                         okButtonText="OK"
-                                        okButtonIconCls="fa fa-check"
+                                        okButtonIconCls="fas fa-check"
                                         cancelButtonVisible={true}
                                         cancelButtonText="CANCEL"
                                         cancelButtonIconCls="fas fa-times"

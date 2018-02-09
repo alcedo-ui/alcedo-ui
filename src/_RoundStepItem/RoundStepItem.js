@@ -131,7 +131,7 @@ RoundStepItem.defaultProps = {
     isLast: false,
 
     showFinishedStepIcon: true,
-    finishedStepIconCls: 'fa fa-check',
+    finishedStepIconCls: 'fas fa-check',
 
     disabled: false
 

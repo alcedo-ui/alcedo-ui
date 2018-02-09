@@ -278,8 +278,8 @@ GroupGrid.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: 'fa fa-check',
-    radioCheckedIconCls: 'fa fa-check',
+    radioUncheckedIconCls: 'fas fa-check',
+    radioCheckedIconCls: 'fas fa-check',
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square'
