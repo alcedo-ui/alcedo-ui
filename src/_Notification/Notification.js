@@ -42,7 +42,7 @@ class Notification extends Component {
             case MsgType.ERROR:
                 return 'fas fa-times-circle';
             default:
-                return 'fa fa-info-circle';
+                return 'fas fa-info-circle';
         }
     }
 
