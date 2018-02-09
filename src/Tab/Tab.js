@@ -69,10 +69,10 @@ class Tab extends Component {
                     {
                         tabs.map((item, index) => {
 
-                            const {renderer, ...rest} = item;
+                            const {renderer, onActive, ...restProps} = item;
 
                             return (
-                                <FlatButton {...rest}
+                                <FlatButton {...restProps}
                                             key={index}
                                             className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
                                             style={tabButtonStyle}
