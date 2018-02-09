@@ -64,22 +64,22 @@ export default class ListStepExamples extends Component {
         const {activatedStep, finishedStep} = this.state,
             steps = [{
                 value: 'Basic',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Accounts',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Hotels',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Sample Files',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'SFTP',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Confirm',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }];
 
         steps.map((item, index) => {

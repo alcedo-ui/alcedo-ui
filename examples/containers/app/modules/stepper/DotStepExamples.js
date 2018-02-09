@@ -69,22 +69,22 @@ export default class DotStepExamples extends Component {
         const {activatedStep, finishedStep} = this.state,
             steps = [{
                 value: 'Step1',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Step2',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Step3',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Step4',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Step5',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }, {
                 value: 'Step6',
-                rightIconCls: 'fa fa-circle-o'
+                rightIconCls: 'far fa-circle'
             }];
 
         steps.map((item, index) => {

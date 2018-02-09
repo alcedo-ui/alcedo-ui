@@ -191,8 +191,8 @@ RadioGroup.defaultProps = {
     name: '',
     data: [],
     value: null,
-    uncheckedIconCls: 'fa fa-circle-o',
-    checkedIconCls: 'fa fa-dot-circle-o',
+    uncheckedIconCls: 'far fa-circle',
+    checkedIconCls: 'fas fa-dot-circle',
     disabled: false
 
 };

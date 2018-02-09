@@ -223,8 +223,8 @@ Radio.defaultProps = {
     label: null,
     value: '',
     checked: false,
-    uncheckedIconCls: 'fa fa-circle-o',
-    checkedIconCls: 'fa fa-dot-circle-o',
+    uncheckedIconCls: 'far fa-circle',
+    checkedIconCls: 'fas fa-dot-circle',
     disabled: false,
     disableTouchRipple: false,
 
