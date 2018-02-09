@@ -50,9 +50,8 @@ export default class NotificationExamples extends Component {
 
     addNotification() {
 
-        const {type, title, message} = this.state;
+        const {type, title, message, notifications} = this.state;
 
-        let notifications = this.state.notifications;
         notifications.push({
             type,
             title,
