@@ -43,7 +43,7 @@ TableHeaderSortIcon.defaultProps = {
     sort: null,
     sortProp: null,
     sortAscIconCls: 'fa fa-angle-up',
-    sortDescIconCls: 'fa fa-angle-down'
+    sortDescIconCls: 'fas fa-angle-down'
 };
 
 export default TableHeaderSortIcon;

@@ -59,7 +59,7 @@ class NavMenuItem extends Component {
                                     {options.text}
                                 </div>
 
-                                <i className={`fa fa-angle-down nav-menu-item-collapse-button
+                                <i className={`fas fa-angle-down nav-menu-item-collapse-button
                                 ${collapsed ? 'collapsed' : ''}`}
                                    aria-hidden="true"></i>
 

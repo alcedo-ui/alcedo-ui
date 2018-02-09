@@ -374,7 +374,7 @@ MaterialDropdownSelect.defaultProps = {
     isLabelAnimate: true,
     value: null,
     placeholder: 'Please select ...',
-    rightIconCls: 'fa fa-angle-down',
+    rightIconCls: 'fas fa-angle-down',
     data: [],
     invalidMsg: null,
     disabled: false,

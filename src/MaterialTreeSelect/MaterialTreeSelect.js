@@ -377,7 +377,7 @@ MaterialTreeSelect.defaultProps = {
     label: null,
     isLabelAnimate: true,
     placeholder: 'Please select ...',
-    rightIconCls: 'fa fa-angle-down',
+    rightIconCls: 'fas fa-angle-down',
     data: [],
     invalidMsg: null,
     disabled: false,

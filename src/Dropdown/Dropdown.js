@@ -238,7 +238,7 @@ Dropdown.defaultProps = {
 
     triggerValue: null,
     placeholder: 'Please select ...',
-    rightIconCls: 'fa fa-angle-down',
+    rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,
     autoClose: true,
