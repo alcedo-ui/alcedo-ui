@@ -25,7 +25,7 @@ export default class ListExamples extends Component {
             value: 'Twitter',
             text: 'Twitter'
         }, {
-            iconCls: 'fa fa-google-plus',
+            iconCls: 'fab fa-google-plus-g',
             value: 'Google+',
             text: 'Google+'
         }];
@@ -79,7 +79,7 @@ export default class ListExamples extends Component {
             text: 'Twitter',
             desc: 'Here is a Twitter Desc.'
         }, {
-            iconCls: 'fa fa-google-plus',
+            iconCls: 'fab fa-google-plus-g',
             value: 'Google+',
             text: 'Google+',
             desc: 'Here is a Google+ Desc.'
@@ -96,8 +96,8 @@ export default class ListExamples extends Component {
             value: 'Twitter',
             text: 'Twitter'
         }, {
-            radioUncheckedIconCls: 'fa fa-google-plus',
-            radioCheckedIconCls: 'fa fa-google-plus',
+            radioUncheckedIconCls: 'fab fa-google-plus-g',
+            radioCheckedIconCls: 'fab fa-google-plus-g',
             value: 'Google+',
             text: 'Google+'
         }];

@@ -40,7 +40,7 @@ export default class MaterialEditableSelectExamples extends Component {
                 text: 'Twitter',
                 desc: 'Here is a Twitter Desc.'
             }, {
-                iconCls: 'fa fa-google-plus',
+                iconCls: 'fab fa-google-plus-g',
                 text: 'Google+',
                 desc: 'Here is a Google+ Desc.'
             }]

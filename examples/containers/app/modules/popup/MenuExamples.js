@@ -78,7 +78,7 @@ export default class MenuExamples extends Component {
                 value: 'Twitter',
                 text: 'Twitter'
             }, {
-                iconCls: 'fa fa-google-plus',
+                iconCls: 'fab fa-google-plus-g',
                 value: 'Google+',
                 text: 'Google+'
             }];
