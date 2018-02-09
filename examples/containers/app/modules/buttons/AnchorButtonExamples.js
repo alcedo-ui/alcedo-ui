@@ -147,7 +147,7 @@ export default class AnchorButtonExamples extends Component {
 
                                 <AnchorButton value="Add"
                                               theme={AnchorButton.Theme.SUCCESS}
-                                              iconCls="fa fa-plus"/>
+                                              iconCls="fas fa-plus"/>
 
                                 <AnchorButton value="Delete"
                                               theme={AnchorButton.Theme.ERROR}

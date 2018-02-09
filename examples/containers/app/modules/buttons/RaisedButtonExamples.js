@@ -148,7 +148,7 @@ export default class RaisedButtonExamples extends Component {
 
                                 <RaisedButton value="Add"
                                               theme={RaisedButton.Theme.SUCCESS}
-                                              iconCls="fa fa-plus"/>
+                                              iconCls="fas fa-plus"/>
 
                                 <RaisedButton value="Delete"
                                               theme={RaisedButton.Theme.ERROR}

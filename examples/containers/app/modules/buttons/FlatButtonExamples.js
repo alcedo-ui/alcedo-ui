@@ -147,7 +147,7 @@ export default class FlatButtonExamples extends Component {
 
                                 <FlatButton value="Add"
                                             theme={FlatButton.Theme.SUCCESS}
-                                            iconCls="fa fa-plus"/>
+                                            iconCls="fas fa-plus"/>
 
                                 <FlatButton value="Delete"
                                             theme={FlatButton.Theme.ERROR}

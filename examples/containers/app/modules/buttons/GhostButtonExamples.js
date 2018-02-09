@@ -146,7 +146,7 @@ export default class GhostButtonExamples extends Component {
 
                                 <GhostButton value="Add"
                                              theme={GhostButton.Theme.SUCCESS}
-                                             iconCls="fa fa-plus"/>
+                                             iconCls="fas fa-plus"/>
 
                                 <GhostButton value="Delete"
                                              theme={GhostButton.Theme.ERROR}

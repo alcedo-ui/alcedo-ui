@@ -42,7 +42,7 @@ export default class IconButtonExamples extends Component {
                                     example.
                                 </p>
 
-                                <IconButton iconCls="fa fa-plus"/>
+                                <IconButton iconCls="fas fa-plus"/>
 
                                 <IconButton iconCls="fa fa-trash"/>
 
@@ -67,7 +67,7 @@ export default class IconButtonExamples extends Component {
 
                                 <p><code>Icon Button</code> using different <code>theme</code> example.</p>
 
-                                <IconButton iconCls="fa fa-plus"
+                                <IconButton iconCls="fas fa-plus"
                                             theme="success"/>
 
                                 <IconButton iconCls="fa fa-trash"

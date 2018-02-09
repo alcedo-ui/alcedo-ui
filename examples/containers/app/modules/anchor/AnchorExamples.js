@@ -94,7 +94,7 @@ export default class AnchorExamples extends Component {
                                 </Anchor>
 
                                 <Anchor theme={Anchor.Theme.SUCCESS}
-                                        iconCls="fa fa-plus">
+                                        iconCls="fas fa-plus">
                                     Add
                                 </Anchor>
 
