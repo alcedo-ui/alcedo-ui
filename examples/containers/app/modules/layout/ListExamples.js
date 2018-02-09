@@ -65,7 +65,7 @@ export default class ListExamples extends Component {
             value: 'Primary',
             text: 'Primary',
             theme: 'primary',
-            rightIconCls: 'fa fa-gratipay'
+            rightIconCls: 'fab fa-gratipay'
         }];
 
         this.descListData = [{
