@@ -106,7 +106,7 @@ export default class TreeExamples extends Component {
                             <div className="examples-wrapper">
                                 <Paper className="tree-wrapper">
                                     <Tree data={this.data}
-                                          collapsedIconCls="fa fa-plus-square-o"
+                                          collapsedIconCls="far fa-plus-square"
                                           expandedIconCls="fas fa-minus-square-o"
                                           renderer={node => {
                                               return <div className="self-define-node">
