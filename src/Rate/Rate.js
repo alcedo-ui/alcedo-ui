@@ -160,7 +160,7 @@ class Rate extends Component {
                              className={`half-star ${disabled ? 'disabled' : ''}`}
                              data-key={index + 1}>
                             <div className="half-star-left">
-                                <i className={`fa fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
+                                <i className={`fas fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
                                    data-key={index + 0.5}
                                    onTouchTap={(e) => {
                                        this.selectHandler(index + 0.5, e);
@@ -168,7 +168,7 @@ class Rate extends Component {
                                 ></i>
                             </div>
                             <div className="half-star-right">
-                                <i className={`fa fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                <i className={`fas fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
                                    data-key={index + 1}
                                    onTouchTap={(e) => {
                                        this.selectHandler(index + 1, e);
@@ -180,7 +180,7 @@ class Rate extends Component {
                         <div key={index}
                              className={`star ${disabled ? 'disabled' : ''}`}
                              data-key={index + 1}>
-                            <i className={`fa fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                            <i className={`fas fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
                                data-key={index + 1}
                                onTouchTap={(e) => {
                                    this.selectHandler(index + 1, e);
