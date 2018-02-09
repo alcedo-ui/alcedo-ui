@@ -161,7 +161,7 @@ class MonthPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className="fa fa-angle-double-left" onClick={previousYear}>
+                            <i className="fas fa-angle-double-left" onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -170,7 +170,7 @@ class MonthPicker extends Component {
                     {
                         leftNextYear ?
                             null :
-                            <i className="fa fa-angle-double-right" onClick={nextYear}>
+                            <i className="fas fa-angle-double-right" onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                     }

@@ -348,14 +348,14 @@ class DayPicker extends Component {
                         minValue ?
                             (
                                 (moment(minValue).format('YYYY') < +selectYear - 1) || (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
-                                    <i className="fa fa-angle-double-left" onClick={previousYear}>
+                                    <i className="fas fa-angle-double-left" onClick={previousYear}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fa fa-angle-double-left" onClick={previousYear}>
+                            <i className="fas fa-angle-double-left" onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -396,14 +396,14 @@ class DayPicker extends Component {
                     {
                         maxValue ?
                             ((selectYear < +moment(maxValue).format('YYYY') - 1) || (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
-                                    <i className="fa fa-angle-double-right" onClick={nextYear}>
+                                    <i className="fas fa-angle-double-right" onClick={nextYear}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fa fa-angle-double-right" onClick={nextYear}>
+                            <i className="fas fa-angle-double-right" onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
 
