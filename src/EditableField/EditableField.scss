@@ -97,13 +97,13 @@ input::-ms-clear {
         }
 
         button {
-            height: auto;
-            line-height: 0;
+            height: 100%;
             margin: 0;
             top: 50%;
-            padding: 5px 0!important;
+            padding: 5px 0 !important;
             overflow: inherit;
             transform: translate(0, -50%);
+
             i {
                 line-height: 0;
             }
