@@ -93,7 +93,7 @@ export default class MaterialDropdownFilterExamples extends Component {
 
                                 <p><code>MaterialDropdownFilter</code> multiple example.</p>
 
-                                <MaterialDropdownFilter theme={Theme.HIGHLIGHT}
+                                <MaterialDropdownFilter theme={MaterialDropdownFilter.Theme.HIGHLIGHT}
                                                         label="Label"
                                                         placeholder="Please select ..."
                                                         data={this.data}
