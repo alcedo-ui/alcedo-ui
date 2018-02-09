@@ -221,7 +221,7 @@ class EditableSelect extends Component {
                 <TextField ref="trigger"
                            className={triggerClassName}
                            value={value}
-                           rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
+                           rightIconCls={`fas fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
                            placeholder={placeholder}
                            disabled={disabled}
                            theme={triggerTheme}

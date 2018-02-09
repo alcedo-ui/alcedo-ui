@@ -135,7 +135,7 @@ class CascaderField extends Component {
 
                 <RaisedButton ref="trigger"
                               className={triggerClassName}
-                              rightIconCls={`fa fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
+                              rightIconCls={`fas fa-angle-${isAbove ? 'up' : 'down'} cascader-trigger-icon`}
                               disabled={disabled}
                               value={displayValue || placeholder}
                               theme={theme}
