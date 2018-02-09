@@ -84,7 +84,7 @@ export default class ListStepExamples extends Component {
 
         steps.map((item, index) => {
             if (finishedStep >= index) {
-                item.rightIconCls = 'fa fa-check-circle';
+                item.rightIconCls = 'fas fa-check-circle';
             }
             return item;
         });

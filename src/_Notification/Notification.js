@@ -36,7 +36,7 @@ class Notification extends Component {
     getIconCls() {
         switch (this.props.type) {
             case MsgType.SUCCESS:
-                return 'fa fa-check-circle';
+                return 'fas fa-check-circle';
             case MsgType.WARNING:
                 return 'fa fa-exclamation-triangle';
             case MsgType.ERROR:

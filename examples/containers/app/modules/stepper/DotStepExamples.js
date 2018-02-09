@@ -89,7 +89,7 @@ export default class DotStepExamples extends Component {
 
         steps.map((item, index) => {
             if (finishedStep >= index) {
-                item.rightIconCls = 'fa fa-check-circle';
+                item.rightIconCls = 'fas fa-check-circle';
             }
             return item;
         });

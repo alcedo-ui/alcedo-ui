@@ -50,7 +50,7 @@ export default class ListExamples extends Component {
             value: 'Success',
             text: 'Success',
             theme: 'success',
-            rightIconCls: 'fa fa-check-circle'
+            rightIconCls: 'fas fa-check-circle'
         }, {
             value: 'Error',
             text: 'Error',
