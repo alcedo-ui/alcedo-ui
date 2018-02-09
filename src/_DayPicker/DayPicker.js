@@ -362,14 +362,14 @@ class DayPicker extends Component {
                     {
                         minValue ?
                             ((moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) || moment(minValue).format('YYYY') < selectYear ?
-                                    <i className="fa fa-angle-left" onClick={previousMonth}>
+                                    <i className="fas fa-angle-left" onClick={previousMonth}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fa fa-angle-left" onClick={previousMonth}>
+                            <i className="fas fa-angle-left" onClick={previousMonth}>
                                 <TouchRipple/>
                             </i>
 

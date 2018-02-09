@@ -256,7 +256,7 @@ PaggingPage.defaultProps = {
     page: 0,
     total: 0,
 
-    paggingPrevIconCls: 'fa fa-angle-left',
+    paggingPrevIconCls: 'fas fa-angle-left',
     paggingNextIconCls: 'fa fa-angle-right',
     paggingFirstIconCls: 'fa fa-angle-double-left',
     paggingLastIconCls: 'fa fa-angle-double-right'

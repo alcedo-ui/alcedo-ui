@@ -104,7 +104,7 @@ export default class VerticalPointStepExamples extends Component {
                             <div className="step-ctrls">
 
                                 <RaisedButton value="Prev"
-                                              iconCls="fa fa-angle-left"
+                                              iconCls="fas fa-angle-left"
                                               disabled={activatedStep <= 0}
                                               onTouchTap={this.prev}/>
 
