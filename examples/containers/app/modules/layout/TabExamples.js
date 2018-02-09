@@ -129,7 +129,7 @@ export default class TabExamples extends Component {
 
                                 <Tab tabs={[{
                                     value: 'Bicycle',
-                                    iconCls: 'fa fa-bicycle',
+                                    iconCls: 'fas fa-bicycle',
                                     renderer: <div>
                                         <h1>Bicycle</h1>
                                     </div>
