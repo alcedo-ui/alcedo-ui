@@ -151,11 +151,11 @@ export default class AnchorButtonExamples extends Component {
 
                                 <AnchorButton value="Delete"
                                               theme={AnchorButton.Theme.ERROR}
-                                              iconCls="fa fa-trash"/>
+                                              iconCls="fas fa-trash-alt"/>
 
                                 <AnchorButton value="Next"
                                               theme={AnchorButton.Theme.PRIMARY}
-                                              rightIconCls="fa fa-chevron-right"/>
+                                              rightIconCls="fas fa-angle-right"/>
 
                             </div>
 

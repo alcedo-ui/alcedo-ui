@@ -406,7 +406,7 @@ class TagField extends Component {
                 {
                     clearButtonVisible ?
                         <IconButton className="tag-field-clear-button"
-                                    iconCls="fa fa-trash"
+                                    iconCls="fas fa-trash-alt"
                                     onTouchTap={this.clearHandler}/>
                         :
                         null

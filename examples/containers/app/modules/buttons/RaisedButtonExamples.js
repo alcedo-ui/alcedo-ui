@@ -152,11 +152,11 @@ export default class RaisedButtonExamples extends Component {
 
                                 <RaisedButton value="Delete"
                                               theme={RaisedButton.Theme.ERROR}
-                                              iconCls="fa fa-trash"/>
+                                              iconCls="fas fa-trash-alt"/>
 
                                 <RaisedButton value="Next"
                                               theme={RaisedButton.Theme.PRIMARY}
-                                              rightIconCls="fa fa-chevron-right"/>
+                                              rightIconCls="fas fa-angle-right"/>
 
                             </div>
 

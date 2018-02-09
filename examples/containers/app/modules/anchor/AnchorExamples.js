@@ -99,12 +99,12 @@ export default class AnchorExamples extends Component {
                                 </Anchor>
 
                                 <Anchor theme={Anchor.Theme.ERROR}
-                                        iconCls="fa fa-trash">
+                                        iconCls="fas fa-trash-alt">
                                     Delete
                                 </Anchor>
 
                                 <Anchor theme={Anchor.Theme.PRIMARY}
-                                        rightIconCls="fa fa-chevron-right">
+                                        rightIconCls="fas fa-angle-right">
                                     Next
                                 </Anchor>
 

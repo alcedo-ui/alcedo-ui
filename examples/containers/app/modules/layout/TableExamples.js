@@ -120,7 +120,7 @@ export default class TableExamples extends Component {
                                 header: 'action',
                                 renderer(rowData) {
                                     return (
-                                        <IconButton iconCls="fa fa-trash"
+                                        <IconButton iconCls="fas fa-trash-alt"
                                                     onTouchTap={() => {
                                                         deleteRow(rowData.id);
                                                     }}/>

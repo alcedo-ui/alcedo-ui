@@ -151,11 +151,11 @@ export default class FlatButtonExamples extends Component {
 
                                 <FlatButton value="Delete"
                                             theme={FlatButton.Theme.ERROR}
-                                            iconCls="fa fa-trash"/>
+                                            iconCls="fas fa-trash-alt"/>
 
                                 <FlatButton value="Next"
                                             theme={FlatButton.Theme.PRIMARY}
-                                            rightIconCls="fa fa-chevron-right"/>
+                                            rightIconCls="fas fa-angle-right"/>
 
                             </div>
 

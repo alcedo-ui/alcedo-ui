@@ -193,7 +193,7 @@ BriefPagging.defaultProps = {
     pageSizeVisible: true,
 
     paggingPrevIconCls: 'fa fa-chevron-left',
-    paggingNextIconCls: 'fa fa-chevron-right'
+    paggingNextIconCls: 'fas fa-angle-right'
 
 };
 

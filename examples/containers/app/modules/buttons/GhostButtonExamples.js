@@ -150,11 +150,11 @@ export default class GhostButtonExamples extends Component {
 
                                 <GhostButton value="Delete"
                                              theme={GhostButton.Theme.ERROR}
-                                             iconCls="fa fa-trash"/>
+                                             iconCls="fas fa-trash-alt"/>
 
                                 <GhostButton value="Next"
                                              theme={GhostButton.Theme.PRIMARY}
-                                             rightIconCls="fa fa-chevron-right"/>
+                                             rightIconCls="fas fa-angle-right"/>
 
                             </div>
 

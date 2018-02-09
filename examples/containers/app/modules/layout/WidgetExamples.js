@@ -43,7 +43,7 @@ export default class WidgetExamples extends Component {
 
                                     <WidgetHeader title="Title">
                                         <IconButton iconCls="fa fa-thumbs-up"/>
-                                        <IconButton iconCls="fa fa-trash"/>
+                                        <IconButton iconCls="fas fa-trash-alt"/>
                                     </WidgetHeader>
 
                                     <div className="widget-content">

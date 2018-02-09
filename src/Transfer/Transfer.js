@@ -129,7 +129,7 @@ class Transfer extends Component {
                 <div className="transfer-operation fl">
                     <div>
                         <RaisedButton className='action-button'
-                                      iconCls="fa fa-chevron-right"
+                                      iconCls="fas fa-angle-right"
                                       disabled={leftSelected && leftSelected.length < 1}
                                       onTouchTap={this.moveToRightHandle}/>
                     </div>
