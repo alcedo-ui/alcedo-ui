@@ -61,11 +61,11 @@ class BaseButton extends Component {
     }
 
     startRipple(e) {
-        this.refs.touchRipple.addRipple(e);
+        !this.props.disableTouchRipple && this.refs.touchRipple.addRipple(e);
     }
 
     endRipple() {
-        this.refs.touchRipple.removeRipple();
+        !this.props.disableTouchRipple && this.refs.touchRipple.removeRipple();
     }
 
     render() {
