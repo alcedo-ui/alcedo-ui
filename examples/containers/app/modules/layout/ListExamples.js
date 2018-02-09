@@ -60,7 +60,7 @@ export default class ListExamples extends Component {
             value: 'Warning',
             text: 'Warning',
             theme: 'warning',
-            rightIconCls: 'fa fa-exclamation-triangle'
+            rightIconCls: 'fas fa-exclamation-triangle'
         }, {
             value: 'Primary',
             text: 'Primary',

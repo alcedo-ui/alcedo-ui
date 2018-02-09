@@ -214,7 +214,7 @@ class AutoCompleteFilter extends Component {
                                     noMatchedMsg
                                     :
                                     <span>
-                                        <i className="fa fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                        <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
                                         No matched value.
                                     </span>
                             }
