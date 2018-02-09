@@ -31,7 +31,7 @@ class Brand extends Component {
             <div className="brand">
 
                 <IconButton className="menu-toggle-button"
-                            iconCls="fa fa-bars"
+                            iconCls="fas fa-bars"
                             onTouchTap={this.menuToggleButtonMousedownHandle}/>
 
                 <Link className="brand-name"

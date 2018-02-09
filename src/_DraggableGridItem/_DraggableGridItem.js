@@ -334,7 +334,7 @@ DraggableGridItem.defaultProps = {
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',
 
-    anchorIconCls: 'fa fa-bars',
+    anchorIconCls: 'fas fa-bars',
 
     col: 3
 
