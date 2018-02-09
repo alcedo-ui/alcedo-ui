@@ -49,17 +49,12 @@
 
         .radio-bg-icon {
             color: $theme-secondary;
-
-            .button-icon {
-                transition: all $theme-transition-duration ease-in-out;
-            }
         }
 
         .radio-icon {
-
             .button-icon {
-                transform: scale(0);
-                transition: all $theme-transition-duration ease-in-out;
+                opacity: 0;
+                transition: opacity $theme-transition-duration ease-in-out;
             }
         }
     }
@@ -73,16 +68,9 @@
     }
 
     &.activated {
-
-        .radio-bg-icon {
-            .button-icon {
-                opacity: 0;
-            }
-        }
-
         .radio-icon {
             .button-icon {
-                transform: scale(1);
+                opacity: 1;
             }
         }
     }
