@@ -55,7 +55,7 @@ export default class ListExamples extends Component {
             value: 'Error',
             text: 'Error',
             theme: 'error',
-            rightIconCls: 'fa fa-times-circle-o'
+            rightIconCls: 'far fa-times-circle'
         }, {
             value: 'Warning',
             text: 'Warning',

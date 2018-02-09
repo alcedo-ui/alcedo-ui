@@ -40,7 +40,7 @@ class Toast extends Component {
             case MsgType.WARNING:
                 return 'fas fa-exclamation-triangle';
             case MsgType.ERROR:
-                return 'fa fa-times-circle';
+                return 'fas fa-times-circle';
             default:
                 return 'fa fa-info-circle';
         }

@@ -365,7 +365,7 @@ class TextField extends Component {
                     clearButtonVisible ?
                         <IconButton ref="clearButton"
                                     className={`clear-icon ${!disabled && value && value.length > 0 ? '' : 'hidden'}`}
-                                    iconCls="fa fa-times-circle"
+                                    iconCls="fas fa-times-circle"
                                     onTouchTap={this.clearValue}/>
                         :
                         null

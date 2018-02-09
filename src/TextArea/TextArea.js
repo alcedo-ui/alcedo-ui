@@ -352,7 +352,7 @@ class TextArea extends Component {
 
                 <IconButton ref="clearButton"
                             className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
-                            iconCls="fa fa-times-circle"
+                            iconCls="fas fa-times-circle"
                             onTouchTap={this.clearValue}/>
 
                 {

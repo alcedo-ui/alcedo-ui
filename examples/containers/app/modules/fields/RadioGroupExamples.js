@@ -147,8 +147,8 @@ export default class RadioGroupExamples extends Component {
 
                                 <RadioGroup data={this.data}
                                             value={radioGroupValue}
-                                            uncheckedIconCls="fa fa-times-circle-o"
-                                            checkedIconCls="fa fa-times-circle"
+                                            uncheckedIconCls="far fa-times-circle"
+                                            checkedIconCls="fas fa-times-circle"
                                             onChange={this.radioGroupChangeHandler}/>
 
                             </div>
