@@ -38,7 +38,7 @@ export default class GroupListExamples extends Component {
         }, GroupList.LIST_SEPARATOR, {
             name: 'device',
             children: [{
-                iconCls: 'fa fa-android',
+                iconCls: 'fab fa-android',
                 value: 'Android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'

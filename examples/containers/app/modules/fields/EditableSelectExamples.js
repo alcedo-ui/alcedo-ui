@@ -49,7 +49,7 @@ export default class EditableSelectExamples extends Component {
         }, {
             name: 'device',
             children: [{
-                iconCls: 'fa fa-android',
+                iconCls: 'fab fa-android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
             }, {

@@ -38,7 +38,7 @@ export default class GroupGridExamples extends Component {
         }, {
             name: 'device',
             children: [{
-                iconCls: 'fa fa-android',
+                iconCls: 'fab fa-android',
                 value: 'Android',
                 text: 'Android',
                 desc: 'Here is a Android Desc.'
