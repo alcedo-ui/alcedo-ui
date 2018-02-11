@@ -27,9 +27,9 @@ class CircularProgress extends Component {
 
             l = 2 * r * Math.PI,
             svgStyle = {
+                ...style,
                 width: (r + width) * 2,
-                height: (r + width) * 2,
-                ...style
+                height: (r + width) * 2
             },
 
             circleClassName = classNames('circular-progress', {

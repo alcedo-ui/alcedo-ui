@@ -9,6 +9,7 @@
         height: 100%;
         > circle {
             transition: all 0.3s linear 0ms;
+            transform: rotate(270deg) translateX(-100%);
             stroke: $theme-highlight;
         }
     }
