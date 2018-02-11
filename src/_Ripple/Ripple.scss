@@ -7,20 +7,24 @@
     position: absolute;
     left: 0;
     top: 0;
-    opacity: .16;
     width: 100%;
     height: 100%;
+    opacity: .16;
     border-radius: 50%;
     background: #ccc;
-    transform: scale(0);
-    transition: opacity $theme-transition-duration*4 ease-out, transform $theme-transition-duration*2 ease-out;
     pointer-events: none;
+    transition: transform $theme-transition-duration * 2 ease-out, opacity $theme-transition-duration * 4 ease-out;
 
-    &.visible {
+    &.ripple-enter {
+        transform: scale(0);
+    }
+
+    &.ripple-enter.ripple-enter-active {
         transform: scale(1);
     }
 
-    &.leave {
+    &.ripple-exit.ripple-exit-active {
         opacity: 0;
     }
+
 }
