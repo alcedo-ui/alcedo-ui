@@ -7,7 +7,7 @@ module.exports = {
     dev: {
 
         env: require('./dev.env'),
-        port: 3000,
+        port: 3001,
         srcRoot: path.resolve(__dirname, '../examples'),
         index: path.resolve(__dirname, '../examples/index.html'),
         assetsSubDirectory: 'static',
@@ -31,7 +31,7 @@ module.exports = {
 
     demo: {
 
-        port: 3001
+        port: 3002
 
     }
 
