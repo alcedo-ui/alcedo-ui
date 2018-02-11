@@ -27,7 +27,7 @@ class Rate extends Component {
     }
 
     triggerEventHandle(el, triggerEl) {
-
+        // console.log(el,triggerEl)
         while (el) {
             if (el == triggerEl) {
                 return true;
@@ -40,12 +40,15 @@ class Rate extends Component {
     }
 
     mouseMoveHandler(e) {
+
         const {disabled} = this.props;
         if (disabled) {
             return;
         }
         const mouseEnterFalg = this.triggerEventHandle(e.target, require('react-dom').findDOMNode(this.refs.rate));
         let {value} = this.props;
+
+        // console.log(mouseEnterFalg)
         if (mouseEnterFalg) {
             if (e.target.nodeName === 'I') {
                 value = e.target.getAttribute('data-key');
@@ -159,21 +162,21 @@ class Rate extends Component {
                         <div key={index}
                              className={`half-star ${disabled ? 'disabled' : ''}`}
                              data-key={index + 1}>
-                            <div className="half-star-left">
+                            <div className="half-star-left"
+                                 data-key={index + 0.5}
+                                 onTouchTap={(e) => {
+                                     this.selectHandler(index + 0.5, e);
+                                 }}>
                                 <i className={`fas fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
-                                   data-key={index + 0.5}
-                                   onTouchTap={(e) => {
-                                       this.selectHandler(index + 0.5, e);
-                                   }}
-                                ></i>
+                                   data-key={index + 0.5}></i>
                             </div>
-                            <div className="half-star-right">
+                            <div className="half-star-right"
+                                 data-key={index + 1}
+                                 onTouchTap={(e) => {
+                                     this.selectHandler(index + 1, e);
+                                 }}>
                                 <i className={`fas fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
-                                   data-key={index + 1}
-                                   onTouchTap={(e) => {
-                                       this.selectHandler(index + 1, e);
-                                   }}
-                                ></i>
+                                   data-key={index + 1}></i>
                             </div>
                         </div>
                         :

@@ -33,6 +33,7 @@ module.exports = () => {
                         'prop-types': data.dependencies['prop-types'],
                         'react': data.dependencies['react'],
                         'react-addons-transition-group': data.dependencies['react-addons-transition-group'],
+                        'react-transition-group': data.dependencies['react-transition-group'],
                         'react-dom': data.dependencies['react-dom']
                     },
                     dependencies: {

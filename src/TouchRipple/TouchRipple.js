@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
 import classNames from 'classnames';
 
 import Ripple from '../_Ripple';
@@ -22,7 +21,6 @@ class TouchRipple extends Component {
 
         this.ignoreNextMouseDown = false;
         this.nextKey = 0;
-        this.timeoutIds = [];
 
         this.state = {
             ripples: []
@@ -31,8 +29,7 @@ class TouchRipple extends Component {
         this.getRippleStyle = ::this.getRippleStyle;
         this.addRipple = ::this.addRipple;
         this.removeRipple = ::this.removeRipple;
-        this.clearRippleTimeout = ::this.clearRippleTimeout;
-        this.mouseDownHandle = ::this.mouseDownHandle;
+        this.mouseDownHandler = ::this.mouseDownHandler;
 
     }
 
@@ -88,54 +85,44 @@ class TouchRipple extends Component {
         this.ignoreNextMouseDown = true;
         let {ripples} = this.state;
 
-        ripples.push(
-            <Ripple key={this.nextKey++}
-                    style={this.getRippleStyle(e)}/>
-        );
+        ripples.push({
+            key: this.nextKey++,
+            style: this.getRippleStyle(e)
+        });
 
         this.setState({
-            ripples: ripples
+            ripples
         }, () => {
             this.ignoreNextMouseDown = false;
         });
 
     }
 
-    removeRipple() {
-        this.clearRippleTimeout();
+    removeRipple(rippleId) {
+
+        const {ripples} = this.state;
+
+        ripples.splice(ripples.findIndex(item => item.key === rippleId), 1);
+
         this.setState({
-            ripples: []
+            ripples
         });
+
     }
 
-    clearRippleTimeout() {
+    mouseDownHandler(e) {
 
-        if (!this.timeoutIds || this.timeoutIds.length < 1) {
+        if (this.ignoreNextMouseDown) {
             return;
         }
-
-        this.timeoutIds.forEach(item => clearTimeout(item));
-        this.timeoutIds = [];
-
-    }
-
-    mouseDownHandle(e) {
-
-        this.timeoutIds[this.nextKey] = setTimeout(() => {
-            this.removeRipple();
-        }, 1000 / 60);
 
         this.addRipple(e);
 
     }
 
-    componentWillUnmount() {
-        this.clearRippleTimeout();
-    }
-
     render() {
 
-        const {className, style} = this.props,
+        const {className, style, duration} = this.props,
             {ripples} = this.state,
 
             wrapperClassName = classNames('touch-ripple', {
@@ -143,19 +130,18 @@ class TouchRipple extends Component {
             });
 
         return (
-            <ReactCSSTransitionGroup component="div"
-                                     className={wrapperClassName}
-                                     style={style}
-                                     onMouseDown={this.mouseDownHandle}
-                                     onMouseUp={this.removeRipple}
-                                     onMouseLeave={this.removeRipple}>
+            <div className={wrapperClassName}
+                 style={style}
+                 onMouseDown={this.mouseDownHandler}>
                 {
-                    ripples && ripples.length > 0 ?
-                        ripples
-                        :
-                        null
+                    ripples.map(item =>
+                        <Ripple {...item}
+                                rippleId={item.key}
+                                duration={duration}
+                                onRequestClose={this.removeRipple}/>
+                    )
                 }
-            </ReactCSSTransitionGroup>
+            </div>
         );
 
     }
@@ -166,6 +152,7 @@ TouchRipple.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    duration: PropTypes.number,
     displayCenter: PropTypes.bool
 
 };
@@ -175,6 +162,7 @@ TouchRipple.defaultProps = {
     className: '',
     style: null,
 
+    duration: 250,
     displayCenter: false
 
 };

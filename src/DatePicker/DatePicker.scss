@@ -20,8 +20,8 @@ input::-ms-clear {
         height: 100%;
         border-radius: $theme-border-radius !important;
 
-        &.focused{
-            border:1px solid $theme-border;
+        &.focused {
+            border: 1px solid $theme-border;
             @include shadow(1);
         }
 
@@ -30,6 +30,7 @@ input::-ms-clear {
         }
     }
 }
+
 .popup {
     &.date-picker-popup {
         width: 300px;
@@ -68,6 +69,7 @@ input::-ms-clear {
                     font-size: 22px;
                     position: relative;
                     overflow: hidden;
+                    color: #c5c9ce;
                 }
                 //span:hover, i:hover {
                 //    background: #ecf6fd;
@@ -123,7 +125,7 @@ input::-ms-clear {
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                            &:hover{
+                            &:hover {
                                 a {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
@@ -135,7 +137,7 @@ input::-ms-clear {
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
-                                &:hover{
+                                &:hover {
                                     a {
                                         background: theme-color-hover($theme-highlight);
                                     }
@@ -176,8 +178,8 @@ input::-ms-clear {
                                 overflow: hidden;
                             }
                             &.current-months,
-                            &.current-years{
-                                &:hover{
+                            &.current-years {
+                                &:hover {
                                     a {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;

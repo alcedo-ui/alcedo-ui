@@ -91,8 +91,8 @@ class Toast extends Component {
             {hidden, leave} = this.state,
 
             toastClassName = classNames('toast', {
-                hidden: hidden,
-                leave: leave,
+                hidden,
+                leave,
                 [className]: className
             });
 
