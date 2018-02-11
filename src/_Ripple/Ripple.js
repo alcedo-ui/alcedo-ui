@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Transition from 'react-transition-group/Transition';
 
 class Ripple extends Component {
 
@@ -13,56 +14,48 @@ class Ripple extends Component {
 
         super(props, ...restArgs);
 
-        this.unrenderTimeout = null;
-
         this.state = {
-            hidden: true,
+            visible: false,
             leave: false
         };
 
+        this.exithandler = ::this.exithandler;
+
+    }
+
+    exithandler() {
+        this.setState({
+            leave: true
+        }, () => {
+            // debugger;
+        });
     }
 
     componentDidMount() {
-
-        const {rippleId, duration, onRequestClose} = this.props;
-
-        if (duration > 0) {
-            this.unrenderTimeout = setTimeout(() => {
-                this.setState({
-                    leave: true
-                }, () => {
-                    setTimeout(() => {
-                        onRequestClose && onRequestClose(rippleId);
-                    }, duration * 2);
-                });
-            }, duration);
-        }
-
         setTimeout(() => {
             this.setState({
-                hidden: false
+                visible: true
             });
-        }, 0);
-
+        });
     }
 
     render() {
 
-        const {className, style, children} = this.props,
-            {hidden, leave} = this.state,
+        const {style, duration, ...restProps} = this.props,
+            {visible, leave} = this.state,
 
-            rippleClassName = classNames('ripple', {
-                hidden,
-                leave,
-                [className]: className
+            wrapperClassName = classNames('ripple', {
+                visible,
+                leave
             });
 
         return (
-            <div ref="ripple"
-                 className={rippleClassName}
-                 style={style}>
-                {children}
-            </div>
+            <Transition {...restProps}
+                        timeout={{enter: duration * 2, exit: duration * 4}}
+                        onExit={this.exithandler}>
+                <div className={wrapperClassName}
+                     style={style}></div>
+            </Transition>
         );
 
     }
@@ -70,22 +63,16 @@ class Ripple extends Component {
 
 Ripple.propTypes = {
 
-    className: PropTypes.string,
     style: PropTypes.object,
 
-    rippleId: PropTypes.number,
-    duration: PropTypes.number,
-
-    onRequestClose: PropTypes.func
+    duration: PropTypes.number
 
 };
 
 Ripple.defaultProps = {
 
-    className: null,
     style: null,
 
-    rippleId: 0,
     duration: 250
 
 };

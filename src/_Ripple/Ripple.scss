@@ -12,11 +12,12 @@
     height: 100%;
     border-radius: 50%;
     background: #ccc;
-    transition: opacity 1s ease-out, transform .5s ease-out;
+    transform: scale(0);
+    transition: opacity $theme-transition-duration*4 ease-out, transform $theme-transition-duration*2 ease-out;
     pointer-events: none;
 
-    &.hidden {
-        transform: scale(0);
+    &.visible {
+        transform: scale(1);
     }
 
     &.leave {
