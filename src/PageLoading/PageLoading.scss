@@ -27,7 +27,7 @@
         }
     }
 
-    &.activated {
+    &.page-loading-enter.page-loading-enter-active {
         opacity: 1;
         transition: opacity 0s;
     }

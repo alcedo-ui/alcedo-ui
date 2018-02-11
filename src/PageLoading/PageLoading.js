@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Transition from 'react-transition-group/Transition';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 class PageLoading extends Component {
 
@@ -72,11 +72,8 @@ class PageLoading extends Component {
     }
 
     enterHandler() {
-
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-
         this.setLoading(this.loadingArray);
-
     }
 
     exitHandler() {
@@ -84,7 +81,6 @@ class PageLoading extends Component {
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
 
         this.setLoading(this.finishedArray);
-
         setTimeout(() => {
             this.props.onRequestClose();
         }, 250);
@@ -100,29 +96,25 @@ class PageLoading extends Component {
         const {className, style, visible, duration} = this.props,
             {highlightStyle} = this.state,
 
-            loadingClassName = state => {
-                return classNames('page-loading', {
-                    activated: state === 'entering',
-                    [className]: className
-                });
-            };
+            loadingClassName = classNames('page-loading', {
+                [className]: className
+            });
 
         return (
-            <Transition in={visible}
-                        timeout={{exit: duration}}
-                        onEnter={this.enterHandler}
-                        onExit={this.exitHandler}>
-                {(state) => (
-                    <div className={loadingClassName(state)}
-                         style={style}>
-                        <div className="page-loading-background">
-                            <div ref="highlight"
-                                 className="page-loading-highlight"
-                                 style={highlightStyle}></div>
-                        </div>
+            <CSSTransition in={visible}
+                           timeout={{exit: duration}}
+                           classNames="page-loading"
+                           onEnter={this.enterHandler}
+                           onExit={this.exitHandler}>
+                <div className={loadingClassName}
+                     style={style}>
+                    <div className="page-loading-background">
+                        <div ref="highlight"
+                             className="page-loading-highlight"
+                             style={highlightStyle}></div>
                     </div>
-                )}
-            </Transition>
+                </div>
+            </CSSTransition>
         );
 
     }
