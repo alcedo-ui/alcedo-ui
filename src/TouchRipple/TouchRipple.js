@@ -149,7 +149,7 @@ TouchRipple.defaultProps = {
     className: '',
     style: null,
 
-    duration: 250,
+    duration: 500,
     displayCenter: false
 
 };
