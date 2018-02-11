@@ -6,7 +6,6 @@ import {Redirect} from 'react-router';
 import {renderRoutes} from 'react-router-config';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import ReactCSSTransitionGroup from 'react-addons-transition-group';
 
 import * as actions from 'reduxes/actions';
 
