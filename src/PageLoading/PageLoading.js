@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Transition from 'react-transition-group/Transition';
 
 class PageLoading extends Component {
 
@@ -37,27 +38,40 @@ class PageLoading extends Component {
             timeout: 250
         }];
 
+        this.state = {
+            highlightStyle: {
+                width: 0
+            }
+        };
+
         this.setLoading = ::this.setLoading;
+        this.enterHandler = ::this.enterHandler;
+        this.exitHandler = ::this.exitHandler;
 
     }
 
     setLoading(array, index = 0) {
-        const {width, timeout} = array[index];
-        let highlight = this.refs.highlight;
 
-        if (highlight) {
-            highlight.style.width = width + '%';
-            highlight.style.transition = 'width ' + timeout + 'ms linear 0ms';
+        const {width, timeout} = array[index],
+            highlightStyle = {};
+
+        highlightStyle.width = width + '%';
+        highlightStyle.transition = 'width ' + timeout + 'ms linear 0ms';
+
+        this.setState({
+            highlightStyle
+        }, () => {
             if (index < array.length - 1) {
                 this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
                 this.unrenderTimeout = setTimeout(() => {
                     this.setLoading(array, index + 1);
                 }, width === 100 ? 0 : timeout);
             }
-        }
+        });
+
     }
 
-    componentDidEnter() {
+    enterHandler() {
 
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
 
@@ -65,13 +79,13 @@ class PageLoading extends Component {
 
     }
 
-    componentWillLeave(callback) {
+    exitHandler() {
+
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
 
         this.setLoading(this.finishedArray);
 
         setTimeout(() => {
-            callback();
             this.props.onRequestClose();
         }, 250);
 
@@ -83,22 +97,32 @@ class PageLoading extends Component {
 
     render() {
 
-        const {className, style} = this.props,
+        const {className, style, visible, duration} = this.props,
+            {highlightStyle} = this.state,
 
-            loadingClassName = classNames('page-loading', 'page-loading-one', {
-                [className]: className
-            });
+            loadingClassName = state => {
+                return classNames('page-loading', {
+                    activated: state === 'entering',
+                    [className]: className
+                });
+            };
 
         return (
-            <div ref="progress"
-                 className={loadingClassName}
-                 style={style}>
-                <div className="page-loading-background">
-                    <div ref="highlight"
-                         className={`page-loading-highlight`}>
+            <Transition in={visible}
+                        timeout={{exit: duration}}
+                        onEnter={this.enterHandler}
+                        onExit={this.exitHandler}>
+                {(state) => (
+                    <div className={loadingClassName(state)}
+                         style={style}>
+                        <div className="page-loading-background">
+                            <div ref="highlight"
+                                 className="page-loading-highlight"
+                                 style={highlightStyle}></div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                )}
+            </Transition>
         );
 
     }
@@ -109,13 +133,21 @@ PageLoading.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    visible: PropTypes.bool,
+    duration: PropTypes.number,
+
     onRequestClose: PropTypes.func
 
 };
 
 PageLoading.defaultProps = {
-    className: '',
-    style: null
+
+    className: null,
+    style: null,
+
+    visible: false,
+    duration: 250
+
 };
 
 export default PageLoading;

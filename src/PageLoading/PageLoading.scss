@@ -4,26 +4,31 @@
  */
 
 .page-loading {
-    &.page-loading-one {
-        position: absolute;
-        z-index: 500;
-        top: 0;
+    position: absolute;
+    z-index: 500;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    opacity: 0;
+    transition: opacity $theme-transition-duration ease-in-out;
+
+    .page-loading-background {
         width: 100%;
-        height: 2px;
+        height: 100%;
+        border-radius: 0;
 
-        .page-loading-background {
-            width: 100%;
+        .page-loading-highlight {
+            width: 1px;
             height: 100%;
-            border-radius: 0;
-
-            .page-loading-highlight {
-                width: 1px;
-                height: 100%;
-                background: $theme-highlight linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-                background-size: 10px 10px;
-                animation: progress-bar-stripes 2s linear infinite;
-                transition: width 1s linear 0ms;
-            }
+            background: $theme-highlight linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-size: 10px 10px;
+            animation: progress-bar-stripes 2s linear infinite;
+            transition: width 1s linear 0ms;
         }
+    }
+
+    &.activated {
+        opacity: 1;
+        transition: opacity 0s;
     }
 }
