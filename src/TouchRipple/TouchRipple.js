@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Ripple from '../_Ripple';
 
@@ -29,7 +30,7 @@ class TouchRipple extends Component {
         this.getRippleStyle = ::this.getRippleStyle;
         this.addRipple = ::this.addRipple;
         this.removeRipple = ::this.removeRipple;
-        this.mouseDownHandler = ::this.mouseDownHandler;
+        this.mouseDownHandle = ::this.mouseDownHandle;
 
     }
 
@@ -98,26 +99,14 @@ class TouchRipple extends Component {
 
     }
 
-    removeRipple(rippleId) {
-
-        const {ripples} = this.state;
-
-        ripples.splice(ripples.findIndex(item => item.key === rippleId), 1);
-
+    removeRipple() {
         this.setState({
-            ripples
+            ripples: []
         });
-
     }
 
-    mouseDownHandler(e) {
-
-        if (this.ignoreNextMouseDown) {
-            return;
-        }
-
+    mouseDownHandle(e) {
         this.addRipple(e);
-
     }
 
     render() {
@@ -130,18 +119,16 @@ class TouchRipple extends Component {
             });
 
         return (
-            <div className={wrapperClassName}
-                 style={style}
-                 onMouseDown={this.mouseDownHandler}>
-                {
-                    ripples.map(item =>
-                        <Ripple {...item}
-                                rippleId={item.key}
-                                duration={duration}
-                                onRequestClose={this.removeRipple}/>
-                    )
-                }
-            </div>
+            <TransitionGroup className={wrapperClassName}
+                             style={style}
+                             onMouseDown={this.mouseDownHandle}
+                             onMouseUp={this.removeRipple}
+                             onMouseLeave={this.removeRipple}>
+                {ripples.map(item =>
+                    <Ripple {...item}
+                            duration={duration}/>
+                )}
+            </TransitionGroup>
         );
 
     }
