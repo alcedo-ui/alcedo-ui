@@ -256,6 +256,9 @@ export default [{
     }, {
         text: 'SpanLoading',
         route: '/components/SpanLoading'
+    }, {
+        text: 'PageLoading',
+        route: '/components/PageLoading'
     }]
 }, {
     text: 'Draggable',
