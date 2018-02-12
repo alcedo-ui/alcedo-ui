@@ -30,7 +30,8 @@ export default class PageLoadingExamples extends Component {
 
         this.state = {
             visible1: false,
-            visible2: false
+            visible2: false,
+            visible3: false
         };
 
         this.showLoading = :: this.showLoading;
@@ -49,7 +50,7 @@ export default class PageLoadingExamples extends Component {
     }
 
     render() {
-        const {visible1, visible2} = this.state;
+        const {visible1, visible2, visible3} = this.state;
 
         return (
             <div className="example page-loading-examples">
@@ -77,7 +78,8 @@ export default class PageLoadingExamples extends Component {
                                               this.showLoading('visible1');
                                           }}/>
 
-                            <PageLoading visible={visible1}/>
+                            <PageLoading visible={visible1}
+                                         showStripes={false}/>
 
                         </div>
                     </div>
@@ -92,7 +94,7 @@ export default class PageLoadingExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p >Set loading progress on PageLoading.</p>
+                            <p>Set self loading progress on PageLoading.</p>
 
                             <RaisedButton value="loading"
                                           onTouchTap={() => {
@@ -100,7 +102,31 @@ export default class PageLoadingExamples extends Component {
                                           }}/>
 
                             <PageLoading visible={visible2}
+                                         showStripes={false}
                                          loadingProgress={this.loadingProgress}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Striped PageLoading Example"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>A striped pageLoading example.</p>
+
+                            <RaisedButton value="loading"
+                                          onTouchTap={() => {
+                                              this.showLoading('visible3');
+                                          }}/>
+
+                            <PageLoading visible={visible3}
+                                         showStripes={true}/>
 
                         </div>
                     </div>
