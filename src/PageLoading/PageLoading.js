@@ -18,7 +18,7 @@ class PageLoading extends Component {
 
         this.loadingArray = [{
             width: 0,
-            timeout: 1
+            timeout: 0
         }, {
             width: 50,
             timeout: 200
@@ -38,10 +38,13 @@ class PageLoading extends Component {
             timeout: 250
         }];
 
+        this.defaultHighlightStyle = {
+            width: 0,
+            transition: 'width 0s'
+        };
+
         this.state = {
-            highlightStyle: {
-                width: 0
-            }
+            highlightStyle: this.defaultHighlightStyle
         };
 
         this.setLoading = ::this.setLoading;
@@ -72,7 +75,11 @@ class PageLoading extends Component {
     }
 
     enterHandler() {
+        console.log('enterHandler');
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
+        this.setState({
+            highlightStyle: this.defaultHighlightStyle
+        });
         this.setLoading(this.loadingArray);
     }
 

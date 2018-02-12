@@ -18,7 +18,7 @@
         border-radius: 0;
 
         .page-loading-highlight {
-            width: 1px;
+            width: 0;
             height: 100%;
             background: $theme-highlight linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
             background-size: 10px 10px;
