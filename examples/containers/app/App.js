@@ -20,30 +20,7 @@ import 'sass/containers/app/example.scss';
 class App extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.unrenderTimeout = null;
-        this.nextKey = 1;
-
-        this.state = {
-            loading: {
-                id: this.nextKey++
-            }
-        };
-
-        this.finishLoading = this::this.finishLoading;
-
-    }
-
-    finishLoading() {
-        this.unrenderTimeout = setTimeout(() => {
-            this.setState({
-                loading: {
-                    id: this.nextKey++
-                }
-            });
-        }, 250);
     }
 
     componentDidMount() {
@@ -52,18 +29,12 @@ class App extends Component {
 
     render() {
 
-        const {
-                route, location,
-                $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu
-            } = this.props,
-            {loading} = this.state;
+        const {route, location, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props;
 
         return (
             <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
 
-                <PageLoading key={loading.id}
-                             visible={$componentLoading}
-                             onRequestClose={this.finishLoading}/>
+                <PageLoading visible={$componentLoading}/>
 
                 <NavMenu/>
 
