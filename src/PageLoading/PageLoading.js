@@ -80,10 +80,11 @@ class PageLoading extends Component {
 
     render() {
 
-        const {className, style, visible, duration} = this.props,
+        const {className, style, visible, duration, showStripes} = this.props,
             {highlightStyle} = this.state,
 
             loadingClassName = classNames('page-loading', {
+                striped: showStripes,
                 [className]: className
             });
 
@@ -114,6 +115,7 @@ PageLoading.propTypes = {
 
     visible: PropTypes.bool,
     duration: PropTypes.number,
+    showStripes: PropTypes.bool,
 
     loadingProgress: PropTypes.arrayOf(PropTypes.shape({
         width: PropTypes.number,
@@ -129,6 +131,7 @@ PageLoading.defaultProps = {
 
     visible: false,
     duration: 250,
+    showStripes: true,
 
     loadingProgress: [{
         width: 0,
