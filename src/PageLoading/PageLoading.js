@@ -75,7 +75,6 @@ class PageLoading extends Component {
     }
 
     enterHandler() {
-        console.log('enterHandler');
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
         this.setState({
             highlightStyle: this.defaultHighlightStyle
@@ -84,14 +83,8 @@ class PageLoading extends Component {
     }
 
     exitHandler() {
-
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-
         this.setLoading(this.finishedArray);
-        setTimeout(() => {
-            this.props.onRequestClose();
-        }, 250);
-
     }
 
     componentWillUnmonut() {
@@ -113,14 +106,14 @@ class PageLoading extends Component {
                            classNames="page-loading"
                            onEnter={this.enterHandler}
                            onExit={this.exitHandler}>
+
                 <div className={loadingClassName}
                      style={style}>
-                    <div className="page-loading-background">
-                        <div ref="highlight"
-                             className="page-loading-highlight"
-                             style={highlightStyle}></div>
-                    </div>
+                    <div ref="highlight"
+                         className="page-loading-highlight"
+                         style={highlightStyle}></div>
                 </div>
+
             </CSSTransition>
         );
 
@@ -133,9 +126,7 @@ PageLoading.propTypes = {
     style: PropTypes.object,
 
     visible: PropTypes.bool,
-    duration: PropTypes.number,
-
-    onRequestClose: PropTypes.func
+    duration: PropTypes.number
 
 };
 
