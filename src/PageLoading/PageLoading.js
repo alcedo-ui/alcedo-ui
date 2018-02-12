@@ -26,6 +26,7 @@ class PageLoading extends Component {
         };
 
         this.setLoading = ::this.setLoading;
+        this.clearProgress = ::this.clearProgress;
         this.enterHandler = ::this.enterHandler;
         this.exitHandler = ::this.exitHandler;
 
@@ -43,7 +44,7 @@ class PageLoading extends Component {
             highlightStyle
         }, () => {
             if (index < progress.length - 1) {
-                this.progressTimeout && clearTimeout(this.progressTimeout);
+                this.clearProgress();
                 this.progressTimeout = setTimeout(() => {
                     this.setLoading(progress, index + 1);
                 }, width === 100 ? 0 : timeout);
@@ -52,16 +53,21 @@ class PageLoading extends Component {
 
     }
 
-    enterHandler() {
+    clearProgress() {
         this.progressTimeout && clearTimeout(this.progressTimeout);
+    }
+
+    enterHandler() {
+        this.clearProgress();
         this.setState({
             highlightStyle: this.defaultHighlightStyle
+        }, () => {
+            this.setLoading();
         });
-        this.setLoading();
     }
 
     exitHandler() {
-        this.progressTimeout && clearTimeout(this.progressTimeout);
+        this.clearProgress();
         this.setLoading([{
             width: 100,
             timeout: 250
@@ -69,7 +75,7 @@ class PageLoading extends Component {
     }
 
     componentWillUnmonut() {
-        this.progressTimeout && clearTimeout(this.progressTimeout);
+        this.clearProgress();
     }
 
     render() {
