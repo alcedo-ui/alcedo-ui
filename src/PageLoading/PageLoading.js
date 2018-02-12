@@ -16,6 +16,8 @@ class PageLoading extends Component {
 
         this.progressTimeout = null;
 
+        this.finishDuration = 100;
+
         this.defaultHighlightStyle = {
             width: 0,
             transition: 'width 0s'
@@ -70,7 +72,7 @@ class PageLoading extends Component {
         this.clearProgress();
         this.setLoading([{
             width: 100,
-            timeout: 250
+            timeout: this.finishDuration
         }]);
     }
 
@@ -90,7 +92,7 @@ class PageLoading extends Component {
 
         return (
             <CSSTransition in={visible}
-                           timeout={{exit: duration}}
+                           timeout={{exit: duration + this.finishDuration}}
                            classNames="page-loading"
                            onEnter={this.enterHandler}
                            onExit={this.exitHandler}>
