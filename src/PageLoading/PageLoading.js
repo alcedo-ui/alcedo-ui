@@ -97,8 +97,7 @@ class PageLoading extends Component {
 
                 <div className={loadingClassName}
                      style={style}>
-                    <div ref="highlight"
-                         className="page-loading-highlight"
+                    <div className="page-loading-bar"
                          style={highlightStyle}></div>
                 </div>
 
