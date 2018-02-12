@@ -14,29 +14,7 @@ class PageLoading extends Component {
 
         super(props, ...restArgs);
 
-        this.unrenderTimeout = null;
-
-        this.loadingArray = [{
-            width: 0,
-            timeout: 0
-        }, {
-            width: 50,
-            timeout: 200
-        }, {
-            width: 80,
-            timeout: 2000
-        }, {
-            width: 90,
-            timeout: 2500
-        }, {
-            width: 95,
-            timeout: 25000
-        }];
-
-        this.finishedArray = [{
-            width: 100,
-            timeout: 250
-        }];
+        this.progressTimeout = null;
 
         this.defaultHighlightStyle = {
             width: 0,
@@ -53,9 +31,9 @@ class PageLoading extends Component {
 
     }
 
-    setLoading(array, index = 0) {
+    setLoading(progress = this.props.loadingProgress, index = 0) {
 
-        const {width, timeout} = array[index],
+        const {width, timeout} = progress[index],
             highlightStyle = {};
 
         highlightStyle.width = width + '%';
@@ -64,10 +42,10 @@ class PageLoading extends Component {
         this.setState({
             highlightStyle
         }, () => {
-            if (index < array.length - 1) {
-                this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-                this.unrenderTimeout = setTimeout(() => {
-                    this.setLoading(array, index + 1);
+            if (index < progress.length - 1) {
+                this.progressTimeout && clearTimeout(this.progressTimeout);
+                this.progressTimeout = setTimeout(() => {
+                    this.setLoading(progress, index + 1);
                 }, width === 100 ? 0 : timeout);
             }
         });
@@ -75,20 +53,23 @@ class PageLoading extends Component {
     }
 
     enterHandler() {
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
+        this.progressTimeout && clearTimeout(this.progressTimeout);
         this.setState({
             highlightStyle: this.defaultHighlightStyle
         });
-        this.setLoading(this.loadingArray);
+        this.setLoading();
     }
 
     exitHandler() {
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
-        this.setLoading(this.finishedArray);
+        this.progressTimeout && clearTimeout(this.progressTimeout);
+        this.setLoading([{
+            width: 100,
+            timeout: 250
+        }]);
     }
 
     componentWillUnmonut() {
-        this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
+        this.progressTimeout && clearTimeout(this.progressTimeout);
     }
 
     render() {
@@ -126,7 +107,12 @@ PageLoading.propTypes = {
     style: PropTypes.object,
 
     visible: PropTypes.bool,
-    duration: PropTypes.number
+    duration: PropTypes.number,
+
+    loadingProgress: PropTypes.arrayOf(PropTypes.shape({
+        width: PropTypes.number,
+        timeout: PropTypes.number
+    }))
 
 };
 
@@ -136,7 +122,24 @@ PageLoading.defaultProps = {
     style: null,
 
     visible: false,
-    duration: 250
+    duration: 250,
+
+    loadingProgress: [{
+        width: 0,
+        timeout: 0
+    }, {
+        width: 50,
+        timeout: 200
+    }, {
+        width: 80,
+        timeout: 2000
+    }, {
+        width: 90,
+        timeout: 2500
+    }, {
+        width: 95,
+        timeout: 25000
+    }]
 
 };
 
