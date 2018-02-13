@@ -105,7 +105,7 @@ class MaterialDatePickerTextField extends Component {
             } = this.props,
             {isFocus, isHover, value} = this.state,
 
-            fieldClassName = classNames('material-text-field', {
+            fieldClassName = classNames('material-date-picker-text-field', {
                 animated: isLabelAnimate,
                 'has-label': label,
                 focused: isFocus,
@@ -119,7 +119,7 @@ class MaterialDatePickerTextField extends Component {
 
                 {
                     label ?
-                        <div className="material-text-field-label">
+                        <div className="material-date-picker-text-field-label">
                             {label}
                         </div>
                         :
