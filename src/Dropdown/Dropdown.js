@@ -93,6 +93,9 @@ class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
+            dropdownClassName = classNames('dropdown', {
+                [className]: className
+            }),
             buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
                 activated: popupVisible,
                 [triggerClassName]: triggerClassName
@@ -106,7 +109,7 @@ class Dropdown extends Component {
 
         return (
             <div ref="dropdown"
-                 className={'dropdown' + (className ? ' ' + className : '')}
+                 className={dropdownClassName}
                  style={style}>
 
                 <RaisedButton ref="trigger"
