@@ -8,6 +8,10 @@
 
     .dropdown {
         width: 100%;
+
+        .dropdown-trigger.empty {
+            color: $theme-description;
+        }
     }
 }
 

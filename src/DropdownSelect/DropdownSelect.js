@@ -40,7 +40,6 @@ class DropdownSelect extends Component {
         this.changeHandler = ::this.changeHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
         this.getEmptyEl = ::this.getEmptyEl;
-        this.hasValue = ::this.hasValue;
         this.getTriggerValue = ::this.getTriggerValue;
 
     }
@@ -133,20 +132,6 @@ class DropdownSelect extends Component {
         });
     }
 
-    hasValue() {
-
-        const {selectMode} = this.props,
-            {value} = this.state,
-            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
-
-        if (!value || (isMultiSelect && value.length < 1)) {
-            return false;
-        }
-
-        return true;
-
-    }
-
     getEmptyEl() {
 
         const {noMatchedMsg} = this.props;
@@ -221,7 +206,6 @@ class DropdownSelect extends Component {
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
             selectClassName = classNames('dropdown-select', {
-                'has-value': this.hasValue(),
                 [className]: className
             }),
             triggerClassName = classNames({
