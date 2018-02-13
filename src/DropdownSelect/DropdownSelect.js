@@ -174,10 +174,12 @@ class DropdownSelect extends Component {
                 }
             }],
 
+            selectClassName = classNames('dropdown-select', {
+                [className]: className
+            }),
             triggerClassName = classNames({
                 activated: popupVisible,
-                empty: !value,
-                [className]: className
+                empty: !value
             }),
             triggerValue = value ?
                 (
@@ -203,7 +205,7 @@ class DropdownSelect extends Component {
 
         return (
             <div ref="dropdownSelect"
-                 className={'dropdown-select' + (className ? ' ' + className : '')}
+                 className={selectClassName}
                  style={style}>
 
                 {
