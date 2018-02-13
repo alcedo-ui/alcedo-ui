@@ -32,7 +32,6 @@ module.exports = () => {
                     peerDependencies: {
                         'prop-types': data.dependencies['prop-types'],
                         'react': data.dependencies['react'],
-                        'react-transition-group': data.dependencies['react-transition-group'],
                         'react-dom': data.dependencies['react-dom']
                     },
                     dependencies: {
@@ -42,7 +41,8 @@ module.exports = () => {
                         'react-dnd': data.dependencies['react-dnd'],
                         'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend'],
                         'react-dnd-scrollzone': data.dependencies['react-dnd-scrollzone'],
-                        'react-beautiful-dnd': data.dependencies['react-beautiful-dnd']
+                        'react-beautiful-dnd': data.dependencies['react-beautiful-dnd'],
+                        'react-transition-group': data.dependencies['react-transition-group']
                     }
                 };
 
