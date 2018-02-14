@@ -19,7 +19,7 @@ class AppRoot extends Component {
 
         super(props);
 
-        this.resizeHandle = this::this.resizeHandle;
+        this.resizeHandle = ::this.resizeHandle;
 
     }
 
