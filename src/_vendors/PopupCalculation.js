@@ -132,6 +132,24 @@ function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
 
 }
 
+function setStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
+
+    const style = getStyle(triggerEl, popupEl, position, isTriggerPositionFixed);
+
+    if (!style) {
+        return;
+    }
+
+    popupEl.style.left = style.left + 'px';
+    popupEl.style.top = style.top + 'px';
+
+    if (isTriggerPositionFixed) {
+        popupEl.style.position = 'fixed';
+    }
+
+}
+
 export default {
-    getStyle
+    getStyle,
+    setStyle
 };
