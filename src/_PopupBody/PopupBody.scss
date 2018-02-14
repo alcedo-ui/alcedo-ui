@@ -43,6 +43,7 @@
     }
 
     &.popup-position-bottom-left {
+        transform-origin: 0 0;
 
         &.popup-has-triangle {
             margin-top: 10px;
@@ -62,6 +63,7 @@
     }
 
     &.popup-position-bottom {
+        transform-origin: 50% 0;
 
         &.popup-has-triangle {
             margin-top: 10px;
@@ -82,6 +84,7 @@
     }
 
     &.popup-position-bottom-right {
+        transform-origin: 100% 0;
 
         &.popup-has-triangle {
             margin-top: 10px;
@@ -101,6 +104,7 @@
     }
 
     &.popup-position-top-left {
+        transform-origin: 0 100%;
 
         &.popup-has-triangle {
             margin-bottom: 10px;
@@ -120,6 +124,7 @@
     }
 
     &.popup-position-top {
+        transform-origin: 50% 100%;
 
         &.popup-has-triangle {
             margin-bottom: 10px;
@@ -140,6 +145,7 @@
     }
 
     &.popup-position-top-right {
+        transform-origin: 100% 100%;
 
         &.popup-has-triangle {
             margin-bottom: 10px;
@@ -159,6 +165,7 @@
     }
 
     &.popup-position-left-top {
+        transform-origin: 100% 0;
 
         &.popup-has-triangle {
             margin-right: 10px;
@@ -178,6 +185,7 @@
     }
 
     &.popup-position-left {
+        transform-origin: 100% 50%;
 
         &.popup-has-triangle {
             margin-right: 10px;
@@ -198,6 +206,7 @@
     }
 
     &.popup-position-left-bottom {
+        transform-origin: 100% 100%;
 
         &.popup-has-triangle {
             margin-right: 10px;
@@ -217,6 +226,7 @@
     }
 
     &.popup-position-right-top {
+        transform-origin: 0 0;
 
         &.popup-has-triangle {
             margin-left: 10px;
@@ -236,6 +246,7 @@
     }
 
     &.popup-position-right {
+        transform-origin: 0 50%;
 
         &.popup-has-triangle {
             margin-left: 10px;
@@ -256,7 +267,7 @@
     }
 
     &.popup-position-right-bottom {
-        transform-origin: 100% 0;
+        transform-origin: 0 100%;
 
         &.popup-has-triangle {
             margin-left: 10px;
@@ -282,7 +293,7 @@
 
         &.hidden {
             opacity: 0;
-            transform: scale(.75);
+            transform: scale(.9);
             transition: left 0s $theme-transition-duration,
             opacity $theme-transition-duration ease-in-out,
             transform $theme-transition-duration ease-in-out;
