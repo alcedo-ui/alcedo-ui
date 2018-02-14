@@ -71,9 +71,9 @@ class Portal extends Component {
 
     render() {
 
-        if (this.portal) {
-            return this.renderPortal();
-        }
+        // if (this.portal) {
+        //     return this.renderPortal();
+        // }
 
         if (!this.props.visible) {
             return null;
