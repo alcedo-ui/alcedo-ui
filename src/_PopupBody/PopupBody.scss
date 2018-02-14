@@ -59,11 +59,6 @@
                 border-bottom-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(-50%, -50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-bottom {
@@ -84,11 +79,6 @@
                 border-bottom-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(0, -50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-bottom-right {
@@ -108,11 +98,6 @@
                 border-bottom-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(50%, -50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-top-left {
@@ -132,11 +117,6 @@
                 border-top-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(-50%, 50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-top {
@@ -157,11 +137,6 @@
                 border-top-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(0, 50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-top-right {
@@ -181,11 +156,6 @@
                 border-top-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(50%, 50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-left-top {
@@ -205,11 +175,6 @@
                 border-left-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(50%, -50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-left {
@@ -230,11 +195,6 @@
                 border-left-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(50%, 0, 0) scale(0);
-        }
-
     }
 
     &.popup-position-left-bottom {
@@ -254,11 +214,6 @@
                 border-left-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(50%, 50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-right-top {
@@ -278,11 +233,6 @@
                 border-right-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(-50%, -50%, 0) scale(0);
-        }
-
     }
 
     &.popup-position-right {
@@ -303,14 +253,10 @@
                 border-right-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(-50%, 0, 0) scale(0);
-        }
-
     }
 
     &.popup-position-right-bottom {
+        transform-origin: 100% 0;
 
         &.popup-has-triangle {
             margin-left: 10px;
@@ -327,18 +273,19 @@
                 border-right-style: solid;
             }
         }
-
-        &.hidden {
-            transform: translate3d(-50%, 50%, 0) scale(0);
-        }
-
     }
 
     &.popup-animated {
-        transition: left 0s, transform $theme-transition-duration ease-in-out;
+        transition: left 0s,
+        opacity $theme-transition-duration ease-in-out,
+        transform $theme-transition-duration ease-in-out;
 
         &.hidden {
-            transition: left 0s $theme-transition-duration, transform $theme-transition-duration ease-in-out;
+            opacity: 0;
+            transform: scale(.75);
+            transition: left 0s $theme-transition-duration,
+            opacity $theme-transition-duration ease-in-out,
+            transform $theme-transition-duration ease-in-out;
         }
     }
 
