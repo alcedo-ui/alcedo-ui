@@ -39,10 +39,6 @@ class PopupBody extends Component {
 
     triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
 
-        // if (!triggerEl) {
-        //     return true;
-        // }
-
         while (el) {
             if (el == popupEl) {
                 return currentVisible;
@@ -56,7 +52,7 @@ class PopupBody extends Component {
 
     mousedownHandler(e) {
 
-        const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose, visible} = this.props;
+        const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props;
 
         let currVisible;
 
@@ -91,14 +87,6 @@ class PopupBody extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.props.visible) {
-            this.setState({
-                visible: nextProps.visible
-            });
-        }
-    }
-
     componentDidUpdate() {
         const {visible, onRender} = this.props;
         visible && onRender && onRender(this.popupEl, this.props.triggerEl);
@@ -116,10 +104,10 @@ class PopupBody extends Component {
                 children,
 
                 className, style, theme, hasTriangle, triangle, position, isAnimated,
-                triggerEl, isTriggerPositionFixed,
+                visible, triggerEl, isTriggerPositionFixed,
 
                 // not passing down these props
-                visible, isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode,
+                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode,
                 onRender, onRequestClose, triggerHandler,
 
                 ...restProps
