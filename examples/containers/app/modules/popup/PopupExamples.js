@@ -24,6 +24,7 @@ export default class PopupExamples extends Component {
         };
 
         this.togglePopup = ::this.togglePopup;
+        this.openPopup = ::this.openPopup;
         this.closePopup = ::this.closePopup;
 
     }
@@ -33,6 +34,18 @@ export default class PopupExamples extends Component {
         const {popupVisible} = this.state;
 
         popupVisible[id] = !popupVisible[id];
+
+        this.setState({
+            popupVisible
+        });
+
+    }
+
+    openPopup(id) {
+
+        const {popupVisible} = this.state;
+
+        popupVisible[id] = true;
 
         this.setState({
             popupVisible
@@ -56,7 +69,7 @@ export default class PopupExamples extends Component {
 
         const triggerEl = {};
 
-        for (let i = 0; i <= 14; i++) {
+        for (let i = 0; i <= 15; i++) {
             triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
         }
 
@@ -379,6 +392,45 @@ export default class PopupExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <p><code>Popup</code> simple example.</p>
+
+                                <RaisedButton ref="trigger14"
+                                              className="trigger-button"
+                                              value="Toggle Popup"
+                                              onMouseEnter={() => {
+                                                  this.openPopup(14);
+                                              }}
+                                              onMouseLeave={() => {
+                                                  this.closePopup(14);
+                                              }}/>
+
+                                <Popup theme={Popup.Theme.PRIMARY}
+                                       visible={popupVisible[14]}
+                                       triggerEl={triggerEl[14]}
+                                       onRequestClose={() => {
+                                           this.closePopup(14);
+                                       }}>
+                                    <div style={{padding: 20, color: '#fff'}}>
+                                        Popup Content
+                                    </div>
+                                </Popup>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
                                   title="Customized Popup Triangle"/>
 
                     <div className="widget-content">
@@ -386,16 +438,16 @@ export default class PopupExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <RaisedButton ref="trigger14"
+                                <RaisedButton ref="trigger15"
                                               className="trigger-button"
                                               value="Toggle Popup"
                                               onTouchTap={() => {
-                                                  this.togglePopup(14);
+                                                  this.togglePopup(15);
                                               }}/>
 
                                 <Popup className="customized-popup"
-                                       visible={popupVisible[14]}
-                                       triggerEl={triggerEl[14]}
+                                       visible={popupVisible[15]}
+                                       triggerEl={triggerEl[15]}
                                        triangle={
                                            <svg xmlns="http://www.w3.org/2000/svg"
                                                 version="1.1"
@@ -407,7 +459,7 @@ export default class PopupExamples extends Component {
                                            </svg>
                                        }
                                        onRequestClose={() => {
-                                           this.closePopup(14);
+                                           this.closePopup(15);
                                        }}>
                                     <div style={{padding: 20}}>
                                         Popup Content
