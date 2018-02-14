@@ -24,15 +24,30 @@ class Popup extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            enter: false,
             exited: true
         };
 
+        this.enterHandler = ::this.enterHandler;
+        this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
 
     }
 
     reDraw() {
         this.forceUpdate();
+    }
+
+    enterHandler() {
+        this.setState({
+            enter: true
+        });
+    }
+
+    exitHandler() {
+        this.setState({
+            enter: false
+        });
     }
 
     exitedHandler() {
@@ -52,14 +67,18 @@ class Popup extends Component {
     render() {
 
         const {visible} = this.props,
-            {exited} = this.state;
+            {enter, exited} = this.state;
 
         return (
-            <Transition in={visible}
+            <Transition appear
+                        in={visible}
                         timeout={250}
+                        onEnter={this.enterHandler}
+                        onExit={this.exitHandler}
                         onExited={this.exitedHandler}>
                 <Portal visible={!exited}>
-                    <PopupBody {...this.props}/>
+                    <PopupBody {...this.props}
+                               visible={enter}/>
                 </Portal>
             </Transition>
         );
