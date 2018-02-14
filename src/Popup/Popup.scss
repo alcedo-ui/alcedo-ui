@@ -1,5 +1,5 @@
 /**
- * @file PopupBody style
+ * @file Popup style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -40,6 +40,8 @@
 
     &.hidden {
         left: -99999px !important;
+        pointer-events: none;
+        user-select: none;
     }
 
     &.popup-position-bottom-left {
@@ -61,7 +63,7 @@
         }
 
         &.hidden {
-            transform: translate3d(-50%, -50%, 0) scale(0);
+            transform: translate3d(0, -10%, 0);
         }
 
     }
@@ -86,7 +88,7 @@
         }
 
         &.hidden {
-            transform: translate3d(0, -50%, 0) scale(0);
+            transform: translate3d(0, -10%, 0);
         }
 
     }
@@ -110,7 +112,7 @@
         }
 
         &.hidden {
-            transform: translate3d(50%, -50%, 0) scale(0);
+            transform: translate3d(0, -10%, 0);
         }
 
     }
@@ -134,7 +136,7 @@
         }
 
         &.hidden {
-            transform: translate3d(-50%, 50%, 0) scale(0);
+            transform: translate3d(0, 10%, 0);
         }
 
     }
@@ -159,7 +161,7 @@
         }
 
         &.hidden {
-            transform: translate3d(0, 50%, 0) scale(0);
+            transform: translate3d(0, 10%, 0);
         }
 
     }
@@ -183,7 +185,7 @@
         }
 
         &.hidden {
-            transform: translate3d(50%, 50%, 0) scale(0);
+            transform: translate3d(0, 10%, 0);
         }
 
     }
@@ -207,7 +209,7 @@
         }
 
         &.hidden {
-            transform: translate3d(50%, -50%, 0) scale(0);
+            transform: translate3d(10%, 0, 0);
         }
 
     }
@@ -232,7 +234,7 @@
         }
 
         &.hidden {
-            transform: translate3d(50%, 0, 0) scale(0);
+            transform: translate3d(10%, 0, 0);
         }
 
     }
@@ -256,7 +258,7 @@
         }
 
         &.hidden {
-            transform: translate3d(50%, 50%, 0) scale(0);
+            transform: translate3d(10%, 0, 0);
         }
 
     }
@@ -280,7 +282,7 @@
         }
 
         &.hidden {
-            transform: translate3d(-50%, -50%, 0) scale(0);
+            transform: translate3d(-10%, 0, 0);
         }
 
     }
@@ -305,7 +307,7 @@
         }
 
         &.hidden {
-            transform: translate3d(-50%, 0, 0) scale(0);
+            transform: translate3d(-10%, 0, 0);
         }
 
     }
@@ -329,16 +331,21 @@
         }
 
         &.hidden {
-            transform: translate3d(-50%, 50%, 0) scale(0);
+            transform: translate3d(-10%, 0, 0);
         }
 
     }
 
     &.popup-animated {
-        transition: left 0s, transform $theme-transition-duration ease-in-out;
+        transition: left 0s,
+        opacity $theme-transition-duration ease-in-out,
+        transform $theme-transition-duration ease-in-out;
 
         &.hidden {
-            transition: left 0s $theme-transition-duration, transform $theme-transition-duration ease-in-out;
+            opacity: 0;
+            transition: left 0s $theme-transition-duration,
+            opacity $theme-transition-duration ease-in-out,
+            transform $theme-transition-duration ease-in-out;
         }
     }
 
