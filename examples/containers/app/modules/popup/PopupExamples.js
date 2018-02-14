@@ -392,14 +392,14 @@ export default class PopupExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Basic"/>
+                                  title="With Mouse Events"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="popup-example-wrapper">
 
-                                <p><code>Popup</code> simple example.</p>
+                                <p>Show a <code>Popup</code> with <code>Mouse Events</code>.</p>
 
                                 <RaisedButton ref="trigger14"
                                               className="trigger-button"
