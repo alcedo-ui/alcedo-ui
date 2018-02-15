@@ -146,11 +146,10 @@ class Popup extends Component {
 
                 children,
 
-                className, style, theme, hasTriangle, triangle, position, isAnimated,
-                visible, triggerEl, isTriggerPositionFixed,
+                className, style, theme, hasTriangle, triangle, position, isAnimated, visible,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode,
+                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode, triggerEl, isTriggerPositionFixed,
                 onRender, onRequestClose, triggerHandler,
 
                 ...restProps
@@ -165,11 +164,7 @@ class Popup extends Component {
                 [`popup-position-${position}`]: position,
                 'popup-animated': isAnimated,
                 [className]: className
-            }),
-            popupStyle = {
-                // ...PopupCalculation.getStyle(triggerEl, this.popupEl, position, isTriggerPositionFixed),
-                ...style
-            };
+            });
 
         return (
             <Portal visible={!exited}>
@@ -182,7 +177,7 @@ class Popup extends Component {
                             onExited={this.exitedHandler}>
                     <Paper {...restProps}
                            className={popupClassName}
-                           style={popupStyle}
+                           style={style}
                            onWheel={e => {
                                Event.wheelHandler(e, this.props);
                            }}>
