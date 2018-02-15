@@ -42,7 +42,7 @@ exports.cssLoaders = options => {
             return ExtractTextPlugin.extract({
                 use: loaders,
                 fallback: 'style-loader',
-                publicPath: '"../../"'
+                publicPath: '../../'
             });
         }
 
