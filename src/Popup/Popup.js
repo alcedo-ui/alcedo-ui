@@ -41,7 +41,6 @@ class Popup extends Component {
         this.exitedHandler = ::this.exitedHandler;
         this.mousedownHandler = ::this.mousedownHandler;
         this.resizeHandler = ::this.resizeHandler;
-        this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 250);
 
     }
 
@@ -50,6 +49,8 @@ class Popup extends Component {
     }
 
     enterHandler(el) {
+
+        this.transitionEl = el;
 
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
         PopupCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
@@ -103,13 +104,10 @@ class Popup extends Component {
 
     }
 
-    resizeHandler() {
-        this.debounceResizeHandler();
-    }
-
-    debounceResizeHandler() {
-        this.forceUpdate();
-    }
+    resizeHandler = _.debounce(() => {
+        const {triggerEl, position, isTriggerPositionFixed} = this.props;
+        PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
+    }, 250);
 
     componentDidMount() {
 
@@ -168,8 +166,7 @@ class Popup extends Component {
 
         return (
             <Portal visible={!exited}>
-                <Transition ref={el => this.transitionEl = el}
-                            appear
+                <Transition appear
                             in={visible}
                             timeout={250}
                             onEnter={this.enterHandler}
