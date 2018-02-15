@@ -20,10 +20,6 @@ class Menu extends Component {
         super(props, ...restArgs);
     }
 
-    reDraw() {
-        this.forceUpdate();
-    }
-
     render() {
 
         const {visible} = this.props;
