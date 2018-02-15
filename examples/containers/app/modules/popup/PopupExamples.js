@@ -18,6 +18,20 @@ export default class PopupExamples extends Component {
 
         super(props);
 
+        this.data = [{
+            iconCls: 'fab fa-facebook',
+            value: 'Facebook',
+            text: 'Facebook'
+        }, {
+            iconCls: 'fab fa-twitter',
+            value: 'Twitter',
+            text: 'Twitter'
+        }, {
+            iconCls: 'fab fa-google-plus-g',
+            value: 'Google+',
+            text: 'Google+'
+        }];
+
         this.state = {
             popupVisible: {},
             triggerEl: {}
@@ -81,20 +95,7 @@ export default class PopupExamples extends Component {
 
     render() {
 
-        const {popupVisible, triggerEl} = this.state,
-            data = [{
-                iconCls: 'fab fa-facebook',
-                value: 'Facebook',
-                text: 'Facebook'
-            }, {
-                iconCls: 'fab fa-twitter',
-                value: 'Twitter',
-                text: 'Twitter'
-            }, {
-                iconCls: 'fab fa-google-plus-g',
-                value: 'Google+',
-                text: 'Google+'
-            }];
+        const {popupVisible, triggerEl} = this.state;
 
         return (
             <div className="example popup-examples">
@@ -172,7 +173,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(1);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
 
                             </div>
@@ -289,7 +290,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(2);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[3]}
                                        triggerEl={triggerEl[3]}
@@ -297,7 +298,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(3);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[4]}
                                        triggerEl={triggerEl[4]}
@@ -305,7 +306,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(4);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[5]}
@@ -314,7 +315,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(5);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[6]}
                                        triggerEl={triggerEl[6]}
@@ -322,7 +323,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(6);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[7]}
                                        triggerEl={triggerEl[7]}
@@ -330,7 +331,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(7);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[8]}
@@ -339,7 +340,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(8);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[9]}
                                        triggerEl={triggerEl[9]}
@@ -347,7 +348,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(9);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[10]}
                                        triggerEl={triggerEl[10]}
@@ -355,7 +356,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(10);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[11]}
@@ -364,7 +365,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(11);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[12]}
                                        triggerEl={triggerEl[12]}
@@ -372,7 +373,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(12);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[13]}
                                        triggerEl={triggerEl[13]}
@@ -380,7 +381,7 @@ export default class PopupExamples extends Component {
                                        onRequestClose={() => {
                                            this.closePopup(13);
                                        }}>
-                                    <List data={data}/>
+                                    <List data={this.data}/>
                                 </Popup>
 
                             </div>
