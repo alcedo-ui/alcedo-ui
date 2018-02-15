@@ -44,10 +44,6 @@ class Popup extends Component {
 
     }
 
-    reDraw() {
-        this.forceUpdate();
-    }
-
     enterHandler(el) {
 
         this.transitionEl = el;
