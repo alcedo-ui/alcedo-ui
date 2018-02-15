@@ -184,7 +184,7 @@ class MultipleSelect extends Component {
             onChange && onChange(value);
 
             requestAnimationFrame(() => {
-                this.popupRef.reDraw();
+                this.popupRef.forceUpdate();
             });
 
         });
