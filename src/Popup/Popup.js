@@ -39,7 +39,7 @@ class Popup extends Component {
         this.enterHandler = ::this.enterHandler;
         this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
-        this.mousedownHandler = ::this.mousedownHandler;
+        this.mouseDownHandler = ::this.mouseDownHandler;
         this.resizeHandler = ::this.resizeHandler;
 
     }
@@ -82,7 +82,7 @@ class Popup extends Component {
 
     }
 
-    mousedownHandler(e) {
+    mouseDownHandler(e) {
 
         const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props;
 
@@ -95,7 +95,9 @@ class Popup extends Component {
         }
 
         if (currVisible === false) {
-            onRequestClose && onRequestClose(e);
+            setTimeout(() => {
+                onRequestClose && onRequestClose(e);
+            }, 0);
         }
 
     }
@@ -109,7 +111,7 @@ class Popup extends Component {
 
         this.popupEl = findDOMNode(this.refs.popup);
 
-        Event.addEvent(document, 'mousedown', this.mousedownHandler);
+        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
 
         this.props.isEscClose && PopupManagement.push(this);
@@ -119,7 +121,7 @@ class Popup extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.visible) {
             this.setState({
-                exited: false
+                exited: !nextProps.visible
             });
         }
     }
@@ -130,7 +132,7 @@ class Popup extends Component {
     // }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mousedownHandler);
+        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
         Event.removeEvent(window, 'resize', this.resizeHandler);
     }
 
