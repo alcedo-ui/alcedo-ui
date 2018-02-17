@@ -1,6 +1,6 @@
 /**
- * @file BasePopup
+ * @file Popover
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './BasePopup';
+export default from './Popover';
