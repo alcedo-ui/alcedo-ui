@@ -39,7 +39,6 @@ class BasePopup extends Component {
         this.enterHandler = ::this.enterHandler;
         this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
-        this.mouseDownHandler = ::this.mouseDownHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.getEl = ::this.getEl;
 
@@ -73,39 +72,6 @@ class BasePopup extends Component {
         });
     }
 
-    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
-
-        while (el) {
-            if (el == popupEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
-        }
-
-        return isAutoClose ? false : currentVisible;
-
-    }
-
-    mouseDownHandler(e) {
-
-        const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props;
-
-        let currVisible;
-
-        if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
-        } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
-        }
-
-        if (currVisible === false) {
-            setTimeout(() => {
-                onRequestClose && onRequestClose(e);
-            }, 0);
-        }
-
-    }
-
     resizeHandler = _.debounce(() => {
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
         PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
@@ -120,9 +86,6 @@ class BasePopup extends Component {
 
     componentDidMount() {
 
-        this.popupEl = findDOMNode(this.refs.popup);
-
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
         Event.addEvent(window, 'resize', this.resizeHandler);
 
         this.props.isEscClose && PopupManagement.push(this);
@@ -138,7 +101,6 @@ class BasePopup extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
         Event.removeEvent(window, 'resize', this.resizeHandler);
     }
 
@@ -152,7 +114,7 @@ class BasePopup extends Component {
 
                 // not passing down these props
                 isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode, triggerEl, isTriggerPositionFixed,
-                onRender, onRequestClose, triggerHandler,
+                onRender, onRequestClose,
 
                 ...restProps
 
@@ -266,11 +228,6 @@ BasePopup.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
-
-    /**
-     * The function of popup event handler.
-     */
-    triggerHandler: PropTypes.func,
 
     /**
      * The function of popup render.
