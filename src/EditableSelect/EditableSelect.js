@@ -82,7 +82,7 @@ class EditableSelect extends Component {
         });
     }
 
-    triggerHandle(el, triggerEl, popupEl, currentVisible, isAutoClose) {
+    triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
 
         if (!triggerEl) {
             return true;
@@ -237,7 +237,7 @@ class EditableSelect extends Component {
                        style={editablePopupStyle}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
-                       triggerHandler={this.triggerHandle}
+                       triggerHandler={this.triggerHandler}
                        hasTriangle={false}
                        position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                        onRender={this.popupRenderHandle}
