@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
@@ -15,11 +16,10 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import TriggerMode from '../_statics/TriggerMode';
 import Event from '../_vendors/Event';
-import PopupCalculation from '../_vendors/PopupCalculation';
-import PopupManagement from '../_vendors/PopupManagement';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
-import PropTypes from 'prop-types';
+import PopupCalculation from '../_vendors/PopupCalculation';
+import PopupManagement from '../_vendors/PopupManagement';
 
 class BasePopup extends Component {
 
@@ -153,10 +153,10 @@ class BasePopup extends Component {
 
             popupClassName = classNames('base-popup', {
                 hidden: !enter,
-                'popup-has-triangle': hasTriangle,
+                'base-popup-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
-                [`popup-position-${position}`]: position,
-                'popup-animated': isAnimated,
+                [`base-popup-position-${position}`]: position,
+                'base-popup-animated': isAnimated,
                 [className]: className
             });
 
@@ -290,7 +290,7 @@ BasePopup.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    triangle: <div className="popup-triangle"></div>,
+    triangle: <div className="base-popup-triangle"></div>,
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
