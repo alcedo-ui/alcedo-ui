@@ -5,15 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
 
 import BasePopup from '../_BasePopup';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
-import TriggerMode from '../_statics/TriggerMode';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
@@ -21,7 +18,6 @@ import Util from '../_vendors/Util';
 class Popup extends Component {
 
     static Position = Position;
-    static TriggerMode = TriggerMode;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -32,7 +28,7 @@ class Popup extends Component {
 
     }
 
-    triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
+    triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
 
         while (el) {
             if (el == popupEl) {
@@ -47,15 +43,15 @@ class Popup extends Component {
 
     mouseDownHandler(e) {
 
-        const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
+        const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
 
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, popupEl, triggerMode, visible, isAutoClose);
+            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
         } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, triggerMode, visible, isAutoClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
         }
 
         if (currVisible === false) {
@@ -75,9 +71,17 @@ class Popup extends Component {
     }
 
     render() {
+
+        const {triggerHandler, ...restProps} = this.props,
+
+            popupClassName = classNames('popup', {
+                [className]: className
+            });
+
         return (
-            <BasePopup {...this.props}
-                       ref="popup"/>
+            <BasePopup {...restProps}
+                       ref="popup"
+                       className={popupClassName}/>
         );
     }
 
@@ -128,11 +132,6 @@ Popup.propTypes = {
     isAnimated: PropTypes.bool,
 
     /**
-     * The status of popup-triangle.Can be open or toggle.
-     */
-    triggerMode: PropTypes.oneOf(Util.enumerateValue(TriggerMode)),
-
-    /**
      * The depth of Paper component.
      */
     depth: PropTypes.number,
@@ -176,7 +175,6 @@ Popup.defaultProps = {
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
-    triggerMode: TriggerMode.TOGGLE,
 
     isAutoClose: true,
     isEscClose: true,
