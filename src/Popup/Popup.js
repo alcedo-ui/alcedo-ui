@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import BasePopup from '../_BasePopup';
+import BasePopup from '../_BasePopover';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
