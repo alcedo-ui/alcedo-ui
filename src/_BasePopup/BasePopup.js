@@ -5,7 +5,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
 
@@ -14,9 +13,7 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
-import TriggerMode from '../_statics/TriggerMode';
 import Event from '../_vendors/Event';
-import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import PopupCalculation from '../_vendors/PopupCalculation';
 import PopupManagement from '../_vendors/PopupManagement';
@@ -24,7 +21,6 @@ import PopupManagement from '../_vendors/PopupManagement';
 class BasePopup extends Component {
 
     static Position = Position;
-    static TriggerMode = TriggerMode;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -113,7 +109,7 @@ class BasePopup extends Component {
                 className, style, theme, hasTriangle, triangle, position, isAnimated, visible,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode, triggerEl, isTriggerPositionFixed,
+                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
                 onRender, onRequestClose,
 
                 ...restProps
@@ -215,11 +211,6 @@ BasePopup.propTypes = {
     isAnimated: PropTypes.bool,
 
     /**
-     * The status of popup-triangle.Can be open or toggle.
-     */
-    triggerMode: PropTypes.oneOf(Util.enumerateValue(TriggerMode)),
-
-    /**
      * The depth of Paper component.
      */
     depth: PropTypes.number,
@@ -259,7 +250,6 @@ BasePopup.defaultProps = {
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
-    triggerMode: TriggerMode.TOGGLE,
 
     isAutoClose: true,
     isEscClose: true,
