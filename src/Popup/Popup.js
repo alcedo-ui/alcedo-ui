@@ -46,6 +46,10 @@ class Popup extends Component {
         const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
 
+        if (!triggerEl) {
+            return;
+        }
+
         let currVisible;
 
         if (triggerHandler) {
@@ -62,6 +66,13 @@ class Popup extends Component {
 
     }
 
+    /**
+     * public
+     */
+    redraw() {
+        this.refs.popup.redraw();
+    }
+
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
@@ -72,7 +83,7 @@ class Popup extends Component {
 
     render() {
 
-        const {triggerHandler, ...restProps} = this.props,
+        const {className, triggerHandler, ...restProps} = this.props,
 
             popupClassName = classNames('popup', {
                 [className]: className
