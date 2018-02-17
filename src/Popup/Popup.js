@@ -47,14 +47,15 @@ class Popup extends Component {
 
     mouseDownHandler(e) {
 
-        const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props;
+        const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
+            popupEl = this.refs.popup.getEl();
 
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
+            currVisible = triggerHandler(e.target, triggerEl, popupEl, triggerMode, visible, isAutoClose);
         } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, this.popupEl, triggerMode, visible, isAutoClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, triggerMode, visible, isAutoClose);
         }
 
         if (currVisible === false) {
@@ -66,20 +67,17 @@ class Popup extends Component {
     }
 
     componentDidMount() {
-
-        // this.popupEl = findDOMNode(this.refs.popup);
-
-        // Event.addEvent(document, 'mousedown', this.mouseDownHandler);
-
+        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     componentWillUnmount() {
-        // Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     render() {
         return (
-            <BasePopup {...this.props}/>
+            <BasePopup {...this.props}
+                       ref="popup"/>
         );
     }
 
