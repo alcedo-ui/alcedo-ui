@@ -1,0 +1,15 @@
+/**
+ * @file Tip style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.base-popup.tip {
+    width: auto;
+    opacity: .9;
+
+    .tip-content {
+        padding: 8px;
+        text-align: center;
+        white-space: nowrap;
+    }
+}
