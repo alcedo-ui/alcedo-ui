@@ -41,6 +41,7 @@ class BasePopup extends Component {
         this.exitedHandler = ::this.exitedHandler;
         this.mouseDownHandler = ::this.mouseDownHandler;
         this.resizeHandler = ::this.resizeHandler;
+        this.getEl = ::this.getEl;
 
     }
 
@@ -109,6 +110,13 @@ class BasePopup extends Component {
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
         PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     }, 250);
+
+    /**
+     * public
+     */
+    getEl() {
+        return this.transitionEl;
+    }
 
     componentDidMount() {
 
