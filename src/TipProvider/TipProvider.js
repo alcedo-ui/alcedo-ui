@@ -62,8 +62,8 @@ class TipProvider extends Component {
 
                 <div ref="triggerWrapper"
                      className="trigger-wrapper"
-                     onMouseEnter={this.showTip}
-                     onMouseLeave={this.hideTip}>
+                     onMouseOver={this.showTip}
+                     onMouseOut={this.hideTip}>
                     {cloneElement(children, {
                         ref: 'trigger'
                     })}
