@@ -88,7 +88,7 @@ class Popup extends Component {
                 className,
 
                 // not passing down these props
-                triggerHandler,
+                triggerHandler, onRequestClose,
 
                 ...restProps
 
