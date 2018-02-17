@@ -1,5 +1,5 @@
 /**
- * @file BasePopup component
+ * @file Popover component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -18,7 +18,7 @@ import Util from '../_vendors/Util';
 import PopupCalculation from '../_vendors/PopupCalculation';
 import PopupManagement from '../_vendors/PopupManagement';
 
-class BasePopup extends Component {
+class Popover extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -124,16 +124,16 @@ class BasePopup extends Component {
             } = this.props,
             {enter, exited} = this.state,
 
-            popupClassName = classNames('base-popup', {
+            popupClassName = classNames('popover', {
                 hidden: !enter,
-                'base-popup-has-triangle': hasTriangle,
+                'popover-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
-                [`base-popup-position-${position}`]: position,
-                'base-popup-animated': isAnimated,
+                [`popover-position-${position}`]: position,
+                'popover-animated': isAnimated,
                 [className]: className
             }),
 
-            popupContentClassName = classNames('base-popup-content', {
+            popupContentClassName = classNames('popover-content', {
                 [contentClassName]: contentClassName
             });
 
@@ -154,7 +154,7 @@ class BasePopup extends Component {
 
                         {
                             hasTriangle ?
-                                <div className="base-popup-triangle-wrapper">
+                                <div className="popover-triangle-wrapper">
                                     {triangle}
                                 </div>
                                 :
@@ -177,7 +177,7 @@ class BasePopup extends Component {
 
 };
 
-BasePopup.propTypes = {
+Popover.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -248,7 +248,7 @@ BasePopup.propTypes = {
 
 };
 
-BasePopup.defaultProps = {
+Popover.defaultProps = {
 
     className: null,
     contentClassName: null,
@@ -258,7 +258,7 @@ BasePopup.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    triangle: <div className="base-popup-triangle"></div>,
+    triangle: <div className="popover-triangle"></div>,
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
@@ -270,4 +270,4 @@ BasePopup.defaultProps = {
 
 };
 
-export default BasePopup;
+export default Popover;
