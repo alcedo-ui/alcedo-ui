@@ -24,8 +24,18 @@ class Popup extends Component {
 
         super(props, ...restArgs);
 
+        this.closeTimeout = null;
+
+        this.clearCloseTimeout = ::this.clearCloseTimeout;
         this.mouseDownHandler = ::this.mouseDownHandler;
 
+    }
+
+    clearCloseTimeout() {
+        if (this.closeTimeout) {
+            clearTimeout(this.closeTimeout);
+            this.closeTimeout = null;
+        }
     }
 
     triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
@@ -59,7 +69,8 @@ class Popup extends Component {
         }
 
         if (currVisible === false) {
-            setTimeout(() => {
+            this.clearCloseTimeout();
+            this.closeTimeout = setTimeout(() => {
                 onRequestClose && onRequestClose(e);
             }, 0);
         }
@@ -78,6 +89,7 @@ class Popup extends Component {
     }
 
     componentWillUnmount() {
+        this.clearCloseTimeout();
         Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
