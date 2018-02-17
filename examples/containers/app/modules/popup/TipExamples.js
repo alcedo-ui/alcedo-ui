@@ -103,28 +103,28 @@ export default class TipExamples extends Component {
                                         <RaisedButton ref="trigger3"
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(3);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(3);
                                                       }}/>
                                         <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(4);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(4);
                                                       }}/>
                                         <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(5);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(5);
                                                       }}/>
                                     </div>
@@ -133,28 +133,28 @@ export default class TipExamples extends Component {
                                         <RaisedButton ref="trigger9"
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(9);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(9);
                                                       }}/>
                                         <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(10);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(10);
                                                       }}/>
                                         <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(11);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(11);
                                                       }}/>
                                     </div>
@@ -163,28 +163,28 @@ export default class TipExamples extends Component {
                                         <RaisedButton ref="trigger0"
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(0);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(0);
                                                       }}/>
                                         <RaisedButton ref="trigger1"
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(1);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(1);
                                                       }}/>
                                         <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(2);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(2);
                                                       }}/>
                                     </div>
@@ -193,28 +193,28 @@ export default class TipExamples extends Component {
                                         <RaisedButton ref="trigger6"
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(6);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(6);
                                                       }}/>
                                         <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(7);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(7);
                                                       }}/>
                                         <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showTip(8);
                                                       }}
-                                                      onMouseLeave={() => {
+                                                      onMouseOut={() => {
                                                           this.hideTip(8);
                                                       }}/>
                                     </div>
@@ -304,10 +304,10 @@ export default class TipExamples extends Component {
                                 <RaisedButton ref="trigger12"
                                               className="trigger-button"
                                               value="Show Tip"
-                                              onMouseEnter={() => {
+                                              onMouseOver={() => {
                                                   this.showTip(12);
                                               }}
-                                              onMouseLeave={() => {
+                                              onMouseOut={() => {
                                                   this.hideTip(12);
                                               }}/>
 
