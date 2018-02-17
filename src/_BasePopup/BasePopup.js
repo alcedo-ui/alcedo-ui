@@ -117,8 +117,7 @@ class BasePopup extends Component {
                 className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
-                onRender, onRequestClose,
+                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed, onRender,
 
                 ...restProps
 
@@ -241,11 +240,6 @@ BasePopup.propTypes = {
      * The function of popup render.
      */
     onRender: PropTypes.func,
-
-    /**
-     * Callback function fired when the popover is requested to be closed.
-     */
-    onRequestClose: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
