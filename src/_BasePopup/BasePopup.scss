@@ -3,7 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin base-popup-theme($bg-color) {
+@mixin base-popup-theme($bg-color, $color) {
+    color: $color;
 
     .base-popup-triangle {
         border-color: $bg-color;
@@ -33,6 +34,7 @@
     .base-popup-content {
         width: 100%;
         height: 100%;
+        color: inherit;
         overflow: auto;
         border-radius: $theme-border-radius;
         transform: rotate(0deg);
@@ -292,29 +294,32 @@
     }
 
     // default theme
-    @include base-popup-theme($theme-field-bg);
+    @include base-popup-theme($theme-field-bg, $theme-field);
 
     // other themes
     &.theme-primary {
-        @include base-popup-theme($theme-primary);
+        @include base-popup-theme($theme-primary, #fff);
     }
     &.theme-secondary {
-        @include base-popup-theme($theme-secondary);
+        @include base-popup-theme($theme-secondary, $theme-field);
     }
     &.theme-highlight {
-        @include base-popup-theme($theme-highlight);
+        @include base-popup-theme($theme-highlight, #fff);
+    }
+    &.theme-dark {
+        @include base-popup-theme($theme-dark, #fff);
     }
     &.theme-info {
-        @include base-popup-theme($theme-info);
+        @include base-popup-theme($theme-info, #fff);
     }
     &.theme-success {
-        @include base-popup-theme($theme-success);
+        @include base-popup-theme($theme-success, #fff);
     }
     &.theme-warning {
-        @include base-popup-theme($theme-warning);
+        @include base-popup-theme($theme-warning, #fff);
     }
     &.theme-error {
-        @include base-popup-theme($theme-error);
+        @include base-popup-theme($theme-error, #fff);
     }
 
 }
