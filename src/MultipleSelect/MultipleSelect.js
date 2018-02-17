@@ -185,7 +185,7 @@ class MultipleSelect extends Component {
             onChange && onChange(value);
 
             setTimeout(() => {
-                self.popupRef.redraw();
+                self.popupRef.resetPosition();
             }, 0);
 
         });
