@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import BasePopup from '../_BasePopover';
+import Popover from '../Popover';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
@@ -99,10 +99,10 @@ class Popup extends Component {
             });
 
         return (
-            <BasePopup {...restProps}
-                       ref="popup"
-                       className={popupClassName}
-                       contentClassName="popup-content"/>
+            <Popover {...restProps}
+                     ref="popup"
+                     className={popupClassName}
+                     contentClassName="popup-content"/>
         );
     }
 
