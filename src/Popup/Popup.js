@@ -168,7 +168,7 @@ Popup.propTypes = {
 
 Popup.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     depth: 6,
 
