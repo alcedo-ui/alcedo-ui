@@ -33,7 +33,7 @@ class Menu extends Component {
 
     clearCloseTimeout() {
         if (this.closeTimeout) {
-            cancelAnimationFrame(this.closeTimeout);
+            clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
     }
@@ -71,9 +71,9 @@ class Menu extends Component {
         this.clearCloseTimeout();
 
         if (currVisible === false) {
-            this.closeTimeout = requestAnimationFrame(() => {
+            this.closeTimeout = setTimeout(() => {
                 onRequestClose && onRequestClose(e);
-            });
+            }, 100);
         }
 
     }
