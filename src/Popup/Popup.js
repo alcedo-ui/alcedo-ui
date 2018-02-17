@@ -69,8 +69,8 @@ class Popup extends Component {
     /**
      * public
      */
-    redraw() {
-        this.refs.popup.redraw();
+    resetPosition() {
+        this.refs.popup.resetPosition();
     }
 
     componentDidMount() {
