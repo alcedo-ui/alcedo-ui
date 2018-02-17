@@ -37,6 +37,7 @@ class BasePopup extends Component {
         this.exitedHandler = ::this.exitedHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.getEl = ::this.getEl;
+        this.resetPosition = ::this.resetPosition;
 
     }
 
@@ -69,7 +70,7 @@ class BasePopup extends Component {
     }
 
     resizeHandler = _.debounce(() => {
-        this.redraw();
+        this.resetPosition();
     }, 250);
 
     /**
@@ -82,7 +83,7 @@ class BasePopup extends Component {
     /**
      * public
      */
-    redraw() {
+    resetPosition() {
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
         PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     }
