@@ -110,7 +110,7 @@ export default class MenuExamples extends Component {
                                 <RaisedButton ref="trigger0"
                                               className="trigger-button"
                                               value="Toggle Menu"
-                                              onMouseEnter={() => {
+                                              onMouseOver={() => {
                                                   this.showMenu(0);
                                               }}/>
 
@@ -149,7 +149,7 @@ export default class MenuExamples extends Component {
                                 <RaisedButton ref="trigger1"
                                               className="trigger-button"
                                               value="Toggle Menu"
-                                              onMouseEnter={() => {
+                                              onMouseOver={() => {
                                                   this.showMenu(1);
                                               }}/>
 
@@ -188,19 +188,19 @@ export default class MenuExamples extends Component {
                                         <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(5);
                                                       }}/>
                                         <RaisedButton ref="trigger6"
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(6);
                                                       }}/>
                                         <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(7);
                                                       }}/>
                                     </div>
@@ -209,19 +209,19 @@ export default class MenuExamples extends Component {
                                         <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(11);
                                                       }}/>
                                         <RaisedButton ref="trigger12"
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(12);
                                                       }}/>
                                         <RaisedButton ref="trigger13"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(13);
                                                       }}/>
                                     </div>
@@ -230,19 +230,19 @@ export default class MenuExamples extends Component {
                                         <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(2);
                                                       }}/>
                                         <RaisedButton ref="trigger3"
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(3);
                                                       }}/>
                                         <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(4);
                                                       }}/>
                                     </div>
@@ -251,19 +251,19 @@ export default class MenuExamples extends Component {
                                         <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(8);
                                                       }}/>
                                         <RaisedButton ref="trigger9"
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(9);
                                                       }}/>
                                         <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onMouseEnter={() => {
+                                                      onMouseOver={() => {
                                                           this.showMenu(10);
                                                       }}/>
                                     </div>
@@ -389,7 +389,7 @@ export default class MenuExamples extends Component {
                                 <RaisedButton ref="trigger14"
                                               className="trigger-button"
                                               value="Toggle Menu"
-                                              onMouseEnter={() => {
+                                              onMouseOver={() => {
                                                   this.showMenu(14);
                                               }}/>
 
