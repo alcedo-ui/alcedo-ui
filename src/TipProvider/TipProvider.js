@@ -62,7 +62,8 @@ class TipProvider extends Component {
 
                 <div ref="triggerWrapper"
                      className="trigger-wrapper"
-                     onMouseEnter={this.showTip}>
+                     onMouseEnter={this.showTip}
+                     onMouseLeave={this.hideTip}>
                     {cloneElement(children, {
                         ref: 'trigger'
                     })}
@@ -71,8 +72,7 @@ class TipProvider extends Component {
                 <Tip {...restProps}
                      triggerEl={this.triggerEl}
                      visible={tipVisible}
-                     onRender={onTipRender}
-                     onRequestClose={this.hideTip}>
+                     onRender={onTipRender}>
                     {text}
                 </Tip>
 
@@ -163,7 +163,6 @@ TipProvider.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    triangle: <div className="tip-triangle"></div>,
     position: Tip.Position.BOTTOM,
     isAnimated: true,
     depth: 6,
