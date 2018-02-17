@@ -69,8 +69,7 @@ class BasePopup extends Component {
     }
 
     resizeHandler = _.debounce(() => {
-        const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
+        this.redraw();
     }, 250);
 
     /**
@@ -78,6 +77,14 @@ class BasePopup extends Component {
      */
     getEl() {
         return this.transitionEl;
+    }
+
+    /**
+     * public
+     */
+    redraw() {
+        const {triggerEl, position, isTriggerPositionFixed} = this.props;
+        PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     }
 
     componentDidMount() {
