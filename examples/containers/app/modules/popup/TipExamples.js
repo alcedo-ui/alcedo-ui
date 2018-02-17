@@ -6,6 +6,7 @@ import Tip from 'src/Tip';
 import TipProvider from 'src/TipProvider';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TipBody.json';
@@ -104,18 +105,27 @@ export default class TipExamples extends Component {
                                                       value="Top Left"
                                                       onMouseEnter={() => {
                                                           this.showTip(3);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(3);
                                                       }}/>
                                         <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Top"
                                                       onMouseEnter={() => {
                                                           this.showTip(4);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(4);
                                                       }}/>
                                         <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top right"
                                                       onMouseEnter={() => {
                                                           this.showTip(5);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(5);
                                                       }}/>
                                     </div>
 
@@ -125,18 +135,27 @@ export default class TipExamples extends Component {
                                                       value="Right Top"
                                                       onMouseEnter={() => {
                                                           this.showTip(9);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(9);
                                                       }}/>
                                         <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Right"
                                                       onMouseEnter={() => {
                                                           this.showTip(10);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(10);
                                                       }}/>
                                         <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
                                                       onMouseEnter={() => {
                                                           this.showTip(11);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(11);
                                                       }}/>
                                     </div>
 
@@ -146,18 +165,27 @@ export default class TipExamples extends Component {
                                                       value="Bottom Left"
                                                       onMouseEnter={() => {
                                                           this.showTip(0);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(0);
                                                       }}/>
                                         <RaisedButton ref="trigger1"
                                                       className="trigger-position-button"
                                                       value="Bottom"
                                                       onMouseEnter={() => {
                                                           this.showTip(1);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(1);
                                                       }}/>
                                         <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
                                                       onMouseEnter={() => {
                                                           this.showTip(2);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(2);
                                                       }}/>
                                     </div>
 
@@ -167,18 +195,27 @@ export default class TipExamples extends Component {
                                                       value="Left Top"
                                                       onMouseEnter={() => {
                                                           this.showTip(6);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(6);
                                                       }}/>
                                         <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Left"
                                                       onMouseEnter={() => {
                                                           this.showTip(7);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(7);
                                                       }}/>
                                         <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
                                                       onMouseEnter={() => {
                                                           this.showTip(8);
+                                                      }}
+                                                      onMouseLeave={() => {
+                                                          this.hideTip(8);
                                                       }}/>
                                     </div>
 
@@ -186,101 +223,65 @@ export default class TipExamples extends Component {
 
                                 <Tip visible={tipVisible[0]}
                                      triggerEl={triggerEl[0]}
-                                     position={Tip.Position.BOTTOM_LEFT}
-                                     onRequestClose={() => {
-                                         this.hideTip(0);
-                                     }}>
+                                     position={Tip.Position.BOTTOM_LEFT}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[1]}
                                      triggerEl={triggerEl[1]}
-                                     position={Tip.Position.BOTTOM}
-                                     onRequestClose={() => {
-                                         this.hideTip(1);
-                                     }}>
+                                     position={Tip.Position.BOTTOM}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[2]}
                                      triggerEl={triggerEl[2]}
-                                     position={Tip.Position.BOTTOM_RIGHT}
-                                     onRequestClose={() => {
-                                         this.hideTip(2);
-                                     }}>
+                                     position={Tip.Position.BOTTOM_RIGHT}>
                                     Tip Content
                                 </Tip>
 
                                 <Tip visible={tipVisible[3]}
                                      triggerEl={triggerEl[3]}
-                                     position={Tip.Position.TOP_LEFT}
-                                     onRequestClose={() => {
-                                         this.hideTip(3);
-                                     }}>
+                                     position={Tip.Position.TOP_LEFT}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[4]}
                                      triggerEl={triggerEl[4]}
-                                     position={Tip.Position.TOP}
-                                     onRequestClose={() => {
-                                         this.hideTip(4);
-                                     }}>
+                                     position={Tip.Position.TOP}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[5]}
                                      triggerEl={triggerEl[5]}
-                                     position={Tip.Position.TOP_RIGHT}
-                                     onRequestClose={() => {
-                                         this.hideTip(5);
-                                     }}>
+                                     position={Tip.Position.TOP_RIGHT}>
                                     Tip Content
                                 </Tip>
 
                                 <Tip visible={tipVisible[6]}
                                      triggerEl={triggerEl[6]}
-                                     position={Tip.Position.LEFT_TOP}
-                                     onRequestClose={() => {
-                                         this.hideTip(6);
-                                     }}>
+                                     position={Tip.Position.LEFT_TOP}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[7]}
                                      triggerEl={triggerEl[7]}
-                                     position={Tip.Position.LEFT}
-                                     onRequestClose={() => {
-                                         this.hideTip(7);
-                                     }}>
+                                     position={Tip.Position.LEFT}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[8]}
                                      triggerEl={triggerEl[8]}
-                                     position={Tip.Position.LEFT_BOTTOM}
-                                     onRequestClose={() => {
-                                         this.hideTip(8);
-                                     }}>
+                                     position={Tip.Position.LEFT_BOTTOM}>
                                     Tip Content
                                 </Tip>
 
                                 <Tip visible={tipVisible[9]}
                                      triggerEl={triggerEl[9]}
-                                     position={Tip.Position.RIGHT_TOP}
-                                     onRequestClose={() => {
-                                         this.hideTip(9);
-                                     }}>
+                                     position={Tip.Position.RIGHT_TOP}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[10]}
                                      triggerEl={triggerEl[10]}
-                                     position={Tip.Position.RIGHT}
-                                     onRequestClose={() => {
-                                         this.hideTip(10);
-                                     }}>
+                                     position={Tip.Position.RIGHT}>
                                     Tip Content
                                 </Tip>
                                 <Tip visible={tipVisible[11]}
                                      triggerEl={triggerEl[11]}
-                                     position={Tip.Position.RIGHT_BOTTOM}
-                                     onRequestClose={() => {
-                                         this.hideTip(11);
-                                     }}>
+                                     position={Tip.Position.RIGHT_BOTTOM}>
                                     Tip Content
                                 </Tip>
 
@@ -305,9 +306,13 @@ export default class TipExamples extends Component {
                                               value="Show Tip"
                                               onMouseEnter={() => {
                                                   this.showTip(12);
+                                              }}
+                                              onMouseLeave={() => {
+                                                  this.hideTip(12);
                                               }}/>
 
                                 <Tip className="customized-tip"
+                                     theme={Theme.DEFAULT}
                                      visible={tipVisible[12]}
                                      triggerEl={triggerEl[12]}
                                      triangle={
@@ -319,10 +324,7 @@ export default class TipExamples extends Component {
                                              <polyline points="0,7 9,0 17,7"
                                                        style={{stroke: '#e7e7e7', fill: '#fff'}}/>
                                          </svg>
-                                     }
-                                     onRequestClose={() => {
-                                         this.hideTip(12);
-                                     }}>
+                                     }>
                                     Tip Content
                                 </Tip>
 
