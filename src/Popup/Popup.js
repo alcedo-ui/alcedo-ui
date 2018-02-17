@@ -83,7 +83,16 @@ class Popup extends Component {
 
     render() {
 
-        const {className, triggerHandler, ...restProps} = this.props,
+        const {
+
+                className,
+
+                // not passing down these props
+                triggerHandler,
+
+                ...restProps
+
+            } = this.props,
 
             popupClassName = classNames('popup', {
                 [className]: className
@@ -92,7 +101,8 @@ class Popup extends Component {
         return (
             <BasePopup {...restProps}
                        ref="popup"
-                       className={popupClassName}/>
+                       className={popupClassName}
+                       contentClassName="popup-content"/>
         );
     }
 
