@@ -158,7 +158,7 @@ TipProvider.defaultProps = {
 
     className: '',
     style: null,
-    theme: Theme.DEFAULT,
+    theme: Theme.DARK,
 
     triggerEl: null,
     visible: false,
