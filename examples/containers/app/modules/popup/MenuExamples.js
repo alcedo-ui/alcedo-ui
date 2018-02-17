@@ -8,7 +8,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/MenuBody.json';
+import doc from 'assets/propTypes/Menu.json';
 
 import 'sass/containers/app/modules/popup/MenuExamples.scss';
 
