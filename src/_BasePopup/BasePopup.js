@@ -114,7 +114,7 @@ class BasePopup extends Component {
 
                 children,
 
-                className, style, theme, hasTriangle, triangle, position, isAnimated, visible,
+                className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
 
                 // not passing down these props
                 isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
@@ -132,6 +132,10 @@ class BasePopup extends Component {
                 [`base-popup-position-${position}`]: position,
                 'base-popup-animated': isAnimated,
                 [className]: className
+            }),
+
+            popupContentClassName = classNames('base-popup-content', {
+                [contentClassName]: contentClassName
             });
 
         return (
@@ -158,7 +162,7 @@ class BasePopup extends Component {
                                 null
                         }
 
-                        <div className="base-popup-content"
+                        <div className={popupContentClassName}
                              onWheel={e => {
                                  Event.wheelHandler(e, this.props);
                              }}>
@@ -180,6 +184,11 @@ BasePopup.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -248,6 +257,7 @@ BasePopup.propTypes = {
 BasePopup.defaultProps = {
 
     className: null,
+    contentClassName: null,
     style: null,
     depth: 6,
 
