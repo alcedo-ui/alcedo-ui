@@ -92,9 +92,24 @@ Tip.propTypes = {
     isTriggerPositionFixed: PropTypes.bool,
 
     /**
-     * The function of menu render.
+     * The function of tip render.
      */
     onRender: PropTypes.func,
+
+    /**
+     * The function of tip rendered.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of tip destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of tip destroyed.
+     */
+    onDestroyed: PropTypes.func,
 
     /**
      * Callback function fired when the popover is requested to be closed.
