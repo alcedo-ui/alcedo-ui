@@ -15,7 +15,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
-import PopCalculation from '../_vendors/PopCalculation';
+import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 import PopManagement from '../_vendors/PopManagement';
 
 class TriggerPop extends Component {
@@ -47,7 +47,7 @@ class TriggerPop extends Component {
         this.transitionEl = el;
 
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
+        TriggerPopCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
 
         this.setState({
             enter: true
@@ -97,7 +97,7 @@ class TriggerPop extends Component {
      */
     resetPosition() {
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
+        TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     }
 
     componentDidMount() {
