@@ -185,6 +185,21 @@ Popup.propTypes = {
     onRender: PropTypes.func,
 
     /**
+     * The function of popup render.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of popup destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of popup destroyed.
+     */
+    onDestroyed: PropTypes.func,
+
+    /**
      * Callback function fired when the popover is requested to be closed.
      */
     onRequestClose: PropTypes.func,
