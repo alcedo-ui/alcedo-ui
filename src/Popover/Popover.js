@@ -60,12 +60,18 @@ class Popover extends Component {
     exitHandler() {
         this.setState({
             enter: false
+        }, () => {
+            const {onDestroy} = this.props;
+            onDestroy && onDestroy(this.transitionEl, this.props.triggerEl);
         });
     }
 
     exitedHandler() {
         this.setState({
             exited: true
+        }, () => {
+            const {onDestroyed} = this.props;
+            onDestroyed && onDestroyed(this.transitionEl, this.props.triggerEl);
         });
     }
 
@@ -115,9 +121,11 @@ class Popover extends Component {
                 children,
 
                 className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
+                onRendered,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed, onRender,
+                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
+                onRender, onDestroy, onDestroyed,
 
                 ...restProps
 
@@ -143,6 +151,7 @@ class Popover extends Component {
                             in={visible}
                             timeout={250}
                             onEnter={this.enterHandler}
+                            onEntered={onRendered}
                             onExit={this.exitHandler}
                             onExited={this.exitedHandler}>
                     <Paper {...restProps}
@@ -240,6 +249,21 @@ Popover.propTypes = {
      * The function of popup render.
      */
     onRender: PropTypes.func,
+
+    /**
+     * The function of popup render.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of popup destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of popup destroyed.
+     */
+    onDestroyed: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
