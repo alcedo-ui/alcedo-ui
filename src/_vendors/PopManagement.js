@@ -1,5 +1,5 @@
 /**
- * @file PopupManagement vendor
+ * @file PopManagement vendor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
