@@ -38,8 +38,8 @@ export default [{
         text: 'Popup',
         route: '/components/Popup'
     }, {
-        text: 'Menu',
-        route: '/components/Menu'
+        text: 'Popover',
+        route: '/components/Popover'
     }, {
         text: 'Tip',
         route: '/components/Tip'

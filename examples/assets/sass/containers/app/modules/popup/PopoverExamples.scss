@@ -1,6 +1,6 @@
 @import '../../../../my-theme.scss';
 
-.menu-examples {
+.popover-examples {
 
     .trigger-button {
         width: 160px;
@@ -79,15 +79,15 @@
     }
 }
 
-.customized-menu {
+.customized-popover {
 
-    .customized-menu-triangle {
+    .customized-popover-triangle {
         position: absolute;
         left: 0;
         top: 0;
     }
 
-    .menu-content {
+    .popover-content {
         border: 1px solid #e7e7e7;
     }
 }

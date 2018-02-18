@@ -185,8 +185,8 @@ export default function configureRoutes(store) {
                     path: '/components/Popup',
                     component: ac(store, () => import('modules/popup/PopupExamples'))
                 }, {
-                    path: '/components/Menu',
-                    component: ac(store, () => import('modules/popup/MenuExamples'))
+                    path: '/components/Popover',
+                    component: ac(store, () => import('modules/popup/PopoverExamples'))
                 }, {
                     path: '/components/Tip',
                     component: ac(store, () => import('modules/popup/TipExamples'))
@@ -313,7 +313,7 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/CircularLoading',
                     component: ac(store, () => import('modules/loading/CircularLoadingExamples'))
-                },{
+                }, {
                     path: '/components/PageLoading',
                     component: ac(store, () => import('modules/loading/PageLoadingExamples'))
                 },
