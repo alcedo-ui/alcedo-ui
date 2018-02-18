@@ -16,7 +16,7 @@ import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import PopupManagement from '../_vendors/PopupManagement';
+import PopManagement from '../_vendors/PopManagement';
 
 class DialogBody extends Component {
 
@@ -118,7 +118,7 @@ class DialogBody extends Component {
 
         Event.addEvent(document, 'mousedown', this.mousedownHandle);
 
-        this.props.isEscClose && PopupManagement.push(this);
+        this.props.isEscClose && PopManagement.push(this);
 
         setTimeout(() => {
             this.setState({
