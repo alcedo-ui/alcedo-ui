@@ -10,7 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Toast.json';
 
-import 'sass/containers/app/modules/message/ToastExamples.scss';
+import 'sass/containers/app/modules/pop/ToastExamples.scss';
 
 export default class ToastExamples extends Component {
 

@@ -190,6 +190,12 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Tip',
                     component: ac(store, () => import('modules/pop/TipExamples'))
+                }, {
+                    path: '/components/Toast',
+                    component: ac(store, () => import('modules/pop/ToastExamples'))
+                }, {
+                    path: '/components/Notification',
+                    component: ac(store, () => import('modules/pop/NotificationExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -295,15 +301,6 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/VerticalPointStep',
                     component: ac(store, () => import('modules/stepper/VerticalPointStepExamples'))
-                },
-
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-                {
-                    path: '/components/Toast',
-                    component: ac(store, () => import('modules/message/ToastExamples'))
-                }, {
-                    path: '/components/Notification',
-                    component: ac(store, () => import('modules/message/NotificationExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
