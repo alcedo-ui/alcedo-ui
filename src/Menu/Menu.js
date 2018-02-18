@@ -27,7 +27,10 @@ class Menu extends Component {
         this.closeTimeout = null;
 
         this.clearCloseTimeout = ::this.clearCloseTimeout;
-        this.mouseMoveHandler = ::this.mouseMoveHandler;
+        this.mouseOverHandler = ::this.mouseOverHandler;
+        this.mouseOutHandler = ::this.mouseOutHandler;
+        this.renderHandler = ::this.renderHandler;
+        this.destroyHandler = ::this.destroyHandler;
 
     }
 
@@ -51,31 +54,59 @@ class Menu extends Component {
 
     }
 
-    mouseMoveHandler(e) {
+    // mouseOutHandler(e) {
+    //
+    //     const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
+    //         popupEl = this.refs.menu.getEl();
+    //
+    //     if (!triggerEl) {
+    //         return;
+    //     }
+    //
+    //     let currVisible;
+    //
+    //     if (triggerHandler) {
+    //         currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
+    //     } else if (!Dom.isParent(e.target, triggerEl)) {
+    //         currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
+    //     }
+    //
+    //     this.clearCloseTimeout();
+    //
+    //     if (currVisible === false) {
+    //         this.closeTimeout = setTimeout(() => {
+    //             onRequestClose && onRequestClose(e);
+    //         }, 100);
+    //     }
+    //
+    // }
 
-        const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
-            popupEl = this.refs.menu.getEl();
-
-        if (!triggerEl) {
-            return;
-        }
-
-        let currVisible;
-
-        if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
-        } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
-        }
-
+    mouseOverHandler() {
         this.clearCloseTimeout();
+    }
 
-        if (currVisible === false) {
-            this.closeTimeout = setTimeout(() => {
-                onRequestClose && onRequestClose(e);
-            }, 100);
-        }
+    mouseOutHandler(e) {
+        const {onRequestClose} = this.props;
+        this.clearCloseTimeout();
+        this.closeTimeout = setTimeout(() => {
+            onRequestClose && onRequestClose(e);
+        }, 1000 / 6);
+    }
 
+    renderHandler(el) {
+        const {triggerEl} = this.props;
+        Event.addEvent(triggerEl, 'mouseover', this.mouseOverHandler);
+        Event.addEvent(triggerEl, 'mouseout', this.mouseOutHandler);
+        Event.addEvent(el, 'mouseover', this.mouseOverHandler);
+        Event.addEvent(el, 'mouseout', this.mouseOutHandler);
+    }
+
+    destroyHandler(el) {
+        const {triggerEl} = this.props;
+        Event.removeEvent(triggerEl, 'mouseover', this.mouseOverHandler);
+        Event.removeEvent(triggerEl, 'mouseout', this.mouseOutHandler);
+        Event.removeEvent(el, 'mouseover', this.mouseOverHandler);
+        Event.removeEvent(el, 'mousemove', this.mouseOutHandler);
     }
 
     /**
@@ -86,12 +117,12 @@ class Menu extends Component {
     }
 
     componentDidMount() {
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
+        // Event.addEvent(document, 'mousemove', this.mouseOutHandler);
     }
 
     componentWillUnmount() {
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
+        // Event.removeEvent(document, 'mousemove', this.mouseOutHandler);
     }
 
     render() {
@@ -115,7 +146,9 @@ class Menu extends Component {
             <Popover {...restProps}
                      ref="menu"
                      className={popupClassName}
-                     contentClassName="menu-content"/>
+                     contentClassName="menu-content"
+                     onRender={this.renderHandler}
+                     onDestroy={this.destroyHandler}/>
         );
     }
 
