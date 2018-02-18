@@ -59,7 +59,7 @@ export MaterialTextArea from './MaterialTextArea';
 export MaterialTextField from './MaterialTextField';
 export MaterialTimePicker from './MaterialTimePicker';
 export MaterialTreeSelect from './MaterialTreeSelect';
-export Menu from './Menu';
+export Menu from './Popover';
 export MonthPicker from './MonthPicker';
 export MultipleSelect from './MultipleSelect';
 export Notifier from './Notifier';

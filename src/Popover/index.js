@@ -1,6 +1,6 @@
 /**
- * @file Menu
+ * @file Popover
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './Menu';
+export default from './Popover';

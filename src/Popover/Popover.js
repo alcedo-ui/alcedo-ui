@@ -1,5 +1,5 @@
 /**
- * @file Menu component
+ * @file Popover component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -14,7 +14,7 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 
-class Menu extends Component {
+class Popover extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -72,7 +72,7 @@ class Menu extends Component {
      * public
      */
     resetPosition() {
-        this.refs.menu.resetPosition();
+        this.refs.popover.resetPosition();
     }
 
     componentWillUnmount() {
@@ -92,15 +92,15 @@ class Menu extends Component {
 
             } = this.props,
 
-            popupClassName = classNames('menu', {
+            popupClassName = classNames('popover', {
                 [className]: className
             });
 
         return (
             <TriggerPop {...restProps}
-                        ref="menu"
+                        ref="popover"
                         className={popupClassName}
-                        contentClassName="menu-content"
+                        contentClassName="popover-content"
                         onRender={this.renderHandler}
                         onDestroy={this.destroyHandler}/>
         );
@@ -108,7 +108,7 @@ class Menu extends Component {
 
 };
 
-Menu.propTypes = {
+Popover.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -143,12 +143,12 @@ Menu.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
+     * The popover alignment.The value can be Popover.Position.LEFT or Popover.Position.RIGHT.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
-     * If true, menu will have animation effects.
+     * If true, popover will have animation effects.
      */
     isAnimated: PropTypes.bool,
 
@@ -163,22 +163,22 @@ Menu.propTypes = {
     isTriggerPositionFixed: PropTypes.bool,
 
     /**
-     * The function of menu render.
+     * The function of popover render.
      */
     onRender: PropTypes.func,
 
     /**
-     * The function of menu rendered.
+     * The function of popover rendered.
      */
     onRendered: PropTypes.func,
 
     /**
-     * The function of menu destroy.
+     * The function of popover destroy.
      */
     onDestroy: PropTypes.func,
 
     /**
-     * The function of menu destroyed.
+     * The function of popover destroyed.
      */
     onDestroyed: PropTypes.func,
 
@@ -194,7 +194,7 @@ Menu.propTypes = {
 
 };
 
-Menu.defaultProps = {
+Popover.defaultProps = {
 
     className: null,
     style: null,
@@ -214,4 +214,4 @@ Menu.defaultProps = {
 
 };
 
-export default Menu;
+export default Popover;
