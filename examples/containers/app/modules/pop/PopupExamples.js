@@ -10,7 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popup.json';
 
-import 'sass/containers/app/modules/popup/PopupExamples.scss';
+import 'sass/containers/app/modules/pop/PopupExamples.scss';
 
 export default class PopupExamples extends Component {
 
