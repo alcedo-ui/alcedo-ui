@@ -33,6 +33,7 @@ class Popover extends Component {
         };
 
         this.enterHandler = ::this.enterHandler;
+        this.enteredHandler = ::this.enteredHandler;
         this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
         this.resizeHandler = ::this.resizeHandler;
@@ -57,21 +58,26 @@ class Popover extends Component {
 
     }
 
-    exitHandler() {
+    enteredHandler(el) {
+        const {onRendered} = this.props;
+        onRendered && onRendered(el, this.props.triggerEl);
+    }
+
+    exitHandler(el) {
         this.setState({
             enter: false
         }, () => {
             const {onDestroy} = this.props;
-            onDestroy && onDestroy(this.transitionEl, this.props.triggerEl);
+            onDestroy && onDestroy(el, this.props.triggerEl);
         });
     }
 
-    exitedHandler() {
+    exitedHandler(el) {
         this.setState({
             exited: true
         }, () => {
             const {onDestroyed} = this.props;
-            onDestroyed && onDestroyed(this.transitionEl, this.props.triggerEl);
+            onDestroyed && onDestroyed(el, this.props.triggerEl);
         });
     }
 
@@ -121,11 +127,10 @@ class Popover extends Component {
                 children,
 
                 className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
-                onRendered,
 
                 // not passing down these props
                 isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
-                onRender, onDestroy, onDestroyed,
+                onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
 
@@ -151,7 +156,7 @@ class Popover extends Component {
                             in={visible}
                             timeout={250}
                             onEnter={this.enterHandler}
-                            onEntered={onRendered}
+                            onEntered={this.enteredHandler}
                             onExit={this.exitHandler}
                             onExited={this.exitedHandler}>
                     <Paper {...restProps}
