@@ -1,5 +1,5 @@
 /**
- * @file Popover component
+ * @file TriggerPop component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -18,7 +18,7 @@ import Util from '../_vendors/Util';
 import PopupCalculation from '../_vendors/PopupCalculation';
 import PopupManagement from '../_vendors/PopupManagement';
 
-class Popover extends Component {
+class TriggerPop extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -137,16 +137,16 @@ class Popover extends Component {
             } = this.props,
             {enter, exited} = this.state,
 
-            popupClassName = classNames('popover', {
+            popupClassName = classNames('trigger-pop', {
                 hidden: !enter,
-                'popover-has-triangle': hasTriangle,
+                'trigger-pop-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
-                [`popover-position-${position}`]: position,
-                'popover-animated': isAnimated,
+                [`trigger-pop-position-${position}`]: position,
+                'trigger-pop-animated': isAnimated,
                 [className]: className
             }),
 
-            popupContentClassName = classNames('popover-content', {
+            popupContentClassName = classNames('trigger-pop-content', {
                 [contentClassName]: contentClassName
             });
 
@@ -168,7 +168,7 @@ class Popover extends Component {
 
                         {
                             hasTriangle ?
-                                <div className="popover-triangle-wrapper">
+                                <div className="trigger-pop-triangle-wrapper">
                                     {triangle}
                                 </div>
                                 :
@@ -191,7 +191,7 @@ class Popover extends Component {
 
 };
 
-Popover.propTypes = {
+TriggerPop.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -209,29 +209,29 @@ Popover.propTypes = {
     style: PropTypes.object,
 
     /**
-     * This is the DOM element that will be used to set the position of the popover.
+     * This is the DOM element that will be used to set the position of the trigger pop.
      */
     triggerEl: PropTypes.object,
 
     /**
-     * If true,the popover is visible.
+     * If true,the trigger pop is visible.
      */
     visible: PropTypes.bool,
 
     /**
-     * If true,the popover will have a triangle on the top of the DOM element.
+     * If true,the trigger pop will have a triangle on the top of the DOM element.
      */
     hasTriangle: PropTypes.bool,
 
     triangle: PropTypes.element,
 
     /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
+     * The trigger pop theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
@@ -277,7 +277,7 @@ Popover.propTypes = {
 
 };
 
-Popover.defaultProps = {
+TriggerPop.defaultProps = {
 
     className: null,
     contentClassName: null,
@@ -287,7 +287,7 @@ Popover.defaultProps = {
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    triangle: <div className="popover-triangle"></div>,
+    triangle: <div className="trigger-pop-triangle"></div>,
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
@@ -299,4 +299,4 @@ Popover.defaultProps = {
 
 };
 
-export default Popover;
+export default TriggerPop;

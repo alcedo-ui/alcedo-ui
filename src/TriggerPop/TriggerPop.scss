@@ -1,37 +1,37 @@
 /**
- * @file Popover style
+ * @file TriggerPop style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin popover-theme($bg-color, $color) {
+@mixin trigger-pop-theme($bg-color, $color) {
     color: $color;
 
-    .popover-triangle {
+    .trigger-pop-triangle {
         border-color: $bg-color;
     }
 
-    .popover-content {
+    .trigger-pop-content {
         background: $bg-color;
     }
 }
 
-.popover {
+.trigger-pop {
     position: absolute;
     width: 200px;
     z-index: $popup-z-index;
     background: transparent;
 
-    .popover-triangle-wrapper {
+    .trigger-pop-triangle-wrapper {
         position: absolute;
         z-index: 1;
 
-        .popover-triangle {
+        .trigger-pop-triangle {
             width: 0;
             height: 0;
         }
     }
 
-    .popover-content {
+    .trigger-pop-content {
         box-sizing: border-box;
         width: 100%;
         height: 100%;
@@ -41,18 +41,18 @@
         transform: rotate(0deg);
     }
 
-    &.popover-position-bottom-left {
+    &.trigger-pop-position-bottom-left {
         transform-origin: 0 0;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-top: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 10px;
             top: -6px;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-left: 6px solid transparent !important;
                 border-right: 6px solid transparent !important;
                 border-bottom-width: 6px;
@@ -61,19 +61,19 @@
         }
     }
 
-    &.popover-position-bottom {
+    &.trigger-pop-position-bottom {
         transform-origin: 50% 0;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-top: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 50%;
             top: -6px;
             transform: translateX(-50%);
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-left: 6px solid transparent !important;
                 border-right: 6px solid transparent !important;
                 border-bottom-width: 6px;
@@ -82,18 +82,18 @@
         }
     }
 
-    &.popover-position-bottom-right {
+    &.trigger-pop-position-bottom-right {
         transform-origin: 100% 0;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-top: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             right: 10px;
             top: -6px;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-left: 6px solid transparent !important;
                 border-right: 6px solid transparent !important;
                 border-bottom-width: 6px;
@@ -102,18 +102,18 @@
         }
     }
 
-    &.popover-position-top-left {
+    &.trigger-pop-position-top-left {
         transform-origin: 0 100%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-bottom: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 10px;
             top: 100%;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-left: 6px solid transparent !important;
                 border-right: 6px solid transparent !important;
                 border-top-width: 6px;
@@ -122,19 +122,19 @@
         }
     }
 
-    &.popover-position-top {
+    &.trigger-pop-position-top {
         transform-origin: 50% 100%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-bottom: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 50%;
             top: 100%;
             transform: translateX(-50%);
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-left: 6px solid transparent !important;
                 border-right: 6px solid transparent !important;
                 border-top-width: 6px;
@@ -143,18 +143,18 @@
         }
     }
 
-    &.popover-position-top-right {
+    &.trigger-pop-position-top-right {
         transform-origin: 100% 100%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-bottom: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             right: 10px;
             top: 100%;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-left: 6px solid transparent !important;
                 border-right: 6px solid transparent !important;
                 border-top-width: 6px;
@@ -163,18 +163,18 @@
         }
     }
 
-    &.popover-position-left-top {
+    &.trigger-pop-position-left-top {
         transform-origin: 100% 0;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-right: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 100%;
             top: 10px;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-top: 6px solid transparent !important;
                 border-bottom: 6px solid transparent !important;
                 border-left-width: 6px;
@@ -183,19 +183,19 @@
         }
     }
 
-    &.popover-position-left {
+    &.trigger-pop-position-left {
         transform-origin: 100% 50%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-right: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 100%;
             top: 50%;
             transform: translateY(-50%);
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-top: 6px solid transparent !important;
                 border-bottom: 6px solid transparent !important;
                 border-left-width: 6px;
@@ -204,18 +204,18 @@
         }
     }
 
-    &.popover-position-left-bottom {
+    &.trigger-pop-position-left-bottom {
         transform-origin: 100% 100%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-right: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: 100%;
             bottom: 10px;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-top: 6px solid transparent !important;
                 border-bottom: 6px solid transparent !important;
                 border-left-width: 6px;
@@ -224,18 +224,18 @@
         }
     }
 
-    &.popover-position-right-top {
+    &.trigger-pop-position-right-top {
         transform-origin: 0 0;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-left: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: -6px;
             top: 10px;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-top: 6px solid transparent !important;
                 border-bottom: 6px solid transparent !important;
                 border-right-width: 6px;
@@ -244,19 +244,19 @@
         }
     }
 
-    &.popover-position-right {
+    &.trigger-pop-position-right {
         transform-origin: 0 50%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-left: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: -6px;
             top: 50%;
             transform: translateY(-50%);
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-top: 6px solid transparent !important;
                 border-bottom: 6px solid transparent !important;
                 border-right-width: 6px;
@@ -265,18 +265,18 @@
         }
     }
 
-    &.popover-position-right-bottom {
+    &.trigger-pop-position-right-bottom {
         transform-origin: 0 100%;
 
-        &.popover-has-triangle {
+        &.trigger-pop-has-triangle {
             margin-left: 10px;
         }
 
-        .popover-triangle-wrapper {
+        .trigger-pop-triangle-wrapper {
             left: -6px;
             bottom: 10px;
 
-            .popover-triangle {
+            .trigger-pop-triangle {
                 border-top: 6px solid transparent !important;
                 border-bottom: 6px solid transparent !important;
                 border-right-width: 6px;
@@ -285,7 +285,7 @@
         }
     }
 
-    &.popover-animated {
+    &.trigger-pop-animated {
         transition: opacity $theme-transition-duration ease-in-out, transform $theme-transition-duration ease-in-out;
 
         &.hidden {
@@ -295,32 +295,32 @@
     }
 
     // default theme
-    @include popover-theme($theme-field-bg, $theme-field);
+    @include trigger-pop-theme($theme-field-bg, $theme-field);
 
     // other themes
     &.theme-primary {
-        @include popover-theme($theme-primary, #fff);
+        @include trigger-pop-theme($theme-primary, #fff);
     }
     &.theme-secondary {
-        @include popover-theme($theme-secondary, $theme-field);
+        @include trigger-pop-theme($theme-secondary, $theme-field);
     }
     &.theme-highlight {
-        @include popover-theme($theme-highlight, #fff);
+        @include trigger-pop-theme($theme-highlight, #fff);
     }
     &.theme-dark {
-        @include popover-theme($theme-dark, #fff);
+        @include trigger-pop-theme($theme-dark, #fff);
     }
     &.theme-info {
-        @include popover-theme($theme-info, #fff);
+        @include trigger-pop-theme($theme-info, #fff);
     }
     &.theme-success {
-        @include popover-theme($theme-success, #fff);
+        @include trigger-pop-theme($theme-success, #fff);
     }
     &.theme-warning {
-        @include popover-theme($theme-warning, #fff);
+        @include trigger-pop-theme($theme-warning, #fff);
     }
     &.theme-error {
-        @include popover-theme($theme-error, #fff);
+        @include trigger-pop-theme($theme-error, #fff);
     }
 
 }
