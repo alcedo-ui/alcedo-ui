@@ -103,8 +103,7 @@ export default class PopupExamples extends Component {
                 <h2 className="example-title">Popup</h2>
 
                 <p>
-                    A <span>Popup</span> can be used as an alternative to a Drop Down Menu that can contain elements
-                    inside.
+                    A <span>Popup</span> can be used as an alternative to a Drop Down that can contain elements inside.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
