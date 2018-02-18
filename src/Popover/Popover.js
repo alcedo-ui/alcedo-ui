@@ -251,7 +251,7 @@ Popover.propTypes = {
     onRender: PropTypes.func,
 
     /**
-     * The function of popup render.
+     * The function of popup rendered.
      */
     onRendered: PropTypes.func,
 
