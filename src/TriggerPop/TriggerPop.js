@@ -15,8 +15,8 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
-import PopupCalculation from '../_vendors/PopupCalculation';
-import PopupManagement from '../_vendors/PopupManagement';
+import PopCalculation from '../_vendors/PopCalculation';
+import PopManagement from '../_vendors/PopManagement';
 
 class TriggerPop extends Component {
 
@@ -47,7 +47,7 @@ class TriggerPop extends Component {
         this.transitionEl = el;
 
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopupCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
+        PopCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
 
         this.setState({
             enter: true
@@ -97,14 +97,14 @@ class TriggerPop extends Component {
      */
     resetPosition() {
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopupCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
+        PopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     }
 
     componentDidMount() {
 
         Event.addEvent(window, 'resize', this.resizeHandler);
 
-        this.props.isEscClose && PopupManagement.push(this);
+        this.props.isEscClose && PopManagement.push(this);
 
     }
 
