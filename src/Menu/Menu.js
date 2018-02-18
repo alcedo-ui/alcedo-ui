@@ -7,12 +7,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Popover from '../Popover';
+import TriggerPop from '../TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
-import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 
 class Menu extends Component {
@@ -40,46 +39,6 @@ class Menu extends Component {
             this.closeTimeout = null;
         }
     }
-
-    triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
-
-        while (el) {
-            if (el == popupEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
-        }
-
-        return isAutoClose ? false : currentVisible;
-
-    }
-
-    // mouseOutHandler(e) {
-    //
-    //     const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
-    //         popupEl = this.refs.menu.getEl();
-    //
-    //     if (!triggerEl) {
-    //         return;
-    //     }
-    //
-    //     let currVisible;
-    //
-    //     if (triggerHandler) {
-    //         currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
-    //     } else if (!Dom.isParent(e.target, triggerEl)) {
-    //         currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
-    //     }
-    //
-    //     this.clearCloseTimeout();
-    //
-    //     if (currVisible === false) {
-    //         this.closeTimeout = setTimeout(() => {
-    //             onRequestClose && onRequestClose(e);
-    //         }, 100);
-    //     }
-    //
-    // }
 
     mouseOverHandler() {
         this.clearCloseTimeout();
@@ -116,13 +75,8 @@ class Menu extends Component {
         this.refs.menu.resetPosition();
     }
 
-    componentDidMount() {
-        // Event.addEvent(document, 'mousemove', this.mouseOutHandler);
-    }
-
     componentWillUnmount() {
         this.clearCloseTimeout();
-        // Event.removeEvent(document, 'mousemove', this.mouseOutHandler);
     }
 
     render() {
@@ -132,7 +86,7 @@ class Menu extends Component {
                 className,
 
                 // not passing down these props
-                triggerHandler, onRequestClose,
+                onRequestClose,
 
                 ...restProps
 
@@ -143,12 +97,12 @@ class Menu extends Component {
             });
 
         return (
-            <Popover {...restProps}
-                     ref="menu"
-                     className={popupClassName}
-                     contentClassName="menu-content"
-                     onRender={this.renderHandler}
-                     onDestroy={this.destroyHandler}/>
+            <TriggerPop {...restProps}
+                        ref="menu"
+                        className={popupClassName}
+                        contentClassName="menu-content"
+                        onRender={this.renderHandler}
+                        onDestroy={this.destroyHandler}/>
         );
     }
 
@@ -207,11 +161,6 @@ Menu.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
-
-    /**
-     * The function of menu event handler.
-     */
-    triggerHandler: PropTypes.func,
 
     /**
      * The function of menu render.
