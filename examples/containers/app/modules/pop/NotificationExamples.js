@@ -10,7 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Notification.json';
 
-import 'sass/containers/app/modules/message/NotificationExamples.scss';
+import 'sass/containers/app/modules/pop/NotificationExamples.scss';
 
 export default class NotificationExamples extends Component {
 
