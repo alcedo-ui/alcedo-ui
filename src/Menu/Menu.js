@@ -186,6 +186,21 @@ Menu.propTypes = {
     onRender: PropTypes.func,
 
     /**
+     * The function of menu rendered.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of menu destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of menu destroyed.
+     */
+    onDestroyed: PropTypes.func,
+
+    /**
      * Callback function fired when the popover is requested to be closed.
      */
     onRequestClose: PropTypes.func,
