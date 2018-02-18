@@ -73,7 +73,7 @@ Tip.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
+     * The popover alignment.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
