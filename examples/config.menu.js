@@ -30,7 +30,7 @@ export default [{
         route: '/components/IconAnchor'
     }]
 }, {
-    text: 'Popup',
+    text: 'Pop',
     children: [{
         text: 'Dialog',
         route: '/components/Dialog'

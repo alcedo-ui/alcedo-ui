@@ -11,7 +11,7 @@ import Theme from 'src/Theme';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/Tip.json';
 
-import 'sass/containers/app/modules/popup/TipExamples.scss';
+import 'sass/containers/app/modules/pop/TipExamples.scss';
 
 export default class TipExamples extends Component {
 

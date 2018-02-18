@@ -177,19 +177,19 @@ export default function configureRoutes(store) {
                     path: '/components/MaterialMonthPicker',
                     component: ac(store, () => import('modules/date/MaterialMonthPickerExamples'))
                 },
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- pop -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Dialog',
-                    component: ac(store, () => import('modules/popup/DialogExamples'))
+                    component: ac(store, () => import('modules/pop/DialogExamples'))
                 }, {
                     path: '/components/Popup',
-                    component: ac(store, () => import('modules/popup/PopupExamples'))
+                    component: ac(store, () => import('modules/pop/PopupExamples'))
                 }, {
                     path: '/components/Popover',
-                    component: ac(store, () => import('modules/popup/PopoverExamples'))
+                    component: ac(store, () => import('modules/pop/PopoverExamples'))
                 }, {
                     path: '/components/Tip',
-                    component: ac(store, () => import('modules/popup/TipExamples'))
+                    component: ac(store, () => import('modules/pop/TipExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
