@@ -33,7 +33,7 @@ class Popup extends Component {
 
     clearCloseTimeout() {
         if (this.closeTimeout) {
-            cancelAnimationFrame(this.closeTimeout);
+            clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
     }
@@ -70,7 +70,7 @@ class Popup extends Component {
 
         if (currVisible === false) {
             this.clearCloseTimeout();
-            this.closeTimeout = requestAnimationFrame(() => {
+            this.closeTimeout = setTimeout(() => {
                 onRequestClose && onRequestClose(e);
             });
         }
