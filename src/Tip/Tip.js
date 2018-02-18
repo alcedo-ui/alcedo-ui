@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Popover from '../Popover';
+import TriggerPop from '../TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
@@ -30,9 +30,9 @@ class Tip extends Component {
             });
 
         return (
-            <Popover {...restProps}
-                     className={tipClassName}
-                     contentClassName="tip-content"/>
+            <TriggerPop {...restProps}
+                        className={tipClassName}
+                        contentClassName="tip-content"/>
         );
     }
 
