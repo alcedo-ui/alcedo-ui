@@ -221,7 +221,7 @@ Popup.defaultProps = {
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
-    position: Position.BOTTOM_LEFT,
+    position: Position.BOTTOM,
     isAnimated: true,
 
     isAutoClose: true,
