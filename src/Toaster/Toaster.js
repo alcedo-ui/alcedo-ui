@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import Portal from '../Portal';
 import Toast from '../_Toast';
+import PositionPop from '../PositionPop';
 
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
@@ -119,7 +119,8 @@ class Toaster extends Component {
                 toasts,
                 visible: true
             }, () => {
-                this.props.onToastPop();
+                const {onToastPop} = this.props;
+                onToastPop && onToastPop();
             });
 
         }
@@ -132,7 +133,16 @@ class Toaster extends Component {
 
     render() {
 
-        const {className, style, position} = this.props,
+        const {
+
+                className, position,
+
+                // not passing down these props
+                onToastPop,
+
+                ...restProps
+
+            } = this.props,
             {toasts, visible} = this.state,
 
             toasterClassName = classNames('toaster', {
@@ -141,18 +151,17 @@ class Toaster extends Component {
             });
 
         return (
-            <Portal visible={visible}>
-                <div className={toasterClassName}
-                     style={style}>
-                    {
-                        toasts && toasts.map(options =>
-                            <Toast {...options}
-                                   key={options.toastsId}
-                                   onRequestClose={this.removeToast}/>
-                        )
-                    }
-                </div>
-            </Portal>
+            <PositionPop {...restProps}
+                         className={toasterClassName}
+                         visible={visible}>
+                {
+                    toasts && toasts.map(options =>
+                        <Toast {...options}
+                               key={options.toastsId}
+                               onRequestClose={this.removeToast}/>
+                    )
+                }
+            </PositionPop>
         );
 
     }
