@@ -3,11 +3,6 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin position-pop-theme($bg-color, $color) {
-    color: $color;
-    background: $bg-color;
-}
-
 .position-pop {
     position: fixed;
     width: 200px;
@@ -77,35 +72,6 @@
         &.hidden {
             opacity: 0;
         }
-    }
-
-    // default theme
-    @include position-pop-theme($theme-field-bg, $theme-field);
-
-    // other themes
-    &.theme-primary {
-        @include position-pop-theme($theme-primary, #fff);
-    }
-    &.theme-secondary {
-        @include position-pop-theme($theme-secondary, $theme-field);
-    }
-    &.theme-highlight {
-        @include position-pop-theme($theme-highlight, #fff);
-    }
-    &.theme-dark {
-        @include position-pop-theme($theme-dark, #fff);
-    }
-    &.theme-info {
-        @include position-pop-theme($theme-info, #fff);
-    }
-    &.theme-success {
-        @include position-pop-theme($theme-success, #fff);
-    }
-    &.theme-warning {
-        @include position-pop-theme($theme-warning, #fff);
-    }
-    &.theme-error {
-        @include position-pop-theme($theme-error, #fff);
     }
 
 }

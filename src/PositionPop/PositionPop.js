@@ -9,7 +9,6 @@ import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
 
 import Portal from '../Portal';
-import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
@@ -36,7 +35,6 @@ class PositionPop extends Component {
         this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
         this.getEl = ::this.getEl;
-        this.resetPosition = ::this.resetPosition;
 
     }
 
@@ -129,14 +127,14 @@ class PositionPop extends Component {
                             onEntered={this.enteredHandler}
                             onExit={this.exitHandler}
                             onExited={this.exitedHandler}>
-                    <Paper {...restProps}
-                           className={popupClassName}
-                           style={style}
-                           onWheel={e => {
-                               Event.wheelHandler(e, this.props);
-                           }}>
+                    <div {...restProps}
+                         className={popupClassName}
+                         style={style}
+                         onWheel={e => {
+                             Event.wheelHandler(e, this.props);
+                         }}>
                         {children}
-                    </Paper>
+                    </div>
                 </Transition>
             </Portal>
         );
