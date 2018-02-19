@@ -15,7 +15,6 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
-import PopCalculation from '../_vendors/PopCalculation';
 import PopManagement from '../_vendors/PopManagement';
 
 class PositionPop extends Component {
@@ -36,7 +35,6 @@ class PositionPop extends Component {
         this.enteredHandler = ::this.enteredHandler;
         this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
-        this.resizeHandler = ::this.resizeHandler;
         this.getEl = ::this.getEl;
         this.resetPosition = ::this.resetPosition;
 
@@ -46,21 +44,18 @@ class PositionPop extends Component {
 
         this.transitionEl = el;
 
-        const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
-
         this.setState({
             enter: true
         }, () => {
             const {onRender} = this.props;
-            onRender && onRender(el, this.props.triggerEl);
+            onRender && onRender(el);
         });
 
     }
 
     enteredHandler(el) {
         const {onRendered} = this.props;
-        onRendered && onRendered(el, this.props.triggerEl);
+        onRendered && onRendered(el);
     }
 
     exitHandler(el) {
@@ -68,7 +63,7 @@ class PositionPop extends Component {
             enter: false
         }, () => {
             const {onDestroy} = this.props;
-            onDestroy && onDestroy(el, this.props.triggerEl);
+            onDestroy && onDestroy(el);
         });
     }
 
@@ -77,13 +72,9 @@ class PositionPop extends Component {
             exited: true
         }, () => {
             const {onDestroyed} = this.props;
-            onDestroyed && onDestroyed(el, this.props.triggerEl);
+            onDestroyed && onDestroyed(el);
         });
     }
-
-    resizeHandler = _.debounce(() => {
-        this.resetPosition();
-    }, 250);
 
     /**
      * public
@@ -92,20 +83,8 @@ class PositionPop extends Component {
         return this.transitionEl;
     }
 
-    /**
-     * public
-     */
-    resetPosition() {
-        const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        PopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
-    }
-
     componentDidMount() {
-
-        Event.addEvent(window, 'resize', this.resizeHandler);
-
         this.props.isEscClose && PopManagement.push(this);
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -116,20 +95,16 @@ class PositionPop extends Component {
         }
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandler);
-    }
-
     render() {
 
         const {
 
                 children,
 
-                className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
+                className, style, theme, position, isAnimated, visible,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
+                isEscClose, isAutoClose, shouldPreventContainerScroll,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
@@ -139,15 +114,10 @@ class PositionPop extends Component {
 
             popupClassName = classNames('position-pop', {
                 hidden: !enter,
-                'position-pop-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
                 [`position-pop-position-${position}`]: position,
                 'position-pop-animated': isAnimated,
                 [className]: className
-            }),
-
-            popupContentClassName = classNames('position-pop-content', {
-                [contentClassName]: contentClassName
             });
 
         return (
@@ -165,23 +135,7 @@ class PositionPop extends Component {
                            onWheel={e => {
                                Event.wheelHandler(e, this.props);
                            }}>
-
-                        {
-                            hasTriangle ?
-                                <div className="position-pop-triangle-wrapper">
-                                    {triangle}
-                                </div>
-                                :
-                                null
-                        }
-
-                        <div className={popupContentClassName}
-                             onWheel={e => {
-                                 Event.wheelHandler(e, this.props);
-                             }}>
-                            {children}
-                        </div>
-
+                        {children}
                     </Paper>
                 </Transition>
             </Portal>
@@ -199,31 +153,14 @@ PositionPop.propTypes = {
     className: PropTypes.string,
 
     /**
-     * The CSS class name of the content element.
-     */
-    contentClassName: PropTypes.string,
-
-    /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
 
     /**
-     * This is the DOM element that will be used to set the position of the trigger pop.
-     */
-    triggerEl: PropTypes.object,
-
-    /**
      * If true,the trigger pop is visible.
      */
     visible: PropTypes.bool,
-
-    /**
-     * If true,the trigger pop will have a triangle on the top of the DOM element.
-     */
-    hasTriangle: PropTypes.bool,
-
-    triangle: PropTypes.element,
 
     /**
      * The trigger pop theme.Can be primary,highlight,success,warning,error.
@@ -248,7 +185,6 @@ PositionPop.propTypes = {
     isAutoClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
-    isTriggerPositionFixed: PropTypes.bool,
 
     /**
      * The function of popup render.
@@ -280,22 +216,17 @@ PositionPop.propTypes = {
 PositionPop.defaultProps = {
 
     className: null,
-    contentClassName: null,
     style: null,
     depth: 6,
 
-    triggerEl: null,
     visible: false,
-    hasTriangle: true,
-    triangle: <div className="position-pop-triangle"></div>,
     theme: Theme.DEFAULT,
     position: Position.BOTTOM_LEFT,
     isAnimated: true,
 
     isAutoClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    shouldPreventContainerScroll: true
 
 };
 
