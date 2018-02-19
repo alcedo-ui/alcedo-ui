@@ -289,7 +289,7 @@ TriggerPop.defaultProps = {
     hasTriangle: true,
     triangle: <div className="trigger-pop-triangle"></div>,
     theme: Theme.DEFAULT,
-    position: Position.BOTTOM_LEFT,
+    position: Position.BOTTOM,
     isAnimated: true,
 
     isAutoClose: true,
