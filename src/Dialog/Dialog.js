@@ -19,6 +19,8 @@ import Util from '../_vendors/Util';
 
 class Dialog extends Component {
 
+    static ButtonTheme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -215,11 +217,6 @@ Dialog.propTypes = {
     visible: PropTypes.bool,
 
     /**
-     * The theme of dialog.
-     */
-    theme: PropTypes.string,
-
-    /**
      * If true,the pop-up box will be displayed in the mask layer, or the pop-up box will appear below the element.
      */
     showModal: PropTypes.bool,
@@ -334,30 +331,29 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
 
-    className: '',
-    modalClassName: '',
+    className: null,
+    modalClassName: null,
     style: null,
 
     disabled: false,
     visible: false,
-    theme: '',
     showModal: true,
 
-    title: '',
+    title: null,
 
     isBlurClose: false,
     isLoading: false,
 
     okButtonVisible: true,
     okButtonText: 'OK',
-    okButtonIconCls: '',
+    okButtonIconCls: null,
     okButtonDisabled: false,
     okButtonIsLoading: false,
     okButtonTheme: Theme.SUCCESS,
 
     cancelButtonVisible: true,
     cancelButtonText: 'Cancel',
-    cancelButtonIconCls: '',
+    cancelButtonIconCls: null,
     cancelButtonDisabled: false,
     cancelButtonIsLoading: false,
     cancelButtonTheme: Theme.DEFAULT,
