@@ -153,7 +153,8 @@ class Toaster extends Component {
         return (
             <PositionPop {...restProps}
                          className={toasterClassName}
-                         visible={visible}>
+                         visible={visible}
+                         position={position}>
                 {
                     toasts && toasts.map(options =>
                         <Toast {...options}
@@ -232,7 +233,7 @@ Toaster.defaultProps = {
     style: null,
 
     toasts: null,
-    position: Position.BOTTOM_RIGHT
+    position: Position.TOP
 
 };
 
