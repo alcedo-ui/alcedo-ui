@@ -1,5 +1,5 @@
 /**
- * @file PopCalculation vendor
+ * @file TriggerPopCalculation vendor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
