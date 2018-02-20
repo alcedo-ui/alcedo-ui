@@ -14,7 +14,9 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
+import PositionPopCalculation from '../_vendors/PositionPopCalculation';
 import PopManagement from '../_vendors/PopManagement';
+import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 
 class PositionPop extends Component {
 
@@ -34,7 +36,9 @@ class PositionPop extends Component {
         this.enteredHandler = ::this.enteredHandler;
         this.exitHandler = ::this.exitHandler;
         this.exitedHandler = ::this.exitedHandler;
+        this.resizeHandler = ::this.resizeHandler;
         this.getEl = ::this.getEl;
+        this.resetPosition = ::this.resetPosition;
 
     }
 
@@ -42,12 +46,17 @@ class PositionPop extends Component {
 
         this.transitionEl = el;
 
+        const {position} = this.props;
+        PositionPopCalculation.setStyle(el, position);
+
+        // setTimeout(() => {
         this.setState({
             enter: true
         }, () => {
             const {onRender} = this.props;
             onRender && onRender(el);
         });
+        // }, 0);
 
     }
 
@@ -74,6 +83,10 @@ class PositionPop extends Component {
         });
     }
 
+    resizeHandler = _.debounce(() => {
+        this.resetPosition();
+    }, 250);
+
     /**
      * public
      */
@@ -81,8 +94,20 @@ class PositionPop extends Component {
         return this.transitionEl;
     }
 
+    /**
+     * public
+     */
+    resetPosition() {
+        const {position} = this.props;
+        PositionPopCalculation.setStyle(this.transitionEl, position);
+    }
+
     componentDidMount() {
+
+        Event.addEvent(window, 'resize', this.resizeHandler);
+
         this.props.isEscClose && PopManagement.push(this);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,11 +118,15 @@ class PositionPop extends Component {
         }
     }
 
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.resizeHandler);
+    }
+
     render() {
 
         const {
 
-                className, style, theme, position, isAnimated, visible, container, showModal, modalClassName,
+                className, theme, position, isAnimated, visible, container, showModal, modalClassName,
 
                 // not passing down these props
                 isEscClose, isAutoClose, shouldPreventContainerScroll,
@@ -129,11 +158,7 @@ class PositionPop extends Component {
                     showModal ?
                         <Transition appear
                                     in={visible}
-                                    timeout={250}
-                                    onEnter={this.enterHandler}
-                                    onEntered={this.enteredHandler}
-                                    onExit={this.exitHandler}
-                                    onExited={this.exitedHandler}>
+                                    timeout={250}>
                             <div className={popModalClassName}></div>
                         </Transition>
                         :
@@ -151,12 +176,18 @@ class PositionPop extends Component {
                         cloneElement(container, {
                             ...restProps,
                             className: popClassName,
-                            style: style,
                             onWheel: e => {
                                 Event.wheelHandler(e, this.props);
                             }
                         })
                     }
+                    {/*<div {...restProps}*/}
+                    {/*className={popClassName}*/}
+                    {/*onWheel={e => {*/}
+                    {/*Event.wheelHandler(e, this.props);*/}
+                    {/*}}>*/}
+                    {/*{children}*/}
+                    {/*</div>*/}
                 </Transition>
 
             </Portal>
