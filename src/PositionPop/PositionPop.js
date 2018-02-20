@@ -97,7 +97,7 @@ class PositionPop extends Component {
 
         const {
 
-                className, style, theme, position, isAnimated, visible, container,
+                className, style, theme, position, isAnimated, visible, container, showModal, modalClassName,
 
                 // not passing down these props
                 isEscClose, isAutoClose, shouldPreventContainerScroll,
@@ -108,7 +108,13 @@ class PositionPop extends Component {
             } = this.props,
             {enter, exited} = this.state,
 
-            popupClassName = classNames('position-pop', {
+            popModalClassName = classNames('position-pop-modal', {
+                hidden: !enter,
+                'position-pop-modal-animated': isAnimated,
+                [modalClassName]: modalClassName
+            }),
+
+            popClassName = classNames('position-pop', {
                 hidden: !enter,
                 [`theme-${theme}`]: theme,
                 [`position-pop-${position}`]: position,
@@ -118,6 +124,22 @@ class PositionPop extends Component {
 
         return (
             <Portal visible={!exited}>
+
+                {
+                    showModal ?
+                        <Transition appear
+                                    in={visible}
+                                    timeout={250}
+                                    onEnter={this.enterHandler}
+                                    onEntered={this.enteredHandler}
+                                    onExit={this.exitHandler}
+                                    onExited={this.exitedHandler}>
+                            <div className={popModalClassName}></div>
+                        </Transition>
+                        :
+                        null
+                }
+
                 <Transition appear
                             in={visible}
                             timeout={250}
@@ -128,7 +150,7 @@ class PositionPop extends Component {
                     {
                         cloneElement(container, {
                             ...restProps,
-                            className: popupClassName,
+                            className: popClassName,
                             style: style,
                             onWheel: e => {
                                 Event.wheelHandler(e, this.props);
@@ -136,6 +158,7 @@ class PositionPop extends Component {
                         })
                     }
                 </Transition>
+
             </Portal>
         );
 
@@ -186,6 +209,9 @@ PositionPop.propTypes = {
 
     container: PropTypes.node,
 
+    showModal: PropTypes.bool,
+    modalClassName: PropTypes.string,
+
     /**
      * The function of popup render.
      */
@@ -228,7 +254,10 @@ PositionPop.defaultProps = {
     isEscClose: true,
     shouldPreventContainerScroll: true,
 
-    container: <div></div>
+    container: <div></div>,
+
+    showModal: false,
+    modalClassName: null
 
 };
 

@@ -3,6 +3,24 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+.position-pop-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $dialog-modal-z-index;
+    background: transparentize(#000, .5);
+
+    &.position-pop-modal-animated {
+        transition: opacity $theme-transition-duration ease-in-out;
+
+        &.hidden {
+            opacity: 0;
+        }
+    }
+}
+
 .position-pop {
     position: fixed;
     z-index: $popup-z-index;
