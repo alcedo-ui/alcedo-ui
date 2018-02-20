@@ -9,8 +9,16 @@ function horizontalCenter(popupEl) {
     return (window.innerWidth - popupEl.offsetWidth) / 2;
 }
 
+function horizontalRight(popupEl) {
+    return window.innerWidth - popupEl.offsetWidth;
+}
+
 function verticalMiddle(popupEl) {
     return (window.innerHeight - popupEl.offsetHeight) / 2;
+}
+
+function verticalBottom(popupEl) {
+    return window.innerHeight - popupEl.offsetHeight;
 }
 
 function getStyle(popupEl, position) {
@@ -33,23 +41,23 @@ function getStyle(popupEl, position) {
             break;
         }
         case Position.TOP_RIGHT: {
-            result.right = 0;
+            result.left = horizontalRight(popupEl);
             result.top = 0;
             break;
         }
         case Position.BOTTOM_LEFT: {
             result.left = 0;
-            result.bottom = 0;
+            result.top = verticalBottom(popupEl);
             break;
         }
         case Position.BOTTOM: {
             result.left = horizontalCenter(popupEl);
-            result.bottom = 0;
+            result.top = verticalBottom(popupEl);
             break;
         }
         case Position.BOTTOM_RIGHT: {
-            result.right = 0;
-            result.bottom = 0;
+            result.left = horizontalRight(popupEl);
+            result.top = verticalBottom(popupEl);
             break;
         }
         case Position.LEFT_TOP: {
@@ -64,22 +72,22 @@ function getStyle(popupEl, position) {
         }
         case Position.LEFT_BOTTOM: {
             result.left = 0;
-            result.bottom = 0;
+            result.top = verticalBottom(popupEl);
             break;
         }
         case Position.RIGHT_TOP: {
-            result.right = 0;
+            result.left = horizontalRight(popupEl);
             result.top = 0;
             break;
         }
         case Position.RIGHT: {
-            result.right = 0;
+            result.left = horizontalRight(popupEl);
             result.top = verticalMiddle(popupEl);
             break;
         }
         case Position.RIGHT_BOTTOM: {
-            result.right = 0;
-            result.bottom = 0;
+            result.left = horizontalRight(popupEl);
+            result.top = verticalBottom(popupEl);
             break;
         }
         case Position.CENTER: {
@@ -101,9 +109,8 @@ function setStyle(popupEl, position) {
         return;
     }
 
-    for (let key in style) {
-        popupEl.style[key] = style[key] + 'px';
-    }
+    popupEl.style.left = style.left + 'px';
+    popupEl.style.top = style.top + 'px';
 
 }
 
