@@ -1,6 +1,6 @@
 /**
  * @file Dialog
- * @author chao(chao.zhang@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 export default from './Dialog';
