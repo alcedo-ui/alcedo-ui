@@ -18,8 +18,7 @@ export default class DialogExamples extends Component {
 
         this.state = {
             dialogVisible1: false,
-            dialogVisible2: false,
-            type: 'primary'
+            dialogVisible2: false
         };
 
         this.openDialog = ::this.openDialog;
@@ -60,7 +59,7 @@ export default class DialogExamples extends Component {
 
     render() {
 
-        const {dialogVisible1, dialogVisible2, type} = this.state;
+        const {dialogVisible1, dialogVisible2} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -93,9 +92,8 @@ export default class DialogExamples extends Component {
                                               }}/>
 
                                 <Dialog visible={dialogVisible1}
-                                        title={`${type} dialog`}
-                                        okButtonTheme={type}
-                                        theme={type}
+                                        title="Dialog"
+                                        okButtonTheme={Dialog.ButtonTheme.PRIMARY}
                                         isBlurClose={true}
                                         showModal={false}
                                         onRequestClose={() => {
@@ -135,9 +133,8 @@ export default class DialogExamples extends Component {
 
                                 <Dialog modalClassName="blur-modal"
                                         visible={dialogVisible2}
-                                        title={`${type} dialog`}
-                                        okButtonTheme={type}
-                                        theme={type}
+                                        title="Dialog"
+                                        okButtonTheme={Dialog.ButtonTheme.PRIMARY}
                                         okButtonText="OK"
                                         okButtonIconCls="fas fa-check"
                                         cancelButtonVisible={true}
