@@ -20,7 +20,7 @@ export default class ToastExamples extends Component {
 
         this.state = {
             type: Toaster.Type.INFO,
-            position: Toaster.Position.BOTTOM_RIGHT,
+            position: Toaster.Position.TOP,
             message: 'Message',
             toasts: []
         };
