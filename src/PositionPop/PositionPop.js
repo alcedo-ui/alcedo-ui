@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
@@ -97,9 +97,7 @@ class PositionPop extends Component {
 
         const {
 
-                children,
-
-                className, style, theme, position, isAnimated, visible,
+                className, style, theme, position, isAnimated, visible, container,
 
                 // not passing down these props
                 isEscClose, isAutoClose, shouldPreventContainerScroll,
@@ -127,14 +125,16 @@ class PositionPop extends Component {
                             onEntered={this.enteredHandler}
                             onExit={this.exitHandler}
                             onExited={this.exitedHandler}>
-                    <div {...restProps}
-                         className={popupClassName}
-                         style={style}
-                         onWheel={e => {
-                             Event.wheelHandler(e, this.props);
-                         }}>
-                        {children}
-                    </div>
+                    {
+                        cloneElement(container, {
+                            ...restProps,
+                            className: popupClassName,
+                            style: style,
+                            onWheel: e => {
+                                Event.wheelHandler(e, this.props);
+                            }
+                        })
+                    }
                 </Transition>
             </Portal>
         );
@@ -184,6 +184,8 @@ PositionPop.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
 
+    container: PropTypes.node,
+
     /**
      * The function of popup render.
      */
@@ -224,7 +226,9 @@ PositionPop.defaultProps = {
 
     isAutoClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+
+    container: <div></div>
 
 };
 
