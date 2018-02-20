@@ -5,63 +5,62 @@
 
 .position-pop {
     position: fixed;
-    width: 200px;
     z-index: $popup-z-index;
     background: transparent;
-    overflow: auto;
+    overflow: visible;
     box-sizing: border-box;
     border-radius: $theme-border-radius;
 
-    &.position-pop-position-left-top,
-    &.position-pop-position-top-left {
+    &.position-pop-left-top,
+    &.position-pop-top-left {
         left: 0;
         top: 0;
     }
 
-    &.position-pop-position-top {
+    &.position-pop-top {
         left: 50%;
         top: 0;
         transform: translateX(-50%);
     }
 
-    &.position-pop-position-top-right,
-    &.position-pop-position-right-top {
+    &.position-pop-top-right,
+    &.position-pop-right-top {
         right: 0;
         top: 0;
     }
 
-    &.position-pop-position-left {
+    &.position-pop-left {
         left: 0;
         top: 50%;
         transform: translateY(-50%);
     }
 
-    &.position-pop-position-center {
+    &.position-pop-center {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
     }
 
-    &.position-pop-position-right {
+    &.position-pop-right {
         right: 0;
         top: 50%;
         transform: translateY(-50%);
     }
 
-    &.position-pop-position-left-bottom,
-    &.position-pop-position-bottom-left {
+    &.position-pop-left-bottom,
+    &.position-pop-bottom-left {
         left: 0;
         bottom: 0;
     }
 
-    &.position-pop-position-bottom {
+    &.position-pop-bottom {
         left: 50%;
         bottom: 0;
         transform: translateX(-50%);
     }
 
-    &.position-pop-position-bottom-right,
-    &.position-pop-position-bottom-top {
+    &.position-pop-right-bottom,
+    &.position-pop-bottom-right {
         right: 0;
         bottom: 0;
     }

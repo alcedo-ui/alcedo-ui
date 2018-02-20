@@ -113,7 +113,7 @@ class PositionPop extends Component {
             popupClassName = classNames('position-pop', {
                 hidden: !enter,
                 [`theme-${theme}`]: theme,
-                [`position-pop-position-${position}`]: position,
+                [`position-pop-${position}`]: position,
                 'position-pop-animated': isAnimated,
                 [className]: className
             });
@@ -219,7 +219,7 @@ PositionPop.defaultProps = {
 
     visible: false,
     theme: Theme.DEFAULT,
-    position: Position.BOTTOM_LEFT,
+    position: Position.CENTER,
     isAnimated: true,
 
     isAutoClose: true,
