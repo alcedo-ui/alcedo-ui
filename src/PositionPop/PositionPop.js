@@ -16,7 +16,6 @@ import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
 import PopManagement from '../_vendors/PopManagement';
-import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 
 class PositionPop extends Component {
 
@@ -97,9 +96,8 @@ class PositionPop extends Component {
     /**
      * public
      */
-    resetPosition() {
-        const {position} = this.props;
-        PositionPopCalculation.setStyle(this.transitionEl, position);
+    resetPosition(props = this.props) {
+        PositionPopCalculation.setStyle(this.transitionEl, props.position);
     }
 
     componentDidMount() {
@@ -111,11 +109,17 @@ class PositionPop extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.visible) {
             this.setState({
                 exited: !nextProps.visible
             });
         }
+
+        if (nextProps.position !== this.props.position) {
+            this.resetPosition(nextProps);
+        }
+
     }
 
     componentWillUnmount() {
@@ -181,13 +185,6 @@ class PositionPop extends Component {
                             }
                         })
                     }
-                    {/*<div {...restProps}*/}
-                    {/*className={popClassName}*/}
-                    {/*onWheel={e => {*/}
-                    {/*Event.wheelHandler(e, this.props);*/}
-                    {/*}}>*/}
-                    {/*{children}*/}
-                    {/*</div>*/}
                 </Transition>
 
             </Portal>
