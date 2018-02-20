@@ -5,12 +5,23 @@
 
 .toaster {
     z-index: $toast-z-index;
+    padding: 16px;
+
+    &.toaster-top-left,
+    &.toaster-top,
+    &.toaster-top-right,
+    &.toaster-center {
+        .toast {
+            margin-bottom: 10px;
+        }
+    }
 
     &.toaster-left-top,
     &.toaster-left,
     &.toaster-left-bottom {
         .toast {
             float: left;
+            margin-right: 10px;
         }
     }
 
@@ -19,6 +30,15 @@
     &.toaster-right-bottom {
         .toast {
             float: right;
+            margin-left: 10px;
+        }
+    }
+
+    &.toaster-bottom-left,
+    &.toaster-bottom,
+    &.toaster-bottom-right {
+        .toast {
+            margin-top: 10px;
         }
     }
 }

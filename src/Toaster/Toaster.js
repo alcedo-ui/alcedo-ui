@@ -54,6 +54,8 @@ class Toaster extends Component {
         this.setState({
             toasts,
             visible: true
+        }, () => {
+            this.refs.toaster.resetPosition();
         });
 
     }
@@ -70,6 +72,8 @@ class Toaster extends Component {
             if (toasts.length < 1) {
                 this.setState({
                     visible: false
+                }, () => {
+                    this.refs.toaster.resetPosition();
                 });
             }
         });
@@ -100,8 +104,12 @@ class Toaster extends Component {
                 toasts,
                 visible: true
             }, () => {
+
+                this.refs.toaster.resetPosition();
+
                 const {onToastPop} = this.props;
                 onToastPop && onToastPop();
+
             });
 
         }
@@ -129,6 +137,7 @@ class Toaster extends Component {
 
         return (
             <PositionPop {...restProps}
+                         ref="toaster"
                          className={toasterClassName}
                          visible={visible}
                          position={position}>
