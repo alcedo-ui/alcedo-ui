@@ -22,15 +22,14 @@ export default class DialogExamples extends Component {
             type: 'primary'
         };
 
-        this.toggleDialog = ::this.toggleDialog;
+        this.openDialog = ::this.openDialog;
         this.closeDialog = ::this.closeDialog;
-        this.updateField = ::this.updateField;
 
     }
 
-    toggleDialog(id) {
+    openDialog(id) {
         this.setState({
-            [`dialogVisible${id}`]: !this.state.dialogVisible
+            [`dialogVisible${id}`]: true
         }, () => {
             if (id === 2) {
                 document.querySelector('.app').style.filter = 'blur(10px)';
@@ -57,12 +56,6 @@ export default class DialogExamples extends Component {
 
     closeHandler() {
         console.log('Close button clicked');
-    }
-
-    updateField(key, value) {
-        let state = {};
-        state[key] = value;
-        this.setState(state);
     }
 
     render() {
@@ -96,7 +89,7 @@ export default class DialogExamples extends Component {
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
                                               onTouchTap={() => {
-                                                  this.toggleDialog(1);
+                                                  this.openDialog(1);
                                               }}/>
 
                                 <Dialog visible={dialogVisible1}
@@ -137,7 +130,7 @@ export default class DialogExamples extends Component {
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
                                               onTouchTap={() => {
-                                                  this.toggleDialog(2);
+                                                  this.openDialog(2);
                                               }}/>
 
                                 <Dialog modalClassName="blur-modal"
