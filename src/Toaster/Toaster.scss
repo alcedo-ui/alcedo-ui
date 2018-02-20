@@ -6,17 +6,17 @@
 .toaster {
     z-index: $toast-z-index;
 
-    &.toaster-position-left-top,
-    &.toaster-position-left,
-    &.toaster-position-left-bottom {
+    &.toaster-left-top,
+    &.toaster-left,
+    &.toaster-left-bottom {
         .toast {
             float: left;
         }
     }
 
-    &.toaster-position-right-top,
-    &.toaster-position-right,
-    &.toaster-position-right-bottom {
+    &.toaster-right-top,
+    &.toaster-right,
+    &.toaster-right-bottom {
         .toast {
             float: right;
         }

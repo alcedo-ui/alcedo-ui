@@ -25,7 +25,6 @@ class Toaster extends Component {
         super(props, ...restArgs);
 
         this.nextKey = 0;
-        this.unrenderTimeout = null;
 
         this.state = {
             visible: false,
@@ -33,7 +32,6 @@ class Toaster extends Component {
         };
 
         this.isPositiveSequence = ::this.isPositiveSequence;
-        this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
         this.addToast = ::this.addToast;
         this.removeToast = ::this.removeToast;
 
@@ -43,16 +41,7 @@ class Toaster extends Component {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     }
 
-    clearUnrenderTimeout() {
-        if (this.unrenderTimeout) {
-            clearTimeout(this.unrenderTimeout);
-            this.unrenderTimeout = null;
-        }
-    }
-
     addToast(toast) {
-
-        this.clearUnrenderTimeout();
 
         let toasts = this.state.toasts;
 
@@ -79,15 +68,9 @@ class Toaster extends Component {
             toasts
         }, () => {
             if (toasts.length < 1) {
-
-                this.clearUnrenderTimeout();
-
-                this.unrenderTimeout = setTimeout(() => {
-                    this.setState({
-                        visible: false
-                    });
-                }, 1250);
-
+                this.setState({
+                    visible: false
+                });
             }
         });
 
@@ -96,8 +79,6 @@ class Toaster extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.toasts && nextProps.toasts.length > 0) {
-
-            this.clearUnrenderTimeout();
 
             let toasts = _.cloneDeep(nextProps.toasts);
             for (let i = 0, len = toasts.length; i < len; i++) {
@@ -127,10 +108,6 @@ class Toaster extends Component {
 
     }
 
-    componentWillUnmount() {
-        this.clearUnrenderTimeout();
-    }
-
     render() {
 
         const {
@@ -146,7 +123,7 @@ class Toaster extends Component {
             {toasts, visible} = this.state,
 
             toasterClassName = classNames('toaster', {
-                [`toaster-position-${position}`]: position,
+                [`toaster-${position}`]: position,
                 [className]: className
             });
 
