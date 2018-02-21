@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import Portal from '../Portal';
+import PositionPop from '../PositionPop';
 import Notification from '../_Notification';
 
 import Util from '../_vendors/Util';
@@ -25,7 +25,6 @@ class Notifier extends Component {
         super(props, ...restArgs);
 
         this.nextKey = 0;
-        this.unrenderTimeout = null;
 
         this.state = {
             visible: false,
@@ -33,7 +32,6 @@ class Notifier extends Component {
         };
 
         this.isPositiveSequence = ::this.isPositiveSequence;
-        this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
         this.addNotification = ::this.addNotification;
         this.removeNotification = ::this.removeNotification;
 
@@ -43,16 +41,7 @@ class Notifier extends Component {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     }
 
-    clearUnrenderTimeout() {
-        if (this.unrenderTimeout) {
-            clearTimeout(this.unrenderTimeout);
-            this.unrenderTimeout = null;
-        }
-    }
-
     addNotification(notification) {
-
-        this.clearUnrenderTimeout();
 
         let notifications = this.state.notifications;
 
@@ -65,6 +54,8 @@ class Notifier extends Component {
         this.setState({
             notifications,
             visible: true
+        }, () => {
+            this.refs.notifier.resetPosition();
         });
 
     }
@@ -79,15 +70,11 @@ class Notifier extends Component {
             notifications
         }, () => {
             if (notifications.length < 1) {
-
-                this.clearUnrenderTimeout();
-
-                this.unrenderTimeout = setTimeout(() => {
-                    this.setState({
-                        visible: false
-                    });
-                }, 1250);
-
+                this.setState({
+                    visible: false
+                }, () => {
+                    this.refs.notifier.resetPosition();
+                });
             }
         });
 
@@ -96,8 +83,6 @@ class Notifier extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.notifications && nextProps.notifications.length > 0) {
-
-            this.clearUnrenderTimeout();
 
             let notifications = _.cloneDeep(nextProps.notifications);
             for (let i = 0, len = notifications.length; i < len; i++) {
@@ -119,38 +104,51 @@ class Notifier extends Component {
                 notifications,
                 visible: true
             }, () => {
-                this.props.onNotificationPop();
+
+                this.refs.notifier.resetPosition();
+
+                const {onNotificationPop} = this.props;
+                onNotificationPop && onNotificationPop();
+
             });
 
         }
 
     }
 
-    componentWillUnmount() {
-        this.clearUnrenderTimeout();
-    }
-
     render() {
 
-        const {position} = this.props,
+        const {
+
+                className, position,
+
+                // not passing down these props
+                onNotificationPop,
+
+                ...restProps
+
+            } = this.props,
             {notifications, visible} = this.state,
 
             notifierClassName = classNames('notifier', {
-                [`notifier-position-${position}`]: position
+                [`notifier-${position}`]: position,
+                [className]: className
             });
 
         return (
-            <Portal visible={visible}>
-                <div className={notifierClassName}>
-                    {
-                        notifications.map(options =>
-                            <Notification {...options}
-                                          key={options.notificationId}
-                                          onRequestClose={this.removeNotification}/>
-                        )
-                    }
-                </div>
-            </Portal>
+            <PositionPop {...restProps}
+                         ref="notifier"
+                         className={notifierClassName}
+                         visible={visible}
+                         position={position}>
+                {
+                    notifications.map(options =>
+                        <Notification {...options}
+                                      key={options.notificationId}
+                                      onRequestClose={this.removeNotification}/>
+                    )
+                }
+            </PositionPop>
         );
 
     }
