@@ -392,6 +392,7 @@ export default class PopupExamples extends Component {
                                        }}>
                                     <List data={this.data}/>
                                 </Popup>
+
                                 <Popup visible={popupVisible[14]}
                                        triggerEl={triggerEl[14]}
                                        position={Popup.Position.CENTER}
