@@ -95,10 +95,9 @@ export TouchRipple from './TouchRipple';
 export Transfer from './Transfer';
 export Tree from './Tree';
 export TreeSelect from './TreeSelect';
-export TriggerPop from './TriggerPop';
 export VerticalPointStep from './VerticalPointStep';
 export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 101;
+export const COMPONENTS_TOTAL_COUNT = 100;

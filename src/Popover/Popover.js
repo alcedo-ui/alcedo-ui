@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import TriggerPop from '../TriggerPop';
+import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
