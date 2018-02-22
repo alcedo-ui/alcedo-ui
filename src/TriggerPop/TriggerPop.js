@@ -141,7 +141,7 @@ class TriggerPop extends Component {
                 hidden: !enter,
                 'trigger-pop-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
-                [`trigger-pop-position-${position}`]: position,
+                [`trigger-pop-${position}`]: position,
                 'trigger-pop-animated': isAnimated,
                 [className]: className
             }),

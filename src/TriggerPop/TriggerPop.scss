@@ -41,7 +41,7 @@
         transform: rotate(0deg);
     }
 
-    &.trigger-pop-position-bottom-left {
+    &.trigger-pop-bottom-left {
         transform-origin: 0 0;
 
         &.trigger-pop-has-triangle {
@@ -61,7 +61,7 @@
         }
     }
 
-    &.trigger-pop-position-bottom {
+    &.trigger-pop-bottom {
         transform-origin: 50% 0;
 
         &.trigger-pop-has-triangle {
@@ -82,7 +82,7 @@
         }
     }
 
-    &.trigger-pop-position-bottom-right {
+    &.trigger-pop-bottom-right {
         transform-origin: 100% 0;
 
         &.trigger-pop-has-triangle {
@@ -102,7 +102,7 @@
         }
     }
 
-    &.trigger-pop-position-top-left {
+    &.trigger-pop-top-left {
         transform-origin: 0 100%;
 
         &.trigger-pop-has-triangle {
@@ -122,7 +122,7 @@
         }
     }
 
-    &.trigger-pop-position-top {
+    &.trigger-pop-top {
         transform-origin: 50% 100%;
 
         &.trigger-pop-has-triangle {
@@ -143,7 +143,7 @@
         }
     }
 
-    &.trigger-pop-position-top-right {
+    &.trigger-pop-top-right {
         transform-origin: 100% 100%;
 
         &.trigger-pop-has-triangle {
@@ -163,7 +163,7 @@
         }
     }
 
-    &.trigger-pop-position-left-top {
+    &.trigger-pop-left-top {
         transform-origin: 100% 0;
 
         &.trigger-pop-has-triangle {
@@ -183,7 +183,7 @@
         }
     }
 
-    &.trigger-pop-position-left {
+    &.trigger-pop-left {
         transform-origin: 100% 50%;
 
         &.trigger-pop-has-triangle {
@@ -204,7 +204,7 @@
         }
     }
 
-    &.trigger-pop-position-left-bottom {
+    &.trigger-pop-left-bottom {
         transform-origin: 100% 100%;
 
         &.trigger-pop-has-triangle {
@@ -224,7 +224,7 @@
         }
     }
 
-    &.trigger-pop-position-right-top {
+    &.trigger-pop-right-top {
         transform-origin: 0 0;
 
         &.trigger-pop-has-triangle {
@@ -244,7 +244,7 @@
         }
     }
 
-    &.trigger-pop-position-right {
+    &.trigger-pop-right {
         transform-origin: 0 50%;
 
         &.trigger-pop-has-triangle {
@@ -265,7 +265,7 @@
         }
     }
 
-    &.trigger-pop-position-right-bottom {
+    &.trigger-pop-right-bottom {
         transform-origin: 0 100%;
 
         &.trigger-pop-has-triangle {
@@ -282,6 +282,14 @@
                 border-right-width: 6px;
                 border-right-style: solid;
             }
+        }
+    }
+
+    &.trigger-pop-center {
+        transform-origin: 50% 50%;
+
+        .trigger-pop-triangle-wrapper {
+            display: none;
         }
     }
 
