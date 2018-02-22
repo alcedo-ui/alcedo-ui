@@ -39,6 +39,8 @@ class DropdownSelect extends Component {
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
+        this.getEmptyEl = ::this.getEmptyEl;
+        this.getTriggerValue = ::this.getTriggerValue;
 
     }
 
@@ -130,6 +132,55 @@ class DropdownSelect extends Component {
         });
     }
 
+    getEmptyEl() {
+
+        const {noMatchedMsg} = this.props;
+
+        return [{
+            itemRenderer: () =>
+                <div className="no-matched-list-item">
+                    {
+                        noMatchedMsg ?
+                            noMatchedMsg
+                            :
+                            <span>
+                                <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                No matched value.
+                            </span>
+                    }
+                </div>
+        }];
+
+    }
+
+    getTriggerValue() {
+
+        const {placeholder, renderer, valueField, displayField, selectMode} = this.props,
+            {value} = this.state,
+            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
+
+        return value ?
+            (
+                isMultiSelect ?
+                    (
+                        value.length > 0 ?
+                            value.length + ' selected'
+                            :
+                            placeholder
+                    )
+                    :
+                    (
+                        renderer ?
+                            renderer(value)
+                            :
+                            Util.getTextByDisplayField(value, displayField, valueField)
+                    )
+            )
+            :
+            placeholder;
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
             this.setState({
@@ -142,7 +193,7 @@ class DropdownSelect extends Component {
 
         const {
 
-                className, popupClassName, style, name, placeholder, popupTheme, data,
+                className, popupClassName, style, name, popupTheme, data,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
                 onItemTouchTap, popupChildren,
@@ -154,56 +205,21 @@ class DropdownSelect extends Component {
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                }
-            }],
-
-            triggerClassName = classNames({
-                activated: popupVisible,
-                empty: !value,
+            selectClassName = classNames('dropdown-select', {
                 [className]: className
             }),
-            triggerValue = value ?
-                (
-                    isMultiSelect ?
-                        (
-                            value.length > 0 ?
-                                value.length + ' selected'
-                                :
-                                placeholder
-                        )
-                        :
-                        (
-                            renderer ?
-                                renderer(value)
-                                :
-                                Util.getTextByDisplayField(value, displayField, valueField)
-                        )
-                )
-                :
-                placeholder,
+            triggerClassName = classNames({
+                activated: popupVisible,
+                empty: !value
+            }),
+
+            triggerValue = this.getTriggerValue(),
 
             listData = this.filterData();
 
         return (
             <div ref="dropdownSelect"
-                 className={'dropdown-select' + (className ? ' ' + className : '')}
+                 className={selectClassName}
                  style={style}>
 
                 {
@@ -274,7 +290,7 @@ class DropdownSelect extends Component {
                                 <DynamicRenderList className="dropdown-select-list"
                                                    theme={popupTheme}
                                                    selectMode={selectMode}
-                                                   data={listData.length < 1 ? emptyEl : listData}
+                                                   data={listData.length < 1 ? this.getEmptyEl() : listData}
                                                    value={value}
                                                    valueField={valueField}
                                                    displayField={displayField}
@@ -289,7 +305,7 @@ class DropdownSelect extends Component {
                                 <List className="dropdown-select-list"
                                       theme={popupTheme}
                                       selectMode={selectMode}
-                                      data={listData.length < 1 ? emptyEl : listData}
+                                      data={listData.length < 1 ? this.getEmptyEl() : listData}
                                       value={value}
                                       valueField={valueField}
                                       displayField={displayField}

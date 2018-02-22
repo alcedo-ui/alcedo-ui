@@ -3,12 +3,12 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-.material-text-field {
+.material-date-picker-text-field {
     position: relative;
     width: 300px;
     background: $theme-field-bg;
 
-    .material-text-field-label {
+    .material-date-picker-text-field-label {
         display: inline-block;
         line-height: 16px;
         color: $theme-field-disabled;
@@ -33,14 +33,14 @@
     }
 
     &.focused {
-        .material-text-field-label {
+        .material-date-picker-text-field-label {
             color: $theme-highlight;
         }
     }
 
     &.has-label.animated {
 
-        .material-text-field-label {
+        .material-date-picker-text-field-label {
             transform: translate(8px, 28px);
         }
 
@@ -50,7 +50,7 @@
 
         &.has-value,
         &.focused {
-            .material-text-field-label {
+            .material-date-picker-text-field-label {
                 transform: translate(0, 0);
             }
 

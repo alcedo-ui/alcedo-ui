@@ -19,6 +19,7 @@ class Portal extends Component {
 
         this.renderWrapper = ::this.renderWrapper;
         this.renderPortal = ::this.renderPortal;
+        this.unmountWrapper = ::this.unmountWrapper;
 
     }
 
@@ -63,24 +64,26 @@ class Portal extends Component {
 
     }
 
-    componentWillUnmount() {
+    unmountWrapper() {
         if (this.wrapper) {
             document.body.removeChild(this.wrapper);
+            this.wrapper = null;
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.visible) {
+            this.unmountWrapper();
+        }
+
+    }
+
+    componentWillUnmount() {
+        this.unmountWrapper();
+    }
+
     render() {
-
-        if (this.portal) {
-            return this.renderPortal();
-        }
-
-        if (!this.props.visible) {
-            return null;
-        }
-
-        return this.renderPortal();
-
+        return this.props.visible ? this.renderPortal() : null;
     }
 
 };

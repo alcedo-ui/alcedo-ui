@@ -31,7 +31,7 @@
     }
 
     &:active {
-        @include shadow(2);
+        @include shadow(1);
     }
 
     &[disabled] {

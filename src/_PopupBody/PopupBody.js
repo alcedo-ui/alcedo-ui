@@ -31,10 +31,6 @@ class PopupBody extends Component {
 
         super(props, ...restArgs);
 
-        this.state = {
-            visible: false
-        };
-
         this.mousedownHandler = ::this.mousedownHandler;
         this.resizeHandler = ::this.resizeHandler;
         this.debounceResizeHandler = _.debounce(::this.debounceResizeHandler, 250);
@@ -42,10 +38,6 @@ class PopupBody extends Component {
     }
 
     triggerHandler(el, triggerEl, popupEl, triggerMode, currentVisible, isAutoClose) {
-
-        // if (!triggerEl) {
-        //     return true;
-        // }
 
         while (el) {
             if (el == popupEl) {
@@ -60,8 +52,7 @@ class PopupBody extends Component {
 
     mousedownHandler(e) {
 
-        const {triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props,
-            {visible} = this.state;
+        const {visible, triggerEl, triggerMode, isAutoClose, triggerHandler, onRequestClose} = this.props;
 
         let currVisible;
 
@@ -72,11 +63,7 @@ class PopupBody extends Component {
         }
 
         if (currVisible === false) {
-            this.setState({
-                visible: false
-            }, () => {
-                onRequestClose && onRequestClose(e);
-            });
+            onRequestClose && onRequestClose(e);
         }
 
     }
@@ -98,25 +85,10 @@ class PopupBody extends Component {
 
         this.props.isEscClose && PopupManagement.push(this);
 
-        setTimeout(() => {
-            this.setState({
-                visible: true
-            });
-        }, 0);
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.state.visible) {
-            this.setState({
-                visible: nextProps.visible
-            });
-        }
     }
 
     componentDidUpdate() {
-        const {onRender} = this.props,
-            {visible} = this.state;
+        const {visible, onRender} = this.props;
         visible && onRender && onRender(this.popupEl, this.props.triggerEl);
     }
 
@@ -132,16 +104,15 @@ class PopupBody extends Component {
                 children,
 
                 className, style, theme, hasTriangle, triangle, position, isAnimated,
-                triggerEl, isTriggerPositionFixed,
+                visible, triggerEl, isTriggerPositionFixed,
 
                 // not passing down these props
-                visible: v, isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode,
+                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerMode,
                 onRender, onRequestClose, triggerHandler,
 
                 ...restProps
 
             } = this.props,
-            {visible} = this.state,
 
             popupClassName = classNames('popup', {
                 hidden: !visible,

@@ -85,7 +85,7 @@ class Dropdown extends Component {
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
 
                 // trigger
-                triggerValue, placeholder, rightIconCls, disabled, disableTouchRipple,
+                triggerValue, rightIconCls, disabled, disableTouchRipple,
 
                 // events
                 onTriggerMouseOver, onTriggerMouseOut
@@ -93,6 +93,9 @@ class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
+            dropdownClassName = classNames('dropdown', {
+                [className]: className
+            }),
             buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
                 activated: popupVisible,
                 [triggerClassName]: triggerClassName
@@ -106,14 +109,13 @@ class Dropdown extends Component {
 
         return (
             <div ref="dropdown"
-                 className={'dropdown' + (className ? ' ' + className : '')}
+                 className={dropdownClassName}
                  style={style}>
 
                 <RaisedButton ref="trigger"
                               className={buttonClassName}
                               style={triggerStyle}
                               theme={theme}
-                              placeholder={placeholder}
                               value={triggerValue}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
@@ -191,11 +193,6 @@ Dropdown.propTypes = {
      */
     triggerValue: PropTypes.any,
 
-    /**
-     * The placeholder of the dropDown trigger.
-     */
-    placeholder: PropTypes.string,
-
     rightIconCls: PropTypes.string,
 
     /**
@@ -237,7 +234,6 @@ Dropdown.defaultProps = {
     popupTheme: Theme.DEFAULT,
 
     triggerValue: null,
-    placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,

@@ -465,7 +465,7 @@ class Table extends Component {
 
                 // not passing down these props
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber,
-                selectTheme, radioUncheckedIconCls, radioCheckedIconCls,
+                columns, selectTheme, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 ...restProps

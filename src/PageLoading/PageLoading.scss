@@ -4,26 +4,30 @@
  */
 
 .page-loading {
-    &.page-loading-one {
-        position: absolute;
-        z-index: 500;
-        top: 0;
-        width: 100%;
-        height: 2px;
+    position: absolute;
+    z-index: 500;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    opacity: 0;
+    transition: opacity $theme-transition-duration ease-in-out;
 
-        .page-loading-background {
-            width: 100%;
-            height: 100%;
-            border-radius: 0;
+    .page-loading-bar {
+        width: 0;
+        height: 100%;
+        background: $theme-highlight;
+    }
 
-            .page-loading-highlight {
-                width: 1px;
-                height: 100%;
-                background: $theme-highlight linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-                background-size: 10px 10px;
-                animation: progress-bar-stripes 2s linear infinite;
-                transition: width 1s linear 0ms;
-            }
+    &.striped {
+        .page-loading-bar {
+            background: $theme-highlight linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent) 10px 10px;
+            background-size: 10px 10px;
+            animation: progress-bar-stripes 2s linear infinite;
         }
+    }
+
+    &.page-loading-enter.page-loading-enter-active {
+        opacity: 1;
+        transition: opacity 0s;
     }
 }

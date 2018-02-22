@@ -313,6 +313,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/CircularLoading',
                     component: ac(store, () => import('modules/loading/CircularLoadingExamples'))
+                },{
+                    path: '/components/PageLoading',
+                    component: ac(store, () => import('modules/loading/PageLoadingExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

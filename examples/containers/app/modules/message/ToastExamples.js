@@ -49,9 +49,8 @@ export default class ToastExamples extends Component {
 
     addToast() {
 
-        const {type, message} = this.state;
+        const {type, message, toasts} = this.state;
 
-        let toasts = this.state.toasts;
         toasts.push({
             type,
             message

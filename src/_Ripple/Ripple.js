@@ -5,97 +5,44 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 class Ripple extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.hasMounted = false;
-
-    }
-
-    initializeAnimation(callback) {
-
-        this.rippleEl && (this.rippleEl.style.transform = 'scale(0)');
-
-        setTimeout(() => {
-            this.hasMounted && callback();
-        }, 0);
-
-    }
-
-    animate() {
-        this.rippleEl && (this.rippleEl.style.transform = 'scale(1)');
-    }
-
-    componentDidMount() {
-
-        this.rippleEl = this.refs.ripple;
-
-        this.hasMounted = true;
-
-    }
-
-    componentWillAppear(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentWillEnter(callback) {
-        this.initializeAnimation(callback);
-    }
-
-    componentDidAppear() {
-        this.animate();
-    }
-
-    componentDidEnter() {
-        this.animate();
-    }
-
-    componentWillLeave(callback) {
-
-        this.rippleEl && (this.rippleEl.style.opacity = 0);
-
-        this.timeout = setTimeout(() => {
-            this.hasMounted && callback();
-        }, 2000);
-
-    }
-
-    componentWillUnmount() {
-        this.timeout && clearTimeout(this.timeout);
     }
 
     render() {
 
-        const {className, style, children} = this.props,
-
-            rippleClassName = classNames('ripple', {
-                [className]: className
-            });
+        const {style, duration, ...restProps} = this.props;
 
         return (
-            <div ref="ripple"
-                 className={rippleClassName}
-                 style={style}>
-                {children}
-            </div>
+            <CSSTransition {...restProps}
+                           classNames="ripple"
+                           timeout={{enter: duration, exit: duration * 2}}>
+                <div className="ripple"
+                     style={style}></div>
+            </CSSTransition>
         );
 
     }
 };
 
 Ripple.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object
+
+    style: PropTypes.object,
+
+    duration: PropTypes.number
+
 };
 
 Ripple.defaultProps = {
-    className: '',
-    style: null
+
+    style: null,
+
+    duration: 500
+
 };
 
 export default Ripple;

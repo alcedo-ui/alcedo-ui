@@ -1,0 +1,30 @@
+/**
+ * @file Ripple style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.ripple {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .16;
+    border-radius: 50%;
+    background: #ccc;
+    pointer-events: none;
+    transition: transform $theme-transition-duration * 2 ease-out, opacity $theme-transition-duration * 4 ease-out;
+
+    &.ripple-enter {
+        transform: scale(0);
+    }
+
+    &.ripple-enter.ripple-enter-active {
+        transform: scale(1);
+    }
+
+    &.ripple-exit.ripple-exit-active {
+        opacity: 0;
+    }
+
+}
