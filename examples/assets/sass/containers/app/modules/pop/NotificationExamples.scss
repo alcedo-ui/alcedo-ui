@@ -7,34 +7,48 @@
 
         .examples-wrapper {
 
-            .field-group {
-                @include float-fix;
-                float: none;
+            .material-provider {
+                width: auto;
+                margin-bottom: 20px;
 
-                .radio {
-                    display: inline-block;
-                }
-
-                .text-field-label,
-                .text-field {
-                    float: left;
-                }
-
-                .text-field-label {
-                    font-size: 14px;
-                    line-height: 40px;
+                .button-radio-group-item {
+                    width: auto;
+                    padding: 0 20px;
+                    border-radius: 20px;
                     margin-right: 20px;
-                    width: 60px;
-                }
 
-                .radio-group {
-                    overflow: hidden;
-                }
-            }
+                    .button-icon {
+                        display: none;
+                    }
 
-            .show-notification-button {
-                margin-top: 20px;
-                width: auto !important;
+                    &.type-default {
+                        color: $theme-field;
+                        background: #fff;
+                        border: 1px solid $theme-border;
+                    }
+                    &.type-info {
+                        color: #fff;
+                        background: $theme-info;
+                    }
+                    &.type-success {
+                        color: #fff;
+                        background: $theme-success;
+                    }
+                    &.type-warning {
+                        color: #fff;
+                        background: $theme-warning;
+                    }
+                    &.type-error {
+                        color: #fff;
+                        background: $theme-error;
+                    }
+
+                    &.activated {
+                        .button-icon {
+                            display: inline-block;
+                        }
+                    }
+                }
             }
         }
     }
