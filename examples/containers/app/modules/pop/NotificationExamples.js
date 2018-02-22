@@ -101,24 +101,24 @@ export default class NotificationExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <MaterialProvider label="MesTypesage">
+                                <MaterialProvider label="Type">
                                     <ButtonRadioGroup data={this.Type}
                                                       value={type}
-                                                      onChange={(value) => {
+                                                      onChange={value => {
                                                           this.updateField('type', value);
                                                       }}/>
                                 </MaterialProvider>
 
-                                <MaterialProvider label="MeTitlessage">
+                                <MaterialProvider label="Title">
                                     <TextField value={title}
-                                               onChange={(value) => {
+                                               onChange={value => {
                                                    this.updateField('title', value);
                                                }}/>
                                 </MaterialProvider>
 
-                                <MaterialProvider label="MeTitleMessagessage">
+                                <MaterialProvider label="Message">
                                     <TextField value={message}
-                                               onChange={(value) => {
+                                               onChange={value => {
                                                    this.updateField('message', value);
                                                }}/>
                                 </MaterialProvider>
