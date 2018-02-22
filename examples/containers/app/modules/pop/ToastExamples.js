@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import RadioGroup from 'src/RadioGroup';
 import TextField from 'src/TextField';
 import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
