@@ -3,8 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin notification-theme($border-color) {
-    border-color: $border-color;
+@mixin notification-theme($color) {
+    border-color: $color;
+
+    .notification-icon {
+        color: $color;
+    }
 }
 
 .notification {
