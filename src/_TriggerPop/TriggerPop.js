@@ -87,8 +87,8 @@ class TriggerPop extends Component {
         return this.transitionEl;
     }
 
-    resetPosition() {
-        const {triggerEl, position, isTriggerPositionFixed} = this.props;
+    resetPosition(props = this.props) {
+        const {triggerEl, position, isTriggerPositionFixed} = props;
         TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     }
 
