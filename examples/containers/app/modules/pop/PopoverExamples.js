@@ -10,6 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popover.json';
 
+import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/PopoverExamples.scss';
 
 export default class PopoverExamples extends Component {
@@ -56,7 +57,7 @@ export default class PopoverExamples extends Component {
 
         const triggerEl = {};
 
-        for (let i = 0; i <= 14; i++) {
+        for (let i = 0; i <= 15; i++) {
             triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
         }
 
@@ -84,7 +85,7 @@ export default class PopoverExamples extends Component {
             }];
 
         return (
-            <div className="example popover-examples">
+            <div className="example pop-examples popover-examples">
 
                 <h2 className="example-title">Popover</h2>
 
@@ -270,6 +271,15 @@ export default class PopoverExamples extends Component {
                                                       }}/>
                                     </div>
 
+                                    <div className="button-group center">
+                                        <RaisedButton ref="trigger14"
+                                                      className="trigger-position-button"
+                                                      value="Center"
+                                                      onMouseOver={() => {
+                                                          this.showMenu(14);
+                                                      }}/>
+                                    </div>
+
                                 </div>
 
                                 <Popover visible={menuVisible[2]}
@@ -372,6 +382,15 @@ export default class PopoverExamples extends Component {
                                     <List data={items}/>
                                 </Popover>
 
+                                <Popover visible={menuVisible[14]}
+                                         triggerEl={triggerEl[14]}
+                                         position={Popover.Position.CENTER}
+                                         onRequestClose={() => {
+                                             this.hideMenu(14);
+                                         }}>
+                                    <List data={items}/>
+                                </Popover>
+
                             </div>
 
                         </div>
@@ -388,16 +407,16 @@ export default class PopoverExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <RaisedButton ref="trigger14"
+                                <RaisedButton ref="trigger15"
                                               className="trigger-button"
                                               value="Toggle Popover"
                                               onMouseOver={() => {
-                                                  this.showMenu(14);
+                                                  this.showMenu(15);
                                               }}/>
 
                                 <Popover className="customized-popover"
-                                         visible={menuVisible[14]}
-                                         triggerEl={triggerEl[14]}
+                                         visible={menuVisible[15]}
+                                         triggerEl={triggerEl[15]}
                                          triangle={
                                              <svg xmlns="http://www.w3.org/2000/svg"
                                                   version="1.1"
@@ -409,7 +428,7 @@ export default class PopoverExamples extends Component {
                                              </svg>
                                          }
                                          onRequestClose={() => {
-                                             this.hideMenu(14);
+                                             this.hideMenu(15);
                                          }}>
                                     <div style={{padding: 20}}>
                                         Popover
