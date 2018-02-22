@@ -101,14 +101,14 @@ export default class ToastExamples extends Component {
                                 <MaterialProvider label="MesTypesage">
                                     <ButtonRadioGroup data={this.Type}
                                                       value={type}
-                                                      onChange={(value) => {
+                                                      onChange={value => {
                                                           this.updateField('type', value);
                                                       }}/>
                                 </MaterialProvider>
 
                                 <MaterialProvider label="Message">
                                     <TextField value={message}
-                                               onChange={(value) => {
+                                               onChange={value => {
                                                    this.updateField('message', value);
                                                }}/>
                                 </MaterialProvider>
