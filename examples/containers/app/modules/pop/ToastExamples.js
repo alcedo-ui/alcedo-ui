@@ -31,6 +31,7 @@ export default class ToastExamples extends Component {
 
         this.Type = Object.keys(Toaster.Type).map(item => ({
             className: `type-${item.toLowerCase()}`,
+            iconCls: 'fas fa-check',
             label: item,
             value: Toaster.Type[item]
         }));

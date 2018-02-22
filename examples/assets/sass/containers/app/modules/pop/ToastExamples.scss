@@ -11,8 +11,42 @@
                 margin-bottom: 20px;
 
                 .button-radio-group-item {
+                    width: auto;
+                    padding: 0 20px;
                     border-radius: 20px;
                     margin-right: 20px;
+
+                    .button-icon {
+                        display: none;
+                    }
+
+                    &.type-default {
+                        color: $theme-field;
+                        background: #fff;
+                        border: 1px solid $theme-border;
+                    }
+                    &.type-info {
+                        color: #fff;
+                        background: $theme-info;
+                    }
+                    &.type-success {
+                        color: #fff;
+                        background: $theme-success;
+                    }
+                    &.type-warning {
+                        color: #fff;
+                        background: $theme-warning;
+                    }
+                    &.type-error {
+                        color: #fff;
+                        background: $theme-error;
+                    }
+
+                    &.activated {
+                        .button-icon {
+                            display: inline-block;
+                        }
+                    }
                 }
             }
         }
