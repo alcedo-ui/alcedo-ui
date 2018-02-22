@@ -155,7 +155,7 @@ Popup.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     * The popup alignment.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
