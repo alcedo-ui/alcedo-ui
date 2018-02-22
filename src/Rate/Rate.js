@@ -70,12 +70,15 @@ class Rate extends Component {
 
         e.preventDefault();
 
-        const {disabled} = this.props;
+        const {disabled, allowClear} = this.props;
 
         if (disabled) {
             return;
         }
 
+        if (value === this.state.value && allowClear) {
+            value = 0
+        }
         this.setState({
             value
         }, () => {
@@ -196,7 +199,8 @@ class Rate extends Component {
             </div>
         );
     }
-};
+}
+;
 
 Rate.propTypes = {
 
@@ -221,6 +225,11 @@ Rate.propTypes = {
     allowHalf: PropTypes.bool,
 
     /**
+     * If true,the Rate component will be clear the value when double click.
+     */
+    allowClear: PropTypes.bool,
+
+    /**
      * If true,the Rate component will be disabled.
      */
     disabled: PropTypes.bool,
@@ -236,7 +245,7 @@ Rate.defaultProps = {
 
     className: '',
     style: null,
-
+    allowClear: true,
     count: 5,
     defaultValue: 0,
     disabled: false
