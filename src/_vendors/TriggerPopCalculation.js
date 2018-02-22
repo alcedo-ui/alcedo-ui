@@ -120,6 +120,11 @@ function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
             result.top = topHorizontalBottom(triggerEl, triggerOffset, popupEl);
             break;
         }
+        case Position.CENTER: {
+            result.left = leftVerticalCenter(triggerEl, triggerOffset, popupEl);
+            result.top = topHorizontalMiddle(triggerEl, triggerOffset, popupEl);
+            break;
+        }
     }
 
     if (isTriggerPositionFixed) {
