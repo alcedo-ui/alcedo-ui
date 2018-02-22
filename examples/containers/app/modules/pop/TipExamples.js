@@ -11,6 +11,7 @@ import Theme from 'src/Theme';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/Tip.json';
 
+import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/TipExamples.scss';
 
 export default class TipExamples extends Component {
@@ -72,7 +73,7 @@ export default class TipExamples extends Component {
         const {tipVisible, triggerEl} = this.state;
 
         return (
-            <div className="example tip-examples">
+            <div className="example pop-examples tip-examples">
 
                 <h2 className="example-title">Tip</h2>
 
