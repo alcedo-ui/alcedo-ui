@@ -10,6 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popup.json';
 
+import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/PopupExamples.scss';
 
 export default class PopupExamples extends Component {
@@ -98,7 +99,7 @@ export default class PopupExamples extends Component {
         const {popupVisible, triggerEl} = this.state;
 
         return (
-            <div className="example popup-examples">
+            <div className="example pop-examples popup-examples">
 
                 <h2 className="example-title">Popup</h2>
 
