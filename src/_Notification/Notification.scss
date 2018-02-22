@@ -3,9 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin notification-theme($color, $bg-color, $border-color) {
-    color: $color;
-    background-color: $bg-color;
+@mixin notification-theme($border-color) {
     border-color: $border-color;
 }
 
@@ -17,9 +15,12 @@
     height: auto;
     padding: 15px 15px 15px 50px;
     box-sizing: border-box;
-    border-width: 1px;
-    border-style: solid;
+    border: none;
+    border-left-width: $theme-border-radius;
+    border-left-style: solid;
     border-radius: $theme-border-radius;
+    color: $theme-field;
+    background: $theme-field-bg;
     overflow: hidden;
     transition: opacity $theme-transition-duration ease-in-out;
 
@@ -64,6 +65,10 @@
         white-space: normal;
     }
 
+    &.theme-default {
+        padding-left: 15px;
+    }
+
     &.has-close-button {
         padding-bottom: 45px;
     }
@@ -88,20 +93,20 @@
     }
 
     // default theme
-    @include notification-theme($theme-field, $theme-field-bg, $theme-border);
+    @include notification-theme($theme-border);
 
     // other themes
     &.theme-info {
-        @include notification-theme(#fff, $theme-info, $theme-info);
+        @include notification-theme($theme-info);
     }
     &.theme-success {
-        @include notification-theme(#fff, $theme-success, $theme-success);
+        @include notification-theme($theme-success);
     }
     &.theme-warning {
-        @include notification-theme(#fff, $theme-warning, $theme-warning);
+        @include notification-theme($theme-warning);
     }
     &.theme-error {
-        @include notification-theme(#fff, $theme-error, $theme-error);
+        @include notification-theme($theme-error);
     }
 
 }

@@ -104,7 +104,9 @@ class Notification extends Component {
             } = this.props,
             {hidden, leave} = this.state,
 
-            wrapperClassName = classNames('notification', `theme-${type}`, {
+            wrapperClassName = classNames('notification', {
+                'theme-default': type === MsgType.DEFAULT,
+                [`theme-${type}`]: type !== MsgType.DEFAULT,
                 hidden: hidden,
                 leave: leave,
                 'has-close-button': closeButtonVisible,
@@ -116,7 +118,12 @@ class Notification extends Component {
                  className={wrapperClassName}
                  style={style}>
 
-                <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}></i>
+                {
+                    type === MsgType.DEFAULT ?
+                        null
+                        :
+                        <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}></i>
+                }
 
                 <div className="notification-title">{title}</div>
 
