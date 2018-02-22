@@ -45,9 +45,7 @@ class TriggerPop extends Component {
     enterHandler(el) {
 
         this.transitionEl = el;
-
-        const {triggerEl, position, isTriggerPositionFixed} = this.props;
-        TriggerPopCalculation.setStyle(triggerEl, el, position, isTriggerPositionFixed);
+        this.resetPosition();
 
         this.setState({
             enter: true
