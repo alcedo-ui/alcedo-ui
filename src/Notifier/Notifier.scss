@@ -21,7 +21,7 @@
     &.notifier-left-bottom {
         .notification {
             float: left;
-            margin-right: 10px;
+            margin: 0 10px 10px 0;
         }
     }
 
@@ -30,7 +30,7 @@
     &.notifier-right-bottom {
         .notification {
             float: right;
-            margin-left: 10px;
+            margin: 0 0 10px 10px;
         }
     }
 
