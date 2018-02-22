@@ -85,16 +85,10 @@ class TriggerPop extends Component {
         this.resetPosition();
     }, 250);
 
-    /**
-     * public
-     */
     getEl() {
         return this.transitionEl;
     }
 
-    /**
-     * public
-     */
     resetPosition() {
         const {triggerEl, position, isTriggerPositionFixed} = this.props;
         TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
@@ -109,11 +103,17 @@ class TriggerPop extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.visible) {
             this.setState({
                 exited: !nextProps.visible
             });
         }
+
+        if (nextProps.position !== this.props.position) {
+            this.resetPosition(nextProps);
+        }
+
     }
 
     componentWillUnmount() {
