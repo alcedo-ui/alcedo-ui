@@ -21,7 +21,7 @@
     &.toaster-left-bottom {
         .toast {
             float: left;
-            margin-right: 10px;
+            margin: 0 10px 10px 0;
         }
     }
 
@@ -30,7 +30,7 @@
     &.toaster-right-bottom {
         .toast {
             float: right;
-            margin-left: 10px;
+            margin: 0 0 10px 10px;
         }
     }
 
