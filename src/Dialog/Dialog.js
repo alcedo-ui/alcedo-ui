@@ -4,6 +4,8 @@
  */
 
 import React, {Children, cloneElement, Component} from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import PositionPop from '../PositionPop';
 import Paper from '../Paper';
@@ -13,13 +15,13 @@ import IconButton from '../IconButton';
 import Theme from '../Theme';
 
 import Dom from '../_vendors/Dom';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 class Dialog extends Component {
 
     static ButtonTheme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -102,7 +104,8 @@ class Dialog extends Component {
 
                 children,
 
-                className, modalClassName, disabled, showModal, title, buttons, isLoading, visible, closeIconCls,
+                className, modalClassName, position, disabled, showModal,
+                title, buttons, isLoading, visible, closeIconCls,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
                 cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
@@ -123,6 +126,7 @@ class Dialog extends Component {
         return (
             <PositionPop {...restProps}
                          className={dialogClassName}
+                         position={position}
                          visible={visible}
                          container={<Paper depth={6}></Paper>}
                          showModal={showModal}
@@ -205,6 +209,11 @@ Dialog.propTypes = {
      * The styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The dialog alignment.
+     */
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * If true,the element will disabled.
@@ -335,6 +344,7 @@ Dialog.defaultProps = {
     modalClassName: null,
     style: null,
 
+    position: Position.CENTER,
     disabled: false,
     visible: false,
     showModal: true,
