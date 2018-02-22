@@ -48,14 +48,12 @@ class PositionPop extends Component {
         const {position} = this.props;
         PositionPopCalculation.setStyle(el, position);
 
-        // setTimeout(() => {
         this.setState({
             enter: true
         }, () => {
             const {onRender} = this.props;
             onRender && onRender(el);
         });
-        // }, 0);
 
     }
 
@@ -86,16 +84,10 @@ class PositionPop extends Component {
         this.resetPosition();
     }, 250);
 
-    /**
-     * public
-     */
     getEl() {
         return this.transitionEl;
     }
 
-    /**
-     * public
-     */
     resetPosition(props = this.props) {
         PositionPopCalculation.setStyle(this.transitionEl, props.position);
     }
