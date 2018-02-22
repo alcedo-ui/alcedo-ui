@@ -173,37 +173,37 @@ Notifier.propTypes = {
     notifications: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of toast.
+         * The CSS class name of notification.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the toast.
+         * Override the styles of the notification.
          */
         style: PropTypes.object,
 
         /**
-         * The type of toast.
+         * The type of notification.
          */
         type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
         /**
-         * The title of toast.
+         * The title of notification.
          */
         title: PropTypes.string,
 
         /**
-         * The message of toast.
+         * The message of notification.
          */
         message: PropTypes.string,
 
         /**
-         * The icon class name of toast.
+         * The icon class name of notification.
          */
         iconCls: PropTypes.string,
 
         /**
-         * The duration of toast.
+         * The duration of notification.
          */
         duration: PropTypes.number
 
