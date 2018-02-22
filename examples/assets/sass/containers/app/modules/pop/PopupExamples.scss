@@ -75,6 +75,20 @@
                     }
                 }
             }
+
+            &.center {
+                position: absolute;
+                left: 170px;
+                top: 120px;
+
+                .trigger-position-button {
+                    margin-left: 20px;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+            }
         }
     }
 }
