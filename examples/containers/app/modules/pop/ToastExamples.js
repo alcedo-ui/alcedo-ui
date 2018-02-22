@@ -6,6 +6,9 @@ import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import MaterialProvider from 'src/MaterialProvider';
+import ButtonRadioGroup from 'src/ButtonRadioGroup';
+import Theme from 'src/Theme';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Toast.json';
@@ -27,6 +30,7 @@ export default class ToastExamples extends Component {
         };
 
         this.Type = Object.keys(Toaster.Type).map(item => ({
+            className: `type-${item.toLowerCase()}`,
             label: item,
             value: Toaster.Type[item]
         }));
@@ -94,37 +98,20 @@ export default class ToastExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <div className="field-group">
-                                    <label className="text-field-label">Type</label>
-                                    <RadioGroup data={this.Type}
-                                                value={type}
-                                                onChange={(value) => {
-                                                    this.updateField('type', value);
-                                                }}/>
-                                </div>
+                                <MaterialProvider label="MesTypesage">
+                                    <ButtonRadioGroup data={this.Type}
+                                                      value={type}
+                                                      onChange={(value) => {
+                                                          this.updateField('type', value);
+                                                      }}/>
+                                </MaterialProvider>
 
-                                {/*<div className="field-group">*/}
-                                {/*<label className="text-field-label">Position</label>*/}
-                                {/*<RadioGroup data={this.ToasterPosition}*/}
-                                {/*value={position}*/}
-                                {/*onChange={(value) => {*/}
-                                {/*this.updateField('position', value);*/}
-                                {/*}}/>*/}
-                                {/*</div>*/}
-
-                                <div className="field-group">
-                                    <label className="text-field-label">Message</label>
+                                <MaterialProvider label="Message">
                                     <TextField value={message}
                                                onChange={(value) => {
                                                    this.updateField('message', value);
                                                }}/>
-                                </div>
-
-                                {/*<RaisedButton className="show-toast-button"*/}
-                                {/*theme={RaisedButton.Theme.PRIMARY}*/}
-                                {/*value="Show Toast"*/}
-                                {/*style={{width: '120px'}}*/}
-                                {/*onTouchTap={this.addToast}/>*/}
+                                </MaterialProvider>
 
                                 <div className="button-group-wrapper">
 
