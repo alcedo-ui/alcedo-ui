@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import PositionPop from '../PositionPop';
+import PositionPop from '../_PositionPop';
 import Notification from '../_Notification';
 
 import Util from '../_vendors/Util';

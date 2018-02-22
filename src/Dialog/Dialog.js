@@ -7,7 +7,7 @@ import React, {Children, cloneElement, Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PositionPop from '../PositionPop';
+import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
 import FlatButton from '../FlatButton';
 import RaisedButton from '../RaisedButton';
