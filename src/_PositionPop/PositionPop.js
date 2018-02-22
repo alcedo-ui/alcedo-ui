@@ -44,9 +44,7 @@ class PositionPop extends Component {
     enterHandler(el) {
 
         this.transitionEl = el;
-
-        const {position} = this.props;
-        PositionPopCalculation.setStyle(el, position);
+        this.resetPosition();
 
         this.setState({
             enter: true
