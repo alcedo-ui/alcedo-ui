@@ -10,6 +10,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Toast.json';
 
+import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/ToastExamples.scss';
 
 export default class ToastExamples extends Component {
@@ -47,7 +48,7 @@ export default class ToastExamples extends Component {
         this.setState(state);
     }
 
-    addToast() {
+    addToast(position) {
 
         const {type, message, toasts} = this.state;
 
@@ -57,7 +58,8 @@ export default class ToastExamples extends Component {
         });
 
         this.setState({
-            toasts
+            toasts,
+            position
         });
 
     }
@@ -73,7 +75,7 @@ export default class ToastExamples extends Component {
         const {type, position, title, message, toasts} = this.state;
 
         return (
-            <div className="example toast-examples">
+            <div className="example pop-examples toast-examples">
 
                 <h2 className="example-title">Toast</h2>
 
@@ -101,14 +103,14 @@ export default class ToastExamples extends Component {
                                                 }}/>
                                 </div>
 
-                                <div className="field-group">
-                                    <label className="text-field-label">Position</label>
-                                    <RadioGroup data={this.ToasterPosition}
-                                                value={position}
-                                                onChange={(value) => {
-                                                    this.updateField('position', value);
-                                                }}/>
-                                </div>
+                                {/*<div className="field-group">*/}
+                                {/*<label className="text-field-label">Position</label>*/}
+                                {/*<RadioGroup data={this.ToasterPosition}*/}
+                                {/*value={position}*/}
+                                {/*onChange={(value) => {*/}
+                                {/*this.updateField('position', value);*/}
+                                {/*}}/>*/}
+                                {/*</div>*/}
 
                                 <div className="field-group">
                                     <label className="text-field-label">Message</label>
@@ -118,11 +120,95 @@ export default class ToastExamples extends Component {
                                                }}/>
                                 </div>
 
-                                <RaisedButton className="show-toast-button"
-                                              theme={RaisedButton.Theme.PRIMARY}
-                                              value="Show Toast"
-                                              style={{width: '120px'}}
-                                              onTouchTap={this.addToast}/>
+                                {/*<RaisedButton className="show-toast-button"*/}
+                                {/*theme={RaisedButton.Theme.PRIMARY}*/}
+                                {/*value="Show Toast"*/}
+                                {/*style={{width: '120px'}}*/}
+                                {/*onTouchTap={this.addToast}/>*/}
+
+                                <div className="button-group-wrapper">
+
+                                    <div className="button-group top">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Top Left"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.TOP_LEFT);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Top"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.TOP);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Top right"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.TOP_RIGHT);
+                                                      }}/>
+                                    </div>
+
+                                    <div className="button-group right">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Right Top"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.RIGHT_TOP);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Right"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.RIGHT);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Right Bottom"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.RIGHT_BOTTOM);
+                                                      }}/>
+                                    </div>
+
+                                    <div className="button-group bottom">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Bottom Left"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.BOTTOM_LEFT);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Bottom"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.BOTTOM);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Bottom Right"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.BOTTOM_RIGHT);
+                                                      }}/>
+                                    </div>
+
+                                    <div className="button-group left">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Left Top"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.LEFT_TOP);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Left"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.LEFT);
+                                                      }}/>
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Left Bottom"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.LEFT_BOTTOM);
+                                                      }}/>
+                                    </div>
+
+                                    <div className="button-group center">
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="Center"
+                                                      onTouchTap={() => {
+                                                          this.addToast(Toaster.Position.CENTER);
+                                                      }}/>
+                                    </div>
+
+                                </div>
 
                                 <Toaster toasts={toasts}
                                          position={position}
