@@ -176,7 +176,6 @@ class RemoteAutoComplete extends Component {
                     <Popup visible={focus}
                            triggerEl={this.triggerEl}
                            hasTriangle={false}
-                           triggerMode={Popup.TriggerMode.OPEN}
                            style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}>
                         <ul className="auto-complete-list"
                             style={ulStyle}>

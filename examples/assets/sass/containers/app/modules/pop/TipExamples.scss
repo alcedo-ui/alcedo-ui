@@ -1,0 +1,17 @@
+@import '../../../../my-theme.scss';
+
+.tip-examples {
+
+}
+
+.customized-tip {
+
+    .customized-tip-triangle {
+        position: relative;
+        top: -4px;
+    }
+
+    .tip-content {
+        border: 1px solid #e7e7e7;
+    }
+}

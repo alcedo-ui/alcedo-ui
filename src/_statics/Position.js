@@ -19,6 +19,8 @@ export default {
 
     RIGHT_TOP: 'right-top',
     RIGHT: 'right',
-    RIGHT_BOTTOM: 'right-bottom'
+    RIGHT_BOTTOM: 'right-bottom',
+
+    CENTER: 'center'
 
 };

@@ -74,7 +74,8 @@ class ButtonRadioGroup extends Component {
                             className = (isChecked ? ' activated' : '') + (item.className ? ' ' + item.className : '');
 
                         return (
-                            <RaisedButton key={index}
+                            <RaisedButton {...item}
+                                          key={index}
                                           className={'button-radio-group-item' + className}
                                           style={item.style}
                                           value={item.label}

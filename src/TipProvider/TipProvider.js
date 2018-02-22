@@ -62,7 +62,8 @@ class TipProvider extends Component {
 
                 <div ref="triggerWrapper"
                      className="trigger-wrapper"
-                     onMouseEnter={this.showTip}>
+                     onMouseOver={this.showTip}
+                     onMouseOut={this.hideTip}>
                     {cloneElement(children, {
                         ref: 'trigger'
                     })}
@@ -71,8 +72,7 @@ class TipProvider extends Component {
                 <Tip {...restProps}
                      triggerEl={this.triggerEl}
                      visible={tipVisible}
-                     onRender={onTipRender}
-                     onRequestClose={this.hideTip}>
+                     onRender={onTipRender}>
                     {text}
                 </Tip>
 
@@ -117,7 +117,7 @@ TipProvider.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.The value can be Menu.Position.LEFT or Menu.Position.RIGHT.
+     * The popover alignment.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
@@ -158,12 +158,11 @@ TipProvider.defaultProps = {
 
     className: '',
     style: null,
-    theme: Theme.DEFAULT,
+    theme: Theme.DARK,
 
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    triangle: <div className="tip-triangle"></div>,
     position: Tip.Position.BOTTOM,
     isAnimated: true,
     depth: 6,

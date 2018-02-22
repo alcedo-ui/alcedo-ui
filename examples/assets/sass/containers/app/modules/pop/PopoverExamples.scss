@@ -1,0 +1,18 @@
+@import '../../../../my-theme.scss';
+
+.popover-examples {
+
+}
+
+.customized-popover {
+
+    .customized-popover-triangle {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .popover-content {
+        border: 1px solid #e7e7e7;
+    }
+}

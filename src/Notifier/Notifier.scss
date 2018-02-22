@@ -3,71 +3,42 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.notifier {
-    position: fixed;
+.position-pop.notifier {
     z-index: $toast-z-index;
+    padding: 16px;
 
-    &.notifier-position-left-top,
-    &.notifier-position-left,
-    &.notifier-position-left-bottom {
+    &.notifier-top-left,
+    &.notifier-top,
+    &.notifier-top-right,
+    &.notifier-center {
+        .notification {
+            margin-bottom: 10px;
+        }
+    }
+
+    &.notifier-left-top,
+    &.notifier-left,
+    &.notifier-left-bottom {
         .notification {
             float: left;
+            margin: 0 10px 10px 0;
         }
     }
 
-    &.notifier-position-right-top,
-    &.notifier-position-right,
-    &.notifier-position-right-bottom {
+    &.notifier-right-top,
+    &.notifier-right,
+    &.notifier-right-bottom {
         .notification {
             float: right;
+            margin: 0 0 10px 10px;
         }
     }
 
-    &.notifier-position-top-left,
-    &.notifier-position-left-top {
-        left: 20px;
-        top: 20px;
-    }
-
-    &.notifier-position-top {
-        left: 50%;
-        top: 20px;
-        transform: translateX(-50%);
-    }
-
-    &.notifier-position-top-right,
-    &.notifier-position-right-top {
-        right: 10px;
-        top: 20px;
-    }
-
-    &.notifier-position-left {
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    &.notifier-position-bottom-left,
-    &.notifier-position-left-bottom {
-        left: 20px;
-        bottom: 20px;
-    }
-
-    &.notifier-position-bottom {
-        left: 50%;
-        bottom: 20px;
-        transform: translateX(-50%);
-    }
-
-    &.notifier-position-bottom-right,
-    &.notifier-position-right-bottom {
-        right: 10px;
-        bottom: 20px;
-    }
-
-    &.notifier-position-right {
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
+    &.notifier-bottom-left,
+    &.notifier-bottom,
+    &.notifier-bottom-right {
+        .notification {
+            margin-top: 10px;
+        }
     }
 }

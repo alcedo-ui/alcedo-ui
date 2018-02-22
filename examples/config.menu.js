@@ -30,21 +30,6 @@ export default [{
         route: '/components/IconAnchor'
     }]
 }, {
-    text: 'Popup',
-    children: [{
-        text: 'Dialog',
-        route: '/components/Dialog'
-    }, {
-        text: 'Popup',
-        route: '/components/Popup'
-    }, {
-        text: 'Menu',
-        route: '/components/Menu'
-    }, {
-        text: 'Tip',
-        route: '/components/Tip'
-    }]
-}, {
     text: 'Date',
     children: [{
         text: 'DatePicker',
@@ -294,8 +279,20 @@ export default [{
         route: '/components/VerticalPointStep'
     }]
 }, {
-    text: 'Message',
+    text: 'Pop',
     children: [{
+        text: 'Dialog',
+        route: '/components/Dialog'
+    }, {
+        text: 'Popup',
+        route: '/components/Popup'
+    }, {
+        text: 'Popover',
+        route: '/components/Popover'
+    }, {
+        text: 'Tip',
+        route: '/components/Tip'
+    }, {
         text: 'Toast',
         route: '/components/Toast'
     }, {

@@ -398,7 +398,6 @@ class LocalAutoComplete extends Component {
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
-                               triggerMode={Popup.TriggerMode.OPEN}
                                position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>

@@ -177,19 +177,25 @@ export default function configureRoutes(store) {
                     path: '/components/MaterialMonthPicker',
                     component: ac(store, () => import('modules/date/MaterialMonthPickerExamples'))
                 },
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- popup -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- pop -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Dialog',
-                    component: ac(store, () => import('modules/popup/DialogExamples'))
+                    component: ac(store, () => import('modules/pop/DialogExamples'))
                 }, {
                     path: '/components/Popup',
-                    component: ac(store, () => import('modules/popup/PopupExamples'))
+                    component: ac(store, () => import('modules/pop/PopupExamples'))
                 }, {
-                    path: '/components/Menu',
-                    component: ac(store, () => import('modules/popup/MenuExamples'))
+                    path: '/components/Popover',
+                    component: ac(store, () => import('modules/pop/PopoverExamples'))
                 }, {
                     path: '/components/Tip',
-                    component: ac(store, () => import('modules/popup/TipExamples'))
+                    component: ac(store, () => import('modules/pop/TipExamples'))
+                }, {
+                    path: '/components/Toast',
+                    component: ac(store, () => import('modules/pop/ToastExamples'))
+                }, {
+                    path: '/components/Notification',
+                    component: ac(store, () => import('modules/pop/NotificationExamples'))
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -297,15 +303,6 @@ export default function configureRoutes(store) {
                     component: ac(store, () => import('modules/stepper/VerticalPointStepExamples'))
                 },
 
-                /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- messages -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-                {
-                    path: '/components/Toast',
-                    component: ac(store, () => import('modules/message/ToastExamples'))
-                }, {
-                    path: '/components/Notification',
-                    component: ac(store, () => import('modules/message/NotificationExamples'))
-                },
-
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/SpanLoading',
@@ -313,7 +310,7 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/CircularLoading',
                     component: ac(store, () => import('modules/loading/CircularLoadingExamples'))
-                },{
+                }, {
                     path: '/components/PageLoading',
                     component: ac(store, () => import('modules/loading/PageLoadingExamples'))
                 },

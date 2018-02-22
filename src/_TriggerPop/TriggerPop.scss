@@ -1,0 +1,334 @@
+/**
+ * @file TriggerPop style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin trigger-pop-theme($bg-color, $color) {
+    color: $color;
+
+    .trigger-pop-triangle {
+        border-color: $bg-color;
+    }
+
+    .trigger-pop-content {
+        background: $bg-color;
+    }
+}
+
+.trigger-pop {
+    position: absolute;
+    width: 200px;
+    z-index: $popup-z-index;
+    background: transparent;
+
+    .trigger-pop-triangle-wrapper {
+        position: absolute;
+        z-index: 1;
+
+        .trigger-pop-triangle {
+            width: 0;
+            height: 0;
+        }
+    }
+
+    .trigger-pop-content {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        color: inherit;
+        overflow: auto;
+        border-radius: $theme-border-radius;
+        transform: rotate(0deg);
+    }
+
+    &.trigger-pop-bottom-left {
+        transform-origin: 0 0;
+
+        &.trigger-pop-has-triangle {
+            margin-top: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 10px;
+            top: -6px;
+
+            .trigger-pop-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-bottom-width: 6px;
+                border-bottom-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-bottom {
+        transform-origin: 50% 0;
+
+        &.trigger-pop-has-triangle {
+            margin-top: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 50%;
+            top: -6px;
+            transform: translateX(-50%);
+
+            .trigger-pop-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-bottom-width: 6px;
+                border-bottom-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-bottom-right {
+        transform-origin: 100% 0;
+
+        &.trigger-pop-has-triangle {
+            margin-top: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            right: 10px;
+            top: -6px;
+
+            .trigger-pop-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-bottom-width: 6px;
+                border-bottom-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-top-left {
+        transform-origin: 0 100%;
+
+        &.trigger-pop-has-triangle {
+            margin-bottom: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 10px;
+            top: 100%;
+
+            .trigger-pop-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top-width: 6px;
+                border-top-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-top {
+        transform-origin: 50% 100%;
+
+        &.trigger-pop-has-triangle {
+            margin-bottom: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 50%;
+            top: 100%;
+            transform: translateX(-50%);
+
+            .trigger-pop-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top-width: 6px;
+                border-top-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-top-right {
+        transform-origin: 100% 100%;
+
+        &.trigger-pop-has-triangle {
+            margin-bottom: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            right: 10px;
+            top: 100%;
+
+            .trigger-pop-triangle {
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top-width: 6px;
+                border-top-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-left-top {
+        transform-origin: 100% 0;
+
+        &.trigger-pop-has-triangle {
+            margin-right: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 100%;
+            top: 10px;
+
+            .trigger-pop-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-left-width: 6px;
+                border-left-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-left {
+        transform-origin: 100% 50%;
+
+        &.trigger-pop-has-triangle {
+            margin-right: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+
+            .trigger-pop-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-left-width: 6px;
+                border-left-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-left-bottom {
+        transform-origin: 100% 100%;
+
+        &.trigger-pop-has-triangle {
+            margin-right: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: 100%;
+            bottom: 10px;
+
+            .trigger-pop-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-left-width: 6px;
+                border-left-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-right-top {
+        transform-origin: 0 0;
+
+        &.trigger-pop-has-triangle {
+            margin-left: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: -6px;
+            top: 10px;
+
+            .trigger-pop-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-right-width: 6px;
+                border-right-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-right {
+        transform-origin: 0 50%;
+
+        &.trigger-pop-has-triangle {
+            margin-left: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            .trigger-pop-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-right-width: 6px;
+                border-right-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-right-bottom {
+        transform-origin: 0 100%;
+
+        &.trigger-pop-has-triangle {
+            margin-left: 10px;
+        }
+
+        .trigger-pop-triangle-wrapper {
+            left: -6px;
+            bottom: 10px;
+
+            .trigger-pop-triangle {
+                border-top: 6px solid transparent !important;
+                border-bottom: 6px solid transparent !important;
+                border-right-width: 6px;
+                border-right-style: solid;
+            }
+        }
+    }
+
+    &.trigger-pop-center {
+        transform-origin: 50% 50%;
+
+        .trigger-pop-triangle-wrapper {
+            display: none;
+        }
+    }
+
+    &.trigger-pop-animated {
+        transition: opacity $theme-transition-duration ease-in-out, transform $theme-transition-duration ease-in-out;
+
+        &.hidden {
+            opacity: 0;
+            transform: scale(.9);
+        }
+    }
+
+    // default theme
+    @include trigger-pop-theme($theme-field-bg, $theme-field);
+
+    // other themes
+    &.theme-primary {
+        @include trigger-pop-theme($theme-primary, #fff);
+    }
+    &.theme-secondary {
+        @include trigger-pop-theme($theme-secondary, $theme-field);
+    }
+    &.theme-highlight {
+        @include trigger-pop-theme($theme-highlight, #fff);
+    }
+    &.theme-dark {
+        @include trigger-pop-theme($theme-dark, #fff);
+    }
+    &.theme-info {
+        @include trigger-pop-theme($theme-info, #fff);
+    }
+    &.theme-success {
+        @include trigger-pop-theme($theme-success, #fff);
+    }
+    &.theme-warning {
+        @include trigger-pop-theme($theme-warning, #fff);
+    }
+    &.theme-error {
+        @include trigger-pop-theme($theme-error, #fff);
+    }
+
+}

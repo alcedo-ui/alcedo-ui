@@ -10,6 +10,7 @@ export default {
     PRIMARY: 'primary',
     SECONDARY: 'secondary',
     HIGHLIGHT: 'highlight',
+    DARK: 'dark',
 
     INFO: 'info',
     SUCCESS: 'success',

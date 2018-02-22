@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import Portal from '../Portal';
+import PositionPop from '../_PositionPop';
 import Toast from '../_Toast';
 
 import Util from '../_vendors/Util';
@@ -25,7 +25,6 @@ class Toaster extends Component {
         super(props, ...restArgs);
 
         this.nextKey = 0;
-        this.unrenderTimeout = null;
 
         this.state = {
             visible: false,
@@ -33,7 +32,6 @@ class Toaster extends Component {
         };
 
         this.isPositiveSequence = ::this.isPositiveSequence;
-        this.clearUnrenderTimeout = ::this.clearUnrenderTimeout;
         this.addToast = ::this.addToast;
         this.removeToast = ::this.removeToast;
 
@@ -43,16 +41,7 @@ class Toaster extends Component {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     }
 
-    clearUnrenderTimeout() {
-        if (this.unrenderTimeout) {
-            clearTimeout(this.unrenderTimeout);
-            this.unrenderTimeout = null;
-        }
-    }
-
     addToast(toast) {
-
-        this.clearUnrenderTimeout();
 
         let toasts = this.state.toasts;
 
@@ -65,6 +54,8 @@ class Toaster extends Component {
         this.setState({
             toasts,
             visible: true
+        }, () => {
+            this.refs.toaster.resetPosition();
         });
 
     }
@@ -79,15 +70,11 @@ class Toaster extends Component {
             toasts
         }, () => {
             if (toasts.length < 1) {
-
-                this.clearUnrenderTimeout();
-
-                this.unrenderTimeout = setTimeout(() => {
-                    this.setState({
-                        visible: false
-                    });
-                }, 1250);
-
+                this.setState({
+                    visible: false
+                }, () => {
+                    this.refs.toaster.resetPosition();
+                });
             }
         });
 
@@ -96,8 +83,6 @@ class Toaster extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.toasts && nextProps.toasts.length > 0) {
-
-            this.clearUnrenderTimeout();
 
             let toasts = _.cloneDeep(nextProps.toasts);
             for (let i = 0, len = toasts.length; i < len; i++) {
@@ -119,40 +104,51 @@ class Toaster extends Component {
                 toasts,
                 visible: true
             }, () => {
-                this.props.onToastPop();
+
+                this.refs.toaster.resetPosition();
+
+                const {onToastPop} = this.props;
+                onToastPop && onToastPop();
+
             });
 
         }
 
     }
 
-    componentWillUnmount() {
-        this.clearUnrenderTimeout();
-    }
-
     render() {
 
-        const {className, style, position} = this.props,
+        const {
+
+                className, position,
+
+                // not passing down these props
+                onToastPop,
+
+                ...restProps
+
+            } = this.props,
             {toasts, visible} = this.state,
 
             toasterClassName = classNames('toaster', {
-                [`toaster-position-${position}`]: position,
+                [`toaster-${position}`]: position,
                 [className]: className
             });
 
         return (
-            <Portal visible={visible}>
-                <div className={toasterClassName}
-                     style={style}>
-                    {
-                        toasts && toasts.map(options =>
-                            <Toast {...options}
-                                   key={options.toastsId}
-                                   onRequestClose={this.removeToast}/>
-                        )
-                    }
-                </div>
-            </Portal>
+            <PositionPop {...restProps}
+                         ref="toaster"
+                         className={toasterClassName}
+                         visible={visible}
+                         position={position}>
+                {
+                    toasts && toasts.map(options =>
+                        <Toast {...options}
+                               key={options.toastsId}
+                               onRequestClose={this.removeToast}/>
+                    )
+                }
+            </PositionPop>
         );
 
     }
@@ -223,7 +219,7 @@ Toaster.defaultProps = {
     style: null,
 
     toasts: null,
-    position: Position.BOTTOM_RIGHT
+    position: Position.TOP
 
 };
 
