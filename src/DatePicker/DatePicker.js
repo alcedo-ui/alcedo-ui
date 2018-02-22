@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -178,7 +179,7 @@ class DatePicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter} = this.props,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state,
 
             pickerClassName = classNames('date-picker', {
@@ -206,6 +207,7 @@ class DatePicker extends Component {
                        visible={popupVisible}
                        triggerEl={triggerEl}
                        hasTriangle={false}
+                       position={position}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
@@ -340,7 +342,8 @@ DatePicker.defaultProps = {
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     autoClose: true,
-    isFooter: true
+    isFooter: true,
+    position:Position.BOTTOM_LEFT
 };
 
 export default DatePicker;

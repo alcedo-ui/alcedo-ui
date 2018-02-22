@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
@@ -300,7 +301,7 @@ class MaterialDateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate} = this.props,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position} = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
@@ -340,6 +341,7 @@ class MaterialDateRangePicker extends Component {
                 <Popup className={`material-date-range-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
+                       position={position}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
@@ -543,7 +545,8 @@ MaterialDateRangePicker.defaultProps = {
     style: null,
     name: '',
     placeholder: 'Date',
-    dateFormat: 'YYYY-MM-DD'
+    dateFormat: 'YYYY-MM-DD',
+    position:Position.BOTTOM_LEFT
 };
 
 export default MaterialDateRangePicker;

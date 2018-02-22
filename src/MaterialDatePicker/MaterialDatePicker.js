@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
@@ -180,7 +181,7 @@ class MaterialDatePicker extends Component {
     render() {
 
         const {
-                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter
+                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state,
 
@@ -213,6 +214,7 @@ class MaterialDatePicker extends Component {
                 <Popup className={`material-date-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
+                       position={position}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup(3);
@@ -352,7 +354,8 @@ MaterialDatePicker.defaultProps = {
     dateFormat: 'YYYY-MM-DD',
     isLabelAnimate: true,
     autoClose: true,
-    isFooter: true
+    isFooter: true,
+    position:Position.BOTTOM_LEFT
 };
 
 export default MaterialDatePicker;

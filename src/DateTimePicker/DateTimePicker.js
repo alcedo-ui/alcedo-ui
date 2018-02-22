@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -222,7 +223,7 @@ class DateTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled} = this.props,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled, position} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state,
 
             pickerClassName = classNames('date-time-picker', {
@@ -252,6 +253,7 @@ class DateTimePicker extends Component {
                 <Popup className={`date-time-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
+                       position={position}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
@@ -428,7 +430,8 @@ DateTimePicker.defaultProps = {
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
-    isFooter: true
+    isFooter: true,
+    position:Position.BOTTOM_LEFT
 };
 
 export default DateTimePicker;

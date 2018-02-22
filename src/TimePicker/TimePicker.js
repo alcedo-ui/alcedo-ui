@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import TimeList from '../_TimeList';
@@ -131,7 +132,7 @@ class TimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat} = this.props,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, position} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
 
             pickerClassName = classNames('time-picker', {
@@ -162,6 +163,7 @@ class TimePicker extends Component {
                     <Popup className="time-picker-popup"
                            visible={popupVisible}
                            triggerEl={triggerEl}
+                           position={position}
                            hasTriangle={false}
                            onRequestClose={() => {
                                this.closePopup();
@@ -237,7 +239,8 @@ TimePicker.defaultProps = {
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
-    dateFormat: 'HH:mm:ss'
+    dateFormat: 'HH:mm:ss',
+    position:Position.BOTTOM_LEFT
 };
 
 export default TimePicker;

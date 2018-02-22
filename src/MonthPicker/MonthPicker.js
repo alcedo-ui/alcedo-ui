@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import Month from '../_MonthPicker';
@@ -145,7 +146,7 @@ class MonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue} = this.props,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, position} = this.props,
             {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
 
             pickerClassName = classNames('month-picker', {
@@ -172,6 +173,7 @@ class MonthPicker extends Component {
                 <Popup className="month-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
+                       position={position}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
@@ -269,7 +271,8 @@ MonthPicker.defaultProps = {
     placeholder: 'Date',
     dateFormat: 'YYYY-MM',
     autoClose: true,
-    isFooter: true
+    isFooter: true,
+    position:Position.BOTTOM_LEFT
 };
 
 export default MonthPicker;

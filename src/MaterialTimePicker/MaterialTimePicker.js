@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
@@ -132,7 +133,7 @@ class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate} = this.props,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
@@ -162,6 +163,7 @@ class MaterialTimePicker extends Component {
                 <Popup className="material-time-picker-popup"
                        visible={popupVisible}
                        triggerEl={triggerEl}
+                       position={position}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
@@ -241,7 +243,8 @@ MaterialTimePicker.defaultProps = {
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
-    dateFormat: 'HH:mm:ss'
+    dateFormat: 'HH:mm:ss',
+    position:Position.BOTTOM_LEFT
 };
 
 export default MaterialTimePicker;

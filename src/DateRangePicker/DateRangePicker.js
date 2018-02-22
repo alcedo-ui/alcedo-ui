@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classNames from 'classnames';
+import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -302,7 +303,7 @@ class DateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue} = this.props,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, position} = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
 
             pickerClassName = classNames('date-range-picker', {
@@ -345,6 +346,7 @@ class DateRangePicker extends Component {
                 <Popup className={`date-range-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
+                       position={position}
                        hasTriangle={false}
                        onRequestClose={() => {
                            this.closePopup();
@@ -550,7 +552,8 @@ DateRangePicker.defaultProps = {
     style: null,
     name: '',
     placeholder: 'Date',
-    dateFormat: 'YYYY-MM-DD'
+    dateFormat: 'YYYY-MM-DD',
+    position:Position.BOTTOM_LEFT
 };
 
 export default DateRangePicker;
