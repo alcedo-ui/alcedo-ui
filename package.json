@@ -38,7 +38,7 @@
         "moment": "^2.20.1",
         "prop-types": "^15.6.0",
         "react": "^16.2.0",
-        "react-beautiful-dnd": "^4.0.1",
+        "react-beautiful-dnd": "^5.0.0",
         "react-dnd": "^2.5.4",
         "react-dnd-html5-backend": "^2.5.4",
         "react-dnd-scrollzone": "^4.0.0",
@@ -69,7 +69,7 @@
         "compression-webpack-plugin": "^1.1.7",
         "connect-history-api-fallback": "^1.5.0",
         "copy-webpack-plugin": "^4.4.1",
-        "css-loader": "^0.28.9",
+        "css-loader": "^0.28.10",
         "eventsource-polyfill": "^0.9.6",
         "express": "^4.16.2",
         "extract-text-webpack-plugin": "^3.0.2",
@@ -97,8 +97,8 @@
         "uglifyjs-webpack-plugin": "^1.2.0",
         "url-loader": "^0.6.2",
         "webpack": "^3.11.0",
-        "webpack-dev-middleware": "^2.0.5",
+        "webpack-dev-middleware": "^2.0.6",
         "webpack-hot-middleware": "^2.21.0",
-        "webpack-merge": "^4.1.1"
+        "webpack-merge": "^4.1.2"
     }
 }
