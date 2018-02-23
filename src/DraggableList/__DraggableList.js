@@ -5,8 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import _ from 'lodash';
+import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
 import classNames from 'classnames';
 
 import DraggableListItem from '../_DraggableListItem';
@@ -18,6 +18,8 @@ import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
+
+const ScrollingComponent = withScrolling('div');
 
 class DraggableList extends Component {
 
@@ -34,10 +36,25 @@ class DraggableList extends Component {
             value: Calculation.getInitValue(props)
         };
 
+        this.listItemMoveHandler = ::this.listItemMoveHandler;
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.onNodeDragEnd = ::this.onNodeDragEnd;
-        this.renderListItem = ::this.renderListItem;
+
+    }
+
+    listItemMoveHandler(dragIndex, hoverIndex, props) {
+
+        const {data} = this.state,
+            dragItem = data.splice(dragIndex, 1);
+
+        data.splice(hoverIndex, 0, ...dragItem);
+
+        this.setState({
+            data
+        }, () => {
+            const {onSequenceChange} = this.props;
+            onSequenceChange && onSequenceChange(data);
+        });
 
     }
 
@@ -99,44 +116,6 @@ class DraggableList extends Component {
 
     }
 
-    onNodeDragEnd(result) {
-
-        /**
-         *  result: {
-         *      draggableId,
-         *      type,
-         *      source: {
-         *          droppableId,
-         *          index
-         *      },
-         *      destination: {
-         *          droppableId,
-         *          index
-         *      }
-         *  }
-         */
-
-        if (!result || !('draggableId' in result)
-            || !result.source || !('index' in result.source)
-            || !result.destination || !('index' in result.destination)) {
-            return;
-        }
-
-        const {data} = this.state;
-
-        Util.reorder(data, result.source.index, result.destination.index);
-
-        this.setState({
-            data
-        }, () => {
-            const {onNodeDragEnd, onSequenceChange} = this.props;
-            onNodeDragEnd && onNodeDragEnd(result);
-            onSequenceChange && onSequenceChange(data);
-        });
-
-
-    }
-
     componentWillReceiveProps(nextProps) {
 
         let state;
@@ -156,135 +135,121 @@ class DraggableList extends Component {
 
     }
 
-    renderListItem(item, index) {
+    render() {
 
         const {
 
-                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
+                children, className, style, theme, itemHeight,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
+
+                scrollSpeed, scrollBuffer
 
             } = this.props,
-            {value} = this.state;
-
-        return typeof item === 'object' ?
-            (
-                <DraggableListItem key={item[idField] || index}
-                                   {...item}
-                                   index={index}
-                                   style={{height: itemHeight}}
-                                   theme={item.theme || theme}
-                                   selectTheme={item.selectTheme || selectTheme}
-                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                   data={item}
-                                   checked={Calculation.isItemChecked(item, value, this.props)}
-                                   value={Util.getValueByValueField(item, valueField, displayField)}
-                                   text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                   desc={item[descriptionField] || null}
-                                   disabled={disabled || item.disabled}
-                                   isLoading={isLoading || item.isLoading}
-                                   selectMode={selectMode}
-                                   renderer={renderer}
-                                   onTouchTap={e => {
-                                       onItemTouchTap && onItemTouchTap(item, index, e);
-                                       item.onTouchTap && item.onTouchTap(e);
-                                   }}
-                                   onSelect={() => {
-                                       this.listItemSelectHandler(item, index);
-                                   }}
-                                   onDeselect={() => {
-                                       this.listItemDeselectHandler(item, index);
-                                   }}/>
-            )
-            :
-            (
-                <DraggableListItem key={index}
-                                   index={index}
-                                   style={{height: itemHeight}}
-                                   theme={item.theme || theme}
-                                   selectTheme={item.selectTheme || selectTheme}
-                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                   data={item}
-                                   checked={Calculation.isItemChecked(item, value, this.props)}
-                                   value={item}
-                                   text={item}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   selectMode={selectMode}
-                                   renderer={renderer}
-                                   onTouchTap={e => {
-                                       onItemTouchTap && onItemTouchTap(item, index, e);
-                                   }}
-                                   onSelect={() => {
-                                       this.listItemSelectHandler(item, index);
-                                   }}
-                                   onDeselect={() => {
-                                       this.listItemDeselectHandler(item, index);
-                                   }}/>
-            );
-
-    }
-
-    render() {
-
-        const {children, className, style, disabled, onNodeDragStart} = this.props,
-            {data} = this.state,
+            {data, value} = this.state,
 
             listClassName = classNames('draggable-list', {
                 [className]: className
             });
 
         return (
-            <DragDropContext onDragStart={onNodeDragStart}
-                             onDragEnd={this.onNodeDragEnd}>
+            <ScrollingComponent className={listClassName}
+                                disabled={disabled}
+                                style={style}
+                                strengthMultiplier={scrollSpeed}
+                                verticalStrength={createVerticalStrength(scrollBuffer)}
+                                onWheel={e => {
+                                    Event.wheelHandler(e, this.props);
+                                }}>
 
-                <Droppable droppableId="droppable">
+                {
+                    _.isArray(data) && data.length > 0 ?
+                        (
+                            data.map((item, index) => {
 
-                    {
-                        dropProvided => (
-                            <div ref={dropProvided.innerRef}
-                                 className={listClassName}
-                                 disabled={disabled}
-                                 style={style}
-                                 onWheel={e => {
-                                     Event.wheelHandler(e, this.props);
-                                 }}>
-
-                                {
-                                    data.map((item, index) => {
-
-                                        if (item === LIST_SEPARATOR) {
-                                            return <div key={index}
-                                                        className="draggable-list-separator"></div>;
-                                        }
-
-                                        return this.renderListItem(item, index);
-
-                                    })
+                                if (item === LIST_SEPARATOR) {
+                                    return <div key={index}
+                                                className="draggable-list-separator"></div>;
                                 }
 
-                                {dropProvided.placeholder}
+                                return typeof item === 'object' ?
+                                    (
+                                        <DraggableListItem key={index}
+                                                           {...item}
+                                                           index={index}
+                                                           style={{height: itemHeight}}
+                                                           theme={item.theme || theme}
+                                                           selectTheme={item.selectTheme || selectTheme}
+                                                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                           data={item}
+                                                           checked={Calculation.isItemChecked(item, value, this.props)}
+                                                           value={Util.getValueByValueField(item, valueField, displayField)}
+                                                           text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                                           desc={item[descriptionField] || null}
+                                                           disabled={disabled || item.disabled}
+                                                           isLoading={isLoading || item.isLoading}
+                                                           selectMode={selectMode}
+                                                           renderer={renderer}
+                                                           onMove={this.listItemMoveHandler}
+                                                           onTouchTap={e => {
+                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                               item.onTouchTap && item.onTouchTap(e);
+                                                           }}
+                                                           onSelect={() => {
+                                                               this.listItemSelectHandler(item, index);
+                                                           }}
+                                                           onDeselect={() => {
+                                                               this.listItemDeselectHandler(item, index);
+                                                           }}/>
+                                    )
+                                    :
+                                    (
+                                        <DraggableListItem key={index}
+                                                           index={index}
+                                                           style={{height: itemHeight}}
+                                                           theme={item.theme || theme}
+                                                           selectTheme={item.selectTheme || selectTheme}
+                                                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                           data={item}
+                                                           checked={Calculation.isItemChecked(item, value, this.props)}
+                                                           value={item}
+                                                           text={item}
+                                                           disabled={disabled}
+                                                           isLoading={isLoading}
+                                                           selectMode={selectMode}
+                                                           renderer={renderer}
+                                                           onMove={this.listItemMoveHandler}
+                                                           onTouchTap={e => {
+                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                           }}
+                                                           onSelect={() => {
+                                                               this.listItemSelectHandler(item, index);
+                                                           }}
+                                                           onDeselect={() => {
+                                                               this.listItemDeselectHandler(item, index);
+                                                           }}/>
+                                    );
 
-                                {children}
-
-                            </div>
+                            })
                         )
-                    }
+                        :
+                        null
+                }
 
-                </Droppable>
+                {children}
 
-            </DragDropContext>
+            </ScrollingComponent>
         );
     }
 };
@@ -435,6 +400,16 @@ DraggableList.propTypes = {
      */
     isLoading: PropTypes.bool,
 
+    /**
+     * The speed of scroll bar.
+     */
+    scrollSpeed: PropTypes.number,
+
+    /**
+     * The number of overflows.
+     */
+    scrollBuffer: PropTypes.number,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     radioUncheckedIconCls: PropTypes.string,
@@ -469,14 +444,14 @@ DraggableList.propTypes = {
     onChange: PropTypes.func,
 
     /**
+     * Callback function fired when select item sequence changed.
+     */
+    onSequenceChange: PropTypes.func,
+
+    /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func,
-
-    onNodeDragStart: PropTypes.func,
-    onNodeDragEnd: PropTypes.func,
-
-    onSequenceChange: PropTypes.func
+    onWheel: PropTypes.func
 
 };
 
@@ -496,6 +471,9 @@ DraggableList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+
+    scrollSpeed: 20,
+    scrollBuffer: 40,
     shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: null,
