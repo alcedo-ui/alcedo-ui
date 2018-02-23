@@ -134,7 +134,6 @@ class DraggableList extends Component {
             onSequenceChange && onSequenceChange(data);
         });
 
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -169,6 +168,7 @@ class DraggableList extends Component {
 
             } = this.props,
             {value} = this.state,
+            self = this,
 
             props = {
                 index,
@@ -180,14 +180,14 @@ class DraggableList extends Component {
                 checkboxUncheckedIconCls: item.checkboxUncheckedIconCls || checkboxUncheckedIconCls,
                 checkboxCheckedIconCls: item.checkboxCheckedIconCls || checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls: item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls,
-                checked: Calculation.isItemChecked(item, value, this.props),
+                checked: Calculation.isItemChecked(item, value, self.props),
                 selectMode,
                 renderer,
                 onSelect() {
-                    this.listItemSelectHandler(item, index);
+                    self.listItemSelectHandler(item, index);
                 },
                 onDeselect() {
-                    this.listItemDeselectHandler(item, index);
+                    self.listItemDeselectHandler(item, index);
                 }
             };
 
