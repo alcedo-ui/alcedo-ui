@@ -37,6 +37,7 @@ class DropdownSelect extends Component {
         this.filterChangeHandler = ::this.filterChangeHandler;
         this.filterData = ::this.filterData;
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
+        this.itemTouchTapHandler = ::this.itemTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
         this.popupClosedHandler = ::this.popupClosedHandler;
         this.getEmptyEl = ::this.getEmptyEl;
@@ -104,6 +105,18 @@ class DropdownSelect extends Component {
         }, () => {
             this.changeHandler(newValue);
         });
+
+    }
+
+    itemTouchTapHandler(...args) {
+
+        const {autoClose, onItemTouchTap} = this.props;
+
+        if (autoClose) {
+            this.closePopup();
+        }
+
+        onItemTouchTap && onItemTouchTap(...args);
 
     }
 
@@ -195,8 +208,10 @@ class DropdownSelect extends Component {
 
                 className, popupClassName, style, name, popupTheme, data,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
-                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, noMatchedMsg,
-                onItemTouchTap, popupChildren,
+                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, popupChildren,
+
+                // not passing down these props
+                noMatchedMsg,
 
                 ...restProps
 
@@ -299,7 +314,7 @@ class DropdownSelect extends Component {
                                                    itemHeight={itemHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    renderer={renderer}
-                                                   onItemTouchTap={onItemTouchTap}
+                                                   onItemTouchTap={this.itemTouchTapHandler}
                                                    onChange={this.changeHandler}/>
                                 :
                                 <List className="dropdown-select-list"
@@ -311,7 +326,7 @@ class DropdownSelect extends Component {
                                       displayField={displayField}
                                       descriptionField={descriptionField}
                                       renderer={renderer}
-                                      onItemTouchTap={onItemTouchTap}
+                                      onItemTouchTap={this.itemTouchTapHandler}
                                       onChange={this.changeHandler}/>
                         }
 
