@@ -126,7 +126,7 @@ class ListItem extends Component {
         return (
             <TipProvider className='block'
                          text={tip}
-                         tipPosition={tipPosition}>
+                         position={tipPosition}>
 
                 <div className={listItemClassName}
                      style={style}
