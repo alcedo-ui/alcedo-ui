@@ -46,6 +46,7 @@ export default class MaterialDateTimePickerExamples extends Component {
 
                                 <MaterialDateTimePicker name="date"
                                                         label={'date'}
+                                                        value=""
                                                         isLabelAnimate={true}
                                                         onChange={this.onChangeHandle}/>
 
@@ -71,6 +72,7 @@ export default class MaterialDateTimePickerExamples extends Component {
 
                                 <MaterialDateTimePicker name="date"
                                                         label={'date'}
+                                                        value="2018-02-02 12:23:00"
                                                         isLabelAnimate={false}
                                                         onChange={this.onChangeHandle}/>
 

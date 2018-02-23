@@ -26,17 +26,17 @@ class MaterialDateTimePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
-
+        const defaultValue = props.value ? props.value: moment().format('YYYY-MM-DD HH:mm:ss');
         this.state = {
             value: props.value,
             popupVisible: false,
             triggerEl: null,
-            year: moment(props.value).format('YYYY'),
-            month: moment(props.value).format('MM'),
-            day: moment(props.value).format('DD'),
-            hour: moment(props.value).format('HH'),
-            minute: moment(props.value).format('mm'),
-            second: moment(props.value).format('ss'),
+            year: moment(defaultValue).format('YYYY'),
+            month: moment(defaultValue).format('MM'),
+            day: moment(defaultValue).format('DD'),
+            hour: moment(defaultValue).format('HH'),
+            minute: moment(defaultValue).format('mm'),
+            second: moment(defaultValue).format('ss'),
             datePickerLevel: 'day'
         };
 

@@ -23,14 +23,15 @@ class DatePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+        const defaultValue = props.value ? props.value: moment().format('YYYY-MM-DD');
 
         this.state = {
             value: props.value,
             popupVisible: false,
             triggerEl: null,
-            year: moment(props.value).format('YYYY'),
-            month: moment(props.value).format('MM'),
-            day: moment(props.value).format('DD'),
+            year: moment(defaultValue).format('YYYY'),
+            month: moment(defaultValue).format('MM'),
+            day: moment(defaultValue).format('DD'),
             datePickerLevel: 'day'
         };
 
@@ -144,7 +145,7 @@ class DatePicker extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+        if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
             this.setState({
                 value: moment(nextProps.value, nextProps.dateFormat),
                 dateFormat: nextProps.dateFormat,
@@ -232,26 +233,26 @@ class DatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
-                                datePickerLevel == 'month' ?
-                                    <MonthPicker
-                                        value={value}
-                                        year={year}
-                                        month={month}
-                                        day={day}
-                                        maxValue={maxValue}
-                                        minValue={minValue}
-                                        onChange={this.monthPickerChangeHandle}
-                                        previousClick={this.datePickerChangeHandle}/>
-                                    :
-                                    <YearPicker
-                                        value={value}
-                                        year={year}
-                                        month={month}
-                                        day={day}
-                                        maxValue={maxValue}
-                                        minValue={minValue}
-                                        onChange={this.yearPickerChangeHandle}/>
-                            )
+                            datePickerLevel == 'month' ?
+                                <MonthPicker
+                                    value={value}
+                                    year={year}
+                                    month={month}
+                                    day={day}
+                                    maxValue={maxValue}
+                                    minValue={minValue}
+                                    onChange={this.monthPickerChangeHandle}
+                                    previousClick={this.datePickerChangeHandle}/>
+                                :
+                                <YearPicker
+                                    value={value}
+                                    year={year}
+                                    month={month}
+                                    day={day}
+                                    maxValue={maxValue}
+                                    minValue={minValue}
+                                    onChange={this.yearPickerChangeHandle}/>
+                        )
                     }
 
                     {
@@ -277,7 +278,8 @@ class DatePicker extends Component {
             </div>
         );
     }
-};
+}
+;
 
 DatePicker.propTypes = {
 
@@ -343,7 +345,7 @@ DatePicker.defaultProps = {
     dateFormat: 'YYYY-MM-DD',
     autoClose: true,
     isFooter: true,
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default DatePicker;

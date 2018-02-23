@@ -40,7 +40,8 @@ export default class DateTimePickerExamples extends Component {
 
                                 <p><code>Date Time Picker</code> simple example.</p>
 
-                                <DateTimePicker onChange={this.onChangeHandle}/>
+                                <DateTimePicker value=''
+                                                onChange={this.onChangeHandle}/>
 
                             </div>
 

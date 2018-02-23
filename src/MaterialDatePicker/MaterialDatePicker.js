@@ -26,12 +26,13 @@ class MaterialDatePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+        const defaultValue = props.value ? props.value: moment().format('YYYY-MM-DD');
         this.state = {
             value: props.value,
             popupVisible: false,
-            year: moment(props.value).format('YYYY'),
-            month: moment(props.value).format('MM'),
-            day: moment(props.value).format('DD'),
+            year: moment(defaultValue).format('YYYY'),
+            month: moment(defaultValue).format('MM'),
+            day: moment(defaultValue).format('DD'),
             datePickerLevel: 'day',
             marginLeft: 0
         };
