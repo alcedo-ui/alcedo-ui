@@ -132,7 +132,7 @@ class TreeNode extends Component {
 
                 <TipProvider className='block'
                              text={data.tip}
-                             tipPosition={data.tipPosition}>
+                             position={data.tipPosition}>
 
                     <div className={nodeClassName}
                          style={nodeStyle}
