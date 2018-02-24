@@ -7,16 +7,17 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
-import Position from '../_statics/Position';
+import classNames from 'classnames';
 
 import TextField from '../TextField';
-import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
+import DatePickerTextField from '../_MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 class MaterialDateRangePicker extends Component {
 
@@ -302,7 +303,11 @@ class MaterialDateRangePicker extends Component {
     render() {
 
         const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position} = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state;
+            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
+
+            pickerClassName = classNames('material-date-range-picker', {
+                [className]: className
+            });
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -321,23 +326,25 @@ class MaterialDateRangePicker extends Component {
         let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
 
         return (
-            <div className={`material-date-range-picker ${className}`}
-                 ref="datePicker"
+            <div ref="datePicker"
+                 className={pickerClassName}
                  style={style}>
-                <MaterialDatePickerTextField ref="trigger"
-                                             className="material-date-range-picker-field"
-                                             name={name}
-                                             placeholder={placeholder}
-                                             label={label}
-                                             isLabelAnimate={isLabelAnimate}
-                                             value={textFieldValue}
-                                             readOnly={true}
-                                             clearButtonVisible={false}
-                                             isFocusedSelectAll={false}
-                                             popupVisible={popupVisible}
-                                             onTouchTap={e => {
-                                                 this.togglePopup(e);
-                                             }}/>
+
+                <DatePickerTextField ref="trigger"
+                                     className="material-date-range-picker-field"
+                                     name={name}
+                                     placeholder={placeholder}
+                                     label={label}
+                                     isLabelAnimate={isLabelAnimate}
+                                     value={textFieldValue}
+                                     readOnly={true}
+                                     clearButtonVisible={false}
+                                     isFocusedSelectAll={false}
+                                     popupVisible={popupVisible}
+                                     onTouchTap={e => {
+                                         this.togglePopup(e);
+                                     }}/>
+
                 <Popup className={`material-date-range-picker-popup`}
                        visible={popupVisible}
                        triggerEl={triggerEl}
@@ -346,6 +353,7 @@ class MaterialDateRangePicker extends Component {
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
+
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">
                             <TextField className='fl calendar-input'
@@ -364,6 +372,7 @@ class MaterialDateRangePicker extends Component {
                                        }}/>
                         </div>
                     </div>
+
                     {
                         left.datePickerLevel == 'day' ?
                             <DayPicker value={left.text}
@@ -417,6 +426,7 @@ class MaterialDateRangePicker extends Component {
                             )
 
                     }
+
                     {
                         right.datePickerLevel == 'day' ?
                             <DayPicker value={right.text}
@@ -470,6 +480,7 @@ class MaterialDateRangePicker extends Component {
                             )
 
                     }
+
                 </Popup>
             </div>
         );
@@ -546,7 +557,7 @@ MaterialDateRangePicker.defaultProps = {
     name: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default MaterialDateRangePicker;
