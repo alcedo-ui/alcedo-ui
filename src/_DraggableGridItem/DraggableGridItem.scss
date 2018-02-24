@@ -18,14 +18,11 @@
     }
 }
 
-.draggable-grid-item-drag-provided-wrapper {
+.draggable-grid-item-wrapper {
     float: left;
     box-sizing: border-box;
     padding: 0 10px;
     margin-bottom: 10px;
-}
-
-.draggable-grid-item-wrapper {
 
     .draggable-grid-item {
         position: relative;
