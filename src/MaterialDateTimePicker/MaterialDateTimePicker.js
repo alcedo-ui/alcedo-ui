@@ -233,7 +233,7 @@ class MaterialDateTimePicker extends Component {
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state,
 
-            pickerClassName = classNames('date-time-picker', {
+            pickerClassName = classNames('material-date-time-picker', {
                 [className]: className
             }),
 
@@ -244,7 +244,8 @@ class MaterialDateTimePicker extends Component {
                  className={pickerClassName}
                  style={style}>
 
-                <DatePickerTextField ref="datePickerInput"
+                <DatePickerTextField className="material-date-time-picker-field"
+                                     ref="datePickerInput"
                                      name={name}
                                      placeholder={placeholder}
                                      value={textValue}
@@ -284,29 +285,29 @@ class MaterialDateTimePicker extends Component {
                                        onChange={this.dayPickerChangeHandle}
                                        previousClick={this.datePickerChangeHandle}/>
                             : (
-                                datePickerLevel == 'month' ?
-                                    <MonthPicker value={value}
-                                                 year={year}
-                                                 month={month}
-                                                 day={day}
-                                                 maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                                 onChange={this.monthPickerChangeHandle}
-                                                 previousClick={this.datePickerChangeHandle}/>
-                                    : (
-                                        datePickerLevel == 'year' ?
-                                            <YearPicker value={value}
-                                                        year={year}
-                                                        month={month}
-                                                        day={day}
-                                                        maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                                        minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                                        onChange={this.yearPickerChangeHandle}/>
-                                            :
-                                            null
-                                    )
-
+                            datePickerLevel == 'month' ?
+                                <MonthPicker value={value}
+                                             year={year}
+                                             month={month}
+                                             day={day}
+                                             maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                             minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                             onChange={this.monthPickerChangeHandle}
+                                             previousClick={this.datePickerChangeHandle}/>
+                                : (
+                                datePickerLevel == 'year' ?
+                                    <YearPicker value={value}
+                                                year={year}
+                                                month={month}
+                                                day={day}
+                                                maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                                minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                                onChange={this.yearPickerChangeHandle}/>
+                                    :
+                                    null
                             )
+
+                        )
                     }
 
                     {
@@ -368,7 +369,8 @@ class MaterialDateTimePicker extends Component {
             </div>
         );
     }
-};
+}
+;
 
 MaterialDateTimePicker.propTypes = {
 

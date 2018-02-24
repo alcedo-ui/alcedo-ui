@@ -187,7 +187,7 @@ class MaterialDatePicker extends Component {
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state,
 
-            pickerClassName = classNames('date-picker', {
+            pickerClassName = classNames('material-date-picker', {
                 [className]: className
             }),
 
