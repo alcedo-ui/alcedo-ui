@@ -228,9 +228,7 @@ class EditableSelect extends Component {
                            onMouseOver={onTriggerMouseOver}
                            onMouseOut={onTriggerMouseOut}
                            onChange={this.onChangeValue}
-                           onFocus={this.showPopup}
-                />
-
+                           onFocus={this.showPopup}/>
 
                 <Popup ref="popup"
                        className={editableSelectPopupClassName}
@@ -261,7 +259,6 @@ class EditableSelect extends Component {
 
     }
 }
-;
 
 EditableSelect.propTypes = {
 
