@@ -7,13 +7,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 class MaterialTimePicker extends Component {
 
