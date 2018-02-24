@@ -133,6 +133,7 @@ class DraggableGridItem extends Component {
 
                             <div ref={dragProvided.innerRef}
                                  style={dragProvided.draggableStyle}
+                                 {...dragProvided.draggableProps}
                                  {...dragProvided.dragHandleProps}>
 
                                 <div className="draggable-grid-item-wrapper">
