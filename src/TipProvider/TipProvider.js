@@ -141,11 +141,6 @@ TipProvider.propTypes = {
     onTipRender: PropTypes.func,
 
     /**
-     * Callback function fired when the popover is requested to be closed.
-     */
-    onRequestClose: PropTypes.func,
-
-    /**
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func,
