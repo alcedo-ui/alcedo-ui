@@ -32,7 +32,7 @@ export default class DropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = this::this.onChange;
+        this.onChange = ::this.onChange;
 
     }
 
