@@ -36,7 +36,7 @@ class DraggableList extends Component {
 
         this.listItemSelectHandler = ::this.listItemSelectHandler;
         this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.onNodeDragEnd = ::this.onNodeDragEnd;
+        this.onItemDragEnd = ::this.onItemDragEnd;
         this.renderListItem = ::this.renderListItem;
 
     }
@@ -99,7 +99,7 @@ class DraggableList extends Component {
 
     }
 
-    onNodeDragEnd(result) {
+    onItemDragEnd(result) {
 
         /**
          *  result: {
@@ -129,8 +129,8 @@ class DraggableList extends Component {
         this.setState({
             data
         }, () => {
-            const {onNodeDragEnd, onSequenceChange} = this.props;
-            onNodeDragEnd && onNodeDragEnd(result);
+            const {onItemDragEnd, onSequenceChange} = this.props;
+            onItemDragEnd && onItemDragEnd(result);
             onSequenceChange && onSequenceChange(data);
         });
 
@@ -234,7 +234,7 @@ class DraggableList extends Component {
 
         return (
             <DragDropContext onDragStart={onNodeDragStart}
-                             onDragEnd={this.onNodeDragEnd}>
+                             onDragEnd={this.onItemDragEnd}>
 
                 <div className={listClassName}
                      disabled={disabled}
@@ -465,7 +465,7 @@ DraggableList.propTypes = {
     onWheel: PropTypes.func,
 
     onNodeDragStart: PropTypes.func,
-    onNodeDragEnd: PropTypes.func,
+    onItemDragEnd: PropTypes.func,
 
     onSequenceChange: PropTypes.func
 
