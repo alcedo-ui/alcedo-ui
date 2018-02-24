@@ -40,7 +40,8 @@ export default class TimePickerExamples extends Component {
 
                                 <p><code>Time Picker</code> simple example.</p>
 
-                                <TimePicker onChange={this.onChangeHandle}/>
+                                <TimePicker onChange={this.onChangeHandle}
+                                            value=""/>
 
                             </div>
 
