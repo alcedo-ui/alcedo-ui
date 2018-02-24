@@ -8,13 +8,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 import Theme from '../Theme';
+
+import Position from '../_statics/Position';
 
 class MaterialMonthPicker extends Component {
 
