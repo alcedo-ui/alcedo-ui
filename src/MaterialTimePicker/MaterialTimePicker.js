@@ -11,12 +11,14 @@ import classNames from 'classnames';
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
 class MaterialTimePicker extends Component {
 
+    static Theme = Theme;
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -133,7 +135,7 @@ class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position} = this.props,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position, theme} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
@@ -148,6 +150,7 @@ class MaterialTimePicker extends Component {
                                              className="time-picker-field"
                                              name={name}
                                              label={label}
+                                             theme={theme}
                                              isLabelAnimate={isLabelAnimate}
                                              placeholder={placeholder}
                                              value={textFieldValue}

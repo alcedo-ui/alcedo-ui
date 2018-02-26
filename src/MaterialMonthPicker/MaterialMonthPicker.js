@@ -152,7 +152,7 @@ class MaterialMonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position} = this.props,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position, theme} = this.props,
             {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
 
             pickerClassName = classNames('material-month-picker', {
@@ -166,6 +166,7 @@ class MaterialMonthPicker extends Component {
                  className={pickerClassName}>
 
                 <MaterialDatePickerTextField ref="datePickerInput"
+                                             theme={theme}
                                              name={name}
                                              placeholder={placeholder}
                                              value={textValue}

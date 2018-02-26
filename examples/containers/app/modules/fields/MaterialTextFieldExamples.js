@@ -59,6 +59,33 @@ export default class MaterialTextFieldExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialTextField</code> simple example.</p>
+
+                                <div className="field-group">
+                                    <MaterialTextField theme={MaterialTextField.Theme.PRIMARY}
+                                                       label="Search"
+                                                       placeholder="keywords"
+                                                       autoFocus={true}
+                                                       rightIconCls={'fas fa-search'}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>

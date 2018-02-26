@@ -183,7 +183,7 @@ class MaterialDatePicker extends Component {
     render() {
 
         const {
-                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position
+                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position, theme
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state,
 
@@ -201,6 +201,7 @@ class MaterialDatePicker extends Component {
                                      name={name}
                                      placeholder={placeholder}
                                      value={textValue}
+                                     theme={theme}
                                      readOnly={!popupVisible}
                                      clearButtonVisible={false}
                                      isFocusedSelectAll={false}

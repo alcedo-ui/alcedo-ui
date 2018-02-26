@@ -21,6 +21,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 class MaterialDateTimePicker extends Component {
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -229,7 +230,7 @@ class MaterialDateTimePicker extends Component {
     render() {
 
         const {
-                className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position
+                className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position, theme
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, triggerEl} = this.state,
 
@@ -246,6 +247,7 @@ class MaterialDateTimePicker extends Component {
 
                 <DatePickerTextField className="material-date-time-picker-field"
                                      ref="datePickerInput"
+                                     theme={theme}
                                      name={name}
                                      placeholder={placeholder}
                                      value={textValue}

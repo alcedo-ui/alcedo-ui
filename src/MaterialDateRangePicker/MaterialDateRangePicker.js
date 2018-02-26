@@ -15,11 +15,13 @@ import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
+import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
 class MaterialDateRangePicker extends Component {
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -302,7 +304,7 @@ class MaterialDateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position} = this.props,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position, theme} = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
 
             pickerClassName = classNames('material-date-range-picker', {
@@ -332,6 +334,7 @@ class MaterialDateRangePicker extends Component {
 
                 <DatePickerTextField ref="trigger"
                                      className="material-date-range-picker-field"
+                                     theme={theme}
                                      name={name}
                                      placeholder={placeholder}
                                      label={label}
