@@ -309,7 +309,22 @@ class TextArea extends Component {
                     'has-word-count': wordCountVisible,
                     'has-clear-button': clearButtonVisible,
                     [className]: className
-                });
+                }),
+            leftIconClassName = classNames('text-area-left-icon', {
+                deactivated: !onIconTouchTap
+            }),
+            passwordVisibleIconClassName = classNames('password-visible-icon', {
+                hidden: !isPassword || !passwordButtonVisible
+            }),
+            clearButtonClassName = classNames('clear-icon', {
+                hidden: !clearButtonVisible || !value || value.length < 1
+            }),
+            rightIconClassName = classNames('text-area-right-icon', {
+                deactivated: !onRightIconTouchTap
+            }),
+            wordCountClassName = classNames('text-area-word-count', {
+                error: value.length > maxLength
+            });
 
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
@@ -325,7 +340,7 @@ class TextArea extends Component {
 
                 {
                     iconCls ?
-                        <IconButton className={'text-area-left-icon' + (!onIconTouchTap ? ' deactivated' : '')}
+                        <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
                                     onTouchTap={onIconTouchTap}/>
@@ -346,18 +361,18 @@ class TextArea extends Component {
                           onBlur={this.blurHandler}
                           disabled={disabled}/>
 
-                <IconButton className={`password-visible-icon ${isPassword && passwordButtonVisible ? '' : 'hidden'}`}
+                <IconButton className={passwordVisibleIconClassName}
                             iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
                             onTouchTap={this.togglePasswordVisible}/>
 
                 <IconButton ref="clearButton"
-                            className={`clear-icon ${clearButtonVisible && value && value.length > 0 ? '' : 'hidden'}`}
+                            className={clearButtonClassName}
                             iconCls="fas fa-times-circle"
                             onTouchTap={this.clearValue}/>
 
                 {
                     rightIconCls ?
-                        <IconButton className={'text-area-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
+                        <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
                                     onTouchTap={this.rightIconTouchTapHandler}/>
@@ -365,21 +380,15 @@ class TextArea extends Component {
                         null
                 }
 
-                {
-                    wordCountVisible ?
-                        <div className={'text-area-word-count' + (value.length > maxLength ? ' error' : '')}>
-                            <div className="text-area-word-count-separator"></div>
-                            {value ? value.length : 0}
-                            {
-                                maxLength ?
-                                    ` / ${maxLength}`
-                                    :
-                                    null
-                            }
-                        </div>
-                        :
-                        null
-                }
+                <div className={wordCountClassName}>
+                    <div className="text-area-word-count-separator"></div>
+                    {
+                        wordCountVisible ?
+                            `${value ? value.length : 0}${maxLength ? ` / ${maxLength}` : '' }`
+                            :
+                            null
+                    }
+                </div>
 
                 {
                     fieldMsgVisible && infoVisible && infoMsg ?
