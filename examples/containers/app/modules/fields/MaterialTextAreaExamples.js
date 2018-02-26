@@ -8,6 +8,7 @@ import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTextArea.json';
 
 import 'sass/containers/app/modules/fields/MaterialTextAreaExamples.scss';
+import MaterialTextField from '../../../../../src/MaterialTextField';
 
 export default class MaterialTextAreaExamples extends Component {
 
@@ -57,6 +58,26 @@ export default class MaterialTextAreaExamples extends Component {
 
                             </div>
 
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Required"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+                                <div className="field-group">
+                                    <MaterialTextArea theme={MaterialTextField.Theme.PRIMARY}
+                                                      label="Licence"
+                                                      placeholder="..."
+                                                      required={true}/>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
