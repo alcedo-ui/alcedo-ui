@@ -98,7 +98,7 @@ class MaterialTextArea extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, wordCountVisible,
+                className, style, theme, label, isLabelAnimate, wordCountVisible, required,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value} = this.state,
@@ -119,7 +119,16 @@ class MaterialTextArea extends Component {
                 {
                     label ?
                         <div className="material-text-area-label">
+
                             {label}
+
+                            {
+                                required ?
+                                    <div className="material-text-area-required-dot"></div>
+                                    :
+                                    null
+                            }
+
                         </div>
                         :
                         null
@@ -128,6 +137,7 @@ class MaterialTextArea extends Component {
                 <TextArea {...restProps}
                           theme={theme}
                           value={value}
+                          required={required}
                           wordCountVisible={wordCountVisible}
                           onFocus={this.triggerFocusHandler}
                           onBlur={this.triggerBlurHandler}
