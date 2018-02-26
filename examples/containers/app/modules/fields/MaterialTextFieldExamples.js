@@ -68,7 +68,7 @@ export default class MaterialTextFieldExamples extends Component {
                         <div className="example-content">
                             <div className="examples-wrapper">
                                 <div className="field-group">
-                                    <MaterialTextField theme={MaterialTextField.Theme.PRIMARY}
+                                    <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
                                                        label="Username"
                                                        placeholder="John ..."
                                                        required={true}/>
