@@ -98,7 +98,7 @@ class MaterialTextField extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimate, required,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value} = this.state,
@@ -118,7 +118,16 @@ class MaterialTextField extends Component {
                 {
                     label ?
                         <div className="material-text-field-label">
+
                             {label}
+
+                            {
+                                required ?
+                                    <div className="material-text-field-required-dot"></div>
+                                    :
+                                    null
+                            }
+
                         </div>
                         :
                         null
@@ -127,6 +136,7 @@ class MaterialTextField extends Component {
                 <TextField {...restProps}
                            theme={theme}
                            value={value}
+                           required={required}
                            onFocus={this.triggerFocusHandler}
                            onBlur={this.triggerBlurHandler}
                            onMouseOver={this.triggerMouseOverHandler}
