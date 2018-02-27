@@ -101,8 +101,8 @@ class MaterialDropdown extends Component {
                           className="material-dropdown-content"
                           onFocus={this.triggerFocusHandler}
                           onBlur={this.triggerBlurHandler}
-                          onTriggerMouseOut={this.triggerMouseOutHandler}
-                          onTriggerMouseOver={this.triggerMouseOverHandler}/>
+                          onMouseOut={this.triggerMouseOutHandler}
+                          onMouseOver={this.triggerMouseOverHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
@@ -198,8 +198,8 @@ MaterialDropdown.propTypes = {
 
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
     onTriggerTouchTap: PropTypes.func
 
 };
