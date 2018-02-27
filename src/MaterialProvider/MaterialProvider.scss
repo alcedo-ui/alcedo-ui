@@ -9,7 +9,69 @@
     background: $theme-field-bg;
 
     .material-provider-label {
+        position: relative;
         line-height: 16px;
         color: $theme-label;
+        transform-origin: top left;
+        transition-property: transform, padding-left, color;
+        transition-duration: $theme-transition-duration;
+        transition-timing-function: ease-in-out;
+
+        .material-provider-required-dot {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $theme-error;
+            transform: translateY(-50%);
+        }
+    }
+
+    .material-provider-field {
+        width: 100%;
+        background: transparent;
+        box-shadow: none !important;
+    }
+
+    &.has-separator {
+        .material-provider-field {
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid $theme-border !important;
+        }
+    }
+
+    &.focused {
+        .material-provider-label {
+            color: $theme-highlight;
+        }
+    }
+
+    &.has-label.animated {
+
+        .material-provider-label {
+            transform: translateY(28px);
+            padding-left: 8px;
+        }
+
+        .material-provider-field-input,
+        .material-provider-field-placeholder {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .material-provider-label {
+                transform: translateY(0);
+                padding-left: 0;
+            }
+
+            .material-provider-field-input,
+            .material-provider-field-placeholder {
+                opacity: 1;
+            }
+        }
     }
 }
