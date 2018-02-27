@@ -368,13 +368,13 @@ class TextField extends Component {
                        className={fieldInputClassName}
                        type={inputType}
                        value={value}
+                       disabled={disabled}
                        onChange={this.changeHandler}
                        onKeyDown={this.keyDownHandler}
                        onMouseOver={this.mouseOverHandler}
                        onMouseOut={this.mouseOutHandler}
                        onFocus={this.focusHandler}
-                       onBlur={this.blurHandler}
-                       disabled={disabled}/>
+                       onBlur={this.blurHandler}/>
 
                 {
                     clearButtonVisible ?
