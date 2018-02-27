@@ -25,13 +25,10 @@ class MaterialDropdownSelect extends Component {
 
         this.state = {
             value: props.value,
-            isFocus: false,
-            isHover: false
+            isFocus: false
         };
 
         this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
         this.closePopup = ::this.closePopup;
 
     }
@@ -42,24 +39,6 @@ class MaterialDropdownSelect extends Component {
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
-        });
-    }
-
-    triggerMouseOverHandler(...args) {
-        this.setState({
-            isHover: true
-        }, () => {
-            const {onMouseOver} = this.props;
-            onMouseOver && onMouseOver(...args);
-        });
-    }
-
-    triggerMouseOutHandler(...args) {
-        this.setState({
-            isHover: false
-        }, () => {
-            const {onMouseOut} = this.props;
-            onMouseOut && onMouseOut(...args);
         });
     }
 
@@ -75,25 +54,15 @@ class MaterialDropdownSelect extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
-    }
-
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, required,
+                className, style, theme, label, isLabelAnimate, required, selectMode,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value} = this.state,
+            {value} = this.state,
 
             wrapperClassName = classNames('material-dropdown-select', {
-                animated: isLabelAnimate,
-                'has-label': label,
-                focused: isFocus,
-                'has-value': this.props.selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : value,
                 [className]: className
             });
 
@@ -103,14 +72,13 @@ class MaterialDropdownSelect extends Component {
                               theme={theme}
                               label={label}
                               isLabelAnimate={isLabelAnimate}
-                              hasValue={!!value}
+                              hasValue={selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : value}
                               required={required}>
 
                 <DropdownSelect {...restProps}
                                 ref="dropdownSelect"
                                 value={value}
-                                onMouseOver={this.triggerMouseOverHandler}
-                                onMouseOut={this.triggerMouseOutHandler}
+                                selectMode={selectMode}
                                 onChange={this.triggerChangeHandler}/>
 
             </MaterialProvider>
