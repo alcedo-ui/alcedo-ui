@@ -72,7 +72,7 @@ class MaterialDropdownSelect extends Component {
                               theme={theme}
                               label={label}
                               isLabelAnimate={isLabelAnimate}
-                              hasValue={selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : value}
+                              hasValue={selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : !!value}
                               required={required}>
 
                 <DropdownSelect {...restProps}
