@@ -36,7 +36,7 @@
         background: transparent;
         box-shadow: none !important;
 
-        .material-provider-field-input,
+        .material-provider-field-trigger,
         .material-provider-field-placeholder {
             transition: opacity $theme-transition-duration ease-in-out;
         }
@@ -63,7 +63,7 @@
             padding-left: 8px;
         }
 
-        .material-provider-field-input,
+        .material-provider-field-trigger,
         .material-provider-field-placeholder {
             opacity: 0;
         }
@@ -75,7 +75,7 @@
                 padding-left: 0;
             }
 
-            .material-provider-field-input,
+            .material-provider-field-trigger,
             .material-provider-field-placeholder {
                 opacity: 1;
             }

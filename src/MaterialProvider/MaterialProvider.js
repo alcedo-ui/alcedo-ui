@@ -83,8 +83,8 @@ class MaterialProvider extends Component {
                         className: classNames('material-provider-field', {
                             [child.props.className]: child.props.className
                         }),
-                        inputClassName: classNames('material-provider-field-input', {
-                            [child.props.inputClassName]: child.props.inputClassName
+                        triggerClassName: classNames('material-provider-field-trigger', {
+                            [child.props.triggerClassName]: child.props.triggerClassName
                         }),
                         placeholderClassName: classNames('material-provider-field-placeholder', {
                             [child.props.placeholderClassName]: child.props.placeholderClassName
