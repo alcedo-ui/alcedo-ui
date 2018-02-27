@@ -9,11 +9,24 @@
     background: $theme-field-bg;
 
     .material-text-field-label {
-        display: inline-block;
+        position: relative;
         line-height: 16px;
         color: $theme-label;
         transform-origin: top left;
-        transition: transform $theme-transition-duration ease-in-out, color $theme-transition-duration ease-in-out;
+        transition-property: transform, padding-left, color;
+        transition-duration: $theme-transition-duration;
+        transition-timing-function: ease-in-out;
+
+        .material-text-field-required-dot {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $theme-error;
+            transform: translateY(-50%);
+        }
     }
 
     .text-field {
@@ -41,7 +54,8 @@
     &.has-label.animated {
 
         .material-text-field-label {
-            transform: translate(8px, 28px);
+            transform: translateY(28px);
+            padding-left: 8px;
         }
 
         .text-field-input,
@@ -52,7 +66,8 @@
         &.has-value,
         &.focused {
             .material-text-field-label {
-                transform: translate(0, 0);
+                transform: translateY(0);
+                padding-left: 0;
             }
 
             .text-field-input,

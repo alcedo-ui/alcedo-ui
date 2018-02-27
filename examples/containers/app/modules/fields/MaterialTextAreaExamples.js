@@ -62,6 +62,26 @@ export default class MaterialTextAreaExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Required"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+                                <div className="field-group">
+                                    <MaterialTextArea theme={MaterialTextArea.Theme.HIGHLIGHT}
+                                                      label="Licence"
+                                                      placeholder="..."
+                                                      required={true}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
