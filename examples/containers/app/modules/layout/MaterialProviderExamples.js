@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import MaterialProvider from 'src/MaterialProvider';
-import Switcher from 'src/Switcher';
 import Checkbox from 'src/Checkbox';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -29,26 +28,6 @@ export default class MaterialProviderExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Switcher"/>
-
-                    <div className="widget-content">
-
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <MaterialProvider label="Switcher">
-                                    <Switcher/>
-                                </MaterialProvider>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
                     <WidgetHeader className="example-header" title="Checkbox"/>
 
                     <div className="widget-content">
@@ -57,7 +36,9 @@ export default class MaterialProviderExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <MaterialProvider label="Checkbox">
+                                <MaterialProvider label="Checkbox"
+                                                  isLabelAnimate={false}
+                                                  useSeparator={false}>
                                     <Checkbox/>
                                 </MaterialProvider>
 
