@@ -16,6 +16,21 @@
 
             .dropdown-trigger {
                 width: 100%;
+                opacity: 1 !important;
+            }
+        }
+    }
+
+    &.has-label.animated {
+
+        .base-button-value {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .base-button-value {
+                opacity: 1;
             }
         }
     }
