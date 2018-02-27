@@ -27,16 +27,18 @@ class TimeItems extends Component {
             return;
         }
 
-        if (this.timeItemsEl) {
-            this.scrollTo(this.timeItemsEl, (+value) * 30, 200);
+        if (this.itemsEl) {
+            this.scrollTo(this.itemsEl, (+value) * 30, 200);
         }
 
-        this.props.onChange && this.props.onChange(value);
+        const {onChange} = this.props;
+        onChange && onChange(value);
 
     }
 
+
     mousemoveHandle() {
-        this.timeItemsEl.style.overflowY = 'auto';
+        this.itemsEl.style.overflowY = 'auto';
     }
 
     scrollTo(element, to, duration) {
@@ -47,8 +49,8 @@ class TimeItems extends Component {
             return;
         }
 
-        let difference = to - element.scrollTop;
-        let perTick = difference / duration * 10;
+        const difference = to - element.scrollTop,
+            perTick = difference / duration * 10;
 
         setTimeout(() => {
             element.scrollTop = element.scrollTop + perTick;
@@ -59,24 +61,23 @@ class TimeItems extends Component {
     };
 
     mouseoutHandle() {
-        this.timeItemsEl.style.overflowY = 'hidden';
+        this.itemsEl.style.overflowY = 'hidden';
     }
 
     componentDidMount() {
 
         const {value} = this.props;
-        this.timeItemsEl = this.refs.timeItems;
+        this.itemsEl = this.refs.timeItems;
 
-        this.scrollTo(this.timeItemsEl, (+value) * 30, 0);
-
-        Event.addEvent(this.timeItemsEl, 'mouseover', this.mousemoveHandle);
-        Event.addEvent(this.timeItemsEl, 'mouseout', this.mouseoutHandle);
+        this.scrollTo(this.itemsEl, (+value) * 30, 0);
+        Event.addEvent(this.itemsEl, 'mouseover', this.mousemoveHandle);
+        Event.addEvent(this.itemsEl, 'mouseout', this.mouseoutHandle);
 
     }
 
     componentWillUnmount() {
-        Event.removeEvent(this.timeItemsEl, 'mouseover', this.mousemoveHandle);
-        Event.removeEvent(this.timeItemsEl, 'mouseout', this.mouseoutHandle);
+        Event.removeEvent(this.itemsEl, 'mouseover', this.mousemoveHandle);
+        Event.removeEvent(this.itemsEl, 'mouseout', this.mouseoutHandle);
     }
 
     render() {
@@ -84,11 +85,12 @@ class TimeItems extends Component {
         const {className, style, data, value} = this.props,
             {width} = style,
 
-            wrapperClassName = classNames('timeItems', {
+            itemsClassName = classNames('time-items', {
                 [className]: className
-            });
+            }),
 
-        let liStyle = {};
+            liStyle = {};
+
         if (width == '100%') {
             liStyle.paddingLeft = '140px';
         } else if (width == '50%') {
@@ -99,31 +101,32 @@ class TimeItems extends Component {
 
         return (
             <div ref="timeItems"
-                 className={wrapperClassName}
+                 className={itemsClassName}
                  style={style}>
 
-                <ul className="timeList">
+                <ul className="time-list">
                     {
-                        data && data.map((item, key) => {
+                        data && data.length ?
+                            data.map((item, key) => {
 
-                            const className = classNames('timeItem', {
-                                disabled: !item.value,
-                                active: item.text == value,
-                                [className]: className
-                            });
+                                const className = classNames('time-item', {
+                                    disabled: !item.value,
+                                    active: item.text == value
+                                });
 
-                            return (
-                                <li className={className}
-                                    key={key}
-                                    style={liStyle}
-                                    onClick={() => {
-                                        this.clickHandle(item.text);
-                                    }}>
-                                    {item.text}
-                                </li>
-                            );
-
-                        })
+                                return (
+                                    <li className={className}
+                                        key={key}
+                                        style={liStyle}
+                                        onClick={() => {
+                                            this.clickHandle(item.text);
+                                        }}>
+                                        {item.text}
+                                    </li>
+                                );
+                            })
+                            :
+                            null
                     }
                 </ul>
 
