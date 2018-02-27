@@ -120,7 +120,7 @@ class Notifier extends Component {
 
         const {
 
-                className, position,
+                className, position, duration,
 
                 // not passing down these props
                 onNotificationPop,
@@ -145,6 +145,7 @@ class Notifier extends Component {
                     notifications.map(options =>
                         <Notification {...options}
                                       key={options.notificationId}
+                                      duration={'duration' in options ? options.duration : duration}
                                       onRequestClose={this.removeNotification}/>
                     )
                 }
@@ -212,6 +213,11 @@ Notifier.propTypes = {
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
+     * The duration of notification.
+     */
+    duration: PropTypes.number,
+
+    /**
      * Callback function fired when the notifier pop.
      */
     onNotificationPop: PropTypes.func
@@ -223,7 +229,8 @@ Notifier.defaultProps = {
     className: '',
     style: null,
 
-    position: Position.BOTTOM_RIGHT
+    position: Position.BOTTOM_RIGHT,
+    duration: 0
 
 };
 
