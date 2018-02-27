@@ -80,15 +80,15 @@ class TimeItems extends Component {
             liStyle.paddingLeft = '36px';
         }
         return (
-            <div className={`timeItems ${className ? className : ''}`}
+            <div className={`time-items ${className ? className : ''}`}
                  style={style}
                  ref="timeItems">
-                <ul className="timeList">
+                <ul className="time-list">
                     {
                         data && data.length ?
                             data.map((item, key) => {
                                 return (
-                                    <li className={`timeItem ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
+                                    <li className={`time-item ${item.value ? '' : 'disabled'} ${item.text == value ? 'active' : ''}`}
                                         key={key}
                                         style={liStyle}
                                         onClick={() => {

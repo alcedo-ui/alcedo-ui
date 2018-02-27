@@ -64,7 +64,7 @@ input::-ms-clear {
             }
             .calendar{
                 overflow: hidden;
-                .timeItems {
+                .time-items {
                     height: 260px;
                     padding-bottom: 230px;
                     float: left;
@@ -77,11 +77,11 @@ input::-ms-clear {
                         border: none;
                     }
                     &.hours{
-                        .timeList{
+                        .time-list{
                             height: 720px;
                         }
                     }
-                    .timeList {
+                    .time-list {
                         width: 100%;
                         height: 1800px;
                         margin: 0;
