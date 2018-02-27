@@ -185,7 +185,7 @@ class EditableSelect extends Component {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, descriptionField, noMatchedMsg,
                 triggerTheme, isGrouped, onItemTouchTap, renderer,
-                onTriggerMouseOver, onTriggerMouseOut
+                onMouseOver, onMouseOut
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
 
@@ -225,8 +225,8 @@ class EditableSelect extends Component {
                            placeholder={placeholder}
                            disabled={disabled}
                            theme={triggerTheme}
-                           onMouseOver={onTriggerMouseOver}
-                           onMouseOut={onTriggerMouseOut}
+                           onMouseOver={onMouseOver}
+                           onMouseOut={onMouseOut}
                            onChange={this.onChangeValue}
                            onFocus={this.showPopup}/>
 
@@ -440,7 +440,10 @@ EditableSelect.propTypes = {
     /**
      * Callback function fired when a menu item is selected.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
