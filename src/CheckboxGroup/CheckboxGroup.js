@@ -87,41 +87,33 @@ class CheckboxGroup extends Component {
             <div className={groupClassName}
                  style={style}
                  disabled={disabled}>
-
                 {
-                    data.map((item, index) => {
-
-                        const isChecked = value && value.findIndex(v => v.value === item.value) > -1;
-
-                        return (
-                            <Checkbox key={idProp in item ? item[idProp] : index}
-                                      className={item.className ? item.className : ''}
-                                      style={item.style}
-                                      theme={item.theme || theme}
-                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
-                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
-                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
-                                      name={name}
-                                      label={item.label}
-                                      value={item.value}
-                                      disabled={disabled || item.disabled}
-                                      checked={isChecked}
-                                      tip={item.tip}
-                                      tipPosition={item.tipPosition}
-                                      onChange={() => {
-                                          this.changeHandler(item);
-                                      }}
-                                      onCheck={() => {
-                                          onCheck && onCheck(item);
-                                      }}
-                                      onUncheck={() => {
-                                          onUncheck && onUncheck(item);
-                                      }}/>
-                        );
-
-                    })
+                    data && data.map((item, index) =>
+                        <Checkbox key={idProp in item ? item[idProp] : index}
+                                  className={item.className ? item.className : ''}
+                                  style={item.style}
+                                  theme={item.theme || theme}
+                                  uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                                  checkedIconCls={item.checkedIconCls || checkedIconCls}
+                                  indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
+                                  name={name}
+                                  label={item.label}
+                                  value={item.value}
+                                  disabled={disabled || item.disabled}
+                                  checked={value && value.findIndex(v => v.value === item.value) > -1}
+                                  tip={item.tip}
+                                  tipPosition={item.tipPosition}
+                                  onChange={() => {
+                                      this.changeHandler(item);
+                                  }}
+                                  onCheck={() => {
+                                      onCheck && onCheck(item);
+                                  }}
+                                  onUncheck={() => {
+                                      onUncheck && onUncheck(item);
+                                  }}/>
+                    )
                 }
-
             </div>
         );
 

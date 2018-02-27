@@ -67,14 +67,25 @@ class Tab extends Component {
                 <div className={tabsClassName}>
 
                     {
-                        tabs.map((item, index) => {
+                        tabs && tabs.map((item, index) => {
 
-                            const {renderer, onActive, ...restProps} = item;
+                            const {
+
+                                    // not passing down these props
+                                    renderer, onActive,
+
+                                    ...restProps
+
+                                } = item,
+
+                                className = classNames('tab-button', {
+                                    activated: activatedIndex === index
+                                });
 
                             return (
                                 <FlatButton {...restProps}
                                             key={index}
-                                            className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
+                                            className={className}
                                             style={tabButtonStyle}
                                             onTouchTap={() => {
                                                 this.tabClickHandle(item, index);
@@ -98,7 +109,7 @@ class Tab extends Component {
                     <div className="tab-content-scroller"
                          style={tabContentScrollerStyle}>
                         {
-                            tabs.map((item, index) =>
+                            tabs && tabs.map((item, index) =>
                                 <div key={index}
                                      className="tab-content"
                                      style={tabContentStyle}>

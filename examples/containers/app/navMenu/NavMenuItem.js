@@ -93,17 +93,15 @@ class NavMenuItem extends Component {
                             <div className="nav-menu-children"
                                  style={{height: options.children.length * menuHeight}}>
                                 {
-                                    options.children.map((item, index) => {
-                                        return (
-                                            <NavMenuItem key={index}
-                                                         expandMenuName={expandMenuName}
-                                                         activatedMenu={activatedMenu}
-                                                         options={item}
-                                                         depth={depth + 1}
-                                                         expandMenu={expandMenu}
-                                                         updateActivatedMenu={updateActivatedMenu}/>
-                                        );
-                                    })
+                                    options.children.map((item, index) =>
+                                        <NavMenuItem key={index}
+                                                     expandMenuName={expandMenuName}
+                                                     activatedMenu={activatedMenu}
+                                                     options={item}
+                                                     depth={depth + 1}
+                                                     expandMenu={expandMenu}
+                                                     updateActivatedMenu={updateActivatedMenu}/>
+                                    )
                                 }
                             </div>
                         )

@@ -68,7 +68,7 @@ class DotStep extends Component {
 
                 <div className="dot-step-menu">
                     {
-                        steps.map((item, index) => (
+                        steps.map((item, index) =>
                             <DotStepItem key={index}
                                          index={index}
                                          className={item.className}
@@ -80,7 +80,7 @@ class DotStep extends Component {
                                          finishedStep={finishedStep}
                                          data={item}
                                          onTouchTap={this.touchTapHandler}/>
-                        ))
+                        )
                     }
                 </div>
 

@@ -61,37 +61,29 @@ class RadioGroup extends Component {
             <div className={groupClassName}
                  style={style}
                  disabled={disabled}>
-
                 {
-                    data.map((item, index) => {
-
-                        const isChecked = item.value === value;
-
-                        return (
-                            <Radio key={index}
-                                   className={item.className ? item.className : ''}
-                                   style={item.style}
-                                   uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
-                                   checkedIconCls={item.checkedIconCls || checkedIconCls}
-                                   theme={item.theme || theme}
-                                   name={name}
-                                   label={item.label}
-                                   value={item.value}
-                                   checked={isChecked}
-                                   disabled={disabled || item.disabled}
-                                   tip={item.tip}
-                                   tipPosition={item.tipPosition}
-                                   onChange={() => {
-                                       this.changeHandler(item);
-                                   }}
-                                   onCheck={() => {
-                                       onCheck && onCheck(item);
-                                   }}/>
-                        );
-
-                    })
+                    data.map((item, index) =>
+                        <Radio key={index}
+                               className={item.className ? item.className : ''}
+                               style={item.style}
+                               uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                               checkedIconCls={item.checkedIconCls || checkedIconCls}
+                               theme={item.theme || theme}
+                               name={name}
+                               label={item.label}
+                               value={item.value}
+                               checked={item.value === value}
+                               disabled={disabled || item.disabled}
+                               tip={item.tip}
+                               tipPosition={item.tipPosition}
+                               onChange={() => {
+                                   this.changeHandler(item);
+                               }}
+                               onCheck={() => {
+                                   onCheck && onCheck(item);
+                               }}/>
+                    )
                 }
-
             </div>
         );
 

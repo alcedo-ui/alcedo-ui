@@ -421,9 +421,12 @@ class DayPicker extends Component {
                     </ul>
                     <div className='c-body-content'>
                         {
-                            ul_list.map((item, key) => {
-                                return (<ul key={'ul' + key} className="content-row margin-5">{item}</ul>);
-                            })
+                            ul_list.map((item, key) =>
+                                <ul key={'ul' + key}
+                                    className="content-row margin-5">
+                                    {item}
+                                </ul>
+                            )
                         }
                     </div>
                 </div>

@@ -186,15 +186,12 @@ class RemoteAutoComplete extends Component {
                                                          size={CircularLoading.Size.DEFAULT}/>
                                     </li>
                                     :
-                                    data.length > 0 ?
-                                        data.map(value =>
-                                            <li className="auto-complete-li"
-                                                key={value}
-                                                style={liStyle}
-                                                title={value}>{value}</li>
-                                        )
-                                        :
-                                        null
+                                    data && data.map(value =>
+                                        <li className="auto-complete-li"
+                                            key={value}
+                                            style={liStyle}
+                                            title={value}>{value}</li>
+                                    )
                             }
                         </ul>
                     </Popup>

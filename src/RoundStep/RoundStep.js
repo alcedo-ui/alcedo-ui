@@ -61,7 +61,6 @@ class RoundStep extends Component {
         return (
             <div className={stepClassName}
                  style={style}>
-
                 {
                     steps && steps.map((item, index) =>
                         <RoundStepItem key={index}
@@ -83,7 +82,6 @@ class RoundStep extends Component {
                                        onTouchTap={this.touchTapHandler}/>
                     )
                 }
-
             </div>
         );
 

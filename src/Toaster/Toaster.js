@@ -120,7 +120,7 @@ class Toaster extends Component {
 
         const {
 
-                className, position,
+                className, position, duration,
 
                 // not passing down these props
                 onToastPop,
@@ -145,6 +145,7 @@ class Toaster extends Component {
                     toasts && toasts.map(options =>
                         <Toast {...options}
                                key={options.toastsId}
+                               duration={'duration' in options ? options.duration : duration}
                                onRequestClose={this.removeToast}/>
                     )
                 }
@@ -207,6 +208,11 @@ Toaster.propTypes = {
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
+     * The duration of toast.
+     */
+    duration: PropTypes.number,
+
+    /**
      * Callback function fired when the toaster pop.
      */
     onToastPop: PropTypes.func
@@ -219,7 +225,9 @@ Toaster.defaultProps = {
     style: null,
 
     toasts: null,
-    position: Position.TOP
+
+    position: Position.TOP,
+    duration: 2500
 
 };
 

@@ -10,6 +10,8 @@ import classNames from 'classnames';
 import Theme from '../Theme';
 import Percent from '../_Percent';
 
+import Util from '../_vendors/Util';
+
 class LinearProgress extends Component {
 
     static WordStyle = {
@@ -105,7 +107,7 @@ LinearProgress.propTypes = {
     /**
      * The progress theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The highlight width of linearProgress.
@@ -120,7 +122,7 @@ LinearProgress.propTypes = {
     /**
      * The percent text location.Desirable values include front,middle,follow.
      */
-    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map((key) => LinearProgress.WordStyle[key])),
+    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map(key => LinearProgress.WordStyle[key])),
 
     /**
      * If true, the linearProgress will have animation.

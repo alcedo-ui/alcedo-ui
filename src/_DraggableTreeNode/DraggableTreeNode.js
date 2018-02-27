@@ -264,32 +264,34 @@ class DraggableTreeNode extends Component {
                                                     :
                                                     [{index, node: item}];
 
-                                                return <Draggable key={item.id}
-                                                                  draggableId={'' + item.id}
-                                                                  type={data.id}
-                                                                  disableInteractiveElementBlocking={false}
-                                                                  isDragDisabled={isNodeToggling}
-                                                                  index={index}>
-                                                    {
-                                                        (dragProvided, dragSnapshot) => (
-                                                            <div>
-                                                                <div ref={dragProvided.innerRef}
-                                                                     style={dragProvided.draggableStyle}
-                                                                     {...dragProvided.draggableProps}
-                                                                     {...dragProvided.dragHandleProps}>
-                                                                    <DraggableTreeNode {...this.props}
-                                                                                       key={index}
-                                                                                       data={item}
-                                                                                       index={index}
-                                                                                       depth={depth + 1}
-                                                                                       path={path}
-                                                                                       isDragging={dragSnapshot.isDragging}/>
+                                                return (
+                                                    <Draggable key={item.id}
+                                                               draggableId={'' + item.id}
+                                                               type={data.id}
+                                                               disableInteractiveElementBlocking={false}
+                                                               isDragDisabled={isNodeToggling}
+                                                               index={index}>
+                                                        {
+                                                            (dragProvided, dragSnapshot) => (
+                                                                <div>
+                                                                    <div ref={dragProvided.innerRef}
+                                                                         style={dragProvided.draggableStyle}
+                                                                         {...dragProvided.draggableProps}
+                                                                         {...dragProvided.dragHandleProps}>
+                                                                        <DraggableTreeNode {...this.props}
+                                                                                           key={index}
+                                                                                           data={item}
+                                                                                           index={index}
+                                                                                           depth={depth + 1}
+                                                                                           path={path}
+                                                                                           isDragging={dragSnapshot.isDragging}/>
+                                                                    </div>
+                                                                    {dragProvided.placeholder}
                                                                 </div>
-                                                                {dragProvided.placeholder}
-                                                            </div>
-                                                        )
-                                                    }
-                                                </Draggable>;
+                                                            )
+                                                        }
+                                                    </Draggable>
+                                                );
                                             })
                                         }
                                     </div>

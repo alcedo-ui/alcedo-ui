@@ -61,28 +61,24 @@ class ArrowStep extends Component {
         return (
             <div className={stepClassName}
                  style={style}>
-
                 {
-                    steps.map((item, index) => {
-                        return (
-                            <ArrowStepItem key={index}
-                                           index={index}
-                                           className={item.className}
-                                           style={{
-                                               ...item.style,
-                                               width: `${100 / steps.length}%`,
-                                               zIndex: steps.length - index
-                                           }}
-                                           activatedStep={activatedStep}
-                                           finishedStep={finishedStep}
-                                           value={item}
-                                           isFirst={index === 0}
-                                           isLast={index === steps.length - 1}
-                                           onTouchTap={this.touchTapHandler}/>
-                        );
-                    })
+                    steps.map((item, index) =>
+                        <ArrowStepItem key={index}
+                                       index={index}
+                                       className={item.className}
+                                       style={{
+                                           ...item.style,
+                                           width: `${100 / steps.length}%`,
+                                           zIndex: steps.length - index
+                                       }}
+                                       activatedStep={activatedStep}
+                                       finishedStep={finishedStep}
+                                       value={item}
+                                       isFirst={index === 0}
+                                       isLast={index === steps.length - 1}
+                                       onTouchTap={this.touchTapHandler}/>
+                    )
                 }
-
             </div>
         );
 

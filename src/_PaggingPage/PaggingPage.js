@@ -43,17 +43,15 @@ class PaggingPage extends Component {
             pages =
                 <div className="pages">
                     {
-                        this.getArray(total).map((value, index) => {
-                            return (
-                                <IconButton key={index}
-                                            className="page"
-                                            value={value}
-                                            disabled={index == page}
-                                            onTouchTap={() => {
-                                                this.jump(index);
-                                            }}/>
-                            );
-                        })
+                        this.getArray(total).map((value, index) =>
+                            <IconButton key={index}
+                                        className="page"
+                                        value={value}
+                                        disabled={index == page}
+                                        onTouchTap={() => {
+                                            this.jump(index);
+                                        }}/>
+                        )
                     }
                 </div>;
         } else {

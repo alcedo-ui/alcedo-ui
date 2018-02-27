@@ -77,7 +77,7 @@ class Rate extends Component {
         }
 
         if (value === this.state.value && allowClear) {
-            value = 0
+            value = 0;
         }
         this.setState({
             value
@@ -199,8 +199,7 @@ class Rate extends Component {
             </div>
         );
     }
-}
-;
+};
 
 Rate.propTypes = {
 

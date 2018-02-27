@@ -21,26 +21,24 @@ class DraggableTreeNodeList extends Component {
 
         return (
             <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
+                {provided => (
                     <div ref={provided.innerRef}
                          className={'draggable-tree-node-list' + (collapsed ? ' collapsed' : '')}>
 
                         {
                             data && data.length > 0 ?
                                 (
-                                    data.map((item, index) => {
-                                        return (
-                                            <TreeNode {...this.props}
-                                                      key={index}
-                                                      data={item}
-                                                      index={index}
-                                                      depth={depth + 1}
-                                                      path={path ? [...path, {index, value: item}] : [{
-                                                          index,
-                                                          value: item
-                                                      }]}/>
-                                        );
-                                    })
+                                    data.map((item, index) =>
+                                        <TreeNode {...this.props}
+                                                  key={index}
+                                                  data={item}
+                                                  index={index}
+                                                  depth={depth + 1}
+                                                  path={path ? [...path, {index, value: item}] : [{
+                                                      index,
+                                                      value: item
+                                                  }]}/>
+                                    )
                                 )
                                 :
                                 null
