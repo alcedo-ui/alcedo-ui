@@ -34,10 +34,14 @@
     .material-provider-field {
         width: 100%;
         background: transparent;
-        box-shadow: none !important;
+        border: none;
+        box-shadow: none;
 
         .material-provider-field-trigger,
         .material-provider-field-placeholder {
+            background: transparent;
+            border: none;
+            box-shadow: none;
             transition: opacity $theme-transition-duration ease-in-out;
         }
     }
