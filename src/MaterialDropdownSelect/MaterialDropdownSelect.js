@@ -109,8 +109,8 @@ class MaterialDropdownSelect extends Component {
                 <DropdownSelect {...restProps}
                                 ref="dropdownSelect"
                                 value={value}
-                                onTriggerMouseOver={this.triggerMouseOverHandler}
-                                onTriggerMouseOut={this.triggerMouseOutHandler}
+                                onMouseOver={this.triggerMouseOverHandler}
+                                onMouseOut={this.triggerMouseOutHandler}
                                 onChange={this.triggerChangeHandler}/>
 
             </MaterialProvider>
