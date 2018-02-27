@@ -282,7 +282,7 @@ class TextArea extends Component {
 
         const {
 
-                children, className, inputClassName, placeholderClassName, style, theme,
+                children, className, triggerClassName, placeholderClassName, style, theme,
                 type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
                 onIconTouchTap, onRightIconTouchTap,
@@ -319,7 +319,7 @@ class TextArea extends Component {
                 [placeholderClassName]: placeholderClassName
             }),
             fieldInputClassName = classNames('text-area-input', {
-                [inputClassName]: inputClassName
+                [triggerClassName]: triggerClassName
             }),
             passwordVisibleIconClassName = classNames('password-visible-icon', {
                 hidden: !isPassword || !passwordButtonVisible
@@ -441,7 +441,7 @@ TextArea.propTypes = {
     /**
      * The CSS class name of the input element.
      */
-    inputClassName: PropTypes.string,
+    triggerClassName: PropTypes.string,
 
     /**
      * The CSS class name of the placeholder element.
@@ -613,7 +613,7 @@ TextArea.propTypes = {
 TextArea.defaultProps = {
 
     className: null,
-    inputClassName: null,
+    triggerClassName: null,
     placeholderClassName: null,
     style: null,
     theme: Theme.DEFAULT,
