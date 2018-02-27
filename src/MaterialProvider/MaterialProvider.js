@@ -79,6 +79,7 @@ class MaterialProvider extends Component {
 
                 {
                     Children.map(children, child => cloneElement(child, {
+                        ...child.props,
                         className: classNames('material-provider-field', {
                             [child.props.className]: child.props.className
                         }),
