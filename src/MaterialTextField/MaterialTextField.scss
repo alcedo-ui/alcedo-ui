@@ -9,13 +9,10 @@
     background: $theme-field-bg;
 
     .text-field {
-
         .text-field-input,
         .text-field-placeholder {
             padding-left: 8px;
-            transition: opacity $theme-transition-duration ease-in-out;
         }
-
     }
 
 }
