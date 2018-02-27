@@ -71,12 +71,16 @@ class ButtonRadioGroup extends Component {
                     data.map((item, index) => {
 
                         const isChecked = item.value === value,
-                            className = (isChecked ? ' activated' : '') + (item.className ? ' ' + item.className : '');
+
+                            className = classNames('button-radio-group-item', {
+                                activated: isChecked,
+                                [item.className]: item.className
+                            });
 
                         return (
                             <RaisedButton {...item}
                                           key={index}
-                                          className={'button-radio-group-item' + className}
+                                          className={className}
                                           style={item.style}
                                           value={item.label}
                                           disabled={disabled || item.disabled}
