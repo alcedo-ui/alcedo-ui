@@ -69,12 +69,23 @@ class Tab extends Component {
                     {
                         tabs.map((item, index) => {
 
-                            const {renderer, onActive, ...restProps} = item;
+                            const {
+
+                                    // not passing down these props
+                                    renderer, onActive,
+
+                                    ...restProps
+
+                                } = item,
+
+                                className = classNames('tab-button', {
+                                    activated: activatedIndex === index
+                                });
 
                             return (
                                 <FlatButton {...restProps}
                                             key={index}
-                                            className={`tab-button ${activatedIndex === index ? 'activated' : ''}`}
+                                            className={className}
                                             style={tabButtonStyle}
                                             onTouchTap={() => {
                                                 this.tabClickHandle(item, index);
