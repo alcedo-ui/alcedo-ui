@@ -66,7 +66,8 @@ textarea:focus {
         }
     }
 
-    .text-area-input {
+    .text-area-input,
+    .text-area-placeholder {
         font-family: inherit;
         display: block;
         width: 300px;
@@ -77,6 +78,22 @@ textarea:focus {
         font-size: 12px;
         background: transparent;
         color: inherit;
+    }
+
+    .text-area-input {
+        position: relative;
+        z-index: 1;
+    }
+
+    .text-area-placeholder {
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: $theme-description;
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+        resize: none;
     }
 
     .text-area-word-count {
@@ -113,13 +130,15 @@ textarea:focus {
     }
 
     &.has-icon {
-        .text-area-input {
+        .text-area-input,
+        .text-area-placeholder {
             padding-left: 40px;
         }
     }
 
     &.password {
-        .text-area-input {
+        .text-area-input,
+        .text-area-placeholder {
             padding-right: 40px;
         }
     }
@@ -127,7 +146,8 @@ textarea:focus {
     &.not-empty {
 
         &.has-clear-button {
-            .text-area-input {
+            .text-area-input,
+            .text-area-placeholder {
                 padding-right: 40px;
             }
         }
@@ -137,7 +157,8 @@ textarea:focus {
         }
 
         &.password {
-            .text-area-input {
+            .text-area-input,
+            .text-area-placeholder {
                 padding-right: 66px;
             }
         }
@@ -145,12 +166,14 @@ textarea:focus {
 
     &.has-right-icon {
 
-        .text-area-input {
+        .text-area-input,
+        .text-area-placeholder {
             padding-right: 40px;
         }
 
         &.password {
-            .text-area-input {
+            .text-area-input,
+            .text-area-placeholder {
                 padding-right: 66px;
             }
 
@@ -160,7 +183,8 @@ textarea:focus {
         }
 
         &.not-empty.has-clear-button {
-            .text-area-input {
+            .text-area-input,
+            .text-area-placeholder {
                 padding-right: 66px;
             }
 
@@ -173,7 +197,8 @@ textarea:focus {
             }
 
             &.password {
-                .text-area-input {
+                .text-area-input,
+                .text-area-placeholder {
                     padding-right: 92px;
                 }
             }
@@ -191,7 +216,8 @@ textarea:focus {
             cursor: not-allowed;
         }
 
-        .text-area-input {
+        .text-area-input,
+        .text-area-placeholder {
             cursor: not-allowed;
             user-select: none;
         }
