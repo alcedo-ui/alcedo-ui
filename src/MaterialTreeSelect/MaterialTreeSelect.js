@@ -136,8 +136,8 @@ class MaterialTreeSelect extends Component {
                             value={value}
                             onFocus={this.triggerFocusHandler}
                             onBlur={this.triggerBlurHandler}
-                            onTriggerMouseOver={this.triggerMouseOverHandler}
-                            onTriggerMouseOut={this.triggerMouseOutHandler}
+                            onMouseOver={this.triggerMouseOverHandler}
+                            onMouseOut={this.triggerMouseOutHandler}
                             onChange={this.triggerChangeHandler}/>
 
                 <MaterialFieldSeparator theme={theme}
@@ -357,8 +357,8 @@ MaterialTreeSelect.propTypes = {
     onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 
 };
