@@ -9,7 +9,7 @@ import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
 import Tip from '../Tip';
-import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -25,36 +25,12 @@ class MaterialTreeSelect extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: props.value,
-            isFocus: false,
-            isHover: false
+            value: props.value
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
         this.closePopup = ::this.closePopup;
 
-    }
-
-    triggerFocusHandler(...args) {
-        this.setState({
-            isFocus: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(...args);
-        });
-    }
-
-    triggerBlurHandler(...args) {
-        this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
     }
 
     triggerChangeHandler(value) {
@@ -63,24 +39,6 @@ class MaterialTreeSelect extends Component {
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
-        });
-    }
-
-    triggerMouseOverHandler(...args) {
-        this.setState({
-            isHover: true
-        }, () => {
-            const {onMouseOver} = this.props;
-            onMouseOver && onMouseOver(...args);
-        });
-    }
-
-    triggerMouseOutHandler(...args) {
-        this.setState({
-            isHover: false
-        }, () => {
-            const {onMouseOut} = this.props;
-            onMouseOut && onMouseOut(...args);
         });
     }
 
@@ -96,55 +54,33 @@ class MaterialTreeSelect extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
-    }
-
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimate, required,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value} = this.state,
+            {value} = this.state,
 
             wrapperClassName = classNames('material-tree-select', {
-                animated: isLabelAnimate,
-                'has-label': label,
-                focused: isFocus,
-                'has-value': value && value.length > 0,
                 [className]: className
             });
 
         return (
-            <div className={wrapperClassName}
-                 style={style}>
-
-                {
-                    label ?
-                        <div className="material-tree-select-label">
-                            {label}
-                        </div>
-                        :
-                        null
-                }
+            <MaterialProvider className={wrapperClassName}
+                              style={style}
+                              theme={theme}
+                              label={label}
+                              isLabelAnimate={isLabelAnimate}
+                              hasValue={value && value.length > 0}
+                              required={required}>
 
                 <TreeSelect {...restProps}
                             ref="treeSelect"
                             value={value}
-                            onFocus={this.triggerFocusHandler}
-                            onBlur={this.triggerBlurHandler}
-                            onMouseOver={this.triggerMouseOverHandler}
-                            onMouseOut={this.triggerMouseOutHandler}
                             onChange={this.triggerChangeHandler}/>
 
-                <MaterialFieldSeparator theme={theme}
-                                        isHover={isHover}
-                                        isFocus={isFocus}/>
-
-            </div>
+            </MaterialProvider>
         );
 
     }
@@ -331,6 +267,8 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     popupChildren: PropTypes.any,
@@ -389,6 +327,7 @@ MaterialTreeSelect.defaultProps = {
 
     infoMsg: null,
     autoClose: true,
+    required: false,
 
     shouldPreventContainerScroll: true,
 
