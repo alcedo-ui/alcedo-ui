@@ -33,6 +33,11 @@
         width: 100%;
         background: transparent;
         box-shadow: none !important;
+
+        .material-provider-field-input,
+        .material-provider-field-placeholder {
+            transition: opacity $theme-transition-duration ease-in-out;
+        }
     }
 
     &.has-separator {
