@@ -38,7 +38,7 @@ class TimeItems extends Component {
 
 
     mousemoveHandle() {
-        this.itemsEl.style.overflowY = 'auto';
+        this.itemsEl && (this.itemsEl.style.overflowY = 'auto');
     }
 
     scrollTo(element, to, duration) {
@@ -61,7 +61,7 @@ class TimeItems extends Component {
     };
 
     mouseoutHandle() {
-        this.itemsEl.style.overflowY = 'hidden';
+        this.itemsEl && (this.itemsEl.style.overflowY = 'hidden');
     }
 
     componentDidMount() {
