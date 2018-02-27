@@ -88,7 +88,7 @@ class Dropdown extends Component {
                 triggerValue, rightIconCls, disabled, disableTouchRipple,
 
                 // events
-                onTriggerMouseOver, onTriggerMouseOut
+                onMouseOver, onMouseOut
 
             } = this.props,
             {popupVisible, isAbove} = this.state,
@@ -120,8 +120,8 @@ class Dropdown extends Component {
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
-                              onMouseOver={onTriggerMouseOver}
-                              onMouseOut={onTriggerMouseOut}
+                              onMouseOver={onMouseOver}
+                              onMouseOut={onMouseOut}
                               onTouchTap={this.togglePopup}/>
 
                 <Popup ref="popup"
@@ -216,8 +216,8 @@ Dropdown.propTypes = {
 
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
     onTriggerTouchTap: PropTypes.func
 
 };

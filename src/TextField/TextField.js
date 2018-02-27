@@ -289,8 +289,8 @@ class TextField extends Component {
 
         const {
 
-                children, className, style, theme, type, iconCls, disabled, infoMsg, placeholder,
-                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
+                children, className, inputClassName, placeholderClassName, style, theme, type, iconCls, disabled,
+                infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
@@ -306,7 +306,7 @@ class TextField extends Component {
             isPassword = type === FieldType.PASSWORD,
             empty = !value || value.length <= 0,
 
-            wrapperClassName = classNames('text-field',
+            fieldClassName = classNames('text-field',
                 empty ? 'empty' : 'not-empty',
                 invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
                     password: isPassword,
@@ -315,7 +315,22 @@ class TextField extends Component {
                     focused: isFocused,
                     'has-clear-button': clearButtonVisible,
                     [className]: className
-                });
+                }),
+            leftIconClassName = classNames('text-field-left-icon', {
+                deactivated: !onIconTouchTap
+            }),
+            fieldPlaceholderClassName = classNames('text-field-placeholder', {
+                [placeholderClassName]: placeholderClassName
+            }),
+            fieldInputClassName = classNames('text-field-input', {
+                [inputClassName]: inputClassName
+            }),
+            clearButtonClassName = classNames('clear-icon', {
+                hidden: disabled || !value || value.length < 1
+            }),
+            rightIconClassName = classNames('text-field-right-icon', {
+                deactivated: !onRightIconTouchTap
+            });
 
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
@@ -325,13 +340,13 @@ class TextField extends Component {
         }
 
         return (
-            <div className={wrapperClassName}
+            <div className={fieldClassName}
                  style={style}
                  disabled={disabled}>
 
                 {
                     iconCls ?
-                        <IconButton className={'text-field-left-icon' + (!onIconTouchTap ? ' deactivated' : '')}
+                        <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
                                     onTouchTap={onIconTouchTap}/>
@@ -341,7 +356,7 @@ class TextField extends Component {
 
                 {
                     placeholder && empty ?
-                        <input className="text-field-placeholder"
+                        <input className={fieldPlaceholderClassName}
                                value={placeholder}
                                disabled={true}/>
                         :
@@ -350,21 +365,21 @@ class TextField extends Component {
 
                 <input {...restProps}
                        ref="input"
-                       className="text-field-input"
+                       className={fieldInputClassName}
                        type={inputType}
                        value={value}
+                       disabled={disabled}
                        onChange={this.changeHandler}
                        onKeyDown={this.keyDownHandler}
                        onMouseOver={this.mouseOverHandler}
                        onMouseOut={this.mouseOutHandler}
                        onFocus={this.focusHandler}
-                       onBlur={this.blurHandler}
-                       disabled={disabled}/>
+                       onBlur={this.blurHandler}/>
 
                 {
                     clearButtonVisible ?
                         <IconButton ref="clearButton"
-                                    className={`clear-icon ${!disabled && value && value.length > 0 ? '' : 'hidden'}`}
+                                    className={clearButtonClassName}
                                     iconCls="fas fa-times-circle"
                                     onTouchTap={this.clearValue}/>
                         :
@@ -382,7 +397,7 @@ class TextField extends Component {
 
                 {
                     rightIconCls ?
-                        <IconButton className={'text-field-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
+                        <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
                                     onTouchTap={this.rightIconTouchTapHandler}/>
@@ -420,6 +435,16 @@ TextField.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the input element.
+     */
+    inputClassName: PropTypes.string,
+
+    /**
+     * The CSS class name of the placeholder element.
+     */
+    placeholderClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -587,7 +612,9 @@ TextField.propTypes = {
 
 TextField.defaultProps = {
 
-    className: '',
+    className: null,
+    inputClassName: null,
+    placeholderClassName: null,
     style: null,
     theme: Theme.DEFAULT,
 

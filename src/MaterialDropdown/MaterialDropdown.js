@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 import Dropdown from '../Dropdown';
 
@@ -18,96 +18,32 @@ class MaterialDropdown extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            isFocus: false,
-            isHover: false
-        };
-
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
-
-    }
-
-    triggerFocusHandler(...args) {
-        this.setState({
-            isFocus: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(...args);
-        });
-    }
-
-    triggerBlurHandler(...args) {
-        this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
-    }
-
-    triggerMouseOverHandler(...args) {
-        this.setState({
-            isHover: true
-        }, () => {
-            const {onMouseOver} = this.props;
-            onMouseOver && onMouseOver(...args);
-        });
-    }
-
-    triggerMouseOutHandler(...args) {
-        this.setState({
-            isHover: false
-        }, () => {
-            const {onMouseOut} = this.props;
-            onMouseOut && onMouseOut(...args);
-        });
     }
 
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimate, required,
                 ...restProps
             } = this.props,
-            {isFocus, isHover} = this.state,
 
             wrapperClassName = classNames('material-dropdown', {
-                animated: isLabelAnimate,
-                'has-label': label,
-                focused: isFocus,
                 [className]: className
             });
 
         return (
-            <div className={wrapperClassName}
-                 style={style}>
-
-                {
-                    label ?
-                        <div className="material-dropdown-label">
-                            {label}
-                        </div>
-                        :
-                        null
-                }
+            <MaterialProvider className={wrapperClassName}
+                              style={style}
+                              theme={theme}
+                              label={label}
+                              isLabelAnimate={isLabelAnimate}
+                              required={required}>
 
                 <Dropdown {...restProps}
-                          className="material-dropdown-content"
-                          onFocus={this.triggerFocusHandler}
-                          onBlur={this.triggerBlurHandler}
-                          onTriggerMouseOut={this.triggerMouseOutHandler}
-                          onTriggerMouseOver={this.triggerMouseOverHandler}/>
+                          className="material-dropdown-content"/>
 
-                <MaterialFieldSeparator theme={theme}
-                                        isHover={isHover}
-                                        isFocus={isFocus}/>
-            </div>
+            </MaterialProvider>
         );
 
     }
@@ -189,6 +125,8 @@ MaterialDropdown.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
@@ -198,8 +136,8 @@ MaterialDropdown.propTypes = {
 
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
     onTriggerTouchTap: PropTypes.func
 
 };
@@ -223,6 +161,7 @@ MaterialDropdown.defaultProps = {
     disabled: false,
     disableTouchRipple: false,
     autoClose: true,
+    required: false,
 
     shouldPreventContainerScroll: true
 

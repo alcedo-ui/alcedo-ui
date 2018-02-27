@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import DropdownSelect from '../DropdownSelect';
-import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -25,35 +25,12 @@ class MaterialDropdownSelect extends Component {
 
         this.state = {
             value: props.value,
-            isFocus: false,
-            isHover: false
+            isFocus: false
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
         this.closePopup = ::this.closePopup;
 
-    }
-
-    triggerFocusHandler(...args) {
-        this.setState({
-            isFocus: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(...args);
-        });
-    }
-
-    triggerBlurHandler(...args) {
-        this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
     }
 
     triggerChangeHandler(value) {
@@ -62,24 +39,6 @@ class MaterialDropdownSelect extends Component {
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
-        });
-    }
-
-    triggerMouseOverHandler(...args) {
-        this.setState({
-            isHover: true
-        }, () => {
-            const {onMouseOver} = this.props;
-            onMouseOver && onMouseOver(...args);
-        });
-    }
-
-    triggerMouseOutHandler(...args) {
-        this.setState({
-            isHover: false
-        }, () => {
-            const {onMouseOut} = this.props;
-            onMouseOut && onMouseOut(...args);
         });
     }
 
@@ -95,55 +54,34 @@ class MaterialDropdownSelect extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
-    }
-
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimate, required, selectMode,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value} = this.state,
+            {value} = this.state,
 
             wrapperClassName = classNames('material-dropdown-select', {
-                animated: isLabelAnimate,
-                'has-label': label,
-                focused: isFocus,
-                'has-value': this.props.selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : value,
                 [className]: className
             });
 
         return (
-            <div className={wrapperClassName}
-                 style={style}>
-
-                {
-                    label ?
-                        <div className="material-dropdown-select-label">
-                            {label}
-                        </div>
-                        :
-                        null
-                }
+            <MaterialProvider className={wrapperClassName}
+                              style={style}
+                              theme={theme}
+                              label={label}
+                              isLabelAnimate={isLabelAnimate}
+                              hasValue={selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : value}
+                              required={required}>
 
                 <DropdownSelect {...restProps}
                                 ref="dropdownSelect"
                                 value={value}
-                                onFocus={this.triggerFocusHandler}
-                                onBlur={this.triggerBlurHandler}
-                                onTriggerMouseOver={this.triggerMouseOverHandler}
-                                onTriggerMouseOut={this.triggerMouseOutHandler}
+                                selectMode={selectMode}
                                 onChange={this.triggerChangeHandler}/>
 
-                <MaterialFieldSeparator theme={theme}
-                                        isHover={isHover}
-                                        isFocus={isFocus}/>
-
-            </div>
+            </MaterialProvider>
         );
 
     }
@@ -340,6 +278,8 @@ MaterialDropdownSelect.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
@@ -390,6 +330,7 @@ MaterialDropdownSelect.defaultProps = {
     useSelectAll: false,
     noMatchedMsg: null,
     isGrouped: false,
+    required: false,
 
     shouldPreventContainerScroll: true
 

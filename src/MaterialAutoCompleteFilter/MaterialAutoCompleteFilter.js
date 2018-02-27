@@ -162,8 +162,8 @@ class MaterialAutoCompleteFilter extends Component {
                                     onFocus={this.triggerFocusHandler}
                                     onBlur={this.triggerBlurHandler}
                                     onPopupClosed={this.popupClosedHandler}
-                                    onTriggerMouseOver={this.triggerMouseOverHandler}
-                                    onTriggerMouseOut={this.triggerMouseOutHandler}
+                                    onMouseOver={this.triggerMouseOverHandler}
+                                    onMouseOut={this.triggerMouseOutHandler}
                                     onFilterChange={this.triggerFilterChangeHandler}
                                     onChange={this.triggerChangeHandler}/>
 
@@ -392,8 +392,8 @@ MaterialAutoCompleteFilter.propTypes = {
      */
     onBlur: PropTypes.func,
 
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 

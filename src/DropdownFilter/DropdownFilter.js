@@ -188,7 +188,7 @@ class DropdownFilter extends Component {
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
+                onItemTouchTap, onFilterClear, onMouseOver, onMouseOut
 
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
@@ -245,8 +245,8 @@ class DropdownFilter extends Component {
                            rightIconCls={rightIconCls}
                            onFocus={this.triggerFocusHandler}
                            onBlur={this.triggerBlurHandler}
-                           onMouseOver={onTriggerMouseOver}
-                           onMouseOut={onTriggerMouseOut}
+                           onMouseOver={onMouseOver}
+                           onMouseOut={onMouseOut}
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
@@ -545,8 +545,8 @@ DropdownFilter.propTypes = {
      */
     onBlur: PropTypes.func,
 
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
     onPopupClosed: PropTypes.func
 
 };

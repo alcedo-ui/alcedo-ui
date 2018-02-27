@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import DropdownFilter from '../DropdownFilter';
-import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -24,45 +24,14 @@ class MaterialDropdownFilter extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: '',
-            filter: '',
-            isFocus: false,
-            isHover: false
+            value: props.value,
+            filter: ''
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
         this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
         this.closePopup = ::this.closePopup;
 
-    }
-
-    triggerFocusHandler(...args) {
-        this.setState({
-            isFocus: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(...args);
-        });
-    }
-
-    triggerBlurHandler(...args) {
-        this.state.filter === '' && this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
-    }
-
-    popupClosedHandler() {
-        this.setState({
-            isFocus: false
-        });
     }
 
     triggerFilterChangeHandler(filter) {
@@ -83,24 +52,6 @@ class MaterialDropdownFilter extends Component {
         });
     }
 
-    triggerMouseOverHandler(...args) {
-        this.setState({
-            isHover: true
-        }, () => {
-            const {onMouseOver} = this.props;
-            onMouseOver && onMouseOver(...args);
-        });
-    }
-
-    triggerMouseOutHandler(...args) {
-        this.setState({
-            isHover: false
-        }, () => {
-            const {onMouseOut} = this.props;
-            onMouseOut && onMouseOut(...args);
-        });
-    }
-
     closePopup() {
         this.refs.dropdownFilter && this.refs.dropdownFilter.closePopup();
     }
@@ -113,22 +64,15 @@ class MaterialDropdownFilter extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
-    }
-
     render() {
 
-        const {className, style, theme, label, isLabelAnimated, popupClassName, ...restProps} = this.props,
-            {isFocus, isHover, value, filter} = this.state,
+        const {
+                className, style, theme, label, isLabelAnimate, popupClassName, required,
+                ...restProps
+            } = this.props,
+            {value, filter} = this.state,
 
             wrapperClassName = classNames('material-dropdown-filter', {
-                animated: isLabelAnimated,
-                'has-label': label,
-                'has-value': filter,
-                focused: isFocus,
                 [className]: className
             }),
 
@@ -137,36 +81,23 @@ class MaterialDropdownFilter extends Component {
             });
 
         return (
-            <div className={wrapperClassName}
-                 style={style}>
-
-                {
-                    label ?
-                        <div className="material-dropdown-filter-label">
-                            {label}
-                        </div>
-                        :
-                        null
-                }
+            <MaterialProvider className={wrapperClassName}
+                              style={style}
+                              theme={theme}
+                              label={label}
+                              isLabelAnimate={isLabelAnimate}
+                              hasValue={filter}
+                              required={required}>
 
                 <DropdownFilter {...restProps}
                                 ref="dropdownFilter"
                                 popupClassName={filterClassName}
                                 theme={theme}
                                 value={value}
-                                onFocus={this.triggerFocusHandler}
-                                onBlur={this.triggerBlurHandler}
-                                onPopupClosed={this.popupClosedHandler}
-                                onTriggerMouseOver={this.triggerMouseOverHandler}
-                                onTriggerMouseOut={this.triggerMouseOutHandler}
                                 onFilterChange={this.triggerFilterChangeHandler}
                                 onChange={this.triggerChangeHandler}/>
 
-                <MaterialFieldSeparator theme={theme}
-                                        isHover={isHover}
-                                        isFocus={isFocus}/>
-
-            </div>
+            </MaterialProvider>
         );
 
     }
@@ -346,7 +277,7 @@ MaterialDropdownFilter.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
-    isLabelAnimated: PropTypes.bool,
+    isLabelAnimate: PropTypes.bool,
 
     popupChildren: PropTypes.any,
 
@@ -396,8 +327,8 @@ MaterialDropdownFilter.propTypes = {
      */
     onBlur: PropTypes.func,
 
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
@@ -412,7 +343,7 @@ MaterialDropdownFilter.defaultProps = {
     name: '',
     placeholder: '',
     label: '',
-    isLabelAnimated: true,
+    isLabelAnimate: true,
     data: [],
     disabled: false,
     valueField: 'value',

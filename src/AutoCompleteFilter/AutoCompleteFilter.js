@@ -200,7 +200,7 @@ class AutoCompleteFilter extends Component {
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                onItemTouchTap, onFilterClear, onTriggerMouseOver, onTriggerMouseOut
+                onItemTouchTap, onFilterClear, onMouseOver, onMouseOut
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -266,8 +266,8 @@ class AutoCompleteFilter extends Component {
                            rightIconCls={rightIconCls}
                            onFocus={this.filterFocusHandler}
                            onBlur={this.filterBlurHandler}
-                           onMouseOver={onTriggerMouseOver}
-                           onMouseOut={onTriggerMouseOut}
+                           onMouseOver={onMouseOver}
+                           onMouseOut={onMouseOut}
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
@@ -549,8 +549,8 @@ AutoCompleteFilter.propTypes = {
      */
     onBlur: PropTypes.func,
 
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
     onPopupClosed: PropTypes.func
 
 };

@@ -3,43 +3,19 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.material-text-area {
+.material-provider.material-text-area {
     @include float-fix;
     position: relative;
     display: inline-block;
     background: $theme-field-bg;
 
-    .material-text-area-label {
-        position: relative;
-        line-height: 16px;
-        color: $theme-label;
-        transform-origin: top left;
-        transition-property: transform, padding-left, color;
-        transition-duration: $theme-transition-duration;
-        transition-timing-function: ease-in-out;
-
-        .material-text-area-required-dot {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: $theme-error;
-            transform: translateY(-50%);
-        }
-    }
-
     .text-area {
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none !important;
+        border-bottom: none !important;
 
-        .text-area-input {
+        .text-area-input,
+        .text-area-placeholder {
             padding-left: 8px;
             padding-right: 8px;
-            transition: opacity $theme-transition-duration ease-in-out;
         }
 
         .text-area-word-count {
@@ -47,17 +23,10 @@
             height: 1px;
             padding: 0;
         }
-
     }
 
     .material-field-separator {
         transform: translateY(-3px);
-    }
-
-    &.focused {
-        .material-text-area-label {
-            color: $theme-highlight;
-        }
     }
 
     &.has-word-count {
@@ -70,29 +39,4 @@
             transform: translateY(-29px);
         }
     }
-
-    &.has-label.animated {
-
-        .material-text-area-label {
-            transform: translateY(28px);
-            padding-left: 8px;
-        }
-
-        .text-area-input {
-            opacity: 0;
-        }
-
-        &.has-value,
-        &.focused {
-            .material-text-area-label {
-                transform: translateY(0);
-                padding-left: 0;
-            }
-
-            .text-area-input {
-                opacity: 1;
-            }
-        }
-    }
-
 }

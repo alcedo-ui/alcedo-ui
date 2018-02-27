@@ -158,8 +158,8 @@ class MaterialEditableSelect extends Component {
                                 onFocus={this.triggerFocusHandler}
                                 onBlur={this.triggerBlurHandler}
                                 onPopupClosed={this.popupClosedHandler}
-                                onTriggerMouseOver={this.triggerMouseOverHandler}
-                                onTriggerMouseOut={this.triggerMouseOutHandler}
+                                onMouseOver={this.triggerMouseOverHandler}
+                                onMouseOut={this.triggerMouseOutHandler}
                                 onFilterChange={this.triggerFilterChangeHandler}
                                 onChange={this.triggerChangeHandler}/>
 

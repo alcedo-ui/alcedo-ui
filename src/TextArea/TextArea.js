@@ -264,7 +264,7 @@ class TextArea extends Component {
         }
 
         this.inputEl = this.refs.input;
-        this.inputElInitHeight = parseInt(window.getComputedStyle(this.inputEl).height);
+        this.inputElInitHeight = parseInt(this.inputEl.offsetHeight);
 
         this.clearButtonEl = findDOMNode(this.refs.clearButton);
 
@@ -282,7 +282,8 @@ class TextArea extends Component {
 
         const {
 
-                children, className, style, theme, type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible,
+                children, className, inputClassName, placeholderClassName, style, theme,
+                type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
                 onIconTouchTap, onRightIconTouchTap,
 
@@ -297,8 +298,9 @@ class TextArea extends Component {
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
             isPassword = type === FieldType.PASSWORD,
+            empty = !value || value.length <= 0,
 
-            wrapperClassName = classNames('text-area',
+            fieldClassName = classNames('text-area',
                 !value || value.length <= 0 ? 'empty' : 'not-empty',
                 invalidMsgs.length > 0 ? 'theme-error' : (theme ? `theme-${theme}` : ''), {
                     password: isPassword,
@@ -312,6 +314,12 @@ class TextArea extends Component {
                 }),
             leftIconClassName = classNames('text-area-left-icon', {
                 deactivated: !onIconTouchTap
+            }),
+            fieldPlaceholderClassName = classNames('text-area-placeholder', {
+                [placeholderClassName]: placeholderClassName
+            }),
+            fieldInputClassName = classNames('text-area-input', {
+                [inputClassName]: inputClassName
             }),
             passwordVisibleIconClassName = classNames('password-visible-icon', {
                 hidden: !isPassword || !passwordButtonVisible
@@ -334,7 +342,7 @@ class TextArea extends Component {
         }
 
         return (
-            <div className={wrapperClassName}
+            <div className={fieldClassName}
                  style={style}
                  disabled={disabled}>
 
@@ -348,9 +356,18 @@ class TextArea extends Component {
                         null
                 }
 
+                {
+                    placeholder && empty ?
+                        <textarea className={fieldPlaceholderClassName}
+                                  value={placeholder}
+                                  disabled={true}/>
+                        :
+                        null
+                }
+
                 <textarea {...restProps}
                           ref="input"
-                          className="text-area-input"
+                          className={fieldInputClassName}
                           type={inputType}
                           value={value}
                           onChange={this.changeHandler}
@@ -420,6 +437,16 @@ TextArea.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the input element.
+     */
+    inputClassName: PropTypes.string,
+
+    /**
+     * The CSS class name of the placeholder element.
+     */
+    placeholderClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -585,7 +612,9 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
 
-    className: '',
+    className: null,
+    inputClassName: null,
+    placeholderClassName: null,
     style: null,
     theme: Theme.DEFAULT,
 

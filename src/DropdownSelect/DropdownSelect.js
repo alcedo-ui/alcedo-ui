@@ -552,8 +552,10 @@ DropdownSelect.propTypes = {
     onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onTriggerMouseOver: PropTypes.func,
-    onTriggerMouseOut: PropTypes.func
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 
