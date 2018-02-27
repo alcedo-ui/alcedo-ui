@@ -316,13 +316,20 @@ class TextField extends Component {
                     'has-clear-button': clearButtonVisible,
                     [className]: className
                 }),
-
+            leftIconClassName = classNames('text-field-left-icon', {
+                deactivated: !onIconTouchTap
+            }),
             fieldPlaceholderClassName = classNames('text-field-placeholder', {
                 [placeholderClassName]: placeholderClassName
             }),
-
             fieldInputClassName = classNames('text-field-input', {
                 [inputClassName]: inputClassName
+            }),
+            clearButtonClassName = classNames('clear-icon', {
+                hidden: disabled || !value || value.length < 1
+            }),
+            rightIconClassName = classNames('text-field-right-icon', {
+                deactivated: !onRightIconTouchTap
             });
 
         let inputType = type;
@@ -339,7 +346,7 @@ class TextField extends Component {
 
                 {
                     iconCls ?
-                        <IconButton className={'text-field-left-icon' + (!onIconTouchTap ? ' deactivated' : '')}
+                        <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
                                     onTouchTap={onIconTouchTap}/>
@@ -372,7 +379,7 @@ class TextField extends Component {
                 {
                     clearButtonVisible ?
                         <IconButton ref="clearButton"
-                                    className={`clear-icon ${!disabled && value && value.length > 0 ? '' : 'hidden'}`}
+                                    className={clearButtonClassName}
                                     iconCls="fas fa-times-circle"
                                     onTouchTap={this.clearValue}/>
                         :
@@ -390,7 +397,7 @@ class TextField extends Component {
 
                 {
                     rightIconCls ?
-                        <IconButton className={'text-field-right-icon' + (!onRightIconTouchTap ? ' deactivated' : '')}
+                        <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
                                     onTouchTap={this.rightIconTouchTapHandler}/>
