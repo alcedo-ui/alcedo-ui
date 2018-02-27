@@ -67,7 +67,7 @@ class Tab extends Component {
                 <div className={tabsClassName}>
 
                     {
-                        tabs.map((item, index) => {
+                        tabs && tabs.map((item, index) => {
 
                             const {
 
@@ -109,7 +109,7 @@ class Tab extends Component {
                     <div className="tab-content-scroller"
                          style={tabContentScrollerStyle}>
                         {
-                            tabs.map((item, index) =>
+                            tabs && tabs.map((item, index) =>
                                 <div key={index}
                                      className="tab-content"
                                      style={tabContentStyle}>
