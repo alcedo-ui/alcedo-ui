@@ -439,6 +439,16 @@ TextArea.propTypes = {
     className: PropTypes.string,
 
     /**
+     * The CSS class name of the input element.
+     */
+    inputClassName: PropTypes.string,
+
+    /**
+     * The CSS class name of the placeholder element.
+     */
+    placeholderClassName: PropTypes.string,
+
+    /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
@@ -602,7 +612,9 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
 
-    className: '',
+    className: null,
+    inputClassName: null,
+    placeholderClassName: null,
     style: null,
     theme: Theme.DEFAULT,
 
