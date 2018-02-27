@@ -24,16 +24,14 @@ class NavMenuList extends Component {
                  onWheel={Event.preventContainerScroll}>
                 <div className="nav-menu-scroller">
                     {
-                        $navMenu.map((menu, index) => {
-                            return (
-                                <NavMenuItem key={(menu && menu.text) || index}
-                                             expandMenuName={$expandMenuName}
-                                             activatedMenu={$activatedMenu}
-                                             options={menu}
-                                             expandMenu={expandMenu}
-                                             updateActivatedMenu={updateActivatedMenu}/>
-                            );
-                        })
+                        $navMenu.map((menu, index) =>
+                            <NavMenuItem key={(menu && menu.text) || index}
+                                         expandMenuName={$expandMenuName}
+                                         activatedMenu={$activatedMenu}
+                                         options={menu}
+                                         expandMenu={expandMenu}
+                                         updateActivatedMenu={updateActivatedMenu}/>
+                        )
                     }
                 </div>
             </div>
