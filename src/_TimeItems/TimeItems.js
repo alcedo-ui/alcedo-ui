@@ -27,9 +27,7 @@ class TimeItems extends Component {
             return;
         }
 
-        if (this.itemsEl) {
-            this.scrollTo(this.itemsEl, (+value) * 30, 200);
-        }
+        this.scrollTo(this.itemsEl, (+value) * 30, 200);
 
         const {onChange} = this.props;
         onChange && onChange(value);
@@ -42,6 +40,10 @@ class TimeItems extends Component {
     }
 
     scrollTo(element, to, duration) {
+
+        if (!element) {
+            return;
+        }
 
         // jump to target if duration zero
         if (duration <= 0) {
