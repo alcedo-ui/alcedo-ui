@@ -278,6 +278,8 @@ MaterialDropdownSelect.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
@@ -328,6 +330,7 @@ MaterialDropdownSelect.defaultProps = {
     useSelectAll: false,
     noMatchedMsg: null,
     isGrouped: false,
+    required: false,
 
     shouldPreventContainerScroll: true
 
