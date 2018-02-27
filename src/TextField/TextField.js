@@ -289,7 +289,7 @@ class TextField extends Component {
 
         const {
 
-                children, className, inputClassName, placeholderClassName, style, theme, type, iconCls, disabled,
+                children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
                 infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 onIconTouchTap, onRightIconTouchTap,
 
@@ -323,7 +323,7 @@ class TextField extends Component {
                 [placeholderClassName]: placeholderClassName
             }),
             fieldInputClassName = classNames('text-field-input', {
-                [inputClassName]: inputClassName
+                [triggerClassName]: triggerClassName
             }),
             clearButtonClassName = classNames('clear-icon', {
                 hidden: disabled || !value || value.length < 1
@@ -439,7 +439,7 @@ TextField.propTypes = {
     /**
      * The CSS class name of the input element.
      */
-    inputClassName: PropTypes.string,
+    triggerClassName: PropTypes.string,
 
     /**
      * The CSS class name of the placeholder element.
@@ -613,7 +613,7 @@ TextField.propTypes = {
 TextField.defaultProps = {
 
     className: null,
-    inputClassName: null,
+    triggerClassName: null,
     placeholderClassName: null,
     style: null,
     theme: Theme.DEFAULT,
