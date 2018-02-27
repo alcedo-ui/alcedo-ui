@@ -12,6 +12,8 @@ import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
 
+import _ from 'lodash';
+
 class RemoteAutoComplete extends Component {
 
     constructor(props, ...restArgs) {
@@ -29,6 +31,7 @@ class RemoteAutoComplete extends Component {
         this.inputHeight = 50;
         this.borderWidth = 1;
 
+        this.changeText = ::this.changeText;
         this.onChange = ::this.onChange;
         this.onClick = ::this.onClick;
         this.getClassName = ::this.getClassName;
@@ -52,7 +55,7 @@ class RemoteAutoComplete extends Component {
     /**
      * input变化时改变loading状态并触发onChange
      */
-    onChange(text) {
+    changeText(text) {
         const {onChange} = this.props;
 
         this.setState({
@@ -65,6 +68,10 @@ class RemoteAutoComplete extends Component {
             });
         });
     }
+
+    onChange = _.debounce((text) => {
+        this.changeText(text);
+    }, 250);
 
     /**
      * 获得焦点时触发onFocus
