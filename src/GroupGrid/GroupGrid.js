@@ -57,19 +57,14 @@ class GroupGrid extends Component {
                  }}>
 
                 {
-                    data && data.length > 0 ?
-                        data.map((item, index) => {
-                            return (
-                                <div key={index}>
-                                    <div className="group-grid-group-title">{item.name}</div>
-                                    <Grid {...restProps}
-                                          data={item.children}
-                                          value={value}/>
-                                </div>
-                            );
-                        })
-                        :
-                        null
+                    data && data.map((item, index) =>
+                        <div key={index}>
+                            <div className="group-grid-group-title">{item.name}</div>
+                            <Grid {...restProps}
+                                  data={item.children}
+                                  value={value}/>
+                        </div>
+                    )
                 }
 
                 {children}
