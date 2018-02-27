@@ -270,6 +270,8 @@ MaterialLocalAutoComplete.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     isLabelAnimate: PropTypes.bool,
 
     filterInitValue: PropTypes.string,
@@ -344,6 +346,7 @@ MaterialLocalAutoComplete.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
+    required: false,
     filterInitValue: '',
 
     popupChildren: null
