@@ -34,7 +34,7 @@ class TimeLine extends Component {
                 style={style}>
 
                 {
-                    data.map((item, index) =>
+                    data && data.map((item, index) =>
                         <TimeLineItem key={index}
                                       theme={item.theme}
                                       type={item.type}
