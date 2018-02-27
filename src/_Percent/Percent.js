@@ -66,11 +66,7 @@ class Percent extends Component {
             <div className={wrapperClassName}
                  style={wrapperStyle}>
 
-                {
-                    React.Children.map(this.props.children, child => (
-                        <span>{child}</span>
-                    ))
-                }
+                {React.Children.map(this.props.children, child => <span>{child}</span>)}
 
                 <span>{percent}%</span>
 
