@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import DropdownSelect from '../DropdownSelect';
-import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -29,31 +29,11 @@ class MaterialDropdownSelect extends Component {
             isHover: false
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
         this.triggerChangeHandler = ::this.triggerChangeHandler;
         this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
         this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
         this.closePopup = ::this.closePopup;
 
-    }
-
-    triggerFocusHandler(...args) {
-        this.setState({
-            isFocus: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(...args);
-        });
-    }
-
-    triggerBlurHandler(...args) {
-        this.setState({
-            isFocus: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-        });
     }
 
     triggerChangeHandler(value) {
@@ -104,7 +84,7 @@ class MaterialDropdownSelect extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate,
+                className, style, theme, label, isLabelAnimate, required,
                 ...restProps
             } = this.props,
             {isFocus, isHover, value} = this.state,
@@ -118,32 +98,22 @@ class MaterialDropdownSelect extends Component {
             });
 
         return (
-            <div className={wrapperClassName}
-                 style={style}>
-
-                {
-                    label ?
-                        <div className="material-dropdown-select-label">
-                            {label}
-                        </div>
-                        :
-                        null
-                }
+            <MaterialProvider className={wrapperClassName}
+                              style={style}
+                              theme={theme}
+                              label={label}
+                              isLabelAnimate={isLabelAnimate}
+                              hasValue={!!value}
+                              required={required}>
 
                 <DropdownSelect {...restProps}
                                 ref="dropdownSelect"
                                 value={value}
-                                onFocus={this.triggerFocusHandler}
-                                onBlur={this.triggerBlurHandler}
                                 onTriggerMouseOver={this.triggerMouseOverHandler}
                                 onTriggerMouseOut={this.triggerMouseOutHandler}
                                 onChange={this.triggerChangeHandler}/>
 
-                <MaterialFieldSeparator theme={theme}
-                                        isHover={isHover}
-                                        isFocus={isFocus}/>
-
-            </div>
+            </MaterialProvider>
         );
 
     }
