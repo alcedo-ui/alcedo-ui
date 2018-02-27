@@ -8,8 +8,7 @@
     width: 300px;
     background: $theme-field-bg;
 
-    .material-provider-label {
-        position: relative;
+    .material-provider-label-wrapper {
         line-height: 16px;
         color: $theme-label;
         transform-origin: top left;
@@ -17,15 +16,18 @@
         transition-duration: $theme-transition-duration;
         transition-timing-function: ease-in-out;
 
+        .material-provider-label {
+            vertical-align: middle;
+        }
+
         .material-provider-required-dot {
-            position: absolute;
-            right: 8px;
-            top: 50%;
+            display: inline-block;
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: $theme-error;
-            transform: translateY(-50%);
+            vertical-align: middle;
+            margin-left: 8px;
         }
     }
 
@@ -49,14 +51,14 @@
     }
 
     &.focused {
-        .material-provider-label {
+        .material-provider-label-wrapper {
             color: $theme-highlight;
         }
     }
 
     &.has-label.animated {
 
-        .material-provider-label {
+        .material-provider-label-wrapper {
             transform: translateY(28px);
             padding-left: 8px;
         }
@@ -68,7 +70,7 @@
 
         &.has-value,
         &.focused {
-            .material-provider-label {
+            .material-provider-label-wrapper {
                 transform: translateY(0);
                 padding-left: 0;
             }

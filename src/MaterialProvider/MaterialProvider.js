@@ -64,9 +64,9 @@ class MaterialProvider extends Component {
             <div {...restProps}
                  className={providerClassName}>
 
-                <div className="material-provider-label">
+                <div className="material-provider-label-wrapper">
 
-                    {label}
+                    <span className="material-provider-label">{label}</span>
 
                     {
                         required ?
