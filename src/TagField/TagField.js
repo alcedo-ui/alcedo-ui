@@ -356,51 +356,46 @@ class TagField extends Component {
                  }}>
 
                 {
-                    indexData.map(index => {
-                        return index === this.inputSymbol ?
-                            (
-                                !disabled ?
-                                    <div key="input"
-                                         ref="inputWrapper"
-                                         className="tag-field-input-wrapper">
-                                        <input ref="input"
-                                               className="tag-field-input"
-                                               autoFocus="true"
-                                               value={inputValue}
-                                               placeholder={data.length < 1 && placeholder ? placeholder : ''}
-                                               onChange={this.inputChangeHandler}
-                                               onKeyDown={this.inputKeyDownHandler}/>
-                                    </div>
-                                    :
-                                    null
-                            )
+                    indexData.map(index => index === this.inputSymbol ?
+                        !disabled ?
+                            <div key="input"
+                                 ref="inputWrapper"
+                                 className="tag-field-input-wrapper">
+                                <input ref="input"
+                                       className="tag-field-input"
+                                       autoFocus="true"
+                                       value={inputValue}
+                                       placeholder={data.length < 1 && placeholder ? placeholder : ''}
+                                       onChange={this.inputChangeHandler}
+                                       onKeyDown={this.inputKeyDownHandler}/>
+                            </div>
                             :
-                            (
-                                <span key={index}
-                                      data-index={index}
-                                      className={'tag-field-item-wrapper' + (data[index].className ? ' ' + data[index].className : '')}>
-                                    <EditableField className="tag-field-item-field"
-                                                   value={Util.getTextByDisplayField(data[index], displayField, valueField)}
-                                                   disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                                   onChange={(value) => {
-                                                       this.itemChangeHandler(value, index);
-                                                   }}
-                                                   onEditStart={() => {
-                                                       this.itemEditStartHandler(index);
-                                                   }}
-                                                   onEditEnd={this.itemEditEndHandler}>
+                            null
+                        :
+                        <span key={index}
+                              data-index={index}
+                              className={'tag-field-item-wrapper' + (data[index].className ? ' ' + data[index].className : '')}>
+                            <EditableField className="tag-field-item-field"
+                                           value={Util.getTextByDisplayField(data[index], displayField, valueField)}
+                                           disabled={disabled || (itemEditing && index !== editingItemIndex)}
+                                           onChange={(value) => {
+                                               this.itemChangeHandler(value, index);
+                                           }}
+                                           onEditStart={() => {
+                                               this.itemEditStartHandler(index);
+                                           }}
+                                           onEditEnd={this.itemEditEndHandler}>
 
-                                        <IconButton className="tag-field-item-field-delete-button"
-                                                    iconCls="fas fa-times"
-                                                    disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                                    onTouchTap={() => {
-                                                        this.removeItem(index);
-                                                    }}/>
+                                <IconButton className="tag-field-item-field-delete-button"
+                                            iconCls="fas fa-times"
+                                            disabled={disabled || (itemEditing && index !== editingItemIndex)}
+                                            onTouchTap={() => {
+                                                this.removeItem(index);
+                                            }}/>
 
-                                    </EditableField>
-                                </span>
-                            );
-                    })
+                            </EditableField>
+                        </span>
+                    )
                 }
 
                 {

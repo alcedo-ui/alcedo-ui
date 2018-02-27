@@ -7,13 +7,14 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/RemoteAutoComplete.json';
 
-export default class RemoteAutoCompleteExamples extends Component {
+class RemoteAutoCompleteExamples extends Component {
 
     constructor(props) {
 
         super(props);
 
-        this.data = ['test123456789123456789123456789123456789', 'test2', 'test3', 'derby1', 'derby2', 'derby3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+        this.data = ['test123456789123456789123456789123456789', 'test2', 'test3', 'derby1', 'derby2', 'derby3',
+            'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
         this.searchLength = 2;
 
         this.state = {
@@ -38,7 +39,7 @@ export default class RemoteAutoCompleteExamples extends Component {
             if (search) {
                 this.timing = setTimeout(() => {
                     let data = [];
-                    this.data.map((value) => {
+                    this.data.map(value => {
                         if (value.indexOf(text) === 0) {
                             data.push(value);
                         }
@@ -116,3 +117,5 @@ export default class RemoteAutoCompleteExamples extends Component {
         );
     }
 };
+
+export default RemoteAutoCompleteExamples;

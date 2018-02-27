@@ -112,7 +112,7 @@ IconAnchor.propTypes = {
     /**
      * The button theme.Can be primary,highlight,success,warning,error.
      */
-    theme: PropTypes.oneOf(Object.keys(Theme).map(key => Theme[key])),
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Disables the button if set to true.

@@ -125,6 +125,10 @@ class TreeNode extends Component {
                 paddingLeft: (depth + 1) * 20
             },
 
+            childrenClassName = classNames('tree-node-children', {
+                collapsed
+            }),
+
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
@@ -243,23 +247,21 @@ class TreeNode extends Component {
 
                 {
                     data.children && data.children.length > 0 ?
-                        <div className={'tree-node-children' + (collapsed ? ' collapsed' : '')}>
+                        <div className={childrenClassName}>
                             {
-                                data.children.map((item, index) => {
-                                    return (
-                                        <TreeNode {...this.props}
-                                                  key={index}
-                                                  data={item}
-                                                  index={index}
-                                                  depth={depth + 1}
-                                                  path={
-                                                      path ?
-                                                          [...path, {index, node: item}]
-                                                          :
-                                                          [{index, node: item}]
-                                                  }/>
-                                    );
-                                })
+                                data.children.map((item, index) =>
+                                    <TreeNode {...this.props}
+                                              key={index}
+                                              data={item}
+                                              index={index}
+                                              depth={depth + 1}
+                                              path={
+                                                  path ?
+                                                      [...path, {index, node: item}]
+                                                      :
+                                                      [{index, node: item}]
+                                              }/>
+                                )
                             }
                         </div>
                         :

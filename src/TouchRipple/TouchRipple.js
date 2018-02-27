@@ -124,10 +124,12 @@ class TouchRipple extends Component {
                              onMouseDown={this.mouseDownHandle}
                              onMouseUp={this.removeRipple}
                              onMouseLeave={this.removeRipple}>
-                {ripples.map(item =>
-                    <Ripple {...item}
-                            duration={duration}/>
-                )}
+                {
+                    ripples && ripples.map(item =>
+                        <Ripple {...item}
+                                duration={duration}/>
+                    )
+                }
             </TransitionGroup>
         );
 

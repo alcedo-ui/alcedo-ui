@@ -182,9 +182,12 @@ class YearPicker extends Component {
                 <div className="calendar-body calendar-year-body">
                     <div className="c-body-content">
                         {
-                            ul_list.map((item, key) => {
-                                return (<ul key={'ul' + key} className="content-row year">{item}</ul>);
-                            })
+                            ul_list.map((item, key) =>
+                                <ul key={'ul' + key}
+                                    className="content-row year">
+                                    {item}
+                                </ul>
+                            )
                         }
                     </div>
                 </div>

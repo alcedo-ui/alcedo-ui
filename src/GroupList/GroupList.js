@@ -59,26 +59,23 @@ class GroupList extends Component {
                  }}>
 
                 {
-                    data && data.length > 0 ?
-                        data.map((item, index) => {
+                    data && data.map((item, index) => {
 
-                            if (item === LIST_SEPARATOR) {
-                                return <div key={index}
-                                            className="list-separator"></div>;
-                            }
+                        if (item === LIST_SEPARATOR) {
+                            return <div key={index}
+                                        className="list-separator"></div>;
+                        }
 
-                            return (
-                                <div key={index}>
-                                    <div className="group-list-group-title">{item.name}</div>
-                                    <List {...restProps}
-                                          data={item.children}
-                                          value={value}/>
-                                </div>
-                            );
+                        return (
+                            <div key={index}>
+                                <div className="group-list-group-title">{item.name}</div>
+                                <List {...restProps}
+                                      data={item.children}
+                                      value={value}/>
+                            </div>
+                        );
 
-                        })
-                        :
-                        null
+                    })
                 }
 
                 {children}

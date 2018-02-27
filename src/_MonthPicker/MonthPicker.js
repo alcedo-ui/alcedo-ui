@@ -179,9 +179,12 @@ class MonthPicker extends Component {
                 <div className="calendar-body  calendar-month-body">
                     <div className="c-body-content">
                         {
-                            ul_list.map((item, key) => {
-                                return (<ul key={'ul' + key} className="content-row month">{item}</ul>);
-                            })
+                            ul_list.map((item, key) =>
+                                <ul key={'ul' + key}
+                                    className="content-row month">
+                                    {item}
+                                </ul>
+                            )
                         }
                     </div>
                 </div>
