@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
-import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
@@ -272,7 +271,7 @@ MaterialTextField.propTypes = {
 
 MaterialTextField.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
 
