@@ -206,7 +206,7 @@ class DropdownSelect extends Component {
 
         const {
 
-                className, popupClassName, style, name, popupTheme, data,
+                className, triggerClassName, popupClassName, style, name, popupTheme, data,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
                 selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, popupChildren,
 
@@ -223,9 +223,10 @@ class DropdownSelect extends Component {
             selectClassName = classNames('dropdown-select', {
                 [className]: className
             }),
-            triggerClassName = classNames({
+            dropdownTriggerClassName = classNames({
                 activated: popupVisible,
-                empty: !value
+                empty: !value,
+                [triggerClassName]: triggerClassName
             }),
 
             triggerValue = this.getTriggerValue(),
@@ -248,7 +249,7 @@ class DropdownSelect extends Component {
 
                 <Dropdown {...restProps}
                           ref="dropdown"
-                          triggerClassName={triggerClassName}
+                          triggerClassName={dropdownTriggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}
@@ -348,6 +349,11 @@ DropdownSelect.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
 
     /**
      * The class name of the popup element.
@@ -562,6 +568,7 @@ DropdownSelect.propTypes = {
 DropdownSelect.defaultProps = {
 
     className: null,
+    triggerClassName: null,
     popupClassName: null,
     style: null,
     popupStyle: null,
