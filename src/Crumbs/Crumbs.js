@@ -57,7 +57,7 @@ class Crumbs extends Component {
                  style={style}>
 
                 {
-                    data && data.map((item, index) => (
+                    data && data.map((item, index) =>
                         <div key={index}
                              className="crumbs-item-wrapper">
 
@@ -73,7 +73,7 @@ class Crumbs extends Component {
                             }
 
                         </div>
-                    ))
+                    )
                 }
 
             </div>
