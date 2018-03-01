@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -70,6 +71,10 @@ class TextField extends Component {
 
     valid(value) {
 
+        if (value === '') {
+            return;
+        }
+
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
 
@@ -95,31 +100,33 @@ class TextField extends Component {
                 invalidMsgs.push('Not a valid number');
             }
 
-            if (type === FieldType.INTEGER && ~~value !== value) {
+            value = Number(value);
+
+            if (type === FieldType.INTEGER && !_.isInteger(value)) {
                 invalidMsgs.push('Not a valid integer');
             }
 
-            if (type === FieldType.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
+            if (type === FieldType.POSITIVE_INTEGER && (!_.isInteger(value) || value < 0)) {
                 invalidMsgs.push('Not a valid positive integer');
             }
 
-            if (type === FieldType.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
+            if (type === FieldType.NONNEGATIVE_INTEGER && (!_.isInteger(value) || value <= 0)) {
                 invalidMsgs.push('Not a valid nonnegative integer');
             }
 
-            if (type === FieldType.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
+            if (type === FieldType.NEGATIVE_INTEGER && (!_.isInteger(value) || value >= 0)) {
                 invalidMsgs.push('Not a valid negative integer');
             }
 
-            if (type === FieldType.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
+            if (type === FieldType.NONPOSITIVE_INTEGER && (!_.isInteger(value) || value > 0)) {
                 invalidMsgs.push('Not a valid nonpositive integer');
             }
 
-            if (max !== undefined && +value > max) {
+            if (max !== undefined && value > max) {
                 invalidMsgs.push(`Maximum value is ${max}`);
             }
 
-            if (min !== undefined && +value < min) {
+            if (min !== undefined && value < min) {
                 invalidMsgs.push(`Minimum value is ${min}`);
             }
 
@@ -140,7 +147,7 @@ class TextField extends Component {
             value = e.target.value,
             invalidMsgs = this.valid(value);
 
-        if (preventInvalidInput && invalidMsgs.length > 0) {
+        if (preventInvalidInput && invalidMsgs && invalidMsgs.length > 0) {
             return;
         }
 
@@ -149,7 +156,7 @@ class TextField extends Component {
             invalidMsgs
         }, () => {
             this.props.onChange && this.props.onChange(value, e);
-            invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
+            invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
     }
@@ -183,7 +190,7 @@ class TextField extends Component {
             onClear && onClear();
             onChange && onChange('');
 
-            invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
+            invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
 
         });
 
@@ -308,7 +315,7 @@ class TextField extends Component {
 
             fieldClassName = classNames('text-field',
                 empty ? 'empty' : 'not-empty',
-                invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
+                invalidMsgs && invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
                     password: isPassword,
                     'has-icon': iconCls,
                     'has-right-icon': rightIconCls,
@@ -414,7 +421,7 @@ class TextField extends Component {
                 }
 
                 {
-                    fieldMsgVisible && errorVisible && invalidMsgs.length > 0 ?
+                    fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0 ?
                         <FieldMsg type="error"
                                   msg={invalidMsgs.join(', ')}/>
                         :
