@@ -156,7 +156,7 @@ export default class TextFieldExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="With pattern and patternInvalidMsg"/>
+                                  title="Valid"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -172,9 +172,15 @@ export default class TextFieldExamples extends Component {
                                                clearButtonVisible={false}/>
                                 </div>
 
+                                <div>Positive Integer</div>
+                                <div className="field-group">
+                                    <TextField type={TextField.Type.POSITIVE_INTEGER}
+                                               preventInvalidInput={true}/>
+                                </div>
+
                                 <div>Min / Max</div>
                                 <div className="field-group">
-                                    <TextField type="number"
+                                    <TextField type={TextField.Type.NUMBER}
                                                min={0}
                                                max={100}/>
                                 </div>
