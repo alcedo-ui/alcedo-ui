@@ -38,21 +38,18 @@ class IconButton extends Component {
 
     render() {
 
-        const {children, className, isCircular} = this.props,
+        const {children, className, ...restProps} = this.props,
 
             buttonClassName = classNames('icon-button', {
                 [className]: className
             });
 
         return (
-            <BaseButton {...this.props}
+            <BaseButton {...restProps}
                         ref="baseButton"
                         className={buttonClassName}
-                        isCircular={isCircular}
                         rippleDisplayCenter={true}>
-
                 {children}
-
             </BaseButton>
         );
 
