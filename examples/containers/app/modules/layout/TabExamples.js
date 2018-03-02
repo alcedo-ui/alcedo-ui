@@ -92,7 +92,8 @@ export default class TabExamples extends Component {
                                 }, {
                                     value: 'Tab 4',
                                     disabled: true
-                                }]}/>
+                                }]}
+                                     activatedIndex={1}/>
 
                             </div>
 
