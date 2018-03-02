@@ -86,7 +86,7 @@ class MaterialDropdownFilter extends Component {
                               theme={theme}
                               label={label}
                               isLabelAnimate={isLabelAnimate}
-                              hasValue={filter}
+                              hasValue={!!filter}
                               required={required}>
 
                 <DropdownFilter {...restProps}
