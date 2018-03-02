@@ -78,34 +78,45 @@ class MaterialProvider extends Component {
                 </div>
 
                 {
-                    Children.map(children, child => cloneElement(child, {
-                        ...child.props,
-                        className: classNames('material-provider-field', {
-                            [child.props.className]: child.props.className
-                        }),
-                        triggerClassName: classNames('material-provider-field-trigger', {
-                            [child.props.triggerClassName]: child.props.triggerClassName
-                        }),
-                        placeholderClassName: classNames('material-provider-field-placeholder', {
-                            [child.props.placeholderClassName]: child.props.placeholderClassName
-                        }),
-                        onFocus: (...args) => {
-                            child.props.onFocus && child.props.onFocus(...args);
-                            this.setFocused(true);
-                        },
-                        onBlur: (...args) => {
-                            child.props.onBlur && child.props.onBlur(...args);
-                            this.setFocused(false);
-                        },
-                        onMouseOver: (...args) => {
-                            child.props.onMouseOver && child.props.onMouseOver(...args);
-                            this.setHovered(true);
-                        },
-                        onMouseOut: (...args) => {
-                            child.props.onMouseOut && child.props.onMouseOut(...args);
-                            this.setHovered(false);
+                    Children.map(children, child => {
+
+                        const {triggerClassName, placeholderClassName, ...restProps} = child.props,
+                            props = {
+                                ...restProps,
+                                className: classNames('material-provider-field', {
+                                    [restProps.className]: restProps.className
+                                }),
+                                onFocus: (...args) => {
+                                    restProps.onFocus && restProps.onFocus(...args);
+                                    this.setFocused(true);
+                                },
+                                onBlur: (...args) => {
+                                    restProps.onBlur && restProps.onBlur(...args);
+                                    this.setFocused(false);
+                                },
+                                onMouseOver: (...args) => {
+                                    restProps.onMouseOver && restProps.onMouseOver(...args);
+                                    this.setHovered(true);
+                                },
+                                onMouseOut: (...args) => {
+                                    restProps.onMouseOut && restProps.onMouseOut(...args);
+                                    this.setHovered(false);
+                                }
+                            };
+
+                        // react component element
+                        if (typeof child.type !== 'string') {
+                            props.triggerClassName = classNames('material-provider-field-trigger', {
+                                [triggerClassName]: triggerClassName
+                            });
+                            props.placeholderClassName = classNames('material-provider-field-placeholder', {
+                                [placeholderClassName]: placeholderClassName
+                            });
                         }
-                    }))
+
+                        return cloneElement(child, props);
+
+                    })
                 }
 
                 {
