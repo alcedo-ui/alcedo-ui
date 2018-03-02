@@ -38,14 +38,14 @@ class RaisedButton extends Component {
 
     render() {
 
-        const {children, className} = this.props,
+        const {children, className, ...restProps} = this.props,
 
             buttonClassName = classNames('raised-button', {
                 [className]: className
             });
 
         return (
-            <BaseButton {...this.props}
+            <BaseButton {...restProps}
                         ref="baseButton"
                         className={buttonClassName}>
                 {children}
