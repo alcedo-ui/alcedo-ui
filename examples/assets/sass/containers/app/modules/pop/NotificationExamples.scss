@@ -11,6 +11,10 @@
                 width: auto;
                 margin-bottom: 20px;
 
+                .material-provider-label-wrapper {
+                    margin-bottom: 8px;
+                }
+
                 .button-radio-group-item {
                     width: auto;
                     padding: 0 20px;
@@ -49,6 +53,10 @@
                         }
                     }
                 }
+            }
+
+            .material-text-field {
+                width: 400px;
             }
         }
     }
