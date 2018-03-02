@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import TextField from 'src/TextField';
 import RaisedButton from 'src/RaisedButton';
 import Notifier from 'src/Notifier';
 import Widget from 'src/Widget';
