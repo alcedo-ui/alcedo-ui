@@ -16,7 +16,7 @@ class Tab extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            activatedIndex: 0
+            activatedIndex: props.activatedIndex
         };
 
         this.tabClickHandle = ::this.tabClickHandle;
@@ -139,11 +139,6 @@ Tab.propTypes = {
     style: PropTypes.object,
 
     /**
-     * If true,the tabs is FullWidth.
-     */
-    isTabFullWidth: PropTypes.bool,
-
-    /**
      * Children passed into the TabsItem.
      */
     tabs: PropTypes.arrayOf(PropTypes.shape({
@@ -188,7 +183,17 @@ Tab.propTypes = {
          */
         onActive: PropTypes.func
 
-    })).isRequired
+    })).isRequired,
+
+    /**
+     * Activated tab index.
+     */
+    activatedIndex: PropTypes.number,
+
+    /**
+     * If true,the tabs is FullWidth.
+     */
+    isTabFullWidth: PropTypes.bool
 
 };
 
@@ -197,9 +202,10 @@ Tab.defaultProps = {
     className: '',
     style: null,
 
-    isTabFullWidth: true,
+    tabs: [],
 
-    tabs: []
+    activatedIndex: 0,
+    isTabFullWidth: true
 
 };
 
