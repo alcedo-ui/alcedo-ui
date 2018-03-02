@@ -74,7 +74,7 @@ class BaseButton extends Component {
 
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
                 iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer, onMouseEnter, onMouseLeave,
+                tip, tipPosition, renderer,
 
                 ...restProps
 
@@ -103,9 +103,7 @@ class BaseButton extends Component {
                         readOnly={readOnly}
                         onTouchTap={this.touchTapHandler}
                         onFocus={this.focusHandler}
-                        onBlur={this.blurHandler}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}>
+                        onBlur={this.blurHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -193,9 +191,7 @@ BaseButton.propTypes = {
     renderer: PropTypes.func,
     onTouchTap: PropTypes.func,
     onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+    onBlur: PropTypes.func
 
 };
 
