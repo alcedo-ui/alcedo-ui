@@ -13,7 +13,7 @@ body.dialog-modal-lock {
     overflow: hidden;
     color: $theme-field;
     background: none;
-    z-index: $dialog-z-index;
+    z-index: $pop-z-index;
 
     .dialog-title {
         position: relative;
