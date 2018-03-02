@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 
-import TextField from 'src/TextField';
 import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialProvider from 'src/MaterialProvider';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
-import Theme from 'src/Theme';
+import MaterialTextField from 'src/MaterialTextField';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Toast.json';
@@ -98,7 +97,9 @@ export default class ToastExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <MaterialProvider label="MesTypesage">
+                                <MaterialProvider label="MesTypesage"
+                                                  isLabelAnimate={false}
+                                                  useSeparator={false}>
                                     <ButtonRadioGroup data={this.Type}
                                                       value={type}
                                                       onChange={value => {
@@ -106,12 +107,12 @@ export default class ToastExamples extends Component {
                                                       }}/>
                                 </MaterialProvider>
 
-                                <MaterialProvider label="Message">
-                                    <TextField value={message}
-                                               onChange={value => {
-                                                   this.updateField('message', value);
-                                               }}/>
-                                </MaterialProvider>
+                                <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
+                                                   label="Message"
+                                                   value={message}
+                                                   onChange={value => {
+                                                       this.updateField('message', value);
+                                                   }}/>
 
                                 <div className="button-group-wrapper">
 
