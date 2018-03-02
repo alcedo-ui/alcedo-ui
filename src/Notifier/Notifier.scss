@@ -4,7 +4,7 @@
  */
 
 .position-pop.notifier {
-    z-index: $toast-z-index;
+    z-index: $pop-z-index;
     padding: 16px;
 
     &.notifier-top-left,
