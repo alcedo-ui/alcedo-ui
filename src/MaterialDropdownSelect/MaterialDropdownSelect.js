@@ -57,7 +57,7 @@ class MaterialDropdownSelect extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, required, selectMode,
+                className, style, theme, label, isLabelAnimate, disabled, required, selectMode,
                 ...restProps
             } = this.props,
             {value} = this.state,
@@ -73,14 +73,14 @@ class MaterialDropdownSelect extends Component {
                               label={label}
                               isLabelAnimate={isLabelAnimate}
                               hasValue={selectMode === SelectMode.MULTI_SELECT ? value && value.length > 0 : !!value}
+                              disabled={disabled}
                               required={required}>
-
                 <DropdownSelect {...restProps}
                                 ref="dropdownSelect"
                                 value={value}
                                 selectMode={selectMode}
+                                disabled={disabled}
                                 onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
