@@ -15,6 +15,10 @@
     }
 }
 
+@mixin icon-button-disabled {
+    color: $theme-field-disabled;
+}
+
 .base-button.icon-button {
     border: none;
     padding: 0;
@@ -25,11 +29,11 @@
     }
 
     &[disabled] {
-        color: $theme-field-disabled;
+        @include icon-button-disabled;
 
         &:hover,
         &:active {
-            color: $theme-field-disabled;
+            @include icon-button-disabled;
         }
     }
 
