@@ -50,7 +50,7 @@ class MaterialTextField extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, required,
+                className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
             {value} = this.state,
@@ -66,11 +66,13 @@ class MaterialTextField extends Component {
                               label={label}
                               isLabelAnimate={isLabelAnimate}
                               hasValue={!!value}
+                              disabled={disabled}
                               required={required}>
 
                 <TextField {...restProps}
                            theme={theme}
                            value={value}
+                           disabled={disabled}
                            required={required}
                            onChange={this.triggerChangeHandler}/>
 
