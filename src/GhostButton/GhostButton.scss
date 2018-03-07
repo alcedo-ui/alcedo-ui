@@ -18,26 +18,23 @@
     }
 }
 
+@mixin ghost-button-disabled {
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+    border-color: $theme-border-disabled;
+}
+
 .ghost-button {
     background-color: transparent;
     border-width: 1px;
     border-style: solid;
 
     &[disabled] {
-        color: $theme-field-disabled ;
-        background-color: $theme-field-bg-disabled;
-        border-color: $theme-border-disabled ;
+        @include ghost-button-disabled;
 
-        &:hover {
-            color: $theme-field-disabled ;
-            background-color: $theme-field-bg-disabled;
-            border-color: $theme-border-disabled ;
-        }
-
+        &:hover,
         &:active {
-            color: $theme-field-disabled ;
-            background-color: $theme-field-bg-disabled;
-            border-color: $theme-border-disabled ;
+            @include ghost-button-disabled;
         }
     }
 
