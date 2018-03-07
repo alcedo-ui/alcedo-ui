@@ -3,6 +3,10 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin material-tree-select-disabled {
+    background-color: transparent;
+}
+
 .material-tree-select {
     position: relative;
     width: 400px;
@@ -33,6 +37,16 @@
         &.focused {
             .base-button-value {
                 opacity: 1;
+            }
+        }
+    }
+
+    &[disabled] {
+        .dropdown-trigger {
+            @include material-tree-select-disabled;
+
+            &:hover {
+                @include material-tree-select-disabled;
             }
         }
     }
