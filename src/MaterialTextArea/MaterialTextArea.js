@@ -69,7 +69,6 @@ class MaterialTextArea extends Component {
                               hasValue={!!value}
                               disabled={disabled}
                               required={required}>
-
                 <TextArea {...restProps}
                           theme={theme}
                           value={value}
@@ -77,7 +76,6 @@ class MaterialTextArea extends Component {
                           required={required}
                           wordCountVisible={wordCountVisible}
                           onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
