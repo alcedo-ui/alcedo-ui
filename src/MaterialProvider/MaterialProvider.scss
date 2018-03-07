@@ -84,4 +84,14 @@
             }
         }
     }
+
+    &[disabled] {
+        .material-provider-label-wrapper {
+            color: $theme-label-disabled;
+        }
+
+        .material-provider-field {
+            background-color: transparent;
+        }
+    }
 }
