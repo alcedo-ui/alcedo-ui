@@ -57,7 +57,7 @@ class MaterialTreeSelect extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, required,
+                className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
             {value} = this.state,
@@ -73,11 +73,13 @@ class MaterialTreeSelect extends Component {
                               label={label}
                               isLabelAnimate={isLabelAnimate}
                               hasValue={value && value.length > 0}
+                              disabled={disabled}
                               required={required}>
 
                 <TreeSelect {...restProps}
                             ref="treeSelect"
                             value={value}
+                            disabled={disabled}
                             onChange={this.triggerChangeHandler}/>
 
             </MaterialProvider>

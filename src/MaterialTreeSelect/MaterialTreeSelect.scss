@@ -36,4 +36,14 @@
             }
         }
     }
+
+    &[disabled] {
+        .dropdown-trigger {
+            background-color: transparent;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
 }
