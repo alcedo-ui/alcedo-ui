@@ -35,10 +35,24 @@
     }
 
     &[disabled] {
-        box-shadow: none !important;
-        color: $theme-field-disabled !important;
-        background-color: $theme-field-bg-disabled !important;
-        border-color: $theme-border-disabled !important;
+        box-shadow: none;
+        color: $theme-field-disabled;
+        background-color: $theme-field-bg-disabled;
+        border-color: $theme-border-disabled;
+
+        &:hover {
+            box-shadow: none;
+            color: $theme-field-disabled;
+            background-color: $theme-field-bg-disabled;
+            border-color: $theme-border-disabled;
+        }
+
+        &:active {
+            box-shadow: none;
+            color: $theme-field-disabled;
+            background-color: $theme-field-bg-disabled;
+            border-color: $theme-border-disabled;
+        }
     }
 
     // default theme
