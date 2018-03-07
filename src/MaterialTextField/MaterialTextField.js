@@ -68,14 +68,12 @@ class MaterialTextField extends Component {
                               hasValue={!!value}
                               disabled={disabled}
                               required={required}>
-
                 <TextField {...restProps}
                            theme={theme}
                            value={value}
                            disabled={disabled}
                            required={required}
                            onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
