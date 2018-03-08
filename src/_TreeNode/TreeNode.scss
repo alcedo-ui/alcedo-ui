@@ -18,6 +18,18 @@
     }
 }
 
+@mixin tree-node-readonly {
+    cursor: default;
+    color: $theme-field;
+    background: $theme-field-bg;
+}
+
+@mixin tree-node-disabled {
+    cursor: not-allowed;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+}
+
 .tree-node-wrapper {
 
     .tree-node {
@@ -102,15 +114,21 @@
         }
 
         &[readonly] {
-            cursor: default;
-            color: $theme-field !important;
-            background: $theme-field-bg !important;
+            @include tree-node-readonly;
+
+            &:hover,
+            &:active {
+                @include tree-node-readonly;
+            }
         }
 
         &[disabled] {
-            cursor: not-allowed;
-            color: $theme-field-disabled !important;
-            background-color: $theme-field-bg-disabled !important;
+            @include tree-node-disabled;
+
+            &:hover,
+            &:active {
+                @include tree-node-disabled;
+            }
         }
 
         &:hover {
