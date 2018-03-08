@@ -179,6 +179,11 @@ Radio.propTypes = {
     label: PropTypes.any,
 
     /**
+     * Value for radio.
+     */
+    value: PropTypes.any,
+
+    /**
      * If true,the radio will be checked.
      */
     checked: PropTypes.bool,
@@ -216,6 +221,7 @@ Radio.defaultProps = {
 
     name: null,
     label: null,
+    value: '',
     checked: false,
     uncheckedIconCls: 'far fa-circle',
     checkedIconCls: 'fas fa-dot-circle',
