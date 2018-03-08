@@ -41,9 +41,17 @@ class Dropdown extends Component {
         this.setState({
             popupVisible
         }, () => {
-            const {onTriggerTouchTap, onFocus, onBlur} = this.props;
+
+            const {onTriggerTouchTap, onFocus, onBlur, onOpenPopup} = this.props;
             onTriggerTouchTap && onTriggerTouchTap(popupVisible);
-            popupVisible ? (onFocus && onFocus(e)) : (onBlur && onBlur(e));
+
+            if (popupVisible) {
+                onFocus && onFocus(e);
+                onOpenPopup && onOpenPopup(e);
+            } else {
+                onBlur && onBlur(e);
+            }
+
         });
 
     }
@@ -213,7 +221,12 @@ Dropdown.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
-     * Callback function fired when the popup is closed.
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
      */
     onClosePopup: PropTypes.func,
 
