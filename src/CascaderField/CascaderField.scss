@@ -44,18 +44,15 @@
     }
 }
 
-.cascader-popup {
+.popup.cascader-popup {
     box-sizing: border-box;
+    width: auto;
     margin: 0;
     background: transparent;
-    box-shadow: none !important;
+    box-shadow: none;
     overflow: visible;
-    border: none !important;
-    border-radius: 0 !important;
-
-    &.popup{
-        width: auto;
-    }
+    border: none;
+    border-radius: 0;
 
     .popup-content {
         @include float-fix;
