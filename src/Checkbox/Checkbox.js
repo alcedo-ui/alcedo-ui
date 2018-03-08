@@ -181,11 +181,6 @@ Checkbox.propTypes = {
     label: PropTypes.any,
 
     /**
-     * Value for checkbox.
-     */
-    value: PropTypes.any,
-
-    /**
      * If true,the checkbox will be checked.
      */
     checked: PropTypes.bool,
@@ -228,7 +223,6 @@ Checkbox.defaultProps = {
 
     name: null,
     label: null,
-    value: '',
     checked: false,
     indeterminate: false,
     uncheckedIconCls: 'far fa-square',
