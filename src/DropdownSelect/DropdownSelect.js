@@ -29,8 +29,7 @@ class DropdownSelect extends Component {
 
         this.state = {
             value: props.value,
-            filter: '',
-            popupVisible: false
+            filter: ''
         };
 
         this.closePopup = ::this.closePopup;
@@ -137,12 +136,8 @@ class DropdownSelect extends Component {
     }
 
     popupClosedHandler(e) {
-        this.setState({
-            popupVisible: false
-        }, () => {
-            const {onClosePopup} = this.props;
-            onClosePopup && onClosePopup(e);
-        });
+        const {onClosePopup} = this.props;
+        onClosePopup && onClosePopup(e);
     }
 
     getEmptyEl() {
@@ -216,7 +211,7 @@ class DropdownSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state,
+            {value, filter} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
@@ -224,7 +219,6 @@ class DropdownSelect extends Component {
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
-                activated: popupVisible,
                 empty: !value,
                 [triggerClassName]: triggerClassName
             }),
