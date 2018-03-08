@@ -34,7 +34,7 @@
     }
 }
 
-.auto-complete-filter-popup {
+.popup.auto-complete-filter-popup {
     box-sizing: border-box;
     max-height: 240px;
     border: 1px solid $theme-border;
@@ -43,7 +43,7 @@
     overflow-y: auto;
 
     .popup-content {
-        border-radius: 0 !important;
+        border-radius: 0;
 
         .auto-complete-filter-list,
         .list {
