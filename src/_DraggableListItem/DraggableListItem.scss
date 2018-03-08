@@ -18,6 +18,18 @@
     }
 }
 
+@mixin draggable-list-item-readonly {
+    cursor: default;
+    color: $theme-field;
+    background: $theme-field-bg;
+}
+
+@mixin draggable-list-item-disabled {
+    cursor: not-allowed;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+}
+
 .draggable-list-item {
     display: block;
     width: 100%;
@@ -92,7 +104,7 @@
         height: 40px;
         text-align: center;
         line-height: 40px;
-        color: $theme-secondary !important;
+        color: $theme-secondary;
         cursor: move;
     }
 
@@ -105,15 +117,21 @@
     }
 
     &[readonly] {
-        cursor: default;
-        color: $theme-field !important;
-        background: $theme-field-bg !important;
+        @include draggable-list-item-readonly;
+
+        &:hover,
+        &:active {
+            @include draggable-list-item-readonly;
+        }
     }
 
     &[disabled] {
-        cursor: not-allowed;
-        color: $theme-field-disabled !important;
-        background-color: $theme-field-bg-disabled !important;
+        @include draggable-list-item-disabled;
+
+        &:hover,
+        &:active {
+            @include draggable-list-item-disabled;
+        }
     }
 
     &:hover {
