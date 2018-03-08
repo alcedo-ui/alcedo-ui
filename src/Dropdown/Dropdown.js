@@ -85,7 +85,7 @@ class Dropdown extends Component {
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
 
                 // trigger
-                triggerValue, rightIconCls, disabled, disableTouchRipple,
+                iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple,
 
                 // events
                 onMouseOver, onMouseOut
@@ -117,6 +117,7 @@ class Dropdown extends Component {
                               style={triggerStyle}
                               theme={theme}
                               value={triggerValue}
+                              iconCls={iconCls}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
@@ -193,6 +194,7 @@ Dropdown.propTypes = {
      */
     triggerValue: PropTypes.any,
 
+    iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
 
     /**
@@ -234,6 +236,7 @@ Dropdown.defaultProps = {
     popupTheme: Theme.DEFAULT,
 
     triggerValue: null,
+    iconCls: null,
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,
