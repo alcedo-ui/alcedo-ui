@@ -94,6 +94,7 @@ class Dropdown extends Component {
             {popupVisible, isAbove} = this.state,
 
             dropdownClassName = classNames('dropdown', {
+                activated: popupVisible,
                 [className]: className
             }),
             buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
