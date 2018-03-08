@@ -62,10 +62,10 @@
         }
     }
 
-    .switcher-slider-wrapper {
-        width: 50px !important;
-        height: 50px !important;
-        padding: 10px !important;
+    .icon-button.switcher-slider-wrapper {
+        width: 50px;
+        height: 50px;
+        padding: 10px;
         position: absolute;
         top: 0;
         left: 0;
@@ -101,8 +101,8 @@
             border-radius: 5px;
         }
 
-        .switcher-slider-wrapper {
-            padding: 11px !important;
+        .icon-button.switcher-slider-wrapper {
+            padding: 11px;
             transform: translate(10px, -10px);
 
             .switcher-slider {
@@ -122,7 +122,7 @@
             background-color: $theme-field-bg-disabled;
         }
 
-        .switcher-slider-wrapper {
+        .icon-button.switcher-slider-wrapper {
             cursor: not-allowed;
 
             .switcher-slider {
@@ -154,11 +154,11 @@
             }
         }
 
-        .switcher-slider-wrapper {
+        .icon-button.switcher-slider-wrapper {
             width: 40px;
             height: 40px;
             padding: 8px;
-            transform: translate(-11px, -13px);
+            transform: translate(-8px, -8px);
 
             .switcher-slider {
                 width: 24px;
@@ -173,9 +173,9 @@
         }
 
         &.activated {
-            .switcher-slider-wrapper {
+            .icon-button.switcher-slider-wrapper {
                 padding: 9px;
-                transform: translate(6px, -13px);
+                transform: translate(8px, -8px);
 
                 .switcher-slider {
                     width: 22px;
