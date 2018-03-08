@@ -34,15 +34,6 @@
     overflow: hidden;
     background-color: transparent;
 
-    &[disabled] {
-        @include icon-anchor-disabled;
-
-        &:hover,
-        &:active {
-            @include icon-anchor-disabled;
-        }
-    }
-
     // default theme
     @include icon-anchor-theme($theme-field);
 
@@ -69,4 +60,13 @@
         @include icon-anchor-theme($theme-error);
     }
 
+    &[disabled] {
+        @include icon-anchor-disabled;
+        cursor: not-allowed;
+
+        &:hover,
+        &:active {
+            @include icon-anchor-disabled;
+        }
+    }
 }
