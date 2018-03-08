@@ -15,7 +15,7 @@
     }
 }
 
-.dropdown-select-popup {
+.popup.dropdown-select-popup {
 
     .popup-content {
 
@@ -28,7 +28,7 @@
 
             .dropdown-select-filter {
                 border: none;
-                border-bottom: 1px solid $theme-border !important;
+                border-bottom: 1px solid $theme-border;
                 border-radius: 0;
                 width: 100%;
                 height: 40px;
