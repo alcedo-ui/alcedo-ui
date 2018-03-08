@@ -15,9 +15,10 @@
     .dropdown {
         width: 100%;
 
-        .dropdown-trigger {
+        .raised-button.dropdown-trigger.material-provider-field-trigger {
             width: 100%;
-            opacity: 1 !important;
+            opacity: 1;
+            box-shadow: none;
         }
     }
 
