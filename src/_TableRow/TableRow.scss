@@ -31,14 +31,6 @@
         background: theme-color-hover($theme-secondary);
 
         td {
-
-            &.actions {
-
-                .delete-icon {
-                    color: $theme-error !important;
-                }
-            }
-
             a {
                 text-decoration: underline;
             }
@@ -46,7 +38,8 @@
     }
 
     &[disabled] {
-        background: $theme-field-bg-disabled !important;
+        color: $theme-field-disabled;
+        background: $theme-field-bg-disabled;
 
         td {
             cursor: not-allowed;
