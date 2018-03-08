@@ -130,7 +130,7 @@
     }
 }
 
-.multiple-select-popup {
+.popup.multiple-select-popup {
     max-height: 300px;
     box-sizing: border-box;
     border: 1px solid $theme-border;
@@ -139,7 +139,7 @@
     overflow-y: auto;
 
     .popup-content {
-        border-radius: 0 !important;
+        border-radius: 0;
 
         .multiple-select-list {
             width: 100%;
