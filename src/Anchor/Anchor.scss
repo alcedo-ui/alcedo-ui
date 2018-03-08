@@ -15,6 +15,10 @@
     }
 }
 
+@mixin anchor-disabled {
+    color: $theme-field-disabled;
+}
+
 .anchor {
     display: inline-block;
     cursor: pointer;
@@ -42,8 +46,13 @@
     }
 
     &[disabled] {
-        color: $theme-field-disabled !important;
+        @include anchor-disabled;
         cursor: not-allowed;
+
+        &:hover,
+        &:active {
+            @include anchor-disabled;
+        }
     }
 
     // default theme
