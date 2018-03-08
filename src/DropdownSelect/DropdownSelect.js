@@ -29,7 +29,8 @@ class DropdownSelect extends Component {
 
         this.state = {
             value: props.value,
-            filter: ''
+            filter: '',
+            popupVisible: false
         };
 
         this.closePopup = ::this.closePopup;
@@ -38,7 +39,8 @@ class DropdownSelect extends Component {
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.itemTouchTapHandler = ::this.itemTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
+        this.popupOpenHandler = ::this.popupOpenHandler;
+        this.popupCloseHandler = ::this.popupCloseHandler;
         this.getEmptyEl = ::this.getEmptyEl;
         this.getTriggerValue = ::this.getTriggerValue;
 
@@ -135,9 +137,22 @@ class DropdownSelect extends Component {
 
     }
 
-    popupClosedHandler(e) {
-        const {onClosePopup} = this.props;
-        onClosePopup && onClosePopup(e);
+    popupOpenHandler(e) {
+        this.setState({
+            popupVisible: true
+        }, () => {
+            const {onOpenPopup} = this.props;
+            onOpenPopup && onOpenPopup(e);
+        });
+    }
+
+    popupCloseHandler(e) {
+        this.setState({
+            popupVisible: false
+        }, () => {
+            const {onClosePopup} = this.props;
+            onClosePopup && onClosePopup(e);
+        });
     }
 
     getEmptyEl() {
@@ -211,11 +226,12 @@ class DropdownSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter} = this.state,
+            {value, filter, popupVisible} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
             selectClassName = classNames('dropdown-select', {
+                activated: popupVisible,
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
@@ -247,7 +263,8 @@ class DropdownSelect extends Component {
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}
-                          onClosePopup={this.popupClosedHandler}>
+                          onOpenPopup={this.popupOpenHandler}
+                          onClosePopup={this.popupCloseHandler}>
 
                     <div className="dropdown-select-popup-fixed">
 
@@ -538,6 +555,11 @@ DropdownSelect.propTypes = {
      * Callback function fired when the button is touch-tapped.
      */
     onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is opened.
+     */
+    onOpenPopup: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
