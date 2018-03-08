@@ -557,12 +557,12 @@ DropdownSelect.propTypes = {
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when the popup is opened.
+     * Callback function fired when the popup is open.
      */
     onOpenPopup: PropTypes.func,
 
     /**
-     * Callback function fired when the popup is closed.
+     * Callback function fired when the popup is close.
      */
     onClosePopup: PropTypes.func,
 
