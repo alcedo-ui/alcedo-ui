@@ -28,15 +28,15 @@ function isNumber(value) {
 }
 
 function isInteger(value) {
-    return Number.isInteger(value);
+    return /^\-?\d+$/.test(value);
 }
 
 function isPositiveInteger(value) {
-    return isInteger(value) && value > 0;
+    return /^\d+$/.test(value) && value > 0;
 }
 
 function isNonnegativeInteger(value) {
-    return isInteger(value) && value >= 0;
+    return /^\d+$/.test(value) && value >= 0;
 }
 
 function isNegativeInteger(value) {
