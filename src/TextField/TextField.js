@@ -96,8 +96,8 @@ class TextField extends Component {
 
         if (this.isNumberType(type)) {
 
-            if (isNaN(value)) {
-                invalidMsgs.push('Not a valid number');
+            if (type === FieldType.NUMBER && !Valid.isNumber(value)) {
+                invalidMsgs.push('Not a valid integer');
             }
 
             if (type === FieldType.INTEGER && !Valid.isInteger(value)) {
@@ -112,11 +112,11 @@ class TextField extends Component {
                 invalidMsgs.push('Not a valid nonnegative integer');
             }
 
-            if (type === FieldType.NEGATIVE_INTEGER && (!Valid.isInteger(value) || value >= 0)) {
+            if (type === FieldType.NEGATIVE_INTEGER && !Valid.isNegativeInteger(value)) {
                 invalidMsgs.push('Not a valid negative integer');
             }
 
-            if (type === FieldType.NONPOSITIVE_INTEGER && (!Valid.isInteger(value) || value > 0)) {
+            if (type === FieldType.NONPOSITIVE_INTEGER && !Valid.isNonpositiveInteger(value)) {
                 invalidMsgs.push('Not a valid nonpositive integer');
             }
 
@@ -140,12 +140,12 @@ class TextField extends Component {
 
     changeHandler(e) {
 
-        const {preventInvalidInput, onValid, onInvalid} = this.props,
+        const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
             invalidMsgs = this.valid(value);
 
-        if (preventInvalidInput && invalidMsgs && invalidMsgs.length > 0) {
+        if (invalidMsgs && invalidMsgs.length > 0) {
             return;
         }
 
@@ -299,7 +299,7 @@ class TextField extends Component {
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, preventInvalidInput, isFocusedSelectAll,
+                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -641,7 +641,6 @@ TextField.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
-    preventInvalidInput: false,
 
     autoComplete: 'off',
     autoCorrect: 'off',
