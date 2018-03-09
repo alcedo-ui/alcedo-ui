@@ -100,25 +100,23 @@ class TextField extends Component {
                 invalidMsgs.push('Not a valid number');
             }
 
-            value = Number(value);
-
-            if (type === FieldType.INTEGER && !_.isInteger(value)) {
+            if (type === FieldType.INTEGER && !Valid.isInteger(value)) {
                 invalidMsgs.push('Not a valid integer');
             }
 
-            if (type === FieldType.POSITIVE_INTEGER && (!_.isInteger(value) || value < 0)) {
+            if (type === FieldType.POSITIVE_INTEGER && !Valid.isPositiveInteger(value)) {
                 invalidMsgs.push('Not a valid positive integer');
             }
 
-            if (type === FieldType.NONNEGATIVE_INTEGER && (!_.isInteger(value) || value <= 0)) {
+            if (type === FieldType.NONNEGATIVE_INTEGER && !Valid.isNonnegativeInteger(value)) {
                 invalidMsgs.push('Not a valid nonnegative integer');
             }
 
-            if (type === FieldType.NEGATIVE_INTEGER && (!_.isInteger(value) || value >= 0)) {
+            if (type === FieldType.NEGATIVE_INTEGER && (!Valid.isInteger(value) || value >= 0)) {
                 invalidMsgs.push('Not a valid negative integer');
             }
 
-            if (type === FieldType.NONPOSITIVE_INTEGER && (!_.isInteger(value) || value > 0)) {
+            if (type === FieldType.NONPOSITIVE_INTEGER && (!Valid.isInteger(value) || value > 0)) {
                 invalidMsgs.push('Not a valid nonpositive integer');
             }
 
