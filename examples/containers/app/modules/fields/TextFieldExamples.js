@@ -172,17 +172,48 @@ export default class TextFieldExamples extends Component {
                                                clearButtonVisible={false}/>
                                 </div>
 
+                                <div>NUMBER</div>
+                                <div className="field-group">
+                                    <TextField type={TextField.Type.NUMBER}
+                                               fieldMsgVisible={true}/>
+                                </div>
+
+                                <div>Integer</div>
+                                <div className="field-group">
+                                    <TextField type={TextField.Type.INTEGER}
+                                               fieldMsgVisible={true}/>
+                                </div>
+
                                 <div>Positive Integer</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.POSITIVE_INTEGER}
-                                               preventInvalidInput={true}/>
+                                               fieldMsgVisible={true}/>
+                                </div>
+
+                                <div>Nonnegative Integer</div>
+                                <div className="field-group">
+                                    <TextField type={TextField.Type.NONNEGATIVE_INTEGER}
+                                               fieldMsgVisible={true}/>
+                                </div>
+
+                                <div>Negative Integer</div>
+                                <div className="field-group">
+                                    <TextField type={TextField.Type.NEGATIVE_INTEGER}
+                                               fieldMsgVisible={true}/>
+                                </div>
+
+                                <div>Nonpositive Integer</div>
+                                <div className="field-group">
+                                    <TextField type={TextField.Type.NONPOSITIVE_INTEGER}
+                                               fieldMsgVisible={true}/>
                                 </div>
 
                                 <div>Min / Max</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.NUMBER}
                                                min={0}
-                                               max={100}/>
+                                               max={100}
+                                               fieldMsgVisible={true}/>
                                 </div>
 
                                 <div>Pattern</div>
