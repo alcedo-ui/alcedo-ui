@@ -97,7 +97,7 @@ class TextField extends Component {
         if (this.isNumberType(type)) {
 
             if (type === FieldType.NUMBER && !Valid.isNumber(value)) {
-                invalidMsgs.push('Not a valid integer');
+                invalidMsgs.push('Not a valid number');
             }
 
             if (type === FieldType.INTEGER && !Valid.isInteger(value)) {
@@ -144,10 +144,6 @@ class TextField extends Component {
 
             value = e.target.value,
             invalidMsgs = this.valid(value);
-
-        if (invalidMsgs && invalidMsgs.length > 0) {
-            return;
-        }
 
         this.setState({
             value,
