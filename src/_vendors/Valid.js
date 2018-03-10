@@ -24,19 +24,19 @@ function isWindows() {
 };
 
 function isNumber(value) {
-    return !Number.isNaN(value);
+    return !isNaN(value);
 }
 
 function isInteger(value) {
-    return /^\-?\d+$/.test(value);
+    return /^(0|-?[0-9][1-9]*)$/.test(value);
 }
 
 function isPositiveInteger(value) {
-    return /^\d+$/.test(value) && value > 0;
+    return isInteger(value) && value > 0;
 }
 
 function isNonnegativeInteger(value) {
-    return /^\d+$/.test(value) && value >= 0;
+    return isInteger(value) && value >= 0;
 }
 
 function isNegativeInteger(value) {
