@@ -3,77 +3,13 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@mixin field-msg-theme($color, $bg-color) {
-
-    .triangle {
-        border-top: none;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 6px solid transparentize($bg-color, .1);
-    }
-
-    .msg-wrap {
-        top: 6px;
-        background: transparentize($bg-color, .1);
-        color: $color;
-    }
-}
-
 .field-msg {
     position: absolute;
     height: 36px;
     z-index: $field-msg-z-index;
 
-    .triangle {
-        width: 0;
-        height: 0;
-        position: absolute;
-        left: 6px;
-        border-top: none;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 6px solid transparent;
-    }
-
-    .msg-wrap {
-        position: absolute;
-        height: 30px;
-        line-height: 30px;
-        padding: 0 9px;
-        border-radius: $theme-border-radius;
-        white-space: nowrap;
-        word-break: break-all;
-
-        &.multi-line {
-            .msg {
-                padding-top: 3px;
-                white-space: normal;
-                line-height: 24px;
-                box-sizing: border-box;
-            }
-        }
-    }
-
-    .test-char-width-div {
-        @include invisible;
-    }
-
-    @include field-msg-theme($theme-field, $theme-border);
-
-    &.theme-info {
-        @include field-msg-theme(#fff, $theme-primary);
-        top: -36px;
-    }
-
-    &.theme-success {
-        @include field-msg-theme(#fff, $theme-success);
-    }
-
-    &.theme-warning {
-        @include field-msg-theme(#fff, $theme-warning);
-    }
-
-    &.theme-error {
-        @include field-msg-theme(#fff, $theme-error);
+    .popover-content {
+        padding: 8px;
+        line-height: 20px;
     }
 }
