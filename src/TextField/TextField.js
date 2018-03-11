@@ -406,21 +406,14 @@ class TextField extends Component {
                         null
                 }
 
-                {
-                    fieldMsgVisible && infoVisible && infoMsg ?
-                        <FieldMsg type="info"
-                                  msg={infoMsg}/>
-                        :
-                        null
-                }
+                <FieldMsg type="info"
+                          msg={infoMsg}
+                          visible={fieldMsgVisible && infoVisible && infoMsg}
+                          position={FieldMsg.Position.TOP_LEFT}/>
 
-                {
-                    fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0 ?
-                        <FieldMsg type="error"
-                                  msg={invalidMsgs.join(', ')}/>
-                        :
-                        null
-                }
+                <FieldMsg type="error"
+                          msg={invalidMsgs.join(', ')}
+                          visible={fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0}/>
 
                 {children}
 
