@@ -412,7 +412,7 @@ class TextField extends Component {
                           position={FieldMsg.Position.TOP_LEFT}/>
 
                 <FieldMsg type="error"
-                          msg={invalidMsgs.join(', ')}
+                          msg={invalidMsgs && invalidMsgs.join(', ')}
                           visible={fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0}/>
 
                 {children}
