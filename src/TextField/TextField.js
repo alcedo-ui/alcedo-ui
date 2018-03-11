@@ -270,11 +270,12 @@ class TextField extends Component {
 
     componentDidMount() {
 
-        if (this.props.autoFocus === true) {
-            this.refs.input.focus();
-        }
-
+        this.inputEl = this.refs.input;
         this.clearButtonEl = findDOMNode(this.refs.clearButton);
+
+        if (this.props.autoFocus === true) {
+            this.inputEl.focus();
+        }
 
     }
 
@@ -409,11 +410,13 @@ class TextField extends Component {
                 <FieldMsg type="info"
                           msg={infoMsg}
                           visible={!!(fieldMsgVisible && infoVisible && infoMsg)}
+                          triggerEl={this.inputEl}
                           position={FieldMsg.Position.TOP_LEFT}/>
 
                 <FieldMsg type="error"
                           msg={invalidMsgs && invalidMsgs.join(', ')}
-                          visible={!!(fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0)}/>
+                          visible={!!(fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0)}
+                          triggerEl={this.inputEl}/>
 
                 {children}
 
