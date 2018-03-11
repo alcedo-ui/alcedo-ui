@@ -364,7 +364,6 @@ MaterialDatePickerTextField.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
-    preventInvalidInput: false,
 
     autoComplete: 'off',
     autoCorrect: 'off',
