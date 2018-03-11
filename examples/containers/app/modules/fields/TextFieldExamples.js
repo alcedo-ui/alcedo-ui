@@ -169,7 +169,8 @@ export default class TextFieldExamples extends Component {
                                 <div>Required</div>
                                 <div className="field-group">
                                     <TextField required={true}
-                                               clearButtonVisible={false}/>
+                                               clearButtonVisible={false}
+                                               fieldMsgVisible={true}/>
                                 </div>
 
                                 <div>NUMBER</div>
