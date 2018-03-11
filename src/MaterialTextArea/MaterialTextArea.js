@@ -286,7 +286,6 @@ MaterialTextArea.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
-    preventInvalidInput: false,
 
     fieldMsgVisible: false
 
