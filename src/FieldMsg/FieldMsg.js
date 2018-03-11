@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Popover from '../Popover';
+import Tip from '../Tip';
 
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
@@ -31,18 +31,19 @@ class FieldMsg extends Component {
             });
 
         return (
-            <Popover className={wrapperClassName}
-                     style={style}
-                     theme={type}
-                     visible={visible}
-                     triggerEl={triggerEl}
-                     position={position}>
+            <Tip className={wrapperClassName}
+                 contentClassName="field-msg-content"
+                 style={style}
+                 theme={type}
+                 visible={visible}
+                 triggerEl={triggerEl}
+                 position={position}>
 
                 {msg}
 
                 {children}
 
-            </Popover>
+            </Tip>
         );
 
     }
