@@ -125,7 +125,7 @@ class TextArea extends Component {
 
     changeHandler(e) {
 
-        const {preventInvalidInput, onValid, onInvalid} = this.props,
+        const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
             invalidMsgs = this.valid(value);
@@ -133,10 +133,6 @@ class TextArea extends Component {
         if (this.props.autoHeight) {
             this.inputEl.style.height = this.inputElInitHeight + 'px';
             this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
-        }
-
-        if (preventInvalidInput && invalidMsgs.length > 0) {
-            return;
         }
 
         this.setState({
@@ -288,7 +284,7 @@ class TextArea extends Component {
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, preventInvalidInput, isFocusedSelectAll,
+                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -638,7 +634,6 @@ TextArea.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
-    preventInvalidInput: false,
 
     fieldMsgVisible: false
 
