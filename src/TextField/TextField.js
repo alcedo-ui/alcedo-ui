@@ -7,7 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
-import _ from 'lodash';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -71,30 +70,26 @@ class TextField extends Component {
 
     valid(value) {
 
-        if (value === '') {
-            return;
-        }
-
         const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
         let invalidMsgs = [];
-
-        if (type === FieldType.EMAIL && !Valid.isEmail(value)) {
-            invalidMsgs.push('Invalid E-mail address');
-        }
-
-        if (type === FieldType.URL && !Valid.isUrl(value)) {
-            invalidMsgs.push('Invalid url');
-        }
 
         if (required === true && value === '') {
             invalidMsgs.push('Required');
         }
 
-        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value.length > maxLength) {
+        if (type === FieldType.EMAIL && value && !Valid.isEmail(value)) {
+            invalidMsgs.push('Invalid E-mail address');
+        }
+
+        if (type === FieldType.URL && value && !Valid.isUrl(value)) {
+            invalidMsgs.push('Invalid url');
+        }
+
+        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value && value.length > maxLength) {
             invalidMsgs.push(`Max length is ${maxLength}`);
         }
 
-        if (this.isNumberType(type)) {
+        if (this.isNumberType(type) && value) {
 
             if (type === FieldType.NUMBER && !Valid.isNumber(value)) {
                 invalidMsgs.push('Not a valid number');
