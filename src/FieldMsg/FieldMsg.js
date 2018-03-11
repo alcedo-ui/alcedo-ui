@@ -15,7 +15,7 @@ import Position from '../_statics/Position';
 
 class FieldMsg extends Component {
 
-    static Type = MsgTyPropTypespe;
+    static Type = MsgType;
     static Position = Position;
 
     constructor(props, ...restArgs) {
