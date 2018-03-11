@@ -54,7 +54,7 @@ FieldMsg.propTypes = {
     style: PropTypes.object,
     type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
-    visible: Position.bool,
+    visible: PropTypes.bool,
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
     msg: PropTypes.any
 
