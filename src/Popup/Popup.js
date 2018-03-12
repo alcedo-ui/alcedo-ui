@@ -97,7 +97,7 @@ class Popup extends Component {
 
         const {
 
-                className,
+                className, contentClassName,
 
                 // not passing down these props
                 triggerHandler, onRequestClose,
@@ -108,13 +108,17 @@ class Popup extends Component {
 
             popupClassName = classNames('popup', {
                 [className]: className
+            }),
+
+            popupContentClassName = classNames('popup-content', {
+                [contentClassName]: contentClassName
             });
 
         return (
             <TriggerPop {...restProps}
                         ref="popup"
                         className={popupClassName}
-                        contentClassName="popup-content"/>
+                        contentClassName={popupContentClassName}/>
         );
     }
 
@@ -126,6 +130,11 @@ Popup.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -214,6 +223,7 @@ Popup.propTypes = {
 Popup.defaultProps = {
 
     className: null,
+    contentClassName: null,
     style: null,
     depth: 6,
 
