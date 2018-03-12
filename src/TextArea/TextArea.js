@@ -34,7 +34,6 @@ class TextArea extends Component {
             invalidMsgs: ''
         };
 
-        this.valid = ::this.valid;
         this.changeHandler = ::this.changeHandler;
         this.keyDownHandler = ::this.keyDownHandler;
         this.clearValue = ::this.clearValue;
@@ -47,88 +46,12 @@ class TextArea extends Component {
 
     }
 
-    isNumberType(type) {
-
-        const {
-            NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
-        } = FieldType;
-
-        return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
-            || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
-
-    }
-
-    valid(value) {
-
-        const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
-        let invalidMsgs = [];
-
-        if (type === FieldType.EMAIL && !Valid.isEmail(value)) {
-            invalidMsgs.push('Invalid E-mail address');
-        }
-
-        if (type === FieldType.URL && !Valid.isUrl(value)) {
-            invalidMsgs.push('Invalid url');
-        }
-
-        if (required === true && value === '') {
-            invalidMsgs.push('Required');
-        }
-
-        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value.length > maxLength) {
-            invalidMsgs.push(`Max length is ${maxLength}`);
-        }
-
-        if (this.isNumberType(type)) {
-
-            if (isNaN(value)) {
-                invalidMsgs.push('Not a valid number');
-            }
-
-            if (type === FieldType.INTEGER && ~~value !== value) {
-                invalidMsgs.push('Not a valid integer');
-            }
-
-            if (type === FieldType.POSITIVE_INTEGER && ~~value !== value && value <= 0) {
-                invalidMsgs.push('Not a valid positive integer');
-            }
-
-            if (type === FieldType.NONNEGATIVE_INTEGER && ~~value !== value && value < 0) {
-                invalidMsgs.push('Not a valid nonnegative integer');
-            }
-
-            if (type === FieldType.NEGATIVE_INTEGER && ~~value !== value && value >= 0) {
-                invalidMsgs.push('Not a valid negative integer');
-            }
-
-            if (type === FieldType.NONPOSITIVE_INTEGER && ~~value !== value && value > 0) {
-                invalidMsgs.push('Not a valid nonpositive integer');
-            }
-
-            if (max !== undefined && +value > max) {
-                invalidMsgs.push(`Maximum value is ${max}`);
-            }
-
-            if (min !== undefined && +value < min) {
-                invalidMsgs.push(`Minimum value is ${min}`);
-            }
-
-        }
-
-        if (pattern !== undefined && !pattern.test(value)) {
-            invalidMsgs.push(patternInvalidMsg);
-        }
-
-        return invalidMsgs;
-
-    }
-
     changeHandler(e) {
 
         const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
-            invalidMsgs = this.valid(value);
+            invalidMsgs = Valid.fieldValid(value, this.props);
 
         if (this.props.autoHeight) {
             this.inputEl.style.height = this.inputElInitHeight + 'px';
@@ -157,7 +80,7 @@ class TextArea extends Component {
 
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
 
-        const invalidMsgs = this.valid('');
+        const invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
             value: '',
@@ -333,7 +256,7 @@ class TextArea extends Component {
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
             inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
-        } else if (this.isNumberType(type)) {
+        } else if (Valid.isNumberType(type)) {
             inputType = 'text';
         }
 
