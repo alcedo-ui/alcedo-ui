@@ -7,7 +7,7 @@ import MaterialTextField from 'src/MaterialTextField';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTextField.json';
 
-export default class MaterialTextFieldExamples extends Component {
+class MaterialTextFieldExamples extends Component {
 
     constructor(props) {
 
@@ -23,7 +23,7 @@ export default class MaterialTextFieldExamples extends Component {
 
     onChangeHandle(value) {
         this.setState({
-            value: value
+            value
         });
     }
 
@@ -119,3 +119,5 @@ export default class MaterialTextFieldExamples extends Component {
         );
     }
 };
+
+export default MaterialTextFieldExamples;
