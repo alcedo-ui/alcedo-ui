@@ -50,6 +50,11 @@ Tip.propTypes = {
     className: PropTypes.string,
 
     /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
+
+    /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
@@ -125,6 +130,7 @@ Tip.propTypes = {
 Tip.defaultProps = {
 
     className: null,
+    contentClassName: null,
     style: null,
     theme: Theme.DARK,
 
