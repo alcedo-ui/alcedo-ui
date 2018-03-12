@@ -34,7 +34,7 @@
     }
 }
 
-.local-auto-complete-popup {
+.popup.local-auto-complete-popup {
     box-sizing: border-box;
     border: 1px solid $theme-border;
     border-top-left-radius: 0;
@@ -42,7 +42,7 @@
     overflow: hidden;
 
     .popup-content {
-        border-radius: 0 !important;
+        border-radius: 0;
 
         .local-auto-complete-list {
             width: 100%;

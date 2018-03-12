@@ -18,15 +18,24 @@
     }
 }
 
+@mixin ghost-button-disabled {
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+    border-color: $theme-border-disabled;
+}
+
 .ghost-button {
     background-color: transparent;
     border-width: 1px;
     border-style: solid;
 
     &[disabled] {
-        color: $theme-field-disabled !important;
-        background-color: $theme-field-bg-disabled !important;
-        border-color: $theme-border-disabled !important;
+        @include ghost-button-disabled;
+
+        &:hover,
+        &:active {
+            @include ghost-button-disabled;
+        }
     }
 
     // default theme

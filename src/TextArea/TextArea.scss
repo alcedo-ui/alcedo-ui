@@ -14,6 +14,10 @@
     }
 }
 
+@mixin text-area-disabled {
+    color: $theme-field-disabled;
+}
+
 textarea,
 textarea:focus {
     outline: none;
@@ -212,8 +216,13 @@ textarea:focus {
 
         .text-area-icon,
         .icon-button {
-            color: $theme-field-disabled !important;
+            @include text-area-disabled;
             cursor: not-allowed;
+
+            &:hover,
+            &:active {
+                @include text-area-disabled;
+            }
         }
 
         .text-area-input,

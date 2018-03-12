@@ -3,20 +3,27 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin material-dropdown-select-disabled {
+    background-color: transparent;
+}
+
 .material-dropdown-select {
     position: relative;
     width: 300px;
     background: $theme-field-bg;
 
     .dropdown-select {
+        box-sizing: border-box;
         width: 100%;
+        height: 40px;
 
         .dropdown {
             width: 100%;
 
-            .dropdown-trigger {
+            .raised-button.dropdown-trigger.material-provider-field-trigger {
                 width: 100%;
-                opacity: 1 !important;
+                opacity: 1;
+                box-shadow: none;
             }
         }
     }
@@ -31,6 +38,16 @@
         &.focused {
             .base-button-value {
                 opacity: 1;
+            }
+        }
+    }
+
+    &[disabled] {
+        .dropdown-trigger {
+            @include material-dropdown-select-disabled;
+
+            &:hover {
+                @include material-dropdown-select-disabled;
             }
         }
     }

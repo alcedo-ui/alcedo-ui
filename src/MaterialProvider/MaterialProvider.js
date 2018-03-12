@@ -44,7 +44,7 @@ class MaterialProvider extends Component {
 
         const {
 
-                children, className, theme, label, isLabelAnimate, hasValue, required, useSeparator,
+                children, className, theme, label, isLabelAnimate, hasValue, disabled, required, useSeparator,
 
                 ...restProps
 
@@ -62,7 +62,8 @@ class MaterialProvider extends Component {
 
         return (
             <div {...restProps}
-                 className={providerClassName}>
+                 className={providerClassName}
+                 disabled={disabled}>
 
                 <div className="material-provider-label-wrapper">
 
@@ -123,7 +124,8 @@ class MaterialProvider extends Component {
                     useSeparator ?
                         <MaterialFieldSeparator theme={theme}
                                                 isHover={isHover}
-                                                isFocus={isFocus}/>
+                                                isFocus={isFocus}
+                                                disabled={disabled}/>
                         :
                         null
                 }
@@ -152,6 +154,7 @@ MaterialProvider.propTypes = {
     isLabelAnimate: PropTypes.bool,
 
     hasValue: PropTypes.bool,
+    disabled: PropTypes.bool,
     required: PropTypes.bool,
 
     useSeparator: PropTypes.bool
@@ -168,6 +171,7 @@ MaterialProvider.defaultProps = {
     isLabelAnimate: true,
 
     hasValue: false,
+    disabled: false,
     required: false,
 
     useSeparator: true

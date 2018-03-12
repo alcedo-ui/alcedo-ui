@@ -149,7 +149,7 @@ class TreeSelect extends Component {
 
         const {
 
-                className, popupClassName, style, name, popupTheme, data, renderer,
+                className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField,
                 onItemTouchTap, popupChildren,
 
@@ -162,9 +162,10 @@ class TreeSelect extends Component {
                 [className]: className
             }),
 
-            triggerClassName = classNames({
+            selectTriggerClassName = classNames({
                 activated: popupVisible,
-                empty: !value
+                empty: !value,
+                [triggerClassName]: triggerClassName
             }),
             selectPopupClassName = classNames('tree-select-popup', {
                 [popupClassName]: popupClassName
@@ -188,7 +189,7 @@ class TreeSelect extends Component {
 
                 <Dropdown {...restProps}
                           ref="dropdown"
-                          triggerClassName={triggerClassName}
+                          triggerClassName={selectTriggerClassName}
                           popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}
@@ -230,6 +231,11 @@ TreeSelect.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
 
     /**
      * The class name of the popup element.
@@ -431,6 +437,7 @@ TreeSelect.propTypes = {
 TreeSelect.defaultProps = {
 
     className: null,
+    triggerClassName: null,
     popupClassName: null,
     style: null,
     popupStyle: null,

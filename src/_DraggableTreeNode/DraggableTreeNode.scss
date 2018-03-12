@@ -18,6 +18,18 @@
     }
 }
 
+@mixin draggable-tree-node-readonly {
+    cursor: default;
+    color: $theme-field;
+    background: $theme-field-bg;
+}
+
+@mixin draggable-tree-node-disabled {
+    cursor: not-allowed;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+}
+
 .draggable-tree-node-wrapper {
 
     .draggable-tree-node {
@@ -70,7 +82,6 @@
 
                 &.button-icon-left {
                     float: left;
-                    margin-right: 15px;
                 }
 
                 &.button-icon-right {
@@ -109,7 +120,7 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            color: $theme-secondary !important;
+            color: $theme-secondary;
             cursor: move;
         }
 
@@ -129,15 +140,21 @@
         }
 
         &[readonly] {
-            cursor: default;
-            color: $theme-field !important;
-            background: $theme-field-bg !important;
+            @include draggable-tree-node-readonly;
+
+            &:hover,
+            &:active {
+                @include draggable-tree-node-readonly;
+            }
         }
 
         &[disabled] {
-            cursor: not-allowed;
-            color: $theme-field-disabled !important;
-            background-color: $theme-field-bg-disabled !important;
+            @include draggable-tree-node-disabled;
+
+            &:hover,
+            &:active {
+                @include draggable-tree-node-disabled;
+            }
         }
 
         &:hover {

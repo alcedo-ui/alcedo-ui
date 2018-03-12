@@ -50,7 +50,7 @@ class MaterialTextArea extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, wordCountVisible, required,
+                className, style, theme, label, isLabelAnimate, wordCountVisible, disabled, required,
                 ...restProps
             } = this.props,
             {value} = this.state,
@@ -67,15 +67,15 @@ class MaterialTextArea extends Component {
                               label={label}
                               isLabelAnimate={isLabelAnimate}
                               hasValue={!!value}
+                              disabled={disabled}
                               required={required}>
-
                 <TextArea {...restProps}
                           theme={theme}
                           value={value}
+                          disabled={disabled}
                           required={required}
                           wordCountVisible={wordCountVisible}
                           onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
@@ -286,7 +286,6 @@ MaterialTextArea.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
-    preventInvalidInput: false,
 
     fieldMsgVisible: false
 

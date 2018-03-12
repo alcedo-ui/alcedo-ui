@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Dropdown.json';
 
 import 'sass/containers/app/modules/layout/DropdownExamples.scss';
 
-export default class DropdownExamples extends Component {
+class DropdownExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -37,7 +37,8 @@ export default class DropdownExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Dropdown triggerValue="Toggle Dropdown">
+                                <Dropdown triggerValue="Toggle Dropdown"
+                                          popupClassName="dropdown-examples-popup">
                                     <div className="dropdown-content">Dropdown content</div>
                                 </Dropdown>
 
@@ -55,3 +56,5 @@ export default class DropdownExamples extends Component {
         );
     }
 };
+
+export default DropdownExamples;

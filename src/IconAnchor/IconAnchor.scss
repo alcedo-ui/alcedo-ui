@@ -15,6 +15,10 @@
     }
 }
 
+@mixin icon-anchor-disabled {
+    color: $theme-field-disabled;
+}
+
 .icon-anchor {
     display: inline-block;
     width: 40px;
@@ -29,10 +33,6 @@
     user-select: none;
     overflow: hidden;
     background-color: transparent;
-
-    &[disabled] {
-        color: $theme-field-disabled !important;
-    }
 
     // default theme
     @include icon-anchor-theme($theme-field);
@@ -60,4 +60,13 @@
         @include icon-anchor-theme($theme-error);
     }
 
+    &[disabled] {
+        @include icon-anchor-disabled;
+        cursor: not-allowed;
+
+        &:hover,
+        &:active {
+            @include icon-anchor-disabled;
+        }
+    }
 }

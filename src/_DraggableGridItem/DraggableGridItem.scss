@@ -107,7 +107,7 @@
             height: 40px;
             text-align: center;
             line-height: 40px;
-            color: $theme-secondary !important;
+            color: $theme-secondary;
             cursor: move;
         }
 
@@ -121,8 +121,8 @@
 
         &[disabled] {
             cursor: not-allowed;
-            color: $theme-field-disabled !important;
-            background-color: $theme-field-bg-disabled !important;
+            color: $theme-field-disabled;
+            background-color: $theme-field-bg-disabled;
         }
 
         // default theme

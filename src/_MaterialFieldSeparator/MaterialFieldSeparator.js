@@ -21,7 +21,7 @@ class MaterialFieldSeparator extends Component {
 
     render() {
 
-        const {theme, isHover, isFocus} = this.props,
+        const {theme, isHover, isFocus, disabled} = this.props,
 
             className = classNames('material-field-separator', {
                 hover: isHover,
@@ -30,7 +30,8 @@ class MaterialFieldSeparator extends Component {
             });
 
         return (
-            <div className={className}>
+            <div className={className}
+                 disabled={disabled}>
                 <div className="material-field-separator-hover"></div>
                 <div className="material-field-separator-focus"></div>
             </div>
@@ -45,7 +46,8 @@ MaterialFieldSeparator.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     isHover: PropTypes.bool,
-    isFocus: PropTypes.bool
+    isFocus: PropTypes.bool,
+    disabled: PropTypes.bool
 
 };
 
@@ -56,7 +58,8 @@ MaterialFieldSeparator.defaultProps = {
     theme: Theme.DEFAULT,
 
     isHover: false,
-    isFocus: false
+    isFocus: false,
+    disabled: false
 
 };
 

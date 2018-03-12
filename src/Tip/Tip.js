@@ -23,16 +23,20 @@ class Tip extends Component {
 
     render() {
 
-        const {className, ...restProps} = this.props,
+        const {className, contentClassName, ...restProps} = this.props,
 
             tipClassName = classNames('tip', {
                 [className]: className
+            }),
+
+            tipContentClassName = classNames('tip-content', {
+                [contentClassName]: contentClassName
             });
 
         return (
             <TriggerPop {...restProps}
                         className={tipClassName}
-                        contentClassName="tip-content"/>
+                        contentClassName={tipContentClassName}/>
         );
     }
 
@@ -44,6 +48,11 @@ Tip.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -121,6 +130,7 @@ Tip.propTypes = {
 Tip.defaultProps = {
 
     className: null,
+    contentClassName: null,
     style: null,
     theme: Theme.DARK,
 

@@ -17,13 +17,13 @@
         color $theme-transition-duration ease-in-out;
     }
 
-    .text-field {
+    .text-field.dropdown-filter-trigger {
         width: 100%;
         border: none;
         border-radius: 0;
         background: transparent;
-        border-bottom: 1px solid $theme-border !important;
-        box-shadow: none !important;
+        border-bottom: 1px solid $theme-border;
+        box-shadow: none;
 
         .text-field-input,
         .text-field-placeholder {

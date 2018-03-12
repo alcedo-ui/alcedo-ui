@@ -15,17 +15,26 @@
     }
 }
 
-.icon-button {
+@mixin icon-button-disabled {
+    color: $theme-field-disabled;
+}
+
+.base-button.icon-button {
     border: none;
-    padding: 0 !important;
+    padding: 0;
     background-color: transparent;
 
-    .button-icon {
-        margin: 0 !important;
+    .button-icon.button-icon-left {
+        margin: 0;
     }
 
     &[disabled] {
-        color: $theme-field-disabled !important;
+        @include icon-button-disabled;
+
+        &:hover,
+        &:active {
+            @include icon-button-disabled;
+        }
     }
 
     // default theme

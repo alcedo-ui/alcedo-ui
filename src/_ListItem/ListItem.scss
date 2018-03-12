@@ -18,6 +18,18 @@
     }
 }
 
+@mixin list-item-readonly {
+    cursor: default;
+    color: $theme-field;
+    background: $theme-field-bg;
+}
+
+@mixin list-item-disabled {
+    cursor: not-allowed;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+}
+
 .list-item {
     display: block;
     width: 100%;
@@ -93,15 +105,21 @@
     }
 
     &[readonly] {
-        cursor: default;
-        color: $theme-field !important;
-        background: $theme-field-bg !important;
+        @include list-item-readonly;
+
+        &:hover,
+        &:active {
+            @include list-item-readonly;
+        }
     }
 
     &[disabled] {
-        cursor: not-allowed;
-        color: $theme-field-disabled !important;
-        background-color: $theme-field-bg-disabled !important;
+        @include list-item-disabled;
+
+        &:hover,
+        &:active {
+            @include list-item-disabled;
+        }
     }
 
     &:hover {

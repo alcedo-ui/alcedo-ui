@@ -210,8 +210,13 @@ input::-ms-clear {
 
         .text-field-icon,
         .icon-button {
-            color: $theme-field-disabled !important;
+            color: inherit;
             cursor: not-allowed;
+
+            &:hover,
+            &:active {
+                color: inherit;
+            }
         }
 
         .text-field-input {

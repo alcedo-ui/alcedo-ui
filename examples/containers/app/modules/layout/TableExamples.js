@@ -116,18 +116,18 @@ export default class TableExamples extends Component {
 
                             <p>A simple <code>Table</code> example.</p>
 
-                            <Table columns={[...this.columns, {
-                                header: 'action',
-                                renderer(rowData) {
-                                    return (
-                                        <IconButton iconCls="fas fa-trash-alt"
-                                                    onTouchTap={() => {
-                                                        deleteRow(rowData.id);
-                                                    }}/>
-                                    );
-                                }
-                            }]}
-                                   data={data}/>
+                            <Table data={data}
+                                   columns={[...this.columns, {
+                                       header: 'action',
+                                       renderer(rowData) {
+                                           return (
+                                               <IconButton iconCls="fas fa-trash-alt"
+                                                           onTouchTap={() => {
+                                                               deleteRow(rowData.id);
+                                                           }}/>
+                                           );
+                                       }
+                                   }]}/>
 
                         </div>
                     </div>

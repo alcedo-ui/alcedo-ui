@@ -309,7 +309,7 @@ class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
+                className, triggerClassName, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
@@ -344,9 +344,11 @@ class LocalAutoComplete extends Component {
                 [className]: className
             }),
 
-            triggerClassName = classNames('local-auto-complete-trigger',
+            autoCompleteTriggerClassName = classNames('local-auto-complete-trigger',
                 isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
-                isAbove ? ' above' : ' blow'),
+                isAbove ? ' above' : ' blow', {
+                    [triggerClassName]: triggerClassName
+                }),
 
             autoCompletePopupClassName = classNames('local-auto-complete-popup', isAbove ? ' above' : ' blow', {
                 [popupClassName]: popupClassName
@@ -370,7 +372,7 @@ class LocalAutoComplete extends Component {
                 }
 
                 <TextField ref="trigger"
-                           className={triggerClassName}
+                           className={autoCompleteTriggerClassName}
                            theme={theme}
                            value={filter}
                            placeholder={placeholder}

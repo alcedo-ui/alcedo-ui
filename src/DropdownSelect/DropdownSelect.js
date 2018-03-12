@@ -39,7 +39,8 @@ class DropdownSelect extends Component {
         this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
         this.itemTouchTapHandler = ::this.itemTouchTapHandler;
         this.changeHandler = ::this.changeHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
+        this.popupOpenHandler = ::this.popupOpenHandler;
+        this.popupCloseHandler = ::this.popupCloseHandler;
         this.getEmptyEl = ::this.getEmptyEl;
         this.getTriggerValue = ::this.getTriggerValue;
 
@@ -136,7 +137,16 @@ class DropdownSelect extends Component {
 
     }
 
-    popupClosedHandler(e) {
+    popupOpenHandler(e) {
+        this.setState({
+            popupVisible: true
+        }, () => {
+            const {onOpenPopup} = this.props;
+            onOpenPopup && onOpenPopup(e);
+        });
+    }
+
+    popupCloseHandler(e) {
         this.setState({
             popupVisible: false
         }, () => {
@@ -221,10 +231,10 @@ class DropdownSelect extends Component {
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
 
             selectClassName = classNames('dropdown-select', {
+                activated: popupVisible,
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
-                activated: popupVisible,
                 empty: !value,
                 [triggerClassName]: triggerClassName
             }),
@@ -253,7 +263,8 @@ class DropdownSelect extends Component {
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={triggerValue}
-                          onClosePopup={this.popupClosedHandler}>
+                          onOpenPopup={this.popupOpenHandler}
+                          onClosePopup={this.popupCloseHandler}>
 
                     <div className="dropdown-select-popup-fixed">
 
@@ -546,7 +557,12 @@ DropdownSelect.propTypes = {
     onItemTouchTap: PropTypes.func,
 
     /**
-     * Callback function fired when the popup is closed.
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
      */
     onClosePopup: PropTypes.func,
 

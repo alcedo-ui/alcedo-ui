@@ -41,9 +41,17 @@ class Dropdown extends Component {
         this.setState({
             popupVisible
         }, () => {
-            const {onTriggerTouchTap, onFocus, onBlur} = this.props;
+
+            const {onTriggerTouchTap, onFocus, onBlur, onOpenPopup} = this.props;
             onTriggerTouchTap && onTriggerTouchTap(popupVisible);
-            popupVisible ? (onFocus && onFocus(e)) : (onBlur && onBlur(e));
+
+            if (popupVisible) {
+                onFocus && onFocus(e);
+                onOpenPopup && onOpenPopup(e);
+            } else {
+                onBlur && onBlur(e);
+            }
+
         });
 
     }
@@ -85,7 +93,7 @@ class Dropdown extends Component {
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
 
                 // trigger
-                triggerValue, rightIconCls, disabled, disableTouchRipple,
+                iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple,
 
                 // events
                 onMouseOver, onMouseOut
@@ -94,6 +102,7 @@ class Dropdown extends Component {
             {popupVisible, isAbove} = this.state,
 
             dropdownClassName = classNames('dropdown', {
+                activated: popupVisible,
                 [className]: className
             }),
             buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
@@ -117,6 +126,7 @@ class Dropdown extends Component {
                               style={triggerStyle}
                               theme={theme}
                               value={triggerValue}
+                              iconCls={iconCls}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
@@ -193,6 +203,7 @@ Dropdown.propTypes = {
      */
     triggerValue: PropTypes.any,
 
+    iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
 
     /**
@@ -210,7 +221,12 @@ Dropdown.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
 
     /**
-     * Callback function fired when the popup is closed.
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
      */
     onClosePopup: PropTypes.func,
 
@@ -234,6 +250,7 @@ Dropdown.defaultProps = {
     popupTheme: Theme.DEFAULT,
 
     triggerValue: null,
+    iconCls: null,
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,

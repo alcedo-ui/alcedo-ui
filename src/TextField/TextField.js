@@ -7,7 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
-import _ from 'lodash';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
@@ -37,7 +36,6 @@ class TextField extends Component {
 
         this.focus = ::this.focus;
         this.blur = ::this.blur;
-        this.valid = ::this.valid;
         this.changeHandler = ::this.changeHandler;
         this.keyDownHandler = ::this.keyDownHandler;
         this.clearValue = ::this.clearValue;
@@ -58,98 +56,12 @@ class TextField extends Component {
         this.refs.input.blur();
     }
 
-    isNumberType(type) {
-
-        const {
-            NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
-        } = FieldType;
-
-        return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
-            || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
-
-    }
-
-    valid(value) {
-
-        if (value === '') {
-            return;
-        }
-
-        const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
-        let invalidMsgs = [];
-
-        if (type === FieldType.EMAIL && !Valid.isEmail(value)) {
-            invalidMsgs.push('Invalid E-mail address');
-        }
-
-        if (type === FieldType.URL && !Valid.isUrl(value)) {
-            invalidMsgs.push('Invalid url');
-        }
-
-        if (required === true && value === '') {
-            invalidMsgs.push('Required');
-        }
-
-        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value.length > maxLength) {
-            invalidMsgs.push(`Max length is ${maxLength}`);
-        }
-
-        if (this.isNumberType(type)) {
-
-            if (isNaN(value)) {
-                invalidMsgs.push('Not a valid number');
-            }
-
-            value = Number(value);
-
-            if (type === FieldType.INTEGER && !_.isInteger(value)) {
-                invalidMsgs.push('Not a valid integer');
-            }
-
-            if (type === FieldType.POSITIVE_INTEGER && (!_.isInteger(value) || value < 0)) {
-                invalidMsgs.push('Not a valid positive integer');
-            }
-
-            if (type === FieldType.NONNEGATIVE_INTEGER && (!_.isInteger(value) || value <= 0)) {
-                invalidMsgs.push('Not a valid nonnegative integer');
-            }
-
-            if (type === FieldType.NEGATIVE_INTEGER && (!_.isInteger(value) || value >= 0)) {
-                invalidMsgs.push('Not a valid negative integer');
-            }
-
-            if (type === FieldType.NONPOSITIVE_INTEGER && (!_.isInteger(value) || value > 0)) {
-                invalidMsgs.push('Not a valid nonpositive integer');
-            }
-
-            if (max !== undefined && value > max) {
-                invalidMsgs.push(`Maximum value is ${max}`);
-            }
-
-            if (min !== undefined && value < min) {
-                invalidMsgs.push(`Minimum value is ${min}`);
-            }
-
-        }
-
-        if (pattern !== undefined && !pattern.test(value)) {
-            invalidMsgs.push(patternInvalidMsg);
-        }
-
-        return invalidMsgs;
-
-    }
-
     changeHandler(e) {
 
-        const {preventInvalidInput, onValid, onInvalid} = this.props,
+        const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
-            invalidMsgs = this.valid(value);
-
-        if (preventInvalidInput && invalidMsgs && invalidMsgs.length > 0) {
-            return;
-        }
+            invalidMsgs = Valid.fieldValid(value, this.props);
 
         this.setState({
             value,
@@ -178,7 +90,7 @@ class TextField extends Component {
 
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
 
-        const invalidMsgs = this.valid('');
+        const invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
             value: '',
@@ -276,11 +188,12 @@ class TextField extends Component {
 
     componentDidMount() {
 
-        if (this.props.autoFocus === true) {
-            this.refs.input.focus();
-        }
-
+        this.inputEl = this.refs.input;
         this.clearButtonEl = findDOMNode(this.refs.clearButton);
+
+        if (this.props.autoFocus === true) {
+            this.inputEl.focus();
+        }
 
     }
 
@@ -301,7 +214,7 @@ class TextField extends Component {
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, preventInvalidInput, isFocusedSelectAll,
+                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -342,7 +255,7 @@ class TextField extends Component {
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
             inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
-        } else if (this.isNumberType(type)) {
+        } else if (Valid.isNumberType(type)) {
             inputType = 'text';
         }
 
@@ -412,21 +325,16 @@ class TextField extends Component {
                         null
                 }
 
-                {
-                    fieldMsgVisible && infoVisible && infoMsg ?
-                        <FieldMsg type="info"
-                                  msg={infoMsg}/>
-                        :
-                        null
-                }
+                <FieldMsg type="info"
+                          msg={infoMsg}
+                          visible={!!(fieldMsgVisible && infoVisible && infoMsg)}
+                          triggerEl={this.inputEl}
+                          position={FieldMsg.Position.TOP_LEFT}/>
 
-                {
-                    fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0 ?
-                        <FieldMsg type="error"
-                                  msg={invalidMsgs.join(', ')}/>
-                        :
-                        null
-                }
+                <FieldMsg type="error"
+                          msg={invalidMsgs && invalidMsgs.join(', ')}
+                          visible={!!(fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0)}
+                          triggerEl={this.inputEl}/>
 
                 {children}
 
@@ -643,7 +551,6 @@ TextField.defaultProps = {
     // valid
     required: false,
     patternInvalidMsg: '',
-    preventInvalidInput: false,
 
     autoComplete: 'off',
     autoCorrect: 'off',

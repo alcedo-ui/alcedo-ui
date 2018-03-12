@@ -49,7 +49,7 @@
 
     &.has-separator {
         .material-provider-field {
-            border-bottom: 1px solid $theme-border !important;
+            border-bottom: 1px solid $theme-border;
         }
     }
 
@@ -82,6 +82,16 @@
             .material-provider-field-placeholder {
                 opacity: 1;
             }
+        }
+    }
+
+    &[disabled] {
+        .material-provider-label-wrapper {
+            color: $theme-label-disabled;
+        }
+
+        .material-provider-field {
+            background-color: transparent;
         }
     }
 }

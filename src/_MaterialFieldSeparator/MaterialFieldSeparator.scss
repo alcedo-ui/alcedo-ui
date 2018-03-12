@@ -25,7 +25,6 @@
     }
 
     .material-field-separator-focus {
-        content: "";
         position: absolute;
         left: 50%;
         bottom: 0;
@@ -45,6 +44,12 @@
         .material-field-separator-focus {
             left: 0;
             width: 100%;
+        }
+    }
+
+    &[disabled] {
+        .material-field-separator-hover {
+            opacity: 0;
         }
     }
 

@@ -24,7 +24,7 @@ class MaterialDropdown extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, required,
+                className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
 
@@ -38,11 +38,11 @@ class MaterialDropdown extends Component {
                               theme={theme}
                               label={label}
                               isLabelAnimate={isLabelAnimate}
+                              disabled={disabled}
                               required={required}>
-
                 <Dropdown {...restProps}
-                          className="material-dropdown-content"/>
-
+                          className="material-dropdown-content"
+                          disabled={disabled}/>
             </MaterialProvider>
         );
 

@@ -65,7 +65,7 @@ class MaterialLocalAutoComplete extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, popupClassName, required,
+                className, style, theme, label, isLabelAnimate, popupClassName, disabled, required,
                 ...restProps
             } = this.props,
             {value, filter} = this.state,
@@ -85,16 +85,16 @@ class MaterialLocalAutoComplete extends Component {
                               label={label}
                               isLabelAnimate={isLabelAnimate}
                               hasValue={!!filter}
+                              disabled={disabled}
                               required={required}>
-
                 <LocalAutoComplete {...restProps}
                                    ref="localAutoComplete"
                                    popupClassName={autoCompleteClassName}
                                    theme={theme}
                                    value={value}
+                                   disabled={disabled}
                                    onFilterChange={this.triggerFilterChangeHandler}
                                    onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 

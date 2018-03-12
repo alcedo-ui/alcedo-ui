@@ -25,20 +25,20 @@
             border-spacing: 0;
             background: $theme-field-bg;
 
-            .table-line-number-th,
-            .table-line-number-td {
+            th.table-line-number-th,
+            td.table-line-number-td {
                 width: 1px;
-                padding-left: 10px !important;
-                padding-right: 10px !important;
+                padding-left: 10px;
+                padding-right: 10px;
                 background: #fbfbfb;
                 text-align: right;
             }
 
-            .table-select-th,
-            .table-select-td {
+            th.table-select-th,
+            td.table-select-td {
                 width: 30px;
-                padding-left: 5px !important;
-                padding-right: 5px !important;
+                padding-left: 5px;
+                padding-right: 5px;
                 text-align: center;
 
                 .table-header-inner {

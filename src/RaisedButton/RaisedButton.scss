@@ -21,6 +21,13 @@
     }
 }
 
+@mixin raised-button-disabled {
+    box-shadow: none;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+    border-color: $theme-border-disabled;
+}
+
 .raised-button {
     @include shadow(1);
     border-style: solid;
@@ -35,10 +42,12 @@
     }
 
     &[disabled] {
-        box-shadow: none !important;
-        color: $theme-field-disabled !important;
-        background-color: $theme-field-bg-disabled !important;
-        border-color: $theme-border-disabled !important;
+        @include raised-button-disabled;
+
+        &:hover,
+        &:active {
+            @include raised-button-disabled;
+        }
     }
 
     // default theme

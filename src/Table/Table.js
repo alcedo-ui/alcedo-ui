@@ -84,7 +84,7 @@ class Table extends Component {
             return false;
         }
 
-        return value.length === data.filter(item => item && !item.disabled).length;
+        return value && value.length > 0 && value.length === data.filter(item => item && !item.disabled).length;
 
     }
 
