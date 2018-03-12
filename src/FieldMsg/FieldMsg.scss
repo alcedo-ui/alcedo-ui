@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.field-msg {
+.trigger-pop.field-msg {
     position: absolute;
     height: 36px;
     z-index: $field-msg-z-index;
@@ -11,5 +11,9 @@
     .field-msg-content {
         padding: 8px;
         line-height: 20px;
+    }
+
+    &.trigger-pop-animated {
+        transition: none;
     }
 }
