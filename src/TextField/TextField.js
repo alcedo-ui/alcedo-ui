@@ -36,7 +36,6 @@ class TextField extends Component {
 
         this.focus = ::this.focus;
         this.blur = ::this.blur;
-        this.valid = ::this.valid;
         this.changeHandler = ::this.changeHandler;
         this.keyDownHandler = ::this.keyDownHandler;
         this.clearValue = ::this.clearValue;
@@ -57,88 +56,12 @@ class TextField extends Component {
         this.refs.input.blur();
     }
 
-    isNumberType(type) {
-
-        const {
-            NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
-        } = FieldType;
-
-        return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
-            || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
-
-    }
-
-    valid(value) {
-
-        const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = this.props;
-        let invalidMsgs = [];
-
-        if (required === true && value === '') {
-            invalidMsgs.push('Required');
-        }
-
-        if (type === FieldType.EMAIL && value && !Valid.isEmail(value)) {
-            invalidMsgs.push('Invalid E-mail address');
-        }
-
-        if (type === FieldType.URL && value && !Valid.isUrl(value)) {
-            invalidMsgs.push('Invalid url');
-        }
-
-        if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value && value.length > maxLength) {
-            invalidMsgs.push(`Max length is ${maxLength}`);
-        }
-
-        if (this.isNumberType(type) && value) {
-
-            if (type === FieldType.NUMBER && !Valid.isNumber(value)) {
-                invalidMsgs.push('Not a valid number');
-            }
-
-            if (type === FieldType.INTEGER && !Valid.isInteger(value)) {
-                invalidMsgs.push('Not a valid integer');
-            }
-
-            if (type === FieldType.POSITIVE_INTEGER && !Valid.isPositiveInteger(value)) {
-                invalidMsgs.push('Not a valid positive integer');
-            }
-
-            if (type === FieldType.NONNEGATIVE_INTEGER && !Valid.isNonnegativeInteger(value)) {
-                invalidMsgs.push('Not a valid nonnegative integer');
-            }
-
-            if (type === FieldType.NEGATIVE_INTEGER && !Valid.isNegativeInteger(value)) {
-                invalidMsgs.push('Not a valid negative integer');
-            }
-
-            if (type === FieldType.NONPOSITIVE_INTEGER && !Valid.isNonpositiveInteger(value)) {
-                invalidMsgs.push('Not a valid nonpositive integer');
-            }
-
-            if (max !== undefined && value > max) {
-                invalidMsgs.push(`Maximum value is ${max}`);
-            }
-
-            if (min !== undefined && value < min) {
-                invalidMsgs.push(`Minimum value is ${min}`);
-            }
-
-        }
-
-        if (pattern !== undefined && !pattern.test(value)) {
-            invalidMsgs.push(patternInvalidMsg);
-        }
-
-        return invalidMsgs;
-
-    }
-
     changeHandler(e) {
 
         const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
-            invalidMsgs = this.valid(value);
+            invalidMsgs = Valid.fieldValid(value, this.props);
 
         this.setState({
             value,
@@ -167,7 +90,7 @@ class TextField extends Component {
 
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
 
-        const invalidMsgs = this.valid('');
+        const invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
             value: '',
@@ -332,7 +255,7 @@ class TextField extends Component {
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
             inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
-        } else if (this.isNumberType(type)) {
+        } else if (Valid.isNumberType(type)) {
             inputType = 'text';
         }
 
