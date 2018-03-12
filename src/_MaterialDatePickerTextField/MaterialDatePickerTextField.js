@@ -370,7 +370,7 @@ MaterialDatePickerTextField.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true
+    fieldMsgVisible: false
 
 };
 
