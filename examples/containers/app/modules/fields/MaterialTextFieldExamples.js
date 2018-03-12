@@ -10,7 +10,12 @@ import doc from 'examples/assets/propTypes/MaterialTextField.json';
 export default class MaterialTextFieldExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: ''
+        };
 
     }
 
@@ -21,6 +26,9 @@ export default class MaterialTextFieldExamples extends Component {
     }
 
     render() {
+
+        const {value} = this.state;
+
         return (
             <div className="example material-text-field-examples">
 
@@ -49,7 +57,8 @@ export default class MaterialTextFieldExamples extends Component {
                                                        label="Search"
                                                        placeholder="keywords"
                                                        autoFocus={true}
-                                                       rightIconCls={'fas fa-search'}/>
+                                                       rightIconCls={'fas fa-search'}
+                                                       value={value}/>
                                 </div>
 
                             </div>
