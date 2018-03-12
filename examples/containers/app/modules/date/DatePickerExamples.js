@@ -14,6 +14,7 @@ export default class DatePickerExamples extends Component {
     }
 
     onChangeHandle(value) {
+
         console.log(value);
     }
 
@@ -70,7 +71,7 @@ export default class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY/MM/DD'
-                                            value='2017/02/03'
+                                            value='2018/02/03'
                                             autoClose={false}
                                             onChange={this.onChangeHandle}/>
                             </div>

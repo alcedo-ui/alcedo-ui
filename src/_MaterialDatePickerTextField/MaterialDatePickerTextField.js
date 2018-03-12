@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
+import MaterialProvider from '../MaterialProvider';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
