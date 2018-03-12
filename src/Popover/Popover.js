@@ -83,7 +83,7 @@ class Popover extends Component {
 
         const {
 
-                className,
+                className, contentClassName,
 
                 // not passing down these props
                 onRequestClose,
@@ -92,15 +92,19 @@ class Popover extends Component {
 
             } = this.props,
 
-            popupClassName = classNames('popover', {
+            popoverClassName = classNames('popover', {
                 [className]: className
+            }),
+
+            popoverContentClassName = classNames('popover-content', {
+                [contentClassName]: contentClassName
             });
 
         return (
             <TriggerPop {...restProps}
                         ref="popover"
-                        className={popupClassName}
-                        contentClassName="popover-content"
+                        className={popoverClassName}
+                        contentClassName={popoverContentClassName}
                         onRender={this.renderHandler}
                         onDestroy={this.destroyHandler}/>
         );
@@ -114,6 +118,11 @@ Popover.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -197,6 +206,7 @@ Popover.propTypes = {
 Popover.defaultProps = {
 
     className: null,
+    contentClassName: null,
     style: null,
     depth: 6,
 
