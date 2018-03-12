@@ -4,6 +4,7 @@
  */
 
 import _ from 'lodash';
+import FieldType from '../_statics/FieldType';
 
 function range(value, min, max) {
     max !== undefined && (value = value > max ? max : value);
@@ -108,6 +109,82 @@ function isHex(hex, hasHash) {
 
 }
 
+function isNumberType(type) {
+
+    const {
+        NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
+    } = FieldType;
+
+    return type === NUMBER || type === INTEGER || type === POSITIVE_INTEGER
+        || type === NONNEGATIVE_INTEGER || type === NEGATIVE_INTEGER || type === NONPOSITIVE_INTEGER;
+
+}
+
+function fieldValid(value, props) {
+
+    const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = props;
+    let invalidMsgs = [];
+
+    if (required === true && value === '') {
+        invalidMsgs.push('Required');
+    }
+
+    if (type === FieldType.EMAIL && value && !isEmail(value)) {
+        invalidMsgs.push('Invalid E-mail address');
+    }
+
+    if (type === FieldType.URL && value && !isUrl(value)) {
+        invalidMsgs.push('Invalid url');
+    }
+
+    if (maxLength !== undefined && !isNaN(maxLength) && maxLength > 0 && value && value.length > maxLength) {
+        invalidMsgs.push(`Max length is ${maxLength}`);
+    }
+
+    if (isNumberType(type) && value) {
+
+        if (type === FieldType.NUMBER && !isNumber(value)) {
+            invalidMsgs.push('Not a valid number');
+        }
+
+        if (type === FieldType.INTEGER && !isInteger(value)) {
+            invalidMsgs.push('Not a valid integer');
+        }
+
+        if (type === FieldType.POSITIVE_INTEGER && !isPositiveInteger(value)) {
+            invalidMsgs.push('Not a valid positive integer');
+        }
+
+        if (type === FieldType.NONNEGATIVE_INTEGER && !isNonnegativeInteger(value)) {
+            invalidMsgs.push('Not a valid nonnegative integer');
+        }
+
+        if (type === FieldType.NEGATIVE_INTEGER && !isNegativeInteger(value)) {
+            invalidMsgs.push('Not a valid negative integer');
+        }
+
+        if (type === FieldType.NONPOSITIVE_INTEGER && !isNonpositiveInteger(value)) {
+            invalidMsgs.push('Not a valid nonpositive integer');
+        }
+
+        if (max !== undefined && value > max) {
+            invalidMsgs.push(`Maximum value is ${max}`);
+        }
+
+        if (min !== undefined && value < min) {
+            invalidMsgs.push(`Minimum value is ${min}`);
+        }
+
+    }
+
+    if (pattern !== undefined && !pattern.test(value)) {
+        invalidMsgs.push(patternInvalidMsg);
+    }
+
+    return invalidMsgs;
+
+}
+
 export default {
     range,
     isChrome,
@@ -128,5 +205,7 @@ export default {
     isDeg,
     isRGB,
     isHSB,
-    isHex
+    isHex,
+    isNumberType,
+    fieldValid
 };
