@@ -10,13 +10,13 @@
 
     .button-group-wrapper {
         position: relative;
-        width: 440px;
+        width: 500px;
         height: 280px;
 
         .button-group {
 
             .trigger-position-button {
-                width: 100px;
+                width: 120px;
             }
 
             &.top {
@@ -78,7 +78,7 @@
 
             &.center {
                 position: absolute;
-                left: 170px;
+                left: 190px;
                 top: 120px;
 
                 .trigger-position-button {
