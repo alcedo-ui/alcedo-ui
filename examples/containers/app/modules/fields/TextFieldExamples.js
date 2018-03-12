@@ -217,7 +217,7 @@ export default class TextFieldExamples extends Component {
                                                fieldMsgVisible={true}/>
                                 </div>
 
-                                <div>Pattern (Only a, b, c is allowed)</div>
+                                <div>Self Defined Pattern (Only a, b, c is allowed)</div>
                                 <div className="field-group">
                                     <TextField pattern={/^[abc]*$/}
                                                patternInvalidMsg="Only a, b, c is allowed"
