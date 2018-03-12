@@ -17,6 +17,8 @@ export default class MaterialTextFieldExamples extends Component {
             value: ''
         };
 
+        this.onChangeHandle = ::this.onChangeHandle;
+
     }
 
     onChangeHandle(value) {
@@ -58,7 +60,8 @@ export default class MaterialTextFieldExamples extends Component {
                                                        placeholder="keywords"
                                                        autoFocus={true}
                                                        rightIconCls={'fas fa-search'}
-                                                       value={value}/>
+                                                       value={value}
+                                                       onChange={this.onChangeHandle}/>
                                 </div>
 
                             </div>
