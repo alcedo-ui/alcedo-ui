@@ -34,17 +34,16 @@ export default class DrawerExamples extends Component {
         }];
 
         this.state = {
-            popupVisible: {},
-            triggerEl: {}
+            popupVisible: {}
         };
 
-        this.togglePopup = ::this.togglePopup;
-        this.openPopup = ::this.openPopup;
-        this.closePopup = ::this.closePopup;
+        this.toggleDrawer = ::this.toggleDrawer;
+        this.openDrawer = ::this.openDrawer;
+        this.closeDrawer = ::this.closeDrawer;
 
     }
 
-    togglePopup(id) {
+    toggleDrawer(id) {
 
         const {popupVisible} = this.state;
 
@@ -56,7 +55,7 @@ export default class DrawerExamples extends Component {
 
     }
 
-    openPopup(id) {
+    openDrawer(id) {
 
         const {popupVisible} = this.state;
 
@@ -68,7 +67,7 @@ export default class DrawerExamples extends Component {
 
     }
 
-    closePopup(id) {
+    closeDrawer(id) {
 
         const {popupVisible} = this.state;
 
@@ -80,23 +79,9 @@ export default class DrawerExamples extends Component {
 
     }
 
-    componentDidMount() {
-
-        const triggerEl = {};
-
-        for (let i = 0; i <= 16; i++) {
-            triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
-        }
-
-        this.setState({
-            triggerEl
-        });
-
-    }
-
     render() {
 
-        const {popupVisible, triggerEl} = this.state;
+        const {popupVisible} = this.state;
 
         return (
             <div className="example pop-examples popup-examples">
@@ -108,79 +93,6 @@ export default class DrawerExamples extends Component {
                 </p>
 
                 <h2 className="example-title">Examples</h2>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="Basic"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
-                                <p><code>Drawer</code> simple example.</p>
-
-                                <RaisedButton ref="trigger0"
-                                              className="trigger-button"
-                                              value="Toggle Drawer"
-                                              onTouchTap={() => {
-                                                  this.togglePopup(0);
-                                              }}/>
-
-                                <Drawer theme={Drawer.Theme.PRIMARY}
-                                        visible={popupVisible[0]}
-                                        triggerEl={triggerEl[0]}
-                                        onRequestClose={() => {
-                                            this.closePopup(0);
-                                        }}>
-                                    <div style={{padding: 20, color: '#fff'}}>
-                                        Drawer Content
-                                    </div>
-                                </Drawer>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="Without triangle"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
-                                <p>
-                                    Set <code>hasTriangle</code> to false,the popover will have
-                                    no triangle on the top of the DOM element.
-                                </p>
-
-                                <RaisedButton ref="trigger1"
-                                              className="trigger-button"
-                                              value="Toggle Drawer"
-                                              onTouchTap={() => {
-                                                  this.togglePopup(1);
-                                              }}/>
-
-                                <Drawer visible={popupVisible[1]}
-                                        triggerEl={triggerEl[1]}
-                                        hasTriangle={false}
-                                        onRequestClose={() => {
-                                            this.closePopup(1);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
 
                 <Widget>
 
@@ -200,290 +112,67 @@ export default class DrawerExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton ref="trigger5"
-                                                      className="trigger-position-button"
-                                                      value="Top Left"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(5);
-                                                      }}/>
-                                        <RaisedButton ref="trigger6"
-                                                      className="trigger-position-button"
+                                        <RaisedButton className="trigger-position-button"
                                                       value="Top"
                                                       onTouchTap={() => {
-                                                          this.togglePopup(6);
-                                                      }}/>
-                                        <RaisedButton ref="trigger7"
-                                                      className="trigger-position-button"
-                                                      value="Top right"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(7);
+                                                          this.toggleDrawer(0);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton ref="trigger11"
-                                                      className="trigger-position-button"
-                                                      value="Right Top"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(11);
-                                                      }}/>
-                                        <RaisedButton ref="trigger12"
-                                                      className="trigger-position-button"
+                                        <RaisedButton className="trigger-position-button"
                                                       value="Right"
                                                       onTouchTap={() => {
-                                                          this.togglePopup(12);
-                                                      }}/>
-                                        <RaisedButton ref="trigger13"
-                                                      className="trigger-position-button"
-                                                      value="Right Bottom"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(13);
+                                                          this.toggleDrawer(1);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton ref="trigger2"
-                                                      className="trigger-position-button"
-                                                      value="Bottom Left"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(2);
-                                                      }}/>
-                                        <RaisedButton ref="trigger3"
-                                                      className="trigger-position-button"
+                                        <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
                                                       onTouchTap={() => {
-                                                          this.togglePopup(3);
-                                                      }}/>
-                                        <RaisedButton ref="trigger4"
-                                                      className="trigger-position-button"
-                                                      value="Bottom Right"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(4);
+                                                          this.toggleDrawer(2);
                                                       }}/>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton ref="trigger8"
-                                                      className="trigger-position-button"
-                                                      value="Left Top"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(8);
-                                                      }}/>
-                                        <RaisedButton ref="trigger9"
-                                                      className="trigger-position-button"
+                                        <RaisedButton className="trigger-position-button"
                                                       value="Left"
                                                       onTouchTap={() => {
-                                                          this.togglePopup(9);
-                                                      }}/>
-                                        <RaisedButton ref="trigger10"
-                                                      className="trigger-position-button"
-                                                      value="Left Bottom"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(10);
-                                                      }}/>
-                                    </div>
-
-                                    <div className="button-group center">
-                                        <RaisedButton ref="trigger14"
-                                                      className="trigger-position-button"
-                                                      value="Center"
-                                                      onTouchTap={() => {
-                                                          this.togglePopup(14);
+                                                          this.toggleDrawer(3);
                                                       }}/>
                                     </div>
 
                                 </div>
 
-                                <Drawer visible={popupVisible[2]}
-                                        triggerEl={triggerEl[2]}
-                                        position={Drawer.Position.BOTTOM_LEFT}
+
+                                <Drawer visible={popupVisible[0]}
+                                        position={Drawer.Position.TOP}
                                         onRequestClose={() => {
-                                            this.closePopup(2);
+                                            this.closeDrawer(0);
+                                        }}>
+                                    <List data={this.data}/>
+                                </Drawer>
+                                <Drawer visible={popupVisible[1]}
+                                        position={Drawer.Position.RIGHT}
+                                        onRequestClose={() => {
+                                            this.closeDrawer(1);
+                                        }}>
+                                    <List data={this.data}/>
+                                </Drawer>
+                                <Drawer visible={popupVisible[2]}
+                                        position={Drawer.Position.BOTTOM}
+                                        onRequestClose={() => {
+                                            this.closeDrawer(2);
                                         }}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[3]}
-                                        triggerEl={triggerEl[3]}
-                                        position={Drawer.Position.BOTTOM}
-                                        onRequestClose={() => {
-                                            this.closePopup(3);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[4]}
-                                        triggerEl={triggerEl[4]}
-                                        position={Drawer.Position.BOTTOM_RIGHT}
-                                        onRequestClose={() => {
-                                            this.closePopup(4);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-
-                                <Drawer visible={popupVisible[5]}
-                                        triggerEl={triggerEl[5]}
-                                        position={Drawer.Position.TOP_LEFT}
-                                        onRequestClose={() => {
-                                            this.closePopup(5);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[6]}
-                                        triggerEl={triggerEl[6]}
-                                        position={Drawer.Position.TOP}
-                                        onRequestClose={() => {
-                                            this.closePopup(6);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[7]}
-                                        triggerEl={triggerEl[7]}
-                                        position={Drawer.Position.TOP_RIGHT}
-                                        onRequestClose={() => {
-                                            this.closePopup(7);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-
-                                <Drawer visible={popupVisible[8]}
-                                        triggerEl={triggerEl[8]}
-                                        position={Drawer.Position.LEFT_TOP}
-                                        onRequestClose={() => {
-                                            this.closePopup(8);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[9]}
-                                        triggerEl={triggerEl[9]}
                                         position={Drawer.Position.LEFT}
                                         onRequestClose={() => {
-                                            this.closePopup(9);
+                                            this.closeDrawer(3);
                                         }}>
                                     <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[10]}
-                                        triggerEl={triggerEl[10]}
-                                        position={Drawer.Position.LEFT_BOTTOM}
-                                        onRequestClose={() => {
-                                            this.closePopup(10);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-
-                                <Drawer visible={popupVisible[11]}
-                                        triggerEl={triggerEl[11]}
-                                        position={Drawer.Position.RIGHT_TOP}
-                                        onRequestClose={() => {
-                                            this.closePopup(11);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[12]}
-                                        triggerEl={triggerEl[12]}
-                                        position={Drawer.Position.RIGHT}
-                                        onRequestClose={() => {
-                                            this.closePopup(12);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-                                <Drawer visible={popupVisible[13]}
-                                        triggerEl={triggerEl[13]}
-                                        position={Drawer.Position.RIGHT_BOTTOM}
-                                        onRequestClose={() => {
-                                            this.closePopup(13);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-
-                                <Drawer visible={popupVisible[14]}
-                                        triggerEl={triggerEl[14]}
-                                        position={Drawer.Position.CENTER}
-                                        onRequestClose={() => {
-                                            this.closePopup(14);
-                                        }}>
-                                    <List data={this.data}/>
-                                </Drawer>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="With Mouse Events"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
-                                <p>Show a <code>Drawer</code> with <code>Mouse Events</code>.</p>
-
-                                <RaisedButton ref="trigger15"
-                                              className="trigger-button"
-                                              value="Toggle Drawer"
-                                              onMouseEnter={() => {
-                                                  this.openPopup(15);
-                                              }}
-                                              onMouseLeave={() => {
-                                                  this.closePopup(15);
-                                              }}/>
-
-                                <Drawer theme={Drawer.Theme.PRIMARY}
-                                        visible={popupVisible[15]}
-                                        triggerEl={triggerEl[15]}
-                                        onRequestClose={() => {
-                                            this.closePopup(15);
-                                        }}>
-                                    <div style={{padding: 20, color: '#fff'}}>
-                                        Drawer Content
-                                    </div>
-                                </Drawer>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
-                                  title="Customized Drawer Triangle"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
-                                <RaisedButton ref="trigger16"
-                                              className="trigger-button"
-                                              value="Toggle Drawer"
-                                              onTouchTap={() => {
-                                                  this.togglePopup(16);
-                                              }}/>
-
-                                <Drawer className="customized-popup"
-                                        visible={popupVisible[16]}
-                                        triggerEl={triggerEl[16]}
-                                        triangle={
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 version="1.1"
-                                                 className="customized-popup-triangle"
-                                                 width="17"
-                                                 height="7">
-                                                <polyline points="0,7 9,0 17,7"
-                                                          style={{stroke: '#e7e7e7', fill: '#fff'}}/>
-                                            </svg>
-                                        }
-                                        onRequestClose={() => {
-                                            this.closePopup(16);
-                                        }}>
-                                    <div style={{padding: 20}}>
-                                        Drawer Content
-                                    </div>
                                 </Drawer>
 
                             </div>
