@@ -123,7 +123,7 @@ class PositionPop extends Component {
                 className, theme, position, isAnimated, visible, container, showModal, modalClassName,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll,
+                isEscClose, isBlurClose, shouldPreventContainerScroll,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
@@ -221,7 +221,7 @@ PositionPop.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -268,7 +268,7 @@ PositionPop.defaultProps = {
     position: Position.CENTER,
     isAnimated: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
 
