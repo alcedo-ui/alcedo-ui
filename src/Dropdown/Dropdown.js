@@ -18,6 +18,10 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 class Dropdown extends Component {
 
     static Theme = Theme;
+    static Position = {
+        LEFT: 'LEFT',
+        RIGHT: 'RIGHT'
+    };
 
     constructor(props, ...restArgs) {
 
@@ -89,11 +93,8 @@ class Dropdown extends Component {
 
                 children,
 
-                // style
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
-
-                // trigger
-                iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple,
+                position, iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple,
 
                 // events
                 onMouseOver, onMouseOut
@@ -141,7 +142,7 @@ class Dropdown extends Component {
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       position={isAbove ? Popup.Position[`TOP_${position}`] : Popup.Position[`BOTTOM_${position}`]}
                        shouldPreventContainerScroll={false}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
@@ -198,6 +199,8 @@ Dropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+
     /**
      * The value of the dropDown trigger.
      */
@@ -249,6 +252,7 @@ Dropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
+    position: Dropdown.Position.LEFT,
     triggerValue: null,
     iconCls: null,
     rightIconCls: 'fas fa-angle-down',
