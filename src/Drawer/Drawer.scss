@@ -8,56 +8,29 @@ body.drawer-modal-lock {
 }
 
 .position-pop.paper.drawer {
-    width: 500px;
     box-sizing: border-box;
     overflow: hidden;
     color: $theme-field;
     background: none;
+    border-radius: 0;
     z-index: $pop-z-index;
-
-    .drawer-title {
-        position: relative;
-        font-size: 16px;
-        line-height: 40px;
-        padding: 5px 20px;
-        background-color: $theme-secondary;
-        border-bottom: 1px solid $theme-border;
-        text-align: left;
-        color: inherit;
-
-        .drawer-title-close-button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            font-size: 18px;
-            vertical-align: middle;
-            color: inherit;
-
-            &:hover {
-                color: $theme-error;
-            }
-        }
-    }
 
     .drawer-content {
         width: 100%;
-        height: 200px;
+        height: 100%;
         box-sizing: border-box;
         background: $theme-field-bg;
-        padding: 30px;
     }
 
-    .drawer-buttons {
-        @include float-fix;
-        box-sizing: border-box;
-        padding: 15px 25px;
-        background: $theme-field-bg;
-        border-top: 1px solid $theme-border;
-
-        & > .base-button {
-            float: right;
-            margin-left: 10px;
-        }
+    &.position-pop-top,
+    &.position-pop-bottom {
+        width: 100%;
+        height: auto;
     }
 
+    &.position-pop-left,
+    &.position-pop-right {
+        width: auto;
+        height: 100%;
+    }
 }
