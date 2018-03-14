@@ -127,7 +127,7 @@ class TriggerPop extends Component {
                 className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
+                isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
@@ -243,7 +243,7 @@ TriggerPop.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
@@ -290,7 +290,7 @@ TriggerPop.defaultProps = {
     position: Position.BOTTOM,
     isAnimated: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false
