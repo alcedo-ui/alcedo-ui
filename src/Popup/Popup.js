@@ -86,9 +86,7 @@ class Popup extends Component {
     }
 
     componentDidMount() {
-
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
-
     }
 
     componentWillReceiveProps(nextProps) {
