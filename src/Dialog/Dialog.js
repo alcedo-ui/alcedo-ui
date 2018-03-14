@@ -112,7 +112,7 @@ class Dialog extends Component {
                 cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
 
                 // not passing down these props
-                isBlurClose, isEscClose,
+                isAutoClose, isEscClose,
                 onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
 
                 ...restProps
@@ -238,7 +238,7 @@ Dialog.propTypes = {
     /**
      * If true,when press down mouse the pop-up box will closed.
      */
-    isBlurClose: PropTypes.bool,
+    isAutoClose: PropTypes.bool,
 
     isLoading: PropTypes.bool,
 
@@ -351,7 +351,7 @@ Dialog.defaultProps = {
 
     title: null,
 
-    isBlurClose: false,
+    isAutoClose: false,
     isLoading: false,
 
     okButtonVisible: true,
