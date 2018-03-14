@@ -17,6 +17,7 @@ import Theme from '../Theme';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+import PopManagement from '../_vendors/PopManagement';
 
 class Dialog extends Component {
 
@@ -89,13 +90,25 @@ class Dialog extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.props.visible) {
+
+        const {visible, isEscClose} = nextProps;
+
+        if (visible !== this.props.visible) {
             this.setBodyLock(nextProps);
         }
+
+        if (isEscClose && visible) {
+            PopManagement.push(this);
+        }
+
     }
 
     componentWillUnmount() {
+
         this.resetBody();
+
+        PopManagement.pop(this);
+
     }
 
     render() {
