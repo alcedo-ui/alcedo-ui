@@ -38,7 +38,7 @@ class Popup extends Component {
         }
     }
 
-    triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
+    triggerHandler(el, triggerEl, popupEl, currentVisible, isBlurClose) {
 
         while (el) {
             if (el == popupEl) {
@@ -47,13 +47,13 @@ class Popup extends Component {
             el = el.parentNode;
         }
 
-        return isAutoClose ? false : currentVisible;
+        return isBlurClose ? false : currentVisible;
 
     }
 
     mouseDownHandler(e) {
 
-        const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
+        const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
 
         if (!triggerEl) {
@@ -63,9 +63,9 @@ class Popup extends Component {
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
+            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -178,7 +178,7 @@ Popup.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
@@ -234,7 +234,7 @@ Popup.defaultProps = {
     position: Position.BOTTOM,
     isAnimated: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false
