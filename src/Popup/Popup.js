@@ -14,6 +14,7 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
+import PopManagement from '../_vendors/PopManagement';
 
 class Popup extends Component {
 
@@ -85,12 +86,28 @@ class Popup extends Component {
     }
 
     componentDidMount() {
+
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        const {visible, isEscClose} = nextProps;
+
+        if (isEscClose && visible) {
+            PopManagement.push(this);
+        }
+
     }
 
     componentWillUnmount() {
+
         this.clearCloseTimeout();
         Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+
+        PopManagement.pop(this);
+
     }
 
     render() {
