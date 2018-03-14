@@ -144,7 +144,7 @@ class TriggerPop extends Component {
                 [className]: className
             }),
 
-            popupContentClassName = classNames('trigger-pop-content', {
+            popContentClassName = classNames('trigger-pop-content', {
                 [contentClassName]: contentClassName
             });
 
@@ -173,7 +173,7 @@ class TriggerPop extends Component {
                                 null
                         }
 
-                        <div className={popupContentClassName}
+                        <div className={popContentClassName}
                              onWheel={e => {
                                  Event.wheelHandler(e, this.props);
                              }}>
