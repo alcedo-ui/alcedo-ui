@@ -3,15 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Children, cloneElement, Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
-import FlatButton from '../FlatButton';
-import RaisedButton from '../RaisedButton';
-import IconButton from '../IconButton';
 import Theme from '../Theme';
 
 import Dom from '../_vendors/Dom';
@@ -20,7 +17,7 @@ import Position from '../_statics/Position';
 
 class Drawer extends Component {
 
-    static ButtonTheme = Theme;
+    static Theme = Theme;
     static Position = Position;
 
     constructor(props, ...restArgs) {
@@ -28,9 +25,6 @@ class Drawer extends Component {
         super(props, ...restArgs);
 
         this.setBodyLock = this::this.setBodyLock;
-        this.okButtonTouchTapHandler = ::this.okButtonTouchTapHandler;
-        this.cancelButtonTouchTapHandler = ::this.cancelButtonTouchTapHandler;
-        this.closeButtonTouchTapHandler = ::this.closeButtonTouchTapHandler;
 
     }
 
@@ -46,42 +40,6 @@ class Drawer extends Component {
 
     resetBody() {
         Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
-    }
-
-    okButtonTouchTapHandler() {
-
-        const {onOKButtonTouchTap} = this.props;
-
-        onOKButtonTouchTap && onOKButtonTouchTap(() => {
-            this.cancelButtonTouchTapHandler();
-        });
-
-    }
-
-    cancelButtonTouchTapHandler() {
-
-        const {onCancelButtonTouchTap, onRequestClose} = this.props;
-
-        this.setState({
-            visible: false
-        }, () => {
-            onCancelButtonTouchTap && onCancelButtonTouchTap();
-            onRequestClose && onRequestClose();
-        });
-
-    }
-
-    closeButtonTouchTapHandler() {
-
-        const {onCloseButtonTouchTap, onRequestClose} = this.props;
-
-        this.setState({
-            visible: false
-        }, () => {
-            onCloseButtonTouchTap && onCloseButtonTouchTap();
-            onRequestClose && onRequestClose();
-        });
-
     }
 
     componentDidMount() {
@@ -104,16 +62,11 @@ class Drawer extends Component {
 
                 children,
 
-                className, modalClassName, position, disabled, showModal,
-                title, buttons, isLoading, visible, closeIconCls,
-
-                okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
-                cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
+                className, modalClassName, position, disabled, showModal, isLoading, visible,
 
                 // not passing down these props
                 isBlurClose, isEscClose,
-                onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
+                onRender, onRequestClose,
 
                 ...restProps
 
@@ -131,61 +84,9 @@ class Drawer extends Component {
                          container={<Paper depth={6}></Paper>}
                          showModal={showModal}
                          modalClassName={modalClassName}>
-
-                <div className="drawer-title">
-                    {title}
-                    <IconButton className="drawer-title-close-button"
-                                iconCls={closeIconCls}
-                                disabled={disabled}
-                                onTouchTap={this.closeButtonTouchTapHandler}/>
-                </div>
-
                 <div className="drawer-content">
                     {children}
                 </div>
-
-                <div className="drawer-buttons">
-
-                    {
-                        buttons ?
-                            Children.map(buttons, button => cloneElement(button, {
-                                isLoading,
-                                disabled
-                            }))
-                            :
-                            null
-                    }
-
-                    {
-                        !buttons && okButtonVisible ?
-                            <RaisedButton className="ok-button"
-                                          value={okButtonText}
-                                          iconCls={okButtonIconCls}
-                                          theme={okButtonTheme}
-                                          disabled={okButtonDisabled}
-                                          isLoading={isLoading || okButtonIsLoading}
-                                          disableTouchRipple={true}
-                                          onTouchTap={this.okButtonTouchTapHandler}/>
-                            :
-                            null
-                    }
-
-                    {
-                        !buttons && cancelButtonVisible ?
-                            <FlatButton className="cancel-button"
-                                        value={cancelButtonText}
-                                        iconCls={cancelButtonIconCls}
-                                        theme={cancelButtonTheme}
-                                        disabled={cancelButtonDisabled}
-                                        isLoading={isLoading || cancelButtonIsLoading}
-                                        disableTouchRipple={true}
-                                        onTouchTap={this.cancelButtonTouchTapHandler}/>
-                            :
-                            null
-                    }
-
-                </div>
-
             </PositionPop>
         );
 
@@ -231,85 +132,13 @@ Drawer.propTypes = {
     showModal: PropTypes.bool,
 
     /**
-     * Set the title of drawer.
-     */
-    title: PropTypes.any,
-
-    /**
      * If true,when press down mouse the pop-up box will closed.
      */
     isBlurClose: PropTypes.bool,
 
     isLoading: PropTypes.bool,
 
-    /**
-     * If true,the OK button will display.
-     */
-    okButtonVisible: PropTypes.bool,
-
-    /**
-     * Set the text value of the OK button.
-     */
-    okButtonText: PropTypes.string,
-
-    /**
-     * Set the icon class of the OK button.
-     */
-    okButtonIconCls: PropTypes.string,
-
-    /**
-     * If true,the OK button will disabled.
-     */
-    okButtonDisabled: PropTypes.bool,
-
-    /**
-     * If true,the ok button will have loading effect.
-     */
-    okButtonIsLoading: PropTypes.bool,
-
-    /**
-     * Set theme of OK button.
-     */
-    okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * If true,the cancel button will display.
-     */
-    cancelButtonVisible: PropTypes.bool,
-
-    /**
-     * Set the text value of the cancel button.
-     */
-    cancelButtonText: PropTypes.string,
-
-    /**
-     * Set the icon class of the cancel button.
-     */
-    cancelButtonIconCls: PropTypes.string,
-
-    /**
-     * If true,the cancel button will disabled.
-     */
-    cancelButtonDisabled: PropTypes.bool,
-
-    /**
-     * If true,the cancel button will have loading effect.
-     */
-    cancelButtonIsLoading: PropTypes.bool,
-
-    /**
-     * Set theme of cancel button.
-     */
-    cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    closeIconCls: PropTypes.string,
-
     isEscClose: PropTypes.bool,
-
-    /**
-     * The buttons of Drawer.
-     */
-    buttons: PropTypes.any,
 
     /**
      * The function of drawer render.
@@ -319,22 +148,7 @@ Drawer.propTypes = {
     /**
      * The function that trigger when click submit.
      */
-    onRequestClose: PropTypes.func,
-
-    /**
-     * Callback function fired when click the ok button.
-     */
-    onOKButtonTouchTap: PropTypes.func,
-
-    /**
-     * Callback function fired when click the cancel button.
-     */
-    onCancelButtonTouchTap: PropTypes.func,
-
-    /**
-     * Callback function fired when click the close button.
-     */
-    onCloseButtonTouchTap: PropTypes.func
+    onRequestClose: PropTypes.func
 
 };
 
@@ -344,32 +158,13 @@ Drawer.defaultProps = {
     modalClassName: null,
     style: null,
 
-    position: Position.CENTER,
+    position: Position.LEFT,
     disabled: false,
     visible: false,
     showModal: true,
 
-    title: null,
-
     isBlurClose: false,
     isLoading: false,
-
-    okButtonVisible: true,
-    okButtonText: 'OK',
-    okButtonIconCls: null,
-    okButtonDisabled: false,
-    okButtonIsLoading: false,
-    okButtonTheme: Theme.SUCCESS,
-
-    cancelButtonVisible: true,
-    cancelButtonText: 'Cancel',
-    cancelButtonIconCls: null,
-    cancelButtonDisabled: false,
-    cancelButtonIsLoading: false,
-    cancelButtonTheme: Theme.DEFAULT,
-
-    closeIconCls: 'fas fa-times',
-
     isEscClose: true
 
 };
