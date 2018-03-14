@@ -22,6 +22,7 @@ class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = Dropdown.Position;
 
     constructor(props, ...restArgs) {
 
@@ -391,6 +392,8 @@ DropdownSelect.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+
     /**
      * The name of the dropDownSelect.
      */
@@ -591,6 +594,7 @@ DropdownSelect.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
+    position: Dropdown.Position.LEFT,
     name: null,
     value: null,
     placeholder: 'Please select ...',
