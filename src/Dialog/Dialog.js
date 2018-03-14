@@ -28,7 +28,7 @@ class Dialog extends Component {
 
         super(props, ...restArgs);
 
-        this.setBodyLock = this::this.setBodyLock;
+        this.setBodyLock = ::this.setBodyLock;
         this.okButtonTouchTapHandler = ::this.okButtonTouchTapHandler;
         this.cancelButtonTouchTapHandler = ::this.cancelButtonTouchTapHandler;
         this.closeButtonTouchTapHandler = ::this.closeButtonTouchTapHandler;
