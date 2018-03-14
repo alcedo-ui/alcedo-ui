@@ -151,32 +151,28 @@ export default class DrawerExamples extends Component {
                                         onRequestClose={() => {
                                             this.closeDrawer(0);
                                         }}>
-                                    <List className="drawer-list"
-                                          data={this.data}/>
+                                    <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[1]}
                                         position={Drawer.Position.RIGHT}
                                         onRequestClose={() => {
                                             this.closeDrawer(1);
                                         }}>
-                                    <List className="drawer-list"
-                                          data={this.data}/>
+                                    <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[2]}
                                         position={Drawer.Position.BOTTOM}
                                         onRequestClose={() => {
                                             this.closeDrawer(2);
                                         }}>
-                                    <List className="drawer-list"
-                                          data={this.data}/>
+                                    <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[3]}
                                         position={Drawer.Position.LEFT}
                                         onRequestClose={() => {
                                             this.closeDrawer(3);
                                         }}>
-                                    <List className="drawer-list"
-                                          data={this.data}/>
+                                    <List data={this.data}/>
                                 </Drawer>
 
                             </div>
