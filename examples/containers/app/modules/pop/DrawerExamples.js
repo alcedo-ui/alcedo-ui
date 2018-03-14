@@ -84,7 +84,7 @@ export default class DrawerExamples extends Component {
         const {popupVisible} = this.state;
 
         return (
-            <div className="example pop-examples popup-examples">
+            <div className="example pop-examples drawer-examples">
 
                 <h2 className="example-title">Drawer</h2>
 
