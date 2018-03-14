@@ -15,7 +15,6 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
-import PopManagement from '../_vendors/PopManagement';
 
 class PositionPop extends Component {
 
@@ -91,11 +90,7 @@ class PositionPop extends Component {
     }
 
     componentDidMount() {
-
         Event.addEvent(window, 'resize', this.resizeHandler);
-
-        this.props.isEscClose && PopManagement.push(this);
-
     }
 
     componentWillReceiveProps(nextProps) {
