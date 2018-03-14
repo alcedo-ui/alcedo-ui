@@ -18,6 +18,7 @@ class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = DropdownSelect.Position;
 
     constructor(props, ...restArgs) {
 
@@ -113,6 +114,8 @@ MaterialDropdownSelect.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Position)),
 
     /**
      * The name of the dropDownSelect.
@@ -309,6 +312,7 @@ MaterialDropdownSelect.defaultProps = {
     popupStyle: null,
     theme: Theme.DEFAULT,
 
+    position: DropdownSelect.Position.LEFT,
     name: null,
     label: null,
     isLabelAnimate: true,
