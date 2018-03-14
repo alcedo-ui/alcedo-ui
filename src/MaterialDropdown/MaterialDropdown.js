@@ -16,6 +16,7 @@ import Util from '../_vendors/Util';
 class MaterialDropdown extends Component {
 
     static Theme = Theme;
+    static Position = Dropdown.Position;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -91,6 +92,8 @@ MaterialDropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+
     /**
      * The label of the dropdown.
      */
@@ -153,6 +156,7 @@ MaterialDropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
+    position: Dropdown.Position.LEFT,
     label: '',
     isLabelAnimate: true,
     triggerValue: null,
