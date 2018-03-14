@@ -14,6 +14,7 @@ import Theme from '../Theme';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+import Event from '../_vendors/Event';
 
 class Drawer extends Component {
 
@@ -24,8 +25,19 @@ class Drawer extends Component {
 
         super(props, ...restArgs);
 
-        this.setBodyLock = this::this.setBodyLock;
+        this.closeTimeout = null;
 
+        this.clearCloseTimeout = ::this.clearCloseTimeout;
+        this.setBodyLock = ::this.setBodyLock;
+        this.mouseDownHandler = ::this.mouseDownHandler;
+
+    }
+
+    clearCloseTimeout() {
+        if (this.closeTimeout) {
+            clearTimeout(this.closeTimeout);
+            this.closeTimeout = null;
+        }
     }
 
     setBodyLock(props = this.props) {
@@ -42,8 +54,44 @@ class Drawer extends Component {
         Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
     }
 
+    triggerHandler(el, drawerEl, currentVisible, isAutoClose) {
+
+        while (el) {
+            if (el == drawerEl) {
+                return currentVisible;
+            }
+            el = el.parentNode;
+        }
+
+        return isAutoClose ? false : currentVisible;
+
+    }
+
+    mouseDownHandler(e) {
+
+        const {visible, isAutoClose, triggerHandler, onRequestClose} = this.props,
+            drawerEl = this.refs.drawerContent;
+
+        let currVisible;
+
+        if (triggerHandler) {
+            currVisible = triggerHandler(e.target, drawerEl, visible, isAutoClose);
+        } else if (!Dom.isParent(e.target)) {
+            currVisible = this.triggerHandler(e.target, drawerEl, visible, isAutoClose);
+        }
+
+        if (currVisible === false) {
+            this.clearCloseTimeout();
+            this.closeTimeout = setTimeout(() => {
+                onRequestClose && onRequestClose(e);
+            });
+        }
+
+    }
+
     componentDidMount() {
         this.setBodyLock();
+        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -54,37 +102,32 @@ class Drawer extends Component {
 
     componentWillUnmount() {
         this.resetBody();
+        this.clearCloseTimeout();
+        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     render() {
 
         const {
 
-                children,
-
-                className, modalClassName, position, disabled, showModal, isLoading, visible,
+                children, className,
 
                 // not passing down these props
-                isBlurClose, isEscClose,
+                isAutoClose, isEscClose,
                 onRender, onRequestClose,
 
                 ...restProps
 
             } = this.props,
 
-            dialogClassName = classNames('drawer', {
+            drawerClassName = classNames('drawer', {
                 [className]: className
             });
 
         return (
             <PositionPop {...restProps}
-                         className={dialogClassName}
-                         position={position}
-                         visible={visible}
-                         container={<Paper depth={6}></Paper>}
-                         showModal={showModal}
-                         modalClassName={modalClassName}>
-                <div className="drawer-content">
+                         className={drawerClassName}>
+                <div ref="drawerContent">
                     {children}
                 </div>
             </PositionPop>
@@ -134,9 +177,7 @@ Drawer.propTypes = {
     /**
      * If true,when press down mouse the pop-up box will closed.
      */
-    isBlurClose: PropTypes.bool,
-
-    isLoading: PropTypes.bool,
+    isAutoClose: PropTypes.bool,
 
     isEscClose: PropTypes.bool,
 
@@ -163,8 +204,7 @@ Drawer.defaultProps = {
     visible: false,
     showModal: true,
 
-    isBlurClose: false,
-    isLoading: false,
+    isAutoClose: true,
     isEscClose: true
 
 };

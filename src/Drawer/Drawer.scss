@@ -7,30 +7,36 @@ body.drawer-modal-lock {
     overflow: hidden;
 }
 
-.position-pop.paper.drawer {
+.position-pop.drawer {
     box-sizing: border-box;
     overflow: hidden;
     color: $theme-field;
-    background: none;
+    background: $theme-field-bg;
     border-radius: 0;
+    transform: translate3d(0, 0, 0);
     z-index: $pop-z-index;
 
-    .drawer-content {
+    &.position-pop-top {
         width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        background: $theme-field-bg;
+        height: auto;
     }
 
-    &.position-pop-top,
+    &.position-pop-right {
+        width: auto;
+        height: 100%;
+    }
+
     &.position-pop-bottom {
         width: 100%;
         height: auto;
     }
 
-    &.position-pop-left,
-    &.position-pop-right {
-        width: auto;
+    &.position-pop-left {
+        width: 300px;
         height: 100%;
+
+        &.position-pop-animated.hidden {
+            transform: translate3d(-300px, 0, 0);
+        }
     }
 }
