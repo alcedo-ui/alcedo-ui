@@ -18,17 +18,29 @@ body.drawer-modal-lock {
 
     &.position-pop-top {
         width: 100%;
-        height: auto;
+        height: 300px;
+
+        &.position-pop-animated.hidden {
+            transform: translate3d(0, -300px, 0);
+        }
     }
 
     &.position-pop-right {
-        width: auto;
+        width: 300px;
         height: 100%;
+
+        &.position-pop-animated.hidden {
+            transform: translate3d(300px, 0, 0);
+        }
     }
 
     &.position-pop-bottom {
         width: 100%;
-        height: auto;
+        height: 300px;
+
+        &.position-pop-animated.hidden {
+            transform: translate3d(0, 300px, 0);
+        }
     }
 
     &.position-pop-left {
