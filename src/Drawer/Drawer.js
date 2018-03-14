@@ -54,7 +54,7 @@ class Drawer extends Component {
         Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
     }
 
-    triggerHandler(el, drawerEl, currentVisible, isAutoClose) {
+    triggerHandler(el, drawerEl, currentVisible, isBlurClose) {
 
         while (el) {
             if (el == drawerEl) {
@@ -63,21 +63,21 @@ class Drawer extends Component {
             el = el.parentNode;
         }
 
-        return isAutoClose ? false : currentVisible;
+        return isBlurClose ? false : currentVisible;
 
     }
 
     mouseDownHandler(e) {
 
-        const {visible, isAutoClose, triggerHandler, onRequestClose} = this.props,
+        const {visible, isBlurClose, triggerHandler, onRequestClose} = this.props,
             drawerEl = this.refs.drawerContent;
 
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, drawerEl, visible, isAutoClose);
+            currVisible = triggerHandler(e.target, drawerEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target)) {
-            currVisible = this.triggerHandler(e.target, drawerEl, visible, isAutoClose);
+            currVisible = this.triggerHandler(e.target, drawerEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -113,7 +113,7 @@ class Drawer extends Component {
                 children, className,
 
                 // not passing down these props
-                isAutoClose, isEscClose,
+                isBlurClose, isEscClose,
                 onRender, onRequestClose,
 
                 ...restProps
@@ -177,7 +177,7 @@ Drawer.propTypes = {
     /**
      * If true,when press down mouse the pop-up box will closed.
      */
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
 
     isEscClose: PropTypes.bool,
 
@@ -204,7 +204,7 @@ Drawer.defaultProps = {
     visible: false,
     showModal: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true
 
 };
