@@ -19,6 +19,7 @@ class MaterialTreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = TreeSelect.Position;
 
     constructor(props, ...restArgs) {
 
@@ -114,6 +115,8 @@ MaterialTreeSelect.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(TreeSelect.Position)),
 
     /**
      * The name of the MaterialTreeSelect.
@@ -312,6 +315,7 @@ MaterialTreeSelect.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
+    position: TreeSelect.Position.LEFT,
     name: null,
     value: null,
     label: null,
