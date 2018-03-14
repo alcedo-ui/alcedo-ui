@@ -23,6 +23,7 @@ export DownloadField from './DownloadField';
 export DraggableGrid from './DraggableGrid';
 export DraggableList from './DraggableList';
 export DraggableTree from './DraggableTree';
+export Drawer from './Drawer';
 export Dropdown from './Dropdown';
 export DropdownFilter from './DropdownFilter';
 export DropdownSelect from './DropdownSelect';
@@ -99,4 +100,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 99;
+export const COMPONENTS_TOTAL_COUNT = 100;
