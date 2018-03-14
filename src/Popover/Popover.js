@@ -13,6 +13,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
+import PopManagement from '../_vendors/PopManagement';
 
 class Popover extends Component {
 
@@ -75,8 +76,22 @@ class Popover extends Component {
         this.refs.popover.resetPosition();
     }
 
+    componentWillReceiveProps(nextProps) {
+
+        const {visible, isEscClose} = nextProps;
+
+        if (isEscClose && visible) {
+            PopManagement.push(this);
+        }
+
+    }
+
     componentWillUnmount() {
+
         this.clearCloseTimeout();
+
+        PopManagement.pop(this);
+
     }
 
     render() {
