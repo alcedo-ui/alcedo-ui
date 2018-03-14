@@ -15,6 +15,7 @@ import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
+import PopManagement from '../_vendors/PopManagement';
 
 class Drawer extends Component {
 
@@ -95,22 +96,34 @@ class Drawer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.props.visible) {
+
+        const {visible, isEscClose} = nextProps;
+
+        if (visible !== this.props.visible) {
             this.setBodyLock(nextProps);
         }
+
+        if (isEscClose && visible) {
+            PopManagement.push(this);
+        }
+
     }
 
     componentWillUnmount() {
+
         this.resetBody();
         this.clearCloseTimeout();
         Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+
+        PopManagement.pop(this);
+
     }
 
     render() {
 
         const {
 
-                children, className,
+                className,
 
                 // not passing down these props
                 isBlurClose, isEscClose,
@@ -126,11 +139,11 @@ class Drawer extends Component {
 
         return (
             <PositionPop {...restProps}
-                         className={drawerClassName}>
-                <div ref="drawerContent">
-                    {children}
-                </div>
-            </PositionPop>
+                         className={drawerClassName}
+                         container={
+                             <Paper ref="drawerContent"
+                                    depth={6}></Paper>
+                         }/>
         );
 
     }
