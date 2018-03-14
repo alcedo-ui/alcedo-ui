@@ -290,6 +290,9 @@ export default [{
         text: 'Popover',
         route: '/components/Popover'
     }, {
+        text: 'Drawer',
+        route: '/components/Drawer'
+    }, {
         text: 'Tip',
         route: '/components/Tip'
     }, {

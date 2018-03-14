@@ -188,6 +188,9 @@ export default function configureRoutes(store) {
                     path: '/components/Popover',
                     component: ac(store, () => import('modules/pop/PopoverExamples'))
                 }, {
+                    path: '/components/Drawer',
+                    component: ac(store, () => import('modules/pop/DrawerExamples'))
+                }, {
                     path: '/components/Tip',
                     component: ac(store, () => import('modules/pop/TipExamples'))
                 }, {
