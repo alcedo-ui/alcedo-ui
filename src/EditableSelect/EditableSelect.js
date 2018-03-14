@@ -82,7 +82,7 @@ class EditableSelect extends Component {
         });
     }
 
-    triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
+    triggerHandler(el, triggerEl, popupEl, currentVisible, isBlurClose) {
 
         if (!triggerEl) {
             return true;
@@ -97,7 +97,7 @@ class EditableSelect extends Component {
             el = el.parentNode;
         }
 
-        return isAutoClose ? false : currentVisible;
+        return isBlurClose ? false : currentVisible;
 
     }
 
