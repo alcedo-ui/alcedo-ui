@@ -126,6 +126,7 @@ export default class DropdownSelectExamples extends Component {
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
                                                     useSelectAll={true}
+                                                    selectAllText="All Example Items"
                                                     selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     autoClose={false}
                                                     onChange={this.onChange}/>
