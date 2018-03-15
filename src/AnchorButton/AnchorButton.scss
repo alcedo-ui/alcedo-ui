@@ -3,8 +3,16 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin anchor-button-disabled {
+    color: $theme-field-disabled;
+}
+
 @mixin anchor-button-theme($color) {
     color: $color;
+
+    &[disabled] {
+        @include anchor-button-disabled;
+    }
 }
 
 .anchor-button {
@@ -12,7 +20,7 @@
     border: none;
 
     &[disabled] {
-        color: $theme-field-disabled;
+        @include anchor-button-disabled;
     }
 
     // default theme
