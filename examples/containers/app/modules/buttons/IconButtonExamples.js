@@ -68,10 +68,10 @@ export default class IconButtonExamples extends Component {
                                 <p><code>Icon Button</code> using different <code>theme</code> example.</p>
 
                                 <IconButton iconCls="fas fa-plus"
-                                            theme="success"/>
+                                            theme={IconButton.Theme.SUCCESS}/>
 
                                 <IconButton iconCls="fas fa-trash-alt"
-                                            theme="error"/>
+                                            theme={IconButton.Theme.ERROR}/>
 
                                 <IconButton iconCls="fas fa-wrench"
                                             disabled={true}/>
