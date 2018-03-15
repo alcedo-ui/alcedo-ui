@@ -218,8 +218,8 @@ class DropdownSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
-                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, popupChildren,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
+                useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
 
                 // not passing down these props
                 noMatchedMsg,
@@ -286,7 +286,7 @@ class DropdownSelect extends Component {
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}/>
-                                    Select All
+                                    {selectAllText}
                                 </div>
                                 :
                                 null
@@ -537,6 +537,7 @@ DropdownSelect.propTypes = {
     useFilter: PropTypes.bool,
 
     useSelectAll: PropTypes.bool,
+    selectAllText: PropTypes.string,
 
     /**
      * The message of no matching option.
@@ -612,6 +613,7 @@ DropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
+    selectAllText: 'Select All',
     noMatchedMsg: null,
 
     shouldPreventContainerScroll: true,
