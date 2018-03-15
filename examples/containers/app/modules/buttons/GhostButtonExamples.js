@@ -43,8 +43,6 @@ export default class GhostButtonExamples extends Component {
                                     , <code>warning</code>, <code>error</code> and <code>disabled</code> props applied.
                                 </p>
 
-                                <GhostButton value="Default"/>
-
                                 <GhostButton value="Primary"
                                              theme={GhostButton.Theme.PRIMARY}/>
 
@@ -86,9 +84,6 @@ export default class GhostButtonExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>isRounded</code> property to true for button round corner.</p>
-
-                                <GhostButton value="Default"
-                                             isRounded={true}/>
 
                                 <GhostButton value="Primary"
                                              theme={GhostButton.Theme.PRIMARY}
@@ -141,9 +136,6 @@ export default class GhostButtonExamples extends Component {
                                 <p>Set the <code>iconCls</code> property for button left icon.And set the
                                     <code>rightIconCls</code> property for button right icon.</p>
 
-                                <GhostButton value="Reset"
-                                             iconCls="fas fa-undo"/>
-
                                 <GhostButton value="Add"
                                              theme={GhostButton.Theme.SUCCESS}
                                              iconCls="fas fa-plus"/>
@@ -173,9 +165,6 @@ export default class GhostButtonExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>isCircular</code> property to true for circle shape flat button.</p>
-
-                                <GhostButton value="Reset"
-                                             isCircular={true}/>
 
                                 <GhostButton value="Add"
                                              theme={GhostButton.Theme.SUCCESS}
