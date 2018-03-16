@@ -270,6 +270,7 @@ MaterialDropdownSelect.propTypes = {
     useFilter: PropTypes.bool,
 
     useSelectAll: PropTypes.bool,
+    selectAllText: PropTypes.string,
 
     /**
      * The message of no matching option.
@@ -332,6 +333,7 @@ MaterialDropdownSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
+    selectAllText: 'Select All',
     noMatchedMsg: null,
     isGrouped: false,
     required: false,
