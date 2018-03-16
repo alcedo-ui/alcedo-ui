@@ -6,14 +6,12 @@ export default function asyncComponent(store, getComponent) {
 
     return class AsyncComponent extends Component {
 
-        static Component = null;
-
         constructor(props) {
 
             super(props);
 
             this.state = {
-                Component: AsyncComponent.Component
+                Component: null
             };
 
         }
@@ -37,7 +35,6 @@ export default function asyncComponent(store, getComponent) {
                 this.loadStartCallback();
 
                 getComponent().then(({default: Component}) => {
-                    AsyncComponent.Component = Component;
                     this.setState({
                         Component
                     }, () => {
