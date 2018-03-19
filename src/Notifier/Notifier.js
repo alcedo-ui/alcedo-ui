@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
@@ -84,7 +84,7 @@ class Notifier extends Component {
 
         if (nextProps.notifications && nextProps.notifications.length > 0) {
 
-            let notifications = _.cloneDeep(nextProps.notifications);
+            let notifications = cloneDeep(nextProps.notifications);
             for (let i = 0, len = notifications.length; i < len; i++) {
                 if (typeof notifications[i] !== 'object') {
                     notifications[i] = {
