@@ -8,3 +8,7 @@ exports.assetsPath = _path => {
 exports.assetsSubPath = _path => {
     return path.posix.join(config.assetsSubDirectory, _path);
 };
+
+exports.assetsVendorsPath = _path => {
+    return path.posix.join(config.build.assetsRoot, exports.assetsSubPath(`vendors/${_path}`));
+};
