@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
 
     assetsPublicPath: '/',
+    assetsDirectory: 'docs',
     assetsSubDirectory: 'static',
     productionGzipExtensions: ['js', 'css'],
 
