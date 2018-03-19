@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import sum from 'lodash/sum';
 import classNames from 'classnames';
 
 import HuePicker from '../HuePicker';
@@ -129,7 +129,7 @@ class ColorPicker extends Component {
             },
 
             cursorClassName = classNames('color-picker-cursor', {
-                light: _.sum(value) / 3 < 128
+                light: sum(value) / 3 < 128
             }),
             cursorStyle = {
                 left: `${hsb[1] * 100}%`,
