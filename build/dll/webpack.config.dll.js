@@ -25,7 +25,7 @@ module.exports = {
 
         new webpack.DllPlugin({
             context: __dirname,
-            path: utils.assetsVendorsPath('[name]-manifest.json'),
+            path: utils.assetsVendorsAbsolutePath('[name]-manifest.json'),
             name: library
         }),
 
