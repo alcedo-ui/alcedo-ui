@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
@@ -84,7 +84,7 @@ class Toaster extends Component {
 
         if (nextProps.toasts && nextProps.toasts.length > 0) {
 
-            let toasts = _.cloneDeep(nextProps.toasts);
+            let toasts = cloneDeep(nextProps.toasts);
             for (let i = 0, len = toasts.length; i < len; i++) {
                 if (typeof toasts[i] !== 'object') {
                     toasts[i] = {
