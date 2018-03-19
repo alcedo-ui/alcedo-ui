@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 
 import DraggableGridItem from '../_DraggableGridItem';
 import Tip from '../Tip';
@@ -46,7 +46,7 @@ class DraggableGrid extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !_.isArray(value)) {
+            if (!value || !isArray(value)) {
                 value = [];
             }
 
@@ -77,7 +77,7 @@ class DraggableGrid extends Component {
         const {valueField, displayField} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [];
         } else {
             value = value.filter(valueItem => {
