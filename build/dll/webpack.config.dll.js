@@ -32,7 +32,7 @@ module.exports = {
 
         new AssetsPlugin({
             path: config.build.assetsRoot,
-            filename: utils.assetsSubPath('vendors/vendors-config.json')
+            filename: utils.assetsSubPath('vendors/vendors-assets.json')
         }),
 
         new CompressionPlugin({

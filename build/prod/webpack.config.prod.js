@@ -1,13 +1,15 @@
 const path = require('path'),
     webpack = require('webpack'),
     merge = require('webpack-merge'),
-    CopyWebpackPlugin = require('copy-webpack-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    CompressionWebpackPlugin = require('compression-webpack-plugin'),
+    CopyPlugin = require('copy-webpack-plugin'),
+    HtmlPlugin = require('html-webpack-plugin'),
+    HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
+    CompressionPlugin = require('compression-webpack-plugin'),
 
     config = require('../../config'),
     baseWebpackConfig = require('./../webpack.config.base'),
     utils = require('./../utils'),
+    vendorsAssets = require(utils.assetsVendorsAbsolutePath('vendors-assets.json')),
 
     env = config.build.env;
 
@@ -45,7 +47,13 @@ module.exports = merge(baseWebpackConfig, {
             'process.env': env
         }),
 
-        new HtmlWebpackPlugin({
+        new CopyPlugin([{
+            from: path.resolve(__dirname, '../../static'),
+            to: config.assetsSubDirectory,
+            ignore: ['.*']
+        }]),
+
+        new HtmlPlugin({
             filename: config.build.index,
             template: './examples/index.html',
             favicon: './examples/assets/images/favicon.ico',
@@ -62,13 +70,12 @@ module.exports = merge(baseWebpackConfig, {
             manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
         }),
 
-        new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, '../../static'),
-            to: config.assetsSubDirectory,
-            ignore: ['.*']
-        }]),
+        new HtmlIncludeAssetsPlugin({
+            assets: [vendorsAssets.react.js],
+            append: false
+        }),
 
-        new CompressionWebpackPlugin({
+        new CompressionPlugin({
             asset: '[path].gz[query]',
             algorithm: 'gzip',
             test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
