@@ -53,6 +53,15 @@ module.exports = merge(baseWebpackConfig, {
             ignore: ['.*']
         }]),
 
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require(utils.assetsVendorsAbsolutePath('polyfill-manifest.json'))
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
+        }),
+
         new HtmlPlugin({
             filename: config.build.index,
             template: './examples/index.html',
@@ -65,17 +74,11 @@ module.exports = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
 
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require(utils.assetsVendorsAbsolutePath('polyfill-manifest.json'))
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
-        }),
-
         new HtmlIncludeAssetsPlugin({
-            assets: [vendorsAssets.react.js],
+            assets: [
+                vendorsAssets.polyfill.js,
+                vendorsAssets.react.js
+            ],
             append: false
         }),
 
