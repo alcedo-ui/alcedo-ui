@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isArray from 'lodash/isArray';
 import {DragDropContext} from 'react-beautiful-dnd';
 import classNames from 'classnames';
 
@@ -50,7 +51,7 @@ class DraggableTree extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !_.isArray(value)) {
+            if (!value || !isArray(value)) {
                 value = [];
             }
 
@@ -81,7 +82,7 @@ class DraggableTree extends Component {
         const {valueField, displayField} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [];
         } else {
             value = value.filter(valueItem => {
