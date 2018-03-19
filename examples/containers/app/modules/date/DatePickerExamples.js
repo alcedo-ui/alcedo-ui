@@ -22,10 +22,10 @@ export default class DatePickerExamples extends Component {
         return (
             <div className="example time-picker-examples">
 
-                <h2 className="example-title">Date Picker</h2>
+                <h2 className="example-title">DatePicker</h2>
 
                 <p>
-                    <span>Date Picker</span> is used to select a single date for an input.
+                    <span>DatePicker</span> is used to select a single date for an input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -40,10 +40,10 @@ export default class DatePickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>
-                                    <code>Date Picker</code> using the <code>value</code> property to set initial date.
+                                    <code>DatePicker</code> using the <code>value</code> property to set initial date.
                                 </p>
 
-                                <DatePicker value={'2314-33-55'}
+                                <DatePicker value={''}
                                             dateFormat={'YYYY-MM-DD'}
                                             name="date"
                                             autoClose={true}
@@ -64,7 +64,7 @@ export default class DatePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Date Picker</code> using the <code>dateFormat</code> property to set date
+                                <p><code>DatePicker</code> using the <code>dateFormat</code> property to set date
                                     format and using <code>placeholder</code> property to set a default date when no
                                     date choice.</p>
 
@@ -88,7 +88,7 @@ export default class DatePickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Date Picker</code> using the <code>maxValue</code> and <code>minValue</code>
+                                <p><code>DatePicker</code> using the <code>maxValue</code> and <code>minValue</code>
                                     property to set date selectable range.</p>
 
                                 <DatePicker name="date"
