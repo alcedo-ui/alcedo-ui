@@ -7,13 +7,8 @@
 
         .examples-wrapper {
 
-            .material-provider {
-                width: auto;
+            .button-radio-group {
                 margin-bottom: 20px;
-
-                .material-provider-label-wrapper {
-                    margin-bottom: 8px;
-                }
 
                 .button-radio-group-item {
                     width: auto;
@@ -57,6 +52,7 @@
 
             .material-text-field {
                 width: 400px;
+                margin-bottom: 20px;
             }
         }
     }
