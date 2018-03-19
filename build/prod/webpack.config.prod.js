@@ -6,9 +6,6 @@ const path = require('path'),
     baseWebpackConfig = require('./../webpack.config.base.js'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    // OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
-    // UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
     CompressionWebpackPlugin = require('compression-webpack-plugin'),
 
     env = config.build.env;
@@ -16,13 +13,6 @@ const path = require('path'),
 module.exports = merge(baseWebpackConfig, {
 
     mode: 'production',
-
-    // module: {
-    //     rules: utils.styleLoaders({
-    //         sourceMap: config.build.productionSourceMap,
-    //         extract: true
-    //     })
-    // },
 
     devtool: config.build.productionSourceMap ? '#source-map' : false,
 
@@ -34,29 +24,6 @@ module.exports = merge(baseWebpackConfig, {
     },
 
     optimization: {
-        // runtimeChunk: {
-        //     name: 'manifest'
-        // },
-        // splitChunks: {
-        //     name: 'vendor',
-        //     chunks: 'all'
-        //     // minSize: 30000,
-        //     // minChunks: 1,
-        //     // maxAsyncRequests: 5,
-        //     // maxInitialRequests: 3,
-        //     // name: true,
-        //     // cacheGroups: {
-        //     //     default: {
-        //     //         minChunks: 2,
-        //     //         priority: -20,
-        //     //         reuseExistingChunk: true
-        //     //     },
-        //     //     vendors: {
-        //     //         test: /[\\/]node_modules[\\/]/,
-        //     //         priority: -10
-        //     //     }
-        //     // }
-        // }
         runtimeChunk: {
             name: 'manifest'
         },
@@ -77,15 +44,6 @@ module.exports = merge(baseWebpackConfig, {
             'process.env': env
         }),
 
-        // new UglifyJSPlugin(),
-
-        // new ExtractTextPlugin({
-        //     // allChunks: true,
-        //     filename: utils.assetsPath('css/[name].[contenthash].css')
-        // }),
-
-        // new OptimizeCSSPlugin(),
-
         new HtmlWebpackPlugin({
             filename: config.build.index,
             template: './examples/index.html',
@@ -97,17 +55,6 @@ module.exports = merge(baseWebpackConfig, {
             },
             chunksSortMode: 'dependency'
         }),
-
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor',
-        //     minChunks: module => module.resource && /\.js$/.test(module.resource)
-        //         && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
-        // }),
-
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'manifest',
-        //     chunks: ['vendor']
-        // }),
 
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../../static'),
