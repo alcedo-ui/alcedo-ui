@@ -1,12 +1,13 @@
 const path = require('path'),
-    utils = require('./../utils'),
     webpack = require('webpack'),
-    config = require('../../config/index'),
     merge = require('webpack-merge'),
-    baseWebpackConfig = require('./../webpack.config.base.js'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     CompressionWebpackPlugin = require('compression-webpack-plugin'),
+
+    config = require('../../config'),
+    baseWebpackConfig = require('./../webpack.config.base'),
+    utils = require('./../utils'),
 
     env = config.build.env;
 
