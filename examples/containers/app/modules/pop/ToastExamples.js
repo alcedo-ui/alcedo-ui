@@ -97,18 +97,13 @@ export default class ToastExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <MaterialProvider label="MesTypesage"
-                                                  isLabelAnimate={false}
-                                                  useSeparator={false}>
-                                    <ButtonRadioGroup data={this.Type}
-                                                      value={type}
-                                                      onChange={value => {
-                                                          this.updateField('type', value);
-                                                      }}/>
-                                </MaterialProvider>
+                                <ButtonRadioGroup data={this.Type}
+                                                  value={type}
+                                                  onChange={value => {
+                                                      this.updateField('type', value);
+                                                  }}/>
 
                                 <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
-                                                   label="Message"
                                                    value={message}
                                                    onChange={value => {
                                                        this.updateField('message', value);
