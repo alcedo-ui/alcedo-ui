@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import Valid from './Valid';
 import SelectMode from '../_statics/SelectMode';
 import Util from './Util';
@@ -85,7 +85,7 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
     }
 
     if (selectMode === SelectMode.MULTI_SELECT) {
-        return _.isArray(value) && value.filter(valueItem =>
+        return isArray(value) && value.filter(valueItem =>
             Util.isValueEqual(valueItem, item, valueField, displayField)
         ).length > 0;
     } else if (selectMode === SelectMode.SINGLE_SELECT) {
