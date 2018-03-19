@@ -5,7 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
@@ -32,9 +33,9 @@ class CheckboxGroup extends Component {
 
     changeHandler(item) {
 
-        let value = _.cloneDeep(this.state.value);
+        let value = cloneDeep(this.state.value);
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [item];
         } else {
 
