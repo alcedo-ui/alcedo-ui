@@ -5,6 +5,7 @@
 
 import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
 
@@ -77,7 +78,7 @@ class PositionPop extends Component {
         });
     }
 
-    resizeHandler = _.debounce(() => {
+    resizeHandler = debounce(() => {
         this.resetPosition();
     }, 250);
 
