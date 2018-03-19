@@ -2,6 +2,8 @@ const path = require('path');
 
 module.exports = {
 
+    assetsPublicPath: '/',
+    assetsSubDirectory: 'static',
     productionGzipExtensions: ['js', 'css'],
 
     dev: {
@@ -9,8 +11,6 @@ module.exports = {
         port: 3001,
         srcRoot: path.resolve(__dirname, '../examples'),
         index: path.resolve(__dirname, '../examples/index.html'),
-        assetsSubDirectory: 'static',
-        assetsPublicPath: '/',
         assetsVirtualRoot: path.posix.join('/', 'static'),
         proxyTable: {},
         cssSourceMap: false
@@ -20,8 +20,6 @@ module.exports = {
         env: require('./prod.env'),
         index: path.resolve(__dirname, '../docs/index.html'),
         assetsRoot: path.resolve(__dirname, '../docs'),
-        assetsSubDirectory: 'static',
-        assetsPublicPath: '/',
         productionSourceMap: false
     },
 
