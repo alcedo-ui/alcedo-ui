@@ -39,11 +39,11 @@ exports.cssLoaders = options => {
         }
 
         if (options.extract) {
-            return ExtractTextPlugin.extract({
+            return {
                 use: loaders,
                 fallback: 'style-loader',
                 publicPath: '../../'
-            });
+            };
         }
 
         return ['style-loader'].concat(loaders);

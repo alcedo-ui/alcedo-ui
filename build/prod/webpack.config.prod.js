@@ -17,12 +17,12 @@ module.exports = merge(baseWebpackConfig, {
 
     mode: 'production',
 
-    module: {
-        rules: utils.styleLoaders({
-            sourceMap: config.build.productionSourceMap,
-            extract: true
-        })
-    },
+    // module: {
+    //     rules: utils.styleLoaders({
+    //         sourceMap: config.build.productionSourceMap,
+    //         extract: true
+    //     })
+    // },
 
     devtool: config.build.productionSourceMap ? '#source-map' : false,
 
@@ -33,30 +33,43 @@ module.exports = merge(baseWebpackConfig, {
         chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
     },
 
-    // optimization: {
-    //     // runtimeChunk: {
-    //     //     name: 'manifest'
-    //     // },
-    //     splitChunks: {
-    //         chunks: 'all'
-    //         // minSize: 30000,
-    //         // minChunks: 1,
-    //         // maxAsyncRequests: 5,
-    //         // maxInitialRequests: 3,
-    //         // name: true,
-    //         // cacheGroups: {
-    //         //     default: {
-    //         //         minChunks: 2,
-    //         //         priority: -20,
-    //         //         reuseExistingChunk: true
-    //         //     },
-    //         //     vendors: {
-    //         //         test: /[\\/]node_modules[\\/]/,
-    //         //         priority: -10
-    //         //     }
-    //         // }
-    //     }
-    // },
+    optimization: {
+        // runtimeChunk: {
+        //     name: 'manifest'
+        // },
+        // splitChunks: {
+        //     name: 'vendor',
+        //     chunks: 'all'
+        //     // minSize: 30000,
+        //     // minChunks: 1,
+        //     // maxAsyncRequests: 5,
+        //     // maxInitialRequests: 3,
+        //     // name: true,
+        //     // cacheGroups: {
+        //     //     default: {
+        //     //         minChunks: 2,
+        //     //         priority: -20,
+        //     //         reuseExistingChunk: true
+        //     //     },
+        //     //     vendors: {
+        //     //         test: /[\\/]node_modules[\\/]/,
+        //     //         priority: -10
+        //     //     }
+        //     // }
+        // }
+        runtimeChunk: {
+            name: 'manifest'
+        },
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all'
+                }
+            }
+        }
+    },
 
     plugins: [
 
@@ -66,10 +79,10 @@ module.exports = merge(baseWebpackConfig, {
 
         // new UglifyJSPlugin(),
 
-        new ExtractTextPlugin({
-            allChunks: true,
-            filename: utils.assetsPath('css/[name].[contenthash].css')
-        }),
+        // new ExtractTextPlugin({
+        //     // allChunks: true,
+        //     filename: utils.assetsPath('css/[name].[contenthash].css')
+        // }),
 
         // new OptimizeCSSPlugin(),
 
