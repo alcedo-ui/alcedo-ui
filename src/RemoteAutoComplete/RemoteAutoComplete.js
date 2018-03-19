@@ -5,14 +5,14 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Event from '../_vendors/Event';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
 
-import _ from 'lodash';
+import Event from '../_vendors/Event';
 
 class RemoteAutoComplete extends Component {
 
@@ -69,7 +69,7 @@ class RemoteAutoComplete extends Component {
         });
     }
 
-    onChange = _.debounce((text) => {
+    onChange = debounce((text) => {
         this.changeText(text);
     }, 250);
 
