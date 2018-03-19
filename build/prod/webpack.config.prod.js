@@ -61,6 +61,10 @@ module.exports = merge(baseWebpackConfig, {
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
         }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require(utils.assetsVendorsAbsolutePath('tools-manifest.json'))
+        }),
 
         new HtmlPlugin({
             filename: config.build.index,
@@ -76,8 +80,9 @@ module.exports = merge(baseWebpackConfig, {
 
         new HtmlIncludeAssetsPlugin({
             assets: [
-                vendorsAssets.polyfill.js,
-                vendorsAssets.react.js
+                vendorsAssets['polyfill'].js,
+                vendorsAssets['react'].js,
+                vendorsAssets['tools'].js
             ],
             append: false
         }),
