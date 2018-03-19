@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import DatePickerTextField from '../_MaterialDatePickerTextField';
@@ -122,7 +122,7 @@ class MaterialDateTimePicker extends Component {
     }
 
     timePickerChangeHandle(obj) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.hour = obj.hour;
         state.minute = obj.minute;
         state.second = obj.second;
@@ -143,7 +143,7 @@ class MaterialDateTimePicker extends Component {
     }
 
     selectDateTimeHandle() {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.popupVisible = false;
         state.datePickerLevel = 'day';
         !this.props.disabled && this.setState(state, () => {
@@ -208,7 +208,7 @@ class MaterialDateTimePicker extends Component {
     componentDidMount() {
         // debugger
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value) {
             if (moment(value, dateFormat).isValid()) {
                 const select_year = moment(value).format('YYYY'),
@@ -287,29 +287,29 @@ class MaterialDateTimePicker extends Component {
                                        onChange={this.dayPickerChangeHandle}
                                        previousClick={this.datePickerChangeHandle}/>
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker value={value}
-                                             year={year}
-                                             month={month}
-                                             day={day}
-                                             maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                             minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                             onChange={this.monthPickerChangeHandle}
-                                             previousClick={this.datePickerChangeHandle}/>
-                                : (
-                                datePickerLevel == 'year' ?
-                                    <YearPicker value={value}
-                                                year={year}
-                                                month={month}
-                                                day={day}
-                                                maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
-                                                minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
-                                                onChange={this.yearPickerChangeHandle}/>
-                                    :
-                                    null
-                            )
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker value={value}
+                                                 year={year}
+                                                 month={month}
+                                                 day={day}
+                                                 maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                                 onChange={this.monthPickerChangeHandle}
+                                                 previousClick={this.datePickerChangeHandle}/>
+                                    : (
+                                        datePickerLevel == 'year' ?
+                                            <YearPicker value={value}
+                                                        year={year}
+                                                        month={month}
+                                                        day={day}
+                                                        maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
+                                                        minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
+                                                        onChange={this.yearPickerChangeHandle}/>
+                                            :
+                                            null
+                                    )
 
-                        )
+                            )
                     }
 
                     {
