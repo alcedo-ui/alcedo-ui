@@ -11,7 +11,6 @@ import classNames from 'classnames';
 import CircularLoading from '../CircularLoading';
 
 import Event from '../_vendors/Event';
-import debounce from 'lodash/debounce';
 
 class LazyImage extends Component {
 
