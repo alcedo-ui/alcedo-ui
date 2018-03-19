@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import ListItem from '../_ListItem';
@@ -47,7 +47,7 @@ class List extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !_.isArray(value)) {
+            if (!value || !isArray(value)) {
                 value = [];
             }
 
@@ -78,7 +78,7 @@ class List extends Component {
         const {valueField, displayField} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [];
         } else {
             value = value.filter(valueItem => {
