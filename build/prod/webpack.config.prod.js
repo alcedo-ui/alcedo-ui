@@ -91,7 +91,7 @@ module.exports = merge(baseWebpackConfig, {
             asset: '[path].gz[query]',
             algorithm: 'gzip',
             test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
-            threshold: 10240,
+            threshold: 1,
             minRatio: 0.8
         })
 
