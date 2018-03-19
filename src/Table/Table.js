@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
@@ -171,7 +171,7 @@ class Table extends Component {
         }
 
         const {sortFunc} = this.props;
-        let copyData = _.cloneDeep(data);
+        let copyData = cloneDeep(data);
 
         if (sortFunc) {
             copyData = sortFunc(copyData, sort);
@@ -377,7 +377,7 @@ class Table extends Component {
             {value} = this.state,
             self = this;
 
-        let finalColumns = _.cloneDeep(columns);
+        let finalColumns = cloneDeep(columns);
 
         if (selectMode === SelectMode.MULTI_SELECT) {
             finalColumns.unshift({
