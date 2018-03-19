@@ -7,39 +7,45 @@ const path = require('path'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
-    UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
+    // OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
+    // UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
     CompressionWebpackPlugin = require('compression-webpack-plugin'),
 
     env = config.build.env;
 
 module.exports = merge(baseWebpackConfig, {
+
+    mode: 'production',
+
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
             extract: true
         })
     },
+
     devtool: config.build.productionSourceMap ? '#source-map' : false,
+
     output: {
         publicPath: './',
         path: config.build.assetsRoot,
         filename: utils.assetsPath('js/[name].[chunkhash].js'),
         chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
     },
+
     plugins: [
 
         new webpack.DefinePlugin({
             'process.env': env
         }),
 
-        new UglifyJSPlugin(),
+        // new UglifyJSPlugin(),
 
         new ExtractTextPlugin({
             filename: utils.assetsPath('css/[name].[contenthash].css')
         }),
 
-        new OptimizeCSSPlugin(),
+        // new OptimizeCSSPlugin(),
 
         new HtmlWebpackPlugin({
             filename: config.build.index,
@@ -53,16 +59,16 @@ module.exports = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
 
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: module => module.resource && /\.js$/.test(module.resource)
-                && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     minChunks: module => module.resource && /\.js$/.test(module.resource)
+        //         && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
+        // }),
 
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            chunks: ['vendor']
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'manifest',
+        //     chunks: ['vendor']
+        // }),
 
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../../static'),
@@ -79,4 +85,5 @@ module.exports = merge(baseWebpackConfig, {
         })
 
     ]
+
 });

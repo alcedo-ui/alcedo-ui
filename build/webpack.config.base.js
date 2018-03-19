@@ -53,10 +53,10 @@ module.exports = {
                 limit: 1000,
                 name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
             }
-        }, {
+        }/*, {
             test: /\.json$/,
             loader: 'json-loader'
-        }, {
+        }*/, {
             test: /\.ht?ml/,
             loader: 'html-loader'
         }]
