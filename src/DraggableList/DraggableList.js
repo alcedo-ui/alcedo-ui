@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import withScrolling, {createVerticalStrength} from 'react-dnd-scrollzone';
 import classNames from 'classnames';
 
@@ -66,7 +66,7 @@ class DraggableList extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !_.isArray(value)) {
+            if (!value || !isArray(value)) {
                 value = [];
             }
 
@@ -97,7 +97,7 @@ class DraggableList extends Component {
         const {valueField, displayField} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [];
         } else {
             value = value.filter(valueItem => {
@@ -166,7 +166,7 @@ class DraggableList extends Component {
                                 }}>
 
                 {
-                    _.isArray(data) && data.length > 0 ?
+                    isArray(data) && data.length > 0 ?
                         (
                             data.map((item, index) => {
 
