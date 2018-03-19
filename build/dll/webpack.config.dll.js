@@ -1,8 +1,8 @@
-const path = require('path'),
+const webpack = require('webpack'),
     CompressionWebpackPlugin = require('compression-webpack-plugin'),
 
-    utils = require('./utils'),
-    config = require('../config'),
+    utils = require('../utils'),
+    config = require('../../config'),
 
     library = '[name]_lib';
 
@@ -24,7 +24,8 @@ module.exports = {
     plugins: [
 
         new webpack.DllPlugin({
-            path: path.join(__dirname, 'dist/[name]-manifest.json'),
+            context: __dirname,
+            path: utils.assetsSubPath('vendors/[name]-manifest.json'),
             name: library
         }),
 

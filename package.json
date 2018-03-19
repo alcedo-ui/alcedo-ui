@@ -11,7 +11,9 @@
         "compile": "npm run compile:propType && npm run compile:componentsIndex && npm run compile:componentsStyle",
         "pre-publish": "rimraf dist && npm run compile && gulp copy",
         "dev": "npm run compile && node build/dev/dev-server.js",
-        "build": "rimraf docs && npm run compile && node build/prod/prod.js",
+        "clean": "rimraf docs",
+        "dll": "node build/dll/dll.js",
+        "build": "npm run clean && npm run compile && node build/prod/prod.js",
         "demo": "node build/demo/demo-server.js",
         "start": "npm run build && npm run demo"
     },
