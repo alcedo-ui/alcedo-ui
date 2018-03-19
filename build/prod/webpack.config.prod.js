@@ -20,8 +20,8 @@ module.exports = merge(baseWebpackConfig, {
     output: {
         publicPath: './',
         path: config.build.assetsRoot,
-        filename: utils.assetsPath('js/[name].[chunkhash].js'),
-        chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+        filename: utils.assetsSubPath('js/[name].[chunkhash].js'),
+        chunkFilename: utils.assetsSubPath('js/[id].[chunkhash].js')
     },
 
     optimization: {
