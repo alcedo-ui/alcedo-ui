@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import DatePickerTextField from '../_MaterialDatePickerTextField';
@@ -85,7 +85,7 @@ class MaterialDatePicker extends Component {
 
     dayPickerChangeHandle(date) {
         const {autoClose, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.value = moment(date.time, dateFormat);
         state.year = date.year;
         state.month = date.month;
@@ -162,7 +162,7 @@ class MaterialDatePicker extends Component {
     componentDidMount() {
         // debugger
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value) {
             if (moment(value, dateFormat).isValid()) {
                 const year = moment(value).format('YYYY'),
