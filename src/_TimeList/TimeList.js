@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TimeItems from '../_TimeItems';
@@ -55,7 +55,7 @@ class TimeList extends Component {
 
 
     hourChangeHandle(value) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
         if (minValue) {
@@ -114,7 +114,7 @@ class TimeList extends Component {
     }
 
     minuteChangeHandle(value) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
         if (minValue) {
@@ -164,7 +164,7 @@ class TimeList extends Component {
     }
 
     secondChangeHandle(value) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
             if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
@@ -198,7 +198,7 @@ class TimeList extends Component {
             nextProps.minValue !== this.props.minValue || nextProps.maxValue !== this.props.maxValue || this.props.isRequired == nextProps.isRequired) {
             // debugger
             const {minValue, maxValue} = nextProps;
-            let state = _.cloneDeep(this.state);
+            let state = cloneDeep(this.state);
             let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
             if (minValue) {
                 minHour = minValue.split(':')[0];
@@ -246,7 +246,7 @@ class TimeList extends Component {
 
     componentDidMount() {
         const {minValue, maxValue} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
         if (minValue) {
             minHour = minValue.split(':')[0];
