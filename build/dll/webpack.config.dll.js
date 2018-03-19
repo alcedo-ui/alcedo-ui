@@ -1,5 +1,6 @@
 const webpack = require('webpack'),
-    CompressionWebpackPlugin = require('compression-webpack-plugin'),
+    AssetsPlugin = require('assets-webpack-plugin'),
+    CompressionPlugin = require('compression-webpack-plugin'),
 
     utils = require('../utils'),
     config = require('../../config'),
@@ -11,7 +12,7 @@ module.exports = {
     mode: 'production',
 
     entry: {
-        vendors: ['react']
+        react: ['react']
     },
 
     output: {
@@ -29,7 +30,12 @@ module.exports = {
             name: library
         }),
 
-        new CompressionWebpackPlugin({
+        new AssetsPlugin({
+            path: config.build.assetsRoot,
+            filename: utils.assetsSubPath('vendors/vendors-config.json')
+        }),
+
+        new CompressionPlugin({
             asset: '[path].gz[query]',
             algorithm: 'gzip',
             test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),

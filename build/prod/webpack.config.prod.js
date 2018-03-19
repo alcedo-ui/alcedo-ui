@@ -57,6 +57,11 @@ module.exports = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
 
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
+        }),
+
         new CopyWebpackPlugin([{
             from: path.resolve(__dirname, '../../static'),
             to: config.assetsSubDirectory,

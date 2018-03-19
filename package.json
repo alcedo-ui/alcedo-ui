@@ -13,7 +13,7 @@
         "dev": "npm run compile && node build/dev/dev-server.js",
         "clean": "rimraf docs",
         "dll": "node build/dll/dll.js",
-        "build": "npm run clean && npm run compile && node build/prod/prod.js",
+        "build": "npm run clean && npm run compile && npm run dll && node build/prod/prod.js",
         "demo": "node build/demo/demo-server.js",
         "start": "npm run build && npm run demo"
     },
@@ -56,6 +56,7 @@
         "redux-thunk": "^2.2.0"
     },
     "devDependencies": {
+        "assets-webpack-plugin": "^3.5.1",
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.4",
         "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -82,6 +83,7 @@
         "gulp-sequence": "^1.0.0",
         "gulp-util": "^3.0.8",
         "html-loader": "^0.5.5",
+        "html-webpack-include-assets-plugin": "^1.0.4",
         "html-webpack-plugin": "^3.0.6",
         "node-sass": "^4.7.2",
         "opn": "^5.3.0",
