@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 import Position from '../_statics/Position';
 
@@ -23,7 +23,7 @@ class DatePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
-        const defaultValue = props.value ? props.value: moment().format('YYYY-MM-DD');
+        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
 
         this.state = {
             value: props.value,
@@ -82,7 +82,7 @@ class DatePicker extends Component {
 
     dayPickerChangeHandle(date) {
         const {autoClose, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.value = moment(date.time, dateFormat);
         state.year = date.year;
         state.month = date.month;
@@ -159,7 +159,7 @@ class DatePicker extends Component {
     componentDidMount() {
         // debugger
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value) {
             // debugger
             if (moment(value, dateFormat).isValid()) {
@@ -233,26 +233,26 @@ class DatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}/>
-                                :
-                                <YearPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.yearPickerChangeHandle}/>
-                        )
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}/>
+                                    :
+                                    <YearPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.yearPickerChangeHandle}/>
+                            )
                     }
 
                     {
