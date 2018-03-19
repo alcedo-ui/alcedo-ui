@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 import Position from '../_statics/Position';
 
@@ -68,7 +68,7 @@ class DateRangePicker extends Component {
     }
 
     datePickerChangeHandle(select, selectLevel) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state[select].datePickerLevel = selectLevel;
         this.setState(state);
     }
@@ -81,7 +81,7 @@ class DateRangePicker extends Component {
                 const select_year = initValue.split('-')[0],
                     select_month = initValue.split('-')[1],
                     select_day = initValue.split('-')[2];
-                let state = _.cloneDeep(this.state);
+                let state = cloneDeep(this.state);
                 if (select == 'left') {
                     if (moment(text).isBefore(state.right.text)) {
                         state.startTime = text;
@@ -118,7 +118,7 @@ class DateRangePicker extends Component {
     }
 
     dayPickerChangeHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (state.endTime) {
             state[select].text = date.time;
             state[select].year = date.year;
@@ -159,7 +159,7 @@ class DateRangePicker extends Component {
     }
 
     dayPickerHoverHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         let startTime = state.startTime;
         let endTime = state.endTime;
         if (startTime && endTime == '') {
@@ -176,7 +176,7 @@ class DateRangePicker extends Component {
     }
 
     monthAndYearChangeHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state[select].year = date.year;
         state[select].month = date.month;
         this.setState(state);
@@ -184,7 +184,7 @@ class DateRangePicker extends Component {
 
 
     monthPickerChangeHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'day';
         state[select].year = date.year;
         state[select].month = date.month;
@@ -192,7 +192,7 @@ class DateRangePicker extends Component {
     }
 
     yearPickerChangeHandle(select, year) {
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'month';
         state[select].year = year;
         this.setState(state);
@@ -210,7 +210,7 @@ class DateRangePicker extends Component {
 
     closePopup() {
         const {dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.popupVisible = false;
         state.left.datePickerLevel = 'day';
         state.right.datePickerLevel = 'day';
@@ -258,7 +258,7 @@ class DateRangePicker extends Component {
 
     componentDidMount() {
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value && value.length) {
             let leftValue = value[0],
                 rightValue = value[1];
@@ -553,7 +553,7 @@ DateRangePicker.defaultProps = {
     name: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default DateRangePicker;
