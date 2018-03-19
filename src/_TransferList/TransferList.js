@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
@@ -30,7 +30,7 @@ class TransferList extends Component {
 
     select(item) {
         if (!item.disabled) {
-            let data = _.cloneDeep(this.props.value);
+            let data = cloneDeep(this.props.value);
             let selectAll = this.state.selectAll;
             let flag = false;
             for (let i = 0; i < data.length; i++) {
