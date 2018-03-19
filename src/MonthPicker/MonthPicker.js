@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 import Position from '../_statics/Position';
 
@@ -75,7 +75,7 @@ class MonthPicker extends Component {
 
     monthPickerChangeHandle(date) {
         const {dateFormat, autoClose} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.popupVisible = !autoClose;
         state.value = moment(`${date.year}-${date.month}`, dateFormat);
         state.year = date.year;
@@ -128,7 +128,7 @@ class MonthPicker extends Component {
     componentDidMount() {
         // debugger
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value) {
             if (moment(value, dateFormat).isValid()) {
                 const year = moment(value).format('YYYY'),
@@ -272,7 +272,7 @@ MonthPicker.defaultProps = {
     dateFormat: 'YYYY-MM',
     autoClose: true,
     isFooter: true,
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default MonthPicker;
