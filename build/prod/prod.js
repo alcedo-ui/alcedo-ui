@@ -1,6 +1,6 @@
 delete process.env['DEBUG_FD'];
 
-process.env.NODE_ENV = '"production"';
+process.env.NODE_ENV = config.build.env.NODE_ENV;
 
 const ora = require('ora'),
     chalk = require('chalk'),
