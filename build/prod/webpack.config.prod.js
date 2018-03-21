@@ -7,8 +7,8 @@ const path = require('path'),
     CompressionPlugin = require('compression-webpack-plugin'),
 
     config = require('../../config'),
-    baseWebpackConfig = require('./../webpack.config.base'),
-    utils = require('./../utils'),
+    baseWebpackConfig = require('./../webpack.config.base.js'),
+    utils = require('./../utils.js'),
     vendorsAssets = require(utils.assetsVendorsAbsolutePath('vendors-assets.json')),
 
     env = config.build.env;
