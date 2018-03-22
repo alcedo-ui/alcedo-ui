@@ -4,7 +4,7 @@ const ora = require('ora'),
 
     webpackConfig = require('./webpack.config.dll.js'),
 
-    spinner = ora('Building For DLL...');
+    spinner = ora('Building DLL...');
 
 spinner.start();
 
