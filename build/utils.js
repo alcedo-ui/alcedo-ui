@@ -1,5 +1,6 @@
 const path = require('path'),
-    config = require('../config');
+
+    config = require('./config.js');
 
 exports.assetsPath = _path => {
     return path.posix.join(config.assetsDirectory, _path);
