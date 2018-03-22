@@ -1,6 +1,7 @@
 const path = require('path'),
-    utils = require('./utils'),
-    config = require('../config');
+
+    config = require('./config.js'),
+    utils = require('./utils.js');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
