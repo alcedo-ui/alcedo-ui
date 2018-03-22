@@ -8,7 +8,7 @@ const express = require('express'),
     compression = require('compression'),
 
     app = express(),
-    config = require('../../config'),
+    config = require('../config'),
     port = config.demo.port,
     uri = 'http://localhost:' + port;
 

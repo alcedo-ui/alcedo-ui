@@ -1,26 +1,18 @@
-delete process.env['DEBUG_FD'];
-
-const config = require('../../config');
-
-process.env.NODE_ENV = config.dev.env.NODE_ENV;
-
 const opn = require('opn'),
     webpack = require('webpack'),
-
-    port = process.env.PORT || config.dev.port,
-    uri = 'http://localhost:' + port,
-
     express = require('express'),
-    app = express(),
 
+    config = require('../config.js'),
     webpackConfig = require('./webpack.config.dev.js'),
+
+    uri = 'http://localhost:' + config.dev.port,
+    app = express(),
     compiler = webpack(webpackConfig),
 
     devMiddleware = require('webpack-dev-middleware')(compiler, {
         publicPath: webpackConfig.output.publicPath,
         logLevel: 'error'
     }),
-
     hotMiddleware = require('webpack-hot-middleware')(compiler, {
         log: console.log
     });
@@ -41,7 +33,7 @@ devMiddleware.waitUntilValid(() => {
     console.log('> Listening at ' + uri + '\n');
 });
 
-module.exports = app.listen(port, err => {
+module.exports = app.listen(config.dev.port, err => {
 
     if (err) {
         return console.log(err);

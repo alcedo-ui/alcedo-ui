@@ -10,10 +10,10 @@
         "compile:componentsStyle": "rimraf src/components.scss && node scripts/generateComponentsStyle.js",
         "compile": "npm run compile:propType && npm run compile:componentsIndex && npm run compile:componentsStyle",
         "pre-publish": "rimraf dist && npm run compile && gulp copy",
-        "dev": "npm run compile && node build/dev/dev-server.js",
+        "dev": "npm run compile && cross-env NODE_ENV=development node build/dev/dev-server.js",
         "clean": "rimraf docs",
-        "dll": "node build/dll/dll.js",
-        "build": "npm run clean && npm run compile && npm run dll && node build/prod/prod.js",
+        "dll": "cross-env NODE_ENV=production node build/dll/dll.js",
+        "build": "npm run clean && npm run compile && npm run dll && cross-env NODE_ENV=production node build/prod/prod.js",
         "demo": "node build/demo/demo-server.js",
         "start": "npm run build && npm run demo"
     },

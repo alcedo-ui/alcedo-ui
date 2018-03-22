@@ -1,11 +1,9 @@
-delete process.env['DEBUG_FD'];
-
-process.env.NODE_ENV = '"production"';
-
 const ora = require('ora'),
     chalk = require('chalk'),
     webpack = require('webpack'),
+
     webpackConfig = require('./webpack.config.dll.js'),
+
     spinner = ora('Building For DLL...');
 
 spinner.start();

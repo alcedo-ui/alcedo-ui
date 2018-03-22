@@ -6,9 +6,9 @@ const path = require('path'),
     HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
     CompressionPlugin = require('compression-webpack-plugin'),
 
-    config = require('../../config'),
-    baseWebpackConfig = require('./../webpack.config.base.js'),
-    utils = require('./../utils.js'),
+    config = require('../config.js'),
+    baseWebpackConfig = require('../webpack.config.base.js'),
+    utils = require('../utils.js'),
     vendorsAssets = require(utils.assetsVendorsAbsolutePath('vendors-assets.json')),
 
     env = config.build.env;

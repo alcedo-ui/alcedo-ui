@@ -2,8 +2,8 @@ const webpack = require('webpack'),
     AssetsPlugin = require('assets-webpack-plugin'),
     CompressionPlugin = require('compression-webpack-plugin'),
 
-    utils = require('../utils'),
-    config = require('../../config'),
+    config = require('../config.js'),
+    utils = require('../utils.js'),
 
     library = '[name]_lib';
 

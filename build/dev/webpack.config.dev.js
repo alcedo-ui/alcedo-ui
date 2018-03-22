@@ -3,8 +3,8 @@ const webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
 
-    config = require('../../config'),
-    baseWebpackConfig = require('./../webpack.config.base.js');
+    config = require('../config.js'),
+    baseWebpackConfig = require('../webpack.config.base.js');
 
 Object.keys(baseWebpackConfig.entry).forEach(name => {
     baseWebpackConfig.entry[name] = ['./build/dev/dev-client'].concat(baseWebpackConfig.entry[name]);
