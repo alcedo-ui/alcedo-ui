@@ -14,7 +14,7 @@
         "clean": "rimraf docs",
         "dll": "cross-env NODE_ENV=production node build/dll/dll.js",
         "build": "npm run clean && npm run compile && npm run dll && cross-env NODE_ENV=production node build/prod/prod.js",
-        "demo": "node build/demo/demo-server.js",
+        "demo": "cross-env NODE_ENV=production node build/demo/demo-server.js",
         "start": "npm run build && npm run demo"
     },
     "repository": {
@@ -94,7 +94,6 @@
         "react-hot-loader": "^4.0.0",
         "rimraf": "^2.6.2",
         "sass-loader": "^6.0.7",
-        "static-expiry": "0.0.11",
         "style-loader": "^0.20.3",
         "through2": "^2.0.3",
         "uglifyjs-webpack-plugin": "^1.2.4",
