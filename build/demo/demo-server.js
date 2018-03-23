@@ -3,7 +3,7 @@ const express = require('express'),
     opn = require('opn'),
     compression = require('compression'),
 
-    config = require('../config'),
+    config = require('../config.js'),
 
     app = express(),
     uri = 'http://localhost:' + config.demo.port;
