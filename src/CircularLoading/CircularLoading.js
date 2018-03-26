@@ -3,65 +3,54 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Util from '../_vendors/Util';
 
-class CircularLoading extends Component {
+function CircularLoading({className, style, size, theme, type, weight}) {
 
-    static Size = {
-        DEFAULT: '',
-        SMALL: 'small',
-        LARGE: 'large'
-    };
+    const loadingClassName = classNames('circular-loading', {
+            [`circular-loading-size-${size}`]: size,
+            [className]: className
+        }),
+        border = {
+            borderWidth: weight
+        };
 
-    constructor(props, ...restArgs) {
-        super(props, ...restArgs);
-    }
+    return (
+        <div className={loadingClassName}
+             type={type}
+             style={style}>
 
-    render() {
+            <div className="spinner">
+                <div className={`${theme} circle left border-${type}`}>
+                    <div className={`${type ? type : 'solid'}`}
+                         style={border}>
 
-        const {className, style, size, theme, type, weight} = this.props,
-
-            loadingClassName = classNames('circular-loading', {
-                [`circular-loading-size-${size}`]: size,
-                [className]: className
-            }),
-            border = {
-                borderWidth: weight
-            };
-
-        return (
-
-            <div className={loadingClassName}
-                 type={type}
-                 style={style}>
-
-                <div className="spinner">
-                    <div className={`${theme} circle left border-${type}`}>
-                        <div className={`${type ? type : 'solid'}`}
-                             style={border}>
-
-                        </div>
-                    </div>
-                    <div className="gap">
-                        <div></div>
-                    </div>
-                    <div className={`${theme} circle right border-${type}`}>
-                        <div className={`${type ? type : 'solid'}`}
-                             style={border}>
-
-                        </div>
                     </div>
                 </div>
+                <div className="gap">
+                    <div></div>
+                </div>
+                <div className={`${theme} circle right border-${type}`}>
+                    <div className={`${type ? type : 'solid'}`}
+                         style={border}>
 
+                    </div>
+                </div>
             </div>
 
-        );
+        </div>
+    );
 
-    }
+}
+
+CircularLoading.Size = {
+    DEFAULT: '',
+    SMALL: 'small',
+    LARGE: 'large'
 };
 
 CircularLoading.propTypes = {
