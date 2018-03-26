@@ -2,14 +2,14 @@ const path = require('path'),
 
     config = require('./config.js');
 
-exports.assetsPath = _path => {
-    return path.posix.join(config.assetsDirectory, _path);
+exports.assetsPath = p => {
+    return path.posix.join(config.assetsDirectory, p);
 };
 
-exports.assetsSubPath = _path => {
-    return path.posix.join(config.assetsSubDirectory, _path);
+exports.assetsSubPath = p => {
+    return path.posix.join(config.assetsSubDirectory, p);
 };
 
-exports.assetsVendorsAbsolutePath = _path => {
-    return path.posix.join(config.build.assetsRoot, exports.assetsSubPath(`vendors/${_path}`));
+exports.assetsVendorsAbsolutePath = p => {
+    return path.posix.join(config.build.assetsRoot, exports.assetsSubPath(`vendors/${p}`));
 };
