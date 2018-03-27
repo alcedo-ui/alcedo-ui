@@ -151,10 +151,17 @@ Popup.propTypes = {
      */
     contentClassName: PropTypes.string,
 
+    modalClassName: PropTypes.string,
+
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * This is the DOM element that will be used to set the position of the popover.
@@ -172,11 +179,6 @@ Popup.propTypes = {
     hasTriangle: PropTypes.bool,
 
     triangle: PropTypes.element,
-
-    /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * The popup alignment.
@@ -197,6 +199,7 @@ Popup.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    showModal: PropTypes.bool,
 
     /**
      * The function of popup event handler.
@@ -239,20 +242,22 @@ Popup.defaultProps = {
 
     className: null,
     contentClassName: null,
+    modalClassName: null,
     style: null,
+    theme: Theme.DEFAULT,
     depth: 6,
 
     triggerEl: null,
     visible: false,
     hasTriangle: true,
-    theme: Theme.DEFAULT,
     position: Position.BOTTOM,
     isAnimated: true,
 
     isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    showModal: false
 
 };
 
