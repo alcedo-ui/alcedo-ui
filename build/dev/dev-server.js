@@ -18,9 +18,8 @@ const opn = require('opn'),
     });
 
 compiler.plugin('compilation', compilation => {
-    compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
+    compilation.plugin('html-webpack-plugin-after-emit', () => {
         hotMiddleware.publish({action: 'reload'});
-        cb();
     });
 });
 
