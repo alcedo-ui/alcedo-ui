@@ -6,7 +6,6 @@ const opn = require('opn'),
     webpackConfig = require('./webpack.config.dev.js'),
 
     uri = 'http://localhost:' + config.dev.port,
-    app = express(),
     compiler = webpack(webpackConfig),
 
     devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -15,7 +14,8 @@ const opn = require('opn'),
     }),
     hotMiddleware = require('webpack-hot-middleware')(compiler, {
         log: console.log
-    });
+    }),
+    app = express();
 
 compiler.plugin('compilation', compilation => {
     compilation.plugin('html-webpack-plugin-after-emit', () => {
@@ -23,10 +23,10 @@ compiler.plugin('compilation', compilation => {
     });
 });
 
-app.use(devMiddleware);
-app.use(hotMiddleware);
-
-app.use(config.dev.assetsVirtualRoot, express.static('./static'));
+app
+.use(devMiddleware)
+.use(hotMiddleware)
+.use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(() => {
     console.log('> Listening at ' + uri + '\n');
