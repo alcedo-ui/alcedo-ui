@@ -139,6 +139,8 @@ Popover.propTypes = {
      */
     contentClassName: PropTypes.string,
 
+    modalClassName: PropTypes.string,
+
     /**
      * Override the styles of the root element.
      */
@@ -185,6 +187,7 @@ Popover.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    showModal: PropTypes.bool,
 
     /**
      * The function of popover render.
@@ -222,6 +225,7 @@ Popover.defaultProps = {
 
     className: null,
     contentClassName: null,
+    modalClassName: null,
     style: null,
     depth: 6,
 
@@ -235,7 +239,8 @@ Popover.defaultProps = {
     isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    showModal: false
 
 };
 
