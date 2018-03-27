@@ -120,7 +120,8 @@ class TriggerPop extends Component {
 
                 children,
 
-                className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
+                className, contentClassName, modalClassName, style, theme, hasTriangle, triangle, position,
+                isAnimated, visible, showModal,
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
@@ -130,6 +131,12 @@ class TriggerPop extends Component {
 
             } = this.props,
             {enter, exited} = this.state,
+
+            popModalClassName = classNames('trigger-pop-modal', {
+                hidden: !enter,
+                'trigger-pop-modal-animated': isAnimated,
+                [modalClassName]: modalClassName
+            }),
 
             popupClassName = classNames('trigger-pop', {
                 hidden: !enter,
@@ -146,6 +153,18 @@ class TriggerPop extends Component {
 
         return (
             <Portal visible={!exited}>
+
+                {
+                    showModal ?
+                        <Transition appear
+                                    in={visible}
+                                    timeout={250}>
+                            <div className={popModalClassName}></div>
+                        </Transition>
+                        :
+                        null
+                }
+
                 <Transition appear
                             in={visible}
                             timeout={250}
@@ -178,6 +197,7 @@ class TriggerPop extends Component {
 
                     </Paper>
                 </Transition>
+
             </Portal>
         );
 
@@ -197,10 +217,17 @@ TriggerPop.propTypes = {
      */
     contentClassName: PropTypes.string,
 
+    modalClassName: PropTypes.string,
+
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The trigger pop theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * This is the DOM element that will be used to set the position of the trigger pop.
@@ -219,10 +246,7 @@ TriggerPop.propTypes = {
 
     triangle: PropTypes.element,
 
-    /**
-     * The trigger pop theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    showModal: PropTypes.bool,
 
     /**
      * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
@@ -275,14 +299,16 @@ TriggerPop.defaultProps = {
 
     className: null,
     contentClassName: null,
+    modalClassName: null,
     style: null,
+    theme: Theme.DEFAULT,
     depth: 6,
 
     triggerEl: null,
     visible: false,
     hasTriangle: true,
     triangle: <div className="trigger-pop-triangle"></div>,
-    theme: Theme.DEFAULT,
+    showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
 

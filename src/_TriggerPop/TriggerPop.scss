@@ -15,6 +15,24 @@
     }
 }
 
+.trigger-pop-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $modal-z-index;
+    background: transparent;
+
+    &.trigger-pop-modal-animated {
+        transition: opacity $theme-transition-duration ease-in-out;
+
+        &.hidden {
+            opacity: 0;
+        }
+    }
+}
+
 .trigger-pop {
     position: absolute;
     width: 200px;
