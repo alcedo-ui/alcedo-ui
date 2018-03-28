@@ -27,7 +27,7 @@ class MaterialDropdown extends Component {
     }
 
     closePopup() {
-        this.refs.dropdown.closePopup();
+        this.refs.dropdown && this.refs.dropdown.closePopup();
     }
 
     render() {
