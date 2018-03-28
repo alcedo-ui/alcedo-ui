@@ -221,7 +221,7 @@ Radio.defaultProps = {
 
     name: null,
     label: null,
-    value: null,
+    value: '',
     checked: false,
     uncheckedIconCls: 'far fa-circle',
     checkedIconCls: 'fas fa-dot-circle',
