@@ -228,7 +228,7 @@ Checkbox.defaultProps = {
 
     name: null,
     label: null,
-    value: null,
+    value: '',
     checked: false,
     indeterminate: false,
     uncheckedIconCls: 'far fa-square',
