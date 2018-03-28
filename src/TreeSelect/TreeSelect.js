@@ -43,7 +43,7 @@ class TreeSelect extends Component {
     }
 
     closePopup() {
-        this.refs.dropdown.closePopup();
+        this.refs.dropdown && this.refs.dropdown.closePopup();
     }
 
     getTriggerValue(props = this.props) {
