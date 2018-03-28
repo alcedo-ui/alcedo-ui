@@ -119,13 +119,13 @@ ButtonCheckbox.propTypes = {
 
 ButtonCheckbox.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,
 
-    name: '',
-    text: '',
+    name: null,
+    text: null,
     value: false,
     disabled: false
 
