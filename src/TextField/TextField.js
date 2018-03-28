@@ -534,15 +534,15 @@ TextField.defaultProps = {
     theme: Theme.DEFAULT,
 
     type: 'text',
-    name: '',
-    placeholder: '',
+    name: null,
+    placeholder: null,
     value: '',
-    iconCls: '',
-    rightIconCls: '',
+    iconCls: null,
+    rightIconCls: null,
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    infoMsg: '',
+    infoMsg: null,
     isFocusedSelectAll: false,
 
     clearButtonVisible: true,
@@ -550,7 +550,7 @@ TextField.defaultProps = {
 
     // valid
     required: false,
-    patternInvalidMsg: '',
+    patternInvalidMsg: null,
 
     autoComplete: 'off',
     autoCorrect: 'off',
