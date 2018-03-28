@@ -19,7 +19,15 @@ class MaterialDropdown extends Component {
     static Position = Dropdown.Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.closePopup = ::this.closePopup;
+
+    }
+
+    closePopup() {
+        this.refs.dropdown.closePopup();
     }
 
     render() {
@@ -42,6 +50,7 @@ class MaterialDropdown extends Component {
                               disabled={disabled}
                               required={required}>
                 <Dropdown {...restProps}
+                          ref="dropdown"
                           className="material-dropdown-content"
                           disabled={disabled}/>
             </MaterialProvider>
