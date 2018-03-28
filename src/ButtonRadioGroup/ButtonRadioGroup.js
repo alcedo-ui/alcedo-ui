@@ -177,13 +177,13 @@ ButtonRadioGroup.propTypes = {
 
 ButtonRadioGroup.defaultProps = {
 
-    className: '',
+    className: null,
     style: null,
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,
 
-    name: '',
-    data: [],
+    name: null,
+    data: null,
     value: '',
     disabled: false
 
