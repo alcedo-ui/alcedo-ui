@@ -11,9 +11,11 @@ import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+@PureRender
 class RaisedButton extends Component {
 
     static Theme = Theme;
@@ -38,6 +40,8 @@ class RaisedButton extends Component {
 
     render() {
 
+        console.log(111);
+
         const {children, className, ...restProps} = this.props,
 
             buttonClassName = classNames('raised-button', {
@@ -55,87 +59,91 @@ class RaisedButton extends Component {
     }
 };
 
-RaisedButton.propTypes = {
+if (process.env.NODE_ENV !== 'production') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    RaisedButton.propTypes = {
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The button theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,the button will have rounded corners.
-     */
-    isRounded: PropTypes.bool,
+        /**
+         * The button theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * If true,the button will be round.
-     */
-    isCircular: PropTypes.bool,
+        /**
+         * If true,the button will have rounded corners.
+         */
+        isRounded: PropTypes.bool,
 
-    /**
-     * The text of the button.
-     */
-    value: PropTypes.any,
+        /**
+         * If true,the button will be round.
+         */
+        isCircular: PropTypes.bool,
 
-    /**
-     * The type of button.Can be reset,submit or button.
-     */
-    type: PropTypes.string,
+        /**
+         * The text of the button.
+         */
+        value: PropTypes.any,
 
-    /**
-     * Disables the button if set to true.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * The type of button.Can be reset,submit or button.
+         */
+        type: PropTypes.string,
 
-    /**
-     * If true,the button will be have loading effect.
-     */
-    isLoading: PropTypes.bool,
+        /**
+         * Disables the button if set to true.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
-    disableTouchRipple: PropTypes.bool,
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
 
-    /**
-     * Use this property to display an icon.It will display on the left.
-     */
-    iconCls: PropTypes.string,
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
 
-    /**
-     * Use this property to display an icon.It will display on the right.
-     */
-    rightIconCls: PropTypes.string,
+        /**
+         * Use this property to display an icon.It will display on the left.
+         */
+        iconCls: PropTypes.string,
 
-    /**
-     * If true,the ripple effect will be display centered.
-     */
-    rippleDisplayCenter: PropTypes.bool,
+        /**
+         * Use this property to display an icon.It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+        /**
+         * If true,the ripple effect will be display centered.
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
-    /**
-     * You can create a complicated renderer callback instead of value prop.
-     */
-    renderer: PropTypes.func,
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
 
-    /**
-     * Callback function fired when the button is touch-tapped.
-     */
-    onTouchTap: PropTypes.func
+        /**
+         * You can create a complicated renderer callback instead of value prop.
+         */
+        renderer: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when the button is touch-tapped.
+         */
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 RaisedButton.defaultProps = {
 
