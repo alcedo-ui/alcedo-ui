@@ -4,7 +4,9 @@ const webpack = require('webpack'),
     FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
 
     config = require('../config.js'),
-    baseWebpackConfig = require('../webpack.config.base.js');
+    baseWebpackConfig = require('../webpack.config.base.js'),
+
+    env = process.env.NODE_ENV;
 
 Object.keys(baseWebpackConfig.entry).forEach(name => {
     baseWebpackConfig.entry[name] = ['./build/dev/dev-client'].concat(baseWebpackConfig.entry[name]);
@@ -19,7 +21,9 @@ module.exports = merge(baseWebpackConfig, {
     plugins: [
 
         new webpack.DefinePlugin({
-            'process.env': config.dev.env
+            'process.env': {
+                NODE_ENV: `'${env}'`
+            }
         }),
 
         new webpack.HotModuleReplacementPlugin(),
