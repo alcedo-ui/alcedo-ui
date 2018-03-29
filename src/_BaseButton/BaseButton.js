@@ -12,9 +12,11 @@ import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+@PureRender
 class BaseButton extends Component {
 
     static Theme = Theme;
@@ -24,13 +26,7 @@ class BaseButton extends Component {
 
         super(props, ...restArgs);
 
-        this.state = {
-            focused: false
-        };
-
         this.touchTapHandler = ::this.touchTapHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
         this.startRipple = ::this.startRipple;
         this.endRipple = ::this.endRipple;
 
@@ -40,24 +36,6 @@ class BaseButton extends Component {
         e.preventDefault();
         const {disabled, isLoading, onTouchTap} = this.props;
         !disabled && !isLoading && onTouchTap && onTouchTap(e);
-    }
-
-    focusHandler(e) {
-        this.setState({
-            focused: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(e);
-        });
-    }
-
-    blurHandler(e) {
-        this.setState({
-            focused: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(e);
-        });
     }
 
     startRipple(e) {
@@ -79,10 +57,8 @@ class BaseButton extends Component {
                 ...restProps
 
             } = this.props,
-            {focused} = this.state,
 
             buttonClassName = classNames('base-button', {
-                focused: focused,
                 [`theme-${theme}`]: theme,
                 'button-circular': isCircular,
                 'button-rounded': isRounded,
@@ -101,9 +77,7 @@ class BaseButton extends Component {
                         type={type}
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
-                        onTouchTap={this.touchTapHandler}
-                        onFocus={this.focusHandler}
-                        onBlur={this.blurHandler}>
+                        onTouchTap={this.touchTapHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -164,7 +138,7 @@ class BaseButton extends Component {
     }
 };
 
-BaseButton.propTypes = {
+process.env.NODE_ENV !== 'production' && (BaseButton.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -189,11 +163,9 @@ BaseButton.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
 
     renderer: PropTypes.func,
-    onTouchTap: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+    onTouchTap: PropTypes.func
 
-};
+});
 
 BaseButton.defaultProps = {
 
