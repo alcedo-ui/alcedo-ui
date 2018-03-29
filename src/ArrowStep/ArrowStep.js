@@ -9,6 +9,9 @@ import classNames from 'classnames';
 
 import ArrowStepItem from '../_ArrowStepItem';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class ArrowStep extends Component {
 
     constructor(props, ...restArgs) {
@@ -71,8 +74,8 @@ class ArrowStep extends Component {
                                            width: `${100 / steps.length}%`,
                                            zIndex: steps.length - index
                                        }}
-                                       activatedStep={activatedStep}
-                                       finishedStep={finishedStep}
+                                       isActivatedStep={activatedStep === index}
+                                       isFinishedStep={finishedStep >= index}
                                        value={item}
                                        isFirst={index === 0}
                                        isLast={index === steps.length - 1}
@@ -85,7 +88,7 @@ class ArrowStep extends Component {
     }
 };
 
-ArrowStep.propTypes = {
+process.env.NODE_ENV !== 'production' && (ArrowStep.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -134,7 +137,7 @@ ArrowStep.propTypes = {
      */
     onChange: PropTypes.func
 
-};
+});
 
 ArrowStep.defaultProps = {
 
