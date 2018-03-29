@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import RaisedButton from '../RaisedButton';
+import ButtonRadio from '../ButtonRadio';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -24,11 +24,11 @@ class ButtonRadioGroup extends Component {
             value: props.value
         };
 
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
-    changeHandle(item) {
+    changeHandler(item) {
         this.setState({
             value: item.value
         }, () => {
@@ -70,27 +70,19 @@ class ButtonRadioGroup extends Component {
                 {
                     data.map((item, index) => {
 
-                        const isChecked = item.value === value,
+                            const isChecked = item.value == value;
 
-                            className = classNames('button-radio-group-item', {
-                                activated: isChecked,
-                                [item.className]: item.className
-                            });
+                            return (
+                                <ButtonRadio key={index}
+                                             theme={isChecked ? activatedTheme : theme}
+                                             data={item}
+                                             disabled={disabled || item.disabled}
+                                             isChecked={isChecked}
+                                             onTouchTap={this.changeHandler}/>
+                            );
 
-                        return (
-                            <RaisedButton {...item}
-                                          key={index}
-                                          className={className}
-                                          style={item.style}
-                                          value={item.label}
-                                          disabled={disabled || item.disabled}
-                                          theme={isChecked ? activatedTheme : theme}
-                                          onTouchTap={() => {
-                                              this.changeHandle(item);
-                                          }}/>
-                        );
-
-                    })
+                        }
+                    )
                 }
 
             </div>
