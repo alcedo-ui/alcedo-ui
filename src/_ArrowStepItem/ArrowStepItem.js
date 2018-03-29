@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -82,22 +85,24 @@ class ArrowStepItem extends Component {
     }
 };
 
-ArrowStepItem.propTypes = {
+if (process.env.NODE_ENV !== 'production') {
+    ArrowStepItem.propTypes = {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-    index: PropTypes.number,
-    activatedStep: PropTypes.number,
-    finishedStep: PropTypes.number,
-    value: PropTypes.object,
+        index: PropTypes.number,
+        activatedStep: PropTypes.number,
+        finishedStep: PropTypes.number,
+        value: PropTypes.object,
 
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+        isFirst: PropTypes.bool,
+        isLast: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+        onTouchTap: PropTypes.func
 
-};
+    };
+}
 
 ArrowStepItem.defaultProps = {
 
