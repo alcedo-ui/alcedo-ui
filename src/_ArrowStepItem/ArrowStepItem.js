@@ -22,24 +22,22 @@ class ArrowStepItem extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        const {isActivatedStep, isFinishedStep, index, onTouchTap} = this.props;
+        !isActivatedStep && isFinishedStep && onTouchTap && onTouchTap(index, e);
     }
 
     render() {
 
-        console.log(111);
-
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
+        const {className, style, isActivatedStep, isFinishedStep, index, value, isFirst, isLast} = this.props,
 
             itemClassName = classNames('arrow-step-item',
-                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
+                isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     [className]: className
                 }),
 
-            triangleClassName = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''),
+            triangleClassName = isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''),
             triangleTopClassName = classNames('triangle-top', triangleClassName),
             triangleMiddleClassName = classNames('triangle-middle', triangleClassName),
             triangleBottomClassName = classNames('triangle-bottom', triangleClassName);
@@ -62,23 +60,19 @@ class ArrowStepItem extends Component {
                     isFirst ?
                         null
                         :
-                        (
-                            <div className="triangle-wrapper triangle-wrapper-left">
-                                <div className={triangleTopClassName}></div>
-                                <div className={triangleBottomClassName}></div>
-                            </div>
-                        )
+                        <div className="triangle-wrapper triangle-wrapper-left">
+                            <div className={triangleTopClassName}></div>
+                            <div className={triangleBottomClassName}></div>
+                        </div>
                 }
 
                 {
                     isLast ?
                         null
                         :
-                        (
-                            <div className="triangle-wrapper triangle-wrapper-right">
-                                <div className={triangleMiddleClassName}></div>
-                            </div>
-                        )
+                        <div className="triangle-wrapper triangle-wrapper-right">
+                            <div className={triangleMiddleClassName}></div>
+                        </div>
                 }
 
             </div>
@@ -87,24 +81,22 @@ class ArrowStepItem extends Component {
     }
 };
 
-if (process.env.NODE_ENV !== 'production') {
-    ArrowStepItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (ArrowStepItem.propTypes = {
 
-        className: PropTypes.string,
-        style: PropTypes.object,
+    className: PropTypes.string,
+    style: PropTypes.object,
 
-        index: PropTypes.number,
-        activatedStep: PropTypes.number,
-        finishedStep: PropTypes.number,
-        value: PropTypes.object,
+    index: PropTypes.number,
+    isActivatedStep: PropTypes.bool,
+    isFinishedStep: PropTypes.bool,
+    value: PropTypes.object,
 
-        isFirst: PropTypes.bool,
-        isLast: PropTypes.bool,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
 
-        onTouchTap: PropTypes.func
+    onTouchTap: PropTypes.func
 
-    };
-}
+});
 
 ArrowStepItem.defaultProps = {
 
@@ -112,8 +104,8 @@ ArrowStepItem.defaultProps = {
     style: null,
 
     index: 0,
-    activatedStep: 0,
-    finishedStep: 0,
+    isActivatedStep: false,
+    isFinishedStep: false,
     value: null,
 
     isFirst: true,
