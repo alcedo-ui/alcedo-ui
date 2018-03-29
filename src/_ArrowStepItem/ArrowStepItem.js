@@ -28,6 +28,8 @@ class ArrowStepItem extends Component {
 
     render() {
 
+        console.log(111);
+
         const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
 
             itemClassName = classNames('arrow-step-item',
