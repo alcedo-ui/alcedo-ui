@@ -40,8 +40,6 @@ class RaisedButton extends Component {
 
     render() {
 
-        console.log(111);
-
         const {children, className, ...restProps} = this.props,
 
             buttonClassName = classNames('raised-button', {
@@ -60,7 +58,6 @@ class RaisedButton extends Component {
 };
 
 if (process.env.NODE_ENV !== 'production') {
-
     RaisedButton.propTypes = {
 
         /**
@@ -142,7 +139,6 @@ if (process.env.NODE_ENV !== 'production') {
         onTouchTap: PropTypes.func
 
     };
-
 }
 
 RaisedButton.defaultProps = {
