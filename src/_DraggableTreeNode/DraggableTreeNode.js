@@ -15,11 +15,13 @@ import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
+@PureRender
 class DraggableTreeNode extends Component {
 
     static SelectMode = SelectMode;
@@ -311,7 +313,7 @@ class DraggableTreeNode extends Component {
     }
 };
 
-DraggableTreeNode.propTypes = {
+process.env.NODE_ENV !== 'production' && (DraggableTreeNode.propTypes = {
 
     index: PropTypes.number,
     depth: PropTypes.number,
@@ -356,21 +358,17 @@ DraggableTreeNode.propTypes = {
 
     isDragging: PropTypes.bool
 
-};
+});
 
 DraggableTreeNode.defaultProps = {
 
     index: 0,
     depth: 0,
-    path: null,
 
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
 
     idField: 'id',
     valueField: 'value',
@@ -383,16 +381,10 @@ DraggableTreeNode.defaultProps = {
     allowCollapse: true,
     isNodeToggling: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',
