@@ -15,7 +15,9 @@ const path = require('path'),
         options: {
             ident: 'postcss',
             plugins: [
-                autoprefixer({broswer: 'last 5 versions'})
+                autoprefixer({
+                    broswer: 'last 5 versions'
+                })
             ]
         }
     }];
