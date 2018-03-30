@@ -14,10 +14,12 @@ import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
+@PureRender
 class GridItem extends Component {
 
     static SelectMode = SelectMode;
@@ -240,7 +242,7 @@ class GridItem extends Component {
     }
 };
 
-GridItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (GridItem.propTypes = {
 
     index: PropTypes.number,
 
@@ -286,23 +288,16 @@ GridItem.propTypes = {
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
-};
+});
 
 GridItem.defaultProps = {
 
     index: 0,
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
 
     disabled: false,
     isLoading: false,
@@ -311,14 +306,8 @@ GridItem.defaultProps = {
     checked: false,
     readOnly: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',
