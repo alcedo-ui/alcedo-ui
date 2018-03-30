@@ -107,41 +107,47 @@ class CascaderListItem extends Component {
     }
 }
 
-process.env.NODE_ENV !== 'production' && (CascaderListItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The width of CascaderListItem.
-     */
-    listWidth: PropTypes.number,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The data of cascader-list.
-     */
-    data: PropTypes.array,
+    CascaderListItem.propTypes = {
 
-    path: PropTypes.arrayOf(PropTypes.shape({
-        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-        index: PropTypes.number
-    })),
+        /**
+         * The width of CascaderListItem.
+         */
+        listWidth: PropTypes.number,
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * The data of cascader-list.
+         */
+        data: PropTypes.array,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        path: PropTypes.arrayOf(PropTypes.shape({
+            node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+            index: PropTypes.number
+        })),
 
-    /**
-     * The current depth.
-     */
-    currDepth: PropTypes.number,
+        /**
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
 
-    depth: PropTypes.number
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
 
-});
+        /**
+         * The current depth.
+         */
+        currDepth: PropTypes.number,
+
+        depth: PropTypes.number
+
+    };
+
+}
 
 CascaderListItem.defaultProps = {
 
