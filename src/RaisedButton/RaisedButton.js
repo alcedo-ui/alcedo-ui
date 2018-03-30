@@ -57,7 +57,9 @@ class RaisedButton extends Component {
 };
 
 if (process.env.NODE_ENV === 'development') {
+
     const PropTypes = require('prop-types');
+
     RaisedButton.propTypes = {
 
         /**
@@ -139,6 +141,7 @@ if (process.env.NODE_ENV === 'development') {
         onTouchTap: PropTypes.func
 
     };
+
 }
 
 RaisedButton.defaultProps = {
