@@ -81,7 +81,9 @@ class ArrowStepItem extends Component {
 };
 
 if (process.env.NODE_ENV === 'development') {
+
     const PropTypes = require('prop-types');
+
     ArrowStepItem.propTypes = {
 
         className: PropTypes.string,
@@ -98,6 +100,7 @@ if (process.env.NODE_ENV === 'development') {
         onTouchTap: PropTypes.func
 
     };
+
 }
 
 ArrowStepItem.defaultProps = {
