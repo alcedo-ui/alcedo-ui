@@ -9,6 +9,9 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class YearPicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -196,7 +199,7 @@ class YearPicker extends Component {
     }
 };
 
-YearPicker.propTypes = {
+process.env.NODE_ENV !== 'production' && (YearPicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     value: PropTypes.any,
@@ -206,6 +209,6 @@ YearPicker.propTypes = {
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func
-};
+});
 
 export default YearPicker;
