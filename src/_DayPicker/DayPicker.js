@@ -6,10 +6,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Util from '../_vendors/Util';
 
 import TouchRipple from '../TouchRipple';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class DayPicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -435,7 +438,7 @@ class DayPicker extends Component {
     }
 };
 
-DayPicker.propTypes = {
+process.env.NODE_ENV !== 'production' && (DayPicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     value: PropTypes.any,
@@ -449,7 +452,7 @@ DayPicker.propTypes = {
     isFooter: PropTypes.bool,
     onChange: PropTypes.func,
     previousClick: PropTypes.func
-};
+});
 
 DayPicker.defaultProps = {
     isFooter: false
