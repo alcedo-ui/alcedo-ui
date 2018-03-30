@@ -8,9 +8,12 @@ import PropTypes from 'prop-types';
 
 import TableRow from '../_TableRow';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Tbody extends Component {
 
     static SelectMode = SelectMode;
@@ -69,7 +72,7 @@ class Tbody extends Component {
     }
 };
 
-Tbody.propTypes = {
+process.env.NODE_ENV !== 'production' && (Tbody.propTypes = {
 
     columns: PropTypes.array,
     data: PropTypes.array,
@@ -83,7 +86,7 @@ Tbody.propTypes = {
     onRowTouchTap: PropTypes.func,
     onCellTouchTap: PropTypes.func
 
-};
+});
 
 Tbody.defaultProps = {
     data: [],
