@@ -10,9 +10,11 @@ import classNames from 'classnames';
 import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
+@PureRender
 class Notification extends Component {
 
     static Type = MsgType;
@@ -155,7 +157,7 @@ class Notification extends Component {
     }
 };
 
-Notification.propTypes = {
+process.env.NODE_ENV !== 'production' && (Notification.propTypes = {
 
     /**
      * The CSS class name of notification.
@@ -200,12 +202,9 @@ Notification.propTypes = {
 
     onRequestClose: PropTypes.func
 
-};
+});
 
 Notification.defaultProps = {
-
-    className: '',
-    style: null,
 
     notificationId: 0,
     type: MsgType.INFO,
