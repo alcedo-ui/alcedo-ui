@@ -7,6 +7,7 @@ const path = require('path'),
     cssLoaderConfig = ['style-loader', {
         loader: 'css-loader',
         options: {
+            minimize: true,
             importLoaders: 1
         }
     }, {
@@ -70,11 +71,9 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            // loader: 'style-loader!css-loader!sass-loader',
             use: [...cssLoaderConfig, 'sass-loader']
         }, {
             test: /\.css$/,
-            // loader: 'style-loader!css-loader',
             use: cssLoaderConfig
         }, {
             test: /\.ht?ml/,
