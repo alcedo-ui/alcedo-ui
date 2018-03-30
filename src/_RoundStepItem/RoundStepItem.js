@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class RoundStepItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -97,7 +100,7 @@ class RoundStepItem extends Component {
     }
 };
 
-RoundStepItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (RoundStepItem.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -116,12 +119,9 @@ RoundStepItem.propTypes = {
 
     onTouchTap: PropTypes.func
 
-};
+});
 
 RoundStepItem.defaultProps = {
-
-    className: '',
-    style: null,
 
     activatedStep: 0,
     finishedStep: 0,
