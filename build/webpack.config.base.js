@@ -1,7 +1,23 @@
 const path = require('path'),
+    autoprefixer = require('autoprefixer'),
 
     config = require('./config.js'),
-    utils = require('./utils.js');
+    utils = require('./utils.js'),
+
+    cssLoaderConfig = ['style-loader', {
+        loader: 'css-loader',
+        options: {
+            importLoaders: 1
+        }
+    }, {
+        loader: 'postcss-loader',
+        options: {
+            ident: 'postcss',
+            plugins: [
+                autoprefixer({broswer: 'last 5 versions'})
+            ]
+        }
+    }];
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -54,10 +70,12 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            loader: 'style-loader!css-loader!sass-loader'
+            // loader: 'style-loader!css-loader!sass-loader',
+            use: [...cssLoaderConfig, 'sass-loader']
         }, {
             test: /\.css$/,
-            loader: 'style-loader!css-loader'
+            // loader: 'style-loader!css-loader',
+            use: cssLoaderConfig
         }, {
             test: /\.ht?ml/,
             loader: 'html-loader'
