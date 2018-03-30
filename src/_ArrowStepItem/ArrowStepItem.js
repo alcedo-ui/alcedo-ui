@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -81,22 +80,25 @@ class ArrowStepItem extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (ArrowStepItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
+    const PropTypes = require('prop-types');
+    ArrowStepItem.propTypes = {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-    index: PropTypes.number,
-    isActivatedStep: PropTypes.bool,
-    isFinishedStep: PropTypes.bool,
-    value: PropTypes.object,
+        index: PropTypes.number,
+        isActivatedStep: PropTypes.bool,
+        isFinishedStep: PropTypes.bool,
+        value: PropTypes.object,
 
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+        isFirst: PropTypes.bool,
+        isLast: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+        onTouchTap: PropTypes.func
 
-});
+    };
+}
 
 ArrowStepItem.defaultProps = {
 
