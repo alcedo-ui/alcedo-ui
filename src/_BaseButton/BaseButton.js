@@ -169,14 +169,11 @@ process.env.NODE_ENV !== 'production' && (BaseButton.propTypes = {
 
 BaseButton.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     isRounded: false,
     isCircular: false,
 
-    value: null,
     disabled: false,
     readOnly: false,
     type: 'button',
@@ -185,10 +182,6 @@ BaseButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM
 
 };
