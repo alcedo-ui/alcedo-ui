@@ -9,6 +9,9 @@ import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TableHeader extends Component {
 
     constructor(props, ...restArgs) {
@@ -82,7 +85,7 @@ class TableHeader extends Component {
     }
 };
 
-TableHeader.propTypes = {
+process.env.NODE_ENV !== 'production' && (TableHeader.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -98,20 +101,12 @@ TableHeader.propTypes = {
 
     onSort: PropTypes.func
 
-};
+});
 
 TableHeader.defaultProps = {
-
-    className: null,
-    style: null,
-
-    header: null,
     colIndex: 0,
     sortable: false,
-    sortProp: null,
-    sort: null,
     hidden: false
-
 };
 
 export default TableHeader;
