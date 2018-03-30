@@ -14,10 +14,13 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 
+@PureRender
 class TriggerPop extends Component {
 
     static Position = Position;
@@ -205,7 +208,7 @@ class TriggerPop extends Component {
 
 };
 
-TriggerPop.propTypes = {
+process.env.NODE_ENV !== 'production' && (TriggerPop.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -293,18 +296,13 @@ TriggerPop.propTypes = {
      */
     onWheel: PropTypes.func
 
-};
+});
 
 TriggerPop.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    modalClassName: null,
-    style: null,
     theme: Theme.DEFAULT,
     depth: 6,
 
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
     triangle: <div className="trigger-pop-triangle"></div>,
