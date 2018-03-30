@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class PaggingPage extends Component {
 
     constructor(props, ...restArgs) {
@@ -229,7 +232,7 @@ class PaggingPage extends Component {
     }
 };
 
-PaggingPage.propTypes = {
+process.env.NODE_ENV !== 'production' && (PaggingPage.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -244,12 +247,9 @@ PaggingPage.propTypes = {
 
     onPageChange: PropTypes.func
 
-};
+});
 
 PaggingPage.defaultProps = {
-
-    className: '',
-    style: null,
 
     page: 0,
     total: 0,
