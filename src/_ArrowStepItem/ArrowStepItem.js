@@ -100,13 +100,9 @@ process.env.NODE_ENV !== 'production' && (ArrowStepItem.propTypes = {
 
 ArrowStepItem.defaultProps = {
 
-    className: '',
-    style: null,
-
     index: 0,
     isActivatedStep: false,
     isFinishedStep: false,
-    value: null,
 
     isFirst: true,
     isLast: true
