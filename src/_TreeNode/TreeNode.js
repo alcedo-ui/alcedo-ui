@@ -14,11 +14,14 @@ import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import Util from '../_vendors/Util';
-import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+import Calculation from '../_vendors/Calculation';
+
+@PureRender
 class TreeNode extends Component {
 
     static SelectMode = SelectMode;
@@ -274,7 +277,7 @@ class TreeNode extends Component {
     }
 };
 
-TreeNode.propTypes = {
+process.env.NODE_ENV !== 'production' && (TreeNode.propTypes = {
 
     index: PropTypes.number,
     depth: PropTypes.number,
@@ -317,21 +320,17 @@ TreeNode.propTypes = {
     onNodeToggleStart: PropTypes.func,
     onNodeToggleEnd: PropTypes.func
 
-};
+});
 
 TreeNode.defaultProps = {
 
     index: 0,
     depth: 0,
-    path: null,
 
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
 
     idField: 'id',
     valueField: 'value',
@@ -344,16 +343,10 @@ TreeNode.defaultProps = {
     allowCollapse: true,
     isNodeToggling: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square'
