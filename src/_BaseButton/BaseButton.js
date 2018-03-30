@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
@@ -139,7 +138,9 @@ class BaseButton extends Component {
 };
 
 if (process.env.NODE_ENV === 'development') {
+
     const PropTypes = require('prop-types');
+
     BaseButton.propTypes = {
 
         className: PropTypes.string,
@@ -168,6 +169,7 @@ if (process.env.NODE_ENV === 'development') {
         onTouchTap: PropTypes.func
 
     };
+
 }
 
 BaseButton.defaultProps = {
