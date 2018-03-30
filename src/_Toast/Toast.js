@@ -10,9 +10,12 @@ import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Toast extends Component {
 
     static Type = MsgType;
@@ -109,7 +112,7 @@ class Toast extends Component {
     }
 };
 
-Toast.propTypes = {
+process.env.NODE_ENV !== 'production' && (Toast.propTypes = {
 
     /**
      * The CSS class name of toast.
@@ -145,19 +148,12 @@ Toast.propTypes = {
 
     onRequestClose: PropTypes.func
 
-};
+});
 
 Toast.defaultProps = {
-
-    className: '',
-    style: null,
-
     toastsId: 0,
     type: MsgType.INFO,
-    message: '',
-    iconCls: '',
     duration: 2500
-
 };
 
 export default Toast;
