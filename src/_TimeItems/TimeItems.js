@@ -7,8 +7,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
+@PureRender
 class TimeItems extends Component {
 
     constructor(props, ...restArgs) {
@@ -138,10 +140,10 @@ class TimeItems extends Component {
     }
 }
 
-TimeItems.propTypes = {
+process.env.NODE_ENV !== 'production' && (TimeItems.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     data: PropTypes.array
-};
+});
 
 export default TimeItems;
