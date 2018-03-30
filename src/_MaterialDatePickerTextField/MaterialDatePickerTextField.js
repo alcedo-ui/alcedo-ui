@@ -11,8 +11,10 @@ import TextField from '../TextField';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class MaterialDatePickerTextField extends Component {
 
     static Type = TextField.Type;
@@ -145,7 +147,7 @@ class MaterialDatePickerTextField extends Component {
     }
 };
 
-MaterialDatePickerTextField.propTypes = {
+process.env.NODE_ENV !== 'production' && (MaterialDatePickerTextField.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -337,12 +339,10 @@ MaterialDatePickerTextField.propTypes = {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
 
-};
+});
 
 MaterialDatePickerTextField.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     type: 'text',
@@ -351,12 +351,10 @@ MaterialDatePickerTextField.defaultProps = {
     isLabelAnimate: true,
     placeholder: '',
     value: '',
-    iconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
     popupVisible: false,
-    infoMsg: '',
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
