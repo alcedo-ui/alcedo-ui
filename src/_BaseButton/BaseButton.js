@@ -138,34 +138,37 @@ class BaseButton extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (BaseButton.propTypes = {
+if (process.env.NODE_ENV === 'development') {
+    const PropTypes = require('prop-types');
+    BaseButton.propTypes = {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    isRounded: PropTypes.bool,
-    isCircular: PropTypes.bool,
+        isRounded: PropTypes.bool,
+        isCircular: PropTypes.bool,
 
-    value: PropTypes.any,
-    type: PropTypes.string,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
+        value: PropTypes.any,
+        type: PropTypes.string,
+        disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        disableTouchRipple: PropTypes.bool,
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    rippleDisplayCenter: PropTypes.bool,
+        rippleDisplayCenter: PropTypes.bool,
 
-    renderer: PropTypes.func,
-    onTouchTap: PropTypes.func
+        renderer: PropTypes.func,
+        onTouchTap: PropTypes.func
 
-});
+    };
+}
 
 BaseButton.defaultProps = {
 
