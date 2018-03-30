@@ -9,6 +9,9 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -193,7 +196,7 @@ class MonthPicker extends Component {
     }
 };
 
-MonthPicker.propTypes = {
+process.env.NODE_ENV !== 'production' && (MonthPicker.propTypes = {
     className: PropTypes.string,
     value: PropTypes.any,
     maxValue: PropTypes.any,
@@ -203,6 +206,6 @@ MonthPicker.propTypes = {
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
     previousClick: PropTypes.func
-};
+});
 
 export default MonthPicker;
