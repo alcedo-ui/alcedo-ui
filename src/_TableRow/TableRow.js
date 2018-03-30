@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TableRow extends Component {
 
     constructor(props, ...restArgs) {
@@ -96,7 +99,7 @@ class TableRow extends Component {
     }
 };
 
-TableRow.propTypes = {
+process.env.NODE_ENV !== 'production' && (TableRow.propTypes = {
 
     rowIndex: PropTypes.number,
     columns: PropTypes.array,
@@ -107,7 +110,7 @@ TableRow.propTypes = {
     onRowTouchTap: PropTypes.func,
     onCellTouchTap: PropTypes.func
 
-};
+});
 
 TableRow.defaultProps = {
     rowIndex: 0,
