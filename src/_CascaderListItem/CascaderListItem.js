@@ -9,8 +9,10 @@ import classNames from 'classnames';
 
 import List from '../List';
 
+import PureRender from '../_vendors/PureRender';
 import Valid from '../_vendors/Valid';
 
+@PureRender
 class CascaderListItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -18,7 +20,7 @@ class CascaderListItem extends Component {
         super(props, ...restArgs);
 
         this.formatData = ::this.formatData;
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
@@ -37,7 +39,7 @@ class CascaderListItem extends Component {
 
     }
 
-    changeHandle(value, index) {
+    changeHandler(value, index) {
 
         if (!value) {
             return;
@@ -88,7 +90,7 @@ class CascaderListItem extends Component {
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
-                      onChange={this.changeHandle}/>
+                      onChange={this.changeHandler}/>
 
                 {
                     hasChildren ?
@@ -105,7 +107,7 @@ class CascaderListItem extends Component {
     }
 }
 
-CascaderListItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (CascaderListItem.propTypes = {
 
     /**
      * The width of CascaderListItem.
@@ -117,21 +119,9 @@ CascaderListItem.propTypes = {
      */
     data: PropTypes.array,
 
-    /**
-     *
-     */
     path: PropTypes.arrayOf(PropTypes.shape({
-
-        /**
-         *
-         */
         node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-
-        /**
-         *
-         */
         index: PropTypes.number
-
     })),
 
     /**
@@ -149,12 +139,9 @@ CascaderListItem.propTypes = {
      */
     currDepth: PropTypes.number,
 
-    /**
-     *
-     */
     depth: PropTypes.number
 
-};
+});
 
 CascaderListItem.defaultProps = {
 
