@@ -11,6 +11,9 @@ import classNames from 'classnames';
 
 import TimeItems from '../_TimeItems';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TimeList extends Component {
 
     constructor(props, ...restArgs) {
@@ -336,7 +339,7 @@ class TimeList extends Component {
     }
 };
 
-TimeList.propTypes = {
+process.env.NODE_ENV !== 'production' && (TimeList.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -346,9 +349,9 @@ TimeList.propTypes = {
     minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isRequired: PropTypes.bool,
-    maxValue: PropTypes.string, // '11:20:39'
+    maxValue: PropTypes.string,
     minValue: PropTypes.string
 
-};
+});
 
 export default TimeList;
