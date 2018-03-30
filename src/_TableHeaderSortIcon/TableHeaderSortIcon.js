@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TableHeaderSortIcon extends Component {
 
     constructor(props, ...restArgs) {
@@ -32,16 +35,14 @@ class TableHeaderSortIcon extends Component {
     }
 };
 
-TableHeaderSortIcon.propTypes = {
+process.env.NODE_ENV !== 'production' && (TableHeaderSortIcon.propTypes = {
     sort: PropTypes.object,
     sortProp: PropTypes.string,
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string
-};
+});
 
 TableHeaderSortIcon.defaultProps = {
-    sort: null,
-    sortProp: null,
     sortAscIconCls: 'fas fa-angle-up',
     sortDescIconCls: 'fas fa-angle-down'
 };
