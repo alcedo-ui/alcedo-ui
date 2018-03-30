@@ -11,6 +11,9 @@ import classNames from 'classnames';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TransferList extends Component {
 
     constructor(props, ...restArgs) {
@@ -177,7 +180,7 @@ class TransferList extends Component {
 
 };
 
-TransferList.propTypes = {
+process.env.NODE_ENV !== 'production' && (TransferList.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -200,11 +203,6 @@ TransferList.propTypes = {
     value: PropTypes.array
 
 
-};
-
-TransferList.defaultProps = {
-    className: '',
-    style: null
-};
+});
 
 export default TransferList;
