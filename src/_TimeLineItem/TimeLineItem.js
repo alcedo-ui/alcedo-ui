@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TimeLineItem extends Component {
 
     static Type = {
@@ -62,7 +65,7 @@ class TimeLineItem extends Component {
     }
 }
 
-TimeLineItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (TimeLineItem.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -74,11 +77,6 @@ TimeLineItem.propTypes = {
      */
     style: PropTypes.object
 
-};
-
-TimeLineItem.defaultProps = {
-    className: '',
-    style: null
-};
+});
 
 export default TimeLineItem;
