@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class PointStepItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -72,7 +75,7 @@ class PointStepItem extends Component {
     }
 };
 
-PointStepItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (PointStepItem.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -87,12 +90,9 @@ PointStepItem.propTypes = {
 
     onTouchTap: PropTypes.func
 
-};
+});
 
 PointStepItem.defaultProps = {
-
-    className: '',
-    style: null,
 
     activatedStep: 0,
     finishedStep: 0,
