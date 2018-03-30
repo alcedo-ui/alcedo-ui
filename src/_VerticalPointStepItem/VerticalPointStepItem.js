@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class VerticalPointStepItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -73,7 +76,7 @@ class VerticalPointStepItem extends Component {
     }
 };
 
-VerticalPointStepItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (VerticalPointStepItem.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -89,12 +92,9 @@ VerticalPointStepItem.propTypes = {
 
     onTouchTap: PropTypes.func
 
-};
+});
 
 VerticalPointStepItem.defaultProps = {
-
-    className: '',
-    style: null,
 
     activatedStep: 0,
     finishedStep: 0,
