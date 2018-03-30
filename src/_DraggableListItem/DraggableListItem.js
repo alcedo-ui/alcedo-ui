@@ -14,6 +14,7 @@ import CircularLoading from '../CircularLoading';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
@@ -21,6 +22,7 @@ import DragDrop from '../_vendors/DragDrop';
 
 const DRAG_LIST_ITEM_SYMBOL = Symbol('DRAG_LIST_ITEM');
 
+@PureRender
 @DropTarget(DRAG_LIST_ITEM_SYMBOL, DragDrop.getVerticalTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
 }))
@@ -290,7 +292,7 @@ class DraggableListItem extends Component {
     }
 };
 
-DraggableListItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (DraggableListItem.propTypes = {
 
     index: PropTypes.number,
 
@@ -342,37 +344,24 @@ DraggableListItem.propTypes = {
     isDragging: PropTypes.bool,
     onMove: PropTypes.func
 
-};
+});
 
 DraggableListItem.defaultProps = {
 
     index: 0,
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
 
     disabled: false,
     isLoading: false,
     checked: false,
     readOnly: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',
