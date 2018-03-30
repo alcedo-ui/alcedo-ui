@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class PaggingSize extends Component {
 
     constructor(props, ...restArgs) {
@@ -48,7 +51,7 @@ class PaggingSize extends Component {
     }
 };
 
-PaggingSize.propTypes = {
+process.env.NODE_ENV !== 'production' && (PaggingSize.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -58,16 +61,11 @@ PaggingSize.propTypes = {
 
     onPageSizeChange: PropTypes.func
 
-};
+});
 
 PaggingSize.defaultProps = {
-
-    className: '',
-    style: null,
-
     pageSize: 10,
     pageSizes: [5, 10, 15, 20]
-
 };
 
 export default PaggingSize;
