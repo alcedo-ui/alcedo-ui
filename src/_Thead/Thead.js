@@ -9,6 +9,9 @@ import classNames from 'classnames';
 
 import TableHeader from '../_TableHeader';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Thead extends Component {
 
     constructor(props, ...restArgs) {
@@ -60,7 +63,7 @@ class Thead extends Component {
     }
 };
 
-Thead.propTypes = {
+process.env.NODE_ENV !== 'production' && (Thead.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -73,17 +76,11 @@ Thead.propTypes = {
 
     onSort: PropTypes.func
 
-};
+});
 
 Thead.defaultProps = {
-
-    className: null,
-    style: null,
-
     columns: [],
-    sort: null,
     hidden: false
-
 };
 
 export default Thead;
