@@ -11,8 +11,10 @@ import FlatButton from '../FlatButton';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class Crumb extends Component {
 
     static Theme = Theme;
@@ -40,7 +42,7 @@ class Crumb extends Component {
     }
 };
 
-Crumb.propTypes = {
+process.env.NODE_ENV !== 'production' && (Crumb.propTypes = {
 
     /**
      * The CSS class name of the list button.
@@ -127,14 +129,10 @@ Crumb.propTypes = {
      */
     onTouchTap: PropTypes.func
 
-};
+});
 
 Crumb.defaultProps = {
-
-    className: '',
-    style: null,
     theme: Theme.DEFAULT
-
 };
 
 export default Crumb;
