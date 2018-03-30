@@ -10,6 +10,9 @@ import classNames from 'classnames';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class ListStepItem extends Component {
 
     static Theme = Theme;
@@ -49,7 +52,7 @@ class ListStepItem extends Component {
     }
 };
 
-ListStepItem.propTypes = {
+process.env.NODE_ENV !== 'production' && (ListStepItem.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -86,15 +89,12 @@ ListStepItem.propTypes = {
      */
     onTouchTap: PropTypes.func
 
-};
+});
 
 ListStepItem.defaultProps = {
-    className: '',
-    style: null,
     index: 0,
     activatedStep: 0,
-    finishedStep: 0,
-    data: null
+    finishedStep: 0
 };
 
 export default ListStepItem;
