@@ -13,10 +13,13 @@ import Portal from '../Portal';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
 
+@PureRender
 class PositionPop extends Component {
 
     static Position = Position;
@@ -180,7 +183,7 @@ class PositionPop extends Component {
 
 };
 
-PositionPop.propTypes = {
+process.env.NODE_ENV !== 'production' && (PositionPop.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -251,12 +254,10 @@ PositionPop.propTypes = {
      */
     onWheel: PropTypes.func
 
-};
+});
 
 PositionPop.defaultProps = {
 
-    className: null,
-    style: null,
     depth: 6,
 
     visible: false,
@@ -270,8 +271,7 @@ PositionPop.defaultProps = {
 
     container: <div></div>,
 
-    showModal: false,
-    modalClassName: null
+    showModal: false
 
 };
 
