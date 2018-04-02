@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Paper from '../Paper';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Widget extends Component {
 
     constructor(props, ...restArgs) {
@@ -34,32 +36,33 @@ class Widget extends Component {
     }
 };
 
-Widget.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Widget.propTypes = {
 
-    /**
-     * This number represents the zDepth of the root element shadow.
-     */
-    depth: PropTypes.number
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-};
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * This number represents the zDepth of the root element shadow.
+         */
+        depth: PropTypes.number
+
+    };
+
+}
 
 Widget.defaultProps = {
-
-    className: '',
-    style: null,
-
     depth: 1
-
 };
 
 export default Widget;

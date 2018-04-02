@@ -5,6 +5,7 @@ export ArrowStep from './ArrowStep';
 export AutoCompleteFilter from './AutoCompleteFilter';
 export BriefPagging from './BriefPagging';
 export ButtonCheckbox from './ButtonCheckbox';
+export ButtonRadio from './ButtonRadio';
 export ButtonRadioGroup from './ButtonRadioGroup';
 export CascaderField from './CascaderField';
 export CascaderList from './CascaderList';
@@ -100,4 +101,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 100;
+export const COMPONENTS_TOTAL_COUNT = 101;

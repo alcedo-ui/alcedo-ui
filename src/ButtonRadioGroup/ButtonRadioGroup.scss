@@ -4,18 +4,5 @@
  */
 
 .button-radio-group {
-    & > .button-radio-group-item {
-        border-radius: 0;
-        border: none;
 
-        &:first-child {
-            border-top-left-radius: $theme-border-radius;
-            border-bottom-left-radius: $theme-border-radius;
-        }
-
-        &:last-child {
-            border-top-right-radius: $theme-border-radius;
-            border-bottom-right-radius: $theme-border-radius;
-        }
-    }
 }

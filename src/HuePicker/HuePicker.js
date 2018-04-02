@@ -4,13 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
 
+@PureRender
 class HuePicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -122,34 +123,35 @@ class HuePicker extends Component {
     }
 };
 
-HuePicker.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    HuePicker.propTypes = {
 
-    /**
-     * hue value (deg).
-     */
-    value: PropTypes.number,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    onChange: PropTypes.func
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-};
+        /**
+         * hue value (deg).
+         */
+        value: PropTypes.number,
+
+        onChange: PropTypes.func
+
+    };
+
+}
 
 HuePicker.defaultProps = {
-
-    className: null,
-    style: null,
-
     value: 0
-
 };
 
 export default HuePicker;

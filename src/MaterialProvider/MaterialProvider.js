@@ -4,14 +4,15 @@
  */
 
 import React, {Component, Children, cloneElement} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class MaterialProvider extends Component {
 
     constructor(props, ...restArgs) {
@@ -136,38 +137,41 @@ class MaterialProvider extends Component {
     }
 };
 
-MaterialProvider.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    MaterialProvider.propTypes = {
 
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    label: PropTypes.string,
-    isLabelAnimate: PropTypes.bool,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    hasValue: PropTypes.bool,
-    disabled: PropTypes.bool,
-    required: PropTypes.bool,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    useSeparator: PropTypes.bool
+        label: PropTypes.string,
+        isLabelAnimate: PropTypes.bool,
 
-};
+        hasValue: PropTypes.bool,
+        disabled: PropTypes.bool,
+        required: PropTypes.bool,
+
+        useSeparator: PropTypes.bool
+
+    };
+
+}
 
 MaterialProvider.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    label: null,
     isLabelAnimate: true,
 
     hasValue: false,

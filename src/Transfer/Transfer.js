@@ -4,12 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import TransferList from '../_TransferList';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Transfer extends Component {
 
     constructor(props, ...restArgs) {
@@ -153,55 +155,56 @@ class Transfer extends Component {
 
 };
 
-Transfer.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Transfer.propTypes = {
 
-    /**
-     * The data of left select field.
-     */
-    leftData: PropTypes.array,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The data of left select field.
-     */
-    rightData: PropTypes.array,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The left-selected data items.
-     */
-    leftSelected: PropTypes.array,
+        /**
+         * The data of left select field.
+         */
+        leftData: PropTypes.array,
 
-    /**
-     * The left-selected data items.
-     */
-    rightSelected: PropTypes.array,
+        /**
+         * The data of left select field.
+         */
+        rightData: PropTypes.array,
 
-    /**
-     * Callback function fired when select item changed.
-     */
-    onChange: PropTypes.func
+        /**
+         * The left-selected data items.
+         */
+        leftSelected: PropTypes.array,
 
-};
+        /**
+         * The left-selected data items.
+         */
+        rightSelected: PropTypes.array,
+
+        /**
+         * Callback function fired when select item changed.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 Transfer.defaultProps = {
-
-    className: null,
-    style: null,
-
     leftData: [],
     rightData: [],
     leftSelected: [],
     rightSelected: []
-
 };
 
 export default Transfer;

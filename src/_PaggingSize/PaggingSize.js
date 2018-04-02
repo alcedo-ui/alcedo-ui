@@ -4,10 +4,12 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class PaggingSize extends Component {
 
     constructor(props, ...restArgs) {
@@ -48,26 +50,27 @@ class PaggingSize extends Component {
     }
 };
 
-PaggingSize.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    pageSize: PropTypes.number,
-    pageSizes: PropTypes.array,
+    PaggingSize.propTypes = {
 
-    onPageSizeChange: PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-};
+        pageSize: PropTypes.number,
+        pageSizes: PropTypes.array,
+
+        onPageSizeChange: PropTypes.func
+
+    };
+
+}
 
 PaggingSize.defaultProps = {
-
-    className: '',
-    style: null,
-
     pageSize: 10,
     pageSizes: [5, 10, 15, 20]
-
 };
 
 export default PaggingSize;

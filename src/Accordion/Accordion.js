@@ -4,12 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Accordion extends Component {
 
     static Theme = Theme;
@@ -96,59 +98,60 @@ class Accordion extends Component {
     }
 };
 
-Accordion.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Accordion.propTypes = {
 
-    /**
-     * The accordion's title.
-     */
-    title: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Collapse icon.
-     */
-    collapseIcon: PropTypes.string,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Expand icon.
-     */
-    expandIcon: PropTypes.string,
+        /**
+         * The accordion's title.
+         */
+        title: PropTypes.string,
 
-    /**
-     * Callback function fired when collpase the accordion.
-     */
-    onCollpase: PropTypes.func,
+        /**
+         * Collapse icon.
+         */
+        collapseIcon: PropTypes.string,
 
-    /**
-     * Callback function fired when expand the accordion.
-     */
-    onExpand: PropTypes.func,
+        /**
+         * Expand icon.
+         */
+        expandIcon: PropTypes.string,
 
-    /**
-     * Callback function fired when change the status of accordion.
-     */
-    onChange: PropTypes.func
+        /**
+         * Callback function fired when collpase the accordion.
+         */
+        onCollpase: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when expand the accordion.
+         */
+        onExpand: PropTypes.func,
+
+        /**
+         * Callback function fired when change the status of accordion.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 Accordion.defaultProps = {
-
-    className: '',
-    style: null,
-
     title: 'title',
     collapseIcon: 'fas fa-angle-up',
     expandIcon: 'fas fa-angle-down'
-
 };
 
 export default Accordion;

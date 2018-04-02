@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TableHeader from '../_TableHeader';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Thead extends Component {
 
     constructor(props, ...restArgs) {
@@ -60,30 +62,30 @@ class Thead extends Component {
     }
 };
 
-Thead.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    columns: PropTypes.array,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
-    hidden: PropTypes.bool,
+    Thead.propTypes = {
 
-    onSort: PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-};
+        columns: PropTypes.array,
+        sort: PropTypes.object,
+        sortAscIconCls: PropTypes.string,
+        sortDescIconCls: PropTypes.string,
+        hidden: PropTypes.bool,
+
+        onSort: PropTypes.func
+
+    };
+
+}
 
 Thead.defaultProps = {
-
-    className: null,
-    style: null,
-
     columns: [],
-    sort: null,
     hidden: false
-
 };
 
 export default Thead;

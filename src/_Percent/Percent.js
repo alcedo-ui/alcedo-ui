@@ -4,9 +4,11 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Percent extends Component {
 
     constructor(props, ...restArgs) {
@@ -76,24 +78,25 @@ class Percent extends Component {
     }
 };
 
-Percent.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    endNum: PropTypes.number,
-    move: PropTypes.bool
+    Percent.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        endNum: PropTypes.number,
+        move: PropTypes.bool
+
+    };
+
+}
 
 Percent.defaultProps = {
-
-    className: null,
-    style: null,
-
     endNum: 100,
     move: false
-
 };
 
 export default Percent;

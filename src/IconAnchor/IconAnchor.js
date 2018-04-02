@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
@@ -12,8 +11,10 @@ import TouchRipple from '../TouchRipple/TouchRipple';
 import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class IconAnchor extends Component {
 
     static Theme = Theme;
@@ -97,74 +98,75 @@ class IconAnchor extends Component {
     }
 };
 
-IconAnchor.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    IconAnchor.propTypes = {
 
-    /**
-     * The button theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Disables the button if set to true.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,the button will be have loading effect.
-     */
-    isLoading: PropTypes.bool,
+        /**
+         * The button theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The icon within the IconAnchor is a Font Awesome component.This property is the className of the icon.
-     */
-    iconCls: PropTypes.string.isRequired,
+        /**
+         * Disables the button if set to true.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * The URL to link to when the button is clicked.
-     */
-    href: PropTypes.string,
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
 
-    /**
-     * How to open the linked document.The value can be _blank,_self,_parent or _top.
-     */
-    target: PropTypes.string,
+        /**
+         * The icon within the IconAnchor is a Font Awesome component.This property is the className of the icon.
+         */
+        iconCls: PropTypes.string.isRequired,
 
-    alt: PropTypes.string,
+        /**
+         * The URL to link to when the button is clicked.
+         */
+        href: PropTypes.string,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+        /**
+         * How to open the linked document.The value can be _blank,_self,_parent or _top.
+         */
+        target: PropTypes.string,
 
-    /**
-     * Callback function fired when the button is touch-tapped.
-     */
-    onTouchTap: PropTypes.func
+        alt: PropTypes.string,
 
-};
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
+
+        /**
+         * Callback function fired when the button is touch-tapped.
+         */
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 IconAnchor.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     disabled: false,
     isLoading: false,
-    iconCls: null,
     href: 'javascript:void(0)',
     target: '_blank',
-    alt: null,
 
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };

@@ -4,14 +4,15 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Theme from '../Theme';
 import Percent from '../_Percent';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class LinearProgress extends Component {
 
     static WordStyle = {
@@ -92,48 +93,53 @@ class LinearProgress extends Component {
     }
 };
 
-LinearProgress.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    LinearProgress.propTypes = {
 
-    /**
-     * The progress theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The highlight width of linearProgress.
-     */
-    highlightWidth: PropTypes.string,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,there will have a text description.
-     */
-    word: PropTypes.bool,
+        /**
+         * The progress theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The percent text location.Desirable values include front,middle,follow.
-     */
-    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map(key => LinearProgress.WordStyle[key])),
+        /**
+         * The highlight width of linearProgress.
+         */
+        highlightWidth: PropTypes.string,
 
-    /**
-     * If true, the linearProgress will have animation.
-     */
-    animation: PropTypes.bool
+        /**
+         * If true,there will have a text description.
+         */
+        word: PropTypes.bool,
 
-};
+        /**
+         * The percent text location.Desirable values include front,middle,follow.
+         */
+        wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map(key => LinearProgress.WordStyle[key])),
+
+        /**
+         * If true, the linearProgress will have animation.
+         */
+        animation: PropTypes.bool
+
+    };
+
+}
 
 LinearProgress.defaultProps = {
 
-    className: '',
     style: {
         width: '200px',
         height: '2px'

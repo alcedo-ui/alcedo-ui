@@ -4,14 +4,15 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
+@PureRender
 class LazyImage extends Component {
 
     constructor(props, ...restArgs) {
@@ -121,69 +122,72 @@ class LazyImage extends Component {
     }
 };
 
-LazyImage.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    LazyImage.propTypes = {
 
-    /**
-     * Image src url.
-     */
-    src: PropTypes.string.isRequired,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Image alt text.
-     */
-    alt: PropTypes.string,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Loading width.
-     */
-    loadingWidth: PropTypes.number,
+        /**
+         * Image src url.
+         */
+        src: PropTypes.string.isRequired,
 
-    /**
-     * Loading height.
-     */
-    loadingHeight: PropTypes.number,
+        /**
+         * Image alt text.
+         */
+        alt: PropTypes.string,
 
-    /**
-     * Image width.
-     */
-    width: PropTypes.number,
+        /**
+         * Loading width.
+         */
+        loadingWidth: PropTypes.number,
 
-    /**
-     * Image height.
-     */
-    height: PropTypes.number,
+        /**
+         * Loading height.
+         */
+        loadingHeight: PropTypes.number,
 
-    /**
-     * Image placeholder.
-     */
-    placeholder: PropTypes.any,
+        /**
+         * Image width.
+         */
+        width: PropTypes.number,
 
-    /**
-     * Image load start callback.
-     */
-    onImageLoadStart: PropTypes.func,
+        /**
+         * Image height.
+         */
+        height: PropTypes.number,
 
-    /**
-     * Image load end callback.
-     */
-    onImageLoaded: PropTypes.func
+        /**
+         * Image placeholder.
+         */
+        placeholder: PropTypes.any,
 
-};
+        /**
+         * Image load start callback.
+         */
+        onImageLoadStart: PropTypes.func,
+
+        /**
+         * Image load end callback.
+         */
+        onImageLoaded: PropTypes.func
+
+    };
+
+}
 
 LazyImage.defaultProps = {
-
-    className: '',
-    style: null,
 
     alt: '',
 

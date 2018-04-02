@@ -4,17 +4,19 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
 import Notification from '../_Notification';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Notifier extends Component {
 
     static Type = MsgType;
@@ -156,82 +158,83 @@ class Notifier extends Component {
 
 };
 
-Notifier.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Children passed into the notifier.
-     */
-    notifications: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    Notifier.propTypes = {
 
         /**
-         * The CSS class name of notification.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the notification.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The type of notification.
+         * Children passed into the notifier.
          */
-        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+        notifications: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * The title of notification.
-         */
-        title: PropTypes.string,
+            /**
+             * The CSS class name of notification.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The message of notification.
-         */
-        message: PropTypes.string,
+            /**
+             * Override the styles of the notification.
+             */
+            style: PropTypes.object,
 
-        /**
-         * The icon class name of notification.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * The type of notification.
+             */
+            type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+            /**
+             * The title of notification.
+             */
+            title: PropTypes.string,
+
+            /**
+             * The message of notification.
+             */
+            message: PropTypes.string,
+
+            /**
+             * The icon class name of notification.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * The duration of notification.
+             */
+            duration: PropTypes.number
+
+        }), PropTypes.string, PropTypes.number])),
+
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
         /**
          * The duration of notification.
          */
-        duration: PropTypes.number
+        duration: PropTypes.number,
 
-    }), PropTypes.string, PropTypes.number])),
+        /**
+         * Callback function fired when the notifier pop.
+         */
+        onNotificationPop: PropTypes.func
 
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    };
 
-    /**
-     * The duration of notification.
-     */
-    duration: PropTypes.number,
-
-    /**
-     * Callback function fired when the notifier pop.
-     */
-    onNotificationPop: PropTypes.func
-
-};
+}
 
 Notifier.defaultProps = {
-
-    className: '',
-    style: null,
-
     position: Position.BOTTOM_RIGHT,
     duration: 0
-
 };
 
 export default Notifier;

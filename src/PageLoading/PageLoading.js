@@ -4,10 +4,12 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class PageLoading extends Component {
 
     constructor(props, ...restArgs) {
@@ -109,26 +111,29 @@ class PageLoading extends Component {
     }
 };
 
-PageLoading.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    visible: PropTypes.bool,
-    duration: PropTypes.number,
-    showStripes: PropTypes.bool,
+    PageLoading.propTypes = {
 
-    loadingProgress: PropTypes.arrayOf(PropTypes.shape({
-        width: PropTypes.number,
-        timeout: PropTypes.number
-    }))
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-};
+        visible: PropTypes.bool,
+        duration: PropTypes.number,
+        showStripes: PropTypes.bool,
+
+        loadingProgress: PropTypes.arrayOf(PropTypes.shape({
+            width: PropTypes.number,
+            timeout: PropTypes.number
+        }))
+
+    };
+
+}
 
 PageLoading.defaultProps = {
-
-    className: null,
-    style: null,
 
     visible: false,
     duration: 250,

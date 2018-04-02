@@ -4,13 +4,15 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TransferList extends Component {
 
     constructor(props, ...restArgs) {
@@ -177,34 +179,34 @@ class TransferList extends Component {
 
 };
 
-TransferList.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    listStyle: PropTypes.object,
+    TransferList.propTypes = {
 
-    /**
-     *
-     */
-    data: PropTypes.array,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     *
-     */
-    value: PropTypes.array
+        /**
+         * Override the styles of the root element.
+         */
+        listStyle: PropTypes.object,
 
+        /**
+         *
+         */
+        data: PropTypes.array,
 
-};
+        /**
+         *
+         */
+        value: PropTypes.array
 
-TransferList.defaultProps = {
-    className: '',
-    style: null
-};
+    };
+
+}
 
 export default TransferList;

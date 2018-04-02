@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
@@ -68,64 +67,66 @@ class ButtonCheckbox extends Component {
     }
 };
 
-ButtonCheckbox.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    ButtonCheckbox.propTypes = {
 
-    /**
-     * The ButtonCheckbox theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The ButtonCheckbox activated theme.
-     */
-    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The name of the toggleButton.
-     */
-    // name: PropTypes.string,
+        /**
+         * The ButtonCheckbox theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The text of the button.
-     */
-    text: PropTypes.string,
+        /**
+         * The ButtonCheckbox activated theme.
+         */
+        activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * If true,the button will be in active status.
-     */
-    value: PropTypes.bool,
+        /**
+         * The name of the toggleButton.
+         */
+        // name: PropTypes.string,
 
-    /**
-     * Disables the button if set to true.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * The text of the button.
+         */
+        text: PropTypes.string,
 
-    /**
-     * Callback function fired when the button is touch-tapped.
-     */
-    onChange: PropTypes.func
+        /**
+         * If true,the button will be in active status.
+         */
+        value: PropTypes.bool,
 
-};
+        /**
+         * Disables the button if set to true.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * Callback function fired when the button is touch-tapped.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 ButtonCheckbox.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,
 
-    name: null,
-    text: null,
     value: false,
     disabled: false
 

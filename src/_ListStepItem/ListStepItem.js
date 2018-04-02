@@ -4,12 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class ListStepItem extends Component {
 
     static Theme = Theme;
@@ -49,52 +51,55 @@ class ListStepItem extends Component {
     }
 };
 
-ListStepItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    ListStepItem.propTypes = {
 
-    /**
-     * Item index.
-     */
-    index: PropTypes.number,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Sets the step as active.
-     */
-    activatedStep: PropTypes.number,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The final step.
-     */
-    finishedStep: PropTypes.number,
+        /**
+         * Item index.
+         */
+        index: PropTypes.number,
 
-    /**
-     * The data of step item.
-     */
-    data: PropTypes.object,
+        /**
+         * Sets the step as active.
+         */
+        activatedStep: PropTypes.number,
 
-    /**
-     * Callback function fired when step change.
-     */
-    onTouchTap: PropTypes.func
+        /**
+         * The final step.
+         */
+        finishedStep: PropTypes.number,
 
-};
+        /**
+         * The data of step item.
+         */
+        data: PropTypes.object,
+
+        /**
+         * Callback function fired when step change.
+         */
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 ListStepItem.defaultProps = {
-    className: '',
-    style: null,
     index: 0,
     activatedStep: 0,
-    finishedStep: 0,
-    data: null
+    finishedStep: 0
 };
 
 export default ListStepItem;

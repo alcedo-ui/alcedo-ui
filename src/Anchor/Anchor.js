@@ -4,15 +4,16 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class Anchor extends Component {
 
     static Theme = Theme;
@@ -125,48 +126,48 @@ class Anchor extends Component {
     }
 };
 
-Anchor.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    const PropTypes = require('prop-types');
 
-    href: PropTypes.string,
-    alt: PropTypes.string,
-    target: PropTypes.string,
+    Anchor.propTypes = {
 
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    isLoading: PropTypes.bool,
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
+        href: PropTypes.string,
+        alt: PropTypes.string,
+        target: PropTypes.string,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.string,
+        disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        isLoading: PropTypes.bool,
 
-    onTouchTap: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
 
-};
+        tip: PropTypes.string,
+        tipPosition: PropTypes.string,
+
+        onTouchTap: PropTypes.func,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func
+
+    };
+
+}
 
 Anchor.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     href: 'javascript:void(0)',
-    alt: null,
     target: '_blank',
 
     disabled: false,
     readOnly: false,
-    isLoading: false,
-
-    iconCls: null,
-    rightIconCls: null
+    isLoading: false
 
 };
 

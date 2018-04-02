@@ -4,10 +4,12 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class PaggingPage extends Component {
 
     constructor(props, ...restArgs) {
@@ -229,27 +231,30 @@ class PaggingPage extends Component {
     }
 };
 
-PaggingPage.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    page: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
+    PaggingPage.propTypes = {
 
-    paggingPrevIconCls: PropTypes.string,
-    paggingNextIconCls: PropTypes.string,
-    paggingFirstIconCls: PropTypes.string,
-    paggingLastIconCls: PropTypes.string,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-    onPageChange: PropTypes.func
+        page: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
 
-};
+        paggingPrevIconCls: PropTypes.string,
+        paggingNextIconCls: PropTypes.string,
+        paggingFirstIconCls: PropTypes.string,
+        paggingLastIconCls: PropTypes.string,
+
+        onPageChange: PropTypes.func
+
+    };
+
+}
 
 PaggingPage.defaultProps = {
-
-    className: '',
-    style: null,
 
     page: 0,
     total: 0,

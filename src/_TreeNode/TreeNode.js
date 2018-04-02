@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
@@ -14,11 +13,14 @@ import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import Util from '../_vendors/Util';
-import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+import Calculation from '../_vendors/Calculation';
+
+@PureRender
 class TreeNode extends Component {
 
     static SelectMode = SelectMode;
@@ -273,65 +275,66 @@ class TreeNode extends Component {
 
     }
 };
+if (process.env.NODE_ENV === 'development') {
 
-TreeNode.propTypes = {
+    const PropTypes = require('prop-types');
 
-    index: PropTypes.number,
-    depth: PropTypes.number,
-    path: PropTypes.array,
+    TreeNode.propTypes = {
 
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        index: PropTypes.number,
+        depth: PropTypes.number,
+        path: PropTypes.array,
 
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    data: PropTypes.object,
-    value: PropTypes.any,
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    idField: PropTypes.string,
-    valueField: PropTypes.string,
-    displayField: PropTypes.string,
-    descriptionField: PropTypes.string,
+        data: PropTypes.object,
+        value: PropTypes.any,
 
-    disabled: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    allowCollapse: PropTypes.bool,
-    isNodeToggling: PropTypes.bool,
+        idField: PropTypes.string,
+        valueField: PropTypes.string,
+        displayField: PropTypes.string,
+        descriptionField: PropTypes.string,
 
-    renderer: PropTypes.func,
+        disabled: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        allowCollapse: PropTypes.bool,
+        isNodeToggling: PropTypes.bool,
 
-    collapsedIconCls: PropTypes.string,
-    expandedIconCls: PropTypes.string,
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
+        renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onNodeToggleStart: PropTypes.func,
-    onNodeToggleEnd: PropTypes.func
+        collapsedIconCls: PropTypes.string,
+        expandedIconCls: PropTypes.string,
+        radioUncheckedIconCls: PropTypes.string,
+        radioCheckedIconCls: PropTypes.string,
+        checkboxUncheckedIconCls: PropTypes.string,
+        checkboxCheckedIconCls: PropTypes.string,
+        checkboxIndeterminateIconCls: PropTypes.string,
 
-};
+        onTouchTap: PropTypes.func,
+        onSelect: PropTypes.func,
+        onDeselect: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+        onNodeToggleStart: PropTypes.func,
+        onNodeToggleEnd: PropTypes.func
+
+    };
+
+}
 
 TreeNode.defaultProps = {
 
     index: 0,
     depth: 0,
-    path: null,
 
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
 
     idField: 'id',
     valueField: 'value',
@@ -344,16 +347,10 @@ TreeNode.defaultProps = {
     allowCollapse: true,
     isNodeToggling: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square'

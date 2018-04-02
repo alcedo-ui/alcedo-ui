@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
@@ -12,9 +11,11 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
+@PureRender
 class Dropdown extends Component {
 
     static Theme = Theme;
@@ -157,104 +158,102 @@ class Dropdown extends Component {
     }
 };
 
-Dropdown.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The class name of the trigger element.
-     */
-    triggerClassName: PropTypes.string,
+    Dropdown.propTypes = {
 
-    /**
-     * The class name of the popup element.
-     */
-    popupClassName: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The class name of the trigger element.
+         */
+        triggerClassName: PropTypes.string,
 
-    /**
-     * Override the styles of the trigger element.
-     */
-    triggerStyle: PropTypes.object,
+        /**
+         * The class name of the popup element.
+         */
+        popupClassName: PropTypes.string,
 
-    /**
-     * Override the styles of the popup element.
-     */
-    popupStyle: PropTypes.object,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the trigger element.
+         */
+        triggerStyle: PropTypes.object,
 
-    /**
-     * The popup theme.
-     */
-    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the popup element.
+         */
+        popupStyle: PropTypes.object,
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+        /**
+         * The theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The value of the dropDown trigger.
-     */
-    triggerValue: PropTypes.any,
+        /**
+         * The popup theme.
+         */
+        popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
+        position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
 
-    /**
-     * If true, the dropDown will be disabled.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * The value of the dropDown trigger.
+         */
+        triggerValue: PropTypes.any,
 
-    disableTouchRipple: PropTypes.bool,
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
 
-    /**
-     * If true,the dropdown box automatically closed after selection.
-     */
-    autoClose: PropTypes.bool,
+        /**
+         * If true, the dropDown will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
+        disableTouchRipple: PropTypes.bool,
 
-    /**
-     * Callback function fired when the popup is open.
-     */
-    onOpenPopup: PropTypes.func,
+        /**
+         * If true,the dropdown box automatically closed after selection.
+         */
+        autoClose: PropTypes.bool,
 
-    /**
-     * Callback function fired when the popup is close.
-     */
-    onClosePopup: PropTypes.func,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func,
-    onTriggerTouchTap: PropTypes.func
+        /**
+         * Callback function fired when the popup is open.
+         */
+        onOpenPopup: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when the popup is close.
+         */
+        onClosePopup: PropTypes.func,
+
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        onMouseOver: PropTypes.func,
+        onMouseOut: PropTypes.func,
+        onTriggerTouchTap: PropTypes.func
+
+    };
+
+}
 
 Dropdown.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    popupClassName: null,
-    style: null,
-    triggerStyle: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
     position: Dropdown.Position.LEFT,
-    triggerValue: null,
-    iconCls: null,
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,

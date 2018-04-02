@@ -4,9 +4,11 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class WidgetHeader extends Component {
 
     constructor(props, ...restArgs) {
@@ -37,22 +39,19 @@ class WidgetHeader extends Component {
     }
 };
 
-WidgetHeader.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    title: PropTypes.any
+    WidgetHeader.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-WidgetHeader.defaultProps = {
+        title: PropTypes.any
 
-    className: '',
-    style: null,
+    };
 
-    title: ''
-
-};
+}
 
 export default WidgetHeader;

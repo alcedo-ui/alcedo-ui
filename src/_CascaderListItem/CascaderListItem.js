@@ -4,13 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import List from '../List';
 
+import PureRender from '../_vendors/PureRender';
 import Valid from '../_vendors/Valid';
 
+@PureRender
 class CascaderListItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -18,7 +19,7 @@ class CascaderListItem extends Component {
         super(props, ...restArgs);
 
         this.formatData = ::this.formatData;
-        this.changeHandle = ::this.changeHandle;
+        this.changeHandler = ::this.changeHandler;
 
     }
 
@@ -37,7 +38,7 @@ class CascaderListItem extends Component {
 
     }
 
-    changeHandle(value, index) {
+    changeHandler(value, index) {
 
         if (!value) {
             return;
@@ -88,7 +89,7 @@ class CascaderListItem extends Component {
                       value={activatedNode}
                       valueField={valueField}
                       displayField={displayField}
-                      onChange={this.changeHandle}/>
+                      onChange={this.changeHandler}/>
 
                 {
                     hasChildren ?
@@ -105,56 +106,47 @@ class CascaderListItem extends Component {
     }
 }
 
-CascaderListItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The width of CascaderListItem.
-     */
-    listWidth: PropTypes.number,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The data of cascader-list.
-     */
-    data: PropTypes.array,
-
-    /**
-     *
-     */
-    path: PropTypes.arrayOf(PropTypes.shape({
+    CascaderListItem.propTypes = {
 
         /**
-         *
+         * The width of CascaderListItem.
          */
-        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+        listWidth: PropTypes.number,
 
         /**
-         *
+         * The data of cascader-list.
          */
-        index: PropTypes.number
+        data: PropTypes.array,
 
-    })),
+        path: PropTypes.arrayOf(PropTypes.shape({
+            node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+            index: PropTypes.number
+        })),
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
 
-    /**
-     * The current depth.
-     */
-    currDepth: PropTypes.number,
+        /**
+         * The current depth.
+         */
+        currDepth: PropTypes.number,
 
-    /**
-     *
-     */
-    depth: PropTypes.number
+        depth: PropTypes.number
 
-};
+    };
+
+}
 
 CascaderListItem.defaultProps = {
 

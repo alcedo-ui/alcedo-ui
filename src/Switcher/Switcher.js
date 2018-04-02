@@ -4,15 +4,16 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import CircularLoading from '../CircularLoading';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class Switcher extends Component {
 
     static Size = {
@@ -114,66 +115,70 @@ class Switcher extends Component {
     }
 };
 
-Switcher.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Switcher.propTypes = {
 
-    /**
-     * The Switcher theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * If true,the switcher will be in active status.
-     */
-    value: PropTypes.bool,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Disables the switcher if set to true.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * The Switcher theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * If true,the switcher will be have loading effect.
-     */
-    isLoading: PropTypes.bool,
+        /**
+         * If true,the switcher will be in active status.
+         */
+        value: PropTypes.bool,
 
-    labelVisible: PropTypes.bool,
+        /**
+         * Disables the switcher if set to true.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * The size of switcher.The value can be small or default.
-     */
-    size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
+        /**
+         * If true,the switcher will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
 
-    /**
-     * Callback function fired when the switcher touch-tapped.
-     */
-    onTouchTap: PropTypes.func,
+        labelVisible: PropTypes.bool,
 
-    /**
-     * Callback function fired before the switcher touch-tapped.
-     */
-    beforeChange: PropTypes.func,
+        /**
+         * The size of switcher.The value can be small or default.
+         */
+        size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
 
-    /**
-     * Callback function fired when the switcher touch-tapped.
-     */
-    onChange: PropTypes.func
+        /**
+         * Callback function fired when the switcher touch-tapped.
+         */
+        onTouchTap: PropTypes.func,
 
-};
+        /**
+         * Callback function fired before the switcher touch-tapped.
+         */
+        beforeChange: PropTypes.func,
+
+        /**
+         * Callback function fired when the switcher touch-tapped.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 Switcher.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     value: false,

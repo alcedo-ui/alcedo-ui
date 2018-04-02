@@ -4,16 +4,17 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
+@PureRender
 class CascaderList extends Component {
 
     static Theme = Theme;
@@ -71,150 +72,152 @@ class CascaderList extends Component {
     }
 }
 
-CascaderList.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    CascaderList.propTypes = {
 
-    /**
-     * The value of CascaderList.
-     */
-    value: PropTypes.any,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The width of CascaderList.
-     */
-    listWidth: PropTypes.number,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The item-data of CascaderList.
-     */
-    data: PropTypes.oneOfType([
+        /**
+         * The value of CascaderList.
+         */
+        value: PropTypes.any,
 
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        /**
+         * The width of CascaderList.
+         */
+        listWidth: PropTypes.number,
 
-            /**
-             * The CSS class name of the list button.
-             */
-            className: PropTypes.string,
+        /**
+         * The item-data of CascaderList.
+         */
+        data: PropTypes.oneOfType([
 
-            /**
-             * Override the styles of the list button.
-             */
-            style: PropTypes.object,
+            // not grouped
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-            /**
-             * The theme of the list button.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+                /**
+                 * The CSS class name of the list button.
+                 */
+                className: PropTypes.string,
 
-            /**
-             * The text value of the list button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * Override the styles of the list button.
+                 */
+                style: PropTypes.object,
 
-            /**
-             * The list item's display text. Type can be string, number or bool.
-             */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * The theme of the list button.
+                 */
+                theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-            /**
-             * The desc value of the list button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * The text value of the list button.Type can be string or number.
+                 */
+                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the list item will be disabled.
-             */
-            disabled: PropTypes.bool,
+                /**
+                 * The list item's display text. Type can be string, number or bool.
+                 */
+                text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
+                /**
+                 * The desc value of the list button. Type can be string or number.
+                 */
+                desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
+                /**
+                 * If true,the list item will be disabled.
+                 */
+                disabled: PropTypes.bool,
 
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
+                /**
+                 * If true,the button will be have loading effect.
+                 */
+                isLoading: PropTypes.bool,
 
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
+                /**
+                 * If true,the element's ripple effect will be disabled.
+                 */
+                disableTouchRipple: PropTypes.bool,
 
-            /**
-             * The message of tip.
-             */
-            tip: PropTypes.string,
+                /**
+                 * Use this property to display an icon. It will display on the left.
+                 */
+                iconCls: PropTypes.string,
 
-            /**
-             * The position of tip.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+                /**
+                 * Use this property to display an icon. It will display on the right.
+                 */
+                rightIconCls: PropTypes.string,
 
-            /**
-             * If true,the item will have center displayed ripple effect.
-             */
-            rippleDisplayCenter: PropTypes.bool,
+                /**
+                 * The message of tip.
+                 */
+                tip: PropTypes.string,
+
+                /**
+                 * The position of tip.
+                 */
+                tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+                /**
+                 * If true,the item will have center displayed ripple effect.
+                 */
+                rippleDisplayCenter: PropTypes.bool,
 
 
-            children: PropTypes.array,
+                children: PropTypes.array,
 
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            itemRenderer: PropTypes.func,
+                /**
+                 * You can create a complicated renderer callback instead of value and desc prop.
+                 */
+                itemRenderer: PropTypes.func,
 
-            /**
-             * Callback function fired when a list item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
+                /**
+                 * Callback function fired when a list item touch-tapped.
+                 */
+                onTouchTap: PropTypes.func
 
-        }), PropTypes.string, PropTypes.number])),
+            }), PropTypes.string, PropTypes.number])),
 
-        // grouped
-        PropTypes.array
+            // grouped
+            PropTypes.array
 
-    ]),
+        ]),
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
 
-    /**
-     * The depth of CascaderList.
-     */
-    depth: PropTypes.number
+        /**
+         * The depth of CascaderList.
+         */
+        depth: PropTypes.number
 
-};
+    };
+
+}
 
 CascaderList.defaultProps = {
 
-    className: null,
-    style: null,
     listWidth: 200,
-
-    data: null,
 
     valueField: 'value',
     displayField: 'text'

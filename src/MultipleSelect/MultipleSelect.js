@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
@@ -16,10 +15,13 @@ import GroupList from '../GroupList';
 import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
+
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
+@PureRender
 class MultipleSelect extends Component {
 
     static Theme = Theme;
@@ -398,196 +400,198 @@ class MultipleSelect extends Component {
 
 };
 
-MultipleSelect.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The CSS class name of the popup element.
-     */
-    popupClassName: PropTypes.string,
+    MultipleSelect.propTypes = {
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Override the styles of the popup element.
-     */
-    popupStyle: PropTypes.object,
+        /**
+         * The CSS class name of the popup element.
+         */
+        popupClassName: PropTypes.string,
 
-    /**
-     * The theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The name of the auto complete.
-     */
-    name: PropTypes.string,
+        /**
+         * Override the styles of the popup element.
+         */
+        popupStyle: PropTypes.object,
 
-    /**
-     * The placeholder of the field.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * Children passed into the List.
-     */
-    data: PropTypes.oneOfType([
+        /**
+         * The name of the auto complete.
+         */
+        name: PropTypes.string,
 
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        /**
+         * The placeholder of the field.
+         */
+        placeholder: PropTypes.string,
 
-            /**
-             * The CSS class name of the list button.
-             */
-            className: PropTypes.string,
+        /**
+         * Children passed into the List.
+         */
+        data: PropTypes.oneOfType([
 
-            /**
-             * Override the styles of the list button.
-             */
-            style: PropTypes.object,
+            // not grouped
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-            /**
-             * The theme of the list button.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+                /**
+                 * The CSS class name of the list button.
+                 */
+                className: PropTypes.string,
 
-            /**
-             * The text value of the list button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * Override the styles of the list button.
+                 */
+                style: PropTypes.object,
 
-            /**
-             * The desc value of the list button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * The theme of the list button.
+                 */
+                theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-            /**
-             * If true, the list button will be disabled.
-             */
-            disabled: PropTypes.bool,
+                /**
+                 * The text value of the list button.Type can be string or number.
+                 */
+                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
+                /**
+                 * The desc value of the list button. Type can be string or number.
+                 */
+                desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
+                /**
+                 * If true, the list button will be disabled.
+                 */
+                disabled: PropTypes.bool,
 
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
+                /**
+                 * If true,the button will be have loading effect.
+                 */
+                isLoading: PropTypes.bool,
 
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
+                /**
+                 * If true,the element's ripple effect will be disabled.
+                 */
+                disableTouchRipple: PropTypes.bool,
 
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            renderer: PropTypes.func,
+                /**
+                 * Use this property to display an icon. It will display on the left.
+                 */
+                iconCls: PropTypes.string,
 
-            /**
-             * Callback function fired when a list item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
+                /**
+                 * Use this property to display an icon. It will display on the right.
+                 */
+                rightIconCls: PropTypes.string,
 
-        }), PropTypes.string, PropTypes.number])),
+                /**
+                 * You can create a complicated renderer callback instead of value and desc prop.
+                 */
+                renderer: PropTypes.func,
 
-        // grouped
-        PropTypes.array
+                /**
+                 * Callback function fired when a list item touch-tapped.
+                 */
+                onTouchTap: PropTypes.func
 
-    ]).isRequired,
+            }), PropTypes.string, PropTypes.number])),
 
-    /**
-     * If true, the auto complete will be disabled.
-     */
-    disabled: PropTypes.bool,
+            // grouped
+            PropTypes.array
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        ]).isRequired,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * If true, the auto complete will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * The description field name in data. (default: "desc")
-     */
-    descriptionField: PropTypes.string,
+        /**
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
 
-    /**
-     * If true, the popup list automatically closed after selection.
-     */
-    autoClose: PropTypes.bool,
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
 
-    /**
-     * Callback function fired when value changed.
-     */
-    filterCallback: PropTypes.func,
+        /**
+         * The description field name in data. (default: "desc")
+         */
+        descriptionField: PropTypes.string,
 
-    /**
-     * Use this property to display an icon.
-     */
-    iconCls: PropTypes.string,
+        /**
+         * If true, the popup list automatically closed after selection.
+         */
+        autoClose: PropTypes.bool,
 
-    /**
-     * Use this property to display an icon.
-     */
-    rightIconCls: PropTypes.string,
+        /**
+         * Callback function fired when value changed.
+         */
+        filterCallback: PropTypes.func,
 
-    /**
-     * The message of no value matched.
-     */
-    noMatchedMsg: PropTypes.string,
+        /**
+         * Use this property to display an icon.
+         */
+        iconCls: PropTypes.string,
 
-    /**
-     * If true,the multipleSelect will be grouped.
-     */
-    isGrouped: PropTypes.bool,
+        /**
+         * Use this property to display an icon.
+         */
+        rightIconCls: PropTypes.string,
 
-    useDynamicRenderList: PropTypes.bool,
-    listHeight: PropTypes.number,
-    itemHeight: PropTypes.number,
-    scrollBuffer: PropTypes.number,
+        /**
+         * The message of no value matched.
+         */
+        noMatchedMsg: PropTypes.string,
 
-    /**
-     * Callback function fired when MultipleSelect changed.
-     */
-    onChange: PropTypes.func,
+        /**
+         * If true,the multipleSelect will be grouped.
+         */
+        isGrouped: PropTypes.bool,
 
-    /**
-     * Callback function fired when the text field focused.
-     */
-    onFocus: PropTypes.func,
+        useDynamicRenderList: PropTypes.bool,
+        listHeight: PropTypes.number,
+        itemHeight: PropTypes.number,
+        scrollBuffer: PropTypes.number,
 
-    /**
-     * Callback function fired when the text field Defocused.
-     */
-    onBlur: PropTypes.func
+        /**
+         * Callback function fired when MultipleSelect changed.
+         */
+        onChange: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when the text field focused.
+         */
+        onFocus: PropTypes.func,
+
+        /**
+         * Callback function fired when the text field Defocused.
+         */
+        onBlur: PropTypes.func
+
+    };
+
+}
 
 MultipleSelect.defaultProps = {
 
-    className: '',
-    popupClassName: '',
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
 
     name: '',

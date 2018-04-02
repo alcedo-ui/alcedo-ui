@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TableHeader extends Component {
 
     constructor(props, ...restArgs) {
@@ -82,36 +84,34 @@ class TableHeader extends Component {
     }
 };
 
-TableHeader.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    colIndex: PropTypes.number,
-    sortable: PropTypes.bool,
-    sortProp: PropTypes.string,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
-    hidden: PropTypes.bool,
+    TableHeader.propTypes = {
 
-    onSort: PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-};
+        header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        colIndex: PropTypes.number,
+        sortable: PropTypes.bool,
+        sortProp: PropTypes.string,
+        sort: PropTypes.object,
+        sortAscIconCls: PropTypes.string,
+        sortDescIconCls: PropTypes.string,
+        hidden: PropTypes.bool,
+
+        onSort: PropTypes.func
+
+    };
+
+}
 
 TableHeader.defaultProps = {
-
-    className: null,
-    style: null,
-
-    header: null,
     colIndex: 0,
     sortable: false,
-    sortProp: null,
-    sort: null,
     hidden: false
-
 };
 
 export default TableHeader;

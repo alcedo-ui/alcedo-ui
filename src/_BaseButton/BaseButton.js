@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
@@ -12,9 +11,11 @@ import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+@PureRender
 class BaseButton extends Component {
 
     static Theme = Theme;
@@ -24,13 +25,7 @@ class BaseButton extends Component {
 
         super(props, ...restArgs);
 
-        this.state = {
-            focused: false
-        };
-
         this.touchTapHandler = ::this.touchTapHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
         this.startRipple = ::this.startRipple;
         this.endRipple = ::this.endRipple;
 
@@ -40,24 +35,6 @@ class BaseButton extends Component {
         e.preventDefault();
         const {disabled, isLoading, onTouchTap} = this.props;
         !disabled && !isLoading && onTouchTap && onTouchTap(e);
-    }
-
-    focusHandler(e) {
-        this.setState({
-            focused: true
-        }, () => {
-            const {onFocus} = this.props;
-            onFocus && onFocus(e);
-        });
-    }
-
-    blurHandler(e) {
-        this.setState({
-            focused: false
-        }, () => {
-            const {onBlur} = this.props;
-            onBlur && onBlur(e);
-        });
     }
 
     startRipple(e) {
@@ -79,10 +56,8 @@ class BaseButton extends Component {
                 ...restProps
 
             } = this.props,
-            {focused} = this.state,
 
             buttonClassName = classNames('base-button', {
-                focused: focused,
                 [`theme-${theme}`]: theme,
                 'button-circular': isCircular,
                 'button-rounded': isRounded,
@@ -101,9 +76,7 @@ class BaseButton extends Component {
                         type={type}
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
-                        onTouchTap={this.touchTapHandler}
-                        onFocus={this.focusHandler}
-                        onBlur={this.blurHandler}>
+                        onTouchTap={this.touchTapHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -164,47 +137,48 @@ class BaseButton extends Component {
     }
 };
 
-BaseButton.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    const PropTypes = require('prop-types');
 
-    isRounded: PropTypes.bool,
-    isCircular: PropTypes.bool,
+    BaseButton.propTypes = {
 
-    value: PropTypes.any,
-    type: PropTypes.string,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
+        isRounded: PropTypes.bool,
+        isCircular: PropTypes.bool,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+        value: PropTypes.any,
+        type: PropTypes.string,
+        disabled: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        disableTouchRipple: PropTypes.bool,
 
-    rippleDisplayCenter: PropTypes.bool,
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
 
-    renderer: PropTypes.func,
-    onTouchTap: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-};
+        rippleDisplayCenter: PropTypes.bool,
+
+        renderer: PropTypes.func,
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 BaseButton.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     isRounded: false,
     isCircular: false,
 
-    value: null,
     disabled: false,
     readOnly: false,
     type: 'button',
@@ -213,10 +187,6 @@ BaseButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM
 
 };

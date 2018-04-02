@@ -4,9 +4,11 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TextFieldGroup extends Component {
 
     constructor(props, ...restArgs) {
@@ -31,14 +33,15 @@ class TextFieldGroup extends Component {
     }
 };
 
-TextFieldGroup.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object
-};
+if (process.env.NODE_ENV === 'development') {
 
-TextFieldGroup.defaultProps = {
-    className: '',
-    style: null
-};
+    const PropTypes = require('prop-types');
+
+    TextFieldGroup.propTypes = {
+        className: PropTypes.string,
+        style: PropTypes.object
+    };
+
+}
 
 export default TextFieldGroup;

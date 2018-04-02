@@ -4,17 +4,18 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import sum from 'lodash/sum';
 import classNames from 'classnames';
 
 import HuePicker from '../HuePicker';
 
+import PureRender from '../_vendors/PureRender';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 import Color from '../_vendors/Color';
 
+@PureRender
 class ColorPicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -162,29 +163,30 @@ class ColorPicker extends Component {
     }
 };
 
-ColorPicker.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    ColorPicker.propTypes = {
 
-    value: PropTypes.array
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-};
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        value: PropTypes.array
+
+    };
+
+}
 
 ColorPicker.defaultProps = {
-
-    className: null,
-    style: null,
-
     value: [255, 0, 0]
-
 };
 
 export default ColorPicker;

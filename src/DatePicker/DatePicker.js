@@ -4,11 +4,9 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -16,6 +14,11 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
+import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class DatePicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -23,6 +26,7 @@ class DatePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+
         const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
 
         this.state = {
@@ -278,66 +282,69 @@ class DatePicker extends Component {
             </div>
         );
     }
-}
-;
-
-DatePicker.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Date picker input name.
-     */
-    name: PropTypes.string,
-
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.any,
-
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.any,
-
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.any,
-
-    /**
-     * DatePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
-
-    /**
-     * Date format.
-     */
-    dateFormat: PropTypes.string,
-
-    /**
-     * If true,hide date display.
-     */
-    autoClose: PropTypes.bool,
-
-    /**
-     * Callback function that is fired when the date value changes.
-     */
-    onChange: PropTypes.func
-
 };
 
+if (process.env.NODE_ENV === 'development') {
+
+    const PropTypes = require('prop-types');
+
+    DatePicker.propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * Date picker input name.
+         */
+        name: PropTypes.string,
+
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.any,
+
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.any,
+
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.any,
+
+        /**
+         * DatePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
+
+        /**
+         * Date format.
+         */
+        dateFormat: PropTypes.string,
+
+        /**
+         * If true,hide date display.
+         */
+        autoClose: PropTypes.bool,
+
+        /**
+         * Callback function that is fired when the date value changes.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
+
 DatePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     maxValue: '',
     minValue: '',

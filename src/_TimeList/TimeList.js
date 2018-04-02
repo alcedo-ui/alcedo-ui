@@ -4,13 +4,15 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TimeItems from '../_TimeItems';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TimeList extends Component {
 
     constructor(props, ...restArgs) {
@@ -336,19 +338,25 @@ class TimeList extends Component {
     }
 };
 
-TimeList.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    popupVisible: PropTypes.bool,
-    hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    isRequired: PropTypes.bool,
-    maxValue: PropTypes.string, // '11:20:39'
-    minValue: PropTypes.string
+    TimeList.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        popupVisible: PropTypes.bool,
+        hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        isRequired: PropTypes.bool,
+        maxValue: PropTypes.string,
+        minValue: PropTypes.string
+
+    };
+
+}
 
 export default TimeList;

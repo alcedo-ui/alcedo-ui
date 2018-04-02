@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
@@ -13,10 +12,12 @@ import CascaderList from '../CascaderList/CascaderList';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
+@PureRender
 class CascaderField extends Component {
 
     static Theme = Theme;
@@ -164,148 +165,151 @@ class CascaderField extends Component {
     }
 }
 
-CascaderField.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The className of popup container.
-     */
-    popupClassName: PropTypes.string,
-
-    /**
-     * Override the styles of the popup container.
-     */
-    popupStyle: PropTypes.object,
-
-    /**
-     * The width of cascader list-item.
-     */
-    listWidth: PropTypes.number,
-
-    /**
-     * The theme of button.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The name of the hidden input.
-     */
-    name: PropTypes.string,
-
-    /**
-     * The cascader list data.
-     */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    CascaderField.propTypes = {
 
         /**
-         * The CSS class name of the list button.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the list button.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The theme of the list button.
+         * The className of popup container.
+         */
+        popupClassName: PropTypes.string,
+
+        /**
+         * Override the styles of the popup container.
+         */
+        popupStyle: PropTypes.object,
+
+        /**
+         * The width of cascader list-item.
+         */
+        listWidth: PropTypes.number,
+
+        /**
+         * The theme of button.Can be primary,highlight,success,warning,error.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The text value of the list button.Type can be string or number.
+         * The name of the hidden input.
          */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        name: PropTypes.string,
 
         /**
-         * The desc value of the list button. Type can be string or number.
+         * The cascader list data.
          */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
+
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
+
+            /**
+             * The children of list-item.
+             */
+            children: PropTypes.array,
+
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
 
         /**
-         * If true, the list button will be disabled.
+         * The placeholder of CascaderField field.
+         */
+        placeholder: PropTypes.string,
+
+        /**
+         * If true,the cascader will be disabled.
          */
         disabled: PropTypes.bool,
 
         /**
-         * If true,the button will be have loading effect.
+         * The value field name in data. (default: "value")
          */
-        isLoading: PropTypes.bool,
+        valueField: PropTypes.string,
 
         /**
-         * If true,the element's ripple effect will be disabled.
+         * The display field name in data. (default: "text")
          */
-        disableTouchRipple: PropTypes.bool,
+        displayField: PropTypes.string,
 
         /**
-         * Use this property to display an icon. It will display on the left.
+         * The connector of cascader value.
          */
-        iconCls: PropTypes.string,
+        separator: PropTypes.string
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+    };
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
-
-        /**
-         * The children of list-item.
-         */
-        children: PropTypes.array,
-
-        /**
-         * Callback function fired when a list item touch-tapped.
-         */
-        onTouchTap: PropTypes.func
-
-    }), PropTypes.string, PropTypes.number])),
-
-    /**
-     * The placeholder of CascaderField field.
-     */
-    placeholder: PropTypes.string,
-
-    /**
-     * If true,the cascader will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
-
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
-
-    /**
-     * The connector of cascader value.
-     */
-    separator: PropTypes.string
-
-};
+}
 
 CascaderField.defaultProps = {
 
-    className: '',
-    style: null,
     popupClassName: '',
-    popupStyle: null,
     listWidth: 200,
     theme: Theme.DEFAULT,
 

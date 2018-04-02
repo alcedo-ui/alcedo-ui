@@ -11,7 +11,7 @@ const path = require('path'),
     utils = require('../utils.js'),
     vendorsAssets = require(utils.assetsVendorsAbsolutePath('vendors-assets.json')),
 
-    env = config.build.env;
+    env = process.env.NODE_ENV;
 
 module.exports = merge(baseWebpackConfig, {
 

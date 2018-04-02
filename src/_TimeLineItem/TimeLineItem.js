@@ -4,9 +4,11 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class TimeLineItem extends Component {
 
     static Type = {
@@ -62,23 +64,24 @@ class TimeLineItem extends Component {
     }
 }
 
-TimeLineItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object
+    TimeLineItem.propTypes = {
 
-};
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-TimeLineItem.defaultProps = {
-    className: '',
-    style: null
-};
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object
+
+    };
+
+}
 
 export default TimeLineItem;

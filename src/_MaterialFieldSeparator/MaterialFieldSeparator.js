@@ -4,13 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class MaterialFieldSeparator extends Component {
 
     static Theme = Theme;
@@ -39,22 +40,26 @@ class MaterialFieldSeparator extends Component {
     }
 };
 
-MaterialFieldSeparator.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    const PropTypes = require('prop-types');
 
-    isHover: PropTypes.bool,
-    isFocus: PropTypes.bool,
-    disabled: PropTypes.bool
+    MaterialFieldSeparator.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        isHover: PropTypes.bool,
+        isFocus: PropTypes.bool,
+        disabled: PropTypes.bool
+
+    };
+
+}
 
 MaterialFieldSeparator.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     isHover: false,

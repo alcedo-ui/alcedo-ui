@@ -4,19 +4,21 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import List from '../List';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
-import Calculation from '../_vendors/Calculation';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
+import Calculation from '../_vendors/Calculation';
+
+@PureRender
 class DynamicRenderList extends Component {
 
     static SelectMode = SelectMode;
@@ -132,198 +134,202 @@ class DynamicRenderList extends Component {
     }
 };
 
-DynamicRenderList.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The theme of the list item.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The theme of the list item select radio or checkbox.
-     */
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * Children passed into the ListItem.
-     */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    DynamicRenderList.propTypes = {
 
         /**
-         * The CSS class name of the list button.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the list button.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The theme of the list button.
+         * The theme of the list item.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The text value of the list button.Type can be string or number.
+         * The theme of the list item select radio or checkbox.
          */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The list item's display text. Type can be string, number or bool.
+         * Children passed into the ListItem.
          */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The list item's display text. Type can be string, number or bool.
+             */
+            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true,the list item will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
+
+            /**
+             * The message of tip.
+             */
+            tip: PropTypes.string,
+
+            /**
+             * The position of tip.
+             */
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+            /**
+             * If true,the item will have center displayed ripple effect.
+             */
+            rippleDisplayCenter: PropTypes.bool,
+
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            itemRenderer: PropTypes.func,
+
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
 
         /**
-         * The desc value of the list button. Type can be string or number.
+         * The id field name in data. (default: "id")
          */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        idField: PropTypes.string,
 
         /**
-         * If true,the list item will be disabled.
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
+
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
+
+        /**
+         * The description field name in data. (default: "desc")
+         */
+        descriptionField: PropTypes.string,
+
+        /**
+         * If true, the list will be disabled.
          */
         disabled: PropTypes.bool,
 
         /**
-         * If true,the button will be have loading effect.
+         * If true, the list will be at loading status.
          */
         isLoading: PropTypes.bool,
 
         /**
-         * If true,the element's ripple effect will be disabled.
+         * The mode of listItem.Can be normal,checkbox.
          */
-        disableTouchRipple: PropTypes.bool,
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
-
-        /**
-         * The message of tip.
-         */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-        /**
-         * If true,the item will have center displayed ripple effect.
-         */
-        rippleDisplayCenter: PropTypes.bool,
+        radioUncheckedIconCls: PropTypes.string,
+        radioCheckedIconCls: PropTypes.string,
+        checkboxUncheckedIconCls: PropTypes.string,
+        checkboxCheckedIconCls: PropTypes.string,
+        checkboxIndeterminateIconCls: PropTypes.string,
 
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
 
         /**
-         * Callback function fired when a list item touch-tapped.
+         * Callback function fired when the list-item touch tap.
          */
-        onTouchTap: PropTypes.func
+        onItemTouchTap: PropTypes.func,
 
-    }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
+        /**
+         * Callback function fired when the list-item select.
+         */
+        onItemSelect: PropTypes.func,
 
-    /**
-     * The id field name in data. (default: "id")
-     */
-    idField: PropTypes.string,
+        /**
+         * Callback function fired when the list-item deselect.
+         */
+        onItemDeselect: PropTypes.func,
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * Callback function fired when the list changed.
+         */
+        onChange: PropTypes.func,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * Callback function fired when wrapper wheeled.
+         */
+        onWheel: PropTypes.func,
 
-    /**
-     * The description field name in data. (default: "desc")
-     */
-    descriptionField: PropTypes.string,
+        listHeight: PropTypes.number,
+        itemHeight: PropTypes.number,
+        scrollBuffer: PropTypes.number
 
-    /**
-     * If true, the list will be disabled.
-     */
-    disabled: PropTypes.bool,
+    };
 
-    /**
-     * If true, the list will be at loading status.
-     */
-    isLoading: PropTypes.bool,
-
-    /**
-     * The mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    shouldPreventContainerScroll: PropTypes.bool,
-
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    renderer: PropTypes.func,
-
-    /**
-     * Callback function fired when the list-item touch tap.
-     */
-    onItemTouchTap: PropTypes.func,
-
-    /**
-     * Callback function fired when the list-item select.
-     */
-    onItemSelect: PropTypes.func,
-
-    /**
-     * Callback function fired when the list-item deselect.
-     */
-    onItemDeselect: PropTypes.func,
-
-    /**
-     * Callback function fired when the list changed.
-     */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
-
-    listHeight: PropTypes.number,
-    itemHeight: PropTypes.number,
-    scrollBuffer: PropTypes.number
-
-};
+}
 
 DynamicRenderList.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     selectTheme: Theme.DEFAULT,
 
@@ -337,8 +343,6 @@ DynamicRenderList.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',

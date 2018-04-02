@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
@@ -12,11 +11,14 @@ import Tree from '../Tree';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
+import SelectMode from '../_statics/SelectMode';
+
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
-import SelectMode from '../_statics/SelectMode';
 
+@PureRender
 class TreeSelect extends Component {
 
     static SelectMode = SelectMode;
@@ -226,234 +228,231 @@ class TreeSelect extends Component {
     }
 };
 
-TreeSelect.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The CSS class name of the trigger element.
-     */
-    triggerClassName: PropTypes.string,
-
-    /**
-     * The class name of the popup element.
-     */
-    popupClassName: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Override the styles of the popup element.
-     */
-    popupStyle: PropTypes.object,
-
-    /**
-     * The theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The theme.
-     */
-    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
-
-    /**
-     * The name of the dropDownSelect.
-     */
-    name: PropTypes.string,
-
-    /**
-     * The value of the dropDownSelect.
-     */
-    value: PropTypes.any,
-
-    /**
-     * The placeholder of the dropDownSelect.
-     */
-    placeholder: PropTypes.string,
-
-    rightIconCls: PropTypes.string,
-
-    /**
-     * The options data.
-     */
-    data: PropTypes.shape({
+    TreeSelect.propTypes = {
 
         /**
-         * The CSS class name of the tree node.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the tree node.
+         * The CSS class name of the trigger element.
+         */
+        triggerClassName: PropTypes.string,
+
+        /**
+         * The class name of the popup element.
+         */
+        popupClassName: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The theme of the tree button.
+         * Override the styles of the popup element.
+         */
+        popupStyle: PropTypes.object,
+
+        /**
+         * The theme.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The text value of the tree button.Type can be string or number.
+         * The theme.
          */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
 
         /**
-         * The tree node's display text. Type can be string, number or bool.
+         * The name of the dropDownSelect.
          */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        name: PropTypes.string,
 
         /**
-         * The desc value of the tree node. Type can be string or number.
+         * The value of the dropDownSelect.
          */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        value: PropTypes.any,
 
         /**
-         * If true,the tree node will be disabled.
+         * The placeholder of the dropDownSelect.
+         */
+        placeholder: PropTypes.string,
+
+        rightIconCls: PropTypes.string,
+
+        /**
+         * The options data.
+         */
+        data: PropTypes.shape({
+
+            /**
+             * The CSS class name of the tree node.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of the tree node.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The theme of the tree button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            /**
+             * The text value of the tree button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The tree node's display text. Type can be string, number or bool.
+             */
+            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The desc value of the tree node. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true,the tree node will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
+
+            /**
+             * The message of tip.
+             */
+            tip: PropTypes.string,
+
+            /**
+             * The position of tip.
+             */
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+            children: PropTypes.array,
+
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            itemRenderer: PropTypes.func,
+
+            /**
+             * Callback function fired when a tree node touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }),
+
+        /**
+         * The invalid message of dropDownSelect.
+         */
+        invalidMsg: PropTypes.string,
+
+        /**
+         * If true,the dropDownSelect will be disabled.
          */
         disabled: PropTypes.bool,
 
         /**
-         * If true,the button will be have loading effect.
+         * The select mode of listItem.Can be normal,checkbox.
          */
-        isLoading: PropTypes.bool,
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
         /**
-         * Use this property to display an icon. It will display on the left.
+         * The value field name in data. (default: "value")
          */
-        iconCls: PropTypes.string,
+        valueField: PropTypes.string,
 
         /**
-         * Use this property to display an icon. It will display on the right.
+         * The display field name in data. (default: "text")
          */
-        rightIconCls: PropTypes.string,
+        displayField: PropTypes.string,
 
         /**
-         * The message of tip.
+         * The description field name in data. (default: "desc")
          */
-        tip: PropTypes.string,
+        descriptionField: PropTypes.string,
 
         /**
-         * The position of tip.
+         * The message of the dropDownSelect.
          */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-        children: PropTypes.array,
+        infoMsg: PropTypes.string,
 
         /**
-         * You can create a complicated renderer callback instead of value and desc prop.
+         * Use this function to format the options's text.
          */
-        itemRenderer: PropTypes.func,
+        textFormat: PropTypes.func,
 
         /**
-         * Callback function fired when a tree node touch-tapped.
+         * If true,the drop-down box automatically closed after selection.
          */
-        onTouchTap: PropTypes.func
+        autoClose: PropTypes.bool,
 
-    }),
+        shouldPreventContainerScroll: PropTypes.bool,
 
-    /**
-     * The invalid message of dropDownSelect.
-     */
-    invalidMsg: PropTypes.string,
+        popupChildren: PropTypes.any,
 
-    /**
-     * If true,the dropDownSelect will be disabled.
-     */
-    disabled: PropTypes.bool,
+        renderer: PropTypes.func,
 
-    /**
-     * The select mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        triggerRenderer: PropTypes.func,
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * Callback function fired when the button is touch-tapped.
+         */
+        onItemTouchTap: PropTypes.func,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * Callback function fired when the popup is closed.
+         */
+        onClosePopup: PropTypes.func,
 
-    /**
-     * The description field name in data. (default: "desc")
-     */
-    descriptionField: PropTypes.string,
+        /**
+         * Callback function fired when a menu item is selected.
+         */
+        onChange: PropTypes.func,
 
-    /**
-     * The message of the dropDownSelect.
-     */
-    infoMsg: PropTypes.string,
+        onWheel: PropTypes.func,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        onMouseOver: PropTypes.func,
+        onMouseOut: PropTypes.func
 
-    /**
-     * Use this function to format the options's text.
-     */
-    textFormat: PropTypes.func,
+    };
 
-    /**
-     * If true,the drop-down box automatically closed after selection.
-     */
-    autoClose: PropTypes.bool,
-
-    shouldPreventContainerScroll: PropTypes.bool,
-
-    popupChildren: PropTypes.any,
-
-    renderer: PropTypes.func,
-
-    triggerRenderer: PropTypes.func,
-
-    /**
-     * Callback function fired when the button is touch-tapped.
-     */
-    onItemTouchTap: PropTypes.func,
-
-    /**
-     * Callback function fired when the popup is closed.
-     */
-    onClosePopup: PropTypes.func,
-
-    /**
-     * Callback function fired when a menu item is selected.
-     */
-    onChange: PropTypes.func,
-
-    onWheel: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
-
-};
+}
 
 TreeSelect.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    popupClassName: null,
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
     position: Dropdown.Position.LEFT,
-    name: null,
-    value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
-    data: null,
-    invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
@@ -461,12 +460,9 @@ TreeSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: null,
     autoClose: true,
 
-    shouldPreventContainerScroll: true,
-
-    popupChildren: null
+    shouldPreventContainerScroll: true
 
 };
 

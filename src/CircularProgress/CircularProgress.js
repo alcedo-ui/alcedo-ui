@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Percent from '../_Percent';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class CircularProgress extends Component {
 
     constructor(props, ...restArgs) {
@@ -70,54 +72,57 @@ class CircularProgress extends Component {
 
 };
 
-CircularProgress.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    CircularProgress.propTypes = {
 
-    /**
-     * The style of the percent text description.
-     */
-    percentStyle: PropTypes.object,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The radius of the progress in pixels.
-     */
-    r: PropTypes.number,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Stroke width in pixels.
-     */
-    width: PropTypes.number,
+        /**
+         * The style of the percent text description.
+         */
+        percentStyle: PropTypes.object,
 
-    /**
-     * Override the progress's color.
-     */
-    // rgba: PropTypes.string,
+        /**
+         * The radius of the progress in pixels.
+         */
+        r: PropTypes.number,
 
-    /**
-     * The value of progress.
-     */
-    percent: PropTypes.number,
+        /**
+         * Stroke width in pixels.
+         */
+        width: PropTypes.number,
 
-    /**
-     * If true,there will have a text description.
-     */
-    word: PropTypes.bool
+        /**
+         * Override the progress's color.
+         */
+        // rgba: PropTypes.string,
 
-};
+        /**
+         * The value of progress.
+         */
+        percent: PropTypes.number,
+
+        /**
+         * If true,there will have a text description.
+         */
+        word: PropTypes.bool
+
+    };
+
+}
 
 CircularProgress.defaultProps = {
-
-    className: '',
-    style: null,
 
     percentStyle: {},
     r: 48,

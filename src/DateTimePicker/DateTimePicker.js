@@ -4,11 +4,9 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -19,6 +17,11 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class DateTimePicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -372,61 +375,64 @@ class DateTimePicker extends Component {
             </div>
         );
     }
-}
-;
-
-DateTimePicker.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Date picker input name.
-     */
-    name: PropTypes.string,
-
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.string,
-
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.string,
-
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.string,
-
-    /**
-     * DateTimePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
-
-    /**
-     * Date Time format.
-     */
-    dateFormat: PropTypes.string,
-
-    /**
-     * Callback function that is fired when the date value changes.
-     */
-    onChange: PropTypes.func
-
 };
 
+if (process.env.NODE_ENV === 'development') {
+
+    const PropTypes = require('prop-types');
+
+    DateTimePicker.propTypes = {
+
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
+
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
+
+        /**
+         * Date picker input name.
+         */
+        name: PropTypes.string,
+
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.string,
+
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.string,
+
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.string,
+
+        /**
+         * DateTimePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
+
+        /**
+         * Date Time format.
+         */
+        dateFormat: PropTypes.string,
+
+        /**
+         * Callback function that is fired when the date value changes.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
+
 DateTimePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     value: moment().format('YYYY-MM-DD HH:mm:ss'),
     maxValue: '',

@@ -4,11 +4,12 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
+@PureRender
 class Rate extends Component {
 
     constructor(props, ...restArgs) {
@@ -201,54 +202,56 @@ class Rate extends Component {
     }
 };
 
-Rate.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Rate.propTypes = {
 
-    /**
-     * The value of Rate component.
-     */
-    value: PropTypes.number,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * If true,the Rate will have half star.
-     */
-    allowHalf: PropTypes.bool,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,the Rate component will be clear the value when double click.
-     */
-    allowClear: PropTypes.bool,
+        /**
+         * The value of Rate component.
+         */
+        value: PropTypes.number,
 
-    /**
-     * If true,the Rate component will be disabled.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * If true,the Rate will have half star.
+         */
+        allowHalf: PropTypes.bool,
 
-    /**
-     * Callback function fired when the rate change.
-     */
-    onChange: PropTypes.func
+        /**
+         * If true,the Rate component will be clear the value when double click.
+         */
+        allowClear: PropTypes.bool,
 
-};
+        /**
+         * If true,the Rate component will be disabled.
+         */
+        disabled: PropTypes.bool,
+
+        /**
+         * Callback function fired when the rate change.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 Rate.defaultProps = {
-
-    className: '',
-    style: null,
     allowClear: true,
     count: 5,
     defaultValue: 0,
     disabled: false
-
 };
 
 export default Rate;

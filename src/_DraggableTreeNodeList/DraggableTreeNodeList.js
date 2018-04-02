@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {Droppable} from 'react-beautiful-dnd';
 
 import TreeNode from '../_TreeNode/TreeNode';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class DraggableTreeNodeList extends Component {
 
     constructor(props, ...restArgs) {
@@ -54,26 +56,27 @@ class DraggableTreeNodeList extends Component {
     }
 };
 
-DraggableTreeNodeList.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    depth: PropTypes.number,
-    path: PropTypes.array,
+    const PropTypes = require('prop-types');
 
-    data: PropTypes.array,
+    DraggableTreeNodeList.propTypes = {
 
-    collapsed: PropTypes.bool
+        depth: PropTypes.number,
+        path: PropTypes.array,
 
-};
+        data: PropTypes.array,
+
+        collapsed: PropTypes.bool
+
+    };
+
+}
 
 DraggableTreeNodeList.defaultProps = {
-
     depth: -1,
-    path: null,
-
     data: [],
-
     collapsed: false
-
 };
 
 export default DraggableTreeNodeList;

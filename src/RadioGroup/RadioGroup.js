@@ -4,15 +4,17 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Radio from '../Radio';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class RadioGroup extends Component {
 
     static Theme = Theme;
@@ -90,40 +92,19 @@ class RadioGroup extends Component {
     }
 };
 
-RadioGroup.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The RadioGroup theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The name of Radio.
-     */
-    name: PropTypes.string,
-
-    /**
-     * The data of GroupRadio.
-     */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    RadioGroup.propTypes = {
 
         /**
-         * The CSS class name of Radio component.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of Radio component.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
@@ -133,56 +114,80 @@ RadioGroup.propTypes = {
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The label text of Radio component.
+         * The name of Radio.
          */
-        label: PropTypes.any,
+        name: PropTypes.string,
 
         /**
-         * The value of Radio component.
+         * The data of GroupRadio.
+         */
+        data: PropTypes.arrayOf(PropTypes.shape({
+
+            /**
+             * The CSS class name of Radio component.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of Radio component.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The RadioGroup theme.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            /**
+             * The label text of Radio component.
+             */
+            label: PropTypes.any,
+
+            /**
+             * The value of Radio component.
+             */
+            value: PropTypes.any,
+
+            /**
+             * If true,the Radio will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            tip: PropTypes.any,
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
+
+        })).isRequired,
+
+        /**
+         * The value of RadioGroup component.
          */
         value: PropTypes.any,
 
+        uncheckedIconCls: PropTypes.string,
+        checkedIconCls: PropTypes.string,
+
         /**
-         * If true,the Radio will be disabled.
+         * If true,the RadioGroup will be disabled.
          */
         disabled: PropTypes.bool,
 
-        tip: PropTypes.any,
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
+        /**
+         * Callback function fired when the value of RadioGroup changed.
+         */
+        onChange: PropTypes.func,
 
-    })).isRequired,
+        onCheck: PropTypes.func
 
-    /**
-     * The value of RadioGroup component.
-     */
-    value: PropTypes.any,
+    };
 
-    uncheckedIconCls: PropTypes.string,
-    checkedIconCls: PropTypes.string,
-
-    /**
-     * If true,the RadioGroup will be disabled.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * Callback function fired when the value of RadioGroup changed.
-     */
-    onChange: PropTypes.func,
-
-    onCheck: PropTypes.func
-
-};
+}
 
 RadioGroup.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     name: '',
     data: [],
-    value: null,
     uncheckedIconCls: 'far fa-circle',
     checkedIconCls: 'fas fa-dot-circle',
     disabled: false

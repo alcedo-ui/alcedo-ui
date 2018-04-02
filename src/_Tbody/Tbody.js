@@ -4,13 +4,15 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import TableRow from '../_TableRow';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Tbody extends Component {
 
     static SelectMode = SelectMode;
@@ -69,21 +71,27 @@ class Tbody extends Component {
     }
 };
 
-Tbody.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    columns: PropTypes.array,
-    data: PropTypes.array,
-    startIndex: PropTypes.number,
-    idProp: PropTypes.string,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    disabled: PropTypes.bool,
+    const PropTypes = require('prop-types');
 
-    isItemChecked: PropTypes.func,
+    Tbody.propTypes = {
 
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
+        columns: PropTypes.array,
+        data: PropTypes.array,
+        startIndex: PropTypes.number,
+        idProp: PropTypes.string,
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        disabled: PropTypes.bool,
 
-};
+        isItemChecked: PropTypes.func,
+
+        onRowTouchTap: PropTypes.func,
+        onCellTouchTap: PropTypes.func
+
+    };
+
+}
 
 Tbody.defaultProps = {
     data: [],

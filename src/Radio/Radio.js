@@ -4,16 +4,18 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Radio extends Component {
 
     static Theme = Theme;
@@ -151,76 +153,78 @@ class Radio extends Component {
     }
 };
 
-Radio.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Radio.propTypes = {
 
-    /**
-     * The Radio theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The name of the radio.
-     */
-    name: PropTypes.string,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Label for radio.
-     */
-    label: PropTypes.any,
+        /**
+         * The Radio theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * Value for radio.
-     */
-    value: PropTypes.any,
+        /**
+         * The name of the radio.
+         */
+        name: PropTypes.string,
 
-    /**
-     * If true,the radio will be checked.
-     */
-    checked: PropTypes.bool,
+        /**
+         * Label for radio.
+         */
+        label: PropTypes.any,
 
-    uncheckedIconCls: PropTypes.string,
-    checkedIconCls: PropTypes.string,
+        /**
+         * Value for radio.
+         */
+        value: PropTypes.any,
 
-    /**
-     * If true, the radio will be disabled.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * If true,the radio will be checked.
+         */
+        checked: PropTypes.bool,
 
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
-    disableTouchRipple: PropTypes.bool,
+        uncheckedIconCls: PropTypes.string,
+        checkedIconCls: PropTypes.string,
 
-    tip: PropTypes.any,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * If true, the radio will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * Callback function fired when the radio status change.
-     */
-    onChange: PropTypes.func,
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
 
-    onCheck: PropTypes.func
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-};
+        /**
+         * Callback function fired when the radio status change.
+         */
+        onChange: PropTypes.func,
+
+        onCheck: PropTypes.func
+
+    };
+
+}
 
 Radio.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    label: null,
     value: '',
     checked: false,
     uncheckedIconCls: 'far fa-circle',
@@ -228,7 +232,6 @@ Radio.defaultProps = {
     disabled: false,
     disableTouchRipple: false,
 
-    tip: null,
     tipPosition: Position.BOTTOM
 
 };

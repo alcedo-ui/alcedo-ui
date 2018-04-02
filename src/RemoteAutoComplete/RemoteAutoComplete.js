@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
@@ -12,8 +11,10 @@ import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
 
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
+@PureRender
 class RemoteAutoComplete extends Component {
 
     constructor(props, ...restArgs) {
@@ -209,58 +210,61 @@ class RemoteAutoComplete extends Component {
     }
 };
 
-RemoteAutoComplete.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    RemoteAutoComplete.propTypes = {
 
-    /**
-     * The value of input.
-     */
-    value: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The options data.
-     */
-    data: PropTypes.array,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true, the list is loading.
-     */
-    loading: PropTypes.bool,
+        /**
+         * The value of input.
+         */
+        value: PropTypes.string,
 
-    /**
-     * The placeholder of input.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The options data.
+         */
+        data: PropTypes.array,
 
-    /**
-     * Callback function fired when value change.
-     */
-    onChange: PropTypes.func,
+        /**
+         * If true, the list is loading.
+         */
+        loading: PropTypes.bool,
 
-    /**
-     * Callback function fired when input blur.
-     */
-    onBlur: PropTypes.func,
+        /**
+         * The placeholder of input.
+         */
+        placeholder: PropTypes.string,
 
-    /**
-     * Callback function fired when input focus.
-     */
-    onFocus: PropTypes.func
-};
+        /**
+         * Callback function fired when value change.
+         */
+        onChange: PropTypes.func,
+
+        /**
+         * Callback function fired when input blur.
+         */
+        onBlur: PropTypes.func,
+
+        /**
+         * Callback function fired when input focus.
+         */
+        onFocus: PropTypes.func
+    };
+
+}
 
 RemoteAutoComplete.defaultProps = {
-    className: '',
-    style: {},
-
     value: '',
     data: [],
     searchLength: 1,

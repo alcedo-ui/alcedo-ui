@@ -4,17 +4,19 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
 
+import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class TimePicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -189,58 +191,62 @@ class TimePicker extends Component {
     }
 };
 
-TimePicker.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    TimePicker.propTypes = {
 
-    /**
-     * Time picker input name.
-     */
-    name: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.string,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.string,
+        /**
+         * Time picker input name.
+         */
+        name: PropTypes.string,
 
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.string,
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.string,
 
-    /**
-     * TimePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.string,
 
-    /**
-     * Time format.
-     */
-    dateFormat: PropTypes.string
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.string,
 
-};
+        /**
+         * TimePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
+
+        /**
+         * Time format.
+         */
+        dateFormat: PropTypes.string
+
+    };
+
+}
 
 TimePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default TimePicker;

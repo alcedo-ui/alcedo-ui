@@ -4,9 +4,11 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
@@ -19,22 +21,22 @@ class ArrowStepItem extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        const {isActivatedStep, isFinishedStep, index, onTouchTap} = this.props;
+        !isActivatedStep && isFinishedStep && onTouchTap && onTouchTap(index, e);
     }
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
+        const {className, style, isActivatedStep, isFinishedStep, index, value, isFirst, isLast} = this.props,
 
             itemClassName = classNames('arrow-step-item',
-                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
+                isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     [className]: className
                 }),
 
-            triangleClassName = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''),
+            triangleClassName = isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''),
             triangleTopClassName = classNames('triangle-top', triangleClassName),
             triangleMiddleClassName = classNames('triangle-middle', triangleClassName),
             triangleBottomClassName = classNames('triangle-bottom', triangleClassName);
@@ -57,23 +59,19 @@ class ArrowStepItem extends Component {
                     isFirst ?
                         null
                         :
-                        (
-                            <div className="triangle-wrapper triangle-wrapper-left">
-                                <div className={triangleTopClassName}></div>
-                                <div className={triangleBottomClassName}></div>
-                            </div>
-                        )
+                        <div className="triangle-wrapper triangle-wrapper-left">
+                            <div className={triangleTopClassName}></div>
+                            <div className={triangleBottomClassName}></div>
+                        </div>
                 }
 
                 {
                     isLast ?
                         null
                         :
-                        (
-                            <div className="triangle-wrapper triangle-wrapper-right">
-                                <div className={triangleMiddleClassName}></div>
-                            </div>
-                        )
+                        <div className="triangle-wrapper triangle-wrapper-right">
+                            <div className={triangleMiddleClassName}></div>
+                        </div>
                 }
 
             </div>
@@ -82,32 +80,34 @@ class ArrowStepItem extends Component {
     }
 };
 
-ArrowStepItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    index: PropTypes.number,
-    activatedStep: PropTypes.number,
-    finishedStep: PropTypes.number,
-    value: PropTypes.object,
+    ArrowStepItem.propTypes = {
 
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-    onTouchTap: PropTypes.func
+        index: PropTypes.number,
+        isActivatedStep: PropTypes.bool,
+        isFinishedStep: PropTypes.bool,
+        value: PropTypes.object,
 
-};
+        isFirst: PropTypes.bool,
+        isLast: PropTypes.bool,
+
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 ArrowStepItem.defaultProps = {
 
-    className: '',
-    style: null,
-
     index: 0,
-    activatedStep: 0,
-    finishedStep: 0,
-    value: null,
+    isActivatedStep: false,
+    isFinishedStep: false,
 
     isFirst: true,
     isLast: true

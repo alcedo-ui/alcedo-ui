@@ -4,9 +4,12 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import CSSTransition from 'react-transition-group/CSSTransition';
+import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Ripple extends Component {
 
     constructor(props, ...restArgs) {
@@ -15,13 +18,17 @@ class Ripple extends Component {
 
     render() {
 
-        const {style, duration, ...restProps} = this.props;
+        const {className, style, duration, ...restProps} = this.props,
+
+            rippleClassName = classNames('ripple', {
+                [className]: className
+            });
 
         return (
             <CSSTransition {...restProps}
                            classNames="ripple"
                            timeout={{enter: duration, exit: duration * 2}}>
-                <div className="ripple"
+                <div className={rippleClassName}
                      style={style}></div>
             </CSSTransition>
         );
@@ -29,20 +36,23 @@ class Ripple extends Component {
     }
 };
 
-Ripple.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    duration: PropTypes.number
+    Ripple.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        duration: PropTypes.number
+
+    };
+
+}
 
 Ripple.defaultProps = {
-
-    style: null,
-
     duration: 500
-
 };
 
 export default Ripple;

@@ -4,15 +4,17 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Toast extends Component {
 
     static Type = MsgType;
@@ -109,55 +111,54 @@ class Toast extends Component {
     }
 };
 
-Toast.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of toast.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the toast.
-     */
-    style: PropTypes.object,
+    Toast.propTypes = {
 
-    toastsId: PropTypes.number,
+        /**
+         * The CSS class name of toast.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The type of toast.
-     */
-    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+        /**
+         * Override the styles of the toast.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The message of toast.
-     */
-    message: PropTypes.any,
+        toastsId: PropTypes.number,
 
-    /**
-     * The icon class name of toast.
-     */
-    iconCls: PropTypes.string,
+        /**
+         * The type of toast.
+         */
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
-    /**
-     * The duration of toast.
-     */
-    duration: PropTypes.number,
+        /**
+         * The message of toast.
+         */
+        message: PropTypes.any,
 
-    onRequestClose: PropTypes.func
+        /**
+         * The icon class name of toast.
+         */
+        iconCls: PropTypes.string,
 
-};
+        /**
+         * The duration of toast.
+         */
+        duration: PropTypes.number,
+
+        onRequestClose: PropTypes.func
+
+    };
+
+}
 
 Toast.defaultProps = {
-
-    className: '',
-    style: null,
-
     toastsId: 0,
     type: MsgType.INFO,
-    message: '',
-    iconCls: '',
     duration: 2500
-
 };
 
 export default Toast;
