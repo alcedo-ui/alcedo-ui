@@ -4,15 +4,17 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Tip from '../Tip';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class FieldMsg extends Component {
 
     static Type = MsgType;
@@ -50,29 +52,31 @@ class FieldMsg extends Component {
 
 };
 
-FieldMsg.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
-    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+    const PropTypes = require('prop-types');
 
-    visible: PropTypes.bool,
-    triggerEl: PropTypes.object,
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
-    msg: PropTypes.any
+    FieldMsg.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+        visible: PropTypes.bool,
+        triggerEl: PropTypes.object,
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        msg: PropTypes.any
+
+    };
+
+}
 
 FieldMsg.defaultProps = {
 
-    className: null,
-    style: null,
     type: MsgType.DEFAULT,
 
     visible: false,
-    triggerEl: null,
-    position: Position.BOTTOM_LEFT,
-    msg: null
+    position: Position.BOTTOM_LEFT
 
 };
 
