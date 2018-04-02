@@ -4,17 +4,19 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
 import Toast from '../_Toast';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Toaster extends Component {
 
     static Type = MsgType;
@@ -156,79 +158,78 @@ class Toaster extends Component {
 
 };
 
-Toaster.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Children passed into the toaster.
-     */
-    toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    Toaster.propTypes = {
 
         /**
-         * The CSS class name of toast.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the toast.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The type of toast.
+         * Children passed into the toaster.
          */
-        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+        toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * The message of toast.
-         */
-        message: PropTypes.string,
+            /**
+             * The CSS class name of toast.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The icon class name of toast.
-         */
-        iconCls: PropTypes.string,
+            /**
+             * Override the styles of the toast.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The type of toast.
+             */
+            type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+            /**
+             * The message of toast.
+             */
+            message: PropTypes.string,
+
+            /**
+             * The icon class name of toast.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * The duration of toast.
+             */
+            duration: PropTypes.number
+
+        }), PropTypes.string, PropTypes.number])),
+
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
         /**
          * The duration of toast.
          */
-        duration: PropTypes.number
+        duration: PropTypes.number,
 
-    }), PropTypes.string, PropTypes.number])),
+        /**
+         * Callback function fired when the toaster pop.
+         */
+        onToastPop: PropTypes.func
 
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    };
 
-    /**
-     * The duration of toast.
-     */
-    duration: PropTypes.number,
-
-    /**
-     * Callback function fired when the toaster pop.
-     */
-    onToastPop: PropTypes.func
-
-};
+}
 
 Toaster.defaultProps = {
-
-    className: null,
-    style: null,
-
-    toasts: null,
-
     position: Position.TOP,
     duration: 2500
-
 };
 
 export default Toaster;
