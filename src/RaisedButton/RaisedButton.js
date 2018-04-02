@@ -146,8 +146,6 @@ if (process.env.NODE_ENV === 'development') {
 
 RaisedButton.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     isRounded: false,
@@ -161,10 +159,6 @@ RaisedButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: '',
-    rightIconCls: '',
-
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };
