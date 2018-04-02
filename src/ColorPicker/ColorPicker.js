@@ -186,12 +186,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 ColorPicker.defaultProps = {
-
-    className: null,
-    style: null,
-
     value: [255, 0, 0]
-
 };
 
 export default ColorPicker;
