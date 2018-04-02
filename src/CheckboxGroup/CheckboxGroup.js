@@ -175,13 +175,8 @@ if (process.env.NODE_ENV === 'development') {
 
 CheckboxGroup.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    data: null,
-    value: null,
     disabled: false,
     idProp: 'id'
 
