@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import TableRow from '../_TableRow';
 
@@ -72,21 +71,27 @@ class Tbody extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (Tbody.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    columns: PropTypes.array,
-    data: PropTypes.array,
-    startIndex: PropTypes.number,
-    idProp: PropTypes.string,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-    disabled: PropTypes.bool,
+    const PropTypes = require('prop-types');
 
-    isItemChecked: PropTypes.func,
+    Tbody.propTypes = {
 
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
+        columns: PropTypes.array,
+        data: PropTypes.array,
+        startIndex: PropTypes.number,
+        idProp: PropTypes.string,
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        disabled: PropTypes.bool,
 
-});
+        isItemChecked: PropTypes.func,
+
+        onRowTouchTap: PropTypes.func,
+        onCellTouchTap: PropTypes.func
+
+    };
+
+}
 
 Tbody.defaultProps = {
     data: [],
