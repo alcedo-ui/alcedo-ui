@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
@@ -49,51 +48,57 @@ class ButtonRadio extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (ButtonRadio.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The ButtonCheckbox theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    const PropTypes = require('prop-types');
 
-    /**
-     * Data for ButtonRadio.
-     */
-    data: PropTypes.shape({
+    ButtonRadio.propTypes = {
 
         /**
-         * The className of RaisedButton.
+         * The ButtonCheckbox theme.
          */
-        className: PropTypes.string,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The style of RaisedButton.
+         * Data for ButtonRadio.
          */
-        style: PropTypes.object,
+        data: PropTypes.shape({
 
-        /**
-         * The label of RaisedButton.
-         */
-        label: PropTypes.any,
+            /**
+             * The className of RaisedButton.
+             */
+            className: PropTypes.string,
 
-        /**
-         * The value of RaisedButton.
-         */
-        value: PropTypes.any,
+            /**
+             * The style of RaisedButton.
+             */
+            style: PropTypes.object,
 
-        /**
-         * If true, the RaisedButton will be disabled.
-         */
-        disabled: PropTypes.bool
+            /**
+             * The label of RaisedButton.
+             */
+            label: PropTypes.any,
 
-    }).isRequired,
+            /**
+             * The value of RaisedButton.
+             */
+            value: PropTypes.any,
 
-    disabled: PropTypes.bool,
-    isChecked: PropTypes.bool,
+            /**
+             * If true, the RaisedButton will be disabled.
+             */
+            disabled: PropTypes.bool
 
-    onTouchTap: PropTypes.func
+        }).isRequired,
 
-});
+        disabled: PropTypes.bool,
+        isChecked: PropTypes.bool,
+
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 ButtonRadio.defaultProps = {
     disabled: false,
