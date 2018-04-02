@@ -4,7 +4,6 @@
  */
 
 import React, {Children, cloneElement, Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
@@ -14,11 +13,14 @@ import RaisedButton from '../RaisedButton';
 import IconButton from '../IconButton';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
-import Position from '../_statics/Position';
 import PopManagement from '../_vendors/PopManagement';
 
+@PureRender
 class Dialog extends Component {
 
     static ButtonTheme = Theme;
@@ -206,177 +208,175 @@ class Dialog extends Component {
 
 };
 
-Dialog.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The css class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The css class name of the modal.
-     */
-    modalClassName: PropTypes.string,
+    Dialog.propTypes = {
 
-    /**
-     * The styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The css class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The dialog alignment.
-     */
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * The css class name of the modal.
+         */
+        modalClassName: PropTypes.string,
 
-    /**
-     * If true,the element will disabled.
-     */
-    disabled: PropTypes.bool,
+        /**
+         * The styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,dialog box will display.
-     */
-    visible: PropTypes.bool,
+        /**
+         * The dialog alignment.
+         */
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    /**
-     * If true,the pop-up box will be displayed in the mask layer, or the pop-up box will appear below the element.
-     */
-    showModal: PropTypes.bool,
+        /**
+         * If true,the element will disabled.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * Set the title of dialog.
-     */
-    title: PropTypes.any,
+        /**
+         * If true,dialog box will display.
+         */
+        visible: PropTypes.bool,
 
-    /**
-     * If true,when press down mouse the pop-up box will closed.
-     */
-    isBlurClose: PropTypes.bool,
+        /**
+         * If true,the pop-up box will be displayed in the mask layer, or the pop-up box will appear below the element.
+         */
+        showModal: PropTypes.bool,
 
-    isLoading: PropTypes.bool,
+        /**
+         * Set the title of dialog.
+         */
+        title: PropTypes.any,
 
-    /**
-     * If true,the OK button will display.
-     */
-    okButtonVisible: PropTypes.bool,
+        /**
+         * If true,when press down mouse the pop-up box will closed.
+         */
+        isBlurClose: PropTypes.bool,
 
-    /**
-     * Set the text value of the OK button.
-     */
-    okButtonText: PropTypes.string,
+        isLoading: PropTypes.bool,
 
-    /**
-     * Set the icon class of the OK button.
-     */
-    okButtonIconCls: PropTypes.string,
+        /**
+         * If true,the OK button will display.
+         */
+        okButtonVisible: PropTypes.bool,
 
-    /**
-     * If true,the OK button will disabled.
-     */
-    okButtonDisabled: PropTypes.bool,
+        /**
+         * Set the text value of the OK button.
+         */
+        okButtonText: PropTypes.string,
 
-    /**
-     * If true,the ok button will have loading effect.
-     */
-    okButtonIsLoading: PropTypes.bool,
+        /**
+         * Set the icon class of the OK button.
+         */
+        okButtonIconCls: PropTypes.string,
 
-    /**
-     * Set theme of OK button.
-     */
-    okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * If true,the OK button will disabled.
+         */
+        okButtonDisabled: PropTypes.bool,
 
-    /**
-     * If true,the cancel button will display.
-     */
-    cancelButtonVisible: PropTypes.bool,
+        /**
+         * If true,the ok button will have loading effect.
+         */
+        okButtonIsLoading: PropTypes.bool,
 
-    /**
-     * Set the text value of the cancel button.
-     */
-    cancelButtonText: PropTypes.string,
+        /**
+         * Set theme of OK button.
+         */
+        okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * Set the icon class of the cancel button.
-     */
-    cancelButtonIconCls: PropTypes.string,
+        /**
+         * If true,the cancel button will display.
+         */
+        cancelButtonVisible: PropTypes.bool,
 
-    /**
-     * If true,the cancel button will disabled.
-     */
-    cancelButtonDisabled: PropTypes.bool,
+        /**
+         * Set the text value of the cancel button.
+         */
+        cancelButtonText: PropTypes.string,
 
-    /**
-     * If true,the cancel button will have loading effect.
-     */
-    cancelButtonIsLoading: PropTypes.bool,
+        /**
+         * Set the icon class of the cancel button.
+         */
+        cancelButtonIconCls: PropTypes.string,
 
-    /**
-     * Set theme of cancel button.
-     */
-    cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * If true,the cancel button will disabled.
+         */
+        cancelButtonDisabled: PropTypes.bool,
 
-    closeIconCls: PropTypes.string,
+        /**
+         * If true,the cancel button will have loading effect.
+         */
+        cancelButtonIsLoading: PropTypes.bool,
 
-    isEscClose: PropTypes.bool,
+        /**
+         * Set theme of cancel button.
+         */
+        cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The buttons of Dialog.
-     */
-    buttons: PropTypes.any,
+        closeIconCls: PropTypes.string,
 
-    /**
-     * The function of dialog render.
-     */
-    onRender: PropTypes.func,
+        isEscClose: PropTypes.bool,
 
-    /**
-     * The function that trigger when click submit.
-     */
-    onRequestClose: PropTypes.func,
+        /**
+         * The buttons of Dialog.
+         */
+        buttons: PropTypes.any,
 
-    /**
-     * Callback function fired when click the ok button.
-     */
-    onOKButtonTouchTap: PropTypes.func,
+        /**
+         * The function of dialog render.
+         */
+        onRender: PropTypes.func,
 
-    /**
-     * Callback function fired when click the cancel button.
-     */
-    onCancelButtonTouchTap: PropTypes.func,
+        /**
+         * The function that trigger when click submit.
+         */
+        onRequestClose: PropTypes.func,
 
-    /**
-     * Callback function fired when click the close button.
-     */
-    onCloseButtonTouchTap: PropTypes.func
+        /**
+         * Callback function fired when click the ok button.
+         */
+        onOKButtonTouchTap: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when click the cancel button.
+         */
+        onCancelButtonTouchTap: PropTypes.func,
+
+        /**
+         * Callback function fired when click the close button.
+         */
+        onCloseButtonTouchTap: PropTypes.func
+
+    };
+
+}
 
 Dialog.defaultProps = {
-
-    className: null,
-    modalClassName: null,
-    style: null,
 
     position: Position.CENTER,
     disabled: false,
     visible: false,
     showModal: true,
 
-    title: null,
-
     isBlurClose: false,
     isLoading: false,
 
     okButtonVisible: true,
     okButtonText: 'OK',
-    okButtonIconCls: null,
     okButtonDisabled: false,
     okButtonIsLoading: false,
     okButtonTheme: Theme.SUCCESS,
 
     cancelButtonVisible: true,
     cancelButtonText: 'Cancel',
-    cancelButtonIconCls: null,
     cancelButtonDisabled: false,
     cancelButtonIsLoading: false,
     cancelButtonTheme: Theme.DEFAULT,
