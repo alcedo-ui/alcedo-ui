@@ -4,16 +4,18 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class Checkbox extends Component {
 
     static Theme = Theme;
@@ -153,72 +155,78 @@ class Checkbox extends Component {
     }
 };
 
-Checkbox.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Checkbox.propTypes = {
 
-    /**
-     * The Checkbox theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The name of the checkbox.
-     */
-    name: PropTypes.string,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Label for checkbox.
-     */
-    label: PropTypes.any,
+        /**
+         * The Checkbox theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * Value for checkbox.
-     */
-    value: PropTypes.any,
+        /**
+         * The name of the checkbox.
+         */
+        name: PropTypes.string,
 
-    /**
-     * If true,the checkbox will be checked.
-     */
-    checked: PropTypes.bool,
+        /**
+         * Label for checkbox.
+         */
+        label: PropTypes.any,
 
-    indeterminate: PropTypes.bool,
+        /**
+         * Value for checkbox.
+         */
+        value: PropTypes.any,
 
-    uncheckedIconCls: PropTypes.string,
-    checkedIconCls: PropTypes.string,
-    indeterminateIconCls: PropTypes.string,
+        /**
+         * If true,the checkbox will be checked.
+         */
+        checked: PropTypes.bool,
 
-    /**
-     * If true, the checkbox will be disabled.
-     */
-    disabled: PropTypes.bool,
+        indeterminate: PropTypes.bool,
 
-    /**
-     * If true,the element's ripple effect will be disabled.
-     */
-    disableTouchRipple: PropTypes.bool,
+        uncheckedIconCls: PropTypes.string,
+        checkedIconCls: PropTypes.string,
+        indeterminateIconCls: PropTypes.string,
 
-    tip: PropTypes.any,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * If true, the checkbox will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * Callback function fired when the checkbox status change.
-     */
-    onChange: PropTypes.func,
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
 
-    onCheck: PropTypes.func,
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    onUncheck: PropTypes.func
+        /**
+         * Callback function fired when the checkbox status change.
+         */
+        onChange: PropTypes.func,
 
-};
+        onCheck: PropTypes.func,
+
+        onUncheck: PropTypes.func
+
+    };
+
+}
 
 Checkbox.defaultProps = {
 
