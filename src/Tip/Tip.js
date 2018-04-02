@@ -4,15 +4,17 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class Tip extends Component {
 
     static Position = Position;
@@ -42,104 +44,105 @@ class Tip extends Component {
 
 };
 
-Tip.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The CSS class name of the content element.
-     */
-    contentClassName: PropTypes.string,
+    Tip.propTypes = {
 
-    modalClassName: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The CSS class name of the content element.
+         */
+        contentClassName: PropTypes.string,
 
-    /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        modalClassName: PropTypes.string,
 
-    /**
-     * This is the DOM element that will be used to set the position of the popover.
-     */
-    triggerEl: PropTypes.object,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,the popover is visible.
-     */
-    visible: PropTypes.bool,
+        /**
+         * The popover theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * If true,the popover will have a triangle on the top of the DOM element.
-     */
-    hasTriangle: PropTypes.bool,
+        /**
+         * This is the DOM element that will be used to set the position of the popover.
+         */
+        triggerEl: PropTypes.object,
 
-    triangle: PropTypes.element,
+        /**
+         * If true,the popover is visible.
+         */
+        visible: PropTypes.bool,
 
-    /**
-     * The popover alignment.
-     */
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * If true,the popover will have a triangle on the top of the DOM element.
+         */
+        hasTriangle: PropTypes.bool,
 
-    /**
-     * If true, menu will have animation effects.
-     */
-    isAnimated: PropTypes.bool,
+        triangle: PropTypes.element,
 
-    shouldPreventContainerScroll: PropTypes.bool,
+        /**
+         * The popover alignment.
+         */
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    /**
-     * The depth of Paper component.
-     */
-    depth: PropTypes.number,
+        /**
+         * If true, menu will have animation effects.
+         */
+        isAnimated: PropTypes.bool,
 
-    isTriggerPositionFixed: PropTypes.bool,
-    showModal: PropTypes.bool,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-    /**
-     * The function of tip render.
-     */
-    onRender: PropTypes.func,
+        /**
+         * The depth of Paper component.
+         */
+        depth: PropTypes.number,
 
-    /**
-     * The function of tip rendered.
-     */
-    onRendered: PropTypes.func,
+        isTriggerPositionFixed: PropTypes.bool,
+        showModal: PropTypes.bool,
 
-    /**
-     * The function of tip destroy.
-     */
-    onDestroy: PropTypes.func,
+        /**
+         * The function of tip render.
+         */
+        onRender: PropTypes.func,
 
-    /**
-     * The function of tip destroyed.
-     */
-    onDestroyed: PropTypes.func,
+        /**
+         * The function of tip rendered.
+         */
+        onRendered: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+        /**
+         * The function of tip destroy.
+         */
+        onDestroy: PropTypes.func,
 
-};
+        /**
+         * The function of tip destroyed.
+         */
+        onDestroyed: PropTypes.func,
+
+        /**
+         * Callback function fired when wrapper wheeled.
+         */
+        onWheel: PropTypes.func
+
+    };
+
+}
 
 Tip.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    modalClassName: null,
-    style: null,
     theme: Theme.DARK,
     depth: 6,
 
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
     position: Position.BOTTOM,
