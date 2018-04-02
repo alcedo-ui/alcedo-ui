@@ -10,11 +10,9 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Ripple from '../_Ripple';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 
-@PureRender
 class TouchRipple extends Component {
 
     constructor(props, ...restArgs) {
