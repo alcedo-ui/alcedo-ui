@@ -4,14 +4,15 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TimeLineItem from '../_TimelineItem';
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class TimeLine extends Component {
 
     static Type = TimeLineItem.Type;
@@ -52,66 +53,67 @@ class TimeLine extends Component {
     }
 }
 
-TimeLine.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The items data.
-     */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    TimeLine.propTypes = {
 
         /**
-         * The TimeLine theme.Can be primary,highlight,success,warning,error.
+         * The CSS class name of the root element.
          */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        className: PropTypes.string,
 
         /**
-         * The TimeLine type.Can be header or title.
+         * Override the styles of the root element.
          */
-        type: PropTypes.string,
+        style: PropTypes.object,
 
         /**
-         * The text value of TimeLine header.
+         * The items data.
          */
-        headerText: PropTypes.string,
+        data: PropTypes.arrayOf(PropTypes.shape({
 
-        /**
-         * The date value of TimeLine.
-         */
-        date: PropTypes.string,
+            /**
+             * The TimeLine theme.Can be primary,highlight,success,warning,error.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        /**
-         * If true,the right content will have border style.
-         */
-        hasBorder: PropTypes.bool,
+            /**
+             * The TimeLine type.Can be header or title.
+             */
+            type: PropTypes.string,
 
-        /**
-         * The text value of right content.
-         */
-        contentText: PropTypes.string
+            /**
+             * The text value of TimeLine header.
+             */
+            headerText: PropTypes.string,
 
-    })).isRequired
+            /**
+             * The date value of TimeLine.
+             */
+            date: PropTypes.string,
 
-};
+            /**
+             * If true,the right content will have border style.
+             */
+            hasBorder: PropTypes.bool,
+
+            /**
+             * The text value of right content.
+             */
+            contentText: PropTypes.string
+
+        })).isRequired
+
+    };
+
+}
 
 TimeLine.defaultProps = {
-
-    className: '',
-    style: null,
-
     hasBorder: true,
     title: '',
     type: ''
-
 };
 
 export default TimeLine;
