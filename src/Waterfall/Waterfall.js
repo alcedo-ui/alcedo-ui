@@ -5,9 +5,11 @@
 
 import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Waterfall extends Component {
 
     constructor(props, ...restArgs) {
@@ -192,38 +194,39 @@ class Waterfall extends Component {
 
 }
 
-Waterfall.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Waterfall.propTypes = {
 
-    /**
-     * Column count of waterfall.
-     */
-    column: PropTypes.number,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * horizontal separator between items for calculation and display.
-     */
-    separator: PropTypes.number
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-};
+        /**
+         * Column count of waterfall.
+         */
+        column: PropTypes.number,
+
+        /**
+         * horizontal separator between items for calculation and display.
+         */
+        separator: PropTypes.number
+
+    };
+
+}
 
 Waterfall.defaultProps = {
-
-    className: '',
-    style: null,
-
     column: 3,
     separator: 10
-
 };
 
 export default Waterfall;
