@@ -564,15 +564,9 @@ if (process.env.NODE_ENV === 'development') {
 
 AutoCompleteFilter.defaultProps = {
 
-    className: null,
-    popupClassName: null,
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: null,
-    placeholder: null,
     data: [],
     disabled: false,
     valueField: 'value',
@@ -582,11 +576,7 @@ AutoCompleteFilter.defaultProps = {
     iconCls: null,
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
-    noMatchedMsg: null,
     filterInitValue: '',
-
-    popupChildren: null,
-
     useDynamicRenderList: false
 
 };
