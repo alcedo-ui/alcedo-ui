@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -17,9 +16,12 @@ import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class MaterialDateRangePicker extends Component {
     static Theme = Theme;
 
@@ -490,73 +492,77 @@ class MaterialDateRangePicker extends Component {
     }
 };
 
-MaterialDateRangePicker.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    MaterialDateRangePicker.propTypes = {
 
-    /**
-     * DateRangePicker input name.
-     */
-    name: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.array,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.string,
+        /**
+         * DateRangePicker input name.
+         */
+        name: PropTypes.string,
 
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.string,
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.array,
 
-    /**
-     * DateRangePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.string,
 
-    /**
-     * The label of the DateRangePicker.
-     */
-    label: PropTypes.any,
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.string,
 
-    /**
-     * The animate of the DateRangePicker.
-     */
-    isLabelAnimate: PropTypes.bool,
+        /**
+         * DateRangePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
 
-    /**
-     * Date format.
-     */
-    dateFormat: PropTypes.string,
+        /**
+         * The label of the DateRangePicker.
+         */
+        label: PropTypes.any,
 
-    /**
-     * If true,the date selection box will displayed.
-     */
-    popupVisible: PropTypes.bool,
+        /**
+         * The animate of the DateRangePicker.
+         */
+        isLabelAnimate: PropTypes.bool,
 
-    /**
-     * Callback function that is fired when the date value changes.
-     */
-    onChange: PropTypes.func
+        /**
+         * Date format.
+         */
+        dateFormat: PropTypes.string,
 
-};
+        /**
+         * If true,the date selection box will displayed.
+         */
+        popupVisible: PropTypes.bool,
+
+        /**
+         * Callback function that is fired when the date value changes.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 MaterialDateRangePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
