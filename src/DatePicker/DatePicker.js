@@ -344,8 +344,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 DatePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     maxValue: '',
     minValue: '',
