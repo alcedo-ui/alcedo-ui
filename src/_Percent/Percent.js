@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -79,15 +78,21 @@ class Percent extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (Percent.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    endNum: PropTypes.number,
-    move: PropTypes.bool
+    Percent.propTypes = {
 
-});
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        endNum: PropTypes.number,
+        move: PropTypes.bool
+
+    };
+
+}
 
 Percent.defaultProps = {
     endNum: 100,
