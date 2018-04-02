@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
@@ -235,51 +234,57 @@ class ListItem extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (ListItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    index: PropTypes.number,
+    const PropTypes = require('prop-types');
 
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    ListItem.propTypes = {
 
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        index: PropTypes.number,
 
-    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    text: PropTypes.any,
-    desc: PropTypes.string,
+        className: PropTypes.string,
+        style: PropTypes.object,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    disabled: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    disableTouchRipple: PropTypes.bool,
-    rippleDisplayCenter: PropTypes.bool,
-    checked: PropTypes.bool,
-    readOnly: PropTypes.bool,
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    iconCls: PropTypes.string,
-    rightIconCls: PropTypes.string,
+        data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        text: PropTypes.any,
+        desc: PropTypes.string,
 
-    tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+        disabled: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        disableTouchRipple: PropTypes.bool,
+        rippleDisplayCenter: PropTypes.bool,
+        checked: PropTypes.bool,
+        readOnly: PropTypes.bool,
 
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
+        iconCls: PropTypes.string,
+        rightIconCls: PropTypes.string,
 
-    itemRenderer: PropTypes.func,
-    renderer: PropTypes.func,
+        tip: PropTypes.string,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    onTouchTap: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func
+        radioUncheckedIconCls: PropTypes.string,
+        radioCheckedIconCls: PropTypes.string,
+        checkboxUncheckedIconCls: PropTypes.string,
+        checkboxCheckedIconCls: PropTypes.string,
+        checkboxIndeterminateIconCls: PropTypes.string,
 
-});
+        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
+
+        onTouchTap: PropTypes.func,
+        onSelect: PropTypes.func,
+        onDeselect: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func
+
+    };
+
+}
 
 ListItem.defaultProps = {
 
