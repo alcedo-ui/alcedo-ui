@@ -146,9 +146,6 @@ if (process.env.NODE_ENV === 'development') {
 
 ArrowStep.defaultProps = {
 
-    className: '',
-    style: null,
-
     steps: [],
 
     activatedStep: 0,
