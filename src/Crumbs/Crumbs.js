@@ -213,11 +213,7 @@ if (process.env.NODE_ENV === 'development') {
 
 Crumbs.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
-
-    data: null,
 
     separator: '>',
     showLastSeparator: false
