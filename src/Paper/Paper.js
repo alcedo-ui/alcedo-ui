@@ -4,13 +4,14 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Theme from '../Theme';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class Paper extends Component {
 
     static Theme = Theme;
@@ -52,44 +53,48 @@ class Paper extends Component {
     }
 };
 
-Paper.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Paper.propTypes = {
 
-    /**
-     * Theme of the root element.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * This number represents the zDepth of the paper shadow.
-     */
-    depth: PropTypes.number,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,the paper container will have no border radius.
-     */
-    nonRounded: PropTypes.bool,
+        /**
+         * Theme of the root element.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * If true,the paper shape is circle.
-     */
-    isCircular: PropTypes.bool
+        /**
+         * This number represents the zDepth of the paper shadow.
+         */
+        depth: PropTypes.number,
 
-};
+        /**
+         * If true,the paper container will have no border radius.
+         */
+        nonRounded: PropTypes.bool,
+
+        /**
+         * If true,the paper shape is circle.
+         */
+        isCircular: PropTypes.bool
+
+    };
+
+}
 
 Paper.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     depth: 1,
