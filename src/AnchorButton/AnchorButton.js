@@ -147,9 +147,6 @@ if (process.env.NODE_ENV === 'development') {
 
 AnchorButton.defaultProps = {
 
-    className: '',
-    style: null,
-
     theme: Theme.DEFAULT,
     isRounded: false,
     isCircular: false,
@@ -162,10 +159,6 @@ AnchorButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: '',
-    rightIconCls: '',
-
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };
