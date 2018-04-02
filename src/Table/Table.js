@@ -166,7 +166,9 @@ class Table extends Component {
 
     }
 
-    sortData(data, sort = this.state.sort) {
+    sortData(data, sort) {
+
+        sort = sort || (this.state ? this.state.sort : null);
 
         if (!sort) {
             return data;
@@ -796,6 +798,7 @@ Table.defaultProps = {
     pageSizes: [5, 10, 15, 20],
 
     defaultSortType: SortType.ASC,
+    // sortInitConfig: null,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
