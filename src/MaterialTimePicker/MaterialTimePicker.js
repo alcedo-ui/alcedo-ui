@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
@@ -13,12 +12,16 @@ import TimeList from '../_TimeList';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class MaterialTimePicker extends Component {
 
     static Theme = Theme;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -186,68 +189,72 @@ class MaterialTimePicker extends Component {
     }
 };
 
-MaterialTimePicker.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    MaterialTimePicker.propTypes = {
 
-    /**
-     * MaterialTimePicker input name.
-     */
-    name: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The label of the MaterialTimePicker.
-     */
-    label: PropTypes.any,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The animate of the MaterialTimePicker.
-     */
-    isLabelAnimate: PropTypes.bool,
+        /**
+         * MaterialTimePicker input name.
+         */
+        name: PropTypes.string,
 
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.string,
+        /**
+         * The label of the MaterialTimePicker.
+         */
+        label: PropTypes.any,
 
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.string,
+        /**
+         * The animate of the MaterialTimePicker.
+         */
+        isLabelAnimate: PropTypes.bool,
 
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.string,
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.string,
 
-    /**
-     * MaterialTimePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.string,
 
-    /**
-     * Time format.
-     */
-    dateFormat: PropTypes.string
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.string,
 
-};
+        /**
+         * MaterialTimePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
+
+        /**
+         * Time format.
+         */
+        dateFormat: PropTypes.string
+
+    };
+
+}
 
 MaterialTimePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default MaterialTimePicker;
