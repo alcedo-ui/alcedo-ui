@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -100,26 +99,32 @@ class RoundStepItem extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (RoundStepItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    activatedStep: PropTypes.number,
-    finishedStep: PropTypes.number,
-    index: PropTypes.number,
-    value: PropTypes.object,
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+    RoundStepItem.propTypes = {
 
-    showFinishedStepIcon: PropTypes.bool,
-    finishedStepIconCls: PropTypes.string,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-    disabled: PropTypes.bool,
+        activatedStep: PropTypes.number,
+        finishedStep: PropTypes.number,
+        index: PropTypes.number,
+        value: PropTypes.object,
+        isFirst: PropTypes.bool,
+        isLast: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+        showFinishedStepIcon: PropTypes.bool,
+        finishedStepIconCls: PropTypes.string,
 
-});
+        disabled: PropTypes.bool,
+
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 RoundStepItem.defaultProps = {
 
