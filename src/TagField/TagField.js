@@ -4,17 +4,18 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import EditableField from '../EditableField';
 import IconButton from '../IconButton';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
 
+@PureRender
 class TagField extends Component {
 
     constructor(props, ...restArgs) {
@@ -416,43 +417,46 @@ class TagField extends Component {
     }
 };
 
-TagField.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    TagField.propTypes = {
 
-    data: PropTypes.array,
-    inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    valueField: PropTypes.string,
-    displayField: PropTypes.string,
-    separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    disabled: PropTypes.bool,
-    placeholder: PropTypes.string,
-    clearButtonVisible: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    onChange: PropTypes.func,
-    onInputChange: PropTypes.func,
+        data: PropTypes.array,
+        inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        valueField: PropTypes.string,
+        displayField: PropTypes.string,
+        separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+        disabled: PropTypes.bool,
+        placeholder: PropTypes.string,
+        clearButtonVisible: PropTypes.bool,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-};
+        onChange: PropTypes.func,
+        onInputChange: PropTypes.func,
+
+        /**
+         * Callback function fired when wrapper wheeled.
+         */
+        onWheel: PropTypes.func
+
+    };
+
+}
 
 TagField.defaultProps = {
-
-    className: '',
-    style: null,
 
     data: [],
     inputValue: '',
