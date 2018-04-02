@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
@@ -276,51 +275,56 @@ class TreeNode extends Component {
 
     }
 };
+if (process.env.NODE_ENV === 'development') {
 
-process.env.NODE_ENV !== 'production' && (TreeNode.propTypes = {
+    const PropTypes = require('prop-types');
 
-    index: PropTypes.number,
-    depth: PropTypes.number,
-    path: PropTypes.array,
+    TreeNode.propTypes = {
 
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        index: PropTypes.number,
+        depth: PropTypes.number,
+        path: PropTypes.array,
 
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    data: PropTypes.object,
-    value: PropTypes.any,
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    idField: PropTypes.string,
-    valueField: PropTypes.string,
-    displayField: PropTypes.string,
-    descriptionField: PropTypes.string,
+        data: PropTypes.object,
+        value: PropTypes.any,
 
-    disabled: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    allowCollapse: PropTypes.bool,
-    isNodeToggling: PropTypes.bool,
+        idField: PropTypes.string,
+        valueField: PropTypes.string,
+        displayField: PropTypes.string,
+        descriptionField: PropTypes.string,
 
-    renderer: PropTypes.func,
+        disabled: PropTypes.bool,
+        isLoading: PropTypes.bool,
+        readOnly: PropTypes.bool,
+        allowCollapse: PropTypes.bool,
+        isNodeToggling: PropTypes.bool,
 
-    collapsedIconCls: PropTypes.string,
-    expandedIconCls: PropTypes.string,
-    radioUncheckedIconCls: PropTypes.string,
-    radioCheckedIconCls: PropTypes.string,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
+        renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onNodeToggleStart: PropTypes.func,
-    onNodeToggleEnd: PropTypes.func
+        collapsedIconCls: PropTypes.string,
+        expandedIconCls: PropTypes.string,
+        radioUncheckedIconCls: PropTypes.string,
+        radioCheckedIconCls: PropTypes.string,
+        checkboxUncheckedIconCls: PropTypes.string,
+        checkboxCheckedIconCls: PropTypes.string,
+        checkboxIndeterminateIconCls: PropTypes.string,
 
-});
+        onTouchTap: PropTypes.func,
+        onSelect: PropTypes.func,
+        onDeselect: PropTypes.func,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+        onNodeToggleStart: PropTypes.func,
+        onNodeToggleEnd: PropTypes.func
+
+    };
+
+}
 
 TreeNode.defaultProps = {
 
