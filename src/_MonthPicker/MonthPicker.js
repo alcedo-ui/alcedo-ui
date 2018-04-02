@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
@@ -196,16 +195,22 @@ class MonthPicker extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (MonthPicker.propTypes = {
-    className: PropTypes.string,
-    value: PropTypes.any,
-    maxValue: PropTypes.any,
-    minValue: PropTypes.any,
-    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func,
-    previousClick: PropTypes.func
-});
+if (process.env.NODE_ENV === 'development') {
+
+    const PropTypes = require('prop-types');
+
+    MonthPicker.propTypes = {
+        className: PropTypes.string,
+        value: PropTypes.any,
+        maxValue: PropTypes.any,
+        minValue: PropTypes.any,
+        year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        onChange: PropTypes.func,
+        previousClick: PropTypes.func
+    };
+
+}
 
 export default MonthPicker;
