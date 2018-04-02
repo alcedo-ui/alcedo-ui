@@ -6,9 +6,8 @@
         text-align: center;
         margin-bottom: 20px;
 
-        .column-button {
-            width: auto;
-            margin-right: 20px;
+        .button-radio {
+            padding: 0;
         }
     }
 
@@ -17,5 +16,4 @@
             border: 1px solid $theme-border;
         }
     }
-
 }
