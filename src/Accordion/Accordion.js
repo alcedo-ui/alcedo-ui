@@ -149,14 +149,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 Accordion.defaultProps = {
-
-    className: '',
-    style: null,
-
     title: 'title',
     collapseIcon: 'fas fa-angle-up',
     expandIcon: 'fas fa-angle-down'
-
 };
 
 export default Accordion;
