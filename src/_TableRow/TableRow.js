@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -99,18 +98,24 @@ class TableRow extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (TableRow.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    rowIndex: PropTypes.number,
-    columns: PropTypes.array,
-    data: PropTypes.object,
-    isChecked: PropTypes.bool,
-    disabled: PropTypes.bool,
+    const PropTypes = require('prop-types');
 
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
+    TableRow.propTypes = {
 
-});
+        rowIndex: PropTypes.number,
+        columns: PropTypes.array,
+        data: PropTypes.object,
+        isChecked: PropTypes.bool,
+        disabled: PropTypes.bool,
+
+        onRowTouchTap: PropTypes.func,
+        onCellTouchTap: PropTypes.func
+
+    };
+
+}
 
 TableRow.defaultProps = {
     rowIndex: 0,
