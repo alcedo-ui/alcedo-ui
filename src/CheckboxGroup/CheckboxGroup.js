@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
@@ -12,9 +11,12 @@ import classNames from 'classnames';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class CheckboxGroup extends Component {
 
     static Theme = Theme;
@@ -121,49 +123,55 @@ class CheckboxGroup extends Component {
     }
 };
 
-CheckboxGroup.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The CheckboxGroup theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    name: PropTypes.string,
-
-    data: PropTypes.arrayOf(PropTypes.shape({
+    CheckboxGroup.propTypes = {
 
         className: PropTypes.string,
         style: PropTypes.object,
+
+        /**
+         * The CheckboxGroup theme.
+         */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        label: PropTypes.any,
-        value: PropTypes.any,
+        name: PropTypes.string,
 
+        data: PropTypes.arrayOf(PropTypes.shape({
+
+            className: PropTypes.string,
+            style: PropTypes.object,
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            label: PropTypes.any,
+            value: PropTypes.any,
+
+            disabled: PropTypes.bool,
+
+            tip: PropTypes.any,
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
+
+        })).isRequired,
+        value: PropTypes.array,
         disabled: PropTypes.bool,
 
-        tip: PropTypes.any,
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
+        idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
-    })).isRequired,
-    value: PropTypes.array,
-    disabled: PropTypes.bool,
+        uncheckedIconCls: PropTypes.string,
+        checkedIconCls: PropTypes.string,
+        indeterminateIconCls: PropTypes.string,
 
-    idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        onChange: PropTypes.func,
 
-    uncheckedIconCls: PropTypes.string,
-    checkedIconCls: PropTypes.string,
-    indeterminateIconCls: PropTypes.string,
+        onCheck: PropTypes.func,
 
-    onChange: PropTypes.func,
+        onUncheck: PropTypes.func
 
-    onCheck: PropTypes.func,
+    };
 
-    onUncheck: PropTypes.func
-
-};
+}
 
 CheckboxGroup.defaultProps = {
 
