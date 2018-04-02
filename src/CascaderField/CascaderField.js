@@ -309,10 +309,7 @@ if (process.env.NODE_ENV === 'development') {
 
 CascaderField.defaultProps = {
 
-    className: '',
-    style: null,
     popupClassName: '',
-    popupStyle: null,
     listWidth: 200,
     theme: Theme.DEFAULT,
 
