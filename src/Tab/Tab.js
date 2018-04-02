@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import FlatButton from '../FlatButton';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class Tab extends Component {
 
     constructor(props, ...restArgs) {
@@ -126,81 +128,84 @@ class Tab extends Component {
     }
 };
 
-Tab.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * Children passed into the TabsItem.
-     */
-    tabs: PropTypes.arrayOf(PropTypes.shape({
+    Tab.propTypes = {
 
         /**
-         * The text value of the tab.Type can be string or number.
+         * The CSS class name of the root element.
          */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        className: PropTypes.string,
 
         /**
-         * If true, the tab will be disabled.
+         * Override the styles of the root element.
          */
-        disabled: PropTypes.bool,
+        style: PropTypes.object,
 
         /**
-         * If true,the tab will be have loading effect.
+         * Children passed into the TabsItem.
          */
-        isLoading: PropTypes.bool,
+        tabs: PropTypes.arrayOf(PropTypes.shape({
+
+            /**
+             * The text value of the tab.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true, the tab will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the tab will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon.It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * The position of the icon.
+             */
+            iconPosition: PropTypes.string,
+
+            /**
+             * The render content in tab.
+             */
+            renderer: PropTypes.any,
+
+            /**
+             * Callback function fired when click onActive tab.
+             */
+            onActive: PropTypes.func
+
+        })).isRequired,
 
         /**
-         * If true,the element's ripple effect will be disabled.
+         * Activated tab index.
          */
-        disableTouchRipple: PropTypes.bool,
+        activatedIndex: PropTypes.number,
 
         /**
-         * Use this property to display an icon.It will display on the left.
+         * If true,the tabs is FullWidth.
          */
-        iconCls: PropTypes.string,
+        isTabFullWidth: PropTypes.bool
 
-        /**
-         * The position of the icon.
-         */
-        iconPosition: PropTypes.string,
+    };
 
-        /**
-         * The render content in tab.
-         */
-        renderer: PropTypes.any,
-
-        /**
-         * Callback function fired when click onActive tab.
-         */
-        onActive: PropTypes.func
-
-    })).isRequired,
-
-    /**
-     * Activated tab index.
-     */
-    activatedIndex: PropTypes.number,
-
-    /**
-     * If true,the tabs is FullWidth.
-     */
-    isTabFullWidth: PropTypes.bool
-
-};
+}
 
 Tab.defaultProps = {
-
-    className: '',
-    style: null,
 
     tabs: [],
 
