@@ -106,15 +106,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 CircularLoading.defaultProps = {
-
-    className: '',
-    style: null,
-
     size: CircularLoading.Size.DEFAULT,
     theme: '',
     width: '1',
     type: 'solid'
-
 };
 
 export default CircularLoading;
