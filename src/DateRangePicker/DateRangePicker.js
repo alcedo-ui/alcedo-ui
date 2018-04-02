@@ -4,11 +4,9 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -16,8 +14,12 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
+import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
+@PureRender
 class DateRangePicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -493,63 +495,67 @@ class DateRangePicker extends Component {
     }
 };
 
-DateRangePicker.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    DateRangePicker.propTypes = {
 
-    /**
-     * DateRangePicker input name.
-     */
-    name: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * This is the initial date value of the component.
-     */
-    value: PropTypes.array,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The ending of a range of valid dates. The range includes the endDate.
-     */
-    maxValue: PropTypes.string,
+        /**
+         * DateRangePicker input name.
+         */
+        name: PropTypes.string,
 
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
-    minValue: PropTypes.string,
+        /**
+         * This is the initial date value of the component.
+         */
+        value: PropTypes.array,
 
-    /**
-     * DateRangePicker textField element placeholder.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The ending of a range of valid dates. The range includes the endDate.
+         */
+        maxValue: PropTypes.string,
 
-    /**
-     * Date format.
-     */
-    dateFormat: PropTypes.string,
+        /**
+         * The beginning of a range of valid dates. The range includes the startDate.
+         */
+        minValue: PropTypes.string,
 
-    /**
-     * If true,the date selection box will displayed.
-     */
-    popupVisible: PropTypes.bool,
+        /**
+         * DateRangePicker textField element placeholder.
+         */
+        placeholder: PropTypes.string,
 
-    /**
-     * Callback function that is fired when the date value changes.
-     */
-    onChange: PropTypes.func
+        /**
+         * Date format.
+         */
+        dateFormat: PropTypes.string,
 
-};
+        /**
+         * If true,the date selection box will displayed.
+         */
+        popupVisible: PropTypes.bool,
+
+        /**
+         * Callback function that is fired when the date value changes.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 DateRangePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
