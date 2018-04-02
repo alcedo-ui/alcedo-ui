@@ -4,17 +4,19 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
 
+@PureRender
 class Popover extends Component {
 
     static Position = Position;
@@ -127,109 +129,110 @@ class Popover extends Component {
 
 };
 
-Popover.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The CSS class name of the content element.
-     */
-    contentClassName: PropTypes.string,
+    Popover.propTypes = {
 
-    modalClassName: PropTypes.string,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The CSS class name of the content element.
+         */
+        contentClassName: PropTypes.string,
 
-    /**
-     * This is the DOM element that will be used to set the position of the popover.
-     */
-    triggerEl: PropTypes.object,
+        modalClassName: PropTypes.string,
 
-    /**
-     * If true,the popover is visible.
-     */
-    visible: PropTypes.bool,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * If true,the popover will have a triangle on the top of the DOM element.
-     */
-    hasTriangle: PropTypes.bool,
+        /**
+         * This is the DOM element that will be used to set the position of the popover.
+         */
+        triggerEl: PropTypes.object,
 
-    triangle: PropTypes.element,
+        /**
+         * If true,the popover is visible.
+         */
+        visible: PropTypes.bool,
 
-    /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * If true,the popover will have a triangle on the top of the DOM element.
+         */
+        hasTriangle: PropTypes.bool,
 
-    /**
-     * The popover alignment.The value can be Popover.Position.LEFT or Popover.Position.RIGHT.
-     */
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        triangle: PropTypes.element,
 
-    /**
-     * If true, popover will have animation effects.
-     */
-    isAnimated: PropTypes.bool,
+        /**
+         * The popover theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The depth of Paper component.
-     */
-    depth: PropTypes.number,
+        /**
+         * The popover alignment.The value can be Popover.Position.LEFT or Popover.Position.RIGHT.
+         */
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    isBlurClose: PropTypes.bool,
-    isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
-    isTriggerPositionFixed: PropTypes.bool,
-    showModal: PropTypes.bool,
+        /**
+         * If true, popover will have animation effects.
+         */
+        isAnimated: PropTypes.bool,
 
-    /**
-     * The function of popover render.
-     */
-    onRender: PropTypes.func,
+        /**
+         * The depth of Paper component.
+         */
+        depth: PropTypes.number,
 
-    /**
-     * The function of popover rendered.
-     */
-    onRendered: PropTypes.func,
+        isBlurClose: PropTypes.bool,
+        isEscClose: PropTypes.bool,
+        shouldPreventContainerScroll: PropTypes.bool,
+        isTriggerPositionFixed: PropTypes.bool,
+        showModal: PropTypes.bool,
 
-    /**
-     * The function of popover destroy.
-     */
-    onDestroy: PropTypes.func,
+        /**
+         * The function of popover render.
+         */
+        onRender: PropTypes.func,
 
-    /**
-     * The function of popover destroyed.
-     */
-    onDestroyed: PropTypes.func,
+        /**
+         * The function of popover rendered.
+         */
+        onRendered: PropTypes.func,
 
-    /**
-     * Callback function fired when the popover is requested to be closed.
-     */
-    onRequestClose: PropTypes.func,
+        /**
+         * The function of popover destroy.
+         */
+        onDestroy: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+        /**
+         * The function of popover destroyed.
+         */
+        onDestroyed: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when the popover is requested to be closed.
+         */
+        onRequestClose: PropTypes.func,
+
+        /**
+         * Callback function fired when wrapper wheeled.
+         */
+        onWheel: PropTypes.func
+
+    };
+
+}
 
 Popover.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    modalClassName: null,
-    style: null,
     depth: 6,
 
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
