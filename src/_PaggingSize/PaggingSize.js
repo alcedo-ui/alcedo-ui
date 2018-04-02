@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
@@ -51,17 +50,23 @@ class PaggingSize extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (PaggingSize.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    pageSize: PropTypes.number,
-    pageSizes: PropTypes.array,
+    PaggingSize.propTypes = {
 
-    onPageSizeChange: PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-});
+        pageSize: PropTypes.number,
+        pageSizes: PropTypes.array,
+
+        onPageSizeChange: PropTypes.func
+
+    };
+
+}
 
 PaggingSize.defaultProps = {
     pageSize: 10,
