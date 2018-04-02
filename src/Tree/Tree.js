@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
@@ -12,11 +11,14 @@ import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
+import SelectMode from '../_statics/SelectMode';
+
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 
+@PureRender
 class Tree extends Component {
 
     static SelectMode = SelectMode;
@@ -176,194 +178,196 @@ class Tree extends Component {
     }
 };
 
-Tree.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The theme of the tree node.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The theme of the tree node select radio or checkbox.
-     */
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The mode of tree node.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     * Children passed into the tree node.
-     */
-    data: PropTypes.shape({
+    Tree.propTypes = {
 
         /**
-         * The CSS class name of the tree node.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the tree node.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The theme of the tree button.
+         * The theme of the tree node.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The text value of the tree button.Type can be string or number.
+         * The theme of the tree node select radio or checkbox.
          */
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The tree node's display text. Type can be string, number or bool.
+         * The mode of tree node.
          */
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
         /**
-         * The desc value of the tree node. Type can be string or number.
+         * Children passed into the tree node.
          */
-        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        data: PropTypes.shape({
+
+            /**
+             * The CSS class name of the tree node.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of the tree node.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The theme of the tree button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            /**
+             * The text value of the tree button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The tree node's display text. Type can be string, number or bool.
+             */
+            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The desc value of the tree node. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true,the tree node will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
+
+            /**
+             * The message of tip.
+             */
+            tip: PropTypes.string,
+
+            /**
+             * The position of tip.
+             */
+            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+            children: PropTypes.array,
+
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            itemRenderer: PropTypes.func,
+
+            /**
+             * Callback function fired when a tree node touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }),
 
         /**
-         * If true,the tree node will be disabled.
+         * The id field name in data. (default: "id")
+         */
+        idField: PropTypes.string,
+
+        /**
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
+
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
+
+        /**
+         * The description field name in data. (default: "desc")
+         */
+        descriptionField: PropTypes.string,
+
+        /**
+         * If true, the tree will be disabled.
          */
         disabled: PropTypes.bool,
 
         /**
-         * If true,the button will be have loading effect.
+         * If true, the tree will be at loading status.
          */
         isLoading: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the left.
-         */
-        iconCls: PropTypes.string,
+        readOnly: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon. It will display on the right.
-         */
-        rightIconCls: PropTypes.string,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-        /**
-         * The message of tip.
-         */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-        children: PropTypes.array,
+        allowCollapse: PropTypes.bool,
+        collapsedIconCls: PropTypes.string,
+        expandedIconCls: PropTypes.string,
 
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        itemRenderer: PropTypes.func,
+        renderer: PropTypes.func,
 
         /**
-         * Callback function fired when a tree node touch-tapped.
+         * Callback function fired when the tree node touch tap.
          */
-        onTouchTap: PropTypes.func
+        onNodeTouchTap: PropTypes.func,
 
-    }),
+        /**
+         * Callback function fired when the tree node selected.
+         */
+        onNodeSelect: PropTypes.func,
 
-    /**
-     * The id field name in data. (default: "id")
-     */
-    idField: PropTypes.string,
+        /**
+         * Callback function fired when the tree node deselected.
+         */
+        onNodeDeselect: PropTypes.func,
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * Callback function fired when the tree changed.
+         */
+        onChange: PropTypes.func,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * Callback function fired when wrapper wheeled.
+         */
+        onWheel: PropTypes.func,
 
-    /**
-     * The description field name in data. (default: "desc")
-     */
-    descriptionField: PropTypes.string,
+        beforeNodeToggle: PropTypes.func
 
-    /**
-     * If true, the tree will be disabled.
-     */
-    disabled: PropTypes.bool,
+    };
 
-    /**
-     * If true, the tree will be at loading status.
-     */
-    isLoading: PropTypes.bool,
-
-    readOnly: PropTypes.bool,
-
-    shouldPreventContainerScroll: PropTypes.bool,
-
-    allowCollapse: PropTypes.bool,
-    collapsedIconCls: PropTypes.string,
-    expandedIconCls: PropTypes.string,
-
-    /**
-     * You can create a complicated renderer callback instead of value and desc prop.
-     */
-    renderer: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree node touch tap.
-     */
-    onNodeTouchTap: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree node selected.
-     */
-    onNodeSelect: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree node deselected.
-     */
-    onNodeDeselect: PropTypes.func,
-
-    /**
-     * Callback function fired when the tree changed.
-     */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
-
-    beforeNodeToggle: PropTypes.func
-
-};
+}
 
 Tree.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
 
     idField: 'id',
     valueField: 'value',
