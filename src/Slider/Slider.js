@@ -4,11 +4,12 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
+@PureRender
 class Slider extends Component {
 
     constructor(props, ...restArgs) {
@@ -307,66 +308,67 @@ class Slider extends Component {
     }
 };
 
-Slider.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    Slider.propTypes = {
 
-    /**
-     * If true,the slider will have leftPoint.
-     */
-    leftPoint: PropTypes.bool,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The width of the slider.
-     */
-    width: PropTypes.number,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The size displayed on slider.
-     */
-    scale: PropTypes.array,
+        /**
+         * If true,the slider will have leftPoint.
+         */
+        leftPoint: PropTypes.bool,
 
-    /**
-     * If true,the scale will have display.
-     */
-    showScale: PropTypes.bool,
+        /**
+         * The width of the slider.
+         */
+        width: PropTypes.number,
 
-    /**
-     * The granularity the slider can step through values.
-     */
-    ruler: PropTypes.number,
+        /**
+         * The size displayed on slider.
+         */
+        scale: PropTypes.array,
 
-    /**
-     * Decimal digits of tip.
-     */
-    decimalPlaces: PropTypes.number,
+        /**
+         * If true,the scale will have display.
+         */
+        showScale: PropTypes.bool,
 
-    /**
-     * Callback function fired when the slider change.
-     */
-    onChange: PropTypes.func
+        /**
+         * The granularity the slider can step through values.
+         */
+        ruler: PropTypes.number,
 
-};
+        /**
+         * Decimal digits of tip.
+         */
+        decimalPlaces: PropTypes.number,
+
+        /**
+         * Callback function fired when the slider change.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 Slider.defaultProps = {
-
-    className: '',
-    style: null,
-
     leftPoint: false,
     width: 300,
     scale: [0, 100],
     showScale: false,
     decimalPlaces: 0
-
 };
 
 export default Slider;
