@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -76,23 +75,29 @@ class VerticalPointStepItem extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (VerticalPointStepItem.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    activatedStep: PropTypes.number,
-    finishedStep: PropTypes.number,
-    index: PropTypes.number,
-    value: PropTypes.object,
-    isFirst: PropTypes.bool,
-    isLast: PropTypes.bool,
+    VerticalPointStepItem.propTypes = {
 
-    disabled: PropTypes.bool,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-    onTouchTap: PropTypes.func
+        activatedStep: PropTypes.number,
+        finishedStep: PropTypes.number,
+        index: PropTypes.number,
+        value: PropTypes.object,
+        isFirst: PropTypes.bool,
+        isLast: PropTypes.bool,
 
-});
+        disabled: PropTypes.bool,
+
+        onTouchTap: PropTypes.func
+
+    };
+
+}
 
 VerticalPointStepItem.defaultProps = {
 
