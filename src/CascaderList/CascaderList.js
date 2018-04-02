@@ -217,11 +217,7 @@ if (process.env.NODE_ENV === 'development') {
 
 CascaderList.defaultProps = {
 
-    className: null,
-    style: null,
     listWidth: 200,
-
-    data: null,
 
     valueField: 'value',
     displayField: 'text'
