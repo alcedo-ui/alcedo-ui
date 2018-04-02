@@ -7,9 +7,6 @@ import React, {Component, Children, cloneElement} from 'react';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Waterfall extends Component {
 
     constructor(props, ...restArgs) {
