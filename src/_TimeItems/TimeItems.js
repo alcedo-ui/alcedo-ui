@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -140,10 +139,16 @@ class TimeItems extends Component {
     }
 }
 
-process.env.NODE_ENV !== 'production' && (TimeItems.propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-    data: PropTypes.array
-});
+if (process.env.NODE_ENV === 'development') {
+
+    const PropTypes = require('prop-types');
+
+    TimeItems.propTypes = {
+        className: PropTypes.string,
+        style: PropTypes.object,
+        data: PropTypes.array
+    };
+
+}
 
 export default TimeItems;
