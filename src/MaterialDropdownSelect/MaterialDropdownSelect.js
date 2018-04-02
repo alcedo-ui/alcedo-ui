@@ -4,16 +4,18 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import DropdownSelect from '../DropdownSelect';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
 
+import PureRender from '../_vendors/PureRender';
+import Util from '../_vendors/Util';
+
+@PureRender
 class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
@@ -88,240 +90,238 @@ class MaterialDropdownSelect extends Component {
     }
 };
 
-MaterialDropdownSelect.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * The class name of the popup element.
-     */
-    popupClassName: PropTypes.string,
+    MaterialDropdownSelect.propTypes = {
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Override the styles of the popup element.
-     */
-    popupStyle: PropTypes.object,
+        /**
+         * The class name of the popup element.
+         */
+        popupClassName: PropTypes.string,
 
-    /**
-     * The theme.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    position: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Position)),
+        /**
+         * Override the styles of the popup element.
+         */
+        popupStyle: PropTypes.object,
 
-    /**
-     * The name of the dropDownSelect.
-     */
-    name: PropTypes.string,
+        /**
+         * The theme.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The label of the text field.
-     */
-    label: PropTypes.any,
+        position: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Position)),
 
-    /**
-     * The animate of the text field.
-     */
-    isLabelAnimate: PropTypes.bool,
+        /**
+         * The name of the dropDownSelect.
+         */
+        name: PropTypes.string,
 
-    /**
-     * The value of the dropDownSelect.
-     */
-    value: PropTypes.any,
+        /**
+         * The label of the text field.
+         */
+        label: PropTypes.any,
 
-    /**
-     * The placeholder of the dropDownSelect.
-     */
-    placeholder: PropTypes.string,
+        /**
+         * The animate of the text field.
+         */
+        isLabelAnimate: PropTypes.bool,
 
-    rightIconCls: PropTypes.string,
+        /**
+         * The value of the dropDownSelect.
+         */
+        value: PropTypes.any,
 
-    /**
-     * The options data.
-     */
-    data: PropTypes.oneOfType([
+        /**
+         * The placeholder of the dropDownSelect.
+         */
+        placeholder: PropTypes.string,
 
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        rightIconCls: PropTypes.string,
 
-            /**
-             * The CSS class name of the list button.
-             */
-            className: PropTypes.string,
+        /**
+         * The options data.
+         */
+        data: PropTypes.oneOfType([
 
-            /**
-             * Override the styles of the list button.
-             */
-            style: PropTypes.object,
+            // not grouped
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-            /**
-             * The theme of the list button.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+                /**
+                 * The CSS class name of the list button.
+                 */
+                className: PropTypes.string,
 
-            /**
-             * The text value of the list button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * Override the styles of the list button.
+                 */
+                style: PropTypes.object,
 
-            /**
-             * The desc value of the list button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                /**
+                 * The theme of the list button.
+                 */
+                theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-            /**
-             * If true, the list button will be disabled.
-             */
-            disabled: PropTypes.bool,
+                /**
+                 * The text value of the list button.Type can be string or number.
+                 */
+                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
+                /**
+                 * The desc value of the list button. Type can be string or number.
+                 */
+                desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
+                /**
+                 * If true, the list button will be disabled.
+                 */
+                disabled: PropTypes.bool,
 
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
+                /**
+                 * If true,the button will be have loading effect.
+                 */
+                isLoading: PropTypes.bool,
 
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
+                /**
+                 * If true,the element's ripple effect will be disabled.
+                 */
+                disableTouchRipple: PropTypes.bool,
 
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            renderer: PropTypes.func,
+                /**
+                 * Use this property to display an icon. It will display on the left.
+                 */
+                iconCls: PropTypes.string,
 
-            /**
-             * Callback function fired when a list item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
+                /**
+                 * Use this property to display an icon. It will display on the right.
+                 */
+                rightIconCls: PropTypes.string,
 
-        }), PropTypes.string, PropTypes.number])),
+                /**
+                 * You can create a complicated renderer callback instead of value and desc prop.
+                 */
+                renderer: PropTypes.func,
 
-        // grouped
-        PropTypes.array
+                /**
+                 * Callback function fired when a list item touch-tapped.
+                 */
+                onTouchTap: PropTypes.func
 
-    ]).isRequired,
+            }), PropTypes.string, PropTypes.number])),
 
-    /**
-     * The invalid message of dropDownSelect.
-     */
-    invalidMsg: PropTypes.string,
+            // grouped
+            PropTypes.array
 
-    /**
-     * If true,the dropDownSelect will be disabled.
-     */
-    disabled: PropTypes.bool,
+        ]).isRequired,
 
-    /**
-     * The mode of listItem.Can be normal,checkbox.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        /**
+         * The invalid message of dropDownSelect.
+         */
+        invalidMsg: PropTypes.string,
 
-    /**
-     * The value field name in data. (default: "value")
-     */
-    valueField: PropTypes.string,
+        /**
+         * If true,the dropDownSelect will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-    /**
-     * The display field name in data. (default: "text")
-     */
-    displayField: PropTypes.string,
+        /**
+         * The mode of listItem.Can be normal,checkbox.
+         */
+        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    /**
-     * The description field name in data. (default: "desc")
-     */
-    descriptionField: PropTypes.string,
+        /**
+         * The value field name in data. (default: "value")
+         */
+        valueField: PropTypes.string,
 
-    /**
-     * The message of the dropDownSelect.
-     */
-    infoMsg: PropTypes.string,
+        /**
+         * The display field name in data. (default: "text")
+         */
+        displayField: PropTypes.string,
 
-    /**
-     * Use this function to format the options's text.
-     */
-    textFormat: PropTypes.func,
+        /**
+         * The description field name in data. (default: "desc")
+         */
+        descriptionField: PropTypes.string,
 
-    /**
-     * If true,the drop-down box automatically closed after selection.
-     */
-    autoClose: PropTypes.bool,
+        /**
+         * The message of the dropDownSelect.
+         */
+        infoMsg: PropTypes.string,
 
-    /**
-     * If true,the drop-down box will have search input.
-     */
-    useFilter: PropTypes.bool,
+        /**
+         * Use this function to format the options's text.
+         */
+        textFormat: PropTypes.func,
 
-    useSelectAll: PropTypes.bool,
-    selectAllText: PropTypes.string,
+        /**
+         * If true,the drop-down box automatically closed after selection.
+         */
+        autoClose: PropTypes.bool,
 
-    /**
-     * The message of no matching option.
-     */
-    noMatchedMsg: PropTypes.string,
+        /**
+         * If true,the drop-down box will have search input.
+         */
+        useFilter: PropTypes.bool,
 
-    /**
-     * If true,the drop-down box will be have group selection.
-     */
-    isGrouped: PropTypes.bool,
+        useSelectAll: PropTypes.bool,
+        selectAllText: PropTypes.string,
 
-    required: PropTypes.bool,
+        /**
+         * The message of no matching option.
+         */
+        noMatchedMsg: PropTypes.string,
 
-    shouldPreventContainerScroll: PropTypes.bool,
+        /**
+         * If true,the drop-down box will be have group selection.
+         */
+        isGrouped: PropTypes.bool,
 
-    /**
-     * Callback function fired when the button is touch-tapped.
-     */
-    onItemTouchTap: PropTypes.func,
+        required: PropTypes.bool,
 
-    /**
-     * Callback function fired when the popup is closed.
-     */
-    onClosePopup: PropTypes.func,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-    /**
-     * Callback function fired when a menu item is selected.
-     */
-    onChange: PropTypes.func,
+        /**
+         * Callback function fired when the button is touch-tapped.
+         */
+        onItemTouchTap: PropTypes.func,
 
-    onWheel: PropTypes.func
+        /**
+         * Callback function fired when the popup is closed.
+         */
+        onClosePopup: PropTypes.func,
 
-};
+        /**
+         * Callback function fired when a menu item is selected.
+         */
+        onChange: PropTypes.func,
+
+        onWheel: PropTypes.func
+
+    };
+
+}
 
 MaterialDropdownSelect.defaultProps = {
 
-    className: null,
-    popupClassName: null,
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
 
     position: DropdownSelect.Position.LEFT,
-    name: null,
-    label: null,
     isLabelAnimate: true,
-    value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],
-    invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
@@ -329,12 +329,10 @@ MaterialDropdownSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: null,
     autoClose: true,
     useFilter: false,
     useSelectAll: false,
     selectAllText: 'Select All',
-    noMatchedMsg: null,
     isGrouped: false,
     required: false,
 
