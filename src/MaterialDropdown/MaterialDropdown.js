@@ -169,7 +169,6 @@ MaterialDropdown.defaultProps = {
     position: Dropdown.Position.LEFT,
     label: '',
     isLabelAnimate: true,
-    triggerValue: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
