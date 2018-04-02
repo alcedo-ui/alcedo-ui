@@ -176,13 +176,9 @@ if (process.env.NODE_ENV === 'development') {
 
 ButtonRadioGroup.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,
 
-    name: null,
-    data: null,
     value: '',
     disabled: false
 
