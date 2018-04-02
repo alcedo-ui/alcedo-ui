@@ -4,9 +4,11 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class FlashNumber extends Component {
 
     constructor(props, ...restArgs) {
@@ -106,44 +108,45 @@ class FlashNumber extends Component {
     }
 };
 
-FlashNumber.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    FlashNumber.propTypes = {
 
-    /**
-     * Initial result value.
-     */
-    initValue: PropTypes.number,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * Result value.
-     */
-    value: PropTypes.number,
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * Animation execution time.
-     */
-    flashDuration: PropTypes.number
+        /**
+         * Initial result value.
+         */
+        initValue: PropTypes.number,
 
-};
+        /**
+         * Result value.
+         */
+        value: PropTypes.number,
+
+        /**
+         * Animation execution time.
+         */
+        flashDuration: PropTypes.number
+
+    };
+
+}
 
 FlashNumber.defaultProps = {
-
-    className: '',
-    style: null,
-
     initValue: 0,
     value: 0,
     flashDuration: 450
-
 };
 
 export default FlashNumber;
