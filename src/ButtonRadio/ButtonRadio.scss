@@ -3,9 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.button-radio {
+.raised-button.button-radio {
     border-radius: 0;
-    border: none;
+    border-right: none;
 
     &:first-child {
         border-top-left-radius: $theme-border-radius;
@@ -15,5 +15,6 @@
     &:last-child {
         border-top-right-radius: $theme-border-radius;
         border-bottom-right-radius: $theme-border-radius;
+        border-right: 1px solid $theme-border;
     }
 }
