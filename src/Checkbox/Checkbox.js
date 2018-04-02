@@ -230,12 +230,8 @@ if (process.env.NODE_ENV === 'development') {
 
 Checkbox.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    label: null,
     value: '',
     checked: false,
     indeterminate: false,
@@ -245,7 +241,6 @@ Checkbox.defaultProps = {
     disabled: false,
     disableTouchRipple: false,
 
-    tip: null,
     tipPosition: Position.BOTTOM
 
 };
