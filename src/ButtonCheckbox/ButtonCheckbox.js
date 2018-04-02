@@ -124,13 +124,9 @@ if (process.env.NODE_ENV === 'development') {
 
 ButtonCheckbox.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,
 
-    name: null,
-    text: null,
     value: false,
     disabled: false
 
