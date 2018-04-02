@@ -4,16 +4,17 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Ripple from '../_Ripple';
 
+import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 
+@PureRender
 class TouchRipple extends Component {
 
     constructor(props, ...restArgs) {
@@ -136,24 +137,25 @@ class TouchRipple extends Component {
     }
 };
 
-TouchRipple.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    duration: PropTypes.number,
-    displayCenter: PropTypes.bool
+    TouchRipple.propTypes = {
 
-};
+        className: PropTypes.string,
+        style: PropTypes.object,
+
+        duration: PropTypes.number,
+        displayCenter: PropTypes.bool
+
+    };
+
+}
 
 TouchRipple.defaultProps = {
-
-    className: '',
-    style: null,
-
     duration: 500,
     displayCenter: false
-
 };
 
 export default TouchRipple;
