@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
@@ -180,29 +179,34 @@ class TransferList extends Component {
 
 };
 
-process.env.NODE_ENV !== 'production' && (TransferList.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    listStyle: PropTypes.object,
+    TransferList.propTypes = {
 
-    /**
-     *
-     */
-    data: PropTypes.array,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     *
-     */
-    value: PropTypes.array
+        /**
+         * Override the styles of the root element.
+         */
+        listStyle: PropTypes.object,
 
+        /**
+         *
+         */
+        data: PropTypes.array,
 
-});
+        /**
+         *
+         */
+        value: PropTypes.array
+
+    };
+
+}
 
 export default TransferList;
