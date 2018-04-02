@@ -4,7 +4,6 @@
  */
 
 import React, {Component, cloneElement} from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
@@ -183,78 +182,84 @@ class PositionPop extends Component {
 
 };
 
-process.env.NODE_ENV !== 'production' && (PositionPop.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
+    PositionPop.propTypes = {
 
-    /**
-     * If true,the trigger pop is visible.
-     */
-    visible: PropTypes.bool,
+        /**
+         * The CSS class name of the root element.
+         */
+        className: PropTypes.string,
 
-    /**
-     * The trigger pop theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * Override the styles of the root element.
+         */
+        style: PropTypes.object,
 
-    /**
-     * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
-     */
-    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * If true,the trigger pop is visible.
+         */
+        visible: PropTypes.bool,
 
-    /**
-     * If true,popup will have animation effects.
-     */
-    isAnimated: PropTypes.bool,
+        /**
+         * The trigger pop theme.Can be primary,highlight,success,warning,error.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    /**
-     * The depth of Paper component.
-     */
-    depth: PropTypes.number,
+        /**
+         * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+         */
+        position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    isBlurClose: PropTypes.bool,
-    isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
+        /**
+         * If true,popup will have animation effects.
+         */
+        isAnimated: PropTypes.bool,
 
-    container: PropTypes.node,
+        /**
+         * The depth of Paper component.
+         */
+        depth: PropTypes.number,
 
-    showModal: PropTypes.bool,
-    modalClassName: PropTypes.string,
+        isBlurClose: PropTypes.bool,
+        isEscClose: PropTypes.bool,
+        shouldPreventContainerScroll: PropTypes.bool,
 
-    /**
-     * The function of popup render.
-     */
-    onRender: PropTypes.func,
+        container: PropTypes.node,
 
-    /**
-     * The function of popup rendered.
-     */
-    onRendered: PropTypes.func,
+        showModal: PropTypes.bool,
+        modalClassName: PropTypes.string,
 
-    /**
-     * The function of popup destroy.
-     */
-    onDestroy: PropTypes.func,
+        /**
+         * The function of popup render.
+         */
+        onRender: PropTypes.func,
 
-    /**
-     * The function of popup destroyed.
-     */
-    onDestroyed: PropTypes.func,
+        /**
+         * The function of popup rendered.
+         */
+        onRendered: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+        /**
+         * The function of popup destroy.
+         */
+        onDestroy: PropTypes.func,
 
-});
+        /**
+         * The function of popup destroyed.
+         */
+        onDestroyed: PropTypes.func,
+
+        /**
+         * Callback function fired when wrapper wheeled.
+         */
+        onWheel: PropTypes.func
+
+    };
+
+}
 
 PositionPop.defaultProps = {
 
