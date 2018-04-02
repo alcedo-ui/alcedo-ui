@@ -26,6 +26,7 @@ class DatePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+
         const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
 
         this.state = {
