@@ -4,8 +4,10 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
+import PureRender from '../_vendors/PureRender';
+
+@PureRender
 class DownloadField extends Component {
 
     constructor(props, ...restArgs) {
@@ -66,19 +68,25 @@ class DownloadField extends Component {
     }
 };
 
-DownloadField.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * Download url.
-     */
-    url: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Loaded callback.
-     */
-    onLoad: PropTypes.func
+    DownloadField.propTypes = {
 
-};
+        /**
+         * Download url.
+         */
+        url: PropTypes.string,
+
+        /**
+         * Loaded callback.
+         */
+        onLoad: PropTypes.func
+
+    };
+
+}
 
 DownloadField.defaultProps = {
     url: null
