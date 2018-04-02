@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import ArrowStepItem from '../_ArrowStepItem';
@@ -88,56 +87,62 @@ class ArrowStep extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (ArrowStep.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
+    const PropTypes = require('prop-types');
 
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The render content of step.
-     */
-    steps: PropTypes.arrayOf(PropTypes.shape({
+    ArrowStep.propTypes = {
 
         /**
-         * The CSS class name of step element.
+         * The CSS class name of the root element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the step element.
+         * Override the styles of the root element.
          */
         style: PropTypes.object,
 
         /**
-         * The text value of step.
+         * The render content of step.
          */
-        title: PropTypes.string
+        steps: PropTypes.arrayOf(PropTypes.shape({
 
-    })).isRequired,
+            /**
+             * The CSS class name of step element.
+             */
+            className: PropTypes.string,
 
-    /**
-     * Sets the step as active.
-     */
-    activatedStep: PropTypes.number,
+            /**
+             * Override the styles of the step element.
+             */
+            style: PropTypes.object,
 
-    /**
-     * The final step.
-     */
-    finishedStep: PropTypes.number,
+            /**
+             * The text value of step.
+             */
+            title: PropTypes.string
 
-    /**
-     * Callback function fired when step change.
-     */
-    onChange: PropTypes.func
+        })).isRequired,
 
-});
+        /**
+         * Sets the step as active.
+         */
+        activatedStep: PropTypes.number,
+
+        /**
+         * The final step.
+         */
+        finishedStep: PropTypes.number,
+
+        /**
+         * Callback function fired when step change.
+         */
+        onChange: PropTypes.func
+
+    };
+
+}
 
 ArrowStep.defaultProps = {
 
