@@ -4,7 +4,6 @@
  */
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
@@ -85,23 +84,29 @@ class TableHeader extends Component {
     }
 };
 
-process.env.NODE_ENV !== 'production' && (TableHeader.propTypes = {
+if (process.env.NODE_ENV === 'development') {
 
-    className: PropTypes.string,
-    style: PropTypes.object,
+    const PropTypes = require('prop-types');
 
-    header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    colIndex: PropTypes.number,
-    sortable: PropTypes.bool,
-    sortProp: PropTypes.string,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
-    hidden: PropTypes.bool,
+    TableHeader.propTypes = {
 
-    onSort: PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-});
+        header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        colIndex: PropTypes.number,
+        sortable: PropTypes.bool,
+        sortProp: PropTypes.string,
+        sort: PropTypes.object,
+        sortAscIconCls: PropTypes.string,
+        sortDescIconCls: PropTypes.string,
+        hidden: PropTypes.bool,
+
+        onSort: PropTypes.func
+
+    };
+
+}
 
 TableHeader.defaultProps = {
     colIndex: 0,
