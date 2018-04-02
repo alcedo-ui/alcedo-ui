@@ -160,20 +160,14 @@ if (process.env.NODE_ENV === 'development') {
 
 Anchor.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     href: 'javascript:void(0)',
-    alt: null,
     target: '_blank',
 
     disabled: false,
     readOnly: false,
-    isLoading: false,
-
-    iconCls: null,
-    rightIconCls: null
+    isLoading: false
 
 };
 
