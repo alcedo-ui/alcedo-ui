@@ -186,9 +186,6 @@ if (process.env.NODE_ENV === 'development') {
 
 BriefPagging.defaultProps = {
 
-    className: '',
-    style: null,
-
     count: 0,
     page: 0,
     total: 0,
