@@ -124,9 +124,6 @@ if (process.env.NODE_ENV === 'development') {
 
 CircularProgress.defaultProps = {
 
-    className: '',
-    style: null,
-
     percentStyle: {},
     r: 48,
     width: 2,
