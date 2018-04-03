@@ -14,7 +14,6 @@ import Position from '../_statics/Position';
 
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
-import PopManagement from '../_vendors/PopManagement';
 
 class Popover extends Component {
 
@@ -77,22 +76,8 @@ class Popover extends Component {
         this.refs.popover.resetPosition();
     }
 
-    componentWillReceiveProps(nextProps) {
-
-        const {visible, isEscClose} = nextProps;
-
-        if (isEscClose && visible) {
-            PopManagement.push(this);
-        }
-
-    }
-
     componentWillUnmount() {
-
         this.clearCloseTimeout();
-
-        PopManagement.pop(this);
-
     }
 
     render() {
@@ -185,7 +170,6 @@ Popover.propTypes = {
     depth: PropTypes.number,
 
     isBlurClose: PropTypes.bool,
-    isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
     showModal: PropTypes.bool,
@@ -233,7 +217,6 @@ Popover.defaultProps = {
     isAnimated: true,
 
     isBlurClose: true,
-    isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
     showModal: false
