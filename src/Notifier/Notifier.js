@@ -14,10 +14,8 @@ import Notification from '../_Notification';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class Notifier extends Component {
 
     static Type = MsgType;
