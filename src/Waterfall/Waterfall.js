@@ -4,6 +4,7 @@
  */
 
 import React, {Component, Children, cloneElement} from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
