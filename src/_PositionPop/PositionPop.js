@@ -14,12 +14,10 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
 
-@PureRender
 class PositionPop extends Component {
 
     static Position = Position;
