@@ -92,12 +92,13 @@ class ListItem extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.checked !== prevState.checked) {
+            return {
                 checked: nextProps.checked
-            });
+            };
         }
+        return null;
     }
 
     render() {
