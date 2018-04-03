@@ -11,10 +11,8 @@ import TextField from '../TextField';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialTextField extends Component {
 
     static Type = TextField.Type;

@@ -8,9 +8,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class PageLoading extends Component {
 
     constructor(props, ...restArgs) {

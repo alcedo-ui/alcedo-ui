@@ -8,9 +8,6 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import classNames from 'classnames';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Ripple extends Component {
 
     constructor(props, ...restArgs) {

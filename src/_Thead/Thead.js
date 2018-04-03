@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import TableHeader from '../_TableHeader';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Thead extends Component {
 
     constructor(props, ...restArgs) {

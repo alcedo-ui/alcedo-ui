@@ -10,10 +10,8 @@ import classNames from 'classnames';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialProvider extends Component {
 
     constructor(props, ...restArgs) {

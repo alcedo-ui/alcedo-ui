@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import PointStepItem from '../_PointStepItem';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class PointStep extends Component {
 
     constructor(props, ...restArgs) {

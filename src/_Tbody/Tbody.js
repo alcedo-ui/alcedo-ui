@@ -10,10 +10,8 @@ import TableRow from '../_TableRow';
 
 import SelectMode from '../_statics/SelectMode';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class Tbody extends Component {
 
     static SelectMode = SelectMode;

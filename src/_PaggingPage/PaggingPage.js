@@ -8,9 +8,6 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class PaggingPage extends Component {
 
     constructor(props, ...restArgs) {

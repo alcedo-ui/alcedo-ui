@@ -12,10 +12,8 @@ import RaisedButton from '../RaisedButton';
 
 import MsgType from '../_statics/MsgType';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class Toast extends Component {
 
     static Type = MsgType;

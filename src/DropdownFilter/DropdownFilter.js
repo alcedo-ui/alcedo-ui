@@ -16,11 +16,9 @@ import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-@PureRender
 class DropdownFilter extends Component {
 
     static SelectMode = SelectMode;

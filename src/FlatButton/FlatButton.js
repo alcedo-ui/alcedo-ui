@@ -13,10 +13,8 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class FlatButton extends Component {
 
     static Theme = Theme;

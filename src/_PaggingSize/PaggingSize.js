@@ -8,9 +8,6 @@ import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class PaggingSize extends Component {
 
     constructor(props, ...restArgs) {

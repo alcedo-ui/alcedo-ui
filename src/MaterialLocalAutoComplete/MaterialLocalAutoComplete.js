@@ -11,10 +11,8 @@ import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;

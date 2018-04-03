@@ -11,10 +11,8 @@ import EditableSelect from '../EditableSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialEditableSelect extends Component {
 
     static Theme = Theme;

@@ -9,10 +9,8 @@ import classNames from 'classnames';
 
 import List from '../List';
 
-import PureRender from '../_vendors/PureRender';
 import Valid from '../_vendors/Valid';
 
-@PureRender
 class CascaderListItem extends Component {
 
     constructor(props, ...restArgs) {

@@ -13,10 +13,8 @@ import TipProvider from '../TipProvider';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class Radio extends Component {
 
     static Theme = Theme;

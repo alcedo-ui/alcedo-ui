@@ -9,9 +9,6 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {

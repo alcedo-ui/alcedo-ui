@@ -16,9 +16,6 @@ import Popup from '../Popup';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {

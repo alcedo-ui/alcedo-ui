@@ -12,10 +12,8 @@ import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
-@PureRender
 class RemoteAutoComplete extends Component {
 
     constructor(props, ...restArgs) {

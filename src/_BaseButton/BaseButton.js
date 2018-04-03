@@ -12,11 +12,9 @@ import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-@PureRender
 class BaseButton extends Component {
 
     static Theme = Theme;

@@ -14,12 +14,10 @@ import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-@PureRender
 class DraggableGridItem extends Component {
 
     static SelectMode = SelectMode;

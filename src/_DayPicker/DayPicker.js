@@ -9,10 +9,8 @@ import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class DayPicker extends Component {
 
     constructor(props, ...restArgs) {

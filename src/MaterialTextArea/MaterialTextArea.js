@@ -11,10 +11,8 @@ import TextArea from '../TextArea';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialTextArea extends Component {
 
     static Type = TextArea.Type;

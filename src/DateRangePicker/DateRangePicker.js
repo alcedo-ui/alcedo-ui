@@ -17,10 +17,8 @@ import Popup from '../Popup';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class DateRangePicker extends Component {
 
     constructor(props, ...restArgs) {

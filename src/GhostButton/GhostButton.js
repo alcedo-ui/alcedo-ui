@@ -14,9 +14,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import PureRender from '../_vendors/PureRender';
 
-@PureRender
 class GhostButton extends Component {
 
     static Theme = Theme;

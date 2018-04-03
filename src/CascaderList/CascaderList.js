@@ -11,11 +11,9 @@ import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
-@PureRender
 class CascaderList extends Component {
 
     static Theme = Theme;

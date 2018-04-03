@@ -6,9 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class DownloadField extends Component {
 
     constructor(props, ...restArgs) {

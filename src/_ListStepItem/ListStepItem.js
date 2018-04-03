@@ -10,9 +10,6 @@ import classNames from 'classnames';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class ListStepItem extends Component {
 
     static Theme = Theme;

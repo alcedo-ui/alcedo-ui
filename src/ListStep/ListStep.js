@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import ListStepItem from '../_ListStepItem';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class ListStep extends Component {
 
     constructor(props, ...restArgs) {

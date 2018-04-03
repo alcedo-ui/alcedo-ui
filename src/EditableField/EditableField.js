@@ -10,10 +10,8 @@ import classNames from 'classnames';
 import TextField from '../TextField/TextField';
 import TipProvider from '../TipProvider';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
-@PureRender
 class EditableField extends Component {
 
     constructor(props, ...restArgs) {

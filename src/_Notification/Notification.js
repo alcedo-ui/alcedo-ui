@@ -10,11 +10,9 @@ import classNames from 'classnames';
 import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 
-@PureRender
 class Notification extends Component {
 
     static Type = MsgType;

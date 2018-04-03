@@ -16,14 +16,12 @@ import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 
 const ScrollingComponent = withScrolling('div');
 
-@PureRender
 class DraggableList extends Component {
 
     static SelectMode = SelectMode;

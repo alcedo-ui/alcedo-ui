@@ -7,12 +7,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
 
-@PureRender
 class HuePicker extends Component {
 
     constructor(props, ...restArgs) {

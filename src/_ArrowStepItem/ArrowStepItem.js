@@ -7,9 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {

@@ -11,10 +11,8 @@ import TextField from '../TextField';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialDatePickerTextField extends Component {
 
     static Type = TextField.Type;

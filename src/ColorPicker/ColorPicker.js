@@ -10,13 +10,11 @@ import classNames from 'classnames';
 
 import HuePicker from '../HuePicker';
 
-import PureRender from '../_vendors/PureRender';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 import Color from '../_vendors/Color';
 
-@PureRender
 class ColorPicker extends Component {
 
     constructor(props, ...restArgs) {

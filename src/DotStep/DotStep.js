@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import DotStepItem from '../_DotStepItem';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class DotStep extends Component {
 
     constructor(props, ...restArgs) {

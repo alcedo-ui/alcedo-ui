@@ -10,9 +10,6 @@ import classNames from 'classnames';
 import RaisedButton from '../RaisedButton';
 import TransferList from '../_TransferList';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Transfer extends Component {
 
     constructor(props, ...restArgs) {

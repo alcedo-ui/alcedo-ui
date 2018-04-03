@@ -9,9 +9,6 @@ import {Droppable} from 'react-beautiful-dnd';
 
 import TreeNode from '../_TreeNode/TreeNode';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class DraggableTreeNodeList extends Component {
 
     constructor(props, ...restArgs) {

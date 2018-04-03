@@ -14,11 +14,9 @@ import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-@PureRender
 class AutoCompleteFilter extends Component {
 
     static Theme = Theme;

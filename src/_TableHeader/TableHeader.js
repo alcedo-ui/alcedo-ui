@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class TableHeader extends Component {
 
     constructor(props, ...restArgs) {

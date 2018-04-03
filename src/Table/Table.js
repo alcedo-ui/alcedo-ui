@@ -19,12 +19,10 @@ import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import SortType from '../_statics/SortType';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
 
-@PureRender
 class Table extends Component {
 
     static SelectMode = SelectMode;

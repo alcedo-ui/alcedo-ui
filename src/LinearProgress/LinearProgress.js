@@ -10,10 +10,8 @@ import classNames from 'classnames';
 import Theme from '../Theme';
 import Percent from '../_Percent';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class LinearProgress extends Component {
 
     static WordStyle = {

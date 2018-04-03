@@ -15,13 +15,11 @@ import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-@PureRender
 class DraggableTreeNode extends Component {
 
     static SelectMode = SelectMode;

@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import Paper from '../Paper';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Widget extends Component {
 
     constructor(props, ...restArgs) {

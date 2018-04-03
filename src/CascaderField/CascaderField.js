@@ -13,12 +13,10 @@ import CascaderList from '../CascaderList/CascaderList';
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-@PureRender
 class CascaderField extends Component {
 
     static Theme = Theme;

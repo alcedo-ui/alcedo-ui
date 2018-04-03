@@ -10,10 +10,8 @@ import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
-@PureRender
 class LazyImage extends Component {
 
     constructor(props, ...restArgs) {

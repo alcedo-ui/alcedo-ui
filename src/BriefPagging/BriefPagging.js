@@ -9,10 +9,8 @@ import PropTypes from 'prop-types';
 import PaggingSize from '../_PaggingSize';
 import IconButton from '../IconButton';
 
-import PureRender from '../_vendors/PureRender';
 import Valid from '../_vendors/Valid';
 
-@PureRender
 class BriefPagging extends Component {
 
     constructor(props, ...restArgs) {

@@ -10,10 +10,8 @@ import classNames from 'classnames';
 import TimeLineItem from '../_TimelineItem';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class TimeLine extends Component {
 
     static Type = TimeLineItem.Type;

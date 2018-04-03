@@ -10,13 +10,11 @@ import classNames from 'classnames';
 import EditableField from '../EditableField';
 import IconButton from '../IconButton';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
 
-@PureRender
 class TagField extends Component {
 
     constructor(props, ...restArgs) {

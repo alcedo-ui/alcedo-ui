@@ -14,14 +14,12 @@ import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 
-@PureRender
 class LocalAutoComplete extends Component {
 
     static Theme = Theme;

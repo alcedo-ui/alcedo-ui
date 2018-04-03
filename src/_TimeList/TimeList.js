@@ -11,9 +11,6 @@ import classNames from 'classnames';
 
 import TimeItems from '../_TimeItems';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class TimeList extends Component {
 
     constructor(props, ...restArgs) {

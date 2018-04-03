@@ -9,9 +9,6 @@ import PropTypes from 'prop-types';
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Pagging extends Component {
 
     constructor(props, ...restArgs) {

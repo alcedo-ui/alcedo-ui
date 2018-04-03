@@ -14,11 +14,9 @@ import Theme from '../Theme';
 
 import FieldType from '../_statics/FieldType';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
-@PureRender
 class TextField extends Component {
 
     static Type = FieldType;

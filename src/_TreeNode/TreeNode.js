@@ -17,11 +17,9 @@ import Checkbox from '../Checkbox';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 
-@PureRender
 class TreeNode extends Component {
 
     static SelectMode = SelectMode;

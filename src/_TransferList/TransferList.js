@@ -11,9 +11,6 @@ import classNames from 'classnames';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class TransferList extends Component {
 
     constructor(props, ...restArgs) {

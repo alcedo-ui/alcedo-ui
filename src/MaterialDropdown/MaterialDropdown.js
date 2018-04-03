@@ -11,10 +11,8 @@ import MaterialProvider from '../MaterialProvider';
 import Dropdown from '../Dropdown';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class MaterialDropdown extends Component {
 
     static Theme = Theme;

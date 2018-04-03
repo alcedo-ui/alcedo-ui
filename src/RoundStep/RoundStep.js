@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import RoundStepItem from '../_RoundStepItem';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class RoundStep extends Component {
 
     constructor(props, ...restArgs) {

@@ -12,10 +12,8 @@ import TouchRipple from '../TouchRipple/TouchRipple';
 import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class IconAnchor extends Component {
 
     static Theme = Theme;

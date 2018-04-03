@@ -11,10 +11,8 @@ import IconButton from '../IconButton';
 import CircularLoading from '../CircularLoading';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class Switcher extends Component {
 
     static Size = {

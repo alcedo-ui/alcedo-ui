@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import ArrowStepItem from '../_ArrowStepItem';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class ArrowStep extends Component {
 
     constructor(props, ...restArgs) {

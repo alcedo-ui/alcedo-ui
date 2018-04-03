@@ -15,14 +15,12 @@ import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 
 const ScrollingComponent = withScrolling('div');
 
-@PureRender
 class DraggableGrid extends Component {
 
     static SelectMode = SelectMode;

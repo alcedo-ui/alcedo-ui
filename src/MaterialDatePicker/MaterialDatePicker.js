@@ -18,9 +18,6 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class MaterialDatePicker extends Component {
 
     static Theme = Theme;

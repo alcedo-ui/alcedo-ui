@@ -12,10 +12,8 @@ import Tip from '../Tip';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class FieldMsg extends Component {
 
     static Type = MsgType;

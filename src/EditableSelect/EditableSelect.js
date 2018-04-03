@@ -13,11 +13,9 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
-@PureRender
 class EditableSelect extends Component {
 
     static Theme = Theme;

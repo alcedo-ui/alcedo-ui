@@ -11,11 +11,9 @@ import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 
-@PureRender
 class RaisedButton extends Component {
 
     static Theme = Theme;

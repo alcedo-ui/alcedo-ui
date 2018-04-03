@@ -9,10 +9,8 @@ import classNames from 'classnames';
 
 import Theme from '../Theme';
 
-import PureRender from '../_vendors/PureRender';
 import Util from '../_vendors/Util';
 
-@PureRender
 class Paper extends Component {
 
     static Theme = Theme;

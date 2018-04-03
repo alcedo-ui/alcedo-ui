@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import FlatButton from '../FlatButton';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Tab extends Component {
 
     constructor(props, ...restArgs) {

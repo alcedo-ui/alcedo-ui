@@ -9,9 +9,6 @@ import classNames from 'classnames';
 
 import Percent from '../_Percent';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class CircularProgress extends Component {
 
     constructor(props, ...restArgs) {

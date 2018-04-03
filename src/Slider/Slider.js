@@ -7,10 +7,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 
-@PureRender
 class Slider extends Component {
 
     constructor(props, ...restArgs) {
