@@ -131,12 +131,13 @@ class DraggableListItem extends Component {
         onMouseOver && onMouseOver(e);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.checked !== prevState.checked) {
+            return {
                 checked: nextProps.checked
-            });
+            };
         }
+        return null;
     }
 
     render() {
