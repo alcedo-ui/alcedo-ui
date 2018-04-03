@@ -13,13 +13,11 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import PopManagement from '../_vendors/PopManagement';
 
-@PureRender
 class Drawer extends Component {
 
     static Theme = Theme;
