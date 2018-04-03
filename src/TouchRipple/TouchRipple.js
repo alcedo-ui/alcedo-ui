@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
@@ -132,23 +133,17 @@ class TouchRipple extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    TouchRipple.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        duration: PropTypes.number,
-        displayCenter: PropTypes.bool
-
-    };
-
 }
+
+TouchRipple.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    duration: PropTypes.number,
+    displayCenter: PropTypes.bool
+
+};
 
 TouchRipple.defaultProps = {
     duration: 500,

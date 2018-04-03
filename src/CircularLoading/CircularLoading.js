@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -63,47 +64,41 @@ class CircularLoading extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    CircularLoading.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Set the size of loading,can use small or large.
-         */
-        size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size)),
-
-        /**
-         * Set the theme of loading,can use highlight,success,error,warning.
-         */
-        theme: PropTypes.string,
-
-        /**
-         * Set the CircularLoading border-width.
-         */
-        weight: PropTypes.number,
-
-        /**
-         * Set the border style of CircularLoading,can use solid,dotted.
-         */
-        type: PropTypes.string
-
-    };
-
 }
+
+CircularLoading.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Set the size of loading,can use small or large.
+     */
+    size: PropTypes.oneOf(Util.enumerateValue(CircularLoading.Size)),
+
+    /**
+     * Set the theme of loading,can use highlight,success,error,warning.
+     */
+    theme: PropTypes.string,
+
+    /**
+     * Set the CircularLoading border-width.
+     */
+    weight: PropTypes.number,
+
+    /**
+     * Set the border style of CircularLoading,can use solid,dotted.
+     */
+    type: PropTypes.string
+
+};
 
 CircularLoading.defaultProps = {
     size: CircularLoading.Size.DEFAULT,

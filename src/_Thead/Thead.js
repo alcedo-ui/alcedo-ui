@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TableHeader from '../_TableHeader';
@@ -60,28 +61,22 @@ class Thead extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Thead.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        columns: PropTypes.array,
-        sort: PropTypes.object,
-        sortAscIconCls: PropTypes.string,
-        sortDescIconCls: PropTypes.string,
-        hidden: PropTypes.bool,
-
-        onSort: PropTypes.func
-
-    };
-
 }
+
+Thead.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    columns: PropTypes.array,
+    sort: PropTypes.object,
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string,
+    hidden: PropTypes.bool,
+
+    onSort: PropTypes.func
+
+};
 
 Thead.defaultProps = {
     columns: [],

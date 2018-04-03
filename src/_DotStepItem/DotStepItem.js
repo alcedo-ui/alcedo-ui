@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -40,47 +41,41 @@ class DotStepItem extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    DotStepItem.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Item index.
-         */
-        index: PropTypes.number,
-
-        /**
-         * Sets the step as active.
-         */
-        activatedStep: PropTypes.number,
-
-        /**
-         * The final step.
-         */
-        finishedStep: PropTypes.number,
-
-        /**
-         * Callback function fired when step change.
-         */
-        onTouchTap: PropTypes.func
-
-    };
-
 }
+
+DotStepItem.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Item index.
+     */
+    index: PropTypes.number,
+
+    /**
+     * Sets the step as active.
+     */
+    activatedStep: PropTypes.number,
+
+    /**
+     * The final step.
+     */
+    finishedStep: PropTypes.number,
+
+    /**
+     * Callback function fired when step change.
+     */
+    onTouchTap: PropTypes.func
+
+};
 
 DotStepItem.defaultProps = {
     index: 0,

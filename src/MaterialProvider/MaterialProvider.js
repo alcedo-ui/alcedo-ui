@@ -4,6 +4,7 @@
  */
 
 import React, {Component, Children, cloneElement} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
@@ -135,38 +136,32 @@ class MaterialProvider extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    MaterialProvider.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        label: PropTypes.string,
-        isLabelAnimate: PropTypes.bool,
-
-        hasValue: PropTypes.bool,
-        disabled: PropTypes.bool,
-        required: PropTypes.bool,
-
-        useSeparator: PropTypes.bool
-
-    };
-
 }
+
+MaterialProvider.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    label: PropTypes.string,
+    isLabelAnimate: PropTypes.bool,
+
+    hasValue: PropTypes.bool,
+    disabled: PropTypes.bool,
+    required: PropTypes.bool,
+
+    useSeparator: PropTypes.bool
+
+};
 
 MaterialProvider.defaultProps = {
 

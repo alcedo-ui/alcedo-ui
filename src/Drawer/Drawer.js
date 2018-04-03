@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
@@ -150,69 +151,63 @@ class Drawer extends Component {
 
     }
 
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Drawer.propTypes = {
-
-        /**
-         * The css class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * The css class name of the modal.
-         */
-        modalClassName: PropTypes.string,
-
-        /**
-         * The styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The drawer alignment.
-         */
-        position: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-        /**
-         * If true,the element will disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true,drawer box will display.
-         */
-        visible: PropTypes.bool,
-
-        /**
-         * If true,the pop-up box will be displayed in the mask layer, or the pop-up box will appear below the element.
-         */
-        showModal: PropTypes.bool,
-
-        /**
-         * If true,when press down mouse the pop-up box will closed.
-         */
-        isBlurClose: PropTypes.bool,
-
-        isEscClose: PropTypes.bool,
-
-        /**
-         * The function of drawer render.
-         */
-        onRender: PropTypes.func,
-
-        /**
-         * The function that trigger when click submit.
-         */
-        onRequestClose: PropTypes.func
-
-    };
-
 }
+
+Drawer.propTypes = {
+
+    /**
+     * The css class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * The css class name of the modal.
+     */
+    modalClassName: PropTypes.string,
+
+    /**
+     * The styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The drawer alignment.
+     */
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    /**
+     * If true,the element will disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true,drawer box will display.
+     */
+    visible: PropTypes.bool,
+
+    /**
+     * If true,the pop-up box will be displayed in the mask layer, or the pop-up box will appear below the element.
+     */
+    showModal: PropTypes.bool,
+
+    /**
+     * If true,when press down mouse the pop-up box will closed.
+     */
+    isBlurClose: PropTypes.bool,
+
+    isEscClose: PropTypes.bool,
+
+    /**
+     * The function of drawer render.
+     */
+    onRender: PropTypes.func,
+
+    /**
+     * The function that trigger when click submit.
+     */
+    onRequestClose: PropTypes.func
+
+};
 
 Drawer.defaultProps = {
 

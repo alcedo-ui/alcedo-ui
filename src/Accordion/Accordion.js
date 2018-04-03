@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
@@ -96,57 +97,51 @@ class Accordion extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Accordion.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The accordion's title.
-         */
-        title: PropTypes.string,
-
-        /**
-         * Collapse icon.
-         */
-        collapseIcon: PropTypes.string,
-
-        /**
-         * Expand icon.
-         */
-        expandIcon: PropTypes.string,
-
-        /**
-         * Callback function fired when collpase the accordion.
-         */
-        onCollpase: PropTypes.func,
-
-        /**
-         * Callback function fired when expand the accordion.
-         */
-        onExpand: PropTypes.func,
-
-        /**
-         * Callback function fired when change the status of accordion.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+Accordion.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The accordion's title.
+     */
+    title: PropTypes.string,
+
+    /**
+     * Collapse icon.
+     */
+    collapseIcon: PropTypes.string,
+
+    /**
+     * Expand icon.
+     */
+    expandIcon: PropTypes.string,
+
+    /**
+     * Callback function fired when collpase the accordion.
+     */
+    onCollpase: PropTypes.func,
+
+    /**
+     * Callback function fired when expand the accordion.
+     */
+    onExpand: PropTypes.func,
+
+    /**
+     * Callback function fired when change the status of accordion.
+     */
+    onChange: PropTypes.func
+
+};
 
 Accordion.defaultProps = {
     title: 'title',

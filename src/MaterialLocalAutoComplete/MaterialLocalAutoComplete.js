@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import LocalAutoComplete from '../LocalAutoComplete';
@@ -102,233 +103,227 @@ class MaterialLocalAutoComplete extends Component {
     }
 };
 
-if (process.env.NODE_ENV === 'development') {
+MaterialLocalAutoComplete.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    MaterialLocalAutoComplete.propTypes = {
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
 
-        /**
-         * The CSS class name of the popup element.
-         */
-        popupClassName: PropTypes.string,
+    /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
 
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        /**
-         * Override the styles of the popup element.
-         */
-        popupStyle: PropTypes.object,
+    /**
+     * The name of the auto complete.
+     */
+    name: PropTypes.string,
 
-        /**
-         * The theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    /**
+     * The placeholder of the field.
+     */
+    placeholder: PropTypes.string,
 
-        /**
-         * The name of the auto complete.
-         */
-        name: PropTypes.string,
+    label: PropTypes.any,
 
-        /**
-         * The placeholder of the field.
-         */
-        placeholder: PropTypes.string,
+    /**
+     * Children passed into the List.
+     */
+    data: PropTypes.oneOfType([
 
-        label: PropTypes.any,
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * Children passed into the List.
-         */
-        data: PropTypes.oneOfType([
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-            // not grouped
-            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-                /**
-                 * The CSS class name of the list button.
-                 */
-                className: PropTypes.string,
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-                /**
-                 * Override the styles of the list button.
-                 */
-                style: PropTypes.object,
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-                /**
-                 * The theme of the list button.
-                 */
-                theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-                /**
-                 * The text value of the list button.Type can be string or number.
-                 */
-                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-                /**
-                 * The desc value of the list button. Type can be string or number.
-                 */
-                desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-                /**
-                 * If true, the list button will be disabled.
-                 */
-                disabled: PropTypes.bool,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-                /**
-                 * If true,the button will be have loading effect.
-                 */
-                isLoading: PropTypes.bool,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-                /**
-                 * If true,the element's ripple effect will be disabled.
-                 */
-                disableTouchRipple: PropTypes.bool,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-                /**
-                 * Use this property to display an icon. It will display on the left.
-                 */
-                iconCls: PropTypes.string,
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            itemRenderer: PropTypes.func,
 
-                /**
-                 * Use this property to display an icon. It will display on the right.
-                 */
-                rightIconCls: PropTypes.string,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
 
-                /**
-                 * You can create a complicated renderer callback instead of value and desc prop.
-                 */
-                itemRenderer: PropTypes.func,
+        }), PropTypes.string, PropTypes.number])),
 
-                /**
-                 * Callback function fired when a list item touch-tapped.
-                 */
-                onTouchTap: PropTypes.func
+        // grouped
+        PropTypes.array
 
-            }), PropTypes.string, PropTypes.number])),
+    ]).isRequired,
 
-            // grouped
-            PropTypes.array
+    /**
+     * If true, the auto complete will be disabled.
+     */
+    disabled: PropTypes.bool,
 
-        ]).isRequired,
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
 
-        /**
-         * If true, the auto complete will be disabled.
-         */
-        disabled: PropTypes.bool,
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
 
-        /**
-         * The value field name in data. (default: "value")
-         */
-        valueField: PropTypes.string,
+    /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
 
-        /**
-         * The display field name in data. (default: "text")
-         */
-        displayField: PropTypes.string,
+    /**
+     * If true, the popup list automatically closed after selection.
+     */
+    autoClose: PropTypes.bool,
 
-        /**
-         * The description field name in data. (default: "desc")
-         */
-        descriptionField: PropTypes.string,
+    /**
+     * Callback function fired when filter changed.
+     */
+    filterCallback: PropTypes.func,
 
-        /**
-         * If true, the popup list automatically closed after selection.
-         */
-        autoClose: PropTypes.bool,
+    /**
+     * Use this property to display an icon.
+     */
+    iconCls: PropTypes.string,
 
-        /**
-         * Callback function fired when filter changed.
-         */
-        filterCallback: PropTypes.func,
+    /**
+     * Use this property to display an icon.
+     */
+    rightIconCls: PropTypes.string,
 
-        /**
-         * Use this property to display an icon.
-         */
-        iconCls: PropTypes.string,
+    /**
+     * The visiblity of no matched popup.
+     */
+    noMatchedPopupVisible: PropTypes.bool,
 
-        /**
-         * Use this property to display an icon.
-         */
-        rightIconCls: PropTypes.string,
+    /**
+     * The message of no matched value.
+     */
+    noMatchedMsg: PropTypes.string,
 
-        /**
-         * The visiblity of no matched popup.
-         */
-        noMatchedPopupVisible: PropTypes.bool,
+    /**
+     * If true,the list data will be grouped.
+     */
+    isGrouped: PropTypes.bool,
 
-        /**
-         * The message of no matched value.
-         */
-        noMatchedMsg: PropTypes.string,
+    required: PropTypes.bool,
 
-        /**
-         * If true,the list data will be grouped.
-         */
-        isGrouped: PropTypes.bool,
+    isLabelAnimate: PropTypes.bool,
 
-        required: PropTypes.bool,
+    filterInitValue: PropTypes.string,
 
-        isLabelAnimate: PropTypes.bool,
+    popupChildren: PropTypes.any,
 
-        filterInitValue: PropTypes.string,
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
 
-        popupChildren: PropTypes.any,
+    /**
+     * The function that trigger when filter changes.
+     */
+    onFilterChange: PropTypes.func,
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+    /**
+     * The function that trigger when press enter.
+     */
+    onFilterPressEnter: PropTypes.func,
 
-        /**
-         * The function that trigger when filter changes.
-         */
-        onFilterChange: PropTypes.func,
+    /**
+     * The function that trigger when filter cleared.
+     */
+    onFilterClear: PropTypes.func,
 
-        /**
-         * The function that trigger when press enter.
-         */
-        onFilterPressEnter: PropTypes.func,
+    /**
+     * The function that trigger when value changed.
+     */
+    onChange: PropTypes.func,
 
-        /**
-         * The function that trigger when filter cleared.
-         */
-        onFilterClear: PropTypes.func,
+    /**
+     * The function that trigger when touch-tap the list items.
+     */
+    onItemTouchTap: PropTypes.func,
 
-        /**
-         * The function that trigger when value changed.
-         */
-        onChange: PropTypes.func,
+    /**
+     * Callback function fired when LocalAutoComplete get focus.
+     */
+    onFocus: PropTypes.func,
 
-        /**
-         * The function that trigger when touch-tap the list items.
-         */
-        onItemTouchTap: PropTypes.func,
+    /**
+     * Callback function fired when LocalAutoComplete lose focus.
+     */
+    onBlur: PropTypes.func,
 
-        /**
-         * Callback function fired when LocalAutoComplete get focus.
-         */
-        onFocus: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
-        /**
-         * Callback function fired when LocalAutoComplete lose focus.
-         */
-        onBlur: PropTypes.func,
-
-        onMouseOver: PropTypes.func,
-        onMouseOut: PropTypes.func
-
-    };
-
-}
+};
 
 MaterialLocalAutoComplete.defaultProps = {
 

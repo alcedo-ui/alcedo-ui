@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -76,45 +77,39 @@ class SpanLoading extends Component {
     }
 }
 
-if (process.env.NODE_ENV === 'development') {
+SpanLoading.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    SpanLoading.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
 
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
+    /**
+     * If true,will show a span loading animation.
+     */
+    spanning: PropTypes.bool,
 
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
+    /**
+     * Set the tip text,there will be a description under the loading.
+     */
+    tip: PropTypes.string,
 
-        /**
-         * If true,will show a span loading animation.
-         */
-        spanning: PropTypes.bool,
+    /**
+     * Set the size of loading,can use small or large.
+     */
+    size: PropTypes.string,
 
-        /**
-         * Set the tip text,there will be a description under the loading.
-         */
-        tip: PropTypes.string,
+    /**
+     * Set the delay time of loading animation.
+     */
+    delay: PropTypes.number
 
-        /**
-         * Set the size of loading,can use small or large.
-         */
-        size: PropTypes.string,
-
-        /**
-         * Set the delay time of loading animation.
-         */
-        delay: PropTypes.number
-
-    };
-
-}
+};
 
 SpanLoading.defaultProps = {
     spanning: true,

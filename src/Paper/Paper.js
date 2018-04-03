@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Theme from '../Theme';
@@ -51,47 +52,41 @@ class Paper extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Paper.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Theme of the root element.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * This number represents the zDepth of the paper shadow.
-         */
-        depth: PropTypes.number,
-
-        /**
-         * If true,the paper container will have no border radius.
-         */
-        nonRounded: PropTypes.bool,
-
-        /**
-         * If true,the paper shape is circle.
-         */
-        isCircular: PropTypes.bool
-
-    };
-
 }
+
+Paper.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Theme of the root element.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * This number represents the zDepth of the paper shadow.
+     */
+    depth: PropTypes.number,
+
+    /**
+     * If true,the paper container will have no border radius.
+     */
+    nonRounded: PropTypes.bool,
+
+    /**
+     * If true,the paper shape is circle.
+     */
+    isCircular: PropTypes.bool
+
+};
 
 Paper.defaultProps = {
 

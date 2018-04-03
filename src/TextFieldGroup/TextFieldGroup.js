@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -31,17 +32,11 @@ class TextFieldGroup extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    TextFieldGroup.propTypes = {
-        className: PropTypes.string,
-        style: PropTypes.object
-    };
-
 }
+
+TextFieldGroup.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object
+};
 
 export default TextFieldGroup;

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Droppable, Draggable} from 'react-beautiful-dnd';
 import classNames from 'classnames';
 
@@ -310,60 +311,54 @@ class DraggableTreeNode extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    DraggableTreeNode.propTypes = {
-
-        index: PropTypes.number,
-        depth: PropTypes.number,
-        path: PropTypes.array,
-
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-        data: PropTypes.object,
-        value: PropTypes.any,
-
-        idField: PropTypes.string,
-        valueField: PropTypes.string,
-        displayField: PropTypes.string,
-        descriptionField: PropTypes.string,
-
-        disabled: PropTypes.bool,
-        isLoading: PropTypes.bool,
-        readOnly: PropTypes.bool,
-        allowCollapse: PropTypes.bool,
-        isNodeToggling: PropTypes.bool,
-
-        renderer: PropTypes.func,
-
-        collapsedIconCls: PropTypes.string,
-        expandedIconCls: PropTypes.string,
-        radioUncheckedIconCls: PropTypes.string,
-        radioCheckedIconCls: PropTypes.string,
-        checkboxUncheckedIconCls: PropTypes.string,
-        checkboxCheckedIconCls: PropTypes.string,
-        checkboxIndeterminateIconCls: PropTypes.string,
-
-        onTouchTap: PropTypes.func,
-        onSelect: PropTypes.func,
-        onDeselect: PropTypes.func,
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-        onNodeToggleStart: PropTypes.func,
-        onNodeToggleEnd: PropTypes.func,
-
-        isDragging: PropTypes.bool
-
-    };
-
 }
+
+DraggableTreeNode.propTypes = {
+
+    index: PropTypes.number,
+    depth: PropTypes.number,
+    path: PropTypes.array,
+
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    data: PropTypes.object,
+    value: PropTypes.any,
+
+    idField: PropTypes.string,
+    valueField: PropTypes.string,
+    displayField: PropTypes.string,
+    descriptionField: PropTypes.string,
+
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    isNodeToggling: PropTypes.bool,
+
+    renderer: PropTypes.func,
+
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    onTouchTap: PropTypes.func,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onNodeToggleStart: PropTypes.func,
+    onNodeToggleEnd: PropTypes.func,
+
+    isDragging: PropTypes.bool
+
+};
 
 DraggableTreeNode.defaultProps = {
 

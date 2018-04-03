@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TimeLineItem from '../_TimelineItem';
@@ -53,62 +54,56 @@ class TimeLine extends Component {
     }
 }
 
-if (process.env.NODE_ENV === 'development') {
+TimeLine.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    TimeLine.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The items data.
+     */
+    data: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * The CSS class name of the root element.
+         * The TimeLine theme.Can be primary,highlight,success,warning,error.
          */
-        className: PropTypes.string,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * Override the styles of the root element.
+         * The TimeLine type.Can be header or title.
          */
-        style: PropTypes.object,
+        type: PropTypes.string,
 
         /**
-         * The items data.
+         * The text value of TimeLine header.
          */
-        data: PropTypes.arrayOf(PropTypes.shape({
+        headerText: PropTypes.string,
 
-            /**
-             * The TimeLine theme.Can be primary,highlight,success,warning,error.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The date value of TimeLine.
+         */
+        date: PropTypes.string,
 
-            /**
-             * The TimeLine type.Can be header or title.
-             */
-            type: PropTypes.string,
+        /**
+         * If true,the right content will have border style.
+         */
+        hasBorder: PropTypes.bool,
 
-            /**
-             * The text value of TimeLine header.
-             */
-            headerText: PropTypes.string,
+        /**
+         * The text value of right content.
+         */
+        contentText: PropTypes.string
 
-            /**
-             * The date value of TimeLine.
-             */
-            date: PropTypes.string,
+    })).isRequired
 
-            /**
-             * If true,the right content will have border style.
-             */
-            hasBorder: PropTypes.bool,
-
-            /**
-             * The text value of right content.
-             */
-            contentText: PropTypes.string
-
-        })).isRequired
-
-    };
-
-}
+};
 
 TimeLine.defaultProps = {
     hasBorder: true,

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -32,20 +33,14 @@ class TableHeaderSortIcon extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    TableHeaderSortIcon.propTypes = {
-        sort: PropTypes.object,
-        sortProp: PropTypes.string,
-        sortAscIconCls: PropTypes.string,
-        sortDescIconCls: PropTypes.string
-    };
-
 }
+
+TableHeaderSortIcon.propTypes = {
+    sort: PropTypes.object,
+    sortProp: PropTypes.string,
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string
+};
 
 TableHeaderSortIcon.defaultProps = {
     sortAscIconCls: 'fas fa-angle-up',

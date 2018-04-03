@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import classNames from 'classnames';
 
@@ -34,22 +35,16 @@ class Ripple extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Ripple.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        duration: PropTypes.number
-
-    };
-
 }
+
+Ripple.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    duration: PropTypes.number
+
+};
 
 Ripple.defaultProps = {
     duration: 500

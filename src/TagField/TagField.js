@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import EditableField from '../EditableField';
@@ -415,46 +416,40 @@ class TagField extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    TagField.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        data: PropTypes.array,
-        inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        valueField: PropTypes.string,
-        displayField: PropTypes.string,
-        separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-        disabled: PropTypes.bool,
-        placeholder: PropTypes.string,
-        clearButtonVisible: PropTypes.bool,
-        shouldPreventContainerScroll: PropTypes.bool,
-
-        onChange: PropTypes.func,
-        onInputChange: PropTypes.func,
-
-        /**
-         * Callback function fired when wrapper wheeled.
-         */
-        onWheel: PropTypes.func
-
-    };
-
 }
+
+TagField.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    data: PropTypes.array,
+    inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    valueField: PropTypes.string,
+    displayField: PropTypes.string,
+    separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+    disabled: PropTypes.bool,
+    placeholder: PropTypes.string,
+    clearButtonVisible: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    onChange: PropTypes.func,
+    onInputChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
+
+};
 
 TagField.defaultProps = {
 

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 import classNames from 'classnames';
 
@@ -289,67 +290,61 @@ class DraggableListItem extends Component {
             connectDragPreview(el);
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    DraggableListItem.propTypes = {
-
-        index: PropTypes.number,
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-        data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        text: PropTypes.any,
-        desc: PropTypes.string,
-
-        disabled: PropTypes.bool,
-        isLoading: PropTypes.bool,
-        checked: PropTypes.bool,
-        readOnly: PropTypes.bool,
-
-        iconCls: PropTypes.string,
-        rightIconCls: PropTypes.string,
-
-        tip: PropTypes.string,
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-        radioUncheckedIconCls: PropTypes.string,
-        radioCheckedIconCls: PropTypes.string,
-        checkboxUncheckedIconCls: PropTypes.string,
-        checkboxCheckedIconCls: PropTypes.string,
-        checkboxIndeterminateIconCls: PropTypes.string,
-
-        isDraggableAnyWhere: PropTypes.bool,
-        anchorIconCls: PropTypes.string,
-
-        itemRenderer: PropTypes.func,
-        renderer: PropTypes.func,
-
-        onTouchTap: PropTypes.func,
-        onSelect: PropTypes.func,
-        onDeselect: PropTypes.func,
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-
-        // dnd
-        connectDragPreview: PropTypes.func,
-        connectDragSource: PropTypes.func,
-        connectDropTarget: PropTypes.func,
-        isDragging: PropTypes.bool,
-        onMove: PropTypes.func
-
-    };
-
 }
+
+DraggableListItem.propTypes = {
+
+    index: PropTypes.number,
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    text: PropTypes.any,
+    desc: PropTypes.string,
+
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    checked: PropTypes.bool,
+    readOnly: PropTypes.bool,
+
+    iconCls: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    isDraggableAnyWhere: PropTypes.bool,
+    anchorIconCls: PropTypes.string,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
+
+    onTouchTap: PropTypes.func,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+
+    // dnd
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    isDragging: PropTypes.bool,
+    onMove: PropTypes.func
+
+};
 
 DraggableListItem.defaultProps = {
 

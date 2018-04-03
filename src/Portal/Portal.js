@@ -4,12 +4,10 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
 import classNames from 'classnames';
 
-import PureRender from '../_vendors/PureRender';
-
-@PureRender
 class Portal extends Component {
 
     constructor(props, ...restArgs) {
@@ -88,17 +86,11 @@ class Portal extends Component {
         return this.props.visible ? this.renderPortal() : null;
     }
 
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Portal.propTypes = {
-        visible: PropTypes.bool
-    };
-
 }
+
+Portal.propTypes = {
+    visible: PropTypes.bool
+};
 
 Portal.defaultProps = {
     visible: false

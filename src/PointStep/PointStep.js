@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PointStepItem from '../_PointStepItem';
@@ -90,70 +91,64 @@ class PointStep extends Component {
         );
 
     }
-};
+}
 
-if (process.env.NODE_ENV === 'development') {
+PointStep.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    PointStep.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+
+    /**
+     * The render content of step.
+     */
+    steps: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * The CSS class name of the root element.
+         * The CSS class name of step element.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the root element.
+         * Override the styles of the step element.
          */
         style: PropTypes.object,
 
-
         /**
-         * The render content of step.
+         * The text value of step.
          */
-        steps: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string
 
-            /**
-             * The CSS class name of step element.
-             */
-            className: PropTypes.string,
+    })).isRequired,
 
-            /**
-             * Override the styles of the step element.
-             */
-            style: PropTypes.object,
+    /**
+     * Sets the step as active.
+     */
+    activatedStep: PropTypes.number,
 
-            /**
-             * The text value of step.
-             */
-            title: PropTypes.string
+    /**
+     * The final step.
+     */
+    finishedStep: PropTypes.number,
 
-        })).isRequired,
+    showFinishedStepIcon: PropTypes.bool,
+    finishedStepIconCls: PropTypes.string,
 
-        /**
-         * Sets the step as active.
-         */
-        activatedStep: PropTypes.number,
+    disabled: PropTypes.bool,
 
-        /**
-         * The final step.
-         */
-        finishedStep: PropTypes.number,
+    /**
+     * Callback function fired when step change.
+     */
+    onChange: PropTypes.func
 
-        showFinishedStepIcon: PropTypes.bool,
-        finishedStepIconCls: PropTypes.string,
-
-        disabled: PropTypes.bool,
-
-        /**
-         * Callback function fired when step change.
-         */
-        onChange: PropTypes.func
-
-    };
-
-}
+};
 
 PointStep.defaultProps = {
 

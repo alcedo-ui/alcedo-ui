@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Paper from '../Paper';
@@ -34,32 +35,26 @@ class Widget extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Widget.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * This number represents the zDepth of the root element shadow.
-         */
-        depth: PropTypes.number
-
-    };
-
 }
+
+Widget.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * This number represents the zDepth of the root element shadow.
+     */
+    depth: PropTypes.number
+
+};
 
 Widget.defaultProps = {
     depth: 1

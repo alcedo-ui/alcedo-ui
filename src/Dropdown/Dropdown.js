@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
@@ -156,97 +157,91 @@ class Dropdown extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Dropdown.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * The class name of the trigger element.
-         */
-        triggerClassName: PropTypes.string,
-
-        /**
-         * The class name of the popup element.
-         */
-        popupClassName: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Override the styles of the trigger element.
-         */
-        triggerStyle: PropTypes.object,
-
-        /**
-         * Override the styles of the popup element.
-         */
-        popupStyle: PropTypes.object,
-
-        /**
-         * The theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The popup theme.
-         */
-        popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
-
-        /**
-         * The value of the dropDown trigger.
-         */
-        triggerValue: PropTypes.any,
-
-        iconCls: PropTypes.string,
-        rightIconCls: PropTypes.string,
-
-        /**
-         * If true, the dropDown will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        disableTouchRipple: PropTypes.bool,
-
-        /**
-         * If true,the dropdown box automatically closed after selection.
-         */
-        autoClose: PropTypes.bool,
-
-        shouldPreventContainerScroll: PropTypes.bool,
-
-        /**
-         * Callback function fired when the popup is open.
-         */
-        onOpenPopup: PropTypes.func,
-
-        /**
-         * Callback function fired when the popup is close.
-         */
-        onClosePopup: PropTypes.func,
-
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func,
-        onMouseOver: PropTypes.func,
-        onMouseOut: PropTypes.func,
-        onTriggerTouchTap: PropTypes.func
-
-    };
-
 }
+
+Dropdown.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * The class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
+
+    /**
+     * The class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Override the styles of the trigger element.
+     */
+    triggerStyle: PropTypes.object,
+
+    /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
+
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The popup theme.
+     */
+    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+
+    /**
+     * The value of the dropDown trigger.
+     */
+    triggerValue: PropTypes.any,
+
+    iconCls: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    /**
+     * If true, the dropDown will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    disableTouchRipple: PropTypes.bool,
+
+    /**
+     * If true,the dropdown box automatically closed after selection.
+     */
+    autoClose: PropTypes.bool,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    /**
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
+     */
+    onClosePopup: PropTypes.func,
+
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
+    onTriggerTouchTap: PropTypes.func
+
+};
 
 Dropdown.defaultProps = {
 

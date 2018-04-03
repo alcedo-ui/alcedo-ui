@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
@@ -113,69 +114,63 @@ class Switcher extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Switcher.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The Switcher theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * If true,the switcher will be in active status.
-         */
-        value: PropTypes.bool,
-
-        /**
-         * Disables the switcher if set to true.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true,the switcher will be have loading effect.
-         */
-        isLoading: PropTypes.bool,
-
-        labelVisible: PropTypes.bool,
-
-        /**
-         * The size of switcher.The value can be small or default.
-         */
-        size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
-
-        /**
-         * Callback function fired when the switcher touch-tapped.
-         */
-        onTouchTap: PropTypes.func,
-
-        /**
-         * Callback function fired before the switcher touch-tapped.
-         */
-        beforeChange: PropTypes.func,
-
-        /**
-         * Callback function fired when the switcher touch-tapped.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+Switcher.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The Switcher theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * If true,the switcher will be in active status.
+     */
+    value: PropTypes.bool,
+
+    /**
+     * Disables the switcher if set to true.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true,the switcher will be have loading effect.
+     */
+    isLoading: PropTypes.bool,
+
+    labelVisible: PropTypes.bool,
+
+    /**
+     * The size of switcher.The value can be small or default.
+     */
+    size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
+
+    /**
+     * Callback function fired when the switcher touch-tapped.
+     */
+    onTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired before the switcher touch-tapped.
+     */
+    beforeChange: PropTypes.func,
+
+    /**
+     * Callback function fired when the switcher touch-tapped.
+     */
+    onChange: PropTypes.func
+
+};
 
 Switcher.defaultProps = {
 

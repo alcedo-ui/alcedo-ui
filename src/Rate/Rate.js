@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -200,52 +201,46 @@ class Rate extends Component {
             </div>
         );
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Rate.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The value of Rate component.
-         */
-        value: PropTypes.number,
-
-        /**
-         * If true,the Rate will have half star.
-         */
-        allowHalf: PropTypes.bool,
-
-        /**
-         * If true,the Rate component will be clear the value when double click.
-         */
-        allowClear: PropTypes.bool,
-
-        /**
-         * If true,the Rate component will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * Callback function fired when the rate change.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+Rate.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The value of Rate component.
+     */
+    value: PropTypes.number,
+
+    /**
+     * If true,the Rate will have half star.
+     */
+    allowHalf: PropTypes.bool,
+
+    /**
+     * If true,the Rate component will be clear the value when double click.
+     */
+    allowClear: PropTypes.bool,
+
+    /**
+     * If true,the Rate component will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * Callback function fired when the rate change.
+     */
+    onChange: PropTypes.func
+
+};
 
 Rate.defaultProps = {
     allowClear: true,

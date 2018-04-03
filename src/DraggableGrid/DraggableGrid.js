@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
 import classNames from 'classnames';
@@ -250,216 +251,210 @@ class DraggableGrid extends Component {
             </ScrollingComponent>
         );
     }
-};
+}
 
-if (process.env.NODE_ENV === 'development') {
+DraggableGrid.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    DraggableGrid.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The theme of the grid item.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the grid item select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of listItem.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * Children passed into the GridItem.
+     */
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of the root element.
+         * The CSS class name of the grid button.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the root element.
+         * Override the styles of the grid button.
          */
         style: PropTypes.object,
 
         /**
-         * The theme of the grid item.
+         * The theme of the grid button.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The theme of the grid item select radio or checkbox.
+         * The text value of the grid button.Type can be string or number.
          */
-        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The mode of listItem.
+         * The grid item's display text. Type can be string, number or bool.
          */
-        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * Children passed into the GridItem.
+         * The desc value of the grid button. Type can be string or number.
          */
-        data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
-
-            /**
-             * The CSS class name of the grid button.
-             */
-            className: PropTypes.string,
-
-            /**
-             * Override the styles of the grid button.
-             */
-            style: PropTypes.object,
-
-            /**
-             * The theme of the grid button.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-            /**
-             * The text value of the grid button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * The grid item's display text. Type can be string, number or bool.
-             */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * The desc value of the grid button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-            /**
-             * If true,the grid item will be disabled.
-             */
-            disabled: PropTypes.bool,
-
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
-
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
-
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
-
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
-
-            /**
-             * The message of tip.
-             */
-            tip: PropTypes.string,
-
-            /**
-             * The position of tip.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-            /**
-             * If true,the item will have center displayed ripple effect.
-             */
-            rippleDisplayCenter: PropTypes.bool,
-
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            itemRenderer: PropTypes.func,
-
-            /**
-             * Callback function fired when a grid item touch-tapped.
-             */
-            onTouchTap: PropTypes.func
-
-        }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
-
-        value: PropTypes.any,
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The id field name in data. (default: "id")
-         */
-        idField: PropTypes.string,
-
-        /**
-         * The value field name in data. (default: "value")
-         */
-        valueField: PropTypes.string,
-
-        /**
-         * The display field name in data. (default: "text")
-         */
-        displayField: PropTypes.string,
-
-        /**
-         * The description field name in data. (default: "desc")
-         */
-        descriptionField: PropTypes.string,
-
-        /**
-         * If true, the grid will be disabled.
+         * If true,the grid item will be disabled.
          */
         disabled: PropTypes.bool,
 
         /**
-         * If true, the grid will be at loading status.
+         * If true,the button will be have loading effect.
          */
         isLoading: PropTypes.bool,
 
         /**
-         * The speed of scroll bar.
+         * If true,the element's ripple effect will be disabled.
          */
-        scrollSpeed: PropTypes.number,
+        disableTouchRipple: PropTypes.bool,
 
         /**
-         * The number of overflows.
+         * Use this property to display an icon. It will display on the left.
          */
-        scrollBuffer: PropTypes.number,
+        iconCls: PropTypes.string,
 
-        shouldPreventContainerScroll: PropTypes.bool,
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
 
-        radioUncheckedIconCls: PropTypes.string,
-        radioCheckedIconCls: PropTypes.string,
-        checkboxUncheckedIconCls: PropTypes.string,
-        checkboxCheckedIconCls: PropTypes.string,
-        checkboxIndeterminateIconCls: PropTypes.string,
+        /**
+         * The message of tip.
+         */
+        tip: PropTypes.string,
 
-        col: PropTypes.number,
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+        /**
+         * If true,the item will have center displayed ripple effect.
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
         /**
          * You can create a complicated renderer callback instead of value and desc prop.
          */
-        renderer: PropTypes.func,
+        itemRenderer: PropTypes.func,
 
         /**
-         * Callback function fired when the grid-item touch tap.
+         * Callback function fired when a grid item touch-tapped.
          */
-        onItemTouchTap: PropTypes.func,
+        onTouchTap: PropTypes.func
 
-        /**
-         * Callback function fired when the grid-item select.
-         */
-        onItemSelect: PropTypes.func,
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
-        /**
-         * Callback function fired when the grid-item deselect.
-         */
-        onItemDeselect: PropTypes.func,
+    value: PropTypes.any,
 
-        /**
-         * Callback function fired when the grid changed.
-         */
-        onChange: PropTypes.func,
+    /**
+     * The id field name in data. (default: "id")
+     */
+    idField: PropTypes.string,
 
-        /**
-         * Callback function fired when select item sequence changed.
-         */
-        onSequenceChange: PropTypes.func,
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
 
-        /**
-         * Callback function fired when wrapper wheeled.
-         */
-        onWheel: PropTypes.func
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
 
-    };
+    /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
 
-}
+    /**
+     * If true, the grid will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true, the grid will be at loading status.
+     */
+    isLoading: PropTypes.bool,
+
+    /**
+     * The speed of scroll bar.
+     */
+    scrollSpeed: PropTypes.number,
+
+    /**
+     * The number of overflows.
+     */
+    scrollBuffer: PropTypes.number,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    col: PropTypes.number,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid-item touch tap.
+     */
+    onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid-item select.
+     */
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid-item deselect.
+     */
+    onItemDeselect: PropTypes.func,
+
+    /**
+     * Callback function fired when the grid changed.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when select item sequence changed.
+     */
+    onSequenceChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
+
+};
 
 DraggableGrid.defaultProps = {
 

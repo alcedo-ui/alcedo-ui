@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
@@ -14,12 +15,10 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import PureRender from '../_vendors/PureRender';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 
-@PureRender
 class TriggerPop extends Component {
 
     static Position = Position;
@@ -205,103 +204,97 @@ class TriggerPop extends Component {
 
     }
 
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    TriggerPop.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * The CSS class name of the content element.
-         */
-        contentClassName: PropTypes.string,
-
-        modalClassName: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The trigger pop theme.Can be primary,highlight,success,warning,error.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * This is the DOM element that will be used to set the position of the trigger pop.
-         */
-        triggerEl: PropTypes.object,
-
-        /**
-         * If true,the trigger pop is visible.
-         */
-        visible: PropTypes.bool,
-
-        /**
-         * If true,the trigger pop will have a triangle on the top of the DOM element.
-         */
-        hasTriangle: PropTypes.bool,
-
-        triangle: PropTypes.element,
-
-        showModal: PropTypes.bool,
-
-        /**
-         * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
-         */
-        position: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-        /**
-         * If true,popup will have animation effects.
-         */
-        isAnimated: PropTypes.bool,
-
-        /**
-         * The depth of Paper component.
-         */
-        depth: PropTypes.number,
-
-        isBlurClose: PropTypes.bool,
-        isEscClose: PropTypes.bool,
-        shouldPreventContainerScroll: PropTypes.bool,
-        isTriggerPositionFixed: PropTypes.bool,
-
-        /**
-         * The function of popup render.
-         */
-        onRender: PropTypes.func,
-
-        /**
-         * The function of popup rendered.
-         */
-        onRendered: PropTypes.func,
-
-        /**
-         * The function of popup destroy.
-         */
-        onDestroy: PropTypes.func,
-
-        /**
-         * The function of popup destroyed.
-         */
-        onDestroyed: PropTypes.func,
-
-        /**
-         * Callback function fired when wrapper wheeled.
-         */
-        onWheel: PropTypes.func
-
-    };
-
 }
+
+TriggerPop.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
+
+    modalClassName: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The trigger pop theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * This is the DOM element that will be used to set the position of the trigger pop.
+     */
+    triggerEl: PropTypes.object,
+
+    /**
+     * If true,the trigger pop is visible.
+     */
+    visible: PropTypes.bool,
+
+    /**
+     * If true,the trigger pop will have a triangle on the top of the DOM element.
+     */
+    hasTriangle: PropTypes.bool,
+
+    triangle: PropTypes.element,
+
+    showModal: PropTypes.bool,
+
+    /**
+     * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     */
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    /**
+     * If true,popup will have animation effects.
+     */
+    isAnimated: PropTypes.bool,
+
+    /**
+     * The depth of Paper component.
+     */
+    depth: PropTypes.number,
+
+    isBlurClose: PropTypes.bool,
+    isEscClose: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
+    isTriggerPositionFixed: PropTypes.bool,
+
+    /**
+     * The function of popup render.
+     */
+    onRender: PropTypes.func,
+
+    /**
+     * The function of popup rendered.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of popup destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of popup destroyed.
+     */
+    onDestroyed: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func
+
+};
 
 TriggerPop.defaultProps = {
 

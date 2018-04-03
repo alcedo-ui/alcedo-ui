@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TextField from '../TextField/TextField';
@@ -190,104 +191,98 @@ class EditableField extends Component {
             </TipProvider>
         );
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    EditableField.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The value of the editableField.
-         */
-        value: PropTypes.string,
-
-        /**
-         * The name of the editableField.
-         */
-        name: PropTypes.string,
-
-        /**
-         * The title of the editableField.
-         */
-        title: PropTypes.string,
-
-        /**
-         * The maximum length of editableField to enter.
-         */
-        maxLength: PropTypes.number,
-
-        /**
-         * The tip of the editableField.
-         */
-        tip: PropTypes.string,
-
-        /**
-         * The tipPosition of the editableField.
-         */
-        tipPosition: PropTypes.string,
-
-        /**
-         * The regular expression of the input.
-         */
-        regExp: PropTypes.object,
-
-        /**
-         * If true, the input is disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true, the shadow is under the input.
-         */
-        showModal: PropTypes.bool,
-
-        onMouseDown: PropTypes.func,
-
-        /**
-         * Callback function when touch the editableField.
-         */
-        onTouchTap: PropTypes.func,
-
-        /**
-         * Callback function fired when the editableField blur.
-         */
-        onBlur: PropTypes.func,
-
-        /**
-         * Callback function fired when the editableField change.
-         */
-        onChange: PropTypes.func,
-
-        /**
-         * Callback function fired when start editableField change.
-         */
-        onEditStart: PropTypes.func,
-
-        /**
-         * Callback function fired when end editableField change.
-         */
-        onEditEnd: PropTypes.func,
-
-        /**
-         * Callback function fired when before editableField change.
-         */
-        beforeChange: PropTypes.func
-
-    };
-
 }
+
+EditableField.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The value of the editableField.
+     */
+    value: PropTypes.string,
+
+    /**
+     * The name of the editableField.
+     */
+    name: PropTypes.string,
+
+    /**
+     * The title of the editableField.
+     */
+    title: PropTypes.string,
+
+    /**
+     * The maximum length of editableField to enter.
+     */
+    maxLength: PropTypes.number,
+
+    /**
+     * The tip of the editableField.
+     */
+    tip: PropTypes.string,
+
+    /**
+     * The tipPosition of the editableField.
+     */
+    tipPosition: PropTypes.string,
+
+    /**
+     * The regular expression of the input.
+     */
+    regExp: PropTypes.object,
+
+    /**
+     * If true, the input is disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true, the shadow is under the input.
+     */
+    showModal: PropTypes.bool,
+
+    onMouseDown: PropTypes.func,
+
+    /**
+     * Callback function when touch the editableField.
+     */
+    onTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the editableField blur.
+     */
+    onBlur: PropTypes.func,
+
+    /**
+     * Callback function fired when the editableField change.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when start editableField change.
+     */
+    onEditStart: PropTypes.func,
+
+    /**
+     * Callback function fired when end editableField change.
+     */
+    onEditEnd: PropTypes.func,
+
+    /**
+     * Callback function fired when before editableField change.
+     */
+    beforeChange: PropTypes.func
+
+};
 
 EditableField.defaultProps = {
 

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
@@ -109,51 +110,45 @@ class Toast extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Toast.propTypes = {
-
-        /**
-         * The CSS class name of toast.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the toast.
-         */
-        style: PropTypes.object,
-
-        toastsId: PropTypes.number,
-
-        /**
-         * The type of toast.
-         */
-        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-        /**
-         * The message of toast.
-         */
-        message: PropTypes.any,
-
-        /**
-         * The icon class name of toast.
-         */
-        iconCls: PropTypes.string,
-
-        /**
-         * The duration of toast.
-         */
-        duration: PropTypes.number,
-
-        onRequestClose: PropTypes.func
-
-    };
-
 }
+
+Toast.propTypes = {
+
+    /**
+     * The CSS class name of toast.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the toast.
+     */
+    style: PropTypes.object,
+
+    toastsId: PropTypes.number,
+
+    /**
+     * The type of toast.
+     */
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+    /**
+     * The message of toast.
+     */
+    message: PropTypes.any,
+
+    /**
+     * The icon class name of toast.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * The duration of toast.
+     */
+    duration: PropTypes.number,
+
+    onRequestClose: PropTypes.func
+
+};
 
 Toast.defaultProps = {
     toastsId: 0,

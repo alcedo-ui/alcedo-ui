@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
@@ -151,75 +152,69 @@ class Radio extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Radio.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The Radio theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The name of the radio.
-         */
-        name: PropTypes.string,
-
-        /**
-         * Label for radio.
-         */
-        label: PropTypes.any,
-
-        /**
-         * Value for radio.
-         */
-        value: PropTypes.any,
-
-        /**
-         * If true,the radio will be checked.
-         */
-        checked: PropTypes.bool,
-
-        uncheckedIconCls: PropTypes.string,
-        checkedIconCls: PropTypes.string,
-
-        /**
-         * If true, the radio will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
-
-        tip: PropTypes.any,
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-        /**
-         * Callback function fired when the radio status change.
-         */
-        onChange: PropTypes.func,
-
-        onCheck: PropTypes.func
-
-    };
-
 }
+
+Radio.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The Radio theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The name of the radio.
+     */
+    name: PropTypes.string,
+
+    /**
+     * Label for radio.
+     */
+    label: PropTypes.any,
+
+    /**
+     * Value for radio.
+     */
+    value: PropTypes.any,
+
+    /**
+     * If true,the radio will be checked.
+     */
+    checked: PropTypes.bool,
+
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+
+    /**
+     * If true, the radio will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
+
+    tip: PropTypes.any,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    /**
+     * Callback function fired when the radio status change.
+     */
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func
+
+};
 
 Radio.defaultProps = {
 

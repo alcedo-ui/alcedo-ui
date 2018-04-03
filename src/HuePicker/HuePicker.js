@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -121,34 +122,28 @@ class HuePicker extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    HuePicker.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * hue value (deg).
-         */
-        value: PropTypes.number,
-
-        onChange: PropTypes.func
-
-    };
-
 }
+
+HuePicker.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * hue value (deg).
+     */
+    value: PropTypes.number,
+
+    onChange: PropTypes.func
+
+};
 
 HuePicker.defaultProps = {
     value: 0

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
@@ -121,57 +122,51 @@ class CheckboxGroup extends Component {
         );
 
     }
-};
+}
 
-if (process.env.NODE_ENV === 'development') {
+CheckboxGroup.propTypes = {
 
-    const PropTypes = require('prop-types');
+    className: PropTypes.string,
+    style: PropTypes.object,
 
-    CheckboxGroup.propTypes = {
+    /**
+     * The CheckboxGroup theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    name: PropTypes.string,
+
+    data: PropTypes.arrayOf(PropTypes.shape({
 
         className: PropTypes.string,
         style: PropTypes.object,
-
-        /**
-         * The CheckboxGroup theme.
-         */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        name: PropTypes.string,
+        label: PropTypes.any,
+        value: PropTypes.any,
 
-        data: PropTypes.arrayOf(PropTypes.shape({
-
-            className: PropTypes.string,
-            style: PropTypes.object,
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-            label: PropTypes.any,
-            value: PropTypes.any,
-
-            disabled: PropTypes.bool,
-
-            tip: PropTypes.any,
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
-
-        })).isRequired,
-        value: PropTypes.array,
         disabled: PropTypes.bool,
 
-        idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
 
-        uncheckedIconCls: PropTypes.string,
-        checkedIconCls: PropTypes.string,
-        indeterminateIconCls: PropTypes.string,
+    })).isRequired,
+    value: PropTypes.array,
+    disabled: PropTypes.bool,
 
-        onChange: PropTypes.func,
+    idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
-        onCheck: PropTypes.func,
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+    indeterminateIconCls: PropTypes.string,
 
-        onUncheck: PropTypes.func
+    onChange: PropTypes.func,
 
-    };
+    onCheck: PropTypes.func,
 
-}
+    onUncheck: PropTypes.func
+
+};
 
 CheckboxGroup.defaultProps = {
 

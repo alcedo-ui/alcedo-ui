@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import EditableSelect from '../EditableSelect';
@@ -174,205 +175,199 @@ class MaterialEditableSelect extends Component {
     }
 };
 
-if (process.env.NODE_ENV === 'development') {
+MaterialEditableSelect.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    MaterialEditableSelect.propTypes = {
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
 
-        /**
-         * The CSS class name of the popup element.
-         */
-        popupClassName: PropTypes.string,
+    /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
 
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
+    /**
+     * The label of the text field.
+     */
+    label: PropTypes.any,
 
-        /**
-         * Override the styles of the popup element.
-         */
-        popupStyle: PropTypes.object,
+    /**
+     * The animate of the text field.
+     */
+    isLabelAnimated: PropTypes.bool,
 
-        /**
-         * The label of the text field.
-         */
-        label: PropTypes.any,
+    /**
+     * The name of the editableSelect.
+     */
+    name: PropTypes.string,
 
-        /**
-         * The animate of the text field.
-         */
-        isLabelAnimated: PropTypes.bool,
+    /**
+     * The value of the editableSelect.
+     */
+    value: PropTypes.any,
 
-        /**
-         * The name of the editableSelect.
-         */
-        name: PropTypes.string,
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
 
-        /**
-         * The value of the editableSelect.
-         */
-        value: PropTypes.any,
+    /**
+     * The placeholder of the editableSelect.
+     */
+    placeholder: PropTypes.string,
 
-        /**
-         * You can create a complicated renderer callback instead of value and desc prop.
-         */
-        renderer: PropTypes.func,
+    /**
+     * The options data.
+     */
+    data: PropTypes.oneOfType([
 
-        /**
-         * The placeholder of the editableSelect.
-         */
-        placeholder: PropTypes.string,
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        /**
-         * The options data.
-         */
-        data: PropTypes.oneOfType([
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
 
-            // not grouped
-            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
 
-                /**
-                 * The CSS class name of the list button.
-                 */
-                className: PropTypes.string,
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-                /**
-                 * Override the styles of the list button.
-                 */
-                style: PropTypes.object,
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-                /**
-                 * The theme of the list button.
-                 */
-                theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-                /**
-                 * The text value of the list button.Type can be string or number.
-                 */
-                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
 
-                /**
-                 * The desc value of the list button. Type can be string or number.
-                 */
-                desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
 
-                /**
-                 * If true, the list button will be disabled.
-                 */
-                disabled: PropTypes.bool,
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
 
-                /**
-                 * If true,the button will be have loading effect.
-                 */
-                isLoading: PropTypes.bool,
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
 
-                /**
-                 * If true,the element's ripple effect will be disabled.
-                 */
-                disableTouchRipple: PropTypes.bool,
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
 
-                /**
-                 * Use this property to display an icon. It will display on the left.
-                 */
-                iconCls: PropTypes.string,
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
 
-                /**
-                 * Use this property to display an icon. It will display on the right.
-                 */
-                rightIconCls: PropTypes.string,
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
 
-                /**
-                 * You can create a complicated renderer callback instead of value and desc prop.
-                 */
-                renderer: PropTypes.func,
+        }), PropTypes.string, PropTypes.number])),
 
-                /**
-                 * Callback function fired when a list item touch-tapped.
-                 */
-                onTouchTap: PropTypes.func
+        // grouped
+        PropTypes.array
 
-            }), PropTypes.string, PropTypes.number])),
+    ]).isRequired,
 
-            // grouped
-            PropTypes.array
+    /**
+     * The invalid message of editableSelect.
+     */
+    invalidMsg: PropTypes.string,
 
-        ]).isRequired,
+    /**
+     * If true,the editableSelect will be disabled.
+     */
+    disabled: PropTypes.bool,
 
-        /**
-         * The invalid message of editableSelect.
-         */
-        invalidMsg: PropTypes.string,
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
 
-        /**
-         * If true,the editableSelect will be disabled.
-         */
-        disabled: PropTypes.bool,
+    /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
 
-        /**
-         * The value field name in data. (default: "value")
-         */
-        valueField: PropTypes.string,
+    /**
+     * The message of the editableSelect.
+     */
+    infoMsg: PropTypes.string,
 
-        /**
-         * The description field name in data. (default: "desc")
-         */
-        descriptionField: PropTypes.string,
+    /**
+     * Use this function to format the options's text.
+     */
+    textFormat: PropTypes.func,
 
-        /**
-         * The message of the editableSelect.
-         */
-        infoMsg: PropTypes.string,
+    /**
+     * If true,the drop-down box automatically closed after selection.
+     */
+    autoClose: PropTypes.bool,
 
-        /**
-         * Use this function to format the options's text.
-         */
-        textFormat: PropTypes.func,
+    /**
+     * If true,the drop-down box will have search input.
+     */
+    useFilter: PropTypes.bool,
 
-        /**
-         * If true,the drop-down box automatically closed after selection.
-         */
-        autoClose: PropTypes.bool,
+    /**
+     * The message of no matching option.
+     */
+    noMatchedMsg: PropTypes.string,
 
-        /**
-         * If true,the drop-down box will have search input.
-         */
-        useFilter: PropTypes.bool,
+    /**
+     * The theme of editableSelect.Can be primary,highlight,success,warning,error.
+     */
+    triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        /**
-         * The message of no matching option.
-         */
-        noMatchedMsg: PropTypes.string,
+    /**
+     * If true,the drop-down box will be have group selection.
+     */
+    isGrouped: PropTypes.bool,
 
-        /**
-         * The theme of editableSelect.Can be primary,highlight,success,warning,error.
-         */
-        triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    /**
+     * Callback function fired when the button is touch-tapped.
+     */
+    onItemTouchTap: PropTypes.func,
 
-        /**
-         * If true,the drop-down box will be have group selection.
-         */
-        isGrouped: PropTypes.bool,
+    /**
+     * Callback function fired when a menu item is selected.
+     */
+    onChange: PropTypes.func
 
-        /**
-         * Callback function fired when the button is touch-tapped.
-         */
-        onItemTouchTap: PropTypes.func,
-
-        /**
-         * Callback function fired when a menu item is selected.
-         */
-        onChange: PropTypes.func
-
-    };
-
-}
+};
 
 MaterialEditableSelect.defaultProps = {
 

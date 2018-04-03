@@ -4,6 +4,7 @@
  */
 
 import React, {Component, cloneElement} from 'react';
+import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Tip from '../Tip';
@@ -83,78 +84,72 @@ class TipProvider extends Component {
 
 }
 
-if (process.env.NODE_ENV === 'development') {
+TipProvider.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    TipProvider.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
 
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
+    /**
+     * This is the DOM element that will be used to set the position of the popover.
+     */
+    triggerEl: PropTypes.object,
 
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
+    /**
+     * If true,the popover is visible.
+     */
+    visible: PropTypes.bool,
 
-        /**
-         * This is the DOM element that will be used to set the position of the popover.
-         */
-        triggerEl: PropTypes.object,
+    /**
+     * If true,the popover will have a triangle on the top of the DOM element.
+     */
+    hasTriangle: PropTypes.bool,
 
-        /**
-         * If true,the popover is visible.
-         */
-        visible: PropTypes.bool,
+    triangle: PropTypes.element,
 
-        /**
-         * If true,the popover will have a triangle on the top of the DOM element.
-         */
-        hasTriangle: PropTypes.bool,
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-        triangle: PropTypes.element,
+    /**
+     * The popover alignment.
+     */
+    position: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
-        /**
-         * The popover theme.Can be primary,highlight,success,warning,error.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    /**
+     * If true, menu will have animation effects.
+     */
+    isAnimated: PropTypes.bool,
 
-        /**
-         * The popover alignment.
-         */
-        position: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+    shouldPreventContainerScroll: PropTypes.bool,
 
-        /**
-         * If true, menu will have animation effects.
-         */
-        isAnimated: PropTypes.bool,
+    /**
+     * The depth of Paper component.
+     */
+    depth: PropTypes.number,
 
-        shouldPreventContainerScroll: PropTypes.bool,
+    isTriggerPositionFixed: PropTypes.bool,
 
-        /**
-         * The depth of Paper component.
-         */
-        depth: PropTypes.number,
+    /**
+     * The function of tip render.
+     */
+    onTipRender: PropTypes.func,
 
-        isTriggerPositionFixed: PropTypes.bool,
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func,
 
-        /**
-         * The function of tip render.
-         */
-        onTipRender: PropTypes.func,
+    text: PropTypes.any
 
-        /**
-         * Callback function fired when wrapper wheeled.
-         */
-        onWheel: PropTypes.func,
-
-        text: PropTypes.any
-
-    };
-
-}
+};
 
 TipProvider.defaultProps = {
 

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -37,21 +38,15 @@ class WidgetHeader extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    WidgetHeader.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        title: PropTypes.any
-
-    };
-
 }
+
+WidgetHeader.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    title: PropTypes.any
+
+};
 
 export default WidgetHeader;

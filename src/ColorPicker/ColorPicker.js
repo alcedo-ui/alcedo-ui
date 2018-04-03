@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import sum from 'lodash/sum';
 import classNames from 'classnames';
 
@@ -161,29 +162,23 @@ class ColorPicker extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    ColorPicker.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        value: PropTypes.array
-
-    };
-
 }
+
+ColorPicker.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    value: PropTypes.array
+
+};
 
 ColorPicker.defaultProps = {
     value: [255, 0, 0]

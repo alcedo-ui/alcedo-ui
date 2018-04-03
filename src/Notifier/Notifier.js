@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
@@ -156,81 +157,75 @@ class Notifier extends Component {
 
     }
 
-};
+}
 
-if (process.env.NODE_ENV === 'development') {
+Notifier.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    Notifier.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Children passed into the notifier.
+     */
+    notifications: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of the root element.
+         * The CSS class name of notification.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the root element.
+         * Override the styles of the notification.
          */
         style: PropTypes.object,
 
         /**
-         * Children passed into the notifier.
+         * The type of notification.
          */
-        notifications: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
-            /**
-             * The CSS class name of notification.
-             */
-            className: PropTypes.string,
+        /**
+         * The title of notification.
+         */
+        title: PropTypes.string,
 
-            /**
-             * Override the styles of the notification.
-             */
-            style: PropTypes.object,
+        /**
+         * The message of notification.
+         */
+        message: PropTypes.string,
 
-            /**
-             * The type of notification.
-             */
-            type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-            /**
-             * The title of notification.
-             */
-            title: PropTypes.string,
-
-            /**
-             * The message of notification.
-             */
-            message: PropTypes.string,
-
-            /**
-             * The icon class name of notification.
-             */
-            iconCls: PropTypes.string,
-
-            /**
-             * The duration of notification.
-             */
-            duration: PropTypes.number
-
-        }), PropTypes.string, PropTypes.number])),
-
-        position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * The icon class name of notification.
+         */
+        iconCls: PropTypes.string,
 
         /**
          * The duration of notification.
          */
-        duration: PropTypes.number,
+        duration: PropTypes.number
 
-        /**
-         * Callback function fired when the notifier pop.
-         */
-        onNotificationPop: PropTypes.func
+    }), PropTypes.string, PropTypes.number])),
 
-    };
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-}
+    /**
+     * The duration of notification.
+     */
+    duration: PropTypes.number,
+
+    /**
+     * Callback function fired when the notifier pop.
+     */
+    onNotificationPop: PropTypes.func
+
+};
 
 Notifier.defaultProps = {
     position: Position.BOTTOM_RIGHT,

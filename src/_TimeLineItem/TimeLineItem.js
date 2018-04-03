@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import PureRender from '../_vendors/PureRender';
@@ -64,24 +65,18 @@ class TimeLineItem extends Component {
     }
 }
 
-if (process.env.NODE_ENV === 'development') {
+TimeLineItem.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    TimeLineItem.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object
 
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object
-
-    };
-
-}
+};
 
 export default TimeLineItem;

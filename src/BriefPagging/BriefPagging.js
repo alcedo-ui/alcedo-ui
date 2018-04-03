@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import PaggingSize from '../_PaggingSize';
 import IconButton from '../IconButton';
@@ -107,82 +108,76 @@ class BriefPagging extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    BriefPagging.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The total of data.
-         */
-        count: PropTypes.number,
-
-        /**
-         * The valid page.
-         */
-        page: PropTypes.number,
-
-        /**
-         * The page count.
-         */
-        total: PropTypes.number,
-
-        /**
-         * The number of per page.
-         */
-        pageSize: PropTypes.number,
-
-        /**
-         * The array of pageSize.
-         */
-        pageSizes: PropTypes.array,
-
-        /**
-         * The total count of selected.
-         */
-        selectedCount: PropTypes.number,
-
-        /**
-         * If true,the selectedCount will show.
-         */
-        selectedCountVisible: PropTypes.bool,
-
-        /**
-         * If false, the pageSize choice box will not show.
-         */
-        pageSizeVisible: PropTypes.bool,
-
-        /**
-         * Use this property to set prev button icon.
-         */
-        paggingPrevIconCls: PropTypes.string,
-
-        /**
-         * Use this property to set next button icon.
-         */
-        paggingNextIconCls: PropTypes.string,
-
-        /**
-         * Callback function fired when Pagging component change.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+BriefPagging.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The total of data.
+     */
+    count: PropTypes.number,
+
+    /**
+     * The valid page.
+     */
+    page: PropTypes.number,
+
+    /**
+     * The page count.
+     */
+    total: PropTypes.number,
+
+    /**
+     * The number of per page.
+     */
+    pageSize: PropTypes.number,
+
+    /**
+     * The array of pageSize.
+     */
+    pageSizes: PropTypes.array,
+
+    /**
+     * The total count of selected.
+     */
+    selectedCount: PropTypes.number,
+
+    /**
+     * If true,the selectedCount will show.
+     */
+    selectedCountVisible: PropTypes.bool,
+
+    /**
+     * If false, the pageSize choice box will not show.
+     */
+    pageSizeVisible: PropTypes.bool,
+
+    /**
+     * Use this property to set prev button icon.
+     */
+    paggingPrevIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set next button icon.
+     */
+    paggingNextIconCls: PropTypes.string,
+
+    /**
+     * Callback function fired when Pagging component change.
+     */
+    onChange: PropTypes.func
+
+};
 
 BriefPagging.defaultProps = {
 

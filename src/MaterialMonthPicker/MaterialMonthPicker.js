@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -214,77 +215,71 @@ class MaterialMonthPicker extends Component {
             </div>
         );
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    MaterialMonthPicker.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Date picker input name.
-         */
-        name: PropTypes.string,
-
-        /**
-         * This is the initial date value of the component.
-         */
-        value: PropTypes.any,
-
-        /**
-         * The label of the MaterialMonthPicker.
-         */
-        label: PropTypes.any,
-
-        /**
-         * The animate of the MaterialMonthPicker.
-         */
-        isLabelAnimate: PropTypes.bool,
-
-        /**
-         * The ending of a range of valid dates. The range includes the endDate.
-         */
-        maxValue: PropTypes.any,
-
-        /**
-         * The beginning of a range of valid dates. The range includes the startDate.
-         */
-        minValue: PropTypes.any,
-
-        /**
-         * MaterialMonthPicker textField element placeholder.
-         */
-        placeholder: PropTypes.string,
-
-        /**
-         * Date format.
-         */
-        dateFormat: PropTypes.string,
-
-        /**
-         * If true,hide date display.
-         */
-        autoClose: PropTypes.bool,
-
-        /**
-         * Callback function that is fired when the date value changes.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+MaterialMonthPicker.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Date picker input name.
+     */
+    name: PropTypes.string,
+
+    /**
+     * This is the initial date value of the component.
+     */
+    value: PropTypes.any,
+
+    /**
+     * The label of the MaterialMonthPicker.
+     */
+    label: PropTypes.any,
+
+    /**
+     * The animate of the MaterialMonthPicker.
+     */
+    isLabelAnimate: PropTypes.bool,
+
+    /**
+     * The ending of a range of valid dates. The range includes the endDate.
+     */
+    maxValue: PropTypes.any,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
+    minValue: PropTypes.any,
+
+    /**
+     * MaterialMonthPicker textField element placeholder.
+     */
+    placeholder: PropTypes.string,
+
+    /**
+     * Date format.
+     */
+    dateFormat: PropTypes.string,
+
+    /**
+     * If true,hide date display.
+     */
+    autoClose: PropTypes.bool,
+
+    /**
+     * Callback function that is fired when the date value changes.
+     */
+    onChange: PropTypes.func
+
+};
 
 MaterialMonthPicker.defaultProps = {
     name: '',

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Tip from '../Tip';
@@ -50,26 +51,20 @@ class FieldMsg extends Component {
 
     }
 
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    FieldMsg.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-        visible: PropTypes.bool,
-        triggerEl: PropTypes.object,
-        position: PropTypes.oneOf(Util.enumerateValue(Position)),
-        msg: PropTypes.any
-
-    };
-
 }
+
+FieldMsg.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+    visible: PropTypes.bool,
+    triggerEl: PropTypes.object,
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    msg: PropTypes.any
+
+};
 
 FieldMsg.defaultProps = {
 

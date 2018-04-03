@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
@@ -109,29 +110,23 @@ class PageLoading extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    PageLoading.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        visible: PropTypes.bool,
-        duration: PropTypes.number,
-        showStripes: PropTypes.bool,
-
-        loadingProgress: PropTypes.arrayOf(PropTypes.shape({
-            width: PropTypes.number,
-            timeout: PropTypes.number
-        }))
-
-    };
-
 }
+
+PageLoading.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    visible: PropTypes.bool,
+    duration: PropTypes.number,
+    showStripes: PropTypes.bool,
+
+    loadingProgress: PropTypes.arrayOf(PropTypes.shape({
+        width: PropTypes.number,
+        timeout: PropTypes.number
+    }))
+
+};
 
 PageLoading.defaultProps = {
 

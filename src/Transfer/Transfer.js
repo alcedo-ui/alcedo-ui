@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
@@ -153,52 +154,46 @@ class Transfer extends Component {
 
     }
 
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Transfer.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The data of left select field.
-         */
-        leftData: PropTypes.array,
-
-        /**
-         * The data of left select field.
-         */
-        rightData: PropTypes.array,
-
-        /**
-         * The left-selected data items.
-         */
-        leftSelected: PropTypes.array,
-
-        /**
-         * The left-selected data items.
-         */
-        rightSelected: PropTypes.array,
-
-        /**
-         * Callback function fired when select item changed.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+Transfer.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The data of left select field.
+     */
+    leftData: PropTypes.array,
+
+    /**
+     * The data of left select field.
+     */
+    rightData: PropTypes.array,
+
+    /**
+     * The left-selected data items.
+     */
+    leftSelected: PropTypes.array,
+
+    /**
+     * The left-selected data items.
+     */
+    rightSelected: PropTypes.array,
+
+    /**
+     * Callback function fired when select item changed.
+     */
+    onChange: PropTypes.func
+
+};
 
 Transfer.defaultProps = {
     leftData: [],

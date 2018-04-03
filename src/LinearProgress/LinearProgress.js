@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Theme from '../Theme';
@@ -91,52 +92,46 @@ class LinearProgress extends Component {
             </div>
         );
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    LinearProgress.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The progress theme.Can be primary,highlight,success,warning,error.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The highlight width of linearProgress.
-         */
-        highlightWidth: PropTypes.string,
-
-        /**
-         * If true,there will have a text description.
-         */
-        word: PropTypes.bool,
-
-        /**
-         * The percent text location.Desirable values include front,middle,follow.
-         */
-        wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map(key => LinearProgress.WordStyle[key])),
-
-        /**
-         * If true, the linearProgress will have animation.
-         */
-        animation: PropTypes.bool
-
-    };
-
 }
+
+LinearProgress.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The progress theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The highlight width of linearProgress.
+     */
+    highlightWidth: PropTypes.string,
+
+    /**
+     * If true,there will have a text description.
+     */
+    word: PropTypes.bool,
+
+    /**
+     * The percent text location.Desirable values include front,middle,follow.
+     */
+    wordStyle: PropTypes.oneOf(Object.keys(LinearProgress.WordStyle).map(key => LinearProgress.WordStyle[key])),
+
+    /**
+     * If true, the linearProgress will have animation.
+     */
+    animation: PropTypes.bool
+
+};
 
 LinearProgress.defaultProps = {
 

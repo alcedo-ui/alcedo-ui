@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
@@ -229,30 +230,24 @@ class PaggingPage extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    PaggingPage.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-
-        page: PropTypes.number.isRequired,
-        total: PropTypes.number.isRequired,
-
-        paggingPrevIconCls: PropTypes.string,
-        paggingNextIconCls: PropTypes.string,
-        paggingFirstIconCls: PropTypes.string,
-        paggingLastIconCls: PropTypes.string,
-
-        onPageChange: PropTypes.func
-
-    };
-
 }
+
+PaggingPage.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+
+    page: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+
+    paggingPrevIconCls: PropTypes.string,
+    paggingNextIconCls: PropTypes.string,
+    paggingFirstIconCls: PropTypes.string,
+    paggingLastIconCls: PropTypes.string,
+
+    onPageChange: PropTypes.func
+
+};
 
 PaggingPage.defaultProps = {
 

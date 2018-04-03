@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Percent from '../_Percent';
@@ -70,57 +71,51 @@ class CircularProgress extends Component {
         );
     }
 
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    CircularProgress.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The style of the percent text description.
-         */
-        percentStyle: PropTypes.object,
-
-        /**
-         * The radius of the progress in pixels.
-         */
-        r: PropTypes.number,
-
-        /**
-         * Stroke width in pixels.
-         */
-        width: PropTypes.number,
-
-        /**
-         * Override the progress's color.
-         */
-        // rgba: PropTypes.string,
-
-        /**
-         * The value of progress.
-         */
-        percent: PropTypes.number,
-
-        /**
-         * If true,there will have a text description.
-         */
-        word: PropTypes.bool
-
-    };
-
 }
+
+CircularProgress.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The style of the percent text description.
+     */
+    percentStyle: PropTypes.object,
+
+    /**
+     * The radius of the progress in pixels.
+     */
+    r: PropTypes.number,
+
+    /**
+     * Stroke width in pixels.
+     */
+    width: PropTypes.number,
+
+    /**
+     * Override the progress's color.
+     */
+    // rgba: PropTypes.string,
+
+    /**
+     * The value of progress.
+     */
+    percent: PropTypes.number,
+
+    /**
+     * If true,there will have a text description.
+     */
+    word: PropTypes.bool
+
+};
 
 CircularProgress.defaultProps = {
 

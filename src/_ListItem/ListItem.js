@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
@@ -232,59 +233,53 @@ class ListItem extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    ListItem.propTypes = {
-
-        index: PropTypes.number,
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-        data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        text: PropTypes.any,
-        desc: PropTypes.string,
-
-        disabled: PropTypes.bool,
-        isLoading: PropTypes.bool,
-        disableTouchRipple: PropTypes.bool,
-        rippleDisplayCenter: PropTypes.bool,
-        checked: PropTypes.bool,
-        readOnly: PropTypes.bool,
-
-        iconCls: PropTypes.string,
-        rightIconCls: PropTypes.string,
-
-        tip: PropTypes.string,
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
-
-        radioUncheckedIconCls: PropTypes.string,
-        radioCheckedIconCls: PropTypes.string,
-        checkboxUncheckedIconCls: PropTypes.string,
-        checkboxCheckedIconCls: PropTypes.string,
-        checkboxIndeterminateIconCls: PropTypes.string,
-
-        itemRenderer: PropTypes.func,
-        renderer: PropTypes.func,
-
-        onTouchTap: PropTypes.func,
-        onSelect: PropTypes.func,
-        onDeselect: PropTypes.func,
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func
-
-    };
-
 }
+
+ListItem.propTypes = {
+
+    index: PropTypes.number,
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    text: PropTypes.any,
+    desc: PropTypes.string,
+
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    disableTouchRipple: PropTypes.bool,
+    rippleDisplayCenter: PropTypes.bool,
+    checked: PropTypes.bool,
+    readOnly: PropTypes.bool,
+
+    iconCls: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    itemRenderer: PropTypes.func,
+    renderer: PropTypes.func,
+
+    onTouchTap: PropTypes.func,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
+
+};
 
 ListItem.defaultProps = {
 

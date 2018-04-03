@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
@@ -189,57 +190,51 @@ class TimePicker extends Component {
             </div>
         );
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    TimePicker.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Time picker input name.
-         */
-        name: PropTypes.string,
-
-        /**
-         * This is the initial date value of the component.
-         */
-        value: PropTypes.string,
-
-        /**
-         * The ending of a range of valid dates. The range includes the endDate.
-         */
-        maxValue: PropTypes.string,
-
-        /**
-         * The beginning of a range of valid dates. The range includes the startDate.
-         */
-        minValue: PropTypes.string,
-
-        /**
-         * TimePicker textField element placeholder.
-         */
-        placeholder: PropTypes.string,
-
-        /**
-         * Time format.
-         */
-        dateFormat: PropTypes.string
-
-    };
-
 }
+
+TimePicker.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Time picker input name.
+     */
+    name: PropTypes.string,
+
+    /**
+     * This is the initial date value of the component.
+     */
+    value: PropTypes.string,
+
+    /**
+     * The ending of a range of valid dates. The range includes the endDate.
+     */
+    maxValue: PropTypes.string,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
+    minValue: PropTypes.string,
+
+    /**
+     * TimePicker textField element placeholder.
+     */
+    placeholder: PropTypes.string,
+
+    /**
+     * Time format.
+     */
+    dateFormat: PropTypes.string
+
+};
 
 TimePicker.defaultProps = {
     name: '',

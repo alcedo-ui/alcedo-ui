@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
@@ -124,39 +125,33 @@ class Anchor extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Anchor.propTypes = {
-
-        className: PropTypes.string,
-        style: PropTypes.object,
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        href: PropTypes.string,
-        alt: PropTypes.string,
-        target: PropTypes.string,
-
-        disabled: PropTypes.bool,
-        readOnly: PropTypes.bool,
-        isLoading: PropTypes.bool,
-
-        iconCls: PropTypes.string,
-        rightIconCls: PropTypes.string,
-
-        tip: PropTypes.string,
-        tipPosition: PropTypes.string,
-
-        onTouchTap: PropTypes.func,
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func
-
-    };
-
 }
+
+Anchor.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    href: PropTypes.string,
+    alt: PropTypes.string,
+    target: PropTypes.string,
+
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    isLoading: PropTypes.bool,
+
+    iconCls: PropTypes.string,
+    rightIconCls: PropTypes.string,
+
+    tip: PropTypes.string,
+    tipPosition: PropTypes.string,
+
+    onTouchTap: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func
+
+};
 
 Anchor.defaultProps = {
 

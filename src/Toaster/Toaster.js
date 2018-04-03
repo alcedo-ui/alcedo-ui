@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
@@ -156,76 +157,70 @@ class Toaster extends Component {
 
     }
 
-};
+}
 
-if (process.env.NODE_ENV === 'development') {
+Toaster.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    Toaster.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Children passed into the toaster.
+     */
+    toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The CSS class name of the root element.
+         * The CSS class name of toast.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the root element.
+         * Override the styles of the toast.
          */
         style: PropTypes.object,
 
         /**
-         * Children passed into the toaster.
+         * The type of toast.
          */
-        toasts: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
 
-            /**
-             * The CSS class name of toast.
-             */
-            className: PropTypes.string,
+        /**
+         * The message of toast.
+         */
+        message: PropTypes.string,
 
-            /**
-             * Override the styles of the toast.
-             */
-            style: PropTypes.object,
-
-            /**
-             * The type of toast.
-             */
-            type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-            /**
-             * The message of toast.
-             */
-            message: PropTypes.string,
-
-            /**
-             * The icon class name of toast.
-             */
-            iconCls: PropTypes.string,
-
-            /**
-             * The duration of toast.
-             */
-            duration: PropTypes.number
-
-        }), PropTypes.string, PropTypes.number])),
-
-        position: PropTypes.oneOf(Util.enumerateValue(Position)),
+        /**
+         * The icon class name of toast.
+         */
+        iconCls: PropTypes.string,
 
         /**
          * The duration of toast.
          */
-        duration: PropTypes.number,
+        duration: PropTypes.number
 
-        /**
-         * Callback function fired when the toaster pop.
-         */
-        onToastPop: PropTypes.func
+    }), PropTypes.string, PropTypes.number])),
 
-    };
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-}
+    /**
+     * The duration of toast.
+     */
+    duration: PropTypes.number,
+
+    /**
+     * Callback function fired when the toaster pop.
+     */
+    onToastPop: PropTypes.func
+
+};
 
 Toaster.defaultProps = {
     position: Position.TOP,

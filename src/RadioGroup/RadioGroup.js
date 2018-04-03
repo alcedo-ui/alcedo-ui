@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Radio from '../Radio';
@@ -90,21 +91,42 @@ class RadioGroup extends Component {
         );
 
     }
-};
+}
 
-if (process.env.NODE_ENV === 'development') {
+RadioGroup.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    RadioGroup.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The RadioGroup theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The name of Radio.
+     */
+    name: PropTypes.string,
+
+    /**
+     * The data of GroupRadio.
+     */
+    data: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * The CSS class name of the root element.
+         * The CSS class name of Radio component.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the root element.
+         * Override the styles of Radio component.
          */
         style: PropTypes.object,
 
@@ -114,73 +136,46 @@ if (process.env.NODE_ENV === 'development') {
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The name of Radio.
+         * The label text of Radio component.
          */
-        name: PropTypes.string,
+        label: PropTypes.any,
 
         /**
-         * The data of GroupRadio.
-         */
-        data: PropTypes.arrayOf(PropTypes.shape({
-
-            /**
-             * The CSS class name of Radio component.
-             */
-            className: PropTypes.string,
-
-            /**
-             * Override the styles of Radio component.
-             */
-            style: PropTypes.object,
-
-            /**
-             * The RadioGroup theme.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-            /**
-             * The label text of Radio component.
-             */
-            label: PropTypes.any,
-
-            /**
-             * The value of Radio component.
-             */
-            value: PropTypes.any,
-
-            /**
-             * If true,the Radio will be disabled.
-             */
-            disabled: PropTypes.bool,
-
-            tip: PropTypes.any,
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
-
-        })).isRequired,
-
-        /**
-         * The value of RadioGroup component.
+         * The value of Radio component.
          */
         value: PropTypes.any,
 
-        uncheckedIconCls: PropTypes.string,
-        checkedIconCls: PropTypes.string,
-
         /**
-         * If true,the RadioGroup will be disabled.
+         * If true,the Radio will be disabled.
          */
         disabled: PropTypes.bool,
 
-        /**
-         * Callback function fired when the value of RadioGroup changed.
-         */
-        onChange: PropTypes.func,
+        tip: PropTypes.any,
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Position))
 
-        onCheck: PropTypes.func
+    })).isRequired,
 
-    };
+    /**
+     * The value of RadioGroup component.
+     */
+    value: PropTypes.any,
 
-}
+    uncheckedIconCls: PropTypes.string,
+    checkedIconCls: PropTypes.string,
+
+    /**
+     * If true,the RadioGroup will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * Callback function fired when the value of RadioGroup changed.
+     */
+    onChange: PropTypes.func,
+
+    onCheck: PropTypes.func
+
+};
 
 RadioGroup.defaultProps = {
 

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
@@ -154,60 +155,54 @@ class Notification extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Notification.propTypes = {
-
-        /**
-         * The CSS class name of notification.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the notification.
-         */
-        style: PropTypes.object,
-
-        notificationId: PropTypes.number,
-
-        /**
-         * The type of notification.
-         */
-        type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
-
-        /**
-         * The title of notification.
-         */
-        title: PropTypes.any,
-
-        /**
-         * The message of notification.
-         */
-        message: PropTypes.any,
-
-        /**
-         * The icon class name of notification.
-         */
-        iconCls: PropTypes.string,
-
-        /**
-         * The duration of notification.
-         */
-        duration: PropTypes.number,
-
-        closeIconVisible: PropTypes.bool,
-        closeButtonVisible: PropTypes.bool,
-        closeButtonValue: PropTypes.string,
-
-        onRequestClose: PropTypes.func
-
-    };
-
 }
+
+Notification.propTypes = {
+
+    /**
+     * The CSS class name of notification.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the notification.
+     */
+    style: PropTypes.object,
+
+    notificationId: PropTypes.number,
+
+    /**
+     * The type of notification.
+     */
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+    /**
+     * The title of notification.
+     */
+    title: PropTypes.any,
+
+    /**
+     * The message of notification.
+     */
+    message: PropTypes.any,
+
+    /**
+     * The icon class name of notification.
+     */
+    iconCls: PropTypes.string,
+
+    /**
+     * The duration of notification.
+     */
+    duration: PropTypes.number,
+
+    closeIconVisible: PropTypes.bool,
+    closeButtonVisible: PropTypes.bool,
+    closeButtonValue: PropTypes.string,
+
+    onRequestClose: PropTypes.func
+
+};
 
 Notification.defaultProps = {
 

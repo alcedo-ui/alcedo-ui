@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import PureRender from '../_vendors/PureRender';
 
@@ -66,27 +67,21 @@ class DownloadField extends Component {
             null;
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    DownloadField.propTypes = {
-
-        /**
-         * Download url.
-         */
-        url: PropTypes.string,
-
-        /**
-         * Loaded callback.
-         */
-        onLoad: PropTypes.func
-
-    };
-
 }
+
+DownloadField.propTypes = {
+
+    /**
+     * Download url.
+     */
+    url: PropTypes.string,
+
+    /**
+     * Loaded callback.
+     */
+    onLoad: PropTypes.func
+
+};
 
 DownloadField.defaultProps = {
     url: null

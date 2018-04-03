@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
@@ -355,244 +356,237 @@ class DropdownSelect extends Component {
         );
 
     }
-};
-
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    DropdownSelect.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * The CSS class name of the trigger element.
-         */
-        triggerClassName: PropTypes.string,
-
-        /**
-         * The class name of the popup element.
-         */
-        popupClassName: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * Override the styles of the popup element.
-         */
-        popupStyle: PropTypes.object,
-
-        /**
-         * The theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The theme.
-         */
-        popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
-
-        /**
-         * The name of the dropDownSelect.
-         */
-        name: PropTypes.string,
-
-        /**
-         * The value of the dropDownSelect.
-         */
-        value: PropTypes.any,
-
-        /**
-         * The placeholder of the dropDownSelect.
-         */
-        placeholder: PropTypes.string,
-
-        rightIconCls: PropTypes.string,
-
-        /**
-         * The options data.
-         */
-        data: PropTypes.oneOfType([
-
-            // not grouped
-            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
-
-                /**
-                 * The CSS class name of the list button.
-                 */
-                className: PropTypes.string,
-
-                /**
-                 * Override the styles of the list button.
-                 */
-                style: PropTypes.object,
-
-                /**
-                 * The theme of the list button.
-                 */
-                theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-                /**
-                 * The text value of the list button.Type can be string or number.
-                 */
-                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-                /**
-                 * The desc value of the list button. Type can be string or number.
-                 */
-                desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-                /**
-                 * If true, the list button will be disabled.
-                 */
-                disabled: PropTypes.bool,
-
-                /**
-                 * If true,the button will be have loading effect.
-                 */
-                isLoading: PropTypes.bool,
-
-                /**
-                 * If true,the element's ripple effect will be disabled.
-                 */
-                disableTouchRipple: PropTypes.bool,
-
-                /**
-                 * Use this property to display an icon. It will display on the left.
-                 */
-                iconCls: PropTypes.string,
-
-                /**
-                 * Use this property to display an icon. It will display on the right.
-                 */
-                rightIconCls: PropTypes.string,
-
-                /**
-                 * You can create a complicated renderer callback instead of value and desc prop.
-                 */
-                renderer: PropTypes.func,
-
-                /**
-                 * Callback function fired when a list item touch-tapped.
-                 */
-                onTouchTap: PropTypes.func
-
-            }), PropTypes.string, PropTypes.number])),
-
-            // grouped
-            PropTypes.array
-
-        ]).isRequired,
-
-        /**
-         * The invalid message of dropDownSelect.
-         */
-        invalidMsg: PropTypes.string,
-
-        /**
-         * If true,the dropDownSelect will be disabled.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * The select mode of listItem.Can be normal,checkbox.
-         */
-        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-        /**
-         * The value field name in data. (default: "value")
-         */
-        valueField: PropTypes.string,
-
-        /**
-         * The display field name in data. (default: "text")
-         */
-        displayField: PropTypes.string,
-
-        /**
-         * The description field name in data. (default: "desc")
-         */
-        descriptionField: PropTypes.string,
-
-        /**
-         * The message of the dropDownSelect.
-         */
-        infoMsg: PropTypes.string,
-
-        /**
-         * Use this function to format the options's text.
-         */
-        textFormat: PropTypes.func,
-
-        /**
-         * If true,the drop-down box automatically closed after selection.
-         */
-        autoClose: PropTypes.bool,
-
-        /**
-         * If true,the drop-down box will have search input.
-         */
-        useFilter: PropTypes.bool,
-
-        useSelectAll: PropTypes.bool,
-        selectAllText: PropTypes.string,
-
-        /**
-         * The message of no matching option.
-         */
-        noMatchedMsg: PropTypes.string,
-
-        shouldPreventContainerScroll: PropTypes.bool,
-
-        popupChildren: PropTypes.any,
-
-        useDynamicRenderList: PropTypes.bool,
-        listHeight: PropTypes.number,
-        itemHeight: PropTypes.number,
-        scrollBuffer: PropTypes.number,
-
-        renderer: PropTypes.func,
-
-        /**
-         * Callback function fired when the button is touch-tapped.
-         */
-        onItemTouchTap: PropTypes.func,
-
-        /**
-         * Callback function fired when the popup is open.
-         */
-        onOpenPopup: PropTypes.func,
-
-        /**
-         * Callback function fired when the popup is close.
-         */
-        onClosePopup: PropTypes.func,
-
-        /**
-         * Callback function fired when a menu item is selected.
-         */
-        onChange: PropTypes.func,
-
-        onWheel: PropTypes.func,
-        onFocus: PropTypes.func,
-        onBlur: PropTypes.func,
-        onMouseOver: PropTypes.func,
-        onMouseOut: PropTypes.func,
-        onMouseOver: PropTypes.func,
-        onMouseOut: PropTypes.func
-
-    };
-
 }
+
+DropdownSelect.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * The CSS class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
+
+    /**
+     * The class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * Override the styles of the popup element.
+     */
+    popupStyle: PropTypes.object,
+
+    /**
+     * The theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme.
+     */
+    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+
+    /**
+     * The name of the dropDownSelect.
+     */
+    name: PropTypes.string,
+
+    /**
+     * The value of the dropDownSelect.
+     */
+    value: PropTypes.any,
+
+    /**
+     * The placeholder of the dropDownSelect.
+     */
+    placeholder: PropTypes.string,
+
+    rightIconCls: PropTypes.string,
+
+    /**
+     * The options data.
+     */
+    data: PropTypes.oneOfType([
+
+        // not grouped
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+
+            /**
+             * The CSS class name of the list button.
+             */
+            className: PropTypes.string,
+
+            /**
+             * Override the styles of the list button.
+             */
+            style: PropTypes.object,
+
+            /**
+             * The theme of the list button.
+             */
+            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+            /**
+             * The text value of the list button.Type can be string or number.
+             */
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * The desc value of the list button. Type can be string or number.
+             */
+            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            /**
+             * If true, the list button will be disabled.
+             */
+            disabled: PropTypes.bool,
+
+            /**
+             * If true,the button will be have loading effect.
+             */
+            isLoading: PropTypes.bool,
+
+            /**
+             * If true,the element's ripple effect will be disabled.
+             */
+            disableTouchRipple: PropTypes.bool,
+
+            /**
+             * Use this property to display an icon. It will display on the left.
+             */
+            iconCls: PropTypes.string,
+
+            /**
+             * Use this property to display an icon. It will display on the right.
+             */
+            rightIconCls: PropTypes.string,
+
+            /**
+             * You can create a complicated renderer callback instead of value and desc prop.
+             */
+            renderer: PropTypes.func,
+
+            /**
+             * Callback function fired when a list item touch-tapped.
+             */
+            onTouchTap: PropTypes.func
+
+        }), PropTypes.string, PropTypes.number])),
+
+        // grouped
+        PropTypes.array
+
+    ]).isRequired,
+
+    /**
+     * The invalid message of dropDownSelect.
+     */
+    invalidMsg: PropTypes.string,
+
+    /**
+     * If true,the dropDownSelect will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * The select mode of listItem.Can be normal,checkbox.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
+    /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
+
+    /**
+     * The message of the dropDownSelect.
+     */
+    infoMsg: PropTypes.string,
+
+    /**
+     * Use this function to format the options's text.
+     */
+    textFormat: PropTypes.func,
+
+    /**
+     * If true,the drop-down box automatically closed after selection.
+     */
+    autoClose: PropTypes.bool,
+
+    /**
+     * If true,the drop-down box will have search input.
+     */
+    useFilter: PropTypes.bool,
+
+    useSelectAll: PropTypes.bool,
+    selectAllText: PropTypes.string,
+
+    /**
+     * The message of no matching option.
+     */
+    noMatchedMsg: PropTypes.string,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    popupChildren: PropTypes.any,
+
+    useDynamicRenderList: PropTypes.bool,
+    listHeight: PropTypes.number,
+    itemHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
+    renderer: PropTypes.func,
+
+    /**
+     * Callback function fired when the button is touch-tapped.
+     */
+    onItemTouchTap: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
+     */
+    onClosePopup: PropTypes.func,
+
+    /**
+     * Callback function fired when a menu item is selected.
+     */
+    onChange: PropTypes.func,
+
+    onWheel: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
+
+};
 
 DropdownSelect.defaultProps = {
 

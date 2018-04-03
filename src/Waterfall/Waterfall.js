@@ -191,35 +191,29 @@ class Waterfall extends Component {
 
 }
 
-if (process.env.NODE_ENV === 'development') {
+Waterfall.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
 
-    Waterfall.propTypes = {
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
 
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
+    /**
+     * Column count of waterfall.
+     */
+    column: PropTypes.number,
 
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
+    /**
+     * horizontal separator between items for calculation and display.
+     */
+    separator: PropTypes.number
 
-        /**
-         * Column count of waterfall.
-         */
-        column: PropTypes.number,
-
-        /**
-         * horizontal separator between items for calculation and display.
-         */
-        separator: PropTypes.number
-
-    };
-
-}
+};
 
 Waterfall.defaultProps = {
     column: 3,

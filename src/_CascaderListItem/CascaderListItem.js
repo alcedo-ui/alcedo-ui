@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import List from '../List';
@@ -106,47 +107,41 @@ class CascaderListItem extends Component {
     }
 }
 
-if (process.env.NODE_ENV === 'development') {
+CascaderListItem.propTypes = {
 
-    const PropTypes = require('prop-types');
+    /**
+     * The width of CascaderListItem.
+     */
+    listWidth: PropTypes.number,
 
-    CascaderListItem.propTypes = {
+    /**
+     * The data of cascader-list.
+     */
+    data: PropTypes.array,
 
-        /**
-         * The width of CascaderListItem.
-         */
-        listWidth: PropTypes.number,
+    path: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+        index: PropTypes.number
+    })),
 
-        /**
-         * The data of cascader-list.
-         */
-        data: PropTypes.array,
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
 
-        path: PropTypes.arrayOf(PropTypes.shape({
-            node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-            index: PropTypes.number
-        })),
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
 
-        /**
-         * The value field name in data. (default: "value")
-         */
-        valueField: PropTypes.string,
+    /**
+     * The current depth.
+     */
+    currDepth: PropTypes.number,
 
-        /**
-         * The display field name in data. (default: "text")
-         */
-        displayField: PropTypes.string,
+    depth: PropTypes.number
 
-        /**
-         * The current depth.
-         */
-        currDepth: PropTypes.number,
-
-        depth: PropTypes.number
-
-    };
-
-}
+};
 
 CascaderListItem.defaultProps = {
 

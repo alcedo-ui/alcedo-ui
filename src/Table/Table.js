@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
@@ -562,222 +563,216 @@ class Table extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    Table.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The theme of the table select radio or checkbox.
-         */
-        selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The select mode of table.
-         */
-        selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-        /**
-         * The table list data.
-         */
-        data: PropTypes.arrayOf(PropTypes.shape({
-
-            /**
-             * The class name of tr.
-             */
-            rowClassName: PropTypes.string,
-
-            /**
-             * Override the styles of tr.
-             */
-            rowStyle: PropTypes.object
-
-        })).isRequired,
-
-        /**
-         * The value of tr.
-         */
-        value: PropTypes.any,
-
-        /**
-         * Sorting method.
-         */
-        sortFunc: PropTypes.func,
-
-        /**
-         * If true,the table will have line number.
-         */
-        hasLineNumber: PropTypes.bool,
-
-        /**
-         * The function that trigger when select changes.
-         */
-        onSelectChange: PropTypes.func,
-
-        /**
-         * Children passed into table header.
-         */
-        columns: PropTypes.arrayOf(PropTypes.shape({
-
-            /**
-             * The class name of header.
-             */
-            headerClassName: PropTypes.string,
-
-            /**
-             * Override the styles of header.
-             */
-            headerStyle: PropTypes.object,
-
-            // header renderer
-            // (1) string，example： 'id'
-            // (2) callback，example：function (colIndex) {return colIndex;}
-            /**
-             * The render content in header.
-             */
-            header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-            /**
-             * The class name of td.
-             */
-            cellClassName: PropTypes.string,
-
-            /**
-             * Override the styles of td.
-             */
-            cellStyle: PropTypes.object,
-
-            // cell renderer
-            // (1) data key，example： 'id'
-            // (2) data key tamplate，example：'${id} - ${name}'
-            // (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
-            /**
-             * The render content in table.
-             */
-            renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-            /**
-             * If true,this column can be sorted.
-             */
-            sortable: PropTypes.bool,
-
-            /**
-             * Sort field.
-             */
-            sortProp: PropTypes.string,
-
-            defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType))
-
-        })).isRequired,
-
-        disabled: PropTypes.bool,
-
-        /**
-         * The fields as ID.
-         */
-        idProp: PropTypes.string,
-
-        /**
-         * If true,the table will use Pagging component.
-         */
-        useFullPagging: PropTypes.bool,
-
-        /**
-         * If true,the table will have padding.
-         */
-        isPagging: PropTypes.bool,
-
-        /**
-         * If true,the total of selected will display.
-         */
-        paggingSelectedCountVisible: PropTypes.bool,
-
-        /**
-         * If true,the pageSize will display.
-         */
-        paggingPageSizeVisible: PropTypes.bool,
-
-        /**
-         *
-         */
-        defaultPageSize: PropTypes.number,
-
-        /**
-         *
-         */
-        pageSizes: PropTypes.array,
-
-        /**
-         * Sort init config.
-         */
-        sortInitConfig: PropTypes.shape({
-
-            /**
-             * Specify the sorting column.
-             */
-            prop: PropTypes.string,
-
-            /**
-             * If type equals 1,data will ascending ordered,else type equals -1,data will descending ordered.
-             */
-            type: PropTypes.oneOf([1, -1])
-
-        }),
-
-        radioUncheckedIconCls: PropTypes.string,
-        radioCheckedIconCls: PropTypes.string,
-        checkboxUncheckedIconCls: PropTypes.string,
-        checkboxCheckedIconCls: PropTypes.string,
-        checkboxIndeterminateIconCls: PropTypes.string,
-
-        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
-        sortAscIconCls: PropTypes.string,
-        sortDescIconCls: PropTypes.string,
-        paggingPrevIconCls: PropTypes.string,
-        paggingNextIconCls: PropTypes.string,
-        paggingFirstIconCls: PropTypes.string,
-        paggingLastIconCls: PropTypes.string,
-
-        /**
-         * The function that trigger when select one item.
-         */
-        onSelect: PropTypes.func,
-
-        /**
-         * The function that trigger when unSelect one item.
-         */
-        onDeselect: PropTypes.func,
-
-        /**
-         * The function that trigger when the row is touch-tapped.
-         */
-        onRowTouchTap: PropTypes.func,
-
-        /**
-         * The function that trigger when the td is touch-tapped.
-         */
-        onCellTouchTap: PropTypes.func,
-
-        onPageChange: PropTypes.func,
-
-        onChange: PropTypes.func
-
-    };
-
 }
+
+Table.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The theme of the table select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The select mode of table.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The table list data.
+     */
+    data: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * The class name of tr.
+         */
+        rowClassName: PropTypes.string,
+
+        /**
+         * Override the styles of tr.
+         */
+        rowStyle: PropTypes.object
+
+    })).isRequired,
+
+    /**
+     * The value of tr.
+     */
+    value: PropTypes.any,
+
+    /**
+     * Sorting method.
+     */
+    sortFunc: PropTypes.func,
+
+    /**
+     * If true,the table will have line number.
+     */
+    hasLineNumber: PropTypes.bool,
+
+    /**
+     * The function that trigger when select changes.
+     */
+    onSelectChange: PropTypes.func,
+
+    /**
+     * Children passed into table header.
+     */
+    columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * The class name of header.
+         */
+        headerClassName: PropTypes.string,
+
+        /**
+         * Override the styles of header.
+         */
+        headerStyle: PropTypes.object,
+
+        // header renderer
+        // (1) string，example： 'id'
+        // (2) callback，example：function (colIndex) {return colIndex;}
+        /**
+         * The render content in header.
+         */
+        header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * The class name of td.
+         */
+        cellClassName: PropTypes.string,
+
+        /**
+         * Override the styles of td.
+         */
+        cellStyle: PropTypes.object,
+
+        // cell renderer
+        // (1) data key，example： 'id'
+        // (2) data key tamplate，example：'${id} - ${name}'
+        // (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
+        /**
+         * The render content in table.
+         */
+        renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * If true,this column can be sorted.
+         */
+        sortable: PropTypes.bool,
+
+        /**
+         * Sort field.
+         */
+        sortProp: PropTypes.string,
+
+        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType))
+
+    })).isRequired,
+
+    disabled: PropTypes.bool,
+
+    /**
+     * The fields as ID.
+     */
+    idProp: PropTypes.string,
+
+    /**
+     * If true,the table will use Pagging component.
+     */
+    useFullPagging: PropTypes.bool,
+
+    /**
+     * If true,the table will have padding.
+     */
+    isPagging: PropTypes.bool,
+
+    /**
+     * If true,the total of selected will display.
+     */
+    paggingSelectedCountVisible: PropTypes.bool,
+
+    /**
+     * If true,the pageSize will display.
+     */
+    paggingPageSizeVisible: PropTypes.bool,
+
+    /**
+     *
+     */
+    defaultPageSize: PropTypes.number,
+
+    /**
+     *
+     */
+    pageSizes: PropTypes.array,
+
+    /**
+     * Sort init config.
+     */
+    sortInitConfig: PropTypes.shape({
+
+        /**
+         * Specify the sorting column.
+         */
+        prop: PropTypes.string,
+
+        /**
+         * If type equals 1,data will ascending ordered,else type equals -1,data will descending ordered.
+         */
+        type: PropTypes.oneOf([1, -1])
+
+    }),
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string,
+    paggingPrevIconCls: PropTypes.string,
+    paggingNextIconCls: PropTypes.string,
+    paggingFirstIconCls: PropTypes.string,
+    paggingLastIconCls: PropTypes.string,
+
+    /**
+     * The function that trigger when select one item.
+     */
+    onSelect: PropTypes.func,
+
+    /**
+     * The function that trigger when unSelect one item.
+     */
+    onDeselect: PropTypes.func,
+
+    /**
+     * The function that trigger when the row is touch-tapped.
+     */
+    onRowTouchTap: PropTypes.func,
+
+    /**
+     * The function that trigger when the td is touch-tapped.
+     */
+    onCellTouchTap: PropTypes.func,
+
+    onPageChange: PropTypes.func,
+
+    onChange: PropTypes.func
+
+};
 
 Table.defaultProps = {
 

@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
@@ -65,62 +66,56 @@ class ButtonCheckbox extends Component {
         );
 
     }
-};
-
-if (process.env.NODE_ENV === 'development') {
-
-    const PropTypes = require('prop-types');
-
-    ButtonCheckbox.propTypes = {
-
-        /**
-         * The CSS class name of the root element.
-         */
-        className: PropTypes.string,
-
-        /**
-         * Override the styles of the root element.
-         */
-        style: PropTypes.object,
-
-        /**
-         * The ButtonCheckbox theme.
-         */
-        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The ButtonCheckbox activated theme.
-         */
-        activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-        /**
-         * The name of the toggleButton.
-         */
-        // name: PropTypes.string,
-
-        /**
-         * The text of the button.
-         */
-        text: PropTypes.string,
-
-        /**
-         * If true,the button will be in active status.
-         */
-        value: PropTypes.bool,
-
-        /**
-         * Disables the button if set to true.
-         */
-        disabled: PropTypes.bool,
-
-        /**
-         * Callback function fired when the button is touch-tapped.
-         */
-        onChange: PropTypes.func
-
-    };
-
 }
+
+ButtonCheckbox.propTypes = {
+
+    /**
+     * The CSS class name of the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     * Override the styles of the root element.
+     */
+    style: PropTypes.object,
+
+    /**
+     * The ButtonCheckbox theme.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The ButtonCheckbox activated theme.
+     */
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The name of the toggleButton.
+     */
+    // name: PropTypes.string,
+
+    /**
+     * The text of the button.
+     */
+    text: PropTypes.string,
+
+    /**
+     * If true,the button will be in active status.
+     */
+    value: PropTypes.bool,
+
+    /**
+     * Disables the button if set to true.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * Callback function fired when the button is touch-tapped.
+     */
+    onChange: PropTypes.func
+
+};
 
 ButtonCheckbox.defaultProps = {
 
