@@ -92,13 +92,12 @@ class DraggableListItem extends Component {
 
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.checked !== prevState.checked) {
-            return {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.checked !== this.state.checked) {
+            this.setState({
                 checked: nextProps.checked
-            };
+            });
         }
-        return null;
     }
 
     render() {
