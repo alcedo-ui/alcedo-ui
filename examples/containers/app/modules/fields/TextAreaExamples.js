@@ -7,19 +7,35 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TextArea.json';
 
-export default class TextAreaExamples extends Component {
+class TextAreaExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: {}
+        };
+
+        this.changeHandler = ::this.changeHandler;
+
     }
 
-    onChangeHandle(value) {
-        console.log(value);
+    changeHandler(v, index) {
+        const {value} = this.state;
+        value[index] = v;
+        this.setState({
+            value
+        });
     }
 
     render() {
+
+        const {value} = this.state;
+
         return (
             <div className="example">
+
                 <h2 className="example-title">TextArea</h2>
 
                 <p>
@@ -34,7 +50,9 @@ export default class TextAreaExamples extends Component {
                         <div className="example-content">
                             <p>TextArea with auto size.</p>
                             <TextArea placeholder="placeholder"
-                                      autoHeight={true}/>
+                                      autoHeight={true}
+                                      value={value[0]}
+                                      onChange={v => this.changeHandler(v, 0)}/>
                         </div>
                     </div>
                 </Widget>
@@ -48,7 +66,8 @@ export default class TextAreaExamples extends Component {
                                       autoHeight={false}
                                       wordCountVisible={true}
                                       maxLength={100}
-                                      onChange={this.onChangeHandle}/>
+                                      value={value[1]}
+                                      onChange={v => this.changeHandler(v, 1)}/>
                         </div>
                     </div>
                 </Widget>
@@ -56,7 +75,10 @@ export default class TextAreaExamples extends Component {
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
+
             </div>
         );
     }
 }
+
+export default TextAreaExamples;
