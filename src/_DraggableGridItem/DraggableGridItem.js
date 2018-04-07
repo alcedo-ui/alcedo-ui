@@ -33,13 +33,11 @@ class DraggableGridItem extends Component {
     static SelectMode = SelectMode;
     static Theme = Theme;
 
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.state = {
-            checked: props.checked,
             tipVisible: false
         };
 
@@ -71,32 +69,24 @@ class DraggableGridItem extends Component {
     }
 
     checkboxChangeHandler(checked) {
-        this.setState({
-            checked
-        }, () => {
 
-            const {onSelect, onDeselect} = this.props;
+        const {onSelect, onDeselect} = this.props;
 
-            if (checked) {
-                onSelect && onSelect();
-            } else {
-                onDeselect && onDeselect();
-            }
+        if (checked) {
+            onSelect && onSelect();
+        } else {
+            onDeselect && onDeselect();
+        }
 
-        });
     }
 
     radioChangeHandler() {
 
-        const {checked} = this.state;
+        const {checked} = this.props;
 
         if (!checked) {
-            this.setState({
-                checked: true
-            }, () => {
-                const {onSelect} = this.props;
-                onSelect && onSelect();
-            });
+            const {onSelect} = this.props;
+            onSelect && onSelect();
         }
 
     }
@@ -116,7 +106,7 @@ class DraggableGridItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked);
+                this.checkboxChangeHandler(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
@@ -131,14 +121,6 @@ class DraggableGridItem extends Component {
         onMouseOver && onMouseOver(e);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: nextProps.checked
-            });
-        }
-    }
-
     render() {
 
         const {
@@ -146,7 +128,7 @@ class DraggableGridItem extends Component {
                 connectDragPreview, connectDragSource, connectDropTarget, isDraggableAnyWhere, anchorIconCls,
 
                 index, className, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, renderer, itemRenderer,
+                checked, disabled, isLoading, renderer, itemRenderer,
                 col,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
@@ -158,7 +140,7 @@ class DraggableGridItem extends Component {
                 ...restProps
 
             } = this.props,
-            {checked, tipVisible} = this.state,
+            {tipVisible} = this.state,
 
             listItemClassName = classNames('draggable-grid-item', {
                 [`theme-${theme}`]: theme,
