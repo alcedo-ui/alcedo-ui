@@ -145,6 +145,8 @@ class MultipleSelect extends Component {
     filterChangeHandler(filter) {
         this.setState({
             filter
+        }, () => {
+            this.popupRef && this.popupRef.resetPosition();
         });
     }
 
