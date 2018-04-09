@@ -470,9 +470,9 @@ class Table extends Component {
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
 
                 // not passing down these props
-                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber,
-                columns, selectTheme, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
+                radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
+                checkboxIndeterminateIconCls, onSort,
 
                 ...restProps
 
