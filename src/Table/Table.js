@@ -161,6 +161,9 @@ class Table extends Component {
         this.setState({
             sort,
             sortedData: this.sortData(data, sort)
+        }, () => {
+            const {onSort} = this.props;
+            onSort && onSort(sort);
         });
 
     }
@@ -467,9 +470,9 @@ class Table extends Component {
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
 
                 // not passing down these props
-                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber,
-                columns, selectTheme, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
+                radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
+                checkboxIndeterminateIconCls, onSort,
 
                 ...restProps
 
@@ -766,8 +769,8 @@ Table.propTypes = {
      */
     onCellTouchTap: PropTypes.func,
 
+    onSort: PropTypes.func,
     onPageChange: PropTypes.func,
-
     onChange: PropTypes.func
 
 };
