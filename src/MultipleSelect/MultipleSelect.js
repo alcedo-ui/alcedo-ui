@@ -64,12 +64,10 @@ class MultipleSelect extends Component {
             return filterCallback(filter, data);
         }
 
-        const filterFunc = (originData) => {
-            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase()));
-        };
+        const filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+            :
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (isGrouped) {
             return data.map(group => {
