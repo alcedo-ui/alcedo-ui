@@ -64,12 +64,10 @@ class MultipleSelect extends Component {
             return filterCallback(filter, data);
         }
 
-        const filterFunc = (originData) => {
-            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase()));
-        };
+        const filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+            :
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (isGrouped) {
             return data.map(group => {
@@ -147,6 +145,8 @@ class MultipleSelect extends Component {
     filterChangeHandler(filter) {
         this.setState({
             filter
+        }, () => {
+            this.popupRef && this.popupRef.resetPosition();
         });
     }
 
@@ -234,23 +234,18 @@ class MultipleSelect extends Component {
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
             emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                }
+                itemRenderer: () =>
+                    <div className="no-matched-list-item">
+                        {
+                            noMatchedMsg ?
+                                noMatchedMsg
+                                :
+                                <span>
+                                    <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                    No matched value.
+                                </span>
+                        }
+                    </div>
             }],
 
             valueLen = (value ? value.length : 0),
@@ -355,7 +350,7 @@ class MultipleSelect extends Component {
                        onRequestClose={this.closePopup}>
 
                     {
-                        isGrouped ?
+                        !isEmpty && isGrouped ?
                             <GroupList className="multiple-select-list"
                                        theme={theme}
                                        value={value}

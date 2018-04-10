@@ -232,7 +232,7 @@ class List extends Component {
                  }}>
 
                 {
-                    data.map((item, index) => item === LIST_SEPARATOR ?
+                    data && data.map((item, index) => item === LIST_SEPARATOR ?
                         <div key={index}
                              className="list-separator"></div>
                         :
