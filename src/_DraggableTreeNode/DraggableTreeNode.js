@@ -269,7 +269,7 @@ class DraggableTreeNode extends Component {
                                                                draggableId={'' + item.id}
                                                                type={data.id}
                                                                disableInteractiveElementBlocking={false}
-                                                               isDragDisabled={isNodeToggling}
+                                                               isDragDisabled={isNodeToggling || isNodeDisabled}
                                                                index={index}>
                                                         {
                                                             (dragProvided, dragSnapshot) => (
