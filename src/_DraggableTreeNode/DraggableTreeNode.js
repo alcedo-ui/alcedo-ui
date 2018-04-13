@@ -286,7 +286,6 @@ class DraggableTreeNode extends Component {
                                                                                            path={path}
                                                                                            isDragging={dragSnapshot.isDragging}/>
                                                                     </div>
-                                                                    {dragProvided.placeholder}
                                                                 </div>
                                                             )
                                                         }
