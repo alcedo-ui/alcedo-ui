@@ -46,14 +46,10 @@ class DraggableListItem extends Component {
     }
 
     radioChangeHandler() {
-
-        const {checked} = this.props;
-
-        if (!checked) {
+        if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
         }
-
     }
 
     touchTapHandler(e) {
