@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import debounce from 'lodash/debounce';
 
 import LandingNav from './LandingNav';
@@ -19,22 +20,70 @@ class Landing extends Component {
 
         super(props);
 
+        this.menu = [{
+            name: 'Intro',
+            hash: '#landing-intro'
+        }, {
+            name: 'Get Started',
+            hash: '#landing-get-started'
+        }, {
+            name: 'Usage',
+            hash: '#landing-usage'
+        }, {
+            name: 'Examples',
+            hash: '#landing-examples'
+        }];
+
         this.state = {
-            bodyScrollTop: 0
+            bodyScrollTop: 0,
+            activatedMenu: this.menu[0],
+            isNavFixed: false
         };
 
+        this.isNavFixed = ::this.isNavFixed;
         this.scrollHandler = ::this.scrollHandler;
 
     }
 
+    isNavFixed(bodyScrollTop) {
+        const introEl = document.querySelector(this.menu[0].hash);
+        return introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
+    }
+
+    getActivatedMenu(bodyScrollTop) {
+
+        let activatedMenu = this.menu[0];
+
+        for (let i = 0, len = this.menu.length; i < len; i++) {
+            const el = document.querySelector(this.menu[i].hash);
+            if (el && bodyScrollTop >= el.offsetTop - this.navHeight) {
+                activatedMenu = this.menu[i];
+            }
+        }
+
+        return activatedMenu;
+
+    }
+
     scrollHandler = debounce(() => {
+
+        const bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
         this.setState({
-            bodyScrollTop: document.body.scrollTop || document.documentElement.scrollTop
+            bodyScrollTop,
+            activatedMenu: this.getActivatedMenu(bodyScrollTop),
+            isNavFixed: this.isNavFixed(bodyScrollTop)
         });
+
     }, 250);
 
     componentDidMount() {
+
         Event.addEvent(document, 'scroll', this.scrollHandler);
+
+        this.navEl = findDOMNode(this.refs.nav);
+        this.navHeight = (this.navEl && this.navEl.offsetHeight) || 80;
+
     }
 
     componentWillUnmount() {
@@ -43,12 +92,15 @@ class Landing extends Component {
 
     render() {
 
-        const {bodyScrollTop} = this.state;
+        const {bodyScrollTop, activatedMenu, isNavFixed} = this.state;
 
         return (
             <div className="landing">
 
-                <LandingNav bodyScrollTop={bodyScrollTop}/>
+                <LandingNav ref="nav"
+                            menu={this.menu}
+                            activatedMenu={activatedMenu}
+                            isFixed={isNavFixed}/>
 
                 <LandingIntro/>
 
