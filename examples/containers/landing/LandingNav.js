@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -12,83 +13,22 @@ class LandingNav extends Component {
 
         super(props);
 
-        this.menu = [{
-            name: 'Intro',
-            hash: '#landing-intro'
-        }, {
-            name: 'Get Started',
-            hash: '#landing-get-started'
-        }, {
-            name: 'Usage',
-            hash: '#landing-usage'
-        }, {
-            name: 'Examples',
-            hash: '#landing-examples'
-        }];
-
-        this.state = {
-            activatedMenu: this.menu[0]
-        };
-
-        this.menuClickHandle = ::this.menuClickHandle;
-        this.updateActivatedMenu = ::this.updateActivatedMenu;
-        this.isFixed = ::this.isFixed;
+        this.menuClickHandler = ::this.menuClickHandler;
 
     }
 
-    menuClickHandle(activatedMenu) {
-
+    menuClickHandler(activatedMenu) {
         const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
-
         document.body.scrollTop = scrollTop;
         document.documentElement.scrollTop = scrollTop;
-
-    }
-
-    updateActivatedMenu(props = this.props) {
-
-        const {bodyScrollTop} = props;
-
-        let activatedMenu = this.menu[0];
-        for (let i = 0, len = this.menu.length; i < len; i++) {
-            const el = document.querySelector(this.menu[i].hash);
-            if (el && bodyScrollTop >= el.offsetTop - this.navHeight) {
-                activatedMenu = this.menu[i];
-            }
-        }
-
-        this.setState({
-            activatedMenu
-        });
-
-    }
-
-    isFixed() {
-        const {bodyScrollTop} = this.props,
-            introEl = document.querySelector(this.menu[0].hash);
-        return introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
-    }
-
-    componentDidMount() {
-
-        this.updateActivatedMenu();
-
-        this.navHeight = (this.refs.wrapper && this.refs.wrapper.clientHeight) || 80;
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.bodyScrollTop !== this.props.bodyScrollTop) {
-            this.updateActivatedMenu(nextProps);
-        }
     }
 
     render() {
 
-        const {activatedMenu} = this.state,
+        const {menu, activatedMenu, isFixed} = this.props,
 
             wrapperClassName = classnames('landing-nav-wrapper', {
-                fixed: this.isFixed()
+                fixed: isFixed
             });
 
         return (
@@ -108,13 +48,13 @@ class LandingNav extends Component {
 
                         <ul className="landing-nav-menu">
                             {
-                                this.menu && this.menu.map((item, index) =>
+                                menu && menu.map((item, index) =>
                                     <li key={index}
                                         className={classnames('landing-nav-menu-item', {
                                             activated: activatedMenu.hash === item.hash
                                         })}
                                         onClick={() => {
-                                            this.menuClickHandle(item);
+                                            this.menuClickHandler(item);
                                         }}>
                                         {item.name}
                                     </li>
@@ -136,7 +76,9 @@ class LandingNav extends Component {
 }
 
 LandingNav.propTypes = {
-    bodyScrollTop: PropTypes.number
+    menu: PropTypes.array,
+    activatedMenu: PropTypes.object,
+    isFixed: PropTypes.bool
 };
 
 export default LandingNav;
