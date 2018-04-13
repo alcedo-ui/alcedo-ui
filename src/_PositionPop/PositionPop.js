@@ -99,7 +99,7 @@ class PositionPop extends Component {
 
         if (nextProps.visible) {
             this.setState({
-                exited: !nextProps.visible
+                exited: false
             });
         }
 
