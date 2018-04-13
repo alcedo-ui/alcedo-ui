@@ -27,10 +27,6 @@ class DraggableListItem extends Component {
 
         super(props, ...restArgs);
 
-        this.state = {
-            checked: props.checked
-        };
-
         this.checkboxChangeHandler = ::this.checkboxChangeHandler;
         this.radioChangeHandler = ::this.radioChangeHandler;
         this.touchTapHandler = ::this.touchTapHandler;
@@ -38,32 +34,24 @@ class DraggableListItem extends Component {
     }
 
     checkboxChangeHandler(checked) {
-        this.setState({
-            checked
-        }, () => {
 
-            const {onSelect, onDeselect} = this.props;
+        const {onSelect, onDeselect} = this.props;
 
-            if (checked) {
-                onSelect && onSelect();
-            } else {
-                onDeselect && onDeselect();
-            }
+        if (checked) {
+            onSelect && onSelect();
+        } else {
+            onDeselect && onDeselect();
+        }
 
-        });
     }
 
     radioChangeHandler() {
 
-        const {checked} = this.state;
+        const {checked} = this.props;
 
         if (!checked) {
-            this.setState({
-                checked: true
-            }, () => {
-                const {onSelect} = this.props;
-                onSelect && onSelect();
-            });
+            const {onSelect} = this.props;
+            onSelect && onSelect();
         }
 
     }
@@ -83,21 +71,13 @@ class DraggableListItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked);
+                this.checkboxChangeHandler(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: nextProps.checked
-            });
-        }
     }
 
     render() {
@@ -107,13 +87,12 @@ class DraggableListItem extends Component {
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, renderer, itemRenderer, readOnly, anchorIconCls,
 
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onMouseEnter, onMouseLeave
 
             } = this.props,
-            {checked} = this.state,
 
             listItemClassName = classNames('draggable-list-item', {
                 [`theme-${theme}`]: theme,
