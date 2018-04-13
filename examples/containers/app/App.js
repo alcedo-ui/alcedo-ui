@@ -6,6 +6,7 @@ import {Redirect} from 'react-router';
 import {renderRoutes} from 'react-router-config';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import classnames from 'classnames';
 
 import * as actions from 'reduxes/actions';
 
@@ -29,10 +30,14 @@ class App extends Component {
 
     render() {
 
-        const {route, location, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props;
+        const {route, location, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props,
+
+            appClassName = classnames('app', {
+                collapsed: $navMenuCollapsed
+            });
 
         return (
-            <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
+            <div className={appClassName}>
 
                 <PageLoading visible={$componentLoading}/>
 
@@ -40,8 +45,7 @@ class App extends Component {
 
                 <NavBar/>
 
-                <div ref="appContent"
-                     className="app-content">
+                <div className="app-content">
 
                     {renderRoutes(route.routes)}
 
@@ -78,7 +82,7 @@ App.propTypes = {
 
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         $isDesktop: state.device.isDesktop,
         $navMenuCollapsed: state.navMenu.navMenuCollapsed,
