@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import IconAnchor from 'src/IconAnchor';
 
@@ -29,8 +30,9 @@ class LandingNav extends Component {
             activatedMenu: this.menu[0]
         };
 
-        this.menuClickHandle = this::this.menuClickHandle;
-        this.updateActivatedMenu = this::this.updateActivatedMenu;
+        this.menuClickHandle = ::this.menuClickHandle;
+        this.updateActivatedMenu = ::this.updateActivatedMenu;
+        this.isFixed = ::this.isFixed;
 
     }
 
@@ -61,6 +63,12 @@ class LandingNav extends Component {
 
     }
 
+    isFixed() {
+        const {bodyScrollTop} = this.props,
+            introEl = document.querySelector(this.menu[0].hash);
+        return introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
+    }
+
     componentDidMount() {
 
         this.updateActivatedMenu();
@@ -77,15 +85,15 @@ class LandingNav extends Component {
 
     render() {
 
-        const {bodyScrollTop} = this.props,
-            {activatedMenu} = this.state,
+        const {activatedMenu} = this.state,
 
-            introEl = document.querySelector(this.menu[0].hash),
-            isFixed = introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
+            wrapperClassName = classnames('landing-nav-wrapper', {
+                fixed: this.isFixed()
+            });
 
         return (
             <div ref="wrapper"
-                 className={`landing-nav-wrapper ${isFixed ? 'fixed' : ''}`}>
+                 className={wrapperClassName}>
 
                 <div className="landing-nav-bg"></div>
 
@@ -98,31 +106,25 @@ class LandingNav extends Component {
                             <span className="logo-text">Alcedo-UI</span>
                         </a>
 
+                        <ul className="landing-nav-menu">
+                            {
+                                this.menu && this.menu.map((item, index) =>
+                                    <li key={index}
+                                        className={classnames('landing-nav-menu-item', {
+                                            activated: activatedMenu.hash === item.hash
+                                        })}
+                                        onClick={() => {
+                                            this.menuClickHandle(item);
+                                        }}>
+                                        {item.name}
+                                    </li>
+                                )
+                            }
+                        </ul>
+
                         <IconAnchor className="github-icon"
                                     iconCls="fab fa-github"
                                     href="https://github.com/alcedo-ui/alcedo-ui"/>
-
-                        <ul className="landing-nav-menu">
-
-                            {
-                                this.menu.map((item, index) => {
-
-                                    const itemClassName = (activatedMenu.hash === item.hash ? ' activated' : '');
-
-                                    return (
-                                        <li key={index}
-                                            className={'landing-nav-menu-item' + itemClassName}
-                                            onClick={() => {
-                                                this.menuClickHandle(item);
-                                            }}>
-                                            {item.name}
-                                        </li>
-                                    );
-
-                                })
-                            }
-
-                        </ul>
 
                     </div>
                 </div>
