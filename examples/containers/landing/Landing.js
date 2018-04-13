@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import _ from 'lodash';
-
-import Event from 'vendors/Event';
+import debounce from 'lodash/debounce';
 
 import LandingNav from './LandingNav';
 import LandingIntro from './sections/LandingIntro';
@@ -10,6 +8,8 @@ import LandingGetStarted from './sections/LandingGetStarted';
 import LandingUsage from './sections/LandingUsage';
 import LandingExamples from './sections/LandingExamples';
 import LandingFoot from './LandingFoot';
+
+import Event from 'vendors/Event';
 
 import 'sass/containers/landing/Landing.scss';
 
@@ -23,20 +23,15 @@ class Landing extends Component {
             bodyScrollTop: 0
         };
 
-        this.scrollHandler = this::this.scrollHandler;
-        this.debounceScrollHandler = _.debounce(this::this.debounceScrollHandler, 150);
+        this.scrollHandler = ::this.scrollHandler;
 
     }
 
-    debounceScrollHandler() {
+    scrollHandler = debounce(() => {
         this.setState({
             bodyScrollTop: document.body.scrollTop || document.documentElement.scrollTop
         });
-    }
-
-    scrollHandler(e) {
-        this.debounceScrollHandler(e);
-    }
+    }, 250);
 
     componentDidMount() {
         Event.addEvent(document, 'scroll', this.scrollHandler);
