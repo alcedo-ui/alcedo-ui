@@ -30,7 +30,7 @@ class TouchRipple extends Component {
         this.getRippleStyle = ::this.getRippleStyle;
         this.addRipple = ::this.addRipple;
         this.removeRipple = ::this.removeRipple;
-        this.mouseDownHandle = ::this.mouseDownHandle;
+        this.mouseDownHandler = ::this.mouseDownHandler;
 
     }
 
@@ -104,7 +104,7 @@ class TouchRipple extends Component {
         });
     }
 
-    mouseDownHandle(e) {
+    mouseDownHandler(e) {
         this.addRipple(e);
     }
 
@@ -120,7 +120,7 @@ class TouchRipple extends Component {
         return (
             <TransitionGroup className={wrapperClassName}
                              style={style}
-                             onMouseDown={this.mouseDownHandle}
+                             onMouseDown={this.mouseDownHandler}
                              onMouseUp={this.removeRipple}
                              onMouseLeave={this.removeRipple}>
                 {
