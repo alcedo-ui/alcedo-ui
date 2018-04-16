@@ -21,6 +21,16 @@
             "presets": [
                 "react-hmre"
             ]
+        },
+        "production": {
+            "plugins": [
+                [
+                    "transform-react-remove-prop-types",
+                    {
+                        "removeImport": true
+                    }
+                ]
+            ]
         }
     },
     "plugins": [
