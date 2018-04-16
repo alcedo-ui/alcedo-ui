@@ -48,8 +48,6 @@ button:focus {
     }
 
     .touch-ripple {
-        border-radius: $theme-border-radius;
-
         &.hidden {
             display: none;
         }
