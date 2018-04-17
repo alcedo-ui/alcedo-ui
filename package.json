@@ -20,7 +20,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/alcedo-ui/alcedo-ui.git"
+        "url": "https://github.com/alcedo-ui/alcedo-ui.git"
     },
     "keywords": [
         "react",
