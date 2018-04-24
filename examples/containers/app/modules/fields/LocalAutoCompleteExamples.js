@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LocalAutoComplete.json';
 
-export default class LocalAutoCompleteExamples extends Component {
+class LocalAutoCompleteExamples extends Component {
 
     constructor(props) {
 
@@ -29,9 +29,9 @@ export default class LocalAutoCompleteExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = this::this.onChange;
-        this.filterPressEnterHandle = this::this.filterPressEnterHandle;
-        this.filterClearHandle = this::this.filterClearHandle;
+        this.onChange = ::this.onChange;
+        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
+        this.filterClearHandler = ::this.filterClearHandler;
 
     }
 
@@ -39,11 +39,11 @@ export default class LocalAutoCompleteExamples extends Component {
         console.log('changed value: ', value);
     }
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandler(value) {
         console.log('filter value: ', value);
     }
 
-    filterClearHandle() {
+    filterClearHandler() {
         console.log('filter cleared');
     }
 
@@ -75,8 +75,8 @@ export default class LocalAutoCompleteExamples extends Component {
                                                    placeholder="Please select ..."
                                                    filterInitValue="test"
                                                    onChange={this.onChange}
-                                                   onFilterPressEnter={this.filterPressEnterHandle}
-                                                   onFilterClear={this.filterClearHandle}/>
+                                                   onFilterPressEnter={this.filterPressEnterHandler}
+                                                   onFilterClear={this.filterClearHandler}/>
 
                             </div>
 
@@ -175,3 +175,5 @@ export default class LocalAutoCompleteExamples extends Component {
         );
     }
 };
+
+export default LocalAutoCompleteExamples;
