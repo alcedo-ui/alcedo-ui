@@ -248,8 +248,6 @@ class LocalAutoComplete extends Component {
             {filter, tempSelectIndex, listData} = this.state;
         let state = null;
 
-        debugger;
-
         if (filter && listData && listData.length > 0) {
 
             state = {};
