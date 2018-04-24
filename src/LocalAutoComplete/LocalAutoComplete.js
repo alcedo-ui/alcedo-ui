@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
+import isNumber from 'lodash/isNumber';
 
 import TextField from '../TextField';
 import Popup from '../Popup';
@@ -247,11 +248,13 @@ class LocalAutoComplete extends Component {
             {filter, tempSelectIndex, listData} = this.state;
         let state = null;
 
+        debugger;
+
         if (filter && listData && listData.length > 0) {
 
             state = {};
 
-            const index = Valid.isNumber(tempSelectIndex) ? tempSelectIndex : 0;
+            const index = isNumber(tempSelectIndex) ? tempSelectIndex : 0;
 
             state.value = listData[index];
 
