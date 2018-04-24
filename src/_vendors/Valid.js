@@ -4,6 +4,7 @@
  */
 
 import isArray from 'lodash/isArray';
+import isNumber from 'lodash/isNumber';
 import FieldType from '../_statics/FieldType';
 
 function range(value, min, max) {
@@ -23,10 +24,6 @@ function isMac() {
 function isWindows() {
     return /windows|win32/i.test(navigator.userAgent);
 };
-
-function isNumber(value) {
-    return !isNaN(value);
-}
 
 function isInteger(value) {
     return /^(0|-?[0-9][1-9]*)$/.test(value);
@@ -190,7 +187,6 @@ export default {
     isChrome,
     isMac,
     isWindows,
-    isNumber,
     isInteger,
     isPositiveInteger,
     isNonnegativeInteger,
