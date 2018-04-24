@@ -313,7 +313,7 @@ class LocalAutoComplete extends Component {
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                onItemTouchTap, onFilterClear, onMouseOver, onMouseOut
+                onFilterClear, onMouseOver, onMouseOut
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
@@ -456,6 +456,11 @@ LocalAutoComplete.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
 
     /**
      * The CSS class name of the popup element.
