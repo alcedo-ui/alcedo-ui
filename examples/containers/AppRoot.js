@@ -25,9 +25,9 @@ class AppRoot extends Component {
 
     resizeHandle() {
         window.innerWidth >= Config.desktopMinWidth ?
-            (!this.props.$isDesktop && this.props.switchToDesktop())
+            (!this.props.isDesktop && this.props.switchToDesktop())
             :
-            (this.props.$isDesktop && this.props.switchToMobile());
+            (this.props.isDesktop && this.props.switchToMobile());
     }
 
     componentDidMount() {
@@ -66,7 +66,7 @@ class AppRoot extends Component {
 
 AppRoot.propTypes = {
 
-    $isDesktop: PropTypes.bool,
+    isDesktop: PropTypes.bool,
 
     switchToDesktop: PropTypes.func,
     switchToMobile: PropTypes.func
@@ -74,7 +74,7 @@ AppRoot.propTypes = {
 };
 
 export default connect(state = ({
-    $isDesktop: state.device.isDesktop
+    isDesktop: state.device.isDesktop
 }), dispatch => bindActionCreators({
     switchToDesktop: actions.switchToDesktop,
     switchToMobile: actions.switchToMobile
