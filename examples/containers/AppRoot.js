@@ -65,17 +65,17 @@ class AppRoot extends Component {
 }
 
 AppRoot.propTypes = {
-    $isDesktop: PropTypes.bool
+
+    $isDesktop: PropTypes.bool,
+
+    switchToDesktop: PropTypes.func,
+    switchToMobile: PropTypes.func
+
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        $isDesktop: state.device.isDesktop
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppRoot);
+export default connect(state = ({
+    $isDesktop: state.device.isDesktop
+}), dispatch => bindActionCreators({
+    switchToDesktop: actions.switchToDesktop,
+    switchToMobile: actions.switchToMobile
+}, dispatch))(AppRoot);
