@@ -17,11 +17,11 @@ class Brand extends Component {
 
         super(props);
 
-        this.menuToggleButtonMousedownHandle = this::this.menuToggleButtonMousedownHandle;
+        this.mousedownHandler = ::this.mousedownHandler;
 
     }
 
-    menuToggleButtonMousedownHandle(e) {
+    mousedownHandler(e) {
         e.stopPropagation();
         this.props.toggleNavMenu();
     }
@@ -32,10 +32,10 @@ class Brand extends Component {
 
                 <IconButton className="menu-toggle-button"
                             iconCls="fas fa-bars"
-                            onTouchTap={this.menuToggleButtonMousedownHandle}/>
+                            onTouchTap={this.mousedownHandler}/>
 
                 <Link className="brand-name"
-                         to="/">
+                      to="/">
                     <i className="brand-logo"></i>
                     Alcedo-UI Examples
                 </Link>
@@ -53,12 +53,6 @@ Brand.propTypes = {
     toggleNavMenu: PropTypes.func
 };
 
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Brand);
+export default connect(state => ({}), dispatch => bindActionCreators({
+    toggleNavMenu: actions.toggleNavMenu
+}, dispatch))(Brand);
