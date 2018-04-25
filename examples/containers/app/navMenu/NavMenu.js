@@ -13,9 +13,7 @@ import 'sass/containers/app/navMenu/NavMenu.scss';
 class NavMenu extends Component {
 
     constructor(props) {
-
         super(props);
-
     }
 
     render() {
@@ -38,22 +36,12 @@ class NavMenu extends Component {
 }
 
 NavMenu.propTypes = {
-
     filter: PropTypes.string,
-
     updateFilter: PropTypes.func
-
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        filter: state.navMenu.filter
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);
-
+export default connect(state => ({
+    filter: state.navMenu.filter
+}), dispatch => bindActionCreators({
+    updateFilter: actions.updateFilter
+}, dispatch))(NavMenu);
