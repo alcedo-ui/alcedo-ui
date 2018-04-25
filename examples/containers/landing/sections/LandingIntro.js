@@ -55,12 +55,6 @@ LandingIntro.propTypes = {
     routerPush: PropTypes.func
 };
 
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingIntro);
+export default connect(state => ({}), dispatch => bindActionCreators({
+    routerPush: actions.routerPush
+}, dispatch))(LandingIntro);
