@@ -30,16 +30,16 @@ class App extends Component {
 
     render() {
 
-        const {route, location, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props,
+        const {route, location, isDesktop, navMenuCollapsed, componentLoading, collapseNavMenu} = this.props,
 
             appClassName = classnames('app', {
-                collapsed: $navMenuCollapsed
+                collapsed: navMenuCollapsed
             });
 
         return (
             <div className={appClassName}>
 
-                <PageLoading visible={$componentLoading}/>
+                <PageLoading visible={componentLoading}/>
 
                 <NavMenu/>
 
@@ -57,7 +57,7 @@ class App extends Component {
                     }
 
                     {
-                        !$isDesktop && !$navMenuCollapsed ?
+                        !isDesktop && !navMenuCollapsed ?
                             <div className="app-content-modal"
                                  onTouchTap={collapseNavMenu}></div>
                             :
@@ -74,24 +74,20 @@ class App extends Component {
 
 App.propTypes = {
 
-    $isDesktop: PropTypes.bool,
-    $navMenuCollapsed: PropTypes.bool,
-    $componentLoading: PropTypes.bool,
+    isDesktop: PropTypes.bool,
+    navMenuCollapsed: PropTypes.bool,
+    componentLoading: PropTypes.bool,
 
-    expandActivatedMenu: PropTypes.func
+    expandActivatedMenu: PropTypes.func,
+    collapseNavMenu: PropTypes.func
 
 };
 
-function mapStateToProps(state) {
-    return {
-        $isDesktop: state.device.isDesktop,
-        $navMenuCollapsed: state.navMenu.navMenuCollapsed,
-        $componentLoading: state.loadComponent.loading
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(state => ({
+    isDesktop: state.device.isDesktop,
+    navMenuCollapsed: state.navMenu.navMenuCollapsed,
+    componentLoading: state.loadComponent.loading
+}), dispatch => bindActionCreators({
+    expandActivatedMenu: actions.expandActivatedMenu,
+    collapseNavMenu: actions.collapseNavMenu
+}, dispatch))(App);
