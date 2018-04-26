@@ -11,9 +11,9 @@ import Config from 'examples/config';
 
 import 'assets/font-awesome/css/fontawesome-all.min.css';
 import 'sass/global.scss';
-import 'sass/containers/AppRoot.scss';
+import 'sass/containers/Root.scss';
 
-class AppRoot extends Component {
+class Root extends Component {
 
     constructor(props) {
 
@@ -47,7 +47,7 @@ class AppRoot extends Component {
         const {route, location} = this.props;
 
         return (
-            <div className="app-root">
+            <div className="root">
 
                 {renderRoutes(route.routes)}
 
@@ -64,7 +64,7 @@ class AppRoot extends Component {
 
 }
 
-AppRoot.propTypes = {
+Root.propTypes = {
 
     isDesktop: PropTypes.bool,
 
@@ -78,4 +78,4 @@ export default connect(state = ({
 }), dispatch => bindActionCreators({
     switchToDesktop: actions.switchToDesktop,
     switchToMobile: actions.switchToMobile
-}, dispatch))(AppRoot);
+}, dispatch))(Root);

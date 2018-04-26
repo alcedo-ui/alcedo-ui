@@ -3,7 +3,7 @@ import ac from 'components/AsyncComponent';
 export default function configureRoutes(store) {
 
     return [{
-        component: ac(store, () => import('containers/AppRoot')),
+        component: ac(store, () => import('containers/Root')),
         routes: [{
             path: '/landing',
             component: ac(store, () => import('containers/landing/Landing'))

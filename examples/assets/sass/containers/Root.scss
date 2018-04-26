@@ -1,6 +1,6 @@
 @import '../my-theme.scss';
 
-.app-root {
+.root {
     color: $theme-field;
     background: $theme-bg;
 
@@ -29,7 +29,7 @@
 }
 
 @media (max-width: 767px) {
-    .app-root {
+    .root {
         color: $theme-field;
         background: $theme-primary;
     }
