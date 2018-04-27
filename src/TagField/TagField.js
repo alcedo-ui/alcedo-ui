@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import trim from 'lodash/trim';
 
 import EditableField from '../EditableField';
 import IconButton from '../IconButton';
@@ -212,7 +213,7 @@ class TagField extends Component {
             return;
         }
 
-        const splitedValue = inputValue.split(separator);
+        const splitedValue = trim(inputValue).split(separator);
 
         data.splice(inputIndex, 0, ...splitedValue);
 
