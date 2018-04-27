@@ -54,8 +54,6 @@ input::-ms-clear {
     .tag-field-item-wrapper {
         margin: 8px 0 0 8px;
         box-sizing: border-box;
-        height: 24px;
-        line-height: 24px;
         padding: 0;
         float: left;
 
@@ -71,6 +69,12 @@ input::-ms-clear {
             .editable-field-input,
             .editable-field-input .text-field-input {
                 line-height: 24px;
+            }
+
+            .editable-field-input {
+                height: 26px;
+                top: -1px;
+                left: -4px;
             }
 
             .editable-field-span {
