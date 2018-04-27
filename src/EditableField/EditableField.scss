@@ -85,6 +85,7 @@ input::-ms-clear {
     .editable-field-hidden-text {
         position: absolute;
         width: auto;
+        white-space: pre;
         z-index: 0;
         opacity: 0;
     }
