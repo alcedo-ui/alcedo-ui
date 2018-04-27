@@ -21,7 +21,8 @@ class EditableField extends Component {
         this.state = {
             hide: true,
             text: props.value,
-            changeText: props.value
+            changeText: props.value,
+            inputAutoWidth: 0
         };
 
         this.onInputChange = ::this.onInputChange;
@@ -128,16 +129,29 @@ class EditableField extends Component {
         Event.removeEvent(document, 'keydown', this.keyDownHandle);
     }
 
+    componentDidUpdate() {
+        const {inputAutoWidth} = this.state;
+
+        let newAutoWidth = this.refs.editableFieldText && this.refs.editableFieldText.offsetWidth;
+
+        if (inputAutoWidth !== newAutoWidth) {
+            this.setState({
+                inputAutoWidth: newAutoWidth
+            });
+        }
+    }
+
     render() {
 
         const {
                 children, className, style, name, disabled, tip, tipPosition, title,
-                onMouseDown, onTouchTap, showModal, maxLength
+                onMouseDown, onTouchTap, showModal, maxLength, autoWidth
             } = this.props,
-
+            {changeText, text, hide, inputAutoWidth} = this.state,
             fieldClassName = classNames('editable-field', {
                 [className]: className
             });
+        let inputStyle = autoWidth && typeof inputAutoWidth === 'number' ? {width: parseInt(inputAutoWidth) + 42} : {};
 
         return (
             <TipProvider text={tip}
@@ -149,33 +163,40 @@ class EditableField extends Component {
                      onMouseDown={onMouseDown}
                      onTouchTap={onTouchTap}>
 
+                    <span className={`editable-field-hidden-text`}
+                          ref="editableFieldText"
+                          disabled={disabled}>
+                        {changeText}
+                    </span>
+
                     <span className={`editable-field-text`}
                           disabled={disabled}>
-                        {this.state.text}
+                        {text}
                     </span>
 
                     {
-                        this.state.hide === true ?
+                        hide === true ?
                             <span className="editable-field-span"
-                                  onTouchTap={this.showInput}>{this.state.text}
+                                  onTouchTap={this.showInput}>{text}
                                 <i className="fas fa-pencil-alt editable-field-icon"
                                    aria-hidden="true"></i>
                             </span>
                             :
                             <TextField ref="textField"
+                                       style={inputStyle}
                                        className={'editable-field-input'}
                                        maxLength={maxLength}
-                                       value={this.state.changeText}
+                                       value={changeText}
                                        onChange={this.onInputChange}/>
                     }
 
                     <input type="hidden"
-                           value={this.state.text}
+                           value={text}
                            readOnly
                            name={name}/>
 
                     {
-                        showModal && !this.state.hide ?
+                        showModal && !hide ?
                             <div className="editable-modal"
                                  ref="editableModal"
                                  onTouchTap={this.finishEdit}></div>
@@ -248,6 +269,11 @@ EditableField.propTypes = {
      */
     showModal: PropTypes.bool,
 
+    /**
+     * If true, the input will be auto width.
+     */
+    autoWidth: PropTypes.bool,
+
     onMouseDown: PropTypes.func,
 
     /**
@@ -288,7 +314,8 @@ EditableField.defaultProps = {
     value: 'text',
     name: '',
     disabled: false,
-    showModal: false
+    showModal: false,
+    autoWidth: false
 
 };
 
