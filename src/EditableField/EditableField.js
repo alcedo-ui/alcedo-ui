@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import trim from 'lodash/trim';
 
 import TextField from '../TextField/TextField';
 import TipProvider from '../TipProvider';
@@ -82,7 +83,8 @@ class EditableField extends Component {
 
         this.setState({
             hide: true,
-            text: this.state.changeText
+            text: trim(this.state.changeText),
+            changeText: trim(this.state.changeText)
         }, () => {
             this.props.onEditEnd && this.props.onEditEnd(ev);
             change && this.props.onChange && this.props.onChange(this.state.text);
