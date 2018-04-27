@@ -64,6 +64,7 @@ class TextField extends Component {
             invalidMsgs = Valid.fieldValid(value, this.props);
 
         this.setState({
+            value,
             invalidMsgs
         }, () => {
             this.props.onChange && this.props.onChange(value, e);
@@ -74,7 +75,8 @@ class TextField extends Component {
 
     keyDownHandler(e) {
 
-        const {value, onKeyDown} = this.props;
+        const {onKeyDown} = this.props,
+            {value} = this.state;
         onKeyDown && onKeyDown(e, value);
 
         if (e.keyCode === 13) {
@@ -128,7 +130,8 @@ class TextField extends Component {
             infoVisible: true,
             errorVisible: true
         }, () => {
-            const {value, onMouseOver} = this.props;
+            const {onMouseOver} = this.props,
+                {value} = this.state;
             onMouseOver && onMouseOver(e, value);
         });
     }
@@ -138,7 +141,8 @@ class TextField extends Component {
             infoVisible: false,
             errorVisible: false
         }, () => {
-            const {value, onMouseOut} = this.props;
+            const {onMouseOut} = this.props,
+                {value} = this.state;
             onMouseOut && onMouseOut(e, value);
         });
     }
@@ -147,9 +151,14 @@ class TextField extends Component {
         this.setState({
             isFocused: true
         }, () => {
-            const {value, isFocusedSelectAll, onFocus} = this.props;
+
+            const {isFocusedSelectAll, onFocus} = this.props,
+                {value} = this.state;
+
             onFocus && onFocus(e, value);
+
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
+
         });
     }
 
@@ -162,14 +171,16 @@ class TextField extends Component {
         this.setState({
             isFocused: false
         }, () => {
-            const {value, onBlur} = this.props;
+            const {onBlur} = this.props,
+                {value} = this.state;
             onBlur && onBlur(e, value);
         });
 
     }
 
     rightIconTouchTapHandler(e) {
-        const {value, onRightIconTouchTap} = this.props;
+        const {onRightIconTouchTap} = this.props,
+            {value} = this.state;
         onRightIconTouchTap && onRightIconTouchTap(e, value);
     }
 
@@ -184,23 +195,32 @@ class TextField extends Component {
 
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.value !== prevState.value) {
+            return {
+                value: nextProps.value
+            };
+        }
+        return null;
+    }
+
     render() {
 
         const {
 
                 children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
-                value, infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
+                infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 onIconTouchTap, onRightIconTouchTap,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
+                value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
 
             } = this.props,
 
-            {isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
             isPassword = type === FieldType.PASSWORD,
             empty = !value || value.length <= 0,
