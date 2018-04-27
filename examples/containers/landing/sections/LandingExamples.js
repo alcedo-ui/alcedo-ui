@@ -59,6 +59,6 @@ LandingExamples.propTypes = {
     routerPush: PropTypes.func
 };
 
-export default connect(state = ({}), dispatch => bindActionCreators({
+export default connect(state => ({}), dispatch => bindActionCreators({
     routerPush: actions.routerPush
 }, dispatch))(LandingExamples);
