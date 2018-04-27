@@ -73,7 +73,7 @@ Root.propTypes = {
 
 };
 
-export default connect(state = ({
+export default connect(state => ({
     isDesktop: state.device.isDesktop
 }), dispatch => bindActionCreators({
     switchToDesktop: actions.switchToDesktop,
