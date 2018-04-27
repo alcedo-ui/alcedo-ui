@@ -213,7 +213,7 @@ class TagField extends Component {
             return;
         }
 
-        const splitedValue = trim(inputValue).split(separator);
+        const splitedValue = trim(inputValue).split(separator).filter(item => !!item);
 
         data.splice(inputIndex, 0, ...splitedValue);
 
@@ -335,7 +335,10 @@ class TagField extends Component {
 
     render() {
 
-        const {className, style, valueField, displayField, disabled, placeholder, clearButtonVisible} = this.props,
+        const {
+                className, style, valueField, displayField, disabled,
+                placeholder, clearButtonVisible, isTagAutoWidth
+            } = this.props,
             {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
             fieldClassName = classNames('tag-field', {
@@ -352,9 +355,7 @@ class TagField extends Component {
                  className={fieldClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     indexData.map(index => index === this.inputSymbol ?
@@ -379,20 +380,15 @@ class TagField extends Component {
                             <EditableField className="tag-field-item-field"
                                            value={Util.getTextByDisplayField(data[index], displayField, valueField)}
                                            disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                           onChange={(value) => {
-                                               this.itemChangeHandler(value, index);
-                                           }}
-                                           onEditStart={() => {
-                                               this.itemEditStartHandler(index);
-                                           }}
+                                           autoWidth={isTagAutoWidth}
+                                           onChange={value => this.itemChangeHandler(value, index)}
+                                           onEditStart={() => this.itemEditStartHandler(index)}
                                            onEditEnd={this.itemEditEndHandler}>
 
                                 <IconButton className="tag-field-item-field-delete-button"
                                             iconCls="fas fa-times"
                                             disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                            onTouchTap={() => {
-                                                this.removeItem(index);
-                                            }}/>
+                                            onTouchTap={() => this.removeItem(index)}/>
 
                             </EditableField>
                         </span>
@@ -439,6 +435,7 @@ TagField.propTypes = {
     placeholder: PropTypes.string,
     clearButtonVisible: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
+    isTagAutoWidth: PropTypes.bool,
 
     onChange: PropTypes.func,
     onInputChange: PropTypes.func,
@@ -463,7 +460,8 @@ TagField.defaultProps = {
 
     placeholder: '',
     clearButtonVisible: true,
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isTagAutoWidth: true
 
 };
 
