@@ -67,7 +67,7 @@ class LocalAutoComplete extends Component {
             return filterCallback(filter, data);
         }
 
-        return data && data.filter(item => {
+        return data.filter(item => {
 
             if (!item) {
                 return false;
@@ -220,8 +220,8 @@ class LocalAutoComplete extends Component {
 
     itemTouchTapHandler(value) {
 
-        const {autoClose, valueField, displayField} = this.props,
-            filter = Util.getTextByDisplayField(value, displayField, valueField),
+        const {autoClose, valueField, displayField, renderer} = this.props,
+            filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
             state = {
                 tempSelectIndex: null,
                 value,
@@ -244,7 +244,7 @@ class LocalAutoComplete extends Component {
 
     update() {
 
-        const {displayField, valueField} = this.props,
+        const {displayField, valueField, renderer} = this.props,
             {filter, tempSelectIndex, listData} = this.state;
         let state = null;
 
@@ -255,7 +255,12 @@ class LocalAutoComplete extends Component {
             const index = isNumber(tempSelectIndex) ? tempSelectIndex : 0;
 
             state.value = listData[index];
-            state.filter = Util.getTextByDisplayField(state.value, displayField, valueField);
+
+            state.filter = renderer ?
+                renderer(state.value)
+                :
+                Util.getTextByDisplayField(state.value, displayField, valueField);
+
             state.listData = this.filterData(state.filter);
 
         }
@@ -370,7 +375,7 @@ class LocalAutoComplete extends Component {
                 <TextField ref="trigger"
                            className={autoCompleteTriggerClassName}
                            theme={theme}
-                           value={value && renderer ? renderer(value) : filter}
+                           value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
