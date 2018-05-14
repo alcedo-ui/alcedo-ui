@@ -174,12 +174,8 @@ class List extends Component {
                               onItemTouchTap && onItemTouchTap(item, index, e);
                               item.onTouchTap && item.onTouchTap(e);
                           }}
-                          onSelect={() => {
-                              this.listItemSelectHandler(item, index);
-                          }}
-                          onDeselect={() => {
-                              this.listItemDeselectHandler(item, index);
-                          }}/>
+                          onSelect={() => this.listItemSelectHandler(item, index)}
+                          onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             )
             :
             (
@@ -201,15 +197,9 @@ class List extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
-                          }}
-                          onSelect={() => {
-                              this.listItemSelectHandler(item, index);
-                          }}
-                          onDeselect={() => {
-                              this.listItemDeselectHandler(item, index);
-                          }}/>
+                          onTouchTap={e => onItemTouchTap && onItemTouchTap(item, index, e)}
+                          onSelect={() => this.listItemSelectHandler(item, index)}
+                          onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             );
 
     }
