@@ -163,10 +163,10 @@ class AutoCompleteFilter extends Component {
 
     changeHandler(value) {
 
-        const {autoClose, valueField, displayField} = this.props,
+        const {autoClose, valueField, displayField, renderer} = this.props,
             state = {
                 value,
-                filter: Util.getTextByDisplayField(value, displayField, valueField)
+                filter: renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField)
             };
 
         if (autoClose) {
@@ -259,7 +259,7 @@ class AutoCompleteFilter extends Component {
                 <TextField ref="trigger"
                            className={triggerClassName}
                            theme={theme}
-                           value={value && renderer ? renderer(value) : filter}
+                           value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
