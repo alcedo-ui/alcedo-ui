@@ -69,6 +69,9 @@ class TableRow extends Component {
             trClassName = classNames('table-row', {
                 activated: isChecked,
                 [data.rowClassName]: data.rowClassName
+            }),
+            tdClassName = classNames('table-data', {
+                [col.cellClassName]: col.cellClassName
             });
 
         return (
@@ -80,11 +83,9 @@ class TableRow extends Component {
                 {
                     columns.map((col, colIndex) =>
                         <td key={colIndex}
-                            className={col.cellClassName}
+                            className={tdClassName}
                             style={col.cellStyle}
-                            onTouchTap={e => {
-                                this.cellTouchTapHandler(e, colIndex);
-                            }}>
+                            onTouchTap={e => this.cellTouchTapHandler(e, colIndex)}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )

@@ -8,7 +8,7 @@
     background: $theme-field-bg;
     border-bottom: 1px solid $theme-border;
 
-    td {
+    .table-data {
         text-align: left;
         padding: 15px;
         transition: none;
@@ -30,7 +30,7 @@
     &:hover {
         background: theme-color-hover($theme-secondary);
 
-        td {
+        .table-data {
             a {
                 text-decoration: underline;
             }
@@ -41,7 +41,7 @@
         color: $theme-field-disabled;
         background: $theme-field-bg-disabled;
 
-        td {
+        .table-data {
             cursor: not-allowed;
         }
     }
