@@ -165,6 +165,19 @@ export default class TableExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Empty"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <Table columns={this.columns}
+                                   data={[]}/>
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
