@@ -15,25 +15,17 @@
         cursor: default;
         white-space: nowrap;
 
-        &.actions {
-            i {
-                width: 12px;
-                margin-left: 24px;
-
-                &:first-child {
-                    margin-left: 0;
-                }
-            }
+        &.empty {
+            text-align: center;
+            color: $theme-description;
         }
     }
 
     &:hover {
         background: theme-color-hover($theme-secondary);
 
-        .table-data {
-            a {
-                text-decoration: underline;
-            }
+        .table-data.empty {
+            background: $theme-field-bg;
         }
     }
 
