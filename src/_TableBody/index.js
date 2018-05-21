@@ -3,4 +3,4 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export TableBody from './TableBody';
+export default from './TableBody';
