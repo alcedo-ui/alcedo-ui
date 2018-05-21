@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import Thead from '../_Thead';
-import Tbody from '../_Tbody';
+import TableBody from '../_TableBody';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 import Theme from '../Theme';
@@ -462,7 +462,7 @@ class Table extends Component {
 
         const {
 
-                className, style, data, pageSizes, disabled, selectMode,
+                className, style, data, pageSizes, disabled, selectMode, emptyText,
 
                 sortAscIconCls, sortDescIconCls,
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
@@ -510,16 +510,23 @@ class Table extends Component {
 
                         {
                             finalData && finalDataCount > 0 ?
-                                <Tbody columns={finalColumns}
-                                       data={finalData}
-                                       idProp={idProp}
-                                       value={value}
-                                       selectMode={selectMode}
-                                       disabled={disabled}
-                                       onRowTouchTap={this.rowTouchTapHandler}
-                                       onCellTouchTap={this.cellTouchTapHandler}/>
+                                <TableBody columns={finalColumns}
+                                           data={finalData}
+                                           idProp={idProp}
+                                           value={value}
+                                           selectMode={selectMode}
+                                           disabled={disabled}
+                                           onRowTouchTap={this.rowTouchTapHandler}
+                                           onCellTouchTap={this.cellTouchTapHandler}/>
                                 :
-                                null
+                                <tbody className="table-body">
+                                    <tr className="table-row">
+                                        <td className="table-data empty"
+                                            colSpan={finalColumns.length}>
+                                            {emptyText}
+                                        </td>
+                                    </tr>
+                                </tbody>
                         }
 
                     </table>
@@ -688,6 +695,8 @@ Table.propTypes = {
      */
     idProp: PropTypes.string,
 
+    emptyText: PropTypes.string,
+
     /**
      * If true,the table will use Pagging component.
      */
@@ -708,14 +717,7 @@ Table.propTypes = {
      */
     paggingPageSizeVisible: PropTypes.bool,
 
-    /**
-     *
-     */
     defaultPageSize: PropTypes.number,
-
-    /**
-     *
-     */
     pageSizes: PropTypes.array,
 
     /**
@@ -786,6 +788,7 @@ Table.defaultProps = {
 
     disabled: false,
     idProp: 'id',
+    emptyText: 'No Data',
     isPagging: true,
     useFullPagging: false,
     paggingSelectedCountVisible: false,
