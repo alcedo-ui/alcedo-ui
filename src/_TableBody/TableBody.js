@@ -1,5 +1,5 @@
 /**
- * @file Tbody component
+ * @file TableBody component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -12,7 +12,7 @@ import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
 
-class Tbody extends Component {
+class TableBody extends Component {
 
     static SelectMode = SelectMode;
 
@@ -49,7 +49,7 @@ class Tbody extends Component {
         } = this.props;
 
         return (
-            <tbody className="tbody">
+            <tbody className="table-body">
                 {
                     data.map((row, rowIndex) => row ?
                         <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
@@ -70,7 +70,7 @@ class Tbody extends Component {
     }
 }
 
-Tbody.propTypes = {
+TableBody.propTypes = {
 
     columns: PropTypes.array,
     data: PropTypes.array,
@@ -86,7 +86,7 @@ Tbody.propTypes = {
 
 };
 
-Tbody.defaultProps = {
+TableBody.defaultProps = {
     data: [],
     columns: [],
     startIndex: 0,
@@ -95,4 +95,4 @@ Tbody.defaultProps = {
     disabled: false
 };
 
-export default Tbody;
+export default TableBody;
