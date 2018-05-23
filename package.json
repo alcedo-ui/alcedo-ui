@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.23.0",
+    "version": "2.23.1",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -74,7 +74,7 @@
         "compression-webpack-plugin": "^1.1.11",
         "connect-history-api-fallback": "^1.5.0",
         "copy-webpack-plugin": "^4.5.1",
-        "cross-env": "^5.1.5",
+        "cross-env": "^5.1.6",
         "css-loader": "^0.28.11",
         "eventsource-polyfill": "^0.9.6",
         "express": "^4.16.3",
