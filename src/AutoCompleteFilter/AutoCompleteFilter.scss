@@ -4,9 +4,11 @@
  */
 
 .auto-complete-filter {
+    width: 300px;
 
     .auto-complete-filter-trigger {
         @include shadow(0);
+        width: 100%;
         transition: all $theme-transition-duration ease-in-out;
 
         &.activated {
