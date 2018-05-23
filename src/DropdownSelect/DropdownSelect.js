@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import startsWith from 'lodash/startsWith';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
@@ -45,6 +46,7 @@ class DropdownSelect extends Component {
         this.popupCloseHandler = ::this.popupCloseHandler;
         this.getEmptyEl = ::this.getEmptyEl;
         this.getTriggerValue = ::this.getTriggerValue;
+        this.hiddenFilterChangeHandle = ::this.hiddenFilterChangeHandle;
 
     }
 
@@ -137,9 +139,15 @@ class DropdownSelect extends Component {
             onChange && onChange(value);
         });
 
+        setTimeout(() => {
+            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        }, 1000);
     }
 
     popupOpenHandler(e) {
+
+        this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+
         this.setState({
             popupVisible: true
         }, () => {
@@ -149,6 +157,9 @@ class DropdownSelect extends Component {
     }
 
     popupCloseHandler(e) {
+
+        this.refs.hiddenFilter && this.refs.hiddenFilter.blur();
+
         this.setState({
             popupVisible: false
         }, () => {
@@ -156,6 +167,46 @@ class DropdownSelect extends Component {
             onClosePopup && onClosePopup(e);
         });
     }
+
+    hiddenFilterChangeHandle(e) {
+        const {data, displayField, clearHiddenInputFilterInterval} = this.props;
+        let target = e.target,
+            timer = setTimeout(() => {
+                clearTimeout(timer);
+                target.value = '';
+            }, clearHiddenInputFilterInterval);
+
+        let index = data.findIndex(item =>
+            typeof item === 'object' ?
+                item[displayField].startsWith(target.value)
+                :
+                item.startsWith(target.value)
+        );
+        this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
+    }
+
+    scrollTo(element, to, duration) {
+
+        if (!element) {
+            return;
+        }
+
+        // jump to target if duration zero
+        if (duration <= 0) {
+            element.scrollTop = to;
+            return;
+        }
+
+        const difference = to - element.scrollTop,
+            perTick = difference / duration * 10;
+
+        setTimeout(() => {
+            element.scrollTop = element.scrollTop + perTick;
+            if (element.scrollTop === to) return;
+            this.scrollTo(element, to, duration - 10);
+        }, 10);
+
+    };
 
     getEmptyEl() {
 
@@ -221,6 +272,7 @@ class DropdownSelect extends Component {
                 className, triggerClassName, popupClassName, style, name, popupTheme, data,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
                 useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
+                isHiddenInputFilter,
 
                 // not passing down these props
                 noMatchedMsg,
@@ -259,6 +311,17 @@ class DropdownSelect extends Component {
                         null
                 }
 
+                {
+                    isHiddenInputFilter ?
+                        <input className="hiddenFilter"
+                               type="text"
+                               ref="hiddenFilter"
+                               onChange={this.hiddenFilterChangeHandle}/>
+                        :
+                        null
+                }
+
+
                 <Dropdown {...restProps}
                           ref="dropdown"
                           triggerClassName={dropdownTriggerClassName}
@@ -296,6 +359,7 @@ class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
+                         ref="dropdownSelectListScroller"
                          onWheel={e => {
                              Event.wheelHandler(e, this.props);
                          }}>
@@ -582,7 +646,9 @@ DropdownSelect.propTypes = {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
     onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseOut: PropTypes.func,
+    isHiddenInputFilter: PropTypes.bool,
+    clearHiddenInputFilterInterval: PropTypes.number
 
 };
 
@@ -607,7 +673,9 @@ DropdownSelect.defaultProps = {
     useSelectAll: false,
     selectAllText: 'Select All',
     shouldPreventContainerScroll: true,
-    useDynamicRenderList: false
+    useDynamicRenderList: false,
+    isHiddenInputFilter: false,
+    clearHiddenInputFilterInterval: 1000
 
 };
 

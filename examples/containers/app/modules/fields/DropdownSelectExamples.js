@@ -42,6 +42,15 @@ export default class DropdownSelectExamples extends Component {
 
     render() {
 
+        const data = ['a000', 'booo', {
+            text: 'c000',
+            value: 2,
+            desc: 'Here is test2.'
+        }, 'dtest3', 'etest4', 'ftest5', {
+            text: 'test6',
+            value: 6
+        }, 'hhhh', 'yywe', 'people'
+        ];
         return (
             <div className="example drop-down-select-examples">
 
@@ -170,6 +179,32 @@ export default class DropdownSelectExamples extends Component {
                     </div>
 
                 </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Self defined theme"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>autoClose</code> property to false,the select list will not close when
+                                    choose one item.</p>
+
+                                <div className="field-group">
+                                    <DropdownSelect data={data}
+                                                    isHiddenInputFilter={true}
+                                                    onChange={this.onChange}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
 
                 <h2 className="example-title">Properties</h2>
 
