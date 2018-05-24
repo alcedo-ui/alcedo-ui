@@ -178,9 +178,9 @@ class DropdownSelect extends Component {
 
         let index = data.findIndex(item =>
             typeof item === 'object' ?
-                item[displayField].startsWith(target.value)
+                item[displayField].toUpperCase().startsWith(target.value.toUpperCase())
                 :
-                item.startsWith(target.value)
+                item.toUpperCase().startsWith(target.value.toUpperCase())
         );
         this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
     }
