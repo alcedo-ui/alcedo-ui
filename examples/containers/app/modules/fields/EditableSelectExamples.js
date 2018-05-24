@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/EditableSelect.json';
 
 import 'sass/containers/app/modules/fields/EditableSelectExamples.scss';
 
-export default class EditableSelectExamples extends Component {
+class EditableSelectExamples extends Component {
 
     constructor(props) {
 
@@ -63,16 +63,13 @@ export default class EditableSelectExamples extends Component {
             }]
         }];
 
-        this.onChange = this::this.onChange;
-
     }
 
-    onChange(value) {
+    onChange = value => {
         console.log(value);
-    }
+    };
 
     render() {
-
         return (
             <div className="example editable-select-examples">
 
@@ -150,3 +147,5 @@ export default class EditableSelectExamples extends Component {
         );
     }
 };
+
+export default EditableSelectExamples;
