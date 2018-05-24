@@ -9,7 +9,7 @@ import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdow
 
 import 'sass/containers/app/modules/fields/MaterialDropdownSelectExamples.scss';
 
-export default class MaterialDropdownSelectExamples extends Component {
+class MaterialDropdownSelectExamples extends Component {
 
     constructor(props) {
 
@@ -33,11 +33,11 @@ export default class MaterialDropdownSelectExamples extends Component {
 
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         this.setState({
             value: value
         });
-    }
+    };
 
     render() {
         return (
@@ -89,3 +89,5 @@ export default class MaterialDropdownSelectExamples extends Component {
         );
     }
 };
+
+export default MaterialDropdownSelectExamples;
