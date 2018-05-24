@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Switcher.json';
 
 import 'sass/containers/app/modules/fields/SwitcherExamples.scss';
 
-export default class SwitcherExamples extends Component {
+class SwitcherExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -102,3 +102,5 @@ export default class SwitcherExamples extends Component {
         );
     }
 };
+
+export default SwitcherExamples;
