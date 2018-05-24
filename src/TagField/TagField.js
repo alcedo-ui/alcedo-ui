@@ -32,20 +32,9 @@ class TagField extends Component {
             editingItemIndex: -1
         };
 
-        this.removeItem = ::this.removeItem;
-        this.calInputIndex = ::this.calInputIndex;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-        this.inputChangeHandler = ::this.inputChangeHandler;
-        this.inputKeyDownHandler = ::this.inputKeyDownHandler;
-        this.insertInputValue = ::this.insertInputValue;
-        this.itemChangeHandler = ::this.itemChangeHandler;
-        this.itemEditStartHandler = ::this.itemEditStartHandler;
-        this.itemEditEndHandler = ::this.itemEditEndHandler;
-        this.clearHandler = ::this.clearHandler;
-
     }
 
-    removeItem(index) {
+    removeItem = index => {
 
         const {data} = this.state;
 
@@ -62,9 +51,9 @@ class TagField extends Component {
             onChange && onChange(data);
         });
 
-    }
+    };
 
-    calInputIndex(e) {
+    calInputIndex = e => {
 
         const wrapperEl = this.refs.wrapper,
             offset = Dom.getOffset(wrapperEl),
@@ -108,9 +97,9 @@ class TagField extends Component {
 
         return inputIndex < 0 ? this.state.data.length : inputIndex;
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         if (this.props.disabled || Dom.findParentByClassName(e.target, 'tag-field-item-wrapper')
             || Dom.hasClass(e.target, 'tag-field-input')) {
@@ -164,9 +153,9 @@ class TagField extends Component {
             callback();
         }
 
-    }
+    };
 
-    inputChangeHandler(e) {
+    inputChangeHandler = e => {
 
         if (this.props.disabled) {
             return;
@@ -186,9 +175,9 @@ class TagField extends Component {
 
         });
 
-    }
+    };
 
-    inputKeyDownHandler(e) {
+    inputKeyDownHandler = e => {
 
         if (this.props.disabled) {
             return;
@@ -198,9 +187,9 @@ class TagField extends Component {
             this.insertInputValue();
         }
 
-    }
+    };
 
-    insertInputValue(callback) {
+    insertInputValue = callback => {
 
         if (this.props.disabled) {
             return;
@@ -232,9 +221,9 @@ class TagField extends Component {
 
         });
 
-    }
+    };
 
-    itemChangeHandler(value, index) {
+    itemChangeHandler = (value, index) => {
 
         if (this.props.disabled) {
             return;
@@ -257,9 +246,9 @@ class TagField extends Component {
             onChange && onChange(data);
         });
 
-    }
+    };
 
-    itemEditStartHandler(editingItemIndex) {
+    itemEditStartHandler = editingItemIndex => {
 
         if (this.props.disabled) {
             return;
@@ -270,9 +259,9 @@ class TagField extends Component {
             editingItemIndex
         });
 
-    }
+    };
 
-    itemEditEndHandler() {
+    itemEditEndHandler = () => {
 
         if (this.props.disabled) {
             return;
@@ -282,9 +271,9 @@ class TagField extends Component {
             itemEditing: false
         });
 
-    }
+    };
 
-    clearHandler() {
+    clearHandler = () => {
 
         this.setState({
             data: [],
@@ -301,7 +290,7 @@ class TagField extends Component {
 
         });
 
-    }
+    };
 
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
