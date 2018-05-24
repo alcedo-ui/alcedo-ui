@@ -17,15 +17,13 @@ class MaterialTextFieldExamples extends Component {
             value: ''
         };
 
-        this.onChangeHandle = ::this.onChangeHandle;
-
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         this.setState({
             value
         });
-    }
+    };
 
     render() {
 
@@ -61,7 +59,7 @@ class MaterialTextFieldExamples extends Component {
                                                        autoFocus={true}
                                                        rightIconCls={'fas fa-search'}
                                                        value={value}
-                                                       onChange={this.onChangeHandle}/>
+                                                       onChange={this.onChangeHandler}/>
                                 </div>
 
                             </div>
