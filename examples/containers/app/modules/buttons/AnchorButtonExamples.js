@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/AnchorButton.json';
 
 import 'sass/containers/app/modules/buttons/AnchorButtonExamples.scss';
 
-export default class AnchorButtonExamples extends Component {
+class AnchorButtonExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -205,3 +205,5 @@ export default class AnchorButtonExamples extends Component {
         );
     }
 };
+
+export default AnchorButtonExamples;
