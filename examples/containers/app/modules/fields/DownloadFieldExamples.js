@@ -10,21 +10,17 @@ import doc from 'assets/propTypes/DownloadField.json';
 
 import 'sass/containers/app/modules/fields/DownloadFieldExamples.scss';
 
-export default class DownloadFieldExamples extends Component {
+class DownloadFieldExamples extends Component {
 
     downloadFieldRef = createRef();
 
     constructor(props) {
-
         super(props);
-
-        this.download = ::this.download;
-
     }
 
-    download() {
+    download = () => {
         this.downloadFieldRef.current.download();
-    }
+    };
 
     render() {
 
@@ -76,3 +72,5 @@ export default class DownloadFieldExamples extends Component {
         );
     }
 };
+
+export default DownloadFieldExamples;
