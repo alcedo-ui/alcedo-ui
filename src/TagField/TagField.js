@@ -18,6 +18,8 @@ import Event from '../_vendors/Event';
 
 class TagField extends Component {
 
+    static DEFAULT_SEPARATORS = [','];
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -33,6 +35,21 @@ class TagField extends Component {
         };
 
     }
+
+    getSeparators = (separators = this.props.separators) => {
+
+        if (separators && separators.length > 0) {
+            return separators;
+        }
+
+        return DEFAULT_SEPARATORS;
+
+    };
+
+    generateSeparatorReg = (separators = this.props.separators) => {
+        const seps = this.getSeparators(separators);
+        return new RegExp(`\\s*${seps.map(sep => `\\${sep}`).join('|')}\\s*`, 'g');
+    };
 
     removeItem = index => {
 
@@ -161,7 +178,8 @@ class TagField extends Component {
             return;
         }
 
-        const inputValue = e.target.value;
+        const value = trim(e.target.value),
+            inputValue = value ? value.replace(/\r?\n/gm, this.getSeparators()[0]) : value;
 
         this.setState({
             inputValue
@@ -195,14 +213,13 @@ class TagField extends Component {
             return;
         }
 
-        const {separator} = this.props,
-            {data, inputValue, inputIndex} = this.state;
+        const {data, inputValue, inputIndex} = this.state;
 
         if (!inputValue) {
             return;
         }
 
-        const splitedValue = trim(inputValue).split(separator).filter(item => !!item);
+        const splitedValue = trim(inputValue).split(this.generateSeparatorReg()).filter(item => !!item);
 
         data.splice(inputIndex, 0, ...splitedValue);
 
@@ -229,11 +246,10 @@ class TagField extends Component {
             return;
         }
 
-        const {separator} = this.props,
-            {data} = this.state;
+        const {data} = this.state;
 
         if (value) {
-            const splitedValue = value.split(separator).filter(item => item);
+            const splitedValue = value.split(this.generateSeparatorReg()).filter(item => item);
             data.splice(index, 1, ...splitedValue);
         } else {
             data.splice(index, 1);
@@ -296,25 +312,29 @@ class TagField extends Component {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps, prevState) {
 
         let state;
 
-        if (nextProps.data !== this.state.data) {
+        if (nextProps.data !== prevState.data) {
             if (!state) {
                 state = {};
             }
             state.data = nextProps.data;
         }
 
-        if (nextProps.inputValue !== this.state.inputValue) {
+        if (nextProps.inputValue !== prevState.inputValue) {
             if (!state) {
                 state = {};
             }
             state.inputValue = nextProps.inputValue;
         }
 
-        this.setState(state);
+        if (state) {
+            return state;
+        }
+
+        return null;
 
     }
 
@@ -352,13 +372,13 @@ class TagField extends Component {
                             <div key="input"
                                  ref="inputWrapper"
                                  className="tag-field-input-wrapper">
-                                <input ref="input"
-                                       className="tag-field-input"
-                                       autoFocus="true"
-                                       value={inputValue}
-                                       placeholder={data.length < 1 && placeholder ? placeholder : ''}
-                                       onChange={this.inputChangeHandler}
-                                       onKeyDown={this.inputKeyDownHandler}/>
+                                <textarea ref="input"
+                                          className="tag-field-input"
+                                          autoFocus="true"
+                                          value={inputValue}
+                                          placeholder={data.length < 1 && placeholder ? placeholder : ''}
+                                          onChange={this.inputChangeHandler}
+                                          onKeyDown={this.inputKeyDownHandler}/>
                             </div>
                             :
                             null
@@ -418,7 +438,7 @@ TagField.propTypes = {
     inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     valueField: PropTypes.string,
     displayField: PropTypes.string,
-    separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    separators: PropTypes.array,
 
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -443,7 +463,7 @@ TagField.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
-    separator: /\s*,\s*/,
+    separators: TagField.DEFAULT_SEPARATORS,
 
     disabled: false,
 
