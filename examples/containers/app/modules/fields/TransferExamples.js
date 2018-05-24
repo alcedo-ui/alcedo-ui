@@ -9,13 +9,14 @@ import doc from 'assets/propTypes/Transfer.json';
 
 import 'sass/containers/app/modules/fields/TransferExamples.scss';
 
-export default class TransferExamples extends Component {
+class TransferExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
     render() {
+
         let leftData = [], rightData = [];
         for (let i = 0; i < 30; i++) {
             let obj = {text: 'item' + (i + 1), id: i};
@@ -28,6 +29,7 @@ export default class TransferExamples extends Component {
                 rightData.push(obj);
             }
         }
+
         return (
             <div className="example transfer-examples">
 
@@ -69,3 +71,5 @@ export default class TransferExamples extends Component {
         );
     }
 };
+
+export default TransferExamples;
