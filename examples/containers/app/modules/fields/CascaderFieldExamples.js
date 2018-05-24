@@ -7,7 +7,7 @@ import CascaderField from 'src/CascaderField';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CascaderField.json';
 
-export default class CascaderFieldExamples extends Component {
+class CascaderFieldExamples extends Component {
 
     constructor(props) {
 
@@ -82,9 +82,9 @@ export default class CascaderFieldExamples extends Component {
 
     }
 
-    changeHandler(value, path) {
-        console.log(value);
-    }
+    changeHandler = (value, path) => {
+        console.log(value, path);
+    };
 
     render() {
 
@@ -128,3 +128,5 @@ export default class CascaderFieldExamples extends Component {
         );
     }
 }
+
+export default CascaderFieldExamples;
