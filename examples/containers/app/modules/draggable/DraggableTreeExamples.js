@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/DraggableTree.json';
 
 import 'sass/containers/app/modules/draggable/DraggableTreeExamples.scss';
 
-export default class DraggableTreeExamples extends Component {
+class DraggableTreeExamples extends Component {
 
     constructor(props) {
 
@@ -50,13 +50,13 @@ export default class DraggableTreeExamples extends Component {
 
     }
 
-    sequenceChangeHandler(data) {
+    sequenceChangeHandler = data => {
         console.log('Sequence Changed:', data);
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log('Value Changed:', value);
-    }
+    };
 
     render() {
         return (
@@ -104,3 +104,5 @@ export default class DraggableTreeExamples extends Component {
         );
     }
 };
+
+export default DraggableTreeExamples;
