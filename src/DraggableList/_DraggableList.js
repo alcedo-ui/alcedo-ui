@@ -203,9 +203,9 @@ class DraggableList extends Component {
                                    desc={item[descriptionField] || null}
                                    disabled={disabled || item.disabled}
                                    isLoading={isLoading || item.isLoading}
-                                   onTouchTap={e => {
+                                   onClick={e => {
                                        onItemTouchTap && onItemTouchTap(item, index, e);
-                                       item.onTouchTap && item.onTouchTap(e);
+                                       item.onClick && item.onClick(e);
                                    }}/>
             )
             :
@@ -217,7 +217,7 @@ class DraggableList extends Component {
                                    text={item}
                                    disabled={disabled}
                                    isLoading={isLoading}
-                                   onTouchTap={e => {
+                                   onClick={e => {
                                        onItemTouchTap && onItemTouchTap(item, index, e);
                                    }}/>
             );
@@ -391,7 +391,7 @@ DraggableList.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 

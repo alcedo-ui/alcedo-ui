@@ -58,7 +58,7 @@ class TableHeader extends Component {
             <th className={tableHeaderClassName}
                 style={style}
                 title={typeof header === 'string' ? header : null}
-                onTouchTap={this.touchTapHandler}>
+                onClick={this.touchTapHandler}>
 
                 <div className="table-header-inner">
 

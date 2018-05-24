@@ -250,7 +250,7 @@ class TextArea extends Component {
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
-                                    onTouchTap={onIconTouchTap}/>
+                                    onClick={onIconTouchTap}/>
                         :
                         null
                 }
@@ -279,19 +279,19 @@ class TextArea extends Component {
 
                 <IconButton className={passwordVisibleIconClassName}
                             iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                            onTouchTap={this.togglePasswordVisible}/>
+                            onClick={this.togglePasswordVisible}/>
 
                 <IconButton ref="clearButton"
                             className={clearButtonClassName}
                             iconCls="fas fa-times-circle"
-                            onTouchTap={this.clearValue}/>
+                            onClick={this.clearValue}/>
 
                 {
                     rightIconCls ?
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                                    onClick={this.rightIconTouchTapHandler}/>
                         :
                         null
                 }

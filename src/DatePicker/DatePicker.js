@@ -202,7 +202,7 @@ class DatePicker extends Component {
                            readOnly={true}
                            clearButtonVisible={false}
                            isFocusedSelectAll={false}
-                           onTouchTap={e => {
+                           onClick={e => {
                                this.togglePopup(e);
                            }}/>
 

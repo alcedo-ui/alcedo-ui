@@ -397,7 +397,7 @@ class TagField extends Component {
                                 <IconButton className="tag-field-item-field-delete-button"
                                             iconCls="fas fa-times"
                                             disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                            onTouchTap={() => this.removeItem(index)}/>
+                                            onClick={() => this.removeItem(index)}/>
 
                             </EditableField>
                         </span>
@@ -408,7 +408,7 @@ class TagField extends Component {
                     clearButtonVisible ?
                         <IconButton className="tag-field-clear-button"
                                     iconCls="fas fa-trash-alt"
-                                    onTouchTap={this.clearHandler}/>
+                                    onClick={this.clearHandler}/>
                         :
                         null
                 }

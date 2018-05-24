@@ -90,13 +90,13 @@ class BriefPagging extends Component {
 
                     <IconButton iconCls={paggingPrevIconCls}
                                 disabled={page <= 0}
-                                onTouchTap={() => {
+                                onClick={() => {
                                     this.pageChangedHandle(page - 1);
                                 }}/>
 
                     <IconButton iconCls={paggingNextIconCls}
                                 disabled={page >= total - 1}
-                                onTouchTap={() => {
+                                onClick={() => {
                                     this.pageChangedHandle(page + 1);
                                 }}/>
 

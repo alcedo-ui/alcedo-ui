@@ -104,7 +104,7 @@ class Toast extends Component {
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
                           value={message}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.touchTapHandler}/>
         );
 
     }

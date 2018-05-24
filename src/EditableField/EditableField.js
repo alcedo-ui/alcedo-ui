@@ -147,7 +147,7 @@ class EditableField extends Component {
 
         const {
                 children, className, style, name, disabled, tip, tipPosition, title,
-                onMouseDown, onTouchTap, showModal, maxLength, autoWidth
+                onMouseDown, onClick, showModal, maxLength, autoWidth
             } = this.props,
             {changeText, text, hide, inputAutoWidth} = this.state,
             fieldClassName = classNames('editable-field', {
@@ -163,7 +163,7 @@ class EditableField extends Component {
                      style={style}
                      title={`${disabled ? '' : title}`}
                      onMouseDown={onMouseDown}
-                     onTouchTap={onTouchTap}>
+                     onClick={onClick}>
 
                     <span className={`editable-field-hidden-text`}
                           ref="editableFieldText"
@@ -179,7 +179,7 @@ class EditableField extends Component {
                     {
                         hide === true ?
                             <span className="editable-field-span"
-                                  onTouchTap={this.showInput}>{text}
+                                  onClick={this.showInput}>{text}
                                 <i className="fas fa-pencil-alt editable-field-icon"
                                    aria-hidden="true"></i>
                             </span>
@@ -201,7 +201,7 @@ class EditableField extends Component {
                         showModal && !hide ?
                             <div className="editable-modal"
                                  ref="editableModal"
-                                 onTouchTap={this.finishEdit}></div>
+                                 onClick={this.finishEdit}></div>
                             :
                             null
                     }
@@ -281,7 +281,7 @@ EditableField.propTypes = {
     /**
      * Callback function when touch the editableField.
      */
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
 
     /**
      * Callback function fired when the editableField blur.

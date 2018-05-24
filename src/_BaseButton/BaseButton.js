@@ -32,8 +32,8 @@ class BaseButton extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
     }
 
     startRipple(e) {
@@ -75,7 +75,7 @@ class BaseButton extends Component {
                         type={type}
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
-                        onTouchTap={this.touchTapHandler}>
+                        onClick={this.touchTapHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -161,7 +161,7 @@ BaseButton.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
 
     renderer: PropTypes.func,
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

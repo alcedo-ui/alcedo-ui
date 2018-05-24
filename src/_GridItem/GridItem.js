@@ -62,8 +62,8 @@ class GridItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -110,7 +110,7 @@ class GridItem extends Component {
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
-                         onTouchTap={this.touchTapHandler}
+                         onClick={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
@@ -255,7 +255,7 @@ GridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

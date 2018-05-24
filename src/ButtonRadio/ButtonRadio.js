@@ -25,8 +25,8 @@ class ButtonRadio extends Component {
     }
 
     touchTapHandler() {
-        const {data, onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data);
+        const {data, onClick} = this.props;
+        onClick && onClick(data);
     }
 
     render() {
@@ -43,7 +43,7 @@ class ButtonRadio extends Component {
                           theme={theme}
                           value={data.label}
                           disabled={disabled}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.touchTapHandler}/>
         );
 
     }
@@ -91,7 +91,7 @@ ButtonRadio.propTypes = {
     disabled: PropTypes.bool,
     isChecked: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

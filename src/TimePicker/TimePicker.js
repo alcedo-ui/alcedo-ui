@@ -157,7 +157,7 @@ class TimePicker extends Component {
                                clearButtonVisible={false}
                                isFocusedSelectAll={false}
                                readOnly={true}
-                               onTouchTap={e => {
+                               onClick={e => {
                                    this.togglePopup(e);
                                }}/>
 

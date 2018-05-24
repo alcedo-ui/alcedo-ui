@@ -122,12 +122,12 @@ class Radio extends Component {
                         <IconButton ref="radioIcon"
                                     className="radio-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    onClick={this.touchTapHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="radio-icon"
                                     iconCls={checkedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    onClick={this.touchTapHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>

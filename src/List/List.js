@@ -170,9 +170,9 @@ class List extends Component {
                           isLoading={isLoading || item.isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
+                          onClick={e => {
                               onItemTouchTap && onItemTouchTap(item, index, e);
-                              item.onTouchTap && item.onTouchTap(e);
+                              item.onClick && item.onClick(e);
                           }}
                           onSelect={() => this.listItemSelectHandler(item, index)}
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
@@ -197,7 +197,7 @@ class List extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => onItemTouchTap && onItemTouchTap(item, index, e)}
+                          onClick={e => onItemTouchTap && onItemTouchTap(item, index, e)}
                           onSelect={() => this.listItemSelectHandler(item, index)}
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             );
@@ -347,7 +347,7 @@ List.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 

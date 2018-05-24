@@ -209,7 +209,7 @@ class MaterialDatePicker extends Component {
                                      label={label}
                                      isLabelAnimate={isLabelAnimate}
                                      onChange={this.textFieldChangeHandle}
-                                     onTouchTap={e => {
+                                     onClick={e => {
                                          this.togglePopup(e);
                                      }}/>
 

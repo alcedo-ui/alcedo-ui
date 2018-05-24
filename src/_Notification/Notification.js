@@ -135,7 +135,7 @@ class Notification extends Component {
                     closeIconVisible ?
                         <IconButton className="notification-close-icon"
                                     iconCls="fas fa-times"
-                                    onTouchTap={this.touchTapHandler}/>
+                                    onClick={this.touchTapHandler}/>
                         :
                         null
                 }
@@ -144,7 +144,7 @@ class Notification extends Component {
                     closeButtonVisible ?
                         <AnchorButton className="notification-close-Button"
                                       value={closeButtonValue}
-                                      onTouchTap={this.touchTapHandler}/>
+                                      onClick={this.touchTapHandler}/>
                         :
                         null
                 }

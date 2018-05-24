@@ -199,9 +199,9 @@ class DraggableList extends Component {
                                                            selectMode={selectMode}
                                                            renderer={renderer}
                                                            onMove={this.listItemMoveHandler}
-                                                           onTouchTap={e => {
+                                                           onClick={e => {
                                                                onItemTouchTap && onItemTouchTap(item, index, e);
-                                                               item.onTouchTap && item.onTouchTap(e);
+                                                               item.onClick && item.onClick(e);
                                                            }}
                                                            onSelect={() => {
                                                                this.listItemSelectHandler(item, index);
@@ -231,7 +231,7 @@ class DraggableList extends Component {
                                                            selectMode={selectMode}
                                                            renderer={renderer}
                                                            onMove={this.listItemMoveHandler}
-                                                           onTouchTap={e => {
+                                                           onClick={e => {
                                                                onItemTouchTap && onItemTouchTap(item, index, e);
                                                            }}
                                                            onSelect={() => {
@@ -365,7 +365,7 @@ DraggableList.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 

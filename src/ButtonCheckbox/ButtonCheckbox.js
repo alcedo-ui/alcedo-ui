@@ -62,7 +62,7 @@ class ButtonCheckbox extends Component {
                           disabled={disabled}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.touchTapHandler}/>
         );
 
     }

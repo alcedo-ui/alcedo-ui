@@ -87,7 +87,7 @@ class Tab extends Component {
                                             key={index}
                                             className={className}
                                             style={tabButtonStyle}
-                                            onTouchTap={() => {
+                                            onClick={() => {
                                                 this.tabClickHandle(item, index);
                                             }}/>
                             );

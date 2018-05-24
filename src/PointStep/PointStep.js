@@ -80,7 +80,7 @@ class PointStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onTouchTap={this.touchTapHandler}/>
+                                       onClick={this.touchTapHandler}/>
                     )
                 }
 

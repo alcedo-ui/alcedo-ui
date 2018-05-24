@@ -161,7 +161,7 @@ class MaterialTimePicker extends Component {
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
                                              onChange={this.textFieldChangeHandle}
-                                             onTouchTap={e => {
+                                             onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 

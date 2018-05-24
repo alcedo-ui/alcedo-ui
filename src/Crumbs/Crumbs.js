@@ -37,8 +37,8 @@ class Crumbs extends Component {
         }
 
         return <Crumb {...item}
-                      onTouchTap={e => {
-                          item.onTouchTap && item.onTouchTap(e);
+                      onClick={e => {
+                          item.onClick && item.onClick(e);
                           onItemTouchTap && onItemTouchTap(e, item, index);
                       }}/>;
 
@@ -187,7 +187,7 @@ Crumbs.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number])).isRequired,
 

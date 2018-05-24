@@ -167,7 +167,7 @@ class Rate extends Component {
                              data-key={index + 1}>
                             <div className="half-star-left"
                                  data-key={index + 0.5}
-                                 onTouchTap={(e) => {
+                                 onClick={(e) => {
                                      this.selectHandler(index + 0.5, e);
                                  }}>
                                 <i className={`fas fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
@@ -175,7 +175,7 @@ class Rate extends Component {
                             </div>
                             <div className="half-star-right"
                                  data-key={index + 1}
-                                 onTouchTap={(e) => {
+                                 onClick={(e) => {
                                      this.selectHandler(index + 1, e);
                                  }}>
                                 <i className={`fas fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
@@ -188,7 +188,7 @@ class Rate extends Component {
                              data-key={index + 1}>
                             <i className={`fas fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
                                data-key={index + 1}
-                               onTouchTap={(e) => {
+                               onClick={(e) => {
                                    this.selectHandler(index + 1, e);
                                }}
                             ></i>

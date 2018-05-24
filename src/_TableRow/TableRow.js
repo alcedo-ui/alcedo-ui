@@ -75,7 +75,7 @@ class TableRow extends Component {
             <tr className={trClassName}
                 style={data.rowStyle}
                 disabled={disabled}
-                onTouchTap={this.rowTouchTapHandler}>
+                onClick={this.rowTouchTapHandler}>
 
                 {
                     columns.map((col, colIndex) =>
@@ -84,7 +84,7 @@ class TableRow extends Component {
                                 [col.cellClassName]: col.cellClassName
                             })}
                             style={col.cellStyle}
-                            onTouchTap={e => this.cellTouchTapHandler(e, colIndex)}>
+                            onClick={e => this.cellTouchTapHandler(e, colIndex)}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )

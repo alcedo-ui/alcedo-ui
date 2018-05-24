@@ -345,7 +345,7 @@ class MaterialDateRangePicker extends Component {
                                      clearButtonVisible={false}
                                      isFocusedSelectAll={false}
                                      popupVisible={popupVisible}
-                                     onTouchTap={e => {
+                                     onClick={e => {
                                          this.togglePopup(e);
                                      }}/>
 

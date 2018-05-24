@@ -36,8 +36,8 @@ class RoundStepItem extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {activatedStep, finishedStep, index, disabled, onTouchTap} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
+        !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
     }
 
     render() {
@@ -77,7 +77,7 @@ class RoundStepItem extends Component {
                 }
 
                 <div className="round"
-                     onTouchTap={this.touchTapHandler}>
+                     onClick={this.touchTapHandler}>
                     {
                         showFinishedStepIcon && finishedStep > index ?
                             <i className={finishedStepIconCls}
@@ -114,7 +114,7 @@ RoundStepItem.propTypes = {
 
     disabled: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

@@ -133,7 +133,7 @@ class Dropdown extends Component {
                               disableTouchRipple={disableTouchRipple}
                               onMouseOver={onMouseOver}
                               onMouseOut={onMouseOut}
-                              onTouchTap={this.togglePopup}/>
+                              onClick={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={dropdownPopupClassName}

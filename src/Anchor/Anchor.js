@@ -33,8 +33,8 @@ class Anchor extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
     }
 
     focusHandler(e) {
@@ -83,7 +83,7 @@ class Anchor extends Component {
                    className={anchorClassName}
                    style={style}
                    disabled={disabled || isLoading}
-                   onTouchTap={this.touchTapHandler}
+                   onClick={this.touchTapHandler}
                    onFocus={this.focusHandler}
                    onBlur={this.blurHandler}>
 
@@ -145,7 +145,7 @@ Anchor.propTypes = {
     tip: PropTypes.string,
     tipPosition: PropTypes.string,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func
 

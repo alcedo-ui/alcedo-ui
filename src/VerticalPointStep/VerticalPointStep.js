@@ -74,7 +74,7 @@ class VerticalPointStep extends Component {
                                                isFirst={index === 0}
                                                isLast={index === steps.length - 1}
                                                disabled={disabled}
-                                               onTouchTap={this.touchTapHandler}/>
+                                               onClick={this.touchTapHandler}/>
                     )
                 }
 

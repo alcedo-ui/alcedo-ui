@@ -139,7 +139,7 @@ class CascaderField extends Component {
                               disabled={disabled}
                               value={displayValue || placeholder}
                               theme={theme}
-                              onTouchTap={this.togglePopup}/>
+                              onClick={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={popupRenderClassName}
@@ -269,7 +269,7 @@ CascaderField.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number])),
 

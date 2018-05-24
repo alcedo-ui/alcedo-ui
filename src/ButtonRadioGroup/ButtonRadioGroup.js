@@ -78,7 +78,7 @@ class ButtonRadioGroup extends Component {
                                              data={item}
                                              disabled={disabled || item.disabled}
                                              isChecked={isChecked}
-                                             onTouchTap={this.changeHandler}/>
+                                             onClick={this.changeHandler}/>
                             );
 
                         }

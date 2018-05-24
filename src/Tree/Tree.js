@@ -162,7 +162,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
-                          onTouchTap={(...args) => {
+                          onClick={(...args) => {
                               onNodeTouchTap && onNodeTouchTap(...args);
                           }}
                           onNodeToggleStart={this.nodeToggleStartHandler}
@@ -279,7 +279,7 @@ Tree.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }),
 

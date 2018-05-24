@@ -81,8 +81,8 @@ class TreeNode extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data, path, e);
+        const {onClick} = this.props;
+        onClick && onClick(data, path, e);
 
         const {selectMode} = this.props;
 
@@ -143,7 +143,7 @@ class TreeNode extends Component {
                          style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
-                         onTouchTap={this.touchTapHandler}
+                         onClick={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
@@ -156,7 +156,7 @@ class TreeNode extends Component {
                                                     data.collapsedIconCls || collapsedIconCls
                                                     :
                                                     data.expandedIconCls || expandedIconCls}
-                                                onTouchTap={this.toggleTreeNode}/>
+                                                onClick={this.toggleTreeNode}/>
                                     :
                                     null
                             }
@@ -310,7 +310,7 @@ TreeNode.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

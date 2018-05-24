@@ -36,8 +36,8 @@ class PointStepItem extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {activatedStep, finishedStep, index, disabled, onTouchTap} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
+        const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
+        !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
     }
 
     render() {
@@ -60,7 +60,7 @@ class PointStepItem extends Component {
                 <div className="bg-round"></div>
 
                 <div className="round"
-                     onTouchTap={this.touchTapHandler}></div>
+                     onClick={this.touchTapHandler}></div>
 
                 <div className="title">
                     {value.title}
@@ -85,7 +85,7 @@ PointStepItem.propTypes = {
     isLast: PropTypes.bool,
     disabled: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

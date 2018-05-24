@@ -37,13 +37,13 @@ class Switcher extends Component {
 
         e.preventDefault();
 
-        const {disabled, isLoading, beforeChange, onTouchTap} = this.props;
+        const {disabled, isLoading, beforeChange, onClick} = this.props;
 
         if (disabled || isLoading) {
             return;
         }
 
-        onTouchTap && onTouchTap(e);
+        onClick && onClick(e);
 
         const value = !this.state.value,
             callback = () => {
@@ -87,7 +87,7 @@ class Switcher extends Component {
             <div className={switcherClassName}
                  style={style}
                  disabled={disabled || isLoading}
-                 onTouchTap={this.touchTapHandler}>
+                 onClick={this.touchTapHandler}>
 
                 {
                     labelVisible ?
@@ -156,7 +156,7 @@ Switcher.propTypes = {
     /**
      * Callback function fired when the switcher touch-tapped.
      */
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
 
     /**
      * Callback function fired before the switcher touch-tapped.

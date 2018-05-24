@@ -305,7 +305,7 @@ class MultipleSelect extends Component {
                                                  title={text}>
                                                 {text}
                                                 <div className="multiple-select-selected-remove-button"
-                                                     onTouchTap={(e) => {
+                                                     onClick={(e) => {
                                                          e.preventDefault();
                                                          this.removeSelected(index, e);
                                                      }}>
@@ -318,7 +318,7 @@ class MultipleSelect extends Component {
 
                                 <IconButton className="multiple-select-selected-collapse-button"
                                             iconCls="fas fa-angle-double-up"
-                                            onTouchTap={this.toggleSelectedCollapse}/>
+                                            onClick={this.toggleSelectedCollapse}/>
 
                             </div>
                         )
@@ -497,7 +497,7 @@ MultipleSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 

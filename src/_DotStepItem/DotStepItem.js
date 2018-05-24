@@ -18,8 +18,8 @@ class DotStepItem extends Component {
     }
 
     touchTapHandler() {
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap(index);
+        const {activatedStep, finishedStep, index, onClick} = this.props;
+        activatedStep !== index && finishedStep >= index && onClick(index);
     }
 
     render() {
@@ -70,7 +70,7 @@ DotStepItem.propTypes = {
     /**
      * Callback function fired when step change.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

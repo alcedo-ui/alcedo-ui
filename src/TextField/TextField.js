@@ -268,7 +268,7 @@ class TextField extends Component {
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
-                                    onTouchTap={onIconTouchTap}/>
+                                    onClick={onIconTouchTap}/>
                         :
                         null
                 }
@@ -300,7 +300,7 @@ class TextField extends Component {
                         <IconButton ref="clearButton"
                                     className={clearButtonClassName}
                                     iconCls="fas fa-times-circle"
-                                    onTouchTap={this.clearValue}/>
+                                    onClick={this.clearValue}/>
                         :
                         null
                 }
@@ -309,7 +309,7 @@ class TextField extends Component {
                     isPassword && passwordButtonVisible ?
                         <IconButton className="password-visible-icon"
                                     iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
+                                    onClick={this.togglePasswordVisible}/>
                         :
                         null
                 }
@@ -319,7 +319,7 @@ class TextField extends Component {
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                                    onClick={this.rightIconTouchTapHandler}/>
                         :
                         null
                 }

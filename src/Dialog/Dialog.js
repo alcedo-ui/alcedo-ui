@@ -151,7 +151,7 @@ class Dialog extends Component {
                     <IconButton className="dialog-title-close-button"
                                 iconCls={closeIconCls}
                                 disabled={disabled}
-                                onTouchTap={this.closeButtonTouchTapHandler}/>
+                                onClick={this.closeButtonTouchTapHandler}/>
                 </div>
 
                 <div className="dialog-content">
@@ -179,7 +179,7 @@ class Dialog extends Component {
                                           disabled={okButtonDisabled}
                                           isLoading={isLoading || okButtonIsLoading}
                                           disableTouchRipple={true}
-                                          onTouchTap={this.okButtonTouchTapHandler}/>
+                                          onClick={this.okButtonTouchTapHandler}/>
                             :
                             null
                     }
@@ -193,7 +193,7 @@ class Dialog extends Component {
                                         disabled={cancelButtonDisabled}
                                         isLoading={isLoading || cancelButtonIsLoading}
                                         disableTouchRipple={true}
-                                        onTouchTap={this.cancelButtonTouchTapHandler}/>
+                                        onClick={this.cancelButtonTouchTapHandler}/>
                             :
                             null
                     }

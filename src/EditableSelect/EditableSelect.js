@@ -368,7 +368,7 @@ EditableSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 

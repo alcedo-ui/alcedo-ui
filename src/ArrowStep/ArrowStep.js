@@ -76,7 +76,7 @@ class ArrowStep extends Component {
                                        value={item}
                                        isFirst={index === 0}
                                        isLast={index === steps.length - 1}
-                                       onTouchTap={this.touchTapHandler}/>
+                                       onClick={this.touchTapHandler}/>
                     )
                 }
             </div>

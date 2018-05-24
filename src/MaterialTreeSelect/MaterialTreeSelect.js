@@ -224,7 +224,7 @@ MaterialTreeSelect.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }),
 

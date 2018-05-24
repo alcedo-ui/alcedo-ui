@@ -30,8 +30,8 @@ class IconAnchor extends Component {
 
     touchTapHandler(e) {
         e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
     }
 
     startRipple(e) {
@@ -65,7 +65,7 @@ class IconAnchor extends Component {
                 <a {...restProps}
                    className={iconAnchorClassName}
                    disabled={disabled || isLoading}
-                   onTouchTap={this.touchTapHandler}>
+                   onClick={this.touchTapHandler}>
 
                     {
                         isLoading ?
@@ -147,7 +147,7 @@ IconAnchor.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

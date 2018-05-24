@@ -140,9 +140,9 @@ class Grid extends Component {
                           isLoading={isLoading || item.isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
+                          onClick={e => {
                               onItemTouchTap && onItemTouchTap(item, index, e);
-                              item.onTouchTap && item.onTouchTap(e);
+                              item.onClick && item.onClick(e);
                           }}
                           onSelect={() => {
                               this.listItemSelectHandler(item, index);
@@ -172,7 +172,7 @@ class Grid extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
+                          onClick={e => {
                               onItemTouchTap && onItemTouchTap(item, index, e);
                           }}
                           onSelect={() => {
@@ -320,7 +320,7 @@ Grid.propTypes = {
         /**
          * Callback function fired when a grid item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 

@@ -101,8 +101,8 @@ class DraggableGridItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -161,7 +161,7 @@ class DraggableGridItem extends Component {
                          ref={el => this.tipTriggerEl = el}
                          className={listItemClassName}
                          disabled={disabled || isLoading}
-                         onTouchTap={this.touchTapHandler}
+                         onClick={this.touchTapHandler}
                          onMouseOver={this.mouseOverHandler}
                          onMouseOut={this.hideTip}>
 
@@ -319,7 +319,7 @@ DraggableGridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

@@ -79,7 +79,7 @@ class RoundStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onTouchTap={this.touchTapHandler}/>
+                                       onClick={this.touchTapHandler}/>
                     )
                 }
             </div>

@@ -346,7 +346,7 @@ class DropdownSelect extends Component {
                         {
                             isMultiSelect && useSelectAll ?
                                 <div className="list-item dropdown-select-all-wrapper"
-                                     onTouchTap={this.selectAllTouchTapHandler}>
+                                     onClick={this.selectAllTouchTapHandler}>
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}/>
@@ -542,7 +542,7 @@ DropdownSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 

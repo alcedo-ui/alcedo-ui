@@ -134,7 +134,7 @@ GhostButton.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

@@ -74,7 +74,7 @@ class ListStep extends Component {
                                       activatedStep={activatedStep}
                                       finishedStep={finishedStep}
                                       data={item}
-                                      onTouchTap={this.touchTapHandler}/>
+                                      onClick={this.touchTapHandler}/>
                     )
                 }
 
