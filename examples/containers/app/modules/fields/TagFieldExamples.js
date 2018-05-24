@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/TagField.json';
 
 import 'sass/containers/app/modules/fields/TagFieldExamples.scss';
 
-export default class TagFieldExamples extends Component {
+class TagFieldExamples extends Component {
 
     constructor(props) {
 
@@ -83,3 +83,5 @@ export default class TagFieldExamples extends Component {
         );
     }
 };
+
+export default TagFieldExamples;
