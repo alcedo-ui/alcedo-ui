@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioGroup.json';
 
-export default class ButtonRadioGroupExamples extends Component {
+class ButtonRadioGroupExamples extends Component {
 
     constructor(props) {
 
@@ -48,13 +48,11 @@ export default class ButtonRadioGroupExamples extends Component {
             value: 5
         }];
 
-        this.changeHandle = this::this.changeHandle;
-
     }
 
-    changeHandle(value) {
+    changeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -81,7 +79,7 @@ export default class ButtonRadioGroupExamples extends Component {
                                 <p><code>Button Radio Group</code> simple example.</p>
 
                                 <ButtonRadioGroup data={this.data}
-                                                  onChange={this.changeHandle}/>
+                                                  onChange={this.changeHandler}/>
 
                             </div>
 
@@ -103,7 +101,7 @@ export default class ButtonRadioGroupExamples extends Component {
 
                                 <ButtonRadioGroup data={this.data}
                                                   value={1}
-                                                  onChange={this.changeHandle}/>
+                                                  onChange={this.changeHandler}/>
 
                             </div>
 
@@ -126,7 +124,7 @@ export default class ButtonRadioGroupExamples extends Component {
 
                                 <ButtonRadioGroup data={this.datas}
                                                   disabled={true}
-                                                  onChange={this.changeHandle}/>
+                                                  onChange={this.changeHandler}/>
 
                             </div>
 
@@ -143,3 +141,5 @@ export default class ButtonRadioGroupExamples extends Component {
         );
     }
 };
+
+export default ButtonRadioGroupExamples;
