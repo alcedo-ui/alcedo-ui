@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/EditableField.json';
 
-export default class EditableFieldExamples extends Component {
+class EditableFieldExamples extends Component {
 
     constructor(props) {
 
@@ -18,23 +18,17 @@ export default class EditableFieldExamples extends Component {
             disabled: false
         };
 
-        this.onChange = this :: this.onChange;
-        this.onEditEnd = this :: this.onEditEnd;
-        this.onEditStart = this :: this.onEditStart;
-        this.beforeChange = this :: this.beforeChange;
-        this.onTouchTap = this :: this.onTouchTap;
-
     }
 
-    onTouchTap(e) {
+    onTouchTap = e => {
         if (e && e.stopPropagation) {
             e.stopPropagation();
         } else {
             window.event.cancelBubble = true;
         }
-    }
+    };
 
-    onChange(text) {
+    onChange = text => {
         console.log(text);
         if (text === '123') {
             this.setState({
@@ -42,22 +36,22 @@ export default class EditableFieldExamples extends Component {
                 value: 'text111'
             });
         }
-    }
+    };
 
-    onEditEnd() {
+    onEditEnd = () => {
         console.log('end');
-    }
+    };
 
-    onEditStart(e) {
+    onEditStart = () => {
         console.log('start');
-    }
+    };
 
-    beforeChange(text) {
+    beforeChange = text => {
         if (text == '123') {
             return false;
         }
         return true;
-    }
+    };
 
     render() {
         return (
@@ -154,3 +148,5 @@ export default class EditableFieldExamples extends Component {
         );
     }
 };
+
+export default EditableFieldExamples;
