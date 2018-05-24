@@ -29,23 +29,19 @@ class LocalAutoCompleteExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = ::this.onChange;
-        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
-        this.filterClearHandler = ::this.filterClearHandler;
-
     }
 
-    onChange(value) {
+    onChange = value => {
         console.log('changed value: ', value);
-    }
+    };
 
-    filterPressEnterHandler(value) {
+    filterPressEnterHandler = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandler() {
+    filterClearHandler = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
 
