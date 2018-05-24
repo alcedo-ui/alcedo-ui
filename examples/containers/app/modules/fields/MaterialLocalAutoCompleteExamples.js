@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
 
-export default class MaterialLocalAutoCompleteExamples extends Component {
+class MaterialLocalAutoCompleteExamples extends Component {
 
     constructor(props) {
 
@@ -29,26 +29,21 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = this::this.onChange;
-        this.filterPressEnterHandle = this::this.filterPressEnterHandle;
-        this.filterClearHandle = this::this.filterClearHandle;
-
     }
 
-    onChange(item) {
+    onChange = item => {
         console.log('select item: ', item);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandle = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandle = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
-
         return (
             <div className="example auto-complete-examples">
 
@@ -96,3 +91,5 @@ export default class MaterialLocalAutoCompleteExamples extends Component {
         );
     }
 };
+
+export default MaterialLocalAutoCompleteExamples;
