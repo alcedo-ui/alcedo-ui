@@ -122,17 +122,17 @@ export default class NotificationExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.TOP_LEFT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.TOP);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.TOP_RIGHT);
                                                       }}/>
                                     </div>
@@ -140,17 +140,17 @@ export default class NotificationExamples extends Component {
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.RIGHT_TOP);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.RIGHT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.RIGHT_BOTTOM);
                                                       }}/>
                                     </div>
@@ -158,17 +158,17 @@ export default class NotificationExamples extends Component {
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.BOTTOM_LEFT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.BOTTOM);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.BOTTOM_RIGHT);
                                                       }}/>
                                     </div>
@@ -176,17 +176,17 @@ export default class NotificationExamples extends Component {
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.LEFT_TOP);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.LEFT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.LEFT_BOTTOM);
                                                       }}/>
                                     </div>
@@ -194,7 +194,7 @@ export default class NotificationExamples extends Component {
                                     <div className="button-group center">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Center"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addNotification(Notifier.Position.CENTER);
                                                       }}/>
                                     </div>

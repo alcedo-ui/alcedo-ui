@@ -74,7 +74,7 @@ export default class PageLoadingExamples extends Component {
                             <p>A simple PageLoading example.</p>
 
                             <RaisedButton value="loading"
-                                          onTouchTap={() => {
+                                          onClick={() => {
                                               this.showLoading('visible1');
                                           }}/>
 
@@ -97,7 +97,7 @@ export default class PageLoadingExamples extends Component {
                             <p>Set self loading progress on PageLoading.</p>
 
                             <RaisedButton value="loading"
-                                          onTouchTap={() => {
+                                          onClick={() => {
                                               this.showLoading('visible2');
                                           }}/>
 
@@ -121,7 +121,7 @@ export default class PageLoadingExamples extends Component {
                             <p>A striped pageLoading example.</p>
 
                             <RaisedButton value="loading"
-                                          onTouchTap={() => {
+                                          onClick={() => {
                                               this.showLoading('visible3');
                                           }}/>
 

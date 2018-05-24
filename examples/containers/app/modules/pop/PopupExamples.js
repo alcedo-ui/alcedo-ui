@@ -124,7 +124,7 @@ export default class PopupExamples extends Component {
                                 <RaisedButton ref="trigger0"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.togglePopup(0);
                                               }}/>
 
@@ -163,7 +163,7 @@ export default class PopupExamples extends Component {
                                 <RaisedButton ref="trigger1"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.togglePopup(1);
                                               }}/>
 
@@ -202,19 +202,19 @@ export default class PopupExamples extends Component {
                                         <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(5);
                                                       }}/>
                                         <RaisedButton ref="trigger6"
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(6);
                                                       }}/>
                                         <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(7);
                                                       }}/>
                                     </div>
@@ -223,19 +223,19 @@ export default class PopupExamples extends Component {
                                         <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(11);
                                                       }}/>
                                         <RaisedButton ref="trigger12"
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(12);
                                                       }}/>
                                         <RaisedButton ref="trigger13"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(13);
                                                       }}/>
                                     </div>
@@ -244,19 +244,19 @@ export default class PopupExamples extends Component {
                                         <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(2);
                                                       }}/>
                                         <RaisedButton ref="trigger3"
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(3);
                                                       }}/>
                                         <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(4);
                                                       }}/>
                                     </div>
@@ -265,19 +265,19 @@ export default class PopupExamples extends Component {
                                         <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(8);
                                                       }}/>
                                         <RaisedButton ref="trigger9"
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(9);
                                                       }}/>
                                         <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(10);
                                                       }}/>
                                     </div>
@@ -286,7 +286,7 @@ export default class PopupExamples extends Component {
                                         <RaisedButton ref="trigger14"
                                                       className="trigger-position-button"
                                                       value="Center"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.togglePopup(14);
                                                       }}/>
                                     </div>
@@ -460,7 +460,7 @@ export default class PopupExamples extends Component {
                                 <RaisedButton ref="trigger16"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.togglePopup(16);
                                               }}/>
 

@@ -20,7 +20,7 @@ class EditableFieldExamples extends Component {
 
     }
 
-    onTouchTap = e => {
+    onClick = e => {
         if (e && e.stopPropagation) {
             e.stopPropagation();
         } else {
@@ -88,7 +88,7 @@ class EditableFieldExamples extends Component {
                                                onChange={this.onChange}
                                                onEditStart={this.onEditStart}
                                                beforeChange={this.beforeChange}
-                                               onTouchTap={this.onTouchTap}
+                                               onClick={this.onClick}
                                                showModal={true}/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}

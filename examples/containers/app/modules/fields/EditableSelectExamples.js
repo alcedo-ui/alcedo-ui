@@ -19,14 +19,14 @@ class EditableSelectExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, {value: 3, text: 'test3'}, {value: 4, text: 'test4'}, {value: 5, text: 'test5'}, {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, {value: 6, text: 'test6'}, {value: 7, text: 'test7'}, {value: 8, text: 'test8'}];

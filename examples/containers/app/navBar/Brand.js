@@ -28,7 +28,7 @@ class Brand extends Component {
 
                 <IconButton className="menu-toggle-button"
                             iconCls="fas fa-bars"
-                            onTouchTap={this.mousedownHandler}/>
+                            onClick={this.mousedownHandler}/>
 
                 <Link className="brand-name"
                       to="/">

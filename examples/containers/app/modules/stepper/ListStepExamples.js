@@ -122,16 +122,16 @@ export default class ListStepExamples extends Component {
                                 <RaisedButton value="Prev"
                                               iconCls="fas fa-angle-left"
                                               disabled={activatedStep <= 0}
-                                              onTouchTap={this.prev}/>
+                                              onClick={this.prev}/>
 
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
                                               rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' : ''}
                                               disabled={activatedStep >= steps.length}
-                                              onTouchTap={this.next}/>
+                                              onClick={this.next}/>
 
                                 <RaisedButton value="Reset"
                                               iconCls="fas fa-undo"
-                                              onTouchTap={this.reset}/>
+                                              onClick={this.reset}/>
 
                             </div>
 

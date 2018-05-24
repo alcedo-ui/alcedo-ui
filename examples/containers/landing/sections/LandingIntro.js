@@ -36,7 +36,7 @@ class LandingIntro extends Component {
 
                         <FlatButton className="ghost-button"
                                     value="Demo"
-                                    onTouchTap={this.goToDemo}/>
+                                    onClick={this.goToDemo}/>
 
                     </div>
 

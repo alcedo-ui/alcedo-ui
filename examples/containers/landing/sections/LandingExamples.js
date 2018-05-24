@@ -31,7 +31,7 @@ class LandingExamples extends Component {
 
                     <FlatButton className="ghost-button"
                                 value="Go to Demo"
-                                onTouchTap={this.goToDemo}/>
+                                onClick={this.goToDemo}/>
 
                     <Paper className="landing-examples-demo"
                            depth={4}>

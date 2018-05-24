@@ -55,7 +55,7 @@ class DownloadFieldExamples extends Component {
 
                                 <RaisedButton value="Download NodeJs"
                                               theme={RaisedButton.Theme.PRIMARY}
-                                              onTouchTap={this.download}/>
+                                              onClick={this.download}/>
 
                             </div>
 

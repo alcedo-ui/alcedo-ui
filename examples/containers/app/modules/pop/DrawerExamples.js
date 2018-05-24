@@ -114,7 +114,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(0);
                                                       }}/>
                                     </div>
@@ -122,7 +122,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(1);
                                                       }}/>
                                     </div>
@@ -130,7 +130,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(2);
                                                       }}/>
                                     </div>
@@ -138,7 +138,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(3);
                                                       }}/>
                                     </div>

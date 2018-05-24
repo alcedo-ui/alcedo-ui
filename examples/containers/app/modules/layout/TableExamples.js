@@ -34,7 +34,7 @@ export default class TableExamples extends Component {
             renderer(rowData) {
                 return <Switcher value={!rowData.disabled}
                                  size="small"
-                                 onTouchTap={(e) => {
+                                 onClick={(e) => {
                                      e.stopPropagation();
                                  }}/>;
             }
@@ -122,7 +122,7 @@ export default class TableExamples extends Component {
                                        renderer(rowData) {
                                            return (
                                                <IconButton iconCls="fas fa-trash-alt"
-                                                           onTouchTap={() => {
+                                                           onClick={() => {
                                                                deleteRow(rowData.id);
                                                            }}/>
                                            );

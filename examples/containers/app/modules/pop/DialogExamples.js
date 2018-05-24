@@ -87,7 +87,7 @@ export default class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.openDialog(1);
                                               }}/>
 
@@ -127,7 +127,7 @@ export default class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.openDialog(2);
                                               }}/>
 
