@@ -9,18 +9,14 @@ import 'sass/containers/landing/LandingNav.scss';
 class LandingNav extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.menuClickHandler = ::this.menuClickHandler;
-
     }
 
-    menuClickHandler(activatedMenu) {
+    menuClickHandler = activatedMenu => {
         const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
         document.body.scrollTop = scrollTop;
         document.documentElement.scrollTop = scrollTop;
-    }
+    };
 
     render() {
 
