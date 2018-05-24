@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/MultipleSelect.json';
 
 import 'sass/containers/app/modules/fields/MultipleSelectExamples.scss';
 
-export default class MultipleSelectExamples extends Component {
+class MultipleSelectExamples extends Component {
 
     constructor(props) {
 
@@ -80,11 +80,9 @@ export default class MultipleSelectExamples extends Component {
             }]
         }];
 
-        this.onChangeHandler = this::this.onChangeHandler;
-
     }
 
-    onChangeHandler(value) {
+    onChangeHandler = value => {
 
         console.log('value changed: ', value);
 
@@ -92,7 +90,7 @@ export default class MultipleSelectExamples extends Component {
             value: value
         });
 
-    }
+    };
 
     render() {
 
@@ -168,3 +166,5 @@ export default class MultipleSelectExamples extends Component {
         );
     }
 };
+
+export default MultipleSelectExamples;
