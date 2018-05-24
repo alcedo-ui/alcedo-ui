@@ -13,16 +13,12 @@ import 'sass/containers/landing/sections/LandingExamples.scss';
 class LandingExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.goToDemo = ::this.goToDemo;
-
     }
 
-    goToDemo() {
+    goToDemo = () => {
         this.props.routerPush('/components');
-    }
+    };
 
     render() {
         return (
