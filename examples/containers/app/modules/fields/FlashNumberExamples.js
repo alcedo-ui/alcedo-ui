@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/FlashNumber.json';
 
 import 'sass/containers/app/modules/fields/FlashNumberExamples.scss';
 
-export default class FlashNumberExamples extends Component {
+class FlashNumberExamples extends Component {
 
     constructor(props) {
 
@@ -21,22 +21,19 @@ export default class FlashNumberExamples extends Component {
             value2: ''
         };
 
-        this.changeHandleValue1 = this::this.changeHandleValue1;
-        this.changeHandleValue2 = this::this.changeHandleValue2;
-
     }
 
-    changeHandleValue1(value1) {
+    changeHandleValue1 = value1 => {
         this.setState({
             value1
         });
-    }
+    };
 
-    changeHandleValue2(value2) {
+    changeHandleValue2 = value2 => {
         this.setState({
             value2
-        })
-    }
+        });
+    };
 
     render() {
 
@@ -118,3 +115,5 @@ export default class FlashNumberExamples extends Component {
         );
     }
 };
+
+export default FlashNumberExamples;
