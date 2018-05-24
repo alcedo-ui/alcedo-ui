@@ -9,9 +9,10 @@ import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialTreeSelectExamples.scss';
 
-export default class MaterialTreeSelectExamples extends Component {
+class MaterialTreeSelectExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.data = {
@@ -46,13 +47,11 @@ export default class MaterialTreeSelectExamples extends Component {
             }]
         };
 
-        this.onChangeHandle = this::this.onChangeHandle;
-
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -86,7 +85,7 @@ export default class MaterialTreeSelectExamples extends Component {
                                                         text: 'Children 0 - 1 - 0',
                                                         desc: 'Children 0 - 1 - 0'
                                                     }}
-                                                    onChange={this.onChangeHandle}/>
+                                                    onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -114,7 +113,7 @@ export default class MaterialTreeSelectExamples extends Component {
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
                                                         autoClose={false}
                                                         data={this.data}
-                                                        onChange={this.onChangeHandle}/>
+                                                        onChange={this.onChangeHandler}/>
                                 </div>
                             </div>
 
@@ -132,3 +131,5 @@ export default class MaterialTreeSelectExamples extends Component {
         );
     }
 };
+
+export default MaterialTreeSelectExamples;
