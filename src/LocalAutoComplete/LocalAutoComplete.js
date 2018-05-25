@@ -41,21 +41,9 @@ class LocalAutoComplete extends Component {
             listData: props.data
         };
 
-        this.filterData = ::this.filterData;
-        this.filterFocusHandler = ::this.filterFocusHandler;
-        this.filterBlurHandler = ::this.filterBlurHandler;
-        this.filterKeyDownHandler = ::this.filterKeyDownHandler;
-        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-        this.itemTouchTapHandler = ::this.itemTouchTapHandler;
-        this.update = ::this.update;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-
     }
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -91,9 +79,9 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    filterFocusHandler(...args) {
+    filterFocusHandler = (...args) => {
 
         if (this.props.disabled) {
             return;
@@ -114,18 +102,18 @@ class LocalAutoComplete extends Component {
 
         this.setState(state);
 
-    }
+    };
 
-    filterBlurHandler(...args) {
+    filterBlurHandler = (...args) => {
         this.setState({
             filterFocused: false
         }, () => {
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
         });
-    }
+    };
 
-    filterKeyDownHandler(e) {
+    filterKeyDownHandler = e => {
 
         const {useDynamicRenderList} = this.props,
             {tempSelectIndex, listData} = this.state,
@@ -151,9 +139,9 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    filterPressEnterHandler(e, filter) {
+    filterPressEnterHandler = (e, filter) => {
 
         const {autoClose} = this.props,
             state = {};
@@ -171,9 +159,9 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
 
         const {data} = this.props,
             state = {
@@ -195,18 +183,18 @@ class LocalAutoComplete extends Component {
             onFilterChange && onFilterChange(filter);
         });
 
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         }, () => {
             const {onPopupClosed} = this.props;
             onPopupClosed && onPopupClosed();
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.localAutoCompleteEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -216,9 +204,9 @@ class LocalAutoComplete extends Component {
             });
         }
 
-    }
+    };
 
-    itemTouchTapHandler(value) {
+    itemTouchTapHandler = value => {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
@@ -240,9 +228,9 @@ class LocalAutoComplete extends Component {
             isChanged && onChange && onChange(value);
         });
 
-    }
+    };
 
-    update() {
+    update = () => {
 
         const {displayField, valueField, renderer} = this.props,
             {filter, tempSelectIndex, listData} = this.state;
@@ -277,14 +265,14 @@ class LocalAutoComplete extends Component {
             }
         });
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
         if (this.state.filterFocused && !Dom.isParent(e.target, this.localAutoCompleteEl)
             && !Dom.isParent(e.target, findDOMNode(this.refs.popup))) {
             this.update();
         }
-    }
+    };
 
     componentDidMount() {
 
