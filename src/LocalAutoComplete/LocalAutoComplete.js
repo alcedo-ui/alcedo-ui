@@ -179,8 +179,12 @@ class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
+
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
+
+            this.refs.popup.resetPosition();
+
         });
 
     };
