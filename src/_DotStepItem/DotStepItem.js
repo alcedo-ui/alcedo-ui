@@ -10,17 +10,13 @@ import classNames from 'classnames';
 class DotStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
+    touchTapHandler = () => {
         const {activatedStep, finishedStep, index, onClick} = this.props;
         activatedStep !== index && finishedStep >= index && onClick(index);
-    }
+    };
 
     render() {
 
