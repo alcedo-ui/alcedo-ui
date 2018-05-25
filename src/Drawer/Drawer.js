@@ -29,20 +29,16 @@ class Drawer extends Component {
 
         this.closeTimeout = null;
 
-        this.clearCloseTimeout = ::this.clearCloseTimeout;
-        this.setBodyLock = ::this.setBodyLock;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-
     }
 
-    clearCloseTimeout() {
+    clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
-    }
+    };
 
-    setBodyLock(props = this.props) {
+    setBodyLock = (props = this.props) => {
 
         if (!props) {
             return;
@@ -50,13 +46,13 @@ class Drawer extends Component {
 
         props.showModal && Dom.toggleClass(document.querySelector('body'), 'drawer-modal-lock', props.visible);
 
-    }
+    };
 
-    resetBody() {
+    resetBody = () => {
         Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
-    }
+    };
 
-    triggerHandler(el, drawerEl, currentVisible, isBlurClose) {
+    triggerHandler = (el, drawerEl, currentVisible, isBlurClose) => {
 
         while (el) {
             if (el == drawerEl) {
@@ -67,9 +63,9 @@ class Drawer extends Component {
 
         return isBlurClose ? false : currentVisible;
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         const {visible, isBlurClose, triggerHandler, onRequestClose} = this.props,
             drawerEl = this.refs.drawerContent;
@@ -89,7 +85,7 @@ class Drawer extends Component {
             });
         }
 
-    }
+    };
 
     componentDidMount() {
         this.setBodyLock();
