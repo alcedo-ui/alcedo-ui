@@ -35,15 +35,13 @@ class WaterfallExamples extends Component {
             column: 3
         };
 
-        this.columnChangeHandle = ::this.columnChangeHandle;
-
     }
 
-    columnChangeHandle(column) {
+    columnChangeHandle = column => {
         this.setState({
             column
         });
-    }
+    };
 
     render() {
 
