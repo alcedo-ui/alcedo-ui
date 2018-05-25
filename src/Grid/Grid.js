@@ -31,13 +31,9 @@ class Grid extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.renderGridItem = ::this.renderGridItem;
-
     }
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -63,9 +59,9 @@ class Grid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -93,7 +89,7 @@ class Grid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -103,7 +99,7 @@ class Grid extends Component {
         }
     }
 
-    renderGridItem(item, index) {
+    renderGridItem = (item, index) => {
 
         const {
 
@@ -183,7 +179,7 @@ class Grid extends Component {
                           }}/>
             );
 
-    }
+    };
 
     render() {
 
