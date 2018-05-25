@@ -26,17 +26,15 @@ class RadioGroup extends Component {
             value: props.value
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(item) {
+    changeHandler = item => {
         this.setState({
             value: item.value
         }, () => {
             !this.props.disabled && this.props.onChange && this.props.onChange(item.value);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
