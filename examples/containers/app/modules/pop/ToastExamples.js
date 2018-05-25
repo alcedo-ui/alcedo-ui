@@ -4,7 +4,6 @@ import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import MaterialProvider from 'src/MaterialProvider';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
 
@@ -14,7 +13,7 @@ import doc from 'assets/propTypes/Toast.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/ToastExamples.scss';
 
-export default class ToastExamples extends Component {
+class ToastExamples extends Component {
 
     constructor(props) {
 
@@ -39,19 +38,15 @@ export default class ToastExamples extends Component {
             value: Toaster.Position[item]
         }));
 
-        this.updateField = ::this.updateField;
-        this.addToast = ::this.addToast;
-        this.toastPopHandler = ::this.toastPopHandler;
-
     }
 
-    updateField(key, value) {
+    updateField = (key, value) => {
         let state = {};
         state[key] = value;
         this.setState(state);
-    }
+    };
 
-    addToast(position) {
+    addToast = position => {
 
         const {type, message, toasts} = this.state;
 
@@ -65,13 +60,13 @@ export default class ToastExamples extends Component {
             position
         });
 
-    }
+    };
 
-    toastPopHandler() {
+    toastPopHandler = () => {
         this.setState({
             toasts: []
         });
-    }
+    };
 
     render() {
 
@@ -212,3 +207,5 @@ export default class ToastExamples extends Component {
         );
     }
 };
+
+export default ToastExamples;
