@@ -29,11 +29,9 @@ class Switcher extends Component {
             value: !!props.value
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
 
         e.preventDefault();
 
@@ -61,7 +59,7 @@ class Switcher extends Component {
             callback();
         }
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
