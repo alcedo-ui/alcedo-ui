@@ -25,35 +25,31 @@ class Anchor extends Component {
             focused: false
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-
     }
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
         e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
-    }
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             focused: true
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(e);
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
         this.setState({
             focused: false
         }, () => {
             const {onBlur} = this.props;
             onBlur && onBlur(e);
         });
-    }
+    };
 
     render() {
 
