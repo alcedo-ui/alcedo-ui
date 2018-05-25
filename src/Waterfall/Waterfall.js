@@ -21,12 +21,9 @@ class Waterfall extends Component {
             dom: null
         };
 
-        this.generateTempColumns = ::this.generateTempColumns;
-        this.renderChildren = ::this.renderChildren;
-
     }
 
-    initTempColumns(column) {
+    initTempColumns = column => {
 
         if (!column || column.length < 1) {
             return;
@@ -43,9 +40,9 @@ class Waterfall extends Component {
 
         return result;
 
-    }
+    };
 
-    getMinHeightColumn(columns) {
+    getMinHeightColumn = columns => {
 
         if (!columns || columns.length < 1) {
             return;
@@ -69,9 +66,9 @@ class Waterfall extends Component {
             vslue: min
         };
 
-    }
+    };
 
-    generateTempColumns(props = this.props) {
+    generateTempColumns = (props = this.props) => {
 
         const {column, separator, children} = props,
             tempColumns = this.initTempColumns(column);
@@ -107,9 +104,9 @@ class Waterfall extends Component {
 
         return tempColumns;
 
-    }
+    };
 
-    renderChildren(props = this.props) {
+    renderChildren = (props = this.props) => {
 
         const {column} = props,
             tempColumns = this.generateTempColumns(props),
@@ -130,7 +127,7 @@ class Waterfall extends Component {
 
         return result;
 
-    }
+    };
 
     componentDidMount() {
         this.setState({
