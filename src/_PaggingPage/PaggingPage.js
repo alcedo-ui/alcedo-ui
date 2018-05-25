@@ -11,28 +11,21 @@ import IconButton from '../IconButton';
 class PaggingPage extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.jump = ::this.jump;
-
     }
 
-    getArray(number) {
+    getArray = number => {
         let array = [];
         for (let i = 1; i <= number; i++) {
             array.push(i);
         }
         return array;
-    }
+    };
 
-    jump(page) {
-
+    jump = page => {
         const {onPageChange} = this.props;
-
         this.props.page != page && onPageChange && onPageChange(page);
-
-    }
+    };
 
     render() {
 
