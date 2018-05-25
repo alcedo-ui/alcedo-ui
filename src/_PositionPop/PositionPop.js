@@ -32,17 +32,9 @@ class PositionPop extends Component {
             exited: true
         };
 
-        this.enterHandler = ::this.enterHandler;
-        this.enteredHandler = ::this.enteredHandler;
-        this.exitHandler = ::this.exitHandler;
-        this.exitedHandler = ::this.exitedHandler;
-        this.resizeHandler = ::this.resizeHandler;
-        this.getEl = ::this.getEl;
-        this.resetPosition = ::this.resetPosition;
-
     }
 
-    enterHandler(el) {
+    enterHandler = el => {
 
         this.transitionEl = el;
         this.resetPosition();
@@ -54,42 +46,42 @@ class PositionPop extends Component {
             onRender && onRender(el);
         });
 
-    }
+    };
 
-    enteredHandler(el) {
+    enteredHandler = el => {
         const {onRendered} = this.props;
         onRendered && onRendered(el);
-    }
+    };
 
-    exitHandler(el) {
+    exitHandler = el => {
         this.setState({
             enter: false
         }, () => {
             const {onDestroy} = this.props;
             onDestroy && onDestroy(el);
         });
-    }
+    };
 
-    exitedHandler(el) {
+    exitedHandler = el => {
         this.setState({
             exited: true
         }, () => {
             const {onDestroyed} = this.props;
             onDestroyed && onDestroyed(el);
         });
-    }
+    };
 
     resizeHandler = debounce(() => {
         this.resetPosition();
     }, 250);
 
-    getEl() {
+    getEl = () => {
         return this.transitionEl;
-    }
+    };
 
-    resetPosition(props = this.props) {
+    resetPosition = (props = this.props) => {
         PositionPopCalculation.setStyle(this.transitionEl, props.position);
-    }
+    };
 
     componentDidMount() {
         Event.addEvent(window, 'resize', this.resizeHandler);
