@@ -28,12 +28,9 @@ class Notification extends Component {
             leave: false
         };
 
-        this.getIconCls = ::this.getIconCls;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getIconCls() {
+    getIconCls = () => {
         switch (this.props.type) {
             case MsgType.SUCCESS:
                 return 'fas fa-check-circle';
@@ -44,9 +41,9 @@ class Notification extends Component {
             default:
                 return 'fas fa-info-circle';
         }
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
 
         e.preventDefault();
 
@@ -61,7 +58,7 @@ class Notification extends Component {
             }, 500);
         });
 
-    }
+    };
 
     componentDidMount() {
 
