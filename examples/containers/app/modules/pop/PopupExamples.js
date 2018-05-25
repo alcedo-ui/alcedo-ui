@@ -13,7 +13,7 @@ import doc from 'assets/propTypes/Popup.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/PopupExamples.scss';
 
-export default class PopupExamples extends Component {
+class PopupExamples extends Component {
 
     constructor(props) {
 
@@ -38,13 +38,9 @@ export default class PopupExamples extends Component {
             triggerEl: {}
         };
 
-        this.togglePopup = ::this.togglePopup;
-        this.openPopup = ::this.openPopup;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    togglePopup(id) {
+    togglePopup = id => {
 
         const {popupVisible} = this.state;
 
@@ -54,9 +50,9 @@ export default class PopupExamples extends Component {
             popupVisible
         });
 
-    }
+    };
 
-    openPopup(id) {
+    openPopup = id => {
 
         const {popupVisible} = this.state;
 
@@ -66,9 +62,9 @@ export default class PopupExamples extends Component {
             popupVisible
         });
 
-    }
+    };
 
-    closePopup(id) {
+    closePopup = id => {
 
         const {popupVisible} = this.state;
 
@@ -78,7 +74,7 @@ export default class PopupExamples extends Component {
             popupVisible
         });
 
-    }
+    };
 
     componentDidMount() {
 
@@ -499,3 +495,5 @@ export default class PopupExamples extends Component {
         );
     }
 };
+
+export default PopupExamples;
