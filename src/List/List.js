@@ -33,14 +33,9 @@ class List extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.adjustScroll = ::this.adjustScroll;
-        this.renderListItem = ::this.renderListItem;
-
     }
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -66,9 +61,9 @@ class List extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -96,9 +91,9 @@ class List extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    adjustScroll() {
+    adjustScroll = () => {
 
         const {data} = this.props,
             {value} = this.state,
@@ -120,7 +115,7 @@ class List extends Component {
             this.listEl.scrollTop = itemTop + itemHeight - listHeight;
         }
 
-    }
+    };
 
     componentDidMount() {
         this.listEl = this.refs.list;
@@ -134,7 +129,7 @@ class List extends Component {
         }
     }
 
-    renderListItem(item, index) {
+    renderListItem = (item, index) => {
 
         const {
 
@@ -202,7 +197,7 @@ class List extends Component {
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             );
 
-    }
+    };
 
     render() {
 
