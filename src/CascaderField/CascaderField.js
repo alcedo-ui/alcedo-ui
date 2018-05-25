@@ -32,27 +32,21 @@ class CascaderField extends Component {
             displayValue: this.calDisplayValue(TreeCalculation.calPath(props.value, {children: props.data}, props))
         };
 
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.calDisplayValue = ::this.calDisplayValue;
-        this.popupRenderHandle = ::this.popupRenderHandle;
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    togglePopup() {
+    togglePopup = () => {
         this.setState({
             popupVisible: !this.state.popupVisible
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         });
-    }
+    };
 
-    calDisplayValue(path, props = this.props) {
+    calDisplayValue = (path, props = this.props) => {
 
         if (!path || path.length < 1) {
             return;
@@ -62,9 +56,9 @@ class CascaderField extends Component {
         return path.map(item => Util.getTextByDisplayField(item.node, displayField, valueField))
         .join(` ${separator} `);
 
-    }
+    };
 
-    popupRenderHandle(popupEl) {
+    popupRenderHandle = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.cascaderFieldEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -74,9 +68,9 @@ class CascaderField extends Component {
             });
         }
 
-    }
+    };
 
-    changeHandler(value, path) {
+    changeHandler = (value, path) => {
 
         this.setState({
             value,
@@ -86,7 +80,7 @@ class CascaderField extends Component {
             onChange && onChange(value, path);
         });
 
-    }
+    };
 
     componentDidMount() {
         this.cascaderFieldEl = this.refs.cascaderField;
