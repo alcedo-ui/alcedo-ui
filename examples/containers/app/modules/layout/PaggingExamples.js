@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Pagging.json';
 
 import Valid from 'src/_vendors/Valid';
 
-export default class PaggingExamples extends Component {
+class PaggingExamples extends Component {
 
     constructor(props) {
 
@@ -39,12 +39,9 @@ export default class PaggingExamples extends Component {
             }
         };
 
-        this.pageChangedHandler = ::this.pageChangedHandler;
-        this.generateData = ::this.generateData;
-
     }
 
-    generateData(size = 100) {
+    generateData = (size = 100) => {
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
@@ -53,9 +50,9 @@ export default class PaggingExamples extends Component {
             });
         }
         return data.length;
-    }
+    };
 
-    pageChangedHandler(pagging) {
+    pageChangedHandler = pagging => {
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
         }
@@ -65,9 +62,9 @@ export default class PaggingExamples extends Component {
         }, () => {
             this.resetPage(this.generateData(100), pagging);
         });
-    }
+    };
 
-    resetPage(data = this.generateData(100), pagging = this.state.pagging) {
+    resetPage = (data = this.generateData(100), pagging = this.state.pagging) => {
         let {page, pageSize} = pagging,
             total = Math.ceil(data / pageSize);
 
@@ -80,12 +77,12 @@ export default class PaggingExamples extends Component {
             });
             return;
         }
-    }
+    };
 
     render() {
-        const {pagging} = this.state;
 
-        const totalPage = Math.ceil(this.generateData() / pagging.pageSize);
+        const {pagging} = this.state,
+            totalPage = Math.ceil(this.generateData() / pagging.pageSize);
 
         return (
             <div className="example pagging-examples">
@@ -125,3 +122,5 @@ export default class PaggingExamples extends Component {
         );
     }
 };
+
+export default PaggingExamples;
