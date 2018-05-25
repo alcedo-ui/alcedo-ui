@@ -64,6 +64,7 @@ class TagFieldExamples extends Component {
                                 <TagField style={{height: 100}}
                                           data={[]}
                                           placeholder="Please input ..."
+                                          separators={[',', ';', '|']}
                                           onChange={value => console.log(value)}/>
 
                             </div>
