@@ -26,16 +26,9 @@ class EditableField extends Component {
             inputAutoWidth: 0
         };
 
-        this.onInputChange = ::this.onInputChange;
-        this.showInput = ::this.showInput;
-        this.downHandle = ::this.downHandle;
-        this.triggerElement = ::this.triggerElement;
-        this.keyDownHandle = ::this.keyDownHandle;
-        this.finishEdit = ::this.finishEdit;
-
     }
 
-    triggerElement(el, targetEl) {
+    triggerElement = (el, targetEl) => {
         while (el) {
             if (el == targetEl) {
                 return true;
@@ -43,37 +36,37 @@ class EditableField extends Component {
             el = el.parentNode;
         }
         return false;
-    }
+    };
 
-    onInputChange(text) {
+    onInputChange = text => {
         this.setState({
             changeText: text
         });
-    }
+    };
 
     /**
      * 显示input并获得焦点
      */
-    showInput(e) {
+    showInput = e => {
         this.setState({
             hide: false
         }, () => {
             this.refs.textField.refs.input.focus();
             this.props.onEditStart && this.props.onEditStart(e);
         });
-    }
+    };
 
     /**
      * 通过坐标判断是否在input区域内点击，防止点击‘清空’时，input消失
      */
-    downHandle(ev) {
+    downHandle = ev => {
         let oEvent = ev || event;
         if (this.state.hide === false && (!this.triggerElement(oEvent.target, this.refs.editableField))) {
             this.finishEdit(ev);
         }
-    }
+    };
 
-    finishEdit(ev) {
+    finishEdit = ev => {
         const change = this.state.text !== this.state.changeText;
 
         if (change && this.props.beforeChange && this.props.beforeChange(this.state.changeText) === false) {
@@ -89,9 +82,9 @@ class EditableField extends Component {
             this.props.onEditEnd && this.props.onEditEnd(ev);
             change && this.props.onChange && this.props.onChange(this.state.text);
         });
-    }
+    };
 
-    keyDownHandle(ev) {
+    keyDownHandle = ev => {
         const {regExp} = this.props;
 
         if (regExp && !regExp.test(ev.key)) {
@@ -102,6 +95,11 @@ class EditableField extends Component {
             this.finishEdit(ev);
         }
         return true;
+    };
+
+    componentDidMount() {
+        Event.addEvent(document, 'mousedown', this.downHandle);
+        Event.addEvent(document, 'keydown', this.keyDownHandle);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -121,16 +119,6 @@ class EditableField extends Component {
         }
     }
 
-    componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.downHandle);
-        Event.addEvent(document, 'keydown', this.keyDownHandle);
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.downHandle);
-        Event.removeEvent(document, 'keydown', this.keyDownHandle);
-    }
-
     componentDidUpdate() {
         const {inputAutoWidth} = this.state;
 
@@ -141,6 +129,11 @@ class EditableField extends Component {
                 inputAutoWidth: newAutoWidth
             });
         }
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.downHandle);
+        Event.removeEvent(document, 'keydown', this.keyDownHandle);
     }
 
     render() {
