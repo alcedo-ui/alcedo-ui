@@ -30,23 +30,20 @@ class MaterialDropdownSelect extends Component {
             isFocus: false
         };
 
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
