@@ -35,19 +35,13 @@ class TreeSelect extends Component {
                 TreeCalculation.calPath(props.value, props.data, props) : undefined
         };
 
-        this.closePopup = ::this.closePopup;
-        this.getTriggerValue = ::this.getTriggerValue;
-        this.nodeSelectHandler = ::this.nodeSelectHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
-
     }
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
-    }
+    };
 
-    getTriggerValue(props = this.props) {
+    getTriggerValue = (props = this.props) => {
 
         const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
             {value, path} = this.state,
@@ -100,9 +94,9 @@ class TreeSelect extends Component {
 
         return result;
 
-    }
+    };
 
-    nodeSelectHandler(value, path) {
+    nodeSelectHandler = (value, path) => {
 
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
             return;
@@ -112,9 +106,9 @@ class TreeSelect extends Component {
             path
         });
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -128,16 +122,16 @@ class TreeSelect extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
-    popupClosedHandler(e) {
+    popupClosedHandler = e => {
         this.setState({
             popupVisible: false
         }, () => {
             const {onClosePopup} = this.props;
             onClosePopup && onClosePopup(e);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
