@@ -28,24 +28,18 @@ class MaterialDatePickerTextField extends Component {
             isHover: false
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
-
     }
 
-    triggerFocusHandler(...args) {
+    triggerFocusHandler = (...args) => {
         this.setState({
             isFocus: true
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(...args);
         });
-    }
+    };
 
-    triggerBlurHandler(...args) {
+    triggerBlurHandler = (...args) => {
         const {popupVisible} = this.props;
         this.setState({
             isFocus: popupVisible
@@ -53,32 +47,38 @@ class MaterialDatePickerTextField extends Component {
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
         });
-    }
+    };
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    triggerMouseOverHandler(...args) {
+    triggerMouseOverHandler = (...args) => {
         this.setState({
             isHover: true
         }, () => {
             const {onMouseOver} = this.props;
             onMouseOver && onMouseOver(...args);
         });
-    }
+    };
 
-    triggerMouseOutHandler(...args) {
+    triggerMouseOutHandler = (...args) => {
         this.setState({
             isHover: false
         }, () => {
             const {onMouseOut} = this.props;
             onMouseOut && onMouseOut(...args);
+        });
+    };
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
         });
     }
 
@@ -89,12 +89,6 @@ class MaterialDatePickerTextField extends Component {
                 isFocus: nextProps.popupVisible
             });
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
     }
 
     render() {
