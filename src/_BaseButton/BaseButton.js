@@ -21,28 +21,22 @@ class BaseButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
         e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
-    }
+    };
 
-    startRipple(e) {
+    startRipple = e => {
         !this.props.disableTouchRipple && this.refs.touchRipple.addRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         !this.props.disableTouchRipple && this.refs.touchRipple.removeRipple();
-    }
+    };
 
     render() {
 
