@@ -8,7 +8,7 @@ import Toaster from 'src/Toaster';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Tab.json';
 
-export default class TabExamples extends Component {
+class TabExamples extends Component {
 
     constructor(props) {
 
@@ -18,12 +18,9 @@ export default class TabExamples extends Component {
             toasts: []
         };
 
-        this.activeHandler = ::this.activeHandler;
-        this.toastPopHandler = ::this.toastPopHandler;
-
     }
 
-    activeHandler(tab) {
+    activeHandler = tab => {
 
         const {toasts} = this.state;
 
@@ -36,13 +33,13 @@ export default class TabExamples extends Component {
             toasts
         });
 
-    }
+    };
 
-    toastPopHandler() {
+    toastPopHandler = () => {
         this.setState({
             toasts: []
         });
-    }
+    };
 
     render() {
 
@@ -203,3 +200,5 @@ export default class TabExamples extends Component {
         );
     }
 };
+
+export default TabExamples;
