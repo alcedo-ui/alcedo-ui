@@ -10,15 +10,10 @@ import classNames from 'classnames';
 class VerticalPointStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.getRightBarClassName = ::this.getRightBarClassName;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getRightBarClassName() {
+    getRightBarClassName = () => {
 
         const {activatedStep, finishedStep, index} = this.props;
 
@@ -32,13 +27,13 @@ class VerticalPointStepItem extends Component {
 
         return ' hidden';
 
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
         e.preventDefault();
         const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
         !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
-    }
+    };
 
     render() {
 
