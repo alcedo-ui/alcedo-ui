@@ -22,6 +22,7 @@ import Position from '../_statics/Position';
 import Util from '../_vendors/Util';
 
 class MaterialDateRangePicker extends Component {
+
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -59,24 +60,15 @@ class MaterialDateRangePicker extends Component {
             hoverTime: ''
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
-        this.dayPickerHoverHandle = ::this.dayPickerHoverHandle;
-        this.monthAndYearChangeHandle = ::this.monthAndYearChangeHandle;
     }
 
-    datePickerChangeHandle(select, selectLevel) {
+    datePickerChangeHandle = (select, selectLevel) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = selectLevel;
         this.setState(state);
-    }
+    };
 
-    textFieldChangeHandle(select, text) {
+    textFieldChangeHandle = (select, text) => {
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
@@ -118,9 +110,9 @@ class MaterialDateRangePicker extends Component {
                 }
             }
         }
-    }
+    };
 
-    dayPickerChangeHandle(select, date) {
+    dayPickerChangeHandle = (select, date) => {
         let state = cloneDeep(this.state);
         if (state.endTime) {
             state[select].text = date.time;
@@ -159,9 +151,9 @@ class MaterialDateRangePicker extends Component {
             this.setState(state);
         }
 
-    }
+    };
 
-    dayPickerHoverHandle(select, date) {
+    dayPickerHoverHandle = (select, date) => {
         let state = cloneDeep(this.state);
         let startTime = state.startTime;
         let endTime = state.endTime;
@@ -176,42 +168,41 @@ class MaterialDateRangePicker extends Component {
             }
             this.setState(state);
         }
-    }
+    };
 
-    monthAndYearChangeHandle(select, date) {
+    monthAndYearChangeHandle = (select, date) => {
         let state = cloneDeep(this.state);
         state[select].year = date.year;
         state[select].month = date.month;
         this.setState(state);
-    }
+    };
 
 
-    monthPickerChangeHandle(select, date) {
+    monthPickerChangeHandle = (select, date) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'day';
         state[select].year = date.year;
         state[select].month = date.month;
         this.setState(state);
-    }
+    };
 
-    yearPickerChangeHandle(select, year) {
+    yearPickerChangeHandle = (select, year) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'month';
         state[select].year = year;
         this.setState(state);
-    }
+    };
 
-
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {dateFormat} = this.props;
         let state = cloneDeep(this.state);
         state.popupVisible = false;
@@ -249,15 +240,7 @@ class MaterialDateRangePicker extends Component {
                 moment(state.value[1]).format(this.props.dateFormat)
             ]);
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         const {value, dateFormat} = this.props;
@@ -301,6 +284,14 @@ class MaterialDateRangePicker extends Component {
             }
         }
 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
     }
 
     render() {
