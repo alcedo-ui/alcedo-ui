@@ -27,12 +27,9 @@ class CascaderList extends Component {
             path: TreeCalculation.calPath(props.value, {children: props.data}, props)
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-
-    changeHandler(path) {
+    changeHandler = path => {
 
         const value = path[path.length - 1].node;
 
@@ -44,7 +41,7 @@ class CascaderList extends Component {
             onChange && onChange(value, path);
         });
 
-    }
+    };
 
     render() {
 
