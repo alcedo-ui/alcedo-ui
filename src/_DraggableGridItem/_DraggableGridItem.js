@@ -24,16 +24,10 @@ class DraggableGridItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    checkboxChangeHandler(checked) {
+    checkboxChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -43,9 +37,9 @@ class DraggableGridItem extends Component {
             onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    radioChangeHandler() {
+    radioChangeHandler = () => {
 
         const {checked} = this.props;
 
@@ -54,9 +48,9 @@ class DraggableGridItem extends Component {
             onSelect && onSelect();
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
 
         e.preventDefault();
 
@@ -78,14 +72,14 @@ class DraggableGridItem extends Component {
                 return;
         }
 
-    }
+    };
 
     render() {
 
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                checked,disabled, isLoading, renderer, itemRenderer, readOnly, col, anchorIconCls,
+                checked, disabled, isLoading, renderer, itemRenderer, readOnly, col, anchorIconCls,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
