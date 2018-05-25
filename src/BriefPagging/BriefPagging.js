@@ -14,15 +14,10 @@ import Valid from '../_vendors/Valid';
 class BriefPagging extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.pageChangedHandle = ::this.pageChangedHandle;
-        this.pageSizeChangedHandle = ::this.pageSizeChangedHandle;
-
     }
 
-    pageChangedHandle(page) {
+    pageChangedHandle = page => {
 
         const {pageSize, onChange} = this.props;
 
@@ -31,9 +26,9 @@ class BriefPagging extends Component {
             pageSize
         });
 
-    }
+    };
 
-    pageSizeChangedHandle(pageSize) {
+    pageSizeChangedHandle = pageSize => {
 
         const {page, onChange} = this.props;
 
@@ -42,7 +37,7 @@ class BriefPagging extends Component {
             pageSize
         });
 
-    }
+    };
 
     render() {
 
