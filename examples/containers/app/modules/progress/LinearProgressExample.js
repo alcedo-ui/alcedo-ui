@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/LinearProgress.json';
 
 import 'sass/containers/app/modules/progress/LinearProgressExample.scss';
 
-export default class LinearProgressExample extends Component {
+class LinearProgressExample extends Component {
 
     constructor(props) {
 
@@ -21,28 +21,26 @@ export default class LinearProgressExample extends Component {
 
     }
 
-    componentDidMount() {
-        this.timer = setTimeout(() => this.progress(0), 1000);
-    }
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
-    }
-
     progress(percent) {
         if (percent >= 90) {
             this.setState({
                 percent: 100
             });
-        }
-        else {
+        } else {
             const add = parseInt((Math.random() * 10).toFixed(0));
             this.setState({
                 percent: percent + add
             });
             this.timer = setTimeout(() => this.progress(percent + add), 1000);
         }
+    }
 
+    componentDidMount() {
+        this.timer = setTimeout(() => this.progress(0), 1000);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timer);
     }
 
     render() {
@@ -161,3 +159,5 @@ export default class LinearProgressExample extends Component {
     }
 
 };
+
+export default LinearProgressExample;
