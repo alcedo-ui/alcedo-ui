@@ -21,14 +21,9 @@ class TransferList extends Component {
             filter: ''
         };
 
-        this.select = ::this.select;
-        this.selectAllHandle = ::this.selectAllHandle;
-        this.filterChangeHandle = ::this.filterChangeHandle;
-        this.getItemValue = ::this.getItemValue;
-
     }
 
-    select(item) {
+    select = item => {
         if (!item.disabled) {
             let data = cloneDeep(this.props.value);
             let selectAll = this.state.selectAll;
@@ -57,9 +52,9 @@ class TransferList extends Component {
                 this.props.onChange && this.props.onChange(data);
             });
         }
-    }
+    };
 
-    selectAllHandle() {
+    selectAllHandle = () => {
         const {selectAll, filter} = this.state;
         const {data} = this.props;
         const filterList = this.getFilterList(data, filter);
@@ -75,18 +70,18 @@ class TransferList extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(value);
         });
-    }
+    };
 
-    filterChangeHandle(value) {
+    filterChangeHandle = value => {
         this.setState({
             filter: value,
             selectAll: false
         }, () => {
             this.props.onChange && this.props.onChange([]);
         });
-    }
+    };
 
-    getItemValue(id) {
+    getItemValue = id => {
         let data = this.props.value;
         let flag = false;
         for (let i = 0; i < data.length; i++) {
@@ -98,9 +93,9 @@ class TransferList extends Component {
             }
         }
         return flag;
-    }
+    };
 
-    getFilterList(list, filter) {
+    getFilterList = (list, filter) => {
         return list.filter((value) => {
             if (typeof value == 'object') {
                 return value.text.toUpperCase().indexOf(filter.toUpperCase()) != -1;
@@ -108,7 +103,7 @@ class TransferList extends Component {
                 return value.toUpperCase().indexOf(filter.toUpperCase()) != -1;
             }
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.length !== this.props.data.length) {
