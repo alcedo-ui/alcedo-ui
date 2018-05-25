@@ -11,7 +11,7 @@ import doc from 'assets/propTypes/Table.json';
 
 import 'sass/containers/app/modules/layout/TableExamples.scss';
 
-export default class TableExamples extends Component {
+class TableExamples extends Component {
 
     constructor(props) {
 
@@ -61,11 +61,9 @@ export default class TableExamples extends Component {
             data: this.generateData()
         };
 
-        this.deleteRow = ::this.deleteRow;
-
     }
 
-    generateData(size = 100) {
+    generateData = (size = 100) => {
 
         let data = [];
         for (let i = 0; i < size; i++) {
@@ -78,9 +76,9 @@ export default class TableExamples extends Component {
 
         return data;
 
-    }
+    };
 
-    deleteRow(id) {
+    deleteRow = id => {
 
         const {data} = this.state,
             newData = data.filter(item => item.id !== id);
@@ -89,12 +87,11 @@ export default class TableExamples extends Component {
             data: newData
         });
 
-    }
+    };
 
     render() {
 
-        const {data} = this.state,
-            {deleteRow} = this;
+        const {data} = this.state;
 
         return (
             <div className="example table-examples">
@@ -118,15 +115,10 @@ export default class TableExamples extends Component {
 
                             <Table data={data}
                                    columns={[...this.columns, {
-                                       header: 'action',
-                                       renderer(rowData) {
-                                           return (
-                                               <IconButton iconCls="fas fa-trash-alt"
-                                                           onClick={() => {
-                                                               deleteRow(rowData.id);
-                                                           }}/>
-                                           );
-                                       }
+                                       header: 'Action',
+                                       renderer: rowData =>
+                                           <IconButton iconCls="fas fa-trash-alt"
+                                                       onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}/>
 
                         </div>
@@ -186,3 +178,5 @@ export default class TableExamples extends Component {
         );
     }
 };
+
+export default TableExamples;
