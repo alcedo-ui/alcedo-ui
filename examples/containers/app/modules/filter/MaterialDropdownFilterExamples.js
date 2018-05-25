@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialDropdownFilter.json';
 
-export default class MaterialDropdownFilterExamples extends Component {
+class MaterialDropdownFilterExamples extends Component {
 
     constructor(props) {
 
@@ -31,17 +31,17 @@ export default class MaterialDropdownFilterExamples extends Component {
 
     }
 
-    onChange(item) {
+    onChange = item => {
         console.log('select item: ', item);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandle = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandle = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
 
@@ -118,3 +118,5 @@ export default class MaterialDropdownFilterExamples extends Component {
         );
     }
 };
+
+export default MaterialDropdownFilterExamples;
