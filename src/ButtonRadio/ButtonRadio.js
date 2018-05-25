@@ -17,17 +17,13 @@ class ButtonRadio extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
+    touchTapHandler = () => {
         const {data, onClick} = this.props;
         onClick && onClick(data);
-    }
+    };
 
     render() {
 
