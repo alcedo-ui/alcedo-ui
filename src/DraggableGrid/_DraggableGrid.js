@@ -32,14 +32,9 @@ class DraggableGrid extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.onNodeDragEnd = ::this.onNodeDragEnd;
-        this.renderGridItem = ::this.renderGridItem;
-
     }
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -65,9 +60,9 @@ class DraggableGrid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -95,9 +90,9 @@ class DraggableGrid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    onNodeDragEnd(result) {
+    onNodeDragEnd = result => {
 
         /**
          *  result: {
@@ -133,7 +128,7 @@ class DraggableGrid extends Component {
         });
 
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
@@ -154,7 +149,7 @@ class DraggableGrid extends Component {
 
     }
 
-    renderGridItem(item, index) {
+    renderGridItem = (item, index) => {
 
         const {
 
@@ -234,7 +229,7 @@ class DraggableGrid extends Component {
                                    }}/>
             );
 
-    }
+    };
 
     render() {
 
