@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/SpanLoading.json';
 
 import 'sass/containers/app/modules/loading/SpanLoadingExamples.scss';
 
-export default class SpanLoadingExamples extends Component {
+class SpanLoadingExamples extends Component {
 
     constructor(props) {
 
@@ -21,15 +21,13 @@ export default class SpanLoadingExamples extends Component {
             loading2: false
         };
 
-        this.toggle = ::this.toggle;
-
     }
 
-    toggle(e, id) {
+    toggle = (e, id) => {
         this.setState({
             [`loading${id}`]: !this.state[`loading${id}`]
         });
-    }
+    };
 
     render() {
 
@@ -199,3 +197,5 @@ export default class SpanLoadingExamples extends Component {
         );
     }
 }
+
+export default SpanLoadingExamples;
