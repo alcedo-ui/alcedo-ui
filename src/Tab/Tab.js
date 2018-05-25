@@ -19,17 +19,15 @@ class Tab extends Component {
             activatedIndex: props.activatedIndex
         };
 
-        this.tabClickHandle = ::this.tabClickHandle;
-
     }
 
-    tabClickHandle(item, activatedIndex) {
+    tabClickHandle = (item, activatedIndex) => {
         this.setState({
             activatedIndex
         }, () => {
             item.onActive && item.onActive(item, activatedIndex);
         });
-    }
+    };
 
     render() {
 
