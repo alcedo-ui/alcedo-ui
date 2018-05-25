@@ -18,14 +18,10 @@ class Crumbs extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.itemRender = ::this.itemRender;
-
     }
 
-    itemRender(item, index) {
+    itemRender = (item, index) => {
 
         if (item.renderer) {
             return item.renderer(item, index);
@@ -42,7 +38,7 @@ class Crumbs extends Component {
                           onItemTouchTap && onItemTouchTap(e, item, index);
                       }}/>;
 
-    }
+    };
 
     render() {
 
