@@ -28,30 +28,24 @@ class ColorPicker extends Component {
 
         this.activated = false;
 
-        this.mouseDownHandler = ::this.mouseDownHandler;
-        this.mouseMoveHandler = ::this.mouseMoveHandler;
-        this.mouseUpHandler = ::this.mouseUpHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.hueChangeHandler = ::this.hueChangeHandler;
-
     }
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
         this.activated = true;
         this.changeHandler(e.pageX, e.pageY);
-    }
+    };
 
-    mouseMoveHandler(e) {
+    mouseMoveHandler = e => {
         if (this.activated) {
             this.changeHandler(e.pageX, e.pageY);
         }
-    }
+    };
 
-    mouseUpHandler() {
+    mouseUpHandler = () => {
         this.activated = false;
-    }
+    };
 
-    changeHandler(mouseX, mouseY) {
+    changeHandler = (mouseX, mouseY) => {
 
         const elOffset = Dom.getOffset(this.colorPickerAreaEl);
         if (!elOffset) {
@@ -78,9 +72,9 @@ class ColorPicker extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
-    hueChangeHandler(hue) {
+    hueChangeHandler = hue => {
 
         const {hsb} = this.state;
         hsb[0] = hue;
@@ -95,7 +89,7 @@ class ColorPicker extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
     componentDidMount() {
 
