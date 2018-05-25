@@ -15,17 +15,13 @@ class ListStepItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
+    touchTapHandler = () => {
         const {activatedStep, finishedStep, index, onClick} = this.props;
         activatedStep !== index && finishedStep >= index && onClick(index);
-    }
+    };
 
     render() {
 
