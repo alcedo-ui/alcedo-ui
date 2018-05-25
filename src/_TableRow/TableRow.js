@@ -10,16 +10,10 @@ import classNames from 'classnames';
 class TableRow extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.contentRenderer = ::this.contentRenderer;
-        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
-        this.cellTouchTapHandler = ::this.cellTouchTapHandler;
-
     }
 
-    stringContentRenderer(data, template) {
+    stringContentRenderer = (data, template) => {
 
         if (!data) {
             return template;
@@ -35,9 +29,9 @@ class TableRow extends Component {
             return data[template];
         }
 
-    }
+    };
 
-    contentRenderer(renderer, colIndex) {
+    contentRenderer = (renderer, colIndex) => {
 
         const {rowIndex, data} = this.props;
 
@@ -50,17 +44,17 @@ class TableRow extends Component {
                 return renderer;
         }
 
-    }
+    };
 
-    rowTouchTapHandler(e) {
+    rowTouchTapHandler = e => {
         const {data, rowIndex, disabled, onRowTouchTap} = this.props;
         !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex, e);
-    }
+    };
 
-    cellTouchTapHandler(e, colIndex) {
+    cellTouchTapHandler = (e, colIndex) => {
         const {data, rowIndex, disabled, onCellTouchTap} = this.props;
         !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
-    }
+    };
 
     render() {
 
