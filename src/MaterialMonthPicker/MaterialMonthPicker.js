@@ -36,22 +36,15 @@ class MaterialMonthPicker extends Component {
             marginLeft: 0
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-
     }
 
-    datePickerChangeHandle(selectLevel) {
+    datePickerChangeHandle = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
 
         const {minValue, maxValue, dateFormat} = this.props;
 
@@ -77,9 +70,9 @@ class MaterialMonthPicker extends Component {
             });
         }
 
-    }
+    };
 
-    monthPickerChangeHandle(date) {
+    monthPickerChangeHandle = date => {
         const {dateFormat, autoClose} = this.props;
         let state = cloneDeep(this.state);
         state.popupVisible = !autoClose;
@@ -93,43 +86,32 @@ class MaterialMonthPicker extends Component {
                 this.props.onChange && this.props.onChange(state.value && moment(state.value).format(dateFormat));
             });
         }
-    }
+    };
 
-    yearPickerChangeHandle(year) {
+    yearPickerChangeHandle = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM')
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         // debugger
@@ -147,6 +129,17 @@ class MaterialMonthPicker extends Component {
                 console.error('Invalid date');
                 this.validValue = false;
             }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: moment(nextProps.value, nextProps.dateFormat),
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM')
+            });
         }
     }
 
