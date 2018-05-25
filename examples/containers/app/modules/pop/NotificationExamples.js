@@ -4,7 +4,6 @@ import RaisedButton from 'src/RaisedButton';
 import Notifier from 'src/Notifier';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import MaterialProvider from 'src/MaterialProvider';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
 
@@ -14,7 +13,7 @@ import doc from 'assets/propTypes/Notification.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/NotificationExamples.scss';
 
-export default class NotificationExamples extends Component {
+class NotificationExamples extends Component {
 
     constructor(props) {
 
@@ -40,19 +39,15 @@ export default class NotificationExamples extends Component {
             value: Notifier.Position[item]
         }));
 
-        this.updateField = ::this.updateField;
-        this.addNotification = ::this.addNotification;
-        this.notificationPopHandler = ::this.notificationPopHandler;
-
     }
 
-    updateField(key, value) {
+    updateField = (key, value) => {
         let state = {};
         state[key] = value;
         this.setState(state);
-    }
+    };
 
-    addNotification(position) {
+    addNotification = position => {
 
         const {type, title, message, notifications} = this.state;
 
@@ -67,13 +62,13 @@ export default class NotificationExamples extends Component {
             position
         });
 
-    }
+    };
 
-    notificationPopHandler() {
+    notificationPopHandler = () => {
         this.setState({
             notifications: []
         });
-    }
+    };
 
     render() {
 
@@ -220,3 +215,5 @@ export default class NotificationExamples extends Component {
         );
     }
 };
+
+export default NotificationExamples;
