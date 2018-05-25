@@ -23,26 +23,21 @@ class Transfer extends Component {
             rightSelected: []
         };
 
-        this.leftSelectHandle = ::this.leftSelectHandle;
-        this.rightSelectHandle = ::this.rightSelectHandle;
-        this.moveToRightHandle = ::this.moveToRightHandle;
-        this.moveToLeftHandle = ::this.moveToLeftHandle;
-
     }
 
-    leftSelectHandle(data) {
+    leftSelectHandle = data => {
         this.setState({
             leftSelected: data
         });
-    }
+    };
 
-    rightSelectHandle(data) {
+    rightSelectHandle = data => {
         this.setState({
             rightSelected: data
         });
-    }
+    };
 
-    moveToRightHandle() {
+    moveToRightHandle = () => {
         let {leftSelected, leftData, rightData} = this.state;
         let newLeftData = [];
         for (let i = 0; i < leftSelected.length; i++) {
@@ -68,9 +63,9 @@ class Transfer extends Component {
             this.props.onChange && this.props.onChange();
         });
 
-    }
+    };
 
-    moveToLeftHandle() {
+    moveToLeftHandle = () => {
         let {rightSelected, leftData, rightData} = this.state;
         let newRightData = [];
         for (let i = 0; i < rightSelected.length; i++) {
@@ -96,7 +91,7 @@ class Transfer extends Component {
         }, () => {
             this.props.onChange && this.props.onChange();
         });
-    }
+    };
 
     componentDidMount() {
         const {leftData, rightData, leftSelected, rightSelected} = this.props;
