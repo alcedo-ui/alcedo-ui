@@ -28,19 +28,16 @@ class Popup extends Component {
 
         this.closeTimeout = null;
 
-        this.clearCloseTimeout = ::this.clearCloseTimeout;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-
     }
 
-    clearCloseTimeout() {
+    clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
-    }
+    };
 
-    triggerHandler(el, triggerEl, popupEl, currentVisible, isBlurClose) {
+    triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         while (el) {
             if (el == popupEl) {
@@ -51,9 +48,9 @@ class Popup extends Component {
 
         return isBlurClose ? false : currentVisible;
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
@@ -77,14 +74,14 @@ class Popup extends Component {
             });
         }
 
-    }
+    };
 
     /**
      * public
      */
-    resetPosition() {
+    resetPosition = () => {
         this.refs.popup.resetPosition();
-    }
+    };
 
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
