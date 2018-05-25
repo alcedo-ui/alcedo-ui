@@ -33,13 +33,9 @@ class TimePicker extends Component {
             triggerEl: null
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.timePickerChangeHandle = ::this.timePickerChangeHandle;
     }
 
-    rangeData(range) {
+    rangeData = range => {
         let arr = [];
         for (let i = 0; i < range; i++) {
             if (i < 10) {
@@ -48,9 +44,9 @@ class TimePicker extends Component {
             arr.push({text: i, value: true});
         }
         return arr;
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
         if (text && text.length) {
             let validDate = '1970-01-01 ' + text;
             let validFormat = 'YYYY-MM-DD ' + this.props.dateFormat;
@@ -71,9 +67,9 @@ class TimePicker extends Component {
                 textFieldValue: text
             });
         }
-    }
+    };
 
-    timePickerChangeHandle(obj) {
+    timePickerChangeHandle = obj => {
         let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
         let validDate = '1970-01-01 ' + timer;
         timer = moment(validDate).format(this.props.dateFormat);
@@ -83,35 +79,25 @@ class TimePicker extends Component {
             second: obj.second,
             textFieldValue: timer
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {textFieldValue} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(textFieldValue);
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
-            this.setState({
-                value,
-                textFieldValue: value.format(nextProps.dateFormat)
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         const {value} = this.props;
@@ -128,6 +114,16 @@ class TimePicker extends Component {
                 this.validValue = false;
                 console.error('Invalid date');
             }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
+            this.setState({
+                value,
+                textFieldValue: value.format(nextProps.dateFormat)
+            });
         }
     }
 
