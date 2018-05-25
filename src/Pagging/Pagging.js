@@ -12,15 +12,10 @@ import PaggingPage from '../_PaggingPage';
 class Pagging extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.pageChangedHandle = ::this.pageChangedHandle;
-        this.pageSizeChangedHandle = ::this.pageSizeChangedHandle;
-
     }
 
-    pageChangedHandle(page) {
+    pageChangedHandle = page => {
 
         const {pageSize, onChange} = this.props;
 
@@ -29,9 +24,9 @@ class Pagging extends Component {
             pageSize
         });
 
-    }
+    };
 
-    pageSizeChangedHandle(pageSize) {
+    pageSizeChangedHandle = pageSize => {
 
         const {page, onChange} = this.props;
 
@@ -40,7 +35,7 @@ class Pagging extends Component {
             pageSize
         });
 
-    }
+    };
 
     render() {
 
