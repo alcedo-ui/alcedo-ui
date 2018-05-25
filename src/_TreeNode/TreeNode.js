@@ -33,12 +33,9 @@ class TreeNode extends Component {
             collapsed: false
         };
 
-        this.toggleTreeNode = ::this.toggleTreeNode;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    toggleTreeNode(e) {
+    toggleTreeNode = e => {
 
         e.stopPropagation();
 
@@ -52,9 +49,9 @@ class TreeNode extends Component {
             onNodeToggleEnd && onNodeToggleEnd();
         });
 
-    }
+    };
 
-    checkboxChangeHandler(e) {
+    checkboxChangeHandler = e => {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
@@ -64,14 +61,14 @@ class TreeNode extends Component {
             onDeselect && onDeselect(data, path, e);
         }
 
-    }
+    };
 
-    radioChangeHandler(e) {
+    radioChangeHandler = e => {
         const {data, path, onSelect} = this.props;
         onSelect && onSelect(data, path, e);
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
 
         e.preventDefault();
 
@@ -95,7 +92,7 @@ class TreeNode extends Component {
                 return;
         }
 
-    }
+    };
 
     render() {
 
