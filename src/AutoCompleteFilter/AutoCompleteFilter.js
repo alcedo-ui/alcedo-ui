@@ -34,18 +34,9 @@ class AutoCompleteFilter extends Component {
             isAbove: false
         };
 
-        this.filterData = ::this.filterData;
-        this.filterFocusHandler = ::this.filterFocusHandler;
-        this.filterBlurHandler = ::this.filterBlurHandler;
-        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -81,9 +72,9 @@ class AutoCompleteFilter extends Component {
 
         });
 
-    }
+    };
 
-    filterFocusHandler(...args) {
+    filterFocusHandler = (...args) => {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -94,14 +85,14 @@ class AutoCompleteFilter extends Component {
             popupVisible: true
         });
 
-    }
+    };
 
-    filterBlurHandler(...args) {
+    filterBlurHandler = (...args) => {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur(...args);
-    }
+    };
 
-    filterPressEnterHandler(e, filter) {
+    filterPressEnterHandler = (e, filter) => {
 
         const {autoClose} = this.props,
             callback = () => {
@@ -119,9 +110,9 @@ class AutoCompleteFilter extends Component {
             callback();
         }
 
-    }
+    };
 
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
 
         const value = this.state.value,
             state = {
@@ -138,18 +129,18 @@ class AutoCompleteFilter extends Component {
             onFilterChange && onFilterChange(filter);
         });
 
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         }, () => {
             const {onPopupClosed} = this.props;
             onPopupClosed && onPopupClosed();
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.localAutoCompleteEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -159,9 +150,9 @@ class AutoCompleteFilter extends Component {
             });
         }
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             state = {
@@ -178,7 +169,7 @@ class AutoCompleteFilter extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
     componentDidMount() {
         this.localAutoCompleteEl = this.refs.localAutoComplete;
