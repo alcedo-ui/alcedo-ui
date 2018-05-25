@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AutoCompleteFilter.json';
 
-export default class AutoCompleteFilterExamples extends Component {
+class AutoCompleteFilterExamples extends Component {
 
     constructor(props) {
 
@@ -29,26 +29,21 @@ export default class AutoCompleteFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = ::this.onChange;
-        this.filterPressEnterHandle = ::this.filterPressEnterHandle;
-        this.filterClearHandle = ::this.filterClearHandle;
-
     }
 
-    onChange(item) {
+    onChange = item => {
         console.log('select item: ', item);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandle = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandle = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
-
         return (
             <div className="example">
 
@@ -175,3 +170,5 @@ export default class AutoCompleteFilterExamples extends Component {
         );
     }
 };
+
+export default AutoCompleteFilterExamples;
