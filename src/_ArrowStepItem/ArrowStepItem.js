@@ -10,18 +10,14 @@ import classNames from 'classnames';
 class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
         e.preventDefault();
         const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
         !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
-    }
+    };
 
     render() {
 
