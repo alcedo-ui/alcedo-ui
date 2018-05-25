@@ -39,20 +39,9 @@ class MultipleSelect extends Component {
             isAbove: false
         };
 
-        this.filterData = ::this.filterData;
-        this.removeSelected = ::this.removeSelected;
-        this.toggleSelectedCollapse = ::this.toggleSelectedCollapse;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.triggerHandler = ::this.triggerHandler;
-
     }
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -88,9 +77,9 @@ class MultipleSelect extends Component {
 
         return filterFunc(data);
 
-    }
+    };
 
-    removeSelected(index, e) {
+    removeSelected = (index, e) => {
 
         e.preventDefault();
 
@@ -113,16 +102,16 @@ class MultipleSelect extends Component {
 
         }, 0);
 
-    }
+    };
 
-    toggleSelectedCollapse() {
+    toggleSelectedCollapse = () => {
         this.setState({
             selectedCollapsed: !this.state.selectedCollapsed,
             popupVisible: false
         });
-    }
+    };
 
-    focusHandler() {
+    focusHandler = () => {
 
         const {disabled, onFocus} = this.props;
 
@@ -132,31 +121,28 @@ class MultipleSelect extends Component {
             onFocus && onFocus();
         });
 
-    }
+    };
 
-    blurHandler() {
-
+    blurHandler = () => {
         const {disabled, onBlur} = this.props;
-
         !disabled && onBlur && onBlur();
+    };
 
-    }
-
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
             this.popupRef && this.popupRef.resetPosition();
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.multipleSelectEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -166,9 +152,9 @@ class MultipleSelect extends Component {
             });
         }
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const {autoClose} = this.props,
             state = {
@@ -191,9 +177,9 @@ class MultipleSelect extends Component {
 
         });
 
-    }
+    };
 
-    triggerHandler(el, triggerEl, popupEl, currentVisible) {
+    triggerHandler = (el, triggerEl, popupEl, currentVisible) => {
 
         if (!triggerEl) {
             return true;
@@ -208,7 +194,7 @@ class MultipleSelect extends Component {
 
         return false;
 
-    }
+    };
 
     componentDidMount() {
         this.multipleSelectEl = this.refs.multipleSelect;
