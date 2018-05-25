@@ -28,11 +28,9 @@ class CheckboxGroup extends Component {
             value: props.value
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(item) {
+    changeHandler = item => {
 
         let value = cloneDeep(this.state.value);
 
@@ -57,7 +55,7 @@ class CheckboxGroup extends Component {
             !disabled && onChange && onChange(value);
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value && nextProps.value !== this.state.value) {
