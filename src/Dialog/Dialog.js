@@ -26,17 +26,10 @@ class Dialog extends Component {
     static Position = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.setBodyLock = ::this.setBodyLock;
-        this.okButtonTouchTapHandler = ::this.okButtonTouchTapHandler;
-        this.cancelButtonTouchTapHandler = ::this.cancelButtonTouchTapHandler;
-        this.closeButtonTouchTapHandler = ::this.closeButtonTouchTapHandler;
-
     }
 
-    setBodyLock(props = this.props) {
+    setBodyLock = (props = this.props) => {
 
         if (!props) {
             return;
@@ -44,13 +37,13 @@ class Dialog extends Component {
 
         props.showModal && Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', props.visible);
 
-    }
+    };
 
-    resetBody() {
+    resetBody = () => {
         Dom.removeClass(document.querySelector('body'), 'dialog-modal-lock');
-    }
+    };
 
-    okButtonTouchTapHandler() {
+    okButtonTouchTapHandler = () => {
 
         const {onOKButtonTouchTap} = this.props;
 
@@ -58,9 +51,9 @@ class Dialog extends Component {
             this.cancelButtonTouchTapHandler();
         });
 
-    }
+    };
 
-    cancelButtonTouchTapHandler() {
+    cancelButtonTouchTapHandler = () => {
 
         const {onCancelButtonTouchTap, onRequestClose} = this.props;
 
@@ -71,9 +64,9 @@ class Dialog extends Component {
             onRequestClose && onRequestClose();
         });
 
-    }
+    };
 
-    closeButtonTouchTapHandler() {
+    closeButtonTouchTapHandler = () => {
 
         const {onCloseButtonTouchTap, onRequestClose} = this.props;
 
@@ -84,7 +77,7 @@ class Dialog extends Component {
             onRequestClose && onRequestClose();
         });
 
-    }
+    };
 
     componentDidMount() {
         this.setBodyLock();
