@@ -32,14 +32,9 @@ class Tree extends Component {
             isNodeToggling: false
         };
 
-        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
-        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
-        this.nodeToggleStartHandler = ::this.nodeToggleStartHandler;
-        this.nodeToggleEndHandler = ::this.nodeToggleEndHandler;
-
     }
 
-    treeNodeSelectHandler(nodeData, path, e) {
+    treeNodeSelectHandler = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -65,9 +60,9 @@ class Tree extends Component {
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    treeNodeDeselectHandler(nodeData, path, e) {
+    treeNodeDeselectHandler = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -95,9 +90,9 @@ class Tree extends Component {
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    nodeToggleStartHandler() {
+    nodeToggleStartHandler = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -109,13 +104,13 @@ class Tree extends Component {
             isNodeToggling: true
         });
 
-    }
+    };
 
-    nodeToggleEndHandler() {
+    nodeToggleEndHandler = () => {
         this.setState({
             isNodeToggling: false
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
