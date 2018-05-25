@@ -34,19 +34,9 @@ class TextArea extends Component {
             invalidMsgs: ''
         };
 
-        this.changeHandler = ::this.changeHandler;
-        this.keyDownHandler = ::this.keyDownHandler;
-        this.clearValue = ::this.clearValue;
-        this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
-
     }
 
-    changeHandler(e) {
+    changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
 
@@ -65,16 +55,16 @@ class TextArea extends Component {
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
-    }
+    };
 
-    keyDownHandler(e) {
+    keyDownHandler = e => {
         if (e.keyCode === 13) {
             const {value, onPressEnter} = this.props;
             onPressEnter && onPressEnter(e, value);
         }
-    }
+    };
 
-    clearValue() {
+    clearValue = () => {
 
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
 
@@ -93,9 +83,9 @@ class TextArea extends Component {
 
         });
 
-    }
+    };
 
-    togglePasswordVisible() {
+    togglePasswordVisible = () => {
 
         const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
         const passwordVisible = !this.state.passwordVisible;
@@ -112,9 +102,9 @@ class TextArea extends Component {
 
         });
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.setState({
             infoVisible: true,
             errorVisible: true
@@ -122,9 +112,9 @@ class TextArea extends Component {
             const {value, onMouseOver} = this.props;
             onMouseOver && onMouseOver(e, value);
         });
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -132,9 +122,9 @@ class TextArea extends Component {
             const {value, onMouseOut} = this.props;
             onMouseOut && onMouseOut(e, value);
         });
-    }
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             isFocused: true
         }, () => {
@@ -142,9 +132,9 @@ class TextArea extends Component {
             onFocus && onFocus(e, value);
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
 
         if (e.relatedTarget == this.clearButtonEl) {
             return;
@@ -157,12 +147,12 @@ class TextArea extends Component {
             onBlur && onBlur(e, value);
         });
 
-    }
+    };
 
-    rightIconTouchTapHandler(e) {
+    rightIconTouchTapHandler = e => {
         const {value, onRightIconTouchTap} = this.props;
         onRightIconTouchTap && onRightIconTouchTap(e, value);
-    }
+    };
 
     componentDidMount() {
 
