@@ -20,11 +20,9 @@ class VerticalPointStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    touchTapHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class VerticalPointStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
