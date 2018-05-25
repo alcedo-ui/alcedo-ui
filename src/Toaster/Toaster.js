@@ -32,17 +32,13 @@ class Toaster extends Component {
             toasts: []
         };
 
-        this.isPositiveSequence = ::this.isPositiveSequence;
-        this.addToast = ::this.addToast;
-        this.removeToast = ::this.removeToast;
-
     }
 
-    isPositiveSequence(position = this.props.position) {
+    isPositiveSequence = (position = this.props.position) => {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
-    }
+    };
 
-    addToast(toast) {
+    addToast = toast => {
 
         let toasts = this.state.toasts;
 
@@ -59,9 +55,9 @@ class Toaster extends Component {
             this.refs.toaster.resetPosition();
         });
 
-    }
+    };
 
-    removeToast(toastsId) {
+    removeToast = toastsId => {
 
         let toasts = this.state.toasts;
 
@@ -79,7 +75,7 @@ class Toaster extends Component {
             }
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
