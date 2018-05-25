@@ -23,12 +23,9 @@ class Accordion extends Component {
             contentHeight: null
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.resetHeight = ::this.resetHeight;
-
     }
 
-    touchTapHandler() {
+    touchTapHandler = () => {
 
         const {onCollpase, onExpand, onChange} = this.props;
 
@@ -46,9 +43,9 @@ class Accordion extends Component {
             }
         });
 
-    }
+    };
 
-    resetHeight() {
+    resetHeight = () => {
 
         const height = this.refs.accordionContent.style.height;
 
@@ -58,7 +55,7 @@ class Accordion extends Component {
             });
         }
 
-    }
+    };
 
     componentDidMount() {
         this.resetHeight();
