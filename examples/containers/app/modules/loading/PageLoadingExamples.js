@@ -1,6 +1,3 @@
-/**
- * Created by DT314 on 2018/2/12.
- */
 import React, {Component} from 'react';
 
 import PageLoading from 'src/PageLoading';
@@ -13,8 +10,10 @@ import doc from 'assets/propTypes/PageLoading.json';
 
 import 'sass/containers/app/modules/loading/PageLoadingExamples.scss';
 
-export default class PageLoadingExamples extends Component {
+class PageLoadingExamples extends Component {
+
     constructor(props) {
+
         super(props);
 
         this.loadingProgress = [{
@@ -34,10 +33,9 @@ export default class PageLoadingExamples extends Component {
             visible3: false
         };
 
-        this.showLoading = :: this.showLoading;
     }
 
-    showLoading(visible) {
+    showLoading = visible => {
         this.setState({
             [visible]: true
         }, () => {
@@ -47,9 +45,10 @@ export default class PageLoadingExamples extends Component {
                 });
             }, 2000);
         });
-    }
+    };
 
     render() {
+
         const {visible1, visible2, visible3} = this.state;
 
         return (
@@ -141,3 +140,5 @@ export default class PageLoadingExamples extends Component {
         );
     }
 };
+
+export default PageLoadingExamples;
