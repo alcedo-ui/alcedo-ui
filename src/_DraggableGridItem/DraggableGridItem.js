@@ -41,16 +41,9 @@ class DraggableGridItem extends Component {
             tipVisible: false
         };
 
-        this.showTip = ::this.showTip;
-        this.hideTip = ::this.hideTip;
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-
     }
 
-    showTip() {
+    showTip = () => {
 
         if (this.state.tipVisible) {
             return;
@@ -60,15 +53,15 @@ class DraggableGridItem extends Component {
             tipVisible: true
         });
 
-    }
+    };
 
-    hideTip() {
+    hideTip = () => {
         this.setState({
             tipVisible: false
         });
-    }
+    };
 
-    checkboxChangeHandler(checked) {
+    checkboxChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -78,9 +71,9 @@ class DraggableGridItem extends Component {
             onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    radioChangeHandler() {
+    radioChangeHandler = () => {
 
         const {checked} = this.props;
 
@@ -89,9 +82,9 @@ class DraggableGridItem extends Component {
             onSelect && onSelect();
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
 
         e.preventDefault();
 
@@ -113,13 +106,13 @@ class DraggableGridItem extends Component {
                 return;
         }
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.showTip(e);
         const {onMouseOver} = this.props;
         onMouseOver && onMouseOver(e);
-    }
+    };
 
     render() {
 
