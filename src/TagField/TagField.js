@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TagField extends Component {
 
@@ -313,27 +314,11 @@ class TagField extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-
-        const prevProps = state.prevProps;
-
         return {
             prevProps: props,
-            data: prevProps ?
-                prevProps.data !== props.data ?
-                    props.data
-                    :
-                    state.data
-                :
-                props.data,
-            inputValue: prevProps ?
-                prevProps.inputValue !== props.inputValue ?
-                    props.inputValue
-                    :
-                    state.inputValue
-                :
-                props.inputValue
+            data: ComponentUtil.getDerivedState(props, state, 'data'),
+            inputValue: ComponentUtil.getDerivedState(props, state, 'inputValue')
         };
-
     }
 
     componentWillUnmount() {
