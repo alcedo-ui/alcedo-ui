@@ -16,6 +16,7 @@ import FieldType from '../_statics/FieldType';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TextField extends Component {
 
@@ -184,20 +185,10 @@ class TextField extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-
-        const prevProps = state.prevProps;
-
         return {
             prevProps: props,
-            value: prevProps ?
-                prevProps.value !== props.value ?
-                    props.value
-                    :
-                    state.value
-                :
-                props.value
+            value: ComponentUtil.getDerivedState(props, state, 'value')
         };
-
     }
 
     render() {
