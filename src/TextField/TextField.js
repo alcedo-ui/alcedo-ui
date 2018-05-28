@@ -183,13 +183,21 @@ class TextField extends Component {
 
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.value !== prevState.value) {
-            return {
-                value: nextProps.value
-            };
-        }
-        return null;
+    static getDerivedStateFromProps(props, state) {
+
+        const prevProps = state.prevProps;
+
+        return {
+            prevProps: props,
+            value: prevProps ?
+                prevProps.value !== props.value ?
+                    props.value
+                    :
+                    state.value
+                :
+                props.value
+        };
+
     }
 
     render() {
