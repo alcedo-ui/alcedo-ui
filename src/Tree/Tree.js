@@ -157,9 +157,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
-                          onClick={(...args) => {
-                              onNodeTouchTap && onNodeTouchTap(...args);
-                          }}
+                          onClick={(...args) => onNodeTouchTap && onNodeTouchTap(...args)}
                           onNodeToggleStart={this.nodeToggleStartHandler}
                           onNodeToggleEnd={this.nodeToggleEndHandler}
                           onSelect={this.treeNodeSelectHandler}
