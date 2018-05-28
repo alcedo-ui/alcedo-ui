@@ -312,29 +312,27 @@ class TagField extends Component {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+    static getDerivedStateFromProps(props, state) {
 
-        let state;
+        const prevProps = state.prevProps;
 
-        if (nextProps.data !== prevState.data) {
-            if (!state) {
-                state = {};
-            }
-            state.data = nextProps.data;
-        }
-
-        if (nextProps.inputValue !== prevState.inputValue) {
-            if (!state) {
-                state = {};
-            }
-            state.inputValue = nextProps.inputValue;
-        }
-
-        if (state) {
-            return state;
-        }
-
-        return null;
+        return {
+            prevProps: props,
+            data: prevProps ?
+                prevProps.data !== props.data ?
+                    props.data
+                    :
+                    state.data
+                :
+                props.data,
+            inputValue: prevProps ?
+                prevProps.inputValue !== props.inputValue ?
+                    props.inputValue
+                    :
+                    state.inputValue
+                :
+                props.inputValue
+        };
 
     }
 
