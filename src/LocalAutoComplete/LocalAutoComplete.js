@@ -183,7 +183,7 @@ class LocalAutoComplete extends Component {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
 
-            this.refs.popup.resetPosition();
+            this.refs.popup && this.refs.popup.resetPosition();
 
         });
 
